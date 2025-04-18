@@ -60,7 +60,30 @@
     </div>
   </div>
 
-  <button class="chatbot-toggle" aria-label="Open Chat"> 💬 Chat </button>
+  <button
+    class="chatbot-toggle"
+    aria-label="Open Chat"
+    onclick="toggleChatbot()"
+  >
+    💬 Chat
+  </button>
+
+  <div id="chatbot-window" class="chatbot-window hidden">
+    <div class="chatbot-header">
+      AI Assistant <button onclick="toggleChatbot()">✖</button>
+    </div>
+    <div id="chat-log" class="chat-log"></div>
+    <form id="chat-form" class="chat-form">
+      <input
+        type="text"
+        id="chat-input"
+        placeholder="Ask a question..."
+        autocomplete="off"
+        required
+      />
+      <button type="submit">Send</button>
+    </form>
+  </div>
 </footer>
 
 <style>
@@ -82,7 +105,6 @@
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 2rem;
     text-align: left;
-    align-items: start;
   }
 
   .footer-brand {
@@ -150,4 +172,122 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     z-index: 9999;
   }
+
+  .chatbot-window {
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+    transform: translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    bottom: 4.5rem;
+    right: 1.5rem;
+    width: 300px;
+    max-height: 400px;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    z-index: 10000;
+  }
+
+  .chatbot-window.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .chatbot-header {
+    background: #0f172a;
+    color: #fff;
+    padding: 0.75rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .chat-log {
+    flex: 1;
+    padding: 0.75rem;
+    overflow-y: auto;
+    font-size: 0.85rem;
+  }
+
+  .chat-form {
+    display: flex;
+    border-top: 1px solid #eee;
+  }
+
+  .chat-form input {
+    flex: 1;
+    border: none;
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .chat-form button {
+    background: #0f172a;
+    color: white;
+    border: none;
+    padding: 0 1rem;
+    cursor: pointer;
+  }
 </style>
+
+<script>
+  function toggleChatbot() {
+    const chat = document.getElementById("chatbot-window");
+    if (chat.classList.contains("visible")) {
+      chat.classList.remove("visible");
+      setTimeout(() => chat.classList.add("hidden"), 300);
+    } else {
+      chat.classList.remove("hidden");
+      requestAnimationFrame(() => chat.classList.add("visible"));
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const chatForm = document.getElementById("chat-form");
+    const chatInput = document.getElementById("chat-input");
+    const chatLog = document.getElementById("chat-log");
+
+    if (chatForm && chatInput && chatLog) {
+      chatForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const message = chatInput.value.trim();
+        if (!message) return;
+
+        chatLog.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
+        chatInput.value = "";
+
+        try {
+          const response = await fetch("http://localhost:11434/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              model: "llama3",
+              messages: [{ role: "user", content: message }],
+            }),
+          });
+
+          const data = await response.json();
+          console.log("Ollama response:", data);
+          const reply = data.message?.content || "[No response]";
+          chatLog.innerHTML += `<div><strong>Bot:</strong> ${reply}</div>`;
+          chatLog.scrollTop = chatLog.scrollHeight;
+        } catch (err) {
+          chatLog.innerHTML += `<div><strong>Bot:</strong> Error contacting server</div>`;
+        }
+      });
+    }
+  });
+</script>
