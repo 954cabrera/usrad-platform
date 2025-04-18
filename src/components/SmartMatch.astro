@@ -1,56 +1,116 @@
 ---
-import SmartMatchData from "./SmartMatchData.ts";
+import { scenes } from "./SmartMatchData.ts";
 ---
 
-<section class="smartmatch-section">
-  <div class="container">
-    <h2 class="smartmatch-title">Powered by SmartMatch™</h2>
-    <p class="smartmatch-description">
-      USRadiology’s intelligent care navigator that matches you with the right MRI—based on diagnosis, comfort, location, and price.
-    </p>
+<!-- FILE: SmartMatch.astro -->
 
-    <div class="smartmatch-grid">
-      {SmartMatchData.map((item) => (
-        <div class="smartmatch-card">
-          <h3>{item.title}</h3>
-          <p>{item.description}</p>
-        </div>
-      ))}
-    </div>
+<section class="smartmatch-section">
+  <div class="smartmatch-intro">
+    <h2>Smarter Choices. Less Confusion.</h2>
+    <p>
+      Our proprietary SmartMatch system ensures that patients are directed to
+      the most cost-effective, high-quality imaging centers available. Avoid
+      overpaying or ending up at a facility that doesn't fit your needs.
+    </p>
+  </div>
+
+  <div class="smartmatch-grid">
+    {scenes.map((scene, index) => (
+      <div class="smartmatch-card fade-up" style={`animation-delay: ${index * 0.1}s`}>
+        <h3>{scene.title}</h3>
+        <p>{scene.description}</p>
+      </div>
+    ))}
   </div>
 </section>
 
 <style>
   .smartmatch-section {
-    background: #faf5eb;
-    padding: 5rem 1rem;
+    padding: 4rem 2rem;
+    background-color: #f8fafc;
+  }
+
+  .smartmatch-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
   }
-  .smartmatch-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #0e1b2a;
+
+  .smartmatch-intro h2 {
+    font-size: 2rem;
     margin-bottom: 1rem;
+    color: #0f172a;
   }
-  .smartmatch-description {
-    max-width: 640px;
-    margin: 0 auto 3rem;
-    color: #4b5563;
+
+  .smartmatch-intro p {
     font-size: 1.125rem;
+    color: #475569;
   }
+
   .smartmatch-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
   }
+
   .smartmatch-card {
-    background: white;
-    border-radius: 0.75rem;
-    padding: 2rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
+    background-color: #ffffff;
+    padding: 1.75rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    border: 2px solid #e6c378;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
   }
+
+  .smartmatch-card.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
   .smartmatch-card:hover {
-    transform: translateY(-5px);
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  .smartmatch-card h3 {
+    font-size: 1.25rem;
+    white-space: nowrap;$1
+  }
+
+  .smartmatch-card p {
+    color: #475569;
+    font-size: 1rem;
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            const delay = entry.target.dataset.index * 100;
+            setTimeout(() => {
+              entry.target.classList.add("show");
+            }, delay);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+
+    document.querySelectorAll(".smartmatch-card").forEach((el, i) => {
+      el.dataset.index = i;
+      observer.observe(el);
+    });
+  });
+</script>

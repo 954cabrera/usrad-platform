@@ -6,17 +6,14 @@ import HowItWorks from "../components/HowItWorks.astro";
 import WhyItCostsLess from "../components/WhyItCostsLess.astro";
 import OurModel from "../components/OurModel.astro";
 import Footer from "../components/Footer.astro";
+import HeroSection from "../components/HeroSection.astro";
 ---
 
 <Layout>
-  <section class="hero">
-    <div class="container">
-      <h1 class="hero-title">Modern Imaging. Trusted Care.</h1>
-      <p class="hero-subtitle">
-        World-class radiology services designed for patients first.
-      </p>
-      <a href="#contact" class="btn-primary">Get in Touch</a>
-    </div>
+  <HeroSection />
+
+  <section>
+    <SmartMatch />
   </section>
 
   <section>
@@ -33,10 +30,6 @@ import Footer from "../components/Footer.astro";
 
   <section>
     <OurModel />
-  </section>
-
-  <section>
-    <SmartMatch />
   </section>
 
   <section id="contact" class="contact-form">
@@ -59,51 +52,6 @@ import Footer from "../components/Footer.astro";
 </Layout>
 
 <style is:global>
-  .hero {
-    background: url("/images/patient-smiling.jpg") center center / cover no-repeat;
-    padding: 6rem 2rem;
-    color: white;
-    position: relative;
-  }
-
-  .hero-logo {
-    display: block;
-    max-width: 200px;
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-title {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-  }
-
-  .btn-primary {
-    background-color: #eab308;
-    padding: 0.75rem 1.5rem;
-    color: #0f172a;
-    font-weight: bold;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% {
-      transform: scale(1);
-      box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.7);
-    }
-    50% {
-      transform: scale(1.05);
-      box-shadow: 0 0 0 10px rgba(234, 179, 8, 0);
-    }
-  }
-
   .contact-form {
     padding: 3rem 2rem;
     background-color: #f9fafb;
