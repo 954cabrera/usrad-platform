@@ -1,0 +1,136 @@
+---
+---
+
+<!-- FILE: UtilityHeader.astro -->
+
+<div class="utility-header">
+    <ul class="utility-menu">
+        <li class="utility-dropdown">
+            <a href="#">1-800-USRAD-24 <span class="arrow">▾</span></a>
+            <ul>
+                <li><a href="#">Scheduling</a></li>
+                <li><a href="#">Billing</a></li>
+                <li><a href="#">Medical Records</a></li>
+                <li><a href="#">Referring Physicians</a></li>
+            </ul>
+        </li>
+        <li class="utility-dropdown">
+            <a href="#">English</a>
+            <ul>
+                <li><a href="#">Spanish</a></li>
+            </ul>
+        </li>
+        <li class="utility-dropdown clickable-dropdown">
+            <button class="login-toggle">
+                Login <span class="arrow">▾</span>
+            </button>
+            <ul>
+                <li><a href="#">Patient Login</a></li>
+                <li><a href="#">Provider Login</a></li>
+                <li><a href="#">Join Our Network</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<script type="module">
+    document.addEventListener("DOMContentLoaded", () => {
+        const loginToggle = document.querySelector(".login-toggle");
+        const loginMenu = loginToggle?.nextElementSibling;
+        const arrow = loginToggle?.querySelector(".arrow");
+
+        if (loginToggle && loginMenu && arrow) {
+            loginToggle.addEventListener("click", () => {
+                const isOpen = loginMenu.style.display === "block";
+                loginMenu.style.display = isOpen ? "none" : "block";
+                arrow.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
+            });
+            document.addEventListener("click", (e) => {
+                if (!loginToggle.contains(e.target) && !loginMenu.contains(e.target)) {
+                    loginMenu.style.display = "none";
+                    arrow.style.transform = "rotate(0deg)";
+                }
+            });
+        }
+    });
+</script>
+
+<style>
+    .utility-header {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0.25rem 2rem;
+        background: #032d5a;
+        font-size: 0.875rem;
+        z-index: 1100;
+        position: relative;
+    }
+
+    .utility-menu {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        z-index: 1100;
+    }
+
+    .utility-dropdown {
+        position: relative;
+    }
+
+    .utility-dropdown a,
+    .utility-dropdown button {
+        text-decoration: none;
+        background: none;
+        border: none;
+        color: #ffffff;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: inherit;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .utility-dropdown .arrow {
+        transition: transform 0.3s ease;
+        display: inline-block;
+    }
+
+    .utility-dropdown ul {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: auto;
+        background: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 0.5rem 0;
+        margin: 0;
+        list-style: none;
+        display: none;
+        z-index: 1300;
+        min-width: 160px;
+    }
+
+    .utility-dropdown:hover ul {
+        display: block;
+    }
+
+    .clickable-dropdown:hover ul {
+        display: none;
+    }
+
+    .utility-dropdown ul li a {
+        display: block;
+        padding: 0.5rem 1rem;
+        color: #0e1b2a;
+        text-decoration: none;
+    }
+
+    .utility-dropdown ul li a:hover {
+        background-color: #f1f5f9;
+    }
+</style>

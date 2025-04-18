@@ -1,0 +1,56 @@
+---
+import SmartMatchData from "./SmartMatchData.ts";
+---
+
+<section class="smartmatch-section">
+  <div class="container">
+    <h2 class="smartmatch-title">Powered by SmartMatch™</h2>
+    <p class="smartmatch-description">
+      USRadiology’s intelligent care navigator that matches you with the right MRI—based on diagnosis, comfort, location, and price.
+    </p>
+
+    <div class="smartmatch-grid">
+      {SmartMatchData.map((item) => (
+        <div class="smartmatch-card">
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .smartmatch-section {
+    background: #faf5eb;
+    padding: 5rem 1rem;
+    text-align: center;
+  }
+  .smartmatch-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #0e1b2a;
+    margin-bottom: 1rem;
+  }
+  .smartmatch-description {
+    max-width: 640px;
+    margin: 0 auto 3rem;
+    color: #4b5563;
+    font-size: 1.125rem;
+  }
+  .smartmatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  .smartmatch-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+  }
+  .smartmatch-card:hover {
+    transform: translateY(-5px);
+  }
+</style>

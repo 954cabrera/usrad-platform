@@ -1,0 +1,86 @@
+---
+---
+
+<section class="how-section">
+  <div class="how-container">
+    <h2 class="how-title">How USRadiology Works</h2>
+    <p class="how-subtext">
+      From booking to results, we simplify the process without compromising on quality.
+    </p>
+
+    <div class="how-grid">
+      <div class="how-card fade-in"><div class="how-icon">🩺</div><h3>Tell Us What You Need</h3><p>Pick your scan — like a brain, knee, or spine MRI. No referral needed. A prescription is still required.</p></div>
+      <div class="how-card fade-in"><div class="how-icon">📍</div><h3>Get Matched Instantly</h3><p>SmartMatch™ finds the best nearby imaging center for your scan and diagnosis.</p></div>
+      <div class="how-card fade-in"><div class="how-icon">💳</div><h3>See Your Price, Lock It In</h3><p>No hidden fees. You’ll know exactly what you’ll pay — often under $400.</p></div>
+      <div class="how-card fade-in"><div class="how-icon">📅</div><h3>Go Get Scanned</h3><p>Show up, get scanned, and receive results fast — interpreted by expert radiologists.</p></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .how-section {
+    background: #ffffff;
+    padding: 6rem 1rem;
+    text-align: center;
+  }
+  .how-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .how-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #0e1b2a;
+    margin-bottom: 1rem;
+  }
+  .how-subtext {
+    font-size: 1.125rem;
+    color: #4b5563;
+    margin-bottom: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+  }
+  .how-card {
+    background: #faf5eb;
+    border: 1px solid #e6c37840;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    transition: transform 0.3s ease;
+  }
+  .how-card:hover {
+    transform: translateY(-5px);
+  }
+  .how-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #e6c378;
+  }
+  .how-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #0e1b2a;
+    margin-bottom: 0.5rem;
+  }
+  .how-card p {
+    font-size: 0.9rem;
+    color: #475569;
+  }
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 1s ease forwards;
+  }
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
