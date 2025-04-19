@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/MainLayout.astro";
 import AOSInit from "../components/AOSInit.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <Layout>
@@ -194,31 +195,6 @@ import AOSInit from "../components/AOSInit.astro";
     </div>
   </section>
 
-  <!-- Floating Chat CTA -->
-  <a
-    id="floating-cta"
-    href="#form"
-    class="hidden fixed bottom-6 right-6 z-50 bg-blue-600 text-white px-4 py-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 ease-in-out transform opacity-0 translate-y-2 flex items-center gap-2 text-sm md:text-base"
-  >
-    💬 Let’s Talk
-  </a>
-
-  <script>
-    window.addEventListener("scroll", () => {
-      const btn = document.getElementById("floating-cta");
-      if (!btn) return;
-
-      if (window.scrollY > 300) {
-        btn.classList.remove("hidden", "opacity-0", "translate-y-2");
-        btn.classList.add("opacity-100", "translate-y-0", "animate-pulse-soft");
-      } else {
-        btn.classList.remove(
-          "animate-pulse-soft",
-          "opacity-100",
-          "translate-y-0"
-        );
-        btn.classList.add("opacity-0", "translate-y-2");
-      }
-    });
-  </script>
+  <!-- Footer with Custom Chatbot Label -->
+  <Footer chatbotLabel="Let’s Talk" />
 </Layout>
