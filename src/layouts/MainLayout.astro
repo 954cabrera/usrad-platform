@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import UtilityHeader from "../components/UtilityHeader.astro";
+import "../styles/global.css";
 ---
 
 <html lang="en">
@@ -9,13 +10,12 @@ import UtilityHeader from "../components/UtilityHeader.astro";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><slot name="title">USRadiology</slot></title>
     <link rel="icon" href="/favicon.ico" />
-    <link rel="stylesheet" href="/global.css" />
   </head>
-  <body>
+  <body class="bg-white text-gray-800">
     <UtilityHeader />
     <Header />
 
-    <main>
+    <main class="px-6 py-12 max-w-7xl mx-auto">
       <slot />
     </main>
   </body>

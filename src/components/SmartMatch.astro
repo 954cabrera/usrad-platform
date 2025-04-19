@@ -2,113 +2,55 @@
 import { scenes } from "./SmartMatchData.ts";
 ---
 
-<!-- FILE: SmartMatch.astro -->
-
-<section class="smartmatch-section">
-  <div class="smartmatch-intro">
-    <h2>Smarter Choices. Less Confusion.</h2>
-    <p>
-      Our proprietary SmartMatch<sup>™</sup> system ensures that patients are directed to
-      the most cost-effective, high-quality imaging centers available. Avoid
-      overpaying or ending up at a facility that doesn't fit your needs.
+<section class="py-16 px-6 bg-slate-50">
+  <div class="max-w-3xl mx-auto text-center mb-12">
+    <h2 class="text-3xl font-semibold text-slate-900">
+      Smarter Choices. Less Confusion.
+    </h2>
+    <p class="text-lg text-slate-600 mt-4">
+      Our proprietary SmartMatch<sup>™</sup> system ensures that patients are directed
+      to the most cost-effective, high-quality imaging centers available. Avoid overpaying
+      or ending up at a facility that doesn't fit your needs.
     </p>
   </div>
 
-  <div class="smartmatch-grid">
-    {scenes.map((scene, index) => (
-      <div class="smartmatch-card fade-up" style={`animation-delay: ${index * 0.1}s`}>
-        <h3>{scene.title}</h3>
-        <p>{scene.description}</p>
-      </div>
-    ))}
+  <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      scenes.map((scene, index) => (
+        <div
+          class="opacity-0 translate-y-8 transition-all duration-700 ease-out rounded-xl bg-white p-6 border-2 border-[#e6c378] shadow hover:scale-[1.03] hover:shadow-md"
+          style={`animation-delay: ${index * 0.1}s`}
+          data-index={index}
+        >
+          <h3 class="text-lg font-semibold text-slate-800 mb-2">
+            {scene.title}
+          </h3>
+          <p class="text-slate-600 text-sm">{scene.description}</p>
+        </div>
+      ))
+    }
   </div>
 </section>
-
-<style>
-  .smartmatch-section {
-    padding: 4rem 2rem;
-    background-color: #f8fafc;
-  }
-
-  .smartmatch-intro {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 3rem auto;
-  }
-
-  .smartmatch-intro h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #0f172a;
-  }
-
-  .smartmatch-intro p {
-    font-size: 1.125rem;
-    color: #475569;
-  }
-
-  .smartmatch-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-  }
-
-  .smartmatch-card {
-    background-color: #ffffff;
-    padding: 1.75rem;
-    border-radius: 1rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    border: 2px solid #e6c378;
-    transform: translateY(30px);
-    opacity: 0;
-    transition: transform 0.6s ease, opacity 0.6s ease;
-  }
-
-  .smartmatch-card.show {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  .smartmatch-card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  }
-
-  .smartmatch-card h3 {
-    font-size: 1.25rem;
-    white-space: nowrap;$1
-  }
-
-  .smartmatch-card p {
-    color: #475569;
-    font-size: 1rem;
-  }
-</style>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry, index) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const delay = entry.target.dataset.index * 100;
             setTimeout(() => {
-              entry.target.classList.add("show");
+              entry.target.classList.add("opacity-100", "translate-y-0");
+              entry.target.classList.remove("opacity-0", "translate-y-8");
             }, delay);
             observer.unobserve(entry.target);
           }
         });
       },
-      {
-        threshold: 0.2,
-      }
+      { threshold: 0.2 }
     );
 
-    document.querySelectorAll(".smartmatch-card").forEach((el, i) => {
+    document.querySelectorAll(".translate-y-8").forEach((el, i) => {
       el.dataset.index = i;
       observer.observe(el);
     });
