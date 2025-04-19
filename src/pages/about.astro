@@ -1,12 +1,22 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
 import Counter from "../components/Counter.tsx";
+import MainLayout from "../layouts/MainLayout.astro";
 ---
 
 <MainLayout>
+  <head>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" is:inline></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <script is:inline>
+      if (typeof window !== "undefined") {
+        AOS.init({ once: true });
+      }
+    </script>
+  </head>
+
   <div class="bg-white text-gray-800 px-6 py-16 max-w-5xl mx-auto space-y-20">
     <!-- Hero -->
-    <section class="space-y-6 text-center animate-fade-in-scroll">
+    <section class="space-y-6 text-center" data-aos="fade-up">
       <h1 class="text-4xl font-semibold">About USRadiology</h1>
       <p class="text-lg text-gray-600">
         We're building a new kind of healthcare — one that puts people first.
@@ -16,7 +26,9 @@ import Counter from "../components/Counter.tsx";
 
     <!-- Founder -->
     <section
-      class="flex flex-col md:flex-row items-center gap-8 animate-fade-in-scroll delay-[100ms]"
+      class="flex flex-col md:flex-row items-center gap-8"
+      data-aos="fade-up"
+      data-aos-delay="100"
     >
       <div
         class="relative w-48 h-48 rounded-full overflow-hidden border border-gray-300 shadow-md ring-1 ring-white group shrink-0"
@@ -60,7 +72,9 @@ import Counter from "../components/Counter.tsx";
 
     <!-- Recognition -->
     <section
-      class="bg-[#f9f9f6] border border-gray-200 rounded-xl p-6 shadow-sm space-y-4 animate-fade-in-scroll delay-[200ms]"
+      class="bg-[#f9f9f6] border border-gray-200 rounded-xl p-6 shadow-sm space-y-4"
+      data-aos="fade-up"
+      data-aos-delay="200"
     >
       <h3 class="text-xl font-semibold text-gray-800">
         Highlights & Recognition
@@ -86,7 +100,7 @@ import Counter from "../components/Counter.tsx";
     </section>
 
     <!-- Mission, Vision, Promise -->
-    <section class="space-y-6 animate-fade-in-scroll delay-[300ms]">
+    <section class="space-y-6" data-aos="fade-up" data-aos-delay="300">
       <h2 class="text-2xl font-medium text-center">
         Our Mission, Vision & Promise
       </h2>
@@ -124,7 +138,7 @@ import Counter from "../components/Counter.tsx";
     </section>
 
     <!-- Animated Impact Number -->
-    <section class="text-center pt-12 animate-fade-in-scroll delay-[400ms]">
+    <section class="text-center pt-12" data-aos="fade-up" data-aos-delay="400">
       <Counter
         title="Procedures Performed Nationwide"
         end={400000}
@@ -137,7 +151,11 @@ import Counter from "../components/Counter.tsx";
     </section>
 
     <!-- Why Centers Partner -->
-    <section class="space-y-6 text-center animate-fade-in-scroll delay-[450ms]">
+    <section
+      class="space-y-6 text-center"
+      data-aos="fade-up"
+      data-aos-delay="450"
+    >
       <h2 class="text-2xl font-medium">Why Centers Partner with USRadiology</h2>
       <p class="text-gray-700 max-w-3xl mx-auto">
         Imaging centers join USRadiology to unlock volume, operational
@@ -153,7 +171,7 @@ import Counter from "../components/Counter.tsx";
     </section>
 
     <!-- Final CTA -->
-    <section class="text-center pt-12 animate-fade-in-scroll delay-[500ms]">
+    <section class="text-center pt-12" data-aos="fade-up" data-aos-delay="500">
       <h3 class="text-xl font-semibold">
         Join us in changing healthcare for good.
       </h3>
