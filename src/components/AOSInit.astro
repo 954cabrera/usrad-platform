@@ -1,0 +1,16 @@
+---
+// components/AOSInit.astro
+import "aos/dist/aos.css";
+---
+
+<script>
+  import AOS from "aos";
+  AOS.init({
+    once: true, // animate only once
+    duration: 800, // smooth scroll duration
+    easing: "ease-out-cubic", // premium easing
+    offset: 60, // triggers a little earlier
+    delay: 0,
+    disable: "phone", // optional: disable on mobile
+  });
+</script>

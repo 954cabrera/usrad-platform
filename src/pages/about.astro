@@ -1,6 +1,7 @@
 ---
 import Counter from "../components/Counter.tsx";
 import MainLayout from "../layouts/MainLayout.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <MainLayout>
@@ -11,6 +12,27 @@ import MainLayout from "../layouts/MainLayout.astro";
       if (typeof window !== "undefined") {
         AOS.init({ once: true });
       }
+    </script>
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", () => {
+        const counters = document.querySelectorAll("[data-counter]");
+        counters.forEach((counter) => {
+          const end = parseInt(counter.dataset.end);
+          let current = 0;
+          const increment = Math.ceil(end / 200);
+
+          const update = () => {
+            current += increment;
+            if (current >= end) {
+              current = end;
+              clearInterval(timer);
+            }
+            counter.innerText = current.toLocaleString() + "+";
+          };
+
+          const timer = setInterval(update, 25);
+        });
+      });
     </script>
   </head>
 
@@ -31,12 +53,16 @@ import MainLayout from "../layouts/MainLayout.astro";
       data-aos-delay="100"
     >
       <div
-        class="relative w-48 h-48 rounded-full overflow-hidden border border-gray-300 shadow-md ring-1 ring-white group shrink-0"
+        class="relative w-48 h-48 rounded-full overflow-hidden border border-gray-300 ring-1 ring-white group shrink-0 shadow-2xl"
       >
+        <div
+          class="absolute inset-0 rounded-full bg-blue-100 opacity-50 blur-3xl z-0"
+        >
+        </div>
         <img
           src="/images/michael.jpg"
           alt="Founder Photo"
-          class="object-cover w-full h-full transition-transform duration-700 ease-in-out group-hover:scale-105"
+          class="object-cover w-full h-full transition-transform duration-700 ease-in-out group-hover:scale-105 relative z-10 shadow-2xl"
         />
       </div>
 
@@ -139,11 +165,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 
     <!-- Animated Impact Number -->
     <section class="text-center pt-12" data-aos="fade-up" data-aos-delay="400">
-      <Counter
-        title="Procedures Performed Nationwide"
-        end={400000}
-        suffix="+"
-      />
+      <h3 class="text-3xl font-semibold" data-counter data-end="400000">0+</h3>
       <p class="text-gray-600 mt-4 mb-6 text-sm">
         From launch to acquisition, we served over 400,000 imaging procedures —
         one scan, one story at a time.
@@ -152,7 +174,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 
     <!-- Why Centers Partner -->
     <section
-      class="space-y-6 text-center"
+      class="space-y-6 text-center bg-[#f9fafb] py-12 px-6 rounded-xl"
       data-aos="fade-up"
       data-aos-delay="450"
     >
@@ -187,4 +209,5 @@ import MainLayout from "../layouts/MainLayout.astro";
       </a>
     </section>
   </div>
+  <Footer />
 </MainLayout>

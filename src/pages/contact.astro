@@ -6,10 +6,10 @@ import Layout from "../layouts/MainLayout.astro";
   <section id="contact" class="contact-section fade-in">
     <div class="outer-wrap">
       <div class="container">
-        <!-- Left: Form -->
-        <div class="form-column animated-block">
+        <!-- Form Column -->
+        <div class="form-column">
           <h1>Contact Us</h1>
-          <p class="subtext">
+          <p>
             Whether you’re a patient or provider, we’re here to help you
             navigate your imaging options with clarity and confidence.
           </p>
@@ -29,7 +29,8 @@ import Layout from "../layouts/MainLayout.astro";
 
             <div class="field-group">
               <label for="message">Your Message</label>
-              <textarea id="message" name="message" rows="5" required></textarea>
+              <textarea id="message" name="message" rows="5" required
+              ></textarea>
               <span class="error-message" id="message-error"></span>
             </div>
 
@@ -47,7 +48,7 @@ import Layout from "../layouts/MainLayout.astro";
         </div>
 
         <!-- Right: Contact Info -->
-        <div class="info-column animated-block">
+        <div class="info-column">
           <div class="info-block">
             <h4>Email</h4>
             <p>support@usrad.com</p>

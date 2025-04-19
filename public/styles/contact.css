@@ -15,6 +15,7 @@
     }
 }
 
+/* Slide-in animation for thank you message */
 .slide-in {
     animation: slideInScale 0.4s ease-out both;
 }
@@ -50,6 +51,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
+    align-items: center;
 }
 
 @media (min-width: 768px) {
@@ -60,10 +62,19 @@
     }
 }
 
+/* Form and info columns */
 .form-column,
 .info-column {
     flex: 1;
     max-width: 550px;
+}
+
+.form-column {
+    text-align: left;
+}
+
+.info-column {
+    padding-top: 1rem;
 }
 
 /* Headings and intro text */
@@ -77,6 +88,7 @@
     color: #4a5568;
     margin-bottom: 2rem;
     line-height: 1.6;
+    font-size: 1rem;
 }
 
 /* Form */

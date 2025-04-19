@@ -1,8 +1,7 @@
 ---
-
+const { chatbotLabel = "💬 Chat" } = Astro.props;
 ---
 
-<!-- FILE: Footer.astro -->
 <footer class="site-footer">
   <div class="footer-grid">
     <div class="footer-columns">
@@ -45,29 +44,40 @@
 
       <div>
         <h4>Connect</h4>
-        <ul class="social-icons">
+        <ul class="connect-list">
           <li>
-            <a href="#"><img src="/icons/facebook.svg" alt="Facebook" /></a>
+            <a href="#" class="social-link">
+              <img src="/icons/facebook.svg" alt="Facebook" />
+              <span>Facebook</span>
+            </a>
           </li>
           <li>
-            <a href="#"><img src="/icons/twitter.svg" alt="Twitter" /></a>
+            <a href="#" class="social-link">
+              <img src="/icons/twitter.svg" alt="Twitter" />
+              <span>Twitter</span>
+            </a>
           </li>
           <li>
-            <a href="#"><img src="/icons/linkedin.svg" alt="LinkedIn" /></a>
+            <a href="#" class="social-link">
+              <img src="/icons/linkedin.svg" alt="LinkedIn" />
+              <span>LinkedIn</span>
+            </a>
           </li>
         </ul>
       </div>
     </div>
   </div>
 
+  <!-- Chatbot Toggle -->
   <button
     class="chatbot-toggle"
     aria-label="Open Chat"
     onclick="toggleChatbot()"
   >
-    💬 Chat
+    {chatbotLabel}
   </button>
 
+  <!-- Chatbot Window -->
   <div id="chatbot-window" class="chatbot-window hidden">
     <div class="chatbot-header">
       AI Assistant <button onclick="toggleChatbot()">✖</button>
@@ -148,14 +158,31 @@
     color: #e6c378;
   }
 
-  .social-icons {
+  .connect-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
-  .social-icons img {
-    height: 24px;
-    width: 24px;
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #0e1b2a;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .social-link:hover {
+    color: #e6c378;
+  }
+
+  .social-link img {
+    width: 20px;
+    height: 20px;
   }
 
   .chatbot-toggle {
@@ -280,7 +307,6 @@
           });
 
           const data = await response.json();
-          console.log("Ollama response:", data);
           const reply = data.message?.content || "[No response]";
           chatLog.innerHTML += `<div><strong>Bot:</strong> ${reply}</div>`;
           chatLog.scrollTop = chatLog.scrollHeight;
