@@ -15,22 +15,35 @@ import Footer from "../components/Footer.astro";
     </script>
     <script is:inline>
       document.addEventListener("DOMContentLoaded", () => {
-        const counters = document.querySelectorAll("[data-counter]");
-        counters.forEach((counter) => {
-          const end = parseInt(counter.dataset.end);
-          let current = 0;
-          const increment = Math.ceil(end / 200);
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting && !entry.target.dataset.started) {
+                const counter = entry.target;
+                const end = parseInt(counter.dataset.end);
+                let current = 0;
+                const increment = Math.ceil(end / 150);
 
-          const update = () => {
-            current += increment;
-            if (current >= end) {
-              current = end;
-              clearInterval(timer);
-            }
-            counter.innerText = current.toLocaleString() + "+";
-          };
+                const update = () => {
+                  current += increment;
+                  if (current >= end) {
+                    current = end;
+                    clearInterval(timer);
+                  }
+                  counter.innerText = current.toLocaleString() + "+";
+                };
 
-          const timer = setInterval(update, 25);
+                const timer = setInterval(update, 25);
+                counter.dataset.started = "true";
+                observer.unobserve(counter);
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+
+        document.querySelectorAll("[data-counter]").forEach((el) => {
+          observer.observe(el);
         });
       });
     </script>
