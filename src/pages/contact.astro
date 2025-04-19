@@ -1,0 +1,338 @@
+---
+import Layout from "../layouts/MainLayout.astro";
+---
+
+<Layout>
+  <section id="contact" class="contact-section fade-in">
+    <div class="container">
+      <!-- Left: Form -->
+      <div class="form-column">
+        <h1>Contact Us</h1>
+        <p>
+          Whether you’re a patient or provider, we’re here to help you navigate
+          your imaging options with clarity and confidence.
+        </p>
+
+        <form id="contact-form" novalidate>
+          <div class="field-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required />
+            <span class="error-message" id="name-error"></span>
+          </div>
+
+          <div class="field-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required />
+            <span class="error-message" id="email-error"></span>
+          </div>
+
+          <div class="field-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <span class="error-message" id="message-error"></span>
+          </div>
+
+          <button type="submit">
+            <span class="button-label">Send Message</span>
+            <span class="spinner hidden" id="spinner"></span>
+          </button>
+        </form>
+
+        <div id="thank-you" class="thank-you hidden">
+          <div class="checkmark">✓</div>
+          <h2>Thank you!</h2>
+          <p>We've received your message and will be in touch shortly.</p>
+        </div>
+      </div>
+
+      <!-- Right: Contact Info -->
+      <div class="info-column">
+        <div>
+          <h4>Email</h4>
+          <p>support@usrad.com</p>
+        </div>
+        <div>
+          <h4>Phone</h4>
+          <p>1-800-USRAD-24</p>
+        </div>
+        <div>
+          <h4>Headquarters</h4>
+          <p>123 Radiology Way, Suite 100<br />Los Angeles, CA 90001</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="module">
+    const form = document.getElementById("contact-form");
+    const thankYou = document.getElementById("thank-you");
+    const spinner = document.getElementById("spinner");
+
+    const showError = (inputId, message) => {
+      document.getElementById(`${inputId}-error`).textContent = message;
+    };
+
+    const clearErrors = () => {
+      ["name", "email", "message"].forEach((id) => {
+        showError(id, "");
+      });
+    };
+
+    const validateForm = () => {
+      clearErrors();
+      let valid = true;
+
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
+
+      if (!name) {
+        showError("name", "Name is required.");
+        valid = false;
+      }
+
+      if (!email) {
+        showError("email", "Email is required.");
+        valid = false;
+      } else if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {
+        showError("email", "Enter a valid email.");
+        valid = false;
+      }
+
+      if (!message) {
+        showError("message", "Message is required.");
+        valid = false;
+      }
+
+      return valid;
+    };
+
+    form?.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      if (!validateForm()) return;
+
+      // Show spinner
+      spinner.classList.remove("hidden");
+      form.querySelector(".button-label").classList.add("hidden");
+
+      setTimeout(() => {
+        // Hide spinner
+        spinner.classList.add("hidden");
+        form.querySelector(".button-label").classList.remove("hidden");
+
+        // Hide form, show thank you
+        form.classList.add("hidden");
+        thankYou.classList.remove("hidden");
+        thankYou.classList.add("slide-in");
+
+        // Scroll thank you into view
+        thankYou.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        // Restore form after 6s
+        setTimeout(() => {
+          form.reset();
+          clearErrors();
+          thankYou.classList.add("hidden");
+          form.classList.remove("hidden");
+          thankYou.classList.remove("slide-in");
+        }, 6000);
+      }, 1500); // 1.5s spinner delay
+    });
+  </script>
+</Layout>
+
+<style>
+  .fade-in {
+    animation: fadeInUp 0.7s ease-out both;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .slide-in {
+    animation: slideInScale 0.4s ease-out both;
+  }
+
+  @keyframes slideInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .contact-section {
+    background-color: #f9fafb;
+    padding: 4rem 2rem;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .form-column {
+    flex: 1;
+  }
+
+  .form-column h1 {
+    font-size: 2.5rem;
+    color: #0e1b2a;
+    margin-bottom: 1rem;
+  }
+
+  .form-column p {
+    color: #4a5568;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-weight: 600;
+    color: #0e1b2a;
+    margin-bottom: 0.3rem;
+  }
+
+  input,
+  textarea {
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+
+  input:focus,
+  textarea:focus {
+    border-color: #e6c378;
+    outline: none;
+  }
+
+  .error-message {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 0.3rem;
+    min-height: 1rem;
+  }
+
+  button {
+    background-color: #e6c378;
+    color: #0e1b2a;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition:
+      background-color 0.3s ease,
+      transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  button:hover {
+    background-color: #d6b15a;
+  }
+
+  button:active {
+    transform: scale(0.97);
+  }
+
+  .spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #0e1b2a;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .info-column {
+    flex: 1;
+    padding-top: 1rem;
+  }
+
+  .info-column h4 {
+    font-size: 1rem;
+    color: #0e1b2a;
+    margin-bottom: 0.25rem;
+  }
+
+  .info-column p {
+    color: #4a5568;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .thank-you {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 2rem;
+    border-radius: 8px;
+    background: #e6f4ea;
+    color: #0e1b2a;
+  }
+
+  .thank-you h2 {
+    font-size: 1.75rem;
+    margin-top: 1rem;
+    color: #0e1b2a;
+  }
+
+  .thank-you .checkmark {
+    font-size: 2rem;
+    background: #38a169;
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
