@@ -10,7 +10,7 @@ export const scenes = [
     description: "Most patients are left to figure it out themselves—searching Google, calling centers, and hoping they choose right.",
   },
   {
-    title: "USRadiology + SmartMatch™",
+    title: "USRad + SmartMatch™",
     description: "SmartMatch™ doesn’t just schedule your MRI—it guides you to the best match based on your needs.",
   },
   {
