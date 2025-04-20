@@ -1,0 +1,45 @@
+---
+// No script section needed — fully static accordion
+const items = [
+  {
+    question: "Do I need a referral?",
+    answer: "No, you can book directly with us without a referral.",
+  },
+  {
+    question: "How soon can I get scanned?",
+    answer: "Most appointments are available within 1–3 days.",
+  },
+  {
+    question: "Are radiologist reports included?",
+    answer: "Yes, all scans include expert interpretation and results.",
+  },
+];
+---
+
+<div class="w-full space-y-4">
+  {
+    items.map((item, index) => (
+      <details class="group border-b py-3">
+        <summary class="flex cursor-pointer list-none items-center justify-between text-left text-lg font-medium text-gray-800 hover:underline">
+          <span>{item.question}</span>
+          <svg
+            class="h-5 w-5 transform transition-transform duration-300 group-open:rotate-180 text-blue-600"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 9l-7 7-7-7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </summary>
+        <div class="mt-2 text-gray-600 transition-all duration-300">
+          {item.answer}
+        </div>
+      </details>
+    ))
+  }
+</div>

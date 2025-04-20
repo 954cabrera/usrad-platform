@@ -1,0 +1,120 @@
+---
+// FILE: src/components/FAQHome.astro
+import Accordion from "./Accordion.astro"; // optional if using static <details> version
+---
+
+<section class="py-20 bg-white" id="faq">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <h2 class="text-3xl font-semibold mb-6">Frequently Asked Questions</h2>
+
+    <div class="text-left space-y-4">
+      <!-- FAQ Item 1 -->
+      <details class="group border-b py-4">
+        <summary
+          class="flex cursor-pointer items-center justify-between text-lg font-medium text-gray-800 hover:underline list-none"
+        >
+          <span>Do I need a referral?</span>
+          <span class="ml-4 flex-shrink-0">
+            <svg
+              class="h-5 w-5 text-blue-600 group-open:hidden transition"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 4v16m8-8H4"></path>
+            </svg>
+            <svg
+              class="h-5 w-5 text-blue-600 hidden group-open:block transition"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4"
+              ></path>
+            </svg>
+          </span>
+        </summary>
+        <div class="mt-2 text-gray-600">
+          No, you can book directly with us without a referral.
+        </div>
+      </details>
+
+      <!-- FAQ Item 2 -->
+      <details class="group border-b py-4">
+        <summary
+          class="flex cursor-pointer items-center justify-between text-lg font-medium text-gray-800 hover:underline list-none"
+        >
+          <span>How soon can I get scanned?</span>
+          <span class="ml-4 flex-shrink-0">
+            <svg
+              class="h-5 w-5 text-blue-600 group-open:hidden transition"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 4v16m8-8H4"></path>
+            </svg>
+            <svg
+              class="h-5 w-5 text-blue-600 hidden group-open:block transition"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4"
+              ></path>
+            </svg>
+          </span>
+        </summary>
+        <div class="mt-2 text-gray-600">
+          Most appointments are available within 1–3 days.
+        </div>
+      </details>
+
+      <!-- FAQ Item 3 -->
+      <details class="group border-b py-4">
+        <summary
+          class="flex cursor-pointer items-center justify-between text-lg font-medium text-gray-800 hover:underline list-none"
+        >
+          <span>Are radiologist reports included?</span>
+          <span class="ml-4 flex-shrink-0">
+            <svg
+              class="h-5 w-5 text-blue-600 group-open:hidden transition"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 4v16m8-8H4"></path>
+            </svg>
+            <svg
+              class="h-5 w-5 text-blue-600 hidden group-open:block transition"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4"
+              ></path>
+            </svg>
+          </span>
+        </summary>
+        <div class="mt-2 text-gray-600">
+          Yes, all scans include expert interpretation and results.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>

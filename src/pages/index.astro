@@ -8,6 +8,8 @@ import OurModel from "../components/OurModel.astro";
 import Footer from "../components/Footer.astro";
 import HeroSection from "../components/HeroSection.astro";
 import Contact from "../components/Contact.astro";
+import FAQHome from "../components/FAQHome.astro";
+import News from "../components/News.astro";
 ---
 
 <Layout>
@@ -33,11 +35,21 @@ import Contact from "../components/Contact.astro";
     <PromiseBanner />
   </section>
 
-  {/*
+  <section data-aos="fade-up" data-aos-delay="400">
+    <FAQHome />
+  </section>
+
+  <section data-aos="fade-up" data-aos-delay="400">
+    <News />
+  </section>
+
+  {
+    /*
   <section data-aos="fade-up" data-aos-delay="500">
     <Contact />
   </section>
-  */}
+  */
+  }
 
   <Footer />
 </Layout>

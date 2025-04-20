@@ -1,0 +1,36 @@
+---
+import newsItems from "../data/news.json";
+
+// Helper to format dates like "April 15, 2025"
+function formatDate(dateString) {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<section class="py-20 bg-white">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="text-3xl font-semibold mb-12">News & Insights</h2>
+
+    <div class="grid md:grid-cols-2 gap-6 text-left">
+      {
+        newsItems.map((item) => (
+          <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="p-6">
+              <p class="text-xs text-gray-400 mb-2">{formatDate(item.date)}</p>
+              <a href={item.link} class="block hover:underline">
+                <h3 class="text-xl font-semibold mb-2 text-blue-900">
+                  {item.title}
+                </h3>
+              </a>
+              <p class="text-sm text-gray-600">{item.summary}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
