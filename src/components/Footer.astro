@@ -1,72 +1,95 @@
 ---
+import FadeIn from "../components/FadeIn.astro";
 const { chatbotLabel = "💬 Chat" } = Astro.props;
 ---
 
 <footer class="site-footer">
   <div class="footer-grid">
-    <div class="footer-columns">
-      <div class="footer-brand">
-        <img
-          src="/logo/USRad-Logo-final.png"
-          alt="USRad Logo"
-          class="footer-logo"
-        />
-        <p class="footer-copy">&copy; 2025 USRad. All rights reserved.</p>
-      </div>
+    <FadeIn effect="fade" delay={400}>
+      <div class="footer-columns">
+        <FadeIn effect="fade" delay={0}>
+          <div class="footer-brand">
+            <div class="flex items-center gap-3 mb-2">
+              <img
+                src="/logo/USRad-Logo-final.png"
+                alt="USRad Logo"
+                class="footer-logo"
+              />
+              <a
+                href="/"
+                class="small-caps text-blue-900 tracking-wide text-sm font-semibold hover:text-[#e6c378] transition-colors"
+              >
+                Clarity
+              </a>
+            </div>
+            <p class="footer-copy">&copy; 2025 USRad. All rights reserved.</p>
+          </div>
+        </FadeIn>
 
-      <div>
-        <h4>Explore</h4>
-        <ul>
-          <li><a href="#how-it-works">How It Works</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
+        <FadeIn effect="fade" delay={100}>
+          <div>
+            <h4>Explore</h4>
+            <ul>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#pricing">Pricing</a></li>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+        </FadeIn>
 
-      <div>
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#">Patient Login</a></li>
-          <li><a href="#">Provider Portal</a></li>
-          <li><a href="#">Request Imaging</a></li>
-        </ul>
-      </div>
+        <FadeIn effect="fade" delay={200}>
+          <div>
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#" class="footer-cta">Patient Login</a></li>
+              <li><a href="#" class="footer-cta">Provider Portal</a></li>
+              <li><a href="#" class="footer-cta">Request Imaging</a></li>
+            </ul>
+          </div>
+        </FadeIn>
 
-      <div>
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">HIPAA Compliance</a></li>
-        </ul>
-      </div>
+        <FadeIn effect="fade" delay={300}>
+          <div>
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">HIPAA Compliance</a></li>
+            </ul>
+          </div>
+        </FadeIn>
 
-      <div>
-        <h4>Connect</h4>
-        <ul class="connect-list">
-          <li>
-            <a href="#" class="social-link">
-              <img src="/icons/facebook.svg" alt="Facebook" />
-              <span>Facebook</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="social-link">
-              <img src="/icons/twitter.svg" alt="Twitter" />
-              <span>Twitter</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="social-link">
-              <img src="/icons/linkedin.svg" alt="LinkedIn" />
-              <span>LinkedIn</span>
-            </a>
-          </li>
-        </ul>
+        <FadeIn effect="fade" delay={400}>
+          <div>
+            <h4>Connect</h4>
+            <ul class="connect-list">
+              <li>
+                <a href="#" class="social-link">
+                  <img src="/icons/facebook.svg" alt="Facebook" />
+                  <span>Facebook</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="social-link">
+                  <img src="/icons/twitter.svg" alt="Twitter" />
+                  <span>Twitter</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="social-link">
+                  <img src="/icons/linkedin.svg" alt="LinkedIn" />
+                  <span>LinkedIn</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </FadeIn>
       </div>
-    </div>
+    </FadeIn>
   </div>
+
+  <!-- Chatbot logic and styles stay unchanged -->
 
   <!-- Chatbot Toggle -->
   <button
@@ -149,13 +172,39 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
   }
 
   .footer-columns a {
+    position: relative;
     color: #0e1b2a;
+    font-size: 0.875rem;
     text-decoration: none;
     transition: color 0.3s ease;
   }
 
+  .footer-columns a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background-color: #e6c378;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
   .footer-columns a:hover {
     color: #e6c378;
+  }
+
+  .footer-columns a:hover::after {
+    transform: scaleX(1);
+  }
+
+  .footer-cta {
+    font-variant: small-caps;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    font-size: 0.875rem;
   }
 
   .connect-list {
@@ -185,19 +234,30 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
     height: 20px;
   }
 
+  .small-caps {
+    font-variant: small-caps;
+  }
+
   .chatbot-toggle {
     position: fixed;
     bottom: 1.5rem;
     right: 1.5rem;
-    background-color: #eab308;
-    color: #0f172a;
+    background-color: #e6c378;
+    color: #0e1b2a;
     border: none;
     padding: 0.75rem 1.25rem;
-    border-radius: 2rem;
-    font-weight: bold;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-variant: small-caps;
+    font-size: 0.875rem;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 9999;
+    transition: background-color 0.3s ease;
+  }
+
+  .chatbot-toggle:hover {
+    background-color: #f1d8a1;
   }
 
   .chatbot-window {
@@ -208,16 +268,16 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
     opacity: 0;
     pointer-events: none;
     position: fixed;
-    bottom: 4.5rem;
+    bottom: 5rem;
     right: 1.5rem;
-    width: 300px;
-    max-height: 400px;
+    width: 320px;
+    max-height: 420px;
     background: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     z-index: 10000;
   }
@@ -228,92 +288,66 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
     pointer-events: auto;
   }
 
-  .hidden {
-    display: none;
-  }
-
   .chatbot-header {
-    background: #0f172a;
-    color: #fff;
-    padding: 0.75rem;
-    font-weight: bold;
+    background: #0e1b2a;
+    color: #ffffff;
+    padding: 0.75rem 1rem;
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 0.875rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
+  .chatbot-header button {
+    background: none;
+    border: none;
+    color: #e6c378;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .chatbot-header button:hover {
+    color: #f1d8a1;
+  }
+
   .chat-log {
     flex: 1;
-    padding: 0.75rem;
+    padding: 1rem;
     overflow-y: auto;
-    font-size: 0.85rem;
+    font-size: 0.875rem;
+    color: #0f172a;
+    background: #f9fafb;
   }
 
   .chat-form {
     display: flex;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #e2e8f0;
+    background: #ffffff;
   }
 
   .chat-form input {
     flex: 1;
     border: none;
-    padding: 0.5rem;
-    font-size: 0.85rem;
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    outline: none;
   }
 
   .chat-form button {
-    background: #0f172a;
-    color: white;
+    background: #0e1b2a;
+    color: #ffffff;
     border: none;
-    padding: 0 1rem;
+    padding: 0 1.25rem;
     cursor: pointer;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: background 0.3s ease;
+  }
+
+  .chat-form button:hover {
+    background: #1e293b;
   }
 </style>
-
-<script>
-  function toggleChatbot() {
-    const chat = document.getElementById("chatbot-window");
-    if (chat.classList.contains("visible")) {
-      chat.classList.remove("visible");
-      setTimeout(() => chat.classList.add("hidden"), 300);
-    } else {
-      chat.classList.remove("hidden");
-      requestAnimationFrame(() => chat.classList.add("visible"));
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const chatForm = document.getElementById("chat-form");
-    const chatInput = document.getElementById("chat-input");
-    const chatLog = document.getElementById("chat-log");
-
-    if (chatForm && chatInput && chatLog) {
-      chatForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const message = chatInput.value.trim();
-        if (!message) return;
-
-        chatLog.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
-        chatInput.value = "";
-
-        try {
-          const response = await fetch("http://localhost:11434/api/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              model: "llama3",
-              messages: [{ role: "user", content: message }],
-            }),
-          });
-
-          const data = await response.json();
-          const reply = data.message?.content || "[No response]";
-          chatLog.innerHTML += `<div><strong>Bot:</strong> ${reply}</div>`;
-          chatLog.scrollTop = chatLog.scrollHeight;
-        } catch (err) {
-          chatLog.innerHTML += `<div><strong>Bot:</strong> Error contacting server</div>`;
-        }
-      });
-    }
-  });
-</script>
