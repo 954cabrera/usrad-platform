@@ -1,0 +1,50 @@
+---
+const { as = "span", href = "", className = "" } = Astro.props;
+const Tag = as;
+---
+
+<style is:global>
+  .clarity-link {
+    position: relative;
+    display: inline-block;
+    color: #0e1b2a;
+    font-variant: small-caps;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+  }
+
+  .clarity-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background-color: #e6c378;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .clarity-link:hover {
+    color: #e6c378;
+  }
+
+  .clarity-link:hover::after {
+    transform: scaleX(1);
+  }
+</style>
+
+<Fragment>
+  {
+    Tag === "a" ? (
+      <a href={href} class={`clarity-link ${className}`}>
+        Clarity
+      </a>
+    ) : (
+      <Tag class={`clarity-link ${className}`}>Clarity</Tag>
+    )
+  }
+</Fragment>

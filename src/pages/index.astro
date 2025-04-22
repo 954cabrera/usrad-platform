@@ -10,47 +10,75 @@ import HeroSection from "../components/HeroSection.astro";
 import Contact from "../components/Contact.astro";
 import FAQHome from "../components/FAQHome.astro";
 import News from "../components/News.astro";
+import FadeIn from "../components/FadeIn.astro";
 ---
 
 <Layout>
   <HeroSection />
 
-  <section data-aos="fade-up">
-    <SmartMatch />
-  </section>
+  <FadeIn effect="fade" delay={0}>
+    <section>
+      <SmartMatch />
+    </section>
+  </FadeIn>
 
-  <section data-aos="fade-up" data-aos-delay="100">
-    <HowItWorks />
-  </section>
+  <FadeIn effect="slide-left" delay={100}>
+    <section>
+      <HowItWorks />
+    </section>
+  </FadeIn>
 
-  <section data-aos="fade-up" data-aos-delay="200">
-    <OurModel />
-  </section>
+  <FadeIn effect="fade" delay={200}>
+    <section>
+      <OurModel />
+    </section>
+  </FadeIn>
 
-  <section data-aos="fade-up" data-aos-delay="300">
-    <WhyItCostsLess />
-  </section>
+  <FadeIn effect="slide-right" delay={300}>
+    <section>
+      <WhyItCostsLess />
+    </section>
+  </FadeIn>
 
-  <section data-aos="fade-up" data-aos-delay="400">
-    <PromiseBanner />
-  </section>
+  <FadeIn effect="zoom" delay={400}>
+    <section>
+      <PromiseBanner />
+    </section>
+  </FadeIn>
 
-  <section data-aos="fade-up" data-aos-delay="400">
-    <FAQHome />
-  </section>
+  <FadeIn effect="fade" delay={500}>
+    <section>
+      <FAQHome />
+    </section>
+  </FadeIn>
 
-  <section data-aos="fade-up" data-aos-delay="400">
-    <News />
-  </section>
+  <FadeIn effect="fade" delay={600}>
+    <section>
+      <News />
+    </section>
+  </FadeIn>
 
-  {
-    /*
-  <section data-aos="fade-up" data-aos-delay="500">
-    <Contact />
-  </section>
-  */
-  }
+  <FadeIn effect="zoom" delay={700}>
+    <section>
+      <div class="text-center max-w-3xl mx-auto py-16">
+        <h2 class="text-3xl font-semibold text-blue-900">
+          Powered by a Nationwide Network
+        </h2>
+        <p class="mt-4 text-lg text-gray-700">
+          Clarity is designed for patients — but it begins with exceptional
+          providers.
+        </p>
+        <a
+          href="/partner"
+          class="inline-block mt-6 bg-blue-900 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition"
+        >
+          Learn About Joining the Network
+        </a>
+      </div>
+    </section>
+  </FadeIn>
 
+  <!-- Footer placed cleanly outside of animation to preserve layout -->
   <Footer />
 </Layout>
 
@@ -66,5 +94,9 @@ import News from "../components/News.astro";
     display: flex;
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .powered-section {
+    background-color: #f3f4f6;
   }
 </style>
