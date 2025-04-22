@@ -1,7 +1,8 @@
 ---
-// HeroSection.astro
+
 ---
 
+// HeroSection.astro
 <section class="hero-section">
   <div class="hero-overlay"></div>
   <div class="hero-bg"></div>
@@ -21,7 +22,9 @@
 
     <div class="smartmatch-badge">
       <span>
-        Powered by <em>SmartMatch<sup>™</sup></em>
+        Powered by <span class="smartmatch-pulse"
+          ><em>SmartMatch<sup>™</sup></em></span
+        >
       </span>
     </div>
 
@@ -103,7 +106,21 @@
     border-radius: 9999px;
     font-size: 0.875rem;
     font-weight: 600;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+    animation: glowPulse 2.2s ease-in-out infinite;
+    transform-origin: center;
+    box-shadow: 0 0 8px 2px rgba(230, 195, 120, 0.3);
+  }
+
+  @keyframes glowPulse {
+    0%,
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 8px 2px rgba(230, 195, 120, 0.3);
+    }
+    50% {
+      transform: scale(1.04);
+      box-shadow: 0 0 16px 4px rgba(230, 195, 120, 0.5);
+    }
   }
 
   .hero-buttons {
