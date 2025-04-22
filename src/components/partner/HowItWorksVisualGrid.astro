@@ -1,81 +1,77 @@
 ---
-// HowItWorksVisualGrid.astro
+
 ---
 
-<section class="pt-24">
-  <div class="max-w-6xl mx-auto text-center mb-16" data-aos="fade-up">
-    <h2 class="text-3xl font-bold mb-4">How It Works</h2>
-    <p class="text-gray-600 text-lg">
+<section id="how-it-works" class="bg-gray-50 py-24 px-6">
+  <div class="max-w-6xl mx-auto text-center mb-24" data-aos="fade-up">
+    <h2 class="text-4xl font-bold mb-6">How It Works</h2>
+    <p class="text-gray-600 text-xl">
       A smarter, simpler way to serve self-pay patients — from first contact to
       completed scan.
     </p>
   </div>
 
   <div
-    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto"
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16 max-w-6xl mx-auto text-center"
   >
-    <div
-      class="bg-white p-6 rounded-2xl shadow-md flex flex-col items-start"
-      data-aos="fade-up"
-      data-aos-delay="100"
-    >
+    <!-- Card 1: Messaging -->
+    <div class="space-y-4" data-aos="fade-up" data-aos-delay="100">
       <img
         src="/images/text-message.png"
         alt="Chat UI"
-        class="w-full h-44 object-cover rounded-lg mb-4"
+        class="w-full h-64 object-contain rounded-xl shadow"
       />
-      <h3 class="font-semibold text-lg">Patient Message</h3>
-      <p class="text-sm text-gray-600">
-        “Hi, can you help me schedule an appointment?”
-      </p>
+      <div>
+        <h3 class="font-semibold text-xl">Patient Message</h3>
+        <p class="text-base text-gray-600">
+          “Hi, can you help me schedule an appointment?”
+        </p>
+      </div>
     </div>
 
-    <div
-      class="bg-white p-6 rounded-2xl shadow-md flex flex-col items-start"
-      data-aos="fade-up"
-      data-aos-delay="200"
-    >
+    <!-- Card 2: Calendar -->
+    <div class="space-y-4" data-aos="fade-up" data-aos-delay="200">
       <img
         src="/images/date-time.png"
-        alt="Calendar UI"
-        class="w-full h-44 object-cover rounded-lg mb-4"
+        alt="Calendar scheduling UI"
+        class="w-full h-64 object-contain rounded-xl shadow"
       />
-      <h3 class="font-semibold text-lg">Choose Date & Time</h3>
-      <p class="text-sm text-gray-600">
-        Patients select preferred time slots from your real-time calendar.
-      </p>
+      <div>
+        <h3 class="font-semibold text-xl">Choose Date & Time</h3>
+        <p class="text-base text-gray-600">
+          Patients select time slots directly from your live calendar.
+        </p>
+      </div>
     </div>
 
-    <div
-      class="bg-white p-6 rounded-2xl shadow-md flex flex-col items-start"
-      data-aos="fade-up"
-      data-aos-delay="300"
-    >
+    <!-- Card 3: MRI tech with patient -->
+    <div class="space-y-4" data-aos="fade-up" data-aos-delay="300">
       <img
-        src="/images/hero-doctor-patient.jpg"
-        alt="Technician with patient"
-        class="w-full h-44 object-cover rounded-lg mb-4"
+        src="/images/tech-patient.png"
+        alt="MRI Technician with patient"
+        class="w-full h-64 object-contain rounded-xl shadow"
       />
-      <h3 class="font-semibold text-lg">Personalized Care</h3>
-      <p class="text-sm text-gray-600">
-        Patients are welcomed by your MRI tech team for compassionate care.
-      </p>
+      <div>
+        <h3 class="font-semibold text-xl">Compassionate Care</h3>
+        <p class="text-base text-gray-600">
+          Your MRI team delivers personalized, professional care.
+        </p>
+      </div>
     </div>
 
-    <div
-      class="bg-white p-6 rounded-2xl shadow-md flex flex-col items-start"
-      data-aos="fade-up"
-      data-aos-delay="400"
-    >
+    <!-- Card 4: SmartMatch Call -->
+    <div class="space-y-4" data-aos="fade-up" data-aos-delay="400">
       <img
         src="/images/call-center.png"
-        alt="SmartMatch Call"
-        class="w-full h-44 object-cover rounded-lg mb-4"
+        alt="SmartMatch Call UI"
+        class="w-full h-64 object-contain rounded-xl shadow"
       />
-      <h3 class="font-semibold text-lg">SmartMatch™ Referral</h3>
-      <p class="text-sm text-gray-600">
-        Your center receives referrals with patient details and scores.
-      </p>
+      <div>
+        <h3 class="font-semibold text-xl">SmartMatch™ Referral</h3>
+        <p class="text-base text-gray-600">
+          Your center receives pre-qualified referrals with key patient info.
+        </p>
+      </div>
     </div>
   </div>
 </section>
