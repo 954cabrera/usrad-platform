@@ -1,65 +1,252 @@
 ---
-import "../../styles/global.css";
+// No layout
 ---
 
-<!-- Login Page Content for Imaging Center -->
-<section class="login-container">
-  <div class="login-left">
-    <!-- Logo for Imaging Center -->
+<style>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: sans-serif;
+  }
+
+  .login-layout {
+    display: flex;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #1e3c72, #2a5298);
+  }
+
+  .logo-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .logo-side img {
+    max-width: 80%;
+    height: auto;
+  }
+
+  .form-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    padding: 2rem;
+  }
+
+  .login-box {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .login-box h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    color: #1e3c72;
+    text-align: center;
+  }
+
+  .login-box label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+    font-weight: normal;
+  }
+
+  .asterisk {
+    color: red;
+    margin-left: 2px;
+  }
+
+  .input-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+
+  .input-wrapper input {
+    width: 100%;
+    padding: 0.75rem;
+    padding-right: 2.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+
+  .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    display: flex;
+    align-items: center;
+  }
+
+  .toggle-password svg {
+    vertical-align: middle;
+  }
+
+  .forgot,
+  .signup {
+    display: block;
+    font-size: 0.9rem;
+    color: #1e3c72;
+    text-decoration: none;
+    margin-top: 0.25rem;
+    text-align: right;
+  }
+
+  .forgot:hover,
+  .signup:hover {
+    text-decoration: underline;
+  }
+
+  .signup {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .login-box button {
+    width: 100%;
+    padding: 0.75rem;
+    background: #1e3c72;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+  }
+
+  .login-box button:hover {
+    background: #16345c;
+  }
+
+  .terms {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    text-align: center;
+    color: #555;
+  }
+
+  .terms a {
+    color: #1e3c72;
+    text-decoration: none;
+  }
+
+  .terms a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .login-layout {
+      flex-direction: column;
+    }
+
+    .logo-side,
+    .form-side {
+      flex: none;
+      width: 100%;
+    }
+
+    .logo-side {
+      background-color: #1e3c72;
+    }
+
+    .logo-side img {
+      max-width: 200px;
+    }
+  }
+</style>
+
+<div class="login-layout">
+  <div class="logo-side">
     <img
       src="/logo/USRad-Logo-final-white-text-patient-log-in.png"
-      alt="USRad Logo - Patient Log In"
-      class="logo"
+      alt="USRad Logo"
     />
-   
-    </div>
   </div>
 
-  <div class="login-right">
+  <div class="form-side">
     <div class="login-box">
-      <h2 class="login-title">Welcome!</h2>
-
-      <!-- Login Form for Imaging Center -->
-      <form class="login-form">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="Enter Username"
-            required
-          />
+      <h2>Patient Login</h2>
+      <form>
+        <label for="username">Username<span class="asterisk">*</span></label>
+        <div class="input-wrapper">
+          <input type="text" id="username" name="username" required />
         </div>
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Enter Password"
-            required
-          />
+        <label for="password">Password<span class="asterisk">*</span></label>
+        <div class="input-wrapper">
+          <input type="password" id="password" name="password" required />
+
+          <span class="toggle-password" onclick="togglePassword()">
+            <svg
+              id="eye-open"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 4.5C7.305 4.5 3.29 7.635 1.5 12c1.79 4.365 5.805 7.5 10.5 7.5s8.71-3.135 10.5-7.5C20.71 7.635 16.695 4.5 12 4.5zm0 12.5a5 5 0 110-10 5 5 0 010 10z"
+              ></path>
+              <circle cx="12" cy="12" r="2.5"></circle>
+            </svg>
+            <svg
+              id="eye-slash"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              style="display:none;"
+            >
+              <path
+                d="M2.39 1.73L1.11 3l3.01 3.01A11.42 11.42 0 002 12c1.79 4.365 5.805 7.5 10.5 7.5a11.5 11.5 0 005.26-1.25l3.73 3.73 1.27-1.27L2.39 1.73zm7.82 9.09l2.98 2.98a2.5 2.5 0 01-2.98-2.98zM12 6.5c2.03 0 3.7 1.5 4.09 3.46l2.31 2.31c-.61 1.64-1.76 3.03-3.26 3.89l-1.6-1.6a4.99 4.99 0 01-6.65-6.65l1.6 1.6C8.47 8.11 10.04 6.5 12 6.5z"
+              ></path>
+            </svg>
+          </span>
         </div>
 
-        <div class="forgot-password">
-          <a href="/forgot-password">Forgot Your Password?</a>
-        </div>
+        <a href="#" class="forgot">Forgot password?</a>
 
-        <button type="submit" class="login-btn">Login</button>
-      </form>
+        <button type="submit">Login</button>
 
-      <div class="signup-info">
-        <p>Need an account? <a href="/signup">Sign Up</a></p>
-      </div>
-
-      <div class="terms">
-        <p>
-          By inputting your username and password above and pressing 'Log In',
-          you agree to <a href="/terms-of-use">Terms of Use</a>.
+        <p class="terms">
+          By inputting your username and password above and pressing 'Login',
+          you agree to USRad's <a href="#">Terms of Use</a>.
         </p>
-      </div>
+
+        <a href="#" class="signup">Need an Account? Sign Up</a>
+      </form>
     </div>
   </div>
-</section>
+</div>
+
+<script>
+  function togglePassword() {
+    const input = document.getElementById("password");
+    const eyeOpen = document.getElementById("eye-open");
+    const eyeSlash = document.getElementById("eye-slash");
+
+    if (!input || !eyeOpen || !eyeSlash) return;
+
+    if (input.type === "password") {
+      input.type = "text";
+      eyeOpen.style.display = "none";
+      eyeSlash.style.display = "inline";
+    } else {
+      input.type = "password";
+      eyeOpen.style.display = "inline";
+      eyeSlash.style.display = "none";
+    }
+  }
+</script>
