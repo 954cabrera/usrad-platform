@@ -1,225 +1,32 @@
 ---
-import Layout from "../layouts/MainLayout.astro";
+import Layout from "../layouts/PartnerLayout.astro";
 import AOSInit from "../components/AOSInit.astro";
-import Footer from "../components/Footer.astro";
+import HeroSmartSplit from "../components/partner/HeroSmartSplit.astro";
+import HowItWorksVisualGrid from "../components/partner/HowItWorksVisualGrid.astro";
+import MarketOpportunity from "../components/partner/MarketOpportunity.astro";
+import IndependentInvitation from "../components/partner/IndependentInvitation.astro";
+import PartnerForm from "../components/partner/PartnerForm.astro";
 ---
 
 <Layout>
   <AOSInit />
+  <HeroSmartSplit />
 
-  <!-- Hero Section -->
-  <section
-    class="bg-gradient-to-br from-blue-900 to-blue-700 text-white py-20 px-6 text-center"
-    data-aos="fade-down"
-  >
-    <h1 class="text-4xl font-bold mb-4">
-      Join a National Network Transforming Medical Imaging Access
-    </h1>
-    <p class="text-lg mb-8">
-      Thousands of self-pay patients. Streamlined scheduling. Rapid
-      reimbursements. 24/7 portal access.
-    </p>
-    <a
-      href="#form"
-      class="bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-semibold py-3 px-6 rounded-full transition-all"
-      data-aos="zoom-in-up"
-      data-aos-delay="300"
-    >
-      Start the Conversation →
-    </a>
-  </section>
-
-  <!-- Visitor Warning -->
+  <!-- Visitor Note -->
   <div
     class="bg-yellow-50 border border-yellow-300 text-yellow-800 text-sm rounded-md p-4 mb-6 max-w-3xl mx-auto mt-8"
     data-aos="fade-up"
     data-aos-delay="200"
   >
-    <strong>Note:</strong> This section is for imaging centers interested in partnering
-    with USRad. If you're a patient looking to schedule an exam, <a
+    <strong>Note:</strong> This page is for imaging centers interested in partnering
+    with USRad. If you're a patient, <a
       href="/"
       class="underline text-blue-600 hover:text-blue-800">click here</a
     >.
   </div>
 
-  <!-- Benefits Grid -->
-  <section
-    class="py-16 px-6 max-w-6xl mx-auto"
-    data-aos="fade-up"
-    data-aos-delay="100"
-  >
-    <h2 class="text-3xl font-bold mb-8 text-center" data-aos="zoom-in">
-      Why Imaging Centers Partner with USRad
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div
-        class="bg-gray-50 p-6 rounded-2xl shadow"
-        data-aos="fade-up"
-        data-aos-delay="100"
-      >
-        <h3 class="text-xl font-semibold mb-2">High Patient Volume</h3>
-        <p class="text-gray-700">
-          We direct a steady stream of self-pay patients to your center every
-          week, increasing utilization without insurance hassles.
-        </p>
-      </div>
-      <div
-        class="bg-gray-50 p-6 rounded-2xl shadow"
-        data-aos="fade-up"
-        data-aos-delay="200"
-      >
-        <h3 class="text-xl font-semibold mb-2">Rapid Reimbursements</h3>
-        <p class="text-gray-700">
-          Receive predictable payments quickly—no more chasing down claims or
-          fighting denials.
-        </p>
-      </div>
-      <div
-        class="bg-gray-50 p-6 rounded-2xl shadow"
-        data-aos="fade-up"
-        data-aos-delay="300"
-      >
-        <h3 class="text-xl font-semibold mb-2">Seamless Scheduling</h3>
-        <p class="text-gray-700">
-          Our centralized scheduling system makes it easy for your team and ours
-          to coordinate patient care.
-        </p>
-      </div>
-      <div
-        class="bg-gray-50 p-6 rounded-2xl shadow"
-        data-aos="fade-up"
-        data-aos-delay="400"
-      >
-        <h3 class="text-xl font-semibold mb-2">Referring Physician Network</h3>
-        <p class="text-gray-700">
-          Connect with physicians nationwide who refer directly through
-          USRad’s platform.
-        </p>
-      </div>
-      <div
-        class="bg-gray-50 p-6 rounded-2xl shadow"
-        data-aos="fade-up"
-        data-aos-delay="500"
-      >
-        <h3 class="text-xl font-semibold mb-2">24/7 Portal Access</h3>
-        <p class="text-gray-700">
-          Use our secure web-based portal to manage referrals, upload reports,
-          and view real-time status updates.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Market Opportunity -->
-  <section
-    class="bg-yellow-50 py-16 px-6 text-center"
-    data-aos="fade-right"
-    data-aos-delay="200"
-  >
-    <h2 class="text-2xl font-bold mb-4">A Market Ripe for Transformation</h2>
-    <p class="text-lg max-w-3xl mx-auto">
-      Over <span class="font-bold">90 million Americans</span> are currently uninsured
-      or underinsured — and they’re seeking better, affordable access to diagnostic
-      imaging. USRad makes it easy for centers like yours to meet that need.
-    </p>
-  </section>
-
-  <!-- Independent Invitation -->
-  <section
-    class="py-16 px-6 bg-gray-50 text-center"
-    data-aos="fade-up"
-    data-aos-delay="100"
-  >
-    <h2 class="text-2xl font-bold mb-4">Lead Locally. Connect Nationally.</h2>
-    <p class="max-w-3xl mx-auto text-gray-700 text-lg">
-      You're already providing high-quality imaging care. What if you could
-      increase volume, streamline operations, and get paid faster — without
-      changing how you care for patients?
-    </p>
-    <p class="max-w-3xl mx-auto mt-6 text-gray-700 text-lg">
-      We’re inviting a small number of centers like yours to join our trusted
-      national network — built for transparency, speed, and simplicity.
-    </p>
-    <a
-      href="#form"
-      class="mt-8 inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full transition-all"
-      data-aos="zoom-in"
-      data-aos-delay="200"
-    >
-      Explore the Opportunity →
-    </a>
-  </section>
-
-  <!-- Partner Form -->
-  <section
-    id="form"
-    class="py-20 px-6 bg-white text-gray-800"
-    data-aos="fade-up"
-  >
-    <div class="max-w-3xl mx-auto">
-      <h2
-        class="text-3xl font-bold mb-6 text-center"
-        data-aos="zoom-in"
-        data-aos-delay="100"
-      >
-        Get Started Today
-      </h2>
-      <form name="partner-interest" method="POST" netlify>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            class="input"
-            required
-            data-aos="fade-up"
-            data-aos-delay="150"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            class="input"
-            required
-            data-aos="fade-up"
-            data-aos-delay="200"
-          />
-          <input
-            type="text"
-            name="center"
-            placeholder="Imaging Center Name"
-            class="input"
-            required
-            data-aos="fade-up"
-            data-aos-delay="250"
-          />
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Phone Number"
-            class="input"
-            data-aos="fade-up"
-            data-aos-delay="300"
-          />
-        </div>
-        <textarea
-          name="message"
-          rows="4"
-          placeholder="Tell us more about your center..."
-          class="input mt-6"
-          data-aos="fade-up"
-          data-aos-delay="350"></textarea>
-        <button
-          type="submit"
-          class="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all"
-          data-aos="zoom-in"
-          data-aos-delay="450"
-        >
-          Submit Interest
-        </button>
-      </form>
-    </div>
-  </section>
-
-  <Footer chatbotLabel="Let’s Talk" />
+  <HowItWorksVisualGrid />
+  <MarketOpportunity />
+  <IndependentInvitation />
+  <PartnerForm />
 </Layout>
