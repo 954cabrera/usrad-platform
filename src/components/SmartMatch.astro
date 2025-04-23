@@ -1,58 +1,81 @@
----
-import { scenes } from "./SmartMatchData.ts";
----
-
 <section class="py-16 px-6 bg-slate-50">
   <div class="max-w-3xl mx-auto text-center mb-12">
     <h2 class="text-3xl font-semibold text-slate-900">
-      Smarter Choices. Less Confusion.
+      Tired of Confusing Choices and Surprise Costs?
     </h2>
     <p class="text-lg text-slate-600 mt-4">
-      Our proprietary SmartMatch<sup>™</sup> system ensures that patients are directed
-      to the most cost-effective, high-quality imaging centers available. Avoid overpaying
-      or ending up at a facility that doesn't fit your needs.
+      You're told you need an MRI. But where do you go? What’s the real cost?
+      Will the scan be good enough?
+    </p>
+    <p class="text-lg text-slate-600 mt-4">
+      Most patients are left to figure it out alone — searching Google, calling
+      centers, and hoping they choose right.
+    </p>
+    <p class="text-lg text-slate-600 mt-4">
+      Clarity changes that. Our SmartMatch<sup>™</sup> system guides you to the
+      right imaging center based on your needs — no insurance games, no guesswork.
     </p>
   </div>
 
-  <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-    {
-      scenes.map((scene, index) => (
-        <div
-          class="opacity-0 translate-y-8 transition-all duration-700 ease-out rounded-xl bg-white p-6 border-2 border-[#e6c378] shadow hover:scale-[1.03] hover:shadow-md"
-          style={`animation-delay: ${index * 0.1}s`}
-          data-index={index}
-        >
-          <h3 class="text-lg font-semibold text-slate-800 mb-2">
-            {scene.title}
-          </h3>
-          <p class="text-slate-600 text-sm">{scene.description}</p>
-        </div>
-      ))
-    }
+  <div class="max-w-4xl mx-auto text-center mt-8 mb-12">
+    <h3 class="text-2xl font-semibold text-blue-900">How Clarity Works</h3>
+    <p class="text-md text-slate-600 mt-2">
+      From booking to results, we simplify every step — without compromising on
+      quality.
+    </p>
+  </div>
+
+  <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+    <div
+      class="step bg-white p-6 rounded-xl border-2 border-[#e6c378] shadow hover:scale-[1.03] transition"
+    >
+      <div class="text-3xl mb-2">🩺</div>
+      <h4 class="text-lg font-semibold text-slate-800 mb-1">
+        Tell Us What You Need
+      </h4>
+      <p class="text-slate-600 text-sm">
+        Pick your scan — like a brain, knee, or spine MRI. No referral required
+        to get started.
+      </p>
+    </div>
+
+    <div
+      class="step bg-white p-6 rounded-xl border-2 border-[#e6c378] shadow hover:scale-[1.03] transition"
+    >
+      <div class="text-3xl mb-2">📍</div>
+      <h4 class="text-lg font-semibold text-slate-800 mb-1">
+        Get Matched Instantly
+      </h4>
+      <p class="text-slate-600 text-sm">
+        Our SmartMatch™ engine connects you with a trusted center based on
+        diagnosis, comfort, and distance.
+      </p>
+    </div>
+
+    <div
+      class="step bg-white p-6 rounded-xl border-2 border-[#e6c378] shadow hover:scale-[1.03] transition"
+    >
+      <div class="text-3xl mb-2">💳</div>
+      <h4 class="text-lg font-semibold text-slate-800 mb-1">
+        Know Your Price Upfront
+      </h4>
+      <p class="text-slate-600 text-sm">
+        See clear pricing before you book. No surprises. Pay online to lock it
+        in.
+      </p>
+    </div>
+
+    <div
+      class="step bg-white p-6 rounded-xl border-2 border-[#e6c378] shadow hover:scale-[1.03] transition"
+    >
+      <div class="text-3xl mb-2">📄</div>
+      <h4 class="text-lg font-semibold text-slate-800 mb-1">
+        Receive Fast Results
+      </h4>
+      <p class="text-slate-600 text-sm">
+        Scans are read by board-certified radiologists. Results delivered
+        securely, without delay.
+      </p>
+    </div>
   </div>
 </section>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const delay = entry.target.dataset.index * 100;
-            setTimeout(() => {
-              entry.target.classList.add("opacity-100", "translate-y-0");
-              entry.target.classList.remove("opacity-0", "translate-y-8");
-            }, delay);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    document.querySelectorAll(".translate-y-8").forEach((el, i) => {
-      el.dataset.index = i;
-      observer.observe(el);
-    });
-  });
-</script>
