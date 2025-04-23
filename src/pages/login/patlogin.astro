@@ -1,0 +1,40 @@
+---
+const isLoginPage = Astro.url.pathname.startsWith("/login"); // Checks if the current page is a login page
+---
+
+<!-- Import your components and global styles -->import Header from
+"../components/Header.astro"; import UtilityHeader from
+"../components/UtilityHeader.astro"; import "../styles/global.css";
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><slot name="title">USRad</slot></title>
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+
+  <body class="bg-white text-gray-800">
+    {/* Only render UtilityHeader and Header if it's not the login page */}
+    {!isLoginPage && <UtilityHeader />}
+    {!isLoginPage && <Header />}
+
+    <main class="px-6 py-12 max-w-7xl mx-auto">
+      <slot />
+      <!-- This slot will be replaced with the page content -->
+    </main>
+
+    {/* Only render Footer if it's not the login page */}
+    {!isLoginPage && <Footer />}
+  </body>
+</html>
+
+<style is:global>
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    line-height: 1.6;
+    color: #1e293b;
+    background-color: #fff;
+  }
+</style>

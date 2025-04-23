@@ -1,0 +1,179 @@
+---
+import Layout from "../layouts/MainLayout.astro";
+---
+
+<Layout>
+  <section class="login-container">
+    <div class="login-left">
+      <!-- Logo -->
+      <img
+        src="/logo/USRad-Logo-final-white-text-imaging-center-log-in.png"
+        alt="USRad Logo - Imaging Center Log In"
+        class="logo"
+      />
+
+      <!-- Patient Log In Link Below the Logo -->
+      <div class="login-text-container">
+        <a href="/login" class="patient-login-link">Patient Log In</a>
+      </div>
+    </div>
+
+    <div class="login-right">
+      <div class="login-box">
+        <h2 class="login-title">Welcome!</h2>
+
+        <!-- Login Form -->
+        <form class="login-form">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter Username"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter Password"
+              required
+            />
+          </div>
+
+          <div class="forgot-password">
+            <a href="/forgot-password">Forgot Your Password?</a>
+          </div>
+
+          <button type="submit" class="login-btn">Login</button>
+        </form>
+
+        <div class="signup-info">
+          <p>Need an account? <a href="/signup">Sign Up</a></p>
+        </div>
+
+        <div class="terms">
+          <p>
+            By inputting your username and password above and pressing 'Log In',
+            you agree to <a href="/terms-of-use">Terms of Use</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .login-container {
+    display: flex;
+    height: 100vh;
+  }
+
+  .login-left {
+    flex: 1;
+    background-color: #032d5a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-left .logo {
+    max-width: 250px;
+  }
+
+  .login-right {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-box {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .login-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #1f2937;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+    color: #1f2937;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  .forgot-password {
+    text-align: right;
+    margin-bottom: 10px;
+  }
+
+  .forgot-password a {
+    color: #2563eb;
+    text-decoration: none;
+  }
+
+  .login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .login-btn:hover {
+    background-color: #1d4ed8;
+  }
+
+  .signup-info {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .signup-info a {
+    color: #2563eb;
+    text-decoration: none;
+  }
+
+  .terms {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-top: 15px;
+    color: #6b7280;
+  }
+
+  .terms a {
+    color: #2563eb;
+    text-decoration: none;
+  }
+</style>
