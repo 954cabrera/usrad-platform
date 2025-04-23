@@ -1,7 +1,3 @@
----
-
----
-
 <!-- HeroSmartSplit.astro - Hero Only -->
 <section class="bg-white py-24 px-6 lg:px-12">
   <div
@@ -19,17 +15,12 @@
         Expand smarter.
       </p>
       <div class="flex gap-4 flex-wrap">
+        <!-- Apply Now CTA with Pulsating Effect -->
         <a
-          href="#form"
-          class="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-full font-semibold transition"
+          href="/partner/apply"
+          class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-blue-700 hover:shadow-lg transition-all pulse-button"
         >
-          Join the Network
-        </a>
-        <a
-          href="#how-it-works"
-          class="border border-blue-700 text-blue-700 hover:text-white hover:bg-blue-700 px-6 py-3 rounded-full font-semibold transition"
-        >
-          See how it works
+          Apply Now to Join the Network
         </a>
       </div>
     </div>
@@ -78,3 +69,23 @@
     </div>
   </div>
 </section>
+
+<style>
+  /* Pulsating effect */
+  .pulse-button {
+    animation: pulse 2s infinite ease-in-out;
+  }
+
+  /* Keyframes for the pulsating animation */
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+</style>
