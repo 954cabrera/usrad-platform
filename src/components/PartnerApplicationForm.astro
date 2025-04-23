@@ -1,0 +1,248 @@
+---
+
+---
+
+<section class="bg-gray-50 py-20 px-6">
+  <div class="max-w-3xl mx-auto bg-white p-10 rounded-xl shadow-xl">
+    <h1 class="text-3xl font-bold mb-3 text-center text-blue-900">
+      Partner with USRad's Nationwide Imaging Network
+    </h1>
+    <p class="text-lg text-center text-gray-700 mb-6">
+      Tell us more about your imaging center and take the first step toward
+      becoming a trusted provider.
+    </p>
+
+    <form name="partner-application" method="POST">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Legal Business Name -->
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-gray-700"
+            >Legal Business Name *</label
+          >
+          <input
+            type="text"
+            name="legalBusinessName"
+            required
+            class="input mt-1 w-full"
+          />
+        </div>
+
+        <!-- Contact Name -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700"
+            >First Name *</label
+          >
+          <input
+            type="text"
+            name="firstName"
+            required
+            class="input mt-1 w-full"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700"
+            >Last Name *</label
+          >
+          <input
+            type="text"
+            name="lastName"
+            required
+            class="input mt-1 w-full"
+          />
+        </div>
+
+        <!-- Contact Info -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Email *</label>
+          <input type="email" name="email" required class="input mt-1 w-full" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Phone *</label>
+          <input type="tel" name="phone" required class="input mt-1 w-full" />
+        </div>
+
+        <!-- Location -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">City *</label>
+          <input type="text" name="city" required class="input mt-1 w-full" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">State *</label>
+          <input type="text" name="state" required class="input mt-1 w-full" />
+        </div>
+
+        <!-- Street Address -->
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-gray-700"
+            >Street Address</label
+          >
+          <input type="text" name="address" class="input mt-1 w-full" />
+        </div>
+
+        <!-- Service Area -->
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-gray-700"
+            >Service Area *</label
+          >
+          <textarea
+            name="serviceArea"
+            required
+            rows="3"
+            class="input mt-1 w-full"></textarea>
+        </div>
+
+        <!-- Are you currently partnered with USRad? -->
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-gray-700"
+            >Are you currently partnered with USRad? *</label
+          >
+          <select name="currentPartner" required class="input mt-1 w-full">
+            <option value="">Select</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="not_sure">Not sure</option>
+          </select>
+        </div>
+
+        <!-- Equipment & Services Offered -->
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-gray-700"
+            >What imaging services and equipment do you currently offer? *</label
+          >
+          <div class="flex flex-wrap gap-4 mt-2">
+            <label class="inline-flex items-center">
+              <input
+                type="checkbox"
+                name="equipment"
+                value="MRI"
+                class="mr-2"
+              /> MRI
+            </label>
+            <label class="inline-flex items-center">
+              <input type="checkbox" name="equipment" value="CT" class="mr-2" />
+              CT
+            </label>
+            <label class="inline-flex items-center">
+              <input type="checkbox" name="equipment" value="XR" class="mr-2" />
+              X-ray
+            </label>
+            <label class="inline-flex items-center">
+              <input
+                type="checkbox"
+                name="equipment"
+                value="Ultrasound"
+                class="mr-2"
+              /> Ultrasound
+            </label>
+            <label class="inline-flex items-center">
+              <input
+                type="checkbox"
+                name="equipment"
+                value="Other"
+                class="mr-2"
+              /> Other
+            </label>
+          </div>
+        </div>
+
+        <!-- Other Equipment Textarea -->
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-gray-700"
+            >If you selected Other, please describe: *</label
+          >
+          <textarea
+            name="otherEquipment"
+            rows="2"
+            class="input mt-1 w-full"
+            required></textarea>
+        </div>
+      </div>
+
+      <!-- MRI Field Strength -->
+      <div class="md:col-span-2 hidden">
+        <label class="block text-sm font-medium text-gray-700"
+          >If you offer MRI, what is the field strength?</label
+        >
+        <input
+          type="text"
+          name="mriFieldStrength"
+          placeholder="e.g., 1.5T, 3T"
+          class="input mt-1 w-full"
+        />
+      </div>
+
+      <hr class="md:col-span-2 my-8 border-gray-300" />
+
+      <!-- Consent -->
+      <div class="md:col-span-2 mt-2">
+        <label class="inline-flex items-center w-full">
+          <input type="checkbox" name="consent" required class="mr-2 mt-1" />
+          <span class="text-sm text-gray-700"
+            >I agree to be contacted regarding this application.</span
+          >
+        </label>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="md:col-span-2">
+        <button
+          type="submit"
+          class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
+        >
+          Submit Application
+        </button>
+      </div>
+    </form>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const mriCheckbox = document.querySelector(
+          'input[name="equipment"][value="MRI"]'
+        );
+        const fieldStrengthInput = document.querySelector(
+          'input[name="mriFieldStrength"]'
+        );
+
+        const toggleFieldStrength = () => {
+          if (mriCheckbox.checked) {
+            fieldStrengthInput.parentElement.classList.remove("hidden");
+            fieldStrengthInput.setAttribute("required", "true");
+          } else {
+            fieldStrengthInput.parentElement.classList.add("hidden");
+            fieldStrengthInput.removeAttribute("required");
+          }
+        };
+
+        mriCheckbox.addEventListener("change", toggleFieldStrength);
+        toggleFieldStrength(); // run on load
+      });
+    </script>
+  </div>
+</section>
+
+<style>
+  .input {
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    font-size: 1rem;
+    outline: none;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+    background-color: #f9fafb;
+  }
+
+  .input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+    background-color: #fff;
+  }
+
+  .input:invalid {
+    border-color: #dc2626;
+  }
+
+  .input:invalid:focus {
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3);
+  }
+</style>
