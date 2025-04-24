@@ -17,45 +17,44 @@ import FadeIn from "../components/FadeIn.astro";
   <HeroSection />
 
   <FadeIn effect="fade" delay={0}>
-    <section class="bg-red-500">
-      <!-- Added bg-red-500 here -->
+    <section class="bg-white py-12 px-6">
       <SmartMatch />
     </section>
   </FadeIn>
 
   <FadeIn effect="fade" delay={200}>
-    <section>
+    <section class="bg-slate-50 py-12 px-6">
       <OurModel />
     </section>
   </FadeIn>
 
   <FadeIn effect="slide-right" delay={300}>
-    <section>
+    <section class="bg-white py-12 px-6">
       <WhyItCostsLess />
     </section>
   </FadeIn>
 
   <FadeIn effect="zoom" delay={400}>
-    <section>
+    <section class="bg-blue-50 py-12 px-6">
       <PromiseBanner />
     </section>
   </FadeIn>
 
   <FadeIn effect="fade" delay={500}>
-    <section>
+    <section class="bg-slate-50 py-12 px-6">
       <FAQHome />
     </section>
   </FadeIn>
 
   <FadeIn effect="fade" delay={600}>
-    <section>
+    <section class="bg-white py-12 px-6">
       <News />
     </section>
   </FadeIn>
 
   <FadeIn effect="zoom" delay={700}>
-    <section>
-      <div class="text-center max-w-3xl mx-auto py-16">
+    <section class="bg-slate-100 py-12 px-6">
+      <div class="text-center max-w-3xl mx-auto">
         <h2 class="text-3xl font-semibold text-blue-900">
           Powered by a Nationwide Network
         </h2>
@@ -73,7 +72,6 @@ import FadeIn from "../components/FadeIn.astro";
     </section>
   </FadeIn>
 
-  <!-- Footer placed cleanly outside of animation to preserve layout -->
   <Footer />
 </Layout>
 
