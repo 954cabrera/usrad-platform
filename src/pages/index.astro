@@ -1,4 +1,5 @@
 ---
+import AOSInit from "../components/AOSInit.astro";
 import Layout from "../layouts/MainLayout.astro";
 import SmartMatch from "../components/SmartMatch.astro";
 import PromiseBanner from "../components/PromiseBanner.astro";
@@ -11,14 +12,22 @@ import Contact from "../components/Contact.astro";
 import FAQHome from "../components/FAQHome.astro";
 import News from "../components/News.astro";
 import FadeIn from "../components/FadeIn.astro";
+import MfgTabs from "../components/MfgTabs.astro";
 ---
 
+<AOSInit />
 <Layout>
   <HeroSection />
 
   <FadeIn effect="fade" delay={0}>
     <section class="bg-white py-12 px-6">
       <SmartMatch />
+    </section>
+  </FadeIn>
+
+  <FadeIn effect="fade" delay={600}>
+    <section class="bg-white py-12 px-6">
+      <MfgTabs />
     </section>
   </FadeIn>
 
