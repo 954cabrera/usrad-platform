@@ -1,7 +1,3 @@
----
-
----
-
 <!-- FILE: UtilityHeader.astro -->
 <div class="utility-header">
   <ul class="utility-menu">
@@ -29,17 +25,17 @@
       <button class="login-toggle">
         <span
           class="inline-block w-4 h-4 rounded-full bg-white text-black flex items-center justify-center text-[10px]"
-          >👤</span
         >
+          👤
+        </span>
         Log In <span class="arrow">▾</span>
       </button>
       <ul class="login-menu">
-        <li><a href="/patient-login">Patient Log In</a></li>
-        <li><a href="/center-login">Imaging Center Log In</a></li>
-        <li><a href="/physician-login">Referring Physician Log In</a></li>
+        <li><a href="/login/patientlogin">Patient Log In</a></li>
+        <li><a href="/login/imaginglogin">Imaging Center Log In</a></li>
+        <li><a href="/login/referrallogin">Referring Physician Log In</a></li>
         <li class="border-t border-gray-200">
           <a href="/partner">🌟 Explore Partnership</a>
-
         </li>
       </ul>
     </li>
@@ -118,7 +114,7 @@
   .utility-dropdown ul {
     position: absolute;
     top: 100%;
-    right: -40px; /* nudged left */
+    right: -40px;
     left: auto;
     background: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -130,7 +126,6 @@
     min-width: 220px;
   }
 
-  /* Show hover dropdowns except for the clickable one */
   .utility-dropdown:hover ul:not(.login-menu) {
     display: block;
   }
@@ -140,7 +135,7 @@
     padding: 0.5rem 1rem;
     color: #0e1b2a;
     text-decoration: none;
-    font-size: 0.8125rem; /* slightly smaller text */
+    font-size: 0.8125rem;
   }
 
   .utility-dropdown ul li a:hover {
