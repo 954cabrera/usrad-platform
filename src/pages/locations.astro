@@ -5,35 +5,41 @@ import AOSInit from "../components/AOSInit.astro";
 ---
 
 <MainLayout>
-  <slot slot="title">Locations & Rates | USRad</slot>
+  <slot slot="title">Find Your Center | USRad</slot>
   <AOSInit />
 
-  <div class="max-w-5xl mx-auto py-12">
-    <!-- Hero Section -->
-    <section class="text-center mb-12" data-aos="fade-up">
-      <h1 class="text-4xl font-bold text-[#003087] mb-4">Find Your Imaging Center. Save Hundreds.</h1>
-      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-        Trusted, board-certified radiologists. Accredited centers nationwide. Transparent all-inclusive rates.
+  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <section class="text-center mb-12" data-aos="fade-down">
+      <h1 class="text-4xl font-bold text-[#003087] mb-4">
+        Find Affordable Imaging Near You
+      </h1>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Save hundreds to thousands on diagnostic imaging by booking directly
+        through our trusted network. Simple, transparent, all-inclusive rates.
       </p>
     </section>
 
     <!-- Search Form -->
-    <section 
+    <section
       class="bg-white rounded-xl shadow-lg p-6 md:p-8 border border-gray-100"
-      data-aos="fade-up" 
+      data-aos="fade-up"
       data-aos-delay="100"
     >
-      <form action="/search" method="POST" class="space-y-6">
+      <form action="/search" method="GET" class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Type of Study -->
           <div class="space-y-2">
-            <label for="studyType" class="block text-sm font-medium text-gray-700">
+            <label
+              for="studyType"
+              class="block text-sm font-medium text-gray-700"
+            >
               Type of Study
             </label>
-            <select 
-              id="studyType" 
-              name="studyType" 
+            <select
+              id="studyType"
+              name="studyType"
               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+              required
             >
               <option value="" disabled selected>Select a study type</option>
               <option value="MRI">MRI</option>
@@ -45,81 +51,91 @@ import AOSInit from "../components/AOSInit.astro";
 
           <!-- Body Area -->
           <div class="space-y-2">
-            <label for="bodyArea" class="block text-sm font-medium text-gray-700">
+            <label
+              for="bodyArea"
+              class="block text-sm font-medium text-gray-700"
+            >
               Body Area
             </label>
-            <input 
-              type="text" 
-              id="bodyArea" 
-              name="bodyArea" 
-              placeholder="e.g., Brain, Shoulder, Knee" 
+            <input
+              type="text"
+              id="bodyArea"
+              name="bodyArea"
+              placeholder="e.g., Brain, Shoulder, Knee"
               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+              required
             />
           </div>
 
           <!-- Scan Type -->
           <div class="space-y-2">
-            <label for="scanType" class="block text-sm font-medium text-gray-700">
+            <label
+              for="scanType"
+              class="block text-sm font-medium text-gray-700"
+            >
               Scan Type
             </label>
-            <select 
-              id="scanType" 
-              name="scanType" 
+            <select
+              id="scanType"
+              name="scanType"
               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+              required
             >
               <option value="" disabled selected>Select scan details</option>
               <option value="Without Contrast">Without Contrast</option>
               <option value="With Contrast">With Contrast</option>
-              <option value="With and Without Contrast">With and Without Contrast</option>
+              <option value="With and Without Contrast"
+                >With and Without Contrast</option
+              >
             </select>
           </div>
 
-          <!-- City -->
+          <!-- City or Zip -->
           <div class="space-y-2">
             <label for="city" class="block text-sm font-medium text-gray-700">
-              City
+              City or Zip Code
             </label>
-            <select 
-              id="city" 
-              name="city" 
+            <input
+              type="text"
+              id="city"
+              name="city"
+              placeholder="e.g., Miami or 33101"
               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-            >
-              <option value="" disabled selected>Select a city</option>
-              <option value="Miami">Miami</option>
-              <option value="Fort Lauderdale">Fort Lauderdale</option>
-              <option value="Orlando">Orlando</option>
-              <option value="Tampa">Tampa</option>
-              <option value="Atlanta">Atlanta</option>
-              <option value="Dallas">Dallas</option>
-              <option value="Houston">Houston</option>
-              <option value="Austin">Austin</option>
-              <option value="Chicago">Chicago</option>
-              <option value="New York">New York</option>
-            </select>
+              required
+            />
           </div>
         </div>
 
-        <!-- Find Centers Button -->
-        <div class="pt-4">
-          <button 
-            type="submit" 
-            class="w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-200 ease-in-out transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        <!-- Submit Button -->
+        <div class="text-center pt-6">
+          <button
+            type="submit"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full transition-all text-lg"
           >
-            Find Centers →
+            Find Centers
           </button>
         </div>
       </form>
     </section>
 
-    <!-- Optional Prompt Section -->
-    <section 
-      class="mt-12 text-center py-6 px-4 rounded-xl bg-gray-50 border border-gray-100"
+    <!-- Recent Search Reminder -->
+    <section
+      class="mt-12 text-center text-gray-500 text-sm"
       data-aos="fade-up"
-      data-aos-delay="200"
+      data-aos-delay="400"
     >
-      <p class="text-gray-600">
-        Need help finding the right scan? Call us at <span class="font-semibold text-[#003087]">(800) USRAD-24</span>
-      </p>
+      {
+        Astro.url.search ? (
+          <p>
+            Showing results for your last search.{" "}
+            <a href="/locations" class="underline hover:text-blue-700">
+              Start a new search →
+            </a>
+          </p>
+        ) : (
+          ""
+        )
+      }
     </section>
   </div>
 

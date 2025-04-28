@@ -1,0 +1,52 @@
+---
+interface Props {
+  name: string;
+  city: string;
+  state: string;
+  distance: string;
+  price: number;
+  study: string;
+  availability: string;
+}
+
+const { name, city, state, distance, price, study, availability } = Astro.props;
+---
+
+<div
+  class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 transition hover:shadow-md"
+  data-aos="fade-up"
+>
+  <div class="flex justify-between items-start">
+    <div>
+      <h3 class="font-semibold text-lg text-[#003087]">{name}</h3>
+      <p class="text-gray-600 text-sm">{city}, {state}</p>
+    </div>
+    <span class="text-gray-500 text-sm">{distance} miles away</span>
+  </div>
+
+  <div class="mt-3 flex justify-between">
+    <div>
+      <p class="text-xl font-bold text-green-600">${price}</p>
+      <p class="text-gray-500 text-xs">All-inclusive price</p>
+    </div>
+    <div class="text-right">
+      <p class="text-gray-600 text-sm">{availability}</p>
+    </div>
+  </div>
+
+  <div class="mt-4 flex justify-between items-center">
+    <button
+      type="button"
+      class="text-blue-600 hover:text-blue-800 text-sm font-medium"
+      onclick="alert('Information about what\'s included in the price would appear here.')"
+    >
+      What's Included?
+    </button>
+    <a
+      href={`/schedule?center=${encodeURIComponent(name)}&study=${encodeURIComponent(study)}`}
+      class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition"
+    >
+      Schedule Now →
+    </a>
+  </div>
+</div>
