@@ -11,6 +11,7 @@ interface Props {
   bodyArea?: string;
   scanType?: string;
 }
+
 const {
   id,
   name,
@@ -24,9 +25,8 @@ const {
   scanType = "",
 } = Astro.props;
 
-// Create the schedule URL with all parameters
-// Force string conversion with explicit toString() to handle potential undefined values
-const scheduleUrl = `/schedule?center=${id}&study=${encodeURIComponent(study.toLowerCase())}&bodyArea=${encodeURIComponent(bodyArea.toString())}&scanType=${encodeURIComponent(scanType.toString())}`;
+// Schedule URL uses center ID
+const scheduleUrl = `/schedule?center=${id}&study=${encodeURIComponent(study)}&bodyArea=${encodeURIComponent(bodyArea)}&scanType=${encodeURIComponent(scanType)}`;
 ---
 
 <div
@@ -40,6 +40,7 @@ const scheduleUrl = `/schedule?center=${id}&study=${encodeURIComponent(study.toL
     </div>
     <span class="text-gray-500 text-sm">{distance} miles away</span>
   </div>
+
   <div class="mt-3 flex justify-between">
     <div>
       <p class="text-xl font-bold text-green-600">${price}</p>
@@ -49,6 +50,7 @@ const scheduleUrl = `/schedule?center=${id}&study=${encodeURIComponent(study.toL
       <p class="text-gray-600 text-sm">{availability}</p>
     </div>
   </div>
+
   <div class="mt-4 flex justify-between items-center">
     <button
       type="button"
@@ -58,7 +60,6 @@ const scheduleUrl = `/schedule?center=${id}&study=${encodeURIComponent(study.toL
       What's Included?
     </button>
 
-    <!-- Adding inline hardcoded body area and scan type parameter for testing -->
     <a
       href={scheduleUrl}
       class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition"
