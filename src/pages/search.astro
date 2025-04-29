@@ -12,7 +12,7 @@ const sort = searchParams.get('sort') || 'price';
 const page = parseInt(searchParams.get('page') || '1');
 const study = searchParams.get('study') || 'MRI';
 const city = searchParams.get('city') || '';
-const scanType = searchParams.get('scanType') || 'Without Contrast';
+const scanType = searchParams.get('scanType') || '';
 const bodyArea = searchParams.get('bodyArea') || '';
 
 // Filter centers
@@ -117,6 +117,7 @@ function getSortUrl(sortType) {
           <div class="space-y-4 mb-8">
             {paginatedCenters.map((center) => (
               <CenterCard
+                id={center.id}
                 name={center.name}
                 city={center.city}
                 state={center.state}
@@ -124,6 +125,8 @@ function getSortUrl(sortType) {
                 price={center.prices[study]}
                 study={study}
                 availability={center.appointment_availability}
+                bodyArea={bodyArea}
+                scanType={scanType}
               />
             ))}
           </div>
