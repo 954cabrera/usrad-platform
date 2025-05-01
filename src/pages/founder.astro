@@ -1,0 +1,182 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<MainLayout>
+  <head>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" is:inline></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <script is:inline>
+      if (typeof window !== "undefined") {
+        AOS.init({ once: true });
+      }
+    </script>
+  </head>
+
+  <!-- Hero Section -->
+  <section class="py-20 bg-[#f0f4f9] text-gray-800">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center space-y-4">
+        <h1 class="text-5xl font-semibold text-[#003087]">Michael Cabrera</h1>
+        <p class="text-2xl text-[#e6c378] font-medium">Founder & CEO</p>
+        <div class="h-1 w-24 bg-[#e6c378] rounded-full mx-auto"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Bio Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-12">
+        <!-- Left Column: Professional Photo & Stats -->
+        <div class="md:col-span-1 space-y-8">
+          <!-- Professional Photo -->
+          <div class="relative rounded-xl overflow-hidden shadow-xl">
+            <img
+              src="/images/michael.jpg"
+              alt="Michael Cabrera"
+              class="w-full object-cover"
+            />
+          </div>
+
+          <!-- Quick Stats -->
+          <div class="space-y-4">
+            <div class="bg-[#f9f9f6] p-6 rounded-xl border shadow-sm">
+              <h3 class="text-lg font-semibold text-[#003087] mb-2">Highlights</h3>
+              <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
+                <li>Entrepreneur of the Year – South Florida Business Journal</li>
+                <li>INC 500 – Fastest Growing Private Companies (#210)</li>
+                <li>1,236% Startup Growth → Acquired by Public Company</li>
+                <li>Graduate, MIT Entrepreneurial Masters Program</li>
+              </ul>
+            </div>
+            
+            <!-- Animated Impact Number -->
+            <div class="bg-[#f9f9f6] p-6 rounded-xl border shadow-sm text-center">
+              <h3 class="text-lg font-semibold text-[#003087] mb-2">Impact</h3>
+              <p class="text-3xl font-semibold text-[#003087]">400,000+</p>
+              <p class="text-sm text-gray-700 mt-2">
+                Imaging procedures served from launch to acquisition
+              </p>
+            </div>
+
+            <!-- Press Kit -->
+            <div class="text-center pt-4">
+              <a
+                href="/docs/founder-presskit.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-block bg-[#003087] text-white px-6 py-2 rounded-full hover:bg-[#00256e] transition w-full"
+              >
+                Download Press Kit
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Bio Content -->
+        <div class="md:col-span-2 space-y-8">
+          <!-- Bio Paragraph Sections -->
+          <div class="space-y-6 text-gray-700">
+            <p class="text-lg leading-relaxed">
+              Michael Cabrera's entrepreneurial journey began at age 13 on a red
+              Raleigh bicycle, delivering newspapers. That early hustle evolved into
+              two decades of leadership in healthcare, where he's scaled national
+              companies using a clear operational framework: People, Strategy,
+              Execution, and Cash.
+            </p>
+            
+            <p class="text-lg leading-relaxed">
+              As a graduate of MIT's Entrepreneurial Masters Program, Michael built
+              a radiology startup that grew 1,236% before being acquired by a public
+              company. But beyond the numbers, he's known for leading with empathy,
+              cultivating resilient teams, and merging purpose with performance.
+            </p>
+            
+            <p class="text-lg leading-relaxed">
+              His values extend beyond business. Through employee-led philanthropy,
+              he championed causes like Cystic Fibrosis and Autism. Recognized by
+              Inc. Magazine and the South Florida Business Journal, Michael
+              continues to mentor rising leaders while staying anchored in mission.
+            </p>
+
+            <blockquote
+              class="border-l-4 border-[#E6C378] pl-6 py-2 italic text-xl text-gray-600 my-8"
+            >
+              "Healthcare is personal. Let's treat it that way — with clarity,
+              compassion, and urgency."
+            </blockquote>
+          </div>
+
+          <!-- USRad Vision -->
+          <div class="pt-8 border-t border-gray-200">
+            <h2 class="text-2xl font-medium text-[#003087] mb-6">
+              Creating the Future of Medical Imaging
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-6 mt-6">
+              <div class="bg-[#f9f9f6] p-6 rounded-xl border shadow-sm">
+                <h3 class="text-lg font-semibold text-[#003087] mb-2">Our Mission</h3>
+                <p class="text-sm text-gray-700">
+                  To radically improve access to affordable, high-quality medical
+                  imaging — with transparency, empathy, and innovation at the core of
+                  every interaction.
+                </p>
+              </div>
+              
+              <div class="bg-[#f9f9f6] p-6 rounded-xl border shadow-sm">
+                <h3 class="text-lg font-semibold text-[#003087] mb-2">Our Vision</h3>
+                <p class="text-sm text-gray-700">
+                  A future where no patient delays care due to confusion, cost, or
+                  access — and where imaging centers thrive by aligning around shared
+                  values.
+                </p>
+              </div>
+              
+              <div class="bg-[#f9f9f6] p-6 rounded-xl border shadow-sm">
+                <h3 class="text-lg font-semibold text-[#003087] mb-2">Our Promise</h3>
+                <p class="text-sm text-gray-700">
+                  We treat every patient like family, offer honest pricing, and
+                  champion a care experience grounded in dignity, trust, and results.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Why Centers Partner - More Professional Format -->
+          <div class="pt-8 border-t border-gray-200">
+            <h2 class="text-2xl font-medium text-[#003087] mb-4">
+              Why Centers Partner with USRad
+            </h2>
+            <p class="text-gray-700">
+              Imaging centers join USRad to unlock volume, operational
+              simplicity, and mission-aligned growth. We send ready-to-schedule,
+              self-pay patients directly to your door — no middlemen, no platform
+              fees.
+            </p>
+            <p class="text-gray-700 mt-4">
+              With streamlined workflows, digital scheduling, and full transparency,
+              we remove the friction so centers can focus on what they do best:
+              delivering exceptional imaging care.
+            </p>
+          </div>
+
+          <!-- Contact CTA -->
+          <div class="pt-8">
+            <div class="flex justify-center md:justify-start">
+              <a
+                href="/contact"
+                class="inline-block bg-[#003087] text-white px-8 py-4 rounded-full hover:bg-[#00256e] transition"
+              >
+                Get in Touch
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer class="bg-[#003087] text-white" />
+</MainLayout>
