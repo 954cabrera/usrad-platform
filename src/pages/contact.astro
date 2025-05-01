@@ -1,74 +1,247 @@
 ---
-import Layout from "../layouts/MainLayout.astro";
+import MainLayout from "../layouts/MainLayout.astro";
 ---
 
-<Layout>
-  <section id="contact" class="contact-section fade-in">
-    <div class="outer-wrap">
-      <div class="container">
-        <!-- Form Column -->
-        <div class="form-column">
-          <h1>Contact Us</h1>
-          <p>
-            Whether you’re a patient or provider, we’re here to help you
-            navigate your imaging options with clarity and confidence.
-          </p>
+<MainLayout>
+  <fragment slot="title">Contact Us | USRad</fragment>
 
-          <form id="contact-form" novalidate>
-            <div class="field-group">
-              <label for="name">Full Name</label>
-              <input type="text" id="name" name="name" required />
-              <span class="error-message" id="name-error"></span>
-            </div>
-
-            <div class="field-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" required />
-              <span class="error-message" id="email-error"></span>
-            </div>
-
-            <div class="field-group">
-              <label for="message">Your Message</label>
-              <textarea id="message" name="message" rows="5" required
-              ></textarea>
-              <span class="error-message" id="message-error"></span>
-            </div>
-
-            <button type="submit">
-              <span class="button-label">Send Message</span>
-              <span class="spinner hidden" id="spinner"></span>
-            </button>
-          </form>
-
-          <div id="thank-you" class="thank-you hidden">
-            <div class="checkmark">✓</div>
-            <h2>Thank you!</h2>
-            <p>We've received your message and will be in touch shortly.</p>
+  <!-- Hero Section -->
+  <section class="contact-hero">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <h1>Contact Us</h1>
+        <p>
+          We’re here to make your imaging experience simple, clear, and
+          personal.
+        </p>
+        <p>
+          Reach out anytime — our team is ready to help you every step of the
+          way.
+        </p>
+      </div>
+      <div class="hero-image">
+        <img src="/images/contact-hero.png" alt="USRad Contact" />
+      </div>
+    </div>
+  </section>
+  <!-- Contact Info Cards -->
+  <section class="bg-fade-to-white py-24">
+    <div class="max-w-5xl mx-auto px-6">
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-y-16 md:gap-8 text-center"
+      >
+        <!-- Card 1 -->
+        <div>
+          <div class="icon-wrap">
+            <svg
+              class="icon"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 8l9 6 9-6M21 8v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"></path>
+            </svg>
           </div>
+          <h3 class="text-lg font-semibold text-slate-900 mb-2">Email Us</h3>
+          <p class="text-gray-600">support@usrad.com</p>
+          <a
+            href="mailto:support@usrad.com"
+            class="text-primary hover:underline inline-block mt-2"
+            >Send a Message →</a
+          >
         </div>
 
-        <!-- Right: Contact Info -->
-        <div class="info-column">
-          <div class="info-block">
-            <h4>Email</h4>
-            <p>support@usrad.com</p>
+        <!-- Card 2 -->
+        <div>
+          <div class="icon-wrap">
+            <svg
+              class="icon"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2 8.5V6a2 2 0 012-2h4l2 4-2 4H4a2 2 0 01-2-2v-1.5zM22 15.5V18a2 2 0 01-2 2h-4l-2-4 2-4h4a2 2 0 012 2v1.5z"
+              ></path>
+            </svg>
           </div>
-          <div class="info-block">
-            <h4>Phone</h4>
-            <p>1-800-USRAD-24</p>
+          <h3 class="text-lg font-semibold text-slate-900 mb-2">
+            Call Our Team
+          </h3>
+          <p class="text-gray-600">(800) 555-8723</p>
+          <a
+            href="tel:8005558723"
+            class="text-primary hover:underline inline-block mt-2">Call Now →</a
+          >
+        </div>
+
+        <!-- Card 3 -->
+        <div>
+          <div class="icon-wrap">
+            <svg
+              class="icon"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5s-3 1.343-3 3 1.343 3 3 3z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 22s8-4.5 8-10a8 8 0 10-16 0c0 5.5 8 10 8 10z"></path>
+            </svg>
           </div>
-          <div class="info-block">
-            <h4>Headquarters</h4>
-            <p>
-              123 Radiology Way, Suite 100<br />
-              Los Angeles, CA 90001
-            </p>
-          </div>
+          <h3 class="text-lg font-semibold text-slate-900 mb-2">
+            Find a Center
+          </h3>
+          <p class="text-gray-600">Search imaging locations near you.</p>
+          <a
+            href="/locations"
+            class="text-primary hover:underline inline-block mt-2"
+            >Browse Centers →</a
+          >
         </div>
       </div>
     </div>
   </section>
 
-  <script type="module" src="/scripts/contact.js"></script>
-  <link rel="stylesheet" href="/styles/contact.css" />
-</Layout>
+  <!-- Final CTA Section: Partner Invite -->
+  <section class="partner-invite" data-aos="fade-up" data-aos-delay="200">
+    <p>
+      Are you a medical imaging provider interested in partnering with USRad?
+    </p>
+    <a href="/partner" class="partner-link">Get Started →</a>
+  </section>
+</MainLayout>
+
+<style>
+  .contact-hero {
+    position: relative;
+    isolation: isolate;
+    background-image: linear-gradient(to bottom, #f5e7c5 0%, #ffffff 100%),
+      url("/images/texture-noise.png");
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+
+    background: linear-gradient(to bottom, #f5e7c5 0%, #ffffff 100%);
+
+    padding: 6rem 2rem 6rem 2rem;
+    color: #0e1b2a;
+  }
+
+  .hero-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+  }
+
+  .hero-content {
+    max-width: 600px;
+    text-align: left;
+  }
+
+  .hero-content h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .hero-content p {
+    font-size: 1.25rem;
+    margin-top: 0.75rem;
+    color: #374151;
+  }
+
+  .hero-image img {
+    mask-image: radial-gradient(
+      farthest-corner at 100% 100%,
+      black 70%,
+      transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      farthest-corner at 100% 100%,
+      black 70%,
+      transparent 100%
+    );
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (min-width: 768px) {
+    .hero-grid {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 2.25rem;
+    }
+
+    .hero-content p {
+      font-size: 1rem;
+    }
+  }
+  .bg-fade-to-white {
+    background: linear-gradient(to bottom, #ffffff 0%, #f9fafb 100%);
+  }
+
+  .icon-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .icon {
+    width: 48px;
+    height: 48px;
+    color: #e6c378;
+  }
+
+  .text-primary {
+    color: #e6c378;
+  }
+
+  .partner-invite {
+    background-color: #f9fafb;
+    text-align: center;
+    padding: 5rem 2rem;
+    font-size: 1.25rem;
+    color: #0e1b2a;
+  }
+
+  .partner-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #e6c378;
+    text-decoration: underline;
+    font-size: 1.25rem;
+  }
+
+  .partner-link:hover {
+    color: #d4b06a;
+  }
+</style>

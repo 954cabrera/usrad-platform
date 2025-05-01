@@ -1,226 +1,1044 @@
 ---
-import Counter from "../components/Counter.tsx";
 import MainLayout from "../layouts/MainLayout.astro";
-import Footer from "../components/Footer.astro";
+import MfgTabs from "../components/MfgTabs.astro";
+import FadeIn from "../components/FadeIn.astro";
 ---
 
 <MainLayout>
-  <head>
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" is:inline></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-    <script is:inline>
-      if (typeof window !== "undefined") {
-        AOS.init({ once: true });
-      }
-    </script>
-    <script is:inline>
-      document.addEventListener("DOMContentLoaded", () => {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting && !entry.target.dataset.started) {
-                const counter = entry.target;
-                const end = parseInt(counter.dataset.end);
-                let current = 0;
-                const increment = Math.ceil(end / 150);
+  <!-- Hero Story Block - Split Title Layout with SVG Illustrations -->
+  <section class="bg-[#f5e7c5] text-[#0e1b2a] py-32 px-6">
+    <div class="max-w-6xl mx-auto">
+      <!-- First Part: Problem Statement -->
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <!-- Left side with first part of title -->
+        <div>
+          <h1 class="text-5xl md:text-6xl font-semibold leading-tight mb-8">
+            The medical imaging system wasn't built for patients
+          </h1>
 
-                const update = () => {
-                  current += increment;
-                  if (current >= end) {
-                    current = end;
-                    clearInterval(timer);
-                  }
-                  counter.innerText = current.toLocaleString() + "+";
-                };
-
-                const timer = setInterval(update, 25);
-                counter.dataset.started = "true";
-                observer.unobserve(counter);
-              }
-            });
-          },
-          { threshold: 0.5 }
-        );
-
-        document.querySelectorAll("[data-counter]").forEach((el) => {
-          observer.observe(el);
-        });
-      });
-    </script>
-  </head>
-
-  <div class="bg-white text-gray-800 px-6 py-16 max-w-5xl mx-auto space-y-20">
-    <!-- Hero -->
-    <section class="space-y-6 text-center" data-aos="fade-up">
-      <h1 class="text-4xl font-semibold">About USRad</h1>
-      <p class="text-lg text-gray-600">
-        We're building a new kind of healthcare — one that puts people first.
-        Rooted in empathy, backed by expertise, and powered by purpose.
-      </p>
-    </section>
-
-    <!-- Founder -->
-    <section
-      class="flex flex-col md:flex-row items-center gap-8"
-      data-aos="fade-up"
-      data-aos-delay="100"
-    >
-      <div
-        class="relative w-48 h-48 rounded-full overflow-hidden border border-gray-300 ring-1 ring-white group shrink-0 shadow-2xl"
-      >
-        <div
-          class="absolute inset-0 rounded-full bg-blue-100 opacity-50 blur-3xl z-0"
-        >
+          <p class="text-xl md:text-2xl text-[#374151] leading-relaxed">
+            For too long, patients have been left to navigate medical imaging on
+            their own — unclear prices, long wait times, inconsistent equipment
+            quality, and little to no transparency about who's reading their
+            scans.
+          </p>
         </div>
+
+        <!-- Right side with Problem illustration -->
+        <div>
+          <!-- Problem Illustration SVG -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 600 300"
+            class="w-full h-auto max-h-[80vh] object-cover rounded-xl shadow-2xl"
+          >
+            <!-- SVG content from usrad-problem-illustration -->
+            <!-- Background -->
+            <rect width="600" height="300" fill="#f5e7c5" fill-opacity="0.3"
+            ></rect>
+
+            <!-- System Elements -->
+            <!-- Complex Maze/Web -->
+            <g opacity="0.15">
+              <path
+                d="M50,50 L550,50 L550,250 L50,250 Z"
+                fill="none"
+                stroke="#0e1b2a"
+                stroke-width="2"></path>
+              <path d="M50,100 L500,100" stroke="#0e1b2a" stroke-width="1.5"
+              ></path>
+              <path d="M50,150 L500,150" stroke="#0e1b2a" stroke-width="1.5"
+              ></path>
+              <path d="M50,200 L500,200" stroke="#0e1b2a" stroke-width="1.5"
+              ></path>
+              <path d="M100,50 L100,250" stroke="#0e1b2a" stroke-width="1.5"
+              ></path>
+              <path d="M200,50 L200,250" stroke="#0e1b2a" stroke-width="1.5"
+              ></path>
+              <path d="M300,50 L300,250" stroke="#0e1b2a" stroke-width="1.5"
+              ></path>
+              <path d="M400,50 L400,250" stroke="#0e1b2a" stroke-width="1.5"
+              ></path>
+              <path d="M500,50 L500,250" stroke="#0e1b2a" stroke-width="1.5"
+              ></path>
+            </g>
+
+            <!-- Patient Lost in System -->
+            <g>
+              <!-- Patient -->
+              <circle
+                cx="150"
+                cy="150"
+                r="20"
+                fill="#f8f0e3"
+                stroke="#0e1b2a"
+                stroke-width="2"></circle>
+              <!-- Head -->
+              <line
+                x1="150"
+                y1="170"
+                x2="150"
+                y2="210"
+                stroke="#0e1b2a"
+                stroke-width="2"></line>
+              <!-- Body -->
+              <line
+                x1="150"
+                y1="180"
+                x2="130"
+                y2="200"
+                stroke="#0e1b2a"
+                stroke-width="2"></line>
+              <!-- Left Arm -->
+              <line
+                x1="150"
+                y1="180"
+                x2="170"
+                y2="200"
+                stroke="#0e1b2a"
+                stroke-width="2"></line>
+              <!-- Right Arm -->
+              <line
+                x1="150"
+                y1="210"
+                x2="135"
+                y2="240"
+                stroke="#0e1b2a"
+                stroke-width="2"></line>
+              <!-- Left Leg -->
+              <line
+                x1="150"
+                y1="210"
+                x2="165"
+                y2="240"
+                stroke="#0e1b2a"
+                stroke-width="2"></line>
+              <!-- Right Leg -->
+
+              <!-- Confused Expression -->
+              <circle cx="143" cy="145" r="3" fill="#0e1b2a"></circle>
+              <!-- Left Eye -->
+              <circle cx="157" cy="145" r="3" fill="#0e1b2a"></circle>
+              <!-- Right Eye -->
+              <path
+                d="M143,160 Q150,155 157,160"
+                stroke="#0e1b2a"
+                stroke-width="1.5"
+                fill="none"></path>
+              <!-- Frown -->
+
+              <!-- Question Marks Around Patient -->
+              <text
+                x="120"
+                y="120"
+                font-family="Arial"
+                font-size="24"
+                font-weight="bold"
+                fill="#0e1b2a"
+                opacity="0.7">?</text
+              >
+              <text
+                x="180"
+                y="130"
+                font-family="Arial"
+                font-size="24"
+                font-weight="bold"
+                fill="#0e1b2a"
+                opacity="0.7">?</text
+              >
+              <text
+                x="170"
+                y="170"
+                font-family="Arial"
+                font-size="24"
+                font-weight="bold"
+                fill="#0e1b2a"
+                opacity="0.7">?</text
+              >
+              <text
+                x="110"
+                y="180"
+                font-family="Arial"
+                font-size="24"
+                font-weight="bold"
+                fill="#0e1b2a"
+                opacity="0.7">?</text
+              >
+            </g>
+
+            <!-- System Problems -->
+            <g>
+              <!-- Pricing Confusion -->
+              <circle
+                cx="300"
+                cy="120"
+                r="25"
+                fill="#f8f0e3"
+                stroke="#0e1b2a"
+                stroke-width="1.5"></circle>
+              <text
+                x="300"
+                y="128"
+                font-family="Arial"
+                font-size="24"
+                font-weight="bold"
+                text-anchor="middle"
+                fill="#0e1b2a">$</text
+              >
+              <text
+                x="300"
+                y="140"
+                font-family="Arial"
+                font-size="8"
+                font-weight="bold"
+                text-anchor="middle"
+                fill="#0e1b2a">???</text
+              >
+              <text
+                x="300"
+                y="158"
+                font-family="Arial"
+                font-size="12"
+                text-anchor="middle"
+                fill="#0e1b2a">Unclear Pricing</text
+              >
+
+              <!-- Long Wait Clock -->
+              <circle
+                cx="400"
+                cy="120"
+                r="25"
+                fill="#f8f0e3"
+                stroke="#0e1b2a"
+                stroke-width="1.5"></circle>
+              <circle
+                cx="400"
+                cy="120"
+                r="20"
+                fill="none"
+                stroke="#0e1b2a"
+                stroke-width="1"></circle>
+              <line
+                x1="400"
+                y1="120"
+                x2="400"
+                y2="105"
+                stroke="#0e1b2a"
+                stroke-width="1.5"></line>
+              <!-- Hour Hand -->
+              <line
+                x1="400"
+                y1="120"
+                x2="412"
+                y2="120"
+                stroke="#0e1b2a"
+                stroke-width="1.5"></line>
+              <!-- Minute Hand -->
+              <text
+                x="400"
+                y="158"
+                font-family="Arial"
+                font-size="12"
+                text-anchor="middle"
+                fill="#0e1b2a">Long Wait Times</text
+              >
+
+              <!-- Scattered Documents - Low Transparency -->
+              <g transform="translate(500,110) rotate(10)">
+                <rect
+                  width="30"
+                  height="40"
+                  fill="#f8f0e3"
+                  stroke="#0e1b2a"
+                  stroke-width="1"></rect>
+                <line
+                  x1="5"
+                  y1="10"
+                  x2="25"
+                  y2="10"
+                  stroke="#0e1b2a"
+                  stroke-width="1"></line>
+                <line
+                  x1="5"
+                  y1="15"
+                  x2="25"
+                  y2="15"
+                  stroke="#0e1b2a"
+                  stroke-width="1"></line>
+                <line
+                  x1="5"
+                  y1="20"
+                  x2="20"
+                  y2="20"
+                  stroke="#0e1b2a"
+                  stroke-width="1"></line>
+              </g>
+              <g transform="translate(485,115) rotate(-5)">
+                <rect
+                  width="30"
+                  height="40"
+                  fill="#f8f0e3"
+                  stroke="#0e1b2a"
+                  stroke-width="1"></rect>
+                <line
+                  x1="5"
+                  y1="10"
+                  x2="25"
+                  y2="10"
+                  stroke="#0e1b2a"
+                  stroke-width="1"></line>
+                <line
+                  x1="5"
+                  y1="15"
+                  x2="25"
+                  y2="15"
+                  stroke="#0e1b2a"
+                  stroke-width="1"></line>
+                <line
+                  x1="5"
+                  y1="20"
+                  x2="20"
+                  y2="20"
+                  stroke="#0e1b2a"
+                  stroke-width="1"></line>
+              </g>
+              <text
+                x="500"
+                y="168"
+                font-family="Arial"
+                font-size="12"
+                text-anchor="middle"
+                fill="#0e1b2a">No Transparency</text
+              >
+
+              <!-- Poor Quality -->
+              <circle
+                cx="300"
+                cy="210"
+                r="25"
+                fill="#f8f0e3"
+                stroke="#0e1b2a"
+                stroke-width="1.5"></circle>
+              <text
+                x="300"
+                y="215"
+                font-family="Arial"
+                font-size="11"
+                font-weight="bold"
+                text-anchor="middle"
+                fill="#0e1b2a">QUALITY?</text
+              >
+              <line
+                x1="285"
+                y1="210"
+                x2="315"
+                y2="210"
+                stroke="#0e1b2a"
+                stroke-width="1"
+                opacity="0.5"></line>
+              <text
+                x="300"
+                y="248"
+                font-family="Arial"
+                font-size="12"
+                text-anchor="middle"
+                fill="#0e1b2a">Inconsistent Quality</text
+              >
+
+              <!-- "Who's Reading?" -->
+              <circle
+                cx="400"
+                cy="210"
+                r="25"
+                fill="#f8f0e3"
+                stroke="#0e1b2a"
+                stroke-width="1.5"></circle>
+              <path
+                d="M390,205 C390,195 410,195 410,205"
+                stroke="#0e1b2a"
+                stroke-width="1.5"
+                fill="none"></path>
+              <!-- Head outline -->
+              <circle
+                cx="400"
+                cy="205"
+                r="10"
+                fill="none"
+                stroke="#0e1b2a"
+                stroke-width="1"
+                opacity="0.6"></circle>
+              <text
+                x="400"
+                y="210"
+                font-family="Arial"
+                font-size="16"
+                font-weight="bold"
+                text-anchor="middle"
+                fill="#0e1b2a">?</text
+              >
+              <text
+                x="400"
+                y="248"
+                font-family="Arial"
+                font-size="12"
+                text-anchor="middle"
+                fill="#0e1b2a">Unknown Radiologist</text
+              >
+
+              <!-- Stressed Patient -->
+              <g transform="translate(500,210)">
+                <circle
+                  cx="0"
+                  cy="0"
+                  r="25"
+                  fill="#f8f0e3"
+                  stroke="#0e1b2a"
+                  stroke-width="1.5"></circle>
+                <path d="M-15,-5 L15,-5" stroke="#0e1b2a" stroke-width="1.5"
+                ></path>
+                <!-- Straight mouth -->
+                <path d="M-7,-10 L-3,-15" stroke="#0e1b2a" stroke-width="1.5"
+                ></path>
+                <!-- Left eyebrow -->
+                <path d="M7,-10 L3,-15" stroke="#0e1b2a" stroke-width="1.5"
+                ></path>
+                <!-- Right eyebrow -->
+                <circle cx="-7" cy="-7" r="2" fill="#0e1b2a"></circle>
+                <!-- Left eye -->
+                <circle cx="7" cy="-7" r="2" fill="#0e1b2a"></circle>
+                <!-- Right eye -->
+                <text
+                  x="0"
+                  y="38"
+                  font-family="Arial"
+                  font-size="12"
+                  text-anchor="middle"
+                  fill="#0e1b2a">Patient Anxiety</text
+                >
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Visual divider -->
+      <div class="my-16 w-full h-px bg-[#003087] opacity-30"></div>
+
+      <!-- Second Part: Solution Statement -->
+      <div>
+        <h1
+          class="text-5xl md:text-6xl font-semibold leading-tight text-[#003087] mb-8"
+        >
+          But we are.
+        </h1>
+
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+          <!-- Left side with Solution illustration -->
+          <div>
+            <!-- Solution Illustration SVG -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 600 300"
+              class="w-full h-auto max-h-[80vh] object-cover rounded-xl shadow-2xl"
+            >
+              <!-- SVG content from usrad-solution-illustration -->
+              <!-- Background with slight brand color -->
+              <rect width="600" height="300" fill="#f5e7c5" fill-opacity="0.3"
+              ></rect>
+
+              <!-- Clear Path -->
+              <path
+                d="M50,150 C120,130 200,170 300,150 C400,130 480,170 550,150"
+                stroke="#003087"
+                stroke-width="3"
+                fill="none"
+                opacity="0.7"></path>
+              <path
+                d="M50,160 C120,140 200,180 300,160 C400,140 480,180 550,160"
+                stroke="#003087"
+                stroke-width="1"
+                fill="none"
+                opacity="0.3"></path>
+              <path
+                d="M50,140 C120,120 200,160 300,140 C400,120 480,160 550,140"
+                stroke="#003087"
+                stroke-width="1"
+                fill="none"
+                opacity="0.3"></path>
+
+              <!-- Happy Patient Moving Along Path -->
+              <g>
+                <!-- Patient at Start -->
+                <circle
+                  cx="100"
+                  cy="150"
+                  r="20"
+                  fill="#f8f0e3"
+                  stroke="#003087"
+                  stroke-width="2"></circle>
+                <!-- Head -->
+                <line
+                  x1="100"
+                  y1="170"
+                  x2="100"
+                  y2="210"
+                  stroke="#003087"
+                  stroke-width="2"></line>
+                <!-- Body -->
+                <line
+                  x1="100"
+                  y1="180"
+                  x2="80"
+                  y2="200"
+                  stroke="#003087"
+                  stroke-width="2"></line>
+                <!-- Left Arm -->
+                <line
+                  x1="100"
+                  y1="180"
+                  x2="120"
+                  y2="200"
+                  stroke="#003087"
+                  stroke-width="2"></line>
+                <!-- Right Arm -->
+                <line
+                  x1="100"
+                  y1="210"
+                  x2="85"
+                  y2="240"
+                  stroke="#003087"
+                  stroke-width="2"></line>
+                <!-- Left Leg -->
+                <line
+                  x1="100"
+                  y1="210"
+                  x2="115"
+                  y2="240"
+                  stroke="#003087"
+                  stroke-width="2"></line>
+                <!-- Right Leg -->
+
+                <!-- Neutral Expression -->
+                <circle cx="93" cy="145" r="3" fill="#003087"></circle>
+                <!-- Left Eye -->
+                <circle cx="107" cy="145" r="3" fill="#003087"></circle>
+                <!-- Right Eye -->
+                <path
+                  d="M93,160 Q100,158 107,160"
+                  stroke="#003087"
+                  stroke-width="1.5"
+                  fill="none"></path>
+                <!-- Small smile -->
+              </g>
+
+              <!-- USRad Solution Components -->
+              <g>
+                <!-- Clear Pricing -->
+                <circle
+                  cx="200"
+                  cy="100"
+                  r="25"
+                  fill="#f8f0e3"
+                  stroke="#003087"
+                  stroke-width="1.5"></circle>
+                <text
+                  x="200"
+                  y="108"
+                  font-family="Arial"
+                  font-size="22"
+                  font-weight="bold"
+                  text-anchor="middle"
+                  fill="#003087">$</text
+                >
+                <line
+                  x1="190"
+                  y1="115"
+                  x2="210"
+                  y2="115"
+                  stroke="#003087"
+                  stroke-width="1"></line>
+                <text
+                  x="200"
+                  y="138"
+                  font-family="Arial"
+                  font-size="12"
+                  text-anchor="middle"
+                  fill="#003087">Clear Pricing</text
+                >
+
+                <!-- Quick Scheduling -->
+                <circle
+                  cx="300"
+                  cy="100"
+                  r="25"
+                  fill="#f8f0e3"
+                  stroke="#003087"
+                  stroke-width="1.5"></circle>
+                <rect
+                  x="285"
+                  y="90"
+                  width="30"
+                  height="25"
+                  rx="2"
+                  fill="none"
+                  stroke="#003087"
+                  stroke-width="1"></rect>
+                <line
+                  x1="285"
+                  y1="96"
+                  x2="315"
+                  y2="96"
+                  stroke="#003087"
+                  stroke-width="1"></line>
+                <text
+                  x="290"
+                  y="103"
+                  font-family="Arial"
+                  font-size="10"
+                  fill="#003087">1</text
+                >
+                <text
+                  x="300"
+                  y="138"
+                  font-family="Arial"
+                  font-size="12"
+                  text-anchor="middle"
+                  fill="#003087">Same/Next-Day</text
+                >
+                <text
+                  x="300"
+                  y="153"
+                  font-family="Arial"
+                  font-size="12"
+                  text-anchor="middle"
+                  fill="#003087">Scheduling</text
+                >
+
+                <!-- Board Certified Radiologists -->
+                <circle
+                  cx="400"
+                  cy="100"
+                  r="25"
+                  fill="#f8f0e3"
+                  stroke="#003087"
+                  stroke-width="1.5"></circle>
+                <path
+                  d="M390,95 C390,85 410,85 410,95"
+                  stroke="#003087"
+                  stroke-width="1.5"
+                  fill="none"></path>
+                <!-- Head outline -->
+                <rect x="385" y="95" width="30" height="5" fill="#003087"
+                ></rect>
+                <rect
+                  x="390"
+                  y="95"
+                  width="20"
+                  height="15"
+                  rx="2"
+                  fill="none"
+                  stroke="#003087"
+                  stroke-width="1"></rect>
+                <text
+                  x="400"
+                  y="138"
+                  font-family="Arial"
+                  font-size="12"
+                  text-anchor="middle"
+                  fill="#003087">Board-Certified</text
+                >
+                <text
+                  x="400"
+                  y="153"
+                  font-family="Arial"
+                  font-size="12"
+                  text-anchor="middle"
+                  fill="#003087">Radiologists</text
+                >
+
+                <!-- All-Inclusive Price -->
+                <circle
+                  cx="500"
+                  cy="100"
+                  r="25"
+                  fill="#f8f0e3"
+                  stroke="#003087"
+                  stroke-width="1.5"></circle>
+                <text
+                  x="500"
+                  y="105"
+                  font-family="Arial"
+                  font-size="18"
+                  font-weight="bold"
+                  text-anchor="middle"
+                  fill="#003087">✓</text
+                >
+                <text
+                  x="500"
+                  y="138"
+                  font-family="Arial"
+                  font-size="12"
+                  text-anchor="middle"
+                  fill="#003087">All-Inclusive</text
+                >
+                <text
+                  x="500"
+                  y="153"
+                  font-family="Arial"
+                  font-size="12"
+                  text-anchor="middle"
+                  fill="#003087">Price</text
+                >
+
+                <!-- Expert Support -->
+                <circle
+                  cx="200"
+                  cy="210"
+                  r="25"
+                  fill="#f8f0e3"
+                  stroke="#003087"
+                  stroke-width="1.5"></circle>
+                <circle cx="190" cy="205" r="4" fill="#003087"></circle>
+                <!-- Left Eye -->
+                <circle cx="210" cy="205" r="4" fill="#003087"></circle>
+                <!-- Right Eye -->
+                <path
+                  d="M190,220 Q200,225 210,220"
+                  stroke="#003087"
+                  stroke-width="1.5"
+                  fill="none"></path>
+                <!-- Smile -->
+                <text
+                  x="200"
+                  y="248"
+                  font-family="Arial"
+                  font-size="12"
+                  text-anchor="middle"
+                  fill="#003087">Expert Support</text
+                >
+
+                <!-- Top-Tier Imaging Centers -->
+                <circle
+                  cx="300"
+                  cy="210"
+                  r="25"
+                  fill="#f8f0e3"
+                  stroke="#003087"
+                  stroke-width="1.5"></circle>
+                <rect
+                  x="285"
+                  y="200"
+                  width="30"
+                  height="20"
+                  rx="2"
+                  fill="none"
+                  stroke="#003087"
+                  stroke-width="1"></rect>
+                <path
+                  d="M285,200 L300,190 L315,200"
+                  fill="none"
+                  stroke="#003087"
+                  stroke-width="1"></path>
+                <text
+                  x="300"
+                  y="248"
+                  font-family="Arial"
+                  font-size="12"
+                  text-anchor="middle"
+                  fill="#003087">Top-Tier Centers</text
+                >
+
+                <!-- Transparency -->
+                <circle
+                  cx="400"
+                  cy="210"
+                  r="25"
+                  fill="#f8f0e3"
+                  stroke="#003087"
+                  stroke-width="1.5"
+                  fill-opacity="0.7"></circle>
+                <text
+                  x="400"
+                  y="215"
+                  font-family="Arial"
+                  font-size="24"
+                  font-weight="bold"
+                  text-anchor="middle"
+                  fill="#003087"
+                  fill-opacity="0.7">i</text
+                >
+                <text
+                  x="400"
+                  y="248"
+                  font-family="Arial"
+                  font-size="12"
+                  text-anchor="middle"
+                  fill="#003087">Full Transparency</text
+                >
+              </g>
+
+              <!-- Happy Patient at End of Path -->
+              <g>
+                <!-- Patient at End -->
+                <circle
+                  cx="500"
+                  cy="210"
+                  r="20"
+                  fill="#f8f0e3"
+                  stroke="#003087"
+                  stroke-width="2"></circle>
+                <!-- Head -->
+                <line
+                  x1="500"
+                  y1="230"
+                  x2="500"
+                  y2="270"
+                  stroke="#003087"
+                  stroke-width="2"></line>
+                <!-- Body -->
+                <line
+                  x1="500"
+                  y1="240"
+                  x2="520"
+                  y2="250"
+                  stroke="#003087"
+                  stroke-width="2"></line>
+                <!-- Right Arm Up/Waving -->
+                <line
+                  x1="500"
+                  y1="240"
+                  x2="485"
+                  y2="255"
+                  stroke="#003087"
+                  stroke-width="2"></line>
+                <!-- Left Arm -->
+                <line
+                  x1="500"
+                  y1="270"
+                  x2="485"
+                  y2="300"
+                  stroke="#003087"
+                  stroke-width="2"></line>
+                <!-- Left Leg -->
+                <line
+                  x1="500"
+                  y1="270"
+                  x2="515"
+                  y2="300"
+                  stroke="#003087"
+                  stroke-width="2"></line>
+                <!-- Right Leg -->
+
+                <!-- Happy Expression -->
+                <circle cx="493" cy="205" r="3" fill="#003087"></circle>
+                <!-- Left Eye -->
+                <circle cx="507" cy="205" r="3" fill="#003087"></circle>
+                <!-- Right Eye -->
+                <path
+                  d="M493,220 Q500,225 507,220"
+                  stroke="#003087"
+                  stroke-width="1.5"
+                  fill="none"></path>
+                <!-- Big smile -->
+
+                <!-- Satisfaction Indicator -->
+                <text
+                  x="500"
+                  y="278"
+                  font-family="Arial"
+                  font-size="12"
+                  text-anchor="middle"
+                  fill="#003087">Satisfied Patient</text
+                >
+              </g>
+            </svg>
+          </div>
+
+          <!-- Right side with content -->
+          <div>
+            <p class="text-xl md:text-2xl text-[#374151] leading-relaxed mb-8">
+              At USRad, we're changing that. We provide direct access to
+              top-tier imaging centers, ensure all radiologists are
+              board-certified, and deliver same-day or next-day scheduling at
+              one all-inclusive price. We stand by you with expert support every
+              step of the way.
+            </p>
+
+            <a
+              href="/schedule"
+              class="inline-block bg-[#003087] text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all"
+            >
+              Experience the Difference →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rest of the page content remains the same -->
+  <!-- Our Mission Section with Increased Spacing -->
+  <section
+    class="py-40 bg-white text-gray-800 px-6 md:px-12"
+    data-aos="fade-up"
+  >
+    <div class="max-w-7xl mx-auto">
+      <!-- Heading with ample space -->
+      <div class="mb-20 max-w-4xl">
+        <h2 class="text-5xl md:text-6xl font-semibold leading-tight mb-6">
+          We're creating a new standard
+        </h2>
+        <p
+          class="text-3xl md:text-4xl text-[#003087] font-medium leading-relaxed"
+        >
+          Where trust matters more than convenience
+        </p>
+      </div>
+
+      <!-- Content and image with generous spacing -->
+      <div class="grid md:grid-cols-2 gap-24 items-center">
+        <div class="space-y-12">
+          <p class="text-xl md:text-2xl text-gray-700 leading-relaxed">
+            A future where patients schedule high-quality imaging as easily as
+            booking a flight—digitally, confidently, and affordably.
+          </p>
+          <p class="text-xl md:text-2xl text-gray-700 leading-relaxed">
+            A future where every scan is powered by advanced equipment,
+            interpreted by certified experts, and delivered with care.
+          </p>
+          <p class="text-xl md:text-2xl text-gray-700 italic">
+            Because radiology shouldn't feel clinical. It should feel human.
+          </p>
+        </div>
+
+        <div class="ml-auto">
+          <img
+            src="/images/patient-smiling.jpg"
+            alt="Satisfied patient after imaging procedure"
+            class="w-full h-auto max-w-lg object-cover rounded-xl shadow-2xl"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Approach Section -->
+  <section
+    class="py-32 flex items-center bg-[#f9f9f9] text-gray-800 px-6"
+    data-aos="fade-up"
+  >
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div class="space-y-8 order-2 md:order-1">
+        <h2 class="text-5xl md:text-6xl font-semibold">
+          Clarity at every step
+        </h2>
+        <p class="text-xl md:text-2xl text-gray-700">
+          From transparent pricing to rapid results delivery, we've reimagined
+          the entire patient journey to eliminate confusion and anxiety.
+        </p>
+        <p class="text-xl md:text-2xl text-gray-700">
+          Our expert radiologists and state-of-the-art technology ensure you
+          receive the highest quality care without the premium price tag.
+        </p>
+      </div>
+      <div class="order-1 md:order-2">
         <img
-          src="/images/michael.jpg"
-          alt="Founder Photo"
-          class="object-cover w-full h-full transition-transform duration-700 ease-in-out group-hover:scale-105 relative z-10 shadow-2xl"
+          src="/images/tech-patient.png"
+          alt="Technologist assisting patient with MRI procedure"
+          class="w-full h-auto max-h-[80vh] object-cover rounded-xl shadow-2xl"
         />
       </div>
+    </div>
+  </section>
 
-      <div class="space-y-4">
-        <h2 class="text-2xl font-medium">Meet the Founder</h2>
-        <p class="text-gray-700 leading-relaxed">
-          Michael Cabrera’s entrepreneurial journey began at age 13 on a red
-          Raleigh bicycle, delivering newspapers. That early hustle evolved into
-          two decades of leadership in healthcare, where he’s scaled national
-          companies using a clear operational framework: People, Strategy,
-          Execution, and Cash.
-        </p>
-        <p class="text-gray-700 leading-relaxed">
-          As a graduate of MIT’s Entrepreneurial Masters Program, Michael built
-          a radiology startup that grew 1,236% before being acquired by a public
-          company. But beyond the numbers, he’s known for leading with empathy,
-          cultivating resilient teams, and merging purpose with performance.
-        </p>
-        <p class="text-gray-700 leading-relaxed">
-          His values extend beyond business. Through employee-led philanthropy,
-          he championed causes like Cystic Fibrosis and Autism. Recognized by
-          Inc. Magazine and the South Florida Business Journal, Michael
-          continues to mentor rising leaders while staying anchored in mission.
-        </p>
-        <blockquote
-          class="border-l-4 border-[#E6C378] pl-4 italic text-gray-600 text-lg mt-4"
-        >
-          “Healthcare is personal. Let’s treat it that way — with clarity,
-          compassion, and urgency.”
-        </blockquote>
+  <!-- Our Technology Section -->
+  <section
+    class="py-32 flex items-center bg-white text-gray-800 px-6"
+    data-aos="fade-up"
+  >
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div>
+        <img
+          src="/images/alt-tech-patient.png"
+          alt="Advanced medical imaging technology"
+          class="w-full h-auto max-h-[80vh] object-cover rounded-xl shadow-2xl"
+        />
       </div>
-    </section>
+      <div class="space-y-8">
+        <h2 class="text-5xl md:text-6xl font-semibold">
+          State-of-the-art equipment
+        </h2>
+        <p class="text-xl md:text-2xl text-gray-700">
+          We partner with leading manufacturers to provide access to the most
+          advanced imaging technologies, ensuring precise diagnoses and
+          exceptional image quality.
+        </p>
+        <p class="text-xl md:text-2xl text-gray-700">
+          Our network of facilities features equipment from Siemens, GE,
+          Philips, and other trusted brands in the medical imaging industry.
+        </p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Recognition -->
-    <section
-      class="bg-[#f9f9f6] border border-gray-200 rounded-xl p-6 shadow-sm space-y-4"
-      data-aos="fade-up"
-      data-aos-delay="200"
-    >
-      <h3 class="text-xl font-semibold text-gray-800">
-        Highlights & Recognition
-      </h3>
-      <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
-        <li>🏆 Entrepreneur of the Year – South Florida Business Journal</li>
-        <li>📈 INC 500 – Fastest Growing Private Companies (#210)</li>
-        <li>💼 1,236% Startup Growth → Acquired by Public Company</li>
-        <li>🎓 Graduate, MIT Entrepreneurial Masters Program</li>
-        <li>🌱 Founder, Employee-Led Philanthropy Initiative</li>
-        <li>🎤 Mentor, FIU Inspiring Futures Program</li>
-      </ul>
-      <div class="text-center pt-4">
+  <!-- Manufacturer Partnerships -->
+  <MfgTabs />
+
+  <!-- Founder Belief Block -->
+  <section class="py-32 px-6 bg-[#fdfdfc] text-gray-800">
+    <div class="max-w-5xl mx-auto space-y-8 text-center">
+      <h2 class="text-5xl md:text-6xl font-semibold">
+        We've walked this path before — and we're here to lead it again.
+      </h2>
+      <p class="text-xl md:text-2xl text-gray-700">
+        We founded USRad with the same conviction that fueled our last journey:
+        that patients deserve more. Not just access — but advocacy. Not just
+        imaging — but insight. Not just price transparency — but peace of mind.
+      </p>
+      <p class="text-xl md:text-2xl text-gray-700">
+        Back in 1994, we helped change the game for tens of thousands of
+        patients nationwide. Today, we're doing it again — but this time,
+        directly for the people who need it most.
+      </p>
+      <p class="text-xl md:text-2xl text-gray-700">
+        Whether you're uninsured, underinsured, or simply tired of navigating a
+        broken system, you deserve the same gold-standard care trusted by
+        Fortune 500 companies, insurers, and health plans for decades.
+      </p>
+      <p class="text-xl md:text-2xl font-medium text-[#003087] italic">
+        And this time, the system works for you.
+      </p>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section
+    class="py-32 flex items-center bg-[#003087] text-white px-6"
+    data-aos="fade-up"
+  >
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div class="space-y-8 order-2 md:order-1">
+        <h2 class="text-5xl md:text-6xl font-semibold">
+          We're here to restore clarity in care
+        </h2>
+        <p class="text-xl md:text-2xl">
+          Whether you're a patient, a provider, or a partner — USRad exists to
+          serve. And we're just getting started.
+        </p>
         <a
-          href="/docs/founder-presskit.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-block bg-[#003087] text-white px-6 py-2 rounded-full hover:bg-[#00256e] transition"
+          href="/contact"
+          class="inline-block bg-white text-[#003087] font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all"
         >
-          Download Press Kit
+          Join the Movement →
         </a>
       </div>
-    </section>
-
-    <!-- Mission, Vision, Promise -->
-    <section class="space-y-6" data-aos="fade-up" data-aos-delay="300">
-      <h2 class="text-2xl font-medium text-center">
-        Our Mission, Vision & Promise
-      </h2>
-      <div class="grid md:grid-cols-3 gap-6 mt-6">
-        <div
-          class="bg-[#f9f9f6] p-6 rounded-xl border shadow-sm hover:shadow-md transition"
-        >
-          <h3 class="text-lg font-semibold text-[#003087] mb-2">Our Mission</h3>
-          <p class="text-sm text-gray-700">
-            To radically improve access to affordable, high-quality medical
-            imaging — with transparency, empathy, and innovation at the core of
-            every interaction.
-          </p>
-        </div>
-        <div
-          class="bg-[#f9f9f6] p-6 rounded-xl border shadow-sm hover:shadow-md transition"
-        >
-          <h3 class="text-lg font-semibold text-[#003087] mb-2">Our Vision</h3>
-          <p class="text-sm text-gray-700">
-            A future where no patient delays care due to confusion, cost, or
-            access — and where imaging centers thrive by aligning around shared
-            values.
-          </p>
-        </div>
-        <div
-          class="bg-[#f9f9f6] p-6 rounded-xl border shadow-sm hover:shadow-md transition"
-        >
-          <h3 class="text-lg font-semibold text-[#003087] mb-2">Our Promise</h3>
-          <p class="text-sm text-gray-700">
-            We treat every patient like family, offer honest pricing, and
-            champion a care experience grounded in dignity, trust, and results.
-          </p>
-        </div>
+      <div class="order-1 md:order-2">
+        <img
+          src="/images/contact-hero.png"
+          alt="USRad team members"
+          class="w-full h-auto max-h-[80vh] object-cover rounded-xl shadow-2xl"
+        />
       </div>
-    </section>
-
-    <!-- Animated Impact Number -->
-    <section class="text-center pt-12" data-aos="fade-up" data-aos-delay="400">
-      <h3 class="text-3xl font-semibold" data-counter data-end="400000">0+</h3>
-      <p class="text-gray-600 mt-4 mb-6 text-sm">
-        From launch to acquisition, we served over 400,000 imaging procedures —
-        one scan, one story at a time.
-      </p>
-    </section>
-
-    <!-- Why Centers Partner -->
-    <section
-      class="space-y-6 text-center bg-[#f9fafb] py-12 px-6 rounded-xl"
-      data-aos="fade-up"
-      data-aos-delay="450"
-    >
-      <h2 class="text-2xl font-medium">Why Centers Partner with USRad</h2>
-      <p class="text-gray-700 max-w-3xl mx-auto">
-        Imaging centers join USRad to unlock volume, operational
-        simplicity, and mission-aligned growth. We send ready-to-schedule,
-        self-pay patients directly to your door — no middlemen, no platform
-        fees.
-      </p>
-      <p class="text-gray-700 max-w-3xl mx-auto">
-        With streamlined workflows, digital scheduling, and full transparency,
-        we remove the friction so centers can focus on what they do best:
-        delivering exceptional imaging care.
-      </p>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="text-center pt-12" data-aos="fade-up" data-aos-delay="500">
-      <h3 class="text-xl font-semibold">
-        Join us in changing healthcare for good.
-      </h3>
-      <p class="text-gray-600 mt-2 mb-4">
-        Whether you're a center ready to grow or a patient seeking clarity —
-        we're here to connect you to care that works.
-      </p>
-      <a
-        href="/contact"
-        class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition"
-      >
-        Contact Us
-      </a>
-    </section>
-  </div>
-  <Footer />
+    </div>
+  </section>
 </MainLayout>
