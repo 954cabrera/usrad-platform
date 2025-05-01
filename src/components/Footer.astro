@@ -11,13 +11,13 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
           <div class="footer-brand">
             <div class="flex items-center gap-3 mb-2">
               <img
-                src="/logo/USRad-Logo-final.png"
+                src="/logo/USRad-Logo-final-white-text.png"
                 alt="USRad Logo"
                 class="footer-logo"
               />
               <a
                 href="/"
-                class="small-caps text-blue-900 tracking-wide text-sm font-semibold hover:text-[#e6c378] transition-colors"
+                class="small-caps text-white tracking-wide text-sm font-semibold hover:text-[#e6c378] transition-colors"
               >
                 Clarity
               </a>
@@ -64,39 +64,39 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
           <div
             style="all: unset; display: flex; flex-direction: column; align-items: flex-start;"
           >
-            <h4 style="font-size: 1rem; margin-bottom: 1rem; color: #0e1b2a;">
+            <h4 style="font-size: 1rem; margin-bottom: 1rem; color: #ffffff;">
               Connect
             </h4>
             <a
               href="#"
-              style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; text-decoration: none; color: #0e1b2a;"
+              class="social-link"
             >
               <img
                 src="/icons/facebook.svg"
                 alt="Facebook"
-                style="width: 20px; height: 20px;"
+                class="social-icon"
               />
               <span>Facebook</span>
             </a>
             <a
               href="#"
-              style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; text-decoration: none; color: #0e1b2a;"
+              class="social-link"
             >
               <img
                 src="/icons/twitter.svg"
                 alt="Twitter"
-                style="width: 20px; height: 20px;"
+                class="social-icon"
               />
               <span>Twitter</span>
             </a>
             <a
               href="#"
-              style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #0e1b2a;"
+              class="social-link"
             >
               <img
                 src="/icons/linkedin.svg"
                 alt="LinkedIn"
-                style="width: 20px; height: 20px;"
+                class="social-icon"
               />
               <span>LinkedIn</span>
             </a>
@@ -133,8 +133,8 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
 
       <style>
         .site-footer {
-          background-color: #ffffff;
-          color: #0e1b2a;
+          background-color: #003087;
+          color: #ffffff;
           padding: 4rem 2rem 2rem;
           font-size: 0.875rem;
           position: relative;
@@ -165,13 +165,13 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
 
         .footer-copy {
           font-size: 0.75rem;
-          color: #475569;
+          color: #f1f5f9;
         }
 
         .footer-columns h4 {
           font-size: 1rem;
           margin-bottom: 1rem;
-          color: #0e1b2a;
+          color: #ffffff;
         }
 
         .footer-columns ul {
@@ -186,10 +186,11 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
 
         .footer-columns a {
           position: relative;
-          color: #0e1b2a;
+          color: #ffffff;
           font-size: .875rem;
           text-decoration: none;
-          transition: color 0.3s ease;
+          transition: all 0.3s ease;
+          display: inline-block;
         }
 
         .footer-columns a::after {
@@ -207,6 +208,7 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
 
         .footer-columns a:hover {
           color: #e6c378;
+          transform: translateY(-2px);
         }
 
         .footer-columns a:hover::after {
@@ -233,18 +235,29 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          color: #0e1b2a;
+          color: #ffffff;
           text-decoration: none;
-          transition: color 0.3s ease;
+          transition: all 0.3s ease;
+          margin-bottom: 0.5rem;
+          padding: 0.25rem;
+          border-radius: 0.25rem;
         }
 
         .social-link:hover {
           color: #e6c378;
+          transform: translateX(5px);
+          background-color: rgba(255, 255, 255, 0.1);
         }
 
-        .social-link img {
+        .social-icon {
           width: 20px;
           height: 20px;
+          filter: brightness(0) invert(1);
+          transition: transform 0.3s ease;
+        }
+        
+        .social-link:hover .social-icon {
+          transform: scale(1.2) rotate(5deg);
         }
 
         .small-caps {
@@ -256,7 +269,7 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
           bottom: 1.5rem;
           right: 1.5rem;
           background-color: #e6c378;
-          color: #0e1b2a;
+          color: #003087;
           border: none;
           padding: 0.75rem 1.25rem;
           border-radius: 9999px;
@@ -266,11 +279,13 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
           cursor: pointer;
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
           z-index: 9999;
-          transition: background-color 0.3s ease;
+          transition: all 0.3s ease;
         }
 
         .chatbot-toggle:hover {
           background-color: #f1d8a1;
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
 
         .chatbot-window {
@@ -302,7 +317,7 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
         }
 
         .chatbot-header {
-          background: #0e1b2a;
+          background: #003087;
           color: #ffffff;
           padding: 0.75rem 1rem;
           font-variant: small-caps;
@@ -350,18 +365,36 @@ const { chatbotLabel = "💬 Chat" } = Astro.props;
         }
 
         .chat-form button {
-          background: #0e1b2a;
+          background: #003087;
           color: #ffffff;
           border: none;
           padding: 0 1.25rem;
           cursor: pointer;
           font-weight: 600;
           font-size: 0.875rem;
-          transition: background 0.3s ease;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .chat-form button::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 0;
+          background: rgba(255, 255, 255, 0.1);
+          transition: all 0.3s ease;
         }
 
         .chat-form button:hover {
-          background: #1e293b;
+          background: #00459e;
+          transform: scale(1.05);
+        }
+        
+        .chat-form button:hover::before {
+          height: 100%;
         }
       </style>
     </FadeIn>

@@ -9,6 +9,49 @@
   html {
     font-family: 'Manrope', sans-serif;
   }
+  
+  /* Global link transitions */
+  a {
+    @apply transition-all duration-300;
+  }
+  
+  /* Primary button hover effects */
+  .btn-primary, 
+  a[class*="bg-[#003087]"], 
+  button[class*="bg-[#003087]"] {
+    @apply transition-all duration-300 hover:shadow-xl hover:scale-105;
+  }
+  
+  /* Outlined button hover effects with fill animation */
+  .btn-outline,
+  a[class*="border"][class*="text-[#003087]"],
+  button[class*="border"][class*="text-[#003087]"] {
+    @apply relative overflow-hidden transition-all duration-300;
+  }
+  
+  .btn-outline::before,
+  a[class*="border"][class*="text-[#003087]"]::before,
+  button[class*="border"][class*="text-[#003087]"]::before {
+    content: "";
+    @apply absolute top-0 left-0 w-full h-0 bg-[#003087] bg-opacity-10 transition-all duration-300;
+    z-index: -1;
+  }
+  
+  .btn-outline:hover::before,
+  a[class*="border"][class*="text-[#003087]"]:hover::before,
+  button[class*="border"][class*="text-[#003087]"]:hover::before {
+    @apply h-full;
+  }
+  
+  /* Active state for transitions */
+  .is-active {
+    @apply transform scale-105 opacity-70;
+  }
+  
+  /* Smooth transitions for all interactive elements */
+  a, button, .btn, .nav-link, [role="button"] {
+    @apply transition-all duration-300 ease-in-out transform hover:scale-[1.03];
+  }
 }
 
 /* Input field styling */

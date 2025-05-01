@@ -12,6 +12,7 @@ import '../styles/global.css';
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script is:inline>
       if (typeof window !== "undefined") {
+        // Navbar scroll effect
         window.addEventListener("scroll", () => {
           const navbar = document.querySelector(".navbar");
           if (window.scrollY > 10) {
@@ -19,6 +20,25 @@ import '../styles/global.css';
           } else {
             navbar.classList.remove("navbar-scrolled");
           }
+        });
+        
+        // Add hover effect to all links and buttons for better transitions
+        document.addEventListener("DOMContentLoaded", () => {
+          // Apply hover state before navigation for smoother transitions
+          document.querySelectorAll('a, button').forEach(element => {
+            element.addEventListener('click', function(e) {
+              // Only apply to non-external links
+              if (this.tagName === 'A' && this.getAttribute('href') && !this.getAttribute('href').startsWith('http') && !this.getAttribute('href').startsWith('#')) {
+                e.preventDefault();
+                this.classList.add('is-active');
+                
+                // Navigate after transition completes
+                setTimeout(() => {
+                  window.location.href = this.getAttribute('href');
+                }, 300);
+              }
+            });
+          });
         });
       }
     </script>
@@ -106,16 +126,20 @@ import '../styles/global.css';
         color: #0e1b2a;
         font-size: 1rem;
         transition:
-          color 0.2s ease,
-          border-bottom 0.2s ease;
+          color 0.3s ease,
+          border-bottom 0.3s ease,
+          transform 0.3s ease;
         border-bottom: 2px solid transparent;
         padding-bottom: 2px;
+        position: relative;
+        display: inline-block;
       }
 
       .nav-links a:hover,
       .utility-nav a:hover {
         color: #e6c378;
         border-bottom: 2px solid #e6c378;
+        transform: translateY(-2px);
       }
 
       .main-content {
