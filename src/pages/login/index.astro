@@ -5,7 +5,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Login Gateway</title>
+    <title>Login Gateway | USRad</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       *,
       *::before,
@@ -17,19 +23,18 @@
       body {
         margin: 0;
         padding: 0;
-        font-family: "Segoe UI", sans-serif;
+        font-family: "Montserrat", sans-serif;
         height: 100%;
         overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         position: relative;
-        transition: opacity 0.3s ease-out;
+        transition: opacity 0.5s ease-out;
       }
 
       body {
-        background: url("/images/med0089d.jpg") no-repeat center center fixed;
-        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #003087 0%, #001a4d 100%);
       }
 
       body::before {
@@ -39,8 +44,8 @@
         left: 0;
         height: 100%;
         width: 100%;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e6c378' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.5;
         z-index: 0;
       }
 
@@ -48,25 +53,76 @@
         opacity: 0;
       }
 
-      .card {
+      .gateway-container {
+        max-width: 1200px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 2rem;
         position: relative;
         z-index: 1;
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        border-radius: 16px;
-        padding: 2rem 2.5rem;
-        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
-        width: 100%;
-        max-width: 400px;
+      }
+
+      .header {
         text-align: center;
-        animation: fadeIn 0.6s ease-out;
+        margin-bottom: 2.5rem;
+      }
+
+      .logo {
+        max-width: 220px;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+      }
+
+      .header h1 {
+        color: white;
+        font-size: 2.25rem;
+        font-weight: 300;
+        letter-spacing: 1.2px;
+        margin: 0;
+      }
+
+      .tagline {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.1rem;
+        font-weight: 300;
+        letter-spacing: 1px;
+        margin-top: 0.75rem;
+        max-width: 580px;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        width: 100%;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 16px;
+        border-left: 3px solid #e6c378;
+        padding: 2rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: fadeIn 0.8s ease-out;
       }
 
       @keyframes fadeIn {
         from {
           opacity: 0;
-          transform: translateY(30px);
+          transform: translateY(20px);
         }
         to {
           opacity: 1;
@@ -74,50 +130,54 @@
         }
       }
 
-      .logo {
-        max-width: 180px;
-        margin: 0 auto 1.5rem;
-        display: block;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        background: white;
+      }
+
+      .card:active {
+        transform: translateY(0);
+      }
+
+      .card-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        background: rgba(0, 48, 135, 0.08);
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #003087;
       }
 
       .card h2 {
-        color: white;
-        font-size: 1.75rem;
-        margin-bottom: 1.5rem;
-        letter-spacing: 0.5px;
-      }
-
-      .role-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .role-buttons button {
-        position: relative;
-        padding: 0.8rem 1.2rem;
-        font-size: 1rem;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        background: rgba(255, 255, 255, 0.8);
-        color: #1e3c72;
+        font-size: 1.25rem;
         font-weight: 600;
-        overflow: hidden;
-        transition: all 0.25s ease;
+        color: #003087;
+        margin: 0 0 0.5rem;
       }
 
-      .role-buttons button:hover {
-        background: white;
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.6);
-        transform: scale(1.03);
+      .card p {
+        font-size: 0.95rem;
+        color: #555;
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      .footer {
+        margin-top: 3rem;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.85rem;
       }
 
       .ripple {
         position: absolute;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.4);
+        background: rgba(230, 195, 120, 0.4);
         animation: ripple-animation 0.6s linear;
         transform: scale(0);
         pointer-events: none;
@@ -130,49 +190,95 @@
         }
       }
 
-      @media (max-width: 600px) {
-        .card {
-          padding: 1.5rem;
+      @media (max-width: 900px) {
+        .cards {
+          grid-template-columns: 1fr;
+          max-width: 420px;
         }
 
-        .card h2 {
-          font-size: 1.5rem;
+        .header h1 {
+          font-size: 1.8rem;
+        }
+
+        .logo {
+          max-width: 180px;
         }
       }
     </style>
   </head>
   <body>
-    <div class="card">
-      <img
-        src="/logo/USRad-Logo-final-gold-text.png"
-        alt="USRad Logo"
-        class="logo"
-      />
-      <h2>Select Login Type</h2>
-      <div class="role-buttons">
-        <button data-role="patient">👤 Patient</button>
-        <button data-role="center">🏥 Imaging Center</button>
-        <button data-role="referral">🩺 Referring Physician</button>
+    <div class="gateway-container">
+      <div class="header">
+        <img
+          src="/logo/USRad-Logo-final-gold-text.png"
+          alt="USRad Logo"
+          class="logo"
+        />
+        <h1>Your Medical Imaging Experience, Elevated</h1>
+        <p class="tagline">
+          Select your portal to access transparent, high-quality imaging
+          services tailored to your needs.
+        </p>
       </div>
+
+      <div class="cards">
+        <div class="card" data-role="patient">
+          <div class="card-icon">👤</div>
+          <h2>Patient Portal</h2>
+          <p>
+            Schedule appointments, view results, and manage your imaging care
+            journey.
+          </p>
+        </div>
+
+        <div class="card" data-role="center">
+          <div class="card-icon">🏥</div>
+          <h2>Imaging Center Portal</h2>
+          <p>
+            Manage appointments, access reporting tools, and optimize your
+            center operations.
+          </p>
+        </div>
+
+        <div class="card" data-role="referral">
+          <div class="card-icon">🩺</div>
+          <h2>Physician Portal</h2>
+          <p>
+            Refer patients, review diagnostic results, and collaborate with
+            radiologists.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">&copy; 2025 USRad. All rights reserved.</div>
     </div>
 
     <script>
       function handleClick(event) {
-        const button = event.currentTarget;
-        const role = button.getAttribute("data-role");
+        let target = event.currentTarget;
+        if (!target.classList.contains("card")) {
+          target = target.closest(".card");
+        }
+
+        const role = target.getAttribute("data-role");
 
         // Ripple
         const ripple = document.createElement("span");
-        const diameter = Math.max(button.clientWidth, button.clientHeight);
-        const radius = diameter / 2;
+        const rect = target.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
         ripple.classList.add("ripple");
-        ripple.style.width = ripple.style.height = `${diameter}px`;
-        ripple.style.left = `${event.offsetX - radius}px`;
-        ripple.style.top = `${event.offsetY - radius}px`;
+        ripple.style.width = ripple.style.height = `${size}px`;
 
-        const oldRipple = button.querySelector(".ripple");
+        // Calculate ripple position based on click or center of element
+        const x = event.clientX ? event.clientX - rect.left : rect.width / 2;
+        const y = event.clientY ? event.clientY - rect.top : rect.height / 2;
+
+        ripple.style.left = `${x - size / 2}px`;
+        ripple.style.top = `${y - size / 2}px`;
+
+        const oldRipple = target.querySelector(".ripple");
         if (oldRipple) oldRipple.remove();
-        button.appendChild(ripple);
+        target.appendChild(ripple);
 
         // Fade-out and redirect
         document.body.classList.add("fade-out");
@@ -183,13 +289,17 @@
             referral: "/login/referrallogin",
           };
           window.location.href = pathMap[role] || "/login";
-        }, 300);
+        }, 500);
       }
 
       document.addEventListener("DOMContentLoaded", () => {
-        document
-          .querySelectorAll("button[data-role]")
-          .forEach((btn) => btn.addEventListener("click", handleClick));
+        document.querySelectorAll(".card").forEach((card) => {
+          card.addEventListener("click", handleClick);
+          // Also handle clicks on children elements
+          card.querySelectorAll(".card-icon, h2, p").forEach((element) => {
+            element.addEventListener("click", handleClick);
+          });
+        });
       });
     </script>
   </body>
