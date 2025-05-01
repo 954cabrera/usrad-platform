@@ -27,7 +27,6 @@
         height: 100%;
         overflow: hidden;
         position: relative;
-        transition: opacity 0.5s ease-out;
       }
 
       body {
@@ -49,9 +48,6 @@
         z-index: 0;
       }
 
-      body.fade-out {
-        opacity: 0;
-      }
 
       .gateway-container {
         max-width: 1200px;
@@ -109,35 +105,16 @@
         padding: 2rem;
         text-align: center;
         cursor: pointer;
-        transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         display: flex;
         flex-direction: column;
         align-items: center;
-        animation: fadeIn 0.8s ease-out;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
       }
 
       .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
         background: white;
-      }
-
-      .card:active {
-        transform: translateY(0);
       }
 
       .card-icon {
@@ -174,21 +151,6 @@
         font-size: 0.85rem;
       }
 
-      .ripple {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(230, 195, 120, 0.4);
-        animation: ripple-animation 0.6s linear;
-        transform: scale(0);
-        pointer-events: none;
-      }
-
-      @keyframes ripple-animation {
-        to {
-          transform: scale(4);
-          opacity: 0;
-        }
-      }
 
       @media (max-width: 900px) {
         .cards {
@@ -252,54 +214,41 @@
 
       <div class="footer">&copy; 2025 USRad. All rights reserved.</div>
     </div>
-
+    
     <script>
       function handleClick(event) {
+        event.preventDefault();
+        
         let target = event.currentTarget;
-        if (!target.classList.contains("card")) {
-          target = target.closest(".card");
+        if (!target.classList.contains('card')) {
+          target = target.closest('.card');
         }
-
+        
+        // Get the role for navigation
         const role = target.getAttribute("data-role");
-
-        // Ripple
-        const ripple = document.createElement("span");
-        const rect = target.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        ripple.classList.add("ripple");
-        ripple.style.width = ripple.style.height = `${size}px`;
-
-        // Calculate ripple position based on click or center of element
-        const x = event.clientX ? event.clientX - rect.left : rect.width / 2;
-        const y = event.clientY ? event.clientY - rect.top : rect.height / 2;
-
-        ripple.style.left = `${x - size / 2}px`;
-        ripple.style.top = `${y - size / 2}px`;
-
-        const oldRipple = target.querySelector(".ripple");
-        if (oldRipple) oldRipple.remove();
-        target.appendChild(ripple);
-
-        // Fade-out and redirect
-        document.body.classList.add("fade-out");
-        setTimeout(() => {
-          const pathMap = {
-            patient: "/login/patientlogin",
-            center: "/login/imaginglogin",
-            referral: "/login/referrallogin",
-          };
-          window.location.href = pathMap[role] || "/login";
-        }, 500);
+        
+        // No animations, no transitions - just redirect immediately
+        const pathMap = {
+          patient: "/login/patientlogin",
+          center: "/login/imaginglogin",
+          referral: "/login/referrallogin",
+        };
+        window.location.href = pathMap[role] || "/login";
       }
 
       document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll(".card").forEach((card) => {
-          card.addEventListener("click", handleClick);
-          // Also handle clicks on children elements
-          card.querySelectorAll(".card-icon, h2, p").forEach((element) => {
-            element.addEventListener("click", handleClick);
+        document
+          .querySelectorAll(".card")
+          .forEach((card) => {
+            card.addEventListener("click", handleClick);
+            // Add event listeners to children elements
+            card.querySelectorAll('.card-icon, h2, p').forEach(element => {
+              element.addEventListener('click', e => {
+                e.stopPropagation(); // Prevent bubbling
+                handleClick(e);
+              });
+            });
           });
-        });
       });
     </script>
   </body>
