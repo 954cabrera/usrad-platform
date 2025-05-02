@@ -5,6 +5,29 @@
 @tailwind components;
 @tailwind utilities;
 
+.abstract-medical-accent {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.08;
+  z-index: 0;
+}
+
+.accent-top-right {
+  top: 60px;
+  right: 40px;
+  background-image: url('/images/neural-network-top-right.svg');
+}
+
+.accent-bottom-left {
+  bottom: 40px;
+  left: 60px;
+  background-image: url('/images/neural-network-bottom-left.svg');
+}
+
+
 @layer base {
   html {
     font-family: 'Manrope', sans-serif;
