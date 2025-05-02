@@ -1,20 +1,24 @@
 <!-- Market Opportunity Section with MRI Background -->
-<section class="py-24 brain-mri-bg bg-[#fcf9f0] text-gray-800 relative">
+<section class="py-24 brain-mri-bg bg-[#fcf9f0] text-gray-800 relative overflow-hidden">
+  <!-- Subtle pattern overlay -->
+  <div class="absolute inset-0 bg-repeat opacity-[0.03]" style="background-image: url('/images/subtle-pattern.svg');"></div>
+  
   <!-- Abstract decorative element - positioned absolutely -->
   <div class="abstract-medical-accent" style="top: 60px; right: 40px;"></div>
   
-  <div class="max-w-6xl mx-auto px-6 relative-z-1">
-    <!-- Your existing Market Opportunity content goes here -->
-    <div class="grid md:grid-cols-2 gap-16 items-center">
-      <!-- Image side -->
-      <div class="relative">
-        <img 
-          src="/images/market-opportunity.jpg" 
-          alt="Growing Market Opportunity" 
-          class="w-full h-auto rounded-xl shadow-xl relative z-10"
-        />
-        <div class="absolute -bottom-4 -left-4 w-24 h-24 rounded-full bg-[#e6c378] opacity-20"></div>
-      </div>
+  <div class="px-6 sm:px-8 lg:px-12">
+    <div class="max-w-7xl mx-auto relative z-10">
+      <!-- Your existing Market Opportunity content goes here -->
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <!-- Image side -->
+        <div class="relative">
+          <img 
+            src="/images/market-opportunity.jpg" 
+            alt="Growing Market Opportunity" 
+            class="w-full h-auto rounded-xl shadow-xl relative z-10"
+          />
+          <div class="absolute -bottom-4 -left-4 w-24 h-24 rounded-full bg-[#e6c378] opacity-20"></div>
+        </div>
       
       <!-- Content side -->
       <div class="space-y-6" data-aos="fade-left">
@@ -50,4 +54,7 @@
   
   <!-- Second abstract element - positioned at bottom -->
   <div class="abstract-medical-accent" style="bottom: 40px; left: 60px;"></div>
+  
+  <!-- Visual element for continuity with next section -->
+  <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-white opacity-30"></div>
 </section>
