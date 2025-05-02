@@ -10,50 +10,94 @@ import FadeIn from "../components/FadeIn.astro";
       quality.
     </p>
 
-    <div class="steps">
-      <FadeIn delay={100}>
-        <div class="step">
-          <div class="icon">🩺</div>
-          <h3>Tell Us What You Need</h3>
-          <p>
-            Pick your scan — like a brain, knee, or spine MRI. No referral
-            needed. A prescription is still required.
-          </p>
+    <div class="steps-container">
+      <!-- Step 1 -->
+      <div class="step-row">
+        <!-- Number on left side for steps 1 and 3 -->
+        <div class="md:w-1/2 flex justify-end pr-8 md:pr-12 relative">
+          <div class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20">1</div>
+          <div class="absolute top-1/2 right-0 w-12 h-1 bg-[#e6c378] opacity-70 transform -translate-y-1/2 z-10"></div>
         </div>
-      </FadeIn>
+        <!-- Content on right side for steps 1 and 3 -->
+        <div class="md:w-1/2">
+          <FadeIn delay={100}>
+            <div class="step">
+              <div class="icon">🩺</div>
+              <h3>Tell Us What You Need</h3>
+              <p>
+                Pick your scan — like a brain, knee, or spine MRI. No referral
+                needed. A prescription is still required.
+              </p>
+            </div>
+          </FadeIn>
+        </div>
+      </div>
 
-      <FadeIn delay={200}>
-        <div class="step">
-          <div class="icon">📍</div>
-          <h3>Get Matched Instantly</h3>
-          <p>
-            SmartMatch™ finds the best nearby imaging center for your scan and
-            diagnosis.
-          </p>
+      <!-- Step 2 -->
+      <div class="step-row">
+        <!-- Content on left side for steps 2 and 4 -->
+        <div class="md:w-1/2">
+          <FadeIn delay={200}>
+            <div class="step">
+              <div class="icon">📍</div>
+              <h3>Get Matched Instantly</h3>
+              <p>
+                SmartMatch™ finds the best nearby imaging center for your scan and
+                diagnosis.
+              </p>
+            </div>
+          </FadeIn>
         </div>
-      </FadeIn>
+        <!-- Number on right side for steps 2 and 4 -->
+        <div class="md:w-1/2 flex justify-start pl-8 md:pl-12 relative">
+          <div class="absolute top-1/2 left-0 w-12 h-1 bg-[#e6c378] opacity-70 transform -translate-y-1/2 z-10"></div>
+          <div class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20">2</div>
+        </div>
+      </div>
 
-      <FadeIn delay={300}>
-        <div class="step">
-          <div class="icon">💳</div>
-          <h3>See Your Price, Lock It In</h3>
-          <p>
-            Transparent pricing with no hidden fees. Pay online to lock in your
-            rate.
-          </p>
+      <!-- Step 3 -->
+      <div class="step-row">
+        <!-- Number on left side for steps 1 and 3 -->
+        <div class="md:w-1/2 flex justify-end pr-8 md:pr-12 relative">
+          <div class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20">3</div>
+          <div class="absolute top-1/2 right-0 w-12 h-1 bg-[#e6c378] opacity-70 transform -translate-y-1/2 z-10"></div>
         </div>
-      </FadeIn>
+        <!-- Content on right side for steps 1 and 3 -->
+        <div class="md:w-1/2">
+          <FadeIn delay={300}>
+            <div class="step">
+              <div class="icon">💳</div>
+              <h3>See Your Price, Lock It In</h3>
+              <p>
+                Transparent pricing with no hidden fees. Pay online to lock in your
+                rate.
+              </p>
+            </div>
+          </FadeIn>
+        </div>
+      </div>
 
-      <FadeIn delay={400}>
-        <div class="step">
-          <div class="icon">📄</div>
-          <h3>Receive Fast Results</h3>
-          <p>
-            Your scan is interpreted by a board-certified radiologist and
-            securely delivered to you.
-          </p>
+      <!-- Step 4 -->
+      <div class="step-row">
+        <!-- Content on left side for steps 2 and 4 -->
+        <div class="md:w-1/2">
+          <FadeIn delay={400}>
+            <div class="step">
+              <div class="icon">📄</div>
+              <h3>Receive Fast Results</h3>
+              <p>
+                Your scan is interpreted by a board-certified radiologist and
+                securely delivered to you.
+              </p>
+            </div>
+          </FadeIn>
         </div>
-      </FadeIn>
+        <!-- Number on right side for steps 2 and 4 -->
+        <div class="md:w-1/2 flex justify-start pl-8 md:pl-12 relative">
+          <div class="absolute top-1/2 left-0 w-12 h-1 bg-[#e6c378] opacity-70 transform -translate-y-1/2 z-10"></div>
+          <div class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20">4</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -82,10 +126,23 @@ import FadeIn from "../components/FadeIn.astro";
     margin-bottom: 3rem;
   }
 
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+  .steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .step-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .step-row {
+      flex-direction: row;
+      align-items: center;
+    }
   }
 
   .step {
@@ -94,6 +151,7 @@ import FadeIn from "../components/FadeIn.astro";
     padding: 2rem;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     transition: all 0.7s ease-out;
+    height: 100%;
   }
 
   .icon {

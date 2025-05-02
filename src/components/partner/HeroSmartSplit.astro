@@ -1,68 +1,66 @@
 <!-- HeroSmartSplit.astro - Hero Only -->
-<section class="bg-white pt-20 px-6 lg:px-12">
-  <div
-    class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center"
-  >
-    <!-- LEFT: HEADLINE + CTA -->
-    <div class="space-y-6" data-aos="fade-right">
-      <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-        Simpler imaging partnerships.<br />
-        Stronger patient pipelines.
-      </h1>
-      <p class="text-lg text-gray-600">
-        USRad connects your center to thousands of self-pay patients—no
-        referrals required, no tech overhead. Schedule faster. Get paid quicker.
-        Expand smarter.
-      </p>
-      <div class="flex gap-4 flex-wrap">
-        <!-- Apply Now CTA with Pulsating Effect -->
-        <a
-          href="/partner/apply"
-          class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-blue-700 hover:shadow-lg transition-all pulse-button"
-        >
-          Apply Now to Join the Network
-        </a>
-      </div>
-    </div>
-
-    <!-- RIGHT: UI CLUSTER -->
-    <div class="relative w-full h-full" data-aos="fade-left">
-      <div
-        class="relative bg-gray-100 p-6 rounded-3xl shadow-lg overflow-hidden max-w-md mx-auto space-y-6"
-      >
-        <img
-          src="/images/hero-radiologist-reading-brain.png"
-          alt="Radiologist reading brain MRI"
-          class="w-full h-56 object-cover rounded-xl shadow"
-        />
-
-        <!-- UI card: SmartMatch -->
-        <div
-          class="bg-white p-4 rounded-xl shadow flex items-center justify-between"
-        >
-          <div>
-            <p class="text-sm text-gray-500">New SmartMatch™</p>
-            <p class="text-md font-semibold text-gray-900">Patient: Lisa D.</p>
-            <p class="text-xs text-blue-600">Location: Atlanta, GA</p>
-          </div>
-          <button class="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-lg"
-            >View</button
-          >
+<section class="py-24 bg-[#f0f4f9] text-gray-800">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <!-- Left column - preserved original headline and text content -->
+      <div class="space-y-6" data-aos="fade-right">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-semibold text-[#003087] leading-tight">
+          Simpler imaging partnerships.
+        </h1>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-medium text-[#003087] leading-tight">
+          Stronger patient pipelines.
+        </h2>
+        <div class="h-1 w-48 bg-[#e6c378] rounded-full"></div>
+        <p class="text-xl text-gray-700 mt-6">
+          USRad connects your center to thousands of self-pay patients—no
+          referrals required, no tech overhead. Schedule faster. Get paid quicker.
+          Expand smarter.
+        </p>
+        <div class="mt-8">
+          <a href="/partner/apply" class="inline-block bg-[#003087] text-white px-8 py-4 rounded-full hover:bg-[#002266] transition-all hover:shadow-lg border-l-4 border-[#e6c378] pulse-button">
+            Apply Now to Join the Network
+          </a>
         </div>
+      </div>
+      
+      <!-- Right column - preserved original content in luxury format -->
+      <div class="relative" data-aos="fade-left">
+        <div class="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-[#e6c378] opacity-20"></div>
+        <div class="relative bg-white p-6 rounded-3xl shadow-xl overflow-hidden max-w-md mx-auto space-y-6 z-10">
+          <img
+            src="/images/hero-radiologist-reading-brain.png"
+            alt="Radiologist reading brain MRI"
+            class="w-full h-56 object-cover rounded-xl shadow-md"
+          />
 
-        <!-- Metrics -->
-        <div class="flex justify-between text-center text-sm text-gray-600">
-          <div>
-            <p class="font-bold text-lg text-blue-700">82%</p>
-            <p>Faster Pay</p>
+          <!-- UI card: SmartMatch -->
+          <div
+            class="bg-white p-4 rounded-xl shadow-md flex items-center justify-between border-l-2 border-[#e6c378]"
+          >
+            <div>
+              <p class="text-sm text-gray-500">New SmartMatch™</p>
+              <p class="text-md font-semibold text-gray-900">Patient: Lisa D.</p>
+              <p class="text-xs text-[#003087]">Location: Atlanta, GA</p>
+            </div>
+            <button class="text-sm bg-[#f0f4f9] text-[#003087] px-3 py-1 rounded-lg hover:bg-[#e6c378] hover:text-white transition-colors"
+              >View</button
+            >
           </div>
-          <div>
-            <p class="font-bold text-lg text-blue-700">12 min</p>
-            <p>Avg Scheduling</p>
-          </div>
-          <div>
-            <p class="font-bold text-lg text-blue-700">4.9★</p>
-            <p>Center Rating</p>
+
+          <!-- Metrics -->
+          <div class="flex justify-between text-center text-sm text-gray-600">
+            <div>
+              <p class="font-bold text-lg text-[#003087]">82%</p>
+              <p>Faster Pay</p>
+            </div>
+            <div>
+              <p class="font-bold text-lg text-[#003087]">12 min</p>
+              <p>Avg Scheduling</p>
+            </div>
+            <div>
+              <p class="font-bold text-lg text-[#003087]">4.9★</p>
+              <p>Center Rating</p>
+            </div>
           </div>
         </div>
       </div>
