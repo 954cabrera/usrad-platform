@@ -1,8 +1,7 @@
 ---
-import FadeIn from "../components/FadeIn.astro";
 ---
 
-<section class="how-it-works">
+<section class="py-24 bg-[#fffaf0] text-gray-800">
   <div class="container">
     <h2>How Clarity Works</h2>
     <p class="subtitle">
@@ -15,12 +14,14 @@ import FadeIn from "../components/FadeIn.astro";
       <div class="step-row">
         <!-- Number on left side for steps 1 and 3 -->
         <div class="md:w-1/2 flex justify-end pr-8 md:pr-12 relative">
-          <div class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20">1</div>
+          <div class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20">
+            1
+          </div>
           <div class="absolute top-1/2 right-0 w-12 h-1 bg-[#e6c378] opacity-70 transform -translate-y-1/2 z-10"></div>
         </div>
         <!-- Content on right side for steps 1 and 3 -->
         <div class="md:w-1/2">
-          <FadeIn delay={100}>
+          <div class="relative z-10 mb-16" data-aos="fade-right" data-aos-delay="100">
             <div class="step">
               <div class="icon">🩺</div>
               <h3>Tell Us What You Need</h3>
@@ -29,7 +30,7 @@ import FadeIn from "../components/FadeIn.astro";
                 needed. A prescription is still required.
               </p>
             </div>
-          </FadeIn>
+          </div>
         </div>
       </div>
 
@@ -37,7 +38,7 @@ import FadeIn from "../components/FadeIn.astro";
       <div class="step-row">
         <!-- Content on left side for steps 2 and 4 -->
         <div class="md:w-1/2">
-          <FadeIn delay={200}>
+          <div class="relative z-10 mb-16" data-aos="fade-left" data-aos-delay="200">
             <div class="step">
               <div class="icon">📍</div>
               <h3>Get Matched Instantly</h3>
@@ -46,12 +47,14 @@ import FadeIn from "../components/FadeIn.astro";
                 diagnosis.
               </p>
             </div>
-          </FadeIn>
+          </div>
         </div>
         <!-- Number on right side for steps 2 and 4 -->
         <div class="md:w-1/2 flex justify-start pl-8 md:pl-12 relative">
           <div class="absolute top-1/2 left-0 w-12 h-1 bg-[#e6c378] opacity-70 transform -translate-y-1/2 z-10"></div>
-          <div class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20">2</div>
+          <div class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20">
+            2
+          </div>
         </div>
       </div>
 
@@ -59,12 +62,14 @@ import FadeIn from "../components/FadeIn.astro";
       <div class="step-row">
         <!-- Number on left side for steps 1 and 3 -->
         <div class="md:w-1/2 flex justify-end pr-8 md:pr-12 relative">
-          <div class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20">3</div>
+          <div class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20">
+            3
+          </div>
           <div class="absolute top-1/2 right-0 w-12 h-1 bg-[#e6c378] opacity-70 transform -translate-y-1/2 z-10"></div>
         </div>
         <!-- Content on right side for steps 1 and 3 -->
         <div class="md:w-1/2">
-          <FadeIn delay={300}>
+          <div class="relative z-10 mb-16" data-aos="fade-right" data-aos-delay="300">
             <div class="step">
               <div class="icon">💳</div>
               <h3>See Your Price, Lock It In</h3>
@@ -73,7 +78,7 @@ import FadeIn from "../components/FadeIn.astro";
                 rate.
               </p>
             </div>
-          </FadeIn>
+          </div>
         </div>
       </div>
 
@@ -81,7 +86,7 @@ import FadeIn from "../components/FadeIn.astro";
       <div class="step-row">
         <!-- Content on left side for steps 2 and 4 -->
         <div class="md:w-1/2">
-          <FadeIn delay={400}>
+          <div class="relative z-10 mb-8" data-aos="fade-left" data-aos-delay="400">
             <div class="step">
               <div class="icon">📄</div>
               <h3>Receive Fast Results</h3>
@@ -90,14 +95,24 @@ import FadeIn from "../components/FadeIn.astro";
                 securely delivered to you.
               </p>
             </div>
-          </FadeIn>
+          </div>
         </div>
         <!-- Number on right side for steps 2 and 4 -->
         <div class="md:w-1/2 flex justify-start pl-8 md:pl-12 relative">
           <div class="absolute top-1/2 left-0 w-12 h-1 bg-[#e6c378] opacity-70 transform -translate-y-1/2 z-10"></div>
-          <div class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20">4</div>
+          <div class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20">
+            4
+          </div>
         </div>
       </div>
+    </div>
+    
+    <div class="flex justify-center mt-8" data-aos="zoom-in" data-aos-delay="500">
+      <a href="/schedule" class="btn btn-primary">Schedule Your Scan</a>
+    </div>
+    
+    <div class="text-center mt-16" data-aos="fade-up" data-aos-delay="600">
+      <p>Need help? <a href="/contact" class="text-[#003087] font-medium">Contact our team</a></p>
     </div>
   </div>
 </section>
@@ -105,7 +120,6 @@ import FadeIn from "../components/FadeIn.astro";
 <style>
   .how-it-works {
     padding: 4rem 2rem;
-    background-color: #f9fafb;
   }
 
   .container {

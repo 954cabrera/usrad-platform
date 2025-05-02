@@ -49,8 +49,16 @@ import PartnerMfgGrid from "../components/partner/PartnerMfgGrid.astro";
   <HeroSmartSplit />
 
   <!-- Founder Message Section -->
-  <section class="py-24 bg-white text-gray-800" data-aos="fade-up" data-aos-delay="100">
-    <div class="max-w-6xl mx-auto px-6">
+  <section class="py-24 bg-white text-gray-800 relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+    <!-- Subtle pattern overlay -->
+    <div class="absolute inset-0 bg-repeat opacity-[0.03]" style="background-image: url('/images/subtle-pattern.svg');"></div>
+    
+    <!-- Decorative elements -->
+    <div class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#e6c378] opacity-[0.03] blur-3xl"></div>
+    <div class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"></div>
+    
+    <!-- Content remains the same, with z-index to keep it above backgrounds -->
+    <div class="relative z-10 max-w-6xl mx-auto px-6">
       <div class="grid md:grid-cols-2 gap-16 items-center">
         <div class="relative" data-aos="fade-right" data-aos-delay="200">
           <img 
@@ -79,6 +87,15 @@ import PartnerMfgGrid from "../components/partner/PartnerMfgGrid.astro";
       </div>
     </div>
   </section>
+
+  <div class="relative py-8 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 relative">
+      <div class="h-px w-full bg-gradient-to-r from-transparent via-[#e6c378] to-transparent opacity-50"></div>
+    </div>
+    <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white flex items-center justify-center border border-[#e6c378] border-opacity-30">
+      <div class="w-6 h-6 rounded-full bg-[#e6c378] opacity-50"></div>
+    </div>
+  </div>
 
   <div class="mt-16">
     <HowItWorksVisualGrid />
