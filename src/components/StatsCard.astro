@@ -1,0 +1,14 @@
+---
+// Props for customization
+const { 
+  number, 
+  text,
+  borderColor = "#e6c378",
+  hoverEffect = true
+} = Astro.props;
+---
+
+<div class={`bg-white p-6 rounded-xl shadow-sm border-l-4 border-[${borderColor}] ${hoverEffect ? 'hover:shadow-md transition-all duration-300 transform hover:scale-105' : ''}`}>
+  <p class="text-4xl font-bold text-[#003087]">{number}</p>
+  <p class="text-gray-600 mt-2">{text}</p>
+</div>

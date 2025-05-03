@@ -1,0 +1,15 @@
+---
+// Props for customization
+const { 
+  title,
+  textSize = "4xl",
+  textColor = "#003087", 
+  showAccent = true,
+  accentColor = "#e6c378"
+} = Astro.props;
+---
+
+<h2 class={`text-${textSize} font-semibold text-[${textColor}] flex items-center`}>
+  {showAccent && <span class={`w-2 h-10 bg-[${accentColor}] rounded-full mr-3`}></span>}
+  {title}
+</h2>

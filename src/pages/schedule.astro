@@ -1,6 +1,7 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import Footer from "../components/Footer.astro";
+import ChatbotToggle from "../components/ChatbotToggle.astro";
 import AOSInit from "../components/AOSInit.astro";
 
 // Import centers and studies data
@@ -225,6 +226,7 @@ const serializedStudiesData = JSON.stringify(studiesData);
     </div>
   </div>
   <Footer />
+  <ChatbotToggle chatbotLabel="💬 Let's Talk" />
 
   <script define:vars={{ serializedCentersData, serializedStudiesData }}>
     // Client-side JavaScript to handle URL parameters

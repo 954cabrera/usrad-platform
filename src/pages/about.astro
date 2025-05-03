@@ -2,10 +2,14 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import MfgTabs from "../components/MfgTabs.astro";
 import Footer from "../components/Footer.astro";
+import ChatbotToggle from "../components/ChatbotToggle.astro";
 import FadeIn from "../components/FadeIn.astro";
+import AOSInit from "../components/AOSInit.astro";
+import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisisGraph";
 ---
 
 <MainLayout>
+  <AOSInit />
   <!-- Hero Story Block - Split Title Layout with SVG Illustrations -->
   <section class="bg-[#f8f2e1] text-[#003087] py-32 px-6">
     <div class="max-w-6xl mx-auto">
@@ -864,8 +868,8 @@ import FadeIn from "../components/FadeIn.astro";
             <p class="text-xl md:text-2xl text-[#003087] leading-relaxed mb-8">
               At USRad, we're changing that. We provide direct access to
               top-tier imaging centers, ensure all radiologists are
-              board-certified, and deliver same-day or next-day scheduling at
-              one all-inclusive price. We stand by you with expert support every
+              board-certified, and deliver two-day or next-day scheduling at one
+              all-inclusive price. We stand by you with expert support every
               step of the way.
             </p>
 
@@ -886,7 +890,162 @@ import FadeIn from "../components/FadeIn.astro";
     <div class="w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
   </div>
 
-  <!-- Rest of the page content remains the same -->
+  <!-- Our Company Story Section with Enhanced Formatting -->
+  <section
+    class="py-32 bg-[#f8f2e1] text-[#003087] px-6 relative overflow-hidden"
+    data-aos="fade-up"
+  >
+    <!-- Subtle pattern overlay -->
+    <div
+      class="absolute inset-0 bg-repeat opacity-[0.03]"
+      style="background-image: url('/images/subtle-pattern.svg');"
+    >
+    </div>
+
+    <!-- Decorative elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#e6c378] opacity-[0.03] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <!-- Section Header with matched styling from hero -->
+      <div class="mb-20 max-w-4xl">
+        <h2
+          class="text-5xl md:text-6xl font-semibold leading-tight mb-6 text-[#003087] flex items-center"
+        >
+          <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
+          Our Company Story
+        </h2>
+      </div>
+
+      <!-- Content Grid -->
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <!-- Left side with story text -->
+        <div class="space-y-8">
+          <p class="text-xl text-[#003087] leading-relaxed">
+            USRad was born from decades of healthcare experience. In 1994, we
+            built the first imaging network for Workers' Compensation— where
+            getting injured workers the right diagnosis quickly meant the
+            difference between prolonged uncertainty and the path to recovery.
+          </p>
+
+          <p class="text-xl text-[#003087] leading-relaxed">
+            Our previous network grew to more than 1,200 imaging centers
+            nationwide before acquisition. That experience taught us the power
+            of creating healthcare access built on a foundation of quality,
+            transparency, and patient support.
+          </p>
+
+          <!-- Statistics in enhanced cards -->
+          <div class="grid grid-cols-3 gap-8 mt-12">
+            <div
+              class="bg-white p-6 rounded-xl shadow-md text-center transform hover:scale-105 transition-transform duration-300"
+            >
+              <div class="text-[#003087] text-5xl font-bold mb-4 stat-number">
+                1,200+
+              </div>
+              <p class="text-lg">Imaging centers in our previous network</p>
+            </div>
+
+            <div
+              class="bg-white p-6 rounded-xl shadow-md text-center transform hover:scale-105 transition-transform duration-300"
+            >
+              <div class="text-[#003087] text-5xl font-bold mb-4 stat-number">
+                10+
+              </div>
+              <p class="text-lg">Years building healthcare partnerships</p>
+            </div>
+
+            <div
+              class="bg-white p-6 rounded-xl shadow-md text-center transform hover:scale-105 transition-transform duration-300"
+            >
+              <div class="text-[#003087] text-5xl font-bold mb-4 stat-number">
+                30+
+              </div>
+              <p class="text-lg">Years of industry experience</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right side with image/timeline -->
+        <div class="relative">
+          <img
+            src="/images/company-timeline.jpg"
+            alt="USRad company timeline and growth"
+            class="w-full h-auto rounded-xl shadow-xl"
+          />
+          <div
+            class="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-[#e6c378] opacity-20"
+          >
+          </div>
+        </div>
+      </div>
+
+      <!-- Quote with enhanced styling -->
+      <div class="text-center mt-20">
+        <p class="text-2xl md:text-3xl text-[#003087] italic font-light">
+          "Today, we're bringing that same urgency and expertise to everyone."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Animation script for statistics -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Animate stat numbers on scroll
+      const observerOptions = {
+        threshold: 0.5,
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (!entry.target.dataset.animated) {
+              entry.target.dataset.animated = true;
+
+              const finalValue = entry.target.textContent;
+              const valueWithoutPlus = parseInt(finalValue.replace(/\D/g, ""));
+
+              let currentValue = 0;
+              const increment = Math.ceil(valueWithoutPlus / 50);
+              const duration = 1500; // ms
+              const interval = Math.floor(
+                duration / (valueWithoutPlus / increment)
+              );
+
+              const counter = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= valueWithoutPlus) {
+                  clearInterval(counter);
+                  currentValue = valueWithoutPlus;
+                  entry.target.textContent = finalValue;
+                } else {
+                  entry.target.textContent = currentValue + "+";
+                }
+              }, interval);
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".stat-number").forEach((stat) => {
+        observer.observe(stat);
+      });
+    });
+  </script>
+
+  <!-- Elegant divider -->
+  <div class="flex justify-center my-16">
+    <div class="w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+  </div>
+
   <!-- Our Mission Section with Increased Spacing -->
   <section
     class="py-40 bg-[#f5e7c5] text-[#003087] px-6 md:px-12"
@@ -939,7 +1098,6 @@ import FadeIn from "../components/FadeIn.astro";
     <div class="w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
   </div>
 
-  
   <!-- Our Approach Section -->
   <section
     class="py-32 flex items-center bg-[#f0f4f9] text-[#003087] px-6"
@@ -948,15 +1106,15 @@ import FadeIn from "../components/FadeIn.astro";
     <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
       <div class="space-y-8 order-2 md:order-1">
         <h2 class="text-5xl md:text-6xl font-semibold text-[#003087]">
-          Care That’s <span class="text-[#e6c378]">Clear</span> and Centered on You
+          Care That's <span class="text-[#e6c378]">Clear</span> and Centered on You
         </h2>
         <p class="text-xl md:text-2xl text-[#003087]">
-          From your first click to final results, we’ve rebuilt medical imaging
+          From your first click to final results, we've rebuilt medical imaging
           around clarity and confidence.
         </p>
         <p class="text-xl md:text-2xl text-[#003087]">
           Our transparent pricing means no surprise bills. Scheduling is fast,
-          often same or next day. And when results arrive, they’re delivered
+          often within 2 to 4 days. And when results arrive, they're delivered
           clearly, with the support to understand them.
         </p>
         <p class="text-xl md:text-2xl text-[#003087]">
@@ -1005,7 +1163,7 @@ import FadeIn from "../components/FadeIn.astro";
           machines power every image.
         </p>
         <p class="text-xl md:text-2xl text-[#003087]">
-          Whether it’s a brain MRI or a spinal study, our commitment to sharp
+          Whether it's a brain MRI or a spinal study, our commitment to sharp
           diagnostics and modern equipment means you're in the hands of
           precision—every time.
         </p>
@@ -1023,6 +1181,63 @@ import FadeIn from "../components/FadeIn.astro";
 
   <!-- Manufacturer Partnerships -->
   <MfgTabs />
+
+  <!-- Elegant divider -->
+  <div class="flex justify-center my-12">
+    <div class="w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+  </div>
+
+  <!-- Market Opportunity & Healthcare Access Section - NEW -->
+  <section class="py-32 px-6 bg-white text-[#003087]" data-aos="fade-up">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2
+          class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center"
+        >
+          <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
+          Addressing a Critical Need
+        </h2>
+        <p class="text-xl text-gray-700 mt-6 max-w-3xl mx-auto">
+          We're dedicated to helping the 100+ million Americans who are
+          uninsured or underinsured access high-quality medical imaging without
+          financial stress.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-16 items-center mb-20">
+        <div>
+          <HealthcareCoverageCrisisGraph client:load />
+        </div>
+        <div class="space-y-6">
+          <h3 class="text-3xl font-semibold text-[#003087]">
+            The Healthcare Coverage Crisis
+          </h3>
+          <p class="text-xl text-[#003087]">
+            When patients need imaging, they often face impossible choices:
+            delay care, pay inflated rates, or accept lower quality. The reality
+            is sobering:
+          </p>
+          <ul class="space-y-4 pl-6">
+            <li class="text-xl text-[#003087] flex items-start">
+              <span class="text-[#e6c378] font-bold mr-2">•</span>
+              Over 30 million Americans remain completely uninsured
+            </li>
+            <li class="text-xl text-[#003087] flex items-start">
+              <span class="text-[#e6c378] font-bold mr-2">•</span>
+              70+ million have inadequate coverage with high deductibles
+            </li>
+            <li class="text-xl text-[#003087] flex items-start">
+              <span class="text-[#e6c378] font-bold mr-2">•</span>
+              Medical imaging costs can vary by 300-500% in the same geographic area
+            </li>
+          </ul>
+          <p class="text-xl text-[#003087] italic mt-4">
+            We're creating the solution these patients deserve.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Elegant divider -->
   <div class="flex justify-center my-12">
@@ -1109,6 +1324,85 @@ import FadeIn from "../components/FadeIn.astro";
     <div class="w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
   </div>
 
+  <!-- Our Values Section - NEW -->
+  <section class="py-32 px-6 bg-white text-[#003087]" data-aos="fade-up">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2
+          class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center"
+        >
+          <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
+          Our Core Values
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div
+          class="bg-[#f5e7c5] p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow"
+        >
+          <div class="flex items-center mb-6">
+            <div
+              class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center text-white text-2xl font-bold"
+            >
+              T
+            </div>
+            <h3 class="text-2xl font-semibold ml-4 text-[#003087]">
+              Transparency
+            </h3>
+          </div>
+          <p class="text-lg text-[#003087]">
+            We believe patients deserve complete clarity on pricing, quality,
+            and who's reading their scans. No hidden fees, no surprises—just
+            straightforward information you can trust.
+          </p>
+        </div>
+
+        <div
+          class="bg-[#f5e7c5] p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow"
+        >
+          <div class="flex items-center mb-6">
+            <div
+              class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center text-white text-2xl font-bold"
+            >
+              A
+            </div>
+            <h3 class="text-2xl font-semibold ml-4 text-[#003087]">
+              Accessibility
+            </h3>
+          </div>
+          <p class="text-lg text-[#003087]">
+            Quality healthcare shouldn't be a luxury. We're committed to making
+            premium imaging accessible to everyone through fair pricing,
+            convenient locations, and quick scheduling.
+          </p>
+        </div>
+
+        <div
+          class="bg-[#f5e7c5] p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow"
+        >
+          <div class="flex items-center mb-6">
+            <div
+              class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center text-white text-2xl font-bold"
+            >
+              Q
+            </div>
+            <h3 class="text-2xl font-semibold ml-4 text-[#003087]">Quality</h3>
+          </div>
+          <p class="text-lg text-[#003087]">
+            We never compromise on quality. From state-of-the-art equipment to
+            board-certified radiologists, we ensure every aspect of your imaging
+            experience meets the highest standards.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Elegant divider -->
+  <div class="flex justify-center my-12">
+    <div class="w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+  </div>
+
   <!-- Founding Team Section for About Page -->
   <section class="py-32 px-6 bg-[#f0f4f9] text-gray-800">
     <div class="max-w-5xl mx-auto">
@@ -1127,7 +1421,9 @@ import FadeIn from "../components/FadeIn.astro";
             />
           </div>
           <div>
-            <h3 class="text-2xl font-semibold text-[#003087] mb-1">Michael Cabrera</h3>
+            <h3 class="text-2xl font-semibold text-[#003087] mb-1">
+              Michael Cabrera
+            </h3>
             <p class="text-xl text-[#e6c378] font-medium mt-0">Founder & CEO</p>
           </div>
           <p class="text-lg text-gray-700">
@@ -1156,7 +1452,9 @@ import FadeIn from "../components/FadeIn.astro";
             />
           </div>
           <div>
-            <h3 class="text-2xl font-semibold text-[#003087] mb-1">Donna Cabrera</h3>
+            <h3 class="text-2xl font-semibold text-[#003087] mb-1">
+              Donna Cabrera
+            </h3>
             <p class="text-xl text-[#e6c378] font-medium mt-0">
               Co-Founder & Patient Advocacy Advisor
             </p>
@@ -1180,5 +1478,163 @@ import FadeIn from "../components/FadeIn.astro";
       </div>
     </div>
   </section>
+
+  <!-- Contact & FAQ Section - NEW -->
+  <section class="py-32 px-6 bg-white text-[#003087]" data-aos="fade-up">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2
+          class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center"
+        >
+          <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
+          Questions? We're Here to Help
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-16">
+        <!-- FAQ Column -->
+        <div class="space-y-6">
+          <h3 class="text-3xl font-semibold text-[#003087] mb-8">
+            Frequently Asked Questions
+          </h3>
+
+          <!-- FAQ 1 -->
+          <div
+            class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+          >
+            <h4 class="text-xl font-semibold text-[#003087] flex items-center">
+              <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"></span>
+              How quickly can I get an appointment?
+            </h4>
+            <p class="text-lg text-gray-700 mt-4 pl-4">
+              We specialize in same-day and next-day scheduling for most imaging
+              needs. Simply contact us, and our team will help you find the
+              earliest available appointment.
+            </p>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div
+            class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+          >
+            <h4 class="text-xl font-semibold text-[#003087] flex items-center">
+              <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"></span>
+              What if I don't have insurance?
+            </h4>
+            <p class="text-lg text-gray-700 mt-4 pl-4">
+              USRad is designed specifically for self-pay patients. Our
+              all-inclusive pricing is transparent and typically 30-70% lower
+              than typical hospital rates, with no hidden fees.
+            </p>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div
+            class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+          >
+            <h4 class="text-xl font-semibold text-[#003087] flex items-center">
+              <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"></span>
+              Who reads my scans?
+            </h4>
+            <p class="text-lg text-gray-700 mt-4 pl-4">
+              Every USRad scan is interpreted by a board-certified radiologist
+              with specialty training. We believe you deserve to know who's
+              reading your scan and their qualifications.
+            </p>
+          </div>
+        </div>
+
+        <!-- Contact Column -->
+        <div class="bg-[#f5e7c5] p-8 rounded-xl shadow-lg">
+          <h3 class="text-3xl font-semibold text-[#003087] mb-8">
+            Get in Touch
+          </h3>
+
+          <div class="space-y-8">
+            <div>
+              <label class="block text-lg font-medium text-[#003087] mb-2"
+                >Phone</label
+              >
+              <p class="text-xl text-[#003087] font-semibold">(800) 555-1234</p>
+            </div>
+
+            <div>
+              <label class="block text-lg font-medium text-[#003087] mb-2"
+                >Email</label
+              >
+              <p class="text-xl text-[#003087] font-semibold">
+                patients@usrad.com
+              </p>
+            </div>
+
+            <div>
+              <label class="block text-lg font-medium text-[#003087] mb-2"
+                >Address</label
+              >
+              <address class="text-xl text-[#003087] not-italic">
+                123 Medical Plaza<br />
+                Fort Lauderdale, FL 33301
+              </address>
+            </div>
+
+            <div class="pt-4">
+              <a
+                href="/contact"
+                class="inline-block w-full px-8 py-4 bg-[#003087] text-white rounded-full font-medium text-center hover:bg-[#002266] hover:shadow-xl transition-all duration-300"
+              >
+                Contact Us →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </MainLayout>
 <Footer class="bg-[#003087] text-white" />
+<ChatbotToggle chatbotLabel="💬 Let's Talk" />
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Animate stat numbers on scroll
+    const observerOptions = {
+      threshold: 0.5,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!entry.target.dataset.animated) {
+            entry.target.dataset.animated = true;
+
+            const finalValue = entry.target.textContent;
+            const valueWithoutPlus = parseInt(finalValue.replace(/\D/g, ""));
+
+            let currentValue = 0;
+            const increment = Math.ceil(valueWithoutPlus / 50);
+            const duration = 1500; // ms
+            const interval = Math.floor(
+              duration / (valueWithoutPlus / increment)
+            );
+
+            const counter = setInterval(() => {
+              currentValue += increment;
+              if (currentValue >= valueWithoutPlus) {
+                clearInterval(counter);
+                currentValue = valueWithoutPlus;
+                entry.target.textContent = finalValue;
+              } else {
+                entry.target.textContent = currentValue + "+";
+              }
+            }, interval);
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll(".stat-number").forEach((stat) => {
+      observer.observe(stat);
+    });
+  });
+</script>

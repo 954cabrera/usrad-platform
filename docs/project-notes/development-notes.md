@@ -169,3 +169,6 @@ When ready to implement component optimization:
 - The Partner page effectively communicates the value proposition to potential imaging centers
 - The data visualization enhances the market opportunity message
 - Future component optimization will improve maintainability without compromising design
+
+## Documentation
+- [Project Development Notes](docs/project-notes/development-notes.md) - Comprehensive documentation of project progress and components

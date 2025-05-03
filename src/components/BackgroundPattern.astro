@@ -1,0 +1,24 @@
+---
+// Props for customization
+const { 
+  bgImage = '/images/subtle-pattern.svg',
+  opacity = '0.03',
+  showBrain = false
+} = Astro.props;
+---
+
+<!-- Subtle pattern overlay -->
+<div
+  class={`absolute inset-0 bg-repeat opacity-[${opacity}]`}
+  style={`background-image: url('${bgImage}');`}
+>
+</div>
+
+{showBrain && (
+  <!-- Brain MRI background pattern -->
+  <div
+    class="absolute inset-0 bg-cover bg-center opacity-[0.09]"
+    style="background-image: url('/images/brain-bw.png');"
+  >
+  </div>
+)}

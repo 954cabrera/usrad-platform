@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import ChatbotToggle from "../components/ChatbotToggle.astro";
 import "../styles/global.css";
 import AOSInit from '../components/AOSInit.astro';
 ---
@@ -19,6 +20,7 @@ import AOSInit from '../components/AOSInit.astro';
     <main>
       <slot />
     </main>
-    <Footer chatbotLabel="Let's Talk" />
+    <Footer />
+    <ChatbotToggle chatbotLabel="💬 Let's Talk" />
   </body>
 </html>
