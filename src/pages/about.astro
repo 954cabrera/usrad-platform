@@ -319,10 +319,10 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
         </h2>
       </div>
 
-      <!-- Content Grid - Similar to Company Story layout -->
+      <!-- Content Grid with responsive behavior -->
       <div class="grid md:grid-cols-2 gap-16 items-center">
-        <!-- Left side with vision text - similar structure to story text -->
-        <div class="space-y-8">
+        <!-- Left side with vision text - first on mobile -->
+        <div class="space-y-8 order-1 md:order-1">
           <p class="text-xl text-[#003087] leading-relaxed">
             We've seen what happens when patients are left to navigate
             healthcare alone. That's why we're <span
@@ -338,12 +338,13 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
             >.
           </p>
 
-          <!-- Patient scenarios in a format similar to statistics cards -->
+          <!-- Patient scenarios with enhanced border styling -->
           <div class="grid grid-cols-1 gap-4 mt-12">
             <div
-              class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition-transform duration-300 border-l-4 border-[#cc9933]"
+              class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition-transform duration-300 border border-gray-200 border-l-4 border-l-[#cc9933]"
             >
-              <h3 class="text-lg font-medium text-[#003087] mb-2">
+              <h3 class="text-lg font-medium text-[#003087] mb-2 flex items-center">
+                <span class="w-1.5 h-6 bg-[#cc9933] rounded-full mr-3"></span>
                 For the parent who can't wait weeks for answers
               </h3>
               <p class="text-[#003087]">
@@ -352,9 +353,10 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
             </div>
 
             <div
-              class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition-transform duration-300 border-l-4 border-[#cc9933]"
+              class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition-transform duration-300 border border-gray-200 border-l-4 border-l-[#cc9933]"
             >
-              <h3 class="text-lg font-medium text-[#003087] mb-2">
+              <h3 class="text-lg font-medium text-[#003087] mb-2 flex items-center">
+                <span class="w-1.5 h-6 bg-[#cc9933] rounded-full mr-3"></span>
                 For the self-pay patient who deserves premium care
               </h3>
               <p class="text-[#003087]">
@@ -363,9 +365,10 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
             </div>
 
             <div
-              class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition-transform duration-300 border-l-4 border-[#cc9933]"
+              class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition-transform duration-300 border border-gray-200 border-l-4 border-l-[#cc9933]"
             >
-              <h3 class="text-lg font-medium text-[#003087] mb-2">
+              <h3 class="text-lg font-medium text-[#003087] mb-2 flex items-center">
+                <span class="w-1.5 h-6 bg-[#cc9933] rounded-full mr-3"></span>
                 For anyone who needs clarity
               </h3>
               <p class="text-[#003087]">
@@ -376,30 +379,24 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
           </div>
         </div>
 
-        <!-- Right side with vision illustration - parallel to timeline image -->
-        <div class="relative">
-          <!-- Use a different but related image here -->
+        <!-- Right side with vision illustration - second on mobile -->
+        <div class="order-2 md:order-2 mt-8 md:mt-0">
           <img
             src="/images/vision.png"
-            alt="The Vision of USRad"
-            class="w-full h-auto rounded-xl shadow-xl"
+            alt="USRad's neural network visualization showing our patient-centered imaging approach"
+            class="w-full h-auto rounded-xl shadow-lg mx-auto max-w-full hover:scale-[1.02] transition-transform duration-300"
           />
-
-          <!-- Mirror of decorative element from Company Story -->
-          <div
-            class="absolute -bottom-4 -left-4 w-24 h-24 rounded-full bg-[#cc9933] opacity-20"
-          >
-          </div>
         </div>
       </div>
 
       <!-- Quote with enhanced styling - mirror of Company Story quote -->
-      <div class="text-center mt-20 relative">
+      <div class="text-center mt-24 relative mb-16">
         <div class="absolute top-0 left-1/4 text-6xl text-[#cc9933] opacity-20">
           "
         </div>
         <p
-          class="text-2xl md:text-3xl text-[#003087] italic font-light relative z-10 px-12"
+          class="text-3xl text-[#003087] font-medium text-center italic my-12 max-w-4xl mx-auto leading-relaxed relative z-10 px-12"
+          style="color: rgba(0, 48, 135, 0.9);"
         >
           We're not just improving the imaging experience—we're reimagining what
           healthcare access can be.
