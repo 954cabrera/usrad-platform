@@ -12,19 +12,27 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
   <AOSInit />
   <!-- Hero Story Block - Split Title Layout with SVG Illustrations -->
   <!-- Hero Section with Amber Gold (#cc9933) -->
-  <section class="bg-[#f8f2e1] text-[#003087] py-32 px-6">
+  <section
+    class="bg-[#f8f2e1] text-[#003087] py-16 md:py-24 lg:py-32 px-4 md:px-6"
+  >
     <div class="max-w-6xl mx-auto">
       <!-- First Part: Problem Statement -->
-      <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
         <!-- Left side with first part of title -->
         <div>
           <h1
-            class="text-5xl md:text-6xl font-semibold leading-tight mb-8 text-[#003087]"
+            class="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight mb-6 md:mb-8 text-[#003087]"
+            data-aos="fade-up"
+            data-aos-duration="800"
           >
             The medical imaging system wasn't built for patients
           </h1>
 
-          <p class="text-xl md:text-2xl text-[#003087] leading-relaxed">
+          <p
+            class="text-lg md:text-xl lg:text-2xl text-[#003087] leading-relaxed"
+            data-aos="fade-up"
+            data-aos-duration="800"
+          >
             For too long, patients have been left to navigate medical imaging on
             their own — unclear prices, long wait times, inconsistent equipment
             quality, and little to no transparency about who's reading their
@@ -38,50 +46,64 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
           <img
             src="/images/problem-image.png"
             alt="Patient struggling with confusing medical imaging paperwork"
-            class="w-full h-auto max-h-[80vh] object-cover rounded-xl shadow-2xl"
+            class="w-full h-auto max-h-[80vh] object-cover rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
           />
         </div>
       </div>
 
       <!-- Visual divider with Amber Gold -->
-      <div class="my-20 flex justify-center">
+      <div class="my-16 flex justify-center items-center">
+        <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
         <div class="w-32 h-1 bg-[#cc9933] rounded-full"></div>
+        <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
       </div>
 
       <!-- Second Part: Solution Statement -->
-      <div class="py-10 px-8 bg-[#f5e7c5] rounded-xl shadow-sm">
+      <div class="py-8 md:py-10 px-6 md:px-8 bg-[#f5e7c5] rounded-xl shadow-sm">
         <h1
-          class="text-5xl md:text-[4.6rem] font-bold leading-tight text-[#cc9933] mb-8 drop-shadow-sm"
+          class="text-4xl md:text-5xl lg:text-[4.6rem] font-bold leading-tight text-[#cc9933] mb-6 md:mb-8 drop-shadow-sm relative"
+          data-aos="fade-up"
+          data-aos-delay="200"
         >
           But we are.
+          <div class="h-1 w-[367px] bg-[#cc9933] rounded-full mt-2 opacity-70">
+          </div>
         </h1>
 
-        <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
           <!-- Left side with Solution illustration -->
           <div>
             <!-- Solution Image -->
             <img
               src="/images/solution-image.png"
               alt="USRad representative providing clear guidance to a patient"
-              class="w-full h-auto max-h-[80vh] object-cover rounded-xl shadow-2xl"
+              class="w-full h-auto max-h-[80vh] object-cover rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
             />
           </div>
 
           <!-- Right side with content -->
           <div>
-            <p class="text-xl md:text-2xl text-[#003087] leading-relaxed mb-8">
+            <p
+              class="text-lg md:text-xl lg:text-2xl text-[#003087] leading-relaxed mb-6 md:mb-8"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
               At USRad, we're changing that. We provide direct access to
               top-tier imaging centers, ensure all radiologists are
               board-certified, and offer priority scheduling typically within
-              days, not weeks, at one all-inclusive price. We stand by you with
-              expert support every step of the way.
+              days, not weeks, at one all-inclusive price. Our professionals are
+              with you from first call to final results.
             </p>
 
             <a
               href="/schedule"
-              class="inline-block bg-[#003087] text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:bg-[#002266] hover:shadow-xl hover:scale-105 transition-all duration-300 border border-transparent hover:border-[#cc9933]"
+              class="inline-block bg-[#003087] text-white font-semibold px-6 py-3 md:px-8 md:py-4 rounded-full shadow-lg hover:bg-[#002266] hover:shadow-xl hover:scale-105 transition-all duration-300 border border-transparent hover:border-[#cc9933] group"
             >
-              Discover How We're Different →
+              Discover How We're Different
+              <span
+                class="inline-block ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
+                >→</span
+              >
             </a>
           </div>
         </div>
@@ -90,8 +112,10 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
   </section>
 
   <!-- Elegant divider -->
-  <div class="flex justify-center my-20">
-    <div class="w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+  <div class="flex justify-center items-center my-12 md:my-16 lg:my-20">
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
+    <div class="w-16 md:w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
   </div>
 
   <!-- Company Story Section with Amber Gold (#cc9933) -->
@@ -407,8 +431,10 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
   </section>
 
   <!-- Elegant divider -->
-  <div class="flex justify-center my-20">
-    <div class="w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+  <div class="flex justify-center items-center my-12 md:my-16 lg:my-20">
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
+    <div class="w-16 md:w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
   </div>
 
   <!-- The Patient Experience Section - NEW (Consolidated) -->
@@ -550,8 +576,10 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
   </section>
 
   <!-- Elegant divider -->
-  <div class="flex justify-center my-20">
-    <div class="w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+  <div class="flex justify-center items-center my-12 md:my-16 lg:my-20">
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
+    <div class="w-16 md:w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
   </div>
 
   <!-- Optimized Technology and Manufacturer Sections -->
@@ -848,7 +876,7 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
     </div>
 
     <!-- Founding Team Section for About Page -->
-    <section class="py-32 px-6 bg-[#f0f4f9] text-gray-800">
+    <section class="py-32 px-6 bg-[#f0f4f9] text-[#003087]">
       <div class="max-w-5xl mx-auto">
         <p class="text-xl text-[#003087] mb-8 italic text-center">
           Our values aren't just words on a page—they're brought to life by the
@@ -876,7 +904,7 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
                 Founder & CEO
               </p>
             </div>
-            <p class="text-lg text-gray-700">
+            <p class="text-lg text-[#003087]">
               With over 25 years in healthcare technology, Michael has scaled
               national companies using a clear operational framework. A graduate
               of MIT's Entrepreneurial Masters Program, he built a radiology
@@ -909,7 +937,7 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
                 Co-Founder & Patient Advocacy Advisor
               </p>
             </div>
-            <p class="text-lg text-gray-700">
+            <p class="text-lg text-[#003087]">
               As co-founder of our original imaging venture over 30 years ago,
               Donna pioneered our patient-first approach by developing
               comprehensive service protocols that put patient needs at the
@@ -969,7 +997,7 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
                 <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"></span>
                 How quickly can I get an appointment?
               </h4>
-              <p class="text-lg text-gray-700 mt-4 pl-4">
+              <p class="text-lg text-[#003087] mt-4 pl-4">
                 We specialize in same-day and next-day scheduling for most
                 imaging needs. Simply contact us, and our team will help you
                 find the earliest available appointment.
@@ -986,7 +1014,7 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
                 <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"></span>
                 What if I don't have insurance?
               </h4>
-              <p class="text-lg text-gray-700 mt-4 pl-4">
+              <p class="text-lg text-[#003087] mt-4 pl-4">
                 USRad is designed specifically for self-pay patients. Our
                 all-inclusive pricing is transparent and typically 30-70% lower
                 than typical hospital rates, with no hidden fees.
@@ -1003,7 +1031,7 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
                 <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"></span>
                 Who reads my scans?
               </h4>
-              <p class="text-lg text-gray-700 mt-4 pl-4">
+              <p class="text-lg text-[#003087] mt-4 pl-4">
                 Every USRad scan is interpreted by a board-certified radiologist
                 with specialty training. We believe you deserve to know who's
                 reading your scan and their qualifications.
