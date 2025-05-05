@@ -1,350 +1,78 @@
-<!-- Reimagined How It Works Section -->
-<style>
-.particle {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background-color: #e6c378;
-  border-radius: 50%;
-  opacity: 0.2;
-  animation: float 8s infinite ease-in-out;
-}
+---
+const steps = [
+  {
+    step: 1,
+    title: "Simple Application",
+    description: "Complete our streamlined application. We'll confirm your qualifications and align on standards.",
+    icon: "📄",
+    duration: "Typically less than 7 days"
+  },
+  {
+    step: 2,
+    title: "Seamless Integration",
+    description: "We handle the technical setup so appointments flow smoothly into your system.",
+    icon: "🔧",
+    duration: "Setup in 1–2 business days"
+  },
+  {
+    step: 3,
+    title: "Patient Referrals",
+    description: "Receive patient appointments directly, complete with all necessary information.",
+    icon: "📅",
+    duration: "Referrals begin immediately"
+  },
+  {
+    step: 4,
+    title: "Seamless Payment",
+    description: "Get paid directly—no insurance hurdles, no delays.",
+    icon: "💳",
+    duration: "Payments within 48 hours"
+  },
+];
+---
 
-.particle:nth-child(2n) {
-  width: 12px;
-  height: 12px;
-  animation-duration: 12s;
-  animation-delay: 1s;
-}
-
-.particle:nth-child(3n) {
-  width: 6px;
-  height: 6px;
-  animation-duration: 10s;
-  animation-delay: 2s;
-  background-color: #003087;
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0) translateX(0);
-    opacity: 0.1;
-  }
-  25% {
-    opacity: 0.15;
-  }
-  50% {
-    transform: translateY(-20px) translateX(10px);
-    opacity: 0.2;
-  }
-  75% {
-    opacity: 0.15;
-  }
-  100% {
-    transform: translateY(0) translateX(0);
-    opacity: 0.1;
-  }
-}
-</style>
-<section class="py-24 bg-[#fcf9f0] text-gray-800 relative brain-background-container overflow-visible">
-  <!-- Brain background that extends beyond section boundaries -->
-  <div class="brain-background"></div>
-  
-  <!-- Subtle pattern overlay -->
-  <div class="absolute inset-0 bg-repeat opacity-[0.03]" style="background-image: url('/images/subtle-pattern.svg');"></div>
-  
-  <!-- Decorative elements -->
-  <div class="absolute top-20 left-20 w-64 h-64 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"></div>
-  <div class="absolute bottom-20 right-20 w-72 h-72 rounded-full bg-[#e6c378] opacity-[0.03] blur-3xl"></div>
-  
-  <!-- Floating particles -->
-  <div class="particle" style="top: 15%; left: 10%;"></div>
-  <div class="particle" style="top: 25%; right: 15%;"></div>
-  <div class="particle" style="top: 40%; left: 20%;"></div>
-  <div class="particle" style="top: 60%; right: 25%;"></div>
-  <div class="particle" style="top: 75%; left: 15%;"></div>
-  <div class="particle" style="top: 85%; right: 10%;"></div>
-  <div class="particle" style="top: 30%; left: 85%;"></div>
-  <div class="particle" style="top: 50%; left: 5%;"></div>
-  <div class="px-6 sm:px-8 lg:px-12">
-    <div class="max-w-7xl mx-auto relative z-10">
-      <div class="text-center mb-16">
-        <h2
-          class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center"
-        >
-          <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
-          The Partnership Journey
-        </h2>
-        <p class="text-xl text-gray-700 mt-6 max-w-3xl mx-auto">
-          A streamlined process designed for minimal disruption and maximum
-          impact.
-        </p>
-      </div>
-
-    <!-- Visual Timeline -->
-    <div class="relative mt-20">
-      <!-- Timeline Line -->
-      <div
-        class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-[#003087] via-[#003087] to-[#e6c378] opacity-20"
-      >
-      </div>
-
-      <!-- Step 1 -->
-      <div class="relative z-10 mb-16">
-        <div class="flex flex-col md:flex-row items-center">
-          <!-- Step Number -->
-          <div class="md:w-1/2 flex justify-end pr-8 md:pr-12 relative">
-            <div
-              class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20"
-            >
-              1
-            </div>
-            <div class="absolute top-1/2 right-0 w-12 h-1 bg-[#e6c378] opacity-70 transform -translate-y-1/2 z-10"></div>
-          </div>
-
-          <!-- Step Content -->
-          <div class="md:w-1/2 mt-8 md:mt-0">
-            <div
-              class="bg-white p-8 rounded-xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:border-[#e6c378] md:ml-12"
-            >
-              <h3 class="text-2xl font-semibold text-[#003087] mb-4 flex items-center">
-                <span class="inline-flex mr-3 p-2 rounded-full bg-[#f0f4f9]">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#003087]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </span>
-                Simple Application
-              </h3>
-              <p class="text-lg text-gray-700">
-                Complete our straightforward application process. We'll review
-                your center's qualifications and equipment to ensure alignment
-                with our quality standards.
-              </p>
-              <div class="mt-6 flex items-center text-sm text-gray-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 mr-2 text-[#e6c378]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span>Typically takes less than 7 days</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Decorative element between steps -->
-      <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-[#fcf9f0] border-2 border-[#e6c378] border-opacity-30 rounded-full z-30"></div>
-
-      <!-- Step 2 -->
-      <div class="relative z-10 mb-16">
-        <div class="flex flex-col md:flex-row items-center">
-          <!-- Step Content (Reversed) -->
-          <div class="md:w-1/2 mt-8 md:mt-0">
-            <div
-              class="bg-white p-8 rounded-xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:border-[#e6c378] md:mr-12"
-            >
-              <h3 class="text-2xl font-semibold text-[#003087] mb-4 flex items-center">
-                <span class="inline-flex mr-3 p-2 rounded-full bg-[#f0f4f9]">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#003087]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </span>
-                Seamless Integration
-              </h3>
-              <p class="text-lg text-gray-700">
-                Our team handles all technical setup. We integrate with your
-                scheduling system to ensure appointments flow smoothly with
-                minimal disruption to your operations.
-              </p>
-              <div class="mt-6 flex items-center text-sm text-gray-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 mr-2 text-[#e6c378]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span>Technical setup completed in 1-2 business days</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step Number (Reversed) -->
-          <div class="md:w-1/2 flex justify-start pl-8 md:pl-12 relative">
-            <div
-              class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20"
-            >
-              2
-            </div>
-            <div class="absolute top-1/2 left-0 w-12 h-1 bg-[#e6c378] opacity-70 transform -translate-y-1/2 z-10"></div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Decorative element between steps -->
-      <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-[#fcf9f0] border-2 border-[#e6c378] border-opacity-30 rounded-full z-30"></div>
-
-      <!-- Step 3 -->
-      <div class="relative z-10 mb-16">
-        <div class="flex flex-col md:flex-row items-center">
-          <!-- Step Number -->
-          <div class="md:w-1/2 flex justify-end pr-8 md:pr-12 relative">
-            <div
-              class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20"
-            >
-              3
-            </div>
-            <div class="absolute top-1/2 right-0 w-12 h-1 bg-[#e6c378] opacity-70 transform -translate-y-1/2 z-10"></div>
-          </div>
-
-          <!-- Step Content -->
-          <div class="md:w-1/2 mt-8 md:mt-0">
-            <div
-              class="bg-white p-8 rounded-xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:border-[#e6c378] md:ml-12"
-            >
-              <h3 class="text-2xl font-semibold text-[#003087] mb-4 flex items-center">
-                <span class="inline-flex mr-3 p-2 rounded-full bg-[#f0f4f9]">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#003087]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                </span>
-                Patient Referrals
-              </h3>
-              <p class="text-lg text-gray-700">
-                Start receiving direct referrals from our platform. Patients
-                book appointments that flow directly into your scheduling system
-                with all necessary information.
-              </p>
-              <div class="mt-6 flex items-center text-sm text-gray-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 mr-2 text-[#e6c378]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span>First patients can begin scheduling immediately</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Decorative element between steps -->
-      <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-[#fcf9f0] border-2 border-[#e6c378] border-opacity-30 rounded-full z-30"></div>
-
-      <!-- Step 4 -->
-      <div class="relative z-10 mb-8">
-        <div class="flex flex-col md:flex-row items-center">
-          <!-- Step Content (Reversed) -->
-          <div class="md:w-1/2 mt-8 md:mt-0">
-            <div
-              class="bg-white p-8 rounded-xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:border-[#e6c378] md:mr-12"
-            >
-              <h3 class="text-2xl font-semibold text-[#003087] mb-4 flex items-center">
-                <span class="inline-flex mr-3 p-2 rounded-full bg-[#f0f4f9]">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#003087]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </span>
-                Seamless Payment
-              </h3>
-              <p class="text-lg text-gray-700">
-                Receive payment directly for services rendered. Our simple
-                pricing model means no insurance hassles or delayed
-                reimbursements.
-              </p>
-              <div class="mt-6 flex items-center text-sm text-gray-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 mr-2 text-[#e6c378]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span>Payments processed within 48 hours</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step Number (Reversed) -->
-          <div class="md:w-1/2 flex justify-start pl-8 md:pl-12 relative">
-            <div
-              class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center text-2xl font-bold shadow-lg relative z-20"
-            >
-              4
-            </div>
-            <div class="absolute top-1/2 left-0 w-12 h-1 bg-[#e6c378] opacity-70 transform -translate-y-1/2 z-10"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Final Element -->
-      <div class="flex justify-center mt-8">
-        <div
-          class="w-20 h-20 rounded-full bg-[#e6c378] bg-opacity-20 flex items-center justify-center"
-        >
-          <div
-            class="w-16 h-16 rounded-full bg-[#003087] text-white flex items-center justify-center shadow-lg"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-8 w-8"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"></path>
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      <!-- Call to Action -->
-      <div class="text-center mt-16">
-        <p class="text-xl text-[#003087] font-medium mb-4">
-          Ready to get started?
-        </p>
-        <a
-          href="/partner/apply"
-          class="inline-block bg-[#003087] text-white px-8 py-4 rounded-full hover:bg-[#002266] transition-all hover:shadow-lg border-l-4 border-[#e6c378]"
-        >
-          Apply to Join Now
-        </a>
-      </div>
-    </div>
+<section class="bg-[#fcf9f0] py-24 text-[#003087] px-6 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto text-center mb-16">
+    <h2 class="text-4xl font-bold flex items-center justify-center">
+      <span class="w-2 h-10 bg-[#e6c378] mr-3 rounded-full"></span>
+      The Partnership Journey
+    </h2>
+    <p class="text-lg text-gray-600 mt-4 italic">
+      From application to payment, here’s what working with USRad looks like.
+    </p>
   </div>
-  <!-- Soft gradient transition to next section -->
-  <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-[#f0f4f9] opacity-30"></div>
+
+  <div class="space-y-12 max-w-4xl mx-auto">
+    {steps.map(({ step, title, description, icon, duration }) => (
+      <div class="flex items-start gap-6 text-left">
+        <!-- Step Number -->
+        <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-[#003087] text-white rounded-full text-xl font-bold shadow-md">
+          {step}
+        </div>
+
+        <!-- Content Card -->
+        <div class="bg-white rounded-xl shadow-md p-6 flex-1 border border-gray-100 hover:shadow-lg transition">
+          <p class="text-sm text-gray-500 font-medium mb-2">Step {step} of 4</p>
+          <h3 class="text-2xl font-semibold flex items-center">
+            <span class="inline-block mr-2 text-2xl">{icon}</span> {title}
+          </h3>
+          <p class="mt-2 text-gray-700">{description}</p>
+          <div class="mt-4 flex items-center text-sm text-gray-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#e6c378]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{duration}</span>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="text-center mt-20">
+    <p class="text-lg font-medium">Ready to get started?</p>
+    <p class="text-sm text-gray-600 mb-6">Fast onboarding. Transparent terms. No surprises.</p>
+    <a href="/partner/apply" class="bg-[#003087] text-white py-3 px-8 rounded-full text-base shadow-lg hover:bg-[#002266] transition border-l-4 border-[#e6c378]">
+      Apply to Join Now
+    </a>
+  </div>
 </section>
