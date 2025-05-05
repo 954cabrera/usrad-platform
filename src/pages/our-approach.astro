@@ -1,0 +1,737 @@
+---
+// src/pages/our-approach.astro
+import MainLayout from "../layouts/MainLayout.astro";
+import Footer from "../components/Footer.astro";
+import ChatbotToggle from "../components/ChatbotToggle.astro";
+import AOSInit from "../components/AOSInit.astro";
+---
+
+<MainLayout>
+  <AOSInit />
+
+  <!-- Hero Section -->
+  <section
+    class="relative bg-gradient-to-b from-[#fcf9f0] to-[#f5e7c5] text-[#003087] pt-32 pb-20 px-6 sm:px-12 overflow-hidden"
+  >
+    <!-- Decorative elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="text-center" data-aos="fade-up">
+        <h1
+          class="text-5xl sm:text-6xl font-extrabold leading-tight font-manrope text-[#003087]"
+        >
+          Our <span class="text-[#cc9933] relative"
+            >Approach
+            <svg
+              class="absolute -bottom-2 left-0 w-full"
+              height="6"
+              viewBox="0 0 340 6"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 3.5C2 3.5 70 0.5 170 3.5C270 6.5 338 3.5 338 3.5"
+                stroke="#cc9933"
+                stroke-width="4"
+                stroke-linecap="round"></path>
+            </svg>
+          </span>
+        </h1>
+        <p
+          class="mt-8 text-xl sm:text-2xl text-[#003087] max-w-3xl mx-auto leading-relaxed"
+        >
+          We've reimagined the traditional medical imaging experience to create
+          a system that works better for patients, providers, and imaging
+          centers.
+        </p>
+      </div>
+    </div>
+
+    <!-- Wave divider -->
+    <div class="absolute bottom-0 left-0 right-0 overflow-hidden">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 120"
+        class="w-full h-auto"
+      >
+        <path
+          fill="#ffffff"
+          fill-opacity="1"
+          d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
+        ></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- The Problem Overview -->
+  <section class="py-20 px-6 sm:px-12 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-semibold text-[#003087]" data-aos="fade-up">
+          The Medical Imaging Challenge
+        </h2>
+        <p
+          class="mt-6 text-xl text-[#003087] max-w-3xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          For too long, patients have been left to navigate medical imaging on
+          their own, facing unclear pricing, long wait times, and little
+          transparency.
+        </p>
+      </div>
+
+      <div
+        class="grid md:grid-cols-3 gap-8"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <!-- Challenge 1 -->
+        <div
+          class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+        >
+          <div
+            class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-[#003087] text-center mb-4">
+            Price Uncertainty
+          </h3>
+          <p class="text-[#003087] text-center">
+            Hospital imaging can cost up to $7,000 for a single MRI scan, with
+            separate bills for the facility and radiologist arriving weeks
+            later.
+          </p>
+        </div>
+
+        <!-- Challenge 2 -->
+        <div
+          class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+        >
+          <div
+            class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-[#003087] text-center mb-4">
+            Long Wait Times
+          </h3>
+          <p class="text-[#003087] text-center">
+            Many patients wait 2-4 weeks for critical imaging appointments,
+            delaying diagnosis and treatment decisions.
+          </p>
+        </div>
+
+        <!-- Challenge 3 -->
+        <div
+          class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+        >
+          <div
+            class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-[#003087] text-center mb-4">
+            Quality Uncertainty
+          </h3>
+          <p class="text-[#003087] text-center">
+            Patients rarely know who will interpret their scan or what equipment
+            quality standards are being used.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Introducing SmartMatch -->
+  <section class="py-20 px-6 sm:px-12 bg-[#f0f4f9]">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2
+          class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center"
+          data-aos="fade-up"
+        >
+          <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+          Introducing SmartMatch™
+        </h2>
+        <p
+          class="mt-6 text-xl text-[#003087] max-w-3xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          Our proprietary matching system connects you with the perfect imaging
+          center based on your specific needs, location, and preferences.
+        </p>
+      </div>
+
+      <!-- SmartMatch Visual -->
+      <div class="relative mb-24" data-aos="fade-up" data-aos-delay="200">
+        <div
+          class="bg-white p-8 rounded-xl shadow-xl border-l-4 border-[#cc9933] max-w-4xl mx-auto overflow-hidden"
+        >
+          <div class="relative z-10">
+            <div class="smartmatch-visual">
+              <!-- This would be an illustration or diagram of how SmartMatch works -->
+              <img
+                src="/images/smartmatch-illustration.png"
+                alt="SmartMatch system connecting patients to imaging centers"
+                class="w-full h-auto rounded-lg"
+              />
+            </div>
+
+            <div class="mt-8 grid md:grid-cols-3 gap-6">
+              <div class="text-center">
+                <div
+                  class="w-12 h-12 rounded-full bg-[#003087] text-white flex items-center justify-center text-xl font-bold mx-auto mb-4"
+                >
+                  1
+                </div>
+                <h4 class="text-lg font-medium text-[#003087] mb-2">
+                  Patient Needs
+                </h4>
+                <p class="text-[#003087]">
+                  We analyze your specific diagnosis, location preferences, and
+                  scheduling requirements.
+                </p>
+              </div>
+
+              <div class="text-center">
+                <div
+                  class="w-12 h-12 rounded-full bg-[#003087] text-white flex items-center justify-center text-xl font-bold mx-auto mb-4"
+                >
+                  2
+                </div>
+                <h4 class="text-lg font-medium text-[#003087] mb-2">
+                  Center Matching
+                </h4>
+                <p class="text-[#003087]">
+                  Our algorithm pairs you with centers that specialize in your
+                  specific type of scan.
+                </p>
+              </div>
+
+              <div class="text-center">
+                <div
+                  class="w-12 h-12 rounded-full bg-[#003087] text-white flex items-center justify-center text-xl font-bold mx-auto mb-4"
+                >
+                  3
+                </div>
+                <h4 class="text-lg font-medium text-[#003087] mb-2">
+                  Quality Verification
+                </h4>
+                <p class="text-[#003087]">
+                  We ensure board-certified radiologists and high-quality
+                  equipment for your scan.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Decorative background elements -->
+          <div
+            class="absolute top-0 right-0 w-32 h-32 -mr-16 -mt-16 bg-[#cc9933] rounded-full opacity-10"
+          >
+          </div>
+          <div
+            class="absolute bottom-0 left-0 w-48 h-48 -ml-24 -mb-24 bg-[#003087] rounded-full opacity-5"
+          >
+          </div>
+        </div>
+      </div>
+
+      <!-- SmartMatch Benefits -->
+      <h3
+        class="text-2xl font-semibold text-[#003087] text-center mb-12"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        What Makes SmartMatch™ Different
+      </h3>
+
+      <div
+        class="grid md:grid-cols-2 gap-12"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        <!-- Left Column Benefits -->
+        <div class="space-y-8">
+          <div class="flex items-start">
+            <div
+              class="flex-shrink-0 w-10 h-10 rounded-full bg-[#cc9933] bg-opacity-20 flex items-center justify-center mt-1"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ml-4">
+              <h4 class="text-lg font-medium text-[#003087]">
+                Diagnosis-Specific Matching
+              </h4>
+              <p class="text-[#003087]">
+                Unlike generic directories, we match you with centers that
+                specialize in your exact type of scan, ensuring optimal image
+                quality.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start">
+            <div
+              class="flex-shrink-0 w-10 h-10 rounded-full bg-[#cc9933] bg-opacity-20 flex items-center justify-center mt-1"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <div class="ml-4">
+              <h4 class="text-lg font-medium text-[#003087]">
+                Location Optimization
+              </h4>
+              <p class="text-[#003087]">
+                Our system balances proximity with quality, finding you the
+                closest center that meets our rigorous standards.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column Benefits -->
+        <div class="space-y-8">
+          <div class="flex items-start">
+            <div
+              class="flex-shrink-0 w-10 h-10 rounded-full bg-[#cc9933] bg-opacity-20 flex items-center justify-center mt-1"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ml-4">
+              <h4 class="text-lg font-medium text-[#003087]">
+                Transparent Pricing Algorithm
+              </h4>
+              <p class="text-[#003087]">
+                We negotiate directly with imaging centers to secure rates
+                30-70% below hospital pricing, with no hidden fees.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start">
+            <div
+              class="flex-shrink-0 w-10 h-10 rounded-full bg-[#cc9933] bg-opacity-20 flex items-center justify-center mt-1"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="ml-4">
+              <h4 class="text-lg font-medium text-[#003087]">
+                Priority Scheduling System
+              </h4>
+              <p class="text-[#003087]">
+                Our network relationships give you access to preferred
+                appointment slots, typically within 2-4 days instead of weeks.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How SmartMatch Works in Practice -->
+  <section class="py-20 px-6 sm:px-12 bg-white relative overflow-hidden">
+    <!-- Decorative elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-semibold text-[#003087]" data-aos="fade-up">
+          How SmartMatch™ Works in Practice
+        </h2>
+        <p
+          class="mt-6 text-xl text-[#003087] max-w-3xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          Follow the journey of a patient using our SmartMatch™ system to find
+          the right imaging center.
+        </p>
+      </div>
+
+      <!-- Patient Journey Timeline -->
+      <div class="journey-timeline" data-aos="fade-up" data-aos-delay="200">
+        <!-- Step 1 -->
+        <div class="journey-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3 class="step-title">Initial Search</h3>
+            <p class="step-description">
+              Patient enters their scan type and location into our search tool,
+              providing basic information about their needs.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="journey-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3 class="step-title">SmartMatch™ Analysis</h3>
+            <p class="step-description">
+              Our system analyzes patient requirements and matches them with
+              appropriate imaging centers in our network.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="journey-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3 class="step-title">Center Selection</h3>
+            <p class="step-description">
+              Patient reviews matched centers with transparent pricing,
+              availability, and quality information.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="journey-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3 class="step-title">Priority Scheduling</h3>
+            <p class="step-description">
+              Patient books their preferred time slot, typically within 2-4
+              days, with confirmation sent immediately.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="journey-step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3 class="step-title">Scan Completion</h3>
+            <p class="step-description">
+              Patient visits the imaging center for their scan, with clear
+              preparation instructions provided in advance.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="journey-step">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            <h3 class="step-title">Results Delivery</h3>
+            <p class="step-description">
+              Scan is interpreted by a board-certified specialist, with results
+              delivered electronically within 24-48 hours.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Patient Success Story -->
+  <section class="py-20 px-6 sm:px-12 bg-[#f8f2e1]">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-semibold text-[#003087]" data-aos="fade-up">
+          Success Stories
+        </h2>
+        <p
+          class="mt-6 text-xl text-[#003087] max-w-3xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          Real patients, real results with the SmartMatch™ system.
+        </p>
+      </div>
+
+      <div
+        class="bg-white p-8 rounded-xl shadow-lg max-w-4xl mx-auto"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <div class="flex flex-col md:flex-row">
+          <div class="md:w-1/3 mb-6 md:mb-0 md:mr-8">
+            <img
+              src="/images/patient-success.jpg"
+              alt="Patient success story"
+              class="w-full h-auto rounded-lg shadow-md"
+            />
+          </div>
+
+          <div class="md:w-2/3">
+            <h3 class="text-2xl font-semibold text-[#003087] mb-4">
+              Maria's Story: From Frustration to Fast Results
+            </h3>
+
+            <p class="text-[#003087] mb-4">
+              When Maria needed an urgent brain MRI, she was told by her local
+              hospital that the wait would be over three weeks. Concerned about
+              the delay, she found USRad online.
+            </p>
+
+            <p class="text-[#003087] mb-4">
+              "Using the SmartMatch system, I found a nearby imaging center that
+              specialized in neurological scans. I was scheduled within 2 days
+              and paid less than half of what the hospital quoted me. The
+              radiologist had neuro specialty training, and I received my
+              results the very next day."
+            </p>
+
+            <div class="mt-6 flex items-center">
+              <div class="flex-shrink-0">
+                <div
+                  class="w-12 h-12 bg-[#e6c378] rounded-full flex items-center justify-center text-[#003087] font-bold text-xl"
+                >
+                  MS
+                </div>
+              </div>
+              <div class="ml-4">
+                <p class="font-semibold text-[#003087]">Maria S.</p>
+                <p class="text-sm text-gray-600">Brain MRI</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 sm:px-12 bg-[#003087] text-white">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-4xl font-semibold mb-6" data-aos="fade-up">
+        Ready to Experience SmartMatch™?
+      </h2>
+      <p
+        class="text-xl max-w-3xl mx-auto mb-12"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Find the perfect imaging center with transparent pricing and priority
+        scheduling.
+      </p>
+
+      <div
+        class="flex flex-col sm:flex-row justify-center gap-6"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <a
+          href="/"
+          class="px-8 py-4 bg-[#cc9933] text-[#003087] font-bold rounded-full hover:bg-[#e6c378] transition-all duration-300 hover:shadow-xl"
+        >
+          Find an Imaging Center
+        </a>
+        <a
+          href="/contact"
+          class="px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-[#003087] transition-all duration-300 hover:shadow-xl"
+        >
+          Contact Us with Questions
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+  <ChatbotToggle chatbotLabel="💬 Let's Talk" />
+</MainLayout>
+
+<style>
+  /* Journey Timeline Styling */
+  .journey-timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+
+  .journey-timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 35px;
+    width: 4px;
+    background: linear-gradient(
+      to bottom,
+      rgba(204, 153, 51, 0.2),
+      rgba(204, 153, 51, 0.5),
+      rgba(204, 153, 51, 0.2)
+    );
+    border-radius: 2px;
+  }
+
+  .journey-step {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 80px;
+  }
+
+  .journey-step:last-child {
+    margin-bottom: 0;
+  }
+
+  .step-number {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 70px;
+    height: 70px;
+    background-color: #003087;
+    border: 4px solid white;
+    box-shadow: 0 0 0 4px rgba(204, 153, 51, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    z-index: 5;
+  }
+
+  .step-content {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #cc9933;
+  }
+
+  .step-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #003087;
+    margin-bottom: 0.5rem;
+  }
+
+  .step-description {
+    color: #003087;
+    font-size: 1.125rem;
+  }
+
+  @media (max-width: 768px) {
+    .journey-timeline::before {
+      left: 24px;
+    }
+
+    .journey-step {
+      padding-left: 60px;
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      font-size: 1.25rem;
+    }
+  }
+</style>

@@ -3,14 +3,14 @@ import MainLayout from "../layouts/MainLayout.astro";
 import Footer from "../components/Footer.astro";
 import ChatbotToggle from "../components/ChatbotToggle.astro";
 import AOSInit from "../components/AOSInit.astro";
-import ProblemStatement from "../components/ProblemStatement.astro";
-import SmartMatchShowcase from "../components/SmartMatchShowcase.astro";
+import CondensedProblemSolution from "../components/CondensedProblemSolution.astro";
 import PromiseBanner from "../components/PromiseBanner.astro";
 import WhyItCostsLess from "../components/WhyItCostsLess.astro";
 import OurModel from "../components/OurModel.astro";
 import FAQHome from "../components/FAQHome.astro";
 import News from "../components/News.astro";
-import ManufacturerCredibility from "../components/ManufacturerCredibility.astro"
+import ManufacturerCredibility from "../components/ManufacturerCredibility.astro";
+import OurBusinessModel from "../components/OurBusinessModel.astro";
 import FadeIn from "../components/FadeIn.astro";
 ---
 
@@ -209,18 +209,9 @@ import FadeIn from "../components/FadeIn.astro";
     <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
   </div>
 
-  <ProblemStatement />
+  <CondensedProblemSolution />
 
-  <!-- Elegant divider -->
-  <div class="flex justify-center items-center my-8">
-    <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
-    <div class="w-16 md:w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
-    <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
-  </div>
-
-  <SmartMatchShowcase />
-
-  <!-- Elegant divider -->
+    <!-- Elegant divider -->
   <div class="flex justify-center items-center my-8">
     <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
     <div class="w-16 md:w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
@@ -264,32 +255,7 @@ import FadeIn from "../components/FadeIn.astro";
     <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
   </div>
 
-  <!-- Enhanced Our Model -->
-  <section
-    class="bg-white py-20 px-6 sm:px-12 relative overflow-hidden"
-    data-aos="fade-up"
-  >
-    <!-- Subtle pattern overlay -->
-    <div
-      class="absolute inset-0 bg-repeat opacity-[0.03]"
-      style="background-image: url('/images/subtle-pattern.svg');"
-    >
-    </div>
-
-    <!-- Decorative elements -->
-    <div
-      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
-    >
-    </div>
-    <div
-      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
-    >
-    </div>
-
-    <div class="max-w-6xl mx-auto relative z-10">
-      <OurModel />
-    </div>
-  </section>
+  <OurBusinessModel />
 
   <!-- Elegant divider -->
   <div class="flex justify-center items-center my-8">

@@ -1,0 +1,1099 @@
+---
+// OurBusinessModel.astro
+---
+
+<div class="business-model-section">
+  <div class="heading-section">
+    <h2
+      class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center"
+    >
+      <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+      Our Business Model
+    </h2>
+    <p class="mt-4 text-xl text-[#003087] max-w-3xl mx-auto text-center">
+      We've reimagined the traditional medical imaging business model to create
+      a system that works better for patients, providers, and imaging centers.
+    </p>
+  </div>
+
+  <!-- Business Model Diagram -->
+  <div class="hub-diagram">
+    <!-- USRad Hub -->
+    <div class="hub">
+      <div class="hub-content">
+        <div class="hub-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-12 w-12 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+            ></path>
+          </svg>
+        </div>
+        <h3 class="hub-title">USRad</h3>
+        <p class="hub-subtitle">Coordination Hub</p>
+      </div>
+    </div>
+
+    <!-- Connections -->
+    <div class="connection-lines">
+      <div class="connection top-line"></div>
+      <div class="connection right-line"></div>
+      <div class="connection bottom-line"></div>
+      <div class="connection left-line"></div>
+    </div>
+
+    <!-- Stakeholder: Patients (Top) -->
+    <div
+      class="stakeholder stakeholder-top"
+      data-aos="fade-down"
+      data-aos-delay="200"
+    >
+      <div class="stakeholder-card">
+        <div class="stakeholder-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+            ></path>
+          </svg>
+        </div>
+        <h4 class="stakeholder-title">Patients</h4>
+        <ul class="stakeholder-benefits">
+          <li>
+            <span class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
+            <span>Access affordable imaging</span>
+          </li>
+          <li>
+            <span class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
+            <span>Skip insurance complexity</span>
+          </li>
+          <li>
+            <span class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
+            <span>Get expert-read results fast</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Stakeholder: Imaging Centers (Right) -->
+    <div
+      class="stakeholder stakeholder-right"
+      data-aos="fade-left"
+      data-aos-delay="300"
+    >
+      <div class="stakeholder-card">
+        <div class="stakeholder-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            ></path>
+          </svg>
+        </div>
+        <h4 class="stakeholder-title">Imaging Centers</h4>
+        <ul class="stakeholder-benefits">
+          <li>
+            <span class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
+            <span>Increased patient volume</span>
+          </li>
+          <li>
+            <span class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
+            <span>Simplified payment process</span>
+          </li>
+          <li>
+            <span class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
+            <span>Optimized facility utilization</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Stakeholder: Radiologists (Bottom) -->
+    <div
+      class="stakeholder stakeholder-bottom"
+      data-aos="fade-up"
+      data-aos-delay="400"
+    >
+      <div class="stakeholder-card">
+        <div class="stakeholder-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+            ></path>
+          </svg>
+        </div>
+        <h4 class="stakeholder-title">Radiologists</h4>
+        <ul class="stakeholder-benefits">
+          <li>
+            <span class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
+            <span>Practice subspecialty expertise</span>
+          </li>
+          <li>
+            <span class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
+            <span>Consistent read protocols</span>
+          </li>
+          <li>
+            <span class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
+            <span>Direct patient impact</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Stakeholder: Referring Providers (Left) -->
+    <div
+      class="stakeholder stakeholder-left"
+      data-aos="fade-right"
+      data-aos-delay="500"
+    >
+      <div class="stakeholder-card">
+        <div class="stakeholder-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+            ></path>
+          </svg>
+        </div>
+        <h4 class="stakeholder-title">Referring Providers</h4>
+        <ul class="stakeholder-benefits">
+          <li>
+            <span class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
+            <span>Affordable options for patients</span>
+          </li>
+          <li>
+            <span class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
+            <span>Faster scheduling & results</span>
+          </li>
+          <li>
+            <span class="benefit-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
+            <span>Quality-assured reads</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decorative Elements -->
+  <div class="decorative-element element-1"></div>
+  <div class="decorative-element element-2"></div>
+  <div class="decorative-element element-3"></div>
+
+  <!-- Model Advantages Section -->
+  <div class="model-advantages-section">
+    <h3 class="advantages-heading">Key Advantages of Our Model</h3>
+
+    <div class="advantages-grid">
+      <!-- Advantage 1 -->
+      <div class="advantage-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="advantage-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+            ></path>
+          </svg>
+        </div>
+        <h4 class="advantage-title">Quality Verification</h4>
+        <p class="advantage-description">
+          We rigorously evaluate each imaging center, technology, and
+          radiologist in our network to ensure highest quality standards.
+        </p>
+      </div>
+
+      <!-- Advantage 2 -->
+      <div class="advantage-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="advantage-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path>
+          </svg>
+        </div>
+        <h4 class="advantage-title">Direct Pricing Model</h4>
+        <p class="advantage-description">
+          By removing insurance bureaucracy and negotiating direct rates, we
+          create transparency and savings for everyone involved.
+        </p>
+      </div>
+
+      <!-- Advantage 3 -->
+      <div class="advantage-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="advantage-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+        </div>
+        <h4 class="advantage-title">Digital-First Operations</h4>
+        <p class="advantage-description">
+          Our technology platform streamlines scheduling, coordination, and
+          results delivery, reducing administrative costs and improving
+          efficiency.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonial Section -->
+  <div class="testimonial-section" data-aos="fade-up" data-aos-delay="500">
+    <div class="testimonial-content">
+      <div class="testimonial-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-8 w-8 text-[#cc9933]"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+          ></path>
+        </svg>
+      </div>
+      <blockquote class="testimonial-quote">
+        "Partnering with USRad has been transformative for our imaging center.
+        We've seen a 15% increase in volume with no additional administrative
+        burden, and patients consistently rate their experience highly."
+      </blockquote>
+      <div class="testimonial-author">
+        <div class="author-image">
+          <img src="/images/partner-testimonial.jpg" alt="Dr. Sarah Johnson" />
+        </div>
+        <div class="author-info">
+          <p class="author-name">Dr. Sarah Johnson</p>
+          <p class="author-title">Director, Advanced Medical Imaging</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section" data-aos="fade-up" data-aos-delay="600">
+    <a href="/partners" class="cta-button">
+      Learn About Our Partner Network
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5 ml-2"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+          clip-rule="evenodd"></path>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<style>
+  /* Base Section Styling */
+  .business-model-section {
+    padding: 6rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Heading Section */
+  .heading-section {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  /* Decorative Elements */
+  .decorative-element {
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  .element-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(
+      circle,
+      rgba(204, 153, 51, 0.05) 0%,
+      rgba(204, 153, 51, 0.01) 70%
+    );
+    top: 5%;
+    right: -100px;
+  }
+
+  .element-2 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(
+      circle,
+      rgba(0, 48, 135, 0.05) 0%,
+      rgba(0, 48, 135, 0.01) 70%
+    );
+    bottom: 15%;
+    left: -50px;
+  }
+
+  .element-3 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(
+      circle,
+      rgba(204, 153, 51, 0.03) 0%,
+      rgba(204, 153, 51, 0.01) 70%
+    );
+    top: 40%;
+    left: 20%;
+  }
+
+  /* Hub Diagram */
+  .hub-diagram {
+    position: relative;
+    margin: 6rem auto;
+    height: 700px;
+    max-width: 1000px;
+  }
+
+  /* Hub Styling */
+  .hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+
+  .hub-content {
+    width: 220px;
+    height: 220px;
+    background-color: white;
+    border: 4px solid #cc9933;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    animation: pulse 3s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+      box-shadow: 0 12px 40px rgba(204, 153, 51, 0.2);
+    }
+    100% {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .hub-icon {
+    background-color: #003087;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .hub-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #003087;
+    margin-bottom: 0.25rem;
+  }
+
+  .hub-subtitle {
+    font-size: 0.875rem;
+    color: #003087;
+  }
+
+  /* Connection Lines */
+  .connection-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+  }
+
+  .connection {
+    position: absolute;
+    background: linear-gradient(
+      90deg,
+      rgba(204, 153, 51, 0.05),
+      rgba(204, 153, 51, 0.3),
+      rgba(204, 153, 51, 0.05)
+    );
+    animation: shimmer 3s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0.2;
+    }
+  }
+
+  .top-line {
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 35%;
+    transform: translateX(-50%);
+  }
+
+  .right-line {
+    top: 50%;
+    right: 0;
+    width: 32%;
+    height: 2px;
+    transform: translateY(-50%);
+  }
+
+  .bottom-line {
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    height: 35%;
+    transform: translateX(-50%);
+  }
+
+  .left-line {
+    top: 50%;
+    left: 0;
+    width: 32%;
+    height: 2px;
+    transform: translateY(-50%);
+  }
+
+  /* Stakeholder Styling */
+  .stakeholder {
+    position: absolute;
+    z-index: 5;
+  }
+
+  .stakeholder-top {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .stakeholder-right {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+  }
+
+  .stakeholder-bottom {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .stakeholder-left {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  .stakeholder-card {
+    width: 280px;
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+  }
+
+  .stakeholder-top .stakeholder-card {
+    border-top: 4px solid #cc9933;
+  }
+
+  .stakeholder-right .stakeholder-card {
+    border-right: 4px solid #cc9933;
+  }
+
+  .stakeholder-bottom .stakeholder-card {
+    border-bottom: 4px solid #cc9933;
+  }
+
+  .stakeholder-left .stakeholder-card {
+    border-left: 4px solid #cc9933;
+  }
+
+  .stakeholder-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    z-index: 20;
+  }
+
+  .stakeholder-icon {
+    width: 48px;
+    height: 48px;
+    background-color: #003087;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .stakeholder-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #003087;
+    margin-bottom: 1rem;
+  }
+
+  .stakeholder-benefits {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    space-y: 0.75rem;
+  }
+
+  .stakeholder-benefits li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+  }
+
+  .benefit-icon {
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+
+  /* Model Advantages Section */
+  .model-advantages-section {
+    margin-top: 8rem;
+    text-align: center;
+  }
+
+  .advantages-heading {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #003087;
+    margin-bottom: 3rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  .advantages-heading:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: #cc9933;
+    border-radius: 1.5px;
+  }
+
+  .advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .advantage-card {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+  }
+
+  .advantage-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .advantage-icon {
+    width: 64px;
+    height: 64px;
+    background-color: #003087;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .advantage-card:hover .advantage-icon {
+    background-color: #cc9933;
+  }
+
+  .advantage-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #003087;
+    margin-bottom: 1rem;
+  }
+
+  .advantage-description {
+    color: #003087;
+    line-height: 1.6;
+  }
+
+  /* Testimonial Section */
+  .testimonial-section {
+    margin-top: 6rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .testimonial-content {
+    background-color: #f8f2e1;
+    border-radius: 1rem;
+    padding: 2.5rem;
+    max-width: 800px;
+    position: relative;
+    border-left: 4px solid #cc9933;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .testimonial-icon {
+    position: absolute;
+    top: -20px;
+    left: 40px;
+    background-color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .testimonial-quote {
+    font-size: 1.25rem;
+    color: #003087;
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+  }
+
+  .author-image {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1rem;
+    border: 2px solid white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .author-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .author-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .author-name {
+    font-weight: 600;
+    color: #003087;
+    margin-bottom: 0.25rem;
+  }
+
+  .author-title {
+    font-size: 0.875rem;
+    color: #003087;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    margin-top: 4rem;
+    text-align: center;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    background-color: #003087;
+    color: white;
+    font-weight: 500;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid transparent;
+  }
+
+  .cta-button:hover {
+    background-color: #002266;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-color: #cc9933;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1024px) {
+    .hub-diagram {
+      height: 600px;
+    }
+
+    .hub-content {
+      width: 180px;
+      height: 180px;
+    }
+
+    .hub-icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    .stakeholder-card {
+      width: 240px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .business-model-section {
+      padding: 4rem 0;
+    }
+
+    .hub-diagram {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 3rem auto;
+    }
+
+    .hub {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      margin-bottom: 3rem;
+    }
+
+    .connection-lines {
+      display: none;
+    }
+
+    .stakeholder {
+      position: relative;
+      top: auto;
+      right: auto;
+      bottom: auto;
+      left: auto;
+      transform: none;
+      margin-bottom: 1.5rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .stakeholder-card {
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .advantages-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .testimonial-content {
+      padding: 2rem;
+    }
+  }
+</style>
+
+<script>
+  // Add hover effects for stakeholder cards
+  document.addEventListener("DOMContentLoaded", function () {
+    const stakeholderCards = document.querySelectorAll(".stakeholder-card");
+    const hub = document.querySelector(".hub-content");
+
+    stakeholderCards.forEach((card) => {
+      card.addEventListener("mouseenter", function () {
+        // Highlight the hub when hovering over a stakeholder
+        hub.style.borderColor = "#cc9933";
+        hub.style.boxShadow = "0 0 30px rgba(204, 153, 51, 0.3)";
+        this.style.zIndex = "20";
+      });
+
+      card.addEventListener("mouseleave", function () {
+        // Reset hub styling
+        hub.style.borderColor = "#cc9933";
+        hub.style.boxShadow = "";
+        this.style.zIndex = "5";
+      });
+    });
+
+    // Optional: Add a subtle animation effect for the connections
+    const connections = document.querySelectorAll(".connection");
+    connections.forEach((connection) => {
+      setInterval(() => {
+        connection.style.opacity = "0.2";
+        setTimeout(() => {
+          connection.style.opacity = "0.5";
+        }, 1500);
+      }, 3000);
+    });
+  });
+</script>
