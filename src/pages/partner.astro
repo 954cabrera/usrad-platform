@@ -2,7 +2,7 @@
 import Layout from "../layouts/PartnerLayout.astro";
 import AOSInit from "../components/AOSInit.astro";
 import HeroSmartSplit from "../components/partner/HeroSmartSplit.astro";
-import HowItWorksVisualGrid from "../components/partner/HowItWorksVisualGrid.astro";
+import HowItWorksTimeLine from "../components/partner/HowItWorksTimeLine.astro";
 import MarketOpportunity from "../components/partner/MarketOpportunity.astro";
 import IndependentInvitation from "../components/partner/IndependentInvitation.astro";
 import PartnerMfgGrid from "../components/partner/PartnerMfgGrid.astro";
@@ -127,7 +127,7 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
   </div>
 
   <div class="mt-16">
-    <HowItWorksVisualGrid />
+    <HowItWorksTimeLine />
   </div>
 
   <!-- Historical Success Section -->
@@ -163,8 +163,8 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
             Proven Track Record
           </h2>
           <p class="text-xl text-gray-700 mt-6 max-w-3xl mx-auto">
-            Our team has decades of successful experience building and
-            operating a nationwide imaging network.
+            Our team has decades of successful experience building and operating
+            a nationwide imaging network.
           </p>
         </div>
 
@@ -192,9 +192,7 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
             >
               10+
             </div>
-            <p class="text-lg">
-              Years of successful partnership building
-            </p>
+            <p class="text-lg">Years of successful partnership building</p>
           </div>
 
           <div
@@ -254,171 +252,167 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
       </div>
     </div>
 
-      <!-- FAQ Section -->
-      <section
-        class="bg-white py-24 px-6 text-gray-800 relative overflow-hidden"
-        data-aos="fade-up"
-        data-aos-delay="300"
+    <!-- FAQ Section -->
+    <section
+      class="bg-white py-24 px-6 text-gray-800 relative overflow-hidden"
+      data-aos="fade-up"
+      data-aos-delay="300"
+    >
+      <!-- Subtle pattern overlay -->
+      <div
+        class="absolute inset-0 bg-repeat opacity-[0.03]"
+        style="background-image: url('/images/subtle-pattern.svg');"
       >
-        <!-- Subtle pattern overlay -->
-        <div
-          class="absolute inset-0 bg-repeat opacity-[0.03]"
-          style="background-image: url('/images/subtle-pattern.svg');"
-        >
-        </div>
+      </div>
 
-        <!-- Decorative elements -->
-        <div
-          class="absolute top-20 left-20 w-64 h-64 rounded-full bg-[#e6c378] opacity-[0.03] blur-3xl"
-        >
-        </div>
-        <div
-          class="absolute bottom-20 right-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
-        >
-        </div>
+      <!-- Decorative elements -->
+      <div
+        class="absolute top-20 left-20 w-64 h-64 rounded-full bg-[#e6c378] opacity-[0.03] blur-3xl"
+      >
+      </div>
+      <div
+        class="absolute bottom-20 right-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+      >
+      </div>
 
-        <div class="px-6 sm:px-8 lg:px-12">
-          <div class="max-w-7xl mx-auto relative z-10">
-            <div class="text-center mb-16">
-              <h2
-                class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center"
+      <div class="px-6 sm:px-8 lg:px-12">
+        <div class="max-w-7xl mx-auto relative z-10">
+          <div class="text-center mb-16">
+            <h2
+              class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center"
+            >
+              <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
+              Frequently Asked Questions
+            </h2>
+          </div>
+
+          <div class="max-w-4xl mx-auto">
+            <div class="space-y-6">
+              <!-- FAQ 1 -->
+              <div
+                class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
               >
-                <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
-                Frequently Asked Questions
-              </h2>
-            </div>
-
-            <div class="max-w-4xl mx-auto">
-              <div class="space-y-6">
-                <!-- FAQ 1 -->
-                <div
-                  class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                <h3
+                  class="text-xl font-semibold text-[#003087] flex items-center"
                 >
-                  <h3
-                    class="text-xl font-semibold text-[#003087] flex items-center"
-                  >
-                    <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"
-                    ></span>
-                    What is the process to join USRad?
-                  </h3>
-                  <p class="text-lg text-gray-700 mt-4 pl-4">
-                    You can start by filling out the application form. After
-                    submitting your details, we'll reach out with next steps to
-                    onboard your center.
-                  </p>
-                </div>
-                <!-- FAQ 2 -->
-                <div
-                  class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                  <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"></span>
+                  What is the process to join USRad?
+                </h3>
+                <p class="text-lg text-gray-700 mt-4 pl-4">
+                  You can start by filling out the application form. After
+                  submitting your details, we'll reach out with next steps to
+                  onboard your center.
+                </p>
+              </div>
+              <!-- FAQ 2 -->
+              <div
+                class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+              >
+                <h3
+                  class="text-xl font-semibold text-[#003087] flex items-center"
                 >
-                  <h3
-                    class="text-xl font-semibold text-[#003087] flex items-center"
-                  >
-                    <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"
-                    ></span>
-                    Are there any costs involved in joining USRad?
-                  </h3>
-                  <p class="text-lg text-gray-700 mt-4 pl-4">
-                    Joining USRad is free for eligible centers. We offer a
-                    transparent, simple partnership model with no hidden fees.
-                  </p>
-                </div>
-                <!-- FAQ 3 -->
-                <div
-                  class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                  <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"></span>
+                  Are there any costs involved in joining USRad?
+                </h3>
+                <p class="text-lg text-gray-700 mt-4 pl-4">
+                  Joining USRad is free for eligible centers. We offer a
+                  transparent, simple partnership model with no hidden fees.
+                </p>
+              </div>
+              <!-- FAQ 3 -->
+              <div
+                class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+              >
+                <h3
+                  class="text-xl font-semibold text-[#003087] flex items-center"
                 >
-                  <h3
-                    class="text-xl font-semibold text-[#003087] flex items-center"
-                  >
-                    <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"
-                    ></span>
-                    What are the benefits of joining USRad?
-                  </h3>
-                  <p class="text-lg text-gray-700 mt-4 pl-4">
-                    You gain access to a nationwide network of self-pay
-                    patients, streamlined scheduling, faster reimbursements, and
-                    increased volume—all while maintaining high-quality care.
-                  </p>
-                </div>
+                  <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"></span>
+                  What are the benefits of joining USRad?
+                </h3>
+                <p class="text-lg text-gray-700 mt-4 pl-4">
+                  You gain access to a nationwide network of self-pay patients,
+                  streamlined scheduling, faster reimbursements, and increased
+                  volume—all while maintaining high-quality care.
+                </p>
               </div>
             </div>
+          </div>
 
-            <!-- Apply CTA -->
-            <div class="text-center mt-16" id="apply">
-              <a
-                href="/partner/apply"
-                class="inline-block bg-[#003087] text-white px-10 py-4 rounded-full hover:bg-[#002266] transition-all hover:shadow-lg border-l-4 border-[#e6c378]"
-              >
-                Apply Now to Join the Network
-              </a>
-            </div>
+          <!-- Apply CTA -->
+          <div class="text-center mt-16" id="apply">
+            <a
+              href="/partner/apply"
+              class="inline-block bg-[#003087] text-white px-10 py-4 rounded-full hover:bg-[#002266] transition-all hover:shadow-lg border-l-4 border-[#e6c378]"
+            >
+              Apply Now to Join the Network
+            </a>
           </div>
         </div>
+      </div>
 
-        <script>
-          document.addEventListener("DOMContentLoaded", function () {
-            // Subtle hover effects on cards
-            document.querySelectorAll(".hover-card").forEach((card) => {
-              card.addEventListener("mouseenter", function () {
-                const icon = this.querySelector(".card-icon");
-                if (icon) {
-                  icon.classList.add("animate-pulse");
-                }
-              });
-
-              card.addEventListener("mouseleave", function () {
-                const icon = this.querySelector(".card-icon");
-                if (icon) {
-                  icon.classList.remove("animate-pulse");
-                }
-              });
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          // Subtle hover effects on cards
+          document.querySelectorAll(".hover-card").forEach((card) => {
+            card.addEventListener("mouseenter", function () {
+              const icon = this.querySelector(".card-icon");
+              if (icon) {
+                icon.classList.add("animate-pulse");
+              }
             });
 
-            // Animate stat numbers on scroll
-            const observerOptions = {
-              threshold: 0.5,
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  if (!entry.target.dataset.animated) {
-                    entry.target.dataset.animated = true;
-
-                    const finalValue = entry.target.textContent;
-                    const valueWithoutPlus = parseInt(
-                      finalValue.replace(/\D/g, "")
-                    );
-
-                    let currentValue = 0;
-                    const increment = Math.ceil(valueWithoutPlus / 50);
-                    const duration = 1500; // ms
-                    const interval = Math.floor(
-                      duration / (valueWithoutPlus / increment)
-                    );
-
-                    const counter = setInterval(() => {
-                      currentValue += increment;
-                      if (currentValue >= valueWithoutPlus) {
-                        clearInterval(counter);
-                        currentValue = valueWithoutPlus;
-                        entry.target.textContent = finalValue;
-                      } else {
-                        entry.target.textContent = currentValue + "+";
-                      }
-                    }, interval);
-                  }
-                  observer.unobserve(entry.target);
-                }
-              });
-            }, observerOptions);
-
-            document.querySelectorAll(".stat-number").forEach((stat) => {
-              observer.observe(stat);
+            card.addEventListener("mouseleave", function () {
+              const icon = this.querySelector(".card-icon");
+              if (icon) {
+                icon.classList.remove("animate-pulse");
+              }
             });
           });
-        </script>
-      </section>
+
+          // Animate stat numbers on scroll
+          const observerOptions = {
+            threshold: 0.5,
+          };
+
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                if (!entry.target.dataset.animated) {
+                  entry.target.dataset.animated = true;
+
+                  const finalValue = entry.target.textContent;
+                  const valueWithoutPlus = parseInt(
+                    finalValue.replace(/\D/g, "")
+                  );
+
+                  let currentValue = 0;
+                  const increment = Math.ceil(valueWithoutPlus / 50);
+                  const duration = 1500; // ms
+                  const interval = Math.floor(
+                    duration / (valueWithoutPlus / increment)
+                  );
+
+                  const counter = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= valueWithoutPlus) {
+                      clearInterval(counter);
+                      currentValue = valueWithoutPlus;
+                      entry.target.textContent = finalValue;
+                    } else {
+                      entry.target.textContent = currentValue + "+";
+                    }
+                  }, interval);
+                }
+                observer.unobserve(entry.target);
+              }
+            });
+          }, observerOptions);
+
+          document.querySelectorAll(".stat-number").forEach((stat) => {
+            observer.observe(stat);
+          });
+        });
+      </script>
     </section>
-  </section></Layout
->
+  </section>
+</Layout>
