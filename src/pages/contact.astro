@@ -6,24 +6,40 @@ import MainLayout from "../layouts/MainLayout.astro";
   <fragment slot="title">Contact Us | USRad</fragment>
 
   <!-- Hero Section -->
-  <section class="contact-hero">
-    <div class="hero-grid">
-      <div class="hero-content">
-        <h1>Contact Us</h1>
-        <p>
+  <section
+    class="relative bg-gradient-to-b from-[#f5e7c5] to-white py-24 px-6 text-[#0e1b2a] overflow-hidden"
+  >
+    <div
+      class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12"
+    >
+      <!-- Text Content -->
+      <div class="max-w-xl z-10">
+        <h1 class="text-5xl font-semibold mb-6 leading-tight">Contact Us</h1>
+        <p class="text-xl text-gray-700 mb-4">
           We’re here to make your imaging experience simple, clear, and
           personal.
         </p>
-        <p>
+        <p class="text-xl text-gray-700">
           Reach out anytime — our team is ready to help you every step of the
           way.
         </p>
       </div>
-      <div class="hero-image">
-        <img src="/images/contact-hero.png" alt="USRad Contact" />
+
+      <!-- Image with Glow -->
+      <div class="relative z-10 w-full max-w-md mx-auto">
+        <div
+          class="absolute -top-12 -left-12 w-80 h-80 bg-[#f5e7c5] rounded-full blur-3xl opacity-40 z-0"
+        >
+        </div>
+        <img
+          src="/images/contact-hero.png"
+          alt="USRad Contact"
+          class="relative z-10 w-full h-auto object-contain"
+        />
       </div>
     </div>
   </section>
+
   <!-- Contact Info Cards -->
   <section class="bg-fade-to-white py-24">
     <div class="max-w-5xl mx-auto px-6">
@@ -127,83 +143,6 @@ import MainLayout from "../layouts/MainLayout.astro";
 </MainLayout>
 
 <style>
-  .contact-hero {
-    position: relative;
-    isolation: isolate;
-    background-image: linear-gradient(to bottom, #f5e7c5 0%, #ffffff 100%),
-      url("/images/texture-noise.png");
-    background-blend-mode: overlay;
-    background-size: cover;
-    background-position: center;
-
-    background: linear-gradient(to bottom, #f5e7c5 0%, #ffffff 100%);
-
-    padding: 6rem 2rem 6rem 2rem;
-    color: #0e1b2a;
-  }
-
-  .hero-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 2rem;
-  }
-
-  .hero-content {
-    max-width: 600px;
-    text-align: left;
-  }
-
-  .hero-content h1 {
-    font-size: 3rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    line-height: 1.2;
-  }
-
-  .hero-content p {
-    font-size: 1.25rem;
-    margin-top: 0.75rem;
-    color: #374151;
-  }
-
-  .hero-image img {
-    mask-image: radial-gradient(
-      farthest-corner at 100% 100%,
-      black 70%,
-      transparent 100%
-    );
-    -webkit-mask-image: radial-gradient(
-      farthest-corner at 100% 100%,
-      black 70%,
-      transparent 100%
-    );
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    border-radius: 0.5rem;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
-  }
-
-  @media (min-width: 768px) {
-    .hero-grid {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hero-content h1 {
-      font-size: 2.25rem;
-    }
-
-    .hero-content p {
-      font-size: 1rem;
-    }
-  }
   .bg-fade-to-white {
     background: linear-gradient(to bottom, #ffffff 0%, #f9fafb 100%);
   }
