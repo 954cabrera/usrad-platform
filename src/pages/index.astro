@@ -13,210 +13,652 @@ import FadeIn from "../components/FadeIn.astro";
 ---
 
 <MainLayout>
-  <slot slot="title">Home | USRad</slot>
   <AOSInit />
 
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-overlay"></div>
-    <div class="hero-bg"></div>
+  <!-- Enhanced Hero Section with Prominent Search -->
+  <section
+    class="relative bg-gradient-to-b from-[#fcf9f0] to-[#f5e7c5] text-[#003087] pt-32 pb-28 px-6 sm:px-12 overflow-hidden"
+    data-aos="fade-up"
+    data-aos-duration="800"
+  >
+    <!-- Decorative elements similar to about page -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+    >
+    </div>
 
-    <div class="hero-content">
-      <h1>
-        <span>Need an MRI or CT?</span><br />
-        <span>We Make It Simple.</span>
-      </h1>
-
-      <p>
-        Skip the confusion. Get matched instantly to trusted imaging centers —
-        with upfront pricing and no referral required.
-      </p>
-      <p>It’s fast, clear, and built for patients like you.</p>
-
-      <div class="smartmatch-badge">
-        <span>
-          Powered by <span class="smartmatch-pulse"
-            ><em>SmartMatch<sup>™</sup></em></span
-          >
-        </span>
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="text-center mb-12">
+        <h1
+          class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight font-manrope text-[#003087]"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          Medical Imaging Done <span class="text-[#cc9933] relative">
+            Right
+            <svg
+              class="absolute -bottom-2 left-0 w-full"
+              height="6"
+              viewBox="0 0 340 6"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 3.5C2 3.5 70 0.5 170 3.5C270 6.5 338 3.5 338 3.5"
+                stroke="#cc9933"
+                stroke-width="4"
+                stroke-linecap="round"></path>
+            </svg>
+          </span>
+        </h1>
+        <p
+          class="mt-6 text-xl sm:text-2xl text-[#003087] max-w-3xl mx-auto leading-relaxed"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          Skip the referral. See upfront pricing. Book at trusted imaging
+          centers with board-certified radiologists near you.
+        </p>
       </div>
 
-      <div class="hero-buttons">
-        <a href="/locations" class="btn-primary">Find Centers →</a>
-        <a href="/about" class="btn-secondary">Learn More</a>
+      <!-- Enhanced Search Form with Amber Gold Accents -->
+      <div
+        class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-[#cc9933] max-w-4xl mx-auto"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <form
+          action="/locations"
+          method="get"
+          class="flex flex-col md:flex-row justify-between gap-4"
+        >
+          <div class="flex-1">
+            <label
+              for="scan-type"
+              class="block text-sm font-medium text-[#003087] mb-2"
+              >Scan Type</label
+            >
+            <select
+              id="scan-type"
+              name="type"
+              class="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#cc9933]"
+              required
+            >
+              <option value="" disabled selected>Select type of scan</option>
+              <option value="mri">MRI Scan</option>
+              <option value="ct">CT Scan</option>
+              <option value="xray">X-Ray</option>
+              <option value="ultrasound">Ultrasound</option>
+              <option value="mammogram">Mammogram</option>
+            </select>
+          </div>
+
+          <div class="w-full md:w-40">
+            <label
+              for="zip-code"
+              class="block text-sm font-medium text-[#003087] mb-2"
+              >Location</label
+            >
+            <input
+              id="zip-code"
+              type="text"
+              name="zip"
+              placeholder="ZIP Code"
+              class="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#cc9933]"
+              required
+            />
+          </div>
+
+          <div class="flex items-end">
+            <button
+              type="submit"
+              class="w-full md:w-auto px-8 py-4 bg-[#003087] text-white font-bold rounded-lg hover:bg-[#002266] transition-all duration-300 border border-transparent hover:border-[#cc9933] hover:shadow-lg"
+            >
+              <span class="flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                Find Now
+              </span>
+            </button>
+          </div>
+        </form>
+
+        <div
+          class="mt-6 text-sm text-[#003087] flex items-center justify-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-2 text-[#cc9933]"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          No referral needed. Most appointments confirmed within 24 hours.
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div
+        class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        <div
+          class="bg-white p-4 rounded-xl shadow-md text-center transform hover:scale-105 transition-all duration-300 border-t-4 border-[#cc9933]"
+        >
+          <div class="text-[#003087] text-3xl font-bold mb-2">30-70%</div>
+          <p class="text-[#003087]">Lower than hospital rates</p>
+        </div>
+        <div
+          class="bg-white p-4 rounded-xl shadow-md text-center transform hover:scale-105 transition-all duration-300 border-t-4 border-[#cc9933]"
+        >
+          <div class="text-[#003087] text-3xl font-bold mb-2">1,200+</div>
+          <p class="text-[#003087]">Centers nationwide</p>
+        </div>
+        <div
+          class="bg-white p-4 rounded-xl shadow-md text-center transform hover:scale-105 transition-all duration-300 border-t-4 border-[#cc9933]"
+        >
+          <div class="text-[#003087] text-3xl font-bold mb-2">100%</div>
+          <p class="text-[#003087]">Board-certified radiologists</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Elegant Wave Divider -->
+    <div class="absolute bottom-0 left-0 right-0 overflow-hidden">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 120"
+        class="w-full h-auto"
+      >
+        <path
+          fill="#ffffff"
+          fill-opacity="1"
+          d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
+        ></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Elegant divider -->
+  <div class="flex justify-center items-center my-8">
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
+    <div class="w-16 md:w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
+  </div>
+
+  <!-- Enhanced SmartMatch Overview -->
+  <section class="bg-white py-20 px-6 sm:px-12" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto">
+      <SmartMatch />
+    </div>
+  </section>
+
+  <!-- Elegant divider -->
+  <div class="flex justify-center items-center my-8">
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
+    <div class="w-16 md:w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
+  </div>
+
+  <!-- Enhanced Value Proposition -->
+  <section class="bg-[#f8f2e1] py-20 px-6 sm:px-12" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto">
+      <PromiseBanner />
+    </div>
+  </section>
+
+  <!-- Elegant divider -->
+  <div class="flex justify-center items-center my-8">
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
+    <div class="w-16 md:w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
+  </div>
+
+  <!-- Enhanced Manufacturer Credibility Section -->
+  <section
+    class="bg-white py-20 px-6 sm:px-12 relative overflow-hidden"
+    data-aos="fade-up"
+    data-aos-delay="200"
+  >
+    <!-- Subtle pattern overlay -->
+    <div
+      class="absolute inset-0 bg-repeat opacity-[0.03]"
+      style="background-image: url('/images/subtle-pattern.svg');"
+    >
+    </div>
+
+    <!-- Decorative elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-6xl mx-auto text-center relative z-10">
+      <h2
+        class="text-3xl sm:text-4xl font-semibold text-[#003087] mb-6 tracking-tight flex items-center justify-center"
+      >
+        <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+        Trusted by the World's Leading Imaging Technologies
+      </h2>
+      <p class="text-xl text-[#003087] max-w-3xl mx-auto mb-12">
+        Our network utilizes state-of-the-art imaging equipment from the
+        industry's most respected manufacturers, ensuring exceptional image
+        quality for accurate diagnostics.
+      </p>
+
+      <div class="flex flex-wrap justify-center items-center gap-10 sm:gap-16">
+        <div class="manufacturer-logo-container">
+          <img
+            src="/images/manufacturers/ge.svg"
+            alt="GE Healthcare"
+            class="manufacturer-logo"
+          />
+        </div>
+        <div class="manufacturer-logo-container">
+          <img
+            src="/images/manufacturers/siemens.svg"
+            alt="Siemens"
+            class="manufacturer-logo"
+          />
+        </div>
+        <div class="manufacturer-logo-container">
+          <img
+            src="/images/manufacturers/philips.svg"
+            alt="Philips"
+            class="manufacturer-logo"
+          />
+        </div>
+        <div class="manufacturer-logo-container">
+          <img
+            src="/images/manufacturers/canon.svg"
+            alt="Canon Medical"
+            class="manufacturer-logo"
+          />
+        </div>
+        <div class="manufacturer-logo-container">
+          <img
+            src="/images/manufacturers/hitachi.svg"
+            alt="Hitachi"
+            class="manufacturer-logo"
+          />
+        </div>
       </div>
     </div>
   </section>
 
-  <FadeIn effect="fade" delay={0}>
-    <section class="bg-white py-12 px-6">
-      <SmartMatch />
-    </section>
-  </FadeIn>
+  <!-- Elegant divider -->
+  <div class="flex justify-center items-center my-8">
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
+    <div class="w-16 md:w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
+  </div>
 
-  <FadeIn effect="fade" delay={400}>
-    <section class="bg-white py-12 px-6">
-      <PromiseBanner />
-    </section>
-  </FadeIn>
-
-  <FadeIn effect="fade" delay={800}>
-    <section class="bg-white py-12 px-6">
+  <!-- Enhanced Why It Costs Less -->
+  <section class="bg-[#f0f4f9] py-20 px-6 sm:px-12" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto">
       <WhyItCostsLess />
-    </section>
-  </FadeIn>
+    </div>
+  </section>
 
-  <FadeIn effect="fade" delay={1200}>
-    <section class="bg-white py-12 px-6">
+  <!-- Elegant divider -->
+  <div class="flex justify-center items-center my-8">
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
+    <div class="w-16 md:w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
+  </div>
+
+  <!-- Enhanced Our Model -->
+  <section
+    class="bg-white py-20 px-6 sm:px-12 relative overflow-hidden"
+    data-aos="fade-up"
+  >
+    <!-- Subtle pattern overlay -->
+    <div
+      class="absolute inset-0 bg-repeat opacity-[0.03]"
+      style="background-image: url('/images/subtle-pattern.svg');"
+    >
+    </div>
+
+    <!-- Decorative elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
       <OurModel />
-    </section>
-  </FadeIn>
+    </div>
+  </section>
 
-  <FadeIn effect="fade" delay={1600}>
-    <section class="bg-white py-12 px-6">
+  <!-- Elegant divider -->
+  <div class="flex justify-center items-center my-8">
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
+    <div class="w-16 md:w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
+  </div>
+
+  <!-- Patient Testimonials - NEW SECTION -->
+  <section class="bg-[#f8f2e1] py-20 px-6 sm:px-12" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2
+          class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center"
+        >
+          <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+          What Our Patients Say
+        </h2>
+        <p class="mt-6 text-xl text-[#003087] max-w-3xl mx-auto">
+          Real stories from patients who found clarity and care through USRad.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 relative"
+        >
+          <div
+            class="absolute -top-4 -right-4 w-12 h-12 flex items-center justify-center bg-[#cc9933] rounded-full text-white text-2xl font-bold"
+          >
+            "
+          </div>
+          <p class="text-lg text-[#003087] mb-6">
+            After being quoted $3,200 for an MRI at my local hospital, I found
+            USRad and paid only $750 for the exact same scan. The center was
+            clean, professional, and I had my results within 24 hours.
+          </p>
+          <div class="flex items-center">
+            <div
+              class="w-12 h-12 bg-[#e6c378] rounded-full flex items-center justify-center text-[#003087] font-bold text-xl"
+            >
+              JM
+            </div>
+            <div class="ml-4">
+              <h4 class="font-semibold text-[#003087]">Jennifer M.</h4>
+              <p class="text-sm text-gray-600">Knee MRI</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 relative"
+        >
+          <div
+            class="absolute -top-4 -right-4 w-12 h-12 flex items-center justify-center bg-[#cc9933] rounded-full text-white text-2xl font-bold"
+          >
+            "
+          </div>
+          <p class="text-lg text-[#003087] mb-6">
+            I needed a CT scan quickly but was told I'd have to wait 3 weeks.
+            USRad got me scheduled within 2 days, and their team walked me
+            through every step. The peace of mind was priceless.
+          </p>
+          <div class="flex items-center">
+            <div
+              class="w-12 h-12 bg-[#e6c378] rounded-full flex items-center justify-center text-[#003087] font-bold text-xl"
+            >
+              RD
+            </div>
+            <div class="ml-4">
+              <h4 class="font-semibold text-[#003087]">Robert D.</h4>
+              <p class="text-sm text-gray-600">Chest CT Scan</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 relative"
+        >
+          <div
+            class="absolute -top-4 -right-4 w-12 h-12 flex items-center justify-center bg-[#cc9933] rounded-full text-white text-2xl font-bold"
+          >
+            "
+          </div>
+          <p class="text-lg text-[#003087] mb-6">
+            As someone without insurance, I was anxious about how much an MRI
+            would cost. USRad provided clear pricing upfront, no surprises, and
+            the quality of care was exceptional. I'm so grateful.
+          </p>
+          <div class="flex items-center">
+            <div
+              class="w-12 h-12 bg-[#e6c378] rounded-full flex items-center justify-center text-[#003087] font-bold text-xl"
+            >
+              SL
+            </div>
+            <div class="ml-4">
+              <h4 class="font-semibold text-[#003087]">Sarah L.</h4>
+              <p class="text-sm text-gray-600">Brain MRI</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a
+          href="/testimonials"
+          class="inline-block px-8 py-4 bg-[#003087] text-white rounded-full font-medium hover:bg-[#002266] hover:shadow-xl transition-all duration-300 border border-transparent hover:border-[#cc9933]"
+        >
+          Read More Patient Stories →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Elegant divider -->
+  <div class="flex justify-center items-center my-8">
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
+    <div class="w-16 md:w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
+  </div>
+
+  <!-- Enhanced FAQ Section -->
+  <section class="bg-white py-20 px-6 sm:px-12" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto">
       <FAQHome />
-    </section>
-  </FadeIn>
+    </div>
+  </section>
 
-  <FadeIn effect="fade" delay={2000}>
-    <section class="bg-white py-12 px-6">
+  <!-- Elegant divider -->
+  <div class="flex justify-center items-center my-8">
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
+    <div class="w-16 md:w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
+  </div>
+
+  <!-- Enhanced News / Articles -->
+  <section class="bg-[#f0f4f9] py-20 px-6 sm:px-12" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto">
       <News />
-    </section>
-  </FadeIn>
+    </div>
+  </section>
 
-  
+  <!-- Final CTA Section - NEW -->
+  <section
+    class="bg-[#003087] text-white py-20 px-6 sm:px-12 relative overflow-hidden"
+    data-aos="fade-up"
+  >
+    <!-- Subtle pattern overlay -->
+    <div
+      class="absolute inset-0 bg-repeat opacity-[0.03]"
+      style="background-image: url('/images/subtle-pattern.svg');"
+    >
+    </div>
+
+    <!-- Decorative elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.05] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-white opacity-[0.03] blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-6xl mx-auto text-center relative z-10">
+      <h2 class="text-4xl font-semibold mb-6">
+        Ready to Experience Imaging Done Right?
+      </h2>
+      <p class="text-xl max-w-3xl mx-auto mb-12">
+        Skip the referral, see transparent pricing, and book with confidence at
+        a trusted imaging center near you.
+      </p>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-6">
+        <a
+          href="#top"
+          class="px-8 py-4 bg-[#cc9933] text-[#003087] font-bold rounded-full hover:bg-[#e6c378] transition-all duration-300 hover:shadow-xl"
+        >
+          Find an Imaging Center
+        </a>
+        <a
+          href="/about"
+          class="px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-[#003087] transition-all duration-300 hover:shadow-xl"
+        >
+          Learn About USRad
+        </a>
+      </div>
+    </div>
+  </section>
+
   <Footer />
   <ChatbotToggle chatbotLabel="💬 Let's Talk" />
 </MainLayout>
 
 <style>
-  .hero-section {
-    position: relative;
-    height: 700px;
-    background-color: #0e1b2a;
-    color: #e6c378;
-    overflow: hidden;
+  @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+
+  :root {
+    --font-primary: "Manrope", sans-serif;
+  }
+
+  body {
+    font-family: var(--font-primary);
+  }
+
+  .manufacturer-logo-container {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.75rem;
     display: flex;
     align-items: center;
-  }
-
-  .hero-bg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: url("/images/patient-smiling.jpg");
-    background-size: cover;
-    background-position: center;
-    z-index: 0;
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(14, 27, 42, 0.5);
-    z-index: 1;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
     justify-content: center;
-    padding: 2rem;
-    text-align: right;
-    max-width: 900px;
-    margin-left: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease-in-out;
   }
 
-  .hero-content h1 {
-    font-size: 3rem;
-    font-weight: bold;
-    line-height: 1.3;
-    letter-spacing: -0.5px;
-    color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  .manufacturer-logo-container:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
   }
 
-  .hero-content p {
-    margin-top: 1rem;
-    font-size: 1.25rem;
-    color: #f1d8a1;
-    max-width: 440px;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  .manufacturer-logo {
+    height: 48px;
+    max-width: 120px;
+    transition: all 0.3s ease-in-out;
+    filter: grayscale(100%);
+    opacity: 0.7;
   }
 
-  .smartmatch-badge {
-    margin-top: 1.5rem;
-    background-color: white;
-    color: #0e1b2a;
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    animation: glowPulse 2.2s ease-in-out infinite;
-    box-shadow: 0 0 8px 2px rgba(230, 195, 120, 0.3);
-  }
-
-  @keyframes glowPulse {
-    0%,
-    100% {
-      transform: scale(1);
-      box-shadow: 0 0 8px 2px rgba(230, 195, 120, 0.3);
-    }
-    50% {
-      transform: scale(1.04);
-      box-shadow: 0 0 16px 4px rgba(230, 195, 120, 0.5);
-    }
-  }
-
-  .hero-buttons {
-    margin-top: 2.5rem;
-    display: flex;
-    gap: 1rem;
-  }
-
-  .btn-primary {
-    background-color: #e6c378;
-    color: #0e1b2a;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: bold;
-    text-decoration: none;
-  }
-
-  .btn-secondary {
-    background: transparent;
-    border: 1px solid #e6c378;
-    color: #f1d8a1;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: bold;
-    text-decoration: none;
-  }
-
-  .btn-secondary:hover {
-    background-color: rgba(241, 216, 161, 0.1);
-    color: #ffffff;
-    border-color: #f1d8a1;
-  }
-
-  @media (max-width: 768px) {
-    .hero-content {
-      align-items: flex-start;
-      text-align: left;
-      padding: 1.5rem;
-    }
-
-    .hero-content h1 {
-      font-size: 2.25rem;
-    }
-
-    .hero-buttons {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+  .manufacturer-logo-container:hover .manufacturer-logo {
+    filter: grayscale(0%);
+    opacity: 1;
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href");
+
+        if (targetId === "#top") {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        } else {
+          const target = document.querySelector(targetId);
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+            });
+          }
+        }
+      });
+    });
+
+    // Animate stat numbers on scroll
+    const observerOptions = {
+      threshold: 0.5,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!entry.target.dataset.animated) {
+            entry.target.dataset.animated = true;
+
+            const finalValue = entry.target.textContent;
+            const valueWithoutPlus = parseInt(finalValue.replace(/\D/g, ""));
+
+            let currentValue = 0;
+            const increment = Math.ceil(valueWithoutPlus / 40);
+            const duration = 1500; // ms
+            const interval = Math.floor(
+              duration / (valueWithoutPlus / increment)
+            );
+
+            const counter = setInterval(() => {
+              currentValue += increment;
+              if (currentValue >= valueWithoutPlus) {
+                clearInterval(counter);
+                currentValue = valueWithoutPlus;
+                entry.target.textContent = finalValue;
+              } else {
+                entry.target.textContent = currentValue + "+";
+              }
+            }, interval);
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll(".text-3xl.font-bold").forEach((stat) => {
+      observer.observe(stat);
+    });
+  });
+</script>
