@@ -3,12 +3,14 @@ import MainLayout from "../layouts/MainLayout.astro";
 import Footer from "../components/Footer.astro";
 import ChatbotToggle from "../components/ChatbotToggle.astro";
 import AOSInit from "../components/AOSInit.astro";
-import SmartMatch from "../components/SmartMatch.astro";
+import ProblemStatement from "../components/ProblemStatement.astro";
+import SmartMatchShowcase from "../components/SmartMatchShowcase.astro";
 import PromiseBanner from "../components/PromiseBanner.astro";
 import WhyItCostsLess from "../components/WhyItCostsLess.astro";
 import OurModel from "../components/OurModel.astro";
 import FAQHome from "../components/FAQHome.astro";
 import News from "../components/News.astro";
+import ManufacturerCredibility from "../components/ManufacturerCredibility.astro"
 import FadeIn from "../components/FadeIn.astro";
 ---
 
@@ -207,12 +209,16 @@ import FadeIn from "../components/FadeIn.astro";
     <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
   </div>
 
-  <!-- Enhanced SmartMatch Overview -->
-  <section class="bg-white py-20 px-6 sm:px-12" data-aos="fade-up">
-    <div class="max-w-6xl mx-auto">
-      <SmartMatch />
-    </div>
-  </section>
+  <ProblemStatement />
+
+  <!-- Elegant divider -->
+  <div class="flex justify-center items-center my-8">
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
+    <div class="w-16 md:w-24 h-1 bg-[#e6c378] opacity-80 rounded-md"></div>
+    <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
+  </div>
+
+  <SmartMatchShowcase />
 
   <!-- Elegant divider -->
   <div class="flex justify-center items-center my-8">
@@ -235,81 +241,7 @@ import FadeIn from "../components/FadeIn.astro";
     <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
   </div>
 
-  <!-- Enhanced Manufacturer Credibility Section -->
-  <section
-    class="bg-white py-20 px-6 sm:px-12 relative overflow-hidden"
-    data-aos="fade-up"
-    data-aos-delay="200"
-  >
-    <!-- Subtle pattern overlay -->
-    <div
-      class="absolute inset-0 bg-repeat opacity-[0.03]"
-      style="background-image: url('/images/subtle-pattern.svg');"
-    >
-    </div>
-
-    <!-- Decorative elements -->
-    <div
-      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
-    >
-    </div>
-    <div
-      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
-    >
-    </div>
-
-    <div class="max-w-6xl mx-auto text-center relative z-10">
-      <h2
-        class="text-3xl sm:text-4xl font-semibold text-[#003087] mb-6 tracking-tight flex items-center justify-center"
-      >
-        <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
-        Trusted by the World's Leading Imaging Technologies
-      </h2>
-      <p class="text-xl text-[#003087] max-w-3xl mx-auto mb-12">
-        Our network utilizes state-of-the-art imaging equipment from the
-        industry's most respected manufacturers, ensuring exceptional image
-        quality for accurate diagnostics.
-      </p>
-
-      <div class="flex flex-wrap justify-center items-center gap-10 sm:gap-16">
-        <div class="manufacturer-logo-container">
-          <img
-            src="/images/manufacturers/ge.svg"
-            alt="GE Healthcare"
-            class="manufacturer-logo"
-          />
-        </div>
-        <div class="manufacturer-logo-container">
-          <img
-            src="/images/manufacturers/siemens.svg"
-            alt="Siemens"
-            class="manufacturer-logo"
-          />
-        </div>
-        <div class="manufacturer-logo-container">
-          <img
-            src="/images/manufacturers/philips.svg"
-            alt="Philips"
-            class="manufacturer-logo"
-          />
-        </div>
-        <div class="manufacturer-logo-container">
-          <img
-            src="/images/manufacturers/canon.svg"
-            alt="Canon Medical"
-            class="manufacturer-logo"
-          />
-        </div>
-        <div class="manufacturer-logo-container">
-          <img
-            src="/images/manufacturers/hitachi.svg"
-            alt="Hitachi"
-            class="manufacturer-logo"
-          />
-        </div>
-      </div>
-    </div>
-  </section>
+  <ManufacturerCredibility />
 
   <!-- Elegant divider -->
   <div class="flex justify-center items-center my-8">

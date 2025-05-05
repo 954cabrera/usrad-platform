@@ -1,93 +1,405 @@
 ---
+// PromiseBanner.astro
+import { Icon } from "astro-icon";
 ---
 
-<section class="promise-section">
-  <div class="promise-container">
-    <div class="promise-heading">Our Promise to You</div>
-    <p class="promise-subtext">
-      You’ll get scheduled quickly. You’ll know exactly what you’re paying. Your scan will be done right — or we’ll make it right. Guaranteed.
+<div class="py-12 relative z-10">
+  <!-- Section Header -->
+  <div class="text-center mb-12" data-aos="fade-up">
+    <h2
+      class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center"
+    >
+      <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+      Our Promise to You
+    </h2>
+    <p class="mt-4 text-xl text-[#003087] max-w-3xl mx-auto">
+      When you choose USRad, you can count on these guarantees for every scan.
     </p>
+  </div>
 
-    <div class="promise-cards">
-      <div class="promise-card">
-        <div class="icon">🛡️</div>
-        <div>
-          <p class="promise-title">100% Quality Guarantee</p>
-          <p class="promise-detail">We vet every scan. If it’s not right, we’ll fix it — no cost to you.</p>
+  <div class="grid md:grid-cols-2 gap-12 items-center">
+    <!-- Left Side: Before/After Comparison -->
+    <div
+      class="relative rounded-xl overflow-hidden shadow-xl"
+      data-aos="fade-right"
+      data-aos-delay="200"
+    >
+      <div class="relative">
+        <!-- Before Side -->
+        <div
+          class="absolute top-0 left-0 bottom-0 w-1/2 bg-[#f0f4f9] flex flex-col justify-center items-center p-6 border-r border-dashed border-gray-300 overflow-hidden"
+        >
+          <div
+            class="absolute top-4 left-4 bg-[#003087] text-white text-sm font-bold px-3 py-1 rounded-full"
+          >
+            WITHOUT USRad
+          </div>
+          <div class="space-y-4 mt-12">
+            <div class="flex items-center">
+              <div
+                class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500 mr-3"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <p class="text-[#003087] font-medium">Unknown Costs</p>
+            </div>
+            <div class="flex items-center">
+              <div
+                class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500 mr-3"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <p class="text-[#003087] font-medium">Long Wait Times</p>
+            </div>
+            <div class="flex items-center">
+              <div
+                class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500 mr-3"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <p class="text-[#003087] font-medium">Unknown Radiologist</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- After Side -->
+        <div
+          class="absolute top-0 right-0 bottom-0 w-1/2 bg-white flex flex-col justify-center items-center p-6 overflow-hidden"
+        >
+          <div
+            class="absolute top-4 right-4 bg-[#cc9933] text-[#003087] text-sm font-bold px-3 py-1 rounded-full"
+          >
+            WITH USRad
+          </div>
+          <div class="space-y-4 mt-12">
+            <div class="flex items-center">
+              <div
+                class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-500 mr-3"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <p class="text-[#003087] font-medium">Transparent Pricing</p>
+            </div>
+            <div class="flex items-center">
+              <div
+                class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-500 mr-3"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <p class="text-[#003087] font-medium">Fast Scheduling</p>
+            </div>
+            <div class="flex items-center">
+              <div
+                class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-500 mr-3"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <p class="text-[#003087] font-medium">
+                Board-Certified Specialist
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Central divider -->
+        <div
+          class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-full w-1 flex flex-col items-center justify-center"
+        >
+          <div
+            class="h-full w-0.5 bg-gradient-to-b from-transparent via-[#cc9933] to-transparent opacity-50"
+          >
+          </div>
+        </div>
+
+        <!-- Make comparison accessible at mobile sizes -->
+        <div class="h-80 w-full md:hidden"></div>
+        <div class="h-64 w-full hidden md:block"></div>
+      </div>
+    </div>
+
+    <!-- Right Side: Promise Cards -->
+    <div class="space-y-6" data-aos="fade-left" data-aos-delay="300">
+      <!-- Promise 1 -->
+      <div
+        class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-duration-300 border-l-4 border-[#cc9933]"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        <div class="flex items-start">
+          <div class="flex-shrink-0 mr-4">
+            <div
+              class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-[#003087] mb-2">
+              Transparent Pricing Promise
+            </h3>
+            <p class="text-[#003087]">
+              We guarantee upfront pricing with no hidden fees or surprise
+              bills. What you see is what you pay – typically 30-70% less than
+              hospital rates.
+            </p>
+          </div>
         </div>
       </div>
 
-      <div class="promise-card">
-        <div class="icon">⏱️</div>
-        <div>
-          <p class="promise-title">Fast Turnaround</p>
-          <p class="promise-detail">Most appointments happen same or next day, with results in 24–48 hours.</p>
+      <!-- Promise 2 -->
+      <div
+        class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-duration-300 border-l-4 border-[#cc9933]"
+        data-aos="fade-up"
+        data-aos-delay="500"
+      >
+        <div class="flex items-start">
+          <div class="flex-shrink-0 mr-4">
+            <div
+              class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-[#003087] mb-2">
+              Priority Scheduling Promise
+            </h3>
+            <p class="text-[#003087]">
+              We guarantee appointments typically within 2-4 days of your
+              request – not weeks or months like many providers.
+            </p>
+          </div>
         </div>
       </div>
 
-      <div class="promise-card">
-        <div class="icon">🤝</div>
-        <div>
-          <p class="promise-title">We’re With You</p>
-          <p class="promise-detail">Real people, real support — at every step, with your best interest first.</p>
+      <!-- Promise 3 -->
+      <div
+        class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-duration-300 border-l-4 border-[#cc9933]"
+        data-aos="fade-up"
+        data-aos-delay="600"
+      >
+        <div class="flex items-start">
+          <div class="flex-shrink-0 mr-4">
+            <div
+              class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-[#003087] mb-2">
+              Expert Radiologist Promise
+            </h3>
+            <p class="text-[#003087]">
+              We guarantee that every scan is interpreted by a board-certified
+              specialist radiologist, ensuring the highest quality readings and
+              accurate results.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Promise 4 -->
+      <div
+        class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-duration-300 border-l-4 border-[#cc9933]"
+        data-aos="fade-up"
+        data-aos-delay="700"
+      >
+        <div class="flex items-start">
+          <div class="flex-shrink-0 mr-4">
+            <div
+              class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-[#003087] mb-2">
+              Results Clarity Promise
+            </h3>
+            <p class="text-[#003087]">
+              We guarantee results delivered within 24-48 hours, formatted
+              clearly with highlighted findings to share with your healthcare
+              provider.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</section>
+
+  <!-- CTA/Endorsement -->
+  <div class="mt-12 text-center" data-aos="fade-up" data-aos-delay="800">
+    <div
+      class="inline-block bg-white px-8 py-4 rounded-xl shadow-md border-b-4 border-[#cc9933] max-w-2xl"
+    >
+      <p class="text-xl text-[#003087] italic">
+        "These aren't just promises — they're our standards. Every patient,
+        every scan, every time."
+      </p>
+      <div class="mt-4 flex items-center justify-center">
+        <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+          <img
+            src="/images/michael.jpg"
+            alt="Michael Cabrera"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="text-left">
+          <p class="font-medium text-[#003087]">Michael Cabrera</p>
+          <p class="text-sm text-gray-600">Founder & CEO</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Add scroll reveal animations for the promise cards
+  document.addEventListener("DOMContentLoaded", function () {
+    const promises = document.querySelectorAll(".border-l-4.border-[#cc9933]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fadeIn");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    promises.forEach((promise) => {
+      observer.observe(promise);
+    });
+  });
+</script>
 
 <style>
-  .promise-section {
-    background: #0e1b2a;
-    color: white;
-    padding: 4rem 1rem;
-    text-align: center;
-  }
-  .promise-container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  .promise-heading {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #e6c378;
-    margin-bottom: 1rem;
-  }
-  .promise-subtext {
-    color: #cbd5e1;
-    font-size: 1.125rem;
-    max-width: 640px;
-    margin: 0 auto 3rem;
-  }
-  .promise-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-  .promise-card {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-    text-align: left;
-    justify-content: center;
-  }
-  .icon {
-    font-size: 1.75rem;
-    color: #e6c378;
-    flex-shrink: 0;
-  }
-  .promise-title {
-    font-weight: 600;
-    color: white;
-    margin-bottom: 0.25rem;
-  }
-  .promise-detail {
-    color: #94a3b8;
-    font-size: 0.875rem;
-  }
-  @media (min-width: 768px) {
-    .promise-cards {
-      flex-direction: row;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
     }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-out forwards;
   }
 </style>
