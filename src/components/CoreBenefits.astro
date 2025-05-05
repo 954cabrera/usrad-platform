@@ -1,0 +1,189 @@
+---
+// CoreBenefits.astro
+---
+
+<div class="core-benefits-section">
+  <div class="section-header">
+    <h2
+      class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center"
+    >
+      <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+      Why Choose USRad
+    </h2>
+    <p class="mt-4 text-xl text-[#003087] max-w-3xl mx-auto text-center">
+      We've reimagined medical imaging to deliver an experience that puts you
+      first.
+    </p>
+  </div>
+
+  <div class="benefits-grid">
+    <!-- Benefit 1: Price -->
+    <div class="benefit-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="benefit-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-8 w-8 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+      </div>
+      <h3 class="benefit-title">Transparent Pricing</h3>
+      <p class="benefit-description">
+        Save 30-70% compared to hospital rates with our all-inclusive pricing.
+        No hidden fees, no separate bills for facility and radiologist, just one
+        clear price upfront.
+      </p>
+    </div>
+
+    <!-- Benefit 2: Speed -->
+    <div class="benefit-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="benefit-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-8 w-8 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <h3 class="benefit-title">Priority Scheduling</h3>
+      <p class="benefit-description">
+        Get your scan within 2-4 days instead of waiting weeks. Our network
+        partnerships give you access to preferred appointment slots when you
+        need them most.
+      </p>
+    </div>
+
+    <!-- Benefit 3: Quality -->
+    <div class="benefit-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="benefit-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-8 w-8 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+          ></path>
+        </svg>
+      </div>
+      <h3 class="benefit-title">Expert Radiologists</h3>
+      <p class="benefit-description">
+        Every scan is interpreted by board-certified specialist radiologists
+        with advanced training in their field. We match your scan type with the
+        right expert for accurate results.
+      </p>
+    </div>
+
+    <!-- Benefit 4: Simplicity -->
+    <div class="benefit-card" data-aos="fade-up" data-aos-delay="400">
+      <div class="benefit-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-8 w-8 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+          ></path>
+        </svg>
+      </div>
+      <h3 class="benefit-title">Seamless Experience</h3>
+      <p class="benefit-description">
+        Skip the hassle of referrals, insurance approvals, and coordination. Our
+        team handles all the details—from booking to results delivery—so you can
+        focus on your health.
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .core-benefits-section {
+    padding: 6rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+  }
+
+  .benefit-card {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border-top: 4px solid #cc9933;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .benefit-icon {
+    width: 64px;
+    height: 64px;
+    background-color: #003087;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .benefit-card:hover .benefit-icon {
+    background-color: #cc9933;
+  }
+
+  .benefit-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #003087;
+    margin-bottom: 1rem;
+  }
+
+  .benefit-description {
+    color: #003087;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+</style>
