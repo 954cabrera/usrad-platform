@@ -6,6 +6,7 @@ import FadeIn from "../components/FadeIn.astro";
   <div class="footer-grid">
     <FadeIn effect="fade" delay={400}>
       <div class="footer-columns">
+        <!-- Brand Column -->
         <FadeIn effect="fade" delay={0}>
           <div class="footer-brand">
             <div class="flex items-center gap-3 mb-2">
@@ -21,86 +22,88 @@ import FadeIn from "../components/FadeIn.astro";
                 Clarity
               </a>
             </div>
+            <p class="footer-tagline">Quality imaging at transparent prices.</p>
             <p class="footer-copy">&copy; 2025 USRad. All rights reserved.</p>
           </div>
         </FadeIn>
 
+        <!-- Learn Column - Updated with new structure -->
         <FadeIn effect="fade" delay={100}>
           <div>
-            <h4>Explore</h4>
+            <h4>Learn</h4>
             <ul>
-              <li><a href="#how-it-works">How It Works</a></li>
-              <li><a href="#pricing">Pricing</a></li>
-              <li><a href="#faq">FAQ</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="/our-approach">Our Approach</a></li>
+              <li><a href="/usrad-advantage">USRad Advantage</a></li>
+              <li><a href="/technology">Our Technology</a></li>
+              <li><a href="/team-commitment">Our Commitment</a></li>
             </ul>
           </div>
         </FadeIn>
 
+        <!-- Resources Column -->
         <FadeIn effect="fade" delay={200}>
+          <div>
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="/faq">FAQs</a></li>
+              <li><a href="/pricing">Pricing</a></li>
+              <li><a href="/news">News & Articles</a></li>
+              <li><a href="/insurance">Insurance Info</a></li>
+            </ul>
+          </div>
+        </FadeIn>
+
+        <!-- Support Column -->
+        <FadeIn effect="fade" delay={300}>
           <div>
             <h4>Support</h4>
             <ul>
-              <li><a href="#" class="footer-cta">Patient Login</a></li>
-              <li><a href="#" class="footer-cta">Provider Portal</a></li>
-              <li><a href="#" class="footer-cta">Request Imaging</a></li>
+              <li><a href="/contact">Contact Us</a></li>
+              <li><a href="/partner">Partner With Us</a></li>
+              <li><a href="#" class="footer-cta">Patient Portal</a></li>
+              <li><a href="#" class="footer-cta">Provider Login</a></li>
             </ul>
           </div>
         </FadeIn>
 
-        <FadeIn effect="fade" delay={300}>
-          <div>
-            <h4>Legal</h4>
-            <ul>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-              <li><a href="#">HIPAA Compliance</a></li>
-            </ul>
-          </div>
-        </FadeIn>
-
+        <!-- Connect Column with updated structure -->
         <FadeIn effect="fade" delay={400}>
-          <div
-            style="all: unset; display: flex; flex-direction: column; align-items: flex-start;"
-          >
-            <h4 style="font-size: 1rem; margin-bottom: 1rem; color: #ffffff;">
-              Connect
-            </h4>
-            <a
-              href="#"
-              class="social-link"
-            >
-              <img
-                src="/icons/facebook.svg"
-                alt="Facebook"
-                class="social-icon"
-              />
-              <span>Facebook</span>
-            </a>
-            <a
-              href="#"
-              class="social-link"
-            >
-              <img
-                src="/icons/twitter.svg"
-                alt="Twitter"
-                class="social-icon"
-              />
-              <span>Twitter</span>
-            </a>
-            <a
-              href="#"
-              class="social-link"
-            >
-              <img
-                src="/icons/linkedin.svg"
-                alt="LinkedIn"
-                class="social-icon"
-              />
-              <span>LinkedIn</span>
-            </a>
+          <div class="footer-connect">
+            <h4>Connect</h4>
+            <p class="contact-info">(800) USRad-24<br />patients@usrad.com</p>
+            <div class="social-icons">
+              <a href="#" class="social-icon-link" aria-label="Facebook">
+                <img
+                  src="/icons/facebook.svg"
+                  alt="Facebook"
+                  class="social-icon"
+                />
+              </a>
+              <a href="#" class="social-icon-link" aria-label="Twitter">
+                <img
+                  src="/icons/twitter.svg"
+                  alt="Twitter"
+                  class="social-icon"
+                />
+              </a>
+              <a href="#" class="social-icon-link" aria-label="LinkedIn">
+                <img
+                  src="/icons/linkedin.svg"
+                  alt="LinkedIn"
+                  class="social-icon"
+                />
+              </a>
+            </div>
           </div>
         </FadeIn>
+      </div>
+
+      <!-- Legal Links -->
+      <div class="footer-legal">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
+        <a href="/hipaa">HIPAA Compliance</a>
+        <a href="/accessibility">Accessibility</a>
       </div>
 
       <style>
@@ -121,8 +124,7 @@ import FadeIn from "../components/FadeIn.astro";
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
           gap: 4rem;
-          text-align: center;
-          justify-content: center;
+          margin-bottom: 3rem;
         }
 
         .footer-brand {
@@ -135,15 +137,34 @@ import FadeIn from "../components/FadeIn.astro";
           max-width: 160px;
         }
 
+        .footer-tagline {
+          color: #e6c378;
+          font-style: italic;
+          margin-bottom: 0.5rem;
+        }
+
         .footer-copy {
           font-size: 0.75rem;
           color: #f1f5f9;
         }
 
         .footer-columns h4 {
+          position: relative;
           font-size: 1rem;
-          margin-bottom: 1rem;
+          margin-bottom: 1.25rem;
           color: #ffffff;
+          font-weight: 600;
+          padding-bottom: 0.5rem;
+        }
+
+        .footer-columns h4::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 2rem;
+          height: 2px;
+          background-color: #e6c378;
         }
 
         .footer-columns ul {
@@ -153,13 +174,13 @@ import FadeIn from "../components/FadeIn.astro";
         }
 
         .footer-columns li {
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.75rem;
         }
 
         .footer-columns a {
           position: relative;
           color: #ffffff;
-          font-size: .875rem;
+          font-size: 0.875rem;
           text-decoration: none;
           transition: all 0.3s ease;
           display: inline-block;
@@ -194,46 +215,93 @@ import FadeIn from "../components/FadeIn.astro";
           font-size: 0.875rem;
         }
 
-        .connect-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
+        .footer-connect {
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
         }
 
-        .social-link {
+        .contact-info {
+          margin-bottom: 1rem;
+          line-height: 1.5;
+        }
+
+        .social-icons {
+          display: flex;
+          gap: 1rem;
+          margin-top: 0.5rem;
+        }
+
+        .social-icon-link {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
-          color: #ffffff;
-          text-decoration: none;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          background-color: rgba(255, 255, 255, 0.1);
+          border-radius: 50%;
           transition: all 0.3s ease;
-          margin-bottom: 0.5rem;
-          padding: 0.25rem;
-          border-radius: 0.25rem;
         }
 
-        .social-link:hover {
-          color: #e6c378;
-          transform: translateX(5px);
-          background-color: rgba(255, 255, 255, 0.1);
+        .social-icon-link:hover {
+          background-color: #e6c378;
+          transform: translateY(-3px) rotate(5deg);
         }
 
         .social-icon {
-          width: 20px;
-          height: 20px;
+          width: 16px;
+          height: 16px;
           filter: brightness(0) invert(1);
-          transition: transform 0.3s ease;
         }
-        
-        .social-link:hover .social-icon {
-          transform: scale(1.2) rotate(5deg);
+
+        .footer-legal {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1.5rem;
+          padding-top: 1.5rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-legal a {
+          color: rgba(255, 255, 255, 0.7);
+          font-size: 0.75rem;
+          text-decoration: none;
+          transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+          color: #e6c378;
         }
 
         .small-caps {
           font-variant: small-caps;
+        }
+
+        @media (max-width: 768px) {
+          .footer-columns {
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 2rem;
+            text-align: center;
+          }
+
+          .footer-columns h4::after {
+            left: 50%;
+            transform: translateX(-50%);
+          }
+
+          .footer-brand {
+            align-items: center;
+          }
+
+          .footer-connect {
+            align-items: center;
+          }
+
+          .footer-legal {
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+          }
         }
       </style>
     </FadeIn>
