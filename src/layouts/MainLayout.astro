@@ -1,6 +1,8 @@
 ---
-import '../styles/global.css';
-import AOSInit from '../components/AOSInit.astro';
+import "../styles/global.css";
+import AOSInit from "../components/AOSInit.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <html lang="en">
@@ -8,9 +10,12 @@ import AOSInit from '../components/AOSInit.astro';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><slot name="title" /></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <script is:inline>
       if (typeof window !== "undefined") {
         // Navbar scroll effect
@@ -22,20 +27,25 @@ import AOSInit from '../components/AOSInit.astro';
             navbar.classList.remove("navbar-scrolled");
           }
         });
-        
+
         // Add hover effect to all links and buttons for better transitions
         document.addEventListener("DOMContentLoaded", () => {
           // Apply hover state before navigation for smoother transitions
-          document.querySelectorAll('a, button').forEach(element => {
-            element.addEventListener('click', function(e) {
+          document.querySelectorAll("a, button").forEach((element) => {
+            element.addEventListener("click", function (e) {
               // Only apply to non-external links
-              if (this.tagName === 'A' && this.getAttribute('href') && !this.getAttribute('href').startsWith('http') && !this.getAttribute('href').startsWith('#')) {
+              if (
+                this.tagName === "A" &&
+                this.getAttribute("href") &&
+                !this.getAttribute("href").startsWith("http") &&
+                !this.getAttribute("href").startsWith("#")
+              ) {
                 e.preventDefault();
-                this.classList.add('is-active');
-                
+                this.classList.add("is-active");
+
                 // Navigate after transition completes
                 setTimeout(() => {
-                  window.location.href = this.getAttribute('href');
+                  window.location.href = this.getAttribute("href");
                 }, 300);
               }
             });
@@ -73,6 +83,8 @@ import AOSInit from '../components/AOSInit.astro';
     <main class="main-content">
       <slot />
     </main>
+
+    <Footer />
 
     <style>
       .navbar {

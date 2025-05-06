@@ -1,6 +1,5 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import Footer from "../components/Footer.astro";
 import ChatbotToggle from "../components/ChatbotToggle.astro";
 import AOSInit from "../components/AOSInit.astro";
 
@@ -220,13 +219,12 @@ const serializedStudiesData = JSON.stringify(studiesData);
         <p>
           Need assistance? Call us at <a
             href="tel:800-555-1234"
-            class="text-blue-600 font-medium">800-USRAD-24</a>
+            class="text-blue-600 font-medium">800-USRAD-24</a
+          >
         </p>
       </div>
     </div>
   </div>
-  <Footer />
-  <ChatbotToggle chatbotLabel="💬 Let's Talk" />
 
   <script define:vars={{ serializedCentersData, serializedStudiesData }}>
     // Client-side JavaScript to handle URL parameters
@@ -434,4 +432,5 @@ const serializedStudiesData = JSON.stringify(studiesData);
       }
     }
   </script>
+  <ChatbotToggle chatbotLabel="💬 Let's Talk" />
 </MainLayout>

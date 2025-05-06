@@ -1,249 +1,224 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import Footer from "../components/Footer.astro";
 import ChatbotToggle from "../components/ChatbotToggle.astro";
 ---
 
 <MainLayout>
-  <head>
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" is:inline></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-    <script is:inline>
-      if (typeof window !== "undefined") {
-        AOS.init({ once: true });
-      }
-    </script>
-  </head>
+  <slot slot="title">Michael Cabrera | USRad</slot>
 
   <!-- Hero Section -->
   <section class="py-28 bg-[#f0f4f9] text-gray-800">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center space-y-7">
-        <h1 class="text-5xl md:text-6xl font-semibold text-[#003087]">
-          Michael Cabrera
-        </h1>
-        <p class="text-2xl text-[#e6c378] font-medium">Founder & CEO</p>
-        <div class="h-1 w-32 bg-[#e6c378] rounded-full mx-auto"></div>
-      </div>
+    <div class="max-w-6xl mx-auto px-6 text-center space-y-7">
+      <h1 class="text-5xl md:text-6xl font-semibold text-[#003087]">
+        Michael Cabrera
+      </h1>
+      <p class="text-2xl text-[#e6c378] font-medium">Founder & CEO</p>
+      <div class="h-1 w-32 bg-[#e6c378] rounded-full mx-auto"></div>
     </div>
   </section>
 
   <!-- Main Bio Section -->
   <section class="py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid md:grid-cols-3 gap-16">
-        <!-- Left Column: Professional Photo & Stats -->
-        <div class="md:col-span-1 space-y-10">
-          <!-- Professional Photo -->
-          <div class="relative rounded-xl overflow-hidden shadow-xl">
-            <img
-              src="/images/michael.jpg"
-              alt="Michael Cabrera"
-              class="w-full object-cover"
-            />
-            <div
-              class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#003087]/80 to-transparent h-24"
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-16">
+      <!-- Left Column -->
+      <div class="md:col-span-1 space-y-10">
+        <div class="relative rounded-xl overflow-hidden shadow-xl">
+          <img
+            src="/images/michael.jpg"
+            alt="Michael Cabrera"
+            class="w-full object-cover"
+          />
+          <div
+            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#003087]/80 to-transparent h-24"
+          >
+          </div>
+        </div>
+
+        <!-- Highlights -->
+        <div class="space-y-6">
+          <div
+            class="bg-[#f9f9f6] p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all"
+          >
+            <h3
+              class="text-xl font-semibold text-[#003087] mb-4 flex items-center"
             >
-            </div>
+              <span class="w-2 h-8 bg-[#e6c378] rounded-full mr-3"></span> Highlights
+            </h3>
+            <ul class="list-disc list-inside text-gray-700 space-y-3">
+              <li>Built imaging networks serving 400,000+ patients</li>
+              <li>
+                Selected for MIT’s “Birthing of Giants” — global top 0.25%
+              </li>
+              <li>
+                Scaled operations nationwide and led successful public exit
+              </li>
+              <li>Known for people-first leadership and execution clarity</li>
+            </ul>
           </div>
 
-          <!-- Quick Stats -->
-          <div class="space-y-6">
-            <!-- Highlights Box -->
+          <!-- Impact -->
+          <div
+            class="bg-[#f9f9f6] p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all text-center"
+          >
+            <h3
+              class="text-xl font-semibold text-[#003087] mb-4 flex justify-center items-center"
+            >
+              <span class="w-2 h-8 bg-[#e6c378] rounded-full mr-3"></span> Impact
+            </h3>
+            <p
+              class="text-4xl font-semibold text-[#003087] hover:text-[#002b7a] transition-colors"
+            >
+              400,000+
+            </p>
+            <div class="h-1 w-20 bg-[#e6c378] rounded-full mx-auto my-4"></div>
+            <p class="text-sm text-gray-700">
+              Imaging procedures delivered under Michael’s leadership — each one
+              a step toward earlier diagnosis, clearer answers, and better
+              outcomes.
+            </p>
+          </div>
+
+          <!-- Press Kit -->
+          <div class="text-center pt-6">
+            <a
+              href="/docs/founder-presskit.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block bg-[#003087] text-white px-8 py-3.5 rounded-full hover:bg-[#00256e] transition-all hover:shadow-lg w-full border-l-4 border-[#e6c378] font-medium"
+            >
+              Download Press Kit
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div
+        class="md:col-span-2 space-y-10 text-gray-700 text-xl leading-relaxed"
+      >
+        <p>
+          Michael Cabrera’s journey began at 13, delivering newspapers after
+          school on a red Raleigh bicycle. That early hustle turned into a
+          lifelong drive to solve big problems in healthcare—with a belief that
+          access and empathy aren’t mutually exclusive.
+        </p>
+        <p>
+          Over the past two decades, Michael has helped shape how patients
+          experience diagnostic care, leading with the conviction that systems
+          work best when they’re built around people. He brings that same
+          approach to USRad: thoughtful growth, radical simplicity, and
+          relentless follow-through.
+        </p>
+        <p>
+          Michael was selected for “Birthing of Giants,” a one-week-a-year
+          program co-created by MIT, Inc. Magazine, and YEO (now EO), designed
+          for the world’s fastest-growing entrepreneurs. Limited to just 60
+          founders annually, the program helped him scale teams, modernize
+          operations, and expand nationwide — culminating in a successful public
+          exit.
+        </p>
+
+        <blockquote
+          class="border-l-4 border-[#E6C378] pl-8 py-6 italic text-2xl text-gray-600 my-12 bg-[#f9f9f6] pr-8 rounded-r-xl shadow-md"
+        >
+          "Looking ahead, I’m focused on building systems that scale — without
+          trading empathy for efficiency."
+        </blockquote>
+
+        <!-- Mission / Vision / Promise -->
+        <div class="pt-12 border-t border-gray-200">
+          <h2
+            class="text-3xl font-medium text-[#003087] mb-8 flex items-center"
+          >
+            <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
+            Creating the Future of Medical Imaging
+          </h2>
+
+          <div class="grid md:grid-cols-3 gap-6 mt-10">
             <div
-              class="bg-[#f9f9f6] p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all"
+              class="bg-[#f9f9f6] p-7 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all h-full"
             >
               <h3
-                class="text-xl font-semibold text-[#003087] mb-4 flex items-center"
+                class="text-xl font-semibold text-[#003087] mb-3 flex items-center"
               >
-                <span class="w-2 h-8 bg-[#e6c378] rounded-full mr-3"></span>
-                Highlights
+                <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-2"></span>
+                Our Mission
               </h3>
-              <ul class="list-disc list-inside text-gray-700 space-y-3">
-                <li>Built imaging networks serving 400,000+ patients</li>
-                <li>
-                  Selected for MIT’s “Birthing of Giants” — global top 0.25%
-                </li>
-                <li>
-                  Scaled operations nationwide and led successful public exit
-                </li>
-                <li>Known for people-first leadership and execution clarity</li>
-              </ul>
+              <p>
+                To radically improve access to affordable, high-quality medical
+                imaging — with transparency, empathy, and innovation at the core
+                of every interaction.
+              </p>
             </div>
 
-            <!-- Impact Box -->
             <div
-              class="bg-[#f9f9f6] p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all text-center"
+              class="bg-[#f9f9f6] p-7 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all h-full"
             >
               <h3
-                class="text-xl font-semibold text-[#003087] mb-4 flex items-center justify-center"
+                class="text-xl font-semibold text-[#003087] mb-3 flex items-center"
               >
-                <span class="w-2 h-8 bg-[#e6c378] rounded-full mr-3"></span>
-                Impact
+                <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-2"></span>
+                Our Vision
               </h3>
-              <p
-                class="text-4xl font-semibold text-[#003087] hover:text-[#002b7a] transition-colors"
-              >
-                400,000+
-              </p>
-              <div class="h-1 w-20 bg-[#e6c378] rounded-full mx-auto my-4">
-              </div>
-              <p class="text-sm text-gray-700 mt-3 leading-relaxed">
-                Imaging procedures delivered under Michael’s leadership — each
-                one a step toward earlier diagnosis, clearer answers, and better
-                outcomes.
+              <p>
+                A future where no patient delays care due to confusion, cost, or
+                access — and where imaging centers thrive by aligning around
+                shared values.
               </p>
             </div>
 
-            <!-- Press Kit -->
-            <div class="text-center pt-6">
-              <a
-                href="/docs/founder-presskit.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-block bg-[#003087] text-white px-8 py-3.5
-                rounded-full hover:bg-[#00256e] transition-all hover:shadow-lg
-                w-full border-l-4 border-[#e6c378] font-medium"
+            <div
+              class="bg-[#f9f9f6] p-7 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all h-full"
+            >
+              <h3
+                class="text-xl font-semibold text-[#003087] mb-3 flex items-center"
               >
-                Download Press Kit
-              </a>
+                <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-2"></span>
+                Our Promise
+              </h3>
+              <p>
+                We treat every patient like family, offer honest pricing, and
+                champion a care experience grounded in dignity, trust, and
+                results.
+              </p>
             </div>
           </div>
         </div>
 
-        <!-- Right Column: Bio Content -->
-        <div class="md:col-span-2 space-y-10">
-          <!-- Bio Paragraph Sections -->
-          <div class="space-y-6 text-gray-700">
-            <p class="text-xl leading-relaxed">
-              Michael Cabrera’s journey began at 13, delivering newspapers after
-              school on a red Raleigh bicycle. That early hustle turned into a
-              lifelong drive to solve big problems in healthcare—with a belief
-              that access and empathy aren’t mutually exclusive.
-            </p>
+        <!-- Leadership Philosophy -->
+        <div class="pt-12 border-t border-gray-200">
+          <h2
+            class="text-3xl font-semibold text-[#003087] mb-6 flex items-center"
+          >
+            <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
+            Leadership Philosophy
+          </h2>
+          <p>
+            My approach centers on building healthcare businesses that align the
+            interests of all stakeholders — ensuring patients receive
+            exceptional care while providers focus on what they do best.
+          </p>
+          <p class="mt-4">
+            By removing friction points and creating transparent systems, we've
+            repeatedly demonstrated that the highest quality care can also be
+            the most accessible and efficient.
+          </p>
+        </div>
 
-            <p class="text-xl leading-relaxed">
-              Over the past two decades, Michael has helped shape how patients
-              experience diagnostic care, leading with the conviction that
-              systems work best when they’re built around people. He brings that
-              same approach to USRad: thoughtful growth, radical simplicity, and
-              relentless follow-through.
-            </p>
-
-            <p class="text-xl leading-relaxed">
-              Michael was selected for “Birthing of Giants,” a one-week-a-year
-              program co-created by MIT, Inc. Magazine, and YEO (now EO),
-              designed for the world’s fastest-growing entrepreneurs. Limited to
-              just 60 founders annually, the program helped him scale teams,
-              modernize operations, and expand nationwide — culminating in a
-              successful public exit.
-            </p>
-
-            <blockquote
-              class="border-l-4 border-[#E6C378] pl-8 py-6 italic text-2xl text-gray-600 my-12 bg-[#f9f9f6] pr-8 rounded-r-xl shadow-md"
-            >
-              "Looking ahead, I’m focused on building systems that scale —
-              without trading empathy for efficiency."
-            </blockquote>
-          </div>
-
-          <!-- USRad Vision -->
-          <div class="pt-12 border-t border-gray-200">
-            <h2
-              class="text-3xl font-medium text-[#003087] mb-8 flex items-center"
-            >
-              <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
-              Creating the Future of Medical Imaging
-            </h2>
-
-            <div class="grid md:grid-cols-3 gap-6 mt-10">
-              <div
-                class="bg-[#f9f9f6] p-7 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all h-full"
-              >
-                <h3
-                  class="text-xl font-semibold text-[#003087] mb-3 flex items-center"
-                >
-                  <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-2"></span>
-                  Our Mission
-                </h3>
-                <p class="text-lg text-gray-700 leading-relaxed">
-                  To radically improve access to affordable, high-quality
-                  medical imaging — with transparency, empathy, and innovation
-                  at the core of every interaction.
-                </p>
-              </div>
-
-              <div
-                class="bg-[#f9f9f6] p-7 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all h-full"
-              >
-                <h3
-                  class="text-xl font-semibold text-[#003087] mb-3 flex items-center"
-                >
-                  <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-2"></span>
-                  Our Vision
-                </h3>
-                <p class="text-lg text-gray-700 leading-relaxed">
-                  A future where no patient delays care due to confusion, cost,
-                  or access — and where imaging centers thrive by aligning
-                  around shared values.
-                </p>
-              </div>
-
-              <div
-                class="bg-[#f9f9f6] p-7 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all h-full"
-              >
-                <h3
-                  class="text-xl font-semibold text-[#003087] mb-3 flex items-center"
-                >
-                  <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-2"></span>
-                  Our Promise
-                </h3>
-                <p class="text-lg text-gray-700 leading-relaxed">
-                  We treat every patient like family, offer honest pricing, and
-                  champion a care experience grounded in dignity, trust, and
-                  results.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Leadership Philosophy -->
-          <div class="pt-12 border-t border-gray-200">
-            <h2
-              class="text-3xl font-semibold text-[#003087] mb-6 flex items-center"
-            >
-              <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
-              Leadership Philosophy
-            </h2>
-            <p class="text-xl text-gray-700">
-              My approach centers on building healthcare businesses that align
-              the interests of all stakeholders—ensuring patients receive
-              exceptional care while providers focus on what they do best.
-            </p>
-            <p class="text-xl text-gray-700 mt-4">
-              By removing friction points and creating transparent systems,
-              we've repeatedly demonstrated that the highest quality care can
-              also be the most accessible and efficient.
-            </p>
-          </div>
-
-          <!-- Contact CTA -->
-          <div class="pt-12">
-            <div class="flex justify-center md:justify-start">
-              <a
-                href="/contact"
-                class="inline-block bg-[#003087] text-white px-10
-                py-4 rounded-full hover:bg-[#00256e] transition-all hover:shadow-lg
-                border-l-4 border-[#e6c378]"
-              >
-                Get in Touch
-              </a>
-            </div>
-          </div>
+        <!-- Contact CTA -->
+        <div class="pt-12">
+          <a
+            href="/contact"
+            class="inline-block bg-[#003087] text-white px-10 py-4 rounded-full hover:bg-[#00256e] transition-all hover:shadow-lg border-l-4 border-[#e6c378]"
+          >
+            Get in Touch
+          </a>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Awards Section (unchanged from your original, or can be dropped in below here) -->
 
   <!-- Awards & Recognition Section -->
   <section class="py-24 px-6 bg-[#f0f4f9]">
@@ -255,26 +230,25 @@ import ChatbotToggle from "../components/ChatbotToggle.astro";
         Leadership Recognition
       </h2>
 
-      <!-- Featured Award Banner -->
+      <!-- Featured Award -->
       <div
-        class="featured-award mb-20 rounded-xl overflow-hidden shadow-xl bg-white border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:border-[#e6c378]/30"
+        class="mb-20 rounded-xl overflow-hidden shadow-xl bg-white border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:border-[#e6c378]/30"
       >
-        <div class="relative h-72 bg-gradient-to-r from-white to-[#f0f4f9]">
-          <!-- Inc 500 Award -->
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="text-center px-6">
-              <img
-                src="/images/awards/inc500-logo.png"
-                alt="Inc 500"
-                class="h-40 mx-auto mb-4"
-              />
-              <p class="text-2xl font-medium mt-6 text-gray-800">
-                Fastest Growing Private Companies
-              </p>
-              <p class="text-4xl font-bold text-[#003087] mt-3">
-                #210 with 1,236% Growth
-              </p>
-            </div>
+        <div
+          class="relative h-72 bg-gradient-to-r from-white to-[#f0f4f9] flex items-center justify-center text-center px-6"
+        >
+          <div>
+            <img
+              src="/images/awards/inc500-logo.png"
+              alt="Inc 500"
+              class="h-40 mx-auto mb-4"
+            />
+            <p class="text-2xl font-medium text-gray-800">
+              Fastest Growing Private Companies
+            </p>
+            <p class="text-4xl font-bold text-[#003087] mt-3">
+              #210 with 1,236% Growth
+            </p>
           </div>
         </div>
       </div>
@@ -283,10 +257,10 @@ import ChatbotToggle from "../components/ChatbotToggle.astro";
       <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
         <!-- Hispanic Business Award -->
         <div
-          class="award-card bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex items-center"
+          class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex items-center"
         >
           <div
-            class="award-logo w-24 h-24 flex-shrink-0 bg-[#f8f8f8] rounded-full flex items-center justify-center mr-6 border border-gray-100 shadow-sm"
+            class="w-24 h-24 bg-[#f8f8f8] rounded-full flex items-center justify-center mr-6 border border-gray-100 shadow-sm"
           >
             <img
               src="/images/awards/hispanic-business-logo.png"
@@ -294,11 +268,11 @@ import ChatbotToggle from "../components/ChatbotToggle.astro";
               class="w-16 h-16 object-contain"
             />
           </div>
-          <div class="award-content">
+          <div>
             <h4 class="text-xl font-semibold text-[#003087]">
               Hispanic Business Magazine
             </h4>
-            <p class="text-base text-gray-600 mt-1">
+            <p class="text-base text-gray-600">
               500 Largest Hispanic-Owned Companies
             </p>
             <p class="text-lg font-medium mt-2">#223 | #259 | #320</p>
@@ -306,24 +280,24 @@ import ChatbotToggle from "../components/ChatbotToggle.astro";
           </div>
         </div>
 
-        <!-- SFBJ 40 Under 40 Award -->
+        <!-- SFBJ 40 Under 40 -->
         <div
-          class="award-card bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex items-center"
+          class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex items-center"
         >
           <div
-            class="award-logo w-24 h-24 flex-shrink-0 bg-[#f8f8f8] rounded-full flex items-center justify-center mr-6 border border-gray-100 shadow-sm"
+            class="w-24 h-24 bg-[#f8f8f8] rounded-full flex items-center justify-center mr-6 border border-gray-100 shadow-sm"
           >
             <img
               src="/images/awards/sfbj-logo.png"
-              alt="South Florida Business Journal"
+              alt="SFBJ"
               class="w-16 h-16 object-contain"
             />
           </div>
-          <div class="award-content">
+          <div>
             <h4 class="text-xl font-semibold text-[#003087]">
               South Florida Business Journal
             </h4>
-            <p class="text-base text-gray-600 mt-1">40 Under 40 Awards</p>
+            <p class="text-base text-gray-600">40 Under 40 Awards</p>
             <p class="text-lg font-medium mt-2">#19</p>
             <p class="text-sm text-gray-500 mt-1">
               Recognizing Business Leadership Excellence
@@ -331,35 +305,35 @@ import ChatbotToggle from "../components/ChatbotToggle.astro";
           </div>
         </div>
 
-        <!-- SFBJ Up & Comers Award -->
+        <!-- SFBJ Up & Comers -->
         <div
-          class="award-card bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex items-center"
+          class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex items-center"
         >
           <div
-            class="award-logo w-24 h-24 flex-shrink-0 bg-[#f8f8f8] rounded-full flex items-center justify-center mr-6 border border-gray-100 shadow-sm"
+            class="w-24 h-24 bg-[#f8f8f8] rounded-full flex items-center justify-center mr-6 border border-gray-100 shadow-sm"
           >
             <img
               src="/images/awards/sfbj-logo.png"
-              alt="South Florida Business Journal"
+              alt="SFBJ"
               class="w-16 h-16 object-contain"
             />
           </div>
-          <div class="award-content">
+          <div>
             <h4 class="text-xl font-semibold text-[#003087]">
               South Florida Business Journal
             </h4>
-            <p class="text-base text-gray-600 mt-1">Up & Comers Award</p>
+            <p class="text-base text-gray-600">Up & Comers Award</p>
             <p class="text-lg font-medium mt-2">1st Place</p>
             <p class="text-sm text-gray-500 mt-1">11th Anniversary Edition</p>
           </div>
         </div>
 
-        <!-- UF 100 Fastest Growing Companies -->
+        <!-- UF 100 Fastest Growing -->
         <div
-          class="award-card bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex items-center"
+          class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex items-center"
         >
           <div
-            class="award-logo w-24 h-24 flex-shrink-0 bg-[#f8f8f8] rounded-full flex items-center justify-center mr-6 border border-gray-100 shadow-sm"
+            class="w-24 h-24 bg-[#f8f8f8] rounded-full flex items-center justify-center mr-6 border border-gray-100 shadow-sm"
           >
             <img
               src="/images/awards/uf-logo.png"
@@ -367,20 +341,18 @@ import ChatbotToggle from "../components/ChatbotToggle.astro";
               class="w-16 h-16 object-contain"
             />
           </div>
-          <div class="award-content">
+          <div>
             <h4 class="text-xl font-semibold text-[#003087]">
               University of Florida
             </h4>
-            <p class="text-base text-gray-600 mt-1">
-              100 Fastest Growing Companies
-            </p>
+            <p class="text-base text-gray-600">100 Fastest Growing Companies</p>
             <p class="text-lg font-medium mt-2">#49 | #89</p>
             <p class="text-sm text-gray-500 mt-1">Two Consecutive Years</p>
           </div>
         </div>
       </div>
 
-      <!-- Past Experience Context -->
+      <!-- Footer Note -->
       <div class="mt-12 text-center text-gray-600 text-base">
         <p>
           Awards and recognition received for AnciCare PPO, a nationwide
@@ -390,6 +362,5 @@ import ChatbotToggle from "../components/ChatbotToggle.astro";
     </div>
   </section>
 
-  <Footer class="bg-[#003087] text-white" />
   <ChatbotToggle chatbotLabel="💬 Let's Talk" />
 </MainLayout>
