@@ -87,7 +87,7 @@ import MainLayout from "../layouts/MainLayout.astro";
               class="tab-button whitespace-nowrap pb-4 px-3 border-b-2 font-medium text-lg border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 mb-2 md:mb-0"
               data-target="insurance"
             >
-              Insurance & Billing
+              Affordability & Payment
             </button>
             <button
               class="tab-button whitespace-nowrap pb-4 px-3 border-b-2 font-medium text-lg border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 mb-2 md:mb-0"
@@ -146,7 +146,9 @@ import MainLayout from "../layouts/MainLayout.astro";
                           Board-certified radiologists with subspecialty
                           expertise
                         </li>
-                        <li>Same-day or next-day appointments available</li>
+                        <li>
+                          Priority scheduling available within 2-3 business days
+                        </li>
                         <li>Transparent pricing with no surprise bills</li>
                       </ul>
                       <button
@@ -209,17 +211,14 @@ import MainLayout from "../layouts/MainLayout.astro";
                       </p>
                       <ul class="list-disc pl-5 mt-2 space-y-1">
                         <li>
-                          Urgent care cases can often be accommodated the same
-                          day
+                          Stat request can often be accommodated the same day or
+                          the next day
                         </li>
                         <li>
-                          Most routine appointments are available within 24-48
-                          hours
+                          Most routine appointments are available within a few
+                          days
                         </li>
-                        <li>
-                          Health screening packages are typically scheduled
-                          within one week
-                        </li>
+
                         <li>
                           Convenient online booking through our patient portal
                         </li>
@@ -821,699 +820,678 @@ import MainLayout from "../layouts/MainLayout.astro";
               </div>
               <div class="ml-4">
                 <h3 class="text-xl font-bold text-gray-900">
-                  What insurance plans do you accept?
+                  What payment options do you accept?
                 </h3>
                 <div class="mt-2 text-gray-600">
-                  <p>Our network offers affordable options for all patients:</p>
+                  <p>
+                    Our network specializes in serving uninsured and
+                    underinsured patients:
+                  </p>
                   <ul class="list-disc pl-5 mt-2 space-y-1">
-                    <li>We are in-network with most major insurance plans</li>
-                    <li>We accept Medicare and many Medicaid plans</li>
-                    <li>We work with most medical practices</li>
                     <li>
-                      Self-pay options with transparent pricing are available
+                      We offer direct payment options with transparent,
+                      affordable pricing
+                    </li>
+                    <li>
+                      Cash, credit card, and electronic payment methods accepted
                     </li>
                     <li>Flexible payment plans for those who need them</li>
+                    <li>HSA and FSA accounts accepted</li>
+                    <li>No surprise bills or hidden fees</li>
                   </ul>
-                  <p class="mt-3">
-                    Our billing team will verify your coverage prior to your
-                    appointment and provide a cost estimate.
-                  </p>
-                  <button
-                    class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-navy-600 hover:bg-navy-700"
+                </div>
+                <p class="mt-3">
+                  Our billing team will verify your coverage prior to your
+                  appointment and provide a cost estimate.
+                </p>
+                <button
+                  class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-navy-600 hover:bg-navy-700"
+                >
+                  <svg
+                    class="mr-2 -ml-1 h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
-                    <svg
-                      class="mr-2 -ml-1 h-5 w-5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                      ></path>
-                    </svg>
-                    View accepted insurance list
-                  </button>
-                </div>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                    ></path>
+                  </svg>
+                  View accepted insurance list
+                </button>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Insurance FAQ 2 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div class="p-6">
-            <div class="flex items-start">
-              <div class="flex-shrink-0">
-                <svg
-                  class="h-8 w-8 text-gold-600"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                  ></path>
-                </svg>
-              </div>
-              <div class="ml-4">
-                <h3 class="text-xl font-bold text-gray-900">
-                  What payment options are available?
-                </h3>
-                <div class="mt-2 text-gray-600">
-                  <p>
-                    We offer flexible payment solutions to accommodate our
-                    patients:
-                  </p>
-                  <ul class="list-disc pl-5 mt-2 space-y-1">
-                    <li>All major credit cards and digital wallets accepted</li>
-                    <li>Cash, personal checks, and electronic transfers</li>
-                    <li>HSA and FSA accounts</li>
-                    <li>Payment plans with affordable options</li>
-                    <li>
-                      Corporate direct billing for employee health programs
-                    </li>
-                  </ul>
-                  <p class="mt-3">
-                    Our discount programs offer savings for patients paying
-                    out-of-pocket or with high deductibles.
-                  </p>
-                </div>
+      <!-- Insurance FAQ 2 -->
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="p-6">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg
+                class="h-8 w-8 text-gold-600"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold text-gray-900">
+                What payment options are available?
+              </h3>
+              <div class="mt-2 text-gray-600">
+                <p>
+                  We offer flexible payment solutions to accommodate our
+                  patients:
+                </p>
+                <ul class="list-disc pl-5 mt-2 space-y-1">
+                  <li>All major credit cards and digital wallets accepted</li>
+                  <li>Cash, personal checks, and electronic transfers</li>
+                  <li>HSA and FSA accounts</li>
+                  <li>Payment plans with affordable options</li>
+                  <li>Corporate direct billing for employee health programs</li>
+                </ul>
+                <p class="mt-3">
+                  Our discount programs offer savings for patients paying
+                  out-of-pocket or with high deductibles.
+                </p>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Insurance FAQ 3 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div class="p-6">
-            <div class="flex items-start">
-              <div class="flex-shrink-0">
-                <svg
-                  class="h-8 w-8 text-gold-600"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  ></path>
-                </svg>
-              </div>
-              <div class="ml-4">
-                <h3 class="text-xl font-bold text-gray-900">
-                  Do I need a referral for imaging services?
-                </h3>
-                <div class="mt-2 text-gray-600">
-                  <p>Referral requirements vary by service and insurance:</p>
-                  <ul class="list-disc pl-5 mt-2 space-y-1">
-                    <li>
-                      Most insurance plans require a physician's order for
-                      diagnostic imaging
-                    </li>
-                    <li>
-                      Self-referred health screenings are available for
-                      direct-pay clients
-                    </li>
-                    <li>
-                      Our patient care team can help coordinate referrals from
-                      your doctor
-                    </li>
-                    <li>
-                      Telehealth consultation options available for referral
-                      assistance
-                    </li>
-                  </ul>
-                  <p class="mt-3">
-                    Our team can verify referral requirements specific to your
-                    insurance plan and imaging needs.
-                  </p>
-                </div>
-              </div>
+      <!-- Insurance FAQ 3 -->
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="p-6">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg
+                class="h-8 w-8 text-gold-600"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
             </div>
-          </div>
-        </div>
-
-        <!-- Insurance FAQ 4 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div class="p-6">
-            <div class="flex items-start">
-              <div class="flex-shrink-0">
-                <svg
-                  class="h-8 w-8 text-gold-600"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  ></path>
-                </svg>
-              </div>
-              <div class="ml-4">
-                <h3 class="text-xl font-bold text-gray-900">
-                  What is your Patient Rewards Program?
-                </h3>
-                <div class="mt-2 text-gray-600">
-                  <p>
-                    Our patient rewards program offers benefits to regular
-                    patients:
-                  </p>
-                  <ul class="list-disc pl-5 mt-2 space-y-1">
-                    <li>Priority scheduling for follow-up appointments</li>
-                    <li>Discounted rates on additional services</li>
-                    <li>Complimentary digital image storage</li>
-                    <li>Easy access to your imaging history</li>
-                    <li>Free annual screening reminder service</li>
-                    <li>Simplified image sharing with your physicians</li>
-                  </ul>
-                  <p class="mt-3">
-                    Enrollment is free with your second imaging service at any
-                    of our network facilities.
-                  </p>
-                  <button
-                    class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-navy-600 hover:bg-navy-700"
-                  >
-                    <svg
-                      class="mr-2 -ml-1 h-5 w-5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                    </svg>
-                    Learn more about rewards
-                  </button>
-                </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold text-gray-900">
+                Do I need a referral for imaging services?
+              </h3>
+              <div class="mt-2 text-gray-600">
+                <p>Referral requirements for medical imaging:</p>
+                <ul class="list-disc pl-5 mt-2 space-y-1">
+                  <li>
+                    All diagnostic imaging procedures require a physician's
+                    order, which our team can help you coordinate
+                  </li>
+                  <li>
+                    Our patient care team can help obtain the necessary
+                    documentation from your doctor
+                  </li>
+                  <li>
+                    We offer assistance in getting the appropriate referrals for
+                    your specific imaging needs
+                  </li>
+                  <li>
+                    Telehealth consultation options are available to help
+                    streamline the referral process
+                  </li>
+                </ul>
+                <p class="mt-3">
+                  Our team is experienced in helping cash-paying patients
+                  navigate the referral process efficiently.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- Preparation Section -->
-    <div id="preparation" class="tab-content hidden">
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-        <!-- Preparation FAQ 1 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div class="p-6">
-            <div class="flex items-start">
-              <div class="flex-shrink-0">
-                <svg
-                  class="h-8 w-8 text-gold-600"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </div>
-              <div class="ml-4">
-                <h3 class="text-xl font-bold text-gray-900">
-                  How should I prepare for my imaging appointment?
-                </h3>
-                <div class="mt-2 text-gray-600">
-                  <p>
-                    Preparation varies by procedure, but general guidelines
-                    include:
-                  </p>
-                  <ul class="list-disc pl-5 mt-2 space-y-1">
-                    <li>Arrive 15 minutes before your scheduled appointment</li>
-                    <li>
-                      Bring your ID, insurance card, and physician's order
-                    </li>
-                    <li>Wear comfortable clothing without metal components</li>
-                    <li>
-                      Remove jewelry and electronic devices before the procedure
-                    </li>
-                    <li>
-                      Follow any specific fasting or medication instructions
-                    </li>
-                  </ul>
-                  <p class="mt-3">
-                    Your appointment confirmation will include
-                    procedure-specific preparation instructions, and our care
-                    team will review them with you.
-                  </p>
-                  <div class="mt-4">
-                    <button
-                      class="preparation-toggle text-navy-600 hover:text-navy-800 font-medium flex items-center"
-                      data-target="mri-prep"
-                    >
-                      <svg
-                        class="h-5 w-5 mr-1"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                      </svg>
-                      MRI preparation
-                    </button>
-                    <div
-                      id="mri-prep"
-                      class="preparation-details mt-3 hidden bg-blue-50 p-4 rounded-lg"
-                    >
-                      <h4 class="font-semibold text-navy-800">
-                        MRI Preparation Guidelines
-                      </h4>
-                      <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
-                        <li>
-                          No specific food or drink restrictions unless
-                          specified for your exam
-                        </li>
-                        <li>
-                          Continue taking medications as prescribed unless
-                          instructed otherwise
-                        </li>
-                        <li>
-                          Wear clothing without metal zippers, buttons, or
-                          underwire
-                        </li>
-                        <li>
-                          Remove all metal objects (jewelry, watches, hair pins,
-                          etc.)
-                        </li>
-                        <li>
-                          Inform us of any implanted medical devices or metal in
-                          your body
-                        </li>
-                        <li>
-                          Let us know if you have claustrophobia so we can
-                          provide support
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="mt-2">
-                    <button
-                      class="preparation-toggle text-navy-600 hover:text-navy-800 font-medium flex items-center"
-                      data-target="ct-prep"
-                    >
-                      <svg
-                        class="h-5 w-5 mr-1"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                      </svg>
-                      CT preparation
-                    </button>
-                    <div
-                      id="ct-prep"
-                      class="preparation-details mt-3 hidden bg-blue-50 p-4 rounded-lg"
-                    >
-                      <h4 class="font-semibold text-navy-800">
-                        CT Scan Preparation Guidelines
-                      </h4>
-                      <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
-                        <li>
-                          For contrast studies: fast for 4 hours prior to your
-                          appointment
-                        </li>
-                        <li>
-                          Drink plenty of water (unless instructed otherwise)
-                        </li>
-                        <li>
-                          Wear comfortable clothing without metal zippers or
-                          buttons
-                        </li>
-                        <li>
-                          Continue taking medications unless instructed
-                          otherwise
-                        </li>
-                        <li>
-                          Inform us of any allergies, especially to iodine or
-                          contrast material
-                        </li>
-                        <li>
-                          Let us know if you have kidney issues or diabetes
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Preparation FAQ 2 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div class="p-6">
-            <div class="flex items-start">
-              <div class="flex-shrink-0">
-                <svg
-                  class="h-8 w-8 text-gold-600"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                  ></path>
-                </svg>
-              </div>
-              <div class="ml-4">
-                <h3 class="text-xl font-bold text-gray-900">
-                  Is imaging radiation safe?
-                </h3>
-                <div class="mt-2 text-gray-600">
-                  <p>
-                    We prioritize radiation safety with modern technology and
-                    protocols:
-                  </p>
-                  <ul class="list-disc pl-5 mt-2 space-y-1">
-                    <li>
-                      Our equipment uses the lowest radiation dose necessary for
-                      diagnostic quality
-                    </li>
-                    <li>CT scanners feature dose reduction technologies</li>
-                    <li>
-                      Pediatric protocols with specialized low-dose techniques
-                    </li>
-                    <li>
-                      Alternative non-radiation options (MRI, ultrasound) when
-                      appropriate
-                    </li>
-                    <li>Qualified medical physicists review all protocols</li>
-                  </ul>
-                  <p class="mt-3">
-                    Our radiation safety program meets all regulatory
-                    requirements, and we can provide information about your
-                    radiation exposure upon request.
-                  </p>
-                  <button
-                    class="mt-4 video-trigger inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-navy-600 hover:bg-navy-700"
-                  >
-                    <svg
-                      class="mr-2 -ml-1 h-5 w-5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                      ></path>
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Learn about our safety measures
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Preparation FAQ 3 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div class="p-6">
-            <div class="flex items-start">
-              <div class="flex-shrink-0">
-                <svg
-                  class="h-8 w-8 text-gold-600"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-                  ></path>
-                </svg>
-              </div>
-              <div class="ml-4">
-                <h3 class="text-xl font-bold text-gray-900">
-                  What should I expect during contrast studies?
-                </h3>
-                <div class="mt-2 text-gray-600">
-                  <p>
-                    Our approach to contrast studies focuses on patient comfort:
-                  </p>
-                  <ul class="list-disc pl-5 mt-2 space-y-1">
-                    <li>
-                      Careful explanation of the procedure before starting
-                    </li>
-                    <li>Skilled IV placement by experienced technologists</li>
-                    <li>Modern contrast delivery systems for precise dosing</li>
-                    <li>
-                      Pre-medication options for patients with contrast
-                      sensitivities
-                    </li>
-                    <li>
-                      Proper hydration advice before and after your procedure
-                    </li>
-                  </ul>
-                  <p class="mt-3">
-                    Most patients experience only mild, temporary effects from
-                    contrast material, such as a warm sensation or metallic
-                    taste that resolves quickly.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Preparation FAQ 4 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div class="p-6">
-            <div class="flex items-start">
-              <div class="flex-shrink-0">
-                <svg
-                  class="h-8 w-8 text-gold-600"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-                  ></path>
-                </svg>
-              </div>
-              <div class="ml-4">
-                <h3 class="text-xl font-bold text-gray-900">
-                  How will I receive my results?
-                </h3>
-                <div class="mt-2 text-gray-600">
-                  <p>Our efficient result delivery options include:</p>
-                  <ul class="list-disc pl-5 mt-2 space-y-1">
-                    <li>Results typically available within 24-48 hours</li>
-                    <li>Secure online portal access for viewing reports</li>
-                    <li>Direct communication with your referring physician</li>
-                    <li>CD/USB/Cloud image delivery options</li>
-                    <li>
-                      Option to discuss results with a radiologist upon request
-                    </li>
-                  </ul>
-                  <p class="mt-3">
-                    Patients in our rewards program receive expedited results
-                    and enhanced digital access options.
-                  </p>
-                  <button
-                    class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-navy-600 hover:bg-navy-700"
-                  >
-                    <svg
-                      class="mr-2 -ml-1 h-5 w-5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      ></path>
-                    </svg>
-                    Access patient portal
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Contact Section -->
-  <div class="mt-16 bg-navy-700 rounded-xl overflow-hidden shadow-xl">
-    <div class="px-6 py-8 sm:p-10 sm:pb-6">
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-        <div>
-          <h3 class="text-2xl font-extrabold text-white">
-            Still have questions?
-          </h3>
-          <p class="mt-3 text-lg text-blue-200">
-            Our patient care team is available to assist with any questions
-            about our imaging services.
-          </p>
-          <div class="mt-6 flex flex-col space-y-4">
-            <a
-              href="tel:+18005551234"
-              class="inline-flex items-center text-white hover:text-gold-100"
+    <!-- Insurance FAQ 4 -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <div class="p-6">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg
+              class="h-8 w-8 text-gold-600"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              <svg
-                class="h-6 w-6 mr-3"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                ></path>
-              </svg>
-              (800) 555-1234
-            </a>
-            <a
-              href="mailto:care@usradimaging.com"
-              class="inline-flex items-center text-white hover:text-gold-100"
-            >
-              <svg
-                class="h-6 w-6 mr-3"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                ></path>
-              </svg>
-              care@usradimaging.com
-            </a>
-            <a
-              href="#"
-              class="inline-flex items-center text-white hover:text-gold-100"
-            >
-              <svg
-                class="h-6 w-6 mr-3"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                ></path>
-              </svg>
-              Schedule an appointment
-            </a>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+            </svg>
           </div>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-inner">
-          <h4 class="text-lg font-medium text-gray-900">Send us a message</h4>
-          <form class="mt-4 space-y-4">
-            <div>
-              <label for="name" class="sr-only">Full name</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                class="shadow-sm focus:ring-navy-500 focus:border-navy-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                placeholder="Full name"
-              />
-            </div>
-            <div>
-              <label for="email" class="sr-only">Email</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                class="shadow-sm focus:ring-navy-500 focus:border-navy-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                placeholder="Email"
-              />
-            </div>
-            <div>
-              <label for="message" class="sr-only">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                rows="4"
-                class="shadow-sm focus:ring-navy-500 focus:border-navy-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                placeholder="Your message"></textarea>
-            </div>
-            <div>
+          <div class="ml-4">
+            <h3 class="text-xl font-bold text-gray-900">
+              What is your Patient Rewards Program?
+            </h3>
+            <div class="mt-2 text-gray-600">
+              <p>
+                Our patient rewards program offers benefits to regular patients:
+              </p>
+              <ul class="list-disc pl-5 mt-2 space-y-1">
+                <li>Priority scheduling for follow-up appointments</li>
+                <li>Discounted rates on additional services</li>
+                <li>Complimentary digital image storage</li>
+                <li>Easy access to your imaging history</li>
+                <li>Free annual screening reminder service</li>
+                <li>Simplified image sharing with your physicians</li>
+              </ul>
+              <p class="mt-3">
+                Enrollment is free with your second imaging service at any of
+                our network facilities.
+              </p>
               <button
-                type="submit"
-                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-navy-600 hover:bg-navy-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy-500"
+                class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-navy-600 hover:bg-navy-700"
               >
-                Send message
+                <svg
+                  class="mr-2 -ml-1 h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+                Learn more about rewards
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </MainLayout>
+<!-- Preparation Section -->
+<div id="preparation" class="tab-content hidden">
+  <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+    <!-- Preparation FAQ 1 -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <div class="p-6">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg
+              class="h-8 w-8 text-gold-600"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-bold text-gray-900">
+              How should I prepare for my imaging appointment?
+            </h3>
+            <div class="mt-2 text-gray-600">
+              <p>
+                Preparation varies by procedure, but general guidelines include:
+              </p>
+              <ul class="list-disc pl-5 mt-2 space-y-1">
+                <li>Arrive 15 minutes before your scheduled appointment</li>
+                <li>Bring your ID, payment method, and physician's order</li>
+                <li>Wear comfortable clothing without metal components</li>
+                <li>
+                  Remove jewelry and electronic devices before the procedure
+                </li>
+                <li>Follow any specific fasting or medication instructions</li>
+              </ul>
+              <p class="mt-3">
+                Your appointment confirmation will include procedure-specific
+                preparation instructions, and our care team will review them
+                with you.
+              </p>
+            </div>
+            <div class="mt-4">
+              <button
+                class="preparation-toggle text-navy-600 hover:text-navy-800 font-medium flex items-center"
+                data-target="mri-prep"
+              >
+                <svg
+                  class="h-5 w-5 mr-1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                MRI preparation
+              </button>
+              <div
+                id="mri-prep"
+                class="preparation-details mt-3 hidden bg-blue-50 p-4 rounded-lg"
+              >
+                <h4 class="font-semibold text-navy-800">
+                  MRI Preparation Guidelines
+                </h4>
+                <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
+                  <li>
+                    No specific food or drink restrictions unless specified for
+                    your exam
+                  </li>
+                  <li>
+                    Continue taking medications as prescribed unless instructed
+                    otherwise
+                  </li>
+                  <li>
+                    Wear clothing without metal zippers, buttons, or underwire
+                  </li>
+                  <li>
+                    Remove all metal objects (jewelry, watches, hair pins, etc.)
+                  </li>
+                  <li>
+                    Inform us of any implanted medical devices or metal in your
+                    body
+                  </li>
+                  <li>
+                    Let us know if you have claustrophobia so we can provide
+                    support
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="mt-2">
+              <button
+                class="preparation-toggle text-navy-600 hover:text-navy-800 font-medium flex items-center"
+                data-target="ct-prep"
+              >
+                <svg
+                  class="h-5 w-5 mr-1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                CT preparation
+              </button>
+              <div
+                id="ct-prep"
+                class="preparation-details mt-3 hidden bg-blue-50 p-4 rounded-lg"
+              >
+                <h4 class="font-semibold text-navy-800">
+                  CT Scan Preparation Guidelines
+                </h4>
+                <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
+                  <li>
+                    For contrast studies: fast for 4 hours prior to your
+                    appointment
+                  </li>
+                  <li>Drink plenty of water (unless instructed otherwise)</li>
+                  <li>
+                    Wear comfortable clothing without metal zippers or buttons
+                  </li>
+                  <li>
+                    Continue taking medications unless instructed otherwise
+                  </li>
+                  <li>
+                    Inform us of any allergies, especially to iodine or contrast
+                    material
+                  </li>
+                  <li>Let us know if you have kidney issues or diabetes</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preparation FAQ 2 -->
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+    <div class="p-6">
+      <div class="flex items-start">
+        <div class="flex-shrink-0">
+          <svg
+            class="h-8 w-8 text-gold-600"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+            ></path>
+          </svg>
+        </div>
+        <div class="ml-4">
+          <h3 class="text-xl font-bold text-gray-900">
+            Is imaging radiation safe?
+          </h3>
+          <div class="mt-2 text-gray-600">
+            <p>
+              We prioritize radiation safety with modern technology and
+              protocols:
+            </p>
+            <ul class="list-disc pl-5 mt-2 space-y-1">
+              <li>
+                Our equipment uses the lowest radiation dose necessary for
+                diagnostic quality
+              </li>
+              <li>CT scanners feature dose reduction technologies</li>
+              <li>Pediatric protocols with specialized low-dose techniques</li>
+              <li>
+                Alternative non-radiation options (MRI, ultrasound) when
+                appropriate
+              </li>
+              <li>Qualified medical physicists review all protocols</li>
+            </ul>
+            <p class="mt-3">
+              Our radiation safety program meets all regulatory requirements,
+              and we can provide information about your radiation exposure upon
+              request.
+            </p>
+            <button
+              class="mt-4 video-trigger inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-navy-600 hover:bg-navy-700"
+            >
+              <svg
+                class="mr-2 -ml-1 h-5 w-5"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Learn about our safety measures
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preparation FAQ 3 -->
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+    <div class="p-6">
+      <div class="flex items-start">
+        <div class="flex-shrink-0">
+          <svg
+            class="h-8 w-8 text-gold-600"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
+            ></path>
+          </svg>
+        </div>
+        <div class="ml-4">
+          <h3 class="text-xl font-bold text-gray-900">
+            What should I expect during contrast studies?
+          </h3>
+          <div class="mt-2 text-gray-600">
+            <p>Our approach to contrast studies focuses on patient comfort:</p>
+            <ul class="list-disc pl-5 mt-2 space-y-1">
+              <li>Careful explanation of the procedure before starting</li>
+              <li>Skilled IV placement by experienced technologists</li>
+              <li>Modern contrast delivery systems for precise dosing</li>
+              <li>
+                Pre-medication options for patients with contrast sensitivities
+              </li>
+              <li>Proper hydration advice before and after your procedure</li>
+            </ul>
+            <p class="mt-3">
+              Most patients experience only mild, temporary effects from
+              contrast material, such as a warm sensation or metallic taste that
+              resolves quickly.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preparation FAQ 4 -->
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+    <div class="p-6">
+      <div class="flex items-start">
+        <div class="flex-shrink-0">
+          <svg
+            class="h-8 w-8 text-gold-600"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+            ></path>
+          </svg>
+        </div>
+        <div class="ml-4">
+          <h3 class="text-xl font-bold text-gray-900">
+            How will I receive my results?
+          </h3>
+          <div class="mt-2 text-gray-600">
+            <p>Our efficient result delivery options include:</p>
+            <ul class="list-disc pl-5 mt-2 space-y-1">
+              <li>Results typically available within 24-48 hours</li>
+              <li>Secure online portal access for viewing reports</li>
+              <li>Direct communication with your referring physician</li>
+              <li>CD/USB/Cloud image delivery options</li>
+              <li>Option to discuss results with a radiologist upon request</li>
+            </ul>
+            <p class="mt-3">
+              Patients in our rewards program receive expedited results and
+              enhanced digital access options.
+            </p>
+            <button
+              class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-navy-600 hover:bg-navy-700"
+            >
+              <svg
+                class="mr-2 -ml-1 h-5 w-5"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                ></path>
+              </svg>
+              Access patient portal
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Section -->
+<div class="mt-16 bg-navy-700 rounded-xl overflow-hidden shadow-xl">
+  <div class="px-6 py-8 sm:p-10 sm:pb-6">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+      <div>
+        <h3 class="text-2xl font-extrabold text-white">
+          Still have questions?
+        </h3>
+        <p class="mt-3 text-lg text-blue-200">
+          Our patient care team is available to assist with any questions about
+          our imaging services.
+        </p>
+        <div class="mt-6 flex flex-col space-y-4">
+          <a
+            href="tel:+18005551234"
+            class="inline-flex items-center text-white hover:text-gold-100"
+          >
+            <svg
+              class="h-6 w-6 mr-3"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              ></path>
+            </svg>
+            (800) USRAD-24
+          </a>
+          <a
+            href="mailto:care@usradimaging.com"
+            class="inline-flex items-center text-white hover:text-gold-100"
+          >
+            <svg
+              class="h-6 w-6 mr-3"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              ></path>
+            </svg>
+            care@usradimaging.com
+          </a>
+          <a
+            href="#"
+            class="inline-flex items-center text-white hover:text-gold-100"
+          >
+            <svg
+              class="h-6 w-6 mr-3"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              ></path>
+            </svg>
+            Schedule an appointment
+          </a>
+        </div>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-inner">
+        <h4 class="text-lg font-medium text-gray-900">Send us a message</h4>
+        <form class="mt-4 space-y-4">
+          <div>
+            <label for="name" class="sr-only">Full name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="shadow-sm focus:ring-navy-500 focus:border-navy-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              placeholder="Full name"
+            />
+          </div>
+          <div>
+            <label for="email" class="sr-only">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="shadow-sm focus:ring-navy-500 focus:border-navy-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              placeholder="Email"
+            />
+          </div>
+          <div>
+            <label for="message" class="sr-only">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              class="shadow-sm focus:ring-navy-500 focus:border-navy-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              placeholder="Your message"></textarea>
+          </div>
+          <div>
+            <button
+              type="submit"
+              class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-navy-600 hover:bg-navy-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy-500"
+            >
+              Send message
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- CSS Variables for Colors -->
 <style>
@@ -1725,4 +1703,3 @@ import MainLayout from "../layouts/MainLayout.astro";
     });
   });
 </script>
-</MainLayout>
