@@ -144,8 +144,8 @@ import Footer from "../components/Footer.astro";
       }
 
       .brand .logo {
-        height: 75px; /* Increased from 56px */
-        max-height: 75px; /* Increased from 56px */
+        height: 75px; /* Already increased from 56px */
+        max-height: 75px; /* Already increased from 56px */
         object-fit: contain;
       }
 
@@ -163,22 +163,38 @@ import Footer from "../components/Footer.astro";
         text-decoration: none;
         font-weight: 500;
         color: #0e1b2a;
-        font-size: 1.125rem; /* Increased from 1rem */
-        padding: 0.5rem 0.75rem; /* Added padding for larger touch target */
-        transition:
-          color 0.3s ease,
-          border-bottom 0.3s ease,
-          transform 0.3s ease;
-        border-bottom: 2px solid transparent;
-        padding-bottom: 2px;
+        font-size: 1.125rem;
+        padding: 0.5rem 0.75rem;
         position: relative;
         display: inline-block;
+        transition:
+          color 0.3s ease,
+          transform 0.3s ease;
+      }
+
+      /* Fixed trailing line effect */
+      .nav-links a::before,
+      .utility-nav a::before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #e6c378;
+        visibility: hidden;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .nav-links a:hover::before,
+      .utility-nav a:hover::before {
+        visibility: visible;
+        width: 100%;
       }
 
       .nav-links a:hover,
       .utility-nav a:hover {
         color: #e6c378;
-        border-bottom: 2px solid #e6c378;
         transform: translateY(-2px);
       }
 
@@ -228,6 +244,25 @@ import Footer from "../components/Footer.astro";
         font-size: 1.1rem;
         display: block;
         padding: 0.5rem 0;
+        position: relative;
+      }
+
+      /* Same trailing line effect for mobile menu */
+      .mobile-nav-links a::before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #e6c378;
+        visibility: hidden;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .mobile-nav-links a:hover::before {
+        visibility: visible;
+        width: 100%;
       }
 
       .mobile-partner-link {

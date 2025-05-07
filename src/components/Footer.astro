@@ -56,23 +56,27 @@ const currentYear = new Date().getFullYear();
           <ul class="footer-links">
             <li>
               <a href="/partner/experience" class="footer-link"
-                >Our Experience</a>
+                >Our Experience</a
+              >
             </li>
             <li>
               <a href="/partner/model" class="footer-link">Partnership Model</a>
             </li>
             <li>
               <a href="/partner/implementation" class="footer-link"
-                >Implementation Process</a>
+                >Implementation Process</a
+              >
             </li>
             <li>
               <a href="/partner/benefits" class="footer-link"
-                >Partner Benefits</a>
+                >Partner Benefits</a
+              >
             </li>
             <li><a href="/partner/faq" class="footer-link">Partner FAQs</a></li>
             <li>
               <a href="/partner/schedule" class="footer-link"
-                >Schedule a Consultation</a>
+                >Schedule a Consultation</a
+              >
             </li>
           </ul>
         </div>
@@ -158,18 +162,33 @@ const currentYear = new Date().getFullYear();
     font-weight: 500;
     position: relative;
     display: inline-block;
-    padding-bottom: 2px;
-    border-bottom: 2px solid transparent;
+    padding-bottom: 5px;
     transition:
       color 0.3s ease,
-      border-bottom 0.3s ease,
       transform 0.3s ease;
+  }
+
+  /* Fixed trailing line effect with ::before */
+  .footer-link::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #cc9933;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
   }
 
   .footer-link:hover {
     color: #cc9933; /* Gold hover color */
-    border-bottom: 2px solid #cc9933;
     transform: translateY(-2px);
+  }
+
+  .footer-link:hover::before {
+    visibility: visible;
+    width: 100%;
   }
 
   .footer-text {
@@ -187,14 +206,12 @@ const currentYear = new Date().getFullYear();
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
-    border: 2px solid transparent;
   }
 
   .footer-button:hover {
     background-color: rgba(204, 153, 51, 0.9);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
-    border-bottom: 2px solid #cc9933;
   }
 
   .footer-bottom {
