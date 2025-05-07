@@ -1,13 +1,12 @@
 ---
 // src/components/Footer.astro
+const currentYear = new Date().getFullYear();
 ---
 
 <footer class="footer">
-  <!-- Main Footer with Blue Background -->
   <div class="footer-main">
-    <div class="footer-container">
-      <!-- Brand Info -->
-      <div class="footer-brand">
+    <div class="container">
+      <div class="footer-logo-section">
         <img
           src="/logo/USRad-Logo-final.png"
           alt="USRad Logo"
@@ -16,31 +15,32 @@
         <p class="footer-tagline">Medical Imaging Done Right</p>
       </div>
 
-      <!-- Footer Columns -->
       <div class="footer-columns">
-        <!-- About USRad Column -->
+        <!-- First Column: About USRad -->
         <div class="footer-column">
           <h3 class="footer-heading">About USRad</h3>
           <ul class="footer-links">
-            <li><a href="/about">About Us</a></li>
-            <li><a href="/founder">Meet the Founder</a></li>
-            <li><a href="/news">News</a></li>
-            <li><a href="/careers">Careers</a></li>
+            <li><a href="/about" class="footer-link">About Us</a></li>
+            <li><a href="/founder" class="footer-link">Meet the Founder</a></li>
+            <li><a href="/news" class="footer-link">News</a></li>
+            <li><a href="/careers" class="footer-link">Careers</a></li>
           </ul>
         </div>
 
-        <!-- For Patients Column -->
+        <!-- Second Column: For Patients -->
         <div class="footer-column">
           <h3 class="footer-heading">For Patients</h3>
           <ul class="footer-links">
-            <li><a href="/our-approach">Our Approach</a></li>
-            <li><a href="/locations">Find a Center</a></li>
-            <li><a href="/faq">Patient FAQs</a></li>
-            <li><a href="/contact">Contact Us</a></li>
+            <li>
+              <a href="/our-approach" class="footer-link">Our Approach</a>
+            </li>
+            <li><a href="/locations" class="footer-link">Find a Center</a></li>
+            <li><a href="/faq" class="footer-link">Patient FAQs</a></li>
+            <li><a href="/contact" class="footer-link">Contact Us</a></li>
           </ul>
         </div>
 
-        <!-- For Imaging Centers Column -->
+        <!-- Third Column: For Imaging Centers -->
         <div class="footer-column">
           <h3 class="footer-heading">For Imaging Centers</h3>
           <p class="footer-text">
@@ -50,62 +50,75 @@
           <a href="/partner" class="footer-button">Learn About Joining</a>
         </div>
 
-        <!-- Partner Resources Column -->
+        <!-- Fourth Column: Partner Resources -->
         <div class="footer-column">
           <h3 class="footer-heading">Partner Resources</h3>
           <ul class="footer-links">
-            <li><a href="/partner/experience">Our Experience</a></li>
-            <li><a href="/partner/model">Partnership Model</a></li>
             <li>
-              <a href="/partner/implementation">Implementation Process</a>
+              <a href="/partner/experience" class="footer-link"
+                >Our Experience</a>
             </li>
-            <li><a href="/partner/benefits">Partner Benefits</a></li>
-            <li><a href="/partner/faq">Partner FAQs</a></li>
-            <li><a href="/partner/schedule">Schedule a Consultation</a></li>
+            <li>
+              <a href="/partner/model" class="footer-link">Partnership Model</a>
+            </li>
+            <li>
+              <a href="/partner/implementation" class="footer-link"
+                >Implementation Process</a>
+            </li>
+            <li>
+              <a href="/partner/benefits" class="footer-link"
+                >Partner Benefits</a>
+            </li>
+            <li><a href="/partner/faq" class="footer-link">Partner FAQs</a></li>
+            <li>
+              <a href="/partner/schedule" class="footer-link"
+                >Schedule a Consultation</a>
+            </li>
           </ul>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Footer Bottom -->
   <div class="footer-bottom">
-    <div class="footer-container">
-      <p class="copyright">
-        &copy; {new Date().getFullYear()} USRad. All rights reserved.
-      </p>
+    <div class="container">
+      <div class="copyright">
+        &copy; {currentYear} USRad. All rights reserved.
+      </div>
       <div class="legal-links">
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms of Service</a>
+        <a href="/privacy" class="footer-link">Privacy Policy</a>
+        <a href="/terms" class="footer-link">Terms of Service</a>
       </div>
     </div>
   </div>
 </footer>
 
 <style>
-  /* Main Footer Styles */
-  .footer-main {
-    background-color: #003087; /* Signature blue background */
-    color: white;
-    padding: 4rem 0;
+  /* Footer Styles */
+  .footer {
     font-family: "Manrope", sans-serif;
   }
 
-  .footer-container {
+  .footer-main {
+    background-color: #003087; /* Deep blue background */
+    color: white;
+    padding: 4rem 0;
+  }
+
+  .container {
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 2rem;
   }
 
-  .footer-brand {
+  .footer-logo-section {
     margin-bottom: 3rem;
   }
 
   .footer-logo {
     height: 60px;
     margin-bottom: 1rem;
-    /* Add filter to make logo visible on blue background if needed */
-    filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1); /* Makes the logo white on dark background */
   }
 
   .footer-tagline {
@@ -115,15 +128,18 @@
 
   .footer-columns {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2.5rem;
+  }
+
+  .footer-column {
   }
 
   .footer-heading {
     font-size: 1.25rem;
     font-weight: 600;
-    color: white;
     margin-bottom: 1.5rem;
+    color: white;
   }
 
   .footer-links {
@@ -136,46 +152,57 @@
     margin-bottom: 0.75rem;
   }
 
-  .footer-links a {
+  .footer-link {
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    transition: color 0.3s ease;
+    font-weight: 500;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+    transition:
+      color 0.3s ease,
+      border-bottom 0.3s ease,
+      transform 0.3s ease;
   }
 
-  .footer-links a:hover {
-    color: #cc9933; /* Gold hover state */
+  .footer-link:hover {
+    color: #cc9933; /* Gold hover color */
+    border-bottom: 2px solid #cc9933;
+    transform: translateY(-2px);
   }
 
   .footer-text {
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 1.5rem;
-    line-height: 1.5;
+    line-height: 1.6;
   }
 
   .footer-button {
     display: inline-block;
-    padding: 0.5rem 1.25rem;
-    background-color: #cc9933; /* Gold button */
-    color: #003087; /* Blue text */
+    padding: 0.625rem 1.5rem;
+    background-color: #cc9933;
+    color: #003087;
     border-radius: 9999px;
-    font-weight: 500;
-    font-size: 0.875rem;
+    font-weight: 600;
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
   }
 
   .footer-button:hover {
-    background-color: #d9b053;
+    background-color: rgba(204, 153, 51, 0.9);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    border-bottom: 2px solid #cc9933;
   }
 
-  /* Footer Bottom Styles */
   .footer-bottom {
-    background-color: #002266; /* Darker blue for the bottom section */
-    padding: 2rem 0;
-    font-family: "Manrope", sans-serif;
+    background-color: #002470; /* Slightly darker blue */
+    padding: 1.5rem 0;
   }
 
-  .footer-bottom .footer-container {
+  .footer-bottom .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -184,9 +211,8 @@
   }
 
   .copyright {
-    font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.7);
-    margin: 0;
+    font-size: 0.875rem;
   }
 
   .legal-links {
@@ -194,31 +220,31 @@
     gap: 1.5rem;
   }
 
-  .legal-links a {
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-
-  .legal-links a:hover {
-    color: #cc9933;
-  }
-
   /* Responsive Styles */
   @media (max-width: 768px) {
     .footer-columns {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 3rem;
     }
 
-    .footer-bottom .footer-container {
+    .footer-bottom .container {
       flex-direction: column;
       text-align: center;
     }
 
     .legal-links {
       justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-main {
+      padding: 3rem 0;
+    }
+
+    .footer-columns {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
     }
   }
 </style>

@@ -98,7 +98,8 @@ import Footer from "../components/Footer.astro";
           <li><a href="/login">Login</a></li>
           <li>
             <a href="/partner" class="mobile-partner-link"
-              >For Imaging Centers</a>
+              >For Imaging Centers</a
+            >
           </li>
         </ul>
       </div>
@@ -143,8 +144,8 @@ import Footer from "../components/Footer.astro";
       }
 
       .brand .logo {
-        height: 56px;
-        max-height: 56px;
+        height: 75px; /* Increased from 56px */
+        max-height: 75px; /* Increased from 56px */
         object-fit: contain;
       }
 
@@ -162,7 +163,8 @@ import Footer from "../components/Footer.astro";
         text-decoration: none;
         font-weight: 500;
         color: #0e1b2a;
-        font-size: 1rem;
+        font-size: 1.125rem; /* Increased from 1rem */
+        padding: 0.5rem 0.75rem; /* Added padding for larger touch target */
         transition:
           color 0.3s ease,
           border-bottom 0.3s ease,
