@@ -1,35 +1,24 @@
----
-// src/components/HomeProblemSolution.astro
----
-
+<!-- Replace the current HomeProblemSolution with this improved version that includes images -->
 <section class="py-16 px-6 sm:px-12 bg-white">
   <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-10">
-      <h2
-        class="text-3xl font-semibold text-[#003087] font-manrope"
-        data-aos="fade-up"
-      >
-        A Better Way to Get Medical Imaging
-      </h2>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <!-- Problem Side - Condensed -->
-      <div class="bg-[#f8f2e1] p-8 rounded-xl shadow-md" data-aos="fade-right">
+    <!-- First Part: Problem Statement -->
+    <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+      <!-- Left side with problem statement -->
+      <div>
         <h3
-          class="text-2xl font-semibold text-[#003087] mb-4 flex items-center font-manrope"
+          class="text-5xl font-semibold text-[#003087] mb-6 leading-tight font-manrope"
         >
-          <span class="w-1.5 h-6 bg-[#cc9933] rounded-full mr-3"></span>
-          The Current Challenge
+          The medical imaging system wasn't built for patients
         </h3>
-        <p class="text-lg text-[#003087] mb-4 font-manrope">
-          Medical imaging today often means unclear pricing, long wait times,
-          and uncertainty about who reads your scans—leaving patients frustrated
-          and anxious.
+        <p class="text-xl text-[#003087] mb-6 font-manrope">
+          For too long, patients have been left to navigate medical imaging on
+          their own — unclear prices, long wait times, inconsistent equipment
+          quality, and little to no transparency about who's reading their
+          scans.
         </p>
         <a
           href="/our-approach"
-          class="text-[#003087] font-medium hover:text-[#cc9933] transition-colors inline-flex items-center font-manrope"
+          class="text-lg text-[#003087] font-medium hover:text-[#cc9933] transition-colors inline-flex items-center font-manrope"
         >
           Learn more about the challenges
           <svg
@@ -46,35 +35,58 @@
         </a>
       </div>
 
-      <!-- Solution Side - Condensed -->
-      <div class="bg-[#f0f4f9] p-8 rounded-xl shadow-md" data-aos="fade-left">
+      <!-- Right side with Problem illustration -->
+      <div>
+        <!-- Problem Image -->
+        <img
+          src="/images/problem-image.png"
+          alt="Patient struggling with confusing medical imaging paperwork"
+          class="w-full h-auto max-h-[80vh] object-cover rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+        />
+      </div>
+    </div>
+
+    <!-- Visual divider with Amber Gold -->
+    <div class="my-16 flex justify-center items-center">
+      <div class="w-2 h-2 rounded-full bg-[#cc9933] mr-2"></div>
+      <div class="w-32 h-1 bg-[#cc9933] rounded-full"></div>
+      <div class="w-2 h-2 rounded-full bg-[#cc9933] ml-2"></div>
+    </div>
+
+    <!-- Second Part: Solution Statement -->
+    <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+      <!-- Left side with Solution illustration -->
+      <div>
+        <!-- Solution Image -->
+        <img
+          src="/images/solution-image.png"
+          alt="USRad representative providing clear guidance to a patient"
+          class="w-full h-auto max-h-[80vh] object-cover rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+        />
+      </div>
+
+      <!-- Right side with solution statement -->
+      <div>
         <h3
-          class="text-2xl font-semibold text-[#003087] mb-4 flex items-center font-manrope"
+          class="text-5xl font-semibold text-[#cc9933] mb-6 leading-tight font-manrope"
         >
-          <span class="w-1.5 h-6 bg-[#cc9933] rounded-full mr-3"></span>
-          The USRad Solution
+          But we are.
         </h3>
-        <p class="text-lg text-[#003087] mb-4 font-manrope">
-          We provide transparent pricing, priority scheduling within days (not
-          weeks), and 100% board-certified radiologists—all without requiring a
-          referral.
+        <p class="text-xl text-[#003087] mb-6 font-manrope">
+          At USRad, we're changing that. We provide direct access to top-tier
+          imaging centers, ensure all radiologists are board-certified, and
+          offer priority scheduling typically within days, not weeks, at one
+          all-inclusive price.
         </p>
         <a
           href="/schedule"
-          class="text-[#003087] font-medium hover:text-[#cc9933] transition-colors inline-flex items-center font-manrope"
+          class="inline-block bg-[#003087] text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#002266] hover:shadow-xl hover:scale-105 transition-all duration-300 border border-transparent hover:border-[#cc9933] group font-manrope text-lg"
         >
-          Find centers near you
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5 ml-1"
-            viewBox="0 0 20 20"
-            fill="currentColor"
+          Find Centers Near You
+          <span
+            class="inline-block ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
+            >→</span
           >
-            <path
-              fill-rule="evenodd"
-              d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path>
-          </svg>
         </a>
       </div>
     </div>
