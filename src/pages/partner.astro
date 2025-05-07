@@ -10,7 +10,31 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
 ---
 
 <style>
-  /* Style moved to global.css for better reuse */
+  @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap");
+
+  body,
+  html {
+    font-family: "Manrope", sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Manrope", sans-serif;
+    font-weight: 600;
+  }
+
+  p,
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    font-family: "Manrope", sans-serif;
+  }
 
   .abstract-medical-accent {
     position: absolute;
@@ -31,11 +55,117 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
 
 <MainLayout>
   <AOSInit />
-  <HeroSmartSplit />
 
-  <!-- Founder Message Section -->
+  <!-- Hero Section -->
   <section
-    class="py-24 bg-[#fcf9f0] text-gray-800 relative overflow-hidden"
+    class="relative bg-gradient-to-b from-[#fcf9f0] to-[#f5e7c5] text-[#003087] pt-32 pb-28 px-6 sm:px-12 overflow-hidden"
+    data-aos="fade-up"
+    data-aos-duration="800"
+  >
+    <!-- Decorative elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="text-center mb-12">
+        <h1
+          class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight font-manrope text-[#003087]"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          Partner With <span class="text-[#cc9933] relative">
+            USRad
+            <svg
+              class="absolute -bottom-2 left-0 w-full"
+              height="6"
+              viewBox="0 0 340 6"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 3.5C2 3.5 70 0.5 170 3.5C270 6.5 338 3.5 338 3.5"
+                stroke="#cc9933"
+                stroke-width="4"
+                stroke-linecap="round"></path>
+            </svg>
+          </span>
+        </h1>
+        <p
+          class="mt-6 text-xl sm:text-2xl text-[#003087] max-w-3xl mx-auto leading-relaxed font-manrope"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          Join our nationwide network of premium imaging centers and optimize
+          your facility utilization while serving patients who need affordable
+          imaging.
+        </p>
+      </div>
+
+      <!-- Quick Stats -->
+      <div
+        class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        <div
+          class="bg-white p-4 rounded-xl shadow-md text-center transform hover:scale-105 transition-all duration-300 border-t-4 border-[#cc9933]"
+        >
+          <div
+            class="text-[#003087] text-3xl font-bold mb-2 font-manrope stat-number"
+          >
+            1,200+
+          </div>
+          <p class="text-[#003087] font-manrope">Centers in previous network</p>
+        </div>
+        <div
+          class="bg-white p-4 rounded-xl shadow-md text-center transform hover:scale-105 transition-all duration-300 border-t-4 border-[#cc9933]"
+        >
+          <div
+            class="text-[#003087] text-3xl font-bold mb-2 font-manrope stat-number"
+          >
+            100M+
+          </div>
+          <p class="text-[#003087] font-manrope">
+            Uninsured & underinsured patients
+          </p>
+        </div>
+        <div
+          class="bg-white p-4 rounded-xl shadow-md text-center transform hover:scale-105 transition-all duration-300 border-t-4 border-[#cc9933]"
+        >
+          <div
+            class="text-[#003087] text-3xl font-bold mb-2 font-manrope stat-number"
+          >
+            30-70%
+          </div>
+          <p class="text-[#003087] font-manrope">Lower than hospital rates</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Elegant Wave Divider -->
+    <div class="absolute bottom-0 left-0 right-0 overflow-hidden">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 120"
+        class="w-full h-auto"
+      >
+        <path
+          fill="#ffffff"
+          fill-opacity="1"
+          d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
+        ></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Founder's Expertise Section -->
+  <section
+    class="py-16 bg-[#fcf9f0] text-gray-800 relative overflow-hidden"
     data-aos="fade-up"
     data-aos-delay="100"
   >
@@ -56,10 +186,9 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
     >
     </div>
 
-    <!-- Content with z-index to keep it above backgrounds -->
     <div class="px-6 sm:px-8 lg:px-12">
       <div class="relative z-10 max-w-7xl mx-auto">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
           <div
             class="relative flex justify-center items-center"
             data-aos="fade-right"
@@ -76,343 +205,586 @@ import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisi
             </div>
           </div>
 
-          <div class="space-y-6" data-aos="fade-left" data-aos-delay="300">
-            <h2 class="text-3xl font-semibold text-[#003087] flex items-center">
+          <div class="space-y-5" data-aos="fade-left" data-aos-delay="300">
+            <h2
+              class="text-3xl font-semibold text-[#003087] flex items-center font-manrope"
+            >
               <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
-              From the Founder
+              Pioneering Experience
             </h2>
-            <p class="text-xl text-gray-700 leading-relaxed">
-              "We've been here before. When we built our previous network that
-              grew to over 1,200 imaging centers nationwide, we saw firsthand
-              how this approach created win-win partnerships that lasted over a
-              decade."
+            <p class="text-xl text-gray-700 leading-relaxed font-manrope">
+              "We've not only built a previous network of 1,200+ imaging centers
+              nationwide, but pioneered the first workers' compensation
+              marketplace of its kind before anyone else did."
             </p>
-            <p class="text-xl text-gray-700 leading-relaxed">
-              "Today, we're bringing that same expertise to a market that needs
-              it more than ever—helping centers like yours serve the 100+
-              million Americans who are uninsured or underinsured, while
-              simultaneously strengthening your business."
-            </p>
-            <p class="text-lg text-gray-700 leading-relaxed italic mt-4">
+            <p
+              class="text-lg text-gray-700 leading-relaxed italic mt-3 font-manrope"
+            >
               — Michael Cabrera, Founder & CEO
             </p>
+            <div class="mt-2">
+              <a
+                href="/partner/experience"
+                class="text-[#003087] hover:text-[#cc9933] transition-colors font-medium flex items-center font-manrope"
+              >
+                Learn more about our experience
+                <svg
+                  class="ml-2 w-4 h-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Visual element for continuity with next section -->
-    <div class="absolute -bottom-8 left-1/4 right-1/4 h-16 overflow-hidden">
-      <div
-        class="w-full h-full bg-[#fcf9f0] rounded-b-full shadow-sm opacity-30"
-      >
-      </div>
-    </div>
   </section>
 
-  <div class="relative py-8 overflow-hidden">
-    <div class="px-6 sm:px-8 lg:px-12">
-      <div class="relative">
-        <div
-          class="h-px w-full bg-gradient-to-r from-transparent via-[#e6c378] to-transparent opacity-50"
-        >
-        </div>
-      </div>
-      <div
-        class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white flex items-center justify-center border border-[#e6c378] border-opacity-30"
-      >
-        <div class="w-6 h-6 rounded-full bg-[#e6c378] opacity-50"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="mt-16">
-    <HowItWorksTimeLine />
-  </div>
-
-  <!-- Historical Success Section -->
-  <section
-    class="py-24 bg-[#f0f4f9] text-gray-800 relative overflow-hidden"
-    data-aos="fade-up"
-    data-aos-delay="100"
-  >
-    <!-- Subtle pattern overlay -->
+  <!-- Core Benefits Section -->
+  <section class="py-16 bg-white text-[#003087] relative overflow-hidden">
+    <!-- Background elements -->
     <div
-      class="absolute inset-0 bg-repeat opacity-[0.03]"
-      style="background-image: url('/images/subtle-pattern.svg');"
-    >
-    </div>
-
-    <!-- Decorative elements -->
-    <div
-      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+      class="absolute top-20 left-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.05] blur-3xl"
     >
     </div>
     <div
-      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#e6c378] opacity-[0.03] blur-3xl"
+      class="absolute bottom-20 right-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.05] blur-3xl"
     >
     </div>
 
     <div class="px-6 sm:px-8 lg:px-12">
       <div class="max-w-7xl mx-auto relative z-10">
-        <div class="text-center mb-16" data-aos="fade-up" data-aos-delay="200">
+        <div class="text-center mb-12" data-aos="fade-up" data-aos-delay="100">
           <h2
-            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center"
+            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
           >
-            <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
-            Proven Track Record
+            <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+            Partner Benefits
           </h2>
-          <p class="text-xl text-gray-700 mt-6 max-w-3xl mx-auto">
-            Our team has decades of successful experience building and operating
-            a nationwide imaging network.
+          <p class="text-xl text-gray-700 mt-4 max-w-3xl mx-auto font-manrope">
+            Join the network that's reimagining imaging access while creating
+            sustainable value for our partners.
           </p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Benefit 1: Incremental Revenue -->
           <div
-            class="bg-white p-8 rounded-xl shadow-md text-center transform hover:scale-105 transition-transform duration-300 hover-card"
+            class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-t-4 border-[#cc9933]"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Incremental Revenue
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              Convert vacant appointment slots into immediate revenue with zero
+              additional overhead costs.
+            </p>
+          </div>
+
+          <!-- Benefit 2: Simplified Operations -->
+          <div
+            class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-t-4 border-[#cc9933]"
             data-aos="fade-up"
             data-aos-delay="300"
           >
             <div
-              class="card-icon text-[#003087] text-5xl font-bold mb-4 stat-number"
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
             >
-              1,200+
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
             </div>
-            <p class="text-lg">Imaging centers in our previous network</p>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Simplified Operations
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              We handle patient acquisition, scheduling, and payment processing,
+              allowing you to focus on clinical excellence.
+            </p>
           </div>
 
+          <!-- Benefit 3: Guaranteed Payment -->
           <div
-            class="bg-white p-8 rounded-xl shadow-md text-center transform hover:scale-105 transition-transform duration-300 hover-card"
+            class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-t-4 border-[#cc9933]"
             data-aos="fade-up"
             data-aos-delay="400"
           >
             <div
-              class="card-icon text-[#003087] text-5xl font-bold mb-4 stat-number"
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
             >
-              10+
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                ></path>
+              </svg>
             </div>
-            <p class="text-lg">Years of successful partnership building</p>
-          </div>
-
-          <div
-            class="bg-white p-8 rounded-xl shadow-md text-center transform hover:scale-105 transition-transform duration-300 hover-card"
-            data-aos="fade-up"
-            data-aos-delay="500"
-          >
-            <div
-              class="card-icon text-[#003087] text-5xl font-bold mb-4 stat-number"
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
             >
-              5-15%
-            </div>
-            <p class="text-lg">
-              Typical business volume increase for most partner centers
+              Guaranteed Payment
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              Receive payment within 15 days - no lengthy insurance claim
+              cycles, denials, or payment delays.
             </p>
           </div>
         </div>
 
-        <div class="text-center" data-aos="fade-up" data-aos-delay="600">
-          <p class="text-xl text-gray-700 italic">
-            "We're bringing that same expertise and commitment to USRad."
+        <div class="text-center mt-12">
+          <a
+            href="/partner/benefits"
+            class="text-[#003087] hover:text-[#cc9933] transition-colors font-medium inline-flex items-center font-manrope"
+          >
+            View all partner benefits
+            <svg
+              class="ml-2 w-4 h-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Streamlined Process Overview -->
+  <section class="py-16 bg-[#f0f4f9] text-[#003087] relative overflow-hidden">
+    <!-- Background elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.05] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-white opacity-[0.1] blur-3xl"
+    >
+    </div>
+
+    <div class="px-6 sm:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-12" data-aos="fade-up" data-aos-delay="100">
+          <h2
+            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
+          >
+            <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+            Simple Implementation
+          </h2>
+          <p class="text-xl text-gray-700 mt-4 max-w-3xl mx-auto font-manrope">
+            Our streamlined onboarding process gets you up and running quickly
+            with minimal disruption.
+          </p>
+        </div>
+
+        <!-- Simplified Timeline - Horizontal Steps -->
+        <div class="relative" data-aos="fade-up" data-aos-delay="200">
+          <!-- Connector Line -->
+          <div
+            class="absolute top-24 left-0 right-0 h-1 bg-[#e6c378] opacity-50 hidden md:block"
+          >
+          </div>
+
+          <!-- Step Icons -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Step 1 -->
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center mb-6 relative z-10"
+              >
+                <span class="text-white font-bold font-manrope">1</span>
+              </div>
+              <h3
+                class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
+              >
+                Consultation
+              </h3>
+              <p class="text-sm text-gray-600 font-manrope">
+                Brief introductory call to understand your needs
+              </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center mb-6 relative z-10"
+              >
+                <span class="text-white font-bold font-manrope">2</span>
+              </div>
+              <h3
+                class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
+              >
+                Onboarding
+              </h3>
+              <p class="text-sm text-gray-600 font-manrope">
+                Simple setup process with dedicated support
+              </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center mb-6 relative z-10"
+              >
+                <span class="text-white font-bold font-manrope">3</span>
+              </div>
+              <h3
+                class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
+              >
+                Integration
+              </h3>
+              <p class="text-sm text-gray-600 font-manrope">
+                Connect with our scheduling system
+              </p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center mb-6 relative z-10"
+              >
+                <span class="text-white font-bold font-manrope">4</span>
+              </div>
+              <h3
+                class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
+              >
+                Launch
+              </h3>
+              <p class="text-sm text-gray-600 font-manrope">
+                Begin receiving patients and incremental revenue
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-12">
+          <a
+            href="/partner/implementation"
+            class="text-[#003087] hover:text-[#cc9933] transition-colors font-medium inline-flex items-center font-manrope"
+          >
+            View detailed implementation process
+            <svg
+              class="ml-2 w-4 h-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compatibility With Leading Equipment - Using existing PartnerMfgGrid component instead of hardcoded logos -->
+  <section class="py-12 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-8">
+        <p class="text-lg text-[#003087] font-medium font-manrope">
+          Compatible with equipment from leading manufacturers
+        </p>
+      </div>
+      <PartnerMfgGrid />
+    </div>
+  </section>
+
+  <!-- Streamlined CTA Section -->
+  <section
+    class="bg-[#003087] text-white py-16 px-6 sm:px-12 relative overflow-hidden"
+    data-aos="fade-up"
+  >
+    <!-- Background elements -->
+    <div
+      class="absolute inset-0 bg-repeat opacity-[0.03]"
+      style="background-image: url('/images/subtle-pattern.svg');"
+    >
+    </div>
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.1] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-white opacity-[0.05] blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="grid md:grid-cols-5 gap-8 items-center">
+        <div
+          class="md:col-span-3 text-center md:text-left"
+          data-aos="fade-right"
+          data-aos-delay="100"
+        >
+          <h2 class="text-3xl font-semibold mb-4 font-manrope">
+            Ready to Optimize Your Imaging Center?
+          </h2>
+          <p class="text-lg mb-8 font-manrope">
+            Join our network to fill unused appointment slots and serve patients
+            in need of affordable imaging.
+          </p>
+          <div class="space-y-4">
+            <a
+              href="/partner/schedule"
+              class="inline-block px-8 py-4 bg-[#cc9933] text-[#003087] font-bold rounded-full hover:bg-[#e6c378] transition-all duration-300 hover:shadow-xl font-manrope"
+            >
+              Schedule a Consultation
+            </a>
+            <div class="block mt-4">
+              <a
+                href="/downloads/USRad-Partner-Overview.pdf"
+                class="inline-flex items-center text-white hover:text-[#cc9933] transition-all duration-300 font-manrope"
+              >
+                <svg
+                  class="h-5 w-5 mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+                  ></path>
+                </svg>
+                Download Overview (PDF)
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="md:col-span-2 bg-white p-6 rounded-xl shadow-xl border-l-4 border-[#cc9933]"
+          data-aos="fade-left"
+          data-aos-delay="200"
+        >
+          <h3 class="text-xl font-semibold text-[#003087] mb-4 font-manrope">
+            Express Interest
+          </h3>
+          <form class="space-y-4">
+            <div>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#cc9933] focus:border-transparent font-manrope"
+                placeholder="Your Name"
+              />
+            </div>
+
+            <div>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#cc9933] focus:border-transparent font-manrope"
+                placeholder="Work Email"
+              />
+            </div>
+
+            <div>
+              <input
+                type="text"
+                id="facility"
+                name="facility"
+                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#cc9933] focus:border-transparent font-manrope"
+                placeholder="Facility Name"
+              />
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                class="w-full px-6 py-3 bg-[#003087] text-white font-bold rounded-lg hover:bg-[#002266] transition-all duration-300 border border-transparent hover:border-[#cc9933] font-manrope"
+              >
+                Submit Interest
+              </button>
+            </div>
+
+            <p class="text-xs text-gray-500 text-center font-manrope">
+              By submitting, you'll receive information about the USRad partner
+              network. No obligation.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Preview - Just 2-3 Most Common Questions -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-semibold text-[#003087] mb-4 font-manrope">
+          Common Questions
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <div
+          class="bg-[#f8f2e1] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+        >
+          <h3
+            class="text-xl font-semibold text-[#003087] flex items-center font-manrope"
+          >
+            <span class="w-1.5 h-6 bg-[#cc9933] rounded-full mr-3"></span>
+            What is the process to join USRad?
+          </h3>
+          <p class="text-lg text-gray-700 mt-4 pl-4 font-manrope">
+            The process is simple: schedule a consultation, complete our brief
+            application, and our integration team will handle the onboarding
+            process. Most partners are live within 2-3 weeks.
+          </p>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div
+          class="bg-[#f8f2e1] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+        >
+          <h3
+            class="text-xl font-semibold text-[#003087] flex items-center font-manrope"
+          >
+            <span class="w-1.5 h-6 bg-[#cc9933] rounded-full mr-3"></span>
+            Are there any costs involved in joining USRad?
+          </h3>
+          <p class="text-lg text-gray-700 mt-4 pl-4 font-manrope">
+            Joining USRad is free for eligible centers. We offer a transparent,
+            simple partnership model with no hidden fees or monthly charges.
           </p>
         </div>
       </div>
 
-      <!-- Visual element for continuity with next section -->
-      <div
-        class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-[#fcf9f0] opacity-30"
-      >
-      </div>
-    </div>
-
-    <div class="mt-16">
-      <MarketOpportunity />
-    </div>
-
-    <div class="mt-16">
-      <IndependentInvitation />
-    </div>
-
-    <div class="mt-16">
-      <PartnerMfgGrid />
-    </div>
-
-    <!-- Decorative Divider -->
-    <div class="relative py-16 overflow-hidden">
-      <div class="px-6 relative">
-        <div
-          class="h-px w-full bg-gradient-to-r from-transparent via-[#e6c378] to-transparent opacity-50"
+      <div class="text-center mt-8">
+        <a
+          href="/partner/faq"
+          class="text-[#003087] hover:text-[#cc9933] transition-colors font-medium inline-flex items-center font-manrope"
         >
-        </div>
-      </div>
-      <div
-        class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white flex items-center justify-center border border-[#e6c378] border-opacity-30"
-      >
-        <div class="w-6 h-6 rounded-full bg-[#e6c378] opacity-50"></div>
+          View all frequently asked questions
+          <svg
+            class="ml-2 w-4 h-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
       </div>
     </div>
-
-    <!-- FAQ Section -->
-    <section
-      class="bg-white py-24 px-6 text-gray-800 relative overflow-hidden"
-      data-aos="fade-up"
-      data-aos-delay="300"
-    >
-      <!-- Subtle pattern overlay -->
-      <div
-        class="absolute inset-0 bg-repeat opacity-[0.03]"
-        style="background-image: url('/images/subtle-pattern.svg');"
-      >
-      </div>
-
-      <!-- Decorative elements -->
-      <div
-        class="absolute top-20 left-20 w-64 h-64 rounded-full bg-[#e6c378] opacity-[0.03] blur-3xl"
-      >
-      </div>
-      <div
-        class="absolute bottom-20 right-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
-      >
-      </div>
-
-      <div class="px-6 sm:px-8 lg:px-12">
-        <div class="max-w-7xl mx-auto relative z-10">
-          <div class="text-center mb-16">
-            <h2
-              class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center"
-            >
-              <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
-              Frequently Asked Questions
-            </h2>
-          </div>
-
-          <div class="max-w-4xl mx-auto">
-            <div class="space-y-6">
-              <!-- FAQ 1 -->
-              <div
-                class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-              >
-                <h3
-                  class="text-xl font-semibold text-[#003087] flex items-center"
-                >
-                  <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"></span>
-                  What is the process to join USRad?
-                </h3>
-                <p class="text-lg text-gray-700 mt-4 pl-4">
-                  You can start by filling out the application form. After
-                  submitting your details, we'll reach out with next steps to
-                  onboard your center.
-                </p>
-              </div>
-              <!-- FAQ 2 -->
-              <div
-                class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-              >
-                <h3
-                  class="text-xl font-semibold text-[#003087] flex items-center"
-                >
-                  <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"></span>
-                  Are there any costs involved in joining USRad?
-                </h3>
-                <p class="text-lg text-gray-700 mt-4 pl-4">
-                  Joining USRad is free for eligible centers. We offer a
-                  transparent, simple partnership model with no hidden fees.
-                </p>
-              </div>
-              <!-- FAQ 3 -->
-              <div
-                class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-              >
-                <h3
-                  class="text-xl font-semibold text-[#003087] flex items-center"
-                >
-                  <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-3"></span>
-                  What are the benefits of joining USRad?
-                </h3>
-                <p class="text-lg text-gray-700 mt-4 pl-4">
-                  You gain access to a nationwide network of self-pay patients,
-                  streamlined scheduling, faster reimbursements, and increased
-                  volume—all while maintaining high-quality care.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Apply CTA -->
-          <div class="text-center mt-16" id="apply">
-            <a
-              href="/partner/apply"
-              class="inline-block bg-[#003087] text-white px-10 py-4 rounded-full hover:bg-[#002266] transition-all hover:shadow-lg border-l-4 border-[#e6c378]"
-            >
-              Apply Now to Join the Network
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          // Subtle hover effects on cards
-          document.querySelectorAll(".hover-card").forEach((card) => {
-            card.addEventListener("mouseenter", function () {
-              const icon = this.querySelector(".card-icon");
-              if (icon) {
-                icon.classList.add("animate-pulse");
-              }
-            });
-
-            card.addEventListener("mouseleave", function () {
-              const icon = this.querySelector(".card-icon");
-              if (icon) {
-                icon.classList.remove("animate-pulse");
-              }
-            });
-          });
-
-          // Animate stat numbers on scroll
-          const observerOptions = {
-            threshold: 0.5,
-          };
-
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                if (!entry.target.dataset.animated) {
-                  entry.target.dataset.animated = true;
-
-                  const finalValue = entry.target.textContent;
-                  const valueWithoutPlus = parseInt(
-                    finalValue.replace(/\D/g, "")
-                  );
-
-                  let currentValue = 0;
-                  const increment = Math.ceil(valueWithoutPlus / 50);
-                  const duration = 1500; // ms
-                  const interval = Math.floor(
-                    duration / (valueWithoutPlus / increment)
-                  );
-
-                  const counter = setInterval(() => {
-                    currentValue += increment;
-                    if (currentValue >= valueWithoutPlus) {
-                      clearInterval(counter);
-                      currentValue = valueWithoutPlus;
-                      entry.target.textContent = finalValue;
-                    } else {
-                      entry.target.textContent = currentValue + "+";
-                    }
-                  }, interval);
-                }
-                observer.unobserve(entry.target);
-              }
-            });
-          }, observerOptions);
-
-          document.querySelectorAll(".stat-number").forEach((stat) => {
-            observer.observe(stat);
-          });
-        });
-      </script>
-    </section>
   </section>
 </MainLayout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Animate stat numbers on scroll
+    const observerOptions = {
+      threshold: 0.5,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!entry.target.dataset.animated) {
+            entry.target.dataset.animated = true;
+
+            const finalValue = entry.target.textContent;
+            const valueWithoutPlus = parseInt(finalValue.replace(/\D/g, ""));
+
+            let currentValue = 0;
+            const increment = Math.ceil(valueWithoutPlus / 40);
+            const duration = 1500; // ms
+            const interval = Math.floor(
+              duration / (valueWithoutPlus / increment)
+            );
+
+            const counter = setInterval(() => {
+              currentValue += increment;
+              if (currentValue >= valueWithoutPlus) {
+                clearInterval(counter);
+                currentValue = valueWithoutPlus;
+                entry.target.textContent = finalValue;
+              } else {
+                entry.target.textContent = currentValue + "+";
+              }
+            }, interval);
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll(".stat-number").forEach((stat) => {
+      observer.observe(stat);
+    });
+  });
+</script>
