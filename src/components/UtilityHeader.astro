@@ -1,116 +1,78 @@
-<!-- FILE: UtilityHeader.astro -->
+---
+// src/components/UtilityHeader.astro
+---
+
 <div class="utility-header">
-  <ul class="utility-menu">
-    <!-- Phone Dropdown -->
-    <li class="utility-dropdown">
-      <a href="#">1-800-USRAD-24 <span class="arrow">▾</span></a>
-      <ul>
-        <li><a href="#">Scheduling</a></li>
-        <li><a href="#">Billing</a></li>
-        <li><a href="#">Medical Records</a></li>
-        <li><a href="#">Referring Physicians</a></li>
-      </ul>
-    </li>
-
-    <!-- Language Switch -->
-    <li class="utility-dropdown">
-      <a href="#">English <span class="arrow">▾</span></a>
-      <ul>
-        <li><a href="#">Spanish</a></li>
-      </ul>
-    </li>
-
-    <!-- Login Dropdown -->
-    <li>
-      <a
-        href="/login"
-        class="login-toggle"
-        style="color: white; display: flex; align-items: center; gap: 0.25rem;"
+  <div class="utility-container">
+    <a href="/partner" class="utility-link">
+      For Imaging Centers
+      <svg
+        class="utility-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
       >
-        👤 Log In
-      </a>
-    </li>
-  </ul>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+      </svg>
+    </a>
+  </div>
 </div>
-
 
 <style>
   .utility-header {
+    background-color: #f8f2e1;
+    padding: 0.5rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 60; /* Higher than navbar z-index */
+  }
+
+  .utility-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
     display: flex;
     justify-content: flex-end;
-    padding: 0.25rem 2rem;
-    background: #032d5a;
+  }
+
+  .utility-link {
     font-size: 0.875rem;
-    z-index: 1100;
-    position: relative;
-  }
-
-  .utility-menu {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    z-index: 1100;
-  }
-
-  .utility-dropdown {
-    position: relative;
-  }
-
-  .utility-dropdown a,
-  .utility-dropdown button {
-    text-decoration: none;
-    background: none;
-    border: none;
-    color: #ffffff;
+    color: #003087;
     font-weight: 500;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: inherit;
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    transition: color 0.3s ease;
   }
 
-  .utility-dropdown .arrow {
-    transition: transform 0.3s ease;
-    display: inline-block;
+  .utility-link:hover {
+    color: #cc9933;
   }
 
-  .utility-dropdown ul {
-    position: absolute;
-    top: 100%;
-    right: -40px;
-    left: auto;
-    background: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem 0;
-    margin: 0;
-    list-style: none;
-    display: none;
-    z-index: 1300;
-    min-width: 220px;
+  .utility-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-left: 0.25rem;
   }
 
-  .utility-dropdown:hover ul:not(.login-menu) {
-    display: block;
+  /* Adjust main navbar positioning to account for utility header */
+  :global(.navbar) {
+    top: 2rem; /* Height of utility header */
   }
 
-  .utility-dropdown ul li a {
-    display: block;
-    padding: 0.5rem 1rem;
-    color: #0e1b2a;
-    text-decoration: none;
-    font-size: 0.8125rem;
+  :global(.main-content) {
+    padding-top: 140px; /* Adjust based on combined height of navbar + utility header */
   }
 
-  .utility-dropdown ul li a:hover {
-    background-color: #f1f5f9;
-  }
-
-  .border-t {
-    border-top: 1px solid #e5e7eb;
+  @media (max-width: 768px) {
+    .utility-container {
+      padding: 0 1rem;
+    }
   }
 </style>

@@ -1,0 +1,116 @@
+<!-- FILE: UtilityHeader.astro -->
+<div class="utility-header">
+  <ul class="utility-menu">
+    <!-- Phone Dropdown -->
+    <li class="utility-dropdown">
+      <a href="#">1-800-USRAD-24 <span class="arrow">▾</span></a>
+      <ul>
+        <li><a href="#">Scheduling</a></li>
+        <li><a href="#">Billing</a></li>
+        <li><a href="#">Medical Records</a></li>
+        <li><a href="#">Referring Physicians</a></li>
+      </ul>
+    </li>
+
+    <!-- Language Switch -->
+    <li class="utility-dropdown">
+      <a href="#">English <span class="arrow">▾</span></a>
+      <ul>
+        <li><a href="#">Spanish</a></li>
+      </ul>
+    </li>
+
+    <!-- Login Dropdown -->
+    <li>
+      <a
+        href="/login"
+        class="login-toggle"
+        style="color: white; display: flex; align-items: center; gap: 0.25rem;"
+      >
+        👤 Log In
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<style>
+  .utility-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.25rem 2rem;
+    background: #032d5a;
+    font-size: 0.875rem;
+    z-index: 1100;
+    position: relative;
+  }
+
+  .utility-menu {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1100;
+  }
+
+  .utility-dropdown {
+    position: relative;
+  }
+
+  .utility-dropdown a,
+  .utility-dropdown button {
+    text-decoration: none;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .utility-dropdown .arrow {
+    transition: transform 0.3s ease;
+    display: inline-block;
+  }
+
+  .utility-dropdown ul {
+    position: absolute;
+    top: 100%;
+    right: -40px;
+    left: auto;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 0;
+    margin: 0;
+    list-style: none;
+    display: none;
+    z-index: 1300;
+    min-width: 220px;
+  }
+
+  .utility-dropdown:hover ul:not(.login-menu) {
+    display: block;
+  }
+
+  .utility-dropdown ul li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #0e1b2a;
+    text-decoration: none;
+    font-size: 0.8125rem;
+  }
+
+  .utility-dropdown ul li a:hover {
+    background-color: #f1f5f9;
+  }
+
+  .border-t {
+    border-top: 1px solid #e5e7eb;
+  }
+</style>
