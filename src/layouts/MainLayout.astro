@@ -2,7 +2,6 @@
 import "../styles/global.css";
 import AOSInit from "../components/AOSInit.astro";
 import UtilityHeader from "../components/UtilityHeader.astro";
-import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 ---
 
@@ -58,10 +57,10 @@ import Footer from "../components/Footer.astro";
   </head>
 
   <body class="font-manrope">
-    <!-- Utility Header - Should be OUTSIDE the main navbar -->
+    <!-- Utility Header - positioned outside and above the main navbar -->
     <UtilityHeader />
 
-    <!-- Floating Luxury Navbar -->
+    <!-- Floating Luxury Navbar - adjusted position to account for utility header -->
     <header class="navbar">
       <nav class="navbar-inner">
         <!-- Brand / Logo -->
@@ -69,19 +68,40 @@ import Footer from "../components/Footer.astro";
           <img src="/logo/USRad-Logo-final.png" alt="USRad Logo" class="logo" />
         </a>
 
-        <!-- Primary Nav Links - REMOVED Partner link -->
+        <!-- Primary Nav Links - removed Partner link -->
         <ul class="nav-links">
           <li><a href="/about">About</a></li>
           <li><a href="/locations">Locations</a></li>
           <li><a href="/contact">Contact</a></li>
-          <!-- Partner link removed to avoid duplication with UtilityHeader -->
+          <!-- Partner link removed as it's in the UtilityHeader -->
         </ul>
 
         <!-- Utility Nav -->
         <ul class="utility-nav">
           <li><a href="/login">Login</a></li>
         </ul>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle">
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+        </button>
       </nav>
+
+      <!-- Mobile Menu - hidden by default -->
+      <div class="mobile-menu">
+        <ul class="mobile-nav-links">
+          <li><a href="/about">About</a></li>
+          <li><a href="/locations">Locations</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/login">Login</a></li>
+          <li>
+            <a href="/partner" class="mobile-partner-link"
+              >For Imaging Centers</a>
+          </li>
+        </ul>
+      </div>
     </header>
 
     <main class="main-content">
@@ -93,7 +113,7 @@ import Footer from "../components/Footer.astro";
     <style>
       .navbar {
         position: fixed;
-        top: 0;
+        top: 2rem; /* Adjusted to account for utility header */
         left: 0;
         width: 100%;
         z-index: 50;
@@ -161,26 +181,103 @@ import Footer from "../components/Footer.astro";
       }
 
       .main-content {
-        padding-top: 100px;
+        padding-top: 140px; /* Adjusted to account for utility header + navbar */
+      }
+
+      /* Mobile Menu Styles */
+      .mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+
+      .toggle-bar {
+        display: block;
+        width: 24px;
+        height: 2px;
+        margin: 5px 0;
+        background-color: #0e1b2a;
+        transition: transform 0.3s ease;
+      }
+
+      .mobile-menu {
+        display: none;
+        padding: 1.5rem 2rem;
+        background: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .mobile-nav-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .mobile-nav-links li {
+        margin-bottom: 1rem;
+      }
+
+      .mobile-nav-links a {
+        text-decoration: none;
+        font-weight: 500;
+        color: #0e1b2a;
+        font-size: 1.1rem;
+        display: block;
+        padding: 0.5rem 0;
+      }
+
+      .mobile-partner-link {
+        color: #003087;
+        font-weight: 600;
       }
 
       @media (max-width: 768px) {
         .navbar-inner {
-          flex-direction: column;
-          align-items: flex-start;
+          padding: 1rem;
         }
 
         .nav-links,
         .utility-nav {
-          flex-direction: column;
-          gap: 1rem;
-          margin-top: 1rem;
+          display: none;
         }
 
-        .utility-nav {
-          align-self: flex-end;
+        .mobile-menu-toggle {
+          display: block;
+        }
+
+        .mobile-menu.active {
+          display: block;
+        }
+
+        .mobile-menu-toggle.active .toggle-bar:nth-child(1) {
+          transform: translateY(7px) rotate(45deg);
+        }
+
+        .mobile-menu-toggle.active .toggle-bar:nth-child(2) {
+          opacity: 0;
+        }
+
+        .mobile-menu-toggle.active .toggle-bar:nth-child(3) {
+          transform: translateY(-7px) rotate(-45deg);
         }
       }
     </style>
+
+    <script is:inline>
+      // Mobile menu toggle
+      document.addEventListener("DOMContentLoaded", function () {
+        const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+        const mobileMenu = document.querySelector(".mobile-menu");
+
+        if (mobileMenuToggle && mobileMenu) {
+          mobileMenuToggle.addEventListener("click", function () {
+            this.classList.toggle("active");
+            mobileMenu.classList.toggle("active");
+          });
+        }
+      });
+    </script>
   </body>
 </html>
