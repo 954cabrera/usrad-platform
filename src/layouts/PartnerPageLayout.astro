@@ -1,0 +1,114 @@
+---
+// src/layouts/PartnerPageLayout.astro
+import MainLayout from "./MainLayout.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+
+export interface Props {
+  title: string;
+  currentPage: string;
+}
+
+const { title, currentPage } = Astro.props;
+
+// Define breadcrumb paths
+const breadcrumbPaths = [
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "For Partners",
+    href: "/partner",
+  },
+  {
+    label: currentPage,
+    href: "#",
+    current: true,
+  },
+];
+---
+
+<MainLayout title={title}>
+  <Breadcrumb paths={breadcrumbPaths} />
+
+  <div class="max-w-6xl mx-auto px-6 py-8">
+    <h1 class="text-3xl font-bold text-[#003087] mb-6">{currentPage}</h1>
+
+    <slot />
+
+    <!-- Cross-navigation links at the bottom -->
+    <div class="mt-16 pt-8 border-t border-gray-200">
+      <h3 class="text-xl font-semibold text-[#003087] mb-4">
+        Explore More Partner Resources
+      </h3>
+      <ul class="flex flex-wrap gap-y-3 gap-x-8">
+        <li>
+          <a
+            href="/partner/experience"
+            class="text-gray-600 hover:text-[#003087] relative group"
+          >
+            Our Experience
+            <span
+              class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#cc9933] group-hover:w-full transition-all duration-300"
+            ></span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="/partner/model"
+            class="text-gray-600 hover:text-[#003087] relative group"
+          >
+            Partnership Model
+            <span
+              class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#cc9933] group-hover:w-full transition-all duration-300"
+            ></span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="/partner/implementation"
+            class="text-gray-600 hover:text-[#003087] relative group"
+          >
+            Implementation Process
+            <span
+              class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#cc9933] group-hover:w-full transition-all duration-300"
+            ></span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="/partner/benefits"
+            class="text-gray-600 hover:text-[#003087] relative group"
+          >
+            Partner Benefits
+            <span
+              class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#cc9933] group-hover:w-full transition-all duration-300"
+            ></span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="/partner/faq"
+            class="text-gray-600 hover:text-[#003087] relative group"
+          >
+            Partner FAQs
+            <span
+              class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#cc9933] group-hover:w-full transition-all duration-300"
+            ></span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="/partner/schedule"
+            class="text-gray-600 hover:text-[#003087] relative group"
+          >
+            Schedule a Consultation
+            <span
+              class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#cc9933] group-hover:w-full transition-all duration-300"
+            ></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</MainLayout>

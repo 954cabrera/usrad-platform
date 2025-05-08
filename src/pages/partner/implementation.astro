@@ -1,0 +1,982 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import AOSInit from "../../components/AOSInit.astro";
+---
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap");
+
+  body,
+  html {
+    font-family: "Manrope", sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Manrope", sans-serif;
+    font-weight: 600;
+  }
+
+  p,
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    font-family: "Manrope", sans-serif;
+  }
+
+  .timeline-connector {
+    position: absolute;
+    left: 40px;
+    top: 70px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      #e6c378 0%,
+      rgba(230, 195, 120, 0.2) 100%
+    );
+  }
+</style>
+
+<MainLayout>
+  <AOSInit />
+
+  <!-- Hero Section -->
+  <section
+    class="relative bg-gradient-to-b from-[#fcf9f0] to-[#f5e7c5] text-[#003087] pt-32 pb-28 px-6 sm:px-12 overflow-hidden"
+  >
+    <!-- Decorative elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="text-center">
+        <h1
+          class="text-5xl sm:text-6xl font-extrabold leading-tight font-manrope text-[#003087]"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          Implementation <span class="text-[#cc9933] relative">
+            Process
+            <svg
+              class="absolute -bottom-2 left-0 w-full"
+              height="6"
+              viewBox="0 0 340 6"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 3.5C2 3.5 70 0.5 170 3.5C270 6.5 338 3.5 338 3.5"
+                stroke="#cc9933"
+                stroke-width="4"
+                stroke-linecap="round"></path>
+            </svg>
+          </span>
+        </h1>
+        <p
+          class="mt-8 text-xl text-[#003087] max-w-3xl mx-auto leading-relaxed font-manrope"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          A streamlined, minimal-effort onboarding journey designed for busy
+          imaging centers
+        </p>
+      </div>
+    </div>
+
+    <!-- Elegant Wave Divider -->
+    <div class="absolute bottom-0 left-0 right-0 overflow-hidden">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 120"
+        class="w-full h-auto"
+      >
+        <path
+          fill="#ffffff"
+          fill-opacity="1"
+          d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
+        ></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Onboarding Overview -->
+  <section class="py-24 bg-white text-[#003087] relative overflow-hidden">
+    <div class="px-6 sm:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2
+            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
+          >
+            <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+            Onboarding Overview
+          </h2>
+          <p class="mt-6 text-xl text-gray-700 max-w-3xl mx-auto font-manrope">
+            Our simple, guided process gets you up and running in just 2-3 weeks
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+          <div class="relative" data-aos="fade-right" data-aos-delay="100">
+            <img
+              src="/images/onboarding-process.jpg"
+              alt="USRad Onboarding Process"
+              class="rounded-xl shadow-xl w-full h-auto"
+            />
+            <div
+              class="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-[#e6c378] opacity-20"
+            >
+            </div>
+          </div>
+
+          <div class="space-y-6" data-aos="fade-left" data-aos-delay="200">
+            <h3 class="text-2xl font-semibold text-[#003087] font-manrope">
+              Designed for Minimal Disruption
+            </h3>
+            <p class="text-lg text-gray-700 font-manrope">
+              Our implementation process is designed to respect your time and
+              minimize disruption to your day-to-day operations. Most centers
+              are fully onboarded within 2-3 weeks, with minimal time investment
+              from your team.
+            </p>
+
+            <h3 class="text-2xl font-semibold text-[#003087] font-manrope">
+              Dedicated Implementation Specialist
+            </h3>
+            <p class="text-lg text-gray-700 font-manrope">
+              You'll be paired with a dedicated implementation specialist who
+              will guide you through every step of the process, from initial
+              paperwork to your first patient referral. This specialist remains
+              your point of contact throughout implementation.
+            </p>
+
+            <h3 class="text-2xl font-semibold text-[#003087] font-manrope">
+              No Technical Integration Required
+            </h3>
+            <p class="text-lg text-gray-700 font-manrope">
+              Our flexible system works with your existing workflows. No complex
+              integrations, no software installations, and no changes to your
+              current systems are required. We adapt to your preferred method of
+              receiving orders.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Timeline Section -->
+  <section class="py-24 bg-[#f0f4f9] text-[#003087] relative overflow-hidden">
+    <!-- Decorative elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+    >
+    </div>
+
+    <div class="px-6 sm:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2
+            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
+          >
+            <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+            Implementation Timeline
+          </h2>
+          <p class="mt-6 text-xl text-gray-700 max-w-3xl mx-auto font-manrope">
+            A step-by-step journey from application to your first patient
+          </p>
+        </div>
+
+        <!-- Timeline Component -->
+        <div class="relative" data-aos="fade-up" data-aos-delay="100">
+          <!-- Timeline entries -->
+          <div class="space-y-16 relative">
+            <div class="timeline-connector hidden md:block"></div>
+
+            <!-- Week 1: Initial Consultation -->
+            <div class="grid grid-cols-12 gap-8 items-start relative">
+              <div class="col-span-1 hidden md:block relative">
+                <div
+                  class="w-20 h-20 rounded-full bg-[#003087] flex items-center justify-center text-white font-manrope font-bold"
+                >
+                  <span>Week 1</span>
+                </div>
+              </div>
+              <div class="col-span-12 md:col-span-11">
+                <div
+                  class="md:hidden w-full py-2 px-4 bg-[#003087] text-white text-center rounded-t-lg font-manrope font-bold"
+                >
+                  Week 1
+                </div>
+                <div
+                  class="bg-white p-8 rounded-xl md:rounded-tl-none shadow-md"
+                >
+                  <h3
+                    class="text-2xl font-semibold text-[#003087] mb-6 font-manrope"
+                  >
+                    Initial Consultation & Agreement
+                  </h3>
+
+                  <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                      <h4
+                        class="text-lg font-semibold text-[#003087] mb-3 font-manrope"
+                      >
+                        What We Do:
+                      </h4>
+                      <ul
+                        class="text-gray-700 space-y-2 ml-6 list-disc font-manrope"
+                      >
+                        <li>
+                          Conduct introductory call to understand your center's
+                          needs
+                        </li>
+                        <li>
+                          Provide partnership agreement and operational
+                          questionnaire
+                        </li>
+                        <li>Assign your dedicated implementation specialist</li>
+                        <li>
+                          Confirm service offerings and reimbursement rates
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4
+                        class="text-lg font-semibold text-[#003087] mb-3 font-manrope"
+                      >
+                        What You Do:
+                      </h4>
+                      <ul
+                        class="text-gray-700 space-y-2 ml-6 list-disc font-manrope"
+                      >
+                        <li>Complete partnership agreement (15-20 minutes)</li>
+                        <li>
+                          Fill out brief operational questionnaire about center
+                          capabilities
+                        </li>
+                        <li>
+                          Provide basic center information (modalities, hours,
+                          etc.)
+                        </li>
+                        <li>Schedule implementation kick-off call</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Week 2: Setup & Configuration -->
+            <div class="grid grid-cols-12 gap-8 items-start relative">
+              <div class="col-span-1 hidden md:block relative">
+                <div
+                  class="w-20 h-20 rounded-full bg-[#003087] flex items-center justify-center text-white font-manrope font-bold"
+                >
+                  <span>Week 2</span>
+                </div>
+              </div>
+              <div class="col-span-12 md:col-span-11">
+                <div
+                  class="md:hidden w-full py-2 px-4 bg-[#003087] text-white text-center rounded-t-lg font-manrope font-bold"
+                >
+                  Week 2
+                </div>
+                <div
+                  class="bg-white p-8 rounded-xl md:rounded-tl-none shadow-md"
+                >
+                  <h3
+                    class="text-2xl font-semibold text-[#003087] mb-6 font-manrope"
+                  >
+                    Setup & Configuration
+                  </h3>
+
+                  <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                      <h4
+                        class="text-lg font-semibold text-[#003087] mb-3 font-manrope"
+                      >
+                        What We Do:
+                      </h4>
+                      <ul
+                        class="text-gray-700 space-y-2 ml-6 list-disc font-manrope"
+                      >
+                        <li>
+                          Configure your center profile in our SmartMatch™
+                          system
+                        </li>
+                        <li>Set up your preferred communication methods</li>
+                        <li>
+                          Establish scheduling parameters based on your input
+                        </li>
+                        <li>Create your provider portal access credentials</li>
+                        <li>Configure billing and payment details</li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4
+                        class="text-lg font-semibold text-[#003087] mb-3 font-manrope"
+                      >
+                        What You Do:
+                      </h4>
+                      <ul
+                        class="text-gray-700 space-y-2 ml-6 list-disc font-manrope"
+                      >
+                        <li>
+                          Participate in 30-minute implementation kick-off call
+                        </li>
+                        <li>
+                          Provide preferred order receipt method (fax, email,
+                          portal)
+                        </li>
+                        <li>Share available appointment slots information</li>
+                        <li>Confirm payment information and preferences</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Week 3: Training & Go-Live -->
+            <div class="grid grid-cols-12 gap-8 items-start relative">
+              <div class="col-span-1 hidden md:block relative">
+                <div
+                  class="w-20 h-20 rounded-full bg-[#e6c378] flex items-center justify-center text-[#003087] font-manrope font-bold"
+                >
+                  <span>Week 3</span>
+                </div>
+              </div>
+              <div class="col-span-12 md:col-span-11">
+                <div
+                  class="md:hidden w-full py-2 px-4 bg-[#e6c378] text-[#003087] text-center rounded-t-lg font-manrope font-bold"
+                >
+                  Week 3
+                </div>
+                <div
+                  class="bg-white p-8 rounded-xl md:rounded-tl-none shadow-md border-l-4 border-[#cc9933]"
+                >
+                  <h3
+                    class="text-2xl font-semibold text-[#003087] mb-6 font-manrope"
+                  >
+                    Training & Go-Live
+                  </h3>
+
+                  <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                      <h4
+                        class="text-lg font-semibold text-[#003087] mb-3 font-manrope"
+                      >
+                        What We Do:
+                      </h4>
+                      <ul
+                        class="text-gray-700 space-y-2 ml-6 list-disc font-manrope"
+                      >
+                        <li>
+                          Conduct brief staff training session (15-30 minutes)
+                        </li>
+                        <li>
+                          Provide digital training materials and reference
+                          guides
+                        </li>
+                        <li>Activate your center in the USRad network</li>
+                        <li>Begin directing patients to your center</li>
+                        <li>
+                          Provide dedicated support during initial launch period
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4
+                        class="text-lg font-semibold text-[#003087] mb-3 font-manrope"
+                      >
+                        What You Do:
+                      </h4>
+                      <ul
+                        class="text-gray-700 space-y-2 ml-6 list-disc font-manrope"
+                      >
+                        <li>Designate key staff to participate in training</li>
+                        <li>Complete portal login and verification</li>
+                        <li>
+                          Share training materials with relevant team members
+                        </li>
+                        <li>Begin receiving and servicing USRad patients</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integration Options Section -->
+  <section class="py-24 bg-white text-[#003087] relative overflow-hidden">
+    <div class="px-6 sm:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2
+            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
+          >
+            <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+            Integration Options
+          </h2>
+          <p class="mt-6 text-xl text-gray-700 max-w-3xl mx-auto font-manrope">
+            Flexible methods to fit your existing workflows
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Option 1: Partner Portal -->
+          <div
+            class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-t-4 border-[#cc9933]"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Partner Portal
+            </h3>
+            <div class="text-[#003087] space-y-4 font-manrope">
+              <p>Our secure online portal provides real-time access to:</p>
+              <ul class="ml-6 list-disc space-y-2">
+                <li>Upcoming appointments</li>
+                <li>Patient information</li>
+                <li>Digital orders</li>
+                <li>Payment tracking</li>
+                <li>Schedule management</li>
+              </ul>
+              <p class="text-center mt-6">
+                <span
+                  class="px-4 py-2 bg-[#003087] text-white rounded-full text-sm"
+                  >Coming Summer 2025</span
+                >
+              </p>
+            </div>
+          </div>
+
+          <!-- Option 2: Direct Fax -->
+          <div
+            class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-t-4 border-[#cc9933]"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Direct Fax
+            </h3>
+            <div class="text-[#003087] space-y-4 font-manrope">
+              <p>For centers that prefer traditional methods:</p>
+              <ul class="ml-6 list-disc space-y-2">
+                <li>Standardized order forms</li>
+                <li>Clear, easy-to-read format</li>
+                <li>Complete clinical information</li>
+                <li>Automated confirmation</li>
+                <li>HIPAA-compliant transmission</li>
+              </ul>
+              <p class="text-center mt-6">
+                <span
+                  class="px-4 py-2 bg-[#003087] text-white rounded-full text-sm"
+                  >Available Now</span
+                >
+              </p>
+            </div>
+          </div>
+
+          <!-- Option 3: Secure Email -->
+          <div
+            class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-t-4 border-[#cc9933]"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Secure Email
+            </h3>
+            <div class="text-[#003087] space-y-4 font-manrope">
+              <p>Simple, secure email delivery of:</p>
+              <ul class="ml-6 list-disc space-y-2">
+                <li>Digital order documents</li>
+                <li>Patient demographics</li>
+                <li>Insurance verification (if applicable)</li>
+                <li>Clinical information</li>
+                <li>Appointment confirmations</li>
+              </ul>
+              <p class="text-center mt-6">
+                <span
+                  class="px-4 py-2 bg-[#003087] text-white rounded-full text-sm"
+                  >Available Now</span
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ongoing Support Section -->
+  <section class="py-24 bg-[#f0f4f9] text-[#003087] relative overflow-hidden">
+    <!-- Decorative elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+    >
+    </div>
+
+    <div class="px-6 sm:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2
+            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
+          >
+            <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+            Ongoing Support
+          </h2>
+          <p class="mt-6 text-xl text-gray-700 max-w-3xl mx-auto font-manrope">
+            Continuous assistance to ensure your long-term success
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+          <div class="space-y-6" data-aos="fade-right" data-aos-delay="100">
+            <h3 class="text-2xl font-semibold text-[#003087] font-manrope">
+              Dedicated Partner Success Manager
+            </h3>
+            <p class="text-lg text-gray-700 font-manrope">
+              After implementation, you'll be assigned a dedicated Partner
+              Success Manager who will be your ongoing point of contact. They'll
+              check in regularly, address any concerns, and help optimize your
+              USRad partnership experience.
+            </p>
+
+            <h3 class="text-2xl font-semibold text-[#003087] font-manrope">
+              Multi-Channel Support Options
+            </h3>
+            <p class="text-lg text-gray-700 font-manrope">
+              Our support team is available through multiple channels to
+              accommodate your preferences:
+            </p>
+            <ul class="ml-6 list-disc space-y-2 text-gray-700 font-manrope">
+              <li>Direct phone line with priority answering</li>
+              <li>Email support with responses within 2 hours</li>
+              <li>Live chat through the partner portal</li>
+              <li>Virtual video support sessions for complex issues</li>
+            </ul>
+          </div>
+
+          <div class="relative" data-aos="fade-left" data-aos-delay="200">
+            <img
+              src="/images/ongoing-support.jpg"
+              alt="USRad Partner Support"
+              class="rounded-xl shadow-xl w-full h-auto"
+            />
+            <div
+              class="absolute -bottom-4 -left-4 w-24 h-24 rounded-full bg-[#e6c378] opacity-20"
+            >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Training Resources Section -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2
+          class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
+        >
+          <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+          Training Resources
+        </h2>
+        <p class="mt-6 text-xl text-gray-700 max-w-3xl mx-auto font-manrope">
+          Comprehensive materials to ensure your team is fully prepared
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-8">
+        <!-- Resource 1: Quick Start Guide -->
+        <div
+          class="bg-[#f8f2e1] p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-all duration-300"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <div
+            class="w-14 h-14 bg-[#003087] rounded-full flex items-center justify-center mb-4 mx-auto"
+          >
+            <svg
+              class="h-6 w-6 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-[#003087] mb-3 font-manrope">
+            Quick Start Guide
+          </h3>
+          <p class="text-[#003087] text-sm font-manrope">
+            A concise overview of the USRad partnership process, with
+            step-by-step instructions for common workflows.
+          </p>
+        </div>
+
+        <!-- Resource 2: Video Tutorials -->
+        <div
+          class="bg-[#f8f2e1] p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-all duration-300"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <div
+            class="w-14 h-14 bg-[#003087] rounded-full flex items-center justify-center mb-4 mx-auto"
+          >
+            <svg
+              class="h-6 w-6 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-[#003087] mb-3 font-manrope">
+            Video Tutorials
+          </h3>
+          <p class="text-[#003087] text-sm font-manrope">
+            Short, focused video guides covering every aspect of the
+            partnership, from receiving orders to tracking payments.
+          </p>
+        </div>
+
+        <!-- Resource 3: Staff Checklists -->
+        <div
+          class="bg-[#f8f2e1] p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-all duration-300"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          <div
+            class="w-14 h-14 bg-[#003087] rounded-full flex items-center justify-center mb-4 mx-auto"
+          >
+            <svg
+              class="h-6 w-6 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-[#003087] mb-3 font-manrope">
+            Staff Checklists
+          </h3>
+          <p class="text-[#003087] text-sm font-manrope">
+            Role-specific checklists for front desk, technologists, and
+            administrators to ensure consistent handling of USRad patients.
+          </p>
+        </div>
+
+        <!-- Resource 4: Knowledge Base -->
+        <div
+          class="bg-[#f8f2e1] p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-all duration-300"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          <div
+            class="w-14 h-14 bg-[#003087] rounded-full flex items-center justify-center mb-4 mx-auto"
+          >
+            <svg
+              class="h-6 w-6 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-[#003087] mb-3 font-manrope">
+            Knowledge Base
+          </h3>
+          <p class="text-[#003087] text-sm font-manrope">
+            Comprehensive searchable database of articles, FAQs, and detailed
+            guides covering every aspect of the USRad partnership.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center" data-aos="fade-up" data-aos-delay="500">
+        <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-8 font-manrope">
+          All training resources are available digitally and can be accessed at
+          any time through our partner portal. Custom training sessions can be
+          arranged for new staff members as needed.
+        </p>
+        <a
+          href="/downloads/USRad-Partner-Training-Preview.pdf"
+          class="inline-flex items-center text-[#003087] hover:text-[#cc9933] transition-colors font-medium font-manrope"
+        >
+          <svg
+            class="h-5 w-5 mr-2"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+            ></path>
+          </svg>
+          Preview Training Materials
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Questions Section -->
+  <section class="py-24 bg-[#f0f4f9]">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl font-semibold text-[#003087] mb-6 font-manrope">
+          Implementation FAQs
+        </h2>
+        <p class="text-xl text-gray-700 max-w-3xl mx-auto font-manrope">
+          Answers to common questions about the onboarding process
+        </p>
+      </div>
+
+      <div class="space-y-6" data-aos="fade-up" data-aos-delay="100">
+        <!-- FAQ 1 -->
+        <div class="bg-white p-6 rounded-xl shadow-md">
+          <h3
+            class="text-xl font-semibold text-[#003087] flex items-center font-manrope"
+          >
+            <span class="w-1.5 h-6 bg-[#cc9933] rounded-full mr-3"></span>
+            How long does the entire implementation process take?
+          </h3>
+          <p class="mt-4 text-gray-700 pl-4 font-manrope">
+            Most centers are fully implemented and receiving patients within 2-3
+            weeks of submitting their partnership agreement. The process can be
+            expedited for centers that need to launch more quickly.
+          </p>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="bg-white p-6 rounded-xl shadow-md">
+          <h3
+            class="text-xl font-semibold text-[#003087] flex items-center font-manrope"
+          >
+            <span class="w-1.5 h-6 bg-[#cc9933] rounded-full mr-3"></span>
+            Do we need to install any special software or equipment?
+          </h3>
+          <p class="mt-4 text-gray-700 pl-4 font-manrope">
+            No. Our system is designed to work with your existing
+            infrastructure. Whether you prefer to receive orders via fax, email,
+            or through our web portal, we adapt to your preferred workflow. No
+            software installation or equipment purchases are required.
+          </p>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="bg-white p-6 rounded-xl shadow-md">
+          <h3
+            class="text-xl font-semibold text-[#003087] flex items-center font-manrope"
+          >
+            <span class="w-1.5 h-6 bg-[#cc9933] rounded-full mr-3"></span>
+            How much staff time is required for implementation?
+          </h3>
+          <p class="mt-4 text-gray-700 pl-4 font-manrope">
+            We've designed the process to minimize demands on your team's time.
+            Typically, implementation requires:
+            <br /><br />
+            • 15-20 minutes to complete paperwork
+            <br />
+            • 30-minute implementation kick-off call
+            <br />
+            • 15-30 minute staff training session
+            <br /><br />
+            Most interactions can be scheduled at your convenience to avoid disrupting
+            regular operations.
+          </p>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="bg-white p-6 rounded-xl shadow-md">
+          <h3
+            class="text-xl font-semibold text-[#003087] flex items-center font-manrope"
+          >
+            <span class="w-1.5 h-6 bg-[#cc9933] rounded-full mr-3"></span>
+            Can we modify our availability after implementation?
+          </h3>
+          <p class="mt-4 text-gray-700 pl-4 font-manrope">
+            Absolutely. You maintain complete control over your schedule and can
+            adjust your availability at any time through the partner portal or
+            by contacting your Partner Success Manager. Changes typically take
+            effect within 24 hours.
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a
+          href="/partner/faq"
+          class="inline-block px-8 py-4 bg-[#003087] text-white font-bold rounded-full hover:bg-[#002266] transition-all duration-300 hover:shadow-xl border border-transparent hover:border-[#cc9933] font-manrope"
+        >
+          View All Partner FAQs
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section
+    class="bg-[#003087] text-white py-16 px-6 sm:px-12 relative overflow-hidden"
+  >
+    <div
+      class="absolute inset-0 bg-repeat opacity-[0.03]"
+      style="background-image: url('/images/subtle-pattern.svg');"
+    >
+    </div>
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.1] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-white opacity-[0.05] blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-5xl mx-auto relative z-10 text-center" data-aos="fade-up">
+      <h2 class="text-3xl font-semibold mb-6 font-manrope">
+        Ready to Get Started?
+      </h2>
+      <p class="text-xl mb-10 max-w-3xl mx-auto font-manrope">
+        Our streamlined implementation process makes joining the USRad network
+        quick and easy. Schedule a consultation today to learn more and begin
+        the onboarding process.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-6">
+        <a
+          href="/partner/schedule"
+          class="inline-block px-8 py-4 bg-[#cc9933] text-[#003087] font-bold rounded-full hover:bg-[#e6c378] transition-all duration-300 hover:shadow-xl font-manrope"
+        >
+          Schedule a Consultation
+        </a>
+        <a
+          href="/partner/model"
+          class="inline-block px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-[#003087] transition-all duration-300 hover:shadow-xl font-manrope"
+        >
+          Explore Partnership Model
+        </a>
+      </div>
+    </div>
+  </section>
+</MainLayout>

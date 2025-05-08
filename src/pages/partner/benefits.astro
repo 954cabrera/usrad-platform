@@ -1,0 +1,940 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import AOSInit from "../../components/AOSInit.astro";
+---
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap");
+
+  body,
+  html {
+    font-family: "Manrope", sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Manrope", sans-serif;
+    font-weight: 600;
+  }
+
+  p,
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    font-family: "Manrope", sans-serif;
+  }
+</style>
+
+<MainLayout>
+  <AOSInit />
+
+  <!-- Hero Section -->
+  <section
+    class="relative bg-gradient-to-b from-[#fcf9f0] to-[#f5e7c5] text-[#003087] pt-32 pb-28 px-6 sm:px-12 overflow-hidden"
+  >
+    <!-- Decorative elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="text-center">
+        <h1
+          class="text-5xl sm:text-6xl font-extrabold leading-tight font-manrope text-[#003087]"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          Partner <span class="text-[#cc9933] relative">
+            Benefits
+            <svg
+              class="absolute -bottom-2 left-0 w-full"
+              height="6"
+              viewBox="0 0 340 6"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 3.5C2 3.5 70 0.5 170 3.5C270 6.5 338 3.5 338 3.5"
+                stroke="#cc9933"
+                stroke-width="4"
+                stroke-linecap="round"></path>
+            </svg>
+          </span>
+        </h1>
+        <p
+          class="mt-8 text-xl text-[#003087] max-w-3xl mx-auto leading-relaxed font-manrope"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          A comprehensive overview of the many advantages of joining the USRad
+          network
+        </p>
+      </div>
+    </div>
+
+    <!-- Elegant Wave Divider -->
+    <div class="absolute bottom-0 left-0 right-0 overflow-hidden">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 120"
+        class="w-full h-auto"
+      >
+        <path
+          fill="#ffffff"
+          fill-opacity="1"
+          d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
+        ></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Financial Benefits Section -->
+  <section class="py-24 bg-white text-[#003087] relative overflow-hidden">
+    <div class="px-6 sm:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2
+            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
+          >
+            <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+            Financial Benefits
+          </h2>
+          <p class="mt-6 text-xl text-gray-700 max-w-3xl mx-auto font-manrope">
+            Maximize revenue and operational efficiency
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Benefit 1: Incremental Revenue -->
+          <div
+            class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-t-4 border-[#cc9933]"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Incremental Revenue
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              Convert otherwise unused appointment slots into immediate revenue
+              with zero additional overhead costs, improving your overall
+              financial performance.
+            </p>
+          </div>
+
+          <!-- Benefit 2: Guaranteed Payment -->
+          <div
+            class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-t-4 border-[#cc9933]"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Guaranteed Payment
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              Receive payment within 15 days - no lengthy insurance claim
+              cycles, no denials, no delayed payments, and no collections
+              headaches.
+            </p>
+          </div>
+
+          <!-- Benefit 3: Zero Overhead -->
+          <div
+            class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-t-4 border-[#cc9933]"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Zero Overhead
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              No additional administrative costs - we handle all patient
+              acquisition, scheduling, payment collection, and customer service,
+              allowing you to focus on delivering care.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 mt-8">
+          <!-- Benefit 4: No Startup Costs -->
+          <div
+            class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-t-4 border-[#cc9933]"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              No Startup Costs
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              Zero upfront investment - joining USRad is completely free with no
+              membership fees, implementation costs, or monthly charges of any
+              kind.
+            </p>
+          </div>
+
+          <!-- Benefit 5: Reduced Administrative Burden -->
+          <div
+            class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-t-4 border-[#cc9933]"
+            data-aos="fade-up"
+            data-aos-delay="500"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Reduced Administrative Burden
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              Eliminate insurance verification, authorization processing,
+              billing, coding, and collections for USRad patients, freeing up
+              your staff for other priorities.
+            </p>
+          </div>
+
+          <!-- Benefit 6: New Revenue Stream -->
+          <div
+            class="bg-[#f8f2e1] p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-t-4 border-[#cc9933]"
+            data-aos="fade-up"
+            data-aos-delay="600"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              New Revenue Stream
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              Tap into the growing self-pay market, creating a new revenue
+              channel that complements your existing payer mix and reduces
+              dependence on insurance reimbursements.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Operational Benefits Section -->
+  <section class="py-24 bg-[#f0f4f9] text-[#003087] relative overflow-hidden">
+    <!-- Decorative elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+    >
+    </div>
+
+    <div class="px-6 sm:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2
+            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
+          >
+            <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+            Operational Benefits
+          </h2>
+          <p class="mt-6 text-xl text-gray-700 max-w-3xl mx-auto font-manrope">
+            Streamline processes and enhance facility utilization
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Benefit 1: Simplified Operations -->
+          <div
+            class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Simplified Operations
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              USRad handles patient acquisition, scheduling, payment collection,
+              and customer service, allowing your team to focus on clinical
+              excellence and other priorities.
+            </p>
+          </div>
+
+          <!-- Benefit 2: Schedule Optimization -->
+          <div
+            class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Schedule Optimization
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              Our SmartMatch™ system intelligently fills gaps in your schedule,
+              prioritizing otherwise unused slots to maximize equipment and
+              staff utilization without disrupting existing workflows.
+            </p>
+          </div>
+
+          <!-- Benefit 3: Complete Control -->
+          <div
+            class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Complete Control
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              You maintain full control over when and how many USRad patients
+              you accept. Adjust your availability anytime through our partner
+              portal or with a simple call to your Partner Success Manager.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 mt-8">
+          <!-- Benefit 4: No Integration Required -->
+          <div
+            class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              No Integration Required
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              Our flexible system works with your existing workflows. No
+              software installation or complex technical integration is needed.
+              We adapt to your preferred method of receiving orders and
+              information.
+            </p>
+          </div>
+
+          <!-- Benefit 5: Minimal Staff Training -->
+          <div
+            class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+            data-aos="fade-up"
+            data-aos-delay="500"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Minimal Staff Training
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              Just 15-30 minutes of training is all your staff needs. We provide
+              comprehensive digital materials and ongoing support to ensure a
+              smooth process for your team.
+            </p>
+          </div>
+
+          <!-- Benefit 6: Capacity Optimization -->
+          <div
+            class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+            data-aos="fade-up"
+            data-aos-delay="600"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Capacity Optimization
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              Increase utilization of your equipment and staff during otherwise
+              idle periods, maximizing the return on your fixed costs and
+              improving overall operational efficiency.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strategic Benefits Section -->
+  <section class="py-24 bg-white text-[#003087] relative overflow-hidden">
+    <div class="px-6 sm:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2
+            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
+          >
+            <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+            Strategic Benefits
+          </h2>
+          <p class="mt-6 text-xl text-gray-700 max-w-3xl mx-auto font-manrope">
+            Position your center for long-term success
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+          <div class="space-y-6" data-aos="fade-right" data-aos-delay="100">
+            <h3 class="text-2xl font-semibold text-[#003087] font-manrope">
+              Market Positioning
+            </h3>
+            <p class="text-lg text-gray-700 font-manrope">
+              By joining USRad, you position your center as a provider of
+              high-quality, transparent, and affordable imaging services—a
+              growing priority for consumers in today's healthcare market.
+            </p>
+
+            <h3 class="text-2xl font-semibold text-[#003087] font-manrope">
+              Revenue Diversification
+            </h3>
+            <p class="text-lg text-gray-700 font-manrope">
+              Expand beyond traditional insurance-based revenue to include the
+              rapidly growing self-pay market, creating a more stable and
+              diverse revenue stream for your center.
+            </p>
+
+            <h3 class="text-2xl font-semibold text-[#003087] font-manrope">
+              Increased Visibility
+            </h3>
+            <p class="text-lg text-gray-700 font-manrope">
+              Gain exposure to new patients who may not have otherwise
+              discovered your center. Many USRad patients become repeat
+              customers and refer friends and family to your facility.
+            </p>
+
+            <h3 class="text-2xl font-semibold text-[#003087] font-manrope">
+              Competitive Advantage
+            </h3>
+            <p class="text-lg text-gray-700 font-manrope">
+              Differentiate your center from competitors by being part of a
+              network that offers innovative solutions for patients seeking
+              affordable imaging services.
+            </p>
+          </div>
+
+          <div class="relative" data-aos="fade-left" data-aos-delay="200">
+            <img
+              src="/images/strategic-benefits.jpg"
+              alt="Strategic Benefits"
+              class="rounded-xl shadow-xl w-full h-auto"
+            />
+            <div
+              class="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-[#e6c378] opacity-20"
+            >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Analytics & Insights Section -->
+  <section class="py-24 bg-[#f0f4f9] text-[#003087] relative overflow-hidden">
+    <!-- Decorative elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+    >
+    </div>
+
+    <div class="px-6 sm:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2
+            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
+          >
+            <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+            Analytics & Insights
+          </h2>
+          <p class="mt-6 text-xl text-gray-700 max-w-3xl mx-auto font-manrope">
+            Coming Summer 2025: Data-driven tools to optimize your partnership
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Feature 1: Performance Dashboard -->
+          <div
+            class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Performance Dashboard
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              Real-time analytics showing your center's performance, including
+              appointment volume, utilization improvements, and revenue impact
+              from USRad patients.
+            </p>
+          </div>
+
+          <!-- Feature 2: Utilization Insights -->
+          <div
+            class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Utilization Insights
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              Advanced analytics that identify optimal schedule slots and
+              capacity opportunities, helping you maximize equipment and staff
+              utilization.
+            </p>
+          </div>
+
+          <!-- Feature 3: Benchmark Comparisons -->
+          <div
+            class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-6 mx-auto"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"
+                ></path>
+              </svg>
+            </div>
+            <h3
+              class="text-xl font-semibold text-[#003087] text-center mb-4 font-manrope"
+            >
+              Benchmark Comparisons
+            </h3>
+            <p class="text-[#003087] text-center font-manrope">
+              Compare your center's performance against anonymized network
+              benchmarks, identifying opportunities for improvement and growth.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="bg-white p-8 rounded-xl shadow-xl mt-12 border-l-4 border-[#cc9933]"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          <div class="grid md:grid-cols-5 gap-8 items-center">
+            <div class="md:col-span-3">
+              <h3
+                class="text-2xl font-semibold text-[#003087] mb-4 font-manrope"
+              >
+                Early Access Program
+              </h3>
+              <p class="text-lg text-gray-700 font-manrope">
+                Partners who join before June 2025 will receive priority access
+                to our advanced analytics platform and one-on-one consulting
+                sessions with our data analysts to help optimize your center's
+                performance.
+              </p>
+            </div>
+            <div class="md:col-span-2 text-center">
+              <img
+                src="/images/analytics-preview.jpg"
+                alt="Analytics Dashboard Preview"
+                class="rounded-lg shadow-md w-full h-auto"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Support & Resources Section -->
+  <section class="py-24 bg-white text-[#003087] relative overflow-hidden">
+    <div class="px-6 sm:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2
+            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
+          >
+            <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+            Support & Resources
+          </h2>
+          <p class="mt-6 text-xl text-gray-700 max-w-3xl mx-auto font-manrope">
+            Comprehensive assistance to ensure your success
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+          <div class="relative" data-aos="fade-right" data-aos-delay="100">
+            <img
+              src="/images/partner-support.jpg"
+              alt="Partner Support Team"
+              class="rounded-xl shadow-xl w-full h-auto"
+            />
+            <div
+              class="absolute -bottom-4 -left-4 w-24 h-24 rounded-full bg-[#e6c378] opacity-20"
+            >
+            </div>
+          </div>
+
+          <div class="space-y-6" data-aos="fade-left" data-aos-delay="200">
+            <h3 class="text-2xl font-semibold text-[#003087] font-manrope">
+              Dedicated Partner Success Manager
+            </h3>
+            <p class="text-lg text-gray-700 font-manrope">
+              Every partner is assigned a dedicated Partner Success Manager who
+              serves as your ongoing point of contact, addressing questions,
+              optimizing your experience, and ensuring your center's needs are
+              met.
+            </p>
+
+            <h3 class="text-2xl font-semibold text-[#003087] font-manrope">
+              Comprehensive Training Materials
+            </h3>
+            <p class="text-lg text-gray-700 font-manrope">
+              Access a library of digital training resources, including
+              quick-start guides, video tutorials, staff checklists, and
+              detailed procedural documentation to ensure your team is fully
+              prepared.
+            </p>
+
+            <h3 class="text-2xl font-semibold text-[#003087] font-manrope">
+              Multi-Channel Support
+            </h3>
+            <p class="text-lg text-gray-700 font-manrope">
+              Get help when you need it through multiple channels:
+            </p>
+            <ul class="ml-6 list-disc space-y-2 text-gray-700 font-manrope">
+              <li>Direct phone support with priority answering</li>
+              <li>Email support with responses within 2 hours</li>
+              <li>Live chat through the partner portal</li>
+              <li>Virtual video support sessions for complex issues</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section
+    class="bg-[#003087] text-white py-16 px-6 sm:px-12 relative overflow-hidden"
+  >
+    <div
+      class="absolute inset-0 bg-repeat opacity-[0.03]"
+      style="background-image: url('/images/subtle-pattern.svg');"
+    >
+    </div>
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.1] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-white opacity-[0.05] blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-5xl mx-auto relative z-10 text-center" data-aos="fade-up">
+      <h2 class="text-3xl font-semibold mb-6 font-manrope">
+        Ready to Experience These Benefits?
+      </h2>
+      <p class="text-xl mb-10 max-w-3xl mx-auto font-manrope">
+        Join the USRad network today and start optimizing your imaging center's
+        revenue and operations. Our team is ready to guide you through the
+        simple onboarding process.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-6">
+        <a
+          href="/partner/schedule"
+          class="inline-block px-8 py-4 bg-[#cc9933] text-[#003087] font-bold rounded-full hover:bg-[#e6c378] transition-all duration-300 hover:shadow-xl font-manrope"
+        >
+          Schedule a Consultation
+        </a>
+        <a
+          href="/partner/implementation"
+          class="inline-block px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-[#003087] transition-all duration-300 hover:shadow-xl font-manrope"
+        >
+          View Implementation Process
+        </a>
+      </div>
+    </div>
+  </section>
+</MainLayout>

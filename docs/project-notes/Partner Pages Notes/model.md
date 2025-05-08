@@ -1,0 +1,4 @@
+Now, let's outline the Partnership Model page next. This will help potential partners understand the financial aspects of working with USRad:
+
+This Partner Model page provides a detailed, transparent explanation of how the financial relationship works, what partners can expect in terms of reimbursement, and how the model benefits imaging centers. It maintains the luxury healthcare aesthetic while providing the specific information potential partners need to make an informed decision.
+Would you like me to outline the Implementation Process page next? This would complement the Partnership Model page by showing exactly how centers get onboarded and start receiving patients.
