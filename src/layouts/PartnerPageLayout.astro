@@ -6,9 +6,10 @@ import Breadcrumb from "../components/Breadcrumb.astro";
 export interface Props {
   title: string;
   currentPage: string;
+  hideTitle?: boolean;
 }
 
-const { title, currentPage } = Astro.props;
+const { title, currentPage, hideTitle = false } = Astro.props;
 
 // Define breadcrumb paths
 const breadcrumbPaths = [
@@ -32,7 +33,11 @@ const breadcrumbPaths = [
   <Breadcrumb paths={breadcrumbPaths} />
 
   <div class="max-w-6xl mx-auto px-6 py-8">
-    <h1 class="text-3xl font-bold text-[#003087] mb-6">{currentPage}</h1>
+    {
+      !hideTitle && (
+        <h1 class="text-3xl font-bold text-[#003087] mb-6">{currentPage}</h1>
+      )
+    }
 
     <slot />
 

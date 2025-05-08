@@ -1,5 +1,5 @@
 ---
-import MainLayout from "../../layouts/MainLayout.astro";
+import PartnerPageLayout from "../../layouts/PartnerPageLayout.astro";
 import AOSInit from "../../components/AOSInit.astro";
 ---
 
@@ -57,7 +57,11 @@ import AOSInit from "../../components/AOSInit.astro";
   }
 </style>
 
-<MainLayout>
+<PartnerPageLayout
+  title="Partner FAQs | USRad"
+  currentPage="Partner FAQs"
+  hideTitle={true}
+>
   <AOSInit />
 
   <!-- Hero Section -->
@@ -1098,7 +1102,7 @@ import AOSInit from "../../components/AOSInit.astro";
       </div>
     </div>
   </section>
-</MainLayout>
+</PartnerPageLayout>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {

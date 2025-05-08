@@ -1,5 +1,5 @@
 ---
-import MainLayout from "../../layouts/MainLayout.astro";
+import PartnerPageLayout from "../../layouts/PartnerPageLayout.astro";
 import AOSInit from "../../components/AOSInit.astro";
 ---
 
@@ -44,7 +44,11 @@ import AOSInit from "../../components/AOSInit.astro";
   }
 </style>
 
-<MainLayout>
+<PartnerPageLayout
+  title="Implementation Process | USRad"
+  currentPage="Implementation Process"
+  hideTitle={true}
+>
   <AOSInit />
 
   <!-- Hero Section -->
@@ -979,4 +983,4 @@ import AOSInit from "../../components/AOSInit.astro";
       </div>
     </div>
   </section>
-</MainLayout>
+</PartnerPageLayout>
