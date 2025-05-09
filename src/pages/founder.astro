@@ -92,27 +92,29 @@ import MainLayout from "../layouts/MainLayout.astro";
   <!-- Highlights + Awards -->
   <section class="py-20 bg-white px-4">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-      <div class="space-y-6">
-        <div class="bg-[#f9f9f6] p-6 rounded-xl border shadow-sm">
+      <!-- Career Highlights -->
+      <div class="h-full">
+        <div
+          class="bg-[#f9f9f6] p-6 rounded-xl border shadow-sm h-full flex flex-col justify-between"
+        >
           <h3 class="text-xl font-semibold text-[#003087] mb-3">
             Career Highlights
           </h3>
           <ul class="list-disc list-inside text-gray-700 space-y-2">
-            <li>Scaled operations nationally and led public exit</li>
+            <li>
+              Built and scaled a national imaging network acquired by a publicly
+              traded company
+            </li>
             <li>Selected for MIT’s “Birthing of Giants” program</li>
           </ul>
         </div>
-
-        <blockquote
-          class="border-l-4 border-[#E6C378] pl-6 pr-4 py-4 italic text-xl text-gray-600 bg-[#f9f9f6] rounded-r-xl shadow"
-        >
-          “Looking ahead, I’m focused on building systems that scale — without
-          trading empathy for efficiency.”
-        </blockquote>
       </div>
 
-      <div class="space-y-6">
-        <div class="bg-white p-6 rounded-xl border shadow-sm">
+      <!-- Recognition -->
+      <div class="h-full">
+        <div
+          class="bg-[#f9f9f6] p-6 rounded-xl border shadow-sm h-full flex flex-col justify-between"
+        >
           <h3 class="text-xl font-semibold text-[#003087] mb-3">Recognition</h3>
           <ul class="text-gray-700 space-y-2">
             <li>
@@ -129,6 +131,14 @@ import MainLayout from "../layouts/MainLayout.astro";
         </div>
       </div>
     </div>
+
+    <!-- Centered Quote -->
+    <blockquote
+      class="max-w-3xl mx-auto mt-12 border-l-4 border-[#E6C378] pl-6 pr-4 py-4 italic text-lg text-gray-600 bg-[#f9f9f6] rounded-r-xl shadow text-center"
+    >
+      “Looking ahead, I’m focused on building systems that scale — without
+      trading empathy for efficiency.”
+    </blockquote>
   </section>
 
   <!-- Press Kit CTA -->
