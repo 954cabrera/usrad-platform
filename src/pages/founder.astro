@@ -1,366 +1,145 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import ChatbotToggle from "../components/ChatbotToggle.astro";
 ---
 
 <MainLayout>
   <slot slot="title">Michael Cabrera | USRad</slot>
 
-  <!-- Hero Section -->
-  <section class="py-28 bg-[#f0f4f9] text-gray-800">
-    <div class="max-w-6xl mx-auto px-6 text-center space-y-7">
-      <h1 class="text-5xl md:text-6xl font-semibold text-[#003087]">
-        Michael Cabrera
-      </h1>
-      <p class="text-2xl text-[#e6c378] font-medium">Founder & CEO</p>
-      <div class="h-1 w-32 bg-[#e6c378] rounded-full mx-auto"></div>
+  <!-- Hero Section with Improved Image Ratio & Layout -->
+  <section class="py-24 bg-[#f0f4f9] text-gray-800">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-6 items-center">
+      <!-- Image Column -->
+      <div class="text-center md:text-left">
+        <img
+          src="/images/michael.jpg"
+          alt="Michael Cabrera"
+          class="w-72 h-72 mx-auto md:mx-0 object-cover rounded-xl shadow-lg border border-gray-200"
+        />
+      </div>
+
+      <!-- Bio Column -->
+      <div class="space-y-4 text-center md:text-left">
+        <h1 class="text-5xl md:text-6xl font-semibold text-[#003087]">
+          Michael Cabrera
+        </h1>
+        <p class="text-xl text-[#e6c378] font-medium">Founder & CEO</p>
+        <p class="text-lg text-gray-700">
+          Michael Cabrera is a healthcare entrepreneur who previously led a
+          national imaging network to a successful public exit and was selected
+          for MIT’s “Birthing of Giants” program. At USRad, he’s focused on
+          expanding access to affordable, high-quality imaging through systems
+          built on empathy, simplicity, and trust.
+        </p>
+        <a
+          href="https://www.linkedin.com/in/usradfl/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block bg-[#0077b5] text-white px-6 py-2 rounded-full hover:bg-[#00669c] transition-all"
+        >
+          Connect on LinkedIn
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- Main Bio Section -->
-  <section class="py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-16">
-      <!-- Left Column -->
-      <div class="md:col-span-1 space-y-10">
-        <div class="relative rounded-xl overflow-hidden shadow-xl">
-          <img
-            src="/images/michael.jpg"
-            alt="Michael Cabrera"
-            class="w-full object-cover"
-          />
-          <div
-            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#003087]/80 to-transparent h-24"
-          >
-          </div>
+  <!-- Values in Three Elegant Cards -->
+  <section class="py-20 bg-white px-6">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-3xl font-semibold text-[#003087] mb-12">Our Values</h2>
+      <div class="grid md:grid-cols-3 gap-6 text-left">
+        <div
+          class="bg-[#f9f9f6] p-6 rounded-xl border border-gray-100 shadow-sm"
+        >
+          <h3 class="text-xl font-semibold text-[#003087] mb-3">Mission</h3>
+          <p>
+            Expand access to affordable, high-quality imaging—with transparency,
+            empathy, and innovation at every step.
+          </p>
         </div>
-
-        <!-- Highlights -->
-        <div class="space-y-6">
-          <div
-            class="bg-[#f9f9f6] p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all"
-          >
-            <h3
-              class="text-xl font-semibold text-[#003087] mb-4 flex items-center"
-            >
-              <span class="w-2 h-8 bg-[#e6c378] rounded-full mr-3"></span> Highlights
-            </h3>
-            <ul class="list-disc list-inside text-gray-700 space-y-3">
-              <li>Built imaging networks serving 400,000+ patients</li>
-              <li>
-                Selected for MIT’s “Birthing of Giants” — global top 0.25%
-              </li>
-              <li>
-                Scaled operations nationwide and led successful public exit
-              </li>
-              <li>Known for people-first leadership and execution clarity</li>
-            </ul>
-          </div>
-
-          <!-- Impact -->
-          <div
-            class="bg-[#f9f9f6] p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all text-center"
-          >
-            <h3
-              class="text-xl font-semibold text-[#003087] mb-4 flex justify-center items-center"
-            >
-              <span class="w-2 h-8 bg-[#e6c378] rounded-full mr-3"></span> Impact
-            </h3>
-            <p
-              class="text-4xl font-semibold text-[#003087] hover:text-[#002b7a] transition-colors"
-            >
-              400,000+
-            </p>
-            <div class="h-1 w-20 bg-[#e6c378] rounded-full mx-auto my-4"></div>
-            <p class="text-sm text-gray-700">
-              Imaging procedures delivered under Michael’s leadership — each one
-              a step toward earlier diagnosis, clearer answers, and better
-              outcomes.
-            </p>
-          </div>
-
-          <!-- Press Kit -->
-          <div class="text-center pt-6">
-            <a
-              href="/docs/founder-presskit.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block bg-[#003087] text-white px-8 py-3.5 rounded-full hover:bg-[#00256e] transition-all hover:shadow-lg w-full border-l-4 border-[#e6c378] font-medium"
-            >
-              Download Press Kit
-            </a>
-          </div>
+        <div
+          class="bg-[#f9f9f6] p-6 rounded-xl border border-gray-100 shadow-sm"
+        >
+          <h3 class="text-xl font-semibold text-[#003087] mb-3">Vision</h3>
+          <p>
+            A healthcare system where no one delays care due to confusion or
+            cost, and where imaging centers thrive through shared values.
+          </p>
+        </div>
+        <div
+          class="bg-[#f9f9f6] p-6 rounded-xl border border-gray-100 shadow-sm"
+        >
+          <h3 class="text-xl font-semibold text-[#003087] mb-3">Promise</h3>
+          <p>
+            We treat every patient like family—with dignity, trust, and clear,
+            honest pricing.
+          </p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Right Column -->
-      <div
-        class="md:col-span-2 space-y-10 text-gray-700 text-xl leading-relaxed"
-      >
-        <p>
-          Michael Cabrera’s journey began at 13, delivering newspapers after
-          school on a red Raleigh bicycle. That early hustle turned into a
-          lifelong drive to solve big problems in healthcare—with a belief that
-          access and empathy aren’t mutually exclusive.
-        </p>
-        <p>
-          Over the past two decades, Michael has helped shape how patients
-          experience diagnostic care, leading with the conviction that systems
-          work best when they’re built around people. He brings that same
-          approach to USRad: thoughtful growth, radical simplicity, and
-          relentless follow-through.
-        </p>
-        <p>
-          Michael was selected for “Birthing of Giants,” a one-week-a-year
-          program co-created by MIT, Inc. Magazine, and YEO (now EO), designed
-          for the world’s fastest-growing entrepreneurs. Limited to just 60
-          founders annually, the program helped him scale teams, modernize
-          operations, and expand nationwide — culminating in a successful public
-          exit.
-        </p>
+  <!-- Impact Stat -->
+  <section class="py-12 bg-[#f9f9f6] text-center">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="text-5xl font-bold text-[#003087]">400,000+</p>
+      <p class="text-sm text-gray-700 mt-2">
+        Imaging procedures delivered under Michael’s leadership—each one a step
+        toward earlier diagnoses and better outcomes.
+      </p>
+    </div>
+  </section>
+
+  <!-- Highlights + Awards -->
+  <section class="py-20 bg-white px-4">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+      <div class="space-y-6">
+        <div class="bg-[#f9f9f6] p-6 rounded-xl border shadow-sm">
+          <h3 class="text-xl font-semibold text-[#003087] mb-3">
+            Career Highlights
+          </h3>
+          <ul class="list-disc list-inside text-gray-700 space-y-2">
+            <li>Scaled operations nationally and led public exit</li>
+            <li>Selected for MIT’s “Birthing of Giants” program</li>
+          </ul>
+        </div>
 
         <blockquote
-          class="border-l-4 border-[#E6C378] pl-8 py-6 italic text-2xl text-gray-600 my-12 bg-[#f9f9f6] pr-8 rounded-r-xl shadow-md"
+          class="border-l-4 border-[#E6C378] pl-6 pr-4 py-4 italic text-xl text-gray-600 bg-[#f9f9f6] rounded-r-xl shadow"
         >
-          "Looking ahead, I’m focused on building systems that scale — without
-          trading empathy for efficiency."
+          “Looking ahead, I’m focused on building systems that scale — without
+          trading empathy for efficiency.”
         </blockquote>
+      </div>
 
-        <!-- Mission / Vision / Promise -->
-        <div class="pt-12 border-t border-gray-200">
-          <h2
-            class="text-3xl font-medium text-[#003087] mb-8 flex items-center"
-          >
-            <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
-            Creating the Future of Medical Imaging
-          </h2>
-
-          <div class="grid md:grid-cols-3 gap-6 mt-10">
-            <div
-              class="bg-[#f9f9f6] p-7 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all h-full"
-            >
-              <h3
-                class="text-xl font-semibold text-[#003087] mb-3 flex items-center"
-              >
-                <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-2"></span>
-                Our Mission
-              </h3>
-              <p>
-                To radically improve access to affordable, high-quality medical
-                imaging — with transparency, empathy, and innovation at the core
-                of every interaction.
-              </p>
-            </div>
-
-            <div
-              class="bg-[#f9f9f6] p-7 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all h-full"
-            >
-              <h3
-                class="text-xl font-semibold text-[#003087] mb-3 flex items-center"
-              >
-                <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-2"></span>
-                Our Vision
-              </h3>
-              <p>
-                A future where no patient delays care due to confusion, cost, or
-                access — and where imaging centers thrive by aligning around
-                shared values.
-              </p>
-            </div>
-
-            <div
-              class="bg-[#f9f9f6] p-7 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all h-full"
-            >
-              <h3
-                class="text-xl font-semibold text-[#003087] mb-3 flex items-center"
-              >
-                <span class="w-1.5 h-6 bg-[#e6c378] rounded-full mr-2"></span>
-                Our Promise
-              </h3>
-              <p>
-                We treat every patient like family, offer honest pricing, and
-                champion a care experience grounded in dignity, trust, and
-                results.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Leadership Philosophy -->
-        <div class="pt-12 border-t border-gray-200">
-          <h2
-            class="text-3xl font-semibold text-[#003087] mb-6 flex items-center"
-          >
-            <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
-            Leadership Philosophy
-          </h2>
-          <p>
-            My approach centers on building healthcare businesses that align the
-            interests of all stakeholders — ensuring patients receive
-            exceptional care while providers focus on what they do best.
-          </p>
-          <p class="mt-4">
-            By removing friction points and creating transparent systems, we've
-            repeatedly demonstrated that the highest quality care can also be
-            the most accessible and efficient.
-          </p>
-        </div>
-
-        <!-- Contact CTA -->
-        <div class="pt-12">
-          <a
-            href="/contact"
-            class="inline-block bg-[#003087] text-white px-10 py-4 rounded-full hover:bg-[#00256e] transition-all hover:shadow-lg border-l-4 border-[#e6c378]"
-          >
-            Get in Touch
-          </a>
+      <div class="space-y-6">
+        <div class="bg-white p-6 rounded-xl border shadow-sm">
+          <h3 class="text-xl font-semibold text-[#003087] mb-3">Recognition</h3>
+          <ul class="text-gray-700 space-y-2">
+            <li>
+              <strong>Inc. 500:</strong> #210 Fastest Growing Private Companies
+            </li>
+            <li>
+              <strong>Hispanic Business:</strong> Top 500, 3 consecutive years
+            </li>
+            <li>
+              <strong>University of Florida:</strong> Gator 100, #49 and #89
+            </li>
+            <li><strong>SFBJ:</strong> 40 Under 40, Up & Comers Award</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Awards Section (unchanged from your original, or can be dropped in below here) -->
-
-  <!-- Awards & Recognition Section -->
-  <section class="py-24 px-6 bg-[#f0f4f9]">
-    <div class="max-w-6xl mx-auto">
-      <h2
-        class="text-4xl font-semibold text-center text-[#003087] mb-16 flex items-center justify-center"
-      >
-        <span class="w-2 h-10 bg-[#e6c378] rounded-full mr-3"></span>
-        Leadership Recognition
-      </h2>
-
-      <!-- Featured Award -->
-      <div
-        class="mb-20 rounded-xl overflow-hidden shadow-xl bg-white border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:border-[#e6c378]/30"
-      >
-        <div
-          class="relative h-72 bg-gradient-to-r from-white to-[#f0f4f9] flex items-center justify-center text-center px-6"
-        >
-          <div>
-            <img
-              src="/images/awards/inc500-logo.png"
-              alt="Inc 500"
-              class="h-40 mx-auto mb-4"
-            />
-            <p class="text-2xl font-medium text-gray-800">
-              Fastest Growing Private Companies
-            </p>
-            <p class="text-4xl font-bold text-[#003087] mt-3">
-              #210 with 1,236% Growth
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Additional Awards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <!-- Hispanic Business Award -->
-        <div
-          class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex items-center"
-        >
-          <div
-            class="w-24 h-24 bg-[#f8f8f8] rounded-full flex items-center justify-center mr-6 border border-gray-100 shadow-sm"
-          >
-            <img
-              src="/images/awards/hispanic-business-logo.png"
-              alt="Hispanic Business"
-              class="w-16 h-16 object-contain"
-            />
-          </div>
-          <div>
-            <h4 class="text-xl font-semibold text-[#003087]">
-              Hispanic Business Magazine
-            </h4>
-            <p class="text-base text-gray-600">
-              500 Largest Hispanic-Owned Companies
-            </p>
-            <p class="text-lg font-medium mt-2">#223 | #259 | #320</p>
-            <p class="text-sm text-gray-500 mt-1">Three Consecutive Years</p>
-          </div>
-        </div>
-
-        <!-- SFBJ 40 Under 40 -->
-        <div
-          class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex items-center"
-        >
-          <div
-            class="w-24 h-24 bg-[#f8f8f8] rounded-full flex items-center justify-center mr-6 border border-gray-100 shadow-sm"
-          >
-            <img
-              src="/images/awards/sfbj-logo.png"
-              alt="SFBJ"
-              class="w-16 h-16 object-contain"
-            />
-          </div>
-          <div>
-            <h4 class="text-xl font-semibold text-[#003087]">
-              South Florida Business Journal
-            </h4>
-            <p class="text-base text-gray-600">40 Under 40 Awards</p>
-            <p class="text-lg font-medium mt-2">#19</p>
-            <p class="text-sm text-gray-500 mt-1">
-              Recognizing Business Leadership Excellence
-            </p>
-          </div>
-        </div>
-
-        <!-- SFBJ Up & Comers -->
-        <div
-          class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex items-center"
-        >
-          <div
-            class="w-24 h-24 bg-[#f8f8f8] rounded-full flex items-center justify-center mr-6 border border-gray-100 shadow-sm"
-          >
-            <img
-              src="/images/awards/sfbj-logo.png"
-              alt="SFBJ"
-              class="w-16 h-16 object-contain"
-            />
-          </div>
-          <div>
-            <h4 class="text-xl font-semibold text-[#003087]">
-              South Florida Business Journal
-            </h4>
-            <p class="text-base text-gray-600">Up & Comers Award</p>
-            <p class="text-lg font-medium mt-2">1st Place</p>
-            <p class="text-sm text-gray-500 mt-1">11th Anniversary Edition</p>
-          </div>
-        </div>
-
-        <!-- UF 100 Fastest Growing -->
-        <div
-          class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-lg transition-all flex items-center"
-        >
-          <div
-            class="w-24 h-24 bg-[#f8f8f8] rounded-full flex items-center justify-center mr-6 border border-gray-100 shadow-sm"
-          >
-            <img
-              src="/images/awards/uf-logo.png"
-              alt="University of Florida"
-              class="w-16 h-16 object-contain"
-            />
-          </div>
-          <div>
-            <h4 class="text-xl font-semibold text-[#003087]">
-              University of Florida
-            </h4>
-            <p class="text-base text-gray-600">100 Fastest Growing Companies</p>
-            <p class="text-lg font-medium mt-2">#49 | #89</p>
-            <p class="text-sm text-gray-500 mt-1">Two Consecutive Years</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Footer Note -->
-      <div class="mt-12 text-center text-gray-600 text-base">
-        <p>
-          Awards and recognition received for AnciCare PPO, a nationwide
-          diagnostic imaging company founded and led by Michael Cabrera.
-        </p>
-      </div>
-    </div>
+  <!-- Press Kit CTA -->
+  <section class="py-12 text-center px-4">
+    <a
+      href="/docs/founder-presskit.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-block bg-[#003087] text-white px-8 py-3 rounded-full hover:bg-[#00256e] transition-all border-l-4 border-[#e6c378]"
+    >
+      Download Press Kit
+    </a>
   </section>
-
-  <ChatbotToggle chatbotLabel="💬 Let's Talk" />
 </MainLayout>
