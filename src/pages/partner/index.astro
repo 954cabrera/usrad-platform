@@ -216,7 +216,12 @@ const breadcrumbPaths = [
           >
             <img
               src="/images/michael.jpg"
-              alt="Michael Cabrera"
+              srcset="/images/michael-sm.jpg 400w, /images/michael.jpg 800w"
+              sizes="(max-width: 768px) 85vw, 40vw"
+              width="600"
+              height="750"
+              loading="lazy"
+              alt="Michael Cabrera, Founder & CEO"
               class="w-[85%] h-auto rounded-xl shadow-lg relative z-10"
             />
             <div
