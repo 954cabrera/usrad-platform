@@ -1,15 +1,36 @@
-/* src/styles/global.css */
-
-/* Tailwind's base styles, components, and utilities should be included automatically */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Force light mode on all devices */
+/* Force consistent light mode appearance across all devices */
 html {
   color-scheme: light;
-  background-color: #fcf9f0;
-  /* fallback for devices overriding background */
+  background-color: #fcf9f0 !important;
+  /* Enforce your gold base */
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fcf9f0 !important;
+  color: #003087;
+  font-family: 'Manrope', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+
+/* Explicit override if browser forces dark mode */
+@media (prefers-color-scheme: dark) {
+
+  html,
+  body {
+    background-color: #fcf9f0 !important;
+    color: #003087 !important;
+  }
 }
 
 .abstract-medical-accent {
@@ -34,31 +55,32 @@ html {
   background-image: url('/images/neural-network-bottom-left.svg');
 }
 
-
 @layer base {
+
+  /* Base font family */
   html {
     font-family: 'Manrope', sans-serif;
   }
-  
-  /* Global link transitions */
+
+  /* Link transitions */
   a {
     @apply transition-all duration-300;
   }
-  
+
   /* Primary button hover effects */
-  .btn-primary, 
-  a[class*="bg-[#003087]"], 
+  .btn-primary,
+  a[class*="bg-[#003087]"],
   button[class*="bg-[#003087]"] {
     @apply transition-all duration-300 hover:shadow-xl hover:scale-105;
   }
-  
-  /* Outlined button hover effects with fill animation */
+
+  /* Outlined button hover fill animation */
   .btn-outline,
   a[class*="border"][class*="text-[#003087]"],
   button[class*="border"][class*="text-[#003087]"] {
     @apply relative overflow-hidden transition-all duration-300;
   }
-  
+
   .btn-outline::before,
   a[class*="border"][class*="text-[#003087]"]::before,
   button[class*="border"][class*="text-[#003087]"]::before {
@@ -66,48 +88,53 @@ html {
     @apply absolute top-0 left-0 w-full h-0 bg-[#003087] bg-opacity-10 transition-all duration-300;
     z-index: -1;
   }
-  
+
   .btn-outline:hover::before,
   a[class*="border"][class*="text-[#003087]"]:hover::before,
   button[class*="border"][class*="text-[#003087]"]:hover::before {
     @apply h-full;
   }
-  
-  /* Active state for transitions */
+
+  /* Active interaction state */
   .is-active {
     @apply transform scale-105 opacity-70;
   }
-  
+
   /* Smooth transitions for all interactive elements */
-  a, button, .btn, .nav-link, [role="button"] {
+  a,
+  button,
+  .btn,
+  .nav-link,
+  [role="button"] {
     @apply transition-all duration-300 ease-in-out transform hover:scale-[1.03];
   }
 }
 
 /* Input field styling */
 .input {
-    @apply w-full border border-gray-300 rounded-md px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500;
+  @apply w-full border border-gray-300 rounded-md px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500;
 }
 
-/* Soft pulse animation for floating CTA */
+/* CTA Pulse Animation */
 @keyframes pulse-soft {
 
-    0%,
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
-    }
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
+  }
 
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 0 12px rgba(59, 130, 246, 0);
-    }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 12px rgba(59, 130, 246, 0);
+  }
 }
 
 .animate-pulse-soft {
-    animation: pulse-soft 2.5s ease-in-out infinite;
+  animation: pulse-soft 2.5s ease-in-out infinite;
 }
 
+/* Typography tweak */
 .small-caps {
-    font-variant: small-caps;
+  font-variant: small-caps;
 }

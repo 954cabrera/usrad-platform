@@ -10,42 +10,54 @@ import Footer from "../components/Footer.astro";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><slot name="title" /></title>
+
+    <!-- Font Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Mobile Color Consistency -->
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#fcf9f0" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="msapplication-TileColor" content="#fcf9f0" />
+
+    <!-- AOS Animation Init -->
+    <AOSInit />
+
+    <!-- Scroll and Transition Logic -->
     <script is:inline>
       if (typeof window !== "undefined") {
-        // Navbar scroll effect
+        // Sticky navbar effect
         window.addEventListener("scroll", () => {
           const navbar = document.querySelector(".navbar");
-          if (window.scrollY > 10) {
-            navbar.classList.add("navbar-scrolled");
-          } else {
-            navbar.classList.remove("navbar-scrolled");
+          if (navbar) {
+            if (window.scrollY > 10) {
+              navbar.classList.add("navbar-scrolled");
+            } else {
+              navbar.classList.remove("navbar-scrolled");
+            }
           }
         });
 
-        // Add hover effect to all links and buttons for better transitions
+        // Smooth page transitions
         document.addEventListener("DOMContentLoaded", () => {
-          // Apply hover state before navigation for smoother transitions
-          document.querySelectorAll("a, button").forEach((element) => {
-            element.addEventListener("click", function (e) {
-              // Only apply to non-external links
+          document.querySelectorAll("a, button").forEach((el) => {
+            el.addEventListener("click", function (e) {
+              const href = this.getAttribute("href");
               if (
                 this.tagName === "A" &&
-                this.getAttribute("href") &&
-                !this.getAttribute("href").startsWith("http") &&
-                !this.getAttribute("href").startsWith("#")
+                href &&
+                !href.startsWith("http") &&
+                !href.startsWith("#")
               ) {
                 e.preventDefault();
                 this.classList.add("is-active");
-
-                // Navigate after transition completes
                 setTimeout(() => {
-                  window.location.href = this.getAttribute("href");
+                  window.location.href = href;
                 }, 300);
               }
             });
@@ -53,10 +65,9 @@ import Footer from "../components/Footer.astro";
         });
       }
     </script>
-    <AOSInit />
   </head>
 
-  <body class="font-manrope">
+  <body class="font-manrope bg-[#fcf9f0] text-[#003087]">
     <!-- Utility Header - positioned outside and above the main navbar -->
     <UtilityHeader />
 
