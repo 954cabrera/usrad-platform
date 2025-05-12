@@ -114,11 +114,11 @@ import Footer from "../components/Footer.astro";
     <style>
       .navbar {
         position: fixed;
-        top: 2rem; /* Adjusted to account for utility header */
+        top: 2rem;
         left: 0;
         width: 100%;
         z-index: 50;
-        background: linear-gradient(to right, #f5e7c5 0%, #ffffff 100%);
+        background-color: #f5e7c5; /* Fallback solid gold for mobile */
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         transition:
@@ -126,6 +126,12 @@ import Footer from "../components/Footer.astro";
           box-shadow 0.3s ease;
         box-shadow: none;
         border-bottom: none;
+      }
+
+      @media (min-width: 768px) {
+        .navbar {
+          background: linear-gradient(to right, #f5e7c5 0%, #ffffff 100%);
+        }
       }
 
       .navbar-scrolled {
