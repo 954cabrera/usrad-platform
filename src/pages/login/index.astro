@@ -5,6 +5,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Gateway | USRad</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,7 +26,6 @@
         padding: 0;
         font-family: "Manrope", sans-serif;
         height: 100%;
-        overflow: hidden;
         position: relative;
       }
 
@@ -34,6 +34,8 @@
         align-items: center;
         justify-content: center;
         background: linear-gradient(135deg, #003087 0%, #001a4d 100%);
+        min-height: 100vh;
+        overflow-y: auto;
       }
 
       body::before {
@@ -48,7 +50,6 @@
         z-index: 0;
       }
 
-
       .gateway-container {
         max-width: 1200px;
         width: 100%;
@@ -56,14 +57,16 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 0 2rem;
+        padding: 2rem;
         position: relative;
         z-index: 1;
+        margin: 1rem 0;
       }
 
       .header {
         text-align: center;
         margin-bottom: 2.5rem;
+        width: 100%;
       }
 
       .logo {
@@ -87,6 +90,8 @@
         letter-spacing: 1px;
         margin-top: 0.75rem;
         max-width: 580px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       .cards {
@@ -111,6 +116,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        min-height: 220px;
       }
 
       .card:hover {
@@ -142,6 +148,13 @@
         color: #555;
         margin: 0;
         line-height: 1.5;
+        /* Add text overflow handling */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        max-height: 4.5em;
       }
 
       .footer {
@@ -151,11 +164,24 @@
         font-size: 0.85rem;
       }
 
-
       @media (max-width: 900px) {
+        body {
+          align-items: flex-start; /* Align from the top on mobile */
+          padding-top: 2rem; /* Add top padding for logo */
+        }
+
+        .gateway-container {
+          padding: 1rem;
+          margin-top: 0;
+        }
+
         .cards {
           grid-template-columns: 1fr;
           max-width: 420px;
+        }
+
+        .header {
+          margin-bottom: 1.5rem;
         }
 
         .header h1 {
@@ -163,7 +189,53 @@
         }
 
         .logo {
-          max-width: 180px;
+          max-width: 160px;
+          margin-bottom: 1rem;
+        }
+
+        /* Additional mobile-specific styles */
+        .card {
+          padding: 1.5rem;
+          min-height: 160px;
+        }
+
+        .card-icon {
+          width: 50px;
+          height: 50px;
+          font-size: 1.5rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .card h2 {
+          font-size: 1.1rem;
+          margin-bottom: 0.4rem;
+        }
+
+        .card p {
+          font-size: 0.9rem;
+          -webkit-line-clamp: 2; /* Limit to 2 lines on mobile */
+        }
+
+        .tagline {
+          font-size: 1rem;
+          padding: 0 0.5rem;
+        }
+      }
+
+      /* Fix for very small screens */
+      @media (max-height: 700px) {
+        body {
+          align-items: flex-start;
+          padding-top: 1rem;
+        }
+
+        .card {
+          min-height: 140px;
+          padding: 1.25rem;
+        }
+
+        .gateway-container {
+          padding-top: 0;
         }
       }
     </style>
@@ -214,19 +286,19 @@
 
       <div class="footer">&copy; 2025 USRad. All rights reserved.</div>
     </div>
-    
+
     <script>
       function handleClick(event) {
         event.preventDefault();
-        
+
         let target = event.currentTarget;
-        if (!target.classList.contains('card')) {
-          target = target.closest('.card');
+        if (!target.classList.contains("card")) {
+          target = target.closest(".card");
         }
-        
+
         // Get the role for navigation
         const role = target.getAttribute("data-role");
-        
+
         // No animations, no transitions - just redirect immediately
         const pathMap = {
           patient: "/login/patientlogin",
@@ -237,18 +309,16 @@
       }
 
       document.addEventListener("DOMContentLoaded", () => {
-        document
-          .querySelectorAll(".card")
-          .forEach((card) => {
-            card.addEventListener("click", handleClick);
-            // Add event listeners to children elements
-            card.querySelectorAll('.card-icon, h2, p').forEach(element => {
-              element.addEventListener('click', e => {
-                e.stopPropagation(); // Prevent bubbling
-                handleClick(e);
-              });
+        document.querySelectorAll(".card").forEach((card) => {
+          card.addEventListener("click", handleClick);
+          // Add event listeners to children elements
+          card.querySelectorAll(".card-icon, h2, p").forEach((element) => {
+            element.addEventListener("click", (e) => {
+              e.stopPropagation(); // Prevent bubbling
+              handleClick(e);
             });
           });
+        });
       });
     </script>
   </body>

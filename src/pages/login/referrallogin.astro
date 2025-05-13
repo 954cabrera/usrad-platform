@@ -5,6 +5,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Referring Physician Login | USRad</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -273,19 +274,130 @@
         .logo-side,
         .form-side {
           flex: none;
-          width: 100%;
         }
 
         .logo-side {
-          padding: 2.5rem 1rem;
+          min-height: 180px;
+          padding: 1.5rem 1rem;
+          justify-content: flex-start;
+          padding-top: 3rem;
         }
 
         .logo-side img {
-          max-width: 200px;
+          max-width: 180px;
         }
 
         .brand-tagline {
           display: none;
+        }
+
+        .form-side {
+          padding: 1.5rem;
+        }
+
+        .login-box {
+          padding: 1.5rem;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .login-box h2 {
+          font-size: 1.8rem; /* Increased from 1.5rem */
+          margin-bottom: 1.5rem;
+        }
+
+        .login-box label {
+          font-size: 1.1rem; /* Increased from 0.95rem */
+          margin-bottom: 0.5rem;
+        }
+
+        .input-wrapper {
+          margin-bottom: 1.5rem;
+        }
+
+        .input-wrapper input {
+          padding: 0.9rem; /* Increased from 0.75rem */
+          font-size: 1.1rem; /* Increased from 0.95rem */
+          border-width: 2px; /* Make borders more visible */
+        }
+
+        .login-box button {
+          padding: 1rem; /* Increased from 0.8rem */
+          font-size: 1.2rem; /* Increased from 1rem */
+          margin-top: 1.5rem;
+        }
+
+        .forgot,
+        .signup {
+          font-size: 1.1rem; /* Increased from 0.9rem */
+          padding: 0.5rem 0;
+          display: inline-block;
+        }
+
+        .terms {
+          font-size: 0.95rem; /* Increased from 0.8rem */
+          line-height: 1.6;
+          margin-top: 2rem;
+        }
+
+        .back-link {
+          top: 15px;
+          left: 15px;
+          font-size: 0.95rem; /* Increased from 0.8rem */
+        }
+
+        .back-link svg {
+          width: 18px; /* Increased from 14px */
+          height: 18px; /* Increased from 14px */
+          margin-right: 8px;
+        }
+
+        /* Add better touch target sizes */
+        .toggle-password {
+          padding: 8px;
+          right: 0.5rem;
+        }
+
+        .toggle-password svg {
+          width: 24px;
+          height: 24px;
+        }
+
+        .forgot,
+        .signup,
+        .terms a {
+          padding: 8px;
+          margin: 0.5rem 0;
+        }
+
+        /* Add extra space below form for scrolling */
+        body::after {
+          content: "";
+          display: block;
+          height: 40px;
+        }
+      }
+
+      /* Fix for smaller phones */
+      @media (max-width: 360px) {
+        .login-box {
+          padding: 1.25rem;
+        }
+
+        .logo-side {
+          min-height: 150px;
+        }
+
+        .logo-side img {
+          max-width: 160px;
+        }
+
+        /* Even on small screens, keep font sizes readable */
+        .login-box h2 {
+          font-size: 1.7rem;
+        }
+
+        .input-wrapper input {
+          font-size: 1.05rem;
         }
       }
     </style>
