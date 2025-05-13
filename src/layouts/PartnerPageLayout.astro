@@ -30,7 +30,9 @@ const breadcrumbPaths = [
 ---
 
 <MainLayout title={title}>
-  <Breadcrumb paths={breadcrumbPaths} />
+  <div class="breadcrumb-container">
+    <Breadcrumb paths={breadcrumbPaths} />
+  </div>
 
   <div class="max-w-6xl mx-auto px-6 py-8">
     {
@@ -38,7 +40,6 @@ const breadcrumbPaths = [
         <h1 class="text-3xl font-bold text-[#003087] mb-6">{currentPage}</h1>
       )
     }
-
     <slot />
 
     <!-- Cross-navigation links at the bottom -->
@@ -117,3 +118,40 @@ const breadcrumbPaths = [
     </div>
   </div>
 </MainLayout>
+
+<style is:global>
+  /* Mobile-only fixes for partner pages */
+  @media (max-width: 768px) {
+    /* Fix for breadcrumb positioning */
+    .breadcrumb-container {
+      margin-top: 60px !important; /* Add more top margin only on mobile */
+      padding-top: 0.5rem !important;
+      padding-bottom: 0 !important;
+    }
+
+    /* Reduce hero section padding */
+    section[class*="from-[#fcf9f0]"][class*="to-[#f5e7c5]"] {
+      padding-top: 16px !important;
+      padding-bottom: 20px !important;
+    }
+
+    /* Make headings more compact */
+    h1[class*="text-5xl"],
+    h1[class*="text-6xl"],
+    h1.text-4xl {
+      font-size: 2.25rem !important;
+      line-height: 1.2 !important;
+    }
+
+    /* Stack words for long titles */
+    h1 span.block + span {
+      display: block;
+      margin-top: 0.25rem;
+    }
+
+    /* Adjust main content area */
+    .main-content {
+      padding-top: 20px !important;
+    }
+  }
+</style>
