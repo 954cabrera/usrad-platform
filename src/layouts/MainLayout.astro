@@ -297,8 +297,24 @@ import Footer from "../components/Footer.astro";
 
       /* === Mobile Overrides === */
       @media (max-width: 768px) {
+        .navbar {
+          top: 0; /* Move to top of screen on mobile */
+          padding-block: 0.5rem; /* Much less vertical padding */
+          padding-inline: 1rem; /* Less horizontal padding */
+        }
+
+        .brand .logo {
+          height: 50px; /* Smaller logo on mobile */
+          max-height: 50px;
+        }
+
+        /* Adjust main content padding to match reduced header height */
+        .main-content {
+          padding-top: 80px; /* Reduced from 140px */
+        }
+
         .navbar-inner {
-          padding: 1rem;
+          padding: 0.5rem;
         }
 
         .nav-links,

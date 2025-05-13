@@ -22,7 +22,6 @@
     </a>
   </div>
 </div>
-
 <style>
   .utility-header {
     background-color: #f8f2e1;
@@ -33,7 +32,6 @@
     width: 100%;
     z-index: 60; /* Higher than navbar z-index */
   }
-
   .utility-container {
     max-width: 1280px;
     margin: 0 auto;
@@ -41,7 +39,6 @@
     display: flex;
     justify-content: flex-end;
   }
-
   .utility-link {
     font-size: 0.875rem;
     color: #003087;
@@ -50,29 +47,41 @@
     align-items: center;
     transition: color 0.3s ease;
   }
-
   .utility-link:hover {
     color: #cc9933;
   }
-
   .utility-icon {
     width: 0.75rem;
     height: 0.75rem;
     margin-left: 0.25rem;
   }
-
   /* Adjust main navbar positioning to account for utility header */
   :global(.navbar) {
     top: 2rem; /* Height of utility header */
   }
-
   :global(.main-content) {
     padding-top: 140px; /* Adjust based on combined height of navbar + utility header */
   }
-
   @media (max-width: 768px) {
+    .utility-header {
+      padding: 0.25rem 0; /* Reduced padding */
+    }
     .utility-container {
       padding: 0 1rem;
+    }
+    .utility-link {
+      font-size: 0.75rem; /* Smaller font size */
+    }
+    .utility-icon {
+      width: 0.65rem; /* Smaller icon */
+      height: 0.65rem;
+    }
+    /* Override navbar and content positioning for mobile */
+    :global(.navbar) {
+      top: 1.5rem; /* Reduced top position to match smaller utility header */
+    }
+    :global(.main-content) {
+      padding-top: 80px; /* Adjusted to match mobile header heights */
     }
   }
 </style>
