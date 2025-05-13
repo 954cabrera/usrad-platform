@@ -11,7 +11,13 @@ import Footer from "../components/Footer.astro";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><slot name="title" /></title>
 
-    <!-- Font Loading -->
+    <!-- Color scheme enforcement -->
+    <meta name="color-scheme" content="light only" />
+    <meta name="theme-color" content="#fcf9f0" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="msapplication-TileColor" content="#fcf9f0" />
+
+    <!-- Font: Manrope -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,17 +25,11 @@ import Footer from "../components/Footer.astro";
       rel="stylesheet"
     />
 
-    <!-- Mobile Color Consistency -->
-    <meta name="color-scheme" content="light" />
-    <meta name="theme-color" content="#fcf9f0" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="msapplication-TileColor" content="#fcf9f0" />
-
     <!-- AOS Animation Init -->
     <AOSInit />
   </head>
 
-  <body class="font-manrope bg-[#fcf9f0] text-[#003087]">
+  <body class="font-manrope text-[#003087] bg-[#fcf9f0] min-h-screen">
     <UtilityHeader />
 
     <header class="navbar">

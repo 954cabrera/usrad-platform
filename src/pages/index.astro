@@ -21,26 +21,25 @@ import PatientTestimonials from "../components/PatientTestimonials.astro"; // Ne
 
   <!-- Enhanced Hero Section with Prominent Search - Keep this section largely intact -->
   <section
-    class="relative bg-[#f5e7c5] sm:bg-gradient-to-b sm:from-[#fcf9f0] sm:to-[#f5e7c5] text-[#003087] pt-32 pb-28 px-6 sm:px-12 overflow-hidden"
+    class="relative bg-background sm:bg-gradient-to-b sm:from-background sm:to-backgroundAlt text-primary pt-32 pb-28 px-6 sm:px-12 overflow-hidden"
   >
     <!-- Decorative blur circles - hidden on mobile -->
     <div
-      class="hidden sm:block absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-10 blur-2xl z-0"
+      class="hidden sm:block absolute top-20 right-20 w-64 h-64 rounded-full bg-accent opacity-10 blur-2xl z-0"
     >
     </div>
-
     <div
-      class="hidden sm:block absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-10 blur-2xl z-0"
+      class="hidden sm:block absolute bottom-20 left-20 w-72 h-72 rounded-full bg-primary opacity-10 blur-2xl z-0"
     >
     </div>
 
     <div class="max-w-6xl mx-auto relative z-10 text-center mb-12">
       <h1
-        class="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-tight font-manrope text-[#003087]"
+        class="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-tight font-manrope text-primary"
         data-aos="fade-up"
         data-aos-delay="100"
       >
-        Medical Imaging Done <span class="text-[#cc9933] relative">
+        Medical Imaging Done <span class="text-accent relative">
           Right
           <svg
             class="absolute -bottom-2 left-0 w-full"
@@ -57,7 +56,7 @@ import PatientTestimonials from "../components/PatientTestimonials.astro"; // Ne
         </span>
       </h1>
       <p
-        class="mt-6 text-xl sm:text-2xl text-[#003087] max-w-3xl mx-auto leading-relaxed font-manrope"
+        class="mt-6 text-xl sm:text-2xl text-primary max-w-3xl mx-auto leading-relaxed font-manrope"
         data-aos="fade-up"
         data-aos-delay="200"
       >
@@ -68,7 +67,7 @@ import PatientTestimonials from "../components/PatientTestimonials.astro"; // Ne
 
     <!-- Search Form -->
     <div
-      class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-[#cc9933] max-w-4xl mx-auto relative z-10"
+      class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-accent max-w-4xl mx-auto relative z-10"
       data-aos="fade-up"
       data-aos-delay="300"
     >
@@ -77,16 +76,17 @@ import PatientTestimonials from "../components/PatientTestimonials.astro"; // Ne
         method="get"
         class="flex flex-col md:flex-row justify-between gap-4"
       >
+        <!-- Scan Type -->
         <div class="flex-1">
           <label
             for="scan-type"
-            class="block text-sm font-medium text-[#003087] mb-2 font-manrope"
+            class="block text-sm font-medium text-primary mb-2 font-manrope"
             >Scan Type</label
           >
           <select
             id="scan-type"
             name="type"
-            class="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#cc9933] font-manrope"
+            class="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent font-manrope"
             required
           >
             <option value="" disabled selected>Select type of scan</option>
@@ -98,10 +98,11 @@ import PatientTestimonials from "../components/PatientTestimonials.astro"; // Ne
           </select>
         </div>
 
+        <!-- ZIP Code -->
         <div class="w-full md:w-40">
           <label
             for="zip-code"
-            class="block text-sm font-medium text-[#003087] mb-2 font-manrope"
+            class="block text-sm font-medium text-primary mb-2 font-manrope"
             >Location</label
           >
           <input
@@ -109,15 +110,16 @@ import PatientTestimonials from "../components/PatientTestimonials.astro"; // Ne
             type="text"
             name="zip"
             placeholder="ZIP Code"
-            class="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#cc9933] font-manrope"
+            class="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent font-manrope"
             required
           />
         </div>
 
+        <!-- Submit -->
         <div class="flex items-end">
           <button
             type="submit"
-            class="w-full md:w-auto px-8 py-4 bg-[#003087] text-white font-bold rounded-lg hover:bg-[#002266] transition-all duration-300 border border-transparent hover:border-[#cc9933] hover:shadow-lg font-manrope"
+            class="w-full md:w-auto px-8 py-4 bg-primary text-white font-bold rounded-lg hover:bg-[#002266] transition-all duration-300 border border-transparent hover:border-accent hover:shadow-lg font-manrope"
           >
             <span class="flex items-center justify-center">
               <svg
@@ -139,12 +141,13 @@ import PatientTestimonials from "../components/PatientTestimonials.astro"; // Ne
         </div>
       </form>
 
+      <!-- Info Text -->
       <div
-        class="mt-6 text-sm text-[#003087] flex items-center justify-center font-manrope"
+        class="mt-6 text-sm text-primary flex items-center justify-center font-manrope"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5 mr-2 text-[#cc9933]"
+          class="h-5 w-5 mr-2 text-accent"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

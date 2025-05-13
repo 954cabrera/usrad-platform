@@ -21,6 +21,7 @@ body {
   font-size: 1rem;
   line-height: 1.6;
   text-rendering: optimizeLegibility;
+  
 }
 
 /* Explicit override if browser forces dark mode */
@@ -28,7 +29,8 @@ body {
 
   html,
   body {
-    background-color: #fcf9f0 !important;
+    background: #fcf9f0 !important;
+    background-image: none !important;
     color: #003087 !important;
   }
 }
@@ -137,4 +139,10 @@ body {
 /* Typography tweak */
 .small-caps {
   font-variant: small-caps;
+}
+
+/* Force section background override */
+.hero-override {
+  background-color: #fcf9f0 !important;
+  background-image: none !important;
 }
