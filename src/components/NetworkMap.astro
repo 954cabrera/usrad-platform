@@ -40,50 +40,94 @@
       <div
         class="bg-white p-8 rounded-xl shadow-xl border-l-4 border-[#cc9933] max-w-5xl mx-auto"
       >
+        <!-- Map Container with Mobile-Responsive Layout -->
         <div class="relative">
-          <!-- Updated Elegant Map -->
-          <img
-            src="/images/usrad-map-animated-inline.svg"
-            alt="Initial Focus Areas Map"
-            class="rounded-xl shadow-xl w-full"
-          />
+          <!-- Map Container -->
+          <div class="relative w-full">
+            <img
+              src="/images/usrad-map-animated-inline.svg"
+              alt="Initial Focus Areas Map"
+              class="rounded-xl shadow-xl w-full"
+            />
 
-          <!-- Info Overlay -->
-          <div class="absolute top-4 left-4 text-left z-10">
+            <!-- Desktop-Only USRad Center Button (hidden on mobile) -->
             <div
-              class="bg-white bg-opacity-80 rounded-lg px-4 py-2 shadow text-sm sm:text-base"
+              class="absolute top-4 right-4 bg-[#003087] text-white px-4 py-2 rounded-md shadow-lg text-sm font-semibold hidden md:flex items-center space-x-2 z-10"
             >
-              <strong>Initial Focus Areas:</strong>
-              <ul class="list-disc pl-5 mt-2">
-                <li>New York</li>
-                <li>Florida</li>
-                <li>Georgia</li>
-                <li>South Carolina</li>
-                <li>Texas</li>
-                <li>California</li>
-                <li>Chicago Area</li>
-              </ul>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+              <span>Become A USRad Center</span>
             </div>
           </div>
 
-          <!-- Recruitment Ribbon -->
+          <!-- Regional Focus Content - Now below map on mobile, overlay on desktop -->
           <div
-            class="absolute top-4 right-4 bg-[#003087] text-white px-4 py-2 rounded-md shadow-lg text-sm font-semibold flex items-center space-x-2 z-10"
+            class="md:absolute md:top-4 md:left-4 md:text-left z-10 mt-4 md:mt-0 bg-white md:bg-white md:bg-opacity-80 rounded-lg px-4 py-3 shadow"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 text-[#cc9933]"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+            <strong class="block mb-2 text-[#003087]"
+              >Regional Focus Areas:</strong
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-            </svg>
-            <span>Recruiting Imaging Centers</span>
+
+            <!-- Mobile-friendly region groupings -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-3">
+              <div class="region-group">
+                <h4 class="font-medium text-[#003087]">Northeast</h4>
+                <p class="text-sm">New York</p>
+              </div>
+
+              <div class="region-group">
+                <h4 class="font-medium text-[#003087]">Southeast</h4>
+                <p class="text-sm">Florida, Georgia, South Carolina</p>
+              </div>
+
+              <div class="region-group">
+                <h4 class="font-medium text-[#003087]">Southwest</h4>
+                <p class="text-sm">Texas</p>
+              </div>
+
+              <div class="region-group">
+                <h4 class="font-medium text-[#003087]">West Coast</h4>
+                <p class="text-sm">California</p>
+              </div>
+
+              <div class="region-group">
+                <h4 class="font-medium text-[#003087]">Midwest</h4>
+                <p class="text-sm">Chicago Area</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile-Only USRad Center Button (hidden on desktop) -->
+          <div class="md:hidden w-full mt-4">
+            <button
+              class="w-full bg-[#003087] text-white py-3 px-4 rounded-md shadow-lg text-base font-semibold flex items-center justify-center space-x-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-[#cc9933]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+              <span>Become A USRad Center</span>
+            </button>
           </div>
         </div>
 
@@ -131,7 +175,7 @@
             class="bg-white p-6 rounded-xl shadow-lg inline-block border-b-4 border-[#cc9933] transform hover:scale-[1.02] transition-all duration-300"
           >
             <h3 class="text-2xl font-semibold text-[#003087] mb-3 font-manrope">
-              Own a Quality Imaging Center?
+              Manage Imaging Centers?
             </h3>
             <p class="text-[#003087] mb-4 font-manrope">
               Join the premier network transforming how patients access medical
