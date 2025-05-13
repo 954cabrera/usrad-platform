@@ -1,0 +1,411 @@
+---
+// src/pages/form-submitted.astro
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You | USRad</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-container">
+        <a href="/" class="logo-link">
+          <img src="/logo/USRad-Logo-final.png" alt="USRad Logo" class="logo" />
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <div class="confirmation-container">
+        <div class="confirmation-content">
+          <div class="success-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon"
+            >
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+
+          <h1>Thank You!</h1>
+          <p class="confirmation-message">
+            Your consultation request has been submitted successfully.
+          </p>
+
+          <div class="next-steps">
+            <h2>What happens next?</h2>
+            <ol>
+              <li>
+                <div class="step-number">1</div>
+                <div class="step-content">
+                  <h3>Review</h3>
+                  <p>
+                    Our team will review your information within 1 business day.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="step-number">2</div>
+                <div class="step-content">
+                  <h3>Contact</h3>
+                  <p>
+                    A USRad specialist will reach out to you via email to
+                    schedule a convenient time for your consultation.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div class="step-number">3</div>
+                <div class="step-content">
+                  <h3>Consultation</h3>
+                  <p>
+                    During your scheduled consultation, we'll discuss your
+                    specific needs and how USRad can support your facility.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="action-buttons">
+            <a href="/" class="primary-button">Return to Homepage</a>
+            <a href="/resources" class="secondary-button">Explore Resources</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <p>&copy; 2024 USRad. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+
+  :root {
+    --primary-color: #003087;
+    --accent-color: #cc9933;
+    --light-accent: #f8f2e1;
+    --success-color: #34c759;
+    --text-dark: #333333;
+    --text-medium: #555555;
+    --text-light: #777777;
+    --border-radius: 16px;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "Manrope", sans-serif;
+    background-color: #f5f8fc;
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+
+  .header {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 15px 0;
+  }
+
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-link {
+    display: inline-block;
+  }
+
+  .logo {
+    height: 40px;
+    width: auto;
+  }
+
+  main {
+    min-height: calc(100vh - 140px);
+    padding: 40px 0;
+  }
+
+  .confirmation-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+
+  .confirmation-content {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 40px;
+    text-align: center;
+    border-left: 6px solid var(--accent-color);
+    animation: fadeIn 0.6s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .success-icon {
+    background-color: var(--success-color);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 30px;
+  }
+
+  .success-icon .icon {
+    width: 50px;
+    height: 50px;
+    color: white;
+  }
+
+  h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+  }
+
+  .confirmation-message {
+    font-size: 20px;
+    color: var(--text-medium);
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .next-steps {
+    background-color: var(--light-accent);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    margin-bottom: 40px;
+    text-align: left;
+  }
+
+  .next-steps h2 {
+    font-size: 24px;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .next-steps ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .next-steps li {
+    display: flex;
+    margin-bottom: 25px;
+    align-items: flex-start;
+  }
+
+  .next-steps li:last-child {
+    margin-bottom: 0;
+  }
+
+  .step-number {
+    background-color: var(--primary-color);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-right: 15px;
+    margin-top: 3px;
+  }
+
+  .step-content {
+    flex: 1;
+  }
+
+  .step-content h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 0 0 8px 0;
+  }
+
+  .step-content p {
+    font-size: 16px;
+    color: var(--text-medium);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .primary-button,
+  .secondary-button {
+    padding: 16px 30px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .primary-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: 2px solid var(--primary-color);
+  }
+
+  .primary-button:hover {
+    background-color: #002268;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .secondary-button {
+    background-color: white;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+  }
+
+  .secondary-button:hover {
+    background-color: #f5f8fc;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    .header-container,
+    .footer-container {
+      padding: 0 15px;
+    }
+
+    .logo {
+      height: 35px;
+    }
+
+    main {
+      padding: 20px 0;
+    }
+
+    .confirmation-container {
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+
+    .confirmation-content {
+      padding: 30px 20px;
+      border-radius: 14px;
+      border-left-width: 8px;
+    }
+
+    .success-icon {
+      width: 90px;
+      height: 90px;
+      margin-bottom: 25px;
+    }
+
+    .success-icon .icon {
+      width: 45px;
+      height: 45px;
+    }
+
+    h1 {
+      font-size: 32px;
+    }
+
+    .confirmation-message {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .next-steps {
+      padding: 25px 20px;
+    }
+
+    .next-steps h2 {
+      font-size: 22px;
+    }
+
+    .step-content h3 {
+      font-size: 18px;
+    }
+
+    .step-content p {
+      font-size: 16px;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .primary-button,
+    .secondary-button {
+      width: 100%;
+      text-align: center;
+      padding: 18px 20px;
+      font-size: 18px;
+    }
+  }
+</style>
