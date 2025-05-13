@@ -149,3 +149,24 @@ body {
 .small-caps {
   font-variant: small-caps;
 }
+
+/* === Mobile Stats Box Fixes === */
+@media (max-width: 768px) {
+
+  /* Fix for stat numbers to prevent breaking and ensure proper display */
+  .bg-white .text-5xl.font-bold {
+    white-space: nowrap !important;
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Adjust padding for mobile stat boxes */
+  .bg-white.p-6.rounded-xl {
+    padding: 1rem !important;
+  }
+
+  /* Make description text smaller on mobile */
+  .bg-white .text-lg {
+    font-size: 0.875rem !important;
+  }
+}
