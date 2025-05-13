@@ -2,14 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Force consistent light mode appearance across all devices */
+/* === Global Light Mode Defaults === */
 html {
-  color-scheme: light;
   background-color: #fcf9f0 !important;
-  /* Enforce your gold base */
+  background-image: none !important;
+  color-scheme: light;
+  font-family: 'Manrope', sans-serif;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 body {
@@ -21,20 +26,30 @@ body {
   font-size: 1rem;
   line-height: 1.6;
   text-rendering: optimizeLegibility;
-  
 }
 
-/* Explicit override if browser forces dark mode */
+/* === Force override in dark mode (especially for Firefox/Fennec) === */
 @media (prefers-color-scheme: dark) {
 
   html,
   body {
-    background: #fcf9f0 !important;
+    background-color: #fcf9f0 !important;
     background-image: none !important;
     color: #003087 !important;
+    forced-color-adjust: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
   }
 }
 
+/* === Section-specific overrides === */
+.hero-override {
+  background-color: #fcf9f0 !important;
+  background-image: none !important;
+}
+
+/* === Visual Elements === */
 .abstract-medical-accent {
   position: absolute;
   width: 300px;
@@ -57,26 +72,22 @@ body {
   background-image: url('/images/neural-network-bottom-left.svg');
 }
 
+/* === Tailwind Layer Overrides === */
 @layer base {
-
-  /* Base font family */
-  html {
-    font-family: 'Manrope', sans-serif;
-  }
-
-  /* Link transitions */
   a {
     @apply transition-all duration-300;
   }
 
-  /* Primary button hover effects */
+  html {
+    font-family: 'Manrope', sans-serif;
+  }
+
   .btn-primary,
   a[class*="bg-[#003087]"],
   button[class*="bg-[#003087]"] {
     @apply transition-all duration-300 hover:shadow-xl hover:scale-105;
   }
 
-  /* Outlined button hover fill animation */
   .btn-outline,
   a[class*="border"][class*="text-[#003087]"],
   button[class*="border"][class*="text-[#003087]"] {
@@ -97,12 +108,10 @@ body {
     @apply h-full;
   }
 
-  /* Active interaction state */
   .is-active {
     @apply transform scale-105 opacity-70;
   }
 
-  /* Smooth transitions for all interactive elements */
   a,
   button,
   .btn,
@@ -112,12 +121,12 @@ body {
   }
 }
 
-/* Input field styling */
+/* === Input Fields === */
 .input {
   @apply w-full border border-gray-300 rounded-md px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500;
 }
 
-/* CTA Pulse Animation */
+/* === CTA Pulse Animation === */
 @keyframes pulse-soft {
 
   0%,
@@ -136,13 +145,7 @@ body {
   animation: pulse-soft 2.5s ease-in-out infinite;
 }
 
-/* Typography tweak */
+/* === Typography === */
 .small-caps {
   font-variant: small-caps;
-}
-
-/* Force section background override */
-.hero-override {
-  background-color: #fcf9f0 !important;
-  background-image: none !important;
 }
