@@ -16,107 +16,88 @@ import PatientTestimonials from "../components/PatientTestimonials.astro";
 import HowItWorksSteps from "../components/HowItWorksSteps.astro";
 import ClinicalTrustSection from "../components/ClinicalTrustSection.astro";
 import TrustBadgesBar from "../components/TrustBadgesBar.astro";
+import CallToAction from "../components/CallToAction.astro";
+import PrimaryButton from "../components/PrimaryButton.astro";
+import SecondaryButton from "../components/SecondaryButton.astro";
+import FadeIn from "../components/FadeIn.astro";
 ---
 
 <MainLayout>
   <AOSInit />
   <StickyPatientSubHeader client:load />
 
-  <!-- Hero Section: First impression with search capability -->
-  <section class="bg-gradient-to-b from-[#fcf9f0] to-[#f8f0d8]">
-    <HeroPatientIntro />
-    <!-- Optional early credibility indicator (if available) -->
-    <div class="bg-[#003087]/90 text-white py-3 text-center">
-      <div class="max-w-6xl mx-auto px-4">
-        <p class="text-sm sm:text-base font-medium">
-          Direct access to top-tier imaging centers with transparent pricing —
-          typically 30-70% below hospital rates
-        </p>
+  <!-- Hero Section -->
+  <FadeIn effect="fade" delay={0}>
+    <section class="bg-gradient-to-b from-[#fcf9f0] to-[#f8f0d8]">
+      <HeroPatientIntro />
+      <div class="bg-[#003087]/90 text-white py-3 text-center">
+        <div class="max-w-6xl mx-auto px-4">
+          <p class="text-sm sm:text-base font-medium">
+            Direct access to top-tier imaging centers with transparent pricing —
+            typically 30–70% below hospital rates
+          </p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </FadeIn>
 
-  <!-- Core Benefits: What sets USRad apart (with enhanced contrast) -->
-  <section class="bg-white py-16 sm:py-20">
-    <CoreBenefits />
-  </section>
+  <!-- Core Benefits -->
+  <FadeIn effect="fade" delay={100}>
+    <section class="bg-white pt-8 sm:pt-16 pb-12 sm:pb-20" ...>
+      <CoreBenefits />
+    </section>
+  </FadeIn>
 
-  <!-- Trust Elements: Why patients can trust USRad -->
-  <section class="bg-[#f0f4f9] py-14 sm:py-16">
-    <TrustBadgesBar />
-  </section>
+  <!-- Trust Badges -->
+  <FadeIn effect="zoom" delay={100}>
+    <section class="bg-[#f0f4f9] py-14 sm:py-16">
+      <TrustBadgesBar />
+    </section>
+  </FadeIn>
 
-  <!-- How It Works: Clear process explanation -->
-  <section class="bg-white py-16 sm:py-20">
-    <HowItWorksSteps />
-  </section>
+  <!-- How It Works -->
+  <FadeIn effect="slide-left" delay={100}>
+    <section class="bg-white py-16 sm:py-20">
+      <HowItWorksSteps />
+    </section>
+  </FadeIn>
 
-  <!-- Network Map: Show availability and reach -->
-  <section
-    class="bg-gradient-to-b from-[#f8f0d8]/30 to-[#f8f0d8]/10 py-16 sm:py-20"
-  >
-    <NetworkMap />
-  </section>
-
-  <!-- Clinical Trust: Emphasize medical credentials -->
-  <section class="bg-white py-16 sm:py-20">
-    <ClinicalTrustSection />
-  </section>
-
-  <!-- FAQ Preview: Address common concerns -->
-  <section class="bg-[#f9f9f9] py-16 sm:py-20">
-    <FAQPreview />
-  </section>
-
-  <!-- News/Industry Updates: Establish authority -->
-  <section class="bg-white py-16 sm:py-20" data-aos="fade-up">
-    <div class="max-w-6xl mx-auto px-6 sm:px-12">
-      <News />
-    </div>
-  </section>
-
-  <!-- Call to Action: Strong conversion focus -->
-  <section
-    class="bg-gradient-to-br from-[#003087] to-[#002266] text-white py-20 px-6 sm:px-12 relative overflow-hidden"
-    data-aos="fade-up"
-  >
-    <div
-      class="absolute inset-0 bg-repeat opacity-[0.03]"
-      style="background-image: url('/images/subtle-pattern.svg');"
+  <!-- Network Map -->
+  <FadeIn effect="fade" delay={100}>
+    <section
+      class="bg-gradient-to-b from-[#f8f0d8]/30 to-[#f8f0d8]/10 py-16 sm:py-20"
     >
-    </div>
-    <div
-      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.05] blur-3xl"
-    >
-    </div>
-    <div
-      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-white opacity-[0.03] blur-3xl"
-    >
-    </div>
-    <div class="max-w-6xl mx-auto text-center relative z-10">
-      <h2 class="text-4xl font-semibold mb-6 font-manrope">
-        Ready to Experience Imaging Done Right?
-      </h2>
-      <p class="text-xl max-w-3xl mx-auto mb-12 font-manrope">
-        Skip the referral, see transparent pricing, and book with confidence at
-        a trusted imaging center near you.
-      </p>
-      <div class="flex flex-col sm:flex-row justify-center gap-6">
-        <a
-          href="#top"
-          class="px-8 py-4 bg-[#cc9933] text-[#003087] font-bold rounded-full hover:bg-[#e6c378] transition-all duration-300 hover:shadow-xl font-manrope"
-        >
-          Find an Imaging Center
-        </a>
-        <a
-          href="/our-approach"
-          class="px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-[#003087] transition-all duration-300 hover:shadow-xl font-manrope"
-        >
-          Learn How It Works
-        </a>
+      <NetworkMap />
+    </section>
+  </FadeIn>
+
+  <!-- Clinical Trust -->
+  <FadeIn effect="fade" delay={100}>
+    <section class="bg-white py-16 sm:py-20">
+      <ClinicalTrustSection />
+    </section>
+  </FadeIn>
+
+  <!-- FAQ Preview -->
+  <FadeIn effect="slide-right" delay={100}>
+    <section class="bg-[#f9f9f9] py-16 sm:py-20">
+      <FAQPreview />
+    </section>
+  </FadeIn>
+
+  <!-- News -->
+  <FadeIn effect="fade" delay={100}>
+    <section class="bg-white py-16 sm:py-20">
+      <div class="max-w-6xl mx-auto px-6 sm:px-12">
+        <News />
       </div>
-    </div>
-  </section>
+    </section>
+  </FadeIn>
+
+  <!-- CTA -->
+  <FadeIn effect="fade" delay={100}>
+    <CallToAction />
+  </FadeIn>
 </MainLayout>
 
 <ChatbotToggle chatbotLabel="💬 Let's Talk" />

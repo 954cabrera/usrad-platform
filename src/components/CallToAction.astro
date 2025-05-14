@@ -1,0 +1,38 @@
+---
+import PrimaryButton from "./PrimaryButton.astro";
+import SecondaryButton from "./SecondaryButton.astro";
+---
+
+<section
+  class="bg-gradient-to-br from-[#003087] to-[#002266] text-white py-20 px-6 sm:px-12 relative overflow-hidden"
+  data-aos="fade-up"
+>
+  <div
+    class="absolute inset-0 bg-repeat opacity-[0.03]"
+    style="background-image: url('/images/subtle-pattern.svg');"
+  >
+  </div>
+  <div
+    class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.05] blur-3xl"
+  >
+  </div>
+  <div
+    class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-white opacity-[0.03] blur-3xl"
+  >
+  </div>
+
+  <div class="max-w-6xl mx-auto text-center relative z-10">
+    <h2 class="text-4xl font-semibold mb-6 font-manrope">
+      Ready to Experience Imaging Done Right?
+    </h2>
+    <p class="text-xl max-w-3xl mx-auto mb-12 font-manrope">
+      Skip the referral, see transparent pricing, and book with confidence at a
+      trusted imaging center near you.
+    </p>
+
+    <div class="flex flex-col sm:flex-row justify-center gap-6">
+      <PrimaryButton href="#top" color="gold" text="Find an Imaging Center" />
+      <SecondaryButton href="/our-approach" text="Learn How It Works" />
+    </div>
+  </div>
+</section>

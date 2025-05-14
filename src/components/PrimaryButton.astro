@@ -1,0 +1,17 @@
+---
+// components/PrimaryButton.astro
+const { href, text, color = "gold" } = Astro.props;
+const baseColor = color === "gold" ? "#cc9933" : "#003087";
+const hoverColor = color === "gold" ? "#e6c378" : "#002266";
+const textColor = color === "gold" ? "#003087" : "white";
+---
+
+<a
+  href={href}
+  class="px-8 py-4 font-bold rounded-full transition-all duration-300 hover:shadow-xl font-manrope"
+  style={`background-color: ${baseColor}; color: ${textColor};`}
+  on:mouseenter={() => (event.target.style.backgroundColor = hoverColor)}
+  on:mouseleave={() => (event.target.style.backgroundColor = baseColor)}
+>
+  {text}
+</a>

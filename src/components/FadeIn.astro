@@ -1,18 +1,18 @@
 ---
-const { children, effect = "fade", delay = 0 } = Astro.props;
-
+const { effect = "fade", delay = 0 } = Astro.props;
 const effectClass = `fade-in ${effect} delay-${delay}`;
 ---
 
-<div class={effectClass} is:visible>
+<div class={effectClass}>
   <slot />
 </div>
 
 <style>
   .fade-in {
     opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.7s ease-out;
+    transition:
+      opacity 0.7s ease-out,
+      transform 0.7s ease-out;
   }
 
   .fade-in.is-visible {
@@ -20,6 +20,7 @@ const effectClass = `fade-in ${effect} delay-${delay}`;
     transform: none;
   }
 
+  /* Animation types */
   .fade {
     transform: translateY(40px);
   }
@@ -36,6 +37,7 @@ const effectClass = `fade-in ${effect} delay-${delay}`;
     transform: translateX(40px);
   }
 
+  /* Delay utilities */
   .delay-0 {
     transition-delay: 0s;
   }

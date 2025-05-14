@@ -1,0 +1,11 @@
+---
+// components/SecondaryButton.astro
+const { href, text } = Astro.props;
+---
+
+<a
+  href={href}
+  class="px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-[#003087] transition-all duration-300 hover:shadow-xl font-manrope"
+>
+  {text}
+</a>
