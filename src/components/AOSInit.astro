@@ -1,16 +1,34 @@
 ---
 // components/AOSInit.astro
-import "aos/dist/aos.css";
 ---
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+  media="print"
+  onload="this.media='all'"
+/>
+<noscript>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+</noscript>
 
 <script>
   import AOS from "aos";
-  AOS.init({
-    once: true, // animate only once
-    duration: 800, // smooth scroll duration
-    easing: "ease-out-cubic", // premium easing
-    offset: 60, // triggers a little earlier
-    delay: 0,
-    disable: "phone", // optional: disable on mobile
-  });
+
+  const startAOS = () => {
+    AOS.init({
+      once: true,
+      duration: 800,
+      easing: "ease-out-cubic",
+      offset: 60,
+      delay: 0,
+      disable: false,
+    });
+  };
+
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(startAOS);
+  } else {
+    window.addEventListener("DOMContentLoaded", startAOS);
+  }
 </script>
