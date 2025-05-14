@@ -9,86 +9,87 @@ import FadeIn from "../components/FadeIn.astro";
 <MainLayout>
   <AOSInit />
 
-  <!-- Hero Section -->
+  <!-- Hero Section (Revised Positioning with Visuals) -->
+  <!-- Hero Section (Revised Positioning with Visuals) -->
   <section
-    class="relative bg-gradient-to-b from-[#fcf9f0] to-[#f5e7c5] text-[#003087] pt-32 pb-20 px-6 sm:px-12 overflow-hidden"
+    class="bg-gradient-to-b from-[#fcf9f0] to-[#f5e7c5] text-[#003087] pt-32 pb-20 px-6 sm:px-12 overflow-hidden"
   >
-    <div class="max-w-6xl mx-auto relative z-10">
-      <div class="text-center" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <div data-aos="fade-up">
         <h1
-          class="text-5xl sm:text-6xl font-extrabold leading-tight font-manrope text-[#003087]"
+          class="text-4xl sm:text-5xl font-extrabold leading-tight font-manrope mb-6"
         >
-          Our <span class="text-[#cc9933] relative">
-            Approach
-            <svg
-              class="absolute -bottom-2 left-0 w-full"
-              height="6"
-              viewBox="0 0 340 6"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M2 3.5C2 3.5 70 0.5 170 3.5C270 6.5 338 3.5 338 3.5"
-                stroke="#cc9933"
-                stroke-width="4"
-                stroke-linecap="round"></path>
-            </svg>
-          </span>
+          The Medical Imaging System Wasn’t Built for Patients.
         </h1>
-        <p
-          class="mt-8 text-lg sm:text-xl text-[#003087] max-w-2xl mx-auto leading-relaxed font-manrope"
-        >
-          We've reimagined the traditional medical imaging experience to create
-          a system that works better for patients, providers, and imaging
-          centers.
+        <p class="text-lg sm:text-xl leading-relaxed font-manrope">
+          USRad exists to challenge the traditional system. No referrals. No
+          surprise bills. Just access, quality, and transparency — the way
+          imaging should work.
         </p>
       </div>
-    </div>
-  </section>
-
-  <!-- SmartMatch System -->
-  <section class="py-24 px-6 bg-white text-[#003087]">
-    <FadeIn>
-      <div class="max-w-6xl mx-auto text-center">
-        <h2 class="text-4xl sm:text-5xl font-extrabold mb-6 font-manrope">
-          Introducing SmartMatch™
-        </h2>
-        <p
-          class="text-lg sm:text-xl mb-12 max-w-3xl mx-auto font-manrope leading-relaxed"
-        >
-          Our proprietary SmartMatch™ technology connects each patient with the
-          ideal imaging center by analyzing diagnosis type, subspecialty needs,
-          location, and appointment urgency — all in seconds.
-        </p>
-
-        <img
-          src="/images/smartmatch-diagram.svg"
-          alt="SmartMatch System Diagram"
-          class="mx-auto mb-12 max-w-4xl w-full"
-        />
-
-        <div
-          class="grid md:grid-cols-3 gap-12 text-left text-base sm:text-lg font-manrope leading-relaxed"
-        >
-          <div>
-            <h3 class="text-xl font-semibold mb-2">1. Patient Needs</h3>
-            <p>We assess scan type, urgency, and geographic preference.</p>
-          </div>
-          <div>
-            <h3 class="text-xl font-semibold mb-2">2. Center Matching</h3>
-            <p>
-              We pair patients with centers that meet exact imaging criteria.
-            </p>
-          </div>
-          <div>
-            <h3 class="text-xl font-semibold mb-2">3. Quality Verification</h3>
-            <p>
-              All matches are verified for board-certified radiologists and
-              accredited equipment standards.
-            </p>
+      <div>
+        <div class="relative">
+          <img
+            src="/images/problem-image.png"
+            alt="Frustrated patient in traditional waiting room"
+            class="rounded-xl shadow-lg w-full md:max-w-[85%] md:mx-auto md:mb-8"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-[#fcf9f0]/70 to-[#cc9933]/30 rounded-xl"
+          >
           </div>
         </div>
       </div>
-    </FadeIn>
+    </div>
+
+    <div
+      class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 mt-20 items-center"
+    >
+      <div data-aos="zoom-in" data-aos-delay="150">
+        <div class="relative">
+          <img
+            src="/images/solution-image.png"
+            alt="Patient speaking with USRad team"
+            class="rounded-xl shadow-xl w-full md:max-w-[95%] md:mx-auto"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-[#fcf9f0]/60 to-[#cc9933]/20 rounded-xl"
+          >
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex flex-col justify-center text-center md:text-left px-4 md:px-8"
+        data-aos="fade-left"
+        data-aos-delay="300"
+      >
+        <span
+          class="inline-block bg-[#fcf9f0] text-[#003087] text-xs font-bold px-3 py-1 rounded-full mb-4"
+        >
+          Patient-First Promise
+        </span>
+        <h2
+          class="text-4xl sm:text-5xl font-extrabold mb-6 text-[#cc9933] font-manrope md:leading-snug"
+        >
+          The USRad Difference
+        </h2>
+
+        <p
+          class="text-lg sm:text-xl font-manrope leading-relaxed md:leading-relaxed"
+        >
+          At USRad, we’re changing that. We provide direct access to top-tier
+          imaging centers, ensure all radiologists are board-certified, and
+          offer priority scheduling typically within days, not weeks, at one
+          all-inclusive price.
+        </p>
+        <a
+          href="/book"
+          class="mt-6 inline-block bg-[#003087] text-white font-bold px-6 py-3 rounded-full shadow hover:bg-[#002266] transition"
+        >
+          Find Centers Near You →
+        </a>
+      </div>
+    </div>
   </section>
 
   <!-- Elegant Divider -->
@@ -147,4 +148,21 @@ import FadeIn from "../components/FadeIn.astro";
       </div>
     </FadeIn>
   </section>
+  <!-- Closing Trust Bar -->
+  <section class="bg-[#fcf9f0] py-16 text-center text-[#003087]">
+    <div class="max-w-4xl mx-auto px-6">
+      <p class="text-lg sm:text-xl font-medium leading-relaxed">
+        USRad is here to make imaging care effortless. No calls. No chaos. Just
+        clarity.
+      </p>
+      <a
+        href="/book"
+        class="mt-6 inline-block bg-[#cc9933] text-[#003087] font-bold px-6 py-3 rounded-full shadow hover:bg-[#e6c378] transition"
+      >
+        Find Centers Near You →
+      </a>
+    </div>
+  </section>
+
+  <ChatbotToggle chatbotLabel="💬 Let's Talk" />
 </MainLayout>
