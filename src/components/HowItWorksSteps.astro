@@ -1,39 +1,565 @@
 ---
-
+// Enhanced HowItWorksSteps.astro (Complete)
 ---
 
-<section class="bg-white py-24 text-[#003087]">
-  <div class="max-w-5xl mx-auto px-6 text-center">
-    <h2 class="text-4xl font-extrabold mb-12">How It Works</h2>
-    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8 text-left">
-      <div class="flex flex-col items-start">
-        <div class="text-3xl font-bold text-[#cc9933] mb-2">1</div>
-        <h3 class="text-xl font-semibold mb-1">Choose Your Scan</h3>
-        <p class="text-sm">
-          Select the type of scan you need and enter your ZIP code.
-        </p>
+<!-- Matching Your Actual How It Works Design ---
+
+<section id="how-it-works" class="py-20 px-6 text-center bg-white">
+  <div class="max-w-6xl mx-auto">
+    <!-- Centered Section Header -->
+<div class="mb-16 text-center">
+  <div class="flex items-center justify-center gap-3 mb-3">
+    <span class="h-px w-16 bg-[#cc9933]"></span>
+    <span class="text-[#cc9933] uppercase tracking-wider text-sm font-semibold"
+      >SIMPLE PROCESS</span
+    >
+    <span class="h-px w-16 bg-[#cc9933]"></span>
+  </div>
+  <h2 class="text-4xl font-extrabold text-[#003087] mb-6 text-center">
+    How It Works
+  </h2>
+  <p class="text-lg text-[#003087] max-w-3xl mx-auto mb-10 text-center">
+    Skip the hassle of traditional imaging. Our streamlined process gets you
+    from search to scan in just four simple steps - no referrals required.
+  </p>
+</div>
+
+<!-- Process Steps (four icons with titles) -->
+<div
+  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8 mb-16"
+>
+  <!-- Step 1 -->
+  <div class="flex flex-col items-center">
+    <div
+      class="w-14 h-14 bg-[#003087] rounded-md flex items-center justify-center"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 text-white"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+    </div>
+    <h3 class="text-xl font-bold text-[#003087] mt-4 mb-3 min-h-[2rem]">
+      Choose Your Scan
+    </h3>
+    <p class="text-[#003087] text-base min-h-[6rem] max-w-xs mx-auto">
+      Select the type of scan you need using our simple search tool and enter
+      your location. We'll help you navigate the prescription process.
+    </p>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="flex flex-col items-center">
+    <div
+      class="w-14 h-14 bg-[#003087] rounded-md flex items-center justify-center"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 text-white"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+        ></path>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+      </svg>
+    </div>
+    <h3 class="text-xl font-bold text-[#003087] mt-4 mb-3 min-h-[2rem]">
+      Get Matched
+    </h3>
+    <p class="text-[#003087] text-base min-h-[6rem] max-w-xs mx-auto">
+      We'll instantly pair you with high-quality, accredited imaging centers
+      near you with priority availability.
+    </p>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="flex flex-col items-center">
+    <div
+      class="w-14 h-14 bg-[#003087] rounded-md flex items-center justify-center"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 text-white"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+        ></path>
+      </svg>
+    </div>
+    <h3 class="text-xl font-bold text-[#003087] mt-4 mb-3 min-h-[2rem]">
+      Confirm and Pay
+    </h3>
+    <p class="text-[#003087] text-base min-h-[6rem] max-w-xs mx-auto">
+      Review your scan details and all-inclusive price. Pay securely online –
+      with absolutely no surprise bills later.
+    </p>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="flex flex-col items-center">
+    <div
+      class="w-14 h-14 bg-[#003087] rounded-md flex items-center justify-center"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 text-white"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+        ></path>
+      </svg>
+    </div>
+    <h3 class="text-xl font-bold text-[#003087] mt-4 mb-3 min-h-[2rem]">
+      Get Expert Care
+    </h3>
+    <p class="text-[#003087] text-base min-h-[6rem] max-w-xs mx-auto">
+      Arrive for your appointment and receive high-quality imaging interpreted
+      by board-certified radiologists.
+    </p>
+  </div>
+</div>
+
+<!-- First row of checkmarks -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+  <!-- Checkmark 1 -->
+  <div class="flex flex-col items-center">
+    <div class="h-16 flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-12 h-12 text-[#003087]"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"
+        ></path>
+      </svg>
+    </div>
+    <p class="text-[#003087] text-base mt-2">Virtual prescription options</p>
+  </div>
+
+  <!-- Checkmark 2 -->
+  <div class="flex flex-col items-center">
+    <div class="h-16 flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-12 h-12 text-[#003087]"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"
+        ></path>
+      </svg>
+    </div>
+    <p class="text-[#003087] text-base mt-2">All centers are accredited</p>
+  </div>
+
+  <!-- Checkmark 3 -->
+  <div class="flex flex-col items-center">
+    <div class="h-16 flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-12 h-12 text-[#003087]"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"
+        ></path>
+      </svg>
+    </div>
+    <p class="text-[#003087] text-base mt-2">All-inclusive pricing</p>
+  </div>
+
+  <!-- Checkmark 4 -->
+  <div class="flex flex-col items-center">
+    <div class="h-16 flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-12 h-12 text-[#003087]"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"
+        ></path>
+      </svg>
+    </div>
+    <p class="text-[#003087] text-base mt-2">State-of-the-art equipment</p>
+  </div>
+</div>
+
+<!-- Second row of checkmarks -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+  <!-- Checkmark 1 -->
+  <div class="flex flex-col items-center">
+    <div class="h-16 flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-12 h-12 text-[#003087]"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"
+        ></path>
+      </svg>
+    </div>
+    <p class="text-[#003087] text-base mt-2">Show all centers near you</p>
+  </div>
+
+  <!-- Checkmark 2 -->
+  <div class="flex flex-col items-center">
+    <div class="h-16 flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-12 h-12 text-[#003087]"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"
+        ></path>
+      </svg>
+    </div>
+    <p class="text-[#003087] text-base mt-2">See availability in real-time</p>
+  </div>
+
+  <!-- Checkmark 3 -->
+  <div class="flex flex-col items-center">
+    <div class="h-16 flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-12 h-12 text-[#003087]"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"
+        ></path>
+      </svg>
+    </div>
+    <p class="text-[#003087] text-base mt-2">No insurance required</p>
+  </div>
+
+  <!-- Checkmark 4 -->
+  <div class="flex flex-col items-center">
+    <div class="h-16 flex items-center justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-12 h-12 text-[#003087]"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"
+        ></path>
+      </svg>
+    </div>
+    <p class="text-[#003087] text-base mt-2">Fast results delivery</p>
+  </div>
+</div>
+
+<!-- How We Compare Section -->
+<div class="mt-24 mb-16">
+  <div class="mt-24 mb-16 text-center">
+    <h3 class="text-2xl font-bold text-[#003087] mb-8 text-center">
+      How We Compare
+    </h3>
+
+    <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <!-- USRad Way -->
+      <div class="bg-[#f0f8ff] rounded-lg p-6 text-left">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-8 h-8 bg-[#003087] rounded-full flex items-center justify-center mr-3"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h4 class="text-xl font-bold text-[#003087]">The USRad Way</h4>
+        </div>
+
+        <ul class="space-y-3">
+          <li class="flex items-start">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>Virtual prescription options available</span>
+          </li>
+          <li class="flex items-start">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>Clear all-inclusive pricing you see upfront</span>
+          </li>
+          <li class="flex items-start">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>Priority scheduling within 2-4 days</span>
+          </li>
+          <li class="flex items-start">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>Guaranteed board-certified radiologists</span>
+          </li>
+        </ul>
       </div>
-      <div class="flex flex-col items-start">
-        <div class="text-3xl font-bold text-[#cc9933] mb-2">2</div>
-        <h3 class="text-xl font-semibold mb-1">Get Matched</h3>
-        <p class="text-sm">
-          We’ll instantly pair you with a certified imaging center near you.
-        </p>
-      </div>
-      <div class="flex flex-col items-start">
-        <div class="text-3xl font-bold text-[#cc9933] mb-2">3</div>
-        <h3 class="text-xl font-semibold mb-1">Confirm and Pay</h3>
-        <p class="text-sm">
-          Review your scan details and pay upfront — no surprise bills.
-        </p>
-      </div>
-      <div class="flex flex-col items-start">
-        <div class="text-3xl font-bold text-[#cc9933] mb-2">4</div>
-        <h3 class="text-xl font-semibold mb-1">Get Scanned</h3>
-        <p class="text-sm">
-          Arrive at your appointment and get high-quality imaging done right.
-        </p>
+
+      <!-- Traditional Process -->
+      <div class="bg-[#fff5f5] rounded-lg p-6 text-left">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center mr-3"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </div>
+          <h4 class="text-xl font-bold text-red-600">Traditional Process</h4>
+        </div>
+
+        <ul class="space-y-3">
+          <li class="flex items-start">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-red-500 mr-3 mt-0.5 flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            <span>In-person doctor visit for prescription</span>
+          </li>
+          <li class="flex items-start">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-red-500 mr-3 mt-0.5 flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            <span>Hidden fees and separate bills</span>
+          </li>
+          <li class="flex items-start">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-red-500 mr-3 mt-0.5 flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            <span>2-3 week wait times (or longer)</span>
+          </li>
+          <li class="flex items-start">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 text-red-500 mr-3 mt-0.5 flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            <span>Unknown radiologist qualifications</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
-</section>
+
+  <!-- CTA Button -->
+  <div class="mt-16 text-center">
+    <a
+      href="/book"
+      class="inline-block bg-[#cc9933] text-[#003087] font-bold px-8 py-4 rounded-full shadow-md hover:bg-[#e6c378] transition-all hover:shadow-lg"
+    >
+      Find an Imaging Center
+    </a>
+  </div>
+</div>
+
+<style>
+  .step-icon {
+    width: 48px;
+    height: 48px;
+    background-color: #003087;
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+
+<style>
+  .process-step-number {
+    position: absolute;
+    top: -12px;
+    left: 16px;
+    background: #cc9933;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.125rem;
+    z-index: 1;
+  }
+
+  .process-step-icon {
+    width: 56px;
+    height: 56px;
+    background-color: #003087;
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+
+  .process-step-icon:hover {
+    background-color: #cc9933;
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    .process-step-number {
+      left: 12px;
+      top: -10px;
+      width: 28px;
+      height: 28px;
+      font-size: 1rem;
+    }
+  }
+</style>

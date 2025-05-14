@@ -1,24 +1,85 @@
 ---
-// CoreBenefits.astro
+// Balanced Responsive Card Layout for Core Benefits
 ---
 
 <div class="core-benefits-section">
   <div class="section-header">
+    <div class="flex items-center justify-center gap-3 mb-2">
+      <span class="h-px w-12 bg-[#cc9933]"></span>
+      <span class="text-[#cc9933] uppercase tracking-wider text-sm font-bold"
+        >Premium Experience</span
+      >
+      <span class="h-px w-12 bg-[#cc9933]"></span>
+    </div>
     <h2
-      class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center"
+      class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center mb-4"
     >
       <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
-      Why Choose USRad
+      The USRad Advantage
     </h2>
-    <p class="mt-4 text-xl text-[#003087] max-w-3xl mx-auto text-center">
+    <p class="mt-4 text-xl text-[#003087] max-w-3xl mx-auto text-center mb-12">
       We've reimagined medical imaging to deliver an experience that puts you
-      first.
+      first - at prices 30-70% below hospitals.
     </p>
   </div>
 
+  <!-- Balanced Responsive Grid Layout -->
   <div class="benefits-grid">
-    <!-- Benefit 1: Price -->
-    <div class="benefit-card" data-aos="fade-up" data-aos-delay="100">
+    <!-- Streamlined Prescription Process Card -->
+    <div class="benefit-card">
+      <!-- Coming Soon Corner Ribbon -->
+      <div class="ribbon ribbon-top-right"><span>Coming Soon</span></div>
+
+      <div class="benefit-icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-8 w-8 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+      </div>
+
+      <h3 class="benefit-title">Streamlined Prescription Process</h3>
+
+      <p class="benefit-description">
+        We're developing partnerships with telehealth providers to simplify the
+        path from prescription to imaging. Soon, our platform will offer
+        convenient virtual consultation options, helping you avoid unnecessary
+        wait times and office visits.
+      </p>
+
+      <div class="benefit-comparison">
+        <div class="comparison-item">
+          <span class="check-icon">✓</span>
+          <span>Virtual prescription options</span>
+        </div>
+        <div class="comparison-item">
+          <span class="check-icon">✓</span>
+          <span>Cost-effective consultation</span>
+        </div>
+        <div class="comparison-item">
+          <span class="check-icon">✓</span>
+          <span>Simplified coordination</span>
+        </div>
+      </div>
+
+      <div class="coming-soon-badge">
+        <span class="pulse-dot"></span>
+        <span>Coming Soon</span>
+      </div>
+    </div>
+
+    <!-- True Price Transparency Card -->
+    <div class="benefit-card">
+      <div class="benefit-tag">Save 30-70%</div>
+
       <div class="benefit-icon">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -35,16 +96,35 @@
           ></path>
         </svg>
       </div>
-      <h3 class="benefit-title">Transparent Pricing</h3>
+
+      <h3 class="benefit-title">True Price Transparency</h3>
+
       <p class="benefit-description">
-        Save 30-70% compared to hospital rates with our all-inclusive pricing.
-        No hidden fees, no separate bills for facility and radiologist, just one
-        clear price upfront.
+        See the exact price before you book – no hidden fees or surprise bills.
+        Our all-inclusive pricing covers both facility and radiologist fees,
+        with savings of 30-70% compared to hospital rates.
       </p>
+
+      <div class="benefit-comparison">
+        <div class="comparison-item">
+          <span class="check-icon">✓</span>
+          <span>All-inclusive pricing</span>
+        </div>
+        <div class="comparison-item">
+          <span class="check-icon">✓</span>
+          <span>No separate radiologist bills</span>
+        </div>
+        <div class="comparison-item">
+          <span class="check-icon">✓</span>
+          <span>No insurance required</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Benefit 2: Speed -->
-    <div class="benefit-card" data-aos="fade-up" data-aos-delay="200">
+    <!-- Priority Scheduling Card -->
+    <div class="benefit-card">
+      <div class="benefit-tag">2-4 Day Wait vs. Weeks</div>
+
       <div class="benefit-icon">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -60,16 +140,35 @@
             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
       </div>
+
       <h3 class="benefit-title">Priority Scheduling</h3>
+
       <p class="benefit-description">
-        Get your scan within 2-4 days instead of waiting weeks. Our network
-        partnerships give you access to preferred appointment slots when you
-        need them most.
+        Get your scan within 2-4 days instead of the typical 2-3 week wait. Our
+        priority scheduling system gives you access to preferred appointment
+        slots at state-of-the-art imaging centers.
       </p>
+
+      <div class="benefit-comparison">
+        <div class="comparison-item">
+          <span class="check-icon">✓</span>
+          <span>2-4 day typical wait time</span>
+        </div>
+        <div class="comparison-item">
+          <span class="check-icon">✓</span>
+          <span>Reserved priority slots</span>
+        </div>
+        <div class="comparison-item">
+          <span class="check-icon">✓</span>
+          <span>Online scheduling</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Benefit 3: Quality -->
-    <div class="benefit-card" data-aos="fade-up" data-aos-delay="300">
+    <!-- Board-Certified Radiologists Card -->
+    <div class="benefit-card">
+      <div class="benefit-tag">100% Board-Certified</div>
+
       <div class="benefit-icon">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -86,39 +185,35 @@
           ></path>
         </svg>
       </div>
-      <h3 class="benefit-title">Expert Radiologists</h3>
-      <p class="benefit-description">
-        Every scan is interpreted by board-certified specialist radiologists
-        with advanced training in their field. We match your scan type with the
-        right expert for accurate results.
-      </p>
-    </div>
 
-    <!-- Benefit 4: Simplicity -->
-    <div class="benefit-card" data-aos="fade-up" data-aos-delay="400">
-      <div class="benefit-icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-8 w-8 text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-          ></path>
-        </svg>
-      </div>
-      <h3 class="benefit-title">Seamless Experience</h3>
+      <h3 class="benefit-title">Board-Certified Radiologists</h3>
+
       <p class="benefit-description">
-        Skip the hassle of referrals, insurance approvals, and coordination. Our
-        team handles all the details—from booking to results delivery—so you can
-        focus on your health.
+        Every scan is interpreted by board-certified radiologists with
+        specialized expertise in their field. We match your scan type with the
+        right specialist for the most accurate results.
       </p>
+
+      <div class="benefit-comparison">
+        <div class="comparison-item">
+          <span class="check-icon">✓</span>
+          <span>Subspecialty expertise</span>
+        </div>
+        <div class="comparison-item">
+          <span class="check-icon">✓</span>
+          <span>Fellowship-trained physicians</span>
+        </div>
+        <div class="comparison-item">
+          <span class="check-icon">✓</span>
+          <span>Scan-specific specialists</span>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Comparison Table (Optional) -->
+  <div class="comparison-banner mt-20" data-aos="fade-up">
+    <!-- Comparison table content here if desired -->
   </div>
 </div>
 
@@ -131,30 +226,104 @@
 
   .section-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
   }
 
+  /* Responsive Grid Layout */
   .benefits-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: 1fr;
     gap: 2rem;
   }
 
+  /* Tablet: 2x2 Grid */
+  @media (min-width: 768px) {
+    .benefits-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Extra Large Screens: All in a row */
+  @media (min-width: 1280px) {
+    .benefits-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
   .benefit-card {
+    position: relative;
     background-color: white;
     border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem 2rem 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     border-top: 4px solid #cc9933;
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 
   .benefit-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Corner Ribbon for Coming Soon */
+  .ribbon {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .ribbon-top-right {
+    top: -10px;
+    right: -10px;
+  }
+
+  .ribbon-top-right::before,
+  .ribbon-top-right::after {
+    border-top-color: transparent;
+    border-right-color: transparent;
+  }
+
+  .ribbon-top-right::before {
+    top: 0;
+    left: 0;
+  }
+
+  .ribbon-top-right::after {
+    bottom: 0;
+    right: 0;
+  }
+
+  .ribbon-top-right span {
+    position: absolute;
+    top: 30px;
+    right: -25px;
+    transform: rotate(45deg);
+    width: 200px;
+    background-color: #003087;
+    color: white;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 5px 0;
+  }
+
+  /* Benefit Tags */
+  .benefit-tag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #cc9933;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-bottom-left-radius: 0.5rem;
   }
 
   .benefit-icon {
@@ -184,6 +353,71 @@
     color: #003087;
     font-size: 1.125rem;
     line-height: 1.6;
-    flex-grow: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .benefit-comparison {
+    margin-top: auto;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 1rem;
+  }
+
+  .comparison-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: #003087;
+  }
+
+  .check-icon {
+    color: #cc9933;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  /* Coming Soon Badge */
+  .coming-soon-badge {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: rgba(0, 48, 135, 0.1);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #003087;
+  }
+
+  .pulse-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #003087;
+    border-radius: 50%;
+    margin-right: 8px;
+    position: relative;
+  }
+
+  .pulse-dot::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #003087;
+    animation: pulse 2s infinite;
+    top: 0;
+    left: 0;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+    }
   }
 </style>

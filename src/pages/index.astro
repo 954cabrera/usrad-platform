@@ -22,42 +22,62 @@ import TrustBadgesBar from "../components/TrustBadgesBar.astro";
   <AOSInit />
   <StickyPatientSubHeader client:load />
 
-  <section class="bg-[#fcf9f0]">
+  <!-- Hero Section: First impression with search capability -->
+  <section class="bg-gradient-to-b from-[#fcf9f0] to-[#f8f0d8]">
     <HeroPatientIntro />
+    <!-- Optional early credibility indicator (if available) -->
+    <div class="bg-[#003087]/90 text-white py-3 text-center">
+      <div class="max-w-6xl mx-auto px-4">
+        <p class="text-sm sm:text-base font-medium">
+          Direct access to top-tier imaging centers with transparent pricing —
+          typically 30-70% below hospital rates
+        </p>
+      </div>
+    </div>
   </section>
 
-  <section class="bg-white">
-    <HowItWorksSteps />
-  </section>
-
-  <section class="bg-[#f9f9f9]">
+  <!-- Core Benefits: What sets USRad apart (with enhanced contrast) -->
+  <section class="bg-white py-16 sm:py-20">
     <CoreBenefits />
   </section>
 
-  <section class="bg-[#fcf9f0]">
+  <!-- Trust Elements: Why patients can trust USRad -->
+  <section class="bg-[#f0f4f9] py-14 sm:py-16">
     <TrustBadgesBar />
   </section>
 
-  <section class="bg-white">
-    <ClinicalTrustSection />
+  <!-- How It Works: Clear process explanation -->
+  <section class="bg-white py-16 sm:py-20">
+    <HowItWorksSteps />
   </section>
 
-  <section class="bg-[#f0f4f9]">
+  <!-- Network Map: Show availability and reach -->
+  <section
+    class="bg-gradient-to-b from-[#f8f0d8]/30 to-[#f8f0d8]/10 py-16 sm:py-20"
+  >
     <NetworkMap />
   </section>
 
-  <section class="bg-white">
+  <!-- Clinical Trust: Emphasize medical credentials -->
+  <section class="bg-white py-16 sm:py-20">
+    <ClinicalTrustSection />
+  </section>
+
+  <!-- FAQ Preview: Address common concerns -->
+  <section class="bg-[#f9f9f9] py-16 sm:py-20">
     <FAQPreview />
   </section>
 
-  <section class="bg-[#f9f9f9] py-20 px-6 sm:px-12" data-aos="fade-up">
-    <div class="max-w-6xl mx-auto">
+  <!-- News/Industry Updates: Establish authority -->
+  <section class="bg-white py-16 sm:py-20" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto px-6 sm:px-12">
       <News />
     </div>
   </section>
 
+  <!-- Call to Action: Strong conversion focus -->
   <section
-    class="bg-[#003087] text-white py-20 px-6 sm:px-12 relative overflow-hidden"
+    class="bg-gradient-to-br from-[#003087] to-[#002266] text-white py-20 px-6 sm:px-12 relative overflow-hidden"
     data-aos="fade-up"
   >
     <div

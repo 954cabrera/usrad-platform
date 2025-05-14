@@ -1,5 +1,6 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+import StickyPatientSubHeader from "../components/StickyPatientSubHeader.jsx";
 ---
 
 <MainLayout title="Frequently Asked Questions | USRad Imaging">
@@ -1567,131 +1568,143 @@ import MainLayout from "../layouts/MainLayout.astro";
       </div>
     </div>
   </div>
+
+  <!-- FAQ JavaScript -->
+  <script>
+    // Tab functionality
+    document.addEventListener("DOMContentLoaded", function () {
+      const tabButtons = document.querySelectorAll(".tab-button");
+      const tabContents = document.querySelectorAll(".tab-content");
+
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          // Remove active class from all buttons and content
+          tabButtons.forEach((btn) =>
+            btn.classList.remove(
+              "active",
+              "border-indigo-500",
+              "text-indigo-600"
+            )
+          );
+          tabButtons.forEach((btn) =>
+            btn.classList.add("border-transparent", "text-gray-500")
+          );
+          tabContents.forEach((content) => content.classList.add("hidden"));
+
+          // Add active class to clicked button
+          button.classList.add(
+            "active",
+            "border-indigo-500",
+            "text-indigo-600"
+          );
+          button.classList.remove("border-transparent", "text-gray-500");
+
+          // Show corresponding content
+          const targetId = button.getAttribute("data-target");
+          document.getElementById(targetId).classList.remove("hidden");
+        });
+      });
+
+      // Procedure details toggles
+      const detailToggles = document.querySelectorAll(
+        ".procedure-details-toggle"
+      );
+      detailToggles.forEach((toggle) => {
+        toggle.addEventListener("click", () => {
+          const targetId = toggle.getAttribute("data-target");
+          const targetElement = document.getElementById(targetId);
+
+          if (targetElement.classList.contains("hidden")) {
+            targetElement.classList.remove("hidden");
+            toggle.querySelector("svg").innerHTML =
+              '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />';
+          } else {
+            targetElement.classList.add("hidden");
+            toggle.querySelector("svg").innerHTML =
+              '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />';
+          }
+        });
+      });
+
+      // Preparation toggles
+      const prepToggles = document.querySelectorAll(".preparation-toggle");
+      prepToggles.forEach((toggle) => {
+        toggle.addEventListener("click", () => {
+          const targetId = toggle.getAttribute("data-target");
+          const targetElement = document.getElementById(targetId);
+
+          if (targetElement.classList.contains("hidden")) {
+            targetElement.classList.remove("hidden");
+            toggle.querySelector("svg").innerHTML =
+              '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />';
+          } else {
+            targetElement.classList.add("hidden");
+            toggle.querySelector("svg").innerHTML =
+              '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />';
+          }
+        });
+      });
+
+      // Search functionality
+      const searchInput = document.getElementById("faq-search");
+      searchInput.addEventListener("input", () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        const allQuestions = document.querySelectorAll(".bg-white.rounded-xl");
+
+        allQuestions.forEach((question) => {
+          const questionText = question
+            .querySelector("h3")
+            .textContent.toLowerCase();
+          const answerText = question
+            .querySelector(".text-gray-600")
+            .textContent.toLowerCase();
+
+          if (
+            questionText.includes(searchTerm) ||
+            answerText.includes(searchTerm)
+          ) {
+            question.style.display = "block";
+          } else {
+            question.style.display = "none";
+          }
+        });
+
+        // Show appropriate tab if search is active
+        if (searchTerm.length > 0) {
+          tabContents.forEach((content) => content.classList.remove("hidden"));
+        } else {
+          // Reset to default view
+          tabContents.forEach((content) => content.classList.add("hidden"));
+          document.getElementById("general").classList.remove("hidden");
+
+          // Reset active tab styling
+          tabButtons.forEach((btn) =>
+            btn.classList.remove(
+              "active",
+              "border-indigo-500",
+              "text-indigo-600"
+            )
+          );
+          tabButtons.forEach((btn) =>
+            btn.classList.add("border-transparent", "text-gray-500")
+          );
+          tabButtons[0].classList.add(
+            "active",
+            "border-indigo-500",
+            "text-indigo-600"
+          );
+          tabButtons[0].classList.remove("border-transparent", "text-gray-500");
+        }
+      });
+
+      // Video triggers
+      const videoTriggers = document.querySelectorAll(".video-trigger");
+      videoTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", (e) => {
+          e.preventDefault();
+          alert("Video player would open here in the production version.");
+        });
+      });
+    });
+  </script>
 </MainLayout>
-
-<!-- FAQ JavaScript -->
-<script>
-  // Tab functionality
-  document.addEventListener("DOMContentLoaded", function () {
-    const tabButtons = document.querySelectorAll(".tab-button");
-    const tabContents = document.querySelectorAll(".tab-content");
-
-    tabButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        // Remove active class from all buttons and content
-        tabButtons.forEach((btn) =>
-          btn.classList.remove("active", "border-indigo-500", "text-indigo-600")
-        );
-        tabButtons.forEach((btn) =>
-          btn.classList.add("border-transparent", "text-gray-500")
-        );
-        tabContents.forEach((content) => content.classList.add("hidden"));
-
-        // Add active class to clicked button
-        button.classList.add("active", "border-indigo-500", "text-indigo-600");
-        button.classList.remove("border-transparent", "text-gray-500");
-
-        // Show corresponding content
-        const targetId = button.getAttribute("data-target");
-        document.getElementById(targetId).classList.remove("hidden");
-      });
-    });
-
-    // Procedure details toggles
-    const detailToggles = document.querySelectorAll(
-      ".procedure-details-toggle"
-    );
-    detailToggles.forEach((toggle) => {
-      toggle.addEventListener("click", () => {
-        const targetId = toggle.getAttribute("data-target");
-        const targetElement = document.getElementById(targetId);
-
-        if (targetElement.classList.contains("hidden")) {
-          targetElement.classList.remove("hidden");
-          toggle.querySelector("svg").innerHTML =
-            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />';
-        } else {
-          targetElement.classList.add("hidden");
-          toggle.querySelector("svg").innerHTML =
-            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />';
-        }
-      });
-    });
-
-    // Preparation toggles
-    const prepToggles = document.querySelectorAll(".preparation-toggle");
-    prepToggles.forEach((toggle) => {
-      toggle.addEventListener("click", () => {
-        const targetId = toggle.getAttribute("data-target");
-        const targetElement = document.getElementById(targetId);
-
-        if (targetElement.classList.contains("hidden")) {
-          targetElement.classList.remove("hidden");
-          toggle.querySelector("svg").innerHTML =
-            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />';
-        } else {
-          targetElement.classList.add("hidden");
-          toggle.querySelector("svg").innerHTML =
-            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />';
-        }
-      });
-    });
-
-    // Search functionality
-    const searchInput = document.getElementById("faq-search");
-    searchInput.addEventListener("input", () => {
-      const searchTerm = searchInput.value.toLowerCase();
-      const allQuestions = document.querySelectorAll(".bg-white.rounded-xl");
-
-      allQuestions.forEach((question) => {
-        const questionText = question
-          .querySelector("h3")
-          .textContent.toLowerCase();
-        const answerText = question
-          .querySelector(".text-gray-600")
-          .textContent.toLowerCase();
-
-        if (
-          questionText.includes(searchTerm) ||
-          answerText.includes(searchTerm)
-        ) {
-          question.style.display = "block";
-        } else {
-          question.style.display = "none";
-        }
-      });
-
-      // Show appropriate tab if search is active
-      if (searchTerm.length > 0) {
-        tabContents.forEach((content) => content.classList.remove("hidden"));
-      } else {
-        // Reset to default view
-        tabContents.forEach((content) => content.classList.add("hidden"));
-        document.getElementById("general").classList.remove("hidden");
-
-        // Reset active tab styling
-        tabButtons.forEach((btn) =>
-          btn.classList.remove("active", "border-indigo-500", "text-indigo-600")
-        );
-        tabButtons.forEach((btn) =>
-          btn.classList.add("border-transparent", "text-gray-500")
-        );
-        tabButtons[0].classList.add(
-          "active",
-          "border-indigo-500",
-          "text-indigo-600"
-        );
-        tabButtons[0].classList.remove("border-transparent", "text-gray-500");
-      }
-    });
-
-    // Video triggers
-    const videoTriggers = document.querySelectorAll(".video-trigger");
-    videoTriggers.forEach((trigger) => {
-      trigger.addEventListener("click", (e) => {
-        e.preventDefault();
-        alert("Video player would open here in the production version.");
-      });
-    });
-  });
-</script>
