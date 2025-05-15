@@ -9,6 +9,7 @@ import AOSInit from "../components/AOSInit.astro";
   <!-- Hero Section -->
   <section
     class="bg-gradient-to-b from-[#fcf9f0] to-[#f5e7c5] text-[#003087] py-24 px-6 sm:px-12 text-center"
+    data-aos="fade-up"
   >
     <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-4">
       A New Kind of Managed Care
@@ -51,65 +52,32 @@ import AOSInit from "../components/AOSInit.astro";
         >Request Partner Deck</a
       >
       <a
-        href="#network"
+        href="/partner"
         class="border border-[#003087] text-[#003087] hover:bg-[#003087] hover:text-white px-6 py-3 rounded-xl font-semibold"
         >Join the Imaging Network</a
       >
       <a
-        href="#model"
+        href="/about"
         class="border border-[#003087] text-[#003087] hover:bg-[#003087] hover:text-white px-6 py-3 rounded-xl font-semibold"
         >Learn About the Model</a
       >
     </div>
   </section>
 
-  <script>
-    const container = document.getElementById("rotating-container");
-    const wordHeight = 40;
-    let index = 0;
-
-    setInterval(() => {
-      index++;
-      container.style.transition = "transform 0.5s ease-in-out";
-      container.style.transform = `translateY(-${index * wordHeight}px)`;
-
-      if (index === 2) {
-        setTimeout(() => {
-          container.style.transition = "none";
-          container.style.transform = "translateY(0)";
-          index = 0;
-        }, 600);
-      }
-    }, 3000);
-  </script>
-
-  <script>
-    const container = document.getElementById("rotating-container");
-    const wordHeight = 40;
-    let index = 0;
-
-    setInterval(() => {
-      index++;
-      container.style.transition = "transform 0.2s ease-in-out";
-      container.style.transform = `translateY(-${index * wordHeight}px)`;
-
-      if (index === 2) {
-        setTimeout(() => {
-          container.style.transition = "none";
-          container.style.transform = "translateY(0)";
-          index = 0;
-        }, 600);
-      }
-    }, 3000);
-  </script>
-
   <!-- Problem Section -->
-  <section class="py-20 bg-white text-[#003087] px-6 sm:px-12">
+  <section
+    class="py-20 bg-white text-[#003087] px-6 sm:px-12"
+    data-aos="fade-up"
+  >
     <h2 class="text-3xl font-bold text-center mb-12">
       The System Wasn’t Built for Self-Pay Patients
     </h2>
     <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-      <div class="bg-[#f9f5eb] p-6 rounded-xl shadow">
+      <div
+        class="bg-[#f9f5eb] p-6 rounded-xl shadow"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
         <h3 class="text-xl font-semibold mb-4">Traditional Insurance</h3>
         <ul class="list-disc pl-6 space-y-2">
           <li>High deductibles</li>
@@ -119,7 +87,11 @@ import AOSInit from "../components/AOSInit.astro";
           <li>Denials, delays</li>
         </ul>
       </div>
-      <div class="bg-[#fefbf5] p-6 rounded-xl border border-[#e6c378]">
+      <div
+        class="bg-[#fefbf5] p-6 rounded-xl border border-[#e6c378]"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
         <h3 class="text-xl font-semibold mb-4">USRad Managed Care</h3>
         <ul class="list-disc pl-6 space-y-2">
           <li>Flat-rate pricing</li>
@@ -133,10 +105,13 @@ import AOSInit from "../components/AOSInit.astro";
   </section>
 
   <!-- Platform Overview -->
-  <section class="py-20 bg-[#fcf9f0] text-[#003087] px-6 sm:px-12">
+  <section
+    class="py-20 bg-[#fcf9f0] text-[#003087] px-6 sm:px-12"
+    data-aos="fade-up"
+  >
     <h2 class="text-3xl font-bold text-center mb-12">The USRad Platform</h2>
     <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      <div class="text-center">
+      <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
         <img
           src="/icons/managed-care/network.png"
           alt="Network"
@@ -150,7 +125,7 @@ import AOSInit from "../components/AOSInit.astro";
           equipment.
         </p>
       </div>
-      <div class="text-center">
+      <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
         <img
           src="/icons/managed-care/pricing.png"
           alt="Pricing"
@@ -159,7 +134,7 @@ import AOSInit from "../components/AOSInit.astro";
         <h3 class="font-semibold text-lg mb-2">Flat-Rate Contracts</h3>
         <p>Patients pay one pre-negotiated price. No billing games.</p>
       </div>
-      <div class="text-center">
+      <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
         <img
           src="/icons/managed-care/radiology.png"
           alt="Radiologists"
@@ -174,7 +149,10 @@ import AOSInit from "../components/AOSInit.astro";
   </section>
 
   <!-- Cost Comparison -->
-  <section class="py-20 bg-white text-[#003087] px-6 sm:px-12 text-center">
+  <section
+    class="py-20 bg-white text-[#003087] px-6 sm:px-12 text-center"
+    data-aos="fade-up"
+  >
     <h2 class="text-3xl font-bold mb-4">Why It Works</h2>
     <p class="text-lg mb-6">Hospital MRI: $3,500+ <br /> USRad: $600 Flat</p>
     <p class="text-xl font-semibold">Savings Per Scan: ~$2,900</p>
@@ -182,7 +160,10 @@ import AOSInit from "../components/AOSInit.astro";
   </section>
 
   <!-- Legacy Section -->
-  <section class="py-20 bg-[#f5e7c5] text-[#003087] px-6 sm:px-12">
+  <section
+    class="py-20 bg-[#f5e7c5] text-[#003087] px-6 sm:px-12"
+    data-aos="fade-up"
+  >
     <h2 class="text-3xl font-bold text-center mb-8">
       This Isn’t Our First Time
     </h2>
@@ -191,12 +172,12 @@ import AOSInit from "../components/AOSInit.astro";
       specialty network with:
     </p>
     <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-left">
-      <ul class="list-disc pl-6">
+      <ul class="list-disc pl-6" data-aos="fade-up" data-aos-delay="100">
         <li>1,200+ freestanding imaging centers</li>
         <li>3,000+ board-certified radiologists</li>
         <li>High-margin managed care contracts</li>
       </ul>
-      <ul class="list-disc pl-6">
+      <ul class="list-disc pl-6" data-aos="fade-up" data-aos-delay="200">
         <li>Labs & bloodwork</li>
         <li>Mobile diagnostics</li>
         <li>Home imaging & portable MRI</li>
@@ -206,7 +187,10 @@ import AOSInit from "../components/AOSInit.astro";
   </section>
 
   <!-- Market Scale Section -->
-  <section class="py-20 bg-white text-[#003087] px-6 sm:px-12">
+  <section
+    class="py-20 bg-white text-[#003087] px-6 sm:px-12"
+    data-aos="fade-up"
+  >
     <h2 class="text-3xl font-bold text-center mb-6">
       Designed to Serve Millions. Priced to Scale.
     </h2>
@@ -216,15 +200,15 @@ import AOSInit from "../components/AOSInit.astro";
       Patients avoid opaque hospital systems entirely.
     </p>
     <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto text-center">
-      <div>
+      <div data-aos="fade-up" data-aos-delay="100">
         <h3 class="text-2xl font-extrabold">90M+</h3>
         <p class="text-md">Uninsured & Underinsured</p>
       </div>
-      <div>
+      <div data-aos="fade-up" data-aos-delay="200">
         <h3 class="text-2xl font-extrabold">1M+ Scans/Year</h3>
         <p class="text-md">Platform capacity</p>
       </div>
-      <div>
+      <div data-aos="fade-up" data-aos-delay="300">
         <h3 class="text-2xl font-extrabold">50 States</h3>
         <p class="text-md">Credentialed coverage</p>
       </div>
@@ -232,7 +216,10 @@ import AOSInit from "../components/AOSInit.astro";
   </section>
 
   <!-- Efficiency Margin Section -->
-  <section class="py-16 bg-[#fefbf5] text-[#003087] px-6 sm:px-12 text-center">
+  <section
+    class="py-16 bg-[#fefbf5] text-[#003087] px-6 sm:px-12 text-center"
+    data-aos="fade-in"
+  >
     <p class="text-xl max-w-4xl mx-auto font-medium">
       <strong>USRad earns margin on efficiency</strong>—not denial or volume.
       Our platform replaces billing complexity and insurance friction with
@@ -244,6 +231,7 @@ import AOSInit from "../components/AOSInit.astro";
   <section
     class="py-20 bg-[#003087] text-white px-6 sm:px-12 text-center"
     id="partner"
+    data-aos="fade-up"
   >
     <h2 class="text-3xl font-bold mb-6">Let’s Build the Future of Care</h2>
     <div class="flex flex-wrap justify-center gap-6">
@@ -264,4 +252,24 @@ import AOSInit from "../components/AOSInit.astro";
       >
     </div>
   </section>
+
+  <script>
+    const container = document.getElementById("rotating-container");
+    const wordHeight = 40;
+    let index = 0;
+
+    setInterval(() => {
+      index++;
+      container.style.transition = "transform 0.2s ease-in-out";
+      container.style.transform = `translateY(-${index * wordHeight}px)`;
+
+      if (index === 2) {
+        setTimeout(() => {
+          container.style.transition = "none";
+          container.style.transform = "translateY(0)";
+          index = 0;
+        }, 600);
+      }
+    }, 3000);
+  </script>
 </MainLayout>
