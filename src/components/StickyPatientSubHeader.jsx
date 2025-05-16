@@ -186,7 +186,7 @@ export default function StickyPatientSubHeader() {
             <input
               type="text"
               placeholder="Type of scan (e.g. MRI)"
-              className="w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#cc9933] text-sm"
+              className="search-field w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#cc9933] text-sm"
               value={scanType}
               onChange={handleScanInput}
               onFocus={() => {
@@ -224,14 +224,14 @@ export default function StickyPatientSubHeader() {
           <input
             type="text"
             placeholder="ZIP code or city"
-            className="w-64 px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#cc9933] text-sm"
+            className="search-field w-64 px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#cc9933] text-sm"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
           
           <button
             type="submit"
-            className="bg-[#cc9933] text-[#003087] font-bold px-5 py-2 rounded-md shadow hover:bg-[#e6c378] transition text-sm whitespace-nowrap"
+            className="find-button bg-[#cc9933] text-[#003087] font-bold px-5 py-2 rounded-md shadow hover:bg-[#e6c378] transition text-sm whitespace-nowrap"
           >
             Find
           </button>
@@ -286,7 +286,7 @@ export default function StickyPatientSubHeader() {
                 ref={inputRef}
                 type="text"
                 placeholder="Type of scan (e.g. MRI)"
-                className="w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#cc9933] text-sm"
+                className="search-field w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#cc9933] text-sm"
                 value={scanType}
                 onChange={handleScanInput}
                 onFocus={() => {
@@ -325,13 +325,13 @@ export default function StickyPatientSubHeader() {
               <input
                 type="text"
                 placeholder="ZIP code or city"
-                className="flex-1 px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#cc9933] text-sm"
+                className="search-field flex-1 px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#cc9933] text-sm"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
               <button
                 type="submit"
-                className="bg-[#cc9933] text-[#003087] font-bold px-5 py-2 rounded-md shadow hover:bg-[#e6c378] transition text-sm whitespace-nowrap"
+                className="find-button bg-[#cc9933] text-[#003087] font-bold px-5 py-2 rounded-md shadow hover:bg-[#e6c378] transition text-sm whitespace-nowrap"
               >
                 Find
               </button>
@@ -339,6 +339,55 @@ export default function StickyPatientSubHeader() {
           </form>
         </div>
       </div>
+      
+      <style jsx>{`
+        /* Enhanced search fields */
+        .search-field {
+          border: 1px solid rgba(0, 48, 135, 0.15);
+          border-radius: 6px;
+          padding: 0.75rem 1rem;
+          font-family: var(--font-manrope, 'Manrope', system-ui, sans-serif);
+          font-size: 1rem;
+          transition: all 0.2s ease;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-field:focus {
+          border-color: rgba(204, 153, 51, 0.5);
+          box-shadow: 0 1px 3px rgba(204, 153, 51, 0.2);
+          outline: none;
+        }
+
+        .search-field::placeholder {
+          color: rgba(0, 48, 135, 0.4);
+          font-weight: 400;
+        }
+
+        /* Enhanced Find button */
+        .find-button {
+          background-color: #cc9933;
+          color: white;
+          font-weight: 600;
+          padding: 0.75rem 1.5rem;
+          border-radius: 6px;
+          border: none;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          font-family: var(--font-manrope, 'Manrope', system-ui, sans-serif);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .find-button:hover {
+          background-color: #b88a2a;
+          transform: translateY(-1px);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .find-button:active {
+          transform: translateY(0);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+      `}</style>
     </div>
   );
 }
