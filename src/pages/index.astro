@@ -38,6 +38,8 @@ import SecondaryButton from "../components/SecondaryButton.astro";
     </section>
   </FadeIn>
 
+  
+
   <!-- Core Benefits -->
   <FadeIn effect="fade" delay={100}>
     <section class="bg-white pt-8 sm:pt-16 pb-12 sm:pb-20">
@@ -167,11 +169,20 @@ import SecondaryButton from "../components/SecondaryButton.astro";
   <FadeIn effect="fade" delay={100}>
     <section class="bg-white dark:bg-[#0f172a] py-24">
       <div class="max-w-5xl mx-auto px-6 sm:px-12 text-center">
-        <p
-          class="text-base font-semibold uppercase tracking-wider text-[#cc9933] mb-2"
+        <div
+          class="flex flex-col items-center justify-center sm:flex-row sm:justify-center gap-2 mb-4"
         >
-          National Footprint
-        </p>
+          <p
+            class="text-xl sm:text-2xl font-semibold uppercase tracking-wide text-[#cc9933]"
+          >
+            National Footprint
+          </p>
+          <span
+            class="bg-[#003087] text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide"
+          >
+            Initial Launch
+          </span>
+        </div>
 
         <div
           class="relative bg-[#fdfaf3] dark:bg-[#1e293b] border border-[#e6c378]/30 rounded-3xl p-8 shadow-2xl"
@@ -180,6 +191,7 @@ import SecondaryButton from "../components/SecondaryButton.astro";
           <img
             src="/images/usa-transparent.svg"
             alt="US Map"
+            loading=""lazy"
             class="w-full mx-auto max-w-3xl rounded-xl"
           />
 
@@ -267,7 +279,8 @@ import SecondaryButton from "../components/SecondaryButton.astro";
         </div>
 
         <p class="text-[#003087] dark:text-white text-base mt-6">
-          Our signal is growing. Strategic partnerships expanding nationwide.
+          Our signal is growing—launching now with top imaging centers to bring
+          fast, affordable diagnostics nationwide.
         </p>
 
         <a
@@ -284,22 +297,6 @@ import SecondaryButton from "../components/SecondaryButton.astro";
   <FadeIn effect="fade" delay={100}>
     <section class="bg-white py-16 sm:py-20">
       <ClinicalTrustSection />
-    </section>
-  </FadeIn>
-
-  <!-- FAQ Preview -->
-  <FadeIn effect="slide-right" delay={100}>
-    <section class="bg-[#f9f9f9] py-16 sm:py-20">
-      <FAQPreview />
-    </section>
-  </FadeIn>
-
-  <!-- News -->
-  <FadeIn effect="fade" delay={100}>
-    <section class="bg-white py-16 sm:py-20">
-      <div class="max-w-6xl mx-auto px-6 sm:px-12">
-        <News />
-      </div>
     </section>
   </FadeIn>
 
