@@ -24,7 +24,7 @@
 
       <!-- Tooltip -->
       <div
-        class="absolute right-0 mt-2 w-max bg-[#003087] text-white text-sm px-3 py-2 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50"
+        class="absolute right-0 mt-2 w-max bg-[#003087] text-white text-xs sm:text-sm px-3 py-2 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50"
       >
         <div
           class="absolute top-[-6px] right-20 w-3 h-3 bg-[#003087] transform rotate-45"
@@ -35,23 +35,29 @@
     </div>
   </div>
 </div>
+
 <style>
   .utility-header {
     background-color: #f8f2e1;
-    padding: 0.5rem 0;
+    padding: 0.25rem 0;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 60; /* Higher than navbar z-index */
+    height: 2rem; /* Set explicit height */
   }
+
   .utility-container {
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    height: 100%;
   }
+
   .utility-link {
     font-size: 0.875rem;
     color: #003087;
@@ -60,46 +66,43 @@
     align-items: center;
     transition: color 0.3s ease;
   }
+
   .utility-link:hover {
     color: #cc9933;
   }
+
   .utility-icon {
     width: 0.75rem;
     height: 0.75rem;
     margin-left: 0.25rem;
   }
+
   /* Adjust main navbar positioning to account for utility header */
   :global(.navbar) {
     top: 2rem; /* Height of utility header */
   }
-  :global(.main-content) {
-    padding-top: 140px; /* Adjust based on combined height of navbar + utility header */
-  }
+
   @media (max-width: 768px) {
     .utility-header {
-      height: auto;
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
+      height: 1.75rem; /* Maintain more similar height to desktop */
     }
+
     .utility-container {
       padding: 0 1rem;
     }
+
     .utility-link {
       font-size: 0.75rem; /* Smaller font size */
     }
+
     .utility-icon {
       width: 0.65rem; /* Smaller icon */
       height: 0.65rem;
     }
-    /* Override navbar and content positioning for mobile */
+
+    /* Keep the navbar consistent with desktop positioning */
     :global(.navbar) {
-      top: 1.5rem; /* Reduced top position to match smaller utility header */
-    }
-    :global(.main-content) {
-      padding-top: 80px; /* Adjusted to match mobile header heights */
-    }
-    .group:hover .group-hover\:opacity-100 {
-      opacity: 1;
+      top: 1.75rem; /* Match the utility header height */
     }
   }
 </style>

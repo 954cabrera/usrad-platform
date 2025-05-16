@@ -13,13 +13,11 @@ import HeroPatientIntro from "../components/HeroPatientIntro.astro";
 import FAQPreview from "../components/FAQPreview.astro";
 import CoreBenefits from "../components/CoreBenefits.astro";
 import PatientTestimonials from "../components/PatientTestimonials.astro";
-import HowItWorksSteps from "../components/HowItWorksSteps.astro";
 import ClinicalTrustSection from "../components/ClinicalTrustSection.astro";
 import TrustBadgesBar from "../components/TrustBadgesBar.astro";
 import CallToAction from "../components/CallToAction.astro";
 import PrimaryButton from "../components/PrimaryButton.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
-import FadeIn from "../components/FadeIn.astro";
 ---
 
 <MainLayout>
@@ -43,7 +41,7 @@ import FadeIn from "../components/FadeIn.astro";
 
   <!-- Core Benefits -->
   <FadeIn effect="fade" delay={100}>
-    <section class="bg-white pt-8 sm:pt-16 pb-12 sm:pb-20" ...>
+    <section class="bg-white pt-8 sm:pt-16 pb-12 sm:pb-20">
       <CoreBenefits />
     </section>
   </FadeIn>
@@ -55,10 +53,115 @@ import FadeIn from "../components/FadeIn.astro";
     </section>
   </FadeIn>
 
-  <!-- How It Works -->
+  <!-- How It Works (Redesigned Timeline) -->
   <FadeIn effect="slide-left" delay={100}>
-    <section class="bg-white py-16 sm:py-20">
-      <HowItWorksSteps />
+    <section id="how-it-works" class="scroll-mt-32 bg-white pt-28 pb-28">
+      <div class="max-w-7xl mx-auto px-6 sm:px-12 text-center">
+        <h2 class="text-4xl font-extrabold text-[#003087] mb-4">
+          How It Works
+        </h2>
+        <p class="text-lg text-[#003087] mb-10">
+          From booking to results in four simple steps. No referrals. No
+          confusion.
+        </p>
+
+        <div
+          class="flex flex-col lg:flex-row items-center justify-between gap-10 relative"
+        >
+          <div
+            class="absolute hidden lg:block top-1/2 left-0 w-full h-1 bg-[#e6c378] z-0"
+          >
+          </div>
+
+          <div class="relative z-10 flex-1 text-center">
+            <div
+              class="w-14 h-14 mx-auto bg-[#003087] text-white rounded-full flex items-center justify-center"
+            >
+              🔍
+            </div>
+            <h3 class="mt-4 text-xl font-semibold text-[#003087]">
+              Choose Your Scan
+            </h3>
+            <p class="mt-2 text-sm text-[#003087]">
+              Select scan type & location
+            </p>
+          </div>
+
+          <div class="relative z-10 flex-1 text-center">
+            <div
+              class="w-14 h-14 mx-auto bg-[#003087] text-white rounded-full flex items-center justify-center"
+            >
+              📍
+            </div>
+            <h3 class="mt-4 text-xl font-semibold text-[#003087]">
+              Get Matched
+            </h3>
+            <p class="mt-2 text-sm text-[#003087]">
+              Top-rated centers near you
+            </p>
+          </div>
+
+          <div class="relative z-10 flex-1 text-center">
+            <div
+              class="w-14 h-14 mx-auto bg-[#003087] text-white rounded-full flex items-center justify-center"
+            >
+              💳
+            </div>
+            <h3 class="mt-4 text-xl font-semibold text-[#003087]">
+              Confirm & Pay
+            </h3>
+            <p class="mt-2 text-sm text-[#003087]">
+              Flat-rate. No surprise bills
+            </p>
+          </div>
+
+          <div class="relative z-10 flex-1 text-center">
+            <div
+              class="w-14 h-14 mx-auto bg-[#003087] text-white rounded-full flex items-center justify-center"
+            >
+              🧠
+            </div>
+            <h3 class="mt-4 text-xl font-semibold text-[#003087]">
+              Get Expert Care
+            </h3>
+            <p class="mt-2 text-sm text-[#003087]">
+              Board-certified reads, fast results
+            </p>
+          </div>
+        </div>
+        <div class="mt-10">
+          <a
+            href="/book"
+            class="inline-block bg-[#cc9933] text-[#003087] font-bold px-8 py-4 rounded-full shadow-md hover:bg-[#e6c378] transition-all hover:shadow-lg"
+          >
+            Find an Imaging Center
+          </a>
+        </div>
+      </div>
+    </section>
+  </FadeIn>
+
+  <!-- CTA for Managed Care Platform -->
+  <FadeIn effect="fade" delay={100}>
+    <section class="bg-[#fcf9f0] text-[#003087] py-20 sm:py-24">
+      <div class="max-w-5xl mx-auto px-6 sm:px-12 text-center">
+        <h2 class="text-3xl font-bold mb-4">
+          A Managed Care Platform—Focused Solely on Radiology
+        </h2>
+        <p class="text-lg mb-8">
+          USRad operates like a managed care organization—but exclusively for
+          diagnostic imaging. We eliminate insurance complexity with flat-rate
+          pricing, direct scheduling, and board-certified reads.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="/managed-care"
+            class="bg-[#e6c378] hover:bg-[#cc9933] text-white px-6 py-3 rounded-xl font-semibold"
+          >
+            Learn About the Model
+          </a>
+        </div>
+      </div>
     </section>
   </FadeIn>
 
