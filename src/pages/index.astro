@@ -7,7 +7,6 @@ import AOSInit from "../components/AOSInit.astro";
 import HomeProblemSolution from "../components/HomeProblemSolution.astro";
 import FAQHome from "../components/FAQHome.astro";
 import News from "../components/News.astro";
-import NetworkMap from "../components/NetworkMap.astro";
 import StickyPatientSubHeader from "../components/StickyPatientSubHeader.jsx";
 import HeroPatientIntro from "../components/HeroPatientIntro.astro";
 import FAQPreview from "../components/FAQPreview.astro";
@@ -64,7 +63,6 @@ import SecondaryButton from "../components/SecondaryButton.astro";
           From booking to results in four simple steps. No referrals. No
           confusion.
         </p>
-
         <div
           class="flex flex-col lg:flex-row items-center justify-between gap-10 relative"
         >
@@ -167,10 +165,99 @@ import SecondaryButton from "../components/SecondaryButton.astro";
 
   <!-- Network Map -->
   <FadeIn effect="fade" delay={100}>
-    <section
-      class="bg-gradient-to-b from-[#f8f0d8]/30 to-[#f8f0d8]/10 py-16 sm:py-20"
-    >
-      <NetworkMap />
+    <section class="bg-white py-24">
+      <div class="max-w-5xl mx-auto px-6 sm:px-12 text-center">
+        <p
+          class="text-base font-semibold uppercase tracking-wider text-[#cc9933] mb-2"
+        >
+          National Footprint
+        </p>
+
+        <div
+          class="relative bg-[#fdfaf3] border border-[#e6c378]/30 rounded-3xl p-8 shadow-2xl"
+        >
+          <!-- Transparent US Map -->
+          <img
+            src="/images/usa-transparent.svg"
+            alt="US Map"
+            class="w-full mx-auto max-w-3xl rounded-xl"
+          />
+
+          <!-- USRad Pins -->
+          <!-- NEW PINS -->
+          <img
+            src="/images/usrad-pin-dark.png"
+            alt="Florida"
+            class="absolute w-8 h-8 animate-pulse"
+            style="top: 77%; left: 77.5%;"
+          />
+          <img
+            src="/images/usrad-pin-dark.png"
+            alt="Georgia"
+            class="absolute w-8 h-8 animate-pulse"
+            style="top: 62%; left: 72%;"
+          />
+          <img
+            src="/images/usrad-pin-dark.png"
+            alt="South Carolina"
+            class="absolute w-8 h-8 animate-pulse"
+            style="top: 57%; left: 77%;"
+          />
+          <img
+            src="/images/usrad-pin-dark.png"
+            alt="North Carolina"
+            class="absolute w-8 h-8 animate-pulse"
+            style="top: 49%; left: 79%;"
+          />
+          <img
+            src="/images/usrad-pin-dark.png"
+            alt="Pennsylvania"
+            class="absolute w-8 h-8 animate-pulse"
+            style="top: 30.5%; left: 78%;"
+          />
+          <img
+            src="/images/usrad-pin-dark.png"
+            alt="New Jersey"
+            class="absolute w-8 h-8 animate-pulse"
+            style="top: 32%; left: 83%;"
+          />
+          <img
+            src="/images/usrad-pin-dark.png"
+            alt="New York"
+            class="absolute w-8 h-8 animate-pulse"
+            style="top: 21%; left: 81%;"
+          />
+          <img
+            src="/images/usrad-pin-dark.png"
+            alt="Illinois"
+            class="absolute w-8 h-8 animate-pulse"
+            style="top: 35%; left: 62%;"
+          />
+          <img
+            src="/images/usrad-pin-dark.png"
+            alt="Texas"
+            class="absolute w-8 h-8 animate-pulse"
+            style="top: 74%; left: 46%;"
+          />
+          <img
+            src="/images/usrad-pin-dark.png"
+            alt="California"
+            class="absolute w-8 h-8 animate-pulse"
+            style="top: 45%; left: 13%;"
+          />
+        </div>
+
+        <p class="text-[#003087] text-base mt-6">
+          Our signal is growing. Strategic partnerships expanding nationwide.
+        </p>
+
+        <a
+          href="/partner"
+          class="mt-6 inline-block bg-[#003087] text-white px-6 py-3 rounded-xl shadow-lg hover:bg-[#002266] transition"
+        >
+          Join the USRad Imaging Network →
+        </a>
+      </div>
     </section>
   </FadeIn>
 
