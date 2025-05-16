@@ -165,7 +165,7 @@ import SecondaryButton from "../components/SecondaryButton.astro";
 
   <!-- Network Map -->
   <FadeIn effect="fade" delay={100}>
-    <section class="bg-white py-24">
+    <section class="bg-white dark:bg-[#0f172a] py-24">
       <div class="max-w-5xl mx-auto px-6 sm:px-12 text-center">
         <p
           class="text-base font-semibold uppercase tracking-wider text-[#cc9933] mb-2"
@@ -174,7 +174,7 @@ import SecondaryButton from "../components/SecondaryButton.astro";
         </p>
 
         <div
-          class="relative bg-[#fdfaf3] border border-[#e6c378]/30 rounded-3xl p-8 shadow-2xl"
+          class="relative bg-[#fdfaf3] dark:bg-[#1e293b] border border-[#e6c378]/30 rounded-3xl p-8 shadow-2xl"
         >
           <!-- Transparent US Map -->
           <img
@@ -183,71 +183,90 @@ import SecondaryButton from "../components/SecondaryButton.astro";
             class="w-full mx-auto max-w-3xl rounded-xl"
           />
 
-          <!-- USRad Pins -->
-          <!-- NEW PINS -->
+          <!-- USRad Pins (Animated, Responsive, Tooltips, Dark Mode Friendly) -->
           <img
             src="/images/usrad-pin-dark.png"
-            alt="Florida"
-            class="absolute w-8 h-8 animate-pulse"
+            title="Florida"
+            data-aos="zoom-in"
+            data-aos-delay="100"
+            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
             style="top: 77%; left: 77.5%;"
           />
           <img
             src="/images/usrad-pin-dark.png"
-            alt="Georgia"
-            class="absolute w-8 h-8 animate-pulse"
+            title="Georgia"
+            data-aos="zoom-in"
+            data-aos-delay="150"
+            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
             style="top: 62%; left: 72%;"
           />
           <img
             src="/images/usrad-pin-dark.png"
-            alt="South Carolina"
-            class="absolute w-8 h-8 animate-pulse"
+            title="South Carolina"
+            data-aos="zoom-in"
+            data-aos-delay="200"
+            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
             style="top: 57%; left: 77%;"
           />
           <img
             src="/images/usrad-pin-dark.png"
-            alt="North Carolina"
-            class="absolute w-8 h-8 animate-pulse"
+            title="North Carolina"
+            data-aos="zoom-in"
+            data-aos-delay="250"
+            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
             style="top: 49%; left: 79%;"
           />
           <img
             src="/images/usrad-pin-dark.png"
-            alt="Pennsylvania"
-            class="absolute w-8 h-8 animate-pulse"
-            style="top: 30.5%; left: 78%;"
-          />
-          <img
-            src="/images/usrad-pin-dark.png"
-            alt="New Jersey"
-            class="absolute w-8 h-8 animate-pulse"
-            style="top: 32%; left: 83%;"
-          />
-          <img
-            src="/images/usrad-pin-dark.png"
-            alt="New York"
-            class="absolute w-8 h-8 animate-pulse"
+            title="New York"
+            data-aos="zoom-in"
+            data-aos-delay="300"
+            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
             style="top: 21%; left: 81%;"
           />
           <img
             src="/images/usrad-pin-dark.png"
-            alt="Illinois"
-            class="absolute w-8 h-8 animate-pulse"
+            title="New Jersey"
+            data-aos="zoom-in"
+            data-aos-delay="350"
+            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
+            style="top: 32%; left: 83%;"
+          />
+          <img
+            src="/images/usrad-pin-dark.png"
+            title="Pennsylvania"
+            data-aos="zoom-in"
+            data-aos-delay="350"
+            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
+            style="top: 30.5%; left: 78%;"
+          />
+          <img
+            src="/images/usrad-pin-dark.png"
+            title="Illinois"
+            data-aos="zoom-in"
+            data-aos-delay="400"
+            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
             style="top: 35%; left: 62%;"
           />
           <img
             src="/images/usrad-pin-dark.png"
-            alt="Texas"
-            class="absolute w-8 h-8 animate-pulse"
+            title="Texas"
+            data-aos="zoom-in"
+            data-aos-delay="450"
+            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
             style="top: 74%; left: 46%;"
           />
           <img
             src="/images/usrad-pin-dark.png"
-            alt="California"
-            class="absolute w-8 h-8 animate-pulse"
+            title="California"
+            data-aos="zoom-in"
+            data-aos-delay="500"
+            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
             style="top: 45%; left: 13%;"
           />
         </div>
 
-        <p class="text-[#003087] text-base mt-6">
+        <p class="text-[#003087] dark:text-white text-base mt-6">
           Our signal is growing. Strategic partnerships expanding nationwide.
         </p>
 
