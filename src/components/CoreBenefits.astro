@@ -2,13 +2,13 @@
 // Balanced Responsive Card Layout for Core Benefits
 ---
 
-<div class="core-benefits-section">
+<div class="core-benefits-section" data-aos="fade-up" data-aos-delay="100">
   <div class="section-header">
     <div class="flex items-center justify-center gap-3 mb-2">
       <span class="h-px w-12 bg-[#cc9933]"></span>
-      <span class="text-[#cc9933] uppercase tracking-wider text-sm font-bold"
-        >Premium Experience</span
-      >
+      <span class="text-[#cc9933] uppercase tracking-wider text-sm font-bold">
+        Premium Experience
+      </span>
       <span class="h-px w-12 bg-[#cc9933]"></span>
     </div>
     <h2
@@ -17,73 +17,22 @@
       <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
       The USRad Advantage
     </h2>
-    <p class="mt-4 text-xl text-[#003087] max-w-3xl mx-auto text-center mb-12">
+    <p class="mt-4 text-xl text-[#003087] max-w-3xl mx-auto text-center mb-10">
       We've reimagined medical imaging to deliver an experience that puts you
-      first - at prices 30-70% below hospitals.
+      first – at prices 30-70% below hospitals.
     </p>
   </div>
 
   <!-- Balanced Responsive Grid Layout -->
-  <div class="benefits-grid">
-    <!-- Streamlined Prescription Process Card -->
-    <div class="benefit-card">
-      <!-- Coming Soon Corner Ribbon -->
-      <div class="ribbon ribbon-top-right"><span>Coming Soon</span></div>
-
-      <div class="benefit-icon">
+  <div class="benefits-grid gap-y-10 items-stretch">
+    <!-- Cards below use tighter padding and spacing -->
+    <div
+      class="benefit-card p-5 md:p-4 rounded-2xl shadow-sm flex flex-col$1hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02]"
+    >
+      <div class="benefit-icon mb-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-8 w-8 text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-        </svg>
-      </div>
-
-      <h3 class="benefit-title">Streamlined Prescription Process</h3>
-
-      <p class="benefit-description">
-        We're developing partnerships with telehealth providers to simplify the
-        path from prescription to imaging. Soon, our platform will offer
-        convenient virtual consultation options, helping you avoid unnecessary
-        wait times and office visits.
-      </p>
-
-      <div class="benefit-comparison">
-        <div class="comparison-item">
-          <span class="check-icon">✓</span>
-          <span>Virtual prescription options</span>
-        </div>
-        <div class="comparison-item">
-          <span class="check-icon">✓</span>
-          <span>Cost-effective consultation</span>
-        </div>
-        <div class="comparison-item">
-          <span class="check-icon">✓</span>
-          <span>Simplified coordination</span>
-        </div>
-      </div>
-
-      <div class="coming-soon-badge">
-        <span class="pulse-dot"></span>
-        <span>Coming Soon</span>
-      </div>
-    </div>
-
-    <!-- True Price Transparency Card -->
-    <div class="benefit-card">
-      <div class="benefit-tag">Save 30-70%</div>
-
-      <div class="benefit-icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-8 w-8 text-white"
+          class="h-7 w-7 text-white"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -96,39 +45,33 @@
           ></path>
         </svg>
       </div>
-
-      <h3 class="benefit-title">True Price Transparency</h3>
-
-      <p class="benefit-description">
+      <h3 class="benefit-title text-base font-semibold mb-1">
+        True Price Transparency
+      </h3>
+      <p class="benefit-description text-sm mb-3">
         See the exact price before you book – no hidden fees or surprise bills.
         Our all-inclusive pricing covers both facility and radiologist fees,
-        with savings of 30-70% compared to hospital rates.
+        with savings of 30–70% compared to hospital rates.
       </p>
-
-      <div class="benefit-comparison">
-        <div class="comparison-item">
-          <span class="check-icon">✓</span>
-          <span>All-inclusive pricing</span>
-        </div>
-        <div class="comparison-item">
-          <span class="check-icon">✓</span>
-          <span>No separate radiologist bills</span>
-        </div>
-        <div class="comparison-item">
-          <span class="check-icon">✓</span>
-          <span>No insurance required</span>
-        </div>
-      </div>
+      <ul class="text-sm space-y-1 mt-auto">
+        <li class="flex items-center gap-1">✓ All-inclusive pricing</li>
+        <li class="flex items-center gap-1">✓ No separate radiologist bills</li>
+        <li class="flex items-center gap-1">✓ No insurance required</li>
+      </ul>
     </div>
 
-    <!-- Priority Scheduling Card -->
-    <div class="benefit-card">
-      <div class="benefit-tag">2-4 Day Wait vs. Weeks</div>
-
-      <div class="benefit-icon">
+    <div
+      class="benefit-card $1transition-transform duration-300 hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] hover:bg-[#fdf6e9]"
+    >
+      <div
+        class="benefit-tag text-xs bg-[#003087] text-white px-2 py-0.5 rounded mb-2 inline-block"
+      >
+        2–4 Day Wait vs. Weeks
+      </div>
+      <div class="benefit-icon mb-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-8 w-8 text-white"
+          class="h-7 w-7 text-white"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -140,39 +83,33 @@
             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
       </div>
-
-      <h3 class="benefit-title">Priority Scheduling</h3>
-
-      <p class="benefit-description">
-        Get your scan within 2-4 days instead of the typical 2-3 week wait. Our
+      <h3 class="benefit-title text-base font-semibold mb-1">
+        Priority Scheduling
+      </h3>
+      <p class="benefit-description text-sm mb-3">
+        Get your scan within 2–4 days instead of the typical 2–3 week wait. Our
         priority scheduling system gives you access to preferred appointment
         slots at state-of-the-art imaging centers.
       </p>
-
-      <div class="benefit-comparison">
-        <div class="comparison-item">
-          <span class="check-icon">✓</span>
-          <span>2-4 day typical wait time</span>
-        </div>
-        <div class="comparison-item">
-          <span class="check-icon">✓</span>
-          <span>Reserved priority slots</span>
-        </div>
-        <div class="comparison-item">
-          <span class="check-icon">✓</span>
-          <span>Online scheduling</span>
-        </div>
-      </div>
+      <ul class="text-sm space-y-1">
+        <li class="flex items-center gap-1">✓ 2–4 day typical wait time</li>
+        <li class="flex items-center gap-1">✓ Reserved priority slots</li>
+        <li class="flex items-center gap-1">✓ Online scheduling</li>
+      </ul>
     </div>
 
-    <!-- Board-Certified Radiologists Card -->
-    <div class="benefit-card">
-      <div class="benefit-tag">100% Board-Certified</div>
-
-      <div class="benefit-icon">
+    <div
+      class="benefit-card p-5 md:p-4 rounded-2xl shadow-sm flex flex-col justify-between h-full transition-transform duration-300 hover:shadow-lg hover:-translate-y-1"
+    >
+      <div
+        class="benefit-tag text-xs bg-[#003087] text-white px-2 py-0.5 rounded mb-2 inline-block"
+      >
+        100% Board-Certified
+      </div>
+      <div class="benefit-icon mb-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-8 w-8 text-white"
+          class="h-7 w-7 text-white"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -185,36 +122,94 @@
           ></path>
         </svg>
       </div>
-
-      <h3 class="benefit-title">Board-Certified Radiologists</h3>
-
-      <p class="benefit-description">
-        Every scan is interpreted by board-certified radiologists with
-        specialized expertise in their field. We match your scan type with the
-        right specialist for the most accurate results.
+      <h3 class="benefit-title text-base font-semibold mb-1">
+        Radiologist-Guided Expertise
+      </h3>
+      <p class="benefit-description text-sm mb-3">
+        Your scan is reviewed by a board-certified radiologist — and if your
+        case requires it, it’s seamlessly escalated to a subspecialist with
+        advanced training, ensuring accuracy without delays.
       </p>
+      <ul class="text-sm space-y-1">
+        <li class="flex items-center gap-1">✓ Subspecialty expertise</li>
+        <li class="flex items-center gap-1">✓ Fellowship-trained physicians</li>
+        <li class="flex items-center gap-1">✓ Scan-specific specialists</li>
+      </ul>
+    </div>
 
-      <div class="benefit-comparison">
-        <div class="comparison-item">
-          <span class="check-icon">✓</span>
-          <span>Subspecialty expertise</span>
-        </div>
-        <div class="comparison-item">
-          <span class="check-icon">✓</span>
-          <span>Fellowship-trained physicians</span>
-        </div>
-        <div class="comparison-item">
-          <span class="check-icon">✓</span>
-          <span>Scan-specific specialists</span>
+    <div
+      class="benefit-card p-5 md:p-4 rounded-2xl shadow-sm flex flex-col justify-between h-full transition-transform duration-300 hover:shadow-lg hover:-translate-y-1"
+    >
+      <div class="relative mb-2">
+        <div
+          class="absolute top-0 inset-x-0 text-[10px] bg-[#cc9933] text-white px-2 py-0.5 rounded-bl-md uppercase font-semibold tracking-wide shimmer text-center"
+        >
+          Coming Soon
         </div>
       </div>
+      <style>
+        .shimmer {
+          position: relative;
+          overflow: hidden;
+        }
+        .shimmer::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -150%;
+          width: 300%;
+          height: 100%;
+          background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent
+          );
+          animation: shimmer-move 2s infinite;
+        }
+        @keyframes shimmer-move {
+          0% {
+            left: -150%;
+          }
+          100% {
+            left: 100%;
+          }
+        }
+      </style>
+      <div class="benefit-icon mb-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-7 w-7 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+      </div>
+      <h3 class="benefit-title text-base font-semibold mb-1">
+        Streamlined Prescription Process
+      </h3>
+      <p class="benefit-description text-sm mb-3">
+        We're developing partnerships with telehealth providers to simplify the
+        path from prescription to imaging.
+      </p>
+      <ul class="text-sm space-y-1">
+        <li class="flex items-center gap-1">✓ Virtual prescription options</li>
+        <li class="flex items-center gap-1">✓ Cost-effective consultation</li>
+        <li class="flex items-center gap-1">✓ Simplified coordination</li>
+      </ul>
     </div>
   </div>
+</div>
 
-  <!-- Comparison Table (Optional) -->
-  <div class="comparison-banner mt-20" data-aos="fade-up">
-    <!-- Comparison table content here if desired -->
-  </div>
+<!-- Comparison Table (Optional) -->
+<div class="comparison-banner mt-20" data-aos="fade-up">
+  <!-- Comparison table content here if desired -->
 </div>
 
 <style>
