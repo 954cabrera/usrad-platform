@@ -1,0 +1,185 @@
+---
+// pages/how-it-works.astro
+import Layout from "../layouts/MainLayout.astro";
+import AOSInit from "../components/AOSInit.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout>
+  <AOSInit />
+
+  <!-- Hero Section -->
+  <section class="bg-[#fcf9f0] py-24 px-6 text-center text-[#003087]">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-4xl sm:text-5xl font-bold mb-6">How It Works</h1>
+      <p class="text-lg sm:text-xl">
+        No referrals. No insurance hurdles. Just the scan you need — fast,
+        transparent, and affordable.
+      </p>
+    </div>
+  </section>
+
+  <!-- Patient-Centric Model Summary -->
+  <section class="bg-white py-20 px-6 text-[#003087]">
+    <div class="max-w-4xl mx-auto space-y-6 text-lg">
+      <p>
+        Whether you're uninsured, underinsured, or simply want clarity before
+        committing to care — USRad makes medical imaging simple. We connect you
+        directly to high-quality imaging centers across the country, eliminating
+        the complexity of traditional healthcare.
+      </p>
+      <p>
+        There are no surprise bills. You know your all-in price before you book.
+        Every scan is read by a board-certified radiologist, and if needed,
+        reviewed by a subspecialist — all within 24–48 hours.
+      </p>
+      <p>
+        We believe imaging should be effortless, not a maze of referrals,
+        authorizations, or unclear costs.
+      </p>
+    </div>
+  </section>
+
+  <!-- How It Works Sequential Grid -->
+  <section class="bg-[#fefbf5] py-24 px-6">
+    <div class="max-w-6xl mx-auto text-center text-[#003087]">
+      <h2 class="text-3xl font-semibold mb-4">How It Works</h2>
+      <p class="text-lg mb-12">
+        From booking to results in four simple steps. No referrals. No
+        confusion.
+      </p>
+
+      <div
+        class="relative flex flex-col sm:flex-row items-center justify-between gap-10 sm:gap-4 px-4"
+      >
+        <!-- Connector line -->
+        <div
+          class="absolute top-[32px] left-0 right-0 h-px bg-[#e6c378] z-0 sm:block hidden"
+        >
+        </div>
+
+        <!-- Step 1 -->
+        <div
+          class="relative z-10 flex flex-col items-center"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <div
+            class="bg-[#003087] text-white rounded-full h-14 w-14 flex items-center justify-center mb-3 text-lg"
+          >
+            <img
+              src="/images/icons/scan-animated.svg"
+              alt="Scan Icon"
+              class="h-6 w-6"
+            />
+          </div>
+          <h3 class="font-semibold text-sm mb-1">Choose Your Scan</h3>
+          <p class="text-xs">Select scan type & location</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div
+          class="relative z-10 flex flex-col items-center"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          <div
+            class="bg-[#003087] text-white rounded-full h-14 w-14 flex items-center justify-center mb-3 text-lg"
+          >
+            <img
+              src="/images/icons/pin-animated.svg"
+              alt="Location Icon"
+              class="h-6 w-6"
+            />
+          </div>
+          <h3 class="font-semibold text-sm mb-1">Get Matched</h3>
+          <p class="text-xs">Top-rated centers near you</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div
+          class="relative z-10 flex flex-col items-center"
+          data-aos="fade-up"
+          data-aos-delay="500"
+        >
+          <div
+            class="bg-[#003087] text-white rounded-full h-14 w-14 flex items-center justify-center mb-3 text-lg"
+          >
+            <img
+              src="/images/icons/payment-animated.svg"
+              alt="Payment Icon"
+              class="h-6 w-6"
+            />
+          </div>
+          <h3 class="font-semibold text-sm mb-1">Confirm & Pay</h3>
+          <p class="text-xs">Transparent, All-In Pricing</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div
+          class="relative z-10 flex flex-col items-center"
+          data-aos="fade-up"
+          data-aos-delay="700"
+        >
+          <div
+            class="bg-[#003087] text-white rounded-full h-14 w-14 flex items-center justify-center mb-3 text-lg"
+          >
+            <img
+              src="/images/icons/brain-animated.svg"
+              alt="Expert Care Icon"
+              class="h-6 w-6"
+            />
+          </div>
+          <h3 class="font-semibold text-sm mb-1">Get Expert Care</h3>
+          <p class="text-xs">Board-certified reads, fast results</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Optional Value Highlights -->
+  <section class="bg-white py-20 px-6 text-[#003087]">
+    <div class="max-w-5xl mx-auto grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+      <div class="text-center">
+        <h3 class="text-lg font-semibold mb-2">
+          Transparent Flat-Rate Pricing
+        </h3>
+        <p class="text-sm">
+          All-inclusive rates. No hidden fees or separate radiologist bills.
+        </p>
+      </div>
+      <div class="text-center">
+        <h3 class="text-lg font-semibold mb-2">
+          Board-Certified Interpretation
+        </h3>
+        <p class="text-sm">
+          Every scan is reviewed by experienced radiologists, with subspecialist
+          oversight when needed.
+        </p>
+      </div>
+      <div class="text-center">
+        <h3 class="text-lg font-semibold mb-2">Priority Scheduling</h3>
+        <p class="text-sm">2–4 day average appointment times — not weeks.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-[#003087] py-20 px-6 text-white text-center">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-3xl font-semibold mb-4">Ready to Book Your Scan?</h2>
+      <p class="text-lg mb-8">
+        Choose a location, confirm your flat rate, and schedule — all in just
+        minutes.
+      </p>
+      <a
+        href="/locations"
+        class="inline-block bg-white text-[#003087] font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#f7f7f7] transition"
+      >
+        See Available Locations →
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
