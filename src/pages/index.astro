@@ -38,8 +38,6 @@ import SecondaryButton from "../components/SecondaryButton.astro";
     </section>
   </FadeIn>
 
-  
-
   <!-- Core Benefits -->
   <FadeIn effect="fade" delay={100}>
     <section class="bg-white pt-8 sm:pt-16 pb-12 sm:pb-20">
@@ -191,91 +189,145 @@ import SecondaryButton from "../components/SecondaryButton.astro";
           <img
             src="/images/usa-transparent.svg"
             alt="US Map"
-            loading=""lazy"
+            loading="lazy"
             class="w-full mx-auto max-w-3xl rounded-xl"
           />
 
-          <!-- USRad Pins (Animated, Responsive, Tooltips, Dark Mode Friendly) -->
-          <img
-            src="/images/usrad-pin-dark.png"
-            title="Florida"
-            data-aos="zoom-in"
-            data-aos-delay="100"
-            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
-            style="top: 77%; left: 77.5%;"
-          />
-          <img
-            src="/images/usrad-pin-dark.png"
-            title="Georgia"
-            data-aos="zoom-in"
-            data-aos-delay="150"
-            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
-            style="top: 62%; left: 72%;"
-          />
-          <img
-            src="/images/usrad-pin-dark.png"
-            title="South Carolina"
-            data-aos="zoom-in"
-            data-aos-delay="200"
-            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
-            style="top: 57%; left: 77%;"
-          />
-          <img
-            src="/images/usrad-pin-dark.png"
-            title="North Carolina"
-            data-aos="zoom-in"
-            data-aos-delay="250"
-            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
-            style="top: 49%; left: 79%;"
-          />
-          <img
-            src="/images/usrad-pin-dark.png"
-            title="New York"
-            data-aos="zoom-in"
-            data-aos-delay="300"
-            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
-            style="top: 21%; left: 81%;"
-          />
-          <img
-            src="/images/usrad-pin-dark.png"
-            title="New Jersey"
-            data-aos="zoom-in"
-            data-aos-delay="350"
-            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
-            style="top: 32%; left: 83%;"
-          />
-          <img
-            src="/images/usrad-pin-dark.png"
-            title="Pennsylvania"
-            data-aos="zoom-in"
-            data-aos-delay="350"
-            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
-            style="top: 30.5%; left: 78%;"
-          />
-          <img
-            src="/images/usrad-pin-dark.png"
-            title="Illinois"
-            data-aos="zoom-in"
-            data-aos-delay="400"
-            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
-            style="top: 35%; left: 62%;"
-          />
-          <img
-            src="/images/usrad-pin-dark.png"
-            title="Texas"
-            data-aos="zoom-in"
-            data-aos-delay="450"
-            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
-            style="top: 74%; left: 46%;"
-          />
-          <img
-            src="/images/usrad-pin-dark.png"
-            title="California"
-            data-aos="zoom-in"
-            data-aos-delay="500"
-            class="absolute w-6 sm:w-7 md:w-8 h-auto animate-pulse"
-            style="top: 45%; left: 13%;"
-          />
+          <!-- Interactive Pin Container -->
+          <div class="absolute inset-0">
+            <!-- Each pin is wrapped for hover tooltip + scale effect -->
+            <div class="group absolute" style="top: 77%; left: 77.5%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="100"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                Florida
+              </div>
+            </div>
+            <div class="group absolute" style="top: 74%; left: 46%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="500"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                Texas
+              </div>
+            </div>
+            <div class="group absolute" style="top: 62%; left: 72%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="300"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                Georgia
+              </div>
+            </div>
+            <div class="group absolute" style="top: 57%; left: 77%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="500"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                South Carolina
+              </div>
+            </div>
+            <div class="group absolute" style="top: 49%; left: 79%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="700"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                North Carolina
+              </div>
+            </div>
+            <div class="group absolute" style="top: 21%; left: 81%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="900"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                New York
+              </div>
+            </div>
+            <div class="group absolute" style="top: 32%; left: 83%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="1100"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                New Jersey
+              </div>
+            </div>
+            <div class="group absolute" style="top: 30.5%; left: 78%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="1300"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                Pennsylvania
+              </div>
+            </div>
+            <div class="group absolute" style="top: 35%; left: 62%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="1500"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                Illinois
+              </div>
+            </div>
+            
+            <div class="group absolute" style="top: 45%; left: 13%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="500"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                California
+              </div>
+            </div>
+          </div>
         </div>
 
         <p class="text-[#003087] dark:text-white text-base mt-6">
