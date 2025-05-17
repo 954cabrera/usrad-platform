@@ -1,5 +1,6 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+import HealthcareCoverageCrisisGraph from "../components/HealthcareCoverageCrisisGraph.jsx";
 import AOSInit from "../components/AOSInit.astro";
 ---
 
@@ -101,6 +102,20 @@ import AOSInit from "../components/AOSInit.astro";
           <li>Navigation support</li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section
+    class="py-20 bg-[#fcf9f0] text-[#003087] px-6 sm:px-12 text-center"
+    data-aos="fade-up"
+  >
+    <h2 class="text-3xl font-bold mb-6">The Coverage Crisis</h2>
+    <p class="max-w-2xl mx-auto mb-10 text-lg">
+      Over 90 million Americans are either uninsured or underinsured — and the
+      number keeps growing. USRad is built to close that gap.
+    </p>
+    <div class="max-w-5xl mx-auto">
+      <HealthcareCoverageCrisisGraph client:visible />
     </div>
   </section>
 
