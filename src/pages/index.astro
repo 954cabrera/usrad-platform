@@ -16,6 +16,8 @@ import ClinicalTrustSection from "../components/ClinicalTrustSection.astro";
 import TrustBadgesBar from "../components/TrustBadgesBar.astro";
 import CallToAction from "../components/CallToAction.astro";
 import PrimaryButton from "../components/PrimaryButton.astro";
+import ClinicalIntroWithImage from "../components/ClinicalIntroWithImage.astro";
+import ClinicalCredentialsGrid from "../components/ClinicalCredentialsGrid.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
 ---
 
@@ -23,65 +25,95 @@ import SecondaryButton from "../components/SecondaryButton.astro";
   <AOSInit />
   <StickyPatientSubHeader client:load />
 
-  <!-- Hero Section -->
   <FadeIn effect="fade" delay={0}>
-    <section class="bg-gradient-to-b from-[#fcf9f0] to-[#f8f0d8]">
-      <HeroPatientIntro />
-      <div class="bg-[#003087]/90 text-white py-3 text-center">
-        <div class="max-w-6xl mx-auto px-4">
-          <p class="text-sm sm:text-base font-medium">
-            Direct access to top-tier imaging centers with transparent pricing —
-            typically 30–70% below hospital rates
-          </p>
-        </div>
+    <section class="relative h-[80vh]">
+      <img
+        src="/images/website/85500991.webp"
+        alt="Patient receiving MRI with positioning lasers"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+      <div
+        class="absolute inset-0 bg-[#003087]/70 flex flex-col justify-center items-center text-white text-center px-4"
+      >
+        <h1 class="text-3xl sm:text-5xl font-semibold mb-4 drop-shadow-lg">
+          Modern MRI. Transparent Pricing.
+        </h1>
+        <p class="max-w-xl text-lg sm:text-xl mb-6 drop-shadow">
+          Direct access to top-tier imaging centers — 30–70% below hospital
+          rates.
+        </p>
+        <a
+          href="/booking"
+          class="bg-[#cc9933] text-[#003087] font-semibold px-6 py-3 rounded-xl shadow-lg hover:scale-105 transition-all duration-300"
+        >
+          Book an MRI →
+        </a>
       </div>
     </section>
   </FadeIn>
 
-  <section class="bg-[#fefbf5] py-16 px-6 text-center text-[#003087]">
-    <div class="max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-      <p
-        class="text-sm uppercase tracking-wide font-semibold text-[#cc9933] mb-4"
-      >
-        Behind the Simplicity
-      </p>
-      <p
-        class="text-lg sm:text-xl text-[#003087]/90 mb-6"
-        data-aos="fade-up"
-        data-aos-delay="200"
-      >
-        USRad isn’t just a booking tool or referral marketplace. We operate like
-        a full-scale managed care organization — with dedicated teams for
-        provider relations, customer support, quality assurance, and medical
-        oversight.
-      </p>
-      <p
-        class="text-lg sm:text-xl text-[#003087]/90"
-        data-aos="fade-up"
-        data-aos-delay="300"
-      >
-        The difference? We do it all as a carve-out — focused entirely on
-        diagnostic imaging, and built for the 90+ million Americans priced out
-        of traditional insurance.
-      </p>
+  <section class="bg-[#fefbf5] py-20 px-6 text-[#003087]">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <!-- Image -->
+      <div data-aos="fade-right">
+        <img
+          src="/images/website/86265241.webp"
+          alt="Technologist preparing patient for MRI scan"
+          class="w-full h-auto rounded-2xl shadow-xl"
+        />
+      </div>
+
+      <!-- Text -->
+      <div data-aos="fade-left" class="text-left">
+        <p
+          class="text-sm uppercase tracking-wide font-semibold text-[#cc9933] mb-4"
+        >
+          Behind the Simplicity
+        </p>
+        <p class="text-lg sm:text-xl mb-6 text-[#003087]/90">
+          USRad isn’t just a booking tool or referral marketplace. We operate
+          like a full-scale managed care organization — with dedicated teams for
+          provider relations, customer support, quality assurance, and medical
+          oversight.
+        </p>
+        <p class="text-lg sm:text-xl text-[#003087]/90">
+          The difference? We do it all as a carve-out — focused entirely on
+          diagnostic imaging, and built for the 90+ million Americans priced out
+          of traditional insurance.
+        </p>
+      </div>
     </div>
   </section>
 
   <!-- Core Benefits -->
-  <FadeIn effect="fade" delay={100}>
-    <section class="bg-white pt-8 sm:pt-16 pb-12 sm:pb-20">
+  <section class="relative pt-16 pb-20 bg-white">
+    <img
+      src="/images/website/134254212.webp"
+      alt="MRI scan showing diagnostic clarity"
+      class="absolute inset-0 w-full h-full object-cover opacity-10"
+    />
+    <div class="relative z-10">
       <CoreBenefits />
-    </section>
-  </FadeIn>
+    </div>
+  </section>
 
-  <!-- Trust Badges -->
-  <FadeIn effect="zoom" delay={100}>
-    <section class="bg-[#f0f4f9] py-14 sm:py-16">
-      <TrustBadgesBar />
-    </section>
-  </FadeIn>
+  <section class="bg-[#f0f4f9] py-20 px-6">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <!-- Image on Left -->
+      <div data-aos="fade-right">
+        <img
+          src="/images/website/100578104.webp"
+          alt="Experienced radiologist"
+          class="w-full h-auto rounded-2xl shadow-xl"
+        />
+      </div>
 
-   
+      <!-- Trust Badges on Right -->
+      <div data-aos="fade-left">
+        <TrustBadgesBar />
+      </div>
+    </div>
+  </section>
 
   <!-- Network Map -->
   <FadeIn effect="fade" delay={100}>
@@ -265,14 +297,14 @@ import SecondaryButton from "../components/SecondaryButton.astro";
     </section>
   </FadeIn>
 
-  <!-- Clinical Trust -->
-  <FadeIn effect="fade" delay={100}>
-    <section class="bg-white py-16 sm:py-20">
-      <ClinicalTrustSection />
-    </section>
-  </FadeIn>
-  
-      <FAQPreview />
+  <section class="bg-white py-20 px-6">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <ClinicalIntroWithImage />
+      <ClinicalCredentialsGrid />
+    </div>
+  </section>
+
+  <FAQPreview />
 
   <!-- CTA -->
   <FadeIn effect="fade" delay={100}>
