@@ -63,7 +63,7 @@ import Footer from "../components/Footer.astro";
   </section>
 
   <!-- How It Works Sequential Grid -->
-  <section class="bg-[#fefbf5] py-24 px-6">
+  <section class="relative bg-[#fefbf5] py-20 px-6 overflow-hidden">
     <div class="max-w-6xl mx-auto text-center text-[#003087]">
       <h2 class="text-3xl font-semibold mb-4">How It Works</h2>
       <p class="text-lg mb-12">
@@ -156,6 +156,20 @@ import Footer from "../components/Footer.astro";
           <p class="text-xs">Board-certified reads, fast results</p>
         </div>
       </div>
+    </div>
+
+    <!-- Walking Person Illustration (Right Side, Desktop Only) -->
+    <div
+      class="absolute right-6 bottom-6 hidden md:block z-10"
+      data-aos="fade-left"
+      data-aos-delay="800"
+    >
+      <img
+        src="/images/illustrations/walking-person.webp"
+        alt="A user navigating four imaging steps"
+        class="max-h-64 opacity-90 animate-float"
+        loading="lazy"
+      />
     </div>
   </section>
 
