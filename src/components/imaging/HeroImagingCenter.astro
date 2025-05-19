@@ -1,0 +1,137 @@
+---
+// src/components/imaging/HeroImagingCenter.astro
+---
+
+<section
+  class="relative w-full min-h-[700px] overflow-hidden bg-[#fcf9f0] text-[#003087]"
+>
+  <!-- Video Background -->
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    class="absolute inset-0 w-full h-full object-cover z-0"
+    poster="/images/imaging-center-hero-fallback.webp"
+  >
+    <source
+      src="/videos/imaging-center-hero-mobile.mp4"
+      type="video/mp4"
+      media="(max-width: 768px)"
+    />
+    <source src="/videos/imaging-center-hero.mp4" type="video/mp4" />
+    <source src="/videos/imaging-center-hero.webm" type="video/webm" />
+    <img
+      src="/images/imaging-center-hero-fallback.webp"
+      alt="Radiologist collaboration"
+      class="w-full h-full object-cover"
+    />
+  </video>
+
+  <!-- Radial Overlay -->
+  <div
+    class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.7)_40%,transparent_85%)] z-0"
+  >
+  </div>
+
+  <!-- Decorative Circles -->
+  <div
+    class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl z-10"
+  >
+  </div>
+  <div
+    class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl z-10"
+  >
+  </div>
+
+  <!-- Hero Content -->
+  <div class="max-w-6xl mx-auto relative z-20">
+    <div class="text-center mb-12">
+      <h1
+        class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight font-manrope text-[#003087] drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Partner With <span class="text-[#cc9933] relative">
+          USRad
+          <svg
+            class="absolute -bottom-2 left-0 w-full"
+            height="6"
+            viewBox="0 0 340 6"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2 3.5C2 3.5 70 0.5 170 3.5C270 6.5 338 3.5 338 3.5"
+              stroke="#cc9933"
+              stroke-width="4"
+              stroke-linecap="round"></path>
+          </svg>
+        </span>
+      </h1>
+
+      <p
+        class="mt-6 text-xl sm:text-2xl text-[#003087] max-w-3xl mx-auto leading-relaxed font-manrope"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        Join our nationwide network of premium imaging centers and optimize your
+        facility utilization while serving patients who need affordable imaging.
+      </p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div
+      class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+      data-aos="fade-up"
+      data-aos-delay="400"
+    >
+      <div
+        class="bg-white p-4 rounded-xl shadow-md text-center transform hover:scale-105 transition-all duration-300 border-t-4 border-[#cc9933]"
+      >
+        <div
+          class="text-[#003087] text-3xl font-bold mb-2 font-manrope stat-number"
+        >
+          1,200+
+        </div>
+        <p class="text-[#003087] font-manrope">Centers in previous network</p>
+      </div>
+      <div
+        class="bg-white p-4 rounded-xl shadow-md text-center transform hover:scale-105 transition-all duration-300 border-t-4 border-[#cc9933]"
+      >
+        <div
+          class="text-[#003087] text-3xl font-bold mb-2 font-manrope stat-number"
+        >
+          100M+
+        </div>
+        <p class="text-[#003087] font-manrope">
+          Uninsured & underinsured patients
+        </p>
+      </div>
+      <div
+        class="bg-white p-4 rounded-xl shadow-md text-center transform hover:scale-105 transition-all duration-300 border-t-4 border-[#cc9933]"
+      >
+        <div
+          class="text-[#003087] text-3xl font-bold mb-2 font-manrope stat-number"
+        >
+          30-70%
+        </div>
+        <p class="text-[#003087] font-manrope">Lower than hospital rates</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wave Divider -->
+  <div class="absolute bottom-0 left-0 right-0 overflow-hidden z-20">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1440 120"
+      class="w-full h-auto"
+    >
+      <path
+        fill="#ffffff"
+        fill-opacity="1"
+        d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
+      ></path>
+    </svg>
+  </div>
+</section>

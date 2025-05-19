@@ -5,26 +5,54 @@ import MainLayout from "../layouts/MainLayout.astro";
 <MainLayout>
   <!-- Hero Section -->
   <section
-    class="bg-gradient-to-b from-[#fcf9f0] to-[#f5e7c5] text-[#003087] py-24 px-6 sm:px-12 text-center"
+    class="relative w-full h-[600px] bg-center bg-cover bg-no-repeat flex items-center justify-center text-center px-6 sm:px-12"
+    style="background-image: url('/images/partner-tradeshow.webp');"
   >
-    <h1 class="text-5xl font-bold mb-4">
-      Flexible Imaging Partnerships for Employers & Health Platforms
-    </h1>
-    <p class="text-xl max-w-3xl mx-auto mb-8">
-      USRad connects self-funded groups, TPAs, and innovative health partners to
-      flat-rate diagnostic imaging—without insurance complexity.
-    </p>
-    <div class="flex justify-center gap-4 flex-wrap">
-      <a
-        href="/contact?ref=partner-intro"
-        class="bg-[#e6c378] hover:bg-[#cc9933] text-white px-6 py-3 rounded-xl font-semibold"
-        >Schedule a Consultation</a
+    <!-- Fallback for environments where background-image doesn't load -->
+    <img
+      src="/images/partner-tradeshow.webp"
+      alt="Trade show floor with healthcare and insurance professionals"
+      class="absolute inset-0 w-full h-full object-cover z-0"
+      loading="eager"
+    />
+
+    <!-- Gradient Overlay -->
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-[#fcf9f0]/90 to-[#f5e7c5]/90 z-10"
+    >
+    </div>
+
+    <!-- Content -->
+    <div
+      class="relative z-20 max-w-4xl mx-auto"
+      data-aos="fade-up"
+      data-aos-delay="100"
+    >
+      <h1 class="text-4xl sm:text-5xl font-bold text-[#003087] mb-4">
+        Flexible Imaging Partnerships for Employers & Health Platforms
+      </h1>
+      <p class="text-xl max-w-3xl mx-auto mb-8 text-[#003087]">
+        USRad connects self-funded groups, TPAs, and innovative health partners
+        to flat-rate diagnostic imaging—without insurance complexity.
+      </p>
+      <div
+        class="flex justify-center gap-4 flex-wrap"
+        data-aos="fade-up"
+        data-aos-delay="200"
       >
-      <a
-        href="/downloads/usrad-overview.pdf"
-        class="border border-[#003087] text-[#003087] hover:bg-[#003087] hover:text-white px-6 py-3 rounded-xl font-semibold"
-        >Download Overview PDF</a
-      >
+        <a
+          href="/contact?ref=partner-intro"
+          class="bg-[#e6c378] hover:bg-[#cc9933] text-white px-6 py-3 rounded-xl font-semibold"
+        >
+          Schedule a Consultation
+        </a>
+        <a
+          href="/downloads/usrad-overview.pdf"
+          class="border border-[#003087] text-[#003087] hover:bg-[#003087] hover:text-white px-6 py-3 rounded-xl font-semibold"
+        >
+          Download Overview PDF
+        </a>
+      </div>
     </div>
   </section>
 
