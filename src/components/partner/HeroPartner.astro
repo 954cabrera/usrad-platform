@@ -7,12 +7,13 @@
 >
   <!-- Background Video -->
   <video
+    id="partnerHeroVideo"
     autoplay
     muted
     loop
     playsinline
     class="absolute inset-0 w-full h-full object-cover z-0"
-    poster="/images/partner-hero-fallback.webp"
+    poster="/images/partner-hero-fallback-enhanced.webp"
   >
     <source
       src="/videos/partner-hero-softblur-mobile.mp4"
@@ -74,4 +75,13 @@
       </a>
     </div>
   </div>
+
+  <!-- Mobile Poster Swap Script -->
+  <script>
+    if (typeof window !== "undefined" && window.innerWidth <= 768) {
+      const video = document.getElementById("partnerHeroVideo");
+      if (video)
+        video.poster = "/images/partner-hero-fallback-enhanced-mobile.webp";
+    }
+  </script>
 </section>
