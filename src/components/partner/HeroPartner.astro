@@ -1,0 +1,77 @@
+---
+// src/components/partner/HeroPartner.astro
+---
+
+<section
+  class="relative w-full min-h-[700px] overflow-hidden bg-[#fcf9f0] text-[#003087]"
+>
+  <!-- Background Video -->
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    class="absolute inset-0 w-full h-full object-cover z-0"
+    poster="/images/partner-hero-fallback.webp"
+  >
+    <source
+      src="/videos/partner-hero-softblur-mobile.mp4"
+      type="video/mp4"
+      media="(max-width: 768px)"
+    />
+    <source src="/videos/partner-hero-softblur.mp4" type="video/mp4" />
+    <source src="/videos/partner-hero-softblur.webm" type="video/webm" />
+    <img
+      src="/images/partner-hero-fallback.webp"
+      alt="Trade show networking"
+      class="w-full h-full object-cover"
+    />
+  </video>
+
+  <!-- Optional Overlay Gradient -->
+  <div
+    class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.85)_0%,rgba(255,255,255,0.6)_45%,transparent_90%)] z-0"
+  >
+  </div>
+
+  <!-- Hero Content -->
+  <div class="relative z-10 max-w-6xl mx-auto text-center py-24 px-6 sm:px-12">
+    <h1
+      class="text-4xl sm:text-5xl lg:text-6xl font-bold font-manrope text-[#003087] drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)] mb-6"
+      data-aos="fade-up"
+      data-aos-delay="100"
+    >
+      Connect With USRad <br />
+      <span class="text-[#cc9933]">at the Frontlines of Imaging</span>
+    </h1>
+
+    <p
+      class="text-xl sm:text-2xl text-[#003087] font-manrope max-w-3xl mx-auto leading-relaxed"
+      data-aos="fade-up"
+      data-aos-delay="200"
+    >
+      From trade show floors to national partnerships, we’ve built this network
+      alongside you. Let’s elevate imaging access—together.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div
+      class="mt-10 flex flex-col sm:flex-row justify-center gap-4"
+      data-aos="fade-up"
+      data-aos-delay="300"
+    >
+      <a
+        href="/imaging-center"
+        class="inline-block bg-[#003087] hover:bg-[#002070] text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-md"
+      >
+        Join the Imaging Network
+      </a>
+      <a
+        href="/contact"
+        class="inline-block bg-white text-[#003087] border border-[#003087] font-semibold px-6 py-3 rounded-xl hover:bg-[#f0f4f9] transition-all shadow-md"
+      >
+        Let’s Talk
+      </a>
+    </div>
+  </div>
+</section>

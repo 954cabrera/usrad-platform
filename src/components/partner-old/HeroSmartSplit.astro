@@ -1,0 +1,119 @@
+<!-- HeroSmartSplit.astro - Hero Only -->
+<section class="py-24 bg-[#f0f4f9] text-gray-800 relative brain-background-container overflow-visible">
+  <!-- Brain background that extends beyond section boundaries -->
+  <div class="brain-background" style="opacity: 0.05;"></div>
+  
+  <!-- Subtle pattern overlay -->
+  <div
+    class="absolute inset-0 bg-repeat opacity-[0.03]"
+    style="background-image: url('/images/subtle-pattern.svg');"
+  >
+  </div>
+
+  <!-- Decorative elements -->
+  <div
+    class="absolute top-20 left-20 w-64 h-64 rounded-full bg-[#e6c378] opacity-[0.03] blur-3xl"
+  >
+  </div>
+  <div
+    class="absolute bottom-20 right-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+  >
+  </div>
+
+  <div class="px-6 sm:px-8 lg:px-12">
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <!-- Left column - preserved original headline and text content -->
+        <div class="space-y-6" data-aos="fade-right">
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-semibold text-[#003087] leading-tight"
+          >
+            Simpler imaging partnerships.
+          </h1>
+          <h2
+            class="text-3xl md:text-4xl lg:text-5xl font-medium text-[#003087] leading-tight"
+          >
+            Stronger patient pipelines.
+          </h2>
+          <div class="h-1 w-48 bg-[#e6c378] rounded-full"></div>
+          <p class="text-xl text-gray-700 mt-6">
+            USRad connects your center to thousands of self-pay patients—no
+            referrals required, no tech overhead. Schedule faster. Get paid
+            quicker. Expand smarter.
+          </p>
+          <div class="mt-8">
+            <a
+              href="/partner/apply"
+              class="inline-block bg-[#003087] text-white px-8 py-4 rounded-full hover:bg-[#002266] transition-all hover:shadow-lg border-l-4 border-[#e6c378] pulse-button"
+            >
+              Apply Now to Join the Network
+            </a>
+          </div>
+        </div>
+
+        <!-- Right column - preserved original content in luxury format -->
+        <div class="relative" data-aos="fade-left">
+          <div
+            class="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-[#e6c378] opacity-20"
+          >
+          </div>
+          <div class="relative z-10">
+            <img
+              src="/images/partner-hero-image.png"
+              alt="USRad partnership visualization with imaging center"
+              class="w-full h-auto rounded-xl shadow-xl border border-[#e6c378] border-opacity-20 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hero-image-animation"
+            />
+            <p class="text-center mt-4 text-lg font-medium text-[#003087]">
+              <span class="inline-block h-0.5 w-6 bg-[#e6c378] mr-2 align-middle"></span>
+              Partners see real, measurable growth
+              <span class="inline-block h-0.5 w-6 bg-[#e6c378] ml-2 align-middle"></span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Soft gradient transition to next section -->
+        <div
+          class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-[#fcf9f0] opacity-30"
+        >
+        </div>
+      </div>
+
+      <style>
+        /* Pulsating effect */
+        .pulse-button {
+          animation: pulse 2s infinite ease-in-out;
+        }
+
+        /* Keyframes for the pulsating animation */
+        @keyframes pulse {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.05);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+
+        /* Subtle glow animation for the hero image */
+        @keyframes subtle-glow {
+          0% {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+          }
+          50% {
+            box-shadow: 0 10px 25px -5px rgba(230, 195, 120, 0.2), 0 10px 10px -5px rgba(0, 48, 135, 0.1);
+          }
+          100% {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+          }
+        }
+
+        .hero-image-animation {
+          animation: subtle-glow 4s infinite ease-in-out;
+        }
+      </style>
+    </div>
+  </div>
+</section>
