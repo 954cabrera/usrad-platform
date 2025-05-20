@@ -166,16 +166,18 @@ export default function StickyPatientSubHeader() {
   };
 
   return (
-    <div 
-      ref={headerRef} 
-      className={`
-        ${isScrolled ? "fixed top-0 left-0 right-0" : "relative"} 
-        z-50 bg-white/95 backdrop-blur border-b border-[#e6c378] shadow-sm
-      `}
-      style={{ 
-        transition: "all 0.3s ease-in-out"
-      }}
-    >
+    // In StickyPatientSubHeader.jsx component
+// Find the main container div and add the class
+<div 
+  ref={headerRef} 
+  className={`
+    ${isScrolled ? "fixed top-0 left-0 right-0" : "relative"} 
+    z-50 bg-white/95 backdrop-blur border-b border-[#e6c378] shadow-sm sticky-header-fix
+  `}
+  style={{ 
+    transition: "all 0.3s ease-in-out"
+  }}
+>
       {/* Desktop View: Display form directly with proper spacing */}
       <div className="hidden sm:block pt-5 pb-5 bg-[#f8f0d8]/50">
         <form
@@ -239,8 +241,8 @@ export default function StickyPatientSubHeader() {
       </div>
 
       {/* Mobile View: Toggle button and collapsible form */}
-      <div className="block sm:hidden">
-        <div className="px-4 py-2">
+      <div className="block sm:hidden w-full">
+        <div className="px-4 py-2 flex w-full justify-between">
           <button
             type="button"
             onClick={toggleExpanded}
@@ -276,10 +278,10 @@ export default function StickyPatientSubHeader() {
         </div>
 
         {/* Mobile Search Form */}
-        <div className={`${isExpanded ? "block" : "hidden"} search-form-container transition-all duration-300 px-4 pb-2`}>
+        <div className={`${isExpanded ? "block" : "hidden"} search-form-container transition-all duration-300 px-4 pb-2 w-full`}>
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col gap-2"
+            className="flex flex-col gap-2 w-full"
           >
             <div className="relative w-full">
               <input
@@ -321,7 +323,7 @@ export default function StickyPatientSubHeader() {
               )}
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full">
               <input
                 type="text"
                 placeholder="ZIP code or city"
@@ -386,6 +388,14 @@ export default function StickyPatientSubHeader() {
         .find-button:active {
           transform: translateY(0);
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Mobile-specific fixes */
+        @media (max-width: 640px) {
+          /* Ensure proper header alignment */
+          :global(body) {
+            overflow-x: hidden;
+          }
         }
       `}</style>
     </div>

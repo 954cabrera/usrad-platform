@@ -186,3 +186,29 @@ body {
 .animate-float {
   animation: float 4s ease-in-out infinite;
 }
+
+ /* Mobile fixes - add these at the end of your global.css file */
+ @media (max-width: 640px) {
+
+   html,
+   body {
+     overflow-x: hidden;
+     width: 100%;
+   }
+
+   .sticky-header-fix {
+     width: 100vw;
+     max-width: 100%;
+   }
+
+   /* Ensure content sections are visible */
+   section {
+     position: relative;
+     z-index: 1;
+   }
+
+   /* Hero-specific fixes */
+   section.hero-section {
+     z-index: 0;
+   }
+ }
