@@ -6,11 +6,14 @@ import FadeIn from "../components/FadeIn.astro";
 import AOSInit from "../components/AOSInit.astro";
 import AboutHero from "../components/AboutHero.astro";
 import StickyPatientSubHeader from "../components/StickyPatientSubHeader.jsx";
+import { Fragment } from "astro/jsx-runtime";
 import AboutVision from "../components/AboutVision.astro";
 ---
 
 <MainLayout>
-  <StickyPatientSubHeader client:load />
+  <Fragment slot="customHeader">
+    <StickyPatientSubHeader showStickyBar={true} />
+  </Fragment>
 
   <AOSInit />
   <AboutHero />

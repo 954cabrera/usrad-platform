@@ -32,9 +32,11 @@ import Footer from "../components/Footer.astro";
 
   <body class="font-manrope text-[#003087] bg-[#fcf9f0] min-h-screen">
     <UtilityHeader />
-    <Header />
+    {Astro.props.customHeader ? <slot name="customHeader" /> : <Header />}
 
-    <main class="main-content">
+    <main
+      class={`main-content relative z-10 ${Astro.props.showHeader === false ? "no-header" : ""}`}
+    >
       <slot />
     </main>
 
@@ -46,11 +48,15 @@ import Footer from "../components/Footer.astro";
         padding-top: 140px;
       }
 
-      /* === Mobile Overrides === */
       @media (max-width: 768px) {
         .main-content {
-          padding-top: 80px; /* Reduced from 140px */
+          padding-top: 80px;
         }
+      }
+
+      /* Remove padding when header is suppressed */
+      .main-content.no-header {
+        padding-top: 0 !important;
       }
     </style>
   </body>

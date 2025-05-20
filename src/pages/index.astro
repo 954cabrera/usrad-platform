@@ -21,7 +21,7 @@ import ClinicalCredentialsGrid from "../components/ClinicalCredentialsGrid.astro
 import SecondaryButton from "../components/SecondaryButton.astro";
 ---
 
-<MainLayout>
+<MainLayout showHeader={false}>
   <AOSInit />
   <StickyPatientSubHeader client:load />
 
@@ -52,263 +52,264 @@ import SecondaryButton from "../components/SecondaryButton.astro";
     </section>
   </FadeIn>
 
-<section class="bg-[#fefbf5] py-20 px-6 text-[#003087]">
-  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-    <!-- Image -->
-    <div data-aos="fade-right">
-      <img
-        src="/images/website/86265241.webp"
-        alt="Technologist preparing patient for MRI scan"
-        class="w-full h-auto rounded-2xl shadow-xl"
-      />
-    </div>
-
-    <!-- Text -->
-    <div data-aos="fade-left" class="text-left">
-      <p
-        class="text-sm uppercase tracking-wide font-semibold text-[#cc9933] mb-4"
-      >
-        Behind the Simplicity
-      </p>
-      <p class="text-lg sm:text-xl mb-6 text-[#003087]/90">
-        USRad isn’t just a booking tool or referral marketplace. We operate like
-        a full-scale managed care organization — with dedicated teams for
-        provider relations, customer support, quality assurance, and medical
-        oversight.
-      </p>
-      <p class="text-lg sm:text-xl text-[#003087]/90">
-        The difference? We do it all as a carve-out — focused entirely on
-        diagnostic imaging, and built for the 90+ million Americans priced out
-        of traditional insurance.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- Core Benefits -->
-<section class="relative pt-16 pb-20 bg-white">
-  <img
-    src="/images/website/134254212.webp"
-    alt="MRI scan showing diagnostic clarity"
-    class="absolute inset-0 w-full h-full object-cover opacity-10"
-  />
-  <div class="relative z-10">
-    <CoreBenefits />
-  </div>
-</section>
-
-<section class="bg-[#f0f4f9] py-20 px-6">
-  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-    <!-- Image on Left -->
-    <div data-aos="fade-right">
-      <img
-        src="/images/website/100578104.webp"
-        alt="Experienced radiologist"
-        class="w-full h-auto rounded-2xl shadow-xl"
-      />
-    </div>
-
-    <!-- Trust Badges on Right -->
-    <div data-aos="fade-left">
-      <TrustBadgesBar />
-    </div>
-  </div>
-</section>
-
-<!-- Network Map -->
-<FadeIn effect="fade" delay={100}>
-  <section class="bg-white dark:bg-[#0f172a] py-24">
-    <div class="max-w-5xl mx-auto px-6 sm:px-12 text-center">
-      <div
-        class="flex flex-col items-center justify-center sm:flex-row sm:justify-center gap-2 mb-4"
-      >
-        <p
-          class="text-xl sm:text-2xl font-semibold uppercase tracking-wide text-[#cc9933]"
-        >
-          National Footprint
-        </p>
-        <span
-          class="bg-[#003087] text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide"
-        >
-          Initial Launch
-        </span>
+  <section class="bg-[#fefbf5] py-20 px-6 text-[#003087]">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <!-- Image -->
+      <div data-aos="fade-right">
+        <img
+          src="/images/website/86265241.webp"
+          alt="Technologist preparing patient for MRI scan"
+          class="w-full h-auto rounded-2xl shadow-xl"
+        />
       </div>
 
-      <div
-        class="relative bg-[#fdfaf3] dark:bg-[#1e293b] border border-[#e6c378]/30 rounded-3xl p-8 shadow-2xl"
-      >
-        <!-- Transparent US Map -->
+      <!-- Text -->
+      <div data-aos="fade-left" class="text-left">
+        <p
+          class="text-sm uppercase tracking-wide font-semibold text-[#cc9933] mb-4"
+        >
+          Behind the Simplicity
+        </p>
+        <p class="text-lg sm:text-xl mb-6 text-[#003087]/90">
+          USRad isn’t just a booking tool or referral marketplace. We operate
+          like a full-scale managed care organization — with dedicated teams for
+          provider relations, customer support, quality assurance, and medical
+          oversight.
+        </p>
+        <p class="text-lg sm:text-xl text-[#003087]/90">
+          The difference? We do it all as a carve-out — focused entirely on
+          diagnostic imaging, and built for the 90+ million Americans priced out
+          of traditional insurance.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Benefits -->
+  <section class="relative pt-16 pb-20 bg-white">
+    <img
+      src="/images/website/134254212.webp"
+      alt="MRI scan showing diagnostic clarity"
+      class="absolute inset-0 w-full h-full object-cover opacity-10"
+    />
+    <div class="relative z-10">
+      <CoreBenefits />
+    </div>
+  </section>
+
+  <section class="bg-[#f0f4f9] py-20 px-6">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <!-- Image on Left -->
+      <div data-aos="fade-right">
         <img
-          src="/images/usa-transparent.svg"
-          alt="US Map"
-          loading="lazy"
-          class="w-full mx-auto max-w-3xl rounded-xl"
+          src="/images/website/100578104.webp"
+          alt="Experienced radiologist"
+          class="w-full h-auto rounded-2xl shadow-xl"
         />
+      </div>
 
-        <!-- Interactive Pin Container -->
-        <div class="absolute inset-0">
-          <!-- Each pin is wrapped for hover tooltip + scale effect -->
-          <div class="group absolute" style="top: 77%; left: 77.5%;">
-            <img
-              src="/images/usrad-pin-dark.png"
-              data-aos="fade-up"
-              data-aos-delay="100"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              Florida
-            </div>
-          </div>
-          <div class="group absolute" style="top: 74%; left: 46%;">
-            <img
-              src="/images/usrad-pin-dark.png"
-              data-aos="fade-up"
-              data-aos-delay="500"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              Texas
-            </div>
-          </div>
-          <div class="group absolute" style="top: 62%; left: 72%;">
-            <img
-              src="/images/usrad-pin-dark.png"
-              data-aos="fade-up"
-              data-aos-delay="300"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              Georgia
-            </div>
-          </div>
-          <div class="group absolute" style="top: 57%; left: 77%;">
-            <img
-              src="/images/usrad-pin-dark.png"
-              data-aos="fade-up"
-              data-aos-delay="500"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              South Carolina
-            </div>
-          </div>
-          <div class="group absolute" style="top: 49%; left: 79%;">
-            <img
-              src="/images/usrad-pin-dark.png"
-              data-aos="fade-up"
-              data-aos-delay="700"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              North Carolina
-            </div>
-          </div>
-          <div class="group absolute" style="top: 21%; left: 81%;">
-            <img
-              src="/images/usrad-pin-dark.png"
-              data-aos="fade-up"
-              data-aos-delay="900"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              New York
-            </div>
-          </div>
-          <div class="group absolute" style="top: 32%; left: 83%;">
-            <img
-              src="/images/usrad-pin-dark.png"
-              data-aos="fade-up"
-              data-aos-delay="1100"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              New Jersey
-            </div>
-          </div>
-          <div class="group absolute" style="top: 30.5%; left: 78%;">
-            <img
-              src="/images/usrad-pin-dark.png"
-              data-aos="fade-up"
-              data-aos-delay="1300"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              Pennsylvania
-            </div>
-          </div>
-          <div class="group absolute" style="top: 35%; left: 62%;">
-            <img
-              src="/images/usrad-pin-dark.png"
-              data-aos="fade-up"
-              data-aos-delay="1500"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              Illinois
-            </div>
-          </div>
+      <!-- Trust Badges on Right -->
+      <div data-aos="fade-left">
+        <TrustBadgesBar />
+      </div>
+    </div>
+  </section>
 
-          <div class="group absolute" style="top: 45%; left: 13%;">
-            <img
-              src="/images/usrad-pin-dark.png"
-              data-aos="fade-up"
-              data-aos-delay="500"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              California
+  <!-- Network Map -->
+  <FadeIn effect="fade" delay={100}>
+    <section class="bg-white dark:bg-[#0f172a] py-24">
+      <div class="max-w-5xl mx-auto px-6 sm:px-12 text-center">
+        <div
+          class="flex flex-col items-center justify-center sm:flex-row sm:justify-center gap-2 mb-4"
+        >
+          <p
+            class="text-xl sm:text-2xl font-semibold uppercase tracking-wide text-[#cc9933]"
+          >
+            National Footprint
+          </p>
+          <span
+            class="bg-[#003087] text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide"
+          >
+            Initial Launch
+          </span>
+        </div>
+
+        <div
+          class="relative bg-[#fdfaf3] dark:bg-[#1e293b] border border-[#e6c378]/30 rounded-3xl p-8 shadow-2xl"
+        >
+          <!-- Transparent US Map -->
+          <img
+            src="/images/usa-transparent.svg"
+            alt="US Map"
+            loading="lazy"
+            class="w-full mx-auto max-w-3xl rounded-xl"
+          />
+
+          <!-- Interactive Pin Container -->
+          <div class="absolute inset-0">
+            <!-- Each pin is wrapped for hover tooltip + scale effect -->
+            <div class="group absolute" style="top: 77%; left: 77.5%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="100"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                Florida
+              </div>
+            </div>
+            <div class="group absolute" style="top: 74%; left: 46%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="500"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                Texas
+              </div>
+            </div>
+            <div class="group absolute" style="top: 62%; left: 72%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="300"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                Georgia
+              </div>
+            </div>
+            <div class="group absolute" style="top: 57%; left: 77%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="500"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                South Carolina
+              </div>
+            </div>
+            <div class="group absolute" style="top: 49%; left: 79%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="700"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                North Carolina
+              </div>
+            </div>
+            <div class="group absolute" style="top: 21%; left: 81%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="900"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                New York
+              </div>
+            </div>
+            <div class="group absolute" style="top: 32%; left: 83%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="1100"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                New Jersey
+              </div>
+            </div>
+            <div class="group absolute" style="top: 30.5%; left: 78%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="1300"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                Pennsylvania
+              </div>
+            </div>
+            <div class="group absolute" style="top: 35%; left: 62%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="1500"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                Illinois
+              </div>
+            </div>
+
+            <div class="group absolute" style="top: 45%; left: 13%;">
+              <img
+                src="/images/usrad-pin-dark.png"
+                data-aos="fade-up"
+                data-aos-delay="500"
+                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+              />
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+              >
+                California
+              </div>
             </div>
           </div>
         </div>
+
+        <p class="text-[#003087] dark:text-white text-base mt-6">
+          Our signal is growing—launching now with top imaging centers to bring
+          fast, affordable diagnostics nationwide.
+        </p>
+
+        <a
+          href="/partner"
+          class="mt-6 inline-block bg-[#003087] text-white px-6 py-3 rounded-xl shadow-md hover:bg-[#002266] hover:scale-105 hover:shadow-xl transition-all duration-300 text-sm sm:text-base"
+        >
+          For Imaging Providers: Expand with USRad →
+        </a>
       </div>
+    </section>
+  </FadeIn>
 
-      <p class="text-[#003087] dark:text-white text-base mt-6">
-        Our signal is growing—launching now with top imaging centers to bring
-        fast, affordable diagnostics nationwide.
-      </p>
-
-      <a
-        href="/partner"
-        class="mt-6 inline-block bg-[#003087] text-white px-6 py-3 rounded-xl shadow-md hover:bg-[#002266] hover:scale-105 hover:shadow-xl transition-all duration-300 text-sm sm:text-base"
-      >
-        For Imaging Providers: Expand with USRad →
-      </a>
+  <section class="bg-white py-20 px-6">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <ClinicalIntroWithImage />
+      <ClinicalCredentialsGrid />
     </div>
   </section>
-</FadeIn>
 
-<section class="bg-white py-20 px-6">
-  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-    <ClinicalIntroWithImage />
-    <ClinicalCredentialsGrid />
-  </div>
-</section>
+  <FAQPreview />
 
-<FAQPreview />
+  <!-- CTA -->
+  <FadeIn effect="fade" delay={100}>
+    <CallToAction />
+  </FadeIn>
 
-<!-- CTA -->
-<FadeIn effect="fade" delay={100}>
-  <CallToAction />
-</FadeIn>
-
-<ChatbotToggle chatbotLabel="💬 Let's Talk" />
+  <ChatbotToggle chatbotLabel="💬 Let's Talk" />
+</MainLayout>

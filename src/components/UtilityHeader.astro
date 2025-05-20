@@ -87,6 +87,13 @@
       height: 1.75rem; /* Maintain more similar height to desktop */
     }
 
+    @media (max-width: 768px) {
+      .group:hover > div {
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+    }
+
     .utility-container {
       padding: 0 1rem;
     }

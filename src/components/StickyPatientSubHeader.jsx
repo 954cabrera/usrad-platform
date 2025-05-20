@@ -1,403 +1,201 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const scanOptions = [
-  "MRI without Contrast",
-  "MRI with Contrast",
-  "MRI without and with Contrast",
-  "CT without Contrast",
-  "CT with Contrast",
-  "CT without and with Contrast",
-  "X-Ray",
-  "Ultrasound",
-  "Mammogram",
-];
-
-export default function StickyPatientSubHeader() {
-  // Main state
-  const [scanType, setScanType] = useState("");
-  const [location, setLocation] = useState("");
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  
-  // Dropdown state
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [filteredOptions, setFilteredOptions] = useState([]);
-  const [highlightedIndex, setHighlightedIndex] = useState(-1);
-  
-  // Refs
-  const inputRef = useRef(null);
-  const dropdownRef = useRef(null);
+export default function StickyPatientSubHeader({ showStickyBar = false }) {
   const headerRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
-  // Handle outside clicks for dropdown
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (
-        dropdownRef.current && 
-        !dropdownRef.current.contains(event.target) &&
-        inputRef.current && 
-        !inputRef.current.contains(event.target)
-      ) {
-        setShowDropdown(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
+  const toggleSearchBar = () => setShowSearchBar((prev) => !prev);
 
-  // Add custom animation class and handle scroll
   useEffect(() => {
-    // Add animation styles
-    const styleElement = document.createElement('style');
-    styleElement.innerHTML = `
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      .animate-fadeIn {
-        animation: fadeIn 0.3s ease-out forwards;
-      }
-    `;
-    document.head.appendChild(styleElement);
-    
-    // Handle scroll behavior
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 10);
     };
-    
-    window.addEventListener('scroll', handleScroll);
-    
-    return () => {
-      document.head.removeChild(styleElement);
-      window.removeEventListener('scroll', handleScroll);
-    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!scanType || !location) return;
-    window.location.href = `/book?scan=${encodeURIComponent(scanType)}&location=${encodeURIComponent(location)}`;
-  };
-
-  // Handle scan input change
-  const handleScanInput = (e) => {
-    const value = e.target.value;
-    setScanType(value);
-    
-    if (value.trim() === "") {
-      setFilteredOptions([]);
-      setShowDropdown(false);
-    } else {
-      const filtered = scanOptions.filter((option) =>
-        option.toLowerCase().includes(value.toLowerCase())
-      );
-      setFilteredOptions(filtered);
-      setShowDropdown(filtered.length > 0);
-      setHighlightedIndex(-1);
-    }
-  };
-
-  // Handle option selection
-  const handleOptionClick = (option) => {
-    setScanType(option);
-    setShowDropdown(false);
-    setHighlightedIndex(-1);
-    
-    // Keep expanded on mobile
-    if (window.innerWidth < 640) {
-      setIsExpanded(true);
-    }
-    
-    // Focus the location input after selection
-    setTimeout(() => {
-      const locationInput = document.querySelector('input[placeholder="ZIP code or city"]');
-      if (locationInput) locationInput.focus();
-    }, 100);
-  };
-
-  // Keyboard navigation
-  const handleKeyDown = (e) => {
-    if (!showDropdown || filteredOptions.length === 0) return;
-
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setHighlightedIndex((prev) =>
-        (prev + 1) % filteredOptions.length
-      );
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setHighlightedIndex(
-        (prev) => (prev - 1 + filteredOptions.length) % filteredOptions.length
-      );
-    } else if (e.key === "Enter") {
-      if (highlightedIndex >= 0 && highlightedIndex < filteredOptions.length) {
-        e.preventDefault();
-        handleOptionClick(filteredOptions[highlightedIndex]);
-      }
-    } else if (e.key === "Escape") {
-      setShowDropdown(false);
-    }
-  };
-
-  // Toggle mobile expansion
-  const toggleExpanded = () => {
-    setIsExpanded(!isExpanded);
-    
-    // If expanding, focus the scan input after a brief delay
-    if (!isExpanded) {
-      setTimeout(() => {
-        if (inputRef.current) inputRef.current.focus();
-      }, 100);
-      
-      // Add a subtle animation when expanding
-      const formElement = document.querySelector('.search-form-container');
-      if (formElement) {
-        formElement.classList.add('animate-fadeIn');
-        setTimeout(() => {
-          formElement.classList.remove('animate-fadeIn');
-        }, 500);
-      }
-    }
-  };
 
   return (
-    // In StickyPatientSubHeader.jsx component
-// Find the main container div and add the class
-<div 
-  ref={headerRef} 
-  className={`
-    ${isScrolled ? "fixed top-0 left-0 right-0" : "relative"} 
-    z-50 bg-white/95 backdrop-blur border-b border-[#e6c378] shadow-sm sticky-header-fix
-  `}
-  style={{ 
-    transition: "all 0.3s ease-in-out"
-  }}
->
-      {/* Desktop View: Display form directly with proper spacing */}
-      <div className="hidden sm:block pt-5 pb-5 bg-[#f8f0d8]/50">
-        <form
-          onSubmit={handleSubmit}
-          className="relative max-w-6xl mx-auto px-4 flex gap-4 items-center"
-        >
-          <div className="relative flex-1">
-            <input
-              type="text"
-              placeholder="Type of scan (e.g. MRI)"
-              className="search-field w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#cc9933] text-sm"
-              value={scanType}
-              onChange={handleScanInput}
-              onFocus={() => {
-                if (filteredOptions.length > 0) {
-                  setShowDropdown(true);
-                }
-              }}
-              onKeyDown={handleKeyDown}
-              autoComplete="off"
-            />
-            
-            {/* Dropdown menu */}
-            {showDropdown && (
-              <ul 
-                ref={dropdownRef}
-                className="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-md max-h-48 overflow-y-auto text-sm"
-              >
-                {filteredOptions.map((option, index) => (
-                  <li
-                    key={option}
-                    className={`px-4 py-2 cursor-pointer ${
-                      index === highlightedIndex
-                        ? "bg-[#fcf9f0] font-semibold"
-                        : "hover:bg-[#fcf9f0]"
-                    }`}
-                    onClick={() => handleOptionClick(option)}
-                  >
-                    {option}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          <input
-            type="text"
-            placeholder="ZIP code or city"
-            className="search-field w-64 px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#cc9933] text-sm"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-          
-          <button
-            type="submit"
-            className="find-button bg-[#cc9933] text-[#003087] font-bold px-5 py-2 rounded-md shadow hover:bg-[#e6c378] transition text-sm whitespace-nowrap"
-          >
-            Find
-          </button>
-        </form>
-      </div>
-
-      {/* Mobile View: Toggle button and collapsible form */}
-      <div className="block sm:hidden w-full">
-        <div className="px-4 py-2 flex w-full justify-between">
-          <button
-            type="button"
-            onClick={toggleExpanded}
-            className="flex items-center justify-between w-full bg-[#fcf9f0] text-[#003087] font-medium px-3 py-2 rounded-md border border-[#e6c378] shadow-sm transition-all hover:shadow-md"
-          >
-            <div className="flex items-center">
-              {/* Search Icon */}
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="18" 
-                height="18" 
-                fill="currentColor" 
-                viewBox="0 0 16 16" 
-                className="mr-2 text-[#cc9933]"
-              >
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-              </svg>
-              <span className="font-semibold">{isExpanded ? "Hide Search" : "Find an Imaging Center"}</span>
-            </div>
-            
-            {/* Chevron Icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              fill="currentColor"
-              viewBox="0 0 16 16"
-              className={`transition-transform duration-300 text-[#cc9933] ${isExpanded ? "rotate-180" : ""}`}
-            >
-              <path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Mobile Search Form */}
-        <div className={`${isExpanded ? "block" : "hidden"} search-form-container transition-all duration-300 px-4 pb-2 w-full`}>
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-2 w-full"
-          >
-            <div className="relative w-full">
-              <input
-                ref={inputRef}
-                type="text"
-                placeholder="Type of scan (e.g. MRI)"
-                className="search-field w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#cc9933] text-sm"
-                value={scanType}
-                onChange={handleScanInput}
-                onFocus={() => {
-                  if (filteredOptions.length > 0) {
-                    setShowDropdown(true);
-                  }
-                }}
-                onKeyDown={handleKeyDown}
-                autoComplete="off"
-              />
-              
-              {/* Dropdown menu */}
-              {showDropdown && (
-                <ul 
-                  ref={dropdownRef}
-                  className="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-md max-h-48 overflow-y-auto text-sm"
-                >
-                  {filteredOptions.map((option, index) => (
-                    <li
-                      key={option}
-                      className={`px-4 py-2 cursor-pointer ${
-                        index === highlightedIndex
-                          ? "bg-[#fcf9f0] font-semibold"
-                          : "hover:bg-[#fcf9f0]"
-                      }`}
-                      onClick={() => handleOptionClick(option)}
-                    >
-                      {option}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-
-            <div className="flex gap-2 w-full">
-              <input
-                type="text"
-                placeholder="ZIP code or city"
-                className="search-field flex-1 px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#cc9933] text-sm"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              />
+    <>
+      <header
+        ref={headerRef}
+        className={`
+          ${isScrolled ? "fixed top-0 left-0 right-0" : "relative"} 
+          z-50 bg-white/95 backdrop-blur border-b border-[#e6c378] shadow-sm w-full sticky-header-fix
+        `}
+        style={{ transition: "all 0.3s ease-in-out" }}
+      >
+        <div className="max-w-7xl mx-auto px-4 pt-6 pb-4 md:pt-6 md:pb-5">
+          <div className="flex items-center justify-between">
+            {/* === Mobile: Logo + Hamburger === */}
+            <div className="flex items-center justify-between w-full md:hidden">
+              <a href="/" className="flex items-center pt-1">
+                <img
+                  src="/logo/USRad-Logo-final.png"
+                  alt="USRad Logo"
+                  className="h-8"
+                />
+              </a>
               <button
-                type="submit"
-                className="find-button bg-[#cc9933] text-[#003087] font-bold px-5 py-2 rounded-md shadow hover:bg-[#e6c378] transition text-sm whitespace-nowrap"
+                className="pt-4 p-2 focus:outline-none z-50"
+                onClick={toggleMobileMenu}
+                aria-label="Toggle menu"
               >
-                Find
+                {!mobileMenuOpen ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-[#003087]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                )}
               </button>
             </div>
-          </form>
+
+            {/* === Desktop: Logo + Nav === */}
+            <div className="hidden md:flex flex-col w-full items-center">
+              <a href="/" className="flex items-center mb-2">
+                <img
+                  src="/logo/USRad-Logo-final.png"
+                  alt="USRad Logo"
+                  className="h-10"
+                />
+              </a>
+              <nav className="flex justify-center space-x-10 text-sm font-medium text-[#003087]">
+                {[
+                  { href: "/about", label: "About" },
+                  { href: "/how-it-works", label: "How It Works" },
+                  { href: "/locations", label: "Locations" },
+                  { href: "/pricing", label: "Pricing" },
+                  { href: "/contact", label: "Contact" },
+                ].map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="relative hover:text-[#cc9933] transition-colors duration-200"
+                  >
+                    <span className="hover-underline-animation">{link.label}</span>
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </div>
         </div>
-      </div>
-      
+      </header>
+
+      {/* === Full-Screen Mobile Menu (OUTSIDE HEADER) === */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-[#cc9933] text-[#003087] z-[1000] flex flex-col justify-between"
+          style={{ animation: "fadeIn 0.3s ease-in-out" }}
+        >
+          <div className="flex flex-col pt-24 px-6 space-y-8 text-left text-2xl font-semibold">
+            {[
+              { href: "/about", label: "About" },
+              { href: "/how-it-works", label: "How It Works" },
+              { href: "/locations", label: "Locations" },
+              { href: "/pricing", label: "Pricing" },
+              { href: "/contact", label: "Contact" },
+            ].map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={toggleMobileMenu}
+                className="hover:underline"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+          <button
+            onClick={toggleMobileMenu}
+            className="absolute top-6 right-6 text-white text-4xl"
+            aria-label="Close menu"
+          >
+            &times;
+          </button>
+          <div className="px-6 py-4 text-sm text-white text-center opacity-60">
+            © 2025 USRad. All rights reserved.
+          </div>
+        </div>
+      )}
+
+      {/* === StickyPatientSubHeader Bar === */}
+      {showStickyBar && (
+        <div className="sticky top-[76px] z-40 bg-[#fffdf7] shadow-md border-y border-[#e6c378] px-4 md:px-0">
+          <div className="max-w-7xl mx-auto flex items-center justify-between py-3">
+            <button
+              className="flex items-center space-x-2 text-[#003087] font-semibold text-base"
+              onClick={toggleSearchBar}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-[#cc9933]">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+              </svg>
+              <span>Find an Imaging Center</span>
+            </button>
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-[#cc9933] transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          {showSearchBar && (
+            <div className="max-w-7xl mx-auto px-4 pb-4">
+              <form className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="text"
+                  placeholder="Type of scan (e.g. MRI)"
+                  className="flex-1 border border-[#ccc] px-3 py-2 rounded-md text-sm"
+                />
+                <input
+                  type="text"
+                  placeholder="ZIP code or city"
+                  className="flex-1 border border-[#ccc] px-3 py-2 rounded-md text-sm"
+                />
+                <button
+                  type="submit"
+                  className="bg-[#cc9933] text-white px-4 py-2 rounded-md font-semibold text-sm hover:bg-[#b5832d]"
+                >
+                  Find
+                </button>
+              </form>
+            </div>
+          )}
+        </div>
+      )}
+
       <style jsx>{`
-        /* Enhanced search fields */
-        .search-field {
-          border: 1px solid rgba(0, 48, 135, 0.15);
-          border-radius: 6px;
-          padding: 0.75rem 1rem;
-          font-family: var(--font-manrope, 'Manrope', system-ui, sans-serif);
-          font-size: 1rem;
-          transition: all 0.2s ease;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        .hover-underline-animation {
+          position: relative;
         }
-
-        .search-field:focus {
-          border-color: rgba(204, 153, 51, 0.5);
-          box-shadow: 0 1px 3px rgba(204, 153, 51, 0.2);
-          outline: none;
-        }
-
-        .search-field::placeholder {
-          color: rgba(0, 48, 135, 0.4);
-          font-weight: 400;
-        }
-
-        /* Enhanced Find button */
-        .find-button {
+        .hover-underline-animation::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          transform: scaleX(0);
+          height: 2px;
+          bottom: -2px;
+          left: 0;
           background-color: #cc9933;
-          color: white;
-          font-weight: 600;
-          padding: 0.75rem 1.5rem;
-          border-radius: 6px;
-          border: none;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          font-family: var(--font-manrope, 'Manrope', system-ui, sans-serif);
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          transform-origin: bottom right;
+          transition: transform 0.3s ease-out;
         }
-
-        .find-button:hover {
-          background-color: #b88a2a;
-          transform: translateY(-1px);
-          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        .hover-underline-animation:hover::after {
+          transform: scaleX(1);
+          transform-origin: bottom left;
         }
-
-        .find-button:active {
-          transform: translateY(0);
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Mobile-specific fixes */
-        @media (max-width: 640px) {
-          /* Ensure proper header alignment */
-          :global(body) {
-            overflow-x: hidden;
+        @keyframes fadeIn {
+          0% {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
           }
         }
       `}</style>
-    </div>
+    </>
   );
 }
