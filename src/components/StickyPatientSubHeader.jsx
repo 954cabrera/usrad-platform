@@ -170,7 +170,7 @@ export default function StickyPatientSubHeader() {
       ref={headerRef} 
       className={`
         ${isScrolled ? "fixed top-0 left-0 right-0" : "relative"} 
-        z-30 bg-white/95 backdrop-blur border-b border-[#e6c378] shadow-sm
+        z-50 bg-white/95 backdrop-blur border-b border-[#e6c378] shadow-sm
       `}
       style={{ 
         transition: "all 0.3s ease-in-out"
