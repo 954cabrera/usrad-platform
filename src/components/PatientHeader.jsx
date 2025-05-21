@@ -22,7 +22,7 @@ export default function PatientHeader({ showStickyBar = true }) {
                 <img
                   src="/logo/USRad-Logo-final.png"
                   alt="USRad Logo"
-                  className="h-8"
+                  className="h-10"
                 />
               </a>
               <button
@@ -48,10 +48,10 @@ export default function PatientHeader({ showStickyBar = true }) {
                 <img
                   src="/logo/USRad-Logo-final.png"
                   alt="USRad Logo"
-                  className="h-10"
+                  className="h-12"
                 />
               </a>
-              <nav className="flex justify-center space-x-10 text-sm font-medium text-[#003087]">
+              <nav className="flex justify-center space-x-6 md:space-x-8 lg:space-x-10 text-sm md:text-base font-medium text-[#003087]">
                 {[
                   { href: "/about", label: "About" },
                   { href: "/how-it-works", label: "How It Works" },
