@@ -1,31 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 
-export default function StickyPatientSubHeader({ showStickyBar = false }) {
+export default function PatientHeader({ showStickyBar = true }) {
   const headerRef = useRef(null);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
   const toggleSearchBar = () => setShowSearchBar((prev) => !prev);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <>
       <header
         ref={headerRef}
-        className={`
-          ${isScrolled ? "fixed top-0 left-0 right-0" : "relative"} 
-          z-50 bg-white/95 backdrop-blur border-b border-[#e6c378] shadow-sm w-full sticky-header-fix
-        `}
-        style={{ transition: "all 0.3s ease-in-out" }}
+        className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-[#e6c378] shadow-sm w-full transition-all duration-300"
       >
         <div className="max-w-7xl mx-auto px-4 pt-6 pb-4 md:pt-6 md:pb-5">
           <div className="flex items-center justify-between">
@@ -56,15 +43,15 @@ export default function StickyPatientSubHeader({ showStickyBar = false }) {
             </div>
 
             {/* === Desktop: Logo + Nav === */}
-            <div className="hidden md:flex flex-col w-full items-center">
-              <a href="/" className="flex items-center mb-2">
+            <div className="hidden md:flex w-full items-center justify-between">
+              <a href="/" className="flex items-center">
                 <img
                   src="/logo/USRad-Logo-final.png"
                   alt="USRad Logo"
                   className="h-10"
                 />
               </a>
-              <nav className="flex justify-center space-x-10 text-sm font-medium text-[#003087]">
+              <nav className="absolute left-1/2 transform -translate-x-1/2 flex justify-center space-x-10 text-sm font-medium text-[#003087]">
                 {[
                   { href: "/about", label: "About" },
                   { href: "/how-it-works", label: "How It Works" },
@@ -81,87 +68,99 @@ export default function StickyPatientSubHeader({ showStickyBar = false }) {
                   </a>
                 ))}
               </nav>
+              <div className="w-[100px]" /> {/* Spacer to balance the logo width */}
             </div>
           </div>
         </div>
       </header>
 
-      {/* === Full-Screen Mobile Menu (OUTSIDE HEADER) === */}
-      {mobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-[#cc9933] text-[#003087] z-[1000] flex flex-col justify-between"
-          style={{ animation: "fadeIn 0.3s ease-in-out" }}
+      <div
+        className={`fixed inset-0 bg-[#cc9933] text-[#003087] z-[1000] flex flex-col justify-between transition-all duration-300 ${
+          mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+        aria-hidden={!mobileMenuOpen}
+      >
+        <button
+          onClick={toggleMobileMenu}
+          className="absolute top-6 right-6 text-white p-2 z-50"
+          aria-label="Close menu"
         >
-          <div className="flex flex-col pt-24 px-6 space-y-8 text-left text-2xl font-semibold">
-            {[
-              { href: "/about", label: "About" },
-              { href: "/how-it-works", label: "How It Works" },
-              { href: "/locations", label: "Locations" },
-              { href: "/pricing", label: "Pricing" },
-              { href: "/contact", label: "Contact" },
-            ].map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={toggleMobileMenu}
-                className="hover:underline"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-          <button
-            onClick={toggleMobileMenu}
-            className="absolute top-6 right-6 text-white text-4xl"
-            aria-label="Close menu"
-          >
-            &times;
-          </button>
-          <div className="px-6 py-4 text-sm text-white text-center opacity-60">
-            © 2025 USRad. All rights reserved.
-          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        
+        <div className="flex flex-col pt-24 px-6 space-y-8 text-left text-2xl font-semibold">
+          {[
+            { href: "/about", label: "About" },
+            { href: "/how-it-works", label: "How It Works" },
+            { href: "/locations", label: "Locations" },
+            { href: "/pricing", label: "Pricing" },
+            { href: "/contact", label: "Contact" },
+          ].map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={toggleMobileMenu}
+              className="hover:underline transition-colors duration-200 hover:text-[#003087]/80"
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
-      )}
+        
+        <div className="px-6 py-4 text-sm text-white text-center opacity-60">
+          © 2025 USRad. All rights reserved.
+        </div>
+      </div>
 
-      {/* === StickyPatientSubHeader Bar === */}
       {showStickyBar && (
-        <div className="sticky top-[76px] z-40 bg-[#fffdf7] shadow-md border-y border-[#e6c378] px-4 md:px-0">
+        <div className="fixed top-[88px] left-0 right-0 z-40 bg-[#fffdf7] shadow-md border-y border-[#e6c378] px-4 md:px-0 transition-all duration-300">
           <div className="max-w-7xl mx-auto flex items-center justify-between py-3">
             <button
               className="flex items-center space-x-2 text-[#003087] font-semibold text-base"
               onClick={toggleSearchBar}
+              aria-expanded={showSearchBar}
+              aria-controls="search-form"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-[#cc9933]">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
               </svg>
               <span>Find an Imaging Center</span>
             </button>
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-[#cc9933] transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              className={`w-5 h-5 text-[#cc9933] transform transition-transform duration-300 ${showSearchBar ? "" : "rotate-180"}`} 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </div>
-          {showSearchBar && (
-            <div className="max-w-7xl mx-auto px-4 pb-4">
-              <form className="flex flex-col sm:flex-row gap-3">
-                <input
-                  type="text"
-                  placeholder="Type of scan (e.g. MRI)"
-                  className="flex-1 border border-[#ccc] px-3 py-2 rounded-md text-sm"
-                />
-                <input
-                  type="text"
-                  placeholder="ZIP code or city"
-                  className="flex-1 border border-[#ccc] px-3 py-2 rounded-md text-sm"
-                />
-                <button
-                  type="submit"
-                  className="bg-[#cc9933] text-white px-4 py-2 rounded-md font-semibold text-sm hover:bg-[#b5832d]"
-                >
-                  Find
-                </button>
-              </form>
-            </div>
-          )}
+          <div 
+            id="search-form"
+            className={`max-w-7xl mx-auto px-4 pb-4 transition-all duration-300 origin-top ${showSearchBar ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 h-0 overflow-hidden'}`}
+          >
+            <form className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="text"
+                placeholder="Type of scan (e.g. MRI)"
+                className="flex-1 border border-[#ccc] px-3 py-2 rounded-md text-sm"
+              />
+              <input
+                type="text"
+                placeholder="ZIP code or city"
+                className="flex-1 border border-[#ccc] px-3 py-2 rounded-md text-sm"
+              />
+              <button
+                type="submit"
+                className="bg-[#cc9933] text-white px-4 py-2 rounded-md font-semibold text-sm hover:bg-[#b5832d]"
+              >
+                Find
+              </button>
+            </form>
+          </div>
         </div>
       )}
 

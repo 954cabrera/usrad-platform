@@ -1,11 +1,13 @@
 ---
 // pages/how-it-works.astro
-import Layout from "../layouts/MainLayout.astro";
+import MainPatientLayout from "../layouts/MainPatientLayout.astro";
 import AOSInit from "../components/AOSInit.astro";
 import Footer from "../components/Footer.astro";
+
+const showPatientHeader = true;
 ---
 
-<Layout>
+<MainPatientLayout showPatientHeader={true}>
   <AOSInit />
 
   <section
@@ -341,4 +343,4 @@ import Footer from "../components/Footer.astro";
       </a>
     </div>
   </section>
-</Layout>
+</MainPatientLayout>

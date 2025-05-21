@@ -1,5 +1,5 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
+import MainPatientLayout from "../layouts/MainPatientLayout.astro";
 import Footer from "../components/Footer.astro";
 import ChatbotToggle from "../components/ChatbotToggle.astro";
 import FadeIn from "../components/FadeIn.astro";
@@ -7,7 +7,6 @@ import AOSInit from "../components/AOSInit.astro";
 import HomeProblemSolution from "../components/HomeProblemSolution.astro";
 import FAQHome from "../components/FAQHome.astro";
 import News from "../components/News.astro";
-import StickyPatientSubHeader from "../components/StickyPatientSubHeader.jsx";
 import HeroPatientIntro from "../components/HeroPatientIntro.astro";
 import FAQPreview from "../components/FAQPreview.astro";
 import CoreBenefits from "../components/CoreBenefits.astro";
@@ -19,11 +18,12 @@ import PrimaryButton from "../components/PrimaryButton.astro";
 import ClinicalIntroWithImage from "../components/ClinicalIntroWithImage.astro";
 import ClinicalCredentialsGrid from "../components/ClinicalCredentialsGrid.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
+
+const showPatientHeader = true;
 ---
 
-<MainLayout showHeader={false}>
+<MainPatientLayout showPatientHeader={true}>
   <AOSInit />
-  <StickyPatientSubHeader client:load />
 
   <!-- Find and replace this section in index.astro -->
   <FadeIn effect="fade" delay={0}>
@@ -312,4 +312,4 @@ import SecondaryButton from "../components/SecondaryButton.astro";
   </FadeIn>
 
   <ChatbotToggle chatbotLabel="💬 Let's Talk" />
-</MainLayout>
+</MainPatientLayout>

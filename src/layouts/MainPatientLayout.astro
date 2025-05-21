@@ -1,10 +1,9 @@
 ---
+// layouts/MainPatientLayout.astro
 import "../styles/global.css";
 import AOSInit from "../components/AOSInit.astro";
 import UtilityHeader from "../components/UtilityHeader.astro";
-import Header from "../components/Header.astro";
 import PatientHeader from "../components/PatientHeader.jsx";
-
 import Footer from "../components/Footer.astro";
 ---
 
@@ -13,43 +12,32 @@ import Footer from "../components/Footer.astro";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><slot name="title" /></title>
-
-    <!-- Color scheme enforcement -->
     <meta name="color-scheme" content="light only" />
     <meta name="theme-color" content="#fcf9f0" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="msapplication-TileColor" content="#fcf9f0" />
-
-    <!-- Font: Manrope -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
-    <!-- AOS Animation Init -->
     <AOSInit />
   </head>
 
   <body class="font-manrope text-[#003087] bg-[#fcf9f0] min-h-screen">
     <UtilityHeader />
-    <PatientHeader client:load showStickyBar={false} />
-
+    <PatientHeader client:load showStickyBar={true} />
     <main class="main-content relative z-10">
       <slot />
     </main>
-
     <Footer />
-
     <style>
       .main-content {
-        padding-top: 140px;
+        padding-top: 220px; /* enough room for header + sticky (88px main header + 132px sticky subheader) */
       }
 
       @media (max-width: 768px) {
         .main-content {
-          padding-top: 120px;
+          padding-top: 200px; /* adjusted for mobile */
         }
       }
     </style>
