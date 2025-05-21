@@ -79,10 +79,11 @@ export default function PatientHeader({ showStickyBar = true }) {
                 </a>
                 <a
                   href="/login"
-                  className="text-sm font-semibold text-[#003087] hover:text-[#cc9933] transition duration-200"
+                  className="px-3 py-1 border border-[#003087] text-sm font-medium text-[#003087] rounded-md hover:bg-[#003087]/10 transition"
                 >
                   Login
                 </a>
+
               </div>
 
 
