@@ -52,6 +52,7 @@ export default function PatientHeader({ showStickyBar = true }) {
                 />
               </a>
               <nav className="flex justify-center space-x-6 md:space-x-8 lg:space-x-10 text-sm md:text-base font-medium text-[#003087]">
+
                 {[
                   { href: "/about", label: "About" },
                   { href: "/how-it-works", label: "How It Works" },
@@ -68,7 +69,23 @@ export default function PatientHeader({ showStickyBar = true }) {
                   </a>
                 ))}
               </nav>
-              <div className="w-[100px]" />
+              <div className="flex items-center space-x-4 pt-2 md:pt-6">
+
+                <a
+                  href="/partner"
+                  className="bg-[#cc9933] text-white px-4 py-[6px] rounded-lg text-sm font-semibold shadow-md hover:bg-[#b5832d] transition duration-200"
+                >
+                  For Employers
+                </a>
+                <a
+                  href="/login"
+                  className="text-sm font-semibold text-[#003087] hover:text-[#cc9933] transition duration-200"
+                >
+                  Login
+                </a>
+              </div>
+
+
             </div>
           </div>
         </div>
@@ -97,7 +114,10 @@ export default function PatientHeader({ showStickyBar = true }) {
             { href: "/locations", label: "Locations" },
             { href: "/pricing", label: "Pricing" },
             { href: "/contact", label: "Contact" },
+            { href: "/partner", label: "Partner" },
+            { href: "/login", label: "Login" },
           ].map((link) => (
+
             <a
               key={link.href}
               href={link.href}
