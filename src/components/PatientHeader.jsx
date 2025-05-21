@@ -115,19 +115,34 @@ export default function PatientHeader({ showStickyBar = true }) {
             { href: "/locations", label: "Locations" },
             { href: "/pricing", label: "Pricing" },
             { href: "/contact", label: "Contact" },
-            { href: "/partner", label: "Partner" },
-            { href: "/login", label: "Login" },
           ].map((link) => (
-
             <a
               key={link.href}
               href={link.href}
               onClick={toggleMobileMenu}
-              className="hover:underline transition-colors duration-200 hover:text-[#003087]/80"
+              className="text-2xl font-semibold hover:text-[#003087]/80 transition-colors"
             >
               {link.label}
             </a>
           ))}
+
+          <div className="flex flex-col pt-6 space-y-3">
+            <a
+              href="/partner"
+              onClick={toggleMobileMenu}
+              className="text-center px-4 py-2 border border-white text-white text-lg rounded-md hover:bg-white hover:text-[#cc9933] transition"
+            >
+              For Employers
+            </a>
+            <a
+              href="/login"
+              onClick={toggleMobileMenu}
+              className="text-center px-4 py-2 bg-white text-[#003087] text-lg rounded-md font-semibold hover:bg-[#f8f2e1] transition"
+            >
+              Login
+            </a>
+          </div>
+
         </div>
 
         <div className="px-6 py-4 text-sm text-white text-center opacity-60">
