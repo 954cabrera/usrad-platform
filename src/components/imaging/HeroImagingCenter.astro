@@ -74,8 +74,8 @@
         data-aos="fade-up"
         data-aos-delay="200"
       >
-        Join our nationwide network of premium imaging centers and optimize your
-        facility utilization while serving patients who need affordable imaging.
+        Connect with self-pay patients, boost scan volume, and eliminate billing
+        friction — all through one trusted platform.
       </p>
     </div>
 
@@ -107,31 +107,102 @@
           Uninsured & underinsured patients
         </p>
       </div>
+
       <div
         class="bg-white p-4 rounded-xl shadow-md text-center transform hover:scale-105 transition-all duration-300 border-t-4 border-[#cc9933]"
       >
-        <div
-          class="text-[#003087] text-3xl font-bold mb-2 font-manrope stat-number"
-        >
-          30-70%
+        <!-- Rotating Benefits Container - Clean approach -->
+        <div class="h-14 flex items-center justify-center overflow-hidden">
+          <div
+            id="rotating-benefits"
+            class="text-center transition-opacity duration-500"
+          >
+            <!-- All benefits in one container, shown/hidden with opacity -->
+            <div class="benefit-item opacity-100">
+              <div
+                class="text-[#003087] text-3xl font-bold mb-1 font-manrope stat-number"
+              >
+                96%
+              </div>
+              <p class="text-[#003087] font-manrope text-sm">
+                Reimbursements within 5 days
+              </p>
+            </div>
+          </div>
         </div>
-        <p class="text-[#003087] font-manrope">Lower than hospital rates</p>
+
+        <script>
+          // Cleaner rotation using opacity instead of transform
+          const benefits = [
+            {
+              number: "96%",
+              text: "Reimbursements within 15 days",
+              hasStatNumber: true,
+            },
+            {
+              number: "20-40%",
+              text: "Average scan volume increase",
+              hasStatNumber: true,
+            },
+            {
+              number: "100%",
+              text: "Pre-qualified self-pay patients",
+              hasStatNumber: true,
+            },
+            {
+              number: "Zero",
+              text: "Billing complexity or hassles",
+              hasStatNumber: false,
+            },
+          ];
+
+          const container = document.getElementById("rotating-benefits");
+          let currentIndex = 0;
+
+          function updateBenefit() {
+            const benefit = benefits[currentIndex];
+            const statNumberClass = benefit.hasStatNumber ? "stat-number" : "";
+
+            // Fade out
+            container.style.opacity = "0";
+
+            setTimeout(() => {
+              // Update content
+              container.innerHTML = `
+        <div class="benefit-item">
+          <div class="text-[#003087] text-3xl font-bold mb-1 font-manrope ${statNumberClass}">
+            ${benefit.number}
+          </div>
+          <p class="text-[#003087] font-manrope text-sm">${benefit.text}</p>
+        </div>
+      `;
+
+              // Fade in
+              container.style.opacity = "1";
+            }, 250);
+
+            currentIndex = (currentIndex + 1) % benefits.length;
+          }
+
+          // Start the rotation
+          setInterval(updateBenefit, 3000);
+        </script>
+
+        <!-- Wave Divider -->
+        <div class="absolute bottom-0 left-0 right-0 overflow-hidden z-20">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1440 120"
+            class="w-full h-auto"
+          >
+            <path
+              fill="#ffffff"
+              fill-opacity="1"
+              d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
+            ></path>
+          </svg>
+        </div>
       </div>
     </div>
-  </div>
-
-  <!-- Wave Divider -->
-  <div class="absolute bottom-0 left-0 right-0 overflow-hidden z-20">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 1440 120"
-      class="w-full h-auto"
-    >
-      <path
-        fill="#ffffff"
-        fill-opacity="1"
-        d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
-      ></path>
-    </svg>
   </div>
 </section>
