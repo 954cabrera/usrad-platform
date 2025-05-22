@@ -72,7 +72,7 @@ export default function PatientHeader({ showStickyBar = true }) {
               <div className="flex items-center space-x-4 pt-2 md:pt-6">
 
                 <a
-                  href="/partner"
+                  href="/employer"
                   className="bg-[#cc9933] text-white px-4 py-[6px] rounded-lg text-sm font-semibold shadow-md hover:bg-[#b5832d] transition duration-200"
                 >
                   For Employers
@@ -128,7 +128,7 @@ export default function PatientHeader({ showStickyBar = true }) {
 
           <div className="flex flex-col pt-6 space-y-3">
             <a
-              href="/partner"
+              href="/employer"
               onClick={toggleMobileMenu}
               className="text-center px-4 py-2 border border-white text-white text-lg rounded-md hover:bg-white hover:text-[#cc9933] transition"
             >
