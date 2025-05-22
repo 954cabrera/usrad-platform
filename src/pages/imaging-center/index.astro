@@ -1,5 +1,5 @@
 ---
-import MainLayout from "../../layouts/MainLayout.astro";
+import PartnerPageLayout from "../../layouts/PartnerPageLayout.astro";
 import AOSInit from "../../components/AOSInit.astro";
 import HeroImagingCenter from "../../components/imaging/HeroImagingCenter.astro";
 import HeroSmartSplit from "../../components/partner/HeroSmartSplit.astro";
@@ -69,12 +69,12 @@ const breadcrumbPaths = [
   }
 </style>
 
-<MainLayout>
+<PartnerPageLayout>
   <AOSInit />
 
   <!-- Add Breadcrumb component before the hero section -->
   <!-- Breadcrumb -->
-  <Breadcrumb paths={breadcrumbPaths} />
+  <!--<Breadcrumb paths={breadcrumbPaths} /> -->
 
   <!-- Rest of your content remains the same -->
 
@@ -147,7 +147,7 @@ const breadcrumbPaths = [
             </p>
             <div class="mt-2">
               <a
-                href="/partner/experience"
+                href="/imaging-center/experience"
                 class="text-[#003087] hover:text-[#cc9933] transition-colors font-medium flex items-center font-manrope"
               >
                 Learn more about our experience
@@ -440,7 +440,7 @@ const breadcrumbPaths = [
 
         <div class="text-center mt-12">
           <a
-            href="/partner/implementation"
+            href="/imaging-center/implementation"
             class="text-[#003087] hover:text-[#cc9933] transition-colors font-medium inline-flex items-center font-manrope"
           >
             View detailed implementation process
@@ -522,7 +522,7 @@ const breadcrumbPaths = [
 
       <div class="text-center mt-8">
         <a
-          href="/partner/faq"
+          href="/imaging-center/faq"
           class="text-[#003087] hover:text-[#cc9933] transition-colors font-medium inline-flex items-center font-manrope"
         >
           View all frequently asked questions
@@ -572,7 +572,7 @@ const breadcrumbPaths = [
             Apply Now - Get Started
           </a>
           <a
-            href="/network/overview"
+            href="/imaging-center/coming-soon"
             class="inline-flex items-center text-white hover:text-[#cc9933] transition-all duration-300 font-manrope"
           >
             <svg
@@ -686,4 +686,4 @@ const breadcrumbPaths = [
       });
     });
   </script>
-</MainLayout>
+</PartnerPageLayout>

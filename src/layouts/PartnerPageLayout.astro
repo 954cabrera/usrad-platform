@@ -18,8 +18,8 @@ const breadcrumbPaths = [
     href: "/",
   },
   {
-    label: "For Partners",
-    href: "/partner",
+    label: "For Imaging-Center",
+    href: "/imaging-center",
   },
   {
     label: currentPage,
@@ -34,16 +34,18 @@ const breadcrumbPaths = [
     <Breadcrumb paths={breadcrumbPaths} />
   </div>
 
-  <div class="max-w-6xl mx-auto px-6 py-8">
+  <div class="py-8">
     {
       !hideTitle && (
-        <h1 class="text-3xl font-bold text-[#003087] mb-6">{currentPage}</h1>
+        <div class="max-w-6xl mx-auto px-6">
+          <h1 class="text-3xl font-bold text-[#003087] mb-6">{currentPage}</h1>
+        </div>
       )
     }
     <slot />
 
     <!-- Cross-navigation links at the bottom -->
-    <div class="mt-16 pt-8 border-t border-gray-200">
+    <div class="max-w-6xl mx-auto px-6 mt-16 pt-8 border-t border-gray-200">
       <h3 class="text-xl font-semibold text-[#003087] mb-4">
         Explore More Partner Resources
       </h3>
