@@ -77,7 +77,7 @@ const breadcrumbPaths = [
   <Breadcrumb paths={breadcrumbPaths} />
 
   <!-- Rest of your content remains the same -->
-   
+
   <!-- Hero Section -->
   <HeroImagingCenter />
 
@@ -191,11 +191,11 @@ const breadcrumbPaths = [
             class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
           >
             <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
-            Partner Benefits
+            Network Benefits
           </h2>
           <p class="text-xl text-gray-700 mt-4 max-w-3xl mx-auto font-manrope">
             Join the network that's reimagining imaging access while creating
-            sustainable value for our partners.
+            sustainable value for participating centers.
           </p>
         </div>
 
@@ -307,10 +307,10 @@ const breadcrumbPaths = [
 
         <div class="text-center mt-12">
           <a
-            href="/partner/benefits"
+            href="/imaging-center/benefits"
             class="text-[#003087] hover:text-[#cc9933] transition-colors font-medium inline-flex items-center font-manrope"
           >
-            View all partner benefits
+            View all network benefits
             <svg
               class="ml-2 w-4 h-4"
               xmlns="http://www.w3.org/2000/svg"
@@ -377,10 +377,11 @@ const breadcrumbPaths = [
               <h3
                 class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
               >
-                Consultation
+                Eligibility Review
               </h3>
               <p class="text-sm text-gray-600 font-manrope">
-                Brief introductory call to understand your needs
+                Quick assessment to confirm your center meets network
+                requirements
               </p>
             </div>
 
@@ -474,142 +475,6 @@ const breadcrumbPaths = [
     </div>
   </section>
 
-  <!-- Streamlined CTA Section -->
-  <section
-    class="bg-[#003087] text-white py-16 px-6 sm:px-12 relative overflow-hidden"
-    data-aos="fade-up"
-  >
-    <!-- Background elements -->
-    <div
-      class="absolute inset-0 bg-repeat opacity-[0.03]"
-      style="background-image: url('/images/subtle-pattern.svg');"
-    >
-    </div>
-    <div
-      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.1] blur-3xl"
-    >
-    </div>
-    <div
-      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-white opacity-[0.05] blur-3xl"
-    >
-    </div>
-
-    <div class="max-w-7xl mx-auto relative z-10">
-      <div class="grid md:grid-cols-5 gap-8 items-center">
-        <div
-          class="md:col-span-3 text-center md:text-left"
-          data-aos="fade-right"
-          data-aos-delay="100"
-        >
-          <h2 class="text-3xl font-semibold mb-4 font-manrope">
-            Ready to Optimize Your Imaging Center?
-          </h2>
-          <p class="text-lg mb-8 font-manrope">
-            Join our network to fill unused appointment slots and serve patients
-            in need of affordable imaging.
-          </p>
-          <div class="space-y-4">
-            <a
-              href="/partner/schedule"
-              class="inline-block px-8 py-4 bg-[#cc9933] text-[#003087] font-bold rounded-full hover:bg-[#e6c378] transition-all duration-300 hover:shadow-xl font-manrope"
-            >
-              Schedule a Consultation
-            </a>
-            <div class="block mt-4">
-              <a
-                href="/partner/coming-soon"
-                class="inline-flex items-center text-white hover:text-[#cc9933] transition-all duration-300 font-manrope"
-              >
-                <svg
-                  class="h-5 w-5 mr-2"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
-                  ></path>
-                </svg>
-                Download Overview (PDF)
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div
-          class="md:col-span-2 bg-white p-6 rounded-xl shadow-xl border-l-4 border-[#cc9933]"
-          data-aos="fade-left"
-          data-aos-delay="200"
-        >
-          <h3 class="text-xl font-semibold text-[#003087] mb-4 font-manrope">
-            Express Interest
-          </h3>
-          <form class="space-y-4">
-            <div>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                -
-                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#cc9933] focus:border-transparent font-manrope"
-                +
-                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#cc9933] focus:border-transparent font-manrope !text-gray-800"
-                placeholder="Your Name"
-                style="color: #333333 !important;"
-              />
-            </div>
-
-            <div>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                -
-                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#cc9933] focus:border-transparent font-manrope"
-                +
-                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#cc9933] focus:border-transparent font-manrope !text-gray-800"
-                placeholder="Work Email"
-                style="color: #333333 !important;"
-              />
-            </div>
-
-            <div>
-              <input
-                type="text"
-                id="facility"
-                name="facility"
-                -
-                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#cc9933] focus:border-transparent font-manrope"
-                +
-                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#cc9933] focus:border-transparent font-manrope !text-gray-800"
-                placeholder="Facility Name"
-                style="color: #333333 !important;"
-              />
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                class="w-full px-6 py-3 bg-[#003087] text-white font-bold rounded-lg hover:bg-[#002266] transition-all duration-300 border border-transparent hover:border-[#cc9933] font-manrope"
-              >
-                Submit Interest
-              </button>
-            </div>
-
-            <p class="text-xs text-gray-500 text-center font-manrope">
-              By submitting, you'll receive information about the USRad partner
-              network. No obligation.
-            </p>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- FAQ Preview - Just 2-3 Most Common Questions -->
   <section class="py-16 bg-white">
     <div class="max-w-4xl mx-auto px-6">
@@ -631,9 +496,10 @@ const breadcrumbPaths = [
             What is the process to join USRad?
           </h3>
           <p class="text-lg text-gray-700 mt-4 pl-4 font-manrope">
-            The process is simple: schedule a consultation, complete our brief
-            application, and our integration team will handle the onboarding
-            process. Most partners are live within 2-3 weeks.
+            The process is simple: complete our streamlined application to get
+            started immediately, or schedule a consultation if you have
+            questions. Most network providers who apply directly are live within
+            2-3 weeks.
           </p>
         </div>
 
@@ -649,7 +515,7 @@ const breadcrumbPaths = [
           </h3>
           <p class="text-lg text-gray-700 mt-4 pl-4 font-manrope">
             Joining USRad is free for eligible centers. We offer a transparent,
-            simple partnership model with no hidden fees or monthly charges.
+            simple model with no hidden fees or monthly charges.
           </p>
         </div>
       </div>
@@ -677,49 +543,142 @@ const breadcrumbPaths = [
       </div>
     </div>
   </section>
-</MainLayout>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Animate stat numbers on scroll
-    const observerOptions = {
-      threshold: 0.5,
-    };
+  <!-- Streamlined CTA Section -->
+  <section
+    class="bg-[#003087] text-white py-16 px-6 sm:px-12 relative overflow-hidden"
+    data-aos="fade-up"
+  >
+    <!-- Background elements stay the same -->
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          if (!entry.target.dataset.animated) {
-            entry.target.dataset.animated = true;
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="grid md:grid-cols-5 gap-8 items-center">
+        <div
+          class="md:col-span-3 text-center md:text-left"
+          data-aos="fade-right"
+          data-aos-delay="100"
+        >
+          <h2 class="text-3xl font-semibold mb-4 font-manrope">
+            Ready to Join the USRad Network?
+          </h2>
+          <p class="text-lg mb-8 font-manrope">
+            Start generating revenue from unused appointment slots while serving
+            patients who need affordable imaging.
+          </p>
+          <div class="space-y-4">
+            <a
+              href="/imaging-center/apply"
+              class="inline-block px-8 py-4 bg-[#cc9933] text-[#003087] font-bold rounded-full hover:bg-[#e6c378] transition-all duration-300 hover:shadow-xl font-manrope"
+              >Apply Now - Get Started</a
+            >
+          </div>
+          <div class="block mt-4">
+            <a
+              href="/network/overview"
+              class="inline-flex items-center text-white hover:text-[#cc9933] transition-all duration-300 font-manrope"
+            >
+              <svg
+                class="h-5 w-5 mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+                ></path>
+              </svg>
+              Download Network Overview (PDF)
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            const finalValue = entry.target.textContent;
-            const valueWithoutPlus = parseInt(finalValue.replace(/\D/g, ""));
+  <div
+    class="md:col-span-2 bg-white p-6 rounded-xl shadow-xl border-l-4 border-[#cc9933] text-center"
+    data-aos="fade-left"
+    data-aos-delay="200"
+  >
+    <h3 class="text-xl font-semibold text-[#003087] mb-2 font-manrope">
+      Quick & Easy Process
+    </h3>
+    <div class="space-y-4 text-left">
+      <div class="flex items-center">
+        <span
+          class="w-8 h-8 bg-[#cc9933] text-white rounded-full flex items-center justify-center text-sm font-bold mr-3"
+          >1</span
+        >
+        <span class="text-sm text-gray-700"
+          >Complete application (5 minutes)</span
+        >
+      </div>
+      <div class="flex items-center">
+        <span
+          class="w-8 h-8 bg-[#cc9933] text-white rounded-full flex items-center justify-center text-sm font-bold mr-3"
+          >2</span
+        >
+        <span class="text-sm text-gray-700">Eligibility review (48 hours)</span>
+      </div>
+      <div class="flex items-center">
+        <span
+          class="w-8 h-8 bg-[#cc9933] text-white rounded-full flex items-center justify-center text-sm font-bold mr-3"
+          >3</span
+        >
+        <span class="text-sm text-gray-700">Start receiving patients</span>
+      </div>
+    </div>
+    <p class="text-xs text-gray-500 text-center mt-4 font-manrope">
+      Free to join • No monthly fees • Quick approval
+    </p>
+  </div>
 
-            let currentValue = 0;
-            const increment = Math.ceil(valueWithoutPlus / 40);
-            const duration = 1500; // ms
-            const interval = Math.floor(
-              duration / (valueWithoutPlus / increment)
-            );
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Animate stat numbers on scroll
+      const observerOptions = {
+        threshold: 0.5,
+      };
 
-            const counter = setInterval(() => {
-              currentValue += increment;
-              if (currentValue >= valueWithoutPlus) {
-                clearInterval(counter);
-                currentValue = valueWithoutPlus;
-                entry.target.textContent = finalValue;
-              } else {
-                entry.target.textContent = currentValue + "+";
-              }
-            }, interval);
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (!entry.target.dataset.animated) {
+              entry.target.dataset.animated = true;
+
+              const finalValue = entry.target.textContent;
+              const valueWithoutPlus = parseInt(finalValue.replace(/\D/g, ""));
+
+              let currentValue = 0;
+              const increment = Math.ceil(valueWithoutPlus / 40);
+              const duration = 1500; // ms
+              const interval = Math.floor(
+                duration / (valueWithoutPlus / increment)
+              );
+
+              const counter = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= valueWithoutPlus) {
+                  clearInterval(counter);
+                  currentValue = valueWithoutPlus;
+                  entry.target.textContent = finalValue;
+                } else {
+                  entry.target.textContent = currentValue + "+";
+                }
+              }, interval);
+            }
+            observer.unobserve(entry.target);
           }
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
+        });
+      }, observerOptions);
 
-    document.querySelectorAll(".stat-number").forEach((stat) => {
-      observer.observe(stat);
+      document.querySelectorAll(".stat-number").forEach((stat) => {
+        observer.observe(stat);
+      });
     });
-  });
-</script>
+  </script>
+</MainLayout>
