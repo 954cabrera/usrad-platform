@@ -1,0 +1,32 @@
+---
+const manufacturers = [
+  { name: "Siemens Healthineers", logo: "/images/manufacturers/siemens.svg" },
+  { name: "GE Healthcare", logo: "/images/manufacturers/ge.svg" },
+  { name: "Philips", logo: "/images/manufacturers/philips.svg" },
+  { name: "Canon Medical", logo: "/images/manufacturers/canon.svg" },
+  { name: "Hitachi", logo: "/images/manufacturers/hitachi.svg" },
+];
+---
+
+<section class="bg-blue-50 py-20 px-6 rounded-3xl mt-12">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-10">
+      Trusted by the World’s Leading Imaging Manufacturers
+    </h2>
+
+    <!-- 1-Row Logo Strip -->
+    <div class="flex flex-wrap justify-center items-center gap-x-10 gap-y-8">
+      {
+        manufacturers.map(({ name, logo }, index) => (
+          <img
+            src={logo}
+            alt={name}
+            data-aos="fade-up"
+            data-aos-delay={100 * (index + 1)}
+            class="h-16 max-w-[160px] object-contain grayscale hover:grayscale-0 transition p-2"
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>
