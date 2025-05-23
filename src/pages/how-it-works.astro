@@ -87,7 +87,10 @@ const showPatientHeader = true;
   </section>
 
   <!-- How It Works Sequential Grid -->
-  <section class="relative bg-[#fefbf5] py-20 px-6 overflow-hidden">
+  <section
+    id="steps-section"
+    class="relative bg-[#fefbf5] py-20 px-6 overflow-hidden"
+  >
     <div class="max-w-6xl mx-auto text-center text-[#003087]">
       <h2 class="text-3xl font-semibold mb-4">How It Works</h2>
       <p class="text-lg mb-12">
@@ -254,17 +257,16 @@ const showPatientHeader = true;
       </div>
     </div>
 
-    <!-- Walking Person Illustration (Left to Right Animation) -->
+    <!-- Walking Person - Clean Start -->
     <div
       class="absolute bottom-6 left-0 right-0 h-32 pointer-events-none hidden md:block z-10"
     >
       <img
+        id="walker"
         src="/images/illustrations/walking-person.webp"
         alt="A user navigating the four imaging steps"
-        class="h-32 opacity-90 animate-walk-across animate-float"
+        class="walker h-32"
         loading="lazy"
-        data-aos="fade-in"
-        data-aos-delay="3000"
       />
     </div>
   </section>
@@ -346,64 +348,100 @@ const showPatientHeader = true;
 </MainPatientLayout>
 
 <style>
-  /* Walking animation from left to right - one time only */
-  @keyframes walkAcrossOnce {
-    0% {
-      left: -100px;
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    20% {
-      left: 10%;
-    }
-    40% {
-      left: 30%;
-    }
-    60% {
-      left: 55%;
-    }
-    80% {
-      left: 80%;
-    }
-    100% {
-      left: calc(100% - 100px);
-      opacity: 1;
-    }
-  }
-
-  .animate-walk-across {
+  /* Clean start - only what we need */
+  .walker {
     position: absolute;
     bottom: 20px;
-    left: -100px;
+    left: -150px;
     opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    animation: gentleFloat 3s ease-in-out infinite;
   }
 
-  /* Only start animation when AOS triggers */
-  .animate-walk-across.aos-animate {
-    animation: walkAcrossOnce 8s ease-in-out forwards;
-  }
-
-  /* Float animation for more life */
-  @keyframes float {
+  @keyframes gentleFloat {
     0%,
     100% {
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-8px);
+      transform: translateY(-10px);
     }
   }
-
-  .animate-float {
-    animation: float 2s ease-in-out infinite;
-  }
-
-  /* Combined animations - walk once, then float forever */
-  .animate-walk-across.animate-float {
-    animation:
-      walkAcrossOnce 8s ease-in-out forwards,
-      float 2s ease-in-out infinite;
-  }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const walker = document.getElementById("walker");
+    const section = document.getElementById("steps-section");
+
+    if (!walker || !section) return;
+
+    let hasReachedEnd = false;
+
+    function updateWalkerPosition() {
+      const sectionRect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const sectionHeight = section.offsetHeight;
+
+      // Calculate how much of the section has been scrolled through
+      const sectionTop = sectionRect.top;
+      const sectionBottom = sectionRect.bottom;
+
+      // Check if section is in viewport
+      if (sectionBottom < 0 || sectionTop > windowHeight) {
+        // Section is not visible - but keep walker at end position if it reached there
+        if (hasReachedEnd) {
+          walker.style.opacity = "1";
+          return; // Don't change position, keep it at the end
+        } else {
+          walker.style.opacity = "0";
+          return;
+        }
+      }
+
+      // Calculate scroll progress through the section (0 to 1)
+      let progress = 0;
+
+      if (sectionTop <= 0 && sectionBottom >= windowHeight) {
+        // Section fills the entire viewport
+        progress = Math.abs(sectionTop) / (sectionHeight - windowHeight);
+      } else if (sectionTop > 0) {
+        // Section is entering from bottom
+        progress = (windowHeight - sectionTop) / windowHeight;
+      } else {
+        // Section is exiting from top
+        progress = sectionBottom / windowHeight;
+      }
+
+      // Clamp progress between 0 and 1
+      progress = Math.max(0, Math.min(1, progress));
+
+      // Make walker visible when section is in view
+      walker.style.opacity = progress > 0.1 ? "1" : "0";
+
+      // Only move walker if it hasn't reached the end yet
+      if (progress >= 0.95) {
+        // Walker has reached the end, stop it there
+        hasReachedEnd = true;
+        const endPos = section.offsetWidth - 150;
+        walker.style.left = `${endPos}px`;
+      } else if (!hasReachedEnd) {
+        // Walker is still moving, update position
+        const startPos = -150;
+        const endPos = section.offsetWidth - 150;
+        const currentPos = startPos + progress * (endPos - startPos);
+        walker.style.left = `${currentPos}px`;
+      }
+      // If hasReachedEnd is true but progress < 0.95, don't move walker (keep it at end)
+    }
+
+    // Update on scroll
+    window.addEventListener("scroll", updateWalkerPosition);
+
+    // Update on resize
+    window.addEventListener("resize", updateWalkerPosition);
+
+    // Initial update
+    updateWalkerPosition();
+  });
+</script>
