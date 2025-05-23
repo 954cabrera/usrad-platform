@@ -141,65 +141,96 @@ const showPatientHeader = true;
   </FadeIn>
 
   <section class="bg-[#fefbf5] py-20 px-6 text-[#003087]">
-    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-      <!-- Image -->
-      <div data-aos="fade-right">
-        <img
-          src="/images/website/86265241.webp"
-          alt="Technologist preparing patient for MRI scan"
-          class="w-full h-auto rounded-2xl shadow-xl"
-        />
-      </div>
-
-      <!-- Text -->
-      <div data-aos="fade-left" class="text-left">
+    <div class="max-w-6xl mx-auto">
+      <!-- Behind the Simplicity - Centered -->
+      <div class="text-center mb-16">
         <p
-          class="text-sm uppercase tracking-wide font-semibold text-[#cc9933] mb-4"
+          class="text-sm uppercase tracking-wide font-semibold text-[#cc9933] mb-6"
         >
           Behind the Simplicity
         </p>
-        <p class="text-lg sm:text-xl mb-6 text-[#003087]/90">
-          USRad isn't just a booking tool or referral marketplace. We operate
-          like a full-scale managed care organization — with dedicated teams for
-          provider relations, customer support, quality assurance, and medical
-          oversight.
+
+        <div class="max-w-4xl mx-auto mb-8">
+          <img
+            src="/images/two-rads-control-center.webp"
+            alt="Two radiologists at control center"
+            class="w-full h-auto rounded-3xl shadow-2xl"
+          />
+        </div>
+
+        <div class="max-w-3xl mx-auto space-y-6 text-lg">
+          <p>
+            USRad isn't just a booking tool or referral marketplace. We operate
+            like a full-scale managed care organization — with dedicated teams
+            for provider relations, customer support, quality assurance, and
+            medical oversight.
+          </p>
+          <p>
+            The difference? We do it all as a carve-out — focused entirely on
+            diagnostic imaging, and built for the 90+ million Americans priced
+            out of traditional insurance.
+          </p>
+        </div>
+      </div>
+
+      <!-- Seamless transition to Core Benefits -->
+      <div class="text-center mb-12">
+        <p
+          class="text-sm uppercase tracking-wide font-semibold text-[#cc9933] mb-4"
+        >
+          Premium Experience
         </p>
-        <p class="text-lg sm:text-xl text-[#003087]/90">
-          The difference? We do it all as a carve-out — focused entirely on
-          diagnostic imaging, and built for the 90+ million Americans priced out
-          of traditional insurance.
+        <h2 class="text-3xl font-bold text-[#003087] mb-4">
+          The USRad Advantage
+        </h2>
+        <p class="text-lg text-[#003087]/80 max-w-2xl mx-auto">
+          We've reimagined medical imaging to deliver an experience that puts
+          you first — at prices 30-70% below hospitals.
         </p>
       </div>
     </div>
   </section>
 
   <!-- Core Benefits -->
-  <section class="relative pt-16 pb-20 bg-white">
-    <img
-      src="/images/website/134254212.webp"
-      alt="MRI scan showing diagnostic clarity"
-      class="absolute inset-0 w-full h-full object-cover opacity-10"
-    />
+  <section
+    class="relative pt-16 pb-20"
+    style="
+    background: linear-gradient(135deg, #fcf9f0 0%, #f8f5e8 100%);
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(0, 48, 135, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(204, 153, 51, 0.03) 0%, transparent 50%);
+    background-size: 120px 120px, 80px 80px;
+  "
+  >
     <div class="relative z-10">
       <CoreBenefits />
     </div>
   </section>
 
-  <section class="bg-[#f0f4f9] py-20 px-6">
-    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-      <!-- Image on Left -->
-      <div data-aos="fade-right">
-        <img
-          src="/images/website/100578104.webp"
-          alt="Experienced radiologist"
-          class="w-full h-auto rounded-2xl shadow-xl"
-        />
-      </div>
+  <!-- Make the new photo a featured section -->
+  <section class="bg-white py-20 px-6">
+    <div class="max-w-7xl mx-auto text-center mb-12">
+      <h2 class="text-3xl font-bold text-[#003087] mb-4">
+        Personal Care Every Step
+      </h2>
+      <p class="text-lg text-[#003087]/80">
+        Our dedicated team guides you through your entire MRI experience
+      </p>
+    </div>
 
-      <!-- Trust Badges on Right -->
-      <div data-aos="fade-left">
-        <TrustBadgesBar />
-      </div>
+    <div class="max-w-4xl mx-auto">
+      <img
+        src="/images/website/trust-duo.webp"
+        alt="Technologist guiding patient through MRI process"
+        class="w-full h-auto rounded-3xl shadow-2xl"
+      />
+    </div>
+  </section>
+
+  <!-- Separate Trust Badges section -->
+  <section class="bg-[#f0f4f9] py-16 px-6">
+    <div class="max-w-6xl mx-auto">
+      <TrustBadgesBar />
     </div>
   </section>
 
