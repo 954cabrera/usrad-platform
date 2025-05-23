@@ -2,6 +2,7 @@
 import PartnerPageLayout from "../../layouts/PartnerPageLayout.astro";
 import AOSInit from "../../components/AOSInit.astro";
 import HeroImagingCenter from "../../components/imaging/HeroImagingCenter.astro";
+import NetworkMap from "../../components/imaging/NetworkMap.astro";
 import HeroSmartSplit from "../../components/partner/HeroSmartSplit.astro";
 import HowItWorksTimeLine from "../../components/partner/HowItWorksTimeLine.astro";
 import MarketOpportunity from "../../components/partner/MarketOpportunity.astro";
@@ -129,6 +130,25 @@ const breadcrumbPaths = [
           </div>
 
           <div class="space-y-5" data-aos="fade-left" data-aos-delay="300">
+            <!-- Strategic Positioning Badges - Option 1 -->
+            <div class="flex items-center space-x-4 text-sm">
+              <span
+                class="px-3 py-1 bg-[#cc9933] text-white rounded-full font-semibold"
+              >
+                Serial Entrepreneur
+              </span>
+              <span
+                class="px-3 py-1 bg-[#003087] text-white rounded-full font-semibold"
+              >
+                Proven Exit
+              </span>
+              <span
+                class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full font-semibold"
+              >
+                Strategic Re-Entry
+              </span>
+            </div>
+
             <h2
               class="text-3xl font-semibold text-[#003087] flex items-center font-manrope"
             >
@@ -329,6 +349,13 @@ const breadcrumbPaths = [
       </div>
     </div>
   </section>
+
+  <!-- Or with custom props -->
+  <NetworkMap
+    title="Join Our Growing Network"
+    showStats={true}
+    ctaText="Start Your Application →"
+  />
 
   <!-- Enhanced Streamlined Process Overview -->
   <section class="py-16 bg-[#f0f4f9] text-[#003087] relative overflow-hidden">
@@ -682,7 +709,9 @@ const breadcrumbPaths = [
             </h3>
             <div class="grid md:grid-cols-3 gap-6">
               <div>
-                <div class="text-3xl font-bold text-[#cc9933] mb-2">3-5 days</div>
+                <div class="text-3xl font-bold text-[#cc9933] mb-2">
+                  3-5 days
+                </div>
                 <div class="text-sm opacity-90">Eligibility Review</div>
               </div>
               <div>
