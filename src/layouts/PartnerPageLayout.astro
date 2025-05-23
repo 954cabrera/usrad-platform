@@ -18,7 +18,7 @@ const breadcrumbPaths = [
     href: "/",
   },
   {
-    label: "For Imaging-Center",
+    label: "For Imaging-Centers",
     href: "/imaging-center",
   },
   {
@@ -47,9 +47,20 @@ const breadcrumbPaths = [
     <!-- Cross-navigation links at the bottom -->
     <div class="max-w-6xl mx-auto px-6 mt-16 pt-8 border-t border-gray-200">
       <h3 class="text-xl font-semibold text-[#003087] mb-4">
-        Explore More Partner Resources
+        Explore More Network Resources
       </h3>
       <ul class="flex flex-wrap gap-y-3 gap-x-8">
+        <li>
+          <a
+            href="/imaging-center/calculator"
+            class="text-gray-600 hover:text-[#003087] relative group"
+          >
+            Revenue Calculator
+            <span
+              class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#cc9933] group-hover:w-full transition-all duration-300"
+            ></span>
+          </a>
+        </li>
         <li>
           <a
             href="/imaging-center/experience"
@@ -119,41 +130,41 @@ const breadcrumbPaths = [
       </ul>
     </div>
   </div>
+
+  <style is:global>
+    /* Mobile-only fixes for partner pages */
+    @media (max-width: 768px) {
+      /* Fix for breadcrumb positioning */
+      .breadcrumb-container {
+        margin-top: 60px !important; /* Add more top margin only on mobile */
+        padding-top: 0.5rem !important;
+        padding-bottom: 0 !important;
+      }
+
+      /* Reduce hero section padding */
+      section[class*="from-[#fcf9f0]"][class*="to-[#f5e7c5]"] {
+        padding-top: 16px !important;
+        padding-bottom: 20px !important;
+      }
+
+      /* Make headings more compact */
+      h1[class*="text-5xl"],
+      h1[class*="text-6xl"],
+      h1.text-4xl {
+        font-size: 2.25rem !important;
+        line-height: 1.2 !important;
+      }
+
+      /* Stack words for long titles */
+      h1 span.block + span {
+        display: block;
+        margin-top: 0.25rem;
+      }
+
+      /* Adjust main content area */
+      .main-content {
+        padding-top: 20px !important;
+      }
+    }
+  </style>
 </MainLayout>
-
-<style is:global>
-  /* Mobile-only fixes for partner pages */
-  @media (max-width: 768px) {
-    /* Fix for breadcrumb positioning */
-    .breadcrumb-container {
-      margin-top: 60px !important; /* Add more top margin only on mobile */
-      padding-top: 0.5rem !important;
-      padding-bottom: 0 !important;
-    }
-
-    /* Reduce hero section padding */
-    section[class*="from-[#fcf9f0]"][class*="to-[#f5e7c5]"] {
-      padding-top: 16px !important;
-      padding-bottom: 20px !important;
-    }
-
-    /* Make headings more compact */
-    h1[class*="text-5xl"],
-    h1[class*="text-6xl"],
-    h1.text-4xl {
-      font-size: 2.25rem !important;
-      line-height: 1.2 !important;
-    }
-
-    /* Stack words for long titles */
-    h1 span.block + span {
-      display: block;
-      margin-top: 0.25rem;
-    }
-
-    /* Adjust main content area */
-    .main-content {
-      padding-top: 20px !important;
-    }
-  }
-</style>
