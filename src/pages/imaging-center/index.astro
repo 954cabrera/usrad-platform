@@ -330,7 +330,7 @@ const breadcrumbPaths = [
     </div>
   </section>
 
-  <!-- Streamlined Process Overview -->
+  <!-- Enhanced Streamlined Process Overview -->
   <section class="py-16 bg-[#f0f4f9] text-[#003087] relative overflow-hidden">
     <!-- Background elements -->
     <div
@@ -344,7 +344,7 @@ const breadcrumbPaths = [
 
     <div class="px-6 sm:px-8 lg:px-12">
       <div class="max-w-7xl mx-auto relative z-10">
-        <div class="text-center mb-12" data-aos="fade-up" data-aos-delay="100">
+        <div class="text-center mb-16" data-aos="fade-up" data-aos-delay="100">
           <h2
             class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
           >
@@ -355,97 +355,359 @@ const breadcrumbPaths = [
             Our streamlined onboarding process gets you up and running quickly
             with minimal disruption.
           </p>
-        </div>
-
-        <!-- Simplified Timeline - Horizontal Steps -->
-        <div class="relative" data-aos="fade-up" data-aos-delay="200">
-          <!-- Connector Line -->
           <div
-            class="absolute top-24 left-0 right-0 h-1 bg-[#e6c378] opacity-50 hidden md:block"
+            class="mt-6 flex justify-center items-center space-x-4 text-sm text-gray-600"
           >
-          </div>
-
-          <!-- Step Icons -->
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <!-- Step 1 -->
-            <div class="flex flex-col items-center text-center">
-              <div
-                class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center mb-6 relative z-10"
-              >
-                <span class="text-white font-bold font-manrope">1</span>
-              </div>
-              <h3
-                class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
-              >
-                Eligibility Review
-              </h3>
-              <p class="text-sm text-gray-600 font-manrope">
-                Quick assessment to confirm your center meets network
-                requirements
-              </p>
+            <div class="flex items-center">
+              <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+              <span>Average: 2-3 weeks</span>
             </div>
-
-            <!-- Step 2 -->
-            <div class="flex flex-col items-center text-center">
-              <div
-                class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center mb-6 relative z-10"
-              >
-                <span class="text-white font-bold font-manrope">2</span>
-              </div>
-              <h3
-                class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
-              >
-                Onboarding
-              </h3>
-              <p class="text-sm text-gray-600 font-manrope">
-                Simple setup process with dedicated support
-              </p>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="flex flex-col items-center text-center">
-              <div
-                class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center mb-6 relative z-10"
-              >
-                <span class="text-white font-bold font-manrope">3</span>
-              </div>
-              <h3
-                class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
-              >
-                Integration
-              </h3>
-              <p class="text-sm text-gray-600 font-manrope">
-                Connect with our scheduling system
-              </p>
-            </div>
-
-            <!-- Step 4 -->
-            <div class="flex flex-col items-center text-center">
-              <div
-                class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center mb-6 relative z-10"
-              >
-                <span class="text-white font-bold font-manrope">4</span>
-              </div>
-              <h3
-                class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
-              >
-                Launch
-              </h3>
-              <p class="text-sm text-gray-600 font-manrope">
-                Begin receiving patients and incremental revenue
-              </p>
+            <div class="flex items-center">
+              <div class="w-3 h-3 bg-[#cc9933] rounded-full mr-2"></div>
+              <span>Zero setup costs</span>
             </div>
           </div>
         </div>
 
+        <!-- Enhanced Timeline with Animations -->
+        <div class="relative" data-aos="fade-up" data-aos-delay="200">
+          <!-- Animated Progress Line -->
+          <div
+            class="absolute top-20 left-0 right-0 h-1 bg-gray-200 hidden lg:block rounded-full overflow-hidden"
+          >
+            <div
+              class="h-full bg-gradient-to-r from-[#cc9933] to-[#003087] rounded-full transition-all duration-2000 ease-out"
+              id="progressLine"
+              style="width: 0%"
+            >
+            </div>
+          </div>
+
+          <!-- Mobile Vertical Line -->
+          <div
+            class="absolute left-6 top-0 bottom-0 w-1 bg-gray-200 lg:hidden rounded-full overflow-hidden"
+          >
+            <div
+              class="w-full bg-gradient-to-b from-[#cc9933] to-[#003087] rounded-full transition-all duration-2000 ease-out"
+              id="progressLineMobile"
+              style="height: 0%"
+            >
+            </div>
+          </div>
+
+          <!-- Enhanced Step Cards -->
+          <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-6">
+            <!-- Step 1: Eligibility Review -->
+            <div
+              class="flex flex-col items-center text-center lg:items-center"
+              data-aos="zoom-in"
+              data-aos-delay="300"
+            >
+              <div class="relative mb-6">
+                <!-- Main Icon Container -->
+                <div
+                  class="w-20 h-20 bg-gradient-to-br from-[#003087] to-[#0052cc] rounded-2xl flex items-center justify-center relative z-10 shadow-lg transform transition-all duration-300 hover:scale-110 hover:rotate-3"
+                >
+                  <!-- Clipboard Check Icon -->
+                  <svg
+                    class="w-10 h-10 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+                    ></path>
+                  </svg>
+                </div>
+                <!-- Step Number Badge -->
+                <div
+                  class="absolute -top-2 -right-2 w-8 h-8 bg-[#cc9933] text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg z-20"
+                >
+                  1
+                </div>
+                <!-- Floating Indicator -->
+                <div
+                  class="absolute -bottom-2 -left-2 w-6 h-6 bg-green-500 rounded-full animate-pulse"
+                >
+                </div>
+              </div>
+
+              <div
+                class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-[#cc9933] hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 lg:ml-6"
+              >
+                <h3
+                  class="text-xl font-semibold text-[#003087] mb-3 font-manrope"
+                >
+                  Eligibility Review
+                </h3>
+                <p
+                  class="text-gray-600 font-manrope text-sm leading-relaxed mb-4"
+                >
+                  Quick but thorough evaluation of your center's qualifications
+                  and readiness for our network.
+                </p>
+                <div
+                  class="flex items-center text-xs text-green-600 font-semibold"
+                >
+                  <svg
+                    class="w-4 h-4 mr-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    ></path>
+                  </svg>
+                  Review process typically takes 2-3 business days
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: Onboarding -->
+            <div
+              class="flex flex-col items-center text-center lg:items-center"
+              data-aos="zoom-in"
+              data-aos-delay="400"
+            >
+              <div class="relative mb-6">
+                <div
+                  class="w-20 h-20 bg-gradient-to-br from-[#cc9933] to-[#e6c378] rounded-2xl flex items-center justify-center relative z-10 shadow-lg transform transition-all duration-300 hover:scale-110 hover:rotate-3"
+                >
+                  <!-- Handshake Icon -->
+                  <svg
+                    class="w-10 h-10 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
+                    ></path>
+                  </svg>
+                </div>
+                <div
+                  class="absolute -top-2 -right-2 w-8 h-8 bg-[#003087] text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg z-20"
+                >
+                  2
+                </div>
+                <div
+                  class="absolute -bottom-2 -left-2 w-6 h-6 bg-blue-500 rounded-full animate-pulse"
+                >
+                </div>
+              </div>
+
+              <div
+                class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-[#003087] hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 lg:ml-6"
+              >
+                <h3
+                  class="text-xl font-semibold text-[#003087] mb-3 font-manrope"
+                >
+                  Onboarding
+                </h3>
+                <p
+                  class="text-gray-600 font-manrope text-sm leading-relaxed mb-4"
+                >
+                  Dedicated support specialist guides you through paperwork,
+                  contracts, and initial setup process.
+                </p>
+                <div
+                  class="flex items-center text-xs text-blue-600 font-semibold"
+                >
+                  <svg
+                    class="w-4 h-4 mr-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"
+                    ></path>
+                  </svg>
+                  One-on-one guidance throughout
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3: Integration -->
+            <div
+              class="flex flex-col items-center text-center lg:items-center"
+              data-aos="zoom-in"
+              data-aos-delay="500"
+            >
+              <div class="relative mb-6">
+                <div
+                  class="w-20 h-20 bg-gradient-to-br from-[#003087] to-[#0052cc] rounded-2xl flex items-center justify-center relative z-10 shadow-lg transform transition-all duration-300 hover:scale-110 hover:rotate-3"
+                >
+                  <!-- Computer/Integration Icon -->
+                  <svg
+                    class="w-10 h-10 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                </div>
+                <div
+                  class="absolute -top-2 -right-2 w-8 h-8 bg-[#cc9933] text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg z-20"
+                >
+                  3
+                </div>
+                <div
+                  class="absolute -bottom-2 -left-2 w-6 h-6 bg-purple-500 rounded-full animate-pulse"
+                >
+                </div>
+              </div>
+
+              <div
+                class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-[#cc9933] hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 lg:ml-6"
+              >
+                <h3
+                  class="text-xl font-semibold text-[#003087] mb-3 font-manrope"
+                >
+                  Integration
+                </h3>
+                <p
+                  class="text-gray-600 font-manrope text-sm leading-relaxed mb-4"
+                >
+                  Simple connection to our scheduling platform and patient
+                  management system. No complex IT work required.
+                </p>
+                <div
+                  class="flex items-center text-xs text-purple-600 font-semibold"
+                >
+                  <svg
+                    class="w-4 h-4 mr-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.381z"
+                    ></path>
+                  </svg>
+                  Fast & simple setup
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 4: Launch -->
+            <div
+              class="flex flex-col items-center text-center lg:items-center"
+              data-aos="zoom-in"
+              data-aos-delay="600"
+            >
+              <div class="relative mb-6">
+                <div
+                  class="w-20 h-20 bg-gradient-to-br from-[#cc9933] to-[#e6c378] rounded-2xl flex items-center justify-center relative z-10 shadow-lg transform transition-all duration-300 hover:scale-110 hover:rotate-3"
+                >
+                  <!-- Rocket Launch Icon -->
+                  <svg
+                    class="w-10 h-10 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
+                <div
+                  class="absolute -top-2 -right-2 w-8 h-8 bg-[#003087] text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg z-20"
+                >
+                  4
+                </div>
+                <div
+                  class="absolute -bottom-2 -left-2 w-6 h-6 bg-green-500 rounded-full animate-pulse"
+                >
+                </div>
+              </div>
+
+              <div
+                class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-[#003087] hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 lg:ml-6"
+              >
+                <h3
+                  class="text-xl font-semibold text-[#003087] mb-3 font-manrope"
+                >
+                  Launch & Earn
+                </h3>
+                <p
+                  class="text-gray-600 font-manrope text-sm leading-relaxed mb-4"
+                >
+                  Begin receiving patients and generating incremental revenue.
+                  Full support and monitoring included.
+                </p>
+                <div
+                  class="flex items-center text-xs text-green-600 font-semibold"
+                >
+                  <svg
+                    class="w-4 h-4 mr-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
+                    ></path>
+                  </svg>
+                  Start earning immediately
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Summary -->
+        <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="700">
+          <div
+            class="bg-gradient-to-r from-[#003087] to-[#0052cc] rounded-2xl p-8 text-white shadow-xl"
+          >
+            <h3 class="text-2xl font-bold mb-4 font-manrope">
+              Complete Process Timeline
+            </h3>
+            <div class="grid md:grid-cols-3 gap-6">
+              <div>
+                <div class="text-3xl font-bold text-[#cc9933] mb-2">3-5 days</div>
+                <div class="text-sm opacity-90">Eligibility Review</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold text-[#cc9933] mb-2">1 week</div>
+                <div class="text-sm opacity-90">Setup & Integration</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold text-[#cc9933] mb-2">
+                  2-3 weeks
+                </div>
+                <div class="text-sm opacity-90">Total Time to Revenue</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Link -->
         <div class="text-center mt-12">
           <a
             href="/imaging-center/implementation"
-            class="text-[#003087] hover:text-[#cc9933] transition-colors font-medium inline-flex items-center font-manrope"
+            class="text-[#003087] hover:text-[#cc9933] transition-colors font-medium inline-flex items-center font-manrope group"
           >
             View detailed implementation process
             <svg
-              class="ml-2 w-4 h-4"
+              class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -461,6 +723,50 @@ const breadcrumbPaths = [
         </div>
       </div>
     </div>
+
+    <!-- Animation Script -->
+    <script>
+      // Intersection Observer for triggering animations
+      const observerOptions = {
+        threshold: 0.3,
+        rootMargin: "0px 0px -100px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Animate progress lines
+            const progressLine = document.getElementById("progressLine");
+            const progressLineMobile =
+              document.getElementById("progressLineMobile");
+
+            if (progressLine) {
+              setTimeout(() => {
+                progressLine.style.width = "100%";
+              }, 500);
+            }
+
+            if (progressLineMobile) {
+              setTimeout(() => {
+                progressLineMobile.style.height = "100%";
+              }, 500);
+            }
+
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      // Observe the timeline section
+      document.addEventListener("DOMContentLoaded", () => {
+        const timelineSection = document.querySelector(
+          '[data-aos="fade-up"][data-aos-delay="200"]'
+        );
+        if (timelineSection) {
+          observer.observe(timelineSection);
+        }
+      });
+    </script>
   </section>
 
   <!-- Enhanced Equipment Section with Photos -->
