@@ -254,17 +254,17 @@ const showPatientHeader = true;
       </div>
     </div>
 
-    <!-- Walking Person Illustration (Right Side, Desktop Only) -->
+    <!-- Walking Person Illustration (Left to Right Animation) -->
     <div
-      class="absolute right-6 bottom-6 hidden md:block z-10"
-      data-aos="fade-left"
-      data-aos-delay="800"
+      class="absolute bottom-6 left-0 right-0 h-32 pointer-events-none hidden md:block z-10"
     >
       <img
         src="/images/illustrations/walking-person.webp"
-        alt="A user navigating four imaging steps"
-        class="max-h-64 opacity-90 animate-float"
+        alt="A user navigating the four imaging steps"
+        class="h-32 opacity-90 animate-walk-across animate-float"
         loading="lazy"
+        data-aos="fade-in"
+        data-aos-delay="3000"
       />
     </div>
   </section>
@@ -344,3 +344,66 @@ const showPatientHeader = true;
     </div>
   </section>
 </MainPatientLayout>
+
+<style>
+  /* Walking animation from left to right - one time only */
+  @keyframes walkAcrossOnce {
+    0% {
+      left: -100px;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    20% {
+      left: 10%;
+    }
+    40% {
+      left: 30%;
+    }
+    60% {
+      left: 55%;
+    }
+    80% {
+      left: 80%;
+    }
+    100% {
+      left: calc(100% - 100px);
+      opacity: 1;
+    }
+  }
+
+  .animate-walk-across {
+    position: absolute;
+    bottom: 20px;
+    left: -100px;
+    opacity: 0;
+  }
+
+  /* Only start animation when AOS triggers */
+  .animate-walk-across.aos-animate {
+    animation: walkAcrossOnce 8s ease-in-out forwards;
+  }
+
+  /* Float animation for more life */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .animate-float {
+    animation: float 2s ease-in-out infinite;
+  }
+
+  /* Combined animations - walk once, then float forever */
+  .animate-walk-across.animate-float {
+    animation:
+      walkAcrossOnce 8s ease-in-out forwards,
+      float 2s ease-in-out infinite;
+  }
+</style>
