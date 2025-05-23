@@ -70,21 +70,21 @@ import AOSInit from "../components/AOSInit.astro";
           services—starting with diagnostic imaging.
         </p>
 
-        <!-- Call-to-Actions -->
+        <!-- Hero Section CTAs - Mobile Optimized -->
         <div
-          class="flex flex-wrap justify-center md:justify-start gap-4"
+          class="flex flex-col sm:flex-row justify-center md:justify-start gap-3 sm:gap-4"
           data-aos="fade-up"
           data-aos-delay="200"
         >
           <a
             href="/imaging-center"
-            class="bg-[#e6c378] hover:bg-[#cc9933] text-white px-6 py-3 rounded-xl font-semibold transition-all"
+            class="bg-[#cc9933] hover:bg-[#b8862e] text-white px-6 sm:px-8 py-4 rounded-xl font-semibold transition-all text-center text-base sm:text-lg min-h-[48px] flex items-center justify-center"
           >
             Join the Imaging Network
           </a>
           <a
             href="/about"
-            class="border border-[#003087] text-[#003087] hover:bg-[#003087] hover:text-white px-6 py-3 rounded-xl font-semibold transition-all"
+            class="border-2 border-[#003087] text-[#003087] hover:bg-[#003087] hover:text-white px-6 sm:px-8 py-4 rounded-xl font-semibold transition-all text-center text-base sm:text-lg min-h-[48px] flex items-center justify-center"
           >
             Learn About the Model
           </a>
@@ -168,436 +168,556 @@ import AOSInit from "../components/AOSInit.astro";
     </div>
   </section>
 
-  <!-- Platform Overview -->
+  <!-- Platform Overview - Mobile Responsive Grid -->
   <section
-    class="py-20 bg-[#fcf9f0] text-[#003087] px-6 sm:px-12"
+    class="py-16 sm:py-20 bg-[#fcf9f0] text-[#003087] px-4 sm:px-6 lg:px-12"
     data-aos="fade-up"
   >
-    <h2 class="text-3xl font-bold text-center mb-12">The USRad Platform</h2>
-    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12">
+      The USRad Platform
+    </h2>
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto"
+    >
+      <div
+        class="text-center bg-white p-6 sm:p-8 rounded-xl shadow-lg"
+        data-aos="zoom-in"
+        data-aos-delay="100"
+      >
         <img
           src="/icons/managed-care/network.png"
           alt="Network"
-          class="mx-auto h-12 mb-4"
+          class="mx-auto h-10 sm:h-12 mb-4"
         />
-        <h3 class="font-semibold text-lg mb-2">
+        <h3 class="font-semibold text-lg sm:text-xl mb-2">
           Nationwide Credentialed Network
         </h3>
-        <p>
+        <p class="text-sm sm:text-base leading-relaxed">
           High-field MRI/CT facilities, vetted for quality, licensure, and
           equipment.
         </p>
       </div>
-      <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
+      <div
+        class="text-center bg-white p-6 sm:p-8 rounded-xl shadow-lg"
+        data-aos="zoom-in"
+        data-aos-delay="200"
+      >
         <img
           src="/icons/managed-care/pricing.png"
           alt="Pricing"
-          class="mx-auto h-12 mb-4"
+          class="mx-auto h-10 sm:h-12 mb-4"
         />
-        <h3 class="font-semibold text-lg mb-2">Flat-Rate Contracts</h3>
-        <p>Patients pay one pre-negotiated price. No billing games.</p>
+        <h3 class="font-semibold text-lg sm:text-xl mb-2">
+          Flat-Rate Contracts
+        </h3>
+        <p class="text-sm sm:text-base leading-relaxed">
+          Patients pay one pre-negotiated price. No billing games.
+        </p>
       </div>
-      <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
+      <div
+        class="text-center bg-white p-6 sm:p-8 rounded-xl shadow-lg"
+        data-aos="zoom-in"
+        data-aos-delay="300"
+      >
         <img
           src="/icons/managed-care/radiology.png"
           alt="Radiologists"
-          class="mx-auto h-12 mb-4"
+          class="mx-auto h-10 sm:h-12 mb-4"
         />
-        <h3 class="font-semibold text-lg mb-2">
+        <h3 class="font-semibold text-lg sm:text-xl mb-2">
           Board-Certified Radiology Reads
         </h3>
-        <p>Every scan is interpreted by a board-certified radiologist.</p>
+        <p class="text-sm sm:text-base leading-relaxed">
+          Every scan is interpreted by a board-certified radiologist.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Cost Comparison Section - Enhanced -->
+  <!-- Mobile-Responsive Enhanced Legacy Section -->
   <section
-    class="py-20 bg-white text-[#003087] px-6 sm:px-12"
+    class="py-20 bg-gradient-to-br from-[#f5e7c5] to-[#fcf9f0] text-[#003087] px-6 sm:px-12 relative overflow-hidden"
     data-aos="fade-up"
   >
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-4xl font-bold text-center mb-4">Why It Works</h2>
-      <p class="text-xl text-center text-gray-600 mb-12">
-        See the dramatic difference in what patients actually pay
-      </p>
-
-      <!-- Visual Bill Comparison -->
-      <div class="grid md:grid-cols-2 gap-8 mb-16">
-        <!-- Hospital Bill -->
-        <div
-          class="bg-red-50 border-2 border-red-200 rounded-2xl p-8 transform hover:scale-105 transition-all"
-          data-aos="fade-right"
-        >
-          <div class="text-center mb-6">
-            <div
-              class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4"
-            >
-              <span class="text-2xl">🏥</span>
-            </div>
-            <h3 class="text-2xl font-bold text-red-700 mb-2">Hospital MRI</h3>
-            <p class="text-gray-600">What patients typically face</p>
-          </div>
-
-          <!-- Mock Hospital Bill -->
-          <div class="bg-white rounded-xl p-6 shadow-lg">
-            <div class="border-b pb-4 mb-4">
-              <h4 class="font-bold text-lg">Medical Center Billing</h4>
-              <p class="text-sm text-gray-500">Statement #HC-2024-001</p>
-            </div>
-
-            <div class="space-y-3">
-              <div class="flex justify-between">
-                <span>MRI Brain w/contrast</span>
-                <span class="font-semibold">$2,800</span>
-              </div>
-              <div class="flex justify-between">
-                <span>Facility fee</span>
-                <span class="font-semibold">$1,200</span>
-              </div>
-              <div class="flex justify-between">
-                <span>Radiologist reading</span>
-                <span class="font-semibold">$450</span>
-              </div>
-              <div class="flex justify-between">
-                <span>Hospital markup</span>
-                <span class="font-semibold">$380</span>
-              </div>
-              <div class="flex justify-between text-red-600">
-                <span>Insurance adjustment</span>
-                <span class="font-semibold">-$1,330</span>
-              </div>
-              <hr class="border-gray-300" />
-              <div class="flex justify-between text-xl font-bold text-red-700">
-                <span>Patient Responsibility</span>
-                <span>$3,500</span>
-              </div>
-            </div>
-
-            <div class="mt-4 p-3 bg-red-50 rounded-lg">
-              <p class="text-sm text-red-600 font-medium">
-                ⚠️ Plus potential surprise bills from radiologist
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- USRad Bill -->
-        <div
-          class="bg-green-50 border-2 border-green-200 rounded-2xl p-8 transform hover:scale-105 transition-all"
-          data-aos="fade-left"
-        >
-          <div class="text-center mb-6">
-            <div
-              class="w-16 h-16 bg-[#cc9933]/20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-[#cc9933]"
-            >
-              <span class="text-2xl">🎯</span>
-            </div>
-            <h3 class="text-2xl font-bold text-[#003087] mb-2">USRad MRI</h3>
-            <p class="text-gray-600">Simple, transparent pricing</p>
-          </div>
-
-          <!-- Mock USRad Bill -->
-          <div class="bg-white rounded-xl p-6 shadow-lg">
-            <div class="border-b pb-4 mb-4">
-              <h4 class="font-bold text-lg text-[#003087]">USRad Imaging</h4>
-              <p class="text-sm text-gray-500">Order #USR-2024-001</p>
-            </div>
-
-            <div class="space-y-3">
-              <div class="flex justify-between">
-                <span>MRI Brain w/contrast</span>
-                <span class="font-semibold">Included</span>
-              </div>
-              <div class="flex justify-between">
-                <span>Facility & equipment</span>
-                <span class="font-semibold">Included</span>
-              </div>
-              <div class="flex justify-between">
-                <span>Board-certified radiologist</span>
-                <span class="font-semibold">Included</span>
-              </div>
-              <div class="flex justify-between">
-                <span>Results & consultation</span>
-                <span class="font-semibold">Included</span>
-              </div>
-              <div class="flex justify-between text-gray-400">
-                <span>Hidden fees</span>
-                <span class="font-semibold">$0</span>
-              </div>
-              <hr class="border-gray-300" />
-              <div
-                class="flex justify-between text-xl font-bold text-[#003087]"
-              >
-                <span>Total Price</span>
-                <span>$450</span>
-              </div>
-            </div>
-
-            <div class="mt-4 p-3 bg-green-50 rounded-lg">
-              <p class="text-sm text-green-600 font-medium">
-                ✅ All-inclusive, pay upfront, no surprises
-              </p>
-            </div>
-          </div>
-        </div>
+    <!-- Background Elements -->
+    <div class="absolute inset-0 opacity-10">
+      <div
+        class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-[#cc9933]/20 to-transparent"
+      >
       </div>
-
-      <!-- Savings Highlight -->
-      <div class="text-center mb-12">
-        <div
-          class="bg-gradient-to-r from-[#003087] to-[#0052cc] rounded-2xl p-8 text-white"
-          data-aos="zoom-in"
-        >
-          <div
-            class="flex flex-col md:flex-row items-center justify-center gap-8"
-          >
-            <div class="text-center">
-              <div class="text-6xl font-bold mb-2">$3,050</div>
-              <div class="text-xl opacity-90">Average Savings Per Scan</div>
-            </div>
-            <div class="text-4xl opacity-60">→</div>
-            <div class="text-center">
-              <div class="text-3xl font-bold mb-2">83% Less</div>
-              <div class="text-lg opacity-90">Than Hospital Pricing</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Scale Impact -->
-      <div class="grid md:grid-cols-3 gap-6 text-center">
-        <div class="p-6" data-aos="fade-up" data-aos-delay="100">
-          <div class="text-3xl font-bold text-[#003087] mb-2" id="annual-scans">
-            1,000,000+
-          </div>
-          <div class="text-gray-600">Scans annually</div>
-        </div>
-        <div class="p-6" data-aos="fade-up" data-aos-delay="200">
-          <div
-            class="text-3xl font-bold text-[#cc9933] mb-2"
-            id="total-savings"
-          >
-            $2.9B+
-          </div>
-          <div class="text-gray-600">Total system savings</div>
-        </div>
-        <div class="p-6" data-aos="fade-up" data-aos-delay="300">
-          <div class="text-3xl font-bold text-[#003087] mb-2">90M+</div>
-          <div class="text-gray-600">Americans who could benefit</div>
-        </div>
-      </div>
-
-      <!-- Imaging Center CTA - Replace Calculator Section -->
-      <section class="bg-gradient-to-r from-[#fcf9f0] to-[#f5e7c5] py-16">
-        <div class="max-w-4xl mx-auto px-6 text-center" data-aos="fade-up">
-          <h2 class="text-3xl font-bold text-[#003087] mb-4">
-            Are You an Imaging Center?
-          </h2>
-          <p class="text-xl text-gray-600 mb-8">
-            See how much additional revenue you could generate by partnering
-            with USRad
-          </p>
-
-          <!-- Key Benefits -->
-          <div class="grid md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white/80 rounded-xl p-4">
-              <div class="text-2xl font-bold text-[#003087] mb-1">$450</div>
-              <div class="text-sm text-gray-600">Guaranteed per scan</div>
-            </div>
-            <div class="bg-white/80 rounded-xl p-4">
-              <div class="text-2xl font-bold text-[#003087] mb-1">100%</div>
-              <div class="text-sm text-gray-600">Collection rate</div>
-            </div>
-            <div class="bg-white/80 rounded-xl p-4">
-              <div class="text-2xl font-bold text-[#003087] mb-1">$0</div>
-              <div class="text-sm text-gray-600">Billing costs</div>
-            </div>
-          </div>
-
-          <a
-            href="/imaging-center/calculator"
-            class="bg-[#cc9933] hover:bg-[#b8862e] text-white px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 inline-block"
-          >
-            Calculate Your Revenue Potential →
-          </a>
-          <p class="text-sm text-gray-500 mt-3">
-            Free analysis • No commitment required
-          </p>
-        </div>
-      </section>
-
-      <!-- Animated Counter Script -->
-      <script>
-        // Animate numbers when section comes into view
-        const observerOptions = {
-          threshold: 0.5,
-          rootMargin: "0px 0px -50px 0px",
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              animateCounters();
-              observer.unobserve(entry.target);
-            }
-          });
-        }, observerOptions);
-
-        observer.observe(document.querySelector("#annual-scans").parentElement);
-
-        function animateCounters() {
-          // Animate annual scans counter
-          animateNumber("annual-scans", 1000000, 2000, (num) => {
-            return (num / 1000000).toFixed(1) + "M+";
-          });
-
-          // Animate total savings counter
-          animateNumber("total-savings", 2900000000, 2500, (num) => {
-            return "$" + (num / 1000000000).toFixed(1) + "B+";
-          });
-        }
-
-        function animateNumber(elementId, target, duration, formatter) {
-          const element = document.getElementById(elementId);
-          const start = 0;
-          const startTime = performance.now();
-
-          function update(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-
-            // Easing function for smooth animation
-            const easeOut = 1 - Math.pow(1 - progress, 3);
-            const current = start + target * easeOut;
-
-            element.textContent = formatter
-              ? formatter(current)
-              : Math.floor(current).toLocaleString();
-
-            if (progress < 1) {
-              requestAnimationFrame(update);
-            }
-          }
-
-          requestAnimationFrame(update);
-        }
-      </script>
     </div>
 
-    <!-- Legacy Section -->
-    <section
-      class="py-20 bg-[#f5e7c5] text-[#003087] px-6 sm:px-12"
-      data-aos="fade-up"
-    >
-      <h2 class="text-3xl font-bold text-center mb-8">
-        This Isn’t Our First Time
-      </h2>
-      <p class="max-w-4xl mx-auto text-center mb-8 text-lg">
-        Our founder, Michael Cabrera, built AnciCare PPO into a $20M/year
-        specialty network with:
-      </p>
-      <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto text-left">
-        <ul class="list-disc pl-6" data-aos="fade-up" data-aos-delay="100">
-          <li>1,200+ freestanding imaging centers</li>
-          <li>3,000+ board-certified radiologists</li>
-          <li>High-margin managed care contracts</li>
-        </ul>
-        <ul class="list-disc pl-6" data-aos="fade-up" data-aos-delay="200">
-          <li>Labs & bloodwork</li>
-          <li>Mobile diagnostics</li>
-          <li>Home imaging & portable MRI</li>
-          <li>Physical therapy & DME</li>
-        </ul>
+    <div class="relative z-10">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          This Isn't Our First Time
+        </h2>
+        <p class="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
+          Our founder, Michael Cabrera, built AnciCare PPO into a $20M/year
+          specialty network
+        </p>
       </div>
-    </section>
 
-    <!-- Market Scale Section -->
-    <section
-      class="py-20 bg-white text-[#003087] px-6 sm:px-12"
-      data-aos="fade-up"
-    >
-      <h2 class="text-3xl font-bold text-center mb-6">
-        Designed to Serve Millions. Priced to Scale.
-      </h2>
-      <p class="text-center text-lg max-w-3xl mx-auto mb-10">
-        Centers benefit from increased utilization with no billing friction. <br
-        />
-        Patients avoid opaque hospital systems entirely.
-      </p>
-      <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto text-center">
-        <div data-aos="fade-up" data-aos-delay="100">
-          <h3 class="text-2xl font-extrabold">90M+</h3>
-          <p class="text-md">Uninsured & Underinsured</p>
-        </div>
-        <div data-aos="fade-up" data-aos-delay="200">
-          <h3 class="text-2xl font-extrabold">1M+ Scans/Year</h3>
-          <p class="text-md">Platform capacity</p>
-        </div>
-        <div data-aos="fade-up" data-aos-delay="300">
-          <h3 class="text-2xl font-extrabold">50 States</h3>
-          <p class="text-md">Credentialed coverage</p>
+      <!-- Desktop Timeline (Hidden on Mobile) -->
+      <div class="hidden md:block max-w-4xl mx-auto mb-12">
+        <div class="relative">
+          <!-- Timeline Line -->
+          <div
+            class="absolute left-1/2 transform -translate-x-0.5 w-1 h-full bg-gradient-to-b from-[#cc9933] to-[#003087]"
+          >
+          </div>
+
+          <!-- Timeline Items -->
+          <div class="space-y-12">
+            <!-- AnciCare Success -->
+            <div class="relative" data-aos="fade-right" data-aos-delay="100">
+              <div class="flex items-center">
+                <div class="w-1/2 pr-8 text-right">
+                  <div
+                    class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-[#cc9933]"
+                  >
+                    <h3 class="text-xl font-bold text-[#003087] mb-3">
+                      AnciCare PPO Success
+                    </h3>
+                    <div class="space-y-2 text-sm">
+                      <div class="flex justify-between">
+                        <span>Annual Revenue:</span>
+                        <span class="font-bold">$20M+</span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span>Imaging Centers:</span>
+                        <span class="font-bold">1,200+</span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span>Radiologists:</span>
+                        <span class="font-bold">3,000+</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-[#cc9933] rounded-full border-4 border-white shadow-lg z-10"
+                >
+                </div>
+                <div class="w-1/2 pl-8">
+                  <div class="text-sm text-gray-600">
+                    <strong>2015-2019:</strong> Built and scaled comprehensive specialty
+                    network
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- USRad Launch -->
+            <div class="relative" data-aos="fade-left" data-aos-delay="200">
+              <div class="flex items-center">
+                <div class="w-1/2 pr-8 text-right">
+                  <div class="text-sm text-gray-600">
+                    <strong>2024-Present:</strong> Building the future of accessible
+                    imaging care
+                  </div>
+                </div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gradient-to-r from-[#cc9933] to-[#003087] rounded-full border-4 border-white shadow-lg z-10 animate-pulse"
+                >
+                </div>
+                <div class="w-1/2 pl-8">
+                  <div
+                    class="bg-gradient-to-r from-[#cc9933] to-[#003087] p-6 rounded-xl shadow-lg text-white"
+                  >
+                    <h3 class="text-xl font-bold mb-3">
+                      USRad Platform Launch
+                    </h3>
+                    <p class="text-sm opacity-90">
+                      Leveraging proven experience to build the first managed
+                      care platform focused on self-pay imaging
+                    </p>
+                    <div class="mt-4 flex justify-start">
+                      <div
+                        class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold"
+                      >
+                        Current
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Future Service Expansion -->
+            <div class="relative" data-aos="fade-right" data-aos-delay="300">
+              <div class="flex items-center">
+                <div class="w-1/2 pr-8 text-right">
+                  <div
+                    class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-gray-400 opacity-75"
+                  >
+                    <h3 class="text-xl font-bold text-gray-600 mb-3">
+                      Service Portfolio Expansion
+                    </h3>
+                    <div class="grid grid-cols-2 gap-2 text-sm text-gray-500">
+                      <div>• Labs & Bloodwork</div>
+                      <div>• Mobile Diagnostics</div>
+                      <div>• Home Imaging</div>
+                      <div>• Physical Therapy</div>
+                      <div>• Portable MRI</div>
+                      <div>• DME Services</div>
+                    </div>
+                    <div class="mt-4 flex justify-end">
+                      <div
+                        class="bg-gray-200 px-3 py-1 rounded-full text-xs font-bold text-gray-600"
+                      >
+                        Planned
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gray-400 rounded-full border-4 border-white shadow-lg z-10"
+                >
+                </div>
+                <div class="w-1/2 pl-8">
+                  <div class="text-sm text-gray-500">
+                    <strong>2027+:</strong> Planned expansion into comprehensive
+                    ancillary services
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- Efficiency Margin Section -->
-    <section
-      class="py-16 bg-[#fefbf5] text-[#003087] px-6 sm:px-12 text-center"
-      data-aos="fade-in"
-    >
-      <p class="text-xl max-w-4xl mx-auto font-medium">
-        <strong>USRad earns margin on efficiency</strong>—not denial or volume.
-        Our platform replaces billing complexity and insurance friction with
-        speed, scale, and clarity.
-      </p>
-    </section>
+      <!-- Mobile Timeline (Visible only on Mobile) -->
+      <div class="md:hidden max-w-2xl mx-auto mb-12">
+        <div class="relative pl-8">
+          <!-- Vertical Line -->
+          <div
+            class="absolute left-4 top-0 w-0.5 h-full bg-gradient-to-b from-[#cc9933] to-gray-400"
+          >
+          </div>
 
-    <!-- Partner CTA -->
-    <section
-      class="py-20 bg-[#003087] text-white px-6 sm:px-12 text-center"
-      id="partner"
-      data-aos="fade-up"
-    >
-      <h2 class="text-3xl font-bold mb-6">Let’s Build the Future of Care</h2>
-      <div class="flex flex-wrap justify-center gap-6">
-        <a
-          href="/locations"
-          class="bg-[#e6c378] hover:bg-[#cc9933] px-6 py-3 rounded-xl font-semibold"
-          >Find a Location</a
-        >
-        <a
-          href="/imaging-center"
-          class="bg-white text-[#003087] hover:bg-[#003087] hover:text-white border border-white px-6 py-3 rounded-xl font-semibold"
-          >Join Our Network</a
-        >
-        <a
-          href="/contact"
-          class="bg-white text-[#003087] hover:bg-[#003087] hover:text-white border border-white px-6 py-3 rounded-xl font-semibold"
-          >Schedule a Call</a
-        >
+          <!-- Mobile Timeline Items -->
+          <div class="space-y-8">
+            <!-- AnciCare Success -->
+            <div class="relative" data-aos="fade-up" data-aos-delay="100">
+              <div
+                class="absolute left-0 w-3 h-3 bg-[#cc9933] rounded-full border-2 border-white shadow-lg transform -translate-x-1/2"
+              >
+              </div>
+              <div
+                class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-[#cc9933] ml-4"
+              >
+                <div class="text-xs font-semibold text-gray-500 mb-2">
+                  2015-2019
+                </div>
+                <h3 class="text-lg font-bold text-[#003087] mb-3">
+                  AnciCare PPO Success
+                </h3>
+                <div class="grid grid-cols-1 gap-2 text-sm">
+                  <div class="flex justify-between">
+                    <span>Annual Revenue:</span>
+                    <span class="font-bold">$20M+</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Imaging Centers:</span>
+                    <span class="font-bold">1,200+</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Radiologists:</span>
+                    <span class="font-bold">3,000+</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- USRad Launch -->
+            <div class="relative" data-aos="fade-up" data-aos-delay="200">
+              <div
+                class="absolute left-0 w-4 h-4 bg-gradient-to-r from-[#cc9933] to-[#003087] rounded-full border-2 border-white shadow-lg transform -translate-x-1/2 animate-pulse"
+              >
+              </div>
+              <div
+                class="bg-gradient-to-r from-[#cc9933] to-[#003087] p-6 rounded-xl shadow-lg text-white ml-4"
+              >
+                <div class="text-xs font-semibold opacity-80 mb-2">
+                  2024-Present
+                </div>
+                <h3 class="text-lg font-bold mb-3">USRad Platform Launch</h3>
+                <p class="text-sm opacity-90 mb-4">
+                  Leveraging proven experience to build the first managed care
+                  platform focused on self-pay imaging
+                </p>
+                <div class="flex justify-start">
+                  <div
+                    class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold"
+                  >
+                    Current
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Future Service Expansion -->
+            <div class="relative" data-aos="fade-up" data-aos-delay="300">
+              <div
+                class="absolute left-0 w-3 h-3 bg-gray-400 rounded-full border-2 border-white shadow-lg transform -translate-x-1/2"
+              >
+              </div>
+              <div
+                class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-gray-400 opacity-75 ml-4"
+              >
+                <div class="text-xs font-semibold text-gray-500 mb-2">
+                  2027+
+                </div>
+                <h3 class="text-lg font-bold text-gray-600 mb-3">
+                  Service Portfolio Expansion
+                </h3>
+                <div class="grid grid-cols-1 gap-1 text-sm text-gray-500 mb-4">
+                  <div>• Labs & Bloodwork</div>
+                  <div>• Mobile Diagnostics</div>
+                  <div>• Home Imaging</div>
+                  <div>• Physical Therapy</div>
+                  <div>• Portable MRI</div>
+                  <div>• DME Services</div>
+                </div>
+                <div class="flex justify-start">
+                  <div
+                    class="bg-gray-200 px-3 py-1 rounded-full text-xs font-bold text-gray-600"
+                  >
+                    Planned
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
 
-    <script>
-      const container = document.getElementById("rotating-container");
-      const wordHeight = 40;
-      let index = 0;
-
-      setInterval(() => {
-        index++;
-        container.style.transition = "transform 0.2s ease-in-out";
-        container.style.transform = `translateY(-${index * wordHeight}px)`;
-
-        if (index === 2) {
-          setTimeout(() => {
-            container.style.transition = "none";
-            container.style.transform = "translateY(0)";
-            index = 0;
-          }, 600);
-        }
-      }, 3000);
-    </script>
+      <!-- Achievement Stats (Mobile-Optimized) -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto"
+      >
+        <div
+          class="bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl shadow-lg text-center"
+          data-aos="zoom-in"
+          data-aos-delay="100"
+        >
+          <div class="text-2xl sm:text-3xl font-bold text-[#cc9933] mb-2">
+            Proven
+          </div>
+          <div class="text-sm font-medium">Track Record</div>
+        </div>
+        <div
+          class="bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl shadow-lg text-center"
+          data-aos="zoom-in"
+          data-aos-delay="200"
+        >
+          <div class="text-2xl sm:text-3xl font-bold text-[#003087] mb-2">
+            Scaled
+          </div>
+          <div class="text-sm font-medium">Operations</div>
+        </div>
+        <div
+          class="bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-xl shadow-lg text-center"
+          data-aos="zoom-in"
+          data-aos-delay="300"
+        >
+          <div class="text-2xl sm:text-3xl font-bold text-[#cc9933] mb-2">
+            Trusted
+          </div>
+          <div class="text-sm font-medium">Leadership</div>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <!-- Market Scale Stats - Mobile Optimized -->
+  <section
+    class="py-16 sm:py-20 bg-white text-[#003087] px-4 sm:px-6 lg:px-12"
+    data-aos="fade-up"
+  >
+    <h2 class="text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-6">
+      Designed to Serve Millions. Priced to Scale.
+    </h2>
+    <p
+      class="text-center text-base sm:text-lg max-w-3xl mx-auto mb-8 sm:mb-10 px-4"
+    >
+      Centers benefit from increased utilization with no billing friction. <br
+        class="hidden sm:block"
+      />
+      Patients avoid opaque hospital systems entirely.
+    </p>
+    <div
+      class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto"
+    >
+      <div
+        class="text-center bg-gradient-to-br from-[#fcf9f0] to-white p-6 sm:p-8 rounded-xl shadow-lg"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <h3
+          class="text-3xl sm:text-4xl font-extrabold text-[#cc9933] mb-2"
+          id="counter-1"
+        >
+          90M+
+        </h3>
+        <p class="text-sm sm:text-base font-medium">Uninsured & Underinsured</p>
+      </div>
+      <div
+        class="text-center bg-gradient-to-br from-[#fcf9f0] to-white p-6 sm:p-8 rounded-xl shadow-lg"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <h3
+          class="text-3xl sm:text-4xl font-extrabold text-[#003087] mb-2"
+          id="counter-2"
+        >
+          1M+ Scans/Year
+        </h3>
+        <p class="text-sm sm:text-base font-medium">Platform capacity</p>
+      </div>
+      <div
+        class="text-center bg-gradient-to-br from-[#fcf9f0] to-white p-6 sm:p-8 rounded-xl shadow-lg"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <h3
+          class="text-3xl sm:text-4xl font-extrabold text-[#cc9933] mb-2"
+          id="counter-3"
+        >
+          50 States
+        </h3>
+        <p class="text-sm sm:text-base font-medium">Credentialed coverage</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Animated Counter Script -->
+  <script>
+    // Intersection Observer for triggering animations
+    const observerOptions = {
+      threshold: 0.5,
+      rootMargin: "0px 0px -50px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          startCounters();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe the stats section
+    const statsSection = document
+      .querySelector("#counter-1")
+      .closest("section");
+    if (statsSection) {
+      observer.observe(statsSection);
+    }
+
+    function startCounters() {
+      // Counter 1: 90M+
+      animateCounter("counter-1", 90, 2000, (num) => num + "M+");
+
+      // Counter 2: 1M+ Scans/Year
+      animateCounter("counter-2", 1, 2500, (num) => num + "M+ Scans/Year");
+
+      // Counter 3: 50 States
+      animateCounter("counter-3", 50, 1800, (num) => num + " States");
+    }
+
+    function animateCounter(elementId, target, duration, formatter) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+
+      const start = 0;
+      const startTime = performance.now();
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Easing function for smooth animation
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const current = start + target * easeOut;
+
+        element.textContent = formatter
+          ? formatter(Math.floor(current))
+          : Math.floor(current);
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+  </script>
+
+  <!-- Efficiency Margin Section -->
+  <section
+    class="py-16 bg-[#fefbf5] text-[#003087] px-6 sm:px-12 text-center"
+    data-aos="fade-in"
+  >
+    <p class="text-xl max-w-4xl mx-auto font-medium">
+      <strong>USRad earns margin on efficiency</strong>—not denial or volume.
+      Our platform replaces billing complexity and insurance friction with
+      speed, scale, and clarity.
+    </p>
+  </section>
+
+  <!-- Partner CTA Section - Mobile Optimized -->
+  <section
+    class="py-16 sm:py-20 bg-[#003087] text-white px-4 sm:px-6 text-center"
+    id="partner"
+    data-aos="fade-up"
+  >
+    <h2 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">
+      Let's Build the Future of Care
+    </h2>
+    <div
+      class="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 lg:gap-6 max-w-4xl mx-auto"
+    >
+      <a
+        href="/locations"
+        class="bg-[#cc9933] hover:bg-[#b8862e] px-6 sm:px-8 py-4 rounded-xl font-semibold transition-all text-center min-h-[48px] flex items-center justify-center text-base sm:text-lg"
+      >
+        Find a Location
+      </a>
+      <a
+        href="/imaging-center"
+        class="bg-white text-[#003087] hover:bg-[#003087] hover:text-white border-2 border-white px-6 sm:px-8 py-4 rounded-xl font-semibold transition-all text-center min-h-[48px] flex items-center justify-center text-base sm:text-lg"
+      >
+        Join Our Network
+      </a>
+      <a
+        href="/contact"
+        class="bg-white text-[#003087] hover:bg-[#003087] hover:text-white border-2 border-white px-6 sm:px-8 py-4 rounded-xl font-semibold transition-all text-center min-h-[48px] flex items-center justify-center text-base sm:text-lg"
+      >
+        Schedule a Call
+      </a>
+    </div>
+  </section>
+
+  <script>
+    const container = document.getElementById("rotating-container");
+    const wordHeight = 40;
+    let index = 0;
+
+    setInterval(() => {
+      index++;
+      container.style.transition = "transform 0.2s ease-in-out";
+      container.style.transform = `translateY(-${index * wordHeight}px)`;
+
+      if (index === 2) {
+        setTimeout(() => {
+          container.style.transition = "none";
+          container.style.transform = "translateY(0)";
+          index = 0;
+        }, 600);
+      }
+    }, 3000);
+  </script>
 </MainLayout>

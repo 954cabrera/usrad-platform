@@ -463,15 +463,288 @@ const breadcrumbPaths = [
     </div>
   </section>
 
-  <!-- Compatibility With Leading Equipment - Using existing PartnerMfgGrid component instead of hardcoded logos -->
-  <section class="py-12 bg-white">
+  <!-- Enhanced Equipment Section with Photos -->
+  <section class="py-16 bg-white">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-8">
-        <p class="text-lg text-[#003087] font-medium font-manrope">
-          Compatible with equipment from leading manufacturers
+      <div class="text-center mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-semibold text-[#003087] mb-4 font-manrope">
+          Compatible with Leading Equipment
+        </h2>
+        <p class="text-lg text-gray-700 max-w-3xl mx-auto font-manrope">
+          Our network supports imaging centers with equipment from all major
+          manufacturers, ensuring seamless integration regardless of your
+          current setup.
         </p>
       </div>
-      <MfgTabs />
+
+      <!-- MRI Equipment Showcase -->
+      <div class="mb-16" data-aos="fade-up" data-aos-delay="100">
+        <h3
+          class="text-2xl font-semibold text-[#003087] text-center mb-8 font-manrope"
+        >
+          MRI Systems
+        </h3>
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Siemens MRI -->
+          <div
+            class="bg-gradient-to-br from-[#f8f2e1] to-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+          >
+            <div class="aspect-w-16 aspect-h-10 mb-6">
+              <img
+                src="/images/manufacturers/siemens-mri.webp"
+                alt="Siemens MRI System"
+                class="w-full h-48 object-cover rounded-lg shadow-md"
+              />
+            </div>
+            <div class="text-center">
+              <img
+                src="/images/manufacturers/siemens.svg"
+                alt="Siemens"
+                class="h-8 mx-auto mb-3"
+              />
+              <h4
+                class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
+              >
+                Siemens MRI
+              </h4>
+              <p class="text-sm text-gray-600 font-manrope">
+                MAGNETOM series including Skyra, Prisma, and Vida systems
+              </p>
+            </div>
+          </div>
+
+          <!-- GE MRI -->
+          <div
+            class="bg-gradient-to-br from-[#f8f2e1] to-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+          >
+            <div class="aspect-w-16 aspect-h-10 mb-6">
+              <img
+                src="/images/manufacturers/ge-mri.jpg"
+                alt="GE MRI System"
+                class="w-full h-48 object-cover rounded-lg shadow-md"
+              />
+            </div>
+            <div class="text-center">
+              <img
+                src="/images/manufacturers/ge.svg"
+                alt="GE Healthcare"
+                class="h-8 mx-auto mb-3"
+              />
+              <h4
+                class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
+              >
+                GE MRI
+              </h4>
+              <p class="text-sm text-gray-600 font-manrope">
+                SIGNA series including Pioneer, Artist, and Architect systems
+              </p>
+            </div>
+          </div>
+
+          <!-- Philips MRI -->
+          <div
+            class="bg-gradient-to-br from-[#f8f2e1] to-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+          >
+            <div class="aspect-w-16 aspect-h-10 mb-6">
+              <img
+                src="/images/manufacturers/philips-mri.webp"
+                alt="Philips MRI System"
+                class="w-full h-48 object-cover rounded-lg shadow-md"
+              />
+            </div>
+            <div class="text-center">
+              <img
+                src="/images/manufacturers/philips.svg"
+                alt="Philips"
+                class="h-8 mx-auto mb-3"
+              />
+              <h4
+                class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
+              >
+                Philips MRI
+              </h4>
+              <p class="text-sm text-gray-600 font-manrope">
+                Ingenia and Achieva series with advanced imaging capabilities
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CT Equipment Showcase -->
+      <div class="mb-16" data-aos="fade-up" data-aos-delay="200">
+        <h3
+          class="text-2xl font-semibold text-[#003087] text-center mb-8 font-manrope"
+        >
+          CT Systems
+        </h3>
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Canon CT -->
+          <div
+            class="bg-gradient-to-br from-[#f8f2e1] to-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+          >
+            <div class="aspect-w-16 aspect-h-10 mb-6">
+              <img
+                src="/images/manufacturers/canon-ct.jpeg"
+                alt="Canon CT System"
+                class="w-full h-48 object-cover rounded-lg shadow-md"
+              />
+            </div>
+            <div class="text-center">
+              <img
+                src="/images/manufacturers/canon.svg"
+                alt="Canon Medical"
+                class="h-8 mx-auto mb-3"
+              />
+              <h4
+                class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
+              >
+                Canon CT
+              </h4>
+              <p class="text-sm text-gray-600 font-manrope">
+                Aquilion series with advanced dose reduction technology
+              </p>
+            </div>
+          </div>
+
+          <!-- Siemens CT -->
+          <div
+            class="bg-gradient-to-br from-[#f8f2e1] to-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+          >
+            <div class="aspect-w-16 aspect-h-10 mb-6">
+              <img
+                src="/images/manufacturers/siemens-ct.webp"
+                alt="Siemens CT System"
+                class="w-full h-48 object-cover rounded-lg shadow-md"
+              />
+            </div>
+            <div class="text-center">
+              <img
+                src="/images/manufacturers/siemens.svg"
+                alt="Siemens"
+                class="h-8 mx-auto mb-3"
+              />
+              <h4
+                class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
+              >
+                Siemens CT
+              </h4>
+              <p class="text-sm text-gray-600 font-manrope">
+                SOMATOM series including Force, Edge, and Definition systems
+              </p>
+            </div>
+          </div>
+
+          <!-- GE CT -->
+          <div
+            class="bg-gradient-to-br from-[#f8f2e1] to-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+          >
+            <div class="aspect-w-16 aspect-h-10 mb-6">
+              <img
+                src="/images/manufacturers/ge-ct.jpg"
+                alt="GE CT System"
+                class="w-full h-48 object-cover rounded-lg shadow-md"
+              />
+            </div>
+            <div class="text-center">
+              <img
+                src="/images/manufacturers/ge.svg"
+                alt="GE Healthcare"
+                class="h-8 mx-auto mb-3"
+              />
+              <h4
+                class="text-lg font-semibold text-[#003087] mb-2 font-manrope"
+              >
+                GE CT
+              </h4>
+              <p class="text-sm text-gray-600 font-manrope">
+                Revolution and Discovery series with spectral imaging
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Equipment Stats & Features -->
+      <div
+        class="bg-gradient-to-r from-[#003087] to-[#0052cc] rounded-2xl p-8 text-white"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <div class="text-center mb-8">
+          <h3 class="text-2xl font-bold mb-4 font-manrope">
+            Network Equipment Standards
+          </h3>
+          <p class="text-lg opacity-90 font-manrope">
+            All partner facilities meet our rigorous equipment and quality
+            standards
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-6 text-center">
+          <div>
+            <div class="text-3xl font-bold text-[#cc9933] mb-2">1.5T+</div>
+            <div class="text-sm opacity-90">Minimum MRI Field Strength</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-[#cc9933] mb-2">64+</div>
+            <div class="text-sm opacity-90">Minimum CT Slice Count</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-[#cc9933] mb-2">100%</div>
+            <div class="text-sm opacity-90">Equipment Certification Rate</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-[#cc9933] mb-2">24/7</div>
+            <div class="text-sm opacity-90">Technical Support Available</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Equipment Types -->
+      <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="400">
+        <h3 class="text-xl font-semibold text-[#003087] mb-6 font-manrope">
+          We Also Support
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
+          <div class="text-center">
+            <div
+              class="w-16 h-16 bg-[#cc9933]/10 rounded-full flex items-center justify-center mx-auto mb-3"
+            >
+              <span class="text-2xl">🫁</span>
+            </div>
+            <p class="text-sm font-medium text-[#003087] font-manrope">
+              Ultrasound
+            </p>
+          </div>
+          <div class="text-center">
+            <div
+              class="w-16 h-16 bg-[#cc9933]/10 rounded-full flex items-center justify-center mx-auto mb-3"
+            >
+              <span class="text-2xl">🦴</span>
+            </div>
+            <p class="text-sm font-medium text-[#003087] font-manrope">X-Ray</p>
+          </div>
+          <div class="text-center">
+            <div
+              class="w-16 h-16 bg-[#cc9933]/10 rounded-full flex items-center justify-center mx-auto mb-3"
+            >
+              <span class="text-2xl">🏥</span>
+            </div>
+            <p class="text-sm font-medium text-[#003087] font-manrope">
+              Mammography
+            </p>
+          </div>
+          <div class="text-center">
+            <div
+              class="w-16 h-16 bg-[#cc9933]/10 rounded-full flex items-center justify-center mx-auto mb-3"
+            >
+              <span class="text-2xl">💀</span>
+            </div>
+            <p class="text-sm font-medium text-[#003087] font-manrope">DEXA</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
