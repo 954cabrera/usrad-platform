@@ -25,29 +25,117 @@ const showPatientHeader = true;
 <MainPatientLayout showPatientHeader={true}>
   <AOSInit />
 
-  <!-- Find and replace this section in index.astro -->
+  <!-- Enhanced Video Hero Section -->
   <FadeIn effect="fade" delay={0}>
-    <section class="relative h-[80vh]">
-      <img
-        src="/images/website/85500991.webp"
-        alt="Patient receiving MRI with positioning lasers"
-        class="absolute inset-0 w-full h-full object-cover"
-      />
+    <section class="relative h-[80vh] overflow-hidden hero-section-mobile">
+      <!-- Video Background with Multiple Sources -->
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        class="absolute inset-0 w-full h-full object-cover hero-video"
+      >
+        <source src="/videos/hero-optimized.webm" type="video/webm" />
+        <source src="/videos/hero-optimized.mp4" type="video/mp4" />
+      </video>
+
+      <!-- Enhanced Gradient Overlay -->
       <div
         class="absolute inset-0 bg-[#003087]/70 flex flex-col justify-center items-center text-white text-center px-4"
       >
-        <h1 class="text-3xl sm:text-5xl font-semibold mb-4 drop-shadow-lg">
-          Modern MRI. Transparent Pricing.
-        </h1>
-        <p class="max-w-xl text-lg sm:text-xl mb-6 drop-shadow">
-          Direct access to top-tier imaging centers — 30–70% below hospital
-          rates.
-        </p>
-        <a
-          href="/booking"
-          class="bg-[#cc9933] text-[#003087] font-semibold px-6 py-3 rounded-xl shadow-lg hover:scale-105 transition-all duration-300"
-          >Book an MRI →</a
+        <!-- Animated Heading -->
+        <h1
+          class="text-3xl sm:text-5xl lg:text-6xl font-semibold mb-4 drop-shadow-lg animate-fade-in-up"
         >
+          <span
+            class="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent"
+          >
+            Modern MRI.
+          </span>
+          <br />
+          <span class="text-[#cc9933] font-bold"> Transparent Pricing. </span>
+        </h1>
+
+        <!-- Enhanced Subtitle -->
+        <p
+          class="max-w-xl text-lg sm:text-xl mb-6 drop-shadow animate-fade-in-up animation-delay-300"
+        >
+          Direct access to <span class="text-[#cc9933] font-semibold"
+            >top-tier imaging centers</span
+          > —
+          <span class="text-yellow-300 font-bold"> 30–70% below</span> hospital rates.
+        </p>
+
+        <!-- Enhanced CTA Button -->
+        <div class="animate-fade-in-up animation-delay-600">
+          <a
+            href="/booking"
+            class="group bg-gradient-to-r from-[#cc9933] to-yellow-400 text-[#003087] font-semibold px-8 py-4 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 inline-flex items-center gap-2"
+          >
+            Book an MRI
+            <svg
+              class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="mt-6 animate-fade-in-up animation-delay-900">
+          <div
+            class="flex flex-wrap justify-center items-center gap-4 text-sm opacity-90"
+          >
+            <div class="flex items-center gap-1">
+              <svg
+                class="w-4 h-4 text-green-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span>Same-Day Appointments</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <svg
+                class="w-4 h-4 text-green-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span>No Insurance Required</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <svg
+                class="w-4 h-4 text-green-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span>Results in 24-48 Hours</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </FadeIn>
@@ -71,7 +159,7 @@ const showPatientHeader = true;
           Behind the Simplicity
         </p>
         <p class="text-lg sm:text-xl mb-6 text-[#003087]/90">
-          USRad isn’t just a booking tool or referral marketplace. We operate
+          USRad isn't just a booking tool or referral marketplace. We operate
           like a full-scale managed care organization — with dedicated teams for
           provider relations, customer support, quality assurance, and medical
           oversight.
