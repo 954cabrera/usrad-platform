@@ -35,10 +35,31 @@ const showPatientHeader = true;
         loop
         playsinline
         preload="metadata"
-        class="absolute inset-0 w-full h-full object-cover hero-video"
+        class="absolute inset-0 w-full h-full object-cover hero-video block sm:block"
+        poster="/images/hero-fallback.jpg"
       >
+        <!-- Mobile-first sources -->
+        <source
+          src="/videos/hero-mobile.webm"
+          type="video/webm"
+          media="(max-width: 640px)"
+        />
+        <source
+          src="/videos/hero-mobile.mp4"
+          type="video/mp4"
+          media="(max-width: 640px)"
+        />
+
+        <!-- Desktop sources -->
         <source src="/videos/hero-optimized.webm" type="video/webm" />
         <source src="/videos/hero-optimized.mp4" type="video/mp4" />
+
+        <!-- Fallback image -->
+        <img
+          src="/images/hero-fallback.jpg"
+          alt="Modern MRI with Transparent Pricing"
+          class="absolute inset-0 w-full h-full object-cover"
+        />
       </video>
 
       <!-- Enhanced Gradient Overlay -->
@@ -195,31 +216,35 @@ const showPatientHeader = true;
   </section>
 
   <!-- Make the new photo a featured section -->
-<section class="bg-white py-20 px-6">
-  <div class="max-w-7xl mx-auto text-center mb-12">
-    <h2 class="text-3xl font-bold text-[#003087] mb-4" data-aos="fade-up">
-      Personal Care Every Step
-    </h2>
-    <p class="text-lg text-[#003087]/80" data-aos="fade-up" data-aos-delay="100">
-      Our dedicated team guides you through your entire MRI experience
-    </p>
-  </div>
+  <section class="bg-white py-20 px-6">
+    <div class="max-w-7xl mx-auto text-center mb-12">
+      <h2 class="text-3xl font-bold text-[#003087] mb-4" data-aos="fade-up">
+        Personal Care Every Step
+      </h2>
+      <p
+        class="text-lg text-[#003087]/80"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Our dedicated team guides you through your entire MRI experience
+      </p>
+    </div>
 
-  <div class="max-w-4xl mx-auto" data-aos="zoom-in" data-aos-delay="200">
-    <img
-      src="/images/website/trust-duo.webp"
-      alt="Technologist guiding patient through MRI process"
-      class="w-full h-auto rounded-3xl shadow-2xl"
-    />
-  </div>
-</section>
+    <div class="max-w-4xl mx-auto" data-aos="zoom-in" data-aos-delay="200">
+      <img
+        src="/images/website/trust-duo.webp"
+        alt="Technologist guiding patient through MRI process"
+        class="w-full h-auto rounded-3xl shadow-2xl"
+      />
+    </div>
+  </section>
 
-<!-- Separate Trust Badges section -->
-<section class="bg-[#f0f4f9] py-16 px-6">
-  <div class="max-w-6xl mx-auto" data-aos="fade-up" data-aos-delay="300">
-    <TrustBadgesBar />
-  </div>
-</section>
+  <!-- Separate Trust Badges section -->
+  <section class="bg-[#f0f4f9] py-16 px-6">
+    <div class="max-w-6xl mx-auto" data-aos="fade-up" data-aos-delay="300">
+      <TrustBadgesBar />
+    </div>
+  </section>
 
   <!-- Network Map -->
   <FadeIn effect="fade" delay={100}>
