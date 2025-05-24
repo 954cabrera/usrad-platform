@@ -28,27 +28,26 @@ const showPatientHeader = true;
   <!-- Enhanced Video Hero Section -->
   <FadeIn effect="fade" delay={0}>
     <section class="relative h-[80vh] overflow-hidden hero-section-mobile">
-      <!-- Video Background with Multiple Sources -->
       <video
         autoplay
         muted
-        loop
         playsinline
+        loop
         preload="metadata"
-        class="absolute inset-0 w-full h-full object-cover hero-video block sm:block"
+        class="absolute inset-0 w-full h-full object-cover hero-video"
         poster="/images/hero-fallback.jpg"
       >
-        <!-- Put MP4 first for Safari iOS -->
+        <!-- iOS Safari requires .mp4 first -->
         <source src="/videos/hero-mobile.mp4" type="video/mp4" />
 
-        <!-- Then webm for Chrome/Firefox -->
+        <!-- Chrome/Firefox prefers .webm -->
         <source src="/videos/hero-mobile.webm" type="video/webm" />
 
-        <!-- Desktop (no media queries; browser will ignore these if mobile loads first) -->
+        <!-- Desktop (larger) fallback versions -->
         <source src="/videos/hero-optimized.webm" type="video/webm" />
         <source src="/videos/hero-optimized.mp4" type="video/mp4" />
 
-        <!-- Final fallback -->
+        <!-- Final fallback image -->
         <img
           src="/images/hero-fallback.jpg"
           alt="Modern MRI with Transparent Pricing"
