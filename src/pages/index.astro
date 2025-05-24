@@ -38,23 +38,17 @@ const showPatientHeader = true;
         class="absolute inset-0 w-full h-full object-cover hero-video block sm:block"
         poster="/images/hero-fallback.jpg"
       >
-        <!-- Mobile-first sources -->
-        <source
-          src="/videos/hero-mobile.webm"
-          type="video/webm"
-          media="(max-width: 640px)"
-        />
-        <source
-          src="/videos/hero-mobile.mp4"
-          type="video/mp4"
-          media="(max-width: 640px)"
-        />
+        <!-- Put MP4 first for Safari iOS -->
+        <source src="/videos/hero-mobile.mp4" type="video/mp4" />
 
-        <!-- Desktop sources -->
+        <!-- Then webm for Chrome/Firefox -->
+        <source src="/videos/hero-mobile.webm" type="video/webm" />
+
+        <!-- Desktop (no media queries; browser will ignore these if mobile loads first) -->
         <source src="/videos/hero-optimized.webm" type="video/webm" />
         <source src="/videos/hero-optimized.mp4" type="video/mp4" />
 
-        <!-- Fallback image -->
+        <!-- Final fallback -->
         <img
           src="/images/hero-fallback.jpg"
           alt="Modern MRI with Transparent Pricing"
@@ -92,7 +86,7 @@ const showPatientHeader = true;
         <!-- Enhanced CTA Button -->
         <div class="animate-fade-in-up animation-delay-600">
           <a
-            href="/booking"
+            href="/locations"
             class="group bg-gradient-to-r from-[#cc9933] to-yellow-400 text-[#003087] font-semibold px-8 py-4 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 inline-flex items-center gap-2"
           >
             Book an MRI
