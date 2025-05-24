@@ -34,25 +34,16 @@ const showPatientHeader = true;
         playsinline
         loop
         preload="metadata"
+        poster="/images/website/85500991e.webp?v=2.1"
         class="absolute inset-0 w-full h-full object-cover hero-video"
-        poster="/images/michael.jpg?v=2"
       >
-        <!-- iOS Safari requires .mp4 first -->
+        <!-- iOS Safari prefers .mp4 -->
         <source src="/videos/hero-mobile.mp4" type="video/mp4" />
-
         <!-- Chrome/Firefox prefers .webm -->
         <source src="/videos/hero-mobile.webm" type="video/webm" />
-
-        <!-- Desktop (larger) fallback versions -->
+        <!-- Desktop fallback -->
         <source src="/videos/hero-optimized.webm" type="video/webm" />
         <source src="/videos/hero-optimized.mp4" type="video/mp4" />
-
-        <!-- Final fallback image -->
-        <img
-          src="/images/michael.jpg?v=2"
-          alt="Modern MRI with Transparent Pricing"
-          class="absolute inset-0 w-full h-full object-cover"
-        />
       </video>
 
       <!-- Enhanced Gradient Overlay -->
@@ -86,7 +77,7 @@ const showPatientHeader = true;
         <div class="animate-fade-in-up animation-delay-600">
           <a
             href="/locations"
-            class="group bg-gradient-to-r from-[#cc9933] to-yellow-400 text-[#003087] font-semibold px-8 py-4 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 inline-flex items-center gap-2"
+            class="group bg-gradient-to-r from-[#cc9933] to-yellow-400 text-[#003087] font-semibold px-8 py-5 sm:py-4 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 inline-flex items-center gap-2"
           >
             Book an MRI
             <svg
@@ -107,8 +98,9 @@ const showPatientHeader = true;
         <!-- Trust Indicators -->
         <div class="mt-6 animate-fade-in-up animation-delay-900">
           <div
-            class="flex flex-wrap justify-center items-center gap-4 text-sm opacity-90"
+            class="flex flex-wrap justify-center items-center gap-4 text-base sm:text-sm opacity-90"
           >
+            >
             <div class="flex items-center gap-1">
               <svg
                 class="w-4 h-4 text-green-400"
@@ -160,6 +152,7 @@ const showPatientHeader = true;
       <div data-aos="fade-right">
         <img
           src="/images/two-rads-control-center.webp"
+          loading="lazy"
           alt="Expert medical team reviewing imaging results"
           class="w-full h-auto rounded-2xl shadow-xl"
         />
@@ -225,7 +218,7 @@ const showPatientHeader = true;
 
     <div class="max-w-4xl mx-auto" data-aos="zoom-in" data-aos-delay="200">
       <img
-        src="/images/website/trust-duo.webp"
+        src="/images/website/trust-duo.webp" loading=""lazy"
         alt="Technologist guiding patient through MRI process"
         class="w-full h-auto rounded-3xl shadow-2xl"
       />
