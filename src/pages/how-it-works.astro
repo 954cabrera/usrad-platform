@@ -101,10 +101,15 @@ const showPatientHeader = true;
       <div
         class="relative flex flex-col sm:flex-row items-center justify-between gap-10 sm:gap-4 px-4"
       >
-        <!-- Connector line -->
+        <!-- Animated Connector Line -->
         <div
-          class="absolute top-[32px] left-0 right-0 h-px bg-[#e6c378] z-0 sm:block hidden"
+          class="absolute top-[32px] left-0 right-0 h-px z-10 overflow-hidden pointer-events-none"
         >
+          <div
+            id="step-connector-line"
+            class="h-full bg-[#cc9933] w-0 transition-[width] duration-500 ease-out"
+          >
+          </div>
         </div>
 
         <!-- Step 1 -->
@@ -269,6 +274,9 @@ const showPatientHeader = true;
         loading="lazy"
       />
     </div>
+
+    <!-- 👇 Add this spacer to give more scroll space -->
+    <div class="h-16 sm:h-24"></div>
   </section>
 
   <!-- Why Patients Choose USRad -->
@@ -347,6 +355,55 @@ const showPatientHeader = true;
   </section>
 </MainPatientLayout>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const section = document.getElementById("steps-section");
+    const line = document.getElementById("step-connector-line");
+    const walker = document.getElementById("walker");
+    let hasReachedEnd = false;
+    let lastProgress = 0;
+
+    if (!section || !line) {
+      console.warn("step-connector-line or steps-section not found");
+      return;
+    }
+
+    function updateEffects() {
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const sectionHeight = section.offsetHeight;
+
+      const rawProgress = Math.min(
+        1,
+        Math.max(0, (windowHeight - rect.top) / (sectionHeight + windowHeight))
+      );
+
+      // Smooth easing toward scroll position
+      lastProgress += (rawProgress - lastProgress) * 0.1;
+      line.style.width = `${(lastProgress * 100).toFixed(1)}%`;
+
+      // Animate walker if available
+      if (walker) {
+        walker.style.opacity = rawProgress > 0.1 ? "1" : "0";
+
+        if (rawProgress >= 0.95) {
+          hasReachedEnd = true;
+          walker.style.left = `${section.offsetWidth - 150}px`;
+        } else if (!hasReachedEnd) {
+          const startPos = -150;
+          const endPos = section.offsetWidth - 150;
+          const currentPos = startPos + rawProgress * (endPos - startPos);
+          walker.style.left = `${currentPos}px`;
+        }
+      }
+
+      requestAnimationFrame(updateEffects); // Loop for smooth animation
+    }
+
+    updateEffects(); // Kick off first loop
+  });
+</script>
+
 <style>
   /* Clean start - only what we need */
   .walker {
@@ -368,80 +425,3 @@ const showPatientHeader = true;
     }
   }
 </style>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const walker = document.getElementById("walker");
-    const section = document.getElementById("steps-section");
-
-    if (!walker || !section) return;
-
-    let hasReachedEnd = false;
-
-    function updateWalkerPosition() {
-      const sectionRect = section.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const sectionHeight = section.offsetHeight;
-
-      // Calculate how much of the section has been scrolled through
-      const sectionTop = sectionRect.top;
-      const sectionBottom = sectionRect.bottom;
-
-      // Check if section is in viewport
-      if (sectionBottom < 0 || sectionTop > windowHeight) {
-        // Section is not visible - but keep walker at end position if it reached there
-        if (hasReachedEnd) {
-          walker.style.opacity = "1";
-          return; // Don't change position, keep it at the end
-        } else {
-          walker.style.opacity = "0";
-          return;
-        }
-      }
-
-      // Calculate scroll progress through the section (0 to 1)
-      let progress = 0;
-
-      if (sectionTop <= 0 && sectionBottom >= windowHeight) {
-        // Section fills the entire viewport
-        progress = Math.abs(sectionTop) / (sectionHeight - windowHeight);
-      } else if (sectionTop > 0) {
-        // Section is entering from bottom
-        progress = (windowHeight - sectionTop) / windowHeight;
-      } else {
-        // Section is exiting from top
-        progress = sectionBottom / windowHeight;
-      }
-
-      // Clamp progress between 0 and 1
-      progress = Math.max(0, Math.min(1, progress));
-
-      // Make walker visible when section is in view
-      walker.style.opacity = progress > 0.1 ? "1" : "0";
-
-      // Only move walker if it hasn't reached the end yet
-      if (progress >= 0.95) {
-        // Walker has reached the end, stop it there
-        hasReachedEnd = true;
-        const endPos = section.offsetWidth - 150;
-        walker.style.left = `${endPos}px`;
-      } else if (!hasReachedEnd) {
-        // Walker is still moving, update position
-        const startPos = -150;
-        const endPos = section.offsetWidth - 150;
-        const currentPos = startPos + progress * (endPos - startPos);
-        walker.style.left = `${currentPos}px`;
-      }
-      // If hasReachedEnd is true but progress < 0.95, don't move walker (keep it at end)
-    }
-
-    // Update on scroll
-    window.addEventListener("scroll", updateWalkerPosition);
-
-    // Update on resize
-    window.addEventListener("resize", updateWalkerPosition);
-
-    // Initial update
-    updateWalkerPosition();
-  });
-</script>
