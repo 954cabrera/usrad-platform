@@ -1,0 +1,329 @@
+---
+// src/pages/dashboard/index.astro
+import DashboardLayout from "../../components/dashboard/DashboardLayout.astro";
+import { validateAuthSession } from "../../lib/auth";
+import { AuthService } from "../../lib/auth";
+
+// Validate authentication
+const { session, user } = await validateAuthSession(Astro.request);
+
+if (!session || !user) {
+  return Astro.redirect("/imaginglogin");
+}
+
+// Get dashboard data
+const dashboardData = await AuthService.getUserDashboardData(user.id);
+const { imagingCenter, stats } = dashboardData;
+---
+
+<DashboardLayout title="Dashboard" user={user} imagingCenter={imagingCenter}>
+  <!-- Quick Stats Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Today's Appointments -->
+    <div class="dashboard-card p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600 mb-1">
+            Today's Appointments
+          </p>
+          <p class="text-3xl font-bold text-usrad-navy">
+            {stats?.todayAppointments || 0}
+          </p>
+        </div>
+        <div class="bg-blue-100 p-3 rounded-full">
+          <svg
+            class="w-6 h-6 text-blue-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            ></path>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-4">
+        <span class="text-sm text-green-600 font-medium">
+          +12% from yesterday
+        </span>
+      </div>
+    </div>
+
+    <!-- Total Appointments (30 days) -->
+    <div class="dashboard-card p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600 mb-1">
+            Total Appointments
+          </p>
+          <p class="text-3xl font-bold text-usrad-navy">
+            {stats?.totalAppointments || 0}
+          </p>
+        </div>
+        <div class="bg-green-100 p-3 rounded-full">
+          <svg
+            class="w-6 h-6 text-green-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+            ></path>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-4">
+        <span class="text-sm text-gray-500">Last 30 days</span>
+      </div>
+    </div>
+
+    <!-- Completed Scans -->
+    <div class="dashboard-card p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600 mb-1">Completed Scans</p>
+          <p class="text-3xl font-bold text-usrad-navy">
+            {stats?.completedAppointments || 0}
+          </p>
+        </div>
+        <div class="bg-usrad-gold/20 p-3 rounded-full">
+          <svg
+            class="w-6 h-6 text-usrad-gold"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-4">
+        <span class="text-sm text-green-600 font-medium">
+          {
+            stats?.completedAppointments && stats?.totalAppointments
+              ? Math.round(
+                  (stats.completedAppointments / stats.totalAppointments) * 100
+                )
+              : 0
+          }% completion rate
+        </span>
+      </div>
+    </div>
+
+    <!-- Revenue -->
+    <div class="dashboard-card p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600 mb-1">
+            Revenue (30 days)
+          </p>
+          <p class="text-3xl font-bold text-usrad-navy">
+            ${
+              stats?.totalRevenue?.toLocaleString("en-US", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              }) || "0"
+            }
+          </p>
+        </div>
+        <div class="bg-green-100 p-3 rounded-full">
+          <svg
+            class="w-6 h-6 text-green-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+            ></path>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-4">
+        <span class="text-sm text-green-600 font-medium">
+          +8% from last month
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+    <!-- Today's Schedule -->
+    <div class="xl:col-span-2 dashboard-card p-6">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-lg font-semibold text-usrad-navy">Today's Schedule</h3>
+        <a
+          href="/dashboard/appointments"
+          class="text-usrad-gold hover:text-usrad-navy text-sm font-medium"
+        >
+          View All →
+        </a>
+      </div>
+
+      {
+        stats?.upcomingToday && stats.upcomingToday.length > 0 ? (
+          <div class="space-y-4">
+            {stats.upcomingToday.map((appointment: any) => (
+              <div class="flex items-center p-4 bg-gray-50 rounded-lg border">
+                <div class="flex-shrink-0 w-12 h-12 bg-usrad-navy rounded-full flex items-center justify-center text-white font-semibold">
+                  {appointment.scheduledTime ||
+                    new Date(appointment.scheduledDate).toLocaleTimeString(
+                      "en-US",
+                      {
+                        hour: "numeric",
+                        minute: "2-digit",
+                        hour12: true,
+                      }
+                    )}
+                </div>
+                <div class="ml-4 flex-1">
+                  <h4 class="font-medium text-gray-900">
+                    {appointment.patientName}
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    {appointment.scanType}
+                    {appointment.scanArea && ` • ${appointment.scanArea}`}
+                    {appointment.withContrast === "true" && " • With Contrast"}
+                  </p>
+                </div>
+                <div class="flex-shrink-0">
+                  <span
+                    class={`px-2 py-1 text-xs font-medium rounded-full ${
+                      appointment.status === "completed"
+                        ? "bg-green-100 text-green-800"
+                        : appointment.status === "scheduled"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-gray-100 text-gray-800"
+                    }`}
+                  >
+                    {appointment.status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-8">
+            <svg
+              class="mx-auto h-12 w-12 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">
+              No appointments today
+            </h3>
+            <p class="mt-1 text-sm text-gray-500">
+              Get started by scheduling your first appointment.
+            </p>
+          </div>
+        )
+      }
+    </div>
+
+    <!-- Quick Actions & Recent Activity -->
+    <div class="space-y-6">
+      <!-- Quick Actions -->
+      <div class="dashboard-card p-6">
+        <h3 class="text-lg font-semibold text-usrad-navy mb-4">
+          Quick Actions
+        </h3>
+        <div class="space-y-3">
+          <a
+            href="/dashboard/appointments/new"
+            class="w-full flex items-center justify-center px-4 py-3 bg-usrad-navy text-white rounded-lg hover:bg-blue-800 transition-colors"
+          >
+            <svg
+              class="w-5 h-5 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            New Appointment
+          </a>
+          <a
+            href="/dashboard/settings"
+            class="w-full flex items-center justify-center px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            <svg
+              class="w-5 h-5 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            Settings
+          </a>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="dashboard-card p-6">
+        <h3 class="text-lg font-semibold text-usrad-navy mb-4">
+          Recent Activity
+        </h3>
+        {
+          stats?.recentAppointments && stats.recentAppointments.length > 0 ? (
+            <div class="space-y-3">
+              {stats.recentAppointments.slice(0, 3).map((appointment: any) => (
+                <div class="flex items-start space-x-3">
+                  <div class="flex-shrink-0 w-2 h-2 bg-usrad-gold rounded-full mt-2" />
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm text-gray-900 font-medium">
+                      {appointment.patientName}
+                    </p>
+                    <p class="text-xs text-gray-500">
+                      {appointment.scanType} •{" "}
+                      {new Date(appointment.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p class="text-sm text-gray-500">No recent activity</p>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</DashboardLayout>

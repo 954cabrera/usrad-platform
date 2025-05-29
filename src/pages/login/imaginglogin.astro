@@ -301,12 +301,12 @@
         }
 
         .login-box h2 {
-          font-size: 1.8rem; /* Increased from 1.5rem */
+          font-size: 1.8rem;
           margin-bottom: 1.5rem;
         }
 
         .login-box label {
-          font-size: 1.1rem; /* Increased from 0.95rem */
+          font-size: 1.1rem;
           margin-bottom: 0.5rem;
         }
 
@@ -315,26 +315,26 @@
         }
 
         .input-wrapper input {
-          padding: 0.9rem; /* Increased from 0.75rem */
-          font-size: 1.1rem; /* Increased from 0.95rem */
-          border-width: 2px; /* Make borders more visible */
+          padding: 0.9rem;
+          font-size: 1.1rem;
+          border-width: 2px;
         }
 
         .login-box button {
-          padding: 1rem; /* Increased from 0.8rem */
-          font-size: 1.2rem; /* Increased from 1rem */
+          padding: 1rem;
+          font-size: 1.2rem;
           margin-top: 1.5rem;
         }
 
         .forgot,
         .signup {
-          font-size: 1.1rem; /* Increased from 0.9rem */
+          font-size: 1.1rem;
           padding: 0.5rem 0;
           display: inline-block;
         }
 
         .terms {
-          font-size: 0.95rem; /* Increased from 0.8rem */
+          font-size: 0.95rem;
           line-height: 1.6;
           margin-top: 2rem;
         }
@@ -342,16 +342,15 @@
         .back-link {
           top: 15px;
           left: 15px;
-          font-size: 0.95rem; /* Increased from 0.8rem */
+          font-size: 0.95rem;
         }
 
         .back-link svg {
-          width: 18px; /* Increased from 14px */
-          height: 18px; /* Increased from 14px */
+          width: 18px;
+          height: 18px;
           margin-right: 8px;
         }
 
-        /* Add better touch target sizes */
         .toggle-password {
           padding: 8px;
           right: 0.5rem;
@@ -369,7 +368,6 @@
           margin: 0.5rem 0;
         }
 
-        /* Add extra space below form for scrolling */
         body::after {
           content: "";
           display: block;
@@ -377,7 +375,6 @@
         }
       }
 
-      /* Fix for smaller phones */
       @media (max-width: 360px) {
         .login-box {
           padding: 1.25rem;
@@ -391,7 +388,6 @@
           max-width: 160px;
         }
 
-        /* Even on small screens, keep font sizes readable */
         .login-box h2 {
           font-size: 1.7rem;
         }
@@ -477,6 +473,10 @@
 
             <a href="#" class="forgot">Forgot password?</a>
 
+            <button type="button" onclick="testFunction()"
+              >Test JavaScript</button
+            >
+
             <button type="submit">Sign In</button>
 
             <p class="terms">
@@ -491,7 +491,15 @@
     </div>
 
     <script>
-      function togglePassword() {
+      console.log("JavaScript loaded successfully!");
+
+      // Attach functions to window object to make them globally accessible
+      window.testFunction = function () {
+        console.log("Test function called!");
+        alert("JavaScript is working!");
+      };
+
+      window.togglePassword = function () {
         const input = document.getElementById("password");
         const eyeOpen = document.getElementById("eye-open");
         const eyeSlash = document.getElementById("eye-slash");
@@ -507,31 +515,79 @@
           eyeOpen.style.display = "inline";
           eyeSlash.style.display = "none";
         }
-      }
+      };
 
-      function handleSubmit(event) {
+      window.handleSubmit = function (event) {
         event.preventDefault();
+        console.log("Form submitted!");
 
         const button = event.submitter;
-        const ripple = document.createElement("span");
+        const form = event.target;
 
-        const rect = button.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        ripple.className = "ripple";
-        ripple.style.width = ripple.style.height = `${size}px`;
-        ripple.style.left = `${event.clientX - rect.left - size / 2}px`;
-        ripple.style.top = `${event.clientY - rect.top - size / 2}px`;
+        // Get form data
+        const formData = new FormData(form);
+        const email = formData.get("username");
+        const password = formData.get("password");
 
-        const old = button.querySelector(".ripple");
-        if (old) old.remove();
+        console.log("Email:", email, "Password:", password ? "***" : "empty");
 
-        button.appendChild(ripple);
+        // Validation
+        if (!email || !password) {
+          alert("Please enter both email and password");
+          return;
+        }
 
-        // Simulate submit after ripple
-        setTimeout(() => {
-          alert("Form submitted (demo)");
-        }, 300);
-      }
+        console.log("About to send request to /api/auth/login");
+
+        // Disable button and show loading
+        const originalText = button.textContent;
+        button.disabled = true;
+        button.textContent = "Signing In...";
+        button.style.opacity = "0.7";
+
+        // Create form data with correct field names for API
+        const apiFormData = new FormData();
+        apiFormData.append("email", email);
+        apiFormData.append("password", password);
+
+        // Submit to API
+        fetch("/api/auth/login", {
+          method: "POST",
+          body: apiFormData,
+        })
+          .then((response) => {
+            console.log("Response status:", response.status);
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Login response:", data);
+
+            if (data.success) {
+              button.textContent = "Success! Redirecting...";
+              button.style.backgroundColor = "#10b981";
+
+              setTimeout(() => {
+                window.location.href = data.redirectUrl || "/dashboard";
+              }, 500);
+            } else {
+              alert(data.error || "Login failed");
+
+              // Reset button
+              button.disabled = false;
+              button.textContent = originalText;
+              button.style.opacity = "1";
+            }
+          })
+          .catch((error) => {
+            console.error("Login error:", error);
+            alert("Network error: " + error.message);
+
+            // Reset button
+            button.disabled = false;
+            button.textContent = originalText;
+            button.style.opacity = "1";
+          });
+      };
     </script>
   </body>
 </html>

@@ -1,38 +1,38 @@
-# build output
+# Build output
 dist/
-# generated types
+.output/
 .astro/
+.cache/
 
-# dependencies
+# Dependencies
 node_modules/
 
-# logs
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-
-
-# environment variables
-.env
-.env.production
-
-# macOS-specific files
-.DS_Store
-
-# jetbrains setting folder
-.idea/
-
-node_modules
-dist
-.output
-.cache
-.env
-.DS_Store
-.vscode
 *.log
 
 # Environment variables
 .env
 .env.local
-.env.*.local.env.local
+.env.*.local
+.env.production
+
+# Database migrations (optional - you might want to keep these)
+drizzle/
+
+# macOS-specific files
+.DS_Store
+
+# IDE files
+.idea/
+.vscode/
+
+# Temporary user creation scripts
+create-user*.mjs
+create-user*.js
+
+# OS files
+Thumbs.db
