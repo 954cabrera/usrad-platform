@@ -191,4 +191,57 @@ export class DatabaseService {
     await db.delete(schema.userSessions)
       .where((sessions, { eq }) => eq(sessions.userId, userId));
   }
+
+  // Add these methods to your DatabaseService class in db.ts
+
+// Verification token operations
+static async storeVerificationToken(userId: number, token: string, expiresAt: Date) {
+  const [verificationToken] = await db.insert(schema.verificationTokens).values({
+    userId,
+    token,
+    expiresAt
+  }).returning();
+  return verificationToken;
+}
+
+static async verifyToken(token: string) {
+  const verification = await db.query.verificationTokens.findFirst({
+    where: (tokens, { eq }) => eq(tokens.token, token),
+    with: {
+      user: true
+    }
+  });
+  
+  if (!verification) {
+    return null;
+  }
+  
+  const now = new Date();
+  const expired = verification.expiresAt < now;
+  const used = verification.usedAt !== null;
+  
+  return {
+    ...verification,
+    expired,
+    used
+  };
+}
+
+static async markTokenAsUsed(token: string) {
+  const [updatedToken] = await db
+    .update(schema.verificationTokens)
+    .set({ usedAt: new Date() })
+    .where((tokens, { eq }) => eq(tokens.token, token))
+    .returning();
+  return updatedToken;
+}
+
+static async updateProviderStatus(userId: number, status: string) {
+  const [updatedCenter] = await db
+    .update(schema.imagingCenters)
+    .set({ status, updatedAt: new Date() })
+    .where((centers, { eq }) => eq(centers.userId, userId))
+    .returning();
+  return updatedCenter;
+}
 }

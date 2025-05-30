@@ -756,27 +756,67 @@
             });
 
             const result = await response.json();
-
             if (response.ok) {
               showResult(
                 "success",
                 `
-                            <h3>🎉 Registration Successful!</h3>
-                            <p><strong>${result.message}</strong></p>
-                            <p>Redirecting to your dashboard...</p>
-                        `
+        <h3>📧 Application Submitted Successfully!</h3>
+        <p><strong>${result.message}</strong></p>
+        <p>We've sent a verification link to <strong>${result.email}</strong></p>
+        <p>Click the link in your email to access your provider dashboard.</p>
+        <p><em>Check your spam folder if you don't see it within a few minutes.</em></p>
+        `
               );
-
-              // Redirect after 2 seconds
-              setTimeout(() => {
-                window.location.href = result.redirectUrl;
-              }, 2000);
+              // Don't redirect - wait for email verification
             } else {
-              showResult("error", `Registration failed: ${result.error}`);
+              // Use 'result' instead of parsing JSON again!
+              console.log("🔍 Full error response:", result);
+
+              // Enhanced error display for duplicate emails and other issues
+              if (result.message && result.suggestions) {
+                // This is our enhanced error response
+                let suggestionsList = result.suggestions
+                  .map((s) => `<li style="margin: 8px 0;">${s}</li>`)
+                  .join("");
+                showResult(
+                  "error",
+                  `
+            <h3>❌ ${result.error}</h3>
+            <p style="margin: 12px 0;">${result.message}</p>
+            <ul style="text-align: left; margin: 16px 0; padding-left: 20px;">
+                ${suggestionsList}
+            </ul>
+            ${result.loginUrl ? `<p style="margin-top: 16px; text-align: center;"><a href="${result.loginUrl}" style="color: #003087; font-weight: bold; text-decoration: none; background: #f0f4f9; padding: 12px 24px; border-radius: 8px; display: inline-block;">👉 Sign In to Existing Account</a></p>` : ""}
+            `
+                );
+              } else if (result.message) {
+                // Simple error with message
+                showResult(
+                  "error",
+                  `
+            <h3>❌ ${result.error || "Registration Failed"}</h3>
+            <p>${result.message}</p>
+            `
+                );
+              } else {
+                // Fallback for old-style errors
+                showResult(
+                  "error",
+                  `Registration failed: ${result.error || "Please try again"}`
+                );
+              }
               resetButton();
             }
           } catch (error) {
-            showResult("error", `Network error: ${error.message}`);
+            console.log("🌐 Network error:", error);
+            showResult(
+              "error",
+              `
+        <h3>❌ Connection Error</h3>
+        <p>Unable to connect to our servers. Please check your internet connection and try again.</p>
+        <p><em>Error details: ${error.message}</em></p>
+    `
+            );
             resetButton();
           }
         });

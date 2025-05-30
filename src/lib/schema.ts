@@ -122,6 +122,16 @@ export const scanResults = pgTable('scan_results', {
   createdAt: timestamp('created_at').defaultNow()
 });
 
+// Verification Tokens table
+export const verificationTokens = pgTable('verification_tokens', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  token: varchar('token', { length: 64 }).unique().notNull(),
+  expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  usedAt: timestamp('used_at', { withTimezone: true }),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow()
+});
+
 // Analytics/Metrics table for tracking
 export const metrics = pgTable('metrics', {
   id: serial('id').primaryKey(),
@@ -181,6 +191,15 @@ export const metricsRelations = relations(metrics, ({ one }) => ({
   })
 }));
 
+// Add to relations section
+export const verificationTokensRelations = relations(verificationTokens, ({ one }) => ({
+  user: one(users, {
+    fields: [verificationTokens.userId],
+    references: [users.id]
+  })
+}));
+
+
 // Type exports for use in components
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
@@ -190,6 +209,8 @@ export type Appointment = typeof appointments.$inferSelect;
 export type NewAppointment = typeof appointments.$inferInsert;
 export type ScanResult = typeof scanResults.$inferSelect;
 export type NewScanResult = typeof scanResults.$inferInsert;
+export type VerificationToken = typeof verificationTokens.$inferSelect;
+export type NewVerificationToken = typeof verificationTokens.$inferInsert;
 
 // New type exports for provider status tracking
 export type ImagingCenterStatus = 
