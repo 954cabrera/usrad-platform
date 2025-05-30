@@ -23,10 +23,12 @@ export const userSessions = pgTable('user_sessions', {
   expiresAt: timestamp('expires_at', { withTimezone: true }).notNull()
 });
 
-// Imaging Centers table
+// Imaging Centers table - UPDATED WITH PROVIDER FIELDS
 export const imagingCenters = pgTable('imaging_centers', {
   id: serial('id').primaryKey(),
   userId: integer('user_id').references(() => users.id).notNull(),
+  
+  // Basic info (existing)
   name: varchar('name', { length: 255 }).notNull(),
   address: text('address'),
   city: varchar('city', { length: 100 }),
@@ -34,7 +36,42 @@ export const imagingCenters = pgTable('imaging_centers', {
   zipCode: varchar('zip_code', { length: 10 }),
   phone: varchar('phone', { length: 20 }),
   email: varchar('email', { length: 255 }),
-  status: varchar('status', { length: 50 }).default('active'),
+  
+  // Provider-specific fields (new)
+  legalBusinessName: varchar('legal_business_name', { length: 255 }),
+  dbaName: varchar('dba_name', { length: 255 }),
+  taxId: varchar('tax_id', { length: 50 }),
+  businessAddress: text('business_address'),
+  businessPhone: varchar('business_phone', { length: 20 }),
+  contactTitle: varchar('contact_title', { length: 100 }),
+  
+  // Services & Equipment
+  services: text('services'), // JSON array: ["MRI", "CT", "Ultrasound"]
+  mriFieldStrength: varchar('mri_field_strength', { length: 20 }),
+  equipmentDetails: text('equipment_details'),
+  
+  // Operating Information
+  yearsInOperation: varchar('years_in_operation', { length: 20 }),
+  dailyVolume: varchar('daily_volume', { length: 20 }),
+  hoursOfOperation: text('hours_of_operation'),
+  
+  // Banking Information
+  bankName: varchar('bank_name', { length: 255 }),
+  routingNumber: varchar('routing_number', { length: 20 }),
+  accountNumber: varchar('account_number', { length: 50 }),
+  accountType: varchar('account_type', { length: 20 }),
+  
+  // Provider Status Tracking
+  status: varchar('status', { length: 50 }).default('psa_pending'), // Updated default
+  tier: varchar('tier', { length: 20 }).default('standard'), // 'premium' or 'standard'
+  
+  // PSA & Credentialing
+  psaUrl: varchar('psa_url', { length: 500 }), // DocuSeal PSA URL
+  credentialingId: varchar('credentialing_id', { length: 100 }), // CAQH ID
+  credentialingStatus: varchar('credentialing_status', { length: 50 }),
+  documentsSubmitted: text('documents_submitted'), // JSON array
+  
+  // Existing fields (keep for backward compatibility)
   licenseNumber: varchar('license_number', { length: 100 }),
   equipment: text('equipment'), // JSON string of available equipment
   operatingHours: text('operating_hours'), // JSON string of hours
@@ -153,3 +190,16 @@ export type Appointment = typeof appointments.$inferSelect;
 export type NewAppointment = typeof appointments.$inferInsert;
 export type ScanResult = typeof scanResults.$inferSelect;
 export type NewScanResult = typeof scanResults.$inferInsert;
+
+// New type exports for provider status tracking
+export type ImagingCenterStatus = 
+  | 'psa_pending' 
+  | 'psa_signed' 
+  | 'credentialing_initiated'
+  | 'credentialing_pending' 
+  | 'credentialing_approved' 
+  | 'active' 
+  | 'suspended' 
+  | 'terminated';
+
+export type ImagingCenterTier = 'premium' | 'standard';
