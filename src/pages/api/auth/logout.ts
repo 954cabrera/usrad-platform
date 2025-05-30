@@ -6,12 +6,11 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   try {
     // Get session from cookie
     const sessionId = cookies.get('auth_session')?.value;
-    
     if (sessionId) {
       // Invalidate the session
       await AuthService.invalidateSession(sessionId);
     }
-    
+
     // Clear the session cookie
     cookies.delete('auth_session', {
       path: '/'
@@ -20,10 +19,10 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     // Check if this is an API request or form submission
     const contentType = request.headers.get('content-type');
     const isFormSubmission = contentType?.includes('application/x-www-form-urlencoded');
-    
+
     if (isFormSubmission) {
-      // Redirect for form submissions
-      return redirect('/imaginglogin', 302);
+      // Redirect for form submissions - changed to imaging center landing
+      return redirect('/imaging-center', 302);
     } else {
       // JSON response for API calls
       return new Response(JSON.stringify({
@@ -34,16 +33,14 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
         headers: { 'Content-Type': 'application/json' }
       });
     }
-
   } catch (error) {
     console.error('Logout error:', error);
-    
-    // Always redirect to login on error for form submissions
+    // Always redirect to imaging center on error for form submissions
     const contentType = request.headers.get('content-type');
     const isFormSubmission = contentType?.includes('application/x-www-form-urlencoded');
-    
+
     if (isFormSubmission) {
-      return redirect('/imaginglogin', 302);
+      return redirect('/imaging-center', 302);
     } else {
       return new Response(JSON.stringify({
         success: false,
