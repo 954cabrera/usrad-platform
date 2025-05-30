@@ -22,29 +22,6 @@ const currentPath = Astro.url.pathname;
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              "usrad-navy": "#003087",
-              "usrad-gold": "#cc9933",
-              "usrad-light": "#f5f9ff",
-              "usrad-cream": "#fefbf5",
-            },
-            fontFamily: {
-              sans: ["Manrope", "system-ui", "sans-serif"],
-            },
-            animation: {
-              "fade-in": "fadeIn 0.5s ease-in-out",
-              "slide-up": "slideUp 0.3s ease-out",
-              "pulse-slow": "pulse 3s infinite",
-            },
-          },
-        },
-      };
-    </script>
     <style>
       body {
         font-family: "Manrope", sans-serif;
@@ -52,6 +29,37 @@ const currentPath = Astro.url.pathname;
         background: linear-gradient(135deg, #f5f9ff 0%, #ffffff 100%);
       }
 
+      /* USRad Colors */
+      .usrad-navy {
+        color: #003087 !important;
+      }
+      .usrad-gold {
+        color: #cc9933 !important;
+      }
+      .bg-usrad-navy {
+        background-color: #003087 !important;
+      }
+      .bg-usrad-gold {
+        background-color: #cc9933 !important;
+      }
+
+      .usrad-gradient-navy {
+        background: linear-gradient(
+          135deg,
+          #003087 0%,
+          #001a4d 100%
+        ) !important;
+      }
+
+      .usrad-gradient-gold {
+        background: linear-gradient(
+          135deg,
+          #cc9933 0%,
+          #e6b84d 100%
+        ) !important;
+      }
+
+      /* Animations */
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -74,6 +82,14 @@ const currentPath = Astro.url.pathname;
         }
       }
 
+      .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      .animate-slide-up {
+        animation: slideUp 0.3s ease-out;
+      }
+
+      /* Sidebar */
       .sidebar-transition {
         transition:
           transform 0.3s ease-in-out,
@@ -84,6 +100,14 @@ const currentPath = Astro.url.pathname;
         transition: all 0.2s ease;
         position: relative;
         overflow: hidden;
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        color: white;
       }
 
       .nav-link::before {
@@ -125,37 +149,7 @@ const currentPath = Astro.url.pathname;
         z-index: 1;
       }
 
-      .dashboard-card {
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0, 48, 135, 0.08);
-        border: 1px solid rgba(0, 48, 135, 0.05);
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .dashboard-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #003087, #cc9933);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-
-      .dashboard-card:hover {
-        box-shadow: 0 12px 35px rgba(0, 48, 135, 0.15);
-        transform: translateY(-4px);
-      }
-
-      .dashboard-card:hover::before {
-        opacity: 1;
-      }
-
+      /* Mobile Menu */
       .mobile-menu-open {
         transform: translateX(0);
       }
@@ -164,74 +158,345 @@ const currentPath = Astro.url.pathname;
         transform: translateX(-100%);
       }
 
-      .stat-icon {
-        background: linear-gradient(135deg, #003087, #0040a0);
-        animation: pulse-slow;
+      /* Responsive utilities */
+      .hidden {
+        display: none;
       }
-
-      .gradient-text {
-        background: linear-gradient(135deg, #003087, #cc9933);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+      .flex {
+        display: flex;
       }
-
-      .btn-primary {
-        background: linear-gradient(135deg, #003087, #0040a0);
-        transition: all 0.3s ease;
+      .items-center {
+        align-items: center;
+      }
+      .justify-between {
+        justify-content: space-between;
+      }
+      .justify-center {
+        justify-content: center;
+      }
+      .space-x-2 > * + * {
+        margin-left: 8px;
+      }
+      .space-x-3 > * + * {
+        margin-left: 12px;
+      }
+      .space-x-4 > * + * {
+        margin-left: 16px;
+      }
+      .space-y-2 > * + * {
+        margin-top: 8px;
+      }
+      .w-full {
+        width: 100%;
+      }
+      .h-screen {
+        height: 100vh;
+      }
+      .min-h-screen {
+        min-height: 100vh;
+      }
+      .fixed {
+        position: fixed;
+      }
+      .relative {
         position: relative;
-        overflow: hidden;
       }
-
-      .btn-primary::before {
-        content: "";
+      .absolute {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        transition:
-          width 0.6s,
-          height 0.6s;
       }
-
-      .btn-primary:hover::before {
-        width: 300px;
-        height: 300px;
+      .inset-0 {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
       }
-
-      .btn-secondary {
-        background: linear-gradient(135deg, #cc9933, #e6b84d);
-        color: #003087;
+      .top-0 {
+        top: 0;
+      }
+      .left-0 {
+        left: 0;
+      }
+      .z-40 {
+        z-index: 40;
+      }
+      .z-50 {
+        z-index: 50;
+      }
+      .z-30 {
+        z-index: 30;
+      }
+      .p-4 {
+        padding: 16px;
+      }
+      .p-6 {
+        padding: 24px;
+      }
+      .px-6 {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .py-4 {
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+      .px-4 {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      .py-2 {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+      .px-3 {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+      .py-3 {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+      .mb-2 {
+        margin-bottom: 8px;
+      }
+      .mb-4 {
+        margin-bottom: 16px;
+      }
+      .mb-6 {
+        margin-bottom: 24px;
+      }
+      .mr-3 {
+        margin-right: 12px;
+      }
+      .ml-auto {
+        margin-left: auto;
+      }
+      .mt-6 {
+        margin-top: 24px;
+      }
+      .text-white {
+        color: white;
+      }
+      .text-gray-600 {
+        color: #6b7280;
+      }
+      .text-gray-700 {
+        color: #374151;
+      }
+      .text-red-300 {
+        color: #fca5a5;
+      }
+      .text-blue-200 {
+        color: #bfdbfe;
+      }
+      .text-green-400 {
+        color: #4ade80;
+      }
+      .bg-white {
+        background-color: white;
+      }
+      .bg-gray-50 {
+        background-color: #f9fafb;
+      }
+      .bg-black {
+        background-color: black;
+      }
+      .bg-red-600 {
+        background-color: #dc2626;
+      }
+      .bg-red-900 {
+        background-color: #7f1d1d;
+      }
+      .bg-opacity-50 {
+        --tw-bg-opacity: 0.5;
+      }
+      .rounded-full {
+        border-radius: 9999px;
+      }
+      .rounded-lg {
+        border-radius: 8px;
+      }
+      .rounded-xl {
+        border-radius: 12px;
+      }
+      .border-b {
+        border-bottom-width: 1px;
+      }
+      .border-t {
+        border-top-width: 1px;
+      }
+      .border-blue-800 {
+        border-color: #1e40af;
+      }
+      .border-gray-200 {
+        border-color: #e5e7eb;
+      }
+      .shadow-lg {
+        box-shadow:
+          0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .shadow-2xl {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      }
+      .shadow-sm {
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      }
+      .hover\:bg-gray-100:hover {
+        background-color: #f3f4f6;
+      }
+      .hover\:bg-red-900:hover {
+        background-color: #7f1d1d;
+      }
+      .hover\:text-red-200:hover {
+        color: #fecaca;
+      }
+      .transition-colors {
+        transition-property: color, background-color, border-color;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+      .transition-all {
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+      .duration-200 {
+        transition-duration: 200ms;
+      }
+      .duration-300 {
+        transition-duration: 300ms;
+      }
+      .cursor-pointer {
+        cursor: pointer;
+      }
+      .font-bold {
+        font-weight: 700;
+      }
+      .font-semibold {
         font-weight: 600;
       }
-
-      .status-badge {
-        position: relative;
+      .font-medium {
+        font-weight: 500;
+      }
+      .text-xs {
+        font-size: 12px;
+        line-height: 16px;
+      }
+      .text-sm {
+        font-size: 14px;
+        line-height: 20px;
+      }
+      .text-base {
+        font-size: 16px;
+        line-height: 24px;
+      }
+      .text-lg {
+        font-size: 18px;
+        line-height: 28px;
+      }
+      .text-xl {
+        font-size: 20px;
+        line-height: 28px;
+      }
+      .text-2xl {
+        font-size: 24px;
+        line-height: 32px;
+      }
+      .uppercase {
+        text-transform: uppercase;
+      }
+      .tracking-wide {
+        letter-spacing: 0.025em;
+      }
+      .w-5 {
+        width: 20px;
+      }
+      .h-5 {
+        height: 20px;
+      }
+      .w-6 {
+        width: 24px;
+      }
+      .h-6 {
+        height: 24px;
+      }
+      .w-8 {
+        width: 32px;
+      }
+      .h-8 {
+        height: 32px;
+      }
+      .w-10 {
+        width: 40px;
+      }
+      .h-10 {
+        height: 40px;
+      }
+      .w-12 {
+        width: 48px;
+      }
+      .h-12 {
+        height: 48px;
+      }
+      .w-64 {
+        width: 256px;
+      }
+      .w-72 {
+        width: 288px;
+      }
+      .min-w-0 {
+        min-width: 0;
+      }
+      .truncate {
         overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .backdrop-blur-md {
+        backdrop-filter: blur(12px);
+      }
+      .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
       }
 
-      .status-badge::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.3),
-          transparent
-        );
-        transition: left 0.6s;
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
       }
 
-      .status-badge:hover::before {
-        left: 100%;
+      /* Large screens */
+      @media (min-width: 1024px) {
+        .lg\:hidden {
+          display: none;
+        }
+        .lg\:mobile-menu-open {
+          transform: translateX(0);
+        }
+        .lg\:translate-x-0 {
+          transform: translateX(0);
+        }
+        .lg\:ml-72 {
+          margin-left: 288px;
+        }
+      }
+
+      /* Medium screens */
+      @media (min-width: 768px) {
+        .md\:inline {
+          display: inline;
+        }
+      }
+
+      /* Small screens */
+      @media (min-width: 640px) {
+        .sm\:block {
+          display: block;
+        }
       }
     </style>
   </head>
@@ -247,11 +512,11 @@ const currentPath = Astro.url.pathname;
     <!-- Sidebar -->
     <aside
       id="sidebar"
-      class="fixed top-0 left-0 z-50 w-72 h-screen bg-gradient-to-b from-usrad-navy to-blue-900 text-white sidebar-transition mobile-menu-closed lg:mobile-menu-open lg:translate-x-0 shadow-2xl"
+      class="fixed top-0 left-0 z-50 w-72 h-screen usrad-gradient-navy text-white sidebar-transition mobile-menu-closed lg:mobile-menu-open lg:translate-x-0 shadow-2xl"
     >
       <!-- Logo Section -->
       <div
-        class="flex items-center justify-between p-6 border-b border-blue-800/30"
+        class="flex items-center justify-between p-6 border-b border-blue-800"
       >
         <div class="flex items-center space-x-3">
           <div
@@ -286,9 +551,9 @@ const currentPath = Astro.url.pathname;
       <!-- User Info -->
       {
         user && (
-          <div class="p-6 border-b border-blue-800/30 bg-gradient-to-r from-blue-800/20 to-transparent">
+          <div class="p-6 border-b border-blue-800 bg-gradient-to-r from-blue-800/20 to-transparent">
             <div class="flex items-center space-x-4">
-              <div class="w-12 h-12 bg-gradient-to-br from-usrad-gold to-yellow-400 rounded-full flex items-center justify-center font-bold text-usrad-navy text-lg shadow-lg">
+              <div class="w-12 h-12 usrad-gradient-gold rounded-full flex items-center justify-center font-bold text-usrad-navy text-lg shadow-lg">
                 {user.firstName?.[0] || user.email[0].toUpperCase()}
               </div>
               <div class="flex-1 min-w-0">
@@ -315,16 +580,16 @@ const currentPath = Astro.url.pathname;
       <!-- Navigation -->
       <nav class="flex-1 px-4 py-6 space-y-2">
         <div
-          class="text-xs font-semibold text-blue-300 uppercase tracking-wider mb-4 px-4"
+          class="text-xs font-semibold text-blue-200 uppercase tracking-wide mb-4 px-4"
         >
           Main Menu
         </div>
 
         <a
           href="/dashboard"
-          class={`nav-link flex items-center px-4 py-3 rounded-xl text-sm font-medium group ${currentPath === "/dashboard" ? "active" : ""}`}
+          class={`nav-link ${currentPath === "/dashboard" ? "active" : ""}`}
         >
-          <div class="stat-icon p-2 rounded-lg mr-3">
+          <div class="usrad-gradient-navy p-2 rounded-lg mr-3">
             <svg
               class="w-5 h-5"
               fill="none"
@@ -344,16 +609,14 @@ const currentPath = Astro.url.pathname;
                 d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"></path>
             </svg>
           </div>
-          <span class="group-hover:translate-x-1 transition-transform"
-            >Dashboard</span
-          >
+          <span>Dashboard</span>
         </a>
 
         <a
           href="/dashboard/appointments"
-          class={`nav-link flex items-center px-4 py-3 rounded-xl text-sm font-medium group ${currentPath.startsWith("/dashboard/appointments") ? "active" : ""}`}
+          class={`nav-link ${currentPath.startsWith("/dashboard/appointments") ? "active" : ""}`}
         >
-          <div class="stat-icon p-2 rounded-lg mr-3">
+          <div class="usrad-gradient-navy p-2 rounded-lg mr-3">
             <svg
               class="w-5 h-5"
               fill="none"
@@ -368,9 +631,7 @@ const currentPath = Astro.url.pathname;
               ></path>
             </svg>
           </div>
-          <span class="group-hover:translate-x-1 transition-transform"
-            >Appointments</span
-          >
+          <span>Appointments</span>
           <div
             class="ml-auto bg-usrad-gold text-usrad-navy text-xs font-bold px-2 py-1 rounded-full"
           >
@@ -380,9 +641,9 @@ const currentPath = Astro.url.pathname;
 
         <a
           href="/dashboard/analytics"
-          class={`nav-link flex items-center px-4 py-3 rounded-xl text-sm font-medium group ${currentPath.startsWith("/dashboard/analytics") ? "active" : ""}`}
+          class={`nav-link ${currentPath.startsWith("/dashboard/analytics") ? "active" : ""}`}
         >
-          <div class="stat-icon p-2 rounded-lg mr-3">
+          <div class="usrad-gradient-navy p-2 rounded-lg mr-3">
             <svg
               class="w-5 h-5"
               fill="none"
@@ -397,22 +658,20 @@ const currentPath = Astro.url.pathname;
               ></path>
             </svg>
           </div>
-          <span class="group-hover:translate-x-1 transition-transform"
-            >Analytics</span
-          >
+          <span>Analytics</span>
         </a>
 
         <div
-          class="text-xs font-semibold text-blue-300 uppercase tracking-wider mb-4 px-4 pt-6"
+          class="text-xs font-semibold text-blue-200 uppercase tracking-wide mb-4 px-4 pt-6"
         >
           Management
         </div>
 
         <a
           href="/dashboard/patients"
-          class={`nav-link flex items-center px-4 py-3 rounded-xl text-sm font-medium group ${currentPath.startsWith("/dashboard/patients") ? "active" : ""}`}
+          class={`nav-link ${currentPath.startsWith("/dashboard/patients") ? "active" : ""}`}
         >
-          <div class="stat-icon p-2 rounded-lg mr-3">
+          <div class="usrad-gradient-navy p-2 rounded-lg mr-3">
             <svg
               class="w-5 h-5"
               fill="none"
@@ -427,16 +686,14 @@ const currentPath = Astro.url.pathname;
               ></path>
             </svg>
           </div>
-          <span class="group-hover:translate-x-1 transition-transform"
-            >Patients</span
-          >
+          <span>Patients</span>
         </a>
 
         <a
           href="/dashboard/reports"
-          class={`nav-link flex items-center px-4 py-3 rounded-xl text-sm font-medium group ${currentPath.startsWith("/dashboard/reports") ? "active" : ""}`}
+          class={`nav-link ${currentPath.startsWith("/dashboard/reports") ? "active" : ""}`}
         >
-          <div class="stat-icon p-2 rounded-lg mr-3">
+          <div class="usrad-gradient-navy p-2 rounded-lg mr-3">
             <svg
               class="w-5 h-5"
               fill="none"
@@ -451,16 +708,14 @@ const currentPath = Astro.url.pathname;
               ></path>
             </svg>
           </div>
-          <span class="group-hover:translate-x-1 transition-transform"
-            >Reports</span
-          >
+          <span>Reports</span>
         </a>
 
         <a
           href="/dashboard/settings"
-          class={`nav-link flex items-center px-4 py-3 rounded-xl text-sm font-medium group ${currentPath.startsWith("/dashboard/settings") ? "active" : ""}`}
+          class={`nav-link ${currentPath.startsWith("/dashboard/settings") ? "active" : ""}`}
         >
-          <div class="stat-icon p-2 rounded-lg mr-3">
+          <div class="usrad-gradient-navy p-2 rounded-lg mr-3">
             <svg
               class="w-5 h-5"
               fill="none"
@@ -480,24 +735,20 @@ const currentPath = Astro.url.pathname;
                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
             </svg>
           </div>
-          <span class="group-hover:translate-x-1 transition-transform"
-            >Settings</span
-          >
+          <span>Settings</span>
         </a>
       </nav>
 
       <!-- Logout Section -->
       <div
-        class="p-4 border-t border-blue-800/30 bg-gradient-to-r from-red-900/10 to-transparent"
+        class="p-4 border-t border-blue-800 bg-gradient-to-r from-red-900/10 to-transparent"
       >
         <form action="/api/auth/logout" method="POST">
           <button
             type="submit"
-            class="w-full flex items-center px-4 py-3 text-sm font-medium text-red-300 hover:text-red-200 hover:bg-red-900/20 rounded-xl transition-all duration-200 group"
+            class="w-full flex items-center px-4 py-3 text-sm font-medium text-red-300 hover:text-red-200 hover:bg-red-900 rounded-xl transition-all duration-200"
           >
-            <div
-              class="p-2 rounded-lg mr-3 bg-red-900/30 group-hover:bg-red-900/50 transition-colors"
-            >
+            <div class="p-2 rounded-lg mr-3 bg-red-900/30">
               <svg
                 class="w-5 h-5"
                 fill="none"
@@ -512,9 +763,7 @@ const currentPath = Astro.url.pathname;
                 ></path>
               </svg>
             </div>
-            <span class="group-hover:translate-x-1 transition-transform"
-              >Sign Out</span
-            >
+            <span>Sign Out</span>
           </button>
         </form>
       </div>
@@ -524,13 +773,13 @@ const currentPath = Astro.url.pathname;
     <div class="lg:ml-72 min-h-screen">
       <!-- Top Header -->
       <header
-        class="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-200/50 px-6 py-4 sticky top-0 z-30"
+        class="bg-white backdrop-blur-md shadow-sm border-b border-gray-200 px-6 py-4 relative z-30"
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-4">
             <button
               id="menu-toggle"
-              class="lg:hidden text-gray-600 hover:text-usrad-navy mr-2 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              class="lg:hidden text-gray-600 hover:bg-gray-100 p-2 rounded-lg transition-colors"
             >
               <svg
                 class="w-6 h-6"
@@ -546,8 +795,8 @@ const currentPath = Astro.url.pathname;
               </svg>
             </button>
             <div>
-              <h1 class="text-2xl font-bold gradient-text">{title}</h1>
-              <p class="text-sm text-gray-500">
+              <h1 class="text-2xl font-bold usrad-navy">{title}</h1>
+              <p class="text-sm text-gray-600">
                 Welcome back, {user?.firstName || "User"}
               </p>
             </div>
@@ -556,14 +805,14 @@ const currentPath = Astro.url.pathname;
           <div class="flex items-center space-x-4">
             <!-- Quick Actions -->
             <button
-              class="btn-primary text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-sm font-semibold"
+              class="bg-usrad-navy text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-sm font-semibold"
             >
-              <span class="relative z-10">+ New Patient</span>
+              + New Patient
             </button>
 
             <!-- Notifications -->
             <button
-              class="relative text-gray-600 hover:text-usrad-navy p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              class="relative text-gray-600 hover:bg-gray-100 p-2 rounded-lg transition-colors"
             >
               <svg
                 class="w-6 h-6"
@@ -579,21 +828,50 @@ const currentPath = Astro.url.pathname;
                 ></path>
               </svg>
               <span
-                class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse"
+                class="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse"
                 >3</span
               >
             </button>
 
-            <!-- Profile -->
-            <div class="flex items-center space-x-3 bg-gray-50 rounded-lg p-2">
+            <!-- Profile & Logout -->
+            <div class="flex items-center space-x-3">
+              <!-- Profile Info -->
               <div
-                class="w-8 h-8 bg-gradient-to-br from-usrad-gold to-yellow-400 rounded-lg flex items-center justify-center font-bold text-usrad-navy text-sm"
+                class="flex items-center space-x-3 bg-gray-50 rounded-lg p-2"
               >
-                {user?.firstName?.[0] || user?.email[0].toUpperCase() || "U"}
+                <div
+                  class="w-8 h-8 usrad-gradient-gold rounded-lg flex items-center justify-center font-bold text-usrad-navy text-sm"
+                >
+                  {user?.firstName?.[0] || user?.email[0].toUpperCase() || "U"}
+                </div>
+                <span class="text-sm font-medium text-gray-700 sm:block">
+                  {user?.firstName || "User"}
+                </span>
               </div>
-              <span class="text-sm font-medium text-gray-700 hidden sm:block">
-                {user?.firstName || "User"}
-              </span>
+
+              <!-- Logout Button -->
+              <form action="/api/auth/logout" method="POST" class="inline">
+                <button
+                  type="submit"
+                  class="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
+                  title="Sign Out"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    ></path>
+                  </svg>
+                  <span class="md:inline">Sign Out</span>
+                </button>
+              </form>
             </div>
           </div>
         </div>
@@ -613,36 +891,30 @@ const currentPath = Astro.url.pathname;
       const overlay = document.getElementById("mobile-overlay");
 
       function openSidebar() {
-        sidebar.classList.remove("mobile-menu-closed");
-        sidebar.classList.add("mobile-menu-open");
-        overlay.classList.remove("hidden");
+        if (sidebar && overlay) {
+          sidebar.classList.remove("mobile-menu-closed");
+          sidebar.classList.add("mobile-menu-open");
+          overlay.classList.remove("hidden");
+        }
       }
 
       function closeSidebarFn() {
-        sidebar.classList.remove("mobile-menu-open");
-        sidebar.classList.add("mobile-menu-closed");
-        overlay.classList.add("hidden");
+        if (sidebar && overlay) {
+          sidebar.classList.remove("mobile-menu-open");
+          sidebar.classList.add("mobile-menu-closed");
+          overlay.classList.add("hidden");
+        }
       }
 
-      menuToggle?.addEventListener("click", openSidebar);
-      closeSidebar?.addEventListener("click", closeSidebarFn);
-      overlay?.addEventListener("click", closeSidebarFn);
+      if (menuToggle) menuToggle.addEventListener("click", openSidebar);
+      if (closeSidebar) closeSidebar.addEventListener("click", closeSidebarFn);
+      if (overlay) overlay.addEventListener("click", closeSidebarFn);
 
       // Close sidebar on window resize if desktop
       window.addEventListener("resize", () => {
         if (window.innerWidth >= 1024) {
           closeSidebarFn();
         }
-      });
-
-      // Add loading states and smooth transitions
-      document.addEventListener("DOMContentLoaded", () => {
-        // Add staggered animations to cards
-        const cards = document.querySelectorAll(".dashboard-card");
-        cards.forEach((card, index) => {
-          card.style.animationDelay = `${index * 100}ms`;
-          card.classList.add("animate-slide-up");
-        });
       });
     </script>
   </body>
