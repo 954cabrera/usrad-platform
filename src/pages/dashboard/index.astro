@@ -3,6 +3,7 @@
 import DashboardLayout from "../../components/dashboard/DashboardLayout.astro";
 import { validateAuthSession } from "../../lib/auth";
 import { AuthService } from "../../lib/auth";
+import PSASigningSystem from "./components/PSASigningSystem";
 
 // Validate authentication
 const { session, user } = await validateAuthSession(Astro.request);
@@ -14,6 +15,8 @@ if (!session || !user) {
 // Get dashboard data
 const dashboardData = await AuthService.getUserDashboardData(user.id);
 const { imagingCenter, stats } = dashboardData;
+
+const fullyOnboarded = false;
 
 // Mock data for enhanced dashboard
 const mockData = {
@@ -172,6 +175,46 @@ const mockData = {
       </div>
     </div>
   </div>
+
+  <!-- Onboarding Banner (if not complete) -->
+  {
+    !fullyOnboarded && (
+      <div class="usrad-card p-6 mb-8 bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-400">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <svg
+              class="w-6 h-6 text-yellow-600 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+              />
+            </svg>
+            <div>
+              <h3 class="font-semibold text-yellow-800">
+                Complete your onboarding
+              </h3>
+              <p class="text-yellow-700 text-sm">
+                Finish setting up your provider account to start receiving
+                referrals
+              </p>
+            </div>
+          </div>
+          <a
+            href="/dashboard/onboarding"
+            class="px-6 py-2 bg-yellow-600 text-white font-semibold rounded-lg hover:bg-yellow-700 transition-colors"
+          >
+            Continue Setup →
+          </a>
+        </div>
+      </div>
+    )
+  }
 
   <!-- Key Metrics Grid - USRad Style -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
