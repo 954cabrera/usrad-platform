@@ -12,7 +12,8 @@ if (!session || !user) {
 
 // Mock onboarding status - replace with real data from your database
 const onboardingStatus = {
-  psa: { completed: false, completedDate: null, status: "pending" },
+  facilities: { completed: false, completedDate: null, status: "pending" },
+  psa: { completed: false, completedDate: null, status: "locked" },
   caqh: { completed: false, completedDate: null, status: "locked" },
   banking: { completed: false, completedDate: null, status: "locked" },
   welcome: { completed: false, completedDate: null, status: "locked" },
@@ -231,18 +232,18 @@ const progressPercentage = Math.round((completedSteps / totalSteps) * 100);
 
   <!-- Onboarding Steps -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-    <!-- Step 1: Provider Service Agreement -->
+    <!-- Step 1: Facility Locations Setup -->
     <div
-      class={`usrad-card p-8 step-card ${onboardingStatus.psa.completed ? "completed" : "active"} animate-fade-in-up`}
+      class={`usrad-card p-8 step-card ${onboardingStatus.facilities.completed ? "completed" : "active"} animate-fade-in-up`}
       style="animation-delay: 0.2s;"
-      onclick={onboardingStatus.psa.completed
+      onclick={onboardingStatus.facilities.completed
         ? ""
-        : "window.location.href='/dashboard/onboarding/psa'"}
+        : "window.location.href='/dashboard/onboarding/facilities'"}
     >
       <div class="flex items-start">
         <div class="step-number bg-white/20">
           {
-            onboardingStatus.psa.completed ? (
+            onboardingStatus.facilities.completed ? (
               <svg
                 width="20"
                 height="20"
@@ -267,11 +268,128 @@ const progressPercentage = Math.round((completedSteps / totalSteps) * 100);
             class="text-xl font-bold mb-2"
             style="font-family: 'Manrope', sans-serif;"
           >
+            Facility Locations Setup
+          </h3>
+          <p class="mb-4 opacity-90">
+            Add all imaging center locations that will be included in your
+            Provider Service Agreement.
+          </p>
+          <div class="space-y-2 text-sm opacity-80">
+            <div class="flex items-center">
+              <svg
+                class="w-4 h-4 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h3M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                ></path>
+              </svg>
+              Support for 1 to 1000+ locations
+            </div>
+            <div class="flex items-center">
+              <svg
+                class="w-4 h-4 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                ></path>
+              </svg>
+              Bulk CSV upload available
+            </div>
+            <div class="flex items-center">
+              <svg
+                class="w-4 h-4 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Est. 5-15 minutes
+            </div>
+          </div>
+          {
+            onboardingStatus.facilities.completed && (
+              <div class="mt-4 text-sm">
+                ✅ Completed on {onboardingStatus.facilities.completedDate}
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Provider Service Agreement -->
+    <div
+      class={`usrad-card p-8 step-card ${
+        onboardingStatus.psa.completed
+          ? "completed"
+          : onboardingStatus.facilities.completed
+            ? "active"
+            : "locked"
+      } animate-fade-in-up`}
+      style="animation-delay: 0.3s;"
+      onclick={onboardingStatus.facilities.completed &&
+      !onboardingStatus.psa.completed
+        ? "window.location.href='/dashboard/onboarding/psa'"
+        : ""}
+    >
+      <div class="flex items-start">
+        <div
+          class={`step-number ${
+            onboardingStatus.psa.completed
+              ? "bg-white/20"
+              : onboardingStatus.facilities.completed
+                ? "bg-white/20"
+                : "bg-gray-300"
+          }`}
+        >
+          {
+            onboardingStatus.psa.completed ? (
+              <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            ) : (
+              <span>2</span>
+            )
+          }
+        </div>
+        <div class="flex-1">
+          <h3
+            class="text-xl font-bold mb-2"
+            style="font-family: 'Manrope', sans-serif;"
+          >
             Provider Service Agreement
           </h3>
           <p class="mb-4 opacity-90">
-            Review and digitally sign your PSA to establish the terms of our
-            partnership.
+            Review and digitally sign your PSA with all facility locations
+            included.
           </p>
           <div class="space-y-2 text-sm opacity-80">
             <div class="flex items-center">
@@ -303,7 +421,7 @@ const progressPercentage = Math.round((completedSteps / totalSteps) * 100);
                   stroke-width="2"
                   d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
-              Digital signature via DocuSeal
+              Includes your facility locations
             </div>
             <div class="flex items-center">
               <svg
@@ -322,6 +440,13 @@ const progressPercentage = Math.round((completedSteps / totalSteps) * 100);
             </div>
           </div>
           {
+            !onboardingStatus.facilities.completed && (
+              <div class="mt-4 text-sm opacity-60">
+                🔒 Complete facility setup first
+              </div>
+            )
+          }
+          {
             onboardingStatus.psa.completed && (
               <div class="mt-4 text-sm">
                 ✅ Completed on {onboardingStatus.psa.completedDate}
@@ -332,7 +457,7 @@ const progressPercentage = Math.round((completedSteps / totalSteps) * 100);
       </div>
     </div>
 
-    <!-- Step 2: CAQH Credentialing -->
+    <!-- Step 3: CAQH Credentialing -->
     <div
       class={`usrad-card p-8 step-card ${
         onboardingStatus.caqh.completed
@@ -341,7 +466,7 @@ const progressPercentage = Math.round((completedSteps / totalSteps) * 100);
             ? "active"
             : "locked"
       } animate-fade-in-up`}
-      style="animation-delay: 0.3s;"
+      style="animation-delay: 0.4s;"
       onclick={onboardingStatus.psa.completed &&
       !onboardingStatus.caqh.completed
         ? "window.location.href='/dashboard/onboarding/caqh'"
@@ -374,7 +499,7 @@ const progressPercentage = Math.round((completedSteps / totalSteps) * 100);
                 />
               </svg>
             ) : (
-              <span>2</span>
+              <span>3</span>
             )
           }
         </div>
@@ -454,7 +579,7 @@ const progressPercentage = Math.round((completedSteps / totalSteps) * 100);
       </div>
     </div>
 
-    <!-- Step 3: Banking Information -->
+    <!-- Step 4: Banking Information -->
     <div
       class={`usrad-card p-8 step-card ${
         onboardingStatus.banking.completed
@@ -463,7 +588,7 @@ const progressPercentage = Math.round((completedSteps / totalSteps) * 100);
             ? "active"
             : "locked"
       } animate-fade-in-up`}
-      style="animation-delay: 0.4s;"
+      style="animation-delay: 0.5s;"
       onclick={onboardingStatus.caqh.completed &&
       !onboardingStatus.banking.completed
         ? "window.location.href='/dashboard/onboarding/banking'"
@@ -496,7 +621,7 @@ const progressPercentage = Math.round((completedSteps / totalSteps) * 100);
                 />
               </svg>
             ) : (
-              <span>3</span>
+              <span>4</span>
             )
           }
         </div>
@@ -577,7 +702,7 @@ const progressPercentage = Math.round((completedSteps / totalSteps) * 100);
       </div>
     </div>
 
-    <!-- Step 4: Welcome & Setup -->
+    <!-- Step 5: Welcome & Setup -->
     <div
       class={`usrad-card p-8 step-card ${
         onboardingStatus.welcome.completed
@@ -586,7 +711,7 @@ const progressPercentage = Math.round((completedSteps / totalSteps) * 100);
             ? "active"
             : "locked"
       } animate-fade-in-up`}
-      style="animation-delay: 0.5s;"
+      style="animation-delay: 0.6s;"
       onclick={onboardingStatus.banking.completed &&
       !onboardingStatus.welcome.completed
         ? "window.location.href='/dashboard/onboarding/welcome'"
@@ -619,7 +744,7 @@ const progressPercentage = Math.round((completedSteps / totalSteps) * 100);
                 />
               </svg>
             ) : (
-              <span>4</span>
+              <span>5</span>
             )
           }
         </div>
