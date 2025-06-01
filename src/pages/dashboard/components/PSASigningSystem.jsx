@@ -29,7 +29,9 @@ const PSASigningSystem = () => {
     psaVersion: 'USRad Standard Agreement v1.0',
     generatedDate: new Date().toISOString().split('T')[0],
     facilityName: 'Advanced Imaging Center of Davie',
-    address: '123 Medical Plaza Dr, Davie, FL 33328'
+    facilityPhone: '(954) 555-0199',
+    address: '123 Medical Plaza Dr, Davie, FL 33328',
+    totalLocations: '1'
   });
   
   const [signingStatus, setSigningStatus] = useState('pending');
@@ -68,91 +70,75 @@ const PSASigningSystem = () => {
   ];
 
   // DocuSeal API integration for self-hosted server
-  const generatePSADocument = async () => {
-    setLoading(true);
-    
-    try {
-      // API call to your self-hosted DocuSeal server
-      const response = await fetch('/api/docuseal/create-submission', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+const generatePSADocument = async () => {
+  setLoading(true);
+
+  try {
+    const response = await fetch('/api/docuseal/create-submission', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        template_id: 1,
+        template_variables: {
+          primary_facility_name: psaData.facilityName,
+          provider_name: psaData.providerName,
+          provider_email: psaData.email,
+          tax_id: psaData.taxId,
+          provider_phone: psaData.phone,
+          agreement_date: psaData.effectiveDate,
+          total_locations: psaData.totalLocations,
+          signer_name: psaData.providerName,
+          signer_title: 'Provider',
+          provider_date: psaData.effectiveDate
         },
-        body: JSON.stringify({
-          template_id: 'usrad_psa_template', // Your PSA template ID
-          submitters: [{
+        submitters: [
+          {
             role: 'Provider',
             name: psaData.providerName,
             email: psaData.email,
-            redirect_url: `${window.location.origin}/dashboard/onboarding/psa-complete`,
-            fields: {
-              provider_name: psaData.providerName,
-              provider_email: psaData.email,
-              provider_phone: psaData.phone,
-              tax_id: psaData.taxId,
-              npi: psaData.npi,
-              facility_name: psaData.facilityName,
-              facility_address: psaData.address,
-              effective_date: psaData.effectiveDate,
-              provider_date: new Date().toISOString().split('T')[0],
-              signer_name: psaData.providerName,
-              signer_title: 'Provider'
-            }
-          }]
-        })
-      });
+            redirect_url: `${window.location.origin}/dashboard/onboarding/psa-complete`
+          },
+          {
+            role: 'USRad',
+            email: '954cabrera+test@gmail.com'
+          }
+        ]
+      })
+    });
 
-      const data = await response.json();
-      
-      if (response.ok) {
-        setDocuSealData(prev => ({
-          ...prev,
-          submissionId: data.id,
-          documentUrl: data.submitters[0].url,
-          status: 'awaiting_signature'
-        }));
-        
-        setCurrentStep('sign');
-        setSigningStatus('ready_to_sign');
-      } else {
-        throw new Error(data.message || 'Failed to create PSA document');
-      }
-      
-    } catch (error) {
-      console.error('Error generating PSA:', error);
-      alert('Failed to generate PSA document. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
+    const data = await response.json();
+    console.log('Response data received:', data);
 
-  const redirectToDocuSeal = () => {
-    // Redirect to your self-hosted DocuSeal server for signing
-    window.location.href = docuSealData.documentUrl;
-  };
-
-  const simulateSignature = async () => {
-    setLoading(true);
-    
-    try {
-      // Simulate signature completion
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      
-      const signedUrl = `https://app.docuseal.co/d/${docuSealData.submissionId}/signed.pdf`;
-      
+    if (response.ok) {
+      console.log('Setting documentUrl to:', data.url);
       setDocuSealData(prev => ({
         ...prev,
-        signedDocumentUrl: signedUrl,
-        status: 'completed'
+        submissionId: data.id,
+        documentUrl: data.url,
+        status: 'awaiting_signature'
       }));
-      
-      setSigningStatus('completed');
-      setCurrentStep('completed');
-      
-    } catch (error) {
-      console.error('Error completing signature:', error);
-    } finally {
-      setLoading(false);
+
+      setCurrentStep('sign');
+      setSigningStatus('ready_to_sign');
+    } else {
+      throw new Error(data.message || 'Failed to create PSA document');
+    }
+
+  } catch (error) {
+    console.error('Error generating PSA:', error);
+    alert('Failed to generate PSA document. Please try again.');
+  } finally {
+    setLoading(false);
+  }
+};
+
+  const redirectToDocuSeal = () => {
+    if (docuSealData.documentUrl) {
+      window.open(docuSealData.documentUrl, '_blank');
+    } else {
+      alert('Document URL not available. Please try generating the document again.');
     }
   };
 
@@ -184,6 +170,16 @@ const PSASigningSystem = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const simulateSignature = () => {
+    setSigningStatus('completed');
+    setCurrentStep('completed');
+    setDocuSealData(prev => ({
+      ...prev,
+      signedDocumentUrl: `https://app.docuseal.co/d/${prev.submissionId}/signed.pdf`,
+      status: 'completed'
+    }));
   };
 
   const StatusBadge = ({ status }) => {
