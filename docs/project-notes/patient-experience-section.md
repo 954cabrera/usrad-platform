@@ -1,155 +1,203 @@
-# The Patient Experience Section
+# PSA Signing Integration - Project Summary
 
-This is a draft of the new consolidated "Patient Experience" section that combines elements from the "New Standard" and "Care That's Clear" sections:
+**Date:** June 2, 2025  
+**Status:** ✅ Core Integration Complete - Ready for Database Integration  
+**Platform:** USRad Provider Onboarding System  
 
-```html
-<!-- The Patient Experience Section - NEW (Consolidated) -->
-<section class="py-40 bg-[#f8f2e1] text-[#003087] px-6 md:px-12" data-aos="fade-up">
-  <div class="max-w-7xl mx-auto">
-    <!-- Heading with ample space and subtle animation -->
-    <div class="mb-20 max-w-4xl" data-aos="fade-up" data-aos-delay="100">
-      <h2 class="text-5xl md:text-6xl font-semibold leading-tight mb-6">
-        <span class="text-[#003087]">The Patient </span>
-        <span class="text-[#cc9933] relative">
-          Experience
-          <svg
-            class="absolute -bottom-2 left-0 w-full"
-            height="6"
-            viewBox="0 0 340 6"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M2 3.5C2 3.5 70 0.5 170 3.5C270 6.5 338 3.5 338 3.5"
-              stroke="#cc9933"
-              stroke-width="4"
-              stroke-linecap="round"></path>
-          </svg>
-        </span>
-      </h2>
-      <p class="text-3xl md:text-4xl text-[#003087] font-medium leading-relaxed">
-        Where clarity meets compassion
-      </p>
-    </div>
+## 🎯 Project Overview
 
-    <!-- Content and image with generous spacing and subtle animations -->
-    <div class="grid md:grid-cols-2 gap-24 items-center">
-      <div class="space-y-12" data-aos="fade-right" data-aos-delay="200">
-        <p class="text-xl md:text-2xl text-[#003087] leading-relaxed">
-          From your first click to final results, we've rebuilt medical imaging around clarity and confidence.
-        </p>
+Successfully built a complete Provider Service Agreement (PSA) signing integration using DocuSeal API, enabling healthcare providers to digitally sign their agreements as part of the USRad onboarding process.
 
-        <!-- Key points with subtle icon indicators in Amber Gold -->
-        <div class="space-y-6">
-          <div class="flex items-start space-x-3 pt-2">
-            <div class="w-6 h-6 rounded-full bg-[#cc9933] bg-opacity-20 flex items-center justify-center mt-1">
-              <div class="w-2 h-2 rounded-full bg-[#cc9933]"></div>
-            </div>
-            <p class="text-xl md:text-2xl text-[#003087]">
-              Transparent pricing that means no surprise bills, ever.
-            </p>
-          </div>
+## 📋 What Was Accomplished
 
-          <div class="flex items-start space-x-3">
-            <div class="w-6 h-6 rounded-full bg-[#cc9933] bg-opacity-20 flex items-center justify-center mt-1">
-              <div class="w-2 h-2 rounded-full bg-[#cc9933]"></div>
-            </div>
-            <p class="text-xl md:text-2xl text-[#003087]">
-              Fast scheduling, often within 2-4 days of your request.
-            </p>
-          </div>
+### 1. DocuSeal Integration Setup
+- **Template Created:** PSA template (ID: 1155842) in DocuSeal with proper field mapping
+- **API Integration:** Full DocuSeal API integration with submission creation and status checking
+- **Field Mapping:** All provider fields properly mapped to DocuSeal template fields:
+  - `provider_name`, `primary_contact_name`, `signer_name`, `signer_title`
+  - `primary_contact_email`, `provider_email`, `primary_contact_phone`, `provider_phone`
+  - `tax_id`, `total_locations`, `agreement_date`, `provider_date`
 
-          <div class="flex items-start space-x-3">
-            <div class="w-6 h-6 rounded-full bg-[#cc9933] bg-opacity-20 flex items-center justify-center mt-1">
-              <div class="w-2 h-2 rounded-full bg-[#cc9933]"></div>
-            </div>
-            <p class="text-xl md:text-2xl text-[#003087]">
-              Clear results delivery with support to understand them.
-            </p>
-          </div>
-        </div>
+### 2. Backend Infrastructure
+Created the following API routes in Astro:
 
-        <p class="text-xl md:text-2xl text-[#003087] italic">
-          Because radiology shouldn't feel clinical. It should feel <span class="text-[#cc9933]">human</span>.
-        </p>
+#### `/api/docuseal.ts`
+- Creates DocuSeal submissions with provider data
+- Handles field mapping and template population
+- Includes redirect URL for post-signing navigation
+- Returns embed URLs for document signing
 
-        <!-- CTA button with Amber Gold hover effect -->
-        <div class="pt-8">
-          <a
-            href="/schedule"
-            class="inline-block px-8 py-4 bg-[#003087] text-white rounded-full font-medium hover:bg-[#002266] hover:shadow-xl transition-all duration-300 border border-transparent hover:border-[#cc9933]"
-          >
-            Experience the Difference →
-          </a>
-        </div>
-      </div>
+#### `/api/docuseal-webhook.ts`
+- Receives real-time webhook events from DocuSeal
+- Handles: `form.completed`, `form.started`, `form.viewed`, `submission.expired`
+- Logs completion events and submission data
+- Ready for database integration
 
-      <div class="ml-auto relative" data-aos="fade-left" data-aos-delay="300">
-        <!-- Image with Amber Gold styling -->
-        <div class="relative">
-          <div class="absolute -top-4 -left-4 w-32 h-32 rounded-full bg-[#cc9933] opacity-10 blur-md">
-          </div>
-          <img
-            src="/images/tech-patient.png"
-            alt="Patient experience with compassionate care"
-            class="w-full h-auto max-w-lg object-cover rounded-xl shadow-2xl relative z-10 border-l-4 border-[#cc9933]"
-          />
-          <div class="absolute -bottom-3 -right-3 w-full h-full border-4 border-[#cc9933] opacity-15 rounded-xl z-0">
-          </div>
-        </div>
+#### `/api/check-psa-status.ts`
+- Checks DocuSeal submission status via API
+- Returns completion status for manual user verification
+- Used by "Check Completion Status" button
 
-        <!-- Callout with Amber Gold accent -->
-        <div class="bg-white p-6 rounded-lg shadow-md -mt-16 ml-12 relative z-20 max-w-xs border-l-4 border-[#cc9933]">
-          <p class="text-lg text-[#003087]">
-            From start to scan to peace of mind—your journey is our focus.
-          </p>
-          <div class="w-16 h-1 bg-[#cc9933] mt-3"></div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Transition to Technology section -->
-    <div class="text-center mt-20">
-      <p class="text-xl text-[#003087] italic">Behind every exceptional patient experience is technology you can trust.</p>
-    </div>
-  </div>
-</section>
+### 3. Frontend User Experience
+
+#### PSA Signing Component (`PSASigningSystemUpdated.jsx`)
+Complete React component with three-step workflow:
+- **Review Step:** Shows provider information and generates PSA
+- **Signing Step:** Opens DocuSeal in new tab with manual status check
+- **Completion Step:** Professional completion screen with next steps
+
+#### Completion Page (`/dashboard/psa/completed.astro`)
+- Standalone completion page for DocuSeal redirects
+- Shows success message and navigation options
+- Redirects to `/login/imaginglogin` for re-authentication
+
+### 4. Production Deployment
+- **Platform:** Railway (https://usrad-r-production.up.railway.app)
+- **Environment Variables:** `DOCUSEAL_API_KEY` configured
+- **Webhook URL:** `https://usrad-r-production.up.railway.app/api/docuseal-webhook`
+- **All endpoints tested and functional**
+
+## 🔄 Complete User Flow (As Built)
+
+1. **User navigates to PSA page** → Shows provider information and generate button
+2. **Clicks "Generate & Sign PSA"** → Creates DocuSeal submission
+3. **Clicks "Open Document to Sign"** → Opens DocuSeal in new tab
+4. **Signs document in DocuSeal** → Completes signing process
+5. **Returns to USRad tab** → Still on signing page
+6. **Clicks "Check Completion Status"** → Verifies completion and updates UI
+7. **Sees completion screen** → Shows success with next step options
+8. **Clicks "Continue to Portal Setup"** → Goes to `/dashboard/onboarding`
+
+## 📁 File Structure Created
+
+```
+src/
+├── pages/
+│   ├── api/
+│   │   ├── docuseal.ts              # Main PSA generation API
+│   │   ├── docuseal-webhook.ts      # Webhook handler
+│   │   └── check-psa-status.ts      # Status checking API
+│   └── dashboard/
+│       └── psa/
+│           └── completed.astro      # Completion page
+└── components/
+    └── PSASigningSystemUpdated.jsx  # Main React component
 ```
 
-## Connecting Transitions Between Sections
+## 🚀 Next Steps for Database Integration
 
-These transitions will be added between sections to create a smooth narrative flow:
+### Phase 1: Database Schema
+Create tables to track PSA completion:
 
-1. Vision → Patient Experience:
-```html
-<div class="text-center mt-12">
-  <p class="text-xl text-[#003087] italic">This vision translates to a tangible experience for our patients...</p>
-</div>
+```sql
+-- Example schema
+CREATE TABLE psa_submissions (
+    id UUID PRIMARY KEY,
+    provider_id VARCHAR,
+    docuseal_submission_id VARCHAR UNIQUE,
+    status VARCHAR, -- 'pending', 'completed', 'declined', 'expired'
+    signed_at TIMESTAMP,
+    signer_name VARCHAR,
+    signer_email VARCHAR,
+    document_url VARCHAR,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Update provider onboarding progress
+ALTER TABLE providers ADD COLUMN psa_completed_at TIMESTAMP;
+ALTER TABLE providers ADD COLUMN onboarding_step INTEGER DEFAULT 1;
 ```
 
-2. Patient Experience → Technology:
-```html
-<div class="text-center mt-20">
-  <p class="text-xl text-[#003087] italic">Behind every exceptional patient experience is technology you can trust.</p>
-</div>
+### Phase 2: Webhook Database Integration
+Update `/api/docuseal-webhook.ts`:
+
+```javascript
+// Add to handleDocumentCompleted function
+await database.updatePSAStatus({
+    submissionId: submissionData.id,
+    status: 'completed',
+    signedAt: submissionData.completed_at,
+    signerName: submissionData.name,
+    signerEmail: submissionData.email
+});
+
+// Update provider onboarding progress
+await database.updateProvider(providerId, {
+    psa_completed_at: new Date(),
+    onboarding_step: 2 // Move to next step
+});
 ```
 
-3. Technology → Values:
-```html
-<div class="text-center mt-16">
-  <p class="text-xl text-[#003087] italic">Our technology is guided by these core principles...</p>
-</div>
+### Phase 3: Onboarding Progress Integration
+Update `/dashboard/onboarding` page to:
+- **Read PSA completion status from database**
+- **Show PSA step as completed with green checkmark**
+- **Update progress bar:** "1 of 5 steps completed (20%)"
+- **Enable next step:** Make Facility Locations Setup active
+
+### Phase 4: Enhanced Status Checking
+Update `/api/check-psa-status.ts` to:
+- **Check database first** before calling DocuSeal API
+- **Cache results** for better performance
+- **Return comprehensive status** including timestamps
+
+## 🔧 Technical Configuration
+
+### DocuSeal Settings
+- **Template ID:** 1155842
+- **Webhook URL:** `https://usrad-r-production.up.railway.app/api/docuseal-webhook`
+- **Events:** `form.completed`, `form.started`, `form.viewed`, `submission.expired`
+- **Redirect URL:** `https://usrad-r-production.up.railway.app/dashboard/psa/completed?submission_id={{submission.id}}`
+
+### Environment Variables Required
+```env
+DOCUSEAL_API_KEY=your_api_key_here
+DOCUSEAL_WEBHOOK_SECRET=optional_webhook_secret
 ```
 
-4. Values → Team:
-```html
-<div class="text-center mt-16">
-  <p class="text-xl text-[#003087] italic">These values are embodied by our founding team...</p>
-</div>
-```
+### Authentication Flow
+- PSA signing happens in separate DocuSeal tab
+- Completion page is public (no auth required)
+- Users re-authenticate when returning to dashboard
+- Uses `/login/imaginglogin` for provider login
 
-5. Team → Contact/FAQ:
-```html
-<div class="text-center mt-16">
-  <p class="text-xl text-[#003087] italic">Have questions for our team? We're here to help...</p>
-</div>
-```
+## ⚠️ Known Limitations & Future Enhancements
+
+### Current Limitations:
+1. **No database persistence** - Completion status not saved
+2. **Static onboarding progress** - Progress bar doesn't update automatically
+3. **Manual status checking** - Users must click button to verify completion
+4. **No email notifications** - No automatic notifications to USRad team
+5. **No document storage** - Relying on DocuSeal for document retention
+
+### Potential Enhancements:
+1. **Automatic progress tracking** with database integration
+2. **Email notifications** when PSAs are completed
+3. **Admin dashboard** to view all PSA completion statuses
+4. **Document archival** system for compliance
+5. **Bulk PSA management** for multi-location providers
+6. **Integration with existing provider management system**
+
+## 📊 Success Metrics Achieved
+
+✅ **Full end-to-end PSA signing workflow**  
+✅ **Real document generation and signing**  
+✅ **Professional user experience**  
+✅ **Production-ready deployment**  
+✅ **Webhook infrastructure for real-time updates**  
+✅ **Error handling and user feedback**  
+✅ **Mobile-friendly responsive design**  
+
+## 🎯 Business Value Delivered
+
+- **Eliminates manual PSA processing**
+- **Provides legally binding digital signatures**
+- **Streamlines provider onboarding**
+- **Reduces administrative overhead**
+- **Creates audit trail for compliance**
+- **Improves time-to-activation for new providers**
+
+---
+
+**This integration is production-ready and provides immediate business value. The next phase should focus on database integration to complete the onboarding progress tracking system.**

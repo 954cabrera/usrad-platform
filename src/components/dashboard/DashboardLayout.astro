@@ -96,6 +96,24 @@ const currentPath = Astro.url.pathname;
           width 0.3s ease-in-out;
       }
 
+      /* Sidebar */
+      .sidebar-transition {
+        transition:
+          transform 0.3s ease-in-out,
+          width 0.3s ease-in-out;
+      }
+
+      /* Fix sidebar scrolling */
+      #sidebar {
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      #sidebar nav {
+        overflow-y: auto;
+        max-height: calc(100vh - 200px);
+      }
+
       .nav-link {
         transition: all 0.2s ease;
         position: relative;
