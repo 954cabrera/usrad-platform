@@ -377,7 +377,7 @@ const PSASigningSystemUpdated = ({ providerData = {} }) => {
             <button 
               onClick={() => {
                 // Navigate to portal setup - you can customize this URL
-                window.location.href = '/dashboard/onboarding/portal-setup';
+                window.location.href = '/dashboard/onboarding';
               }}
               className="w-full py-3 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
             >
