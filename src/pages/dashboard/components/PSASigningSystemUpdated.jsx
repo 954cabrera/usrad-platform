@@ -374,10 +374,22 @@ const PSASigningSystemUpdated = ({ providerData = {} }) => {
 
           {/* Action Buttons */}
           <div className="space-y-3">
-            <button className="w-full py-3 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+            <button 
+              onClick={() => {
+                // Navigate to portal setup - you can customize this URL
+                window.location.href = '/dashboard/onboarding/portal-setup';
+              }}
+              className="w-full py-3 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            >
               Continue to Portal Setup
             </button>
-            <button className="w-full py-2 px-6 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+            <button 
+              onClick={() => {
+                // Navigate back to main dashboard
+                window.location.href = '/dashboard';
+              }}
+              className="w-full py-2 px-6 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+            >
               Return to Dashboard
             </button>
             {docuSealData.signedDocumentUrl && (
