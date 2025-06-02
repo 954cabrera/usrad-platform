@@ -27,7 +27,7 @@ const PSASigningSystemUpdated = ({ providerData = {} }) => {
 
   const [signingStatus, setSigningStatus] = useState('pending');
   const [loading, setLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState('review');
+  const [currentStep, setCurrentStep] = useState('terms-review');
   const [error, setError] = useState(null);
 
   // Real DocuSeal API integration
@@ -126,7 +126,8 @@ const PSASigningSystemUpdated = ({ providerData = {} }) => {
   const getStepIcon = (step) => {
     const iconClass = "w-6 h-6";
     switch (step) {
-      case 'review': return <FileText className={iconClass} />;
+      case 'terms-review': return <FileText className={iconClass} />;
+      case 'review': return <User className={iconClass} />;
       case 'sign': return <PenTool className={iconClass} />;
       case 'completed': return <CheckCircle className={iconClass} />;
       default: return <Clock className={iconClass} />;
@@ -134,11 +135,12 @@ const PSASigningSystemUpdated = ({ providerData = {} }) => {
   };
 
   const getStepStatus = (step) => {
-    if (currentStep === step) return 'current';
-    if (
-      (step === 'review' && ['sign', 'completed'].includes(currentStep)) ||
-      (step === 'sign' && currentStep === 'completed')
-    ) return 'completed';
+    const steps = ['terms-review', 'review', 'sign', 'completed'];
+    const currentIndex = steps.indexOf(currentStep);
+    const stepIndex = steps.indexOf(step);
+    
+    if (stepIndex < currentIndex) return 'completed';
+    if (stepIndex === currentIndex) return 'current';
     return 'pending';
   };
 
@@ -157,8 +159,14 @@ const PSASigningSystemUpdated = ({ providerData = {} }) => {
       {/* Progress Steps */}
       <div className="mb-8">
         <div className="flex items-center justify-between">
-          {['review', 'sign', 'completed'].map((step, index) => {
+          {['terms-review', 'review', 'sign', 'completed'].map((step, index) => {
             const status = getStepStatus(step);
+            const stepLabels = {
+              'terms-review': 'Review Agreement',
+              'review': 'Provider Info',
+              'sign': 'Digital Signature', 
+              'completed': 'Completed'
+            };
             return (
               <div key={step} className="flex items-center">
                 <div className={`
@@ -175,10 +183,10 @@ const PSASigningSystemUpdated = ({ providerData = {} }) => {
                     status === 'completed' ? 'text-green-600' :
                     'text-gray-500'
                   }`}>
-                    {step.charAt(0).toUpperCase() + step.slice(1)}
+                    {stepLabels[step]}
                   </p>
                 </div>
-                {index < 2 && (
+                {index < 3 && (
                   <div className={`w-16 h-0.5 mx-4 ${
                     status === 'completed' ? 'bg-green-500' : 'bg-gray-200'
                   }`} />
@@ -198,7 +206,165 @@ const PSASigningSystemUpdated = ({ providerData = {} }) => {
         </div>
       )}
 
-      {/* Review Step */}
+      {/* Terms Review Step */}
+      {currentStep === 'terms-review' && (
+        <div className="space-y-6">
+          {/* PSA Header */}
+          <div className="bg-white border border-gray-200 rounded-lg p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold text-gray-900">Provider Service Agreement</h2>
+              <span className="bg-yellow-100 text-yellow-800 text-sm font-medium px-3 py-1 rounded-full">
+                PENDING
+              </span>
+            </div>
+            
+            {/* Provider Details Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div className="flex items-center space-x-2">
+                <User className="w-4 h-4 text-gray-500" />
+                <span className="text-gray-600">Provider:</span>
+                <span className="font-medium">{psaData.providerName}</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Calendar className="w-4 h-4 text-gray-500" />
+                <span className="text-gray-600">Effective Date:</span>
+                <span className="font-medium">{psaData.effectiveDate}</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <FileText className="w-4 h-4 text-gray-500" />
+                <span className="text-gray-600">Email:</span>
+                <span className="font-medium">{psaData.email}</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <FileText className="w-4 h-4 text-gray-500" />
+                <span className="text-gray-600">PSA Version:</span>
+                <span className="font-medium">{psaData.psaVersion}</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <FileText className="w-4 h-4 text-gray-500" />
+                <span className="text-gray-600">Tax ID:</span>
+                <span className="font-medium">{psaData.taxId}</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <FileText className="w-4 h-4 text-gray-500" />
+                <span className="text-gray-600">Generated:</span>
+                <span className="font-medium">{psaData.generatedDate}</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <User className="w-4 h-4 text-gray-500" />
+                <span className="text-gray-600">Contact:</span>
+                <span className="font-medium">{psaData.contactName}</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <FileText className="w-4 h-4 text-gray-500" />
+                <span className="text-gray-600">Total Locations:</span>
+                <span className="font-medium">{psaData.totalLocations}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Key Terms & Conditions */}
+          <div className="bg-white border border-gray-200 rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Key Terms & Conditions</h3>
+            
+            <div className="space-y-4">
+              {/* Compensation */}
+              <div className="border-l-4 border-blue-500 pl-4">
+                <h4 className="font-semibold text-gray-900 mb-2">Compensation (Article IV)</h4>
+                <p className="text-gray-700 text-sm">
+                  Default rate: 100% of Medicare Allowable (Technical + Professional Components). Rates represent global fees including both 
+                  professional and technical components, with USRad as sole payer.
+                </p>
+              </div>
+
+              {/* Provider Responsibilities */}
+              <div className="border-l-4 border-green-500 pl-4">
+                <h4 className="font-semibold text-gray-900 mb-2">Provider Responsibilities (Article II)</h4>
+                <p className="text-gray-700 text-sm">
+                  Maintain licenses, CAQH credentialing, professional liability insurance ($1M/$3M), general liability ($1M/$2M), and submit 
+                  electronic claims within 60 days.
+                </p>
+              </div>
+
+              {/* Payment Terms */}
+              <div className="border-l-4 border-yellow-500 pl-4">
+                <h4 className="font-semibold text-gray-900 mb-2">Payment Terms (Article IV)</h4>
+                <p className="text-gray-700 text-sm">
+                  Consumer services: 10 business days. Insurance-based services: 30 days after USRad receipt of payor funds. No balance billing 
+                  permitted - USRad is sole payer.
+                </p>
+              </div>
+
+              {/* Term & Termination */}
+              <div className="border-l-4 border-red-500 pl-4">
+                <h4 className="font-semibold text-gray-900 mb-2">Term & Termination (Article V)</h4>
+                <p className="text-gray-700 text-sm">
+                  Initial 1-year term with automatic renewal. 60-day notice for termination without cause. 30-day cure period for material breaches.
+                </p>
+              </div>
+
+              {/* Service Requirements */}
+              <div className="border-l-4 border-purple-500 pl-4">
+                <h4 className="font-semibold text-gray-900 mb-2">Service Requirements (Article II)</h4>
+                <p className="text-gray-700 text-sm">
+                  Complete imaging services including technical and professional components. Use Provider Portal for claims, credentialing, and 
+                  communications.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* DocuSeal Integration Status */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <h4 className="font-medium text-blue-900 mb-3 flex items-center">
+              <CheckCircle className="w-5 h-5 mr-2" />
+              DocuSeal Integration Status
+            </h4>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center text-green-700">
+                <CheckCircle className="w-4 h-4 mr-2" />
+                <span>Template ID: {docuSealData.templateId}</span>
+              </div>
+              <div className="flex items-center text-green-700">
+                <CheckCircle className="w-4 h-4 mr-2" />
+                <span>API Key: Configured</span>
+              </div>
+              <div className="flex items-center text-green-700">
+                <CheckCircle className="w-4 h-4 mr-2" />
+                <span>Field mapping configured</span>
+              </div>
+              <div className="flex items-center text-green-700">
+                <CheckCircle className="w-4 h-4 mr-2" />
+                <span>Ready for signing workflow</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex space-x-4">
+            <button
+              onClick={() => {
+                // Download PDF preview (placeholder)
+                alert('PDF download functionality can be added here');
+              }}
+              className="flex items-center px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              <FileText className="w-4 h-4 mr-2" />
+              Download PDF
+            </button>
+            
+            <button
+              onClick={() => setCurrentStep('review')}
+              className="flex-1 flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            >
+              <PenTool className="w-5 h-5 mr-2" />
+              Proceed to Sign
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Provider Info Review Step */}
       {currentStep === 'review' && (
         <div className="space-y-6">
           <div className="bg-white border border-gray-200 rounded-lg p-6">
