@@ -81,7 +81,7 @@ const PSASigningSystemUpdated = ({ providerData = {} }) => {
     }
   };
 
-  // Listen for DocuSeal completion events
+  // Listen for DocuSeal completion events and poll for status
   useEffect(() => {
     const handleMessage = (event) => {
       if (event.data?.type === 'docuseal:completed') {
@@ -95,9 +95,33 @@ const PSASigningSystemUpdated = ({ providerData = {} }) => {
       }
     };
 
+    // Poll for completion status while in signing state
+    let pollInterval;
+    if (currentStep === 'sign' && docuSealData.submissionId) {
+      pollInterval = setInterval(async () => {
+        try {
+          // Check if document has been completed via webhook/database
+          const response = await fetch(`/api/check-psa-status?submissionId=${docuSealData.submissionId}`);
+          if (response.ok) {
+            const result = await response.json();
+            if (result.status === 'completed') {
+              setSigningStatus('completed');
+              setCurrentStep('completed');
+              console.log('✅ PSA completion detected via polling');
+            }
+          }
+        } catch (error) {
+          console.error('Error polling PSA status:', error);
+        }
+      }, 10000); // Check every 10 seconds
+    }
+
     window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, []);
+    return () => {
+      window.removeEventListener('message', handleMessage);
+      if (pollInterval) clearInterval(pollInterval);
+    };
+  }, [currentStep, docuSealData.submissionId]);
 
   const getStepIcon = (step) => {
     const iconClass = "w-6 h-6";
@@ -266,36 +290,27 @@ const PSASigningSystemUpdated = ({ providerData = {} }) => {
                 <p className="text-sm text-gray-600">Submission ID: {docuSealData.submissionId}</p>
               </div>
               <div className="relative">
-                {/* Try iframe first, fallback to link if it fails */}
-                <iframe
-                  src={docuSealData.documentUrl}
-                  title="PSA Document Signing"
-                  className="w-full h-[600px]"
-                  frameBorder="0"
-                  allowFullScreen
-                  onLoad={() => console.log('🎯 Iframe loaded successfully')}
-                  onError={(e) => {
-                    console.error('❌ Iframe error:', e);
-                    console.log('🔗 Opening in new tab instead...');
-                  }}
-                />
-                
-                {/* Fallback button if iframe doesn't work */}
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-50 bg-opacity-90">
-                  <div className="text-center">
-                    <p className="text-gray-600 mb-4">
-                      If the document doesn't load above, click the button below:
-                    </p>
-                    <a
-                      href={docuSealData.documentUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                    >
-                      <PenTool className="w-4 h-4 mr-2" />
-                      Open Document to Sign
-                    </a>
-                  </div>
+                {/* Primary action: Open in new tab (works reliably) */}
+                <div className="text-center p-8">
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">
+                    Ready to Sign Your PSA
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    Your Provider Service Agreement is ready for review and signature.
+                    Click below to open the document in a new tab.
+                  </p>
+                  <a
+                    href={docuSealData.documentUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  >
+                    <PenTool className="w-5 h-5 mr-2" />
+                    Open Document to Sign
+                  </a>
+                  <p className="text-sm text-gray-500 mt-3">
+                    Opens in a new tab • Secure DocuSeal interface
+                  </p>
                 </div>
               </div>
             </div>
