@@ -1,0 +1,1 @@
+import"https://cdn.tailwindcss.com";(window.name==="docuseal_completion"||window.opener)&&setTimeout(()=>{confirm("PSA completed! Close this tab and return to the main window?")&&window.close()},3e3);

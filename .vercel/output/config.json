@@ -1,0 +1,291 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^\\/_image$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/accessibility\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/auth\\/login\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/auth\\/logout\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/auth\\/verify\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/check-psa-status\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/docuseal\\/create-submission-embedded\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/docuseal\\/create-template\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/docuseal\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/docuseal-webhook\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/hello\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/provider\\/signup\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/background-test\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/book\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/careers\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/co-founder\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/contact\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/dashboard\\/analytics\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/dashboard\\/appointments\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/dashboard\\/center\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/dashboard\\/onboarding\\/facilities\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/dashboard\\/onboarding\\/psa\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/dashboard\\/onboarding\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/dashboard\\/patient\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/dashboard\\/psa\\/completed\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/dashboard\\/referral\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/dashboard\\/reports\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/dashboard\\/settings\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/dashboard\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/employer\\/schedule\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/employer\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/faq\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/faq4\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/form-submitted\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/founder\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/how-it-works\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/imaging-center\\/apply\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/imaging-center\\/benefits\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/imaging-center\\/calculator\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/imaging-center\\/coming-soon\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/imaging-center\\/experience\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/imaging-center\\/faq\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/imaging-center\\/implementation\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/imaging-center\\/model\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/imaging-center\\/schedule\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/imaging-center\\/support\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/imaging-center\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/investor\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/locations\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/login\\/imaginglogin\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/login\\/patientlogin\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/login\\/referrallogin\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/login\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/managed-care\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/news\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/our-approach\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/partner-experience\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/partner1\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/partner2\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/press-kit\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/privacy-policy\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/provider-signup\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/schedule\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/search\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/technology\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/terms-of-service\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/test-components\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/test\\.api\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/$",
+			"dest": "render"
+		}
+	]
+}

@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
-import { PenTool, CheckCircle, Clock, FileText, User, Calendar } from 'lucide-react';
+import { PenTool, CheckCircle, Clock, FileText, User, Calendar, AlertCircle, Download, ExternalLink, Shield, Building, Phone, Mail } from 'lucide-react';
+
+// shadcn/ui components
+import { Button } from "../../../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
 
 const PSASigningSystemUpdated = ({ providerData = {} }) => {
   const [psaData] = useState({
@@ -207,162 +211,205 @@ const PSASigningSystemUpdated = ({ providerData = {} }) => {
       )}
 
       {/* Terms Review Step */}
-      {currentStep === 'terms-review' && (
-        <div className="space-y-6">
-          {/* PSA Header */}
-          <div className="bg-white border border-gray-200 rounded-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-gray-900">Provider Service Agreement</h2>
-              <span className="bg-yellow-100 text-yellow-800 text-sm font-medium px-3 py-1 rounded-full">
-                PENDING
-              </span>
+{currentStep === 'terms-review' && (
+  <div className="space-y-8">
+    {/* Provider Details with Beautiful Styling */}
+    <Card className="border-none shadow-xl bg-white/95 backdrop-blur-sm">
+      <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-100">
+        <CardTitle className="flex items-center text-xl text-[#003087]">
+          <Building className="w-6 h-6 mr-3 text-[#003087]" />
+          Provider Service Agreement Details
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="p-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+              <Building className="w-5 h-5 text-[#003087]" />
+              <div>
+                <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">Provider Name</label>
+                <p className="font-semibold text-gray-900">{psaData.providerName}</p>
+              </div>
             </div>
-            
-            {/* Provider Details Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-              <div className="flex items-center space-x-2">
-                <User className="w-4 h-4 text-gray-500" />
-                <span className="text-gray-600">Provider:</span>
-                <span className="font-medium">{psaData.providerName}</span>
+            <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+              <Mail className="w-5 h-5 text-[#003087]" />
+              <div>
+                <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">Email</label>
+                <p className="font-semibold text-gray-900">{psaData.email}</p>
               </div>
-              <div className="flex items-center space-x-2">
-                <Calendar className="w-4 h-4 text-gray-500" />
-                <span className="text-gray-600">Effective Date:</span>
-                <span className="font-medium">{psaData.effectiveDate}</span>
+            </div>
+            <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+              <Shield className="w-5 h-5 text-[#003087]" />
+              <div>
+                <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">Tax ID</label>
+                <p className="font-semibold text-gray-900">{psaData.taxId}</p>
               </div>
-              <div className="flex items-center space-x-2">
-                <FileText className="w-4 h-4 text-gray-500" />
-                <span className="text-gray-600">Email:</span>
-                <span className="font-medium">{psaData.email}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FileText className="w-4 h-4 text-gray-500" />
-                <span className="text-gray-600">PSA Version:</span>
-                <span className="font-medium">{psaData.psaVersion}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FileText className="w-4 h-4 text-gray-500" />
-                <span className="text-gray-600">Tax ID:</span>
-                <span className="font-medium">{psaData.taxId}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FileText className="w-4 h-4 text-gray-500" />
-                <span className="text-gray-600">Generated:</span>
-                <span className="font-medium">{psaData.generatedDate}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <User className="w-4 h-4 text-gray-500" />
-                <span className="text-gray-600">Contact:</span>
-                <span className="font-medium">{psaData.contactName}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FileText className="w-4 h-4 text-gray-500" />
-                <span className="text-gray-600">Total Locations:</span>
-                <span className="font-medium">{psaData.totalLocations}</span>
+            </div>
+            <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+              <User className="w-5 h-5 text-[#003087]" />
+              <div>
+                <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">Contact Person</label>
+                <p className="font-semibold text-gray-900">{psaData.contactName}</p>
               </div>
             </div>
           </div>
-
-          {/* Key Terms & Conditions */}
-          <div className="bg-white border border-gray-200 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Key Terms & Conditions</h3>
-            
-            <div className="space-y-4">
-              {/* Compensation */}
-              <div className="border-l-4 border-blue-500 pl-4">
-                <h4 className="font-semibold text-gray-900 mb-2">Compensation (Article IV)</h4>
-                <p className="text-gray-700 text-sm">
-                  Default rate: 100% of Medicare Allowable (Technical + Professional Components). Rates represent global fees including both 
-                  professional and technical components, with USRad as sole payer.
-                </p>
-              </div>
-
-              {/* Provider Responsibilities */}
-              <div className="border-l-4 border-green-500 pl-4">
-                <h4 className="font-semibold text-gray-900 mb-2">Provider Responsibilities (Article II)</h4>
-                <p className="text-gray-700 text-sm">
-                  Maintain licenses, CAQH credentialing, professional liability insurance ($1M/$3M), general liability ($1M/$2M), and submit 
-                  electronic claims within 60 days.
-                </p>
-              </div>
-
-              {/* Payment Terms */}
-              <div className="border-l-4 border-yellow-500 pl-4">
-                <h4 className="font-semibold text-gray-900 mb-2">Payment Terms (Article IV)</h4>
-                <p className="text-gray-700 text-sm">
-                  Consumer services: 10 business days. Insurance-based services: 30 days after USRad receipt of payor funds. No balance billing 
-                  permitted - USRad is sole payer.
-                </p>
-              </div>
-
-              {/* Term & Termination */}
-              <div className="border-l-4 border-red-500 pl-4">
-                <h4 className="font-semibold text-gray-900 mb-2">Term & Termination (Article V)</h4>
-                <p className="text-gray-700 text-sm">
-                  Initial 1-year term with automatic renewal. 60-day notice for termination without cause. 30-day cure period for material breaches.
-                </p>
-              </div>
-
-              {/* Service Requirements */}
-              <div className="border-l-4 border-purple-500 pl-4">
-                <h4 className="font-semibold text-gray-900 mb-2">Service Requirements (Article II)</h4>
-                <p className="text-gray-700 text-sm">
-                  Complete imaging services including technical and professional components. Use Provider Portal for claims, credentialing, and 
-                  communications.
-                </p>
+          <div className="space-y-6">
+            <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+              <Calendar className="w-5 h-5 text-[#003087]" />
+              <div>
+                <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">Effective Date</label>
+                <p className="font-semibold text-gray-900">{psaData.effectiveDate}</p>
               </div>
             </div>
-          </div>
-
-          {/* DocuSeal Integration Status */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h4 className="font-medium text-blue-900 mb-3 flex items-center">
-              <CheckCircle className="w-5 h-5 mr-2" />
-              DocuSeal Integration Status
-            </h4>
-            <div className="space-y-2 text-sm">
-              <div className="flex items-center text-green-700">
-                <CheckCircle className="w-4 h-4 mr-2" />
-                <span>Template ID: {docuSealData.templateId}</span>
-              </div>
-              <div className="flex items-center text-green-700">
-                <CheckCircle className="w-4 h-4 mr-2" />
-                <span>API Key: Configured</span>
-              </div>
-              <div className="flex items-center text-green-700">
-                <CheckCircle className="w-4 h-4 mr-2" />
-                <span>Field mapping configured</span>
-              </div>
-              <div className="flex items-center text-green-700">
-                <CheckCircle className="w-4 h-4 mr-2" />
-                <span>Ready for signing workflow</span>
+            <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+              <FileText className="w-5 h-5 text-[#003087]" />
+              <div>
+                <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">PSA Version</label>
+                <p className="font-semibold text-gray-900">{psaData.psaVersion}</p>
               </div>
             </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex space-x-4">
-            <button
-              onClick={() => {
-                // Download PDF preview (placeholder)
-                alert('PDF download functionality can be added here');
-              }}
-              className="flex items-center px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              <FileText className="w-4 h-4 mr-2" />
-              Download PDF
-            </button>
-            
-            <button
-              onClick={() => setCurrentStep('review')}
-              className="flex-1 flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-            >
-              <PenTool className="w-5 h-5 mr-2" />
-              Proceed to Sign
-            </button>
+            <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+              <Phone className="w-5 h-5 text-[#003087]" />
+              <div>
+                <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">Phone</label>
+                <p className="font-semibold text-gray-900">{psaData.phone}</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+              <Building className="w-5 h-5 text-[#003087]" />
+              <div>
+                <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">Total Locations</label>
+                <p className="font-semibold text-gray-900">{psaData.totalLocations}</p>
+              </div>
+            </div>
           </div>
         </div>
-      )}
+      </CardContent>
+    </Card>
+
+    {/* Beautiful Color-Coded Key Terms Cards */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <Card className="border-l-4 border-l-blue-500 shadow-lg hover:shadow-xl transition-shadow bg-gradient-to-br from-blue-50 to-white">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg text-blue-900 flex items-center">
+            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-3">
+              <span className="text-white font-bold text-sm">$</span>
+            </div>
+            Compensation
+          </CardTitle>
+          <p className="text-blue-700 font-medium">Article IV</p>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-gray-700 leading-relaxed">
+            Default rate: 100% of Medicare Allowable (Technical + Professional Components). 
+            Rates represent global fees including both professional and technical components, 
+            with USRad as sole payer.
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card className="border-l-4 border-l-green-500 shadow-lg hover:shadow-xl transition-shadow bg-gradient-to-br from-green-50 to-white">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg text-green-900 flex items-center">
+            <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mr-3">
+              <Shield className="w-4 h-4 text-white" />
+            </div>
+            Provider Responsibilities
+          </CardTitle>
+          <p className="text-green-700 font-medium">Article II</p>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-gray-700 leading-relaxed">
+            Maintain licenses, CAQH credentialing, professional liability insurance ($1M/$3M), 
+            general liability ($1M/$2M), and submit electronic claims within 60 days.
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card className="border-l-4 border-l-yellow-500 shadow-lg hover:shadow-xl transition-shadow bg-gradient-to-br from-yellow-50 to-white">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg text-yellow-900 flex items-center">
+            <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center mr-3">
+              <Clock className="w-4 h-4 text-white" />
+            </div>
+            Payment Terms
+          </CardTitle>
+          <p className="text-yellow-700 font-medium">Article IV</p>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-gray-700 leading-relaxed">
+            Consumer services: 10 business days. Insurance-based services: 30 days after 
+            USRad receipt of payor funds. No balance billing permitted - USRad is sole payer.
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card className="border-l-4 border-l-red-500 shadow-lg hover:shadow-xl transition-shadow bg-gradient-to-br from-red-50 to-white">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg text-red-900 flex items-center">
+            <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center mr-3">
+              <AlertCircle className="w-4 h-4 text-white" />
+            </div>
+            Term & Termination
+          </CardTitle>
+          <p className="text-red-700 font-medium">Article V</p>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-gray-700 leading-relaxed">
+            Initial 1-year term with automatic renewal. 60-day notice for termination without cause. 
+            30-day cure period for material breaches.
+          </p>
+        </CardContent>
+      </Card>
+    </div>
+
+    {/* Enhanced DocuSeal Integration Status */}
+    <Card className="border-green-300 bg-gradient-to-r from-green-50 to-emerald-50 shadow-lg">
+      <CardHeader>
+        <CardTitle className="text-green-800 font-bold flex items-center">
+          <CheckCircle className="h-5 w-5 text-green-600 mr-2" />
+          DocuSeal Integration Ready
+          <span className="ml-3 bg-green-500 text-white text-xs px-2 py-1 rounded">ACTIVE</span>
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-2 gap-2 text-sm text-green-700">
+          <div className="flex items-center">
+            <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
+            <span>Template ID: {docuSealData.templateId}</span>
+          </div>
+          <div className="flex items-center">
+            <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
+            <span>API configured</span>
+          </div>
+          <div className="flex items-center">
+            <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
+            <span>Field mapping complete</span>
+          </div>
+          <div className="flex items-center">
+            <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
+            <span>Ready for signing workflow</span>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+
+    {/* Action Buttons */}
+    <div className="flex gap-4">
+      <Button variant="outline" className="flex items-center">
+        <Download className="w-4 h-4 mr-2" />
+        Download PDF Preview
+      </Button>
+      <Button 
+        onClick={() => setCurrentStep('review')} 
+        className="flex-1 bg-gradient-to-r from-[#003087] to-[#0052cc] hover:from-[#002060] hover:to-[#003d99]"
+      >
+        <PenTool className="w-4 h-4 mr-2" />
+        Proceed to Sign Agreement
+      </Button>
+    </div>
+  </div>
+)}
 
       {/* Provider Info Review Step */}
       {currentStep === 'review' && (

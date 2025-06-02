@@ -1,0 +1,21 @@
+document.addEventListener("DOMContentLoaded",()=>{const u=[{code:"AL",name:"Alabama"},{code:"AK",name:"Alaska"},{code:"AZ",name:"Arizona"},{code:"AR",name:"Arkansas"},{code:"CA",name:"California"},{code:"CO",name:"Colorado"},{code:"CT",name:"Connecticut"},{code:"DE",name:"Delaware"},{code:"FL",name:"Florida"},{code:"GA",name:"Georgia"},{code:"HI",name:"Hawaii"},{code:"ID",name:"Idaho"},{code:"IL",name:"Illinois"},{code:"IN",name:"Indiana"},{code:"IA",name:"Iowa"},{code:"KS",name:"Kansas"},{code:"KY",name:"Kentucky"},{code:"LA",name:"Louisiana"},{code:"ME",name:"Maine"},{code:"MD",name:"Maryland"},{code:"MA",name:"Massachusetts"},{code:"MI",name:"Michigan"},{code:"MN",name:"Minnesota"},{code:"MS",name:"Mississippi"},{code:"MO",name:"Missouri"},{code:"MT",name:"Montana"},{code:"NE",name:"Nebraska"},{code:"NV",name:"Nevada"},{code:"NH",name:"New Hampshire"},{code:"NJ",name:"New Jersey"},{code:"NM",name:"New Mexico"},{code:"NY",name:"New York"},{code:"NC",name:"North Carolina"},{code:"ND",name:"North Dakota"},{code:"OH",name:"Ohio"},{code:"OK",name:"Oklahoma"},{code:"OR",name:"Oregon"},{code:"PA",name:"Pennsylvania"},{code:"RI",name:"Rhode Island"},{code:"SC",name:"South Carolina"},{code:"SD",name:"South Dakota"},{code:"TN",name:"Tennessee"},{code:"TX",name:"Texas"},{code:"UT",name:"Utah"},{code:"VT",name:"Vermont"},{code:"VA",name:"Virginia"},{code:"WA",name:"Washington"},{code:"WV",name:"West Virginia"},{code:"WI",name:"Wisconsin"},{code:"WY",name:"Wyoming"}],y=document.getElementById("state-select");u.forEach(n=>{const o=document.createElement("option");o.value=n.code,o.textContent=n.name,y.appendChild(o)});const c=document.getElementById("provider-signup-form"),i=c.querySelector(".submit-btn"),d=i.querySelector(".btn-text"),l=i.querySelector(".loading"),s=document.getElementById("result"),h=document.getElementById("service-mri"),m=document.getElementById("mri-details");h?.addEventListener("change",n=>{n.target.checked?m.style.display="block":m.style.display="none"}),c.addEventListener("submit",async n=>{n.preventDefault(),d.style.display="none",l.style.display="flex",i.disabled=!0,s.style.display="none";const o=new FormData(n.target),p=Object.fromEntries(o.entries()),g=Array.from(document.querySelectorAll('input[name="services"]:checked')).map(a=>a.value);if(p.services=g,g.length===0){t("error","Please select at least one imaging service."),r();return}try{const a=await fetch("/api/provider/signup",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)}),e=await a.json();if(a.ok)t("success",`
+        <h3>📧 Application Submitted Successfully!</h3>
+        <p><strong>${e.message}</strong></p>
+        <p>We've sent a verification link to <strong>${e.email}</strong></p>
+        <p>Click the link in your email to access your provider dashboard.</p>
+        <p><em>Check your spam folder if you don't see it within a few minutes.</em></p>
+        `);else{if(console.log("🔍 Full error response:",e),e.message&&e.suggestions){let f=e.suggestions.map(b=>`<li style="margin: 8px 0;">${b}</li>`).join("");t("error",`
+            <h3>❌ ${e.error}</h3>
+            <p style="margin: 12px 0;">${e.message}</p>
+            <ul style="text-align: left; margin: 16px 0; padding-left: 20px;">
+                ${f}
+            </ul>
+            ${e.loginUrl?`<p style="margin-top: 16px; text-align: center;"><a href="${e.loginUrl}" style="color: #003087; font-weight: bold; text-decoration: none; background: #f0f4f9; padding: 12px 24px; border-radius: 8px; display: inline-block;">👉 Sign In to Existing Account</a></p>`:""}
+            `)}else e.message?t("error",`
+            <h3>❌ ${e.error||"Registration Failed"}</h3>
+            <p>${e.message}</p>
+            `):t("error",`Registration failed: ${e.error||"Please try again"}`);r()}}catch(a){console.log("🌐 Network error:",a),t("error",`
+        <h3>❌ Connection Error</h3>
+        <p>Unable to connect to our servers. Please check your internet connection and try again.</p>
+        <p><em>Error details: ${a.message}</em></p>
+    `),r()}});function t(n,o){s.className=`result ${n}`,s.innerHTML=o,s.style.display="block",s.scrollIntoView({behavior:"smooth"})}function r(){d.style.display="inline",l.style.display="none",i.disabled=!1}});

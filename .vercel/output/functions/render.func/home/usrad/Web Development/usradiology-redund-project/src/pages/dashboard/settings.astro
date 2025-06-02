@@ -1,0 +1,353 @@
+---
+// src/pages/dashboard/settings.astro
+import DashboardLayout from '../../components/dashboard/DashboardLayout.astro';
+import { validateAuthSession } from '../../lib/auth';
+import { AuthService } from '../../lib/auth';
+
+// Validate authentication
+const { session, user } = await validateAuthSession(Astro.request);
+
+if (!session || !user) {
+  return Astro.redirect('/login/imaginglogin');
+}
+
+// Get dashboard data
+const dashboardData = await AuthService.getUserDashboardData(user.id);
+const { imagingCenter } = dashboardData;
+---
+
+<DashboardLayout title="Settings" user={user} imagingCenter={imagingCenter}>
+  <style>
+    .usrad-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 48, 135, 0.08);
+      transition: all 0.3s ease;
+    }
+    
+    .usrad-card:hover {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+      transform: translateY(-2px);
+    }
+    
+    .usrad-navy { color: #003087; }
+    .usrad-gold { color: #cc9933; }
+    .bg-usrad-navy { background-color: #003087; }
+    .bg-usrad-gold { background-color: #cc9933; }
+    
+    .usrad-gradient-navy {
+      background: linear-gradient(135deg, #003087 0%, #001a4d 100%);
+    }
+    
+    .usrad-gradient-gold {
+      background: linear-gradient(135deg, #cc9933 0%, #e6b84d 100%);
+    }
+    
+    .animate-fade-in-up {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      font-family: 'Manrope', sans-serif;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #003087;
+      box-shadow: 0 0 0 3px rgba(0, 48, 135, 0.1);
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #374151;
+      font-family: 'Manrope', sans-serif;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #003087, #0040a0);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Manrope', sans-serif;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 48, 135, 0.3);
+    }
+    
+    .btn-secondary {
+      background: linear-gradient(135deg, #cc9933, #e6b84d);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Manrope', sans-serif;
+    }
+    
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(204, 153, 51, 0.3);
+    }
+  </style>
+
+  <!-- Page Header -->
+  <div class="mb-8 animate-fade-in-up">
+    <h1 class="text-3xl font-bold usrad-navy mb-2" style="font-family: 'Manrope', sans-serif;">Settings</h1>
+    <p class="text-gray-600">Manage your profile and imaging center preferences</p>
+  </div>
+
+  <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+    <!-- Main Settings -->
+    <div class="xl:col-span-2 space-y-8">
+      <!-- Profile Information -->
+      <div class="usrad-card p-8 animate-fade-in-up" style="animation-delay: 0.1s;">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-xl font-bold usrad-navy" style="font-family: 'Manrope', sans-serif;">Profile Information</h2>
+            <p class="text-gray-600 mt-1">Update your personal details and contact information</p>
+          </div>
+          <div class="w-16 h-16 bg-gradient-to-br from-usrad-gold to-yellow-400 rounded-xl flex items-center justify-center font-bold text-white text-2xl shadow-lg">
+            {user.firstName?.[0] || user.email[0].toUpperCase()}
+          </div>
+        </div>
+        
+        <form class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-input" value={user.firstName || ''} placeholder="Enter first name">
+            </div>
+            <div>
+              <label class="form-label">Last Name</label>
+              <input type="text" class="form-input" value={user.lastName || ''} placeholder="Enter last name">
+            </div>
+          </div>
+          
+          <div>
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" value={user.email} placeholder="Enter email address">
+          </div>
+          
+          <div>
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-input" value={user.phone || ''} placeholder="Enter phone number">
+          </div>
+          
+          <div class="flex items-center space-x-4 pt-4">
+            <button type="submit" class="btn-primary">
+              Save Changes
+            </button>
+            <button type="button" class="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:border-gray-400 hover:bg-gray-50 transition-all duration-300 font-semibold">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Imaging Center Settings -->
+      {imagingCenter && (
+        <div class="usrad-card p-8 animate-fade-in-up" style="animation-delay: 0.2s;">
+          <div class="mb-6">
+            <h2 class="text-xl font-bold usrad-navy" style="font-family: 'Manrope', sans-serif;">Imaging Center Settings</h2>
+            <p class="text-gray-600 mt-1">Configure your imaging center information and preferences</p>
+          </div>
+          
+          <form class="space-y-6">
+            <div>
+              <label class="form-label">Center Name</label>
+              <input type="text" class="form-input" value={imagingCenter.name} placeholder="Enter center name">
+            </div>
+            
+            <div>
+              <label class="form-label">Address</label>
+              <textarea class="form-input" rows="3" placeholder="Enter complete address">{imagingCenter.address}</textarea>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <label class="form-label">City</label>
+                <input type="text" class="form-input" value={imagingCenter.city || ''} placeholder="City">
+              </div>
+              <div>
+                <label class="form-label">State</label>
+                <input type="text" class="form-input" value={imagingCenter.state || ''} placeholder="State">
+              </div>
+              <div>
+                <label class="form-label">ZIP Code</label>
+                <input type="text" class="form-input" value={imagingCenter.zipCode || ''} placeholder="ZIP">
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="form-label">Phone</label>
+                <input type="tel" class="form-input" value={imagingCenter.phone || ''} placeholder="Center phone">
+              </div>
+              <div>
+                <label class="form-label">Email</label>
+                <input type="email" class="form-input" value={imagingCenter.email || ''} placeholder="Center email">
+              </div>
+            </div>
+            
+            <div>
+              <label class="form-label">License Number</label>
+              <input type="text" class="form-input" value={imagingCenter.licenseNumber || ''} placeholder="Medical license number">
+            </div>
+            
+            <div class="flex items-center space-x-4 pt-4">
+              <button type="submit" class="btn-secondary">
+                Update Center Info
+              </button>
+              <button type="button" class="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:border-gray-400 hover:bg-gray-50 transition-all duration-300 font-semibold">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      <!-- Security Settings -->
+      <div class="usrad-card p-8 animate-fade-in-up" style="animation-delay: 0.3s;">
+        <div class="mb-6">
+          <h2 class="text-xl font-bold usrad-navy" style="font-family: 'Manrope', sans-serif;">Security Settings</h2>
+          <p class="text-gray-600 mt-1">Update your password and security preferences</p>
+        </div>
+        
+        <form class="space-y-6">
+          <div>
+            <label class="form-label">Current Password</label>
+            <input type="password" class="form-input" placeholder="Enter current password">
+          </div>
+          
+          <div>
+            <label class="form-label">New Password</label>
+            <input type="password" class="form-input" placeholder="Enter new password">
+          </div>
+          
+          <div>
+            <label class="form-label">Confirm New Password</label>
+            <input type="password" class="form-input" placeholder="Confirm new password">
+          </div>
+          
+          <div class="flex items-center space-x-4 pt-4">
+            <button type="submit" class="btn-primary">
+              Change Password
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="space-y-8">
+      <!-- Account Status -->
+      <div class="usrad-card p-6 animate-fade-in-up" style="animation-delay: 0.4s;">
+        <h3 class="text-lg font-bold usrad-navy mb-4" style="font-family: 'Manrope', sans-serif;">Account Status</h3>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-gray-600">Account Type</span>
+            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+              {user.role === 'imaging_center' ? 'Imaging Center' : user.role === 'admin' ? 'Administrator' : 'User'}
+            </span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-gray-600">Status</span>
+            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+              Active
+            </span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-gray-600">Member Since</span>
+            <span class="text-gray-900 font-medium">
+              {new Date(user.createdAt || Date.now()).toLocaleDateString()}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notification Settings -->
+      <div class="usrad-card p-6 animate-fade-in-up" style="animation-delay: 0.5s;">
+        <h3 class="text-lg font-bold usrad-navy mb-4" style="font-family: 'Manrope', sans-serif;">Notifications</h3>
+        <div class="space-y-4">
+          <label class="flex items-center justify-between cursor-pointer">
+            <span class="text-gray-700">Email Notifications</span>
+            <input type="checkbox" checked class="w-5 h-5 text-blue-600 rounded">
+          </label>
+          <label class="flex items-center justify-between cursor-pointer">
+            <span class="text-gray-700">SMS Alerts</span>
+            <input type="checkbox" class="w-5 h-5 text-blue-600 rounded">
+          </label>
+          <label class="flex items-center justify-between cursor-pointer">
+            <span class="text-gray-700">Appointment Reminders</span>
+            <input type="checkbox" checked class="w-5 h-5 text-blue-600 rounded">
+          </label>
+          <label class="flex items-center justify-between cursor-pointer">
+            <span class="text-gray-700">System Updates</span>
+            <input type="checkbox" checked class="w-5 h-5 text-blue-600 rounded">
+          </label>
+        </div>
+      </div>
+
+      <!-- Support -->
+      <div class="usrad-card p-6 animate-fade-in-up" style="animation-delay: 0.6s;">
+        <h3 class="text-lg font-bold usrad-navy mb-4" style="font-family: 'Manrope', sans-serif;">Support</h3>
+        <div class="space-y-3">
+          <a href="#" class="block text-blue-600 hover:text-blue-800 transition-colors">
+            📖 Documentation
+          </a>
+          <a href="#" class="block text-blue-600 hover:text-blue-800 transition-colors">
+            💬 Contact Support
+          </a>
+          <a href="#" class="block text-blue-600 hover:text-blue-800 transition-colors">
+            🎥 Video Tutorials
+          </a>
+          <a href="#" class="block text-blue-600 hover:text-blue-800 transition-colors">
+            ❓ FAQ
+          </a>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="usrad-card p-6 animate-fade-in-up border-red-200" style="animation-delay: 0.7s;">
+        <h3 class="text-lg font-bold text-red-600 mb-4" style="font-family: 'Manrope', sans-serif;">Danger Zone</h3>
+        <p class="text-gray-600 text-sm mb-4">These actions cannot be undone.</p>
+        <div class="space-y-3">
+          <button class="w-full px-4 py-2 border-2 border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-all duration-300 font-semibold">
+            Export Data
+          </button>
+          <button class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300 font-semibold">
+            Delete Account
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>

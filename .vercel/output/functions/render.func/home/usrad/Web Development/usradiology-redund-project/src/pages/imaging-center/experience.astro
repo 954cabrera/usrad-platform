@@ -1,0 +1,888 @@
+---
+import PartnerPageLayout from "../../layouts/PartnerPageLayout.astro";
+import AOSInit from "../../components/AOSInit.astro";
+---
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap");
+
+  body,
+  html {
+    font-family: "Manrope", sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Manrope", sans-serif;
+    font-weight: 600;
+  }
+
+  p,
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    font-family: "Manrope", sans-serif;
+  }
+
+  .quote-mark {
+    font-size: 5rem;
+    line-height: 0;
+    position: absolute;
+    top: 2.5rem;
+    left: -1.5rem;
+    color: rgba(204, 153, 51, 0.15);
+  }
+
+  .timeline-connector {
+    position: absolute;
+    left: 32px;
+    top: 70px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      #e6c378 0%,
+      rgba(230, 195, 120, 0.2) 100%
+    );
+  }
+
+  @media (min-width: 768px) {
+    .timeline-connector {
+      left: 40px;
+    }
+  }
+
+  .network-growth-bar {
+    background: linear-gradient(90deg, #cc9933 0%, #e6c378 100%);
+    height: 8px;
+    border-radius: 4px;
+    transition: width 2s ease-in-out;
+  }
+
+  .metric-counter {
+    font-variant-numeric: tabular-nums;
+  }
+</style>
+
+<PartnerPageLayout
+  title="Experience | USRad"
+  currentPage="Experience"
+  hideTitle={true}
+>
+  <AOSInit />
+
+  <!-- Hero Section - Focus on Network Impact -->
+  <section
+    class="relative bg-gradient-to-b from-[#fcf9f0] to-[#f5e7c5] text-[#003087] pt-32 pb-28 px-6 sm:px-12 overflow-hidden"
+  >
+    <!-- Decorative elements -->
+    <div
+      class="absolute top-20 right-20 w-64 h-64 rounded-full bg-[#cc9933] opacity-[0.03] blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-20 w-72 h-72 rounded-full bg-[#003087] opacity-[0.03] blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div data-aos="fade-right" data-aos-delay="100">
+          <h1
+            class="text-5xl sm:text-6xl font-extrabold leading-tight font-manrope text-[#003087]"
+          >
+            Proven <span class="text-[#cc9933] relative">
+              Network
+              <svg
+                class="absolute -bottom-2 left-0 w-full"
+                height="6"
+                viewBox="0 0 340 6"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 3.5C2 3.5 70 0.5 170 3.5C270 6.5 338 3.5 338 3.5"
+                  stroke="#cc9933"
+                  stroke-width="4"
+                  stroke-linecap="round"></path>
+              </svg>
+            </span> Builder
+          </h1>
+          <p class="mt-8 text-xl text-[#003087] leading-relaxed font-manrope">
+            We've built this before. Our team created and scaled the first
+            nationwide imaging network of its kind, growing from concept to
+            1,200+ centers and pioneering transparent pricing in diagnostic
+            imaging.
+          </p>
+
+          <!-- Key Achievement Stats -->
+          <div class="mt-8 grid grid-cols-2 gap-6">
+            <div
+              class="text-center p-4 bg-white/60 rounded-lg backdrop-blur-sm"
+            >
+              <div class="text-3xl font-bold text-[#cc9933] metric-counter">
+                1,200+
+              </div>
+              <div class="text-sm text-[#003087] font-medium">
+                Centers Built
+              </div>
+            </div>
+            <div
+              class="text-center p-4 bg-white/60 rounded-lg backdrop-blur-sm"
+            >
+              <div class="text-3xl font-bold text-[#cc9933] metric-counter">
+                1,236%
+              </div>
+              <div class="text-sm text-[#003087] font-medium">Growth Rate</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Network Visualization -->
+        <div class="relative" data-aos="fade-left" data-aos-delay="200">
+          <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
+            <h3 class="text-2xl font-bold text-[#003087] mb-6 text-center">
+              Network Growth Trajectory
+            </h3>
+
+            <!-- Network Growth Visualization -->
+            <div class="space-y-6">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-medium text-[#003087]"
+                  >1994 Start</span
+                >
+                <span class="text-sm font-medium text-[#003087]"
+                  >2002 Acquisition</span
+                >
+              </div>
+
+              <!-- Growth Bars -->
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between text-xs text-gray-600 mb-1">
+                    <span>1996: 400 Centers</span>
+                    <span>33%</span>
+                  </div>
+                  <div class="bg-gray-200 rounded-full h-3">
+                    <div
+                      class="network-growth-bar w-1/3 h-3 rounded-full"
+                      data-width="33%"
+                    >
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs text-gray-600 mb-1">
+                    <span>1998: 800 Centers</span>
+                    <span>67%</span>
+                  </div>
+                  <div class="bg-gray-200 rounded-full h-3">
+                    <div
+                      class="network-growth-bar w-2/3 h-3 rounded-full"
+                      data-width="67%"
+                    >
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs text-gray-600 mb-1">
+                    <span>2002: 1,200+ Centers</span>
+                    <span>100%</span>
+                  </div>
+                  <div class="bg-gray-200 rounded-full h-3">
+                    <div
+                      class="network-growth-bar w-full h-3 rounded-full"
+                      data-width="100%"
+                    >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Achievement Badge -->
+              <div
+                class="text-center mt-6 p-4 bg-[#003087] text-white rounded-lg"
+              >
+                <div class="text-sm font-medium">Industry Recognition</div>
+                <div class="text-lg font-bold text-[#cc9933]">
+                  Inc. 500 Fastest Growing
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Elegant Wave Divider -->
+    <div class="absolute bottom-0 left-0 right-0 overflow-hidden">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 120"
+        class="w-full h-auto"
+      >
+        <path
+          fill="#ffffff"
+          fill-opacity="1"
+          d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
+        ></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Network Building Methodology -->
+  <section class="py-24 bg-white text-[#003087] relative overflow-hidden">
+    <div class="px-6 sm:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2
+            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
+          >
+            <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+            Our Proven Methodology
+          </h2>
+          <p class="mt-6 text-xl text-gray-700 max-w-3xl mx-auto font-manrope">
+            The systematic approach we developed to build successful imaging
+            networks
+          </p>
+        </div>
+
+        <!-- Methodology Grid -->
+        <div
+          class="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <!-- Step 1: Market Analysis -->
+          <div
+            class="bg-[#f8f2e1] p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-4 mx-auto"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-[#003087] mb-3 text-center">
+              Market Analysis
+            </h3>
+            <p class="text-sm text-gray-700 text-center">
+              Deep market research to identify underserved regions and optimal
+              imaging center locations
+            </p>
+          </div>
+
+          <!-- Step 2: Partner Selection -->
+          <div
+            class="bg-[#f8f2e1] p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-4 mx-auto"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-[#003087] mb-3 text-center">
+              Center Qualification
+            </h3>
+            <p class="text-sm text-gray-700 text-center">
+              Rigorous vetting process ensuring quality standards and
+              operational excellence
+            </p>
+          </div>
+
+          <!-- Step 3: Technology Integration -->
+          <div
+            class="bg-[#f8f2e1] p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-4 mx-auto"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-[#003087] mb-3 text-center">
+              Technology Platform
+            </h3>
+            <p class="text-sm text-gray-700 text-center">
+              Proprietary scheduling and management systems that became industry
+              standard
+            </p>
+          </div>
+
+          <!-- Step 4: Scale & Optimize -->
+          <div
+            class="bg-[#f8f2e1] p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mb-4 mx-auto"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-[#003087] mb-3 text-center">
+              Scale & Optimize
+            </h3>
+            <p class="text-sm text-gray-700 text-center">
+              Continuous improvement and expansion based on data-driven insights
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Timeline Section -->
+  <section class="py-24 bg-[#f0f4f9] text-[#003087] relative overflow-hidden">
+    <div class="px-6 sm:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2
+            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
+          >
+            <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+            Network Evolution Timeline
+          </h2>
+          <p class="mt-6 text-xl text-gray-700 max-w-3xl mx-auto font-manrope">
+            How we transformed diagnostic imaging accessibility
+          </p>
+        </div>
+
+        <!-- Enhanced Timeline with Visual Elements -->
+        <div class="relative" data-aos="fade-up" data-aos-delay="100">
+          <div class="space-y-16 relative">
+            <div class="timeline-connector"></div>
+
+            <!-- Timeline Entry 1 - Enhanced with metrics -->
+            <div class="grid grid-cols-12 gap-4 sm:gap-8 items-start relative">
+              <div class="col-span-2 md:col-span-1 relative">
+                <div
+                  class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#003087] flex items-center justify-center text-white font-manrope font-bold text-lg md:text-xl"
+                >
+                  1994
+                </div>
+              </div>
+              <div
+                class="col-span-10 md:col-span-11 bg-white p-6 md:p-8 rounded-xl shadow-md border-l-4 border-[#cc9933]"
+              >
+                <div
+                  class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6"
+                >
+                  <div class="flex-1">
+                    <h3
+                      class="text-xl md:text-2xl font-semibold text-[#003087] mb-4 font-manrope"
+                    >
+                      Market Disruption Begins
+                    </h3>
+                    <p class="text-base md:text-lg text-gray-700 font-manrope">
+                      Identified critical gap in workers' compensation imaging -
+                      launched first transparent pricing model in diagnostic
+                      imaging industry.
+                    </p>
+                  </div>
+                  <div class="lg:w-48 bg-[#f8f2e1] p-4 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-[#cc9933]">
+                      First Mover
+                    </div>
+                    <div class="text-sm text-gray-600">Market Innovation</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline Entry 2 - Enhanced with growth metrics -->
+            <div class="grid grid-cols-12 gap-4 sm:gap-8 items-start relative">
+              <div class="col-span-2 md:col-span-1 relative">
+                <div
+                  class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#003087] flex items-center justify-center text-white font-manrope font-bold text-lg md:text-xl"
+                >
+                  1996
+                </div>
+              </div>
+              <div
+                class="col-span-10 md:col-span-11 bg-white p-6 md:p-8 rounded-xl shadow-md border-l-4 border-[#cc9933]"
+              >
+                <div
+                  class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6"
+                >
+                  <div class="flex-1">
+                    <h3
+                      class="text-xl md:text-2xl font-semibold text-[#003087] mb-4 font-manrope"
+                    >
+                      Rapid Network Expansion
+                    </h3>
+                    <p class="text-base md:text-lg text-gray-700 font-manrope">
+                      Scaled to 400+ imaging centers nationwide with proprietary
+                      technology platform that streamlined referrals and
+                      scheduling.
+                    </p>
+                  </div>
+                  <div class="lg:w-48 bg-[#f8f2e1] p-4 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-[#cc9933]">400+</div>
+                    <div class="text-sm text-gray-600">Centers Added</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline Entry 3 - Enhanced with recognition -->
+            <div class="grid grid-cols-12 gap-4 sm:gap-8 items-start relative">
+              <div class="col-span-2 md:col-span-1 relative">
+                <div
+                  class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#003087] flex items-center justify-center text-white font-manrope font-bold text-lg md:text-xl"
+                >
+                  1998
+                </div>
+              </div>
+              <div
+                class="col-span-10 md:col-span-11 bg-white p-6 md:p-8 rounded-xl shadow-md border-l-4 border-[#cc9933]"
+              >
+                <div
+                  class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6"
+                >
+                  <div class="flex-1">
+                    <h3
+                      class="text-xl md:text-2xl font-semibold text-[#003087] mb-4 font-manrope"
+                    >
+                      Industry Recognition & Awards
+                    </h3>
+                    <p class="text-base md:text-lg text-gray-700 font-manrope">
+                      Achieved 1,236% growth rate, earning Inc. 500 recognition
+                      as one of America's fastest-growing healthcare networks.
+                    </p>
+                  </div>
+                  <div class="lg:w-48 bg-[#f8f2e1] p-4 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-[#cc9933]">1,236%</div>
+                    <div class="text-sm text-gray-600">Growth Rate</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline Entry 4 - Enhanced with scale metrics -->
+            <div class="grid grid-cols-12 gap-4 sm:gap-8 items-start relative">
+              <div class="col-span-2 md:col-span-1 relative">
+                <div
+                  class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#003087] flex items-center justify-center text-white font-manrope font-bold text-lg md:text-xl"
+                >
+                  2002
+                </div>
+              </div>
+              <div
+                class="col-span-10 md:col-span-11 bg-white p-6 md:p-8 rounded-xl shadow-md border-l-4 border-[#cc9933]"
+              >
+                <div
+                  class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6"
+                >
+                  <div class="flex-1">
+                    <h3
+                      class="text-xl md:text-2xl font-semibold text-[#003087] mb-4 font-manrope"
+                    >
+                      Strategic Acquisition & Exit
+                    </h3>
+                    <p class="text-base md:text-lg text-gray-700 font-manrope">
+                      Successfully built and sold nationwide network of 1,200+
+                      imaging centers to public company, validating business
+                      model.
+                    </p>
+                  </div>
+                  <div class="lg:w-48 bg-[#f8f2e1] p-4 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-[#cc9933]">1,200+</div>
+                    <div class="text-sm text-gray-600">Final Network Size</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline Entry 5 - USRad Launch -->
+            <div class="grid grid-cols-12 gap-4 sm:gap-8 items-start relative">
+              <div class="col-span-2 md:col-span-1 relative">
+                <div
+                  class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#cc9933] flex items-center justify-center text-[#003087] font-manrope font-bold text-lg md:text-xl shadow-lg"
+                >
+                  2024
+                </div>
+              </div>
+              <div
+                class="col-span-10 md:col-span-11 bg-gradient-to-br from-[#003087] to-[#0052cc] p-6 md:p-8 rounded-xl shadow-lg text-white"
+              >
+                <div
+                  class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6"
+                >
+                  <div class="flex-1">
+                    <h3
+                      class="text-xl md:text-2xl font-semibold mb-4 font-manrope text-white"
+                    >
+                      USRad: Next Generation Network
+                    </h3>
+                    <p class="text-base md:text-lg font-manrope text-white/90">
+                      Applying proven methodology to serve 90+ million
+                      underinsured Americans, combining decades of experience
+                      with modern technology.
+                    </p>
+                  </div>
+                  <div
+                    class="lg:w-48 bg-white/10 backdrop-blur-sm p-4 rounded-lg text-center"
+                  >
+                    <div class="text-2xl font-bold text-[#cc9933]">90M+</div>
+                    <div class="text-sm text-white/80">Target Market</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leadership Team - Streamlined -->
+  <section class="py-24 bg-white text-[#003087] relative overflow-hidden">
+    <div class="px-6 sm:px-8 lg:px-12">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2
+            class="text-4xl font-semibold text-[#003087] inline-flex items-center justify-center font-manrope"
+          >
+            <span class="w-2 h-10 bg-[#cc9933] rounded-full mr-3"></span>
+            Leadership Team
+          </h2>
+          <p class="mt-6 text-xl text-gray-700 max-w-3xl mx-auto font-manrope">
+            The experienced team behind USRad's proven network-building approach
+          </p>
+        </div>
+
+        <!-- Streamlined Leadership Grid -->
+        <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          <!-- Michael's Profile - Single appearance -->
+          <div
+            class="bg-[#f8f2e1] p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+            data-aos="fade-right"
+            data-aos-delay="100"
+          >
+            <div class="text-center">
+              <img
+                src="/images/michael.jpg"
+                alt="Michael Cabrera"
+                class="w-24 h-24 rounded-full object-cover shadow-md mx-auto mb-4"
+              />
+              <h3 class="text-xl font-semibold text-[#003087] font-manrope">
+                Michael Cabrera
+              </h3>
+              <p class="text-lg text-[#cc9933] font-manrope mb-4">
+                Founder & CEO
+              </p>
+              <div class="space-y-2 text-sm text-gray-700">
+                <div class="flex items-center justify-center gap-2">
+                  <svg
+                    class="w-4 h-4 text-[#cc9933]"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  <span>Built 1,200+ center network</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                  <svg
+                    class="w-4 h-4 text-[#cc9933]"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  <span>Inc. 500 recognition</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                  <svg
+                    class="w-4 h-4 text-[#cc9933]"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  <span>MIT Enterprise Forum graduate</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Donna's Profile -->
+          <div
+            class="bg-[#f8f2e1] p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+            data-aos="fade-left"
+            data-aos-delay="200"
+          >
+            <div class="text-center">
+              <img
+                src="/images/donna.jpg"
+                alt="Donna Cabrera"
+                class="w-24 h-24 rounded-full object-cover shadow-md mx-auto mb-4"
+              />
+              <h3 class="text-xl font-semibold text-[#003087] font-manrope">
+                Donna Cabrera
+              </h3>
+              <p class="text-lg text-[#cc9933] font-manrope mb-4">
+                Co-Founder & Operations
+              </p>
+              <div class="space-y-2 text-sm text-gray-700">
+                <div class="flex items-center justify-center gap-2">
+                  <svg
+                    class="w-4 h-4 text-[#cc9933]"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  <span>Network operations expert</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                  <svg
+                    class="w-4 h-4 text-[#cc9933]"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  <span>Quality assurance leadership</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                  <svg
+                    class="w-4 h-4 text-[#cc9933]"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                  <span>Patient advocacy specialist</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Executive Quote - Simplified -->
+  <section class="py-24 bg-[#f0f4f9]">
+    <div class="max-w-4xl mx-auto px-6">
+      <div
+        class="bg-[#003087] p-12 rounded-xl shadow-xl relative text-center"
+        data-aos="fade-up"
+      >
+        <div class="relative z-10">
+          <svg
+            class="w-16 h-16 text-[#cc9933]/20 mx-auto mb-6"
+            fill="currentColor"
+            viewBox="0 0 32 32"
+          >
+            <path d="M10 8v8h8l4-8h-12zM0 8v8h8l4-8h-12z"></path>
+          </svg>
+          <blockquote
+            class="text-white text-2xl font-light leading-relaxed font-manrope"
+          >
+            "We built this network before. Now we're applying the same proven
+            methodology to serve the 90+ million Americans who need affordable
+            imaging access."
+            <footer class="mt-6 text-[#cc9933] text-lg font-manrope">
+              — Michael Cabrera, Founder & CEO
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section
+    class="bg-gradient-to-r from-[#003087] to-[#0052cc] text-white py-20 px-6 sm:px-12 relative overflow-hidden"
+  >
+    <div class="max-w-5xl mx-auto relative z-10 text-center" data-aos="fade-up">
+      <h2 class="text-4xl font-bold mb-6 font-manrope">
+        Join the Network Built by Proven Experts
+      </h2>
+      <p class="text-xl mb-10 max-w-3xl mx-auto font-manrope opacity-90">
+        Don't just take our word for it — we've built this exact network before
+        and sold it successfully. Now we're doing it again, better.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <a
+          href="/imaging-center/apply"
+          class="px-8 py-4 bg-[#cc9933] text-[#003087] font-bold rounded-xl hover:bg-[#e6c378] transition-all duration-300 hover:shadow-xl font-manrope hover:scale-105"
+        >
+          Apply to Join Our Network
+        </a>
+        <a
+          href="/imaging-center/benefits"
+          class="text-white hover:text-[#cc9933] transition-colors font-medium inline-flex items-center font-manrope"
+        >
+          Learn More About Network Benefits
+          <svg
+            class="ml-2 w-4 h-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Animation Scripts -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Animate growth bars on scroll
+      const observerOptions = {
+        threshold: 0.3,
+        rootMargin: "0px 0px -100px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const growthBars = entry.target.querySelectorAll(
+              ".network-growth-bar"
+            );
+            growthBars.forEach((bar, index) => {
+              setTimeout(() => {
+                const width = bar.dataset.width || "100%";
+                bar.style.width = width;
+              }, index * 500);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      // Observe the network visualization container
+      const networkViz = document.querySelector(".bg-white\\/80");
+      if (networkViz) {
+        observer.observe(networkViz);
+      }
+
+      // Counter animation for metrics
+      function animateCounters() {
+        const counters = document.querySelectorAll(".metric-counter");
+
+        const counterObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting && !entry.target.dataset.animated) {
+                entry.target.dataset.animated = true;
+                const text = entry.target.textContent;
+                const number = parseInt(text.replace(/[^\d]/g, ""));
+
+                if (number > 0) {
+                  let current = 0;
+                  const increment = Math.ceil(number / 50);
+                  const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= number) {
+                      clearInterval(timer);
+                      entry.target.textContent = text;
+                    } else {
+                      entry.target.textContent =
+                        current + (text.includes("%") ? "%" : "+");
+                    }
+                  }, 30);
+                }
+                counterObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+
+        counters.forEach((counter) => counterObserver.observe(counter));
+      }
+
+      animateCounters();
+    });
+  </script>
+</PartnerPageLayout>
