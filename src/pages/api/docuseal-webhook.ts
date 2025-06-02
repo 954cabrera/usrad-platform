@@ -76,6 +76,23 @@ export const POST: APIRoute = async ({ request }) => {
   }
 };
 
+// Add GET handler for testing purposes
+export const GET: APIRoute = async () => {
+  return new Response(
+    JSON.stringify({ 
+      message: 'DocuSeal Webhook Endpoint',
+      status: 'ready',
+      timestamp: new Date().toISOString(),
+      methods: ['POST'],
+      note: 'This endpoint receives DocuSeal webhook events via POST requests'
+    }),
+    { 
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    }
+  );
+};
+
 async function handleDocumentCompleted(submissionData: any) {
   console.log('📋 Document completed:', submissionData.id || submissionData.submission_id);
   
