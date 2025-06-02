@@ -342,16 +342,64 @@ const PSASigningSystemUpdated = ({ providerData = {} }) => {
                 Signed on {new Date().toLocaleDateString()}
               </p>
             </div>
+          </div>
+
+          {/* What's Next Section */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-blue-900 mb-4">What's Next?</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+              <div className="text-center">
+                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                </div>
+                <p className="font-medium text-green-800">PSA Signed</p>
+                <p className="text-green-600">Complete ✓</p>
+              </div>
+              <div className="text-center">
+                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <Clock className="w-5 h-5 text-blue-600" />
+                </div>
+                <p className="font-medium text-blue-800">Portal Setup</p>
+                <p className="text-blue-600">Next Step</p>
+              </div>
+              <div className="text-center">
+                <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <User className="w-5 h-5 text-gray-600" />
+                </div>
+                <p className="font-medium text-gray-700">Start Receiving</p>
+                <p className="text-gray-500">Coming Soon</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="space-y-3">
+            <button className="w-full py-3 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+              Continue to Portal Setup
+            </button>
+            <button className="w-full py-2 px-6 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+              Return to Dashboard
+            </button>
             {docuSealData.signedDocumentUrl && (
               <a
                 href={docuSealData.signedDocumentUrl}
-                className="inline-block mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                className="block w-full py-2 px-6 text-blue-600 border border-blue-200 rounded-lg hover:bg-blue-50 transition-colors text-center"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Download Signed Document
+                Download Signed Agreement
               </a>
             )}
+          </div>
+
+          {/* Support Contact */}
+          <div className="pt-6 border-t border-gray-200">
+            <p className="text-sm text-gray-500">
+              Questions about your setup? 
+              <a href="mailto:support@usrad.com" className="text-blue-600 hover:text-blue-500 ml-1">
+                Contact Support
+              </a>
+            </p>
           </div>
         </div>
       )}
