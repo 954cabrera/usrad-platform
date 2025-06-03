@@ -12,56 +12,133 @@ if (!session || !user) {
 ---
 
 <PatientDashboardLayout title="Dashboard" user={user}>
-  <!-- Welcome Hero Section -->
-  <div
-    class="usrad-card p-8 mb-8 usrad-gradient-navy text-white relative overflow-hidden"
-  >
+  <!-- Custom styles optimized for sidebar layout -->
+  <style>
+    .dashboard-hero {
+      background: linear-gradient(135deg, #003087 0%, #001a4d 100%);
+      color: white;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-text {
+      color: white !important;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+      position: relative;
+    }
+
+    .status-indicator {
+      color: white !important;
+      opacity: 0.95;
+      font-weight: 500;
+    }
+
+    .metric-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 48, 135, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .metric-card:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .appointment-card {
+      background: linear-gradient(
+        135deg,
+        rgba(59, 130, 246, 0.05) 0%,
+        transparent 100%
+      );
+      border: 1px solid rgba(59, 130, 246, 0.1);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .appointment-card:hover {
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .animate-float-in {
+      animation: floatIn 0.6s ease-out forwards;
+    }
+
+    @keyframes floatIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+
+  <!-- Welcome Hero Section - Optimized for sidebar layout -->
+  <div class="dashboard-hero p-6 mb-6 animate-float-in">
+    <!-- Decorative background elements -->
     <div
-      class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32"
+      class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-16 translate-x-16"
     >
     </div>
     <div
-      class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-24 -translate-x-24"
+      class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-12 -translate-x-12"
     >
     </div>
+
     <div class="relative z-10">
-      <h1
-        class="text-4xl font-bold mb-3"
-        style="font-family: 'Manrope', sans-serif;"
-      >
-        Welcome back, {user.firstName || "Patient"}! 👋
-      </h1>
-      <p
-        class="text-blue-100 text-xl mb-6"
-        style="font-family: 'Manrope', sans-serif;"
-      >
-        Manage your health journey with USRad
-      </p>
-      <div class="flex items-center space-x-8">
-        <div class="flex items-center space-x-3">
-          <div class="w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
-          <span class="text-blue-100 font-medium"
-            >Your next appointment is in 2 days</span
-          >
+      <!-- Welcome Message -->
+      <div class="mb-4">
+        <h1
+          class="hero-text text-2xl font-bold mb-2"
+          style="font-family: 'Manrope', sans-serif;"
+        >
+          Good {
+            new Date().getHours() < 12
+              ? "Morning"
+              : new Date().getHours() < 18
+                ? "Afternoon"
+                : "Evening"
+          }, {user.firstName || "Patient"}! 👋
+        </h1>
+        <p
+          class="hero-text text-lg opacity-90"
+          style="font-family: 'Manrope', sans-serif;"
+        >
+          Welcome back to your health dashboard
+        </p>
+      </div>
+
+      <!-- Status Indicator with Green Dot -->
+      <div class="flex items-center space-x-3">
+        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse shadow-sm">
         </div>
+        <span class="status-indicator text-sm"
+          >Your next appointment is in 2 days</span
+        >
       </div>
     </div>
   </div>
 
-  <!-- Quick Stats -->
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-    <div class="usrad-card p-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="text-gray-600 text-sm font-medium">Next Appointment</p>
-          <p class="text-2xl font-bold text-blue-600 mt-1">June 5</p>
-          <p class="text-sm text-gray-500">Brain MRI</p>
-        </div>
+  <!-- Quick Stats Grid - Compact for sidebar layout -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <!-- Next Appointment -->
+    <div
+      class="metric-card p-4 animate-float-in"
+      style="animation-delay: 0.1s;"
+    >
+      <div class="flex items-center justify-between mb-2">
         <div
-          class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center"
+          class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center"
         >
           <svg
-            class="w-6 h-6 text-blue-600"
+            class="w-4 h-4 text-blue-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -75,20 +152,24 @@ if (!session || !user) {
           </svg>
         </div>
       </div>
+      <div>
+        <p class="text-xs text-gray-600 font-medium">Next Appointment</p>
+        <p class="text-lg font-bold text-blue-600">June 5</p>
+        <p class="text-xs text-gray-500">Brain MRI</p>
+      </div>
     </div>
 
-    <div class="usrad-card p-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="text-gray-600 text-sm font-medium">Total Savings</p>
-          <p class="text-2xl font-bold text-green-600 mt-1">$2,847</p>
-          <p class="text-sm text-gray-500">vs. hospital pricing</p>
-        </div>
+    <!-- Total Savings -->
+    <div
+      class="metric-card p-4 animate-float-in"
+      style="animation-delay: 0.2s;"
+    >
+      <div class="flex items-center justify-between mb-2">
         <div
-          class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center"
+          class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center"
         >
           <svg
-            class="w-6 h-6 text-green-600"
+            class="w-4 h-4 text-green-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -102,20 +183,24 @@ if (!session || !user) {
           </svg>
         </div>
       </div>
+      <div>
+        <p class="text-xs text-gray-600 font-medium">Total Savings</p>
+        <p class="text-lg font-bold text-green-600">$2,847</p>
+        <p class="text-xs text-gray-500">vs. hospital</p>
+      </div>
     </div>
 
-    <div class="usrad-card p-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="text-gray-600 text-sm font-medium">Health Score</p>
-          <p class="text-2xl font-bold text-yellow-600 mt-1">92/100</p>
-          <p class="text-sm text-gray-500">Excellent</p>
-        </div>
+    <!-- Health Score -->
+    <div
+      class="metric-card p-4 animate-float-in"
+      style="animation-delay: 0.3s;"
+    >
+      <div class="flex items-center justify-between mb-2">
         <div
-          class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center"
+          class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center"
         >
           <svg
-            class="w-6 h-6 text-yellow-600"
+            class="w-4 h-4 text-yellow-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -129,20 +214,24 @@ if (!session || !user) {
           </svg>
         </div>
       </div>
+      <div>
+        <p class="text-xs text-gray-600 font-medium">Health Score</p>
+        <p class="text-lg font-bold text-yellow-600">92/100</p>
+        <p class="text-xs text-gray-500">Excellent</p>
+      </div>
     </div>
 
-    <div class="usrad-card p-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="text-gray-600 text-sm font-medium">Completed Scans</p>
-          <p class="text-2xl font-bold text-purple-600 mt-1">4</p>
-          <p class="text-sm text-gray-500">This year</p>
-        </div>
+    <!-- Completed Scans -->
+    <div
+      class="metric-card p-4 animate-float-in"
+      style="animation-delay: 0.4s;"
+    >
+      <div class="flex items-center justify-between mb-2">
         <div
-          class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center"
+          class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center"
         >
           <svg
-            class="w-6 h-6 text-purple-600"
+            class="w-4 h-4 text-purple-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -155,139 +244,173 @@ if (!session || !user) {
           </svg>
         </div>
       </div>
+      <div>
+        <p class="text-xs text-gray-600 font-medium">Completed</p>
+        <p class="text-lg font-bold text-purple-600">4</p>
+        <p class="text-xs text-gray-500">This year</p>
+      </div>
     </div>
   </div>
 
-  <!-- Main Content Grid -->
-  <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+  <!-- Main Content Grid - Optimized for sidebar -->
+  <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
     <!-- Upcoming Appointments -->
-    <div class="xl:col-span-2 usrad-card p-6">
-      <div class="flex items-center justify-between mb-6">
-        <h3 class="text-xl font-bold text-gray-900">Upcoming Appointments</h3>
-        <a
-          href="/patient-dashboard/appointments"
-          class="text-blue-600 hover:text-blue-700 font-medium">View All</a
-        >
-      </div>
-      <div class="space-y-4">
-        <!-- Appointment 1 -->
-        <div class="flex items-center p-4 bg-blue-50 rounded-lg">
-          <div
-            class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-xl"
+    <div class="xl:col-span-2">
+      <div
+        class="metric-card p-6 animate-float-in"
+        style="animation-delay: 0.5s;"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <h3
+            class="text-lg font-bold text-gray-900"
+            style="font-family: 'Manrope', sans-serif;"
           >
-            🧠
-          </div>
-          <div class="ml-4 flex-1">
-            <h4 class="font-semibold text-gray-900">Brain MRI</h4>
-            <p class="text-sm text-gray-600">June 5, 2025 at 2:30 PM</p>
-            <p class="text-sm text-gray-500">
-              Advanced Imaging Center of Davie
-            </p>
-          </div>
-          <span
-            class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold"
-            >Confirmed</span
+            Upcoming Appointments
+          </h3>
+          <a
+            href="/patient-dashboard/appointments"
+            class="text-blue-600 hover:text-blue-700 font-medium text-sm"
           >
+            View All
+          </a>
         </div>
 
-        <!-- Appointment 2 -->
-        <div class="flex items-center p-4 bg-yellow-50 rounded-lg">
-          <div
-            class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center text-xl"
-          >
-            🦵
+        <div class="space-y-3">
+          <!-- Appointment 1 -->
+          <div class="appointment-card p-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <div
+                  class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-lg"
+                >
+                  🧠
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900 text-sm">Brain MRI</h4>
+                  <p class="text-xs text-gray-600">June 5, 2025 • 2:30 PM</p>
+                  <p class="text-xs text-gray-500">Advanced Imaging Center</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <span
+                  class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold"
+                >
+                  Confirmed
+                </span>
+                <p class="text-xs text-green-600 mt-1 font-medium">Save $850</p>
+              </div>
+            </div>
           </div>
-          <div class="ml-4 flex-1">
-            <h4 class="font-semibold text-gray-900">Knee MRI</h4>
-            <p class="text-sm text-gray-600">June 12, 2025 at 10:00 AM</p>
-            <p class="text-sm text-gray-500">Precision Imaging Coral Springs</p>
+
+          <!-- Appointment 2 -->
+          <div class="appointment-card p-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <div
+                  class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center text-lg"
+                >
+                  🦵
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900 text-sm">Knee MRI</h4>
+                  <p class="text-xs text-gray-600">June 12, 2025 • 10:00 AM</p>
+                  <p class="text-xs text-gray-500">Precision Imaging</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <span
+                  class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold"
+                >
+                  Confirmed
+                </span>
+                <p class="text-xs text-green-600 mt-1 font-medium">Save $650</p>
+              </div>
+            </div>
           </div>
-          <span
-            class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold"
-            >Confirmed</span
-          >
         </div>
       </div>
     </div>
 
-    <!-- Sidebar -->
-    <div class="space-y-6">
+    <!-- Sidebar Content -->
+    <div class="space-y-4">
       <!-- Quick Actions -->
-      <div class="usrad-card p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-        <div class="space-y-3">
+      <div
+        class="metric-card p-4 animate-float-in"
+        style="animation-delay: 0.6s;"
+      >
+        <h3
+          class="font-semibold text-gray-900 mb-3 text-sm"
+          style="font-family: 'Manrope', sans-serif;"
+        >
+          Quick Actions
+        </h3>
+        <div class="space-y-2">
           <a
             href="/patient-dashboard/booking"
-            class="w-full bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center block"
+            class="w-full bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center block text-sm"
           >
             Book New Imaging
           </a>
           <a
             href="/patient-dashboard/reports"
-            class="w-full border border-gray-300 text-gray-700 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors font-medium text-center block"
+            class="w-full border border-gray-300 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors font-medium text-center block text-sm"
           >
             View Reports
-          </a>
-          <a
-            href="/patient-dashboard/support"
-            class="w-full border border-gray-300 text-gray-700 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors font-medium text-center block"
-          >
-            Contact Support
           </a>
         </div>
       </div>
 
       <!-- Referral Progress -->
-      <div class="usrad-card p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">
+      <div
+        class="metric-card p-4 bg-gradient-to-br from-yellow-50 to-orange-50 animate-float-in"
+        style="animation-delay: 0.7s;"
+      >
+        <h3
+          class="font-semibold text-gray-900 mb-3 text-sm"
+          style="font-family: 'Manrope', sans-serif;"
+        >
           Referral Rewards
         </h3>
         <div class="text-center">
-          <div class="text-3xl font-bold text-yellow-600 mb-2">2/5</div>
-          <p class="text-gray-600 mb-4">Referrals completed</p>
-          <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+          <div class="text-2xl font-bold text-yellow-600 mb-1">2/5</div>
+          <p class="text-xs text-gray-600 mb-2">Referrals completed</p>
+          <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
             <div class="bg-yellow-500 h-2 rounded-full" style="width: 40%">
             </div>
           </div>
-          <p class="text-sm text-gray-500 mb-4">
-            3 more referrals to earn $100 credit!
+          <p class="text-xs text-gray-500 mb-3">
+            3 more for <span class="font-bold text-yellow-600">$100!</span>
           </p>
           <a
             href="/patient-dashboard/referrals"
-            class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition-colors font-medium"
+            class="bg-yellow-500 text-white px-3 py-2 rounded-lg hover:bg-yellow-600 transition-colors font-medium text-xs"
           >
             Refer Friends
           </a>
         </div>
       </div>
 
-      <!-- Health Education -->
-      <div class="usrad-card p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">
-          Health Education
+      <!-- Health Tips -->
+      <div
+        class="metric-card p-4 animate-float-in"
+        style="animation-delay: 0.8s;"
+      >
+        <h3
+          class="font-semibold text-gray-900 mb-3 text-sm"
+          style="font-family: 'Manrope', sans-serif;"
+        >
+          Health Tips
         </h3>
-        <div class="space-y-3">
-          <div class="p-3 bg-blue-50 rounded-lg">
-            <h4 class="font-medium text-blue-900">Preparing for Your MRI</h4>
-            <p class="text-sm text-blue-700 mt-1">
-              Essential tips for a successful scan
-            </p>
-            <a
-              href="/patient-dashboard/education"
-              class="text-blue-600 text-sm font-medium">Read More →</a
-            >
+        <div class="space-y-2">
+          <div class="p-2 bg-blue-50 rounded-lg">
+            <h4 class="font-medium text-blue-900 text-xs">MRI Prep Guide</h4>
+            <p class="text-xs text-blue-700 mt-1">Essential preparation tips</p>
           </div>
-          <div class="p-3 bg-green-50 rounded-lg">
-            <h4 class="font-medium text-green-900">
-              Understanding Your Results
-            </h4>
-            <p class="text-sm text-green-700 mt-1">
-              How to read your imaging reports
+          <div class="p-2 bg-green-50 rounded-lg">
+            <h4 class="font-medium text-green-900 text-xs">Reading Results</h4>
+            <p class="text-xs text-green-700 mt-1">
+              Understanding your reports
             </p>
-            <a
-              href="/patient-dashboard/education"
-              class="text-green-600 text-sm font-medium">Read More →</a
-            >
           </div>
         </div>
       </div>
