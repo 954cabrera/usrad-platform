@@ -31,19 +31,23 @@ const showPatientHeader = true;
       <video
         autoplay
         muted
-        playsinline
         loop
-        preload="metadata"
-        poster="/images/website/85500991e.webp?v=2.1"
-        class="absolute inset-0 w-full h-full object-cover hero-video"
+        playsinline
+        class="absolute inset-0 w-full h-full object-cover z-0"
+        poster="/images/home-hero-mri.webp?v=2.1"
       >
-        <!-- iOS Safari prefers .mp4 -->
-        <source src="/videos/home-hero-mri-mobile.mp4" type="video/mp4" />
-        <!-- Chrome/Firefox prefers .webm -->
-        <source src="/videos/home-hero-mri-mobile.webm" type="video/webm" />
-        <!-- Desktop fallback -->
-        <source src="/videos/home-hero-mri.webm" type="video/webm" />
+        <source
+          src="/videos/home-hero-mri-mobile.mp4"
+          type="video/mp4"
+          media="(max-width: 768px)"
+        />
         <source src="/videos/home-hero-mri.mp4" type="video/mp4" />
+        <source src="/videos/home-hero-mri.webm" type="video/webm" />
+        <img
+          src="/images/website/home-hero-mri.webp?v=2.1"
+          alt="MRI Hero"
+          class="w-full h-full object-cover"
+        />
       </video>
 
       <!-- Enhanced Gradient Overlay -->
@@ -218,7 +222,9 @@ const showPatientHeader = true;
 
     <div class="max-w-4xl mx-auto" data-aos="zoom-in" data-aos-delay="200">
       <img
-        src="/images/website/trust-duo.webp" loading=""lazy"
+        src="/images/website/trust-duo.webp"
+        loading=""
+        lazy"
         alt="Technologist guiding patient through MRI process"
         class="w-full h-auto rounded-3xl shadow-2xl"
       />
