@@ -1,0 +1,475 @@
+---
+// src/components/patient-dashboard/PatientDashboardLayout.astro
+export interface Props {
+  title: string;
+  user: any;
+}
+
+const { title, user } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | USRad Patient Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .usrad-gradient-bg {
+        background: linear-gradient(135deg, #fcf9f0 0%, #f8f5e8 100%);
+        background-image: radial-gradient(
+            circle at 25% 25%,
+            rgba(0, 48, 135, 0.03) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 75% 75%,
+            rgba(204, 153, 51, 0.03) 0%,
+            transparent 50%
+          );
+        background-size:
+          120px 120px,
+          80px 80px;
+      }
+
+      .usrad-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 48, 135, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .usrad-card:hover {
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        transform: translateY(-4px);
+      }
+
+      .usrad-navy {
+        color: #003087;
+      }
+      .usrad-gold {
+        color: #cc9933;
+      }
+      .bg-usrad-navy {
+        background-color: #003087;
+      }
+      .bg-usrad-gold {
+        background-color: #cc9933;
+      }
+
+      .usrad-gradient-navy {
+        background: linear-gradient(135deg, #003087 0%, #001a4d 100%);
+      }
+
+      .usrad-gradient-gold {
+        background: linear-gradient(135deg, #cc9933 0%, #e6b84d 100%);
+      }
+
+      .sidebar-link {
+        transition: all 0.3s ease;
+      }
+
+      .sidebar-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateX(4px);
+      }
+
+      .sidebar-link.active {
+        background: rgba(255, 255, 255, 0.15);
+        border-right: 3px solid #cc9933;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 usrad-gradient-bg min-h-screen">
+    <div class="flex h-screen">
+      <!-- Patient Sidebar -->
+      <div class="w-64 usrad-gradient-navy text-white flex flex-col">
+        <!-- Logo Section -->
+        <div class="p-6 border-b border-white/10">
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center"
+            >
+              <svg
+                class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                ></path>
+              </svg>
+            </div>
+            <div>
+              <h2
+                class="font-bold text-lg"
+                style="font-family: 'Manrope', sans-serif;"
+              >
+                USRad
+              </h2>
+              <p class="text-blue-200 text-sm">Patient Portal</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Info -->
+        <div class="p-6 border-b border-white/10">
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center"
+            >
+              <span class="text-white font-semibold text-sm">
+                {user?.firstName?.charAt(0) || "P"}
+              </span>
+            </div>
+            <div>
+              <p
+                class="font-semibold text-white"
+                style="font-family: 'Manrope', sans-serif;"
+              >
+                {user?.firstName || "Patient"}
+                {user?.lastName || ""}
+              </p>
+              <div class="flex items-center space-x-2">
+                <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span class="text-blue-200 text-sm">Active</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Patient Navigation -->
+        <nav class="flex-1 p-4 space-y-2">
+          <div class="mb-6">
+            <p
+              class="text-blue-200 text-xs uppercase tracking-wide font-semibold mb-3"
+            >
+              MAIN MENU
+            </p>
+
+            <a
+              href="/patient-dashboard"
+              class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 5a2 2 0 012-2h4a2 2 0 012 2v3H8V5z"></path>
+              </svg>
+              <span style="font-family: 'Manrope', sans-serif;">Dashboard</span>
+            </a>
+
+            <a
+              href="/patient-dashboard/appointments"
+              class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                ></path>
+              </svg>
+              <span style="font-family: 'Manrope', sans-serif;"
+                >Appointments</span
+              >
+              <span
+                class="bg-yellow-500 text-yellow-900 text-xs px-2 py-1 rounded-full font-semibold"
+                >2</span
+              >
+            </a>
+
+            <a
+              href="/patient-dashboard/booking"
+              class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg>
+              <span style="font-family: 'Manrope', sans-serif;"
+                >Book Imaging</span
+              >
+            </a>
+
+            <a
+              href="/patient-dashboard/reports"
+              class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                ></path>
+              </svg>
+              <span style="font-family: 'Manrope', sans-serif;">Reports</span>
+              <span
+                class="bg-green-500 text-green-900 text-xs px-2 py-1 rounded-full font-semibold"
+                >3</span
+              >
+            </a>
+          </div>
+
+          <div class="mb-6">
+            <p
+              class="text-blue-200 text-xs uppercase tracking-wide font-semibold mb-3"
+            >
+              ACCOUNT
+            </p>
+
+            <a
+              href="/patient-dashboard/profile"
+              class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                ></path>
+              </svg>
+              <span style="font-family: 'Manrope', sans-serif;">Profile</span>
+            </a>
+
+            <a
+              href="/patient-dashboard/billing"
+              class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                ></path>
+              </svg>
+              <span style="font-family: 'Manrope', sans-serif;">Billing</span>
+            </a>
+          </div>
+
+          <div class="mb-6">
+            <p
+              class="text-blue-200 text-xs uppercase tracking-wide font-semibold mb-3"
+            >
+              EXTRAS
+            </p>
+
+            <a
+              href="/patient-dashboard/referrals"
+              class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
+                ></path>
+              </svg>
+              <span style="font-family: 'Manrope', sans-serif;">Referrals</span>
+              <span
+                class="bg-green-500 text-green-900 text-xs px-2 py-1 rounded-full font-semibold"
+                >$100</span
+              >
+            </a>
+
+            <a
+              href="/patient-dashboard/education"
+              class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                ></path>
+              </svg>
+              <span style="font-family: 'Manrope', sans-serif;">Education</span>
+            </a>
+
+            <a
+              href="/patient-dashboard/support"
+              class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              <span style="font-family: 'Manrope', sans-serif;">Support</span>
+            </a>
+          </div>
+        </nav>
+
+        <!-- Sign Out -->
+        <div class="p-4 border-t border-white/10">
+          <a
+            href="/login/patientlogin"
+            class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-red-200 hover:text-red-100"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              ></path>
+            </svg>
+            <span style="font-family: 'Manrope', sans-serif;">Sign Out</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Navigation -->
+        <header class="bg-white border-b border-gray-200 px-8 py-4">
+          <div class="flex items-center justify-between">
+            <h1
+              class="text-2xl font-bold usrad-navy"
+              style="font-family: 'Manrope', sans-serif;"
+            >
+              {title}
+            </h1>
+            <div class="flex items-center space-x-4">
+              <!-- Quick Actions -->
+              <button
+                class="p-2 text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 17h5l-5-5 5-5h-5m-6 10v-2a6 6 0 00-6-6H5a6 6 0 00-6 6v2h12zM13 6V4a2 2 0 00-2-2H7a2 2 0 00-2 2v2"
+                  ></path>
+                </svg>
+              </button>
+              <button
+                class="p-2 text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="flex-1 overflow-auto p-8">
+          <slot />
+        </main>
+      </div>
+    </div>
+
+    <script>
+      // Add active state to current page
+      document.addEventListener("DOMContentLoaded", function () {
+        const currentPath = window.location.pathname;
+        const sidebarLinks = document.querySelectorAll(".sidebar-link");
+
+        sidebarLinks.forEach((link) => {
+          if (link.getAttribute("href") === currentPath) {
+            link.classList.add("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
