@@ -1,17 +1,14 @@
 ---
-// src/pages/patient-dashboard/education/index.astro
 import PatientDashboardLayout from "../../../components/patient-dashboard/PatientDashboardLayout.astro";
+import SkeletonEducationSystem from "../components/SkeletonEducationSystem"; // FIXED - correct component name
 import { validateAuthSession } from "../../../lib/auth";
-import PatientEducationSystem from "../components/PatientEducationSystem";
 
-// Validate authentication
 const { session, user } = await validateAuthSession(Astro.request);
-
 if (!session || !user) {
   return Astro.redirect("/login/patientlogin");
 }
 ---
 
-<PatientDashboardLayout title="Health Education" user={user}>
-  <PatientEducationSystem client:load />
+<PatientDashboardLayout title="Education" user={user}>
+  <SkeletonEducationSystem client:load />
 </PatientDashboardLayout>

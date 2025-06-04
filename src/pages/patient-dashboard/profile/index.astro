@@ -1,8 +1,8 @@
 ---
 // src/pages/patient-dashboard/profile/index.astro
 import PatientDashboardLayout from "../../../components/patient-dashboard/PatientDashboardLayout.astro";
+import SkeletonProfileSystem from "../components/SkeletonProfileSystem";
 import { validateAuthSession } from "../../../lib/auth";
-import PatientProfileSystem from "../components/PatientProfileSystem";
 
 // Validate authentication
 const { session, user } = await validateAuthSession(Astro.request);
@@ -12,6 +12,6 @@ if (!session || !user) {
 }
 ---
 
-<PatientDashboardLayout title="My Profile" user={user}>
-  <PatientProfileSystem client:load />
+<PatientDashboardLayout title="Profile Management" user={user}>
+  <SkeletonProfileSystem client:load />
 </PatientDashboardLayout>

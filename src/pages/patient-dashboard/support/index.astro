@@ -1,17 +1,16 @@
 ---
-// src/pages/patient-dashboard/support/index.astro
 import PatientDashboardLayout from "../../../components/patient-dashboard/PatientDashboardLayout.astro";
+import SkeletonSupportSystem from "../components/SkeletonSupportSystem"; // Change component name
 import { validateAuthSession } from "../../../lib/auth";
-import PatientSupportSystem from "../components/PatientSupportSystem";
 
-// Validate authentication
 const { session, user } = await validateAuthSession(Astro.request);
-
 if (!session || !user) {
   return Astro.redirect("/login/patientlogin");
 }
 ---
 
-<PatientDashboardLayout title="Help & Support" user={user}>
-  <PatientSupportSystem client:load />
+<PatientDashboardLayout title="Support" user={user}>
+  <!-- Change title -->
+  <SkeletonSupportSystem client:load />
+  <!-- Change component -->
 </PatientDashboardLayout>

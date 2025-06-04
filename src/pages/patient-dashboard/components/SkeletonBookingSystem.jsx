@@ -94,7 +94,7 @@ const SkeletonBookingSystem = () => {
     // Simulate loading time for premium feel
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2500);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
