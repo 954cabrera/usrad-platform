@@ -1,8 +1,8 @@
 ---
 // src/pages/patient-dashboard/booking/index.astro
 import PatientDashboardLayout from "../../../components/patient-dashboard/PatientDashboardLayout.astro";
+import SkeletonBookingSystem from "../components/SkeletonBookingSystem";
 import { validateAuthSession } from "../../../lib/auth";
-import PatientBookingSystem from "../components/PatientBookingSystem";
 
 // Validate authentication
 const { session, user } = await validateAuthSession(Astro.request);
@@ -13,5 +13,5 @@ if (!session || !user) {
 ---
 
 <PatientDashboardLayout title="Book Imaging" user={user}>
-  <PatientBookingSystem client:load />
+  <SkeletonBookingSystem client:load />
 </PatientDashboardLayout>
