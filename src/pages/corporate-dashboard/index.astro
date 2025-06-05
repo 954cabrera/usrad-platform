@@ -1,7 +1,7 @@
 ---
 import CorporateDashboardLayout from "../../components/dashboard/CorporateDashboardLayout.astro";
 import { validateAuthSession } from "../../lib/auth";
-import CorporateDashboardSystem from "./components/CorporateDashboardSystem.jsx";
+import CorporateDashboardSystem from "../../components/corporate-dashboard/CorporateDashboardSystem";
 
 const { session, user } = await validateAuthSession(Astro.request);
 

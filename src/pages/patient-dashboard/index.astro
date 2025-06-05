@@ -3,7 +3,7 @@
 import PatientDashboardLayout from "../../components/patient-dashboard/PatientDashboardLayout.astro"; // FIXED
 import { validateAuthSession } from "../../lib/auth";
 import { AuthService } from "../../lib/auth";
-import SkeletonDashboardSystem from "./components/SkeletonDashboardSystem";
+import SkeletonDashboardSystem from "../../components/patient-dashboard/SkeletonDashboardSystem";
 
 // Validate authentication
 const { session, user } = await validateAuthSession(Astro.request);

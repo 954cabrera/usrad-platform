@@ -3,7 +3,7 @@
 import DashboardLayout from "../../components/dashboard/DashboardLayout.astro";
 import { validateAuthSession } from "../../lib/auth";
 import { AuthService } from "../../lib/auth";
-import SkeletonSettingsSystem from "./components/SkeletonSettingsSystem";
+import SkeletonSettingsSystem from "../../components/dashboard/SkeletonSettingsSystem";
 
 // Validate authentication
 const { session, user } = await validateAuthSession(Astro.request);

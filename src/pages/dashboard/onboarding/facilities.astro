@@ -1,6 +1,6 @@
 ---
 import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
-import FacilityManager from "../components/FacilityManager";
+import FacilityManager from "../../../components/dashboard/FacilityManager";
 import { validateAuthSession } from "../../../lib/auth";
 
 const { session, user } = await validateAuthSession(Astro.request);

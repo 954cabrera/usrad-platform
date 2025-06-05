@@ -1,7 +1,7 @@
 ---
 // src/pages/dashboard/onboarding/psa.astro
 import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
-import PSASigningSystemUpdated from "../components/PSASigningSystemUpdated";
+import PSASigningSystemUpdated from "../../../components/dashboard/PSASigningSystemUpdated";
 import { validateAuthSession } from "../../../lib/auth";
 
 const { session, user } = await validateAuthSession(Astro.request);

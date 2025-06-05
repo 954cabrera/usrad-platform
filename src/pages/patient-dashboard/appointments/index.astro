@@ -1,7 +1,7 @@
 ---
 // /src/pages/patient-dashboard/appointments/index.astro
 import PatientDashboardLayout from "../../../components/patient-dashboard/PatientDashboardLayout.astro";
-import SkeletonAppointmentsSystem from "../components/SkeletonAppointmentsSystem";
+import SkeletonAppointmentsSystem from "../../../components/patient-dashboard/SkeletonAppointmentsSystem";
 import { validateAuthSession } from "../../../lib/auth";
 
 const { session, user } = await validateAuthSession(Astro.request);

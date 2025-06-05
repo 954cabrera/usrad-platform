@@ -1,6 +1,6 @@
 ---
 import PatientDashboardLayout from "../../../components/patient-dashboard/PatientDashboardLayout.astro";
-import SkeletonReferralsSystem from "../components/SkeletonReferralsSystem"; // FIXED - correct component name
+import SkeletonReferralsSystem from "../../../components/patient-dashboard/SkeletonReferralsSystem"; // FIXED - correct component name
 import { validateAuthSession } from "../../../lib/auth";
 
 const { session, user } = await validateAuthSession(Astro.request);
