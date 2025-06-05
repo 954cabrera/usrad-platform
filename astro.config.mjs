@@ -9,4 +9,4 @@ export default defineConfig({
   integrations: [tailwind(), react()],
   output: 'server',
   adapter: vercel(),  // ← Change from node() to vercel()
-});
+});// Updated Thu Jun  5 05:50:04 PM EDT 2025
