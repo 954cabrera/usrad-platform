@@ -1,17 +1,12 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
-import node from '@astrojs/node';
+import vercel from '@astrojs/vercel/serverless';  // ← Use this instead
+// import node from '@astrojs/node';              // ← Comment out
 import 'dotenv/config';
 
 export default defineConfig({
   integrations: [tailwind(), react()],
-  output: 'server',  // Changed from 'static'
-  adapter: node({
-    mode: 'standalone'
-  }),
-  server: {
-    host: true,       
-    port: 4321        
-  }
+  output: 'server',
+  adapter: vercel(),  // ← Change from node() to vercel()
 });

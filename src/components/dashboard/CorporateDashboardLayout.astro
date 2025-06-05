@@ -1,0 +1,984 @@
+---
+// src/components/dashboard/CorporateDashboardLayout.astro
+export interface Props {
+  title: string;
+  user?: any;
+}
+
+const { title, user } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | USRad Executive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Manrope", sans-serif;
+        overflow-x: hidden;
+        background: linear-gradient(135deg, #f5f9ff 0%, #ffffff 100%);
+      }
+
+      /* USRad Colors */
+      .usrad-navy {
+        color: #003087 !important;
+      }
+      .usrad-gold {
+        color: #cc9933 !important;
+      }
+      .bg-usrad-navy {
+        background-color: #003087 !important;
+      }
+      .bg-usrad-gold {
+        background-color: #cc9933 !important;
+      }
+
+      .usrad-gradient-navy {
+        background: linear-gradient(
+          135deg,
+          #003087 0%,
+          #001a4d 100%
+        ) !important;
+      }
+
+      .usrad-gradient-gold {
+        background: linear-gradient(
+          135deg,
+          #cc9933 0%,
+          #e6b84d 100%
+        ) !important;
+      }
+
+      /* Executive-specific gradient */
+      .executive-gradient {
+        background: linear-gradient(
+          135deg,
+          #003087 0%,
+          #001a4d 100%
+        ) !important;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      .animate-slide-up {
+        animation: slideUp 0.3s ease-out;
+      }
+
+      /* Sidebar */
+      .sidebar-transition {
+        transition:
+          transform 0.3s ease-in-out,
+          width 0.3s ease-in-out;
+      }
+
+      #sidebar {
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      #sidebar nav {
+        overflow-y: auto;
+        max-height: calc(100vh - 200px);
+      }
+
+      .nav-link {
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        color: white;
+      }
+
+      .nav-link::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(204, 153, 51, 0.1),
+          rgba(204, 153, 51, 0.2)
+        );
+        transition: width 0.3s ease;
+        z-index: 0;
+      }
+
+      .nav-link:hover::before,
+      .nav-link.active::before {
+        width: 100%;
+      }
+
+      .nav-link:hover {
+        background: rgba(204, 153, 51, 0.1);
+        border-left: 4px solid #cc9933;
+        transform: translateX(4px);
+      }
+
+      .nav-link.active {
+        background: rgba(204, 153, 51, 0.15);
+        border-left: 4px solid #cc9933;
+        color: #cc9933;
+        font-weight: 600;
+      }
+
+      .nav-link > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Mobile Menu */
+      .mobile-menu-open {
+        transform: translateX(0);
+      }
+      .mobile-menu-closed {
+        transform: translateX(-100%);
+      }
+
+      /* Responsive utilities */
+      .hidden {
+        display: none;
+      }
+      .flex {
+        display: flex;
+      }
+      .items-center {
+        align-items: center;
+      }
+      .justify-between {
+        justify-content: space-between;
+      }
+      .justify-center {
+        justify-content: center;
+      }
+      .space-x-2 > * + * {
+        margin-left: 8px;
+      }
+      .space-x-3 > * + * {
+        margin-left: 12px;
+      }
+      .space-x-4 > * + * {
+        margin-left: 16px;
+      }
+      .space-y-2 > * + * {
+        margin-top: 8px;
+      }
+      .w-full {
+        width: 100%;
+      }
+      .h-screen {
+        height: 100vh;
+      }
+      .min-h-screen {
+        min-height: 100vh;
+      }
+      .fixed {
+        position: fixed;
+      }
+      .relative {
+        position: relative;
+      }
+      .absolute {
+        position: absolute;
+      }
+      .inset-0 {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+      .top-0 {
+        top: 0;
+      }
+      .left-0 {
+        left: 0;
+      }
+      .z-40 {
+        z-index: 40;
+      }
+      .z-50 {
+        z-index: 50;
+      }
+      .z-30 {
+        z-index: 30;
+      }
+      .p-4 {
+        padding: 16px;
+      }
+      .p-6 {
+        padding: 24px;
+      }
+      .px-6 {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .py-4 {
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+      .px-4 {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      .py-2 {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+      .px-3 {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+      .py-3 {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+      .mb-2 {
+        margin-bottom: 8px;
+      }
+      .mb-4 {
+        margin-bottom: 16px;
+      }
+      .mb-6 {
+        margin-bottom: 24px;
+      }
+      .mr-3 {
+        margin-right: 12px;
+      }
+      .ml-auto {
+        margin-left: auto;
+      }
+      .mt-6 {
+        margin-top: 24px;
+      }
+      .text-white {
+        color: white;
+      }
+      .text-gray-600 {
+        color: #6b7280;
+      }
+      .text-gray-700 {
+        color: #374151;
+      }
+      .text-red-300 {
+        color: #fca5a5;
+      }
+      .text-blue-200 {
+        color: #bfdbfe;
+      }
+      .text-green-400 {
+        color: #4ade80;
+      }
+      .bg-white {
+        background-color: white;
+      }
+      .bg-gray-50 {
+        background-color: #f9fafb;
+      }
+      .bg-black {
+        background-color: black;
+      }
+      .bg-red-600 {
+        background-color: #dc2626;
+      }
+      .bg-red-900 {
+        background-color: #7f1d1d;
+      }
+      .bg-opacity-50 {
+        --tw-bg-opacity: 0.5;
+      }
+      .rounded-full {
+        border-radius: 9999px;
+      }
+      .rounded-lg {
+        border-radius: 8px;
+      }
+      .rounded-xl {
+        border-radius: 12px;
+      }
+      .border-b {
+        border-bottom-width: 1px;
+      }
+      .border-t {
+        border-top-width: 1px;
+      }
+      .border-blue-800 {
+        border-color: #1e40af;
+      }
+      .border-gray-200 {
+        border-color: #e5e7eb;
+      }
+      .shadow-lg {
+        box-shadow:
+          0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .shadow-2xl {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      }
+      .shadow-sm {
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      }
+      .hover\:bg-gray-100:hover {
+        background-color: #f3f4f6;
+      }
+      .hover\:bg-red-900:hover {
+        background-color: #7f1d1d;
+      }
+      .hover\:text-red-200:hover {
+        color: #fecaca;
+      }
+      .transition-colors {
+        transition-property: color, background-color, border-color;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+      .transition-all {
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+      .duration-200 {
+        transition-duration: 200ms;
+      }
+      .duration-300 {
+        transition-duration: 300ms;
+      }
+      .cursor-pointer {
+        cursor: pointer;
+      }
+      .font-bold {
+        font-weight: 700;
+      }
+      .font-semibold {
+        font-weight: 600;
+      }
+      .font-medium {
+        font-weight: 500;
+      }
+      .text-xs {
+        font-size: 12px;
+        line-height: 16px;
+      }
+      .text-sm {
+        font-size: 14px;
+        line-height: 20px;
+      }
+      .text-base {
+        font-size: 16px;
+        line-height: 24px;
+      }
+      .text-lg {
+        font-size: 18px;
+        line-height: 28px;
+      }
+      .text-xl {
+        font-size: 20px;
+        line-height: 28px;
+      }
+      .text-2xl {
+        font-size: 24px;
+        line-height: 32px;
+      }
+      .uppercase {
+        text-transform: uppercase;
+      }
+      .tracking-wide {
+        letter-spacing: 0.025em;
+      }
+      .w-5 {
+        width: 20px;
+      }
+      .h-5 {
+        height: 20px;
+      }
+      .w-6 {
+        width: 24px;
+      }
+      .h-6 {
+        height: 24px;
+      }
+      .w-8 {
+        width: 32px;
+      }
+      .h-8 {
+        height: 32px;
+      }
+      .w-10 {
+        width: 40px;
+      }
+      .h-10 {
+        height: 40px;
+      }
+      .w-12 {
+        width: 48px;
+      }
+      .h-12 {
+        height: 48px;
+      }
+      .w-64 {
+        width: 256px;
+      }
+      .w-72 {
+        width: 288px;
+      }
+      .min-w-0 {
+        min-width: 0;
+      }
+      .truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .backdrop-blur-md {
+        backdrop-filter: blur(12px);
+      }
+      .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      /* Large screens */
+      @media (min-width: 1024px) {
+        .lg\:hidden {
+          display: none;
+        }
+        .lg\:mobile-menu-open {
+          transform: translateX(0);
+        }
+        .lg\:translate-x-0 {
+          transform: translateX(0);
+        }
+        .lg\:ml-72 {
+          margin-left: 288px;
+        }
+      }
+
+      /* Medium screens */
+      @media (min-width: 768px) {
+        .md\:inline {
+          display: inline;
+        }
+      }
+
+      /* Small screens */
+      @media (min-width: 640px) {
+        .sm\:block {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-gradient-to-br from-usrad-light to-white">
+    <!-- Mobile Menu Overlay -->
+    <div
+      id="mobile-overlay"
+      class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden"
+    >
+    </div>
+
+    <!-- Executive Sidebar -->
+    <aside
+      id="sidebar"
+      class="fixed top-0 left-0 z-50 w-72 h-screen executive-gradient text-white sidebar-transition mobile-menu-closed lg:mobile-menu-open lg:translate-x-0 shadow-2xl"
+    >
+      <!-- Executive Logo Section -->
+      <div
+        class="flex items-center justify-between p-6 border-b border-blue-800"
+      >
+        <div class="flex items-center space-x-3">
+          <img
+            src="/logo/usrad-logo.png"
+            alt="USRad Logo"
+            class="w-10 h-10 rounded-lg"
+          />
+          <div>
+            <h1 class="text-xl font-bold text-white">USRad</h1>
+            <p class="text-xs text-blue-200">Executive Suite</p>
+          </div>
+        </div>
+        <button
+          id="close-sidebar"
+          class="lg:hidden text-white hover:text-usrad-gold transition-colors p-2"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Executive User Info -->
+      {
+        user && (
+          <div class="p-6 border-b border-blue-800 bg-gradient-to-r from-blue-800/20 to-transparent">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 usrad-gradient-gold rounded-full flex items-center justify-center font-bold text-usrad-navy text-lg shadow-lg">
+                {user.firstName?.[0] || user.email[0].toUpperCase()}
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="font-semibold text-white truncate">
+                  {user.firstName && user.lastName
+                    ? `${user.firstName} ${user.lastName}`
+                    : user.email}
+                </p>
+                <p class="text-sm text-blue-200 truncate">
+                  {user.role === "ceo"
+                    ? "Chief Executive Officer"
+                    : user.role === "cfo"
+                      ? "Chief Financial Officer"
+                      : user.role === "coo"
+                        ? "Chief Operating Officer"
+                        : user.role === "vp_marketing"
+                          ? "VP of Marketing"
+                          : user.role === "vp_network"
+                            ? "VP of Network Development"
+                            : user.role === "vp_patient_services"
+                              ? "VP of Patient Services"
+                              : "Executive Access"}
+                </p>
+                <div class="flex items-center mt-1">
+                  <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                  <span class="text-xs text-blue-200 ml-2">Online</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      }
+
+      <!-- Executive Navigation -->
+      <nav class="flex-1 px-4 py-6 space-y-2">
+        <div
+          class="text-xs font-semibold text-blue-200 uppercase tracking-wide mb-4 px-4"
+        >
+          Executive Overview
+        </div>
+
+        <a
+          href="/corporate-dashboard"
+          class={`nav-link ${currentPath === "/corporate-dashboard" ? "active" : ""}`}
+        >
+          <div class="usrad-gradient-navy p-2 rounded-lg mr-3">
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+              ></path>
+            </svg>
+          </div>
+          <span>Dashboard Overview</span>
+        </a>
+
+        <a
+          href="/corporate-dashboard/analytics"
+          class={`nav-link ${currentPath.startsWith("/corporate-dashboard/analytics") ? "active" : ""}`}
+        >
+          <div class="usrad-gradient-navy p-2 rounded-lg mr-3">
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              ></path>
+            </svg>
+          </div>
+          <span>Analytics & Reports</span>
+        </a>
+
+        <a
+          href="/corporate-dashboard/financial"
+          class={`nav-link ${currentPath.startsWith("/corporate-dashboard/financial") ? "active" : ""}`}
+        >
+          <div class="usrad-gradient-navy p-2 rounded-lg mr-3">
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+              ></path>
+            </svg>
+          </div>
+          <span>Financial Performance</span>
+        </a>
+
+        <div
+          class="text-xs font-semibold text-blue-200 uppercase tracking-wide mb-4 px-4 pt-6"
+        >
+          Strategic Management
+        </div>
+
+        <a
+          href="/corporate-dashboard/providers"
+          class={`nav-link ${currentPath.startsWith("/corporate-dashboard/providers") ? "active" : ""}`}
+        >
+          <div class="usrad-gradient-navy p-2 rounded-lg mr-3">
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+              ></path>
+            </svg>
+          </div>
+          <span>Provider Network</span>
+        </a>
+
+        <a
+          href="/corporate-dashboard/patients"
+          class={`nav-link ${currentPath.startsWith("/corporate-dashboard/patients") ? "active" : ""}`}
+        >
+          <div class="usrad-gradient-navy p-2 rounded-lg mr-3">
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
+            </svg>
+          </div>
+          <span>Patient Insights</span>
+        </a>
+
+        <a
+          href="/corporate-dashboard/markets"
+          class={`nav-link ${currentPath.startsWith("/corporate-dashboard/markets") ? "active" : ""}`}
+        >
+          <div class="usrad-gradient-navy p-2 rounded-lg mr-3">
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <span>Market Analytics</span>
+        </a>
+
+        <a
+          href="/corporate-dashboard/strategy"
+          class={`nav-link ${currentPath.startsWith("/corporate-dashboard/strategy") ? "active" : ""}`}
+        >
+          <div class="usrad-gradient-navy p-2 rounded-lg mr-3">
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+              ></path>
+            </svg>
+          </div>
+          <span>Strategic Planning</span>
+        </a>
+
+        <div
+          class="text-xs font-semibold text-blue-200 uppercase tracking-wide mb-4 px-4 pt-6"
+        >
+          Administration
+        </div>
+
+        <a
+          href="/corporate-dashboard/admin"
+          class={`nav-link ${currentPath.startsWith("/corporate-dashboard/admin") ? "active" : ""}`}
+        >
+          <div class="usrad-gradient-navy p-2 rounded-lg mr-3">
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <span>System Administration</span>
+        </a>
+      </nav>
+
+      <!-- Executive Logout Section -->
+      <div
+        class="p-4 border-t border-blue-800 bg-gradient-to-r from-red-900/10 to-transparent"
+      >
+        <form action="/api/auth/logout" method="POST">
+          <button
+            type="submit"
+            class="w-full flex items-center px-4 py-3 text-sm font-medium text-red-300 hover:text-red-200 hover:bg-red-900 rounded-xl transition-all duration-200"
+          >
+            <div class="p-2 rounded-lg mr-3 bg-red-900/30">
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                ></path>
+              </svg>
+            </div>
+            <span>Sign Out</span>
+          </button>
+        </form>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="lg:ml-72 min-h-screen">
+      <!-- Executive Top Header -->
+      <header
+        class="bg-white backdrop-blur-md shadow-sm border-b border-gray-200 px-6 py-4 relative z-30"
+      >
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <button
+              id="menu-toggle"
+              class="lg:hidden text-gray-600 hover:bg-gray-100 p-2 rounded-lg transition-colors"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+            <div>
+              <h1 class="text-2xl font-bold usrad-navy">{title}</h1>
+              <p class="text-sm text-gray-600">Executive Command Center</p>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <!-- Executive Quick Actions -->
+            <button
+              class="bg-usrad-navy text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-sm font-semibold"
+            >
+              📊 Board Report
+            </button>
+
+            <!-- Executive Notifications -->
+            <button
+              class="relative text-gray-600 hover:bg-gray-100 p-2 rounded-lg transition-colors"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                ></path>
+              </svg>
+              <span
+                class="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse"
+                >2</span
+              >
+            </button>
+
+            <!-- Executive Profile & Logout -->
+            <div class="flex items-center space-x-3">
+              <div
+                class="flex items-center space-x-3 bg-gray-50 rounded-lg p-2"
+              >
+                <div
+                  class="w-8 h-8 usrad-gradient-gold rounded-lg flex items-center justify-center font-bold text-usrad-navy text-sm"
+                >
+                  {user?.firstName?.[0] || user?.email[0].toUpperCase() || "E"}
+                </div>
+                <span class="text-sm font-medium text-gray-700 sm:block">
+                  {user?.firstName || "Executive"}
+                </span>
+              </div>
+
+              <form action="/api/auth/logout" method="POST" class="inline">
+                <button
+                  type="submit"
+                  class="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
+                  title="Sign Out"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    ></path>
+                  </svg>
+                  <span class="md:inline">Sign Out</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Executive Page Content -->
+      <main class="p-6 animate-fade-in">
+        <slot />
+      </main>
+    </div>
+
+    <script>
+      // Mobile menu functionality
+      const menuToggle = document.getElementById("menu-toggle");
+      const closeSidebar = document.getElementById("close-sidebar");
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("mobile-overlay");
+
+      function openSidebar() {
+        if (sidebar && overlay) {
+          sidebar.classList.remove("mobile-menu-closed");
+          sidebar.classList.add("mobile-menu-open");
+          overlay.classList.remove("hidden");
+        }
+      }
+
+      function closeSidebarFn() {
+        if (sidebar && overlay) {
+          sidebar.classList.remove("mobile-menu-open");
+          sidebar.classList.add("mobile-menu-closed");
+          overlay.classList.add("hidden");
+        }
+      }
+
+      if (menuToggle) menuToggle.addEventListener("click", openSidebar);
+      if (closeSidebar) closeSidebar.addEventListener("click", closeSidebarFn);
+      if (overlay) overlay.addEventListener("click", closeSidebarFn);
+
+      // Close sidebar on window resize if desktop
+      window.addEventListener("resize", () => {
+        if (window.innerWidth >= 1024) {
+          closeSidebarFn();
+        }
+      });
+    </script>
+  </body>
+</html>
