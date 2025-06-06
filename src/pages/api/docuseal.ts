@@ -34,7 +34,7 @@ export const POST: APIRoute = async ({ request }) => {
           name: providerData.contactName || 'Dr. John Smith',
           email: providerData.email || 'admin@example.com',
           // Add redirect URL to bring users back after signing
-          redirect_url: `https://usrad-r-production.up.railway.app/dashboard/psa/completed?submission_id={{submission.id}}`,
+          redirect_url: `https://usrad-platform.vercel.app/dashboard/psa/completed?submission_id={{submission.id}}`,
           fields: [
             { name: 'provider_name', value: providerData.providerName || providerData.facilityName },
             { name: 'primary_contact_name', value: providerData.contactName },
