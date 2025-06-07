@@ -1,247 +1,398 @@
 // src/lib/db.ts
-import { drizzle } from 'drizzle-orm/postgres-js';
-import postgres from 'postgres';
-import * as schema from './schema';
+import { createClient } from '@supabase/supabase-js'
 
-// Get database URL from environment
-const connectionString = import.meta.env.DATABASE_URL || process.env.DATABASE_URL;
+// Get Supabase credentials from environment
+const supabaseUrl = import.meta.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-if (!connectionString) {
-  throw new Error('DATABASE_URL environment variable is required');
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables are required')
 }
 
-// Create postgres client
-const client = postgres(connectionString, {
-  max: 10, // Maximum number of connections
-  idle_timeout: 20, // Close connections after 20 seconds of inactivity
-  connect_timeout: 10, // Timeout when connecting to database
-});
+// Create Supabase client
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-// Create drizzle instance with schema
-export const db = drizzle(client, { schema });
-
-// Helper functions for common queries
+// Helper functions for common queries using Supabase client
 export class DatabaseService {
   // User operations
   static async getUserByEmail(email: string) {
-    const users = await db.query.users.findFirst({
-      where: (users, { eq }) => eq(users.email, email),
-      with: {
-        imagingCenter: true
-      }
-    });
-    return users;
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .select(`
+          *,
+          imagingCenter:imaging_centers(*)
+        `)
+        .eq('email', email)
+        .single()
+
+      if (error && error.code !== 'PGRST116') throw error
+      return data
+    } catch (error) {
+      console.error('Error getting user by email:', error)
+      throw error
+    }
   }
 
   static async getUserById(id: number) {
-    const user = await db.query.users.findFirst({
-      where: (users, { eq }) => eq(users.id, id),
-      with: {
-        imagingCenter: true
-      }
-    });
-    return user;
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .select(`
+          *,
+          imagingCenter:imaging_centers(*)
+        `)
+        .eq('id', id)
+        .single()
+
+      if (error && error.code !== 'PGRST116') throw error
+      return data
+    } catch (error) {
+      console.error('Error getting user by ID:', error)
+      throw error
+    }
   }
 
-  static async createUser(userData: schema.NewUser) {
-    const [user] = await db.insert(schema.users).values(userData).returning();
-    return user;
+  static async createUser(userData: any) {
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .insert(userData)
+        .select()
+        .single()
+
+      if (error) throw error
+      return data
+    } catch (error) {
+      console.error('Error creating user:', error)
+      throw error
+    }
   }
 
   // Imaging Center operations
   static async getImagingCenterByUserId(userId: number) {
-    const center = await db.query.imagingCenters.findFirst({
-      where: (centers, { eq }) => eq(centers.userId, userId),
-      with: {
-        user: true,
-        appointments: {
-          limit: 10,
-          orderBy: (appointments, { desc }) => [desc(appointments.scheduledDate)]
-        }
-      }
-    });
-    return center;
+    try {
+      const { data, error } = await supabase
+        .from('imaging_centers')
+        .select(`
+          *,
+          user:users(*),
+          appointments:appointments(*)
+        `)
+        .eq('user_id', userId)
+        .single()
+
+      if (error && error.code !== 'PGRST116') throw error
+      return data
+    } catch (error) {
+      console.error('Error getting imaging center:', error)
+      throw error
+    }
   }
 
-  static async createImagingCenter(centerData: schema.NewImagingCenter) {
-    const [center] = await db.insert(schema.imagingCenters).values(centerData).returning();
-    return center;
+  static async createImagingCenter(centerData: any) {
+    try {
+      const { data, error } = await supabase
+        .from('imaging_centers')
+        .insert(centerData)
+        .select()
+        .single()
+
+      if (error) throw error
+      return data
+    } catch (error) {
+      console.error('Error creating imaging center:', error)
+      throw error
+    }
   }
 
   // Appointment operations
   static async getAppointmentsByImagingCenter(imagingCenterId: number, limit = 50) {
-    const appointments = await db.query.appointments.findMany({
-      where: (appointments, { eq }) => eq(appointments.imagingCenterId, imagingCenterId),
-      orderBy: (appointments, { desc }) => [desc(appointments.scheduledDate)],
-      limit,
-      with: {
-        scanResults: true
-      }
-    });
-    return appointments;
+    try {
+      const { data, error } = await supabase
+        .from('appointments')
+        .select(`
+          *,
+          scan_results(*)
+        `)
+        .eq('imaging_center_id', imagingCenterId)
+        .order('scheduled_date', { ascending: false })
+        .limit(limit)
+
+      if (error) throw error
+      return data || []
+    } catch (error) {
+      console.error('Error getting appointments:', error)
+      throw error
+    }
   }
 
   static async getAppointmentById(id: number) {
-    const appointment = await db.query.appointments.findFirst({
-      where: (appointments, { eq }) => eq(appointments.id, id),
-      with: {
-        imagingCenter: true,
-        scanResults: true
-      }
-    });
-    return appointment;
+    try {
+      const { data, error } = await supabase
+        .from('appointments')
+        .select(`
+          *,
+          imaging_center:imaging_centers(*),
+          scan_results(*)
+        `)
+        .eq('id', id)
+        .single()
+
+      if (error && error.code !== 'PGRST116') throw error
+      return data
+    } catch (error) {
+      console.error('Error getting appointment by ID:', error)
+      throw error
+    }
   }
 
-  static async createAppointment(appointmentData: schema.NewAppointment) {
-    const [appointment] = await db.insert(schema.appointments).values(appointmentData).returning();
-    return appointment;
+  static async createAppointment(appointmentData: any) {
+    try {
+      const { data, error } = await supabase
+        .from('appointments')
+        .insert(appointmentData)
+        .select()
+        .single()
+
+      if (error) throw error
+      return data
+    } catch (error) {
+      console.error('Error creating appointment:', error)
+      throw error
+    }
   }
 
   static async updateAppointmentStatus(id: number, status: string) {
-    const [appointment] = await db
-      .update(schema.appointments)
-      .set({ status, updatedAt: new Date() })
-      .where((appointments, { eq }) => eq(appointments.id, id))
-      .returning();
-    return appointment;
+    try {
+      const { data, error } = await supabase
+        .from('appointments')
+        .update({ 
+          status, 
+          updated_at: new Date().toISOString() 
+        })
+        .eq('id', id)
+        .select()
+        .single()
+
+      if (error) throw error
+      return data
+    } catch (error) {
+      console.error('Error updating appointment status:', error)
+      throw error
+    }
   }
 
   // Dashboard metrics
   static async getDashboardStats(imagingCenterId: number) {
-    // Get appointments for the last 30 days
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    try {
+      // Get appointments for the last 30 days
+      const thirtyDaysAgo = new Date()
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
+      
+      const { data: recentAppointments, error: appointmentsError } = await supabase
+        .from('appointments')
+        .select('*')
+        .eq('imaging_center_id', imagingCenterId)
+        .gte('created_at', thirtyDaysAgo.toISOString())
 
-    const recentAppointments = await db.query.appointments.findMany({
-      where: (appointments, { eq, gte, and }) => and(
-        eq(appointments.imagingCenterId, imagingCenterId),
-        gte(appointments.createdAt, thirtyDaysAgo)
-      )
-    });
+      if (appointmentsError) throw appointmentsError
 
-    // Calculate stats
-    const totalAppointments = recentAppointments.length;
-    const completedAppointments = recentAppointments.filter(apt => apt.status === 'completed').length;
-    const pendingAppointments = recentAppointments.filter(apt => apt.status === 'scheduled').length;
-    const totalRevenue = recentAppointments
-      .filter(apt => apt.paymentStatus === 'paid')
-      .reduce((sum, apt) => sum + Number(apt.price || 0), 0);
+      // Calculate stats
+      const totalAppointments = recentAppointments?.length || 0
+      const completedAppointments = recentAppointments?.filter(apt => apt.status === 'completed').length || 0
+      const pendingAppointments = recentAppointments?.filter(apt => apt.status === 'scheduled').length || 0
+      const totalRevenue = recentAppointments
+        ?.filter(apt => apt.payment_status === 'paid')
+        .reduce((sum, apt) => sum + Number(apt.price || 0), 0) || 0
 
-    // Get today's appointments
-    const today = new Date();
-    const todayString = today.toISOString().split('T')[0];
-    
-    const todayAppointments = await db.query.appointments.findMany({
-      where: (appointments, { eq, and, gte, lt }) => {
-        const startOfDay = new Date(todayString);
-        const endOfDay = new Date(todayString);
-        endOfDay.setDate(endOfDay.getDate() + 1);
-        
-        return and(
-          eq(appointments.imagingCenterId, imagingCenterId),
-          gte(appointments.scheduledDate, startOfDay),
-          lt(appointments.scheduledDate, endOfDay)
-        );
-      },
-      orderBy: (appointments, { asc }) => [asc(appointments.scheduledDate)]
-    });
+      // Get today's appointments
+      const today = new Date()
+      const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+      const todayEnd = new Date(todayStart)
+      todayEnd.setDate(todayEnd.getDate() + 1)
 
-    return {
-      totalAppointments,
-      completedAppointments,
-      pendingAppointments,
-      totalRevenue,
-      todayAppointments: todayAppointments.length,
-      recentAppointments: recentAppointments.slice(0, 5), // Last 5 appointments
-      upcomingToday: todayAppointments
-    };
+      const { data: todayAppointments, error: todayError } = await supabase
+        .from('appointments')
+        .select('*')
+        .eq('imaging_center_id', imagingCenterId)
+        .gte('scheduled_date', todayStart.toISOString())
+        .lt('scheduled_date', todayEnd.toISOString())
+        .order('scheduled_date', { ascending: true })
+
+      if (todayError) throw todayError
+
+      return {
+        totalAppointments,
+        completedAppointments,
+        pendingAppointments,
+        totalRevenue,
+        todayAppointments: todayAppointments?.length || 0,
+        recentAppointments: recentAppointments?.slice(0, 5) || [],
+        upcomingToday: todayAppointments || []
+      }
+    } catch (error) {
+      console.error('Error getting dashboard stats:', error)
+      throw error
+    }
   }
 
   // Session operations (for Lucia auth)
   static async createSession(sessionData: {
-    id: string;
-    userId: number;
-    activeExpires: number;
-    idleExpires: number;
+    id: string
+    user_id: number
+    active_expires: number
+    idle_expires: number
   }) {
-    const [session] = await db.insert(schema.userSessions).values(sessionData).returning();
-    return session;
+    try {
+      const { data, error } = await supabase
+        .from('user_sessions')
+        .insert(sessionData)
+        .select()
+        .single()
+
+      if (error) throw error
+      return data
+    } catch (error) {
+      console.error('Error creating session:', error)
+      throw error
+    }
   }
 
   static async getSessionById(sessionId: string) {
-    const session = await db.query.userSessions.findFirst({
-      where: (sessions, { eq }) => eq(sessions.id, sessionId),
-      with: {
-        user: {
-          with: {
-            imagingCenter: true
-          }
-        }
-      }
-    });
-    return session;
+    try {
+      const { data, error } = await supabase
+        .from('user_sessions')
+        .select(`
+          *,
+          user:users(
+            *,
+            imaging_center:imaging_centers(*)
+          )
+        `)
+        .eq('id', sessionId)
+        .single()
+
+      if (error && error.code !== 'PGRST116') throw error
+      return data
+    } catch (error) {
+      console.error('Error getting session:', error)
+      throw error
+    }
   }
 
   static async deleteSession(sessionId: string) {
-    await db.delete(schema.userSessions)
-      .where((sessions, { eq }) => eq(sessions.id, sessionId));
+    try {
+      const { error } = await supabase
+        .from('user_sessions')
+        .delete()
+        .eq('id', sessionId)
+
+      if (error) throw error
+    } catch (error) {
+      console.error('Error deleting session:', error)
+      throw error
+    }
   }
 
   static async deleteUserSessions(userId: number) {
-    await db.delete(schema.userSessions)
-      .where((sessions, { eq }) => eq(sessions.userId, userId));
-  }
+    try {
+      const { error } = await supabase
+        .from('user_sessions')
+        .delete()
+        .eq('user_id', userId)
 
-  // Add these methods to your DatabaseService class in db.ts
-
-// Verification token operations
-static async storeVerificationToken(userId: number, token: string, expiresAt: Date) {
-  const [verificationToken] = await db.insert(schema.verificationTokens).values({
-    userId,
-    token,
-    expiresAt
-  }).returning();
-  return verificationToken;
-}
-
-static async verifyToken(token: string) {
-  const verification = await db.query.verificationTokens.findFirst({
-    where: (tokens, { eq }) => eq(tokens.token, token),
-    with: {
-      user: true
+      if (error) throw error
+    } catch (error) {
+      console.error('Error deleting user sessions:', error)
+      throw error
     }
-  });
-  
-  if (!verification) {
-    return null;
   }
-  
-  const now = new Date();
-  const expired = verification.expiresAt < now;
-  const used = verification.usedAt !== null;
-  
-  return {
-    ...verification,
-    expired,
-    used
-  };
-}
 
-static async markTokenAsUsed(token: string) {
-  const [updatedToken] = await db
-    .update(schema.verificationTokens)
-    .set({ usedAt: new Date() })
-    .where((tokens, { eq }) => eq(tokens.token, token))
-    .returning();
-  return updatedToken;
-}
+  // Verification token operations
+  static async storeVerificationToken(userId: number, token: string, expiresAt: Date) {
+    try {
+      const { data, error } = await supabase
+        .from('verification_tokens')
+        .insert({
+          user_id: userId,
+          token,
+          expires_at: expiresAt.toISOString()
+        })
+        .select()
+        .single()
 
-static async updateProviderStatus(userId: number, status: string) {
-  const [updatedCenter] = await db
-    .update(schema.imagingCenters)
-    .set({ status, updatedAt: new Date() })
-    .where((centers, { eq }) => eq(centers.userId, userId))
-    .returning();
-  return updatedCenter;
-}
+      if (error) throw error
+      return data
+    } catch (error) {
+      console.error('Error storing verification token:', error)
+      throw error
+    }
+  }
+
+  static async verifyToken(token: string) {
+    try {
+      const { data: verification, error } = await supabase
+        .from('verification_tokens')
+        .select(`
+          *,
+          user:users(*)
+        `)
+        .eq('token', token)
+        .single()
+
+      if (error && error.code !== 'PGRST116') throw error
+      if (!verification) return null
+
+      const now = new Date()
+      const expired = new Date(verification.expires_at) < now
+      const used = verification.used_at !== null
+
+      return {
+        ...verification,
+        expired,
+        used
+      }
+    } catch (error) {
+      console.error('Error verifying token:', error)
+      throw error
+    }
+  }
+
+  static async markTokenAsUsed(token: string) {
+    try {
+      const { data, error } = await supabase
+        .from('verification_tokens')
+        .update({ used_at: new Date().toISOString() })
+        .eq('token', token)
+        .select()
+        .single()
+
+      if (error) throw error
+      return data
+    } catch (error) {
+      console.error('Error marking token as used:', error)
+      throw error
+    }
+  }
+
+  static async updateProviderStatus(userId: number, status: string) {
+    try {
+      const { data, error } = await supabase
+        .from('imaging_centers')
+        .update({ 
+          status, 
+          updated_at: new Date().toISOString() 
+        })
+        .eq('user_id', userId)
+        .select()
+        .single()
+
+      if (error) throw error
+      return data
+    } catch (error) {
+      console.error('Error updating provider status:', error)
+      throw error
+    }
+  }
 }
