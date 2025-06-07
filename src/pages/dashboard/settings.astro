@@ -1,23 +1,23 @@
 ---
 // src/pages/dashboard/settings.astro
 import DashboardLayout from "../../components/dashboard/DashboardLayout.astro";
-import { validateAuthSession } from "../../lib/auth";
-import { AuthService } from "../../lib/auth";
+// import { validateAuthSession } from "../../lib/auth";
+// import { AuthService } from "../../lib/auth";
 import SkeletonSettingsSystem from "../../components/dashboard/SkeletonSettingsSystem";
 
 // Validate authentication
-const { session, user } = await validateAuthSession(Astro.request);
+// const { session, user } = await validateAuthSession(Astro.request);
 
-if (!session || !user) {
-  return Astro.redirect("/login/imaginglogin");
-}
-
-// Get dashboard data
-const dashboardData = await AuthService.getUserDashboardData(user.id);
-const { imagingCenter } = dashboardData;
+// // if (!session || !user) {
+//   return Astro.redirect("/login/imaginglogin");
+// }
+// 
+// // Get dashboard data
+// // const dashboardData = await AuthService.getUserDashboardData(user.id);
+// const { imagingCenter } = dashboardData;
 ---
 
-<DashboardLayout title="Settings" user={user} imagingCenter={imagingCenter}>
+<DashboardLayout title="Settings" user={null} imagingCenter={null}>
   <SkeletonSettingsSystem
     client:load
     user={user}
