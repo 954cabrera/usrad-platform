@@ -20,10 +20,10 @@ const fullyOnboarded = false;
 
 // Mock data for enhanced dashboard
 const mockData = {
-  todayAppointments: stats?.todayAppointments || 8,
-  totalAppointments: stats?.totalAppointments || 124,
-  completedScans: stats?.completedAppointments || 98,
-  totalRevenue: stats?.totalRevenue || 47500,
+  todayAppointments: 8,
+  totalAppointments: 124,
+  completedScans: 98,
+  totalRevenue: 47500,
   pendingReports: 12,
   avgScanTime: "28 min",
   patientSatisfaction: 4.8,
@@ -33,13 +33,13 @@ const mockData = {
 
 <DashboardLayout
   title="Dashboard Overview"
-  user={user}
-  imagingCenter={imagingCenter}
+  user={null}
+  imagingCenter={null}
 >
   <SkeletonProviderDashboardSystem
     client:load
-    user={user}
-    imagingCenter={imagingCenter}
+    user={null}
+    imagingCenter={null}
     mockData={mockData}
     fullyOnboarded={fullyOnboarded}
   />

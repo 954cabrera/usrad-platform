@@ -5,11 +5,11 @@ import SkeletonAppointmentsSystem from "../../../components/patient-dashboard/Sk
 // import { validateAuthSession } from "../../../lib/auth";
 
 // const { session, user } = await validateAuthSession(Astro.request);
-if (!session || !user) {
-  return Astro.redirect("/login/patientlogin");
-}
+// if (!session || !user) {
+//   return Astro.redirect("/login/patientlogin");
+// }
 ---
 
-<PatientDashboardLayout title="Appointments" user={user}>
+<PatientDashboardLayout title="Appointments" user={null}>
   <SkeletonAppointmentsSystem client:load />
 </PatientDashboardLayout>

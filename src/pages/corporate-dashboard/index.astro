@@ -5,24 +5,24 @@ import CorporateDashboardSystem from "../../components/corporate-dashboard/Corpo
 
 // const { session, user } = await validateAuthSession(Astro.request);
 
-if (!session || !user) {
-  return Astro.redirect("/login/imaginglogin");
-}
+// if (!session || !user) {
+//   return Astro.redirect("/login/imaginglogin");
+// }
 
 // TEMPORARY: Give admin access for testing - REMOVE THIS LATER
-user.role = 'admin';
+// user.role = 'admin';
 ---
 
-<CorporateDashboardLayout title="Corporate Dashboard - Executive Command Center" user={user}>
+<CorporateDashboardLayout title="Corporate Dashboard - Executive Command Center" user={null}>
   <!-- Executive Dashboard Header using your existing colors -->
   <div class="bg-gradient-to-r from-primary to-blue-800 text-white p-6 rounded-lg shadow-xl mb-6">
     <div class="flex justify-between items-center">
       <div>
         <h1 class="text-3xl font-bold mb-2 font-manrope">Corporate Command Center</h1>
         <p class="text-blue-100 text-lg">
-          Welcome, {user.firstName || 'Executive'} • Real-Time Intelligence
+          Welcome, {'Executive'} • Real-Time Intelligence
         </p>
-        <p class="text-blue-200 text-sm">Role: {user.role} | Executive Access</p>
+        <p class="text-blue-200 text-sm">Role: {'admin'} | Executive Access</p>
       </div>
       <div class="text-right">
         <div class="text-blue-100">Executive Dashboard</div>

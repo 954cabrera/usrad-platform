@@ -7,11 +7,11 @@ import SkeletonBookingSystem from "../../../components/patient-dashboard/Skeleto
 // Validate authentication
 // const { session, user } = await validateAuthSession(Astro.request);
 
-if (!session || !user) {
-  return Astro.redirect("/login/patientlogin");
-}
+// if (!session || !user) {
+//   return Astro.redirect("/login/patientlogin");
+// }
 ---
 
-<PatientDashboardLayout title="Book Imaging" user={user}>
+<PatientDashboardLayout title="Book Imaging" user={null}>
   <SkeletonBookingSystem client:load />
 </PatientDashboardLayout>

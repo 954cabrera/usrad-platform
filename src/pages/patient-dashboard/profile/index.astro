@@ -7,11 +7,11 @@ import SkeletonProfileSystem from "../../../components/patient-dashboard/Skeleto
 // Validate authentication
 // const { session, user } = await validateAuthSession(Astro.request);
 
-if (!session || !user) {
-  return Astro.redirect("/login/patientlogin");
-}
+// if (!session || !user) {
+//   return Astro.redirect("/login/patientlogin");
+// }
 ---
 
-<PatientDashboardLayout title="Profile Management" user={user}>
+<PatientDashboardLayout title="Profile Management" user={null}>
   <SkeletonProfileSystem client:load />
 </PatientDashboardLayout>
