@@ -1,5 +1,178 @@
 import React, { useEffect, useRef, useState } from "react";
 
+// Apple-Style Desktop Login Dropdown Component
+function AppleStyleLoginDropdown() {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+
+    function handleEscape(event) {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, []);
+
+  const loginOptions = [
+    {
+      href: "/login/patientlogin",
+      title: "Patient Portal",
+      subtitle: "Book appointments • View results"
+    },
+    {
+      href: "/login/imaginglogin", 
+      title: "Imaging Center",
+      subtitle: "Provider dashboard • Analytics"
+    },
+    {
+      href: "/login/referrallogin",
+      title: "Referring Physician", 
+      subtitle: "Medical referrals • Collaboration"
+    }
+  ];
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`px-3 py-1.5 text-sm font-medium text-[#003087] rounded-md hover:bg-black/5 transition-all duration-200 flex items-center gap-1.5 ${isOpen ? 'bg-black/5' : ''}`}
+      >
+        Login
+        <svg 
+          className={`w-3 h-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      
+      {isOpen && (
+        <>
+          <div 
+            className="fixed inset-0 z-40" 
+            onClick={() => setIsOpen(false)}
+          />
+          
+          <div className="absolute right-0 top-full mt-1 w-72 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 z-50 overflow-hidden">
+            <div className="p-1">
+              {loginOptions.map((option, index) => (
+                <a
+                  key={option.href}
+                  href={option.href}
+                  className={`flex flex-col px-4 py-3 hover:bg-black/5 transition-all duration-150 group ${index === 0 ? 'rounded-t-xl' : index === loginOptions.length - 1 ? 'rounded-b-xl' : ''}`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <div className="text-sm font-medium text-gray-900 mb-0.5">
+                    {option.title}
+                  </div>
+                  <div className="text-xs text-gray-500 font-normal">
+                    {option.subtitle}
+                  </div>
+                </a>
+              ))}
+            </div>
+            
+            <div className="border-t border-gray-100 px-4 py-2 bg-gray-50/50">
+              <div className="text-xs text-gray-400 text-center">
+                Secure access to your USRad account
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+// Apple-Style Mobile Login Dropdown Component
+function AppleStyleMobileLoginDropdown({ onMenuClose }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const loginOptions = [
+    {
+      href: "/login/patientlogin",
+      title: "Patient Portal",
+      subtitle: "Book appointments • View results"
+    },
+    {
+      href: "/login/imaginglogin", 
+      title: "Imaging Center",
+      subtitle: "Provider dashboard • Analytics"
+    },
+    {
+      href: "/login/referrallogin",
+      title: "Referring Physician",
+      subtitle: "Medical referrals • Collaboration"
+    }
+  ];
+
+  const handleOptionClick = (href) => {
+    setIsOpen(false);
+    onMenuClose();
+    window.location.href = href;
+  };
+
+  return (
+    <div className="w-full">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`w-full text-center px-4 py-2 bg-white/95 backdrop-blur-sm text-[#003087] text-lg rounded-xl font-medium hover:bg-white transition-all duration-200 flex items-center justify-between ${isOpen ? 'bg-white' : ''}`}
+      >
+        <span>Login</span>
+        <svg 
+          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      
+      {isOpen && (
+        <div className="mt-3 bg-white/20 backdrop-blur-sm rounded-xl p-1 border border-white/30">
+          {loginOptions.map((option, index) => (
+            <button
+              key={option.href}
+              onClick={() => handleOptionClick(option.href)}
+              className={`w-full flex flex-col p-3 bg-white/90 hover:bg-white rounded-lg transition-all duration-150 group text-left ${index !== loginOptions.length - 1 ? 'mb-1' : ''}`}
+            >
+              <div className="text-sm font-medium text-[#003087] mb-0.5">
+                {option.title}
+              </div>
+              <div className="text-xs text-gray-600 font-normal">
+                {option.subtitle}
+              </div>
+            </button>
+          ))}
+          
+          <div className="border-t border-white/20 px-3 py-2 mt-1">
+            <div className="text-xs text-white/70 text-center">
+              Secure access to your USRad account
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function PatientHeader({ showStickyBar = true }) {
   const headerRef = useRef(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -77,12 +250,9 @@ export default function PatientHeader({ showStickyBar = true }) {
                 >
                   For Employers
                 </a>
-                <a
-                  href="/login"
-                  className="px-3 py-1 border border-[#003087] text-sm font-medium text-[#003087] rounded-md hover:bg-[#003087]/10 transition"
-                >
-                  Login
-                </a>
+                
+                {/* Apple-Style Desktop Login Dropdown */}
+                <AppleStyleLoginDropdown />
 
               </div>
 
@@ -134,13 +304,9 @@ export default function PatientHeader({ showStickyBar = true }) {
             >
               For Employers
             </a>
-            <a
-              href="/login"
-              onClick={toggleMobileMenu}
-              className="text-center px-4 py-2 bg-white text-[#003087] text-lg rounded-md font-semibold hover:bg-[#f8f2e1] transition"
-            >
-              Login
-            </a>
+            
+            {/* Apple-Style Mobile Login Dropdown */}
+            <AppleStyleMobileLoginDropdown onMenuClose={toggleMobileMenu} />
           </div>
 
         </div>
