@@ -1,5 +1,7 @@
+<!-- DEPRECATED: Using PatientHeader.jsx instead -->
 ---
 // src/components/Header.astro
+import LoginDropdown from "./LoginDropdown.astro";
 ---
 
 <header class="navbar">
@@ -71,27 +73,7 @@
 
       <ul class="utility-nav">
         <li>
-          <a href="/login" class="login-link">
-            <span class="icon-wrapper">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="login-icon"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-                <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-              </svg>
-            </span>
-            Login
-          </a>
+          <div style="color: red; font-weight: bold;">DROPDOWN TEST</div>
         </li>
       </ul>
     </div>
@@ -112,11 +94,13 @@
       <li><a href="/pricing">Pricing</a></li>
       <li><a href="/contact">Contact</a></li>
       <li><a href="/employer" class="highlight-item">Employer</a></li>
-      <li><a href="/login">Login</a></li>
+      <!-- Mobile login options - you can keep simple or add dropdown here too -->
+      <li><LoginDropdown /></li>
     </ul>
   </div>
 </header>
 
+<!-- Keep all your existing styles exactly the same -->
 <style>
   /* === Keyframes === */
   @keyframes shimmer {
@@ -129,9 +113,9 @@
   }
 
   :root {
-    --font-manrope: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-      sans-serif;
+    --font-manrope:
+      "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
 
   /* === Navbar Core === */

@@ -1,0 +1,327 @@
+---
+// src/components/LoginDropdown.astro
+---
+
+<div class="login-dropdown-container">
+  <button class="login-trigger" id="loginTrigger">
+    <span class="icon-wrapper">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="login-icon"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+      </svg>
+    </span>
+    Login
+    <svg
+      class="chevron"
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path d="M6 9l6 6 6-6"></path>
+    </svg>
+  </button>
+
+  <div class="dropdown-menu" id="dropdownMenu">
+    <a href="/login/patientlogin" class="login-option">
+      <div class="option-icon">👤</div>
+      <div class="option-content">
+        <h3>Patient Portal</h3>
+        <p>Schedule appointments and view results</p>
+      </div>
+      <svg
+        class="option-arrow"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M9 18l6-6-6-6"></path>
+      </svg>
+    </a>
+
+    <a href="/login/imaginglogin" class="login-option">
+      <div class="option-icon">🏥</div>
+      <div class="option-content">
+        <h3>Imaging Center</h3>
+        <p>Provider dashboard and operations</p>
+      </div>
+      <svg
+        class="option-arrow"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M9 18l6-6-6-6"></path>
+      </svg>
+    </a>
+
+    <a href="/login/referrallogin" class="login-option">
+      <div class="option-icon">🩺</div>
+      <div class="option-content">
+        <h3>Referring Physician</h3>
+        <p>Patient referrals and collaboration</p>
+      </div>
+      <svg
+        class="option-arrow"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M9 18l6-6-6-6"></path>
+      </svg>
+    </a>
+  </div>
+
+  <div class="dropdown-backdrop" id="backdrop"></div>
+</div>
+
+<style>
+  .login-dropdown-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .login-trigger {
+    font-family: var(--font-manrope);
+    background: none;
+    border: none;
+    color: #0e1b2a;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.5rem 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease;
+    border-radius: 4px;
+  }
+
+  .login-trigger:hover {
+    color: #003087;
+  }
+
+  .login-trigger.active {
+    color: #003087;
+  }
+
+  .chevron {
+    transition: transform 0.2s ease;
+    margin-left: 2px;
+  }
+
+  .login-trigger.active .chevron {
+    transform: rotate(180deg);
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 280px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateY(-10px);
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    overflow: hidden;
+  }
+
+  .dropdown-menu.show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  .login-option {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    text-decoration: none;
+    color: #1e293b;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #f1f5f9;
+    position: relative;
+  }
+
+  .login-option:last-child {
+    border-bottom: none;
+  }
+
+  .login-option:hover {
+    background: #f8fafc;
+    color: #003087;
+  }
+
+  .login-option::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: #e6c378;
+    transition: width 0.2s ease;
+  }
+
+  .login-option:hover::before {
+    width: 4px;
+  }
+
+  .option-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-size: 16px;
+    background: #f1f5f9;
+    transition: all 0.2s ease;
+  }
+
+  .login-option:hover .option-icon {
+    background: #003087;
+    color: white;
+  }
+
+  .option-content h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: inherit;
+    font-family: var(--font-manrope);
+  }
+
+  .option-content p {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.4;
+    margin: 0;
+    font-family: var(--font-manrope);
+  }
+
+  .option-arrow {
+    margin-left: auto;
+    opacity: 0;
+    transform: translateX(-5px);
+    transition: all 0.2s ease;
+  }
+
+  .login-option:hover .option-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .dropdown-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    display: none;
+  }
+
+  .dropdown-backdrop.show {
+    display: block;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    .dropdown-menu {
+      right: -1rem;
+      left: -1rem;
+      min-width: auto;
+      width: calc(100vw - 2rem);
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const trigger = document.getElementById("loginTrigger");
+    const dropdown = document.getElementById("dropdownMenu");
+    const backdrop = document.getElementById("backdrop");
+
+    if (!trigger || !dropdown || !backdrop) return;
+
+    function toggleDropdown() {
+      const isOpen = dropdown.classList.contains("show");
+
+      if (isOpen) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
+    }
+
+    function openDropdown() {
+      trigger.classList.add("active");
+      dropdown.classList.add("show");
+      backdrop.classList.add("show");
+    }
+
+    function closeDropdown() {
+      trigger.classList.remove("active");
+      dropdown.classList.remove("show");
+      backdrop.classList.remove("show");
+    }
+
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleDropdown();
+    });
+
+    backdrop.addEventListener("click", closeDropdown);
+
+    // Close on escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeDropdown();
+      }
+    });
+
+    // Prevent dropdown from closing when clicking inside
+    dropdown.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!trigger.contains(e.target) && !dropdown.contains(e.target)) {
+        closeDropdown();
+      }
+    });
+  });
+</script>
