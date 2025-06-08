@@ -5,7 +5,8 @@ export interface Props {
   user?: any;
   imagingCenter?: any;
 }
-
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 const { title, user, imagingCenter } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
@@ -13,6 +14,8 @@ const currentPath = Astro.url.pathname;
 <!doctype html>
 <html lang="en">
   <head>
+    <meta name="supabase-url" content={supabaseUrl} />
+    <meta name="supabase-anon-key" content={supabaseAnonKey} />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title} | USRad Dashboard</title>
@@ -758,32 +761,33 @@ const currentPath = Astro.url.pathname;
       </nav>
 
       <!-- Logout Section -->
+      <!-- NEW - Replace with this -->
       <div
         class="p-4 border-t border-blue-800 bg-gradient-to-r from-red-900/10 to-transparent"
       >
-        <form action="/api/auth/logout" method="POST">
-          <button
-            type="submit"
-            class="w-full flex items-center px-4 py-3 text-sm font-medium text-red-300 hover:text-red-200 hover:bg-red-900 rounded-xl transition-all duration-200"
-          >
-            <div class="p-2 rounded-lg mr-3 bg-red-900/30">
-              <svg
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                ></path>
-              </svg>
-            </div>
-            <span>Sign Out</span>
-          </button>
-        </form>
+        <button
+          id="sidebar-logout-button"
+          type="button"
+          class="w-full flex items-center px-4 py-3 text-sm font-medium text-red-300 hover:text-red-200 hover:bg-red-900 rounded-xl transition-all duration-200 disabled:opacity-50"
+        >
+          <div class="p-2 rounded-lg mr-3 bg-red-900/30">
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013 3v1"
+              ></path>
+            </svg>
+          </div>
+          <span id="sidebar-logout-text">Sign Out</span>
+          <span id="sidebar-logout-loading" class="hidden">Signing out...</span>
+        </button>
       </div>
     </aside>
 
@@ -868,28 +872,33 @@ const currentPath = Astro.url.pathname;
               </div>
 
               <!-- Logout Button -->
-              <form action="/api/auth/logout" method="POST" class="inline">
-                <button
-                  type="submit"
-                  class="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
-                  title="Sign Out"
+              <!-- NEW - Just the button, no form wrapper -->
+              <button
+                id="logout-button"
+                type="button"
+                class="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 disabled:opacity-50"
+                title="Sign Out"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                    ></path>
-                  </svg>
-                  <span class="md:inline">Sign Out</span>
-                </button>
-              </form>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013 3v1"
+                  ></path>
+                </svg>
+                <span class="md:inline" id="logout-text">Sign Out</span>
+                <span
+                  class="md:inline"
+                  id="logout-loading"
+                  style="display: none;">Signing out...</span
+                >
+              </button>
             </div>
           </div>
         </div>
@@ -933,6 +942,112 @@ const currentPath = Astro.url.pathname;
         if (window.innerWidth >= 1024) {
           closeSidebarFn();
         }
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get Supabase config from meta tags (we'll add these)
+        const supabaseUrl = document.querySelector(
+          'meta[name="supabase-url"]'
+        )?.content;
+        const supabaseAnonKey = document.querySelector(
+          'meta[name="supabase-anon-key"]'
+        )?.content;
+
+        if (!supabaseUrl || !supabaseAnonKey) {
+          console.error("Missing Supabase configuration in dashboard");
+          return;
+        }
+
+        // Load Supabase and handle logout
+        import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm")
+          .then(({ createClient }) => {
+            const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
+            // Handle logout button click
+            const logoutButton = document.getElementById("logout-button");
+            if (logoutButton) {
+              logoutButton.addEventListener("click", async function () {
+                const button = this;
+                const logoutText = document.getElementById("logout-text");
+                const logoutLoading = document.getElementById("logout-loading");
+
+                // Show loading state
+                button.disabled = true;
+                if (logoutText) logoutText.classList.add("hidden");
+                if (logoutLoading) logoutLoading.classList.remove("hidden");
+
+                try {
+                  // Sign out with Supabase directly
+                  const { error } = await supabaseClient.auth.signOut();
+
+                  if (error) {
+                    throw error;
+                  }
+
+                  // Add success flag and redirect
+                  sessionStorage.setItem("logout_success", "true");
+                  window.location.href = "/";
+                } catch (error) {
+                  console.error("Logout error:", error);
+                  alert("Error signing out. Please try again.");
+
+                  // Reset button state
+                  button.disabled = false;
+                  if (logoutText) logoutText.classList.remove("hidden");
+                  if (logoutLoading) logoutLoading.classList.add("hidden");
+                }
+              });
+            }
+            // Handle sidebar logout button click (add this inside the .then() block)
+            const sidebarLogoutButton = document.getElementById(
+              "sidebar-logout-button"
+            );
+            if (sidebarLogoutButton) {
+              sidebarLogoutButton.addEventListener("click", async function () {
+                const button = this;
+                const sidebarLogoutText = document.getElementById(
+                  "sidebar-logout-text"
+                );
+                const sidebarLogoutLoading = document.getElementById(
+                  "sidebar-logout-loading"
+                );
+
+                // Show loading state
+                button.disabled = true;
+                if (sidebarLogoutText)
+                  sidebarLogoutText.classList.add("hidden");
+                if (sidebarLogoutLoading)
+                  sidebarLogoutLoading.classList.remove("hidden");
+
+                try {
+                  // Sign out with Supabase directly
+                  const { error } = await supabaseClient.auth.signOut();
+
+                  if (error) {
+                    throw error;
+                  }
+
+                  // Add success flag and redirect
+                  sessionStorage.setItem("logout_success", "true");
+                  window.location.href = "/";
+                } catch (error) {
+                  console.error("Sidebar logout error:", error);
+                  alert("Error signing out. Please try again.");
+
+                  // Reset button state
+                  button.disabled = false;
+                  if (sidebarLogoutText)
+                    sidebarLogoutText.classList.remove("hidden");
+                  if (sidebarLogoutLoading)
+                    sidebarLogoutLoading.classList.add("hidden");
+                }
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Failed to load Supabase for logout:", error);
+          });
       });
     </script>
   </body>

@@ -30,6 +30,146 @@ import Footer from "../components/Footer.astro";
       <slot />
     </main>
     <Footer />
+
+    <!-- Logout Success Toast -->
+    <div id="logout-toast" class="hidden fixed top-6 right-6 z-[9999]">
+      <div
+        class="bg-white border border-green-200 rounded-2xl p-5 shadow-2xl max-w-sm transform transition-all duration-300 ease-out"
+      >
+        <div class="flex items-start">
+          <!-- Success Icon with Animation -->
+          <div class="flex-shrink-0 mr-4">
+            <div
+              class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-lg"
+            >
+              <svg
+                class="w-6 h-6 text-white animate-pulse"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="flex-1 min-w-0">
+            <p class="text-base font-semibold text-gray-900 mb-1">
+              Successfully signed out
+            </p>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              Thanks for using USRad! Your session has ended securely.
+            </p>
+          </div>
+
+          <!-- Close Button -->
+          <button
+            onclick="window.closeToast()"
+            class="flex-shrink-0 ml-4 text-gray-400 hover:text-gray-600 transition-colors duration-200 p-1 rounded-lg hover:bg-gray-100"
+            aria-label="Close notification"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="mt-4 bg-gray-100 rounded-full h-1 overflow-hidden">
+          <div
+            class="bg-gradient-to-r from-green-500 to-green-600 h-full rounded-full animate-shrink-width"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      @keyframes shrink-width {
+        from {
+          width: 100%;
+        }
+        to {
+          width: 0%;
+        }
+      }
+
+      .animate-shrink-width {
+        animation: shrink-width 5s linear forwards;
+      }
+
+      #logout-toast.show {
+        animation: slideInRight 0.5s ease-out forwards;
+      }
+
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%) scale(0.95);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0) scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+
+    <script>
+      // Make functions global to avoid conflicts
+      window.closeToast = function () {
+        window.hideToast();
+      };
+
+      window.hideToast = function () {
+        const toast = document.getElementById("logout-toast");
+        if (toast) {
+          toast.style.opacity = "0";
+          toast.style.transform = "translateX(100%)";
+          toast.style.transition = "all 0.3s ease";
+          setTimeout(() => {
+            toast.classList.add("hidden");
+            toast.style.opacity = "";
+            toast.style.transform = "";
+            toast.style.transition = "";
+          }, 300);
+        }
+      };
+
+      // Use setTimeout to delay execution and avoid conflicts
+      setTimeout(function () {
+        console.log("Checking for logout success...");
+
+        if (sessionStorage.getItem("logout_success") === "true") {
+          console.log("Found logout success, showing toast");
+          sessionStorage.removeItem("logout_success");
+
+          const toast = document.getElementById("logout-toast");
+          if (toast) {
+            console.log("Showing toast element");
+            toast.classList.remove("hidden");
+            setTimeout(() => {
+              console.log("Auto-hiding toast");
+              window.hideToast();
+            }, 5000);
+          }
+        }
+      }, 1000); // Wait 1 second for page to fully load
+    </script>
+
     <style>
       .main-content {
         padding-top: 148px; /* header (90px) + sticky bar (58px) */
