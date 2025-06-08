@@ -1,24 +1,11 @@
 ---
-// src/pages/dashboard/index.astro
+// src/pages/dashboard/index.astro - ONLY ADD PSA STATUS
 import DashboardLayout from "../../components/dashboard/DashboardLayout.astro";
 import SkeletonProviderDashboardSystem from "../../components/dashboard/SkeletonProviderDashboardSystem";
-// import { validateAuthSession } from "../../lib/auth";
-// import { AuthService } from "../../lib/auth";
 
-// Validate authentication
-// const { session, user } = await validateAuthSession(Astro.request);
-
-// // if (!session || !user) {
-//   return Astro.redirect("/login/imaginglogin");
-// }
-// 
-// // Get dashboard data
-// // const dashboardData = await AuthService.getUserDashboardData(user.id);
-// const { imagingCenter, stats } = dashboardData;
-// 
 const fullyOnboarded = false;
 
-// Mock data for enhanced dashboard
+// Add PSA status to your existing mockData
 const mockData = {
   todayAppointments: 8,
   totalAppointments: 124,
@@ -28,14 +15,13 @@ const mockData = {
   avgScanTime: "28 min",
   patientSatisfaction: 4.8,
   equipmentStatus: "Operational",
+  // ADD THESE TWO LINES:
+  hasCompletedPSA: true, // Change to true to test unlock
+  onboardingProgress: 75,
 };
 ---
 
-<DashboardLayout
-  title="Dashboard Overview"
-  user={null}
-  imagingCenter={null}
->
+<DashboardLayout title="Dashboard Overview" user={null} imagingCenter={null}>
   <SkeletonProviderDashboardSystem
     client:load
     user={null}

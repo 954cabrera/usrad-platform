@@ -1,8 +1,48 @@
 // /src/pages/dashboard/components/SkeletonProviderDashboardSystem.jsx
+// Fixed version - removes jsx styles and ensures progressive disclosure shows
 import React, { useState, useEffect } from 'react';
+import { 
+  Building, 
+  FileText, 
+  TrendingUp, 
+  GraduationCap, 
+  Headphones,
+  Lock, 
+  CheckCircle, 
+  Award, 
+  ChevronRight, 
+  X, 
+  ChevronDown,
+  ChevronUp,
+  Star,
+  Phone,
+  BookOpen,
+  Download
+} from 'lucide-react';
 
 const SkeletonLoader = () => (
   <div className="space-y-8">
+    <style>{`
+      @keyframes shimmer {
+        0% { background-position: -200px 0; }
+        100% { background-position: calc(200px + 100%) 0; }
+      }
+      
+      .animate-pulse {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200px 100%;
+        animation: shimmer 1.5s ease-in-out infinite;
+      }
+
+      .usrad-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 48, 135, 0.08);
+        transition: all 0.3s ease;
+      }
+    `}</style>
+
     {/* Hero Section Skeleton */}
     <div className="usrad-card p-8 bg-gradient-to-r from-gray-200 to-gray-100 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-64 h-64 bg-gray-300/20 rounded-full -translate-y-32 translate-x-32"></div>
@@ -96,48 +136,205 @@ const SkeletonLoader = () => (
         </div>
       </div>
     </div>
-
-    <style jsx>{`
-      @keyframes shimmer {
-        0% { background-position: -200px 0; }
-        100% { background-position: calc(200px + 100%) 0; }
-      }
-      
-      .animate-pulse {
-        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-        background-size: 200px 100%;
-        animation: shimmer 1.5s ease-in-out infinite;
-      }
-
-      .usrad-card {
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        border: 1px solid rgba(0, 48, 135, 0.08);
-        transition: all 0.3s ease;
-      }
-    `}</style>
   </div>
 );
 
+// Progressive Disclosure Resource Panel Component
+const ResourcePanel = ({ panel, onClose, hasCompletedPSA }) => {
+  if (!panel) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+        {/* Panel Header */}
+        <div className={`p-6 ${panel.premium ? 'bg-gradient-to-r from-[#003087] to-[#0040a0]' : 'bg-gradient-to-r from-gray-600 to-gray-700'} text-white relative`}>
+          <button 
+            onClick={onClose}
+            className="absolute top-4 right-4 p-2 hover:bg-white/20 rounded-lg transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+          <div className="flex items-center space-x-4">
+            <panel.icon className="w-8 h-8" />
+            <div>
+              <h2 className="text-2xl font-bold">{panel.title}</h2>
+              <p className="text-blue-100">{panel.description}</p>
+            </div>
+          </div>
+          {panel.premium && (
+            <div className="mt-4 flex items-center space-x-2">
+              <Award className="w-5 h-5 text-yellow-300" />
+              <span className="text-yellow-300 font-semibold">Premium Content</span>
+            </div>
+          )}
+        </div>
+
+        {/* Panel Content */}
+        <div className="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
+          {panel.available ? (
+            <div className="space-y-6">
+              {panel.content.sections.map((section, index) => (
+                <div key={index} className="border border-gray-200 rounded-xl overflow-hidden">
+                  <div className={`p-4 ${section.status === 'available' ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'}`}>
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-bold text-gray-900">{section.title}</h3>
+                      <div className="flex items-center space-x-2">
+                        {section.status === 'available' ? (
+                          <CheckCircle className="w-5 h-5 text-green-600" />
+                        ) : (
+                          <Lock className="w-5 h-5 text-gray-400" />
+                        )}
+                        <span className={`text-sm font-semibold ${section.status === 'available' ? 'text-green-600' : 'text-gray-400'}`}>
+                          {section.status === 'available' ? 'Available' : 'Locked'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      {section.items.map((item, itemIndex) => (
+                        <div key={itemIndex} className={`p-3 rounded-lg border ${section.status === 'available' ? 'bg-white border-gray-200 hover:border-blue-300 cursor-pointer' : 'bg-gray-50 border-gray-200 opacity-50'}`}>
+                          <div className="flex items-center space-x-2">
+                            {section.status === 'available' ? (
+                              <CheckCircle className="w-4 h-4 text-green-500" />
+                            ) : (
+                              <Lock className="w-4 h-4 text-gray-400" />
+                            )}
+                            <span className="text-sm font-medium">{item}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <Lock className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Complete PSA to Unlock</h3>
+              <p className="text-gray-600 mb-6">
+                This premium content becomes available after completing your Provider Service Agreement.
+              </p>
+              <button 
+                onClick={() => window.location.href = '/dashboard/onboarding/psa'}
+                className="px-6 py-3 bg-gradient-to-r from-[#003087] to-[#0040a0] text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300"
+              >
+                Complete PSA Now
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyOnboarded }) => {
+  // DEBUG: Add console logs to see what's being received
+  console.log('🔍 Debug - mockData received:', mockData);
+  console.log('🔍 Debug - hasCompletedPSA:', mockData?.hasCompletedPSA);
+  console.log('🔍 Debug - onboardingProgress:', mockData?.onboardingProgress);
+
   const [isLoading, setIsLoading] = useState(true);
+  const [showNetworkResources, setShowNetworkResources] = useState(false);
+  const [activeResourcePanel, setActiveResourcePanel] = useState(null);
+
+  // Extract progressive disclosure data from mockData
+  const hasCompletedPSA = mockData?.hasCompletedPSA || false;
+  const onboardingProgress = mockData?.onboardingProgress || 40;
+
+  console.log('🔍 Debug - hasCompletedPSA extracted:', hasCompletedPSA);
+  console.log('🔍 Debug - onboardingProgress extracted:', onboardingProgress);
+
+  // Progressive disclosure helper functions
+  const canAccessNetworkResources = () => true;
+  const canAccessRevenueAnalytics = () => hasCompletedPSA;
+  const canAccessAdvancedTraining = () => hasCompletedPSA;
+  const canAccessDirectSupport = () => hasCompletedPSA;
+
+  // Resource panels configuration
+  const resourcePanels = {
+    implementation: {
+      title: 'Implementation Guide',
+      icon: Building,
+      description: 'Step-by-step setup process',
+      available: canAccessNetworkResources(),
+      premium: false,
+      content: {
+        sections: [
+          { title: 'System Integration', status: 'available', items: ['PACS Connection', 'Network Setup', 'Security Config'] },
+          { title: 'Staff Training', status: 'available', items: ['Basic Training', 'Workflow Overview', 'Support Contacts'] },
+          { title: 'Go-Live Checklist', status: 'available', items: ['Pre-launch Tests', 'Staff Readiness', 'Support Setup'] }
+        ]
+      }
+    },
+    analytics: {
+      title: 'Revenue Analytics',
+      icon: TrendingUp,
+      description: 'Advanced revenue insights and market intelligence',
+      available: canAccessRevenueAnalytics(),
+      premium: true,
+      content: {
+        sections: [
+          { title: 'Revenue Dashboard', status: hasCompletedPSA ? 'available' : 'locked', items: ['Real-time Revenue', 'Monthly Trends', 'Forecasting'] },
+          { title: 'Market Intelligence', status: hasCompletedPSA ? 'available' : 'locked', items: ['Competitive Analysis', 'Market Rates', 'Opportunity Mapping'] },
+          { title: 'Performance Optimization', status: hasCompletedPSA ? 'available' : 'locked', items: ['Efficiency Metrics', 'Cost Analysis', 'ROI Calculator'] }
+        ]
+      }
+    },
+    training: {
+      title: 'Training Center',
+      icon: GraduationCap,
+      description: 'Complete training curriculum and certification',
+      available: canAccessAdvancedTraining(),
+      premium: true,
+      content: {
+        sections: [
+          { title: 'Basic Training', status: hasCompletedPSA ? 'available' : 'locked', items: ['Platform Overview', 'Basic Operations', 'Safety Protocols'] },
+          { title: 'Advanced Modules', status: hasCompletedPSA ? 'available' : 'locked', items: ['Revenue Optimization', 'Quality Management', 'Compliance'] },
+          { title: 'Certification', status: hasCompletedPSA ? 'available' : 'locked', items: ['Final Assessment', 'Certificate', 'Continuing Education'] }
+        ]
+      }
+    },
+    support: {
+      title: 'Network Support',
+      icon: Headphones,
+      description: 'Direct access to USRad support team',
+      available: canAccessDirectSupport(),
+      premium: true,
+      content: {
+        sections: [
+          { title: 'Direct Support', status: hasCompletedPSA ? 'available' : 'locked', items: ['Priority Phone Line', 'Email Support', 'Live Chat'] },
+          { title: 'Account Management', status: hasCompletedPSA ? 'available' : 'locked', items: ['Dedicated Rep', 'Quarterly Reviews', 'Growth Planning'] },
+          { title: 'Technical Support', status: hasCompletedPSA ? 'available' : 'locked', items: ['24/7 Tech Line', 'Remote Assistance', 'Emergency Support'] }
+        ]
+      }
+    }
+  };
 
   useEffect(() => {
+    console.log('🔍 Debug - useEffect running, setting loading to false in 1 second');
     const timer = setTimeout(() => {
+      console.log('🔍 Debug - Loading complete, should show main dashboard now');
       setIsLoading(false);
     }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
 
+  console.log('🔍 Debug - isLoading:', isLoading);
+
   if (isLoading) {
+    console.log('🔍 Debug - Showing skeleton loader');
     return <SkeletonLoader />;
   }
 
+  console.log('🔍 Debug - Showing main dashboard content');
+
   return (
     <div className="space-y-8">
-      <style jsx>{`
+      <style>{`
         .usrad-card {
           background: white;
           border-radius: 16px;
@@ -197,46 +394,190 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
             transform: translateY(0);
           }
         }
+
+        .network-resources-toggle {
+          transform: translateY(0);
+          transition: all 0.3s ease;
+        }
+
+        .network-resources-content {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.5s ease;
+        }
+
+        .network-resources-content.expanded {
+          max-height: 2000px;
+        }
+
+        .progress-bar {
+          transition: width 2s ease-out;
+        }
       `}</style>
 
-      {/* Welcome Hero Section */}
+      {/* Enhanced Welcome Hero Section */}
       <div className="usrad-card p-8 usrad-gradient-navy text-white relative overflow-hidden animate-fade-in-up">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32"></div>
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-24 -translate-x-24"></div>
         <div className="relative z-10">
-          <h1 className="text-4xl font-bold mb-3" style={{fontFamily: 'Manrope, sans-serif'}}>
-            Good {
-              new Date().getHours() < 12
-                ? "Morning"
-                : new Date().getHours() < 18
-                  ? "Afternoon"
-                  : "Evening"
-            },
-            {user?.firstName || "Doctor"}! 👋
-          </h1>
-          <p className="text-blue-100 text-xl mb-6" style={{fontFamily: 'Manrope, sans-serif'}}>
-            {imagingCenter
-              ? `Managing ${imagingCenter.name}`
-              : "Welcome to your USRad dashboard"
-            }
-          </p>
-          <div className="flex items-center space-x-8">
-            <div className="flex items-center space-x-3">
-              <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-blue-100 font-medium">All systems operational</span>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-4xl font-bold mb-3" style={{fontFamily: 'Manrope, sans-serif'}}>
+                Good {
+                  new Date().getHours() < 12
+                    ? "Morning"
+                    : new Date().getHours() < 18
+                      ? "Afternoon"
+                      : "Evening"
+                },
+                {user?.firstName || "Doctor"}! 👋
+              </h1>
+              <p className="text-blue-100 text-xl mb-6" style={{fontFamily: 'Manrope, sans-serif'}}>
+                {hasCompletedPSA 
+                  ? "Your network access is fully activated. Explore all premium features below." 
+                  : "Complete your PSA to unlock premium network resources and analytics."
+                }
+              </p>
+              <div className="flex items-center space-x-8">
+                <div className="flex items-center space-x-3">
+                  <div className={`w-4 h-4 ${hasCompletedPSA ? 'bg-green-400' : 'bg-yellow-400'} rounded-full animate-pulse`}></div>
+                  <span className="text-blue-100 font-medium">
+                    {hasCompletedPSA ? 'Full network access active' : 'Onboarding in progress'}
+                  </span>
+                </div>
+                <div className="text-blue-100">
+                  Onboarding: {onboardingProgress}% complete
+                </div>
+              </div>
             </div>
-            <div className="text-blue-100">
-              Last updated: {new Date().toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
+            
+            {/* Network Resources Toggle - THIS SHOULD BE VISIBLE */}
+            <div className="text-right">
+              <div className="text-4xl font-bold">{onboardingProgress}%</div>
+              <div className="text-blue-100 mb-3">Complete</div>
+              <button 
+                onClick={() => {
+                  console.log('🔍 Debug - Toggle button clicked, current state:', showNetworkResources);
+                  setShowNetworkResources(!showNetworkResources);
+                }}
+                className="flex items-center space-x-2 px-4 py-2 bg-white/20 text-white rounded-lg hover:bg-white/30 transition-all duration-300 text-sm font-semibold network-resources-toggle"
+              >
+                <span>{showNetworkResources ? 'Hide' : 'Show'} Network Resources</span>
+                {showNetworkResources ? (
+                  <ChevronUp className="w-4 h-4" />
+                ) : (
+                  <ChevronDown className="w-4 h-4" />
+                )}
+              </button>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Progressive Disclosure - Network Resources Section */}
+      <div className={`network-resources-content ${showNetworkResources ? 'expanded' : ''}`}>
+        {showNetworkResources && (
+          <div className="space-y-8 animate-fade-in-up">
+            {/* Network Resources Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {Object.entries(resourcePanels).map(([key, panel], index) => (
+                <div 
+                  key={key}
+                  className={`usrad-card p-6 cursor-pointer transition-all duration-300 ${
+                    panel.available ? 'hover:transform hover:-translate-y-1' : 'opacity-75'
+                  }`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                  onClick={() => setActiveResourcePanel(key)}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`p-3 rounded-xl ${panel.available ? 'bg-blue-100' : 'bg-gray-100'}`}>
+                      <panel.icon className={`w-6 h-6 ${panel.available ? 'text-blue-600' : 'text-gray-400'}`} />
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      {panel.premium && <Award className="w-4 h-4 text-yellow-500" />}
+                      {panel.available ? (
+                        <CheckCircle className="w-5 h-5 text-green-500" />
+                      ) : (
+                        <Lock className="w-5 h-5 text-gray-400" />
+                      )}
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-lg font-bold usrad-navy mb-2">{panel.title}</h3>
+                  <p className="text-gray-600 text-sm mb-4">{panel.description}</p>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                      panel.available 
+                        ? 'bg-green-100 text-green-700' 
+                        : 'bg-gray-100 text-gray-500'
+                    }`}>
+                      {panel.available ? 'Available' : 'PSA Required'}
+                    </span>
+                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Network Tools Quick Access */}
+            <div className="usrad-card p-6">
+              <h3 className="text-xl font-bold usrad-navy mb-4">Network Tools</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <button 
+                  onClick={() => hasCompletedPSA ? setActiveResourcePanel('analytics') : alert('Complete PSA to access revenue analytics')}
+                  className={`flex flex-col items-center p-4 border rounded-lg transition-all duration-300 ${
+                    hasCompletedPSA 
+                      ? 'border-blue-300 hover:bg-blue-50 text-blue-600' 
+                      : 'border-gray-200 text-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  <TrendingUp className="w-6 h-6 mb-2" />
+                  <span className="text-sm font-medium">Revenue Analytics</span>
+                  {!hasCompletedPSA && <Lock className="w-3 h-3 mt-1" />}
+                </button>
+                
+                <button 
+                  onClick={() => hasCompletedPSA ? setActiveResourcePanel('training') : alert('Complete PSA to access training center')}
+                  className={`flex flex-col items-center p-4 border rounded-lg transition-all duration-300 ${
+                    hasCompletedPSA 
+                      ? 'border-blue-300 hover:bg-blue-50 text-blue-600' 
+                      : 'border-gray-200 text-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  <GraduationCap className="w-6 h-6 mb-2" />
+                  <span className="text-sm font-medium">Training Center</span>
+                  {!hasCompletedPSA && <Lock className="w-3 h-3 mt-1" />}
+                </button>
+                
+                <button 
+                  onClick={() => setActiveResourcePanel('implementation')}
+                  className="flex flex-col items-center p-4 border border-blue-300 rounded-lg hover:bg-blue-50 text-blue-600 transition-all duration-300"
+                >
+                  <Building className="w-6 h-6 mb-2" />
+                  <span className="text-sm font-medium">Implementation</span>
+                </button>
+                
+                <button 
+                  onClick={() => hasCompletedPSA ? setActiveResourcePanel('support') : alert('Complete PSA to access direct support')}
+                  className={`flex flex-col items-center p-4 border rounded-lg transition-all duration-300 ${
+                    hasCompletedPSA 
+                      ? 'border-blue-300 hover:bg-blue-50 text-blue-600' 
+                      : 'border-gray-200 text-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  <Headphones className="w-6 h-6 mb-2" />
+                  <span className="text-sm font-medium">Direct Support</span>
+                  {!hasCompletedPSA && <Lock className="w-3 h-3 mt-1" />}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Onboarding Banner */}
-      {!fullyOnboarded && (
+      {!fullyOnboarded && !hasCompletedPSA && (
         <div className="usrad-card p-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-400">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
@@ -244,18 +585,18 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
               </svg>
               <div>
-                <h3 className="font-semibold text-yellow-800">Complete your onboarding</h3>
-                <p className="text-yellow-700 text-sm">Finish setting up your provider account to start receiving referrals</p>
+                <h3 className="font-semibold text-yellow-800">Complete your PSA to unlock premium features</h3>
+                <p className="text-yellow-700 text-sm">Gain access to revenue analytics, advanced training, and direct support</p>
               </div>
             </div>
-            <a href="/dashboard/onboarding" className="px-6 py-2 bg-yellow-600 text-white font-semibold rounded-lg hover:bg-yellow-700 transition-colors">
-              Continue Setup →
+            <a href="/dashboard/onboarding/psa" className="px-6 py-2 bg-yellow-600 text-white font-semibold rounded-lg hover:bg-yellow-700 transition-colors">
+              Complete PSA →
             </a>
           </div>
         </div>
       )}
 
-      {/* Key Metrics Grid */}
+      {/* Your Existing Dashboard Content - Key Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* Today's Appointments */}
         <div className="usrad-card p-8 animate-fade-in-up" style={{animationDelay: '0.1s'}}>
@@ -358,7 +699,7 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
         </div>
       </div>
 
-      {/* Main Content Area */}
+      {/* Your Existing Main Content Area */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
         {/* Today's Schedule */}
         <div className="xl:col-span-2 usrad-card p-8 animate-fade-in-up" style={{animationDelay: '0.5s'}}>
@@ -601,6 +942,15 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
           </div>
         </div>
       </div>
+
+      {/* Resource Panel Modals */}
+      {activeResourcePanel && (
+        <ResourcePanel 
+          panel={resourcePanels[activeResourcePanel]}
+          onClose={() => setActiveResourcePanel(null)}
+          hasCompletedPSA={hasCompletedPSA}
+        />
+      )}
     </div>
   );
 };

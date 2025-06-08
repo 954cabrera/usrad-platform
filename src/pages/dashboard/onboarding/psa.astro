@@ -1,27 +1,28 @@
 ---
 // src/pages/dashboard/onboarding/psa.astro
 import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
-import PSASigningSystemUpdated from "../../../components/dashboard/PSASigningSystemUpdated";
+import PSASigningSystemEmbedded from "../../../components/dashboard/PSASigningSystemEmbedded.jsx"; // ✅ CHANGED: Use the enhanced component
 // import { validateAuthSession } from "../../../lib/auth";
 
 // const { session, user } = await validateAuthSession(Astro.request);
 // // if (!session || !user) {
 //   return Astro.redirect("/login/imaginglogin");
 // }
-// // 
-// // const providerData = {
-// //   facilityName: "Advanced Imaging Center",
-// //   contactName: "Dr. John Smith",
-// //   email: "drsmith@example.com",
-//   phone: "(954) 555-0123",
-//   contactPhone: "(954) 555-0124",
-//   contactEmail: "contact@example.com",
-//   taxId: "12-3456789",
-//   totalLocations: "1",
-//   signerTitle: "Medical Director",
-// };
+
+// ✅ ENHANCED: Better mock data for testing
+const providerData = {
+  facilityName: "Advanced Imaging Center of Davie",
+  contactName: "Dr. John Smith",
+  email: "admin@advancedimaging.com",
+  phone: "(954) 555-0123",
+  contactPhone: "(954) 555-0124",
+  contactEmail: "contact@advancedimaging.com",
+  taxId: "12-3456789",
+  totalLocations: "1",
+  signerTitle: "Medical Director",
+};
 ---
 
 <DashboardLayout title="PSA Signing" user={null}>
-  <PSASigningSystemUpdated client:load providerData={null} />
+  <PSASigningSystemEmbedded client:load providerData={providerData} />
 </DashboardLayout>
