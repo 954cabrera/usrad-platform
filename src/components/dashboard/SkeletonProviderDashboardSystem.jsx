@@ -1,5 +1,5 @@
-// /src/pages/dashboard/components/SkeletonProviderDashboardSystem.jsx
-// Fixed version - removes jsx styles and ensures progressive disclosure shows
+// /src/components/dashboard/SkeletonProviderDashboardSystem.jsx
+// Enhanced version with spectacular demo mode - PSA system fully preserved
 import React, { useState, useEffect } from 'react';
 import { 
   Building, 
@@ -17,7 +17,20 @@ import {
   Star,
   Phone,
   BookOpen,
-  Download
+  Download,
+  Eye,
+  Sparkles,
+  Shield,
+  BarChart3,
+  Crown,
+  Zap,
+  ArrowRight,
+  Play,
+  Calendar,
+  Users,
+  DollarSign,
+  Activity,
+  Unlock
 } from 'lucide-react';
 
 const SkeletonLoader = () => (
@@ -139,96 +152,161 @@ const SkeletonLoader = () => (
   </div>
 );
 
-// Progressive Disclosure Resource Panel Component
-const ResourcePanel = ({ panel, onClose, hasCompletedPSA }) => {
-  if (!panel) return null;
-
+// ✨ SPECTACULAR VALUE PREVIEW MODAL
+const SpectacularValueModal = ({ feature, onClose }) => {
+  if (!feature) return null;
+  
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
-        {/* Panel Header */}
-        <div className={`p-6 ${panel.premium ? 'bg-gradient-to-r from-[#003087] to-[#0040a0]' : 'bg-gradient-to-r from-gray-600 to-gray-700'} text-white relative`}>
-          <button 
-            onClick={onClose}
-            className="absolute top-4 right-4 p-2 hover:bg-white/20 rounded-lg transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-          <div className="flex items-center space-x-4">
-            <panel.icon className="w-8 h-8" />
-            <div>
-              <h2 className="text-2xl font-bold">{panel.title}</h2>
-              <p className="text-blue-100">{panel.description}</p>
+    <div className="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-3xl shadow-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-[#003087] to-[#0040a0] p-8 text-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-32 translate-x-32"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-4">
+                <div className="bg-white/20 p-3 rounded-2xl">
+                  <Crown className="w-8 h-8" />
+                </div>
+                <div>
+                  <h2 className="text-3xl font-bold">{feature.title}</h2>
+                  <p className="text-blue-100 text-lg">{feature.description}</p>
+                </div>
+              </div>
+              <button 
+                onClick={onClose}
+                className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6">
+              <div className="flex items-center space-x-4">
+                <Zap className="w-8 h-8 text-yellow-300" />
+                <div>
+                  <p className="text-2xl font-bold text-white">{feature.value}</p>
+                  <p className="text-blue-100">Potential Impact</p>
+                </div>
+              </div>
             </div>
           </div>
-          {panel.premium && (
-            <div className="mt-4 flex items-center space-x-2">
-              <Award className="w-5 h-5 text-yellow-300" />
-              <span className="text-yellow-300 font-semibold">Premium Content</span>
-            </div>
-          )}
         </div>
-
-        {/* Panel Content */}
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
-          {panel.available ? (
-            <div className="space-y-6">
-              {panel.content.sections.map((section, index) => (
-                <div key={index} className="border border-gray-200 rounded-xl overflow-hidden">
-                  <div className={`p-4 ${section.status === 'available' ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'}`}>
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-bold text-gray-900">{section.title}</h3>
-                      <div className="flex items-center space-x-2">
-                        {section.status === 'available' ? (
-                          <CheckCircle className="w-5 h-5 text-green-600" />
-                        ) : (
-                          <Lock className="w-5 h-5 text-gray-400" />
-                        )}
-                        <span className={`text-sm font-semibold ${section.status === 'available' ? 'text-green-600' : 'text-gray-400'}`}>
-                          {section.status === 'available' ? 'Available' : 'Locked'}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                      {section.items.map((item, itemIndex) => (
-                        <div key={itemIndex} className={`p-3 rounded-lg border ${section.status === 'available' ? 'bg-white border-gray-200 hover:border-blue-300 cursor-pointer' : 'bg-gray-50 border-gray-200 opacity-50'}`}>
-                          <div className="flex items-center space-x-2">
-                            {section.status === 'available' ? (
-                              <CheckCircle className="w-4 h-4 text-green-500" />
-                            ) : (
-                              <Lock className="w-4 h-4 text-gray-400" />
-                            )}
-                            <span className="text-sm font-medium">{item}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+        
+        {/* Content */}
+        <div className="p-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl">
+              <BarChart3 className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+              <h3 className="font-bold text-gray-900 mb-2">Real-Time Insights</h3>
+              <p className="text-gray-600 text-sm">Live data updates every 60 seconds</p>
+            </div>
+            <div className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl">
+              <Award className="w-12 h-12 text-green-600 mx-auto mb-4" />
+              <h3 className="font-bold text-gray-900 mb-2">Industry Benchmarks</h3>
+              <p className="text-gray-600 text-sm">Compare against 1,500+ centers</p>
+            </div>
+            <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl">
+              <Shield className="w-12 h-12 text-purple-600 mx-auto mb-4" />
+              <h3 className="font-bold text-gray-900 mb-2">Secure & Compliant</h3>
+              <p className="text-gray-600 text-sm">HIPAA-compliant enterprise security</p>
+            </div>
+          </div>
+          
+          <div className="bg-gray-50 rounded-2xl p-6 mb-8">
+            <h3 className="font-bold text-gray-900 mb-4 flex items-center space-x-2">
+              <Play className="w-5 h-5 text-blue-600" />
+              <span>What You'll Get Access To:</span>
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {feature.preview.split(', ').map((item, index) => (
+                <div key={index} className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                  <span className="text-gray-700">{item}</span>
                 </div>
               ))}
             </div>
-          ) : (
-            <div className="text-center py-12">
-              <Lock className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Complete PSA to Unlock</h3>
-              <p className="text-gray-600 mb-6">
-                This premium content becomes available after completing your Provider Service Agreement.
-              </p>
-              <button 
-                onClick={() => window.location.href = '/dashboard/onboarding/psa'}
-                className="px-6 py-3 bg-gradient-to-r from-[#003087] to-[#0040a0] text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300"
-              >
-                Complete PSA Now
-              </button>
-            </div>
-          )}
+          </div>
+          
+          <div className="text-center">
+            <button 
+              onClick={() => window.location.href = '/dashboard/onboarding/psa'}
+              className="bg-gradient-to-r from-[#003087] to-[#0040a0] text-white px-12 py-4 rounded-2xl font-bold text-lg shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-3 mx-auto"
+            >
+              <span>Complete PSA to Unlock</span>
+              <ArrowRight className="w-6 h-6" />
+            </button>
+            <p className="text-gray-500 text-sm mt-4">Takes 3 minutes • Instant access</p>
+          </div>
         </div>
       </div>
     </div>
   );
 };
+
+// ✨ SPECTACULAR METRIC CARD
+const SpectacularMetricCard = ({ 
+  icon: Icon, 
+  title, 
+  value, 
+  subtitle, 
+  trend, 
+  premium = false, 
+  onPreview,
+  hasCompletedPSA = false,
+  isAnimating = false 
+}) => (
+  <div className={`relative group ${isAnimating ? 'opacity-0' : 'opacity-100'} transition-all duration-1000`}>
+    <div className={`usrad-card p-8 hover:shadow-2xl transition-all duration-500 ${premium ? 'ring-2 ring-yellow-400 ring-opacity-50' : ''}`}>
+      {premium && (
+        <div className="absolute -top-3 -right-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-yellow-900 p-2 rounded-full shadow-lg">
+          <Crown className="w-5 h-5" />
+        </div>
+      )}
+      
+      <div className="flex items-center justify-between mb-6">
+        <div className={`p-4 rounded-2xl ${premium ? 'bg-gradient-to-br from-yellow-100 to-yellow-200' : 'bg-gradient-to-br from-blue-100 to-blue-200'}`}>
+          <Icon className={`w-8 h-8 ${premium ? 'text-yellow-700' : 'text-blue-700'}`} />
+        </div>
+        {premium && !hasCompletedPSA && (
+          <button 
+            onClick={onPreview}
+            className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors"
+          >
+            <Eye className="w-4 h-4" />
+            <span className="text-sm font-medium">Preview</span>
+          </button>
+        )}
+      </div>
+      
+      <div className="mb-4">
+        <div className="text-4xl font-bold text-gray-900 mb-2 font-mono">
+          {premium && !hasCompletedPSA ? '•••' : value}
+        </div>
+        <div className="text-gray-600 font-medium">{title}</div>
+      </div>
+      
+      <div className="flex items-center justify-between">
+        {trend && (
+          <div className="flex items-center space-x-2">
+            <TrendingUp className="w-4 h-4 text-green-500" />
+            <span className="text-green-600 font-semibold text-sm">{trend}</span>
+          </div>
+        )}
+        <div className="text-gray-500 text-sm">{subtitle}</div>
+      </div>
+      
+      {premium && !hasCompletedPSA && (
+        <div className="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center rounded-2xl backdrop-blur-sm">
+          <div className="text-center p-6">
+            <Lock className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+            <p className="text-gray-700 font-semibold">Premium Analytics</p>
+            <p className="text-gray-500 text-sm">Complete PSA to unlock</p>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+);
 
 const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyOnboarded }) => {
   // DEBUG: Add console logs to see what's being received
@@ -239,6 +317,8 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
   const [isLoading, setIsLoading] = useState(true);
   const [showNetworkResources, setShowNetworkResources] = useState(false);
   const [activeResourcePanel, setActiveResourcePanel] = useState(null);
+  const [showValuePreview, setShowValuePreview] = useState(null);
+  const [isAnimating, setIsAnimating] = useState(true);
 
   // Extract progressive disclosure data from mockData
   const hasCompletedPSA = mockData?.hasCompletedPSA || false;
@@ -247,77 +327,48 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
   console.log('🔍 Debug - hasCompletedPSA extracted:', hasCompletedPSA);
   console.log('🔍 Debug - onboardingProgress extracted:', onboardingProgress);
 
+  // ✨ ENHANCED DEMO DATA with premium features
+  const enhancedDemoData = {
+    ...mockData,
+    isDemo: !hasCompletedPSA,
+    
+    premiumFeatures: {
+      revenueAnalytics: {
+        title: "Advanced Revenue Analytics",
+        description: "AI-powered revenue optimization with market intelligence",
+        value: "$127K potential monthly increase",
+        preview: "Real-time market rates, competitor analysis, pricing optimization, ROI calculator",
+        locked: !hasCompletedPSA
+      },
+      networkIntelligence: {
+        title: "Network Intelligence Hub", 
+        description: "Exclusive insights from 1,500+ imaging centers",
+        value: "25% efficiency improvement",
+        preview: "Performance benchmarks, best practices, growth opportunities, capacity planning",
+        locked: !hasCompletedPSA
+      },
+      vipSupport: {
+        title: "VIP Support & Training",
+        description: "Direct access to USRad specialists and priority support",
+        value: "24/7 premium support",
+        preview: "Dedicated account manager, live training, priority troubleshooting, implementation assistance",
+        locked: !hasCompletedPSA
+      }
+    }
+  };
+
   // Progressive disclosure helper functions
   const canAccessNetworkResources = () => true;
   const canAccessRevenueAnalytics = () => hasCompletedPSA;
   const canAccessAdvancedTraining = () => hasCompletedPSA;
   const canAccessDirectSupport = () => hasCompletedPSA;
 
-  // Resource panels configuration
-  const resourcePanels = {
-    implementation: {
-      title: 'Implementation Guide',
-      icon: Building,
-      description: 'Step-by-step setup process',
-      available: canAccessNetworkResources(),
-      premium: false,
-      content: {
-        sections: [
-          { title: 'System Integration', status: 'available', items: ['PACS Connection', 'Network Setup', 'Security Config'] },
-          { title: 'Staff Training', status: 'available', items: ['Basic Training', 'Workflow Overview', 'Support Contacts'] },
-          { title: 'Go-Live Checklist', status: 'available', items: ['Pre-launch Tests', 'Staff Readiness', 'Support Setup'] }
-        ]
-      }
-    },
-    analytics: {
-      title: 'Revenue Analytics',
-      icon: TrendingUp,
-      description: 'Advanced revenue insights and market intelligence',
-      available: canAccessRevenueAnalytics(),
-      premium: true,
-      content: {
-        sections: [
-          { title: 'Revenue Dashboard', status: hasCompletedPSA ? 'available' : 'locked', items: ['Real-time Revenue', 'Monthly Trends', 'Forecasting'] },
-          { title: 'Market Intelligence', status: hasCompletedPSA ? 'available' : 'locked', items: ['Competitive Analysis', 'Market Rates', 'Opportunity Mapping'] },
-          { title: 'Performance Optimization', status: hasCompletedPSA ? 'available' : 'locked', items: ['Efficiency Metrics', 'Cost Analysis', 'ROI Calculator'] }
-        ]
-      }
-    },
-    training: {
-      title: 'Training Center',
-      icon: GraduationCap,
-      description: 'Complete training curriculum and certification',
-      available: canAccessAdvancedTraining(),
-      premium: true,
-      content: {
-        sections: [
-          { title: 'Basic Training', status: hasCompletedPSA ? 'available' : 'locked', items: ['Platform Overview', 'Basic Operations', 'Safety Protocols'] },
-          { title: 'Advanced Modules', status: hasCompletedPSA ? 'available' : 'locked', items: ['Revenue Optimization', 'Quality Management', 'Compliance'] },
-          { title: 'Certification', status: hasCompletedPSA ? 'available' : 'locked', items: ['Final Assessment', 'Certificate', 'Continuing Education'] }
-        ]
-      }
-    },
-    support: {
-      title: 'Network Support',
-      icon: Headphones,
-      description: 'Direct access to USRad support team',
-      available: canAccessDirectSupport(),
-      premium: true,
-      content: {
-        sections: [
-          { title: 'Direct Support', status: hasCompletedPSA ? 'available' : 'locked', items: ['Priority Phone Line', 'Email Support', 'Live Chat'] },
-          { title: 'Account Management', status: hasCompletedPSA ? 'available' : 'locked', items: ['Dedicated Rep', 'Quarterly Reviews', 'Growth Planning'] },
-          { title: 'Technical Support', status: hasCompletedPSA ? 'available' : 'locked', items: ['24/7 Tech Line', 'Remote Assistance', 'Emergency Support'] }
-        ]
-      }
-    }
-  };
-
   useEffect(() => {
     console.log('🔍 Debug - useEffect running, setting loading to false in 1 second');
     const timer = setTimeout(() => {
       console.log('🔍 Debug - Loading complete, should show main dashboard now');
       setIsLoading(false);
+      setTimeout(() => setIsAnimating(false), 500);
     }, 1000);
 
     return () => clearTimeout(timer);
@@ -332,20 +383,79 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
 
   console.log('🔍 Debug - Showing main dashboard content');
 
+  // ✨ SPECTACULAR DEMO BANNER - ENTERPRISE LEVEL
+  const SpectacularDemoBanner = () => (
+    <div className="relative overflow-hidden bg-gradient-to-r from-[#003087] via-blue-700 to-blue-800 rounded-2xl p-8 mb-8 shadow-2xl">
+      {/* Animated background pattern */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-transparent">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
+      </div>
+      
+      <div className="relative z-10 flex items-center justify-between">
+        <div className="flex items-center space-x-6">
+          <div className="bg-white/20 backdrop-blur-sm p-4 rounded-2xl">
+            <Eye className="w-8 h-8 text-white" />
+          </div>
+          <div>
+            <div className="flex items-center space-x-3 mb-2">
+              <h3 className="text-2xl font-bold text-white">You're Experiencing Demo Mode</h3>
+              <div className="bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-bold flex items-center space-x-1">
+                <Sparkles className="w-4 h-4" />
+                <span>PREVIEW</span>
+              </div>
+            </div>
+            <p className="text-blue-100 text-lg">
+              This sophisticated dashboard showcases what your imaging center's data will look like
+            </p>
+            <div className="flex items-center space-x-6 mt-4">
+              <div className="flex items-center space-x-2 text-blue-100">
+                <Shield className="w-5 h-5" />
+                <span className="font-medium">Enterprise Security</span>
+              </div>
+              <div className="flex items-center space-x-2 text-blue-100">
+                <BarChart3 className="w-5 h-5" />
+                <span className="font-medium">Real-Time Analytics</span>
+              </div>
+              <div className="flex items-center space-x-2 text-blue-100">
+                <Crown className="w-5 h-5" />
+                <span className="font-medium">Premium Intelligence</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="text-right">
+          <button 
+            onClick={() => window.location.href = '/dashboard/onboarding/psa'}
+            className="group bg-white text-blue-700 px-8 py-4 rounded-xl font-bold text-lg shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-3"
+          >
+            <span>Unlock Your Real Data</span>
+            <div className="bg-blue-100 p-2 rounded-lg group-hover:bg-blue-200 transition-colors">
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </button>
+          <p className="text-blue-200 text-sm mt-2">Complete PSA • Takes 3 minutes</p>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="space-y-8">
       <style>{`
         .usrad-card {
           background: white;
-          border-radius: 16px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-          border: 1px solid rgba(0, 48, 135, 0.08);
-          transition: all 0.3s ease;
+          border-radius: 24px;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+          border: 1px solid rgba(0, 48, 135, 0.05);
+          transition: all 0.4s ease;
         }
 
         .usrad-card:hover {
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-          transform: translateY(-4px);
+          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+          transform: translateY(-8px);
         }
 
         .usrad-navy {
@@ -395,6 +505,19 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
           }
         }
 
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        
+        .float-animation {
+          animation: float 6s ease-in-out infinite;
+        }
+        
+        .shadow-3xl {
+          box-shadow: 0 35px 80px rgba(0, 0, 0, 0.25);
+        }
+
         .network-resources-toggle {
           transform: translateY(0);
           transition: all 0.3s ease;
@@ -415,166 +538,23 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
         }
       `}</style>
 
-      {/* Enhanced Welcome Hero Section */}
-      <div className="usrad-card p-8 usrad-gradient-navy text-white relative overflow-hidden animate-fade-in-up">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32"></div>
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-24 -translate-x-24"></div>
-        <div className="relative z-10">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold mb-3" style={{fontFamily: 'Manrope, sans-serif'}}>
-                Good {
-                  new Date().getHours() < 12
-                    ? "Morning"
-                    : new Date().getHours() < 18
-                      ? "Afternoon"
-                      : "Evening"
-                },
-                {user?.firstName || "Doctor"}! 👋
-              </h1>
-              <p className="text-blue-100 text-xl mb-6" style={{fontFamily: 'Manrope, sans-serif'}}>
-                {hasCompletedPSA 
-                  ? "Your network access is fully activated. Explore all premium features below." 
-                  : "Complete your PSA to unlock premium network resources and analytics."
-                }
-              </p>
-              <div className="flex items-center space-x-8">
-                <div className="flex items-center space-x-3">
-                  <div className={`w-4 h-4 ${hasCompletedPSA ? 'bg-green-400' : 'bg-yellow-400'} rounded-full animate-pulse`}></div>
-                  <span className="text-blue-100 font-medium">
-                    {hasCompletedPSA ? 'Full network access active' : 'Onboarding in progress'}
-                  </span>
-                </div>
-                <div className="text-blue-100">
-                  Onboarding: {onboardingProgress}% complete
-                </div>
-              </div>
+      {/* ✨ SPECTACULAR DEMO BANNER - Only show if PSA not completed */}
+      {!hasCompletedPSA && <SpectacularDemoBanner />}
+
+      {/* Success Message for PSA Completion */}
+      {hasCompletedPSA && (
+        <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-8 text-white mb-8 float-animation">
+          <div className="flex items-center space-x-4">
+            <div className="bg-white/20 p-4 rounded-2xl">
+              <Award className="w-8 h-8" />
             </div>
-            
-            {/* Network Resources Toggle - THIS SHOULD BE VISIBLE */}
-            <div className="text-right">
-              <div className="text-4xl font-bold">{onboardingProgress}%</div>
-              <div className="text-blue-100 mb-3">Complete</div>
-              <button 
-                onClick={() => {
-                  console.log('🔍 Debug - Toggle button clicked, current state:', showNetworkResources);
-                  setShowNetworkResources(!showNetworkResources);
-                }}
-                className="flex items-center space-x-2 px-4 py-2 bg-white/20 text-white rounded-lg hover:bg-white/30 transition-all duration-300 text-sm font-semibold network-resources-toggle"
-              >
-                <span>{showNetworkResources ? 'Hide' : 'Show'} Network Resources</span>
-                {showNetworkResources ? (
-                  <ChevronUp className="w-4 h-4" />
-                ) : (
-                  <ChevronDown className="w-4 h-4" />
-                )}
-              </button>
+            <div>
+              <h3 className="text-2xl font-bold mb-2">🎉 Welcome to USRad Premium!</h3>
+              <p className="text-green-100 text-lg">Your PSA is complete! All premium features are now unlocked.</p>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Progressive Disclosure - Network Resources Section */}
-      <div className={`network-resources-content ${showNetworkResources ? 'expanded' : ''}`}>
-        {showNetworkResources && (
-          <div className="space-y-8 animate-fade-in-up">
-            {/* Network Resources Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {Object.entries(resourcePanels).map(([key, panel], index) => (
-                <div 
-                  key={key}
-                  className={`usrad-card p-6 cursor-pointer transition-all duration-300 ${
-                    panel.available ? 'hover:transform hover:-translate-y-1' : 'opacity-75'
-                  }`}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                  onClick={() => setActiveResourcePanel(key)}
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className={`p-3 rounded-xl ${panel.available ? 'bg-blue-100' : 'bg-gray-100'}`}>
-                      <panel.icon className={`w-6 h-6 ${panel.available ? 'text-blue-600' : 'text-gray-400'}`} />
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      {panel.premium && <Award className="w-4 h-4 text-yellow-500" />}
-                      {panel.available ? (
-                        <CheckCircle className="w-5 h-5 text-green-500" />
-                      ) : (
-                        <Lock className="w-5 h-5 text-gray-400" />
-                      )}
-                    </div>
-                  </div>
-                  
-                  <h3 className="text-lg font-bold usrad-navy mb-2">{panel.title}</h3>
-                  <p className="text-gray-600 text-sm mb-4">{panel.description}</p>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
-                      panel.available 
-                        ? 'bg-green-100 text-green-700' 
-                        : 'bg-gray-100 text-gray-500'
-                    }`}>
-                      {panel.available ? 'Available' : 'PSA Required'}
-                    </span>
-                    <ChevronRight className="w-4 h-4 text-gray-400" />
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Network Tools Quick Access */}
-            <div className="usrad-card p-6">
-              <h3 className="text-xl font-bold usrad-navy mb-4">Network Tools</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <button 
-                  onClick={() => hasCompletedPSA ? setActiveResourcePanel('analytics') : alert('Complete PSA to access revenue analytics')}
-                  className={`flex flex-col items-center p-4 border rounded-lg transition-all duration-300 ${
-                    hasCompletedPSA 
-                      ? 'border-blue-300 hover:bg-blue-50 text-blue-600' 
-                      : 'border-gray-200 text-gray-400 cursor-not-allowed'
-                  }`}
-                >
-                  <TrendingUp className="w-6 h-6 mb-2" />
-                  <span className="text-sm font-medium">Revenue Analytics</span>
-                  {!hasCompletedPSA && <Lock className="w-3 h-3 mt-1" />}
-                </button>
-                
-                <button 
-                  onClick={() => hasCompletedPSA ? setActiveResourcePanel('training') : alert('Complete PSA to access training center')}
-                  className={`flex flex-col items-center p-4 border rounded-lg transition-all duration-300 ${
-                    hasCompletedPSA 
-                      ? 'border-blue-300 hover:bg-blue-50 text-blue-600' 
-                      : 'border-gray-200 text-gray-400 cursor-not-allowed'
-                  }`}
-                >
-                  <GraduationCap className="w-6 h-6 mb-2" />
-                  <span className="text-sm font-medium">Training Center</span>
-                  {!hasCompletedPSA && <Lock className="w-3 h-3 mt-1" />}
-                </button>
-                
-                <button 
-                  onClick={() => setActiveResourcePanel('implementation')}
-                  className="flex flex-col items-center p-4 border border-blue-300 rounded-lg hover:bg-blue-50 text-blue-600 transition-all duration-300"
-                >
-                  <Building className="w-6 h-6 mb-2" />
-                  <span className="text-sm font-medium">Implementation</span>
-                </button>
-                
-                <button 
-                  onClick={() => hasCompletedPSA ? setActiveResourcePanel('support') : alert('Complete PSA to access direct support')}
-                  className={`flex flex-col items-center p-4 border rounded-lg transition-all duration-300 ${
-                    hasCompletedPSA 
-                      ? 'border-blue-300 hover:bg-blue-50 text-blue-600' 
-                      : 'border-gray-200 text-gray-400 cursor-not-allowed'
-                  }`}
-                >
-                  <Headphones className="w-6 h-6 mb-2" />
-                  <span className="text-sm font-medium">Direct Support</span>
-                  {!hasCompletedPSA && <Lock className="w-3 h-3 mt-1" />}
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+      )}
 
       {/* Onboarding Banner */}
       {!fullyOnboarded && !hasCompletedPSA && (
@@ -596,110 +576,176 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
         </div>
       )}
 
-      {/* Your Existing Dashboard Content - Key Metrics Grid */}
+      {/* ✨ SPECTACULAR METRICS GRID with Premium Features */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* Today's Appointments */}
-        <div className="usrad-card p-8 animate-fade-in-up" style={{animationDelay: '0.1s'}}>
-          <div className="flex items-center justify-between mb-6">
-            <div className="stat-icon usrad-gradient-navy">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{width: '28px', height: '28px'}}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <div className="text-right">
-              <div className="text-4xl font-bold text-gray-900" style={{fontFamily: 'Manrope, sans-serif'}}>
-                {mockData?.todayAppointments || 8}
-              </div>
-              <div className="text-gray-600 font-medium">Today's Scans</div>
-            </div>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-green-600 bg-green-50 px-3 py-2 rounded-full font-semibold">
-              +12% vs yesterday
-            </span>
-            <a href="/dashboard/appointments" className="text-sm font-semibold usrad-navy hover:text-blue-800 transition-colors">
-              View Schedule →
-            </a>
-          </div>
-        </div>
+        <SpectacularMetricCard 
+          icon={Calendar}
+          title="Today's Scans"
+          value={enhancedDemoData?.todayAppointments || 8}
+          subtitle="Scheduled today"
+          trend="+12% vs yesterday"
+          hasCompletedPSA={hasCompletedPSA}
+          isAnimating={isAnimating}
+        />
 
-        {/* Total Appointments */}
-        <div className="usrad-card p-8 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-          <div className="flex items-center justify-between mb-6">
-            <div className="stat-icon" style={{background: 'linear-gradient(135deg, #10b981, #059669)'}}>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{width: '28px', height: '28px'}}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-            </div>
-            <div className="text-right">
-              <div className="text-4xl font-bold text-gray-900" style={{fontFamily: 'Manrope, sans-serif'}}>
-                {mockData?.totalAppointments || 124}
-              </div>
-              <div className="text-gray-600 font-medium">This Month</div>
-            </div>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-green-600 bg-green-50 px-3 py-2 rounded-full font-semibold">
-              +18% vs last month
-            </span>
-            <a href="/dashboard/analytics" className="text-sm font-semibold usrad-navy hover:text-blue-800 transition-colors">
-              View Trends →
-            </a>
-          </div>
-        </div>
+        {/* Premium Revenue Analytics */}
+        <SpectacularMetricCard 
+          icon={DollarSign}
+          title="Monthly Revenue"
+          value={`$${((enhancedDemoData?.totalRevenue || 47500) / 1000).toFixed(0)}K`}
+          subtitle="This month"
+          trend="+8% vs last month"
+          premium={true}
+          hasCompletedPSA={hasCompletedPSA}
+          isAnimating={isAnimating}
+          onPreview={() => setShowValuePreview(enhancedDemoData.premiumFeatures.revenueAnalytics)}
+        />
 
-        {/* Completed Scans */}
-        <div className="usrad-card p-8 animate-fade-in-up" style={{animationDelay: '0.3s'}}>
-          <div className="flex items-center justify-between mb-6">
-            <div className="stat-icon usrad-gradient-gold">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{width: '28px', height: '28px'}}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div className="text-right">
-              <div className="text-4xl font-bold text-gray-900" style={{fontFamily: 'Manrope, sans-serif'}}>
-                {mockData?.completedScans || 98}
-              </div>
-              <div className="text-gray-600 font-medium">Completed</div>
-            </div>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm bg-blue-50 px-3 py-2 rounded-full font-semibold usrad-navy">
-              {Math.round(((mockData?.completedScans || 98) / (mockData?.totalAppointments || 124)) * 100)}% completion rate
-            </span>
-            <a href="/dashboard/reports" className="text-sm font-semibold usrad-gold hover:text-yellow-600 transition-colors">
-              View Reports →
-            </a>
-          </div>
-        </div>
+        {/* Patient Satisfaction */}
+        <SpectacularMetricCard 
+          icon={Star}
+          title="Patient Satisfaction"
+          value={enhancedDemoData?.patientSatisfaction || 4.8}
+          subtitle="Average rating"
+          trend="Excellent"
+          hasCompletedPSA={hasCompletedPSA}
+          isAnimating={isAnimating}
+        />
 
-        {/* Revenue */}
-        <div className="usrad-card p-8 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
-          <div className="flex items-center justify-between mb-6">
-            <div className="stat-icon" style={{background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'}}>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{width: '28px', height: '28px'}}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-              </svg>
-            </div>
-            <div className="text-right">
-              <div className="text-4xl font-bold text-gray-900" style={{fontFamily: 'Manrope, sans-serif'}}>
-                ${((mockData?.totalRevenue || 47500) / 1000).toFixed(0)}K
-              </div>
-              <div className="text-gray-600 font-medium">This Month</div>
-            </div>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-green-600 bg-green-50 px-3 py-2 rounded-full font-semibold">
-              +8% vs last month
-            </span>
-            <a href="/dashboard/analytics" className="text-sm font-semibold usrad-navy hover:text-blue-800 transition-colors">
-              View Details →
-            </a>
-          </div>
-        </div>
+        {/* Equipment Status */}
+        <SpectacularMetricCard 
+          icon={Activity}
+          title="Equipment Status"
+          value="Optimal"
+          subtitle={enhancedDemoData?.equipmentStatus || "Operational"}
+          trend="99.9% uptime"
+          hasCompletedPSA={hasCompletedPSA}
+          isAnimating={isAnimating}
+        />
       </div>
 
-      {/* Your Existing Main Content Area */}
+      {/* Progressive Disclosure - Network Resources Section */}
+      <div className={`network-resources-content ${showNetworkResources ? 'expanded' : ''}`}>
+        {showNetworkResources && (
+          <div className="space-y-8 animate-fade-in-up">
+            {/* Network Resources Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Object.entries(enhancedDemoData.premiumFeatures).map(([key, feature], index) => (
+                <div 
+                  key={key}
+                  className={`usrad-card p-6 cursor-pointer transition-all duration-300 ${
+                    !feature.locked ? 'hover:transform hover:-translate-y-1' : 'opacity-75'
+                  }`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                  onClick={() => feature.locked ? setShowValuePreview(feature) : null}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`p-3 rounded-xl ${!feature.locked ? 'bg-blue-100' : 'bg-gray-100'}`}>
+                      <Crown className={`w-6 h-6 ${!feature.locked ? 'text-blue-600' : 'text-gray-400'}`} />
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Award className="w-4 h-4 text-yellow-500" />
+                      {!feature.locked ? (
+                        <CheckCircle className="w-5 h-5 text-green-500" />
+                      ) : (
+                        <Lock className="w-5 h-5 text-gray-400" />
+                      )}
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-lg font-bold usrad-navy mb-2">{feature.title}</h3>
+                  <p className="text-gray-600 text-sm mb-4">{feature.description}</p>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                      !feature.locked 
+                        ? 'bg-green-100 text-green-700' 
+                        : 'bg-gray-100 text-gray-500'
+                    }`}>
+                      {!feature.locked ? 'Available' : 'PSA Required'}
+                    </span>
+                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Network Tools Quick Access */}
+            <div className="usrad-card p-6">
+              <h3 className="text-xl font-bold usrad-navy mb-4">Network Tools</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <button 
+                  onClick={() => hasCompletedPSA ? null : setShowValuePreview(enhancedDemoData.premiumFeatures.revenueAnalytics)}
+                  className={`flex flex-col items-center p-4 border rounded-lg transition-all duration-300 ${
+                    hasCompletedPSA 
+                      ? 'border-blue-300 hover:bg-blue-50 text-blue-600' 
+                      : 'border-gray-200 text-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  <TrendingUp className="w-6 h-6 mb-2" />
+                  <span className="text-sm font-medium">Revenue Analytics</span>
+                  {!hasCompletedPSA && <Lock className="w-3 h-3 mt-1" />}
+                </button>
+                
+                <button 
+                  onClick={() => hasCompletedPSA ? null : setShowValuePreview(enhancedDemoData.premiumFeatures.vipSupport)}
+                  className={`flex flex-col items-center p-4 border rounded-lg transition-all duration-300 ${
+                    hasCompletedPSA 
+                      ? 'border-blue-300 hover:bg-blue-50 text-blue-600' 
+                      : 'border-gray-200 text-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  <GraduationCap className="w-6 h-6 mb-2" />
+                  <span className="text-sm font-medium">VIP Support</span>
+                  {!hasCompletedPSA && <Lock className="w-3 h-3 mt-1" />}
+                </button>
+                
+                <button 
+                  className="flex flex-col items-center p-4 border border-blue-300 rounded-lg hover:bg-blue-50 text-blue-600 transition-all duration-300"
+                >
+                  <Building className="w-6 h-6 mb-2" />
+                  <span className="text-sm font-medium">Implementation</span>
+                </button>
+                
+                <button 
+                  onClick={() => hasCompletedPSA ? null : setShowValuePreview(enhancedDemoData.premiumFeatures.networkIntelligence)}
+                  className={`flex flex-col items-center p-4 border rounded-lg transition-all duration-300 ${
+                    hasCompletedPSA 
+                      ? 'border-blue-300 hover:bg-blue-50 text-blue-600' 
+                      : 'border-gray-200 text-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  <Headphones className="w-6 h-6 mb-2" />
+                  <span className="text-sm font-medium">Network Intelligence</span>
+                  {!hasCompletedPSA && <Lock className="w-3 h-3 mt-1" />}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Network Resources Toggle Button */}
+      <div className="text-center">
+        <button 
+          onClick={() => {
+            console.log('🔍 Debug - Toggle button clicked, current state:', showNetworkResources);
+            setShowNetworkResources(!showNetworkResources);
+          }}
+          className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-[#003087] to-[#0040a0] text-white rounded-2xl hover:shadow-2xl transition-all duration-300 text-lg font-semibold network-resources-toggle"
+        >
+          <Crown className="w-6 h-6 text-yellow-300" />
+          <span>{showNetworkResources ? 'Hide' : 'Show'} Network Resources</span>
+          {showNetworkResources ? (
+            <ChevronUp className="w-5 h-5" />
+          ) : (
+            <ChevronDown className="w-5 h-5" />
+          )}
+        </button>
+      </div>
+
+      {/* Your Existing Dashboard Content - Key Metrics Grid */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
         {/* Today's Schedule */}
         <div className="xl:col-span-2 usrad-card p-8 animate-fade-in-up" style={{animationDelay: '0.5s'}}>
@@ -709,7 +755,7 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
                 Today's Schedule
               </h3>
               <p className="text-gray-600 mt-1">
-                Managing {mockData?.todayAppointments || 8} appointments today
+                Managing {enhancedDemoData?.todayAppointments || 8} appointments today
               </p>
             </div>
             <a href="/dashboard/appointments" className="px-6 py-3 usrad-gradient-gold text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300" style={{fontFamily: 'Manrope, sans-serif'}}>
@@ -914,7 +960,7 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
               <div>
                 <div className="flex justify-between mb-3">
                   <span className="text-gray-600 font-medium">Average Scan Time</span>
-                  <span className="font-bold text-gray-900">{mockData?.avgScanTime || "28 min"}</span>
+                  <span className="font-bold text-gray-900">{enhancedDemoData?.avgScanTime || "28 min"}</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-3">
                   <div className="bg-gradient-to-r from-green-400 to-green-500 h-3 rounded-full transition-all duration-1000" style={{width: '75%'}}></div>
@@ -923,7 +969,7 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
               <div>
                 <div className="flex justify-between mb-3">
                   <span className="text-gray-600 font-medium">Patient Satisfaction</span>
-                  <span className="font-bold text-gray-900">{mockData?.patientSatisfaction || "4.8"}/5.0</span>
+                  <span className="font-bold text-gray-900">{enhancedDemoData?.patientSatisfaction || "4.8"}/5.0</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-3">
                   <div className="usrad-gradient-gold h-3 rounded-full transition-all duration-1000" style={{width: '96%'}}></div>
@@ -943,14 +989,11 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
         </div>
       </div>
 
-      {/* Resource Panel Modals */}
-      {activeResourcePanel && (
-        <ResourcePanel 
-          panel={resourcePanels[activeResourcePanel]}
-          onClose={() => setActiveResourcePanel(null)}
-          hasCompletedPSA={hasCompletedPSA}
-        />
-      )}
+      {/* ✨ SPECTACULAR VALUE PREVIEW MODAL */}
+      <SpectacularValueModal 
+        feature={showValuePreview}
+        onClose={() => setShowValuePreview(null)}
+      />
     </div>
   );
 };
