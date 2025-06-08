@@ -410,6 +410,43 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
         display: none;
       }
 
+      /* Forgot Password Styles */
+      .forgot-password-form {
+        display: none;
+        animation: slideIn 0.3s ease;
+      }
+
+      .forgot-password-form.active {
+        display: block;
+      }
+
+      .back-to-login {
+        color: #003087;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        transition: color 0.2s ease;
+      }
+
+      .back-to-login:hover {
+        color: #002268;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
       @media (max-width: 768px) {
         .login-layout {
           flex-direction: column;
@@ -607,7 +644,9 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
               <input type="checkbox" class="checkbox" />
               Keep me signed in
             </label>
-            <a href="#" class="forgot-link">Forgot password?</a>
+            <a href="#" class="forgot-link" onclick="showForgotPassword(event)"
+              >Forgot password?</a
+            >
           </div>
 
           <button type="submit" class="login-button" id="login-button">
@@ -666,6 +705,64 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
           </div>
         </form>
 
+        <form class="login-box forgot-password-form" id="forgot-password-form">
+          <div class="form-header">
+            <a href="#" class="back-to-login" onclick="showLoginForm(event)">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M19 12H5M12 19l-7-7 7-7"></path>
+              </svg>
+              Back to sign in
+            </a>
+
+            <h2 class="form-title">Reset password</h2>
+            <p class="form-subtitle">
+              Enter your email address and we'll send you a link to reset your
+              password
+            </p>
+          </div>
+
+          <!-- Error/Success Messages for forgot password -->
+          <div id="forgot-error-message" class="message error hidden"></div>
+          <div id="forgot-success-message" class="message success hidden"></div>
+
+          <div class="input-group">
+            <label for="reset-email" class="input-label"
+              >Work email<span class="asterisk">*</span></label
+            >
+            <div class="input-wrapper">
+              <input
+                type="email"
+                id="reset-email"
+                name="email"
+                class="form-input"
+                required
+                placeholder="name@imagingcenter.com"
+              />
+            </div>
+          </div>
+
+          <button type="submit" class="login-button" id="reset-button">
+            <span id="reset-text">Send reset link</span>
+            <span id="reset-loading" style="display: none;">Sending...</span>
+          </button>
+
+          <div class="signup-link">
+            Remember your password? <a href="#" onclick="showLoginForm(event)"
+              >Sign in instead</a
+            >
+          </div>
+        </form>
+
         <div class="security-footer">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
             <path
@@ -677,7 +774,6 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
       </div>
     </div>
 
-    <!-- Replace the entire script section with this -->
     <script>
       // Get environment variables passed from Astro
       const supabaseUrl = document.querySelector(
@@ -843,6 +939,148 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
               );
             }
           };
+
+          // Form switching functions
+          window.showForgotPassword = function (e) {
+            e.preventDefault();
+            document.getElementById("login-form").style.display = "none";
+            document
+              .getElementById("forgot-password-form")
+              .classList.add("active");
+
+            // Clear any existing messages
+            hideMessages();
+            hideForgotMessages();
+
+            // Focus on email input
+            setTimeout(() => {
+              document.getElementById("reset-email").focus();
+            }, 100);
+          };
+
+          window.showLoginForm = function (e) {
+            e.preventDefault();
+            document
+              .getElementById("forgot-password-form")
+              .classList.remove("active");
+            document.getElementById("login-form").style.display = "block";
+
+            // Clear any existing messages
+            hideMessages();
+            hideForgotMessages();
+          };
+
+          // Forgot password utility functions
+          function showForgotError(message) {
+            const errorDiv = document.getElementById("forgot-error-message");
+            const successDiv = document.getElementById(
+              "forgot-success-message"
+            );
+            errorDiv.textContent = message;
+            errorDiv.classList.remove("hidden");
+            successDiv.classList.add("hidden");
+          }
+
+          function showForgotSuccess(message) {
+            const errorDiv = document.getElementById("forgot-error-message");
+            const successDiv = document.getElementById(
+              "forgot-success-message"
+            );
+            successDiv.textContent = message;
+            successDiv.classList.remove("hidden");
+            errorDiv.classList.add("hidden");
+          }
+
+          function hideForgotMessages() {
+            document
+              .getElementById("forgot-error-message")
+              .classList.add("hidden");
+            document
+              .getElementById("forgot-success-message")
+              .classList.add("hidden");
+          }
+
+          function setResetLoading(loading) {
+            const resetButton = document.getElementById("reset-button");
+            const resetText = document.getElementById("reset-text");
+            const resetLoading = document.getElementById("reset-loading");
+
+            resetButton.disabled = loading;
+            if (loading) {
+              resetText.style.display = "none";
+              resetLoading.style.display = "inline";
+            } else {
+              resetText.style.display = "inline";
+              resetLoading.style.display = "none";
+            }
+          }
+
+          // Password reset handler
+          async function handlePasswordReset(email) {
+            try {
+              const { error } = await supabaseClient.auth.resetPasswordForEmail(
+                email,
+                {
+                  redirectTo: `${window.location.origin}/auth/reset-password`,
+                }
+              );
+
+              if (error) {
+                throw error;
+              }
+
+              showForgotSuccess(
+                `Reset link sent to ${email}. Check your inbox and follow the instructions.`
+              );
+
+              // Update button to show success
+              document.getElementById("reset-text").textContent = "Email sent!";
+              document.getElementById("reset-button").style.background =
+                "#10b981";
+
+              return { success: true };
+            } catch (error) {
+              console.error("Password reset error:", error);
+
+              if (error.message.includes("User not found")) {
+                showForgotError("No account found with that email address.");
+              } else if (error.message.includes("Too many requests")) {
+                showForgotError(
+                  "Too many reset attempts. Please wait a moment and try again."
+                );
+              } else {
+                showForgotError(
+                  error.message ||
+                    "Failed to send reset email. Please try again."
+                );
+              }
+
+              return { success: false, error: error.message };
+            }
+          }
+
+          // Add form submission handler for forgot password
+          document
+            .getElementById("forgot-password-form")
+            .addEventListener("submit", async (e) => {
+              e.preventDefault();
+              hideForgotMessages();
+              setResetLoading(true);
+
+              const formData = new FormData(e.target);
+              const email = formData.get("email");
+
+              // Basic validation
+              if (!email) {
+                showForgotError("Please enter your email address");
+                setResetLoading(false);
+                return;
+              }
+
+              // Attempt password reset
+              const result = await handlePasswordReset(email);
+              setResetLoading(false);
+            });
 
           // Form submission handler
           form.addEventListener("submit", async (e) => {
