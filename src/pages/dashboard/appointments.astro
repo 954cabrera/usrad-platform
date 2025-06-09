@@ -1,22 +1,23 @@
 ---
-// src/pages/dashboard/appointments.astro
 import DashboardLayout from "../../components/dashboard/DashboardLayout.astro";
-// import { validateAuthSession } from "../../lib/auth";
-// import { AuthService } from "../../lib/auth";
 import SkeletonAppointmentsSystem from "../../components/dashboard/SkeletonAppointmentsSystem";
-
-// Validate authentication
-// const { session, user } = await validateAuthSession(Astro.request);
-
-// // if (!session || !user) {
-//   return Astro.redirect("/login/imaginglogin");
-// }
-// 
-// // Get dashboard data
-// // const dashboardData = await AuthService.getUserDashboardData(user.id);
-// const { imagingCenter } = dashboardData;
 ---
 
-<DashboardLayout title="Appointments" user={null} imagingCenter={null}>
+<DashboardLayout
+  title="Appointments (Demo View)"
+  user={null}
+  imagingCenter={null}
+>
+  <div
+    class="bg-yellow-100 border-l-4 border-yellow-500
+text-yellow-900 p-4 rounded mb-6"
+    role="alert"
+  >
+    <p class="font-bold">Demo Mode</p>
+    <p>
+      You are viewing sample appointment data. Complete your PSA to unlock
+      real-time scheduling and appointments management.
+    </p>
+  </div>
   <SkeletonAppointmentsSystem client:load />
 </DashboardLayout>
