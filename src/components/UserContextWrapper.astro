@@ -1,0 +1,18 @@
+---
+// src/components/UserContextWrapper.astro
+---
+
+<div id="user-context-wrapper">
+  <slot />
+</div>
+
+<script>
+  // Import and initialize UserContext on the client side
+  import { UserProvider } from "./UserContext.jsx";
+
+  // This will run on the client side
+  if (typeof window !== "undefined") {
+    // UserContext will be handled by client-side React
+    console.log("UserContext wrapper loaded");
+  }
+</script>

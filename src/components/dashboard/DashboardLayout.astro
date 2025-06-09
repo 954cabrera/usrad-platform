@@ -817,9 +817,12 @@ const currentPath = Astro.url.pathname;
                     <div
                       class="bg-usrad-gold h-2 rounded-full transition-all duration-1000"
                       style="width: 75%"
+                      data-progress-bar
                     />
                   </div>
-                  <span class="text-xs text-blue-200 ml-2">75%</span>
+                  <span class="text-xs text-blue-200 ml-2" data-progress-text>
+                    75%
+                  </span>
                 </div>
               </div>
             </div>
@@ -1334,6 +1337,174 @@ const currentPath = Astro.url.pathname;
           .catch((error) => {
             console.error("Failed to load Supabase for logout:", error);
           });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        // Get Supabase config
+        const supabaseUrl = document.querySelector(
+          'meta[name="supabase-url"]'
+        )?.content;
+        const supabaseAnonKey = document.querySelector(
+          'meta[name="supabase-anon-key"]'
+        )?.content;
+
+        if (!supabaseUrl || !supabaseAnonKey) {
+          console.error("Missing Supabase configuration");
+          return;
+        }
+
+        try {
+          // Load Supabase
+          const { createClient } = await import(
+            "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+          );
+          const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+          // Initialize user management
+          window.USRadUser = {
+            supabase: supabase,
+            user: null,
+            profile: null,
+            imagingCenter: null,
+
+            // Load user data
+            async loadUserData() {
+              try {
+                const {
+                  data: { user },
+                } = await this.supabase.auth.getUser();
+                this.user = user;
+
+                if (user) {
+                  // Get user profile
+                  const { data: profile } = await this.supabase
+                    .from("user_profiles")
+                    .select("*")
+                    .eq("id", user.id)
+                    .single();
+
+                  this.profile = profile;
+
+                  // Get imaging center if profile has one
+                  if (profile?.imaging_center_id) {
+                    const { data: center } = await this.supabase
+                      .from("imaging_centers")
+                      .select(
+                        `
+                        id, facility_name, street_1, city, state, 
+                        zip_code, phone_number, modality, status, onboarding_status
+                      `
+                      )
+                      .eq("id", profile.imaging_center_id)
+                      .single();
+
+                    this.imagingCenter = center;
+                  }
+                }
+
+                // Update UI based on user data
+                this.updateUI();
+              } catch (error) {
+                console.error("Error loading user data:", error);
+              }
+            },
+
+            // Update UI elements based on user state
+            updateUI() {
+              const hasCompletedPSA = this.profile?.psa_signed || false;
+              const onboardingProgress =
+                this.profile?.onboarding_progress || 40;
+
+              // Update progress indicators
+              const progressBars = document.querySelectorAll(
+                "[data-progress-bar]"
+              );
+              progressBars.forEach((bar) => {
+                bar.style.width = `${onboardingProgress}%`;
+              });
+
+              const progressTexts = document.querySelectorAll(
+                "[data-progress-text]"
+              );
+              progressTexts.forEach((text) => {
+                text.textContent = `${onboardingProgress}%`;
+              });
+
+              // Update PSA banner visibility
+              const psaBanner = document.getElementById("psa-banner");
+              if (psaBanner && hasCompletedPSA) {
+                psaBanner.style.display = "none";
+              }
+
+              // Update unlock premium card
+              const unlockCard = document.querySelector(".unlock-premium-card");
+              if (unlockCard && hasCompletedPSA) {
+                unlockCard.style.display = "none";
+              }
+
+              // Update locked navigation items
+              const lockedItems = document.querySelectorAll(".nav-link.locked");
+              lockedItems.forEach((item) => {
+                if (hasCompletedPSA) {
+                  item.classList.remove("locked");
+                  item.removeAttribute("onclick");
+                  item.removeAttribute("title");
+
+                  // Remove lock icon
+                  const lockIcon = item.querySelector(".lock-icon");
+                  if (lockIcon) {
+                    lockIcon.remove();
+                  }
+                }
+              });
+
+              console.log("UI updated:", {
+                hasCompletedPSA,
+                onboardingProgress,
+              });
+            },
+
+            // Complete PSA signing
+            async completePSA(documentUrl = null, submissionId = null) {
+              if (!this.user) return false;
+
+              try {
+                const { error } = await this.supabase.rpc(
+                  "complete_psa_signing",
+                  {
+                    user_uuid: this.user.id,
+                    document_url: documentUrl,
+                    submission_id: submissionId,
+                  }
+                );
+
+                if (error) throw error;
+
+                // Reload user data to get updated status
+                await this.loadUserData();
+
+                return true;
+              } catch (error) {
+                console.error("Error completing PSA:", error);
+                return false;
+              }
+            },
+          };
+
+          // Initialize user data
+          await window.USRadUser.loadUserData();
+
+          // Listen for auth state changes
+          window.USRadUser.supabase.auth.onAuthStateChange(
+            async (event, session) => {
+              console.log("Auth state changed:", event);
+              await window.USRadUser.loadUserData();
+            }
+          );
+        } catch (error) {
+          console.error("Failed to initialize user management:", error);
+        }
       });
     </script>
   </body>

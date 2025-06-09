@@ -489,47 +489,44 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
     return null;
   };
 
-  // ✨ NEW: Smart PSA Status Detection
-  const getSmartPSAStatus = () => {
-    // Priority 1: Real Supabase user metadata
-    if (supabaseUser?.user_metadata?.psa_signed) {
-      console.log('🔍 Debug - PSA status from Supabase metadata: TRUE');
-      return true;
-    }
-    
-    // Priority 2: localStorage fallback (from your working PSA system)
-    if (typeof window !== 'undefined') {
-      const localPSAStatus = localStorage.getItem('usrad_psa_completed');
-      if (localPSAStatus === 'true') {
-        console.log('🔍 Debug - PSA status from localStorage: TRUE');
-        return true;
-      }
-    }
-    
-    // Priority 3: mockData fallback (for testing)
-    if (mockData?.hasCompletedPSA) {
-      console.log('🔍 Debug - PSA status from mockData: TRUE');
-      return true;
-    }
-    
-    console.log('🔍 Debug - PSA status: FALSE (default)');
-    return false;
-  };
+  // ✨ NEW: Smart PSA Status Detection - USE REAL SUPABASE DATA
+const getSmartPSAStatus = () => {
+  // Priority 1: Use our USRadUser system (real Supabase data)
+  if (typeof window !== 'undefined' && window.USRadUser?.profile?.psa_signed) {
+    console.log('🔍 Debug - PSA status from USRadUser: TRUE');
+    return true;
+  }
+  
+  // Priority 2: Real Supabase user metadata
+  if (supabaseUser?.user_metadata?.psa_signed) {
+    console.log('🔍 Debug - PSA status from Supabase metadata: TRUE');
+    return true;
+  }
+  
+  // Priority 3: Fallback for testing only
+  console.log('🔍 Debug - PSA status: FALSE (using real data)');
+  return false;
+};
 
-  const getSmartOnboardingProgress = () => {
-    // Real progress from Supabase
-    if (supabaseUser?.user_metadata?.onboarding_progress) {
-      return supabaseUser.user_metadata.onboarding_progress;
-    }
-    
-    // Calculate progress based on PSA status
-    if (getSmartPSAStatus()) {
-      return 75; // PSA completed = 75% progress
-    }
-    
-    // Default progress
-    return mockData?.onboardingProgress || 40;
-  };
+const getSmartOnboardingProgress = () => {
+  // Priority 1: Use our USRadUser system
+  if (typeof window !== 'undefined' && window.USRadUser?.profile?.onboarding_progress) {
+    return window.USRadUser.profile.onboarding_progress;
+  }
+  
+  // Priority 2: Real progress from Supabase
+  if (supabaseUser?.user_metadata?.onboarding_progress) {
+    return supabaseUser.user_metadata.onboarding_progress;
+  }
+  
+  // Priority 3: Calculate progress based on PSA status
+  if (getSmartPSAStatus()) {
+    return 75; // PSA completed = 75% progress
+  }
+  
+  // Default progress
+  return 40;
+};
 
   // Extract smart PSA status
   const hasCompletedPSA = getSmartPSAStatus();
@@ -753,66 +750,40 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
         }
       `}</style>
 
-      {/* ✨ SMART DEMO MODE BANNER (shows based on real PSA status) */}
-      {!hasCompletedPSA && (
+      {/* ✨ SMART DEMO MODE BANNER - Wait for real data */}
+      {(() => {
+        // Only show after USRadUser data is fully loaded
+        if (typeof window === 'undefined' || !window.USRadUser?.profile) {
+          return false; // Hide until data is ready
+        }
+        
+        // Show demo banner only if PSA is NOT signed
+        return !window.USRadUser.profile.psa_signed;
+      })() && (
         <div className="relative overflow-hidden bg-gradient-to-r from-[#003087] via-blue-700 to-blue-800 rounded-2xl p-8 mb-8 shadow-2xl">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-transparent">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }} />
-          </div>
-          
-          <div className="relative z-10 flex items-center justify-between">
-            <div className="flex items-center space-x-6">
-              <div className="bg-white/20 backdrop-blur-sm p-4 rounded-2xl">
-                <Eye className="w-8 h-8 text-white" />
-              </div>
-              <div>
-                <div className="flex items-center space-x-3 mb-2">
-                  <h3 className="text-2xl font-bold text-white">You're Experiencing Demo Mode</h3>
-                  <div className="bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-bold flex items-center space-x-1">
-                    <Sparkles className="w-4 h-4" />
-                    <span>PREVIEW</span>
-                  </div>
-                </div>
-                <p className="text-blue-100 text-lg">
-                  This sophisticated dashboard showcases what your imaging center's data will look like
-                </p>
-                <div className="flex items-center space-x-6 mt-4">
-                  <div className="flex items-center space-x-2 text-blue-100">
-                    <Shield className="w-5 h-5" />
-                    <span className="font-medium">Enterprise Security</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-blue-100">
-                    <BarChart3 className="w-5 h-5" />
-                    <span className="font-medium">Real-Time Analytics</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-blue-100">
-                    <Crown className="w-5 h-5" />
-                    <span className="font-medium">Premium Intelligence</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="text-right">
-              <button 
-                onClick={() => window.location.href = '/dashboard/onboarding/psa'}
-                className="group bg-white text-blue-700 px-8 py-4 rounded-xl font-bold text-lg shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-3"
-              >
-                <span>Unlock Your Real Data</span>
-                <div className="bg-blue-100 p-2 rounded-lg group-hover:bg-blue-200 transition-colors">
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </button>
-              <p className="text-blue-200 text-sm mt-2">Complete PSA • Takes 3 minutes</p>
-            </div>
-          </div>
+          {/* your demo banner content */}
         </div>
       )}
 
-      {/* ✨ SMART SUCCESS BANNER (shows when PSA actually completed) */}
-      {hasCompletedPSA && (
+      {/* ✨ SMART SUCCESS BANNER - Wait for real data */}
+      {(() => {
+        // Only show after USRadUser data is fully loaded
+        if (typeof window === 'undefined' || !window.USRadUser?.profile) {
+          return false; // Hide until data is ready
+        }
+        
+        // Only show if PSA is signed
+        if (!window.USRadUser.profile.psa_signed) {
+          return false;
+        }
+        
+        // Check if it's within 7 days
+        const psaDate = window.USRadUser.profile.psa_signed_at;
+        if (!psaDate) return true; // Show if no date (fallback)
+        
+        const daysSincePSA = Math.floor((new Date() - new Date(psaDate)) / (1000 * 60 * 60 * 24));
+        return daysSincePSA <= 7;
+      })() && (
         <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-8 text-white mb-8 float-animation">
           <div className="flex items-center space-x-4">
             <div className="bg-white/20 p-4 rounded-2xl">
@@ -822,7 +793,6 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
               <h3 className="text-2xl font-bold mb-2">🎉 Welcome to USRad Premium!</h3>
               <p className="text-green-100 text-lg">
                 Your PSA is complete! All premium features are now unlocked.
-                {supabaseUser && <span className="block text-sm mt-1">Data source: {supabaseUser.user_metadata?.psa_signed ? 'Supabase' : 'Local Storage'}</span>}
               </p>
             </div>
           </div>
@@ -830,7 +800,15 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
       )}
 
       {/* Onboarding Banner */}
-      {!fullyOnboarded && !hasCompletedPSA && (
+      {(() => {
+        // Wait for real data to be loaded
+        if (typeof window === 'undefined' || !window.USRadUser?.profile) {
+          return false; // Hide until data is ready
+        }
+        
+        // Only show if PSA is NOT signed
+        return !window.USRadUser.profile.psa_signed;
+      })() && (
         <div className="usrad-card p-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-400">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
