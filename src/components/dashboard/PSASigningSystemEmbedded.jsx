@@ -143,36 +143,86 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
     }
   };
 
-  // ✅ NEW: Direct DocuSeal iframe embedding (no external API needed)
+  // ✅ NEW: DocuSeal JavaScript widget embedding
   const startEmbeddedSigning = () => {
     addDebugLog('🚀 Starting embedded PSA signing process');
     
-    // Construct DocuSeal embed URL directly
-    const docusealParams = new URLSearchParams({
-      template_id: '1155842', // Your DocuSeal template ID
-      email: providerData.email || providerData.contactEmail,
-      redirect_url: 'https://usrad-platform.vercel.app/dashboard?psa_completed=true',
-      webhook_url: 'https://usrad-platform.vercel.app/api/docuseal-webhook',
-      // Pre-fill provider data
-      'fields[email]': providerData.email || providerData.contactEmail,
-      'fields[company_name]': providerData.facilityName,
-      'fields[contact_name]': providerData.contactName,
-      'fields[contact_phone]': providerData.contactPhone || providerData.phone,
-      'fields[tax_id]': providerData.taxId,
-      'fields[signer_title]': providerData.signerTitle || 'Medical Director',
-      'fields[provider_name]': providerData.contactName,
-      'fields[date]': new Date().toLocaleDateString(),
-      // USRad specific fields
-      'fields[network]': 'USRad National Imaging Network',
-      'fields[agreement_type]': 'Provider Service Agreement'
-    });
+    // Load DocuSeal widget script
+    const script = document.createElement('script');
+    script.src = 'https://cdn.docuseal.com/js/form.js';
+    script.onload = () => {
+      addDebugLog('✅ DocuSeal script loaded');
+      
+      // Create the embedding URL for the widget
+      const docusealParams = new URLSearchParams({
+        email: providerData.email || providerData.contactEmail,
+        name: providerData.contactName,
+        // Pre-fill provider data
+        'fields[email]': providerData.email || providerData.contactEmail,
+        'fields[company_name]': providerData.facilityName,
+        'fields[contact_name]': providerData.contactName,
+        'fields[contact_phone]': providerData.contactPhone || providerData.phone,
+        'fields[tax_id]': providerData.taxId,
+        'fields[signer_title]': providerData.signerTitle || 'Medical Director',
+        'fields[provider_name]': providerData.contactName,
+        'fields[date]': new Date().toLocaleDateString(),
+        // USRad specific fields
+        'fields[network]': 'USRad National Imaging Network',
+        'fields[agreement_type]': 'Provider Service Agreement'
+      });
 
-    const embedUrl = `https://docuseal.co/s/1155842?${docusealParams.toString()}`;
+      const embedUrl = `https://docuseal.com/d/LXvm6u76HPzVH3?${docusealParams.toString()}`;
+      
+      addDebugLog('📄 DocuSeal widget URL constructed', embedUrl);
+      setEmbeddingUrl(embedUrl);
+      
+      // Initialize DocuSeal form widget
+      if (embedRef.current) {
+        embedRef.current.innerHTML = `
+          <docuseal-form 
+            data-src="${embedUrl}"
+            data-email="${providerData.email || providerData.contactEmail}"
+            data-name="${providerData.contactName}"
+            style="width: 100%; height: 800px; border: none; border-radius: 16px;">
+          </docuseal-form>
+        `;
+        
+        // Set up completion detection
+        const form = embedRef.current.querySelector('docuseal-form');
+        if (form) {
+          form.addEventListener('completed', (event) => {
+            addDebugLog('🎯 DocuSeal widget completion detected', event.detail);
+            handlePSACompletion(event.detail || {});
+          });
+          
+          form.addEventListener('loaded', () => {
+            addDebugLog('📄 DocuSeal widget loaded');
+            setIframeLoading(false);
+          });
+          
+          form.addEventListener('error', (event) => {
+            addDebugLog('❌ DocuSeal widget error', event.detail);
+            handleIframeError();
+          });
+        }
+      }
+      
+      setPsaStatus('signing');
+    };
     
-    addDebugLog('📄 DocuSeal embed URL constructed', embedUrl);
-    setEmbeddingUrl(embedUrl);
-    setPsaStatus('signing');
-    setIframeLoading(true);
+    script.onerror = () => {
+      addDebugLog('❌ Failed to load DocuSeal script');
+      setError('Failed to load DocuSeal signing interface');
+      setPsaStatus('error');
+    };
+    
+    // Only add script if not already present
+    if (!document.querySelector('script[src="https://cdn.docuseal.com/js/form.js"]')) {
+      document.head.appendChild(script);
+    } else {
+      // Script already loaded, initialize directly
+      script.onload();
+    }
   };
 
   // Handle iframe load success
@@ -489,18 +539,19 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
                 </div>
               )}
 
-              {/* DocuSeal Iframe */}
-              <iframe 
-                src={embeddingUrl}
-                width="100%" 
-                height="800"
-                className="psa-iframe"
-                title="USRad Provider Service Agreement"
-                onLoad={handleIframeLoad}
-                onError={handleIframeError}
-                allow="camera; microphone; geolocation"
-                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
-              />
+              {/* DocuSeal Widget Container */}
+              <div 
+                ref={embedRef}
+                className="docuseal-container"
+                style={{ minHeight: '800px' }}
+              >
+                <div className="flex items-center justify-center h-full text-gray-500 p-8">
+                  <div className="text-center">
+                    <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4" />
+                    <p>Loading DocuSeal signing widget...</p>
+                  </div>
+                </div>
+              </div>
 
               {/* Fallback Section */}
               {showFallback && (
