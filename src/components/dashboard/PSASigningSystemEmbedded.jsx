@@ -136,27 +136,26 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
     }
   };
 
-  // Load DocuSeal React component
-  const loadDocuSealReact = () => {
-    addDebugLog('🚀 Loading DocuSeal React component');
+  // Load DocuSeal JavaScript component (Working approach)
+  const loadDocuSealJavaScript = () => {
+    addDebugLog('🚀 Loading DocuSeal JavaScript component');
     
     const script = document.createElement('script');
-    script.src = 'https://cdn.docuseal.com/js/react.js';
-    script.type = 'module';
+    script.src = 'https://cdn.docuseal.com/js/form.js';  // This URL actually works
     
     script.onload = () => {
-      addDebugLog('✅ DocuSeal React script loaded');
+      addDebugLog('✅ DocuSeal JavaScript script loaded');
       setDocuSealLoaded(true);
       initializeDocuSealForm();
     };
     
     script.onerror = () => {
-      addDebugLog('❌ Failed to load DocuSeal React script');
-      setError('Failed to load DocuSeal React component');
+      addDebugLog('❌ Failed to load DocuSeal JavaScript script');
+      setError('Failed to load DocuSeal component');
       setShowFallback(true);
     };
     
-    if (!document.querySelector('script[src="https://cdn.docuseal.com/js/react.js"]')) {
+    if (!document.querySelector('script[src="https://cdn.docuseal.com/js/form.js"]')) {
       document.head.appendChild(script);
     } else {
       setDocuSealLoaded(true);
@@ -164,95 +163,93 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
     }
   };
 
-  // Initialize DocuSeal form
+  // Initialize DocuSeal form using JavaScript
   const initializeDocuSealForm = () => {
-    addDebugLog('📝 Initializing DocuSeal React form');
+    addDebugLog('📝 Initializing DocuSeal JavaScript form');
     
-    const checkDocuSeal = () => {
-      if (typeof window !== 'undefined' && window.DocuSeal) {
-        addDebugLog('✅ DocuSeal React component available');
-        renderDocuSealForm();
-      } else {
-        setTimeout(checkDocuSeal, 100);
-      }
-    };
+    if (!formRef.current) return;
     
-    checkDocuSeal();
-  };
-
-  // Render DocuSeal form
-  const renderDocuSealForm = () => {
-    if (!formRef.current || !window.DocuSeal) return;
+    // Use DocuSeal's standard JavaScript embedding approach
+    const embedUrl = 'https://docuseal.com/d/LXvm6u76HPzVH3';
     
-    addDebugLog('🎨 Rendering DocuSeal React form');
+    formRef.current.innerHTML = `
+      <docuseal-form 
+        data-src="${embedUrl}"
+        data-email="${providerData.email || providerData.contactEmail}"
+        data-name="${providerData.contactName}"
+        style="width: 100%; height: 800px; border: none; border-radius: 16px;">
+      </docuseal-form>
+    `;
     
-    const config = {
-      src: "https://docuseal.com/d/LXvm6u76HPzVH3",
-      email: providerData.email || providerData.contactEmail,
-      name: providerData.contactName,
-      onLoad: () => {
-        addDebugLog('📄 DocuSeal form loaded successfully');
-        setLoading(false);
-        setError(null);
-      },
-      onComplete: (data) => {
-        addDebugLog('🎉 DocuSeal form completed', data);
-        handlePSACompletion(data);
-      },
-      onError: (error) => {
-        addDebugLog('❌ DocuSeal form error', error);
-        setError('Error loading the signing form');
-        setShowFallback(true);
-        setLoading(false);
-      },
-      onStart: () => {
-        addDebugLog('✍️ User started signing');
-        setLoading(false);
-      }
-    };
-    
-    try {
-      const DocuSealForm = window.DocuSeal.Form;
-      
-      if (typeof window !== 'undefined' && window.React && window.ReactDOM) {
-        const element = window.React.createElement(DocuSealForm, config);
-        window.ReactDOM.render(element, formRef.current);
-        addDebugLog('✅ DocuSeal React form rendered');
-      } else {
-        // Fallback to vanilla JS
-        addDebugLog('⚠️ React not available, using vanilla JS fallback');
-        formRef.current.innerHTML = `
-          <docuseal-form 
-            data-src="${config.src}"
-            data-email="${config.email}"
-            data-name="${config.name}"
-            style="width: 100%; height: 800px; border: none;">
-          </docuseal-form>
-        `;
-        
-        const form = formRef.current.querySelector('docuseal-form');
-        if (form) {
-          form.addEventListener('loaded', config.onLoad);
-          form.addEventListener('completed', (e) => config.onComplete(e.detail));
-          form.addEventListener('error', (e) => config.onError(e.detail));
-          form.addEventListener('started', config.onStart);
-        }
-      }
-    } catch (err) {
-      addDebugLog('❌ Error rendering DocuSeal form', err);
-      setError('Failed to render signing form');
-      setShowFallback(true);
+    // Wait for custom element to be defined
+    if (customElements.get('docuseal-form')) {
+      setupFormListeners();
+    } else {
+      customElements.whenDefined('docuseal-form').then(() => {
+        setupFormListeners();
+      });
     }
   };
 
-  // Start PSA signing process
+  // Setup DocuSeal form event listeners
+  const setupFormListeners = () => {
+    const form = formRef.current?.querySelector('docuseal-form');
+    if (!form) {
+      addDebugLog('❌ DocuSeal form element not found');
+      setError('Failed to initialize signing form');
+      setShowFallback(true);
+      return;
+    }
+
+    addDebugLog('📋 Setting up DocuSeal form listeners');
+    
+    // DocuSeal standard events
+    form.addEventListener('loaded', () => {
+      addDebugLog('📄 DocuSeal form loaded successfully');
+      setLoading(false);
+      setError(null);
+    });
+    
+    form.addEventListener('completed', (event) => {
+      addDebugLog('🎉 DocuSeal form completed', event.detail);
+      handlePSACompletion(event.detail || {});
+    });
+    
+    form.addEventListener('error', (event) => {
+      addDebugLog('❌ DocuSeal form error', event.detail);
+      setError('Error loading the signing form');
+      setShowFallback(true);
+      setLoading(false);
+    });
+    
+    form.addEventListener('started', () => {
+      addDebugLog('✍️ User started signing');
+      setLoading(false);
+    });
+
+    form.addEventListener('signed', (event) => {
+      addDebugLog('📝 Document signed', event.detail);
+    });
+
+    // Set a timeout for form loading
+    setTimeout(() => {
+      if (loading) {
+        addDebugLog('⏰ Form loading timeout');
+        setError('Form is taking longer than expected to load');
+        setShowFallback(true);
+        setLoading(false);
+      }
+    }, 15000);
+  };
+
+  // Start PSA signing process with JavaScript embedding
   const startPSASigning = () => {
     addDebugLog('🚀 Starting PSA signing process');
     setLoading(true);
     setPsaStatus('signing');
     setError(null);
     setShowFallback(false);
-    loadDocuSealReact();
+    loadDocuSealJavaScript();  // Use JavaScript instead of React
   };
 
   // Navigate to dashboard after completion
@@ -495,7 +492,7 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
                 </button>
                 
                 <p className="text-sm text-gray-500 mt-4">
-                  Secure digital signing powered by DocuSeal React
+                  Secure digital signing powered by DocuSeal JavaScript
                 </p>
               </div>
             </div>
@@ -545,7 +542,7 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
                   <div className="text-center">
                     <Loader2 className="w-12 h-12 text-blue-600 animate-spin mx-auto mb-4" />
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Loading Your PSA Document</h3>
-                    <p className="text-gray-600">Initializing DocuSeal React component...</p>
+                    <p className="text-gray-600">Initializing DocuSeal JavaScript component...</p>
                     <div className="mt-4">
                       <div className="flex justify-center space-x-1">
                         <div className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></div>
@@ -572,7 +569,7 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
                   <div className="flex items-center justify-center h-full text-gray-500 p-8" style={{ minHeight: '400px' }}>
                     <div className="text-center">
                       <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4" />
-                      <p className="font-semibold">Loading DocuSeal React Component</p>
+                      <p className="font-semibold">Loading DocuSeal JavaScript Component</p>
                       <p className="text-sm mt-2">Preparing your signing interface...</p>
                     </div>
                   </div>
@@ -584,9 +581,9 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
                 <div className="p-8 bg-amber-50 border border-amber-200 rounded-xl mt-4">
                   <div className="text-center">
                     <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
-                    <h4 className="text-lg font-semibold text-gray-900 mb-2">React Component Issue</h4>
+                    <h4 className="text-lg font-semibold text-gray-900 mb-2">JavaScript Component Issue</h4>
                     <p className="text-gray-600 mb-4">
-                      {error || 'The DocuSeal React component is having trouble loading.'}
+                      {error || 'The DocuSeal JavaScript component is having trouble loading.'}
                     </p>
                     <div className="space-y-3">
                       <a 
@@ -609,7 +606,7 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
                           }}
                           className="text-blue-600 hover:text-blue-800 font-semibold text-sm underline"
                         >
-                          Try React Component Again
+                          Try JavaScript Component Again
                         </button>
                       </div>
                     </div>
@@ -647,7 +644,7 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
                   <Shield className="w-5 h-5 text-blue-600" />
                   <div>
                     <h4 className="font-semibold text-gray-900">Secure Digital Signing</h4>
-                    <p className="text-sm text-gray-600">Enterprise-grade security powered by DocuSeal React</p>
+                    <p className="text-sm text-gray-600">Enterprise-grade security powered by DocuSeal JavaScript</p>
                   </div>
                 </div>
                 <div className="text-right">
