@@ -1,4 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+// src/components/dashboard/PSASigningSystemEmbedded.jsx
+import React, { useEffect, useRef, useState } from 'react';
+
+const PUBLIC_DOCUSEAL_FORM_URL = 'https://docuseal.com/d/LXvm6u76HPzVH3';
 
 const PSASigningSystemEmbedded = ({ providerData }) => {
   const [status, setStatus] = useState('idle');
@@ -15,7 +18,8 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
   const loadScript = () => {
     return new Promise((resolve, reject) => {
       if (document.querySelector('script[src="https://cdn.docuseal.com/js/form.js"]')) {
-        resolve(); return;
+        resolve();
+        return;
       }
       const script = document.createElement('script');
       script.src = 'https://cdn.docuseal.com/js/form.js';
@@ -25,13 +29,13 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
     });
   };
 
-  const embedForm = async (url) => {
+  const embedForm = async () => {
     try {
       await loadScript();
       if (embedRef.current) {
         embedRef.current.innerHTML = `
           <docuseal-form 
-            data-src="${url}"
+            data-src="${PUBLIC_DOCUSEAL_FORM_URL}"
             data-email="${providerData.email}"
             data-name="${providerData.contactName}">
           </docuseal-form>
@@ -58,36 +62,13 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
         return () => window.removeEventListener('message', handleMessage);
       }
     } catch (err) {
-      setError('Failed to load DocuSeal script');
+      setError('❌ Failed to load DocuSeal form script.');
     }
   };
 
   useEffect(() => {
-    const createSubmission = async () => {
-      setStatus('loading');
-      try {
-        const response = await fetch('/api/docuseal/create-submission-embedded', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            templateId: 1155842,
-            providerData,
-          }),
-        });
-
-        if (!response.ok) throw new Error('DocuSeal API error');
-        const result = await response.json();
-        if (!result.embed_src) throw new Error('Missing embed_src');
-
-        await embedForm(result.embed_src);
-        setStatus('embedded');
-      } catch (err) {
-        setError(err.message);
-        setStatus('error');
-      }
-    };
-
-    createSubmission();
+    setStatus('loading');
+    embedForm().then(() => setStatus('embedded')).catch(() => setStatus('error'));
   }, []);
 
   return (
