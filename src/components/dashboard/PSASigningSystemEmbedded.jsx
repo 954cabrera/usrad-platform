@@ -1,5 +1,5 @@
 // src/components/dashboard/PSASigningSystemEmbedded.jsx
-// ENHANCED VERSION - True iframe embedding with enterprise UX
+// FIXED: Using DocuSeal's Official React Integration
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   FileText, 
@@ -23,19 +23,16 @@ import {
 // Enhanced Supabase client setup
 const getSupabaseClient = () => {
   if (typeof window !== 'undefined') {
-    // Method 1: Global window.supabase
-    if (window.supabase) {
-      console.log('✅ Found global Supabase client');
-      return window.supabase;
-    }
-    
-    // Method 2: USRadUser system
     if (window.USRadUser?.supabase) {
       console.log('✅ Found USRadUser Supabase client');
       return window.USRadUser.supabase;
     }
     
-    // Method 3: Try to create client manually from meta tags
+    if (window.supabase) {
+      console.log('✅ Found global Supabase client');
+      return window.supabase;
+    }
+    
     const supabaseUrl = document.querySelector('meta[name="supabase-url"]')?.content;
     const supabaseAnonKey = document.querySelector('meta[name="supabase-anon-key"]')?.content;
     
@@ -55,14 +52,12 @@ const getSupabaseClient = () => {
 
 const PSASigningSystemEmbedded = ({ providerData }) => {
   const [psaStatus, setPsaStatus] = useState('review');
-  const [embeddingUrl, setEmbeddingUrl] = useState(null);
-  const [submissionId, setSubmissionId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [debugLog, setDebugLog] = useState([]);
-  const [iframeLoading, setIframeLoading] = useState(true);
   const [showFallback, setShowFallback] = useState(false);
-  const embedRef = useRef(null);
+  const [docuSealLoaded, setDocuSealLoaded] = useState(false);
+  const formRef = useRef(null);
 
   // Enhanced logging function
   const addDebugLog = (message, data = null) => {
@@ -70,6 +65,123 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
     const logEntry = `[${timestamp}] ${message}`;
     console.log('🔍 PSA Debug:', logEntry, data || '');
     setDebugLog(prev => [...prev, { message: logEntry, data }]);
+  };
+
+  // ✅ FIXED: DocuSeal React Integration (Official Method)
+  const loadDocuSealReact = () => {
+    addDebugLog('🚀 Loading DocuSeal React component');
+    
+    // Load DocuSeal React script
+    const script = document.createElement('script');
+    script.src = 'https://cdn.docuseal.com/js/react.js';
+    script.type = 'module';
+    
+    script.onload = () => {
+      addDebugLog('✅ DocuSeal React script loaded');
+      setDocuSealLoaded(true);
+      initializeDocuSealForm();
+    };
+    
+    script.onerror = () => {
+      addDebugLog('❌ Failed to load DocuSeal React script');
+      setError('Failed to load DocuSeal React component');
+      setShowFallback(true);
+    };
+    
+    // Only add if not already present
+    if (!document.querySelector('script[src="https://cdn.docuseal.com/js/react.js"]')) {
+      document.head.appendChild(script);
+    } else {
+      setDocuSealLoaded(true);
+      initializeDocuSealForm();
+    }
+  };
+
+  // Initialize DocuSeal React Form
+  const initializeDocuSealForm = () => {
+    addDebugLog('📝 Initializing DocuSeal React form');
+    
+    // Wait for DocuSeal React to be available
+    const checkDocuSeal = () => {
+      if (typeof window !== 'undefined' && window.DocuSeal) {
+        addDebugLog('✅ DocuSeal React component available');
+        renderDocuSealForm();
+      } else {
+        setTimeout(checkDocuSeal, 100);
+      }
+    };
+    
+    checkDocuSeal();
+  };
+
+  // Render DocuSeal React Form
+  const renderDocuSealForm = () => {
+    if (!formRef.current || !window.DocuSeal) return;
+    
+    addDebugLog('🎨 Rendering DocuSeal React form');
+    
+    // DocuSeal React configuration
+    const config = {
+      src: "https://docuseal.com/d/LXvm6u76HPzVH3",
+      email: providerData.email || providerData.contactEmail,
+      name: providerData.contactName,
+      // Event handlers
+      onLoad: () => {
+        addDebugLog('📄 DocuSeal form loaded successfully');
+        setLoading(false);
+        setError(null);
+      },
+      onComplete: (data) => {
+        addDebugLog('🎉 DocuSeal form completed', data);
+        handlePSACompletion(data);
+      },
+      onError: (error) => {
+        addDebugLog('❌ DocuSeal form error', error);
+        setError('Error loading the signing form');
+        setShowFallback(true);
+        setLoading(false);
+      },
+      onStart: () => {
+        addDebugLog('✍️ User started signing');
+        setLoading(false);
+      }
+    };
+    
+    // Create DocuSeal React element
+    try {
+      const DocuSealForm = window.DocuSeal.Form;
+      
+      // Use React to render the form
+      if (typeof window !== 'undefined' && window.React && window.ReactDOM) {
+        const element = window.React.createElement(DocuSealForm, config);
+        window.ReactDOM.render(element, formRef.current);
+        addDebugLog('✅ DocuSeal React form rendered');
+      } else {
+        // Fallback to vanilla JS if React not available
+        addDebugLog('⚠️ React not available, using vanilla JS fallback');
+        formRef.current.innerHTML = `
+          <docuseal-form 
+            data-src="${config.src}"
+            data-email="${config.email}"
+            data-name="${config.name}"
+            style="width: 100%; height: 800px; border: none;">
+          </docuseal-form>
+        `;
+        
+        // Setup vanilla JS listeners
+        const form = formRef.current.querySelector('docuseal-form');
+        if (form) {
+          form.addEventListener('loaded', config.onLoad);
+          form.addEventListener('completed', (e) => config.onComplete(e.detail));
+          form.addEventListener('error', (e) => config.onError(e.detail));
+          form.addEventListener('started', config.onStart);
+        }
+      }
+    } catch (err) {
+      addDebugLog('❌ Error rendering DocuSeal form', err);
+      setError('Failed to render signing form');
+      setShowFallback(true);
+    }
   };
 
   // ✅ ENHANCED: Handle PSA completion with USRadUser integration
@@ -82,7 +194,7 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
         addDebugLog('📞 Calling USRadUser.completePSA()');
         const success = await window.USRadUser.completePSA(
           completionData.document_url,
-          submissionId
+          completionData.submission_id
         );
         
         if (success) {
@@ -99,7 +211,6 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
         addDebugLog('❌ No Supabase client available - using localStorage fallback');
         localStorage.setItem('usrad_psa_completed', 'true');
         localStorage.setItem('usrad_psa_completion_date', new Date().toISOString());
-        localStorage.setItem('usrad_psa_submission_id', submissionId || 'unknown');
         setPsaStatus('completed');
         return;
       }
@@ -114,14 +225,14 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
       
       addDebugLog('✅ Found user', { id: user.id, email: user.email });
       
-      // Update user profile in user_profiles table
+      // Update user profile
       const { error: updateError } = await supabaseClient
         .from('user_profiles')
         .update({
           psa_signed: true,
           psa_signed_at: new Date().toISOString(),
           psa_document_url: completionData.document_url,
-          psa_submission_id: submissionId,
+          psa_submission_id: completionData.submission_id,
           onboarding_progress: 75,
           updated_at: new Date().toISOString()
         })
@@ -143,66 +254,169 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
     }
   };
 
-  // ✅ NEW: DocuSeal JavaScript widget embedding
-  const startEmbeddedSigning = () => {
-    addDebugLog('🚀 Starting embedded PSA signing process');
+  // Start PSA signing process
+  const startPSASigning = () => {
+    addDebugLog('🚀 Starting PSA signing process');
+    setLoading(true);
+    setPsaStatus('signing');
+    setError(null);
+    setShowFallback(false);
     
-    // Load DocuSeal widget script
+    // Load DocuSeal React component
+    loadDocuSealReact();
+  };
+
+  // Navigate to dashboard after completion
+  const continueToDashboard = () => {
+    addDebugLog('🏠 Navigating to dashboard');
+    window.location.href = '/dashboard?psa_completed=true';
+  };
+
+  // Manual completion trigger for testing
+  const triggerManualCompletion = () => {
+    addDebugLog('🧪 Manual completion triggered for testing');
+    handlePSACompletion({ 
+      manual: true, 
+      test: true, 
+      document_url: 'https://test.com/sample-psa.pdf',
+      submission_id: 'test-submission-123'
+    });
+  };
+
+  // Initialize on mount
+  useEffect(() => {
+    addDebugLog('🔧 Component mounted');
+    
+    return () => {
+      addDebugLog('🔧 Component unmounting');
+    };
+  }, []);
+
+  // Render debug panel in development
+  const renderDebugPanel = () => {
+    if (typeof window === 'undefined' || window.location.hostname === 'localhost') {
+      return (
+        <div className="mt-6 p-4 bg-gray-100 rounded-xl">
+          <h4 className="font-bold mb-2 flex items-center space-x-2">
+            <span>🔧 Debug Panel</span>
+            <span className="text-xs bg-yellow-200 px-2 py-1 rounded">DEV MODE</span>
+          </h4>
+          <div className="text-xs space-y-1 max-h-40 overflow-y-auto mb-3">
+            {debugLog.slice(-10).map((log, index) => (
+              <div key={index} className="font-mono text-gray-700">
+                {log.message}
+              </div>
+            ))}
+          </div>
+          <div className="flex space-x-2">
+            <button
+              onClick={triggerManualCompletion}
+              className="px-3 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600"
+            >
+              🧪 Test Completion
+            </button>
+            <button
+              onClick={() => setDebugLog([])}
+              className="px-3 py-1 bg-gray-500 text-white text-xs rounded hover:bg-gray-600"
+            >
+              Clear Log
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  // Enhanced provider data display
+  const renderProviderDetails = () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div className="space-y-4">
+        <div className="flex items-start space-x-3">
+          <Building className="w-5 h-5 text-blue-600 mt-1" />
+          <div>
+            <p className="text-sm text-gray-600">Facility Name</p>
+            <p className="font-semibold text-gray-900">{providerData.facilityName}</p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-3">
+          <User className="w-5 h-5 text-blue-600 mt-1" />
+          <div>
+            <p className="text-sm text-gray-600">Contact Person</p>
+            <p className="font-semibold text-gray-900">{providerData.contactName}</p>
+            <p className="text-sm text-gray-600">{providerData.signerTitle || 'Medical Director'}</p>
+          </div>
+        </div>
+      </div>
+      <div className="space-y-4">
+        <div className="flex items-start space-x-3">
+          <Mail className="w-5 h-5 text-blue-600 mt-1" />
+          <div>
+            <p className="text-sm text-gray-600">Email Address</p>
+            <p className="font-semibold text-gray-900">{providerData.email || providerData.contactEmail}</p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-3">
+          <Hash className="w-5 h-5 text-blue-600 mt-1" />
+          <div>
+            <p className="text-sm text-gray-600">Tax ID</p>
+            <p className="font-semibold text-gray-900">{providerData.taxId}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // ✅ DocuSeal Official Embedding Method with timeout
+  const startEmbeddedSigning = () => {
+    addDebugLog('🚀 Starting DocuSeal official embedding');
+    
+    // Set a timeout for loading
+    const loadingTimeout = setTimeout(() => {
+      addDebugLog('⏰ DocuSeal loading timeout - showing fallback');
+      setError('DocuSeal is taking longer than expected to load');
+      setShowFallback(true);
+      setIframeLoading(false);
+    }, 15000); // 15 second timeout
+    
+    // Load DocuSeal script first
     const script = document.createElement('script');
     script.src = 'https://cdn.docuseal.com/js/form.js';
     script.onload = () => {
       addDebugLog('✅ DocuSeal script loaded');
+      clearTimeout(loadingTimeout);
       
-      // Create the embedding URL for the widget
-      const docusealParams = new URLSearchParams({
-        email: providerData.email || providerData.contactEmail,
-        name: providerData.contactName,
-        // Pre-fill provider data
-        'fields[email]': providerData.email || providerData.contactEmail,
-        'fields[company_name]': providerData.facilityName,
-        'fields[contact_name]': providerData.contactName,
-        'fields[contact_phone]': providerData.contactPhone || providerData.phone,
-        'fields[tax_id]': providerData.taxId,
-        'fields[signer_title]': providerData.signerTitle || 'Medical Director',
-        'fields[provider_name]': providerData.contactName,
-        'fields[date]': new Date().toLocaleDateString(),
-        // USRad specific fields
-        'fields[network]': 'USRad National Imaging Network',
-        'fields[agreement_type]': 'Provider Service Agreement'
-      });
-
-      const embedUrl = `https://docuseal.com/d/LXvm6u76HPzVH3?${docusealParams.toString()}`;
+      // Use your actual DocuSeal embedding URL
+      const embedUrl = 'https://docuseal.com/d/LXvm6u76HPzVH3';
       
-      addDebugLog('📄 DocuSeal widget URL constructed', embedUrl);
+      addDebugLog('📄 Using DocuSeal embedding URL', embedUrl);
       setEmbeddingUrl(embedUrl);
       
-      // Initialize DocuSeal form widget
+      // Create DocuSeal form element
       if (embedRef.current) {
         embedRef.current.innerHTML = `
           <docuseal-form 
             data-src="${embedUrl}"
             data-email="${providerData.email || providerData.contactEmail}"
             data-name="${providerData.contactName}"
-            style="width: 100%; height: 800px; border: none; border-radius: 16px;">
+            style="width: 100%; height: 800px; border: none;">
           </docuseal-form>
         `;
         
-        // Set up completion detection
-        const form = embedRef.current.querySelector('docuseal-form');
-        if (form) {
-          form.addEventListener('completed', (event) => {
-            addDebugLog('🎯 DocuSeal widget completion detected', event.detail);
-            handlePSACompletion(event.detail || {});
-          });
-          
-          form.addEventListener('loaded', () => {
-            addDebugLog('📄 DocuSeal widget loaded');
-            setIframeLoading(false);
-          });
-          
-          form.addEventListener('error', (event) => {
-            addDebugLog('❌ DocuSeal widget error', event.detail);
-            handleIframeError();
+        // Set a secondary timeout for form loading
+        const formTimeout = setTimeout(() => {
+          addDebugLog('⏰ DocuSeal form loading timeout');
+          setError('Document is taking too long to load');
+          setShowFallback(true);
+          setIframeLoading(false);
+        }, 10000); // 10 second timeout for form
+        
+        // Wait for custom element and setup listeners
+        if (customElements.get('docuseal-form')) {
+          setupFormListeners(formTimeout);
+        } else {
+          customElements.whenDefined('docuseal-form').then(() => {
+            setupFormListeners(formTimeout);
           });
         }
       }
@@ -212,16 +426,65 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
     
     script.onerror = () => {
       addDebugLog('❌ Failed to load DocuSeal script');
-      setError('Failed to load DocuSeal signing interface');
-      setPsaStatus('error');
+      clearTimeout(loadingTimeout);
+      setError('Failed to load DocuSeal. Please use the direct link below.');
+      setShowFallback(true);
+      setIframeLoading(false);
     };
     
     // Only add script if not already present
     if (!document.querySelector('script[src="https://cdn.docuseal.com/js/form.js"]')) {
       document.head.appendChild(script);
     } else {
-      // Script already loaded, initialize directly
+      // Script already loaded
       script.onload();
+    }
+  };
+
+  // Setup form event listeners with timeout management
+  const setupFormListeners = (formTimeout) => {
+    const form = embedRef.current?.querySelector('docuseal-form');
+    if (form) {
+      addDebugLog('📋 Setting up DocuSeal form listeners');
+      
+      // Clear timeout when form loads successfully
+      form.addEventListener('loaded', () => {
+        addDebugLog('📄 DocuSeal form loaded successfully');
+        clearTimeout(formTimeout);
+        setIframeLoading(false);
+        setError(null);
+        setShowFallback(false);
+      });
+      
+      form.addEventListener('completed', (event) => {
+        addDebugLog('🎯 DocuSeal form completed', event.detail);
+        clearTimeout(formTimeout);
+        handlePSACompletion(event.detail || {});
+      });
+      
+      form.addEventListener('error', (event) => {
+        addDebugLog('❌ DocuSeal form error', event.detail);
+        clearTimeout(formTimeout);
+        setError('Error loading the signing form');
+        setShowFallback(true);
+        setIframeLoading(false);
+      });
+      
+      // Additional events
+      form.addEventListener('started', () => {
+        addDebugLog('✍️ User started signing');
+        clearTimeout(formTimeout);
+        setIframeLoading(false);
+      });
+      
+      form.addEventListener('signed', (event) => {
+        addDebugLog('📝 Document signed', event.detail);
+      });
+    } else {
+      addDebugLog('❌ DocuSeal form element not found');
+      setError('Failed to initialize signing form');
+      setShowFallback(true);
+      setIframeLoading(false);
     }
   };
 
@@ -539,41 +802,92 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
                 </div>
               )}
 
-              {/* DocuSeal Widget Container */}
+              {/* Enhanced Loading State */}
               <div 
                 ref={embedRef}
                 className="docuseal-container"
-                style={{ minHeight: '800px' }}
+                style={{ 
+                  minHeight: '800px',
+                  width: '100%',
+                  borderRadius: '16px',
+                  overflow: 'hidden'
+                }}
               >
-                <div className="flex items-center justify-center h-full text-gray-500 p-8">
-                  <div className="text-center">
-                    <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4" />
-                    <p>Loading DocuSeal signing widget...</p>
+                {iframeLoading && (
+                  <div className="flex items-center justify-center h-full text-gray-500 p-8" style={{ minHeight: '400px' }}>
+                    <div className="text-center">
+                      <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4" />
+                      <p className="font-semibold">Loading Your PSA Document</p>
+                      <p className="text-sm mt-2">Preparing your personalized Provider Service Agreement...</p>
+                      <div className="mt-4">
+                        <div className="flex justify-center space-x-1">
+                          <div className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></div>
+                          <div className="w-2 h-2 bg-blue-600 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
+                          <div className="w-2 h-2 bg-blue-600 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+                        </div>
+                        <p className="text-xs text-gray-400 mt-2">If this takes more than 15 seconds, we'll show you a direct link</p>
+                      </div>
+                    </div>
                   </div>
+                )}
+              </div>
+
+              {/* Immediate Fallback Option */}
+              <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl">
+                <div className="text-center">
+                  <h4 className="font-semibold text-blue-900 mb-2">Alternative: Direct Link</h4>
+                  <p className="text-blue-700 text-sm mb-3">
+                    If the embedded form doesn't load, you can access your PSA directly:
+                  </p>
+                  <a 
+                    href="https://docuseal.com/d/LXvm6u76HPzVH3"
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition-colors"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    <span>Open PSA Document</span>
+                  </a>
+                  <p className="text-xs text-blue-600 mt-2">
+                    After signing, return here - your status will update automatically
+                  </p>
                 </div>
               </div>
 
-              {/* Fallback Section */}
+              {/* Enhanced Error Fallback */}
               {showFallback && (
-                <div className="p-8 bg-gray-50 border-t border-gray-200">
+                <div className="p-6 bg-amber-50 border border-amber-200 rounded-xl mt-4">
                   <div className="text-center">
-                    <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
-                    <h4 className="text-lg font-semibold text-gray-900 mb-2">Having trouble with the embedded document?</h4>
+                    <AlertCircle className="w-10 h-10 text-amber-500 mx-auto mb-3" />
+                    <h4 className="text-lg font-semibold text-gray-900 mb-2">Document Loading Issue</h4>
                     <p className="text-gray-600 mb-4">
-                      You can open the document in a new window to complete your signature:
+                      {error || 'The embedded signing form is taking longer than expected to load.'}
                     </p>
-                    <a 
-                      href={embeddingUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-2 px-6 py-3 usrad-gradient-navy text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                    >
-                      <ExternalLink className="w-5 h-5" />
-                      <span>Open PSA in New Window</span>
-                    </a>
-                    <p className="text-sm text-gray-500 mt-3">
-                      After signing, return to this page - your status will update automatically
-                    </p>
+                    <div className="space-y-3">
+                      <a 
+                        href="https://docuseal.com/d/LXvm6u76HPzVH3"
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center space-x-2 px-6 py-3 usrad-gradient-navy text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                      >
+                        <ExternalLink className="w-5 h-5" />
+                        <span>Complete PSA in New Window</span>
+                      </a>
+                      <div className="text-center">
+                        <button
+                          onClick={() => {
+                            setError(null);
+                            setShowFallback(false);
+                            setIframeLoading(true);
+                            setPsaStatus('review');
+                            setTimeout(() => startEmbeddedSigning(), 500);
+                          }}
+                          className="text-blue-600 hover:text-blue-800 font-semibold text-sm underline"
+                        >
+                          Try Embedded Form Again
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
