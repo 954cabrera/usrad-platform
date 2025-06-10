@@ -1,11 +1,27 @@
-// /src/pages/dashboard/components/PSASigningSystemEmbedded.jsx
-// Enhanced with debugging and multiple completion detection methods
-
+// src/components/dashboard/PSASigningSystemEmbedded.jsx
+// ENHANCED VERSION - True iframe embedding with enterprise UX
 import React, { useState, useRef, useEffect } from 'react';
+import { 
+  FileText, 
+  CheckCircle, 
+  Loader2, 
+  ExternalLink, 
+  Shield,
+  Award,
+  Clock,
+  AlertCircle,
+  X,
+  Eye,
+  Phone,
+  Mail,
+  Building,
+  User,
+  Hash,
+  MapPin
+} from 'lucide-react';
 
 // Enhanced Supabase client setup
 const getSupabaseClient = () => {
-  // Try multiple ways to access Supabase
   if (typeof window !== 'undefined') {
     // Method 1: Global window.supabase
     if (window.supabase) {
@@ -13,23 +29,24 @@ const getSupabaseClient = () => {
       return window.supabase;
     }
     
-    // Method 2: Try to create client manually
-    if (window.supabaseLib && window.supabaseLib.createClient) {
-      const client = window.supabaseLib.createClient(
-        import.meta.env.PUBLIC_SUPABASE_URL,
-        import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-      );
-      console.log('✅ Created Supabase client manually');
-      return client;
+    // Method 2: USRadUser system
+    if (window.USRadUser?.supabase) {
+      console.log('✅ Found USRadUser Supabase client');
+      return window.USRadUser.supabase;
     }
     
-    // Method 3: Import dynamically
-    import('/src/lib/supabase.js').then(module => {
-      console.log('✅ Imported Supabase module');
-      return module.supabase;
-    }).catch(err => {
-      console.error('❌ Failed to import Supabase:', err);
-    });
+    // Method 3: Try to create client manually from meta tags
+    const supabaseUrl = document.querySelector('meta[name="supabase-url"]')?.content;
+    const supabaseAnonKey = document.querySelector('meta[name="supabase-anon-key"]')?.content;
+    
+    if (supabaseUrl && supabaseAnonKey) {
+      import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm')
+        .then(({ createClient }) => {
+          const client = createClient(supabaseUrl, supabaseAnonKey);
+          console.log('✅ Created Supabase client from meta tags');
+          return client;
+        });
+    }
   }
   
   console.warn('⚠️ Supabase client not available');
@@ -43,6 +60,8 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [debugLog, setDebugLog] = useState([]);
+  const [iframeLoading, setIframeLoading] = useState(true);
+  const [showFallback, setShowFallback] = useState(false);
   const embedRef = useRef(null);
 
   // Enhanced logging function
@@ -53,237 +72,146 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
     setDebugLog(prev => [...prev, { message: logEntry, data }]);
   };
 
-  // ✅ ENHANCED: Handle PSA completion with multiple detection methods
+  // ✅ ENHANCED: Handle PSA completion with USRadUser integration
   const handlePSACompletion = async (completionData) => {
     addDebugLog('🎉 PSA completion handler called', completionData);
     
     try {
+      // Method 1: Use USRadUser system if available
+      if (typeof window !== 'undefined' && window.USRadUser?.completePSA) {
+        addDebugLog('📞 Calling USRadUser.completePSA()');
+        const success = await window.USRadUser.completePSA(
+          completionData.document_url,
+          submissionId
+        );
+        
+        if (success) {
+          addDebugLog('✅ PSA completed via USRadUser system');
+          setPsaStatus('completed');
+          return;
+        }
+      }
+      
+      // Method 2: Direct Supabase update (fallback)
       const supabaseClient = getSupabaseClient();
       
       if (!supabaseClient) {
-        addDebugLog('❌ No Supabase client available');
-        // Fallback: Store in localStorage for now
+        addDebugLog('❌ No Supabase client available - using localStorage fallback');
         localStorage.setItem('usrad_psa_completed', 'true');
         localStorage.setItem('usrad_psa_completion_date', new Date().toISOString());
-        addDebugLog('📦 Stored PSA completion in localStorage as fallback');
+        localStorage.setItem('usrad_psa_submission_id', submissionId || 'unknown');
+        setPsaStatus('completed');
         return;
       }
       
       // Get current user
       const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
       
-      if (userError) {
-        addDebugLog('❌ Error getting user', userError);
-        return;
-      }
-      
-      if (!user) {
-        addDebugLog('❌ No user found in session');
+      if (userError || !user) {
+        addDebugLog('❌ No user found in session', userError);
         return;
       }
       
       addDebugLog('✅ Found user', { id: user.id, email: user.email });
       
-      // Update user metadata
-      const updateData = {
-        psa_signed: true,
-        psa_submission_id: submissionId,
-        onboarding_progress: 75,
-        psa_signed_date: new Date().toISOString(),
-        network_access_level: 'premium',
-        psa_completion_data: completionData
-      };
-      
-      addDebugLog('📝 Updating user metadata', updateData);
-      
-      const { error: updateError } = await supabaseClient.auth.updateUser({
-        data: updateData
-      });
+      // Update user profile in user_profiles table
+      const { error: updateError } = await supabaseClient
+        .from('user_profiles')
+        .update({
+          psa_signed: true,
+          psa_signed_at: new Date().toISOString(),
+          psa_document_url: completionData.document_url,
+          psa_submission_id: submissionId,
+          onboarding_progress: 75,
+          updated_at: new Date().toISOString()
+        })
+        .eq('user_id', user.id);
       
       if (updateError) {
-        addDebugLog('❌ Failed to update user metadata', updateError);
+        addDebugLog('❌ Failed to update user profile', updateError);
       } else {
-        addDebugLog('✅ User metadata updated successfully!');
+        addDebugLog('✅ User profile updated successfully!');
+        setPsaStatus('completed');
         
-        // Show success notification
-        if (window.showToast) {
-          window.showToast('PSA completed! Premium features unlocked.', 'success');
+        // Refresh USRadUser data if available
+        if (window.USRadUser?.loadUserData) {
+          await window.USRadUser.loadUserData();
         }
-        
-        // Store success flag for immediate UI update
-        localStorage.setItem('usrad_psa_just_completed', 'true');
       }
     } catch (error) {
       addDebugLog('❌ Error in PSA completion handler', error);
     }
   };
 
-  // Create submission via API endpoint
-  const createSubmission = async () => {
-    try {
-      setLoading(true);
-      setPsaStatus('creating');
-      addDebugLog('🚀 Starting PSA creation process');
+  // ✅ NEW: Direct DocuSeal iframe embedding (no external API needed)
+  const startEmbeddedSigning = () => {
+    addDebugLog('🚀 Starting embedded PSA signing process');
+    
+    // Construct DocuSeal embed URL directly
+    const docusealParams = new URLSearchParams({
+      template_id: '1155842', // Your DocuSeal template ID
+      email: providerData.email || providerData.contactEmail,
+      redirect_url: 'https://usrad-platform.vercel.app/dashboard?psa_completed=true',
+      webhook_url: 'https://usrad-platform.vercel.app/api/docuseal-webhook',
+      // Pre-fill provider data
+      'fields[email]': providerData.email || providerData.contactEmail,
+      'fields[company_name]': providerData.facilityName,
+      'fields[contact_name]': providerData.contactName,
+      'fields[contact_phone]': providerData.contactPhone || providerData.phone,
+      'fields[tax_id]': providerData.taxId,
+      'fields[signer_title]': providerData.signerTitle || 'Medical Director',
+      'fields[provider_name]': providerData.contactName,
+      'fields[date]': new Date().toLocaleDateString(),
+      // USRad specific fields
+      'fields[network]': 'USRad National Imaging Network',
+      'fields[agreement_type]': 'Provider Service Agreement'
+    });
 
-      const response = await fetch('/api/docuseal/create-submission-embedded', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          templateId: 1155842,
-          providerData
-        })
-      });
-
-      addDebugLog('📡 API response status', response.status);
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`API failed: ${errorData.error || 'Unknown error'}`);
-      }
-
-      const result = await response.json();
-      addDebugLog('✅ API success', result);
-      
-      if (!result.embed_src) {
-        throw new Error('No embed_src found in API response');
-      }
-
-      setSubmissionId(result.submission_id);
-      setEmbeddingUrl(result.embed_src);
-      setPsaStatus('signing');
-
-      // Load DocuSeal embed
-      loadDocuSealEmbed(result.embed_src);
-
-    } catch (err) {
-      addDebugLog('❌ Error creating submission', err);
-      setError('Failed to create submission: ' + err.message);
-      setPsaStatus('error');
-    } finally {
-      setLoading(false);
-    }
+    const embedUrl = `https://docuseal.co/s/1155842?${docusealParams.toString()}`;
+    
+    addDebugLog('📄 DocuSeal embed URL constructed', embedUrl);
+    setEmbeddingUrl(embedUrl);
+    setPsaStatus('signing');
+    setIframeLoading(true);
   };
 
-  // ✅ ENHANCED: Load DocuSeal embed with comprehensive event listeners
-  const loadDocuSealEmbed = (embedUrl) => {
-    addDebugLog('📄 Loading DocuSeal embed', embedUrl);
-    
-    // Load DocuSeal script
-    const script = document.createElement('script');
-    script.src = 'https://cdn.docuseal.com/js/form.js';
-    script.onload = () => {
-      addDebugLog('✅ DocuSeal script loaded');
+  // Handle iframe load success
+  const handleIframeLoad = () => {
+    addDebugLog('📄 DocuSeal iframe loaded successfully');
+    setIframeLoading(false);
+    setError(null);
+  };
+
+  // Handle iframe load error
+  const handleIframeError = () => {
+    addDebugLog('❌ DocuSeal iframe failed to load');
+    setIframeLoading(false);
+    setError('Failed to load signing interface');
+    setShowFallback(true);
+  };
+
+  // Listen for DocuSeal completion via postMessage
+  useEffect(() => {
+    const handleMessage = (event) => {
+      // Security: Only accept messages from DocuSeal
+      if (!event.origin.includes('docuseal.co')) return;
       
-      if (embedRef.current) {
-        embedRef.current.innerHTML = `
-          <docuseal-form 
-            data-src="${embedUrl}"
-            data-email="${providerData.email}"
-            data-name="${providerData.contactName}">
-          </docuseal-form>
-        `;
-
-        // Method 1: Direct event listeners on form element
-        const form = embedRef.current.querySelector('docuseal-form');
-        if (form) {
-          addDebugLog('📋 Adding event listeners to DocuSeal form');
-          
-          form.addEventListener('completed', (event) => {
-            addDebugLog('🎯 DocuSeal completed event (method 1)', event);
-            handleSigningComplete(event.detail || event.data || {});
-          });
-          
-          form.addEventListener('error', (event) => {
-            addDebugLog('❌ DocuSeal error event', event);
-            handleSigningError(event.detail || event.data || {});
-          });
-          
-          // Additional events to listen for
-          form.addEventListener('loaded', () => {
-            addDebugLog('📄 DocuSeal form loaded');
-          });
-          
-          form.addEventListener('signed', (event) => {
-            addDebugLog('✍️ DocuSeal signed event', event);
-            handleSigningComplete(event.detail || event.data || {});
-          });
-        }
-
-        // Method 2: Window message events (backup)
-        const handleMessage = (event) => {
-          addDebugLog('📨 Window message received', event.data);
-          
-          if (event.data && (
-            event.data.type === 'docuseal:completed' ||
-            event.data.type === 'docuseal:signed' ||
-            event.data.event === 'completed'
-          )) {
-            addDebugLog('🎯 DocuSeal completion via window message (method 2)', event.data);
-            handleSigningComplete(event.data);
-          }
-        };
-        
-        window.addEventListener('message', handleMessage);
-        
-        // Method 3: Polling for completion (fallback)
-        const pollForCompletion = setInterval(() => {
-          // Check if form indicates completion
-          const completedElements = document.querySelectorAll('[data-completed="true"], .completed, .success');
-          if (completedElements.length > 0) {
-            addDebugLog('🎯 DocuSeal completion detected via polling (method 3)');
-            clearInterval(pollForCompletion);
-            handleSigningComplete({ method: 'polling' });
-          }
-        }, 2000);
-        
-        // Store cleanup functions
-        embedRef.current._cleanup = () => {
-          addDebugLog('🧹 Cleaning up event listeners');
-          window.removeEventListener('message', handleMessage);
-          clearInterval(pollForCompletion);
-        };
-        
-        // Auto-cleanup after 30 minutes
-        setTimeout(() => {
-          if (embedRef.current && embedRef.current._cleanup) {
-            embedRef.current._cleanup();
-          }
-        }, 30 * 60 * 1000);
+      addDebugLog('📨 PostMessage received from DocuSeal', event.data);
+      
+      if (event.data.type === 'document_completed' || 
+          event.data.status === 'completed' ||
+          event.data.event === 'completed') {
+        addDebugLog('🎯 PSA completion detected via postMessage');
+        handlePSACompletion(event.data);
       }
     };
+
+    window.addEventListener('message', handleMessage);
     
-    script.onerror = () => {
-      addDebugLog('❌ Failed to load DocuSeal script');
-      setError('Failed to load DocuSeal signing interface');
-      setPsaStatus('error');
+    return () => {
+      window.removeEventListener('message', handleMessage);
     };
-    
-    document.head.appendChild(script);
-  };
-
-  // ✅ ENHANCED: Handle signing completion with debug logging
-  const handleSigningComplete = async (data) => {
-    addDebugLog('🎉 PSA signing completed', data);
-    setPsaStatus('completed');
-    
-    // Call the completion handler
-    await handlePSACompletion(data);
-  };
-
-  // Handle signing error
-  const handleSigningError = (error) => {
-    addDebugLog('❌ PSA signing error', error);
-    setError('Signing failed: ' + (error.message || 'Unknown error'));
-    setPsaStatus('error');
-  };
-
-  // Start the PSA signing process
-  const startPSASigning = async () => {
-    addDebugLog('🚀 Starting PSA signing process');
-    await createSubmission();
-  };
+  }, [submissionId]);
 
   // Navigate to dashboard after completion
   const continueToDashboard = () => {
@@ -294,214 +222,460 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
   // Manual completion trigger for testing
   const triggerManualCompletion = () => {
     addDebugLog('🧪 Manual completion triggered for testing');
-    handlePSACompletion({ manual: true, test: true });
+    handlePSACompletion({ 
+      manual: true, 
+      test: true, 
+      document_url: 'https://test.com/sample-psa.pdf' 
+    });
   };
-
-  // Cleanup on unmount
-  useEffect(() => {
-    addDebugLog('🔧 Component mounted');
-    
-    return () => {
-      addDebugLog('🔧 Component unmounting');
-      if (embedRef.current && embedRef.current._cleanup) {
-        embedRef.current._cleanup();
-      }
-    };
-  }, []);
 
   // Render debug panel in development
   const renderDebugPanel = () => {
-    if (process.env.NODE_ENV !== 'development') return null;
-    
-    return (
-      <div className="mt-4 p-4 bg-gray-100 rounded-lg">
-        <h4 className="font-bold mb-2">Debug Log:</h4>
-        <div className="text-xs space-y-1 max-h-40 overflow-y-auto">
-          {debugLog.map((log, index) => (
-            <div key={index} className="font-mono">
-              {log.message}
-              {log.data && <pre className="ml-4 text-gray-600">{JSON.stringify(log.data, null, 2)}</pre>}
-            </div>
-          ))}
+    if (typeof window === 'undefined' || window.location.hostname === 'localhost') {
+      return (
+        <div className="mt-6 p-4 bg-gray-100 rounded-xl">
+          <h4 className="font-bold mb-2 flex items-center space-x-2">
+            <span>🔧 Debug Panel</span>
+            <span className="text-xs bg-yellow-200 px-2 py-1 rounded">DEV MODE</span>
+          </h4>
+          <div className="text-xs space-y-1 max-h-40 overflow-y-auto mb-3">
+            {debugLog.slice(-10).map((log, index) => (
+              <div key={index} className="font-mono text-gray-700">
+                {log.message}
+              </div>
+            ))}
+          </div>
+          <div className="flex space-x-2">
+            <button
+              onClick={triggerManualCompletion}
+              className="px-3 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600"
+            >
+              🧪 Test Completion
+            </button>
+            <button
+              onClick={() => setDebugLog([])}
+              className="px-3 py-1 bg-gray-500 text-white text-xs rounded hover:bg-gray-600"
+            >
+              Clear Log
+            </button>
+          </div>
         </div>
-        <button
-          onClick={triggerManualCompletion}
-          className="mt-2 px-3 py-1 bg-yellow-500 text-white text-xs rounded"
-        >
-          🧪 Test Manual Completion
-        </button>
-      </div>
-    );
+      );
+    }
+    return null;
   };
 
-  // Render based on current status
+  // Enhanced provider data display
+  const renderProviderDetails = () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div className="space-y-4">
+        <div className="flex items-start space-x-3">
+          <Building className="w-5 h-5 text-blue-600 mt-1" />
+          <div>
+            <p className="text-sm text-gray-600">Facility Name</p>
+            <p className="font-semibold text-gray-900">{providerData.facilityName}</p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-3">
+          <User className="w-5 h-5 text-blue-600 mt-1" />
+          <div>
+            <p className="text-sm text-gray-600">Contact Person</p>
+            <p className="font-semibold text-gray-900">{providerData.contactName}</p>
+            <p className="text-sm text-gray-600">{providerData.signerTitle || 'Medical Director'}</p>
+          </div>
+        </div>
+      </div>
+      <div className="space-y-4">
+        <div className="flex items-start space-x-3">
+          <Mail className="w-5 h-5 text-blue-600 mt-1" />
+          <div>
+            <p className="text-sm text-gray-600">Email Address</p>
+            <p className="font-semibold text-gray-900">{providerData.email || providerData.contactEmail}</p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-3">
+          <Hash className="w-5 h-5 text-blue-600 mt-1" />
+          <div>
+            <p className="text-sm text-gray-600">Tax ID</p>
+            <p className="font-semibold text-gray-900">{providerData.taxId}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Main render function based on status
   const renderContent = () => {
     switch (psaStatus) {
       case 'review':
         return (
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                  <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900">Provider Service Agreement</h3>
-                <p className="text-sm text-gray-600">Ready for review and signature</p>
-              </div>
-            </div>
-            
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-medium text-gray-900 mb-2">Agreement Details</h4>
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <span className="text-gray-600">Provider:</span>
-                    <div className="font-medium">{providerData.facilityName}</div>
-                  </div>
-                  <div>
-                    <span className="text-gray-600">Contact:</span>
-                    <div className="font-medium">{providerData.contactName}</div>
-                  </div>
-                  <div>
-                    <span className="text-gray-600">Email:</span>
-                    <div className="font-medium">{providerData.email}</div>
-                  </div>
-                  <div>
-                    <span className="text-gray-600">Tax ID:</span>
-                    <div className="font-medium">{providerData.taxId}</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <div className="flex items-start">
-                  <svg className="w-5 h-5 text-blue-500 mt-0.5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <div className="text-sm">
-                    <p className="font-medium text-blue-800">Complete PSA to Unlock Premium Features</p>
-                    <p className="text-blue-700 mt-1">
-                      Revenue analytics, network intelligence, advanced training, and direct support access.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="border-t pt-4">
-                <p className="text-sm text-gray-600 mb-4">
-                  By proceeding, you agree to electronically sign the Provider Service Agreement with U.S. Radiology of Florida.
-                </p>
-                <button
-                  onClick={startPSASigning}
-                  disabled={loading}
-                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  {loading ? 'Preparing Document...' : 'Review & Sign Agreement'}
-                </button>
-              </div>
-            </div>
-            
-            {renderDebugPanel()}
-          </div>
-        );
+          <div className="space-y-8">
+            <style>{`
+              .usrad-card {
+                background: white;
+                border-radius: 24px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+                border: 1px solid rgba(0, 48, 135, 0.05);
+                transition: all 0.4s ease;
+              }
+              .usrad-navy { color: #003087; }
+              .usrad-gold { color: #cc9933; }
+              .usrad-gradient-navy {
+                background: linear-gradient(135deg, #003087 0%, #001a4d 100%);
+              }
+              .animate-fade-in-up {
+                animation: fadeInUp 0.6s ease-out forwards;
+              }
+              @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(30px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+            `}</style>
 
-      case 'creating':
-        return (
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Preparing Your Agreement</h3>
-              <p className="text-gray-600">Please wait while we prepare your Provider Service Agreement...</p>
+            {/* Header */}
+            <div className="usrad-card p-8 usrad-gradient-navy text-white relative overflow-hidden animate-fade-in-up">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32"></div>
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="bg-white/20 p-3 rounded-2xl">
+                      <FileText className="w-8 h-8" />
+                    </div>
+                    <div>
+                      <h1 className="text-3xl font-bold" style={{fontFamily: 'Manrope, sans-serif'}}>
+                        Provider Service Agreement
+                      </h1>
+                      <p className="text-blue-100 text-lg">Ready for review and digital signature</p>
+                    </div>
+                  </div>
+                  <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 text-center">
+                    <Clock className="w-6 h-6 mx-auto mb-2 text-yellow-300" />
+                    <p className="text-sm font-semibold">Est. 3-5 min</p>
+                  </div>
+                </div>
+
+                {/* Benefits Preview */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                    <Award className="w-6 h-6 text-yellow-300 mb-2" />
+                    <p className="text-sm font-semibold">100% Medicare Rates</p>
+                    <p className="text-xs text-blue-100">Guaranteed reimbursement</p>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                    <Shield className="w-6 h-6 text-green-300 mb-2" />
+                    <p className="text-sm font-semibold">Premium Features</p>
+                    <p className="text-xs text-blue-100">Analytics & intelligence</p>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                    <CheckCircle className="w-6 h-6 text-blue-300 mb-2" />
+                    <p className="text-sm font-semibold">Instant Activation</p>
+                    <p className="text-xs text-blue-100">Live within minutes</p>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            {/* Provider Details */}
+            <div className="usrad-card p-8 animate-fade-in-up" style={{animationDelay: '0.1s'}}>
+              <h2 className="text-2xl font-bold usrad-navy mb-6" style={{fontFamily: 'Manrope, sans-serif'}}>
+                Agreement Details
+              </h2>
+              {renderProviderDetails()}
+              
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+                <div className="flex items-start space-x-3">
+                  <Shield className="w-6 h-6 text-blue-600 mt-1" />
+                  <div>
+                    <h3 className="font-bold text-blue-900 mb-2">What You're Signing</h3>
+                    <ul className="text-blue-800 text-sm space-y-1">
+                      <li>• 100% Medicare reimbursement rates with no deductions</li>
+                      <li>• Inclusion in USRad's 1,500+ center network</li>
+                      <li>• Access to premium analytics and revenue optimization</li>
+                      <li>• Direct support and training resources</li>
+                      <li>• All {providerData.totalLocations || '1'} location(s) covered under this agreement</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Section */}
+            <div className="usrad-card p-8 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+              <div className="text-center">
+                <h3 className="text-xl font-bold usrad-navy mb-4">Ready to Join USRad Network?</h3>
+                <p className="text-gray-600 mb-6">
+                  By proceeding, you agree to electronically sign the Provider Service Agreement. 
+                  The document will be embedded below for your review and signature.
+                </p>
+                
+                <button
+                  onClick={startEmbeddedSigning}
+                  disabled={loading}
+                  className="px-8 py-4 usrad-gradient-navy text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? (
+                    <span className="flex items-center space-x-2">
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <span>Preparing Document...</span>
+                    </span>
+                  ) : (
+                    <span className="flex items-center space-x-2">
+                      <FileText className="w-5 h-5" />
+                      <span>Review & Sign Agreement</span>
+                    </span>
+                  )}
+                </button>
+                
+                <p className="text-sm text-gray-500 mt-4">
+                  Secure digital signing powered by DocuSeal
+                </p>
+              </div>
+            </div>
+
             {renderDebugPanel()}
           </div>
         );
 
       case 'signing':
         return (
-          <div className="bg-white rounded-lg border border-gray-200 p-4">
-            <div className="mb-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Provider Service Agreement</h3>
-              <p className="text-sm text-gray-600">Please review and sign the agreement below</p>
-            </div>
-            
-            <div 
-              ref={embedRef}
-              className="border rounded-lg overflow-hidden"
-              style={{ height: '600px', minHeight: '600px' }}
-            >
-              <div className="flex items-center justify-center h-full text-gray-500">
-                Loading signing form...
+          <div className="space-y-6">
+            <style>{`
+              .usrad-card {
+                background: white;
+                border-radius: 24px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+                border: 1px solid rgba(0, 48, 135, 0.05);
+              }
+              .psa-iframe {
+                border: none;
+                width: 100%;
+                border-radius: 16px;
+                background: #f8fafc;
+                transition: opacity 0.3s ease;
+              }
+            `}</style>
+
+            {/* Signing Header */}
+            <div className="usrad-card p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="bg-blue-100 p-2 rounded-lg">
+                    <FileText className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-bold text-gray-900">Provider Service Agreement</h2>
+                    <p className="text-gray-600">Please review and sign the document below</p>
+                  </div>
+                </div>
+                {iframeLoading && (
+                  <div className="flex items-center space-x-2">
+                    <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
+                    <span className="text-sm text-gray-600">Loading document...</span>
+                  </div>
+                )}
               </div>
             </div>
-            
+
+            {/* Document Container */}
+            <div className="usrad-card overflow-hidden relative">
+              {/* Loading Overlay */}
+              {iframeLoading && (
+                <div className="absolute inset-0 bg-white/90 backdrop-blur-sm z-10 flex items-center justify-center">
+                  <div className="text-center">
+                    <Loader2 className="w-12 h-12 text-blue-600 animate-spin mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Loading Your PSA Document</h3>
+                    <p className="text-gray-600">Preparing your personalized Provider Service Agreement...</p>
+                  </div>
+                </div>
+              )}
+
+              {/* DocuSeal Iframe */}
+              <iframe 
+                src={embeddingUrl}
+                width="100%" 
+                height="800"
+                className="psa-iframe"
+                title="USRad Provider Service Agreement"
+                onLoad={handleIframeLoad}
+                onError={handleIframeError}
+                allow="camera; microphone; geolocation"
+                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
+              />
+
+              {/* Fallback Section */}
+              {showFallback && (
+                <div className="p-8 bg-gray-50 border-t border-gray-200">
+                  <div className="text-center">
+                    <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
+                    <h4 className="text-lg font-semibold text-gray-900 mb-2">Having trouble with the embedded document?</h4>
+                    <p className="text-gray-600 mb-4">
+                      You can open the document in a new window to complete your signature:
+                    </p>
+                    <a 
+                      href={embeddingUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-2 px-6 py-3 usrad-gradient-navy text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      <span>Open PSA in New Window</span>
+                    </a>
+                    <p className="text-sm text-gray-500 mt-3">
+                      After signing, return to this page - your status will update automatically
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Support Section */}
+            <div className="usrad-card p-6 bg-gradient-to-r from-gray-50 to-blue-50">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <Shield className="w-5 h-5 text-blue-600" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Secure Digital Signing</h4>
+                    <p className="text-sm text-gray-600">Enterprise-grade security powered by DocuSeal</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm text-gray-600">Need help?</p>
+                  <button className="text-blue-600 hover:text-blue-800 font-semibold text-sm">
+                    Contact Support
+                  </button>
+                </div>
+              </div>
+            </div>
+
             {renderDebugPanel()}
           </div>
         );
 
       case 'completed':
         return (
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Agreement Completed!</h3>
-              <p className="text-gray-600 mb-4">
-                Your Provider Service Agreement has been successfully signed and submitted.
-              </p>
-              <div className="space-y-2 text-sm text-gray-600 mb-6">
-                <p>✓ Document signed and legally binding</p>
-                <p>✓ Copy sent to your email</p>
-                <p>✓ USRad team has been notified</p>
-                <p>✓ <strong className="text-green-600">Premium features unlocked!</strong></p>
-              </div>
-              <div className="mt-6 space-y-3">
-                <button
-                  onClick={continueToDashboard}
-                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
-                >
-                  Continue to Dashboard
-                </button>
-                <p className="text-xs text-gray-500">
-                  You now have access to revenue analytics, network intelligence, and premium support.
+          <div className="space-y-6">
+            <style>{`
+              .usrad-card {
+                background: white;
+                border-radius: 24px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+                border: 1px solid rgba(0, 48, 135, 0.05);
+              }
+              .celebration-animation {
+                animation: celebration 2s ease-in-out;
+              }
+              @keyframes celebration {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+              }
+            `}</style>
+
+            {/* Success Header */}
+            <div className="usrad-card p-8 bg-gradient-to-r from-green-500 to-emerald-600 text-white celebration-animation">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-10 h-10" />
+                </div>
+                <h1 className="text-4xl font-bold mb-4" style={{fontFamily: 'Manrope, sans-serif'}}>
+                  🎉 PSA Completed Successfully!
+                </h1>
+                <p className="text-green-100 text-xl">
+                  Welcome to the USRad Network! Your premium features are now unlocked.
                 </p>
               </div>
             </div>
-            
+
+            {/* Completion Details */}
+            <div className="usrad-card p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">What Happens Next</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="flex items-start space-x-4">
+                  <div className="bg-green-100 p-3 rounded-lg">
+                    <CheckCircle className="w-6 h-6 text-green-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-1">Document Processed</h3>
+                    <p className="text-gray-600 text-sm">Your PSA has been signed and is legally binding</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="bg-blue-100 p-3 rounded-lg">
+                    <Mail className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-1">Email Confirmation</h3>
+                    <p className="text-gray-600 text-sm">Copy sent to {providerData.email || providerData.contactEmail}</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="bg-purple-100 p-3 rounded-lg">
+                    <Award className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-1">Premium Features</h3>
+                    <p className="text-gray-600 text-sm">Analytics, intelligence, and VIP support unlocked</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="bg-yellow-100 p-3 rounded-lg">
+                    <Building className="w-6 h-6 text-yellow-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-1">Network Active</h3>
+                    <p className="text-gray-600 text-sm">Access to 1,500+ imaging centers</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <button
+                  onClick={continueToDashboard}
+                  className="px-8 py-4 usrad-gradient-navy text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 transition-all duration-300"
+                >
+                  <span className="flex items-center space-x-2">
+                    <Award className="w-6 h-6" />
+                    <span>Access Your Premium Dashboard</span>
+                  </span>
+                </button>
+                <p className="text-sm text-gray-500 mt-4">
+                  All premium features are now available in your dashboard
+                </p>
+              </div>
+            </div>
+
             {renderDebugPanel()}
           </div>
         );
 
       case 'error':
         return (
-          <div className="bg-white rounded-lg border border-red-200 p-6">
+          <div className="usrad-card p-8 border-red-200">
             <div className="text-center">
               <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <X className="w-6 h-6 text-red-600" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Something went wrong</h3>
-              <p className="text-red-600 mb-4">{error}</p>
-              <button
-                onClick={() => {
-                  setError(null);
-                  setPsaStatus('review');
-                  setDebugLog([]);
-                }}
-                className="bg-gray-600 text-white py-2 px-6 rounded-lg hover:bg-gray-700 transition-colors"
-              >
-                Try Again
-              </button>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Something went wrong</h3>
+              <p className="text-red-600 mb-6">{error}</p>
+              <div className="space-y-3">
+                <button
+                  onClick={() => {
+                    setError(null);
+                    setPsaStatus('review');
+                    setDebugLog([]);
+                    setShowFallback(false);
+                  }}
+                  className="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors"
+                >
+                  Try Again
+                </button>
+                <p className="text-sm text-gray-600">
+                  If issues persist, please{' '}
+                  <a href="mailto:support@usrad.com" className="text-blue-600 hover:underline">
+                    contact support
+                  </a>
+                </p>
+              </div>
             </div>
-            
             {renderDebugPanel()}
           </div>
         );
@@ -512,7 +686,7 @@ const PSASigningSystemEmbedded = ({ providerData }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-5xl mx-auto py-8">
       {renderContent()}
     </div>
   );
