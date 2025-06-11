@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { supabase } from '../../lib/supabase.js';
 import { 
   Search,
   Plus, 
@@ -27,9 +28,11 @@ import {
   searchAcrFacilities, 
   saveFacilitySelection, 
   loadFacilitySelection,
+  checkFacilitySetupStatus, // ✅ NEW
   formatPhoneNumber,
   validateCorporateInfo
 } from '../../lib/facilityManager.js';
+
 
 const FacilityManager = () => {
   // State management
@@ -59,6 +62,7 @@ const FacilityManager = () => {
   const [csvData, setCsvData] = useState('');
   const [showManualEntry, setShowManualEntry] = useState(false);
   const [showSinglePracticeCompletion, setShowSinglePracticeCompletion] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // ✅ NEW
   const [manualFormData, setManualFormData] = useState({
     name: '',
     address: '',
@@ -84,76 +88,192 @@ const FacilityManager = () => {
   // }, [selectedFacilities, corporateInfo]);
 
   // Load existing data when component mounts
+    // ========================================================================================
+  // FIX 3: Load existing data when component mounts
+  // ========================================================================================
   useEffect(() => {
+    const loadExistingData = async () => {
+      if (typeof window !== 'undefined' && window.USRadUser?.user?.id) {
+        setIsLoading(true);
+        try {
+          console.log('🔍 Loading existing facility data...');
+
+          const { corporateInfo, facilities, hasData } = await loadFacilitySelection(window.USRadUser.user.id);
+
+          console.log('📋 Loaded data:', { corporateInfo, facilities: facilities.length, hasData });
+
+          if (hasData) {
+            if (
+              corporateInfo.corporateName &&
+              corporateInfo.corporateName !== '' &&
+              corporateInfo.corporateName !== 'Pending Facility Selection'
+            ) {
+              setCorporateInfo(corporateInfo);
+              console.log('✅ Corporate info loaded:', corporateInfo.corporateName);
+            }
+
+            if (facilities.length > 0) {
+              setSelectedFacilities(facilities);
+              console.log('✅ Facilities loaded:', facilities.length);
+
+              if (corporateInfo.corporateName && corporateInfo.corporateName !== 'Pending Facility Selection') {
+                console.log('🎉 Complete data found - showing success state');
+              }
+            }
+          }
+        } catch (error) {
+          console.error('❌ Error loading existing data:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+
     loadExistingData();
   }, []);
 
-  // Load existing facility selection for current user
+  // Force progress UI update after short delay
+  useEffect(() => {
+    setTimeout(() => {
+      debugProgressUpdate();
+    }, 2000);
+  }, []);
+
+
+
+  // Replace your current loadExistingData function with this:
+
   const loadExistingData = async () => {
     if (typeof window !== 'undefined' && window.USRadUser?.user?.id) {
+      setIsLoading(true);
       try {
-        const { corporateInfo, facilities } = await loadFacilitySelection(window.USRadUser.user.id);
-        if (corporateInfo.corporateName) {
-          setCorporateInfo(corporateInfo);
-        }
-        if (facilities.length > 0) {
-          setSelectedFacilities(facilities);
+        console.log('🔍 Loading existing facility data...');
+  
+        const { corporateInfo, facilities, hasData } = await loadFacilitySelection(window.USRadUser.user.id);
+  
+        console.log('📋 Loaded data:', { corporateInfo, facilities: facilities.length, hasData });
+  
+        if (hasData) {
+          if (
+            corporateInfo.corporateName &&
+            corporateInfo.corporateName !== '' &&
+            corporateInfo.corporateName !== 'Pending Facility Selection'
+          ) {
+            setCorporateInfo(corporateInfo);
+            console.log('✅ Corporate info loaded:', corporateInfo.corporateName);
+          }
+  
+          if (facilities.length > 0) {
+            setSelectedFacilities(facilities);
+            console.log('✅ Facilities loaded:', facilities.length);
+          }
+  
+          if (
+            facilities.length > 0 &&
+            corporateInfo.corporateName &&
+            corporateInfo.corporateName !== 'Pending Facility Selection'
+          ) {
+            console.log('🚀 Complete data found - auto-navigating to preview');
+  
+            const autoNavToast = document.createElement('div');
+            autoNavToast.className =
+              'fixed top-4 right-4 bg-blue-500 text-white px-6 py-4 rounded-lg shadow-lg z-50';
+            autoNavToast.innerHTML = `
+              <div class="flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path>
+                </svg>
+                Configuration loaded! Taking you to PSA preview...
+              </div>
+            `;
+  
+            document.body.appendChild(autoNavToast);
+            setTimeout(() => document.body.removeChild(autoNavToast), 3000);
+            setTimeout(() => setStep('preview'), 1500);
+          }
         }
       } catch (error) {
-        console.error('Error loading existing data:', error);
+        console.error('❌ Error loading existing data:', error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
-
+  
   // Format EIN number (XX-XXXXXXX)
   const formatEIN = (value) => {
-    // Remove all non-digits
     const cleaned = value.replace(/\D/g, '');
-    
-    // Limit to 9 digits
     const limited = cleaned.slice(0, 9);
-    
-    // Add hyphen after 2nd digit if we have enough digits
     if (limited.length >= 3) {
       return `${limited.slice(0, 2)}-${limited.slice(2)}`;
     }
     return limited;
   };
 
-  // Format phone number (XXX) XXX-XXXX  
-  const formatPhoneInput = (value) => {
-    // Remove all non-digits
-    const cleaned = value.replace(/\D/g, '');
-    
-    // Limit to 10 digits
-    const limited = cleaned.slice(0, 10);
-    
-    // Format as (XXX) XXX-XXXX
-    if (limited.length >= 6) {
-      return `(${limited.slice(0, 3)}) ${limited.slice(3, 6)}-${limited.slice(6)}`;
-    } else if (limited.length >= 3) {
-      return `(${limited.slice(0, 3)}) ${limited.slice(3)}`;
-    }
-    return limited;
-  };
-  const searchAcrDatabase = async (query) => {
-    if (!query || query.length < 2) {
-      setSearchResults([]);
-      return;
-    }
 
-    setIsSearching(true);
+
+    // Format phone number (XXX) XXX-XXXX  
+    const formatPhoneInput = (value) => {
+      // Remove all non-digits
+      const cleaned = value.replace(/\D/g, '');
+      
+      // Limit to 10 digits
+      const limited = cleaned.slice(0, 10);
+      
+      // Format as (XXX) XXX-XXXX
+      if (limited.length >= 6) {
+        return `(${limited.slice(0, 3)}) ${limited.slice(3, 6)}-${limited.slice(6)}`;
+      } else if (limited.length >= 3) {
+        return `(${limited.slice(0, 3)}) ${limited.slice(3)}`;
+      }
+      return limited;
+    };
+    const debugProgressUpdate = async () => {
+      if (!window.USRadUser?.user?.id) return;
     
-    try {
-      const results = await searchAcrFacilities(query);
-      setSearchResults(results);
-    } catch (error) {
-      console.error('Error searching ACR database:', error);
-      setSearchResults([]);
-    } finally {
-      setIsSearching(false);
-    }
-  };
+      try {
+        const { data, error } = await supabase
+          .from('user_profiles')
+          .select('onboarding_progress, facilities_configured')
+          .eq('user_id', window.USRadUser.user.id)
+          .single();
+    
+        console.log('🔍 Current progress in DB:', data);
+    
+        if (data) {
+          window.dispatchEvent(new CustomEvent('userProgressUpdate', {
+            detail: {
+              facilities_configured: data.facilities_configured,
+              onboarding_progress: data.onboarding_progress,
+              step_completed: 'facilities'
+            }
+          }));
+        }
+      } catch (error) {
+        console.error('❌ Error checking progress:', error);
+      }
+    };
+    
+    const searchAcrDatabase = async (query) => {
+      if (!query || query.length < 2) {
+        setSearchResults([]);
+        return;
+      }
+
+      setIsSearching(true);
+      
+      try {
+        const results = await searchAcrFacilities(query);
+        setSearchResults(results);
+      } catch (error) {
+        console.error('Error searching ACR database:', error);
+        setSearchResults([]);
+      } finally {
+        setIsSearching(false);
+      }
+    };
+
+    
 
   // Handle search input changes
   useEffect(() => {
@@ -277,43 +397,78 @@ const FacilityManager = () => {
       alert('Please log in to save your facility selection.');
       return false;
     }
-
+  
     if (!validateCorporateInfo(corporateInfo)) {
       alert('Please complete all required corporate information.');
       return false;
     }
-
+  
     if (selectedFacilities.length === 0) {
       alert('Please select at least one facility.');
       return false;
     }
-
+  
+    setIsLoading(true);
+    
     try {
       const success = await saveFacilitySelection(
-        window.USRadUser.user.id,
-        corporateInfo,
+        window.USRadUser.user.id, 
+        corporateInfo, 
         selectedFacilities
       );
-
+      
       if (success) {
-        // Update user progress in window.USRadUser if available
-        if (window.USRadUser?.updateUserMetadata) {
-          await window.USRadUser.updateUserMetadata({
-            facilities_configured: true,
-            onboarding_progress: 60
-          });
+        console.log('✅ Facility data saved successfully!');
+  
+        // Show success toast
+        const toast = document.createElement('div');
+        toast.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+        toast.innerHTML = `
+          <div class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            ✅ Facility configuration saved! Progress: 75% complete
+          </div>
+        `;
+  
+        document.body.appendChild(toast);
+        setTimeout(() => toast.classList.remove('translate-x-full'), 100);
+        setTimeout(() => {
+          toast.classList.add('translate-x-full');
+          setTimeout(() => document.body.removeChild(toast), 300);
+        }, 4000);
+  
+        // Update global progress
+        if (window.USRadUser?.updateProgress) {
+          window.USRadUser.updateProgress(75);
         }
+  
+        // Notify dashboard of progress update
+        if (window.dispatchEvent) {
+          window.dispatchEvent(new CustomEvent('userProgressUpdate', {
+            detail: {
+              facilities_configured: true,
+              onboarding_progress: 75,
+              step_completed: 'facilities'
+            }
+          }));
+        }
+  
         return true;
       } else {
         alert('Error saving facility data. Please try again.');
         return false;
       }
     } catch (error) {
-      console.error('Error saving facility data:', error);
+      console.error('❌ Error saving facility data:', error);
       alert('Error saving facility data. Please try again.');
       return false;
+    } finally {
+      setIsLoading(false);
     }
   };
+  
 
   // Bulk upload processing
   const processBulkUpload = () => {
@@ -549,6 +704,43 @@ Another Location,456 Oak Ave City ST 12345,(555) 234-5678`;
           Configure your corporate entity and search our database of <span className="font-semibold text-blue-600">30,000+ ACR-accredited</span> imaging centers
         </p>
       </div>
+
+      {/* ADD THE SAVED DATA BANNER WITH ACTIONS */}
+      {(corporateInfo.corporateName || selectedFacilities.length > 0) && (
+        <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
+                </svg>
+              </div>
+              <div>
+                <p className="text-green-800 font-medium">Previous Configuration Loaded ✅</p>
+                <p className="text-green-600 text-sm">
+                  {corporateInfo.corporateName && `Corporate: ${corporateInfo.corporateName}`}
+                  {corporateInfo.corporateName && selectedFacilities.length > 0 && ' • '}
+                  {selectedFacilities.length > 0 && `${selectedFacilities.length} Facility${selectedFacilities.length !== 1 ? 'ies' : ''}`}
+                </p>
+              </div>
+            </div>
+            <div className="flex space-x-3">
+              <button
+                onClick={() => window.location.href = '/dashboard'}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+              >
+                ← Back to Dashboard
+              </button>
+              <button
+                onClick={() => window.location.href = '/dashboard/onboarding/psa'}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+              >
+                Continue to PSA Signing →
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Corporate Information Section */}
       <div className="bg-white rounded-lg shadow-sm border p-6 mb-8">
@@ -1514,20 +1706,54 @@ Another Location,456 Oak Ave City ST 12345,(555) 234-5678`;
       )}
 
       {/* Continue Button */}
-      <div className="flex justify-end">
-        <button 
-          onClick={async () => {
-            const saved = await saveFacilityData();
-            if (saved) {
-              setStep('preview');
-            }
-          }}
-          disabled={selectedFacilities.length === 0 || !validateCorporateInfoSmart(corporateInfo)}
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          Preview PSA Exhibit B →
-        </button>
+      {/* Continue Button */}
+      {/* Updated Continue Button */}
+<div className="flex justify-end">
+  <button 
+    onClick={async () => {
+      // Check if we have complete data
+      const hasCompleteData = corporateInfo.corporateName && 
+                             corporateInfo.corporateName !== 'Pending Facility Selection' && 
+                             selectedFacilities.length > 0;
+      
+      if (hasCompleteData) {
+        // Data is complete, go directly to preview
+        console.log('📋 Complete data found, going to preview');
+        setStep('preview');
+      } else {
+        // Data is incomplete, save first
+        console.log('💾 Saving data before preview');
+        const saved = await saveFacilityData();
+        if (saved) {
+          setTimeout(() => setStep('preview'), 500);
+        }
+      }
+    }}
+    disabled={isLoading || (selectedFacilities.length === 0 && !corporateInfo.corporateName)}
+    className={`px-6 py-2 rounded-lg transition-colors font-medium ${
+      isLoading || (selectedFacilities.length === 0 && !corporateInfo.corporateName)
+        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+        : 'bg-blue-600 text-white hover:bg-blue-700'
+    }`}
+  >
+    {isLoading ? (
+      <div className="flex items-center">
+        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+        Loading...
       </div>
+    ) : (
+      <>
+        {/* Smart button text based on data state */}
+        {corporateInfo.corporateName && 
+         corporateInfo.corporateName !== 'Pending Facility Selection' && 
+         selectedFacilities.length > 0 ? 
+          'Review PSA Preview →' : 
+          'Save & Preview PSA →'
+        }
+      </>
+    )}
+  </button>
+</div>
     </div>
   );
 };

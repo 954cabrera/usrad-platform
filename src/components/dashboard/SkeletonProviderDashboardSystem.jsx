@@ -534,6 +534,15 @@ const getSmartOnboardingProgress = () => {
 
   console.log('🔍 Debug - Final PSA Status:', hasCompletedPSA);
   console.log('🔍 Debug - Final Progress:', onboardingProgress);
+  // Add this where you see "🔍 Debug - Final Progress: 25"
+useEffect(() => {
+  // Update unlock premium button when progress changes
+  const unlockButtons = document.querySelectorAll('[data-unlock-progress]');
+  unlockButtons.forEach(button => {
+    button.textContent = `${onboardingProgress}% Complete`;
+    console.log(`✅ Updated unlock button from React component: ${onboardingProgress}%`);
+  });
+}, [onboardingProgress]); // Run when progress changes
 
   // ✨ ENHANCED DEMO DATA with premium features
   const enhancedDemoData = {
