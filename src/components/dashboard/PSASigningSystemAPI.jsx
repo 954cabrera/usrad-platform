@@ -1,20 +1,19 @@
-// src/components/dashboard/PSASigningSystemEmbedded.jsx
-// Enhanced version that builds on your existing Supabase integration
+// src/components/dashboard/PSASigningSystemAPI.jsx
+// DocuSeal API-based implementation for unique submissions per user
+// Updated with null-safe user data handling
 import React, { useEffect, useRef, useState } from 'react';
 
-// Use your working public form URL
-const PUBLIC_DOCUSEAL_FORM_URL = 'https://docuseal.com/d/LXvm6u76HPzVH3';
-
-const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
+const PSASigningSystemAPI = ({ providerData: fallbackData }) => {
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
   const [realProviderData, setRealProviderData] = useState(null);
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [dataSource, setDataSource] = useState('loading');
+  const [submissionUrl, setSubmissionUrl] = useState(null);
   const embedRef = useRef(null);
   const scrollTargetRef = useRef(null);
 
-  // Enhanced data loading that works with your existing USRadUser system
+  // Load real user data from your existing USRadUser system
   const loadRealUserData = async () => {
     try {
       console.log('🔍 Loading real user data from your existing USRadUser system...');
@@ -30,7 +29,6 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
       }
       
       if (typeof window !== 'undefined' && window.USRadUser?.user) {
-        // Don't call loadUserData again - just use existing data
         const user = window.USRadUser.user;
         const profile = window.USRadUser.profile;
         const imagingCenter = window.USRadUser.imagingCenter;
@@ -39,63 +37,162 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
         console.log('🔍 Debug - Profile from your system:', profile);
         console.log('🔍 Debug - Imaging Center from your system:', imagingCenter);
         
-        if (user && profile) {
-          // Map your existing data to DocuSeal field names (matching your template exactly)
+        if (user) {
+          // Map your existing data to DocuSeal API format (use user data even if profile is null)
           const realData = {
-            // Primary Contact Information (from your template)
-            primary_contact_name: `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || 
-                                 user.email.split('@')[0],
-            primary_contact_phone: profile.phone || '(555) 000-0000',
+            // Primary Contact Information
+            primary_contact_name: profile?.first_name && profile?.last_name 
+              ? `${profile.first_name} ${profile.last_name}` 
+              : user.email.split('@')[0],
+            primary_contact_phone: profile?.phone || '(555) 000-0000',
             primary_contact_email: user.email,
             
-            // Provider Information
-            provider_name: imagingCenter?.facility_name || profile.facility_name || 'Advanced Imaging Center',
-            provider_phone: profile.phone || imagingCenter?.phone_number || '(555) 000-0000',
+            // Provider Information - Use REAL user data or reasonable defaults
+            provider_name: imagingCenter?.facility_name || profile?.facility_name || `${user.email.split('@')[0]} Imaging Center`,
+            provider_phone: profile?.phone || imagingCenter?.phone_number || '(555) 000-0000',
             provider_email: user.email,
-            provider_signature: '', // User will sign this
             
             // Signer Information
-            signer_name: `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || 
-                        user.email.split('@')[0],
-            signer_title: profile.title || 'Medical Director',
+            signer_name: profile?.first_name && profile?.last_name 
+              ? `${profile.first_name} ${profile.last_name}` 
+              : user.email.split('@')[0],
+            signer_title: profile?.title || 'Medical Director',
             
             // Business Information
-            tax_id: profile.tax_id || '00-0000000',
-            total_locations: profile.total_locations || '1',
+            tax_id: profile?.tax_id || '00-0000000',
+            total_locations: profile?.total_locations || '1',
             
             // Agreement Date (auto-filled with today's date)
             agreement_date: new Date().toLocaleDateString('en-US'),
             provider_date: new Date().toLocaleDateString('en-US'),
             
-            // Additional fallback fields for compatibility
-            contactName: `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || user.email.split('@')[0],
-            email: user.email,
-            phone: profile.phone || '(555) 000-0000',
-            facilityName: imagingCenter?.facility_name || profile.facility_name || 'Advanced Imaging Center',
-            taxId: profile.tax_id || '00-0000000',
-            totalLocations: profile.total_locations || '1',
-            signerTitle: profile.title || 'Medical Director'
+            // User identification for unique submissions
+            user_id: user.id,
+            submission_reference: `USRad_PSA_${user.id}_${Date.now()}`
           };
           
-          console.log('✅ Real provider data mapped for DocuSeal:', realData);
+          console.log('✅ Real provider data mapped for DocuSeal API:', realData);
           setRealProviderData(realData);
           setDataSource('real');
           return realData;
         }
       } else {
         console.log('⚠️ USRadUser not ready, using fallback data');
-        setRealProviderData(fallbackData);
+        // Create enhanced fallback data with proper user ID
+        const enhancedFallbackData = {
+          ...fallbackData,
+          user_id: 'fallback_user',
+          submission_reference: `USRad_PSA_fallback_${Date.now()}`
+        };
+        setRealProviderData(enhancedFallbackData);
         setDataSource('fallback');
-        return fallbackData;
+        return enhancedFallbackData;
       }
       
     } catch (error) {
       console.error('❌ Error loading real user data:', error);
-      setRealProviderData(fallbackData);
+      // Create enhanced fallback data with proper user ID
+      const enhancedFallbackData = {
+        ...fallbackData,
+        user_id: 'fallback_user', 
+        submission_reference: `USRad_PSA_fallback_${Date.now()}`
+      };
+      setRealProviderData(enhancedFallbackData);
       setDataSource('error');
-      return fallbackData;
+      return enhancedFallbackData;
     } finally {
       setIsLoadingData(false);
+    }
+  };
+
+  // Create unique DocuSeal submission via API
+  const createDocuSealSubmission = async (userData) => {
+    try {
+      console.log('📋 Creating unique DocuSeal submission for user:', userData.user_id);
+      
+      const submissionData = {
+        template_id: 1155842, // Your actual template ID
+        send_email: false, // Don't send email, we'll embed directly
+        submitters: [{
+          role: 'Provider',
+          name: userData.primary_contact_name || userData.contactName || userData.signer_name,
+          email: userData.primary_contact_email || userData.email || userData.provider_email,
+          
+          // Pre-fill all form fields with real user data (back to object format)
+          values: {
+            // Primary Contact Fields
+            primary_contact_name: userData.primary_contact_name || userData.contactName,
+            primary_contact_phone: userData.primary_contact_phone || userData.contactPhone,
+            primary_contact_email: userData.primary_contact_email || userData.contactEmail,
+            
+            // Provider Fields  
+            provider_name: userData.provider_name || userData.facilityName,
+            provider_phone: userData.provider_phone || userData.phone,
+            provider_email: userData.provider_email || userData.email,
+            
+            // Signer Fields
+            signer_name: userData.signer_name || userData.contactName,
+            signer_title: userData.signer_title || userData.signerTitle,
+            
+            // Business Fields
+            tax_id: userData.tax_id || userData.taxId,
+            total_locations: userData.total_locations || userData.totalLocations,
+            
+            // Date Fields
+            agreement_date: userData.agreement_date || new Date().toLocaleDateString('en-US'),
+            provider_date: userData.provider_date || new Date().toLocaleDateString('en-US'),
+            
+            // USRad Company Fields
+            usrad_company_name: 'U.S. RADIOLOGY OF FLORIDA, LLC',
+            usrad_dba: 'USRad',
+            usrad_date: new Date().toLocaleDateString('en-US')
+          }
+        }],
+        
+        // Metadata for tracking
+        metadata: {
+          user_id: userData.user_id,
+          submission_reference: userData.submission_reference,
+          created_via: 'USRad_Dashboard',
+          facility_name: userData.provider_name || userData.facilityName
+        }
+      };
+      
+      console.log('📤 Sending submission data to DocuSeal API:', submissionData);
+      
+      // Call your backend API endpoint that talks to DocuSeal
+      const response = await fetch('/api/docuseal/create-submission', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submissionData)
+      });
+      
+      if (!response.ok) {
+        throw new Error(`DocuSeal API error: ${response.status}`);
+      }
+      
+      const result = await response.json();
+      console.log('✅ DocuSeal submission created:', result);
+      
+      // Handle array response from DocuSeal
+      const responseData = Array.isArray(result) ? result[0] : result;
+      
+      // Extract the signing URL for this specific user (handle different response formats)
+      const signingUrl = responseData?.embed_src || responseData?.send_link_url || result.signing_url || result.embed_src;
+      
+      if (!signingUrl) {
+        throw new Error('No signing URL returned from DocuSeal');
+      }
+      
+      setSubmissionUrl(signingUrl);
+      return signingUrl;
+      
+    } catch (error) {
+      console.error('❌ Error creating DocuSeal submission:', error);
+      setError(`Failed to create signing document: ${error.message}`);
+      return null;
     }
   };
 
@@ -121,73 +218,48 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
 
   const embedForm = async () => {
     try {
+      // Use real provider data if available, otherwise use fallback
       const dataToUse = realProviderData || fallbackData;
       
-      console.log('🚀 Embedding DocuSeal form with real data:', dataToUse);
+      console.log('🔍 Data being used for embedding:', dataToUse);
+      
+      // Safety check - make sure we have data
+      if (!dataToUse) {
+        console.error('❌ No data available for embedding');
+        setError('No provider data available. Please try refreshing the page.');
+        return;
+      }
+      
+      if (!submissionUrl) {
+        console.log('📋 No submission URL available yet, creating one...');
+        const newUrl = await createDocuSealSubmission(dataToUse);
+        if (!newUrl) {
+          throw new Error('Failed to create DocuSeal submission');
+        }
+        // Make sure we set the submission URL for the embedding
+        setSubmissionUrl(newUrl);
+        // Wait a moment for state to update
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+      
+      const urlToUse = submissionUrl || (await createDocuSealSubmission(dataToUse));
+      
+      console.log('🚀 Embedding DocuSeal form with unique URL:', urlToUse);
       
       await loadScript();
-      if (embedRef.current && dataToUse) {
+      if (embedRef.current && urlToUse) {
         
-        // Create comprehensive data object for DocuSeal field population
-        const docuSealData = {
-          // Provider fields (from your template right side panel)
-          primary_contact_name: dataToUse.primary_contact_name || dataToUse.contactName || '',
-          primary_contact_phone: dataToUse.primary_contact_phone || dataToUse.phone || '',
-          primary_contact_email: dataToUse.primary_contact_email || dataToUse.email || '',
-          
-          provider_name: dataToUse.provider_name || dataToUse.facilityName || '',
-          provider_phone: dataToUse.provider_phone || dataToUse.phone || '',
-          provider_email: dataToUse.provider_email || dataToUse.email || '',
-          
-          signer_name: dataToUse.signer_name || dataToUse.contactName || '',
-          signer_title: dataToUse.signer_title || dataToUse.signerTitle || '',
-          
-          tax_id: dataToUse.tax_id || dataToUse.taxId || '',
-          total_locations: dataToUse.total_locations || dataToUse.totalLocations || '1',
-          
-          agreement_date: dataToUse.agreement_date || new Date().toLocaleDateString('en-US'),
-          provider_date: dataToUse.provider_date || new Date().toLocaleDateString('en-US'),
-          
-          // USRad fields (company side - auto-populated)
-          usrad_signature: '', // Will be signed by USRad representative
-          usrad_date: new Date().toLocaleDateString('en-US'), // Today's date for USRad signing
-          
-          // Additional USRad company information (if needed for the agreement)
-          usrad_company_name: 'U.S. RADIOLOGY OF FLORIDA, LLC',
-          usrad_dba: 'USRad',
-          usrad_representative_name: 'USRad Network Administrator', // Can be customized
-          usrad_representative_title: 'Network Operations Manager'
-        };
-        
-        console.log('📋 Final DocuSeal field mapping:', docuSealData);
-        
-        // Enhanced DocuSeal embedding with both Provider and USRad field population
+        // Embed the unique submission form
         embedRef.current.innerHTML = `
           <docuseal-form 
-            data-src="${PUBLIC_DOCUSEAL_FORM_URL}"
-            data-email="${docuSealData.primary_contact_email}"
-            data-name="${docuSealData.primary_contact_name}"
-            data-values='${JSON.stringify(docuSealData)}'
-            data-primary_contact_name="${docuSealData.primary_contact_name}"
-            data-primary_contact_phone="${docuSealData.primary_contact_phone}"
-            data-primary_contact_email="${docuSealData.primary_contact_email}"
-            data-provider_name="${docuSealData.provider_name}"
-            data-provider_phone="${docuSealData.provider_phone}"
-            data-provider_email="${docuSealData.provider_email}"
-            data-signer_name="${docuSealData.signer_name}"
-            data-signer_title="${docuSealData.signer_title}"
-            data-tax_id="${docuSealData.tax_id}"
-            data-total_locations="${docuSealData.total_locations}"
-            data-agreement_date="${docuSealData.agreement_date}"
-            data-provider_date="${docuSealData.provider_date}"
-            data-usrad_date="${docuSealData.usrad_date}"
-            data-usrad_company_name="${docuSealData.usrad_company_name}"
-            data-usrad_representative_name="${docuSealData.usrad_representative_name}">
+            data-src="${urlToUse}"
+            data-email="${dataToUse.primary_contact_email || dataToUse.email}"
+            data-name="${dataToUse.primary_contact_name || dataToUse.contactName}">
           </docuseal-form>
           <div style="margin-top:1.5rem;text-align:center;color:#4B5563;font-size:0.95rem;">
-            📋 <strong>Review the pre-filled information above</strong> - All provider fields populated from your profile<br />
-            🏢 <strong>USRad company information pre-filled</strong> - Agreement date and company details included<br />
-            ✍️ <strong>Provider signature required</strong> - USRad will counter-sign after your completion<br />
+            📋 <strong>Review your facility information above</strong> - All fields pre-filled from your profile<br />
+            🏢 <strong>Facility:</strong> ${dataToUse.provider_name || dataToUse.facilityName}<br />
+            ✍️ <strong>Your signature completes the agreement</strong> - USRad will counter-sign<br />
             📩 Once signed, click <strong>"Send Copy"</strong> or <strong>"Download"</strong><br />
             🚀 You will be redirected to your Dashboard with premium features unlocked
           </div>
@@ -195,7 +267,7 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
         
         scrollToForm();
 
-        // Your existing floating guide functionality (keep as-is)
+        // Your existing floating guide functionality
         setTimeout(() => {
           createFloatingGuide();
         }, 1000);
@@ -211,7 +283,7 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
       }
     } catch (err) {
       console.error('❌ Error embedding form:', err);
-      setError('❌ Failed to load DocuSeal form script.');
+      setError('❌ Failed to load signing document.');
     }
   };
 
@@ -256,9 +328,10 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
     setupGuideLogic();
   };
 
-  // Your existing guide logic (unchanged)
+  // Your existing guide logic with enhanced completion detection
   const setupGuideLogic = () => {
     let currentStep = 1;
+    let completionTriggered = false; // Prevent duplicate triggers
 
     const updateFloatingGuide = (step) => {
       console.log(`🚀 Updating floating guide to Step ${step}`);
@@ -355,35 +428,37 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
     const checkForCompletion = () => {
       const bodyText = document.body.innerText.toLowerCase();
       
-      // Multiple completion detection methods
+      // More specific completion phrases that only appear after actual signing
       const completionPhrases = [
         'document has been signed',
         'successfully signed',
-        'send copy via email',
-        'download',
-        'form has been submitted',
-        'completed successfully',
         'signature complete',
-        'document completed'
+        'document completed',
+        'form has been submitted'
+      ];
+      
+      // Exclude phrases that appear during normal form display
+      const excludePhrases = [
+        'sign now',
+        'review your facility',
+        'your signature completes',
+        'developer sandbox'
       ];
       
       const hasCompletionText = completionPhrases.some(phrase => 
         bodyText.includes(phrase)
       );
       
-      // Also check for download buttons or completion UI elements
-      const downloadButtons = document.querySelectorAll('[href*="download"], button[type="button"]');
-      const hasDownloadButton = downloadButtons.length > 0 && 
-        Array.from(downloadButtons).some(btn => 
-          btn.textContent.toLowerCase().includes('download') ||
-          btn.textContent.toLowerCase().includes('send copy')
-        );
+      const hasExcludeText = excludePhrases.some(phrase => 
+        bodyText.includes(phrase)
+      );
       
-      if ((hasCompletionText || hasDownloadButton) && currentStep < 4) {
+      // Only trigger completion if we have completion text AND no exclude text AND not already triggered
+      if (hasCompletionText && !hasExcludeText && currentStep < 4 && !completionTriggered) {
         console.log('🎉 PSA completion detected! Triggering redirect...');
+        completionTriggered = true; // Set flag to prevent duplicates
         updateFloatingGuide(4);
         
-        // Trigger completion after short delay
         setTimeout(() => {
           handleSigningCompletion({
             event: 'completion_detected',
@@ -395,7 +470,7 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
 
     window.addEventListener('scroll', handleScroll);
     document.addEventListener('click', handleClick);
-    const completionChecker = setInterval(checkForCompletion, 1000); // Check more frequently
+    const completionChecker = setInterval(checkForCompletion, 1000);
 
     window.psaGuideCleanup = () => {
       window.removeEventListener('scroll', handleScroll);
@@ -406,7 +481,7 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
     };
   };
 
-  // Enhanced completion handler that works with your existing system
+  // Enhanced completion handler
   const handleSigningCompletion = async (data) => {
     console.log('🎉 PSA signing completed:', data);
     
@@ -438,7 +513,6 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
 
     } catch (error) {
       console.error('❌ Error updating PSA status:', error);
-      // Still redirect even if status update fails
       setTimeout(() => {
         window.location.href = '/dashboard?psa_completed=true';
       }, 1500);
@@ -448,10 +522,10 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
   // Initialize component
   useEffect(() => {
     const initializeData = async () => {
-      console.log('🔍 Initializing PSA component with real data from your system...');
+      console.log('🔍 Initializing DocuSeal API PSA component...');
       setStatus('loading');
       
-      // Load real user data from your existing system
+      // Load real user data
       await loadRealUserData();
       
       // Small delay to ensure data is properly set
@@ -468,35 +542,28 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
 
     initializeData();
 
-    // Cleanup on unmount
     return () => {
       if (window.psaGuideCleanup) {
         window.psaGuideCleanup();
         delete window.psaGuideCleanup;
       }
     };
-  }, []); // Remove realProviderData dependency to prevent re-renders
+  }, []);
 
-  // Enhanced status messages based on data source
+  // Enhanced status messages
   const getDataStatusMessage = () => {
     switch (dataSource) {
       case 'real':
         return {
           type: 'success',
-          title: 'Information Pre-filled from Your Profile',
-          message: `All fields populated with: ${realProviderData?.provider_name} • ${realProviderData?.primary_contact_name} • ${realProviderData?.primary_contact_email}`
-        };
-      case 'minimal':
-        return {
-          type: 'warning',
-          title: 'Basic Information Pre-filled',
-          message: 'Some fields populated from your account. You may need to complete your profile for full automation.'
+          title: 'Provider Service Agreement Ready',
+          message: `PSA prepared for: ${realProviderData?.provider_name} • ${realProviderData?.primary_contact_name} • ${realProviderData?.primary_contact_email}`
         };
       case 'fallback':
         return {
           type: 'info',
-          title: 'Using Sample Data',
-          message: 'Please review and update the information in the form as needed.'
+          title: 'Provider Service Agreement Generated',
+          message: 'Please review and update the provider information as needed before signing.'
         };
       default:
         return null;
@@ -520,16 +587,28 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
             </svg>
-            <span>Loading your facility information from Supabase...</span>
+            <span>Preparing your Provider Service Agreement...</span>
           </div>
         </div>
       )}
 
-      {/* Data Status Confirmation */}
+      {/* API Status Indicator */}
+      {status === 'loading' && submissionUrl && (
+        <div className="bg-green-50 border border-green-200 text-green-800 px-6 py-4 rounded-xl text-center mb-6 animate-fade-in">
+          <div className="flex items-center justify-center space-x-3">
+            <svg className="animate-spin h-5 w-5 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
+            <span>Loading your Provider Service Agreement...</span>
+          </div>
+        </div>
+      )}
+
+      {/* Status Confirmation */}
       {statusMessage && !isLoadingData && (
         <div className={`border px-6 py-4 rounded-xl text-center mb-6 animate-fade-in ${
           statusMessage.type === 'success' ? 'bg-green-50 border-green-200 text-green-800' :
-          statusMessage.type === 'warning' ? 'bg-yellow-50 border-yellow-200 text-yellow-800' :
           'bg-blue-50 border-blue-200 text-blue-800'
         }`}>
           <div className="flex items-center justify-center space-x-2 mb-2">
@@ -543,18 +622,8 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
       )}
 
       {error && (
-        <div className="text-red-600 text-center mb-4 animate-fade-in">
+        <div className="text-red-600 text-center mb-4 animate-fade-in bg-red-50 border border-red-200 px-6 py-4 rounded-xl">
           ❌ {error}
-        </div>
-      )}
-
-      {status === 'loading' && !isLoadingData && (
-        <div className="flex justify-center items-center py-8 animate-fade-in">
-          <svg className="animate-spin h-8 w-8 text-usrad-navy" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-          </svg>
-          <span className="ml-4 text-gray-600 text-lg">Preparing your PSA form...</span>
         </div>
       )}
 
@@ -572,4 +641,4 @@ const PSASigningSystemEmbedded = ({ providerData: fallbackData }) => {
   );
 };
 
-export default PSASigningSystemEmbedded;
+export default PSASigningSystemAPI;
