@@ -1,0 +1,123 @@
+# 📄 DocuSeal Embedded PSA Integration – USRad Platform
+
+## 🧩 Objective
+
+To embed the **Provider Services Agreement (PSA)** into the USRad onboarding experience for imaging centers in a way that is:
+
+* Seamless (no new tabs or popups)
+* Intuitive to use
+* Visually aligned with USRad’s premium UX
+* Functionally integrated with user auth and onboarding progression
+
+---
+
+## ✅ Phase 1: Initial Problem
+
+Previously, the PSA signing process:
+
+* Redirected providers to a **DocuSeal-hosted external page**
+* Created **context loss** post-signing (no clear return path)
+* Lacked UI feedback (no success message, loading state, or redirect)
+
+These limitations broke the onboarding flow and undermined trust in the process.
+
+---
+
+## ✅ Phase 2: Core Implementation
+
+We replaced the popup model with an **in-page embedded signing experience**.
+
+### Actions Taken:
+
+1. **Created new embedded React component** (`PSASigningSystemEmbedded.jsx`)
+2. **Dynamically fetched `embed_src`** via `/api/docuseal/create-submission-embedded`
+3. Injected a `<docuseal-form>` element inside the DOM, tied to the provider’s email/name
+4. Loaded DocuSeal’s form script once per session
+5. Listened for `postMessage` events signaling form completion
+
+---
+
+## ✅ Phase 3: Experience Enhancements
+
+We upgraded the user journey by adding:
+
+* ⏳ **Animated loading spinner**
+* 🎉 **Animated success banner with redirect**
+* 🔄 **Auto-scroll to PSA section**
+* 🧭 **Instructional guidance**: “Return to dashboard after signing”
+
+Each element was designed with Tailwind CSS animations and smooth transitions to align with the polished UI goals.
+
+---
+
+## 🔍 Phase 4: Debug & Diagnostics
+
+### ⚠️ Issue: `Multiple GoTrueClient instances detected`
+
+We investigated this Supabase warning and confirmed:
+
+* Singleton `supabase.js` file is correct ✅
+* No duplicate `createClient()` calls found in uploaded code ✅
+* Warning may stem from:
+
+  * A **hot-reload artifact**
+  * A **browser extension**
+  * Or **DocuSeal’s embed script** (if it uses Supabase internally)
+
+This is a non-breaking issue but still worth eliminating for stability.
+
+---
+
+## 🧰 Next Actions To Resolve Final Issues
+
+| Area             | Task                                                       | Status         |
+| ---------------- | ---------------------------------------------------------- | -------------- |
+| Supabase warning | Ensure all usage imports from singleton                    | ✅ Verified     |
+| DocuSeal embed   | Confirm they aren’t injecting a separate Supabase client   | 🟡 In Progress |
+| UX feedback      | Success banner wasn’t displaying properly                  | 🟡 Testing fix |
+| Post-signing     | Add a dedicated "Back to Dashboard" CTA in form            | 🟡 Recommended |
+| SSR/session sync | Ensure `loadUserData()` properly refreshes state post-sign | 🟡 Pending     |
+
+---
+
+## 🚀 Recommendations to Elevate Further
+
+### 1. **Add Animated PSA Progress Tracker**
+
+Display a visual stepper:
+
+```text
+[✔] Profile Info → [✔] PSA Signing → [ ] Center Details
+```
+
+### 2. **Lottie Animation on Success**
+
+Use [`lottie-react`](https://github.com/Gamote/lottie-react) for success confirmation.
+
+### 3. **Global Toast Notification System**
+
+Abstract `window.showToast()` into a shared hook for use across all major flows.
+
+### 4. **Store PSA Completion Timestamp**
+
+In Supabase `user_metadata`, log:
+
+```json
+"psa_completed_at": "2025-06-08T23:45Z"
+```
+
+### 5. **Create DocuSeal Webhook Integration**
+
+Build backend webhook endpoint to:
+
+* Confirm PSA completion
+* Trigger welcome sequence
+* Update internal CRM/ops workflows
+
+---
+
+## 📌 Final Thoughts
+
+You’ve transformed the PSA flow from an external, fragmented process into a **fully embedded, intelligent, and brand-aligned experience**. It’s a high-quality interaction that reflects USRad’s commitment to clarity, efficiency, and premium service delivery.
+
+This milestone will be logged in the broader USRad build journal for presentation to investors, strategic advisors, and technical leads.

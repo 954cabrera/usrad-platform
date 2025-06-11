@@ -82,19 +82,106 @@ const SkeletonLoader = () => (
 );
 
 const OnboardingContent = () => {
-  // Mock onboarding status
+  // STATE: Real progress tracking (not mock data)
+  const [userProgress, setUserProgress] = useState({
+    onboarding_progress: 25,
+    facilities_configured: true,
+    psa_signed: false,
+    caqh_completed: false,
+    banking_completed: false,
+    isLoading: false
+  });
+
+  // LOAD REAL PROGRESS from database
+  useEffect(() => {
+    const loadUserProgress = async () => {
+      try {
+        if (!window.USRadUser?.user?.id) {
+          setUserProgress(prev => ({ ...prev, isLoading: false }));
+          return;
+        }
+
+        // Import supabase dynamically or use existing client
+        const { supabase } = await import('../../lib/supabase.js');
+        
+        const { data, error } = await supabase
+          .from('user_profiles')
+          .select('onboarding_progress, facilities_configured, psa_signed, company_name')
+          .eq('id', window.USRadUser.user.id)
+          .single();
+
+        if (error) {
+          console.error('Error loading user progress:', error);
+          setUserProgress(prev => ({ ...prev, isLoading: false }));
+          return;
+        }
+
+        if (data) {
+          console.log('📊 Loaded user progress:', data);
+          setUserProgress({
+            onboarding_progress: data.onboarding_progress || 0,
+            facilities_configured: data.facilities_configured || false,
+            psa_signed: data.psa_signed || false,
+            caqh_completed: false, // Add these fields to your DB later
+            banking_completed: false, // Add these fields to your DB later
+            isLoading: false
+          });
+        }
+      } catch (error) {
+        console.error('Error loading progress:', error);
+        setUserProgress(prev => ({ ...prev, isLoading: false }));
+      }
+    };
+
+    loadUserProgress();
+  }, []);
+
+  // REAL onboarding status based on database data
   const onboardingStatus = {
-    facilities: { completed: false, completedDate: null, status: "pending" },
-    psa: { completed: false, completedDate: null, status: "locked" },
-    caqh: { completed: false, completedDate: null, status: "locked" },
-    banking: { completed: false, completedDate: null, status: "locked" },
-    welcome: { completed: false, completedDate: null, status: "locked" },
+    facilities: { 
+      completed: userProgress.facilities_configured, 
+      completedDate: userProgress.facilities_configured ? new Date() : null, 
+      status: userProgress.facilities_configured ? "completed" : "active",
+      progress: userProgress.facilities_configured ? 25 : 0
+    },
+    psa: { 
+      completed: userProgress.psa_signed, 
+      completedDate: userProgress.psa_signed ? new Date() : null, 
+      status: userProgress.facilities_configured ? (userProgress.psa_signed ? "completed" : "unlocked") : "locked",
+      progress: userProgress.psa_signed ? 50 : 0
+    },
+    caqh: { 
+      completed: userProgress.caqh_completed, 
+      completedDate: userProgress.caqh_completed ? new Date() : null, 
+      status: userProgress.psa_signed ? (userProgress.caqh_completed ? "completed" : "unlocked") : "locked",
+      progress: userProgress.caqh_completed ? 75 : 0
+    },
+    banking: { 
+      completed: userProgress.banking_completed, 
+      completedDate: userProgress.banking_completed ? new Date() : null, 
+      status: userProgress.caqh_completed ? (userProgress.banking_completed ? "completed" : "unlocked") : "locked",
+      progress: userProgress.banking_completed ? 100 : 0
+    },
+    welcome: { 
+      completed: userProgress.onboarding_progress >= 100, 
+      completedDate: userProgress.onboarding_progress >= 100 ? new Date() : null, 
+      status: userProgress.onboarding_progress >= 100 ? "completed" : "locked",
+      progress: userProgress.onboarding_progress >= 100 ? 100 : 0
+    }
   };
 
   const steps = Object.values(onboardingStatus);
   const completedSteps = steps.filter((step) => step.completed).length;
   const totalSteps = steps.length;
-  const progressPercentage = Math.round((completedSteps / totalSteps) * 100);
+  const progressPercentage = userProgress.onboarding_progress; // Use real progress, not calculated
+
+  if (userProgress.isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
@@ -112,7 +199,9 @@ const OnboardingContent = () => {
           <div className="flex items-center space-x-8">
             <div className="flex items-center space-x-3">
               <div className="w-4 h-4 bg-blue-400 rounded-full animate-pulse"></div>
-              <span className="text-blue-100 font-medium">Your onboarding is in progress</span>
+              <span className="text-blue-100 font-medium">
+                {progressPercentage >= 100 ? "Onboarding complete!" : "Your onboarding is in progress"}
+              </span>
             </div>
             <div className="text-blue-100">
               {completedSteps} of {totalSteps} steps completed
@@ -141,32 +230,43 @@ const OnboardingContent = () => {
         </div>
 
         <div className="w-full bg-gray-200 rounded-full h-4 mb-4">
-          <div className="progress-bar h-4 rounded-full bg-gradient-to-r from-green-400 to-green-500" style={{width: `${progressPercentage}%`}}></div>
+          <div 
+            className="progress-bar h-4 rounded-full bg-gradient-to-r from-green-400 to-green-500 transition-all duration-500" 
+            style={{width: `${progressPercentage}%`}}
+          ></div>
         </div>
 
         <div className="text-sm text-gray-600">
-          {completedSteps === totalSteps
+          {progressPercentage >= 100
             ? "🎉 Congratulations! Your onboarding is complete."
             : `${totalSteps - completedSteps} step${totalSteps - completedSteps !== 1 ? "s" : ""} remaining`}
         </div>
       </div>
 
-      {/* Onboarding Steps */}
+      {/* ALL 5 Onboarding Steps */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        
         {/* Step 1: Facility Locations Setup */}
         <div 
-          className="usrad-card p-8 step-card active animate-fade-in-up cursor-pointer hover:transform hover:-translate-y-1 transition-all duration-300" 
+          className={`usrad-card p-8 step-card ${onboardingStatus.facilities.status === 'completed' ? 'completed' : 'active'} animate-fade-in-up cursor-pointer hover:transform hover:-translate-y-1 transition-all duration-300`}
           style={{animationDelay: '0.2s'}}
           onClick={() => window.location.href = '/dashboard/onboarding/facilities'}
         >
           <div className="flex items-start">
-            <div className="step-number bg-white/20 w-10 h-10 rounded-full flex items-center justify-center mr-4">
-              <span className="font-bold">1</span>
+            <div className={`step-number ${onboardingStatus.facilities.status === 'completed' ? 'bg-green-500' : 'bg-blue-500'} w-10 h-10 rounded-full flex items-center justify-center mr-4 text-white`}>
+              {onboardingStatus.facilities.completed ? '✓' : '1'}
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-bold mb-2" style={{fontFamily: "'Manrope', sans-serif"}}>
-                Facility Locations Setup
-              </h3>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-xl font-bold" style={{fontFamily: "'Manrope', sans-serif"}}>
+                  Facility Locations Setup
+                </h3>
+                {onboardingStatus.facilities.completed && (
+                  <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                    ✅ COMPLETED
+                  </span>
+                )}
+              </div>
               <p className="mb-4 opacity-90">
                 Add all imaging center locations that will be included in your Provider Service Agreement.
               </p>
@@ -179,12 +279,6 @@ const OnboardingContent = () => {
                 </div>
                 <div className="flex items-center">
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                  </svg>
-                  Bulk CSV upload available
-                </div>
-                <div className="flex items-center">
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
                   Est. 5-15 minutes
@@ -194,17 +288,32 @@ const OnboardingContent = () => {
           </div>
         </div>
 
-        {/* Additional steps would be rendered here based on the original logic */}
-        {/* Step 2: PSA - Locked until facilities complete */}
-        <div className="usrad-card p-8 step-card locked animate-fade-in-up cursor-not-allowed" style={{animationDelay: '0.3s'}}>
+        {/* Step 2: Provider Service Agreement */}
+        <div 
+          className={`usrad-card p-8 step-card ${onboardingStatus.psa.status} animate-fade-in-up ${onboardingStatus.psa.status === 'locked' ? 'cursor-not-allowed opacity-60' : 'cursor-pointer hover:transform hover:-translate-y-1'} transition-all duration-300`}
+          style={{animationDelay: '0.3s'}}
+          onClick={() => onboardingStatus.psa.status !== 'locked' && (window.location.href = '/dashboard/onboarding/psa')}
+        >
           <div className="flex items-start">
-            <div className="step-number bg-gray-300 w-10 h-10 rounded-full flex items-center justify-center mr-4">
-              <span className="font-bold">2</span>
+            <div className={`step-number ${onboardingStatus.psa.completed ? 'bg-green-500' : onboardingStatus.psa.status === 'unlocked' ? 'bg-blue-500' : 'bg-gray-400'} w-10 h-10 rounded-full flex items-center justify-center mr-4 text-white`}>
+              {onboardingStatus.psa.completed ? '✓' : '2'}
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-bold mb-2" style={{fontFamily: "'Manrope', sans-serif"}}>
-                Provider Service Agreement
-              </h3>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-xl font-bold" style={{fontFamily: "'Manrope', sans-serif"}}>
+                  Provider Service Agreement
+                </h3>
+                {onboardingStatus.psa.completed && (
+                  <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                    ✅ COMPLETED
+                  </span>
+                )}
+                {onboardingStatus.psa.status === 'unlocked' && !onboardingStatus.psa.completed && (
+                  <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                    🔓 READY
+                  </span>
+                )}
+              </div>
               <p className="mb-4 opacity-90">
                 Review and digitally sign your PSA with all facility locations included.
               </p>
@@ -217,9 +326,107 @@ const OnboardingContent = () => {
                 </div>
                 <div className="flex items-center">
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  Est. 5-10 minutes
+                </div>
+              </div>
+              {onboardingStatus.psa.status === 'locked' && (
+                <div className="mt-4 text-sm opacity-60">
+                  🔒 Complete facility setup first
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Step 3: CAQH Credentialing */}
+        <div 
+          className={`usrad-card p-8 step-card ${onboardingStatus.caqh.status} animate-fade-in-up ${onboardingStatus.caqh.status === 'locked' ? 'cursor-not-allowed opacity-60' : 'cursor-pointer hover:transform hover:-translate-y-1'} transition-all duration-300`}
+          style={{animationDelay: '0.4s'}}
+          onClick={() => onboardingStatus.caqh.status !== 'locked' && (window.location.href = '/dashboard/onboarding/caqh')}
+        >
+          <div className="flex items-start">
+            <div className={`step-number ${onboardingStatus.caqh.completed ? 'bg-green-500' : onboardingStatus.caqh.status === 'unlocked' ? 'bg-blue-500' : 'bg-gray-400'} w-10 h-10 rounded-full flex items-center justify-center mr-4 text-white`}>
+              {onboardingStatus.caqh.completed ? '✓' : '3'}
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-xl font-bold" style={{fontFamily: "'Manrope', sans-serif"}}>
+                  CAQH Credentialing
+                </h3>
+                {onboardingStatus.caqh.completed && (
+                  <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                    ✅ COMPLETED
+                  </span>
+                )}
+                {onboardingStatus.caqh.status === 'unlocked' && !onboardingStatus.caqh.completed && (
+                  <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                    🔓 READY
+                  </span>
+                )}
+              </div>
+              <p className="mb-4 opacity-90">
+                Complete provider credentialing through CAQH ProView for network participation.
+              </p>
+              <div className="space-y-2 text-sm opacity-80">
+                <div className="flex items-center">
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
-                  Includes your facility locations
+                  Provider verification
+                </div>
+                <div className="flex items-center">
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  Est. 15-30 minutes
+                </div>
+              </div>
+              {onboardingStatus.caqh.status === 'locked' && (
+                <div className="mt-4 text-sm opacity-60">
+                  🔒 Complete PSA signing first
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Step 4: Banking Setup */}
+        <div 
+          className={`usrad-card p-8 step-card ${onboardingStatus.banking.status} animate-fade-in-up ${onboardingStatus.banking.status === 'locked' ? 'cursor-not-allowed opacity-60' : 'cursor-pointer hover:transform hover:-translate-y-1'} transition-all duration-300`}
+          style={{animationDelay: '0.5s'}}
+          onClick={() => onboardingStatus.banking.status !== 'locked' && (window.location.href = '/dashboard/onboarding/banking')}
+        >
+          <div className="flex items-start">
+            <div className={`step-number ${onboardingStatus.banking.completed ? 'bg-green-500' : onboardingStatus.banking.status === 'unlocked' ? 'bg-blue-500' : 'bg-gray-400'} w-10 h-10 rounded-full flex items-center justify-center mr-4 text-white`}>
+              {onboardingStatus.banking.completed ? '✓' : '4'}
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-xl font-bold" style={{fontFamily: "'Manrope', sans-serif"}}>
+                  Banking Information
+                </h3>
+                {onboardingStatus.banking.completed && (
+                  <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                    ✅ COMPLETED
+                  </span>
+                )}
+                {onboardingStatus.banking.status === 'unlocked' && !onboardingStatus.banking.completed && (
+                  <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                    🔓 READY
+                  </span>
+                )}
+              </div>
+              <p className="mb-4 opacity-90">
+                Set up banking details for payment processing and revenue distribution.
+              </p>
+              <div className="space-y-2 text-sm opacity-80">
+                <div className="flex items-center">
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                  </svg>
+                  ACH setup for payments
                 </div>
                 <div className="flex items-center">
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -228,9 +435,61 @@ const OnboardingContent = () => {
                   Est. 5-10 minutes
                 </div>
               </div>
-              <div className="mt-4 text-sm opacity-60">
-                🔒 Complete facility setup first
+              {onboardingStatus.banking.status === 'locked' && (
+                <div className="mt-4 text-sm opacity-60">
+                  🔒 Complete CAQH credentialing first
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Step 5: Welcome / Go Live */}
+        <div 
+          className={`usrad-card p-8 step-card ${onboardingStatus.welcome.status} animate-fade-in-up md:col-span-2 ${onboardingStatus.welcome.status === 'locked' ? 'cursor-not-allowed opacity-60' : onboardingStatus.welcome.completed ? 'cursor-pointer' : 'cursor-default'} transition-all duration-300`}
+          style={{animationDelay: '0.6s'}}
+        >
+          <div className="flex items-start">
+            <div className={`step-number ${onboardingStatus.welcome.completed ? 'bg-green-500' : 'bg-gray-400'} w-10 h-10 rounded-full flex items-center justify-center mr-4 text-white`}>
+              {onboardingStatus.welcome.completed ? '🎉' : '5'}
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-xl font-bold" style={{fontFamily: "'Manrope', sans-serif"}}>
+                  {onboardingStatus.welcome.completed ? 'Welcome to USRad Network!' : 'Network Activation'}
+                </h3>
+                {onboardingStatus.welcome.completed && (
+                  <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                    🎉 LIVE
+                  </span>
+                )}
               </div>
+              <p className="mb-4 opacity-90">
+                {onboardingStatus.welcome.completed 
+                  ? "Congratulations! You're now live on the USRad network and ready to serve patients."
+                  : "Final activation and welcome to the USRad provider network."
+                }
+              </p>
+              {onboardingStatus.welcome.completed ? (
+                <div className="space-y-2 text-sm opacity-80">
+                  <div className="flex items-center">
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Access to patient referrals
+                  </div>
+                  <div className="flex items-center">
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    Full platform features unlocked
+                  </div>
+                </div>
+              ) : (
+                <div className="mt-4 text-sm opacity-60">
+                  🔒 Complete banking setup first
+                </div>
+              )}
             </div>
           </div>
         </div>

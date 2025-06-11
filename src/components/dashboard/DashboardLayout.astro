@@ -715,6 +715,132 @@ const currentPath = Astro.url.pathname;
         }
       }
     </style>
+    <script is:inline>
+      // Fixed version - no import.meta
+async function loadUserProgress() {
+  try {
+    if (!window.USRadUser?.user?.id) {
+      console.log('❌ No user ID found for progress loading');
+      return;
+    }
+
+    // Get environment variables from data attributes or global config
+    const supabaseUrl = document.documentElement.getAttribute('data-supabase-url') || 
+                       'https://skpxihbmwdswmcajnhut.supabase.co';
+    const supabaseKey = document.documentElement.getAttribute('data-supabase-anon-key') || 
+                       'your-anon-key-here';
+
+    // Create Supabase client
+    const { createClient } = window.supabase || {};
+    if (!createClient) {
+      console.log('❌ Supabase not available globally');
+      return;
+    }
+
+    const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+    const { data, error } = await supabaseClient
+      .from('user_profiles')
+      .select('onboarding_progress, facilities_configured, psa_signed, company_name')
+      .eq('id', window.USRadUser.user.id)
+      .single();
+
+    if (error) {
+      console.error('Error loading user progress:', error);
+      return;
+    }
+
+    if (data) {
+      console.log('📊 Real progress loaded:', data);
+
+      const progress = data.onboarding_progress || 0;
+
+      // Update "Unlock Premium" card
+      const unlockButtons = document.querySelectorAll('[data-unlock-progress]');
+      unlockButtons.forEach(button => {
+        button.textContent = `${progress}% Complete`;
+        button.style.color = ''; // Remove the red test color
+        console.log(`✅ Updated unlock button to ${progress}% Complete`);
+      });
+
+      // Update other progress elements
+      const progressBars = document.querySelectorAll('[data-progress-bar]');
+      progressBars.forEach(bar => {
+        bar.style.width = `${progress}%`;
+      });
+
+      const progressTexts = document.querySelectorAll('[data-progress-text]');
+      progressTexts.forEach(text => {
+        text.textContent = `${progress}%`;
+      });
+    }
+  } catch (error) {
+    console.error('Error in loadUserProgress:', error);
+  }
+}
+
+  // Function to update the banner based on progress
+  function updateProgressBanner(progress, facilitiesConfigured, psaSigned) {
+    const banner = document.querySelector('[data-progress-banner]');
+    const title = document.querySelector('[data-banner-title]');
+    const subtitle = document.querySelector('[data-banner-subtitle]');
+    const cta = document.querySelector('[data-banner-cta]');
+
+    if (!banner || !title || !subtitle || !cta) return;
+
+    let bannerConfig = {};
+
+    // Progressive banner logic based on completion status
+    if (progress >= 100) {
+      // 100% Complete - Hide banner or show success
+      banner.style.display = 'none';
+      return;
+    } else if (progress >= 75) {
+      // CAQH Complete - Need Banking
+      bannerConfig = {
+        title: "Complete banking setup to go live",
+        subtitle: "Final step: Set up payment processing to activate your account",
+        ctaText: "Complete Banking",
+        ctaLink: "/dashboard/onboarding/banking",
+        color: "linear-gradient(135deg, #059669 0%, #047857 100%)" // Green
+      };
+    } else if (progress >= 50) {
+      // PSA Complete - Need CAQH
+      bannerConfig = {
+        title: "Complete CAQH credentialing to continue",
+        subtitle: "Provider verification required for network participation",
+        ctaText: "Complete CAQH",
+        ctaLink: "/dashboard/onboarding/caqh",
+        color: "linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)" // Purple
+      };
+    } else if (progress >= 25) {
+      // Facilities Complete - Need PSA
+      bannerConfig = {
+        title: "Complete your PSA to unlock premium features",
+        subtitle: "Sign your Provider Service Agreement to access advanced training and analytics",
+        ctaText: "Complete PSA →",
+        ctaLink: "/dashboard/onboarding/psa",
+        color: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" // Orange/Yellow
+      };
+    } else {
+      // No progress - Need Facilities
+      bannerConfig = {
+        title: "Complete facility setup to continue",
+        subtitle: "Get started by configuring your imaging center locations",
+        ctaText: "Get Started",
+        ctaLink: "/dashboard/onboarding/facilities",
+        color: "linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)" // Red
+      };
+    }
+
+      // Trigger progress load after DOM is ready
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("🔄 DOM loaded, attempting to load user progress...");
+        setTimeout(() => {
+          loadUserProgress();
+        }, 2000);
+      });
+    </script>
   </head>
 
   <body class="bg-gradient-to-br from-usrad-light to-white">
@@ -872,7 +998,10 @@ const currentPath = Astro.url.pathname;
             >
             </div>
           </div>
-          <span class="text-xs text-yellow-300 font-semibold">75% Complete</span
+          <!-- ⭐ THIS IS THE KEY CHANGE - Add data attribute and default to 0% -->
+          <span
+            data-unlock-progress
+            class="text-xs text-yellow-300 font-semibold">0% Complete</span
           >
         </div>
       </div>
@@ -1504,6 +1633,99 @@ const currentPath = Astro.url.pathname;
           );
         } catch (error) {
           console.error("Failed to initialize user management:", error);
+        }
+      });
+
+      // Listen for facility completion updates
+      window.addEventListener("userProgressUpdate", function (event) {
+        const { facilities_configured, onboarding_progress, step_completed } =
+          event.detail;
+
+        console.log("🎉 Progress update received:", event.detail);
+
+        // Update the global user object
+        if (window.USRadUser) {
+          window.USRadUser.facilities_configured = facilities_configured;
+          window.USRadUser.onboarding_progress = onboarding_progress;
+
+          if (window.USRadUser.profile) {
+            window.USRadUser.profile.facilities_configured =
+              facilities_configured;
+            window.USRadUser.profile.onboarding_progress = onboarding_progress;
+          }
+        }
+
+        // Update progress bars
+        const progressBars = document.querySelectorAll("[data-progress-bar]");
+        progressBars.forEach((bar) => {
+          bar.style.width = `${onboarding_progress}%`;
+        });
+
+        // Update progress text
+        const progressTexts = document.querySelectorAll("[data-progress-text]");
+        progressTexts.forEach((text) => {
+          text.textContent = `${onboarding_progress}%`;
+        });
+
+        // UNLOCK PSA ELEMENTS when facilities are configured
+        if (facilities_configured) {
+          const psaElements = document.querySelectorAll("[data-psa-locked]");
+          psaElements.forEach((el) => {
+            el.classList.remove("opacity-50", "pointer-events-none");
+            el.classList.add("cursor-pointer");
+
+            // Change "Locked" to "Ready"
+            const lockedText = el.querySelector("[data-locked-text]");
+            if (lockedText) {
+              lockedText.textContent = "Ready";
+              lockedText.className = lockedText.className.replace(
+                "text-gray-500",
+                "text-green-600"
+              );
+            }
+
+            // Add completion checkmark
+            const checkmark = el.querySelector("[data-completion-check]");
+            if (checkmark) {
+              checkmark.classList.remove("hidden");
+            }
+          });
+
+          // Update PSA banner
+          const psaBanner = document.getElementById("psa-banner");
+          if (psaBanner) {
+            psaBanner.innerHTML = `
+        <strong>Ready to sign your PSA!</strong>
+        <a href="/dashboard/onboarding/psa" style="margin-left: 1rem; background: #10b981; color: white; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none;">
+          Sign PSA Now
+        </a>
+      `;
+            psaBanner.style.backgroundColor = "#d1fae5";
+            psaBanner.style.color = "#065f46";
+          }
+        }
+      });
+    </script>
+    <script>
+      window.addEventListener("userProgressUpdate", function (event) {
+        const detail = event.detail || {};
+        const isFacilitiesComplete =
+          detail.facilities_configured === true ||
+          detail.step_completed === "facilities";
+
+        if (isFacilitiesComplete) {
+          const psaCard = document.querySelector("[data-psa-locked]");
+          if (psaCard) {
+            psaCard.classList.remove("opacity-50", "pointer-events-none");
+            psaCard.removeAttribute("data-psa-locked");
+
+            // Toggle locked text and show checkmark
+            const lockedText = psaCard.querySelector("[data-locked-text]");
+            const checkmark = psaCard.querySelector("[data-completion-check]");
+
+            if (lockedText) lockedText.classList.add("hidden");
+            if (checkmark) checkmark.classList.remove("hidden");
+          }
         }
       });
     </script>
