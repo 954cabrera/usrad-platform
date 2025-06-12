@@ -952,13 +952,13 @@ const currentPath = Astro.url.pathname;
               return (
                 item.divider &&
                 user &&
-                !window.USRadUser?.profile?.psa_signed && (
+                !user.hasCompletedPSA && (
                   <hr class="my-4 border-blue-900 opacity-20" />
                 )
               );
             }
             const { href, icon, label, unlocked } = item;
-            const isLocked = !unlocked && user && !window.USRadUser?.profile?.psa_signed;
+            const isLocked = !unlocked && user && !user.hasCompletedPSA;
             return (
               <a
                 href={href}

@@ -34,6 +34,62 @@ import {
 } from '../../lib/facilityManager.js';
 
 
+
+// === Auto-Population Helpers ===
+
+const getMinimalSignupData = (user) => {
+  if (!user || !user.user_metadata) return null;
+
+  const metadata = user.user_metadata;
+  return {
+    centerName: metadata.center_name || '',
+    centerType: metadata.center_type || '',
+    contactName: metadata.contact_name || '',
+    contactEmail: user.email || '',
+    contactPhone: metadata.phone || ''
+  };
+};
+
+const autoPopulateCorporateFromMinimal = (signupData, currentCorporateInfo) => {
+  if (!signupData) return currentCorporateInfo;
+
+  return {
+    ...currentCorporateInfo,
+    corporateName: signupData.centerName || currentCorporateInfo.corporateName,
+    legalEntityName: signupData.centerName ? `${signupData.centerName}, LLC` : currentCorporateInfo.legalEntityName,
+    primaryContactName: signupData.contactName || currentCorporateInfo.primaryContactName,
+    primaryContactEmail: signupData.contactEmail || currentCorporateInfo.primaryContactEmail,
+    primaryContactPhone: signupData.contactPhone || currentCorporateInfo.primaryContactPhone,
+    organizationType: currentCorporateInfo.organizationType || 'single'
+  };
+};
+
+const showWelcomeToast = (signupData, fieldsCount) => {
+  const toast = document.createElement('div');
+  toast.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+  toast.innerHTML = `
+    <div class="flex items-center">
+      <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+      </svg>
+      <div>
+        <div class="font-medium">Welcome back, ${signupData.contactName || 'Provider'}!</div>
+        <div class="text-sm opacity-90">${fieldsCount} field${fieldsCount !== 1 ? 's' : ''} pre-filled from your signup</div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(toast);
+  setTimeout(() => toast.classList.remove('translate-x-full'), 100);
+  setTimeout(() => {
+    toast.classList.add('translate-x-full');
+    setTimeout(() => document.body.removeChild(toast), 300);
+  }, 4000);
+};
+
+// === End Helpers ===
+
+
 const FacilityManager = () => {
   // State management
   const [facilities, setFacilities] = useState([]);
@@ -53,6 +109,12 @@ const FacilityManager = () => {
     signingAuthority: '',
     organizationType: 'single' // single, corporation
   });
+  const [signupData, setSignupData] = useState(null);
+  const [autoPopulationStatus, setAutoPopulationStatus] = useState({
+    fieldsPopulated: 0,
+    showWelcome: false
+  });
+
   const [showCorporateForm, setShowCorporateForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -92,75 +154,45 @@ const FacilityManager = () => {
   // FIX 3: Load existing data when component mounts
   // ========================================================================================
   useEffect(() => {
-    const loadExistingData = async () => {
+    const loadUserDataWithAutoPopulation = async () => {
       if (typeof window !== 'undefined' && window.USRadUser?.user?.id) {
         setIsLoading(true);
+  
         try {
-          console.log('🔍 Loading existing facility data...');
-
-          const { corporateInfo, facilities, hasData } = await loadFacilitySelection(window.USRadUser.user.id);
-
-          console.log('📋 Loaded data:', { corporateInfo, facilities: facilities.length, hasData });
-
-          if (hasData) {
-            if (
-              corporateInfo.corporateName &&
-              corporateInfo.corporateName !== '' &&
-              corporateInfo.corporateName !== 'Pending Facility Selection'
-            ) {
-              setCorporateInfo(corporateInfo);
-              console.log('✅ Corporate info loaded:', corporateInfo.corporateName);
-            }
-
-            if (facilities.length > 0) {
-              setSelectedFacilities(facilities);
-              console.log('✅ Facilities loaded:', facilities.length);
-
-              if (corporateInfo.corporateName && corporateInfo.corporateName !== 'Pending Facility Selection') {
-                console.log('🎉 Complete data found - showing success state');
-              }
-            }
-          }
-        } catch (error) {
-          console.error('❌ Error loading existing data:', error);
-        } finally {
-          setIsLoading(false);
-        }
-      }
-    };
-
-    loadExistingData();
-  }, []);
-
-  // Force progress UI update after short delay
-  useEffect(() => {
-    setTimeout(() => {
-      debugProgressUpdate();
-    }, 2000);
-  }, []);
-
-
-
-  // Replace your current loadExistingData function with this:
-
-  const loadExistingData = async () => {
-    if (typeof window !== 'undefined' && window.USRadUser?.user?.id) {
-      setIsLoading(true);
-      try {
-        console.log('🔍 Loading existing facility data...');
+          const currentUser = window.USRadUser.user;
+          const extractedSignupData = getMinimalSignupData(currentUser);
+          setSignupData(extractedSignupData);
   
-        const { corporateInfo, facilities, hasData } = await loadFacilitySelection(window.USRadUser.user.id);
+          console.log('📝 Signup data extracted:', extractedSignupData);
   
-        console.log('📋 Loaded data:', { corporateInfo, facilities: facilities.length, hasData });
+          const { corporateInfo, facilities, hasData } = await loadFacilitySelection(currentUser.id);
   
-        if (hasData) {
+          let populatedCount = 0;
+  
           if (
+            extractedSignupData &&
+            (!corporateInfo.corporateName || corporateInfo.corporateName === 'Pending Facility Selection')
+          ) {
+            const autoPopulatedInfo = autoPopulateCorporateFromMinimal(extractedSignupData, corporateInfo);
+  
+            const coreFields = ['corporateName', 'primaryContactName', 'primaryContactEmail', 'primaryContactPhone'];
+            populatedCount = coreFields.filter(
+              (field) => autoPopulatedInfo[field] && autoPopulatedInfo[field] !== ''
+            ).length;
+  
+            setCorporateInfo(autoPopulatedInfo);
+            console.log(`✅ Auto-populated ${populatedCount} fields`);
+  
+            if (populatedCount > 0) {
+              showWelcomeToast(extractedSignupData, populatedCount);
+            }
+          } else if (
             corporateInfo.corporateName &&
             corporateInfo.corporateName !== '' &&
             corporateInfo.corporateName !== 'Pending Facility Selection'
           ) {
             setCorporateInfo(corporateInfo);
-            console.log('✅ Corporate info loaded:', corporateInfo.corporateName);
+            console.log('✅ Corporate info loaded from saved data');
           }
   
           if (facilities.length > 0) {
@@ -173,8 +205,6 @@ const FacilityManager = () => {
             corporateInfo.corporateName &&
             corporateInfo.corporateName !== 'Pending Facility Selection'
           ) {
-            console.log('🚀 Complete data found - auto-navigating to preview');
-  
             const autoNavToast = document.createElement('div');
             autoNavToast.className =
               'fixed top-4 right-4 bg-blue-500 text-white px-6 py-4 rounded-lg shadow-lg z-50';
@@ -191,14 +221,22 @@ const FacilityManager = () => {
             setTimeout(() => document.body.removeChild(autoNavToast), 3000);
             setTimeout(() => setStep('preview'), 1500);
           }
+  
+          setAutoPopulationStatus({
+            fieldsPopulated: populatedCount,
+            showWelcome: populatedCount > 0,
+          });
+        } catch (error) {
+          console.error('❌ Error with auto-population:', error);
+        } finally {
+          setIsLoading(false);
         }
-      } catch (error) {
-        console.error('❌ Error loading existing data:', error);
-      } finally {
-        setIsLoading(false);
       }
-    }
-  };
+    };
+  
+    loadUserDataWithAutoPopulation();
+  }, []);
+  
   
   // Format EIN number (XX-XXXXXXX)
   const formatEIN = (value) => {
@@ -699,11 +737,24 @@ Another Location,456 Oak Ave City ST 12345,(555) 234-5678`;
     <div className="max-w-6xl mx-auto p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Organization & Facility Setup</h1>
-        <p className="text-gray-600">
-          Configure your corporate entity and search our database of <span className="font-semibold text-blue-600">30,000+ ACR-accredited</span> imaging centers
-        </p>
+  <h1 className="text-3xl font-bold text-gray-900 mb-2">Organization & Facility Setup</h1>
+
+  <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-2 md:space-y-0">
+    <p className="text-gray-600">
+      Configure your corporate entity and search our database of <span className="font-semibold text-blue-600">30,000+ ACR-accredited</span> imaging centers
+    </p>
+
+    {autoPopulationStatus?.fieldsPopulated > 0 && (
+      <div className="flex items-center space-x-2 bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm border border-green-200 shadow-sm animate-fade-in">
+        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+        </svg>
+        <span>{autoPopulationStatus.fieldsPopulated} field{autoPopulationStatus.fieldsPopulated !== 1 ? 's' : ''} smart-filled</span>
       </div>
+    )}
+  </div>
+</div>
+
 
       {/* ADD THE SAVED DATA BANNER WITH ACTIONS */}
       {(corporateInfo.corporateName || selectedFacilities.length > 0) && (

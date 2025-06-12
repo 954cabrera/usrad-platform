@@ -679,25 +679,26 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
               }
 
               if (data.user) {
-                // Check if email confirmation is required
                 if (!data.session) {
+                  // Email verification required
                   showSuccess(
-                    "Account created successfully! Please check your email to verify your account before signing in."
+                    "Account created! Please check your email to verify, then you'll be automatically logged in."
                   );
-                  form.reset();
                 } else {
-                  showSuccess(
-                    "Account created successfully! Redirecting to your dashboard..."
-                  );
+                  // No email verification required
+                  showSuccess("Account created successfully! Taking you to your dashboard...");
                   setTimeout(() => {
                     window.location.href = "/dashboard";
-                  }, 2000);
+                  }, 1500);
                 }
 
                 return { success: true, data };
               }
             } catch (error) {
               console.error("Signup error:", error);
+              showError("Something went wrong during signup. Please try again.");
+              return { success: false, error };
+
 
               // Handle specific error types
               if (error.message.includes("already registered")) {
