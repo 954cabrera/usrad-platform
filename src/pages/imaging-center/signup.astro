@@ -1,16 +1,13 @@
 ---
 // Imaging Center Signup with Supabase Auth
 // Add this to the frontmatter at the top
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+import { supabase } from "@/lib/supabase";
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="supabase-url" content={supabaseUrl} />
-    <meta name="supabase-anon-key" content={supabaseAnonKey} />
     <title>Join USRad Network | Imaging Center Signup</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,8 +16,10 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
       rel="stylesheet"
     />
     <!-- Import Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
+      const supabase = createClient(supabaseUrl, supabaseAnonKey); // ✅ Insert this line
+      // ... your existing signup logic here ...
+    });
+    
       *,
       *::before,
       *::after {
@@ -601,8 +600,6 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
       // Load Supabase from CDN
       import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm")
         .then(({ createClient }) => {
-          const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
-
           // DOM elements
           const form = document.getElementById("signup-form");
           const errorDiv = document.getElementById("error-message");
@@ -656,7 +653,7 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
           async function handleSignup(formData) {
             try {
-              const { data, error } = await supabaseClient.auth.signUp({
+              const { data, error } = await supabase.auth.signUp({
                 email: formData.email,
                 password: formData.password,
                 options: {
@@ -686,7 +683,9 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
                   );
                 } else {
                   // No email verification required
-                  showSuccess("Account created successfully! Taking you to your dashboard...");
+                  showSuccess(
+                    "Account created successfully! Taking you to your dashboard..."
+                  );
                   setTimeout(() => {
                     window.location.href = "/dashboard";
                   }, 1500);
@@ -696,9 +695,10 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
               }
             } catch (error) {
               console.error("Signup error:", error);
-              showError("Something went wrong during signup. Please try again.");
+              showError(
+                "Something went wrong during signup. Please try again."
+              );
               return { success: false, error };
-
 
               // Handle specific error types
               if (error.message.includes("already registered")) {
@@ -818,7 +818,7 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
             try {
               const {
                 data: { session },
-              } = await supabaseClient.auth.getSession();
+              } = await supabase.auth.getSession();
 
               if (session) {
                 // User is already logged in, redirect to dashboard

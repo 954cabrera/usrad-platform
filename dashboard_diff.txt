@@ -45,7 +45,7 @@ index c59640c..03d8fd1 100644
 -      return;
 -    }
 -
--    const supabaseClient = createClient(supabaseUrl, supabaseKey);
+-    
 -
 -    const { data, error } = await supabaseClient
 -      .from('user_profiles')
@@ -337,7 +337,7 @@ index c59640c..03d8fd1 100644
 -        // Load Supabase and handle logout
 -        import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm")
 -          .then(({ createClient }) => {
--            const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+-            
 -
 -            // Handle logout button click
 -            const logoutButton = document.getElementById("logout-button");

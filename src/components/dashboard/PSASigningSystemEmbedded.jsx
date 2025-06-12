@@ -1,7 +1,7 @@
 // src/components/dashboard/PSASigningSystemEmbedded.jsx
 import React, { useEffect, useState, useRef } from 'react';
 import { Loader2, CheckCircle, AlertTriangle } from 'lucide-react';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from "@/lib/supabase";
 import { DocusealForm } from '@docuseal/react';
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 

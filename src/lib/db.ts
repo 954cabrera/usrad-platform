@@ -10,8 +10,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 // Create Supabase client
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
-
+export const supabase = import { supabase } from '@/lib/supabase';
 // Helper functions for common queries using Supabase client
 export class DatabaseService {
   // User operations

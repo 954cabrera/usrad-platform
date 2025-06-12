@@ -1,11 +1,10 @@
 ---
-// src/pages/dashboard/index.astro - ONLY ADD PSA STATUS
+// src/pages/dashboard/index.astro
 import DashboardLayout from "../../components/dashboard/DashboardLayout.astro";
 import SkeletonProviderDashboardSystem from "../../components/dashboard/SkeletonProviderDashboardSystem";
 
 const fullyOnboarded = false;
 
-// Add PSA status to your existing mockData
 const mockData = {
   todayAppointments: 8,
   totalAppointments: 124,
@@ -15,13 +14,16 @@ const mockData = {
   avgScanTime: "28 min",
   patientSatisfaction: 4.8,
   equipmentStatus: "Operational",
-  // ADD THESE TWO LINES:
-  hasCompletedPSA: false, // Change to true to test unlock
+  hasCompletedPSA: false,
   onboardingProgress: 75,
 };
 ---
 
-<DashboardLayout title="Dashboard Overview" user={null} imagingCenter={null}>
+<DashboardLayout
+  title="Dashboard Overview"
+  user={mockData.user}
+  imagingCenter={mockData.imagingCenter}
+>
   <SkeletonProviderDashboardSystem
     client:load
     user={null}

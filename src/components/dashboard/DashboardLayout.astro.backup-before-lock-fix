@@ -1282,7 +1282,7 @@ const currentPath = Astro.url.pathname;
           const { createClient } = await import(
             "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
           );
-          const supabase = createClient(supabaseUrl, supabaseAnonKey);
+          const supabase = import { supabase } from '@/lib/supabase';;
 
           // Enhanced User Management with Real-time Progress
           window.USRadUser = {

@@ -25,16 +25,6 @@ const currentPath = Astro.url.pathname;
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
-    <!-- ✅ Inject USRadUser globally - FIXED -->
-    <script type="module" define:vars={{ user }}>
-      if (typeof window !== "undefined") {
-        window.USRadUser = {
-          user: user,
-        };
-      }
-    </script>
-
     <style>
       body {
         font-family: "Manrope", sans-serif;
@@ -728,32 +718,30 @@ const currentPath = Astro.url.pathname;
   </head>
 
   <body class="bg-gradient-to-br from-usrad-light to-white">
-    <!-- PSA Banner at top level - FIXED -->
+    <!-- PSA Banner at top level -->
     {
-      user &&
-        !user.hasCompletedPSA &&
-        !Astro.cookies.get("hide_psa_banner") && (
-          <div
-            id="psa-banner"
-            style="background-color: #fff8dc; color: #111827; padding: 1rem; text-align: center; position: relative; z-index: 60;"
+      !user?.hasCompletedPSA && !Astro.cookies.get("hide_psa_banner") && (
+        <div
+          id="psa-banner"
+          style="background-color: #fff8dc; color: #111827; padding: 1rem; text-align: center; position: relative; z-index: 60;"
+        >
+          <strong>
+            Complete your Provider Service Agreement to unlock full access.
+          </strong>
+          <a
+            href="/dashboard/onboarding"
+            style="margin-left: 1rem; background: #2563eb; color: white; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none;"
           >
-            <strong>
-              Complete your Provider Service Agreement to unlock full access.
-            </strong>
-            <a
-              href="/dashboard/onboarding"
-              style="margin-left: 1rem; background: #2563eb; color: white; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none;"
-            >
-              Finish Setup
-            </a>
-            <button
-              onclick="document.querySelector('#psa-banner').remove(); document.cookie = 'hide_psa_banner=true; path=/'"
-              style="position: absolute; top: 8px; right: 12px; background: none; border: none; font-size: 20px; cursor: pointer;"
-            >
-              ×
-            </button>
-          </div>
-        )
+            Finish Setup
+          </a>
+          <button
+            onclick="document.querySelector('#psa-banner').remove(); document.cookie = 'hide_psa_banner=true; path=/'"
+            style="position: absolute; top: 8px; right: 12px; background: none; border: none; font-size: 20px; cursor: pointer;"
+          >
+            ×
+          </button>
+        </div>
+      )
     }
 
     <!-- Mobile Menu Overlay -->
@@ -763,10 +751,10 @@ const currentPath = Astro.url.pathname;
     >
     </div>
 
-    <!-- Enhanced Sidebar with Progressive Disclosure - FIXED -->
+    <!-- Enhanced Sidebar with Progressive Disclosure -->
     <aside
       id="sidebar"
-      class={`fixed top-0 left-0 z-50 w-72 h-screen usrad-gradient-navy text-white sidebar-transition mobile-menu-closed lg:mobile-menu-open lg:translate-x-0 shadow-2xl ${user && !user.hasCompletedPSA ? "pt-12" : ""}`}
+      class={`fixed top-0 left-0 z-50 w-72 h-screen usrad-gradient-navy text-white sidebar-transition mobile-menu-closed lg:mobile-menu-open lg:translate-x-0 shadow-2xl ${!user?.hasCompletedPSA ? "pt-12" : ""}`}
     >
       <!-- Logo Section -->
       <div
@@ -802,16 +790,14 @@ const currentPath = Astro.url.pathname;
         </button>
       </div>
 
-      <!-- Enhanced User Info with Progress - FIXED -->
+      <!-- Enhanced User Info with Progress -->
       {
         user && (
           <div class="p-6 border-b border-blue-800 bg-gradient-to-r from-blue-800/20 to-transparent">
             <div class="flex items-center space-x-4">
               <div class="relative">
                 <div class="w-12 h-12 usrad-gradient-gold rounded-full flex items-center justify-center font-bold text-usrad-navy text-lg shadow-lg animate-glow">
-                  {user.firstName && user.firstName[0]
-                    ? user.firstName[0]
-                    : user.email[0].toUpperCase()}
+                  {user.firstName?.[0] || user.email[0].toUpperCase()}
                 </div>
                 <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse" />
               </div>
@@ -886,14 +872,12 @@ const currentPath = Astro.url.pathname;
             >
             </div>
           </div>
-          <span
-            data-unlock-progress
-            class="text-xs text-yellow-300 font-semibold">0% Complete</span
+          <span class="text-xs text-yellow-300 font-semibold">75% Complete</span
           >
         </div>
       </div>
 
-      <!-- Navigation - FIXED -->
+      <!-- Navigation -->
       <nav class="flex-1 px-4 py-2 space-y-2">
         {
           [
@@ -951,14 +935,13 @@ const currentPath = Astro.url.pathname;
             if (item.divider) {
               return (
                 item.divider &&
-                user &&
-                !window.USRadUser?.profile?.psa_signed && (
+                !user?.hasCompletedPSA && (
                   <hr class="my-4 border-blue-900 opacity-20" />
                 )
               );
             }
             const { href, icon, label, unlocked } = item;
-            const isLocked = !unlocked && user && !window.USRadUser?.profile?.psa_signed;
+            const isLocked = !unlocked && !user?.hasCompletedPSA;
             return (
               <a
                 href={href}
@@ -1031,7 +1014,7 @@ const currentPath = Astro.url.pathname;
 
     <!-- Main Content -->
     <div class="lg:ml-72 min-h-screen">
-      <!-- Top Header - FIXED -->
+      <!-- Top Header -->
       <header
         class="bg-white backdrop-blur-md shadow-sm border-b border-gray-200 px-6 py-4 relative z-30"
       >
@@ -1057,7 +1040,12 @@ const currentPath = Astro.url.pathname;
             <div>
               <h1 class="text-2xl font-bold usrad-navy">{title}</h1>
               <p class="text-sm text-gray-600">
-                Welcome back, {user && user.firstName ? user.firstName : "User"}
+                Welcome back, {
+                  user?.first_name ||
+                    user?.full_name ||
+                    user?.email?.split("@")[0] ||
+                    "User"
+                }
               </p>
             </div>
           </div>
@@ -1093,7 +1081,7 @@ const currentPath = Astro.url.pathname;
               >
             </button>
 
-            <!-- Profile & Logout - FIXED -->
+            <!-- Profile & Logout -->
             <div class="flex items-center space-x-3">
               <!-- Profile Info -->
               <div
@@ -1102,16 +1090,10 @@ const currentPath = Astro.url.pathname;
                 <div
                   class="w-8 h-8 usrad-gradient-gold rounded-lg flex items-center justify-center font-bold text-usrad-navy text-sm"
                 >
-                  {
-                    user && user.firstName && user.firstName[0]
-                      ? user.firstName[0]
-                      : user && user.email && user.email[0]
-                        ? user.email[0].toUpperCase()
-                        : "U"
-                  }
+                  {user?.firstName?.[0] || user?.email[0].toUpperCase() || "U"}
                 </div>
                 <span class="text-sm font-medium text-gray-700 sm:block">
-                  {user && user.firstName ? user.firstName : "User"}
+                  {user?.firstName || "User"}
                 </span>
               </div>
 
@@ -1255,22 +1237,125 @@ const currentPath = Astro.url.pathname;
         }
       });
     </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get Supabase config from meta tags
+        const supabaseUrl = document.querySelector(
+          'meta[name="supabase-url"]'
+        )?.content;
+        const supabaseAnonKey = document.querySelector(
+          'meta[name="supabase-anon-key"]'
+        )?.content;
 
-    <!-- Enhanced Supabase Auth & Progress Management Script - FIXED -->
+        if (!supabaseUrl || !supabaseAnonKey) {
+          console.error("Missing Supabase configuration in dashboard");
+          return;
+        }
+
+        // Load Supabase and handle logout
+        import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm")
+          .then(({ createClient }) => {
+            const supabase = createClient(
+              document.querySelector('meta[name="supabase-url"]').content,
+              document.querySelector('meta[name="supabase-anon-key"]').content
+            );
+
+            // Handle logout button click
+            const logoutButton = document.getElementById("logout-button");
+            if (logoutButton) {
+              logoutButton.addEventListener("click", async function () {
+                const button = this;
+                const logoutText = document.getElementById("logout-text");
+                const logoutLoading = document.getElementById("logout-loading");
+
+                // Show loading state
+                button.disabled = true;
+                if (logoutText) logoutText.classList.add("hidden");
+                if (logoutLoading) logoutLoading.classList.remove("hidden");
+
+                try {
+                  // Sign out with Supabase directly
+                  const { error } = await supabase.auth.signOut();
+
+                  if (error) {
+                    throw error;
+                  }
+
+                  // Add success flag and redirect
+                  sessionStorage.setItem("logout_success", "true");
+                  window.location.href = "/";
+                } catch (error) {
+                  console.error("Logout error:", error);
+                  alert("Error signing out. Please try again.");
+
+                  // Reset button state
+                  button.disabled = false;
+                  if (logoutText) logoutText.classList.remove("hidden");
+                  if (logoutLoading) logoutLoading.classList.add("hidden");
+                }
+              });
+            }
+
+            // Handle sidebar logout button click
+            const sidebarLogoutButton = document.getElementById(
+              "sidebar-logout-button"
+            );
+            if (sidebarLogoutButton) {
+              sidebarLogoutButton.addEventListener("click", async function () {
+                const button = this;
+                const sidebarLogoutText = document.getElementById(
+                  "sidebar-logout-text"
+                );
+                const sidebarLogoutLoading = document.getElementById(
+                  "sidebar-logout-loading"
+                );
+
+                // Show loading state
+                button.disabled = true;
+                if (sidebarLogoutText)
+                  sidebarLogoutText.classList.add("hidden");
+                if (sidebarLogoutLoading)
+                  sidebarLogoutLoading.classList.remove("hidden");
+
+                try {
+                  // Sign out with Supabase directly
+                  const { error } = await supabase.auth.signOut();
+
+                  if (error) {
+                    throw error;
+                  }
+
+                  // Add success flag and redirect
+                  sessionStorage.setItem("logout_success", "true");
+                  window.location.href = "/";
+                } catch (error) {
+                  console.error("Sidebar logout error:", error);
+                  alert("Error signing out. Please try again.");
+
+                  // Reset button state
+                  button.disabled = false;
+                  if (sidebarLogoutText)
+                    sidebarLogoutText.classList.remove("hidden");
+                  if (sidebarLogoutLoading)
+                    sidebarLogoutLoading.classList.add("hidden");
+                }
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Failed to load Supabase for logout:", error);
+          });
+      });
+    </script>
     <script>
       document.addEventListener("DOMContentLoaded", async function () {
-        // Get Supabase config - FIXED
-        const supabaseUrlMeta = document.querySelector(
+        // Get Supabase config
+        const supabaseUrl = document.querySelector(
           'meta[name="supabase-url"]'
-        );
-        const supabaseAnonKeyMeta = document.querySelector(
+        )?.content;
+        const supabaseAnonKey = document.querySelector(
           'meta[name="supabase-anon-key"]'
-        );
-
-        const supabaseUrl = supabaseUrlMeta ? supabaseUrlMeta.content : null;
-        const supabaseAnonKey = supabaseAnonKeyMeta
-          ? supabaseAnonKeyMeta.content
-          : null;
+        )?.content;
 
         if (!supabaseUrl || !supabaseAnonKey) {
           console.error("Missing Supabase configuration");
@@ -1284,14 +1369,12 @@ const currentPath = Astro.url.pathname;
           );
           const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-          // Enhanced User Management with Real-time Progress
+          // Initialize user management
           window.USRadUser = {
             supabase: supabase,
             user: null,
             profile: null,
             imagingCenter: null,
-            currentProgress: null,
-            progressChannel: null,
 
             // Load user data
             async loadUserData() {
@@ -1310,13 +1393,9 @@ const currentPath = Astro.url.pathname;
                     .single();
 
                   this.profile = profile;
-                  this.currentProgress =
-                    profile && profile.onboarding_progress
-                      ? profile.onboarding_progress
-                      : 0;
 
                   // Get imaging center if profile has one
-                  if (profile && profile.imaging_center_id) {
+                  if (profile?.imaging_center_id) {
                     const { data: center } = await this.supabase
                       .from("imaging_centers")
                       .select(
@@ -1330,9 +1409,6 @@ const currentPath = Astro.url.pathname;
 
                     this.imagingCenter = center;
                   }
-
-                  // Setup real-time progress tracking
-                  this.setupProgressTracking();
                 }
 
                 // Update UI based on user data
@@ -1342,84 +1418,11 @@ const currentPath = Astro.url.pathname;
               }
             },
 
-            // Setup real-time progress tracking
-            setupProgressTracking() {
-              if (!this.user || !this.user.id) return;
-
-              // Subscribe to user progress updates
-              this.progressChannel = this.supabase
-                .channel("user_progress_channel")
-                .on(
-                  "postgres_changes",
-                  {
-                    event: "UPDATE",
-                    schema: "public",
-                    table: "user_profiles",
-                    filter: `id=eq.${this.user.id}`,
-                  },
-                  (payload) => {
-                    console.log("Real-time progress update:", payload);
-
-                    const newProgress = payload.new.onboarding_progress;
-                    const newPSAStatus = payload.new.psa_signed;
-                    const newFacilitiesStatus =
-                      payload.new.facilities_configured;
-
-                    if (newProgress !== this.currentProgress) {
-                      this.currentProgress = newProgress;
-                      this.profile = Object.assign(
-                        {},
-                        this.profile,
-                        payload.new
-                      );
-
-                      // Dispatch progress update event
-                      window.dispatchEvent(
-                        new CustomEvent("userProgressUpdate", {
-                          detail: {
-                            onboarding_progress: newProgress,
-                            psa_signed: newPSAStatus,
-                            facilities_configured: newFacilitiesStatus,
-                            step_completed:
-                              newProgress === 25
-                                ? "facilities"
-                                : newProgress === 50
-                                  ? "psa"
-                                  : newProgress === 75
-                                    ? "caqh"
-                                    : newProgress === 100
-                                      ? "banking"
-                                      : "",
-                          },
-                        })
-                      );
-
-                      // Update UI immediately
-                      this.updateUI();
-                    }
-                  }
-                )
-                .subscribe();
-
-              console.log("✅ Real-time progress tracking setup complete");
-            },
-
             // Update UI elements based on user state
             updateUI() {
-              const hasCompletedPSA =
-                this.profile && this.profile.psa_signed
-                  ? this.profile.psa_signed
-                  : false;
+              const hasCompletedPSA = this.profile?.psa_signed || false;
               const onboardingProgress =
-                this.profile && this.profile.onboarding_progress
-                  ? this.profile.onboarding_progress
-                  : 0;
-
-              console.log("🎨 Updating UI:", {
-                hasCompletedPSA,
-                onboardingProgress,
-                profile: this.profile,
-              });
+                this.profile?.onboarding_progress || 40;
 
               // Update progress indicators
               const progressBars = document.querySelectorAll(
@@ -1434,14 +1437,6 @@ const currentPath = Astro.url.pathname;
               );
               progressTexts.forEach((text) => {
                 text.textContent = `${onboardingProgress}%`;
-              });
-
-              // Update unlock premium card progress
-              const unlockProgress = document.querySelectorAll(
-                "[data-unlock-progress]"
-              );
-              unlockProgress.forEach((element) => {
-                element.textContent = `${onboardingProgress}% Complete`;
               });
 
               // Update PSA banner visibility
@@ -1472,7 +1467,10 @@ const currentPath = Astro.url.pathname;
                 }
               });
 
-              console.log("✅ UI updated successfully");
+              console.log("UI updated:", {
+                hasCompletedPSA,
+                onboardingProgress,
+              });
             },
 
             // Complete PSA signing
@@ -1500,13 +1498,6 @@ const currentPath = Astro.url.pathname;
                 return false;
               }
             },
-
-            // Clean up subscriptions
-            cleanup() {
-              if (this.progressChannel) {
-                this.supabase.removeChannel(this.progressChannel);
-              }
-            },
           };
 
           // Initialize user data
@@ -1516,129 +1507,11 @@ const currentPath = Astro.url.pathname;
           window.USRadUser.supabase.auth.onAuthStateChange(
             async (event, session) => {
               console.log("Auth state changed:", event);
-
-              if (event === "SIGNED_OUT") {
-                window.USRadUser.cleanup();
-              } else if (event === "SIGNED_IN") {
-                await window.USRadUser.loadUserData();
-              }
+              await window.USRadUser.loadUserData();
             }
           );
-
-          // Handle logout buttons
-          const logoutButton = document.getElementById("logout-button");
-          if (logoutButton) {
-            logoutButton.addEventListener("click", async function () {
-              const button = this;
-              const logoutText = document.getElementById("logout-text");
-              const logoutLoading = document.getElementById("logout-loading");
-
-              // Show loading state
-              button.disabled = true;
-              if (logoutText) logoutText.style.display = "none";
-              if (logoutLoading) logoutLoading.style.display = "inline";
-
-              try {
-                // Sign out with Supabase
-                const { error } =
-                  await window.USRadUser.supabase.auth.signOut();
-
-                if (error) {
-                  throw error;
-                }
-
-                // Add success flag and redirect
-                sessionStorage.setItem("logout_success", "true");
-                window.location.href = "/";
-              } catch (error) {
-                console.error("Logout error:", error);
-                alert("Error signing out. Please try again.");
-
-                // Reset button state
-                button.disabled = false;
-                if (logoutText) logoutText.style.display = "inline";
-                if (logoutLoading) logoutLoading.style.display = "none";
-              }
-            });
-          }
-
-          // Handle sidebar logout button
-          const sidebarLogoutButton = document.getElementById(
-            "sidebar-logout-button"
-          );
-          if (sidebarLogoutButton) {
-            sidebarLogoutButton.addEventListener("click", async function () {
-              const button = this;
-              const sidebarLogoutText = document.getElementById(
-                "sidebar-logout-text"
-              );
-              const sidebarLogoutLoading = document.getElementById(
-                "sidebar-logout-loading"
-              );
-
-              // Show loading state
-              button.disabled = true;
-              if (sidebarLogoutText) sidebarLogoutText.classList.add("hidden");
-              if (sidebarLogoutLoading)
-                sidebarLogoutLoading.classList.remove("hidden");
-
-              try {
-                // Sign out with Supabase
-                const { error } =
-                  await window.USRadUser.supabase.auth.signOut();
-
-                if (error) {
-                  throw error;
-                }
-
-                // Add success flag and redirect
-                sessionStorage.setItem("logout_success", "true");
-                window.location.href = "/";
-              } catch (error) {
-                console.error("Sidebar logout error:", error);
-                alert("Error signing out. Please try again.");
-
-                // Reset button state
-                button.disabled = false;
-                if (sidebarLogoutText)
-                  sidebarLogoutText.classList.remove("hidden");
-                if (sidebarLogoutLoading)
-                  sidebarLogoutLoading.classList.add("hidden");
-              }
-            });
-          }
         } catch (error) {
           console.error("Failed to initialize user management:", error);
-        }
-      });
-
-      // Listen for facility completion updates from other components
-      window.addEventListener("userProgressUpdate", function (event) {
-        const { facilities_configured, onboarding_progress, step_completed } =
-          event.detail;
-
-        console.log("🎉 Progress update received:", event.detail);
-
-        // Update the global user object
-        if (window.USRadUser) {
-          window.USRadUser.facilities_configured = facilities_configured;
-          window.USRadUser.onboarding_progress = onboarding_progress;
-
-          if (window.USRadUser.profile) {
-            window.USRadUser.profile.facilities_configured =
-              facilities_configured;
-            window.USRadUser.profile.onboarding_progress = onboarding_progress;
-          }
-
-          // Update UI
-          window.USRadUser.updateUI();
-        }
-      });
-
-      // Cleanup on page unload
-      window.addEventListener("beforeunload", () => {
-        if (window.USRadUser) {
-          window.USRadUser.cleanup();
         }
       });
     </script>

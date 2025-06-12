@@ -1,6 +1,8 @@
 ---
 // Updated to use Supabase Auth - preserving all original design
 // Add this to the frontmatter at the top of your imaginglogin.astro file
+// imaginglogin.astro
+import { supabase } from "@/lib/supabase"; // Optional if using module script later
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 ---
@@ -8,9 +10,9 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="supabase-url" content={supabaseUrl} />
     <meta name="supabase-anon-key" content={supabaseAnonKey} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Imaging Center Login | USRad</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,7 +21,6 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
       rel="stylesheet"
     />
     <!-- Import Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
       *,
       *::before,
@@ -796,7 +797,7 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
       // Load Supabase from CDN
       import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm")
         .then(({ createClient }) => {
-          const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+          const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
           // DOM elements
           const form = document.getElementById("login-form");
@@ -855,11 +856,10 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
           // Main login function
           async function handleLogin(email, password) {
             try {
-              const { data, error } =
-                await supabaseClient.auth.signInWithPassword({
-                  email: email,
-                  password: password,
-                });
+              const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password,
+              });
 
               if (error) {
                 throw error;
@@ -904,14 +904,12 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
           // SSO functions (placeholders for future implementation)
           window.signInWithGoogle = async function () {
             try {
-              const { data, error } = await supabaseClient.auth.signInWithOAuth(
-                {
-                  provider: "google",
-                  options: {
-                    redirectTo: `${window.location.origin}/dashboard`,
-                  },
-                }
-              );
+              const { data, error } = await supabase.auth.signInWithOAuth({
+                provider: "google",
+                options: {
+                  redirectTo: `${window.location.origin}/dashboard`,
+                },
+              });
 
               if (error) throw error;
             } catch (error) {
@@ -923,14 +921,12 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
           window.signInWithMicrosoft = async function () {
             try {
-              const { data, error } = await supabaseClient.auth.signInWithOAuth(
-                {
-                  provider: "azure",
-                  options: {
-                    redirectTo: `${window.location.origin}/dashboard`,
-                  },
-                }
-              );
+              const { data, error } = await supabase.auth.signInWithOAuth({
+                provider: "azure",
+                options: {
+                  redirectTo: `${window.location.origin}/dashboard`,
+                },
+              });
 
               if (error) throw error;
             } catch (error) {
@@ -1018,7 +1014,7 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
           // Password reset handler
           async function handlePasswordReset(email) {
             try {
-              const { error } = await supabaseClient.auth.resetPasswordForEmail(
+              const { error } = await supabase.auth.resetPasswordForEmail(
                 email,
                 {
                   redirectTo: `${window.location.origin}/auth/reset-password`,
@@ -1113,7 +1109,7 @@ const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
             try {
               const {
                 data: { session },
-              } = await supabaseClient.auth.getSession();
+              } = await supabase.auth.getSession();
 
               if (session) {
                 // User is already logged in, redirect to dashboard

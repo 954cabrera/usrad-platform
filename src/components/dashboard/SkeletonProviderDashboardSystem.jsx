@@ -472,9 +472,8 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
         if (supabaseUrl && supabaseAnonKey) {
           // Dynamically import Supabase
           const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
-          const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
-          
-          const { data: { user: currentUser }, error } = await supabaseClient.auth.getUser();
+                    
+          const { data: { user: currentUser }, error } = await supabase.auth.getUser();
           if (currentUser && !error) {
             console.log('🔍 Debug - Supabase user from meta tags:', currentUser);
             setSupabaseUser(currentUser);
@@ -534,15 +533,6 @@ const getSmartOnboardingProgress = () => {
 
   console.log('🔍 Debug - Final PSA Status:', hasCompletedPSA);
   console.log('🔍 Debug - Final Progress:', onboardingProgress);
-  // Add this where you see "🔍 Debug - Final Progress: 25"
-useEffect(() => {
-  // Update unlock premium button when progress changes
-  const unlockButtons = document.querySelectorAll('[data-unlock-progress]');
-  unlockButtons.forEach(button => {
-    button.textContent = `${onboardingProgress}% Complete`;
-    console.log(`✅ Updated unlock button from React component: ${onboardingProgress}%`);
-  });
-}, [onboardingProgress]); // Run when progress changes
 
   // ✨ ENHANCED DEMO DATA with premium features
   const enhancedDemoData = {
