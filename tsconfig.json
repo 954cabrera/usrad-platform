@@ -8,13 +8,19 @@
     "dist"
   ],
   "compilerOptions": {
+    "target": "ES2021",             // Enables optional chaining and nullish coalescing
+    "module": "ESNext",             // Works well with Vite and modern bundlers
     "jsx": "react-jsx",
     "jsxImportSource": "react",
+    "moduleResolution": "node",     // Ensures imports resolve as expected
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
       "@/lib/*": ["./src/lib/*"]
-    }
+    },
+    "allowJs": true,                // Allows mixed .js/.jsx usage
+    "skipLibCheck": true,           // Speeds up builds, reduces noise
+    "forceConsistentCasingInFileNames": true
   }
 }

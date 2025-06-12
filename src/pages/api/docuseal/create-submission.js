@@ -1,107 +1,129 @@
 // src/pages/api/docuseal/create-submission.js
-// Fixed API endpoint for your self-hosted DocuSeal server
 
 export async function POST({ request }) {
-    try {
-      const submissionData = await request.json();
-      
-      console.log('📥 Received submission request:', JSON.stringify(submissionData, null, 2));
-      console.log('🔍 Submitter data being sent:', JSON.stringify(submissionData.submitters[0], null, 2));
-      
-      // DocuSeal CLOUD SERVICE configuration (per official docs)
-      const DOCUSEAL_API_URL = 'https://api.docuseal.com'; 
-      const DOCUSEAL_API_TOKEN = import.meta.env.DOCUSEAL_API_TOKEN;
-      
-      console.log('🔐 API Token check:', DOCUSEAL_API_TOKEN ? 'Token present' : 'Token missing');
-      
-      if (!DOCUSEAL_API_TOKEN) {
-        throw new Error('DocuSeal API token not configured');
-      }
-      
-      // Create submission via DocuSeal API (per official docs)
-      const response = await fetch(`${DOCUSEAL_API_URL}/submissions`, {
-        method: 'POST',
-        headers: {
-          'X-Auth-Token': DOCUSEAL_API_TOKEN, // Official docs use X-Auth-Token header
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          template_id: submissionData.template_id, // Use the template_id from your request (1155842)
-          send_email: submissionData.send_email || false,
-          submitters: submissionData.submitters.map(submitter => ({
-            role: submitter.role,
-            name: submitter.name,
-            email: submitter.email,
-            
-            // Pre-fill all form fields
-            values: submitter.values
-          })),
-          
-          // Add metadata for tracking
-          metadata: {
-            ...submissionData.metadata,
-            created_via: 'USRad_API',
-            api_version: '1.0'
-          }
-        })
-      });
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('❌ DocuSeal API error:', response.status, errorText);
-        throw new Error(`DocuSeal API error: ${response.status} - ${errorText}`);
-      }
-      
-      const result = await response.json();
-      console.log('✅ DocuSeal submission created successfully:', result);
-      
-      // Handle array response from DocuSeal API
-      const responseData = Array.isArray(result) ? result[0] : result;
-      
-      // Return the result with signing URLs (handle different response formats)
-      return new Response(JSON.stringify({
-        success: true,
-        submission_id: responseData?.submission_id || responseData?.id,
-        submitters: Array.isArray(result) ? result : [result],
-        signing_url: responseData?.embed_src || responseData?.send_link_url,
-        embed_src: responseData?.embed_src,
-        metadata: responseData?.metadata || {}
-      }), {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      
-    } catch (error) {
-      console.error('❌ Error in create-submission endpoint:', error);
-      
-      return new Response(JSON.stringify({
-        success: false,
-        error: error.message,
-        details: 'Failed to create DocuSeal submission'
-      }), {
-        status: 500,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-    }
-  }
+  console.log('🔥 API ENDPOINT HIT - Starting DocuSeal API call');
   
-  // Handle GET requests (for testing)
-  export async function GET() {
-    return new Response(JSON.stringify({
-      message: 'DocuSeal submission endpoint is active',
+  try {
+    const body = await request.json();
+    const { email, name } = body;
+
+    console.log('📄 Creating DocuSeal Cloud submission for:', email);
+
+    // Get environment variables
+    const apiKey = "MZtmQ5gQNf3qEkbxJvLEtyWMRu5zHy4oLgDxw9aCpwX"; // Hardcoded for testing
+    const templateId = import.meta.env.DOCUSEAL_TEMPLATE_ID;
+
+    console.log('🔍 API Key loaded:', !!apiKey);
+    console.log('🔍 API Key value:', apiKey ? `${apiKey.substring(0, 10)}...` : 'undefined');
+    console.log('🔍 Template ID:', templateId);
+
+    // Validate required environment variables
+    if (!apiKey) {
+      console.log('❌ API KEY MISSING!');
+      throw new Error('DOCUSEAL_API_TOKEN is not configured');
+    }
+    if (!templateId) {
+      console.log('❌ TEMPLATE ID MISSING!');
+      throw new Error('DOCUSEAL_TEMPLATE_ID is not configured');
+    }
+
+    console.log('🔑 Using template ID:', templateId);
+
+    // DocuSeal Cloud API endpoint (corrected)
+    const response = await fetch('https://api.docuseal.com/submissions', {
       method: 'POST',
-      required_fields: [
-        'template_id',
-        'submitters'
-      ]
-    }), {
-      status: 200,
       headers: {
         'Content-Type': 'application/json',
+        'X-Auth-Token': apiKey,
       },
+      body: JSON.stringify({
+        template_id: parseInt(templateId), // Convert to number
+        submitters: [{
+          role: 'Provider',
+          name: name,
+          email: email,
+          // Add any additional fields your template needs
+          values: {
+            provider_name: name,
+            provider_email: email,
+            // Add other form field mappings here
+          }
+        }]
+      }),
+    });
+
+    const data = await response.json();
+    console.log('✅ DocuSeal Cloud response status:', response.status);
+    console.log('✅ DocuSeal Cloud response data:', JSON.stringify(data, null, 2));
+
+    // Handle different response formats
+    if (response.ok && data) {
+      console.log('✅ DocuSeal response is an array:', Array.isArray(data));
+      
+      // DocuSeal returns an array of submitters
+      let embedUrl = null;
+      
+      if (Array.isArray(data) && data[0]) {
+        const submitter = data[0];
+        console.log('📍 Checking submitter object:', Object.keys(submitter));
+        
+        if (submitter.embed_src) {
+          embedUrl = submitter.embed_src;
+          console.log('📍 Found embed URL in data[0].embed_src');
+        } else if (submitter.embed_url) {
+          embedUrl = submitter.embed_url;
+          console.log('📍 Found embed URL in data[0].embed_url');
+        }
+      } else if (data.submitters && data.submitters[0]) {
+        if (data.submitters[0].embed_url) {
+          embedUrl = data.submitters[0].embed_url;
+          console.log('📍 Found embed URL in data.submitters[0].embed_url');
+        } else if (data.submitters[0].embed_src) {
+          embedUrl = data.submitters[0].embed_src;
+          console.log('📍 Found embed URL in data.submitters[0].embed_src');
+        }
+      } else if (data.embed_url) {
+        embedUrl = data.embed_url;
+        console.log('📍 Found embed URL in data.embed_url');
+      } else if (data.embed_src) {
+        embedUrl = data.embed_src;
+        console.log('📍 Found embed URL in data.embed_src');
+      } else {
+        console.log('❌ Available keys in response:', Object.keys(data));
+        if (Array.isArray(data) && data[0]) {
+          console.log('❌ Available keys in data[0]:', Object.keys(data[0]));
+        }
+      }
+
+      if (embedUrl) {
+        return new Response(JSON.stringify({
+          success: true,
+          embed_url: embedUrl,
+          submission_id: data.id,
+          data: data // Include full response for debugging
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      } else {
+        console.error('❌ No embed URL found in response:', data);
+        throw new Error('No embed URL found in DocuSeal response');
+      }
+    } else {
+      console.error('❌ DocuSeal API error response:', data);
+      throw new Error(data.error || data.message || 'DocuSeal API request failed');
+    }
+
+  } catch (error) {
+    console.error('❌ DocuSeal Cloud API error:', error);
+    
+    return new Response(JSON.stringify({
+      success: false,
+      error: error.message,
+      details: error.stack
+    }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
     });
   }
+}

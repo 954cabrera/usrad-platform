@@ -1,44 +1,10 @@
 ---
-// src/pages/dashboard/onboarding/psa.astro
 import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
-import PSASigningSystemAPI from "../../../components/dashboard/PSASigningSystemAPI.jsx";
-
-// Enhanced fallback data that matches DocuSeal requirements
-const providerData = {
-  // Primary Contact Information (required by DocuSeal)
-  primary_contact_name: "Dr. John Smith",
-  primary_contact_phone: "(954) 555-0124",
-  primary_contact_email: "admin@advancedimaging.com",
-
-  // Provider Information
-  provider_name: "Advanced Imaging Center of Davie",
-  provider_phone: "(954) 555-0123",
-  provider_email: "newtest@advancedimaging.com",
-
-  // Signer Information
-  signer_name: "Dr. John Smith",
-  signer_title: "Medical Director",
-
-  // Business Information
-  tax_id: "12-3456789",
-  total_locations: "1",
-
-  // Backward compatibility with old format
-  facilityName: "Advanced Imaging Center of Davie",
-  contactName: "Dr. John Smith",
-  email: "newtest@advancedimaging.com",
-  phone: "(954) 555-0123",
-  contactPhone: "(954) 555-0124",
-  contactEmail: "admin@advancedimaging.com",
-  totalLocations: "1",
-  signerTitle: "Medical Director",
-
-  // User identification for fallback scenario
-  user_id: "fallback_user",
-  submission_reference: `USRad_PSA_fallback_${Date.now()}`,
-};
+import PSASigningSystemEmbedded from "../../../components/dashboard/PSASigningSystemEmbedded.jsx";
 ---
 
 <DashboardLayout title="PSA Signing" user={null}>
-  <PSASigningSystemAPI client:load providerData={providerData} />
+  <div id="psa-container">
+    <PSASigningSystemEmbedded client:only="react" />
+  </div>
 </DashboardLayout>

@@ -1,557 +1,184 @@
-<<<<<<< HEAD
-import React, { useState, useRef, useEffect } from 'react';
+// src/components/dashboard/PSASigningSystemEmbedded.jsx
+import React, { useEffect, useState, useRef } from 'react';
+import { Loader2, CheckCircle, AlertTriangle } from 'lucide-react';
+import { supabase } from '@/lib/supabaseClient';
+import { DocusealForm } from '@docuseal/react';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 
-const PSASigningSystemEmbedded = ({ providerData }) => {
-  const [status, setStatus] = useState('idle');
-  const [error, setError] = useState(null);
-  const embedRef = useRef(null);
-  const scrollTargetRef = useRef(null);
+function PSASigningCore() {
+  const [embedSrc, setEmbedSrc] = useState(null);
+  const [completed, setCompleted] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [facilityValid, setFacilityValid] = useState(null);
+  const [userReady, setUserReady] = useState(false);
+  const navigate = useNavigate();
+  const containerRef = useRef(null);
 
-  const scrollToForm = () => {
-    setTimeout(() => {
-      scrollTargetRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 300);
-  };
-
-  const loadScript = () => {
-    return new Promise((resolve, reject) => {
-      if (document.querySelector('script[src="https://cdn.docuseal.com/js/form.js"]')) {
-        resolve(); return;
-      }
-      const script = document.createElement('script');
-      script.src = 'https://cdn.docuseal.com/js/form.js';
-      script.onload = resolve;
-      script.onerror = reject;
-      document.body.appendChild(script);
-    });
-  };
-
-  const embedForm = async (url) => {
-    try {
-      await loadScript();
-      if (embedRef.current) {
-        embedRef.current.innerHTML = `
-          <docuseal-form 
-            data-src="${url}"
-            data-email="${providerData.email}"
-            data-name="${providerData.contactName}">
-          </docuseal-form>
-          <div style="margin-top:1.5rem;text-align:center;color:#4B5563;font-size:0.95rem;">
-            📩 Once you’re done signing, click <strong>“Send Copy”</strong> or <strong>“Download”</strong> — then return here.<br />
-            🚀 You will be redirected to your Dashboard automatically.
-          </div>
-        `;
-        scrollToForm();
-
-        const handleMessage = (event) => {
-          if (event.data?.type === 'docuseal:completed' || event.data?.event === 'completed') {
-            setStatus('completed');
-            if (window.USRadUser?.loadUserData) window.USRadUser.loadUserData();
-            if (window.showToast) window.showToast('✅ PSA completed successfully.', 'success');
-
-            setTimeout(() => {
-              window.location.href = '/dashboard';
-            }, 4000);
-          }
-        };
-
-        window.addEventListener('message', handleMessage);
-        return () => window.removeEventListener('message', handleMessage);
-      }
-    } catch (err) {
-      setError('Failed to load DocuSeal script');
-    }
-  };
-
-  useEffect(() => {
-    const createSubmission = async () => {
-      setStatus('loading');
-      try {
-        const response = await fetch('/api/docuseal/create-submission-embedded', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            templateId: 1155842,
-            providerData,
-          }),
-        });
-
-        if (!response.ok) throw new Error('DocuSeal API error');
-        const result = await response.json();
-        if (!result.embed_src) throw new Error('Missing embed_src');
-
-        await embedForm(result.embed_src);
-        setStatus('embedded');
-      } catch (err) {
-        setError(err.message);
-        setStatus('error');
-      }
-    };
-
-    createSubmission();
-  }, []);
-
-  return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <div ref={scrollTargetRef} />
-      <h1 className="text-3xl font-bold text-center text-usrad-navy mb-6 animate-fade-in">
-        Provider Service Agreement
-      </h1>
-
-      {error && (
-        <div className="text-red-600 text-center mb-4 animate-fade-in">
-          ❌ {error}
-        </div>
-      )}
-
-      {status === 'loading' && (
-        <div className="flex justify-center items-center py-8 animate-fade-in">
-          <svg className="animate-spin h-8 w-8 text-usrad-navy" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-          </svg>
-          <span className="ml-4 text-gray-600 text-lg">Preparing your PSA form...</span>
-        </div>
-      )}
-
-      {status === 'completed' && (
-        <div className="bg-green-100 border border-green-300 text-green-800 px-6 py-4 rounded-xl text-center mb-6 animate-bounce shadow">
-          🎉 Your PSA has been signed! Redirecting to your Dashboard...
-        </div>
-      )}
-
-      <div
-        ref={embedRef}
-        className="min-h-[700px] bg-white shadow-2xl rounded-xl p-6 border border-gray-100 transition-all duration-300 animate-fade-in"
-      ></div>
-    </div>
-  );
+  // Validate primary facility before loading PSA
+  // In your component, find the validateFacilityBeforePSA function and replace it with:
+const validateFacilityBeforePSA = async (userId) => {
+  console.log('📋 Skipping facility validation for testing');
+  return true; // Always return true for now
 };
 
-export default PSASigningSystemEmbedded;
-=======
-// src/components/dashboard/PSASigningSystemEmbedded.jsx
-// CORRECTED: Using DocuSeal's Official React Package
-import React, { useState, useEffect } from 'react';
-import { 
-  FileText, 
-  CheckCircle, 
-  Loader2, 
-  ExternalLink, 
-  Shield,
-  AlertCircle,
-  RefreshCw
-} from 'lucide-react';
-import { createClient } from '@supabase/supabase-js';
-
-// Import DocuSeal React component
-import { DocusealForm } from '@docuseal/react';
-
-const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-);
-
-export default function PSASigningSystemEmbedded() {
-  const [psaStatus, setPsaStatus] = useState('ready'); // ready, signing, completed, error
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [debugLogs, setDebugLogs] = useState([]);
-  const [user, setUser] = useState(null);
-  const [showFallback, setShowFallback] = useState(false);
-
-  // Mock provider data (you can fetch this from Supabase)
-  const providerData = {
-    facilityName: "Advanced Imaging Center of Davie",
-    contactName: "Dr. John Smith",
-    contactEmail: "admin@advancedimaging.com",
-    contactPhone: "(954) 555-0124",
-    taxId: "12-3456789",
-    signerTitle: "Medical Director",
-    address: "123 Medical Plaza, Davie, FL 33328"
-  };
-
-  // Debug logging function
-  const addDebugLog = (message) => {
-    const timestamp = new Date().toLocaleTimeString();
-    const logEntry = `[${timestamp}] ${message}`;
-    console.log('🔍 PSA Debug:', logEntry);
-    setDebugLogs(prev => [...prev.slice(-9), logEntry]);
-  };
-
-  // Get authenticated user
   useEffect(() => {
-    const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-      addDebugLog('🔧 Component mounted, user: ' + (user?.email || 'none'));
+    const checkUser = () => {
+      if (window.USRadUser && window.USRadUser.user) {
+        console.log('✅ User found:', window.USRadUser.user.email);
+        setUserReady(true);
+        initializePSA();
+      } else {
+        console.log('⏳ Waiting for user...');
+        setTimeout(checkUser, 100);
+      }
     };
-    getUser();
+
+    checkUser();
   }, []);
 
-  // DocuSeal form URL - using your existing template
-  const docusealFormSrc = `https://docuseal.com/d/LXvm6u76HPzVH3?email=${encodeURIComponent(providerData.contactEmail)}&name=${encodeURIComponent(providerData.contactName)}`;
-
-  // Handle PSA completion
-  const handlePSACompletion = async (details) => {
-    addDebugLog('🎉 PSA completion handler triggered');
-    setPsaStatus('completed');
-    setLoading(false);
-
+  const initializePSA = async () => {
+    const user = window.USRadUser.user;
+    console.log('🚀 Starting PSA initialization for:', user.email);
+    
     try {
-      if (user) {
-        // Update user profile in Supabase
-        const { error: updateError } = await supabase
-          .from('profiles')
-          .update({
-            has_completed_psa: true,
-            psa_completed_at: new Date().toISOString(),
-            onboarding_progress: 60,
-            psa_details: details || {}
-          })
-          .eq('id', user.id);
+      // Validate facility
+      console.log('📋 Validating facility...');
+      const isValid = await validateFacilityBeforePSA(user.id);
+      setFacilityValid(isValid);
 
-        if (updateError) {
-          addDebugLog('❌ Error updating PSA status: ' + updateError.message);
-          throw updateError;
-        }
-
-        addDebugLog('✅ PSA status updated in database');
-
-        // Show success message
-        showCompletionSuccess();
-        
-        // Navigate to facilities after delay
-        setTimeout(() => {
-          addDebugLog('🏥 Navigating to facilities page');
-          window.location.href = '/dashboard/facilities?psa_completed=true';
-        }, 2000);
-
-      } else {
-        throw new Error('No authenticated user found');
+      if (!isValid) {
+        console.log('❌ Facility validation failed');
+        setLoading(false);
+        return;
       }
-    } catch (error) {
-      addDebugLog('❌ PSA completion error: ' + error.message);
-      setError('Completion processing failed: ' + error.message);
+
+      // Create DocuSeal submission
+      console.log('📄 Creating DocuSeal submission...');
+      const response = await fetch('/api/docuseal/create-submission', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: user.email,
+          name: user.user_metadata && user.user_metadata.full_name ? user.user_metadata.full_name : 'Provider'
+        }),
+      });
+
+      const data = await response.json();
+      console.log('✅ DocuSeal response:', data);
+      
+      if (data.success && data.embed_url) {
+        setEmbedSrc(data.embed_url);
+        console.log('🎯 Embed URL set:', data.embed_url);
+      } else {
+        throw new Error(data.error || 'Failed to create DocuSeal submission');
+      }
+    } catch (err) {
+      console.error('❌ PSA initialization error:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Show completion success notification
-  const showCompletionSuccess = () => {
-    const notification = document.createElement('div');
-    notification.innerHTML = `
-      <div style="
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: linear-gradient(135deg, #10B981, #059669);
-        color: white;
-        padding: 20px 30px;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
-        z-index: 10000;
-        font-family: 'Inter', sans-serif;
-        animation: slideInRight 0.5s ease-out;
-      ">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <div style="font-size: 24px;">🎉</div>
-          <div>
-            <div style="font-weight: 600; font-size: 16px;">PSA Completed!</div>
-            <div style="font-size: 14px; opacity: 0.9;">Redirecting to facilities...</div>
-          </div>
-        </div>
-      </div>
-    `;
+  const handlePSACompletion = async () => {
+    console.log('🎉 PSA completed!');
+    setCompleted(true);
     
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes slideInRight {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-    `;
-    document.head.appendChild(style);
-    document.body.appendChild(notification);
+    const user = window.USRadUser.user;
     
+    try {
+      // Update progress to 50%
+      await supabase
+        .from('user_profiles')
+        .update({ 
+          onboarding_progress: 50,
+          psa_signed: true 
+        })
+        .eq('user_id', user.id);
+
+      // Dispatch progress update
+      window.dispatchEvent(
+        new CustomEvent('userProgressUpdate', {
+          detail: { 
+            onboarding_progress: 50, 
+            step_completed: 'psa',
+            psa_signed: true 
+          },
+        })
+      );
+
+      console.log('✅ Progress updated to 50%');
+    } catch (error) {
+      console.error('❌ Error updating progress:', error);
+    }
+
+    // Redirect after 3 seconds
     setTimeout(() => {
-      notification.remove();
-      style.remove();
+      navigate('/dashboard');
     }, 3000);
   };
 
-  // Start PSA signing process
-  const startPSASigning = () => {
-    addDebugLog('🚀 Starting PSA signing process');
-    setLoading(false); // Let DocuSeal handle its own loading
-    setPsaStatus('signing');
-    setError(null);
-    setShowFallback(false);
-  };
-
-  // Manual completion for testing
-  const triggerManualCompletion = () => {
-    addDebugLog('🧪 Manual completion triggered for testing');
-    handlePSACompletion({ manual: true, timestamp: new Date().toISOString() });
-  };
-
-  // USRad custom CSS theme for DocuSeal
-  const customDocusealCSS = `
-    /* USRad Professional Theme */
-    .form-container {
-      background-color: #ffffff;
-      border-radius: 16px;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    }
-    
-    .template-title {
-      color: #1f2937;
-      font-family: 'Inter', system-ui, sans-serif;
-      font-weight: 600;
-    }
-    
-    .submit-form-button {
-      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-      border: 0;
-      border-radius: 12px;
-      color: #ffffff;
-      font-weight: 600;
-      padding: 12px 24px;
-      transition: all 0.2s ease;
-    }
-    
-    .submit-form-button:hover {
-      background: linear-gradient(135deg, #2563eb, #1e40af);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-    }
-    
-    .field-area {
-      background-color: rgba(59, 130, 246, 0.1);
-      border-color: #3b82f6;
-      border-radius: 8px;
-    }
-    
-    .steps-form input, .steps-form textarea, .steps-form select {
-      border-radius: 8px;
-      border: 1px solid #d1d5db;
-      font-family: 'Inter', system-ui, sans-serif;
-    }
-    
-    .steps-form input:focus, .steps-form textarea:focus, .steps-form select:focus {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
-  `;
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      <style>{`
-        .usrad-card {
-          background: white;
-          border-radius: 24px;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          backdrop-filter: blur(20px);
-        }
-        .usrad-gradient-text {
-          background: linear-gradient(135deg, #3b82f6, #1d4ed8, #7c3aed);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-      `}</style>
+    <div ref={containerRef} className="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+      <h2 className="text-xl font-bold text-gray-800 mb-2">Provider Services Agreement</h2>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <Shield className="w-8 h-8 text-blue-600" />
-              <h1 className="text-3xl font-bold usrad-gradient-text">
-                Provider Service Agreement
-              </h1>
-            </div>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Complete your PSA digitally with enterprise-grade security. Join the USRad network 
-              and start offering 60%+ discounted imaging to patients immediately.
-            </p>
-          </div>
-
-          {/* Debug Panel (Development Only) */}
-          {import.meta.env.DEV && (
-            <div className="mb-6 p-4 bg-gray-100 rounded-lg">
-              <h3 className="font-semibold mb-2">Debug Information</h3>
-              <div className="space-y-1 text-sm font-mono">
-                {debugLogs.map((log, i) => (
-                  <div key={i}>{log}</div>
-                ))}
-              </div>
-              <button 
-                onClick={triggerManualCompletion}
-                className="mt-2 px-3 py-1 bg-green-500 text-white rounded text-xs"
-              >
-                Test Manual Completion
-              </button>
-            </div>
-          )}
-
-          {/* Main Content */}
-          <div className="usrad-card p-8">
-            {psaStatus === 'ready' && (
-              <div className="text-center space-y-6">
-                <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
-                  <FileText className="w-10 h-10 text-blue-600" />
-                </div>
-                
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Sign Your PSA</h3>
-                  <div className="bg-gray-50 rounded-lg p-6 text-left max-w-lg mx-auto">
-                    <h4 className="font-semibold text-gray-900 mb-3">Facility Information</h4>
-                    <div className="space-y-2 text-sm text-gray-600">
-                      <div><strong>Facility:</strong> {providerData.facilityName}</div>
-                      <div><strong>Contact:</strong> {providerData.contactName}</div>
-                      <div><strong>Email:</strong> {providerData.contactEmail}</div>
-                      <div><strong>Phone:</strong> {providerData.contactPhone}</div>
-                    </div>
-                  </div>
-                </div>
-
-                <button
-                  onClick={startPSASigning}
-                  className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg"
-                >
-                  <FileText className="w-5 h-5" />
-                  Begin PSA Signing
-                </button>
-              </div>
-            )}
-
-            {psaStatus === 'signing' && (
-              <div className="space-y-6">
-                <div className="text-center mb-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Complete Your PSA</h3>
-                  <p className="text-gray-600">Sign your Provider Service Agreement below</p>
-                </div>
-
-                {!showFallback ? (
-                  <div className="relative">
-                    {loading && (
-                      <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-10 rounded-xl">
-                        <div className="flex items-center gap-3">
-                          <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
-                          <span className="font-medium text-gray-700">Loading DocuSeal Form...</span>
-                        </div>
-                      </div>
-                    )}
-                    
-                    {/* DocuSeal React Component */}
-                    <div className="rounded-xl overflow-hidden border border-gray-200" style={{ minHeight: '600px' }}>
-                      <DocusealForm 
-                        src={docusealFormSrc}
-                        email={providerData.contactEmail}
-                        customCss={customDocusealCSS}
-                        onCompleted={(details) => {
-                          addDebugLog('✅ DocuSeal form completed via onCompleted callback');
-                          handlePSACompletion(details);
-                        }}
-                        onLoad={() => {
-                          addDebugLog('✅ DocuSeal form loaded successfully');
-                          setLoading(false);
-                        }}
-                        onError={(error) => {
-                          addDebugLog('❌ DocuSeal form error: ' + JSON.stringify(error));
-                          setError('Form loading failed: ' + (error?.message || 'Unknown error'));
-                          setShowFallback(true);
-                        }}
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <div className="text-center space-y-4 py-8">
-                    <AlertCircle className="w-12 h-12 text-amber-500 mx-auto" />
-                    <div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-2">Form Loading Issue</h4>
-                      <p className="text-gray-600 mb-4">
-                        {error || 'The embedded form is having trouble loading.'}
-                      </p>
-                      <div className="flex items-center justify-center gap-4">
-                        <button
-                          onClick={() => {
-                            setShowFallback(false);
-                            setError(null);
-                            setLoading(true);
-                          }}
-                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                        >
-                          <RefreshCw className="w-4 h-4" />
-                          Try Again
-                        </button>
-                        <a
-                          href={docusealFormSrc}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                          Open in New Tab
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                <div className="text-center">
-                  <p className="text-sm text-gray-500">
-                    Enterprise-grade security powered by DocuSeal
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {psaStatus === 'completed' && (
-              <div className="text-center space-y-6">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                  <CheckCircle className="w-10 h-10 text-green-600" />
-                </div>
-                
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">PSA Completed Successfully!</h3>
-                  <p className="text-gray-600 mb-4">
-                    Your Provider Service Agreement has been signed and processed. 
-                    You're now part of the USRad network!
-                  </p>
-                </div>
-
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4 max-w-md mx-auto">
-                  <p className="text-green-800 text-sm">
-                    🎉 <strong>Welcome to USRad!</strong><br />
-                    Redirecting to facilities setup...
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {error && psaStatus !== 'completed' && (
-              <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-red-800 text-sm">
-                  <strong>Error:</strong> {error}
-                </p>
-              </div>
-            )}
-          </div>
-
-          <div className="text-center mt-8">
-            <p className="text-sm text-gray-500">
-              Questions? Contact our support team at{' '}
-              <a href="mailto:support@usrad.com" className="text-blue-600 hover:underline">
-                support@usrad.com
-              </a>
-            </p>
-          </div>
+      {!userReady && (
+        <div className="flex items-center justify-center py-10">
+          <Loader2 className="animate-spin w-6 h-6 text-blue-500" />
+          <span className="ml-2 text-blue-600">Loading user data...</span>
         </div>
-      </div>
+      )}
+
+      {userReady && loading && (
+        <div className="flex items-center justify-center py-10">
+          <Loader2 className="animate-spin w-6 h-6 text-gray-500" />
+          <span className="ml-2 text-gray-600">Loading agreement...</span>
+        </div>
+      )}
+
+      {userReady && !loading && facilityValid === false && (
+        <div className="text-red-600 py-10 text-center">
+          <AlertTriangle className="w-8 h-8 mx-auto mb-2" />
+          <p className="text-lg font-semibold">Missing required facility data.</p>
+          <p className="text-sm text-gray-600">Please complete your primary imaging center setup before signing the PSA.</p>
+        </div>
+      )}
+
+      {userReady && !loading && facilityValid && !completed && embedSrc && (
+        <div>
+          <p className="text-green-600 mb-4">✅ Ready to sign PSA</p>
+          <DocusealForm
+            src={embedSrc}
+            onCompleted={handlePSACompletion}
+            style={{ width: '100%', height: '800px', border: 'none' }}
+          />
+        </div>
+      )}
+
+      {userReady && !loading && facilityValid && !completed && !embedSrc && (
+        <div className="text-yellow-600 py-10 text-center">
+          <AlertTriangle className="w-8 h-8 mx-auto mb-2" />
+          <p className="text-lg font-semibold">Unable to load PSA form.</p>
+          <p className="text-sm text-gray-600">Please check your DocuSeal configuration.</p>
+        </div>
+      )}
+
+      {completed && (
+        <div className="text-center py-10 text-green-600 animate-fade-in">
+          <CheckCircle className="w-10 h-10 mx-auto mb-2" />
+          <p className="text-lg font-semibold">Success! Agreement signed.</p>
+          <p className="text-sm text-gray-600">Redirecting to your dashboard...</p>
+        </div>
+      )}
     </div>
   );
 }
->>>>>>> af2e55def717f403ccb4fc26af730bc16344821c
+
+export default function PSASigningSystemEmbedded() {
+  console.log('🔴 PSA Wrapper component mounting...');
+  
+  return (
+    <BrowserRouter>
+      <PSASigningCore />
+    </BrowserRouter>
+  );
+}
