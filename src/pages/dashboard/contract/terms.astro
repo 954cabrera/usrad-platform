@@ -1,0 +1,434 @@
+---
+import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
+---
+
+<DashboardLayout title="Contract Terms" user={null}>
+  <div class="max-w-4xl mx-auto p-6 space-y-8">
+    <!-- Header Section -->
+    <div class="text-center space-y-4">
+      <h1 class="text-3xl font-bold text-gray-900">Contract Terms Selection</h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Choose the contract terms that best fit your center's operational needs and market positioning.
+      </p>
+    </div>
+
+    <!-- Contract Terms Options -->
+    <div class="space-y-6">
+      <!-- Standard Terms Section -->
+      <div class="bg-white rounded-lg shadow-sm border p-8 relative">
+        <div class="absolute -top-3 left-6">
+          <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">RECOMMENDED</span>
+        </div>
+        
+        <div class="pt-2 space-y-6">
+          <div class="flex items-start justify-between">
+            <div class="space-y-2">
+              <h2 class="text-2xl font-semibold text-gray-900">Market-Competitive Standard Terms</h2>
+              <p class="text-gray-600">Industry-standard terms designed for optimal market positioning</p>
+            </div>
+            <div class="text-right">
+              <div class="text-sm text-gray-500">Processing Time</div>
+              <div class="text-lg font-semibold text-green-600">Immediate</div>
+            </div>
+          </div>
+
+          <!-- Why 100% Medicare Rates Work Info Box -->
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+            <div class="flex items-start">
+              <div class="flex-shrink-0">
+                <svg class="w-5 h-5 text-blue-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div class="ml-3">
+                <h3 class="text-sm font-semibold text-blue-900">Why 100% Medicare Rates Work</h3>
+                <div class="mt-2 text-sm text-blue-800 space-y-1">
+                  <p>• <strong>Patient Accessibility:</strong> Pricing that patients can afford drives higher volume</p>
+                  <p>• <strong>Market Positioning:</strong> Competitive rates attract price-conscious consumers</p>
+                  <p>• <strong>Cash-Pay Benefits:</strong> Faster payments + reduced administrative overhead</p>
+                  <p>• <strong>Volume Economics:</strong> Higher patient throughput compensates for unit pricing</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Standard Terms Details -->
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <h3 class="font-semibold text-gray-900">Reimbursement Terms</h3>
+              <ul class="space-y-2 text-gray-700">
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  100% of Medicare reimbursement rates
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Payment within 24-48 hours
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  No insurance billing complexity
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Annual rate adjustments with CMS updates
+                </li>
+              </ul>
+            </div>
+            
+            <div class="space-y-4">
+              <h3 class="font-semibold text-gray-900">Contract Terms</h3>
+              <ul class="space-y-2 text-gray-700">
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Evergreen (auto-renewal) agreement
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  30-day termination notice
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Immediate network access
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  Standard liability protections
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Social Proof -->
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <p class="text-sm text-gray-700">
+              <strong>85% of imaging centers</strong> choose these market-competitive standard terms for optimal patient accessibility and operational efficiency.
+            </p>
+          </div>
+
+          <button 
+            id="accept-standard-terms" 
+            class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 shadow-sm text-lg"
+          >
+            Accept Market-Competitive Terms
+          </button>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-gray-300"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <span class="px-2 bg-gray-50 text-gray-500">or</span>
+        </div>
+      </div>
+
+      <!-- Custom Negotiation Section -->
+      <div class="bg-white rounded-lg shadow-sm border p-8">
+        <div class="space-y-6">
+          <div class="flex items-start justify-between">
+            <div class="space-y-2">
+              <h2 class="text-2xl font-semibold text-gray-900">Custom Rate Negotiation</h2>
+              <p class="text-gray-600">Request customized terms for unique market conditions</p>
+            </div>
+            <div class="text-right">
+              <div class="text-sm text-gray-500">Processing Time</div>
+              <div class="text-lg font-semibold text-orange-600">2-5 Business Days</div>
+            </div>
+          </div>
+
+          <!-- Market Considerations Warning -->
+          <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg">
+            <div class="flex items-start">
+              <div class="flex-shrink-0">
+                <svg class="w-5 h-5 text-orange-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div class="ml-3">
+                <h3 class="text-sm font-semibold text-orange-900">Market Considerations</h3>
+                <div class="mt-2 text-sm text-orange-800 space-y-1">
+                  <p>• <strong>Patient Choice:</strong> Pricing decisions are primarily driven by price comparison</p>
+                  <p>• <strong>Volume Impact:</strong> Higher rates may significantly reduce patient volume</p>
+                  <p>• <strong>Market Competition:</strong> Patients easily compare prices across multiple centers</p>
+                  <p>• <strong>Processing Delay:</strong> Custom negotiations require additional review time</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Custom Terms Form -->
+          <div class="space-y-6" id="custom-terms-form" style="display: none;">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label for="requested-rate" class="block text-sm font-medium text-gray-700 mb-2">
+                  Requested Rate Percentage
+                </label>
+                <select id="requested-rate" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="">Select percentage</option>
+                  <option value="110">110% of Medicare</option>
+                  <option value="120">120% of Medicare</option>
+                  <option value="130">130% of Medicare</option>
+                  <option value="140">140% of Medicare</option>
+                  <option value="150">150% of Medicare</option>
+                  <option value="custom">Custom rate</option>
+                </select>
+              </div>
+              
+              <div>
+                <label for="negotiation-reason" class="block text-sm font-medium text-gray-700 mb-2">
+                  Reason for Negotiation
+                </label>
+                <select id="negotiation-reason" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="">Select reason</option>
+                  <option value="volume">High volume guarantee</option>
+                  <option value="exclusivity">Market exclusivity</option>
+                  <option value="market-conditions">Unique market conditions</option>
+                  <option value="equipment">Premium equipment investment</option>
+                  <option value="location">Prime location advantages</option>
+                  <option value="other">Other (please specify)</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="custom-rate-input" style="display: none;">
+              <label for="custom-rate-value" class="block text-sm font-medium text-gray-700 mb-2">
+                Custom Rate Percentage
+              </label>
+              <input 
+                type="number" 
+                id="custom-rate-value" 
+                min="100" 
+                max="300" 
+                step="5" 
+                placeholder="e.g., 125"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+            </div>
+
+            <div id="other-reason-input" style="display: none;">
+              <label for="other-reason-text" class="block text-sm font-medium text-gray-700 mb-2">
+                Please specify your reason
+              </label>
+              <textarea 
+                id="other-reason-text" 
+                rows="3" 
+                placeholder="Describe the unique circumstances that justify custom rates"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              ></textarea>
+            </div>
+
+            <div>
+              <label for="justification" class="block text-sm font-medium text-gray-700 mb-2">
+                Additional Justification
+              </label>
+              <textarea 
+                id="justification" 
+                rows="4" 
+                placeholder="Provide additional context for your rate negotiation request, including market factors, volume commitments, or unique value propositions"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              ></textarea>
+            </div>
+
+            <button 
+              id="submit-negotiation" 
+              class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 shadow-sm text-lg"
+            >
+              Submit Rate Negotiation Request
+            </button>
+          </div>
+
+          <!-- Show Custom Form Button -->
+          <button 
+            id="show-custom-form" 
+            class="w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 shadow-sm text-lg"
+          >
+            Request Custom Rate Negotiation
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pending Review State (initially hidden) -->
+    <div id="pending-review-state" class="bg-white rounded-lg shadow-sm border p-8" style="display: none;">
+      <div class="text-center space-y-6">
+        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
+          <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        
+        <div>
+          <h2 class="text-2xl font-semibold text-gray-900 mb-2">Negotiation Request Submitted</h2>
+          <p class="text-gray-600">Your custom rate negotiation request is under review</p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg text-left">
+          <h3 class="font-semibold text-gray-900 mb-3">Request Details</h3>
+          <div id="request-details" class="space-y-2 text-sm text-gray-700">
+            <!-- Details will be populated by JavaScript -->
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <p class="text-sm text-gray-600">
+            Expected review time: <strong>2-5 business days</strong><br>
+            You'll receive an email notification once the review is complete.
+          </p>
+          
+          <div class="border-t pt-4">
+            <p class="text-sm text-gray-600 mb-4">Don't want to wait? You can proceed with standard terms now:</p>
+            <button 
+              id="proceed-standard-while-waiting" 
+              class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-sm"
+            >
+              Proceed with Standard Terms
+            </button>
+          </div>
+        </div>
+
+        <div class="border-t pt-6">
+          <h3 class="font-semibold text-gray-900 mb-2">Need to discuss your request?</h3>
+          <p class="text-sm text-gray-600">
+            Contract Team: <a href="mailto:contracts@usradiology.com" class="text-blue-600 hover:underline">contracts@usradiology.com</a><br>
+            Phone: <a href="tel:+1-555-0123" class="text-blue-600 hover:underline">(555) 012-3456</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const showCustomFormBtn = document.getElementById('show-custom-form');
+      const customTermsForm = document.getElementById('custom-terms-form');
+      const acceptStandardBtn = document.getElementById('accept-standard-terms');
+      const submitNegotiationBtn = document.getElementById('submit-negotiation');
+      const pendingReviewState = document.getElementById('pending-review-state');
+      const requestedRateSelect = document.getElementById('requested-rate');
+      const customRateInput = document.getElementById('custom-rate-input');
+      const negotiationReasonSelect = document.getElementById('negotiation-reason');
+      const otherReasonInput = document.getElementById('other-reason-input');
+
+      // Show custom form
+      showCustomFormBtn.addEventListener('click', function() {
+        customTermsForm.style.display = 'block';
+        showCustomFormBtn.style.display = 'none';
+      });
+
+      // Handle custom rate input visibility
+      requestedRateSelect.addEventListener('change', function() {
+        if (this.value === 'custom') {
+          customRateInput.style.display = 'block';
+        } else {
+          customRateInput.style.display = 'none';
+        }
+      });
+
+      // Handle other reason input visibility
+      negotiationReasonSelect.addEventListener('change', function() {
+        if (this.value === 'other') {
+          otherReasonInput.style.display = 'block';
+        } else {
+          otherReasonInput.style.display = 'none';
+        }
+      });
+
+      // Accept standard terms
+      acceptStandardBtn.addEventListener('click', function() {
+        // Save the acceptance and proceed to next step
+        if (window.USRadUser && window.USRadUser.user) {
+          localStorage.setItem('contract_terms_accepted', JSON.stringify({
+            type: 'standard',
+            rate: '100% Medicare',
+            timestamp: new Date().toISOString(),
+            user_id: window.USRadUser.user.id
+          }));
+        }
+        
+        window.location.href = '/dashboard/contract/confirmation';
+      });
+
+      // Submit negotiation request
+      submitNegotiationBtn.addEventListener('click', function() {
+        const requestedRate = requestedRateSelect.value;
+        const customRate = document.getElementById('custom-rate-value').value;
+        const negotiationReason = negotiationReasonSelect.value;
+        const otherReason = document.getElementById('other-reason-text').value;
+        const justification = document.getElementById('justification').value;
+
+        // Validation
+        if (!requestedRate || !negotiationReason) {
+          alert('Please fill in all required fields.');
+          return;
+        }
+
+        if (requestedRate === 'custom' && !customRate) {
+          alert('Please specify your custom rate percentage.');
+          return;
+        }
+
+        if (negotiationReason === 'other' && !otherReason) {
+          alert('Please specify your reason for negotiation.');
+          return;
+        }
+
+        // Prepare negotiation data
+        const negotiationData = {
+          type: 'custom',
+          requested_rate: requestedRate === 'custom' ? customRate + '%' : requestedRate + '% of Medicare',
+          reason: negotiationReason === 'other' ? otherReason : negotiationReason,
+          justification: justification,
+          timestamp: new Date().toISOString(),
+          status: 'pending_review'
+        };
+
+        if (window.USRadUser && window.USRadUser.user) {
+          negotiationData.user_id = window.USRadUser.user.id;
+        }
+
+        // Save negotiation request
+        localStorage.setItem('contract_negotiation_request', JSON.stringify(negotiationData));
+
+        // Populate request details
+        const requestDetails = document.getElementById('request-details');
+        requestDetails.innerHTML = `
+          <div><strong>Requested Rate:</strong> ${negotiationData.requested_rate}</div>
+          <div><strong>Reason:</strong> ${negotiationData.reason}</div>
+          ${negotiationData.justification ? `<div><strong>Justification:</strong> ${negotiationData.justification}</div>` : ''}
+          <div><strong>Submitted:</strong> ${new Date().toLocaleDateString()}</div>
+        `;
+
+        // Show pending review state
+        document.querySelector('.space-y-6').style.display = 'none';
+        pendingReviewState.style.display = 'block';
+      });
+
+      // Proceed with standard terms while waiting
+      const proceedStandardBtn = document.getElementById('proceed-standard-while-waiting');
+      if (proceedStandardBtn) {
+        proceedStandardBtn.addEventListener('click', function() {
+          acceptStandardBtn.click();
+        });
+      }
+    });
+  </script>
+</DashboardLayout>

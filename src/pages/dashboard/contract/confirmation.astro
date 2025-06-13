@@ -1,0 +1,403 @@
+---
+import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
+---
+
+<DashboardLayout title="PSA Confirmation" user={null}>
+  <div class="max-w-4xl mx-auto p-6 space-y-8">
+    <!-- Header Section -->
+    <div class="text-center space-y-4">
+      <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+        <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900">PSA Agreement Confirmation</h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Review your agreement details before proceeding to digital signature
+      </p>
+    </div>
+
+    <!-- Agreement Structure Information -->
+    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+      <div class="flex items-start">
+        <div class="flex-shrink-0">
+          <svg class="w-5 h-5 text-blue-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-sm font-semibold text-blue-900">Agreement Structure</h3>
+          <div class="mt-2 text-sm text-blue-800 space-y-1">
+            <p>• <strong>PSA Agreement:</strong> Fixed 10-page master agreement (regardless of facility count)</p>
+            <p>• <strong>Exhibit B:</strong> Separate facility-specific document (varies by facility count)</p>
+            <p>• <strong>Delivery Process:</strong> Exhibit B will be sent separately after PSA signing</p>
+            <p>• <strong>Signatures Required:</strong> Only PSA Agreement requires signature to proceed</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contract Terms Summary -->
+    <div class="bg-white rounded-lg shadow-sm border">
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-xl font-semibold text-gray-900">Contract Terms Summary</h2>
+      </div>
+      
+      <div class="p-6 space-y-6">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="text-center">
+            <div class="text-2xl font-bold text-green-600" id="term-length">Evergreen</div>
+            <div class="text-sm text-gray-500">Term Length</div>
+            <div class="text-xs text-gray-400 mt-1">(auto-renewal)</div>
+          </div>
+          
+          <div class="text-center">
+            <div class="text-2xl font-bold text-blue-600" id="reimbursement-rate">100% Medicare</div>
+            <div class="text-sm text-gray-500">Reimbursement Rate</div>
+            <div class="text-xs text-gray-400 mt-1" id="rate-note">(can be negotiated)</div>
+          </div>
+          
+          <div class="text-center">
+            <div class="text-2xl font-bold text-orange-600">24-48hr</div>
+            <div class="text-sm text-gray-500">Payment Terms</div>
+            <div class="text-xs text-gray-400 mt-1">after service delivery</div>
+          </div>
+        </div>
+
+        <!-- Document Structure -->
+        <div class="border-t pt-6">
+          <h3 class="font-semibold text-gray-900 mb-4">Document Structure</h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <div class="flex items-center mb-2">
+                <svg class="w-5 h-5 text-gray-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="font-semibold text-gray-900">PSA Agreement</span>
+              </div>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>• Master service agreement</li>
+                <li>• Standard terms and conditions</li>
+                <li>• Always 10 pages</li>
+                <li>• Requires digital signature</li>
+              </ul>
+            </div>
+            
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <div class="flex items-center mb-2">
+                <svg class="w-5 h-5 text-gray-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="font-semibold text-gray-900">Exhibit B</span>
+              </div>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>• Facility-specific details</li>
+                <li>• Referenced in PSA Agreement</li>
+                <li>• Pages vary by facility count</li>
+                <li>• Sent separately after signing</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Organization Information -->
+    <div class="bg-white rounded-lg shadow-sm border">
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-xl font-semibold text-gray-900">Organization Information</h2>
+      </div>
+      
+      <div class="p-6 space-y-6" id="organization-info">
+        <!-- Organization details will be loaded dynamically -->
+        <div class="text-center text-gray-500">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+          <p class="mt-2">Loading organization information...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Facility Summary -->
+    <div class="bg-white rounded-lg shadow-sm border">
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-xl font-semibold text-gray-900">Facility Summary</h2>
+      </div>
+      
+      <div class="p-6" id="facility-summary">
+        <!-- Facility details will be loaded dynamically -->
+        <div class="text-center text-gray-500">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+          <p class="mt-2">Loading facility information...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmation Checkboxes -->
+    <div class="bg-white rounded-lg shadow-sm border p-6">
+      <h2 class="text-xl font-semibold text-gray-900 mb-6">Confirmation Requirements</h2>
+      
+      <div class="space-y-4">
+        <label class="flex items-start">
+          <input type="checkbox" id="confirm-facility-info" class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+          <span class="ml-3 text-sm text-gray-700">
+            I confirm that all facility information listed above is accurate and complete
+          </span>
+        </label>
+        
+        <label class="flex items-start">
+          <input type="checkbox" id="confirm-contact-details" class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+          <span class="ml-3 text-sm text-gray-700">
+            I confirm that all contact and corporate details are current and accurate
+          </span>
+        </label>
+        
+        <label class="flex items-start">
+          <input type="checkbox" id="confirm-authorized" class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+          <span class="ml-3 text-sm text-gray-700">
+            I am authorized to sign this agreement on behalf of the organization
+          </span>
+        </label>
+        
+        <label class="flex items-start">
+          <input type="checkbox" id="confirm-exhibit-b" class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+          <span class="ml-3 text-sm text-gray-700">
+            I understand that Exhibit B will be delivered separately after PSA signing
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex justify-between items-center pt-6">
+      <button 
+        onclick="window.location.href='/dashboard/contract/terms'"
+        class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+      >
+        ← Back to Terms
+      </button>
+      
+      <button 
+        id="proceed-to-signing"
+        disabled
+        class="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
+      >
+        Proceed to Digital Signing
+      </button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const proceedBtn = document.getElementById('proceed-to-signing');
+      
+      // Load contract terms from previous step
+      loadContractTerms();
+      
+      // Load organization and facility information
+      loadOrganizationInfo();
+      
+      // Check confirmation requirements
+      function checkConfirmationRequirements() {
+        const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+        proceedBtn.disabled = !allChecked;
+      }
+      
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', checkConfirmationRequirements);
+      });
+      
+      // Proceed to signing
+      proceedBtn.addEventListener('click', function() {
+        if (Array.from(checkboxes).every(checkbox => checkbox.checked)) {
+          // Save confirmation status
+          localStorage.setItem('psa_confirmation_completed', JSON.stringify({
+            confirmed: true,
+            timestamp: new Date().toISOString(),
+            checkboxes_confirmed: ['facility_info', 'contact_details', 'authorized', 'exhibit_b']
+          }));
+          
+          // Proceed to PSA signing
+          window.location.href = '/dashboard/onboarding/psa';
+        }
+      });
+    });
+
+    function loadContractTerms() {
+      const contractTerms = localStorage.getItem('contract_terms_accepted');
+      if (contractTerms) {
+        const terms = JSON.parse(contractTerms);
+        
+        // Update rate display if custom negotiation was submitted
+        const negotiationRequest = localStorage.getItem('contract_negotiation_request');
+        if (negotiationRequest) {
+          const negotiation = JSON.parse(negotiationRequest);
+          if (negotiation.status === 'pending_review') {
+            document.getElementById('reimbursement-rate').textContent = negotiation.requested_rate;
+            document.getElementById('rate-note').textContent = '(pending review)';
+          }
+        }
+      }
+    }
+
+    async function loadOrganizationInfo() {
+      try {
+        // Wait for USRadUser to be available
+        if (!window.USRadUser || !window.USRadUser.user) {
+          setTimeout(loadOrganizationInfo, 100);
+          return;
+        }
+
+        const user = window.USRadUser.user;
+        const supabase = window.USRadUser.supabase;
+
+        // Load corporate entity information
+        const { data: corporateInfo, error: corporateError } = await supabase
+          .from('corporate_entities')
+          .select('*')
+          .eq('user_id', user.id)
+          .single();
+
+        // Load facilities
+        const { data: facilities, error: facilitiesError } = await supabase
+          .from('user_facilities')
+          .select('*')
+          .eq('user_id', user.id);
+
+        if (corporateError && corporateError.code !== 'PGRST116') {
+          console.error('Error loading corporate info:', corporateError);
+        }
+
+        if (facilitiesError) {
+          console.error('Error loading facilities:', facilitiesError);
+        }
+
+        // Populate organization information
+        populateOrganizationInfo(corporateInfo, user);
+        
+        // Populate facility summary
+        populateFacilityInfo(facilities || []);
+
+      } catch (error) {
+        console.error('Error loading information:', error);
+        showErrorState();
+      }
+    }
+
+    function populateOrganizationInfo(corporateInfo, user) {
+      const orgInfoContainer = document.getElementById('organization-info');
+      
+      if (corporateInfo) {
+        orgInfoContainer.innerHTML = `
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <h3 class="font-semibold text-gray-900">Legal Entity</h3>
+              <div class="space-y-2 text-sm">
+                <div><strong>Legal Name:</strong> ${corporateInfo.legal_name || 'N/A'}</div>
+                <div><strong>Entity Name:</strong> ${corporateInfo.legal_entity_name || 'N/A'}</div>
+                <div><strong>Tax ID:</strong> ${corporateInfo.tax_id || 'N/A'}</div>
+                <div><strong>Organization Type:</strong> ${corporateInfo.organization_type || 'N/A'}</div>
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <h3 class="font-semibold text-gray-900">Authorized Signer</h3>
+              <div class="space-y-2 text-sm">
+                <div><strong>Name:</strong> ${corporateInfo.signer_name || user.user_metadata?.full_name || 'N/A'}</div>
+                <div><strong>Title:</strong> ${corporateInfo.signer_title || 'N/A'}</div>
+                <div><strong>Email:</strong> ${corporateInfo.email || user.email}</div>
+                <div><strong>Phone:</strong> ${corporateInfo.phone || 'N/A'}</div>
+              </div>
+            </div>
+          </div>
+          
+          ${corporateInfo.corporate_address ? `
+            <div class="border-t pt-4">
+              <h3 class="font-semibold text-gray-900 mb-2">Corporate Address</h3>
+              <div class="text-sm text-gray-700">${corporateInfo.corporate_address}</div>
+            </div>
+          ` : ''}
+        `;
+      } else {
+        orgInfoContainer.innerHTML = `
+          <div class="text-center text-gray-500">
+            <p>No corporate entity information found. Using user account details.</p>
+            <div class="mt-4 text-sm">
+              <div><strong>Name:</strong> ${user.user_metadata?.full_name || 'N/A'}</div>
+              <div><strong>Email:</strong> ${user.email}</div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function populateFacilityInfo(facilities) {
+      const facilityContainer = document.getElementById('facility-summary');
+      
+      if (facilities.length === 0) {
+        facilityContainer.innerHTML = `
+          <div class="text-center text-gray-500">
+            <p>No facilities found. Please add facilities before proceeding.</p>
+            <button onclick="window.location.href='/dashboard/onboarding/facilities'" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">
+              Add Facilities
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      const primaryFacility = facilities.find(f => f.is_primary) || facilities[0];
+      const totalFacilities = facilities.length;
+      
+      facilityContainer.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex justify-between items-center">
+            <h3 class="font-semibold text-gray-900">Facility Count</h3>
+            <span class="text-2xl font-bold text-blue-600">${totalFacilities}</span>
+          </div>
+          
+          <div class="border-t pt-4">
+            <h3 class="font-semibold text-gray-900 mb-3">Primary Facility</h3>
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <div class="font-medium text-blue-900">${primaryFacility.facility_name}</div>
+              <div class="text-sm text-blue-700 mt-1">
+                ${primaryFacility.street_address}<br>
+                ${primaryFacility.city}, ${primaryFacility.state} ${primaryFacility.zip_code}
+              </div>
+              ${primaryFacility.modalities ? `
+                <div class="text-xs text-blue-600 mt-2">
+                  <strong>Modalities:</strong> ${primaryFacility.modalities}
+                </div>
+              ` : ''}
+            </div>
+          </div>
+          
+          ${totalFacilities > 1 ? `
+            <div class="border-t pt-4">
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-600">Additional facilities will be listed in Exhibit B</span>
+                <button onclick="window.location.href='/dashboard/contract/exhibit-b-preview'" class="text-blue-600 hover:underline text-sm">
+                  Preview Exhibit B
+                </button>
+              </div>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    function showErrorState() {
+      document.getElementById('organization-info').innerHTML = `
+        <div class="text-center text-red-500">
+          <p>Error loading organization information. Please refresh the page.</p>
+        </div>
+      `;
+      
+      document.getElementById('facility-summary').innerHTML = `
+        <div class="text-center text-red-500">
+          <p>Error loading facility information. Please refresh the page.</p>
+        </div>
+      `;
+    }
+  </script>
+</DashboardLayout>
