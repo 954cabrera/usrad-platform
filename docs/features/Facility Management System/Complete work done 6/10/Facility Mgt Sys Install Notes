@@ -1,0 +1,447 @@
+🚀 LET'S INSTALL YOUR ENHANCED FACILITY MANAGEMENT SYSTEM!
+
+Here's the step-by-step implementation plan:
+
+## 📋 Phase 1: Backup & Preparation (5 minutes)
+
+### Step 1: Backup Current System
+
+```
+bash# Backup your current files
+cp src/components/dashboard/FacilityManager.jsx src/components/dashboard/FacilityManager.jsx.backup
+cp src/lib/facilityManager.js src/lib/facilityManager.js.backup
+
+# Create git commit point
+git add .
+git commit -m "Backup before enhanced facility system installation"
+```
+
+## 🗄️ Phase 2: Database Schema Updates (10 minutes)
+
+### Step 2: Update Database Schema
+
+Go to your Supabase SQL Editor and run this:
+
+```
+sql-- Add progress tracking to user_profiles
+ALTER TABLE user_profiles 
+ADD COLUMN IF NOT EXISTS facility_progress JSONB DEFAULT '{
+  "status": "not_started",
+  "nextStep": "org_type", 
+  "lastSaved": null,
+  "completionPercentage": 0,
+  "organizationType": null,
+  "data": {}
+}';
+
+-- Create enhanced corporate_entities table
+CREATE TABLE IF NOT EXISTS corporate_entities (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) NOT NULL,
+  organization_type VARCHAR(20) NOT NULL CHECK (organization_type IN ('single', 'corporate')),
+  legal_name VARCHAR(255) NOT NULL,
+  legal_entity_name VARCHAR(255) NOT NULL,
+  tax_id VARCHAR(20) NOT NULL,
+  signer_name VARCHAR(255) NOT NULL,
+  signer_title VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  phone VARCHAR(20),
+  -- Corporate address (can be different from facility)
+  corporate_address TEXT,
+  corporate_city VARCHAR(100),
+  corporate_state VARCHAR(2),
+  corporate_zip VARCHAR(10),
+  website VARCHAR(255),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  CONSTRAINT unique_user_corporate UNIQUE (user_id)
+);
+
+-- Create enhanced user_facilities table  
+CREATE TABLE IF NOT EXISTS user_facilities (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) NOT NULL,
+  facility_name VARCHAR(255) NOT NULL,
+  street_address TEXT NOT NULL,
+  city VARCHAR(100) NOT NULL,
+  state VARCHAR(2) NOT NULL,
+  zip_code VARCHAR(10),
+  phone_number VARCHAR(20) NOT NULL,
+  email VARCHAR(255),
+  website VARCHAR(255),
+  modalities TEXT[], -- Array of modalities
+  equipment_brands TEXT[], -- Array of equipment brands
+  primary_contact VARCHAR(255),
+  contact_title VARCHAR(255),
+  notes TEXT,
+  -- ACR Integration
+  acr_facility_id INTEGER REFERENCES imaging_centers(id),
+  is_acr_verified BOOLEAN DEFAULT FALSE,
+  is_manual_entry BOOLEAN DEFAULT FALSE,
+  is_primary BOOLEAN DEFAULT FALSE,
+  -- Edit tracking
+  is_edited BOOLEAN DEFAULT FALSE,
+  original_acr_data JSONB,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Add indexes for performance
+CREATE INDEX IF NOT EXISTS idx_corporate_entities_user_id ON corporate_entities(user_id);
+CREATE INDEX IF NOT EXISTS idx_user_facilities_user_id ON user_facilities(user_id);
+CREATE INDEX IF NOT EXISTS idx_user_facilities_acr_id ON user_facilities(acr_facility_id);
+
+-- Row Level Security
+ALTER TABLE corporate_entities ENABLE ROW LEVEL SECURITY;
+ALTER TABLE user_facilities ENABLE ROW LEVEL SECURITY;
+
+-- RLS Policies
+CREATE POLICY IF NOT EXISTS "Users can manage their own corporate entities" ON corporate_entities
+  FOR ALL USING (auth.uid() = user_id);
+
+CREATE POLICY IF NOT EXISTS "Users can manage their own facilities" ON user_facilities  
+  FOR ALL USING (auth.uid() = user_id);
+
+-- Auto-update timestamps
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;   
+END;
+$$ language 'plpgsql';
+
+CREATE TRIGGER IF NOT EXISTS update_corporate_entities_updated_at 
+  BEFORE UPDATE ON corporate_entities 
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER IF NOT EXISTS update_user_facilities_updated_at 
+  BEFORE UPDATE ON user_facilities 
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+```
+
+## 📁 Phase 3: Install Enhanced Components (15 minutes)
+
+### Step 3: Update Library File
+
+Replace /src/lib/facilityManager.js with this enhanced version:
+
+```
+javascript// /src/lib/facilityManager.js
+// Enhanced Supabase integration for ACR facility management
+
+import { supabase } from './supabase.js';
+
+/**
+ * Search ACR database for facilities with enhanced matching
+ */
+export async function searchAcrFacilities(query) {
+  try {
+    if (!query || query.length < 2) return [];
+
+    const { data, error } = await supabase
+      .from('imaging_centers')
+      .select('*')
+      .or(`facility_name.ilike.%${query}%,city.ilike.%${query}%,state.ilike.%${query}%`)
+      .limit(10);
+
+    if (error) throw error;
+
+    // Transform to consistent format
+    return data.map(facility => ({
+      id: `acr_${facility.id}`,
+      acrId: facility.id,
+      name: facility.facility_name,
+      address: facility.street_1,
+      city: facility.city,
+      state: facility.state,
+      zip: facility.zip_code,
+      phone: facility.phone_number,
+      modality: facility.modality,
+      accredited: facility.status === 'Accredited',
+      lastUpdated: facility.current_as_of,
+      // Additional fields for enhanced display
+      modalities: facility.modality ? facility.modality.split(',') : [],
+      email: facility.email,
+      acrVerified: true
+    }));
+  } catch (error) {
+    console.error('Error searching ACR facilities:', error);
+    return [];
+  }
+}
+
+/**
+ * Save complete facility configuration (corporate + facilities)
+ */
+export async function saveFacilityConfiguration(userId, corporateInfo, facilities) {
+  try {
+    // Save corporate information
+    const { data: corporateData, error: corporateError } = await supabase
+      .from('corporate_entities')
+      .upsert({
+        user_id: userId,
+        organization_type: corporateInfo.organizationType || 'single',
+        legal_name: corporateInfo.legalName,
+        legal_entity_name: corporateInfo.legalEntityName,
+        tax_id: corporateInfo.taxId,
+        signer_name: corporateInfo.signerName,
+        signer_title: corporateInfo.signerTitle,
+        email: corporateInfo.email,
+        phone: corporateInfo.phone,
+        corporate_address: corporateInfo.corporateAddress,
+        corporate_city: corporateInfo.corporateCity,
+        corporate_state: corporateInfo.corporateState,
+        corporate_zip: corporateInfo.corporateZip,
+        website: corporateInfo.website
+      }, {
+        onConflict: 'user_id'
+      });
+
+    if (corporateError) throw corporateError;
+
+    // Delete existing facilities for this user
+    const { error: deleteError } = await supabase
+      .from('user_facilities')
+      .delete()
+      .eq('user_id', userId);
+
+    if (deleteError) throw deleteError;
+
+    // Save facilities
+    const facilityData = facilities.map(facility => ({
+      user_id: userId,
+      facility_name: facility.name,
+      street_address: facility.address,
+      city: facility.city,
+      state: facility.state,
+      zip_code: facility.zip,
+      phone_number: facility.phone,
+      email: facility.email,
+      website: facility.website,
+      modalities: facility.modalities || [],
+      equipment_brands: facility.equipmentBrands || [],
+      primary_contact: facility.primaryContact,
+      contact_title: facility.contactTitle,
+      notes: facility.notes,
+      acr_facility_id: facility.acrId || null,
+      is_acr_verified: facility.acrVerified || false,
+      is_manual_entry: facility.isManualEntry || false,
+      is_primary: facility.isPrimary || false,
+      is_edited: facility.isEdited || false,
+      original_acr_data: facility.originalACRData || null
+    }));
+
+    const { data: facilityResult, error: facilityError } = await supabase
+      .from('user_facilities')
+      .insert(facilityData);
+
+    if (facilityError) throw facilityError;
+
+    // Update user progress
+    const { error: progressError } = await supabase
+      .from('user_profiles')
+      .update({
+        facility_progress: {
+          status: 'completed',
+          nextStep: 'psa_ready',
+          lastSaved: new Date().toISOString(),
+          completionPercentage: 100,
+          organizationType: corporateInfo.organizationType,
+          data: { corporateInfo, facilitiesCount: facilities.length }
+        },
+        onboarding_progress: 75 // Move to PSA ready
+      })
+      .eq('id', userId);
+
+    if (progressError) throw progressError;
+
+    return { success: true, data: { corporate: corporateData, facilities: facilityResult } };
+  } catch (error) {
+    console.error('Error saving facility configuration:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * Load existing facility configuration
+ */
+export async function loadFacilityConfiguration(userId) {
+  try {
+    // Load corporate info
+    const { data: corporateData, error: corporateError } = await supabase
+      .from('corporate_entities')
+      .select('*')
+      .eq('user_id', userId)
+      .single();
+
+    // Load facilities
+    const { data: facilitiesData, error: facilitiesError } = await supabase
+      .from('user_facilities')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: true });
+
+    return {
+      success: true,
+      corporateInfo: corporateData,
+      facilities: facilitiesData || [],
+      hasExistingData: !!corporateData || (facilitiesData && facilitiesData.length > 0)
+    };
+  } catch (error) {
+    console.error('Error loading facility configuration:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * Auto-save progress
+ */
+export async function autoSaveProgress(userId, step, data, percentage) {
+  try {
+    const { error } = await supabase
+      .from('user_profiles')
+      .update({
+        facility_progress: {
+          status: 'in_progress',
+          nextStep: step,
+          lastSaved: new Date().toISOString(),
+          completionPercentage: percentage,
+          data: data
+        }
+      })
+      .eq('id', userId);
+
+    if (error) throw error;
+    return { success: true };
+  } catch (error) {
+    console.error('Error auto-saving progress:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * Utility functions
+ */
+export const formatPhoneNumber = (value) => {
+  const cleanValue = value.replace(/\D/g, '');
+  if (cleanValue.length <= 3) return cleanValue;
+  if (cleanValue.length <= 6) return `(${cleanValue.slice(0, 3)}) ${cleanValue.slice(3)}`;
+  return `(${cleanValue.slice(0, 3)}) ${cleanValue.slice(3, 6)}-${cleanValue.slice(6, 10)}`;
+};
+
+export const formatEIN = (value) => {
+  const cleanValue = value.replace(/\D/g, '');
+  if (cleanValue.length <= 2) return cleanValue;
+  return `${cleanValue.slice(0, 2)}-${cleanValue.slice(2, 9)}`;
+};
+
+export const validateEmail = (email) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};
+
+export const validateRequired = (value) => {
+  return value && value.trim().length > 0;
+};
+```
+
+### Step 4: Replace Facility Manager Component
+
+Replace /src/components/dashboard/FacilityManager.jsx with the enhanced version from our latest artifact (the ACR search with edit & manual entry system).
+
+### Step 5: Update Your Facilities Page
+
+Update /src/pages/dashboard/onboarding/facilities.astro:
+
+```
+astro---
+import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
+import FacilityManager from "../../../components/dashboard/FacilityManager.jsx";
+
+// Get user from your existing auth system
+const user = null; // Replace with your actual user logic
+---
+
+<DashboardLayout title="Facility Setup" user={user}>
+  <FacilityManager client:load />
+</DashboardLayout>
+```
+
+## 🔧 Phase 4: Integration & Testing (10 minutes)
+
+### Step 6: Test Database Connection
+
+```
+sql-- Test the new tables exist
+SELECT table_name FROM information_schema.tables 
+WHERE table_name IN ('corporate_entities', 'user_facilities');
+
+-- Test sample query
+SELECT COUNT(*) FROM imaging_centers;
+```
+
+### Step 7: Restart Development Server
+
+```
+bash# Stop current server (Ctrl+C)
+npm run dev
+```
+
+### Step 8: Test the Complete Flow
+
+1. Navigate to facilities page
+2. Test ACR search - Search for "Miami"
+3. Test edit functionality - Click "Edit" on ACR result
+4. Test manual entry - Try "Add New Facility"
+5. Test save functionality - Complete setup and save
+6. Test return journey - Go back to dashboard, check resume functionality
+
+## 🚨 Phase 5: Troubleshooting Common Issues
+
+### If you get import errors:
+
+```
+javascript// Check import path in FacilityManager.jsx
+import { searchAcrFacilities, ... } from '../../lib/facilityManager.js';
+```
+
+### If database queries fail:
+
+```
+sql-- Check RLS policies
+SELECT * FROM pg_policies WHERE tablename IN ('corporate_entities', 'user_facilities');
+```
+
+### If auto-save doesn't work:
+
+```
+javascript// Check user ID is available
+console.log('User ID:', window.USRadUser?.user?.id);
+```
+
+## ✅ Success Indicators
+
+You'll know it's working when:
+
+1. ✅ ACR Search - Typing "Miami" shows real facilities from your database
+2. ✅ Edit Modal - Clicking "Edit" opens professional edit form
+3. ✅ Manual Entry - "Add New Facility" works for new centers
+4. ✅ Save Function - Data persists in Supabase tables
+5. ✅ Return Journey - Dashboard shows "Continue Setup" for in-progress work
+
+## 🎯 Expected Result
+
+After installation, you'll have:
+
+- 🚀 ACR-powered facility search with 30,000+ facilities
+- ✏️ Edit capability for outdated ACR information
+- ➕ Manual entry for new facilities not in ACR
+- 💾 Auto-save preventing data loss
+- 🔄 Smart return journey from dashboard
+- 📊 Progress tracking across the system
+- 🏢 Corporate vs facility address handling
+- 📄 Professional PSA integration with real data
+
+Ready to transform your provider onboarding into the most sophisticated system in the medical imaging industry! 🚀
+
+Which step would you like to start with?

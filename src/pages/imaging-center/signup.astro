@@ -1,6 +1,5 @@
 ---
 // Imaging Center Signup with Supabase Auth
-// Add this to the frontmatter at the top
 import { supabase } from "@/lib/supabase";
 ---
 
@@ -15,11 +14,15 @@ import { supabase } from "@/lib/supabase";
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <!-- Import Supabase -->
-      const supabase = createClient(supabaseUrl, supabaseAnonKey); // ✅ Insert this line
-      // ... your existing signup logic here ...
-    });
-    
+
+    <!-- Supabase Configuration Meta Tags -->
+    <meta name="supabase-url" content={import.meta.env.PUBLIC_SUPABASE_URL} />
+    <meta
+      name="supabase-anon-key"
+      content={import.meta.env.PUBLIC_SUPABASE_ANON_KEY}
+    />
+
+    <style>
       *,
       *::before,
       *::after {
@@ -464,17 +467,33 @@ import { supabase } from "@/lib/supabase";
           </div>
 
           <div class="input-group">
-            <label for="contact-name" class="input-label"
-              >Primary Contact Name<span class="asterisk">*</span></label
-            >
+            <label for="first-name" class="input-label">
+              First Name<span class="asterisk">*</span>
+            </label>
             <div class="input-wrapper">
               <input
                 type="text"
-                id="contact-name"
-                name="contactName"
+                id="first-name"
+                name="firstName"
                 class="form-input"
                 required
-                placeholder="John Smith"
+                placeholder="John"
+              />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="last-name" class="input-label">
+              Last Name<span class="asterisk">*</span>
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="last-name"
+                name="lastName"
+                class="form-input"
+                required
+                placeholder="Smith"
               />
             </div>
           </div>
@@ -579,6 +598,15 @@ import { supabase } from "@/lib/supabase";
     </div>
 
     <script>
+      // Utility functions (need to be available globally)
+      function showError(message) {
+        const errorDiv = document.getElementById("error-message");
+        if (errorDiv) {
+          errorDiv.textContent = message;
+          errorDiv.classList.remove("hidden");
+        }
+      }
+
       // Get environment variables passed from Astro
       const supabaseUrl = document.querySelector(
         'meta[name="supabase-url"]'
@@ -600,6 +628,9 @@ import { supabase } from "@/lib/supabase";
       // Load Supabase from CDN
       import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm")
         .then(({ createClient }) => {
+          // Initialize Supabase client
+          const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
           // DOM elements
           const form = document.getElementById("signup-form");
           const errorDiv = document.getElementById("error-message");
@@ -649,19 +680,18 @@ import { supabase } from "@/lib/supabase";
           }
 
           // Main signup function
-          // Find this function in your signup page and replace it:
-
           async function handleSignup(formData) {
             try {
               const { data, error } = await supabase.auth.signUp({
                 email: formData.email,
                 password: formData.password,
                 options: {
-                  emailRedirectTo: "http://localhost:4321/auth/verified", // This forces the redirect
+                  emailRedirectTo: "http://localhost:4321/auth/verified",
                   data: {
                     center_name: formData.centerName,
                     center_type: formData.centerType,
-                    contact_name: formData.contactName,
+                    first_name: formData.firstName,
+                    last_name: formData.lastName,
                     phone: formData.phone,
                     user_type: "imaging_center",
                     onboarding_step: "email_verification",
@@ -695,10 +725,6 @@ import { supabase } from "@/lib/supabase";
               }
             } catch (error) {
               console.error("Signup error:", error);
-              showError(
-                "Something went wrong during signup. Please try again."
-              );
-              return { success: false, error };
 
               // Handle specific error types
               if (error.message.includes("already registered")) {
@@ -725,12 +751,14 @@ import { supabase } from "@/lib/supabase";
             const requiredFields = [
               "centerName",
               "centerType",
-              "contactName",
+              "firstName",
+              "lastName",
               "email",
               "phone",
               "password",
               "confirmPassword",
             ];
+
             for (const field of requiredFields) {
               if (!formData[field] || formData[field].trim() === "") {
                 showError(
@@ -777,24 +805,24 @@ import { supabase } from "@/lib/supabase";
             hideMessages();
 
             const formDataObj = new FormData(form);
+
             const formData = {
-              centerName: formDataObj.get("centerName"),
-              centerType: formDataObj.get("centerType"),
-              contactName: formDataObj.get("contactName"),
-              email: formDataObj.get("email"),
-              phone: formDataObj.get("phone"),
+              centerName: formDataObj.get("centerName")?.trim(),
+              centerType: formDataObj.get("centerType")?.trim(),
+              firstName: formDataObj.get("firstName")?.trim(),
+              lastName: formDataObj.get("lastName")?.trim(),
+              email: formDataObj.get("email")?.trim(),
+              phone: formDataObj.get("phone")?.trim(),
               password: formDataObj.get("password"),
               confirmPassword: formDataObj.get("confirmPassword"),
             };
 
-            // Validate form
             if (!validateForm(formData)) {
               return;
             }
 
             setLoading(true);
 
-            // Attempt signup
             const result = await handleSignup(formData);
 
             setLoading(false);

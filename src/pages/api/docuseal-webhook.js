@@ -44,7 +44,7 @@ export async function POST({ request }) {
       }
 
       // Create Supabase client with service role key
-      const supabase = import { supabase } from '@/lib/supabase';
+      const supabase = createClient(supabaseUrl, supabaseServiceKey);
       // Find user by email in auth.users
       const { data: authUsers, error: authError } = await supabase.auth.admin.listUsers()
       

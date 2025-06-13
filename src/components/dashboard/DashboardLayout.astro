@@ -1039,13 +1039,8 @@ const currentPath = Astro.url.pathname;
             </button>
             <div>
               <h1 class="text-2xl font-bold usrad-navy">{title}</h1>
-              <p class="text-sm text-gray-600">
-                Welcome back, {
-                  user?.first_name ||
-                    user?.full_name ||
-                    user?.email?.split("@")[0] ||
-                    "User"
-                }
+              <p class="text-sm text-gray-600" id="welcome-text">
+                Welcome back, User
               </p>
             </div>
           </div>
@@ -1381,40 +1376,72 @@ const currentPath = Astro.url.pathname;
               try {
                 const {
                   data: { user },
+                  error: userError,
                 } = await this.supabase.auth.getUser();
-                this.user = user;
 
-                if (user) {
-                  // Get user profile
-                  const { data: profile } = await this.supabase
+                if (userError) {
+                  console.error(
+                    "❌ Failed to get user from Supabase:",
+                    userError
+                  );
+                  return;
+                }
+
+                this.user = user;
+                console.log("👤 Supabase user:", user);
+
+                if (!user) {
+                  console.warn("⚠️ No authenticated user found.");
+                  return;
+                }
+
+                // Get user profile
+                const { data: profile, error: profileError } =
+                  await this.supabase
                     .from("user_profiles")
                     .select("*")
                     .eq("id", user.id)
                     .single();
 
+                if (profileError) {
+                  console.error(
+                    "❌ Error fetching profile:",
+                    profileError.message
+                  );
+                  this.profile = null;
+                } else {
                   this.profile = profile;
+                  console.log("📄 Matched user profile:", profile);
+                }
 
-                  // Get imaging center if profile has one
-                  if (profile?.imaging_center_id) {
-                    const { data: center } = await this.supabase
+                // Get imaging center if profile has one
+                if (profile?.imaging_center_id) {
+                  const { data: center, error: centerError } =
+                    await this.supabase
                       .from("imaging_centers")
                       .select(
                         `
-                        id, facility_name, street_1, city, state, 
-                        zip_code, phone_number, modality, status, onboarding_status
-                      `
+            id, facility_name, street_1, city, state, 
+            zip_code, phone_number, modality, status, onboarding_status
+          `
                       )
                       .eq("id", profile.imaging_center_id)
                       .single();
 
-                    this.imagingCenter = center;
+                  if (centerError) {
+                    console.error(
+                      "❌ Error fetching imaging center:",
+                      centerError.message
+                    );
                   }
+
+                  this.imagingCenter = center;
                 }
 
-                // Update UI based on user data
+                // Update UI after loading user + profile
                 this.updateUI();
               } catch (error) {
-                console.error("Error loading user data:", error);
+                console.error("🔥 Unexpected error in loadUserData():", error);
               }
             },
 
@@ -1424,50 +1451,47 @@ const currentPath = Astro.url.pathname;
               const onboardingProgress =
                 this.profile?.onboarding_progress || 40;
 
+              // ✅ Update welcome text if available
+              const welcomeText = document.getElementById("welcome-text");
+              const firstName = this.profile?.first_name;
+              if (welcomeText && firstName) {
+                welcomeText.textContent = `Welcome back, ${firstName}`;
+              }
+
               // Update progress indicators
-              const progressBars = document.querySelectorAll(
-                "[data-progress-bar]"
-              );
-              progressBars.forEach((bar) => {
-                bar.style.width = `${onboardingProgress}%`;
-              });
+              document
+                .querySelectorAll("[data-progress-bar]")
+                .forEach((bar) => {
+                  bar.style.width = `${onboardingProgress}%`;
+                });
+              document
+                .querySelectorAll("[data-progress-text]")
+                .forEach((text) => {
+                  text.textContent = `${onboardingProgress}%`;
+                });
 
-              const progressTexts = document.querySelectorAll(
-                "[data-progress-text]"
-              );
-              progressTexts.forEach((text) => {
-                text.textContent = `${onboardingProgress}%`;
-              });
-
-              // Update PSA banner visibility
+              // PSA visibility updates
               const psaBanner = document.getElementById("psa-banner");
-              if (psaBanner && hasCompletedPSA) {
+              if (psaBanner && hasCompletedPSA)
                 psaBanner.style.display = "none";
-              }
 
-              // Update unlock premium card
               const unlockCard = document.querySelector(".unlock-premium-card");
-              if (unlockCard && hasCompletedPSA) {
+              if (unlockCard && hasCompletedPSA)
                 unlockCard.style.display = "none";
-              }
 
-              // Update locked navigation items
-              const lockedItems = document.querySelectorAll(".nav-link.locked");
-              lockedItems.forEach((item) => {
+              // Unlock nav items if PSA is complete
+              document.querySelectorAll(".nav-link.locked").forEach((item) => {
                 if (hasCompletedPSA) {
                   item.classList.remove("locked");
                   item.removeAttribute("onclick");
                   item.removeAttribute("title");
-
-                  // Remove lock icon
                   const lockIcon = item.querySelector(".lock-icon");
-                  if (lockIcon) {
-                    lockIcon.remove();
-                  }
+                  if (lockIcon) lockIcon.remove();
                 }
               });
 
-              console.log("UI updated:", {
+              console.log("✅ UI updated:", {
+                firstName,
                 hasCompletedPSA,
                 onboardingProgress,
               });
@@ -1489,12 +1513,10 @@ const currentPath = Astro.url.pathname;
 
                 if (error) throw error;
 
-                // Reload user data to get updated status
-                await this.loadUserData();
-
+                await this.loadUserData(); // reload to reflect update
                 return true;
               } catch (error) {
-                console.error("Error completing PSA:", error);
+                console.error("❌ Error completing PSA:", error);
                 return false;
               }
             },
@@ -1502,12 +1524,24 @@ const currentPath = Astro.url.pathname;
 
           // Initialize user data
           await window.USRadUser.loadUserData();
+          const welcomeText = document.getElementById("welcome-text");
+          const firstName = window.USRadUser?.profile?.first_name;
+          if (welcomeText && firstName) {
+            welcomeText.textContent = `Welcome back, ${firstName}`;
+          }
 
           // Listen for auth state changes
           window.USRadUser.supabase.auth.onAuthStateChange(
             async (event, session) => {
               console.log("Auth state changed:", event);
               await window.USRadUser.loadUserData();
+
+              // ✅ Dynamically update the greeting text
+              const welcomeText = document.getElementById("welcome-text");
+              const firstName = window.USRadUser?.profile?.first_name;
+              if (welcomeText && firstName) {
+                welcomeText.textContent = `Welcome back, ${firstName}`;
+              }
             }
           );
         } catch (error) {

@@ -1,0 +1,72 @@
+---
+// src/pages/dashboard/settings/profile.astro
+import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
+import SettingsProfile from "../../../components/dashboard/SettingsProfile.jsx";
+
+// This page uses client-side authentication
+// User data will be loaded by the React component
+---
+
+<script>
+  // Add this script to handle redirects if not authenticated
+  window.addEventListener("DOMContentLoaded", async () => {
+    // Import Supabase
+    const { createClient } = await import(
+      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+    );
+
+    const supabaseUrl = document.querySelector(
+      'meta[name="supabase-url"]'
+    )?.content;
+    const supabaseAnonKey = document.querySelector(
+      'meta[name="supabase-anon-key"]'
+    )?.content;
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.error("Missing Supabase config");
+      window.location.href = "/login/imaginglogin";
+      return;
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+    try {
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
+
+      if (error || !session) {
+        console.log("No session found, redirecting to login");
+        window.location.href = "/login/imaginglogin";
+        return;
+      }
+
+      console.log("Session found for user:", session.user.email);
+    } catch (error) {
+      console.error("Auth check error:", error);
+      window.location.href = "/login/imaginglogin";
+    }
+  });
+</script>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Settings - USRad Dashboard</title>
+
+    <!-- Supabase Configuration Meta Tags -->
+    <meta name="supabase-url" content={import.meta.env.PUBLIC_SUPABASE_URL} />
+    <meta
+      name="supabase-anon-key"
+      content={import.meta.env.PUBLIC_SUPABASE_ANON_KEY}
+    />
+  </head>
+
+  <body>
+    <DashboardLayout title="Profile Settings">
+      <SettingsProfile client:load />
+    </DashboardLayout>
+  </body>
+</html>

@@ -1,0 +1,699 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Search, Building, MapPin, Phone, Users, CheckCircle, Plus, Upload, Eye, EyeOff } from 'lucide-react';
+
+// Mock user data - replace with your actual user context
+const mockUser = {
+  id: '09a5523c-accd-4a00-bbfb-a65c52c69831',
+  firstName: 'John',
+  lastName: 'Smith',
+  email: 'john.smith@advancedimaging.com',
+  phone: '(954) 555-0123',
+  centerName: 'Advanced Imaging Center'
+};
+
+// Mock ACR facility data - replace with your Supabase integration
+const mockACRFacilities = [
+  {
+    id: 'acr_001',
+    name: 'Advanced Imaging Center of Davie',
+    address: '12345 University Dr',
+    city: 'Davie',
+    state: 'FL',
+    zip: '33328',
+    phone: '(954) 555-0123',
+    modalities: ['MRI', 'CT', 'Ultrasound'],
+    accredited: true
+  },
+  {
+    id: 'acr_002',
+    name: 'Broward Diagnostic Imaging',
+    address: '5678 Commercial Blvd',
+    city: 'Fort Lauderdale',
+    state: 'FL',
+    zip: '33309',
+    phone: '(954) 555-0456',
+    modalities: ['MRI', 'CT', 'X-Ray', 'Mammography'],
+    accredited: true
+  },
+  {
+    id: 'acr_003',
+    name: 'South Florida Medical Imaging',
+    address: '9012 Sunrise Blvd',
+    city: 'Plantation',
+    state: 'FL',
+    zip: '33322',
+    phone: '(954) 555-0789',
+    modalities: ['MRI', 'CT', 'PET', 'Nuclear Medicine'],
+    accredited: true
+  }
+];
+
+const FacilityManager = () => {
+  // State management
+  const [currentStep, setCurrentStep] = useState(1);
+  const [organizationType, setOrganizationType] = useState('');
+  const [corporateInfo, setCorporateInfo] = useState({
+    legalName: '',
+    dbaName: '',
+    ein: '',
+    phone: '',
+    email: '',
+    address: '',
+    city: '',
+    state: '',
+    zip: '',
+    authorizedSigner: '',
+    signerTitle: ''
+  });
+  const [selectedFacilities, setSelectedFacilities] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [showManualEntry, setShowManualEntry] = useState(false);
+  const [manualFacility, setManualFacility] = useState({
+    name: '',
+    address: '',
+    city: '',
+    state: '',
+    zip: '',
+    phone: '',
+    modalities: []
+  });
+  const [progress, setProgress] = useState(20);
+  const [isSaving, setIsSaving] = useState(false);
+  const [showEIN, setShowEIN] = useState(false);
+
+  const searchTimeoutRef = useRef(null);
+
+  // Auto-populate corporate info from user data
+  useEffect(() => {
+    if (organizationType === 'single') {
+      setCorporateInfo(prev => ({
+        ...prev,
+        legalName: mockUser.centerName,
+        dbaName: mockUser.centerName,
+        phone: mockUser.phone,
+        email: mockUser.email,
+        authorizedSigner: `${mockUser.firstName} ${mockUser.lastName}`
+      }));
+    }
+  }, [organizationType]);
+
+  // ACR facility search with debouncing
+  useEffect(() => {
+    if (searchTerm.length > 2) {
+      setIsSearching(true);
+      
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+      
+      searchTimeoutRef.current = setTimeout(() => {
+        // Simulate API search - replace with actual Supabase query
+        const results = mockACRFacilities.filter(facility =>
+          facility.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          facility.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          facility.state.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setSearchResults(results);
+        setIsSearching(false);
+      }, 300);
+    } else {
+      setSearchResults([]);
+      setIsSearching(false);
+    }
+
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, [searchTerm]);
+
+  // Format EIN input
+  const formatEIN = (value) => {
+    const cleanValue = value.replace(/\D/g, '');
+    if (cleanValue.length <= 2) return cleanValue;
+    return `${cleanValue.slice(0, 2)}-${cleanValue.slice(2, 9)}`;
+  };
+
+  // Format phone input
+  const formatPhone = (value) => {
+    const cleanValue = value.replace(/\D/g, '');
+    if (cleanValue.length <= 3) return cleanValue;
+    if (cleanValue.length <= 6) return `(${cleanValue.slice(0, 3)}) ${cleanValue.slice(3)}`;
+    return `(${cleanValue.slice(0, 3)}) ${cleanValue.slice(3, 6)}-${cleanValue.slice(6, 10)}`;
+  };
+
+  // Handle facility selection from ACR search
+  const selectFacility = (facility) => {
+    if (!selectedFacilities.find(f => f.id === facility.id)) {
+      setSelectedFacilities([...selectedFacilities, { ...facility, isPrimary: selectedFacilities.length === 0 }]);
+      setSearchTerm('');
+      setSearchResults([]);
+    }
+  };
+
+  // Remove facility from selection
+  const removeFacility = (facilityId) => {
+    const updatedFacilities = selectedFacilities.filter(f => f.id !== facilityId);
+    // If we removed the primary facility, make the first remaining one primary
+    if (updatedFacilities.length > 0 && !updatedFacilities.find(f => f.isPrimary)) {
+      updatedFacilities[0].isPrimary = true;
+    }
+    setSelectedFacilities(updatedFacilities);
+  };
+
+  // Set primary facility
+  const setPrimaryFacility = (facilityId) => {
+    setSelectedFacilities(selectedFacilities.map(f => ({
+      ...f,
+      isPrimary: f.id === facilityId
+    })));
+  };
+
+  // Add manual facility
+  const addManualFacility = () => {
+    if (manualFacility.name && manualFacility.address && manualFacility.city && manualFacility.state) {
+      const newFacility = {
+        ...manualFacility,
+        id: `manual_${Date.now()}`,
+        accredited: false,
+        isPrimary: selectedFacilities.length === 0
+      };
+      setSelectedFacilities([...selectedFacilities, newFacility]);
+      setManualFacility({
+        name: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: '',
+        phone: '',
+        modalities: []
+      });
+      setShowManualEntry(false);
+    }
+  };
+
+  // Calculate progress
+  useEffect(() => {
+    let newProgress = 20; // Base progress
+    
+    if (organizationType) newProgress += 15;
+    if (corporateInfo.legalName) newProgress += 15;
+    if (corporateInfo.ein) newProgress += 10;
+    if (selectedFacilities.length > 0) newProgress += 25;
+    if (corporateInfo.authorizedSigner) newProgress += 15;
+    
+    setProgress(newProgress);
+  }, [organizationType, corporateInfo, selectedFacilities]);
+
+  // Save progress
+  const saveProgress = async () => {
+    setIsSaving(true);
+    
+    // Simulate API save - replace with actual Supabase operations
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // Here you would save to your database:
+    // 1. Update corporate_entities table
+    // 2. Update user_facilities table
+    // 3. Update user progress tracking
+    
+    setIsSaving(false);
+    alert('Progress saved successfully!');
+  };
+
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <div className="space-y-8">
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-100">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Organization Type</h3>
+              <p className="text-gray-600 mb-6">Tell us about your imaging organization structure to customize your onboarding experience.</p>
+              
+              <div className="grid md:grid-cols-2 gap-4">
+                <div 
+                  className={`p-6 rounded-lg border-2 cursor-pointer transition-all ${
+                    organizationType === 'single' 
+                      ? 'border-blue-500 bg-blue-50 shadow-md' 
+                      : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
+                  }`}
+                  onClick={() => setOrganizationType('single')}
+                >
+                  <div className="flex items-center mb-3">
+                    <Building className="h-6 w-6 text-blue-600 mr-3" />
+                    <h4 className="font-semibold text-gray-900">Single Practice</h4>
+                  </div>
+                  <p className="text-sm text-gray-600">
+                    Independent imaging center or single location practice
+                  </p>
+                </div>
+
+                <div 
+                  className={`p-6 rounded-lg border-2 cursor-pointer transition-all ${
+                    organizationType === 'corporate' 
+                      ? 'border-blue-500 bg-blue-50 shadow-md' 
+                      : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
+                  }`}
+                  onClick={() => setOrganizationType('corporate')}
+                >
+                  <div className="flex items-center mb-3">
+                    <Users className="h-6 w-6 text-blue-600 mr-3" />
+                    <h4 className="font-semibold text-gray-900">Multi-Location Corporate</h4>
+                  </div>
+                  <p className="text-sm text-gray-600">
+                    Corporate entity with multiple imaging facilities
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {organizationType && (
+              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                  {organizationType === 'single' ? 'Practice Information' : 'Corporate Information'}
+                </h3>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Legal Business Name *
+                    </label>
+                    <input
+                      type="text"
+                      value={corporateInfo.legalName}
+                      onChange={(e) => setCorporateInfo({...corporateInfo, legalName: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Enter legal business name"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      DBA Name (if different)
+                    </label>
+                    <input
+                      type="text"
+                      value={corporateInfo.dbaName}
+                      onChange={(e) => setCorporateInfo({...corporateInfo, dbaName: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Doing business as..."
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Federal Tax ID (EIN) *
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showEIN ? "text" : "password"}
+                        value={corporateInfo.ein}
+                        onChange={(e) => setCorporateInfo({...corporateInfo, ein: formatEIN(e.target.value)})}
+                        className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="XX-XXXXXXX"
+                        maxLength={10}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowEIN(!showEIN)}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                      >
+                        {showEIN ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Business Phone *
+                    </label>
+                    <input
+                      type="tel"
+                      value={corporateInfo.phone}
+                      onChange={(e) => setCorporateInfo({...corporateInfo, phone: formatPhone(e.target.value)})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="(XXX) XXX-XXXX"
+                      maxLength={14}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Business Email *
+                    </label>
+                    <input
+                      type="email"
+                      value={corporateInfo.email}
+                      onChange={(e) => setCorporateInfo({...corporateInfo, email: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="contact@business.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Authorized Signer *
+                    </label>
+                    <input
+                      type="text"
+                      value={corporateInfo.authorizedSigner}
+                      onChange={(e) => setCorporateInfo({...corporateInfo, authorizedSigner: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Full name of person authorized to sign PSA"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+
+      case 2:
+        return (
+          <div className="space-y-8">
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-xl border border-green-100">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Add Your Imaging Facilities</h3>
+              <p className="text-gray-600 mb-6">
+                Search our database of 30,000+ ACR-accredited facilities or add your facilities manually.
+              </p>
+
+              {/* ACR Facility Search */}
+              <div className="relative mb-6">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Search ACR facilities by name, city, or state..."
+                  />
+                </div>
+
+                {/* Search Results */}
+                {(searchResults.length > 0 || isSearching) && (
+                  <div className="absolute z-10 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-64 overflow-y-auto">
+                    {isSearching ? (
+                      <div className="p-4 text-center text-gray-500">
+                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500 mx-auto"></div>
+                        <p className="mt-2">Searching ACR database...</p>
+                      </div>
+                    ) : (
+                      searchResults.map((facility) => (
+                        <div
+                          key={facility.id}
+                          onClick={() => selectFacility(facility)}
+                          className="p-4 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0"
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <div className="flex items-center mb-2">
+                                <h4 className="font-semibold text-gray-900">{facility.name}</h4>
+                                {facility.accredited && (
+                                  <CheckCircle className="h-4 w-4 text-green-500 ml-2" />
+                                )}
+                              </div>
+                              <p className="text-sm text-gray-600 flex items-center">
+                                <MapPin className="h-4 w-4 mr-1" />
+                                {facility.address}, {facility.city}, {facility.state} {facility.zip}
+                              </p>
+                              <p className="text-sm text-gray-500 mt-1">
+                                {facility.modalities.join(', ')}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Manual Entry Toggle */}
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={() => setShowManualEntry(!showManualEntry)}
+                  className="flex items-center text-blue-600 hover:text-blue-700 font-medium"
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add facility manually
+                </button>
+                
+                <button className="flex items-center text-gray-600 hover:text-gray-700 font-medium">
+                  <Upload className="h-4 w-4 mr-2" />
+                  Bulk upload (CSV)
+                </button>
+              </div>
+            </div>
+
+            {/* Manual Entry Form */}
+            {showManualEntry && (
+              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                <h4 className="text-lg font-semibold text-gray-900 mb-4">Add Facility Manually</h4>
+                
+                <div className="grid md:grid-cols-2 gap-4 mb-6">
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Facility Name *
+                    </label>
+                    <input
+                      type="text"
+                      value={manualFacility.name}
+                      onChange={(e) => setManualFacility({...manualFacility, name: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Enter facility name"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Address *
+                    </label>
+                    <input
+                      type="text"
+                      value={manualFacility.address}
+                      onChange={(e) => setManualFacility({...manualFacility, address: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Street address"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      City *
+                    </label>
+                    <input
+                      type="text"
+                      value={manualFacility.city}
+                      onChange={(e) => setManualFacility({...manualFacility, city: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="City"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      State *
+                    </label>
+                    <select
+                      value={manualFacility.state}
+                      onChange={(e) => setManualFacility({...manualFacility, state: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value="">Select state</option>
+                      <option value="FL">Florida</option>
+                      <option value="GA">Georgia</option>
+                      <option value="AL">Alabama</option>
+                      {/* Add more states as needed */}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="flex justify-end space-x-3">
+                  <button
+                    onClick={() => setShowManualEntry(false)}
+                    className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={addManualFacility}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  >
+                    Add Facility
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Selected Facilities */}
+            {selectedFacilities.length > 0 && (
+              <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                  Selected Facilities ({selectedFacilities.length})
+                </h4>
+                
+                <div className="space-y-4">
+                  {selectedFacilities.map((facility) => (
+                    <div
+                      key={facility.id}
+                      className={`p-4 rounded-lg border-2 ${
+                        facility.isPrimary ? 'border-green-500 bg-green-50' : 'border-gray-200'
+                      }`}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center mb-2">
+                            <h5 className="font-semibold text-gray-900">{facility.name}</h5>
+                            {facility.accredited && (
+                              <CheckCircle className="h-4 w-4 text-green-500 ml-2" />
+                            )}
+                            {facility.isPrimary && (
+                              <span className="ml-2 px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
+                                Primary
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-sm text-gray-600 flex items-center">
+                            <MapPin className="h-4 w-4 mr-1" />
+                            {facility.address}, {facility.city}, {facility.state} {facility.zip}
+                          </p>
+                          {facility.phone && (
+                            <p className="text-sm text-gray-500 flex items-center mt-1">
+                              <Phone className="h-4 w-4 mr-1" />
+                              {facility.phone}
+                            </p>
+                          )}
+                        </div>
+                        
+                        <div className="flex items-center space-x-2">
+                          {!facility.isPrimary && selectedFacilities.length > 1 && (
+                            <button
+                              onClick={() => setPrimaryFacility(facility.id)}
+                              className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                            >
+                              Make Primary
+                            </button>
+                          )}
+                          <button
+                            onClick={() => removeFacility(facility.id)}
+                            className="text-sm text-red-600 hover:text-red-700 font-medium"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+
+      default:
+        return <div>Step {currentStep} content...</div>;
+    }
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto p-6 bg-gray-50 min-h-screen">
+      {/* Header */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Network Enrollment</h1>
+            <p className="text-gray-600">Complete your facility registration to join the USRad network</p>
+          </div>
+          <div className="text-right">
+            <div className="text-sm text-gray-500 mb-1">Progress</div>
+            <div className="text-2xl font-bold text-blue-600">{progress}%</div>
+          </div>
+        </div>
+        
+        {/* Progress Bar */}
+        <div className="w-full bg-gray-200 rounded-full h-2">
+          <div 
+            className="bg-gradient-to-r from-blue-500 to-green-500 h-2 rounded-full transition-all duration-500"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+      </div>
+
+      {/* Step Navigation */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+        <div className="flex items-center justify-between">
+          {[1, 2, 3, 4, 5].map((step) => (
+            <div key={step} className="flex items-center">
+              <div className={`
+                w-10 h-10 rounded-full flex items-center justify-center font-semibold
+                ${currentStep >= step 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-gray-200 text-gray-600'
+                }
+              `}>
+                {step}
+              </div>
+              {step < 5 && (
+                <div className={`
+                  w-16 h-1 mx-2
+                  ${currentStep > step ? 'bg-blue-600' : 'bg-gray-200'}
+                `}></div>
+              )}
+            </div>
+          ))}
+        </div>
+        
+        <div className="mt-4 flex justify-between text-sm text-gray-600">
+          <span>Organization</span>
+          <span>Facilities</span>
+          <span>Verification</span>
+          <span>Integration</span>
+          <span>Activation</span>
+        </div>
+      </div>
+
+      {/* Step Content */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+        {renderStepContent()}
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex justify-between items-center bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <button
+          onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
+          disabled={currentStep === 1}
+          className="px-6 py-3 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Previous
+        </button>
+        
+        <div className="flex space-x-4">
+          <button
+            onClick={saveProgress}
+            disabled={isSaving}
+            className="flex items-center px-6 py-3 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50"
+          >
+            {isSaving ? (
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-500 mr-2"></div>
+            ) : null}
+            Save Progress
+          </button>
+          
+          <button
+            onClick={() => setCurrentStep(Math.min(5, currentStep + 1))}
+            disabled={currentStep === 5}
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default FacilityManager;

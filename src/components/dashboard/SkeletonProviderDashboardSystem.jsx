@@ -33,6 +33,13 @@ import {
   Unlock
 } from 'lucide-react';
 
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+
 const SkeletonLoader = () => (
   <div className="space-y-8">
     <style>{`
@@ -440,9 +447,9 @@ const ResourcePanel = ({ panel, onClose, hasCompletedPSA }) => {
 };
 
 const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyOnboarded }) => {
-  // DEBUG: Add console logs to see what's being received
-  console.log('🔍 Debug - mockData received:', mockData);
-  console.log('🔍 Debug - user received:', user);
+  const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+  const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
   const [isLoading, setIsLoading] = useState(true);
   const [showNetworkResources, setShowNetworkResources] = useState(false);
@@ -450,43 +457,67 @@ const SkeletonProviderDashboardSystem = ({ user, imagingCenter, mockData, fullyO
   const [showValuePreview, setShowValuePreview] = useState(null);
   const [isAnimating, setIsAnimating] = useState(true);
   const [supabaseUser, setSupabaseUser] = useState(null);
+  const [firstName, setFirstName] = useState(null); // NEW: First name for greeting
 
-  // ✨ NEW: Smart PSA Logic - Check multiple sources
+  // ✨ Smart PSA Logic - Enhanced to also pull user first name
   const getSupabaseUser = async () => {
     try {
-      // Try to get Supabase client from window (if available)
-      if (typeof window !== 'undefined' && window.supabase) {
+      if (typeof window !== "undefined" && window.supabase) {
         const { data: { user: currentUser }, error } = await window.supabase.auth.getUser();
         if (currentUser && !error) {
-          console.log('🔍 Debug - Supabase user found:', currentUser);
+          console.log("🔍 Debug - Supabase user found:", currentUser);
           setSupabaseUser(currentUser);
+
+          // Fetch profile info
+          const { data: profile, error: profileError } = await supabase
+            .from("user_profiles")
+            .select("first_name")
+            .eq("id", currentUser.id)
+            .single();
+
+          if (profile && !profileError) {
+            console.log("✅ Found user profile:", profile);
+            setFirstName(profile.first_name);
+          }
+
           return currentUser;
         }
       }
-      
-      // Try to get from meta tags
-      if (typeof window !== 'undefined') {
-        const supabaseUrl = document.querySelector('meta[name="supabase-url"]')?.content;
-        const supabaseAnonKey = document.querySelector('meta[name="supabase-anon-key"]')?.content;
-        
-        if (supabaseUrl && supabaseAnonKey) {
-          // Dynamically import Supabase
-          const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
-                    
-          const { data: { user: currentUser }, error } = await supabase.auth.getUser();
-          if (currentUser && !error) {
-            console.log('🔍 Debug - Supabase user from meta tags:', currentUser);
-            setSupabaseUser(currentUser);
-            return currentUser;
+
+      // Fallback using meta tags
+      const metaUrl = document.querySelector('meta[name="supabase-url"]')?.content;
+      const metaKey = document.querySelector('meta[name="supabase-anon-key"]')?.content;
+
+      if (metaUrl && metaKey) {
+        const { createClient } = await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm");
+        const tempSupabase = createClient(metaUrl, metaKey);
+        const { data: { user: currentUser }, error } = await tempSupabase.auth.getUser();
+
+        if (currentUser && !error) {
+          console.log("🔍 Debug - Supabase user from meta tags:", currentUser);
+          setSupabaseUser(currentUser);
+
+          const { data: profile, error: profileError } = await tempSupabase
+            .from("user_profiles")
+            .select("first_name")
+            .eq("id", currentUser.id)
+            .single();
+
+          if (profile && !profileError) {
+            console.log("✅ Found user profile:", profile);
+            setFirstName(profile.first_name);
           }
+
+          return currentUser;
         }
       }
     } catch (error) {
-      console.log('🔍 Debug - Supabase not available, using mockData fallback:', error);
+      console.log("🔍 Debug - Supabase not available, using mockData fallback:", error);
     }
-    
+
     return null;
   };
+
 
   // ✨ NEW: Smart PSA Status Detection - USE REAL SUPABASE DATA
 const getSmartPSAStatus = () => {
@@ -653,8 +684,95 @@ const getSmartOnboardingProgress = () => {
 
   console.log('🔍 Debug - Showing main dashboard content');
 
+  // Smart Return Journey Banner Component
+  const SmartReturnJourneyBanner = () => {
+    // Check if user has in-progress facility configuration
+    const facilitiesConfigured = typeof window !== 'undefined' && window.USRadUser?.profile?.facilities_configured;
+    const currentProgress = getSmartOnboardingProgress();
+    
+    // Only show banner if facilities_configured = false but onboarding_progress > 0
+    if (facilitiesConfigured !== false || currentProgress === 0) {
+      return null;
+    }
+    
+    // Calculate time since last activity (demo: show "5 minutes ago")
+    const lastSavedTime = "5 minutes ago"; // In production, calculate from actual timestamp
+    
+    // Determine completed steps based on progress
+    const steps = [
+      { name: 'Account Created', completed: currentProgress >= 20 },
+      { name: 'Profile Setup', completed: currentProgress >= 40 },
+      { name: 'PSA Signed', completed: currentProgress >= 60 },
+      { name: 'Facilities Added', completed: false }, // This is what they need to complete
+      { name: 'Launch Ready', completed: false }
+    ];
+    
+    return (
+      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 rounded-2xl p-6 shadow-2xl">
+        {/* Background decorations */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-32 translate-x-32"></div>
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full translate-y-24 -translate-x-24"></div>
+        
+        <div className="relative z-10">
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            {/* Left side - Progress info */}
+            <div className="flex-1">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="bg-white/20 p-2 rounded-lg">
+                  <ArrowRight className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-white">Continue Your Setup</h3>
+                <div className="bg-white/20 px-3 py-1 rounded-full">
+                  <span className="text-sm font-medium text-white">{currentProgress}% Complete</span>
+                </div>
+              </div>
+              
+              <p className="text-blue-100 mb-4">
+                You're almost there! Complete your facility configuration to start using USRad.
+                <span className="text-xs ml-2 opacity-75">Last saved {lastSavedTime}</span>
+              </p>
+              
+              {/* Progress steps with checkmarks */}
+              <div className="flex items-center space-x-2 flex-wrap">
+                {steps.map((step, index) => (
+                  <div key={index} className="flex items-center">
+                    {step.completed ? (
+                      <CheckCircle className="w-4 h-4 text-green-400 mr-1" />
+                    ) : (
+                      <div className="w-4 h-4 border-2 border-white/40 rounded-full mr-1"></div>
+                    )}
+                    <span className={`text-xs ${step.completed ? 'text-white' : 'text-blue-200'}`}>
+                      {step.name}
+                    </span>
+                    {index < steps.length - 1 && (
+                      <ChevronRight className="w-3 h-3 text-blue-300 mx-1" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Right side - Action button */}
+            <div className="flex items-center space-x-4">
+              <button 
+                onClick={() => window.location.href = '/dashboard/onboarding/facilities'}
+                className="bg-white text-blue-700 px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-2"
+              >
+                <span>Resume Setup</span>
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-8">
+      {/* Smart Return Journey Banner - Shows only for users with incomplete facility setup */}
+      <SmartReturnJourneyBanner />
+      
       <style>{`
         .usrad-card {
           background: white;

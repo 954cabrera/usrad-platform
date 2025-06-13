@@ -5,38 +5,24 @@ import {
   Building2, Globe, Camera, FileText, Download, Edit3, Trash2, MoreVertical
 } from 'lucide-react';
 
-// Import enhanced Supabase functions
-import { 
-  searchAcrFacilities, 
-  saveFacilityConfiguration, 
-  loadFacilityConfiguration, 
-  autoSaveProgress,
-  formatPhoneNumber,
-  formatEIN,
-  validateEmail,
-  validateRequired,
-  getCurrentUser
-} from '../../lib/facilityManager.js';
-import { supabase } from '../../lib/supabase.js';
-
-const FacilityManager = () => {
+const EnterpriseModernFacilityManager = () => {
   // Enhanced State Management
   const [currentStep, setCurrentStep] = useState(1);
   const [organizationType, setOrganizationType] = useState('');
   const [corporateInfo, setCorporateInfo] = useState({
     legalName: '',
-    legalEntityName: '',
-    taxId: '',
-    signerName: '',
-    signerTitle: '',
-    email: '',
+    dbaName: '',
+    ein: '',
     phone: '',
-    corporateAddress: '',
-    corporateCity: '',
-    corporateState: '',
-    corporateZip: '',
+    email: '',
+    address: '',
+    city: '',
+    state: '',
+    zip: '',
+    authorizedSigner: '',
+    signerTitle: '',
     website: '',
-    organizationType: ''
+    businessType: 'imaging_center'
   });
   
   const [selectedFacilities, setSelectedFacilities] = useState([]);
@@ -44,7 +30,8 @@ const FacilityManager = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [showManualEntry, setShowManualEntry] = useState(false);
-  const [viewMode, setViewMode] = useState('grid');
+  const [showBulkUpload, setShowBulkUpload] = useState(false);
+  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
   const [filterBy, setFilterBy] = useState('all');
   
   const [manualFacility, setManualFacility] = useState({
@@ -56,159 +43,104 @@ const FacilityManager = () => {
     phone: '',
     website: '',
     modalities: [],
-    equipmentBrands: [],
-    primaryContact: '',
-    contactTitle: '',
-    notes: '',
-    isManualEntry: true
+    yearEstablished: '',
+    equipmentBrands: []
   });
   
   const [progress, setProgress] = useState(20);
   const [isSaving, setIsSaving] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [showEIN, setShowEIN] = useState(false);
-  const [saveMessage, setSaveMessage] = useState('');
-  const [errors, setErrors] = useState({});
+  const [animationStep, setAnimationStep] = useState(0);
 
   const searchTimeoutRef = useRef(null);
 
-  // Enhanced function to get current user with profile data
-  const getEnhancedCurrentUser = async () => {
-    try {
-      // First try to get user from Supabase auth
-      const { data: { user }, error } = await supabase.auth.getUser();
-      if (error || !user) {
-        console.error('Auth error:', error);
-        return null;
-      }
-
-      // Get user profile data
-      const { data: profile, error: profileError } = await supabase
-        .from('user_profiles')
-        .select('*')
-        .eq('user_id', user.id)
-        .single();
-
-      if (profileError) {
-        console.error('Profile fetch error:', profileError);
-        // Return basic user data if profile fetch fails
-        return {
-          id: user.id,
-          email: user.email,
-          profile: null
-        };
-      }
-
-      // Combine auth user with profile data
-      return {
-        id: user.id,
-        email: user.email,
-        profile: profile,
-        // Extract commonly used fields
-        fullName: profile?.full_name || '',
-        firstName: profile?.full_name?.split(' ')[0] || '',
-        lastName: profile?.full_name?.split(' ').slice(1).join(' ') || '',
-        centerName: profile?.center_name || profile?.company_name || '',
-        phone: profile?.phone || '',
-        businessPhone: profile?.business_phone || profile?.phone || ''
-      };
-    } catch (error) {
-      console.error('Error getting enhanced user data:', error);
-      return null;
-    }
+  // Mock data that would come from your Supabase
+  const mockUser = {
+    id: '09a5523c-accd-4a00-bbfb-a65c52c69831',
+    firstName: 'John',
+    lastName: 'Smith',
+    email: 'john.smith@advancedimaging.com',
+    phone: '(954) 555-0123',
+    centerName: 'Advanced Imaging Center of Davie'
   };
 
-  // Load existing data on component mount
+  // Enhanced ACR facility data with more realistic details
+  const mockACRFacilities = [
+    {
+      id: 'acr_001',
+      name: 'Advanced Imaging Center of Davie',
+      address: '12345 University Dr',
+      city: 'Davie',
+      state: 'FL',
+      zip: '33328',
+      phone: '(954) 555-0123',
+      website: 'www.advancedimaging.com',
+      modalities: ['MRI', 'CT', 'Ultrasound', 'X-Ray'],
+      equipmentBrands: ['GE', 'Siemens'],
+      yearEstablished: '2010',
+      accredited: true,
+      rating: 4.8,
+      reviews: 247,
+      specialties: ['Cardiac Imaging', 'Neurological Imaging'],
+      certifications: ['ACR', 'AIUM', 'ICAVL']
+    },
+    {
+      id: 'acr_002',
+      name: 'Broward Diagnostic Imaging',
+      address: '5678 Commercial Blvd',
+      city: 'Fort Lauderdale',
+      state: 'FL',
+      zip: '33309',
+      phone: '(954) 555-0456',
+      website: 'www.browarddiagnostic.com',
+      modalities: ['MRI', 'CT', 'X-Ray', 'Mammography', 'Ultrasound'],
+      equipmentBrands: ['Philips', 'GE'],
+      yearEstablished: '2005',
+      accredited: true,
+      rating: 4.6,
+      reviews: 189,
+      specialties: ['Women\'s Imaging', 'Musculoskeletal'],
+      certifications: ['ACR', 'FDA', 'MQSA']
+    },
+    {
+      id: 'acr_003',
+      name: 'South Florida Medical Imaging',
+      address: '9012 Sunrise Blvd',
+      city: 'Plantation',
+      state: 'FL',
+      zip: '33322',
+      phone: '(954) 555-0789',
+      website: 'www.sfmedicalimaging.com',
+      modalities: ['MRI', 'CT', 'PET', 'Nuclear Medicine', 'DEXA'],
+      equipmentBrands: ['Siemens', 'Canon'],
+      yearEstablished: '1998',
+      accredited: true,
+      rating: 4.9,
+      reviews: 312,
+      specialties: ['Oncology Imaging', 'Cardiology'],
+      certifications: ['ACR', 'SNM', 'ICANL']
+    }
+  ];
+
+  // Equipment brands for dropdowns
+  const equipmentBrands = ['GE', 'Siemens', 'Philips', 'Canon', 'Hologic', 'Fujifilm', 'Other'];
+  const modalityOptions = ['MRI', 'CT', 'X-Ray', 'Ultrasound', 'Mammography', 'PET', 'Nuclear Medicine', 'DEXA', 'Fluoroscopy'];
+
+  // Auto-populate from user data
   useEffect(() => {
-    const loadExistingData = async () => {
-      setIsLoading(true);
-      try {
-        // Get enhanced user data first
-        const currentUser = await getEnhancedCurrentUser();
-        if (!currentUser) {
-          console.error('No authenticated user found');
-          setIsLoading(false);
-          return;
-        }
+    if (organizationType === 'single') {
+      setCorporateInfo(prev => ({
+        ...prev,
+        legalName: mockUser.centerName,
+        dbaName: mockUser.centerName,
+        phone: mockUser.phone,
+        email: mockUser.email,
+        authorizedSigner: `${mockUser.firstName} ${mockUser.lastName}`
+      }));
+    }
+  }, [organizationType]);
 
-        // Load facility configuration with user ID
-        const result = await loadFacilityConfiguration(currentUser.id);
-        
-        if (result.success && result.hasExistingData) {
-          if (result.corporateInfo) {
-            setCorporateInfo({
-              legalName: result.corporateInfo.legal_name || '',
-              legalEntityName: result.corporateInfo.legal_entity_name || '',
-              taxId: result.corporateInfo.tax_id || '',
-              signerName: result.corporateInfo.signer_name || '',
-              signerTitle: result.corporateInfo.signer_title || '',
-              email: result.corporateInfo.email || '',
-              phone: result.corporateInfo.phone || '',
-              corporateAddress: result.corporateInfo.corporate_address || '',
-              corporateCity: result.corporateInfo.corporate_city || '',
-              corporateState: result.corporateInfo.corporate_state || '',
-              corporateZip: result.corporateInfo.corporate_zip || '',
-              website: result.corporateInfo.website || '',
-              organizationType: result.corporateInfo.organization_type || ''
-            });
-            setOrganizationType(result.corporateInfo.organization_type || '');
-          } else if (currentUser.profile) {
-            // If no corporate info exists, pre-populate from user profile
-            setCorporateInfo(prev => ({
-              ...prev,
-              legalName: currentUser.centerName || currentUser.profile.company_name || '',
-              email: currentUser.email || '',
-              phone: currentUser.businessPhone || currentUser.phone || '',
-              signerName: currentUser.fullName || ''
-            }));
-          }
-          
-          if (result.facilities && result.facilities.length > 0) {
-            const transformedFacilities = result.facilities.map(f => ({
-              id: f.acr_facility_id ? `acr_${f.acr_facility_id}` : `manual_${f.id}`,
-              acrId: f.acr_facility_id,
-              name: f.facility_name,
-              address: f.street_address,
-              city: f.city,
-              state: f.state,
-              zip: f.zip_code,
-              phone: f.phone_number,
-              email: f.email,
-              website: f.website,
-              modalities: f.modalities || [],
-              equipmentBrands: f.equipment_brands || [],
-              primaryContact: f.primary_contact,
-              contactTitle: f.contact_title,
-              notes: f.notes,
-              acrVerified: f.is_acr_verified,
-              isManualEntry: f.is_manual_entry,
-              isPrimary: f.is_primary,
-              isEdited: f.is_edited,
-              originalACRData: f.original_acr_data
-            }));
-            setSelectedFacilities(transformedFacilities);
-          }
-        } else if (currentUser.profile) {
-          // No existing facility data, but we have user profile - pre-populate
-          setCorporateInfo(prev => ({
-            ...prev,
-            legalName: currentUser.centerName || currentUser.profile.company_name || '',
-            email: currentUser.email || '',
-            phone: currentUser.businessPhone || currentUser.phone || '',
-            signerName: currentUser.fullName || ''
-          }));
-        }
-      } catch (error) {
-        console.error('Error loading existing data:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadExistingData();
-  }, []);
-
-  // Enhanced search with real ACR database
+  // Enhanced search with debouncing
   useEffect(() => {
     if (searchTerm.length > 2) {
       setIsSearching(true);
@@ -217,16 +149,17 @@ const FacilityManager = () => {
         clearTimeout(searchTimeoutRef.current);
       }
       
-      searchTimeoutRef.current = setTimeout(async () => {
-        try {
-          const results = await searchAcrFacilities(searchTerm);
-          setSearchResults(results);
-        } catch (error) {
-          console.error('Search error:', error);
-          setSearchResults([]);
-        } finally {
-          setIsSearching(false);
-        }
+      searchTimeoutRef.current = setTimeout(() => {
+        // Enhanced search logic
+        const results = mockACRFacilities.filter(facility =>
+          facility.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          facility.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          facility.state.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          facility.modalities.some(mod => mod.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          facility.equipmentBrands.some(brand => brand.toLowerCase().includes(searchTerm.toLowerCase()))
+        );
+        setSearchResults(results);
+        setIsSearching(false);
       }, 300);
     } else {
       setSearchResults([]);
@@ -240,77 +173,35 @@ const FacilityManager = () => {
     };
   }, [searchTerm]);
 
-  // Auto-populate corporate info for single practice
-  useEffect(() => {
-    const populateSinglePracticeInfo = async () => {
-      if (organizationType === 'single') {
-        try {
-          // Get current user data from Supabase
-          const currentUser = await getEnhancedCurrentUser();
-          
-          if (currentUser) {
-            setCorporateInfo(prev => {
-              // Only update if fields are empty to avoid overwriting user edits
-              const updates = {
-                ...prev,
-                organizationType: 'single'
-              };
-              
-              // Auto-populate empty fields with user data
-              if (!prev.legalName) {
-                updates.legalName = currentUser.centerName || 
-                                  currentUser.profile?.company_name || 
-                                  `${currentUser.fullName} Practice` || 
-                                  'Practice';
-              }
-              
-              if (!prev.legalEntityName) {
-                updates.legalEntityName = updates.legalName;
-              }
-              
-              if (!prev.email) {
-                updates.email = currentUser.email || '';
-              }
-              
-              if (!prev.phone) {
-                updates.phone = currentUser.businessPhone || 
-                              currentUser.phone || 
-                              currentUser.profile?.phone || 
-                              '';
-              }
-              
-              if (!prev.signerName) {
-                updates.signerName = currentUser.fullName || '';
-              }
-              
-              return updates;
-            });
-          }
-        } catch (error) {
-          console.error('Error populating single practice info:', error);
-        }
-      } else {
-        // Just update organization type for other types
-        setCorporateInfo(prev => ({...prev, organizationType}));
-      }
-    };
-    
-    populateSinglePracticeInfo();
-  }, [organizationType]);
+  // Enhanced formatting functions
+  const formatEIN = (value) => {
+    const cleanValue = value.replace(/\D/g, '');
+    if (cleanValue.length <= 2) return cleanValue;
+    return `${cleanValue.slice(0, 2)}-${cleanValue.slice(2, 9)}`;
+  };
 
-  // Enhanced facility selection from ACR search
+  const formatPhone = (value) => {
+    const cleanValue = value.replace(/\D/g, '');
+    if (cleanValue.length <= 3) return cleanValue;
+    if (cleanValue.length <= 6) return `(${cleanValue.slice(0, 3)}) ${cleanValue.slice(3)}`;
+    return `(${cleanValue.slice(0, 3)}) ${cleanValue.slice(3, 6)}-${cleanValue.slice(6, 10)}`;
+  };
+
+  // Enhanced facility selection
   const selectFacility = (facility) => {
     if (!selectedFacilities.find(f => f.id === facility.id)) {
       const newFacility = { 
         ...facility, 
         isPrimary: selectedFacilities.length === 0,
         addedDate: new Date().toISOString(),
-        isManualEntry: false,
-        acrVerified: true
+        status: 'pending'
       };
       setSelectedFacilities([...selectedFacilities, newFacility]);
       setSearchTerm('');
       setSearchResults([]);
+      
+      // Trigger animation
+      setAnimationStep(prev => prev + 1);
     }
   };
 
@@ -332,45 +223,34 @@ const FacilityManager = () => {
 
   // Enhanced manual facility addition
   const addManualFacility = () => {
-    const newErrors = {};
-    
-    if (!validateRequired(manualFacility.name)) newErrors.name = 'Facility name is required';
-    if (!validateRequired(manualFacility.address)) newErrors.address = 'Address is required';
-    if (!validateRequired(manualFacility.city)) newErrors.city = 'City is required';
-    if (!validateRequired(manualFacility.state)) newErrors.state = 'State is required';
-    
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
+    if (manualFacility.name && manualFacility.address && manualFacility.city && manualFacility.state) {
+      const newFacility = {
+        ...manualFacility,
+        id: `manual_${Date.now()}`,
+        accredited: false,
+        isPrimary: selectedFacilities.length === 0,
+        addedDate: new Date().toISOString(),
+        status: 'pending',
+        rating: null,
+        reviews: 0,
+        specialties: [],
+        certifications: []
+      };
+      setSelectedFacilities([...selectedFacilities, newFacility]);
+      setManualFacility({
+        name: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: '',
+        phone: '',
+        website: '',
+        modalities: [],
+        yearEstablished: '',
+        equipmentBrands: []
+      });
+      setShowManualEntry(false);
     }
-
-    const newFacility = {
-      ...manualFacility,
-      id: `manual_${Date.now()}`,
-      acrVerified: false,
-      isPrimary: selectedFacilities.length === 0,
-      addedDate: new Date().toISOString(),
-      isManualEntry: true
-    };
-    
-    setSelectedFacilities([...selectedFacilities, newFacility]);
-    setManualFacility({
-      name: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: '',
-      phone: '',
-      website: '',
-      modalities: [],
-      equipmentBrands: [],
-      primaryContact: '',
-      contactTitle: '',
-      notes: '',
-      isManualEntry: true
-    });
-    setShowManualEntry(false);
-    setErrors({});
   };
 
   // Enhanced progress calculation
@@ -378,96 +258,68 @@ const FacilityManager = () => {
     let newProgress = 20; // Base progress
     
     if (organizationType) newProgress += 15;
-    if (validateRequired(corporateInfo.legalName)) newProgress += 15;
-    if (validateRequired(corporateInfo.taxId)) newProgress += 10;
-    if (validateRequired(corporateInfo.signerName)) newProgress += 10;
+    if (corporateInfo.legalName) newProgress += 10;
+    if (corporateInfo.ein) newProgress += 10;
+    if (corporateInfo.authorizedSigner) newProgress += 10;
     if (selectedFacilities.length > 0) newProgress += 20;
     if (selectedFacilities.length > 1) newProgress += 5;
-    if (validateRequired(corporateInfo.website)) newProgress += 5;
+    if (corporateInfo.website) newProgress += 5;
+    if (manualFacility.modalities?.length > 0) newProgress += 5;
     
     setProgress(newProgress);
-  }, [organizationType, corporateInfo, selectedFacilities]);
+  }, [organizationType, corporateInfo, selectedFacilities, manualFacility]);
 
-  // Auto-save progress
-  useEffect(() => {
-    const autoSave = async () => {
-      if (progress > 20) { // Only auto-save if there's actual progress
-        try {
-          const currentUser = await getEnhancedCurrentUser();
-          if (currentUser) {
-            await autoSaveProgress(currentUser.id, currentStep === 1 ? 'corporate_info' : 'facilities', {
-              corporateInfo,
-              facilities: selectedFacilities,
-              organizationType
-            }, progress);
-          }
-        } catch (error) {
-          console.error('Auto-save error:', error);
-        }
-      }
-    };
-
-    const timeoutId = setTimeout(autoSave, 2000); // Auto-save after 2 seconds of inactivity
-    return () => clearTimeout(timeoutId);
-  }, [corporateInfo, selectedFacilities, organizationType, progress, currentStep]);
-
-  // Enhanced save functionality with real Supabase integration
+  // Enhanced save functionality
   const saveProgress = async () => {
     setIsSaving(true);
-    setSaveMessage('');
     
     try {
-      // Get current user
-      const currentUser = await getEnhancedCurrentUser();
-      if (!currentUser) {
-        setSaveMessage('❌ Error: User not authenticated');
-        setIsSaving(false);
-        return;
-      }
+      // Simulate API save with realistic delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
-      const result = await saveFacilityConfiguration(currentUser.id, corporateInfo, selectedFacilities);
+      // Here you would integrate with your existing Supabase operations
+      // 1. Update corporate_entities table
+      // 2. Update user_facilities table
+      // 3. Update user progress tracking via window.USRadUser
       
-      if (result.success) {
-        setSaveMessage('✅ Progress saved successfully!');
-        // Update progress to PSA ready
-        setProgress(75);
-      } else {
-        setSaveMessage(`❌ Error saving: ${result.error}`);
-      }
+      // Trigger success animation
+      setAnimationStep(prev => prev + 1);
+      
+      // Show success message
+      const successDiv = document.createElement('div');
+      successDiv.className = 'fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in';
+      successDiv.innerHTML = `
+        <div class="flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          Progress saved successfully!
+        </div>
+      `;
+      document.body.appendChild(successDiv);
+      
+      setTimeout(() => {
+        if (successDiv.parentNode) {
+          successDiv.remove();
+        }
+      }, 3000);
+      
     } catch (error) {
       console.error('Save error:', error);
-      setSaveMessage(`❌ Save failed: ${error.message}`);
+      alert('Error saving progress. Please try again.');
     } finally {
       setIsSaving(false);
-      
-      // Clear message after 3 seconds
-      setTimeout(() => setSaveMessage(''), 3000);
     }
   };
 
   // Filter facilities
   const filteredFacilities = selectedFacilities.filter(facility => {
     if (filterBy === 'all') return true;
-    if (filterBy === 'acr') return facility.acrVerified;
-    if (filterBy === 'manual') return facility.isManualEntry;
+    if (filterBy === 'acr') return facility.accredited;
+    if (filterBy === 'manual') return !facility.accredited;
     if (filterBy === 'primary') return facility.isPrimary;
     return true;
   });
-
-  // Validation for step progression
-  const canProceedToNextStep = () => {
-    if (currentStep === 1) {
-      return organizationType && 
-             validateRequired(corporateInfo.legalName) && 
-             validateRequired(corporateInfo.taxId) && 
-             validateRequired(corporateInfo.signerName) &&
-             validateEmail(corporateInfo.email);
-    }
-    if (currentStep === 2) {
-      return selectedFacilities.length > 0;
-    }
-    return true;
-  };
 
   const renderStepContent = () => {
     switch (currentStep) {
@@ -589,8 +441,8 @@ const FacilityManager = () => {
                     </label>
                     <input
                       type="text"
-                      value={corporateInfo.legalEntityName}
-                      onChange={(e) => setCorporateInfo({...corporateInfo, legalEntityName: e.target.value})}
+                      value={corporateInfo.dbaName}
+                      onChange={(e) => setCorporateInfo({...corporateInfo, dbaName: e.target.value})}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm hover:shadow-md"
                       placeholder="Doing business as..."
                     />
@@ -603,8 +455,8 @@ const FacilityManager = () => {
                     <div className="relative">
                       <input
                         type={showEIN ? "text" : "password"}
-                        value={corporateInfo.taxId}
-                        onChange={(e) => setCorporateInfo({...corporateInfo, taxId: formatEIN(e.target.value)})}
+                        value={corporateInfo.ein}
+                        onChange={(e) => setCorporateInfo({...corporateInfo, ein: formatEIN(e.target.value)})}
                         className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm hover:shadow-md"
                         placeholder="XX-XXXXXXX"
                         maxLength={10}
@@ -626,7 +478,7 @@ const FacilityManager = () => {
                     <input
                       type="tel"
                       value={corporateInfo.phone}
-                      onChange={(e) => setCorporateInfo({...corporateInfo, phone: formatPhoneNumber(e.target.value)})}
+                      onChange={(e) => setCorporateInfo({...corporateInfo, phone: formatPhone(e.target.value)})}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm hover:shadow-md"
                       placeholder="(XXX) XXX-XXXX"
                       maxLength={14}
@@ -668,8 +520,8 @@ const FacilityManager = () => {
                     </label>
                     <input
                       type="text"
-                      value={corporateInfo.signerName}
-                      onChange={(e) => setCorporateInfo({...corporateInfo, signerName: e.target.value})}
+                      value={corporateInfo.authorizedSigner}
+                      onChange={(e) => setCorporateInfo({...corporateInfo, authorizedSigner: e.target.value})}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm hover:shadow-md"
                       placeholder="Full name of person authorized to sign PSA"
                     />
@@ -710,7 +562,7 @@ const FacilityManager = () => {
                   {searchTerm && (
                     <button
                       onClick={() => setSearchTerm('')}
-                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors text-xl"
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                     >
                       ×
                     </button>
@@ -744,6 +596,12 @@ const FacilityManager = () => {
                                       <span className="ml-1 text-xs text-emerald-600 font-medium">ACR</span>
                                     </div>
                                   )}
+                                  {facility.rating && (
+                                    <div className="ml-2 flex items-center">
+                                      <Star className="h-4 w-4 text-yellow-400 fill-current" />
+                                      <span className="ml-1 text-xs text-gray-600 font-medium">{facility.rating}</span>
+                                    </div>
+                                  )}
                                 </div>
                                 <p className="text-sm text-gray-600 flex items-center mb-1">
                                   <MapPin className="h-4 w-4 mr-1 text-gray-400" />
@@ -752,7 +610,11 @@ const FacilityManager = () => {
                                 <div className="flex items-center space-x-4 text-xs">
                                   <div className="flex items-center">
                                     <Camera className="h-3 w-3 mr-1 text-gray-400" />
-                                    <span className="text-gray-500">{facility.modalities ? facility.modalities.join(', ') : facility.modality}</span>
+                                    <span className="text-gray-500">{facility.modalities.join(', ')}</span>
+                                  </div>
+                                  <div className="flex items-center">
+                                    <Award className="h-3 w-3 mr-1 text-gray-400" />
+                                    <span className="text-gray-500">{facility.equipmentBrands.join(', ')}</span>
                                   </div>
                                 </div>
                               </div>
@@ -775,6 +637,14 @@ const FacilityManager = () => {
                   <Plus className="h-5 w-5 mr-2" />
                   Add Manually
                 </button>
+                
+                <button 
+                  onClick={() => setShowBulkUpload(!showBulkUpload)}
+                  className="flex items-center px-6 py-3 bg-white border-2 border-blue-200 text-blue-700 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-all font-medium shadow-md hover:shadow-lg"
+                >
+                  <Upload className="h-5 w-5 mr-2" />
+                  Bulk Upload
+                </button>
               </div>
             </div>
 
@@ -793,7 +663,7 @@ const FacilityManager = () => {
                   </div>
                   <button
                     onClick={() => setShowManualEntry(false)}
-                    className="text-gray-400 hover:text-gray-600 transition-colors text-xl"
+                    className="text-gray-400 hover:text-gray-600 transition-colors"
                   >
                     ×
                   </button>
@@ -808,10 +678,9 @@ const FacilityManager = () => {
                       type="text"
                       value={manualFacility.name}
                       onChange={(e) => setManualFacility({...manualFacility, name: e.target.value})}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm hover:shadow-md ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm hover:shadow-md"
                       placeholder="Enter facility name"
                     />
-                    {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                   </div>
 
                   <div className="md:col-span-2">
@@ -822,10 +691,9 @@ const FacilityManager = () => {
                       type="text"
                       value={manualFacility.address}
                       onChange={(e) => setManualFacility({...manualFacility, address: e.target.value})}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm hover:shadow-md ${errors.address ? 'border-red-500' : 'border-gray-300'}`}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm hover:shadow-md"
                       placeholder="Street address"
                     />
-                    {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
                   </div>
 
                   <div>
@@ -836,10 +704,9 @@ const FacilityManager = () => {
                       type="text"
                       value={manualFacility.city}
                       onChange={(e) => setManualFacility({...manualFacility, city: e.target.value})}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm hover:shadow-md ${errors.city ? 'border-red-500' : 'border-gray-300'}`}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm hover:shadow-md"
                       placeholder="City"
                     />
-                    {errors.city && <p className="text-red-500 text-sm mt-1">{errors.city}</p>}
                   </div>
 
                   <div>
@@ -849,7 +716,7 @@ const FacilityManager = () => {
                     <select
                       value={manualFacility.state}
                       onChange={(e) => setManualFacility({...manualFacility, state: e.target.value})}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm hover:shadow-md ${errors.state ? 'border-red-500' : 'border-gray-300'}`}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm hover:shadow-md"
                     >
                       <option value="">Select state</option>
                       <option value="FL">Florida</option>
@@ -858,7 +725,6 @@ const FacilityManager = () => {
                       <option value="SC">South Carolina</option>
                       <option value="NC">North Carolina</option>
                     </select>
-                    {errors.state && <p className="text-red-500 text-sm mt-1">{errors.state}</p>}
                   </div>
 
                   <div>
@@ -882,7 +748,7 @@ const FacilityManager = () => {
                     <input
                       type="tel"
                       value={manualFacility.phone}
-                      onChange={(e) => setManualFacility({...manualFacility, phone: formatPhoneNumber(e.target.value)})}
+                      onChange={(e) => setManualFacility({...manualFacility, phone: formatPhone(e.target.value)})}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm hover:shadow-md"
                       placeholder="(XXX) XXX-XXXX"
                       maxLength={14}
@@ -939,10 +805,25 @@ const FacilityManager = () => {
                         <option value="primary">Primary Only</option>
                       </select>
                     </div>
+                    
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => setViewMode('grid')}
+                        className={`p-2 rounded-lg transition-colors ${viewMode === 'grid' ? 'bg-blue-100 text-blue-600' : 'text-gray-400 hover:text-gray-600'}`}
+                      >
+                        ⊞
+                      </button>
+                      <button
+                        onClick={() => setViewMode('list')}
+                        className={`p-2 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-blue-100 text-blue-600' : 'text-gray-400 hover:text-gray-600'}`}
+                      >
+                        ☰
+                      </button>
+                    </div>
                   </div>
                 </div>
                 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className={viewMode === 'grid' ? 'grid md:grid-cols-2 gap-6' : 'space-y-4'}>
                   {filteredFacilities.map((facility) => (
                     <div
                       key={facility.id}
@@ -952,11 +833,17 @@ const FacilityManager = () => {
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
+                      <div className="absolute top-4 right-4">
+                        <button className="opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-full hover:bg-gray-100">
+                          <MoreVertical className="h-4 w-4 text-gray-400" />
+                        </button>
+                      </div>
+                      
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
                           <div className="flex items-center mb-2">
                             <h5 className="font-bold text-gray-900 text-lg">{facility.name}</h5>
-                            {facility.acrVerified && (
+                            {facility.accredited && (
                               <div className="ml-2 flex items-center">
                                 <CheckCircle className="h-5 w-5 text-green-500" />
                                 <span className="ml-1 text-xs text-green-600 font-medium">ACR</span>
@@ -979,6 +866,13 @@ const FacilityManager = () => {
                               <p className="text-sm text-gray-600 flex items-center">
                                 <Phone className="h-4 w-4 mr-2 text-gray-400" />
                                 {facility.phone}
+                              </p>
+                            )}
+                            
+                            {facility.rating && (
+                              <p className="text-sm text-gray-600 flex items-center">
+                                <Star className="h-4 w-4 mr-2 text-yellow-400 fill-current" />
+                                {facility.rating} ({facility.reviews} reviews)
                               </p>
                             )}
                           </div>
@@ -1036,17 +930,6 @@ const FacilityManager = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600 font-medium">Loading your facility configuration...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50">
       <div className="max-w-6xl mx-auto p-6">
@@ -1103,11 +986,14 @@ const FacilityManager = () => {
               return (
                 <div key={step.num} className="flex items-center">
                   <div className="relative">
-                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center font-bold text-lg transition-all duration-300 shadow-lg ${
-                      isActive 
-                        ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white' 
+                    <div className={`
+                      w-14 h-14 rounded-2xl flex items-center justify-center font-bold text-lg transition-all duration-300 shadow-lg
+                      ${isActive 
+                        ? `bg-gradient-to-r from-${step.color}-500 to-${step.color}-600 text-white shadow-${step.color}-200` 
                         : 'bg-gray-200 text-gray-600'
-                    } ${isCurrent ? 'ring-4 ring-blue-100 scale-110' : ''}`}>
+                      }
+                      ${isCurrent ? 'ring-4 ring-blue-100 scale-110' : ''}
+                    `}>
                       <IconComponent className="h-6 w-6" />
                     </div>
                     {isCurrent && (
@@ -1117,9 +1003,10 @@ const FacilityManager = () => {
                     )}
                   </div>
                   {index < 4 && (
-                    <div className={`w-20 h-2 mx-3 rounded-full transition-all duration-500 ${
-                      currentStep > step.num ? 'bg-gradient-to-r from-blue-500 to-emerald-500' : 'bg-gray-200'
-                    }`}></div>
+                    <div className={`
+                      w-20 h-2 mx-3 rounded-full transition-all duration-500
+                      ${currentStep > step.num ? 'bg-gradient-to-r from-blue-500 to-emerald-500' : 'bg-gray-200'}
+                    `}></div>
                   )}
                 </div>
               );
@@ -1151,15 +1038,7 @@ const FacilityManager = () => {
             Previous
           </button>
           
-          <div className="flex items-center space-x-4">
-            {saveMessage && (
-              <div className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                saveMessage.includes('✅') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-              }`}>
-                {saveMessage}
-              </div>
-            )}
-            
+          <div className="flex space-x-4">
             <button
               onClick={saveProgress}
               disabled={isSaving}
@@ -1180,7 +1059,7 @@ const FacilityManager = () => {
             
             <button
               onClick={() => setCurrentStep(Math.min(5, currentStep + 1))}
-              disabled={currentStep === 5 || !canProceedToNextStep()}
+              disabled={currentStep === 5}
               className="flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-semibold shadow-lg hover:shadow-xl"
             >
               Continue
@@ -1193,4 +1072,4 @@ const FacilityManager = () => {
   );
 };
 
-export default FacilityManager;
+export default EnterpriseModernFacilityManager;

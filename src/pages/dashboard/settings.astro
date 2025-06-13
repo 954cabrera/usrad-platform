@@ -1,26 +1,233 @@
 ---
 // src/pages/dashboard/settings.astro
 import DashboardLayout from "../../components/dashboard/DashboardLayout.astro";
-// import { validateAuthSession } from "../../lib/auth";
-// import { AuthService } from "../../lib/auth";
 import SkeletonSettingsSystem from "../../components/dashboard/SkeletonSettingsSystem";
 
-// Validate authentication
-// const { session, user } = await validateAuthSession(Astro.request);
+let user = null;
+let imagingCenter = null;
 
-// // if (!session || !user) {
-//   return Astro.redirect("/login/imaginglogin");
-// }
-// 
-// // Get dashboard data
-// // const dashboardData = await AuthService.getUserDashboardData(user.id);
-// const { imagingCenter } = dashboardData;
+// Instead of trying to authenticate server-side, let's use client-side auth
+// and pass the data through the component
 ---
 
-<DashboardLayout title="Settings" user={null} imagingCenter={null}>
-  <SkeletonSettingsSystem
-    client:load
-    user={null}
-    imagingCenter={null}
-  />
-</DashboardLayout>
+<script>
+  // Add this script to handle redirects if not authenticated
+  window.addEventListener("DOMContentLoaded", async () => {
+    // Import Supabase
+    const { createClient } = await import(
+      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+    );
+
+    const supabaseUrl = document.querySelector(
+      'meta[name="supabase-url"]'
+    )?.content;
+    const supabaseAnonKey = document.querySelector(
+      'meta[name="supabase-anon-key"]'
+    )?.content;
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.error("Missing Supabase config");
+      window.location.href = "/login/imaginglogin";
+      return;
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+    try {
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
+
+      if (error || !session) {
+        console.log("No session found, redirecting to login");
+        window.location.href = "/login/imaginglogin";
+        return;
+      }
+
+      console.log("Session found for user:", session.user.email);
+
+      // Store user data in window for the React component
+      window.userData = {
+        id: session.user.id,
+        email: session.user.email,
+        firstName:
+          session.user.user_metadata?.first_name ||
+          session.user.user_metadata?.firstName ||
+          "",
+        lastName:
+          session.user.user_metadata?.last_name ||
+          session.user.user_metadata?.lastName ||
+          "",
+        phone: session.user.user_metadata?.phone || "",
+        role: session.user.user_metadata?.user_type || "imaging_center",
+        createdAt: session.user.created_at,
+      };
+
+      // Store imaging center data if available
+      if (session.user.user_metadata?.center_name) {
+        window.imagingCenterData = {
+          id: session.user.id + "-center",
+          name: session.user.user_metadata.center_name,
+          type: session.user.user_metadata.center_type || "",
+          address: session.user.user_metadata.address || "",
+          city: session.user.user_metadata.city || "",
+          state: session.user.user_metadata.state || "",
+          zipCode: session.user.user_metadata.zip_code || "",
+          phone: session.user.user_metadata.phone || "",
+          email: session.user.email,
+          licenseNumber: session.user.user_metadata.license_number || "",
+        };
+      }
+
+      // Trigger a custom event to let React components know data is ready
+      window.dispatchEvent(new CustomEvent("userDataReady"));
+    } catch (error) {
+      console.error("Auth check error:", error);
+      window.location.href = "/login/imaginglogin";
+    }
+  });
+</script>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings - USRad Dashboard</title>
+
+    <!-- Supabase Configuration Meta Tags -->
+    <meta name="supabase-url" content={import.meta.env.PUBLIC_SUPABASE_URL} />
+    <meta
+      name="supabase-anon-key"
+      content={import.meta.env.PUBLIC_SUPABASE_ANON_KEY}
+    />
+  </head>
+  <body>
+    <DashboardLayout title="Settings" user={user} imagingCenter={imagingCenter}>
+      <div id="settings-container">
+        <div id="loading-message" style="text-align: center; padding: 2rem;">
+          <p>Loading your settings...</p>
+        </div>
+      </div>
+    </DashboardLayout>
+
+    <script type="module">
+      import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+      // Wait for user data to be ready
+      window.addEventListener("userDataReady", () => {
+        // Import React and render the settings component
+        import("https://unpkg.com/react@18/umd/react.development.js").then(
+          () => {
+            import(
+              "https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+            ).then(() => {
+              // Now render the settings component with real data
+              const container = document.getElementById("settings-container");
+
+              // Create a simple settings component
+              const settingsHTML = `
+              <div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+                <div style="margin-bottom: 2rem;">
+                  <h1 style="font-size: 2rem; font-weight: bold; color: #003087; margin-bottom: 0.5rem;">Settings</h1>
+                  <p style="color: #6b7280;">Manage your profile and imaging center preferences</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
+                  <!-- Profile Information -->
+                  <div style="background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                    <h2 style="font-size: 1.5rem; font-weight: bold; color: #003087; margin-bottom: 1rem;">Profile Information</h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                      <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">First Name</label>
+                        <input type="text" value="${window.userData?.firstName || ""}" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 0.5rem;" />
+                      </div>
+                      <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">Last Name</label>
+                        <input type="text" value="${window.userData?.lastName || ""}" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 0.5rem;" />
+                      </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                      <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">Email</label>
+                      <input type="email" value="${window.userData?.email || ""}" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 0.5rem;" />
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                      <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">Phone</label>
+                      <input type="tel" value="${window.userData?.phone || ""}" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 0.5rem;" />
+                    </div>
+                    
+                    <button style="background: #003087; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer;">
+                      Save Changes
+                    </button>
+                  </div>
+                  
+                  ${
+                    window.imagingCenterData
+                      ? `
+                  <!-- Imaging Center Information -->
+                  <div style="background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                    <h2 style="font-size: 1.5rem; font-weight: bold; color: #003087; margin-bottom: 1rem;">Imaging Center Settings</h2>
+                    
+                    <div style="margin-bottom: 1rem;">
+                      <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">Center Name</label>
+                      <input type="text" value="${window.imagingCenterData.name}" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 0.5rem;" />
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                      <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">Center Type</label>
+                      <input type="text" value="${window.imagingCenterData.type}" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 0.5rem;" />
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                      <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">Phone</label>
+                      <input type="tel" value="${window.imagingCenterData.phone}" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 0.5rem;" />
+                    </div>
+                    
+                    <button style="background: #cc9933; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer;">
+                      Update Center Info
+                    </button>
+                  </div>
+                  `
+                      : ""
+                  }
+                  
+                  <!-- Account Status -->
+                  <div style="background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                    <h2 style="font-size: 1.5rem; font-weight: bold; color: #003087; margin-bottom: 1rem;">Account Status</h2>
+                    
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                      <span style="color: #6b7280;">Account Type</span>
+                      <span style="background: #dbeafe; color: #1d4ed8; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600;">
+                        ${window.userData?.role === "imaging_center" ? "Imaging Center" : "User"}
+                      </span>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                      <span style="color: #6b7280;">Status</span>
+                      <span style="background: #dcfce7; color: #16a34a; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600;">
+                        Active
+                      </span>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between;">
+                      <span style="color: #6b7280;">Member Since</span>
+                      <span style="font-weight: 600;">
+                        ${new Date(window.userData?.createdAt).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+
+              container.innerHTML = settingsHTML;
+            });
+          }
+        );
+      });
+    </script>
+  </body>
+</html>
