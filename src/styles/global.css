@@ -317,3 +317,71 @@ body {
   transition: width 0.8s ease-in-out;
   background: linear-gradient(90deg, #cc9933, #e6b84d);
 }
+
+/* 📁 global.css or styles.css */
+
+/* Fade-in and fade-out keyframes */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Toast animation class */
+.animate-fade-in-out {
+  animation: fadeInOut 3s ease-in-out forwards;
+}
+
+input.border-red-500 {
+  border-width: 2px;
+  border-color: #f87171;
+  /* red-400 */
+}
+
+.input-error {
+  border-color: #dc2626 !important;
+  /* red-600 */
+  box-shadow: 0 0 0 1px rgba(220, 38, 38, 0.4);
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.animate-fade-in-out {
+  animation: fadeInOut 3s ease-in-out forwards;
+}

@@ -239,12 +239,15 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
               </div>
             </div>
 
+            <!-- Organization Type -->
             <div class="mt-6">
+              <!-- ✅ Organization Type -->
               <label
                 for="organization-type"
                 class="block text-sm font-medium text-gray-700 mb-2"
-                >Organization Type</label
               >
+                Organization Type
+              </label>
               <select
                 id="organization-type"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -259,16 +262,108 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
             </div>
 
             <div class="mt-6">
-              <label
-                for="corporate-address"
-                class="block text-sm font-medium text-gray-700 mb-2"
-                >Corporate Address</label
-              >
-              <textarea
-                id="corporate-address"
-                rows="3"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Enter complete corporate address"></textarea>
+              <!-- ✅ Intro Label -->
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Corporate Address
+              </label>
+              <div class="mb-4 text-sm text-gray-600">
+                Enter the <strong>legal corporate address</strong> used for tax filings
+                or banking.<br class="hidden md:block" />
+                <span class="text-gray-500">
+                  This may be different from your imaging facility’s location.
+                </span>
+              </div>
+
+              <!-- ✅ ACR Facility Dropdown in Fieldset -->
+              <fieldset class="mb-4">
+                <legend class="text-sm font-medium text-gray-700 mb-2">
+                  Link to Existing Facility (optional)
+                </legend>
+                <select
+                  id="acr-facility"
+                  class="w-full mb-2 px-3 py-2 border rounded-md"
+                >
+                  <option value="">-- Search ACR database --</option>
+                </select>
+                <p class="text-xs text-gray-500">
+                  Selecting a facility will auto-fill the address fields below.
+                  This does not add it to your network.
+                </p>
+              </fieldset>
+
+              <!-- ✅ Same-as checkbox -->
+              <div class="flex items-center mb-4">
+                <input
+                  id="same-as-facility"
+                  type="checkbox"
+                  class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded"
+                />
+                <label for="same-as-facility" class="text-sm text-gray-700">
+                  Same as facility address
+                </label>
+              </div>
+
+              <!-- ✅ Separated Address Fields -->
+              <div class="mt-6">
+                <label
+                  for="corporate-street"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Street Address
+                </label>
+                <input
+                  type="text"
+                  id="corporate-address"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="1234 Mockingbird Lane"
+                />
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                <div>
+                  <label
+                    for="corporate-city"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    City
+                  </label>
+                  <input
+                    type="text"
+                    id="corporate-city"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    placeholder="City"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="corporate-state"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    State
+                  </label>
+                  <input
+                    type="text"
+                    id="corporate-state"
+                    maxlength="2"
+                    class="uppercase w-full px-3 py-2 border border-gray-300 rounded-md"
+                    placeholder="FL"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="corporate-zip"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    ZIP Code
+                  </label>
+                  <input
+                    type="text"
+                    id="corporate-zip"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    placeholder="ZIP"
+                  />
+                </div>
+              </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
@@ -1187,35 +1282,22 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
             return;
           }
 
-          /*
-          // STATIC TEST ORG DATA
           const orgData = {
             user_id: user.id,
-            legal_name: "Alpine MRI",
-            tax_id: "123456789",
-            organization_type: "corporation",
-            corporate_address: "1234 Mocking Bird Lane",
-            phone: "555-555-5555",
-            email: "contact@alpinemri.com",
-            signer_name: "Jane Doe",
-            signer_title: "CEO",
+            legal_name: document.getElementById("legal_name").value,
+            tax_id: document.getElementById("tax_id").value,
+            organization_type:
+              document.getElementById("organization-type").value,
+            corporate_address:
+              document.getElementById("corporate-address").value,
+            corporate_city: document.getElementById("corporate-city").value,
+            corporate_state: document.getElementById("corporate-state").value,
+            corporate_zip: document.getElementById("corporate-zip").value,
+            phone: document.getElementById("organization-phone").value,
+            email: document.getElementById("organization-email").value,
+            signer_name: document.getElementById("signer_name").value,
+            signer_title: document.getElementById("signer_title").value,
           };
-          */
-
-          
-      // Uncomment below to use live form values again
-      const orgData = {
-        user_id: user.id,
-        legal_name: document.getElementById("legal_name").value,
-        tax_id: document.getElementById("tax_id").value,
-        organization_type: document.getElementById("organization-type").value,
-        corporate_address: document.getElementById("corporate-address").value,
-        phone: document.getElementById("organization-phone").value,
-        email: document.getElementById("organization-email").value,
-        signer_name: document.getElementById("signer_name").value,
-        signer_title: document.getElementById("signer_title").value
-      };
-      
 
           console.log("💾 Attempting upsert with orgData:", orgData);
 
@@ -1232,6 +1314,58 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
           }
         });
       }
+
+      const facility = window.USRadUser?.selectedFacility || {
+        address: "123 Facility St.",
+        city: "Tampa",
+        state: "FL",
+        zip: "33614",
+      };
+
+      const sameAsCheckbox = document.getElementById("same-as-facility");
+      const addressField = document.getElementById("corporate-address");
+      const cityField = document.getElementById("corporate-city");
+      const stateField = document.getElementById("corporate-state");
+      const zipField = document.getElementById("corporate-zip");
+
+      if (sameAsCheckbox) {
+        sameAsCheckbox.addEventListener("change", function (e) {
+          const isChecked = e.target.checked;
+
+          if (isChecked) {
+            addressField.value = facility.address || "";
+            cityField.value = facility.city || "";
+            stateField.value = facility.state || "";
+            zipField.value = facility.zip || "";
+
+            addressField.readOnly = true;
+            cityField.readOnly = true;
+            stateField.readOnly = true;
+            zipField.readOnly = true;
+
+            addressField.classList.add("bg-gray-100");
+            cityField.classList.add("bg-gray-100");
+            stateField.classList.add("bg-gray-100");
+            zipField.classList.add("bg-gray-100");
+          } else {
+            addressField.value = "";
+            cityField.value = "";
+            stateField.value = "";
+            zipField.value = "";
+
+            addressField.readOnly = false;
+            cityField.readOnly = false;
+            stateField.readOnly = false;
+            zipField.readOnly = false;
+
+            addressField.classList.remove("bg-gray-100");
+            cityField.classList.remove("bg-gray-100");
+            stateField.classList.remove("bg-gray-100");
+            zipField.classList.remove("bg-gray-100");
+          }
+        });
+      }
     });
   </script>
+  <script type="module" src="/src/scripts/unifiedForm.js"></script>
 </DashboardLayout>
