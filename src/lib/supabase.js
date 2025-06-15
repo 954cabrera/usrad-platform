@@ -76,17 +76,31 @@ export const getCurrentUser = async () => {
 }
 
 export const getUserProfile = async (userId) => {
-  const { data, error } = await supabase
-    .from('user_profiles')
-    .select('*')
-    .eq('id', userId)
-    .single()
-  
-  if (error) {
-    console.error('Error getting user profile:', error)
+  try {
+    const { data, error } = await supabase
+      .from('user_profiles')
+      .select('*')
+      .eq('id', userId)
+      .single()
+    
+    if (error) {
+      // Check for 406 error specifically
+      if (error.message?.includes('406') || error.code === '406') {
+        console.error('❌ 406 Not Acceptable error when fetching user profile. This usually means the Accept header is missing or incorrect.')
+        console.error('Error details:', error)
+        // Return null but log the specific issue
+        return null
+      }
+      console.error('Error getting user profile:', error)
+      return null
+    }
+    
+    console.log('✅ Successfully loaded user profile for userId:', userId)
+    return data
+  } catch (err) {
+    console.error('Unexpected error in getUserProfile:', err)
     return null
   }
-  return data
 }
 
 export const updateUserProfile = async (userId, updates) => {

@@ -1,0 +1,729 @@
+---
+// Market Education Page - Front-loads value proposition before data collection
+import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
+---
+
+<script>
+  // Handle authentication and user data on the client side
+  window.addEventListener("DOMContentLoaded", async () => {
+    // Import Supabase
+    const { createClient } = await import(
+      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+    );
+
+    const supabaseUrl = document.querySelector(
+      'meta[name="supabase-url"]'
+    )?.content;
+    const supabaseAnonKey = document.querySelector(
+      'meta[name="supabase-anon-key"]'
+    )?.content;
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.error("Missing Supabase config");
+      window.location.href = "/login/imaginglogin";
+      return;
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+    try {
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
+
+      if (error || !session) {
+        console.log("No session found, redirecting to login");
+        window.location.href = "/login/imaginglogin";
+        return;
+      }
+
+      console.log("Session found for user:", session.user.email);
+
+      // Store user data in window for the React component
+      window.USRadUser = {
+        user: {
+          id: session.user.id,
+          email: session.user.email,
+          user_metadata: {
+            first_name: session.user.user_metadata?.first_name || session.user.user_metadata?.firstName || "",
+            last_name: session.user.user_metadata?.last_name || session.user.user_metadata?.lastName || "",
+            full_name: session.user.user_metadata?.full_name || 
+                      `${session.user.user_metadata?.firstName || ""} ${session.user.user_metadata?.lastName || ""}`.trim() ||
+                      "Provider",
+            phone: session.user.user_metadata?.phone || "",
+            user_type: session.user.user_metadata?.user_type || "imaging_center"
+          },
+          created_at: session.user.created_at
+        }
+      };
+
+      // Trigger a custom event to let React components know data is ready
+      window.dispatchEvent(new CustomEvent("userDataReady"));
+    } catch (error) {
+      console.error("Auth check error:", error);
+      window.location.href = "/login/imaginglogin";
+    }
+  });
+</script>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Market Education - USRad Onboarding</title>
+
+    <!-- Supabase Configuration Meta Tags -->
+    <meta name="supabase-url" content={import.meta.env.PUBLIC_SUPABASE_URL} />
+    <meta
+      name="supabase-anon-key"
+      content={import.meta.env.PUBLIC_SUPABASE_ANON_KEY}
+    />
+
+    <!-- Market Education Styles -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+      
+      .animate-fade-in {
+        animation: fadeIn 0.8s ease-out forwards;
+      }
+      
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .animate-slide-up {
+        animation: slideUp 0.6s ease-out forwards;
+      }
+      
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .gradient-bg {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+      
+      .gradient-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+      
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1);
+      }
+      
+      .pulse-glow {
+        animation: pulseGlow 2s infinite;
+      }
+      
+      @keyframes pulseGlow {
+        0%, 100% {
+          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+        }
+      }
+      
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <DashboardLayout title="Market Education" user={null}>
+      <div id="market-education-container">
+        <div id="loading-message" style="text-align: center; padding: 2rem;" class="animate-fade-in">
+          <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);">
+            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
+              <svg style="width: 30px; height: 30px; color: white;" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <h2 style="font-size: 1.5rem; font-weight: 600; color: #1f2937; margin-bottom: 0.5rem;">Loading Market Education</h2>
+            <p style="color: #6b7280;">Preparing your personalized market insights...</p>
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
+
+    <script type="module">
+      // Wait for user data to be ready
+      window.addEventListener("userDataReady", async () => {
+        try {
+          console.log("🚀 Loading Market Education...");
+          
+          // Dynamically import React
+          const React = await import("https://unpkg.com/react@18/umd/react.development.js");
+          const ReactDOM = await import("https://unpkg.com/react-dom@18/umd/react-dom.development.js");
+          
+          // Market Education Component
+          const MarketEducationComponent = () => {
+            const [loading, setLoading] = React.useState(true);
+            const [marketData, setMarketData] = React.useState(null);
+            const [currentSection, setCurrentSection] = React.useState(0);
+            
+            React.useEffect(() => {
+              initializeMarketEducation();
+            }, []);
+            
+            const initializeMarketEducation = async () => {
+              console.log("📊 Loading market education data...");
+              
+              try {
+                // Simulate loading market data
+                await delay(1500);
+                
+                // Mock market data (would come from API in real implementation)
+                const mockMarketData = {
+                  demand: {
+                    percentage: 85,
+                    trend: "increasing",
+                    description: "Critical shortage of radiologists nationwide"
+                  },
+                  revenue: {
+                    hourly: 250,
+                    monthly: 35000,
+                    annual: 420000,
+                    comparison: "40% above hospital employment"
+                  },
+                  flexibility: {
+                    locations: 150,
+                    timeZones: 4,
+                    schedules: "24/7 flexible coverage"
+                  },
+                  technology: {
+                    platform: "Cloud-based PACS",
+                    ai: "AI-assisted diagnostics",
+                    mobile: "Full mobile capability"
+                  }
+                };
+                
+                setMarketData(mockMarketData);
+                
+              } catch (error) {
+                console.error("❌ Error loading market data:", error);
+              } finally {
+                setLoading(false);
+              }
+            };
+            
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+            
+            const handleContinue = () => {
+              // Complete this step and move to next
+              if (window.USRadUser?.user?.id) {
+                // Dispatch step completion event
+                window.dispatchEvent(new CustomEvent('onboardingStepCompleted', {
+                  detail: { 
+                    userId: window.USRadUser.user.id, 
+                    stepId: 'market_education' 
+                  }
+                }));
+              }
+              
+              // Navigate to revenue calculator
+              window.location.href = '/dashboard/onboarding/revenue-calculator';
+            };
+            
+            const nextSection = () => {
+              setCurrentSection(prev => Math.min(prev + 1, 3));
+            };
+            
+            const prevSection = () => {
+              setCurrentSection(prev => Math.max(prev - 1, 0));
+            };
+            
+            const sections = [
+              {
+                title: "Market Demand",
+                icon: "📈",
+                content: marketData && React.createElement('div', { className: 'text-center' }, [
+                  React.createElement('div', {
+                    key: 'demand-stat',
+                    style: {
+                      fontSize: '4rem',
+                      fontWeight: '700',
+                      background: 'linear-gradient(135deg, #10b981, #059669)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      marginBottom: '1rem'
+                    }
+                  }, `${marketData.demand.percentage}%`),
+                  React.createElement('h3', {
+                    key: 'demand-title',
+                    style: { fontSize: '1.5rem', fontWeight: '600', marginBottom: '1rem' }
+                  }, 'Critical Demand for Teleradiology'),
+                  React.createElement('p', {
+                    key: 'demand-desc',
+                    style: { color: '#6b7280', fontSize: '1.1rem', lineHeight: '1.6' }
+                  }, 'The healthcare industry faces an unprecedented shortage of radiologists. Remote reading opportunities are expanding rapidly across hospitals, imaging centers, and emergency departments nationwide.')
+                ])
+              },
+              {
+                title: "Revenue Potential",
+                icon: "💰",
+                content: marketData && React.createElement('div', { className: 'text-center' }, [
+                  React.createElement('div', {
+                    key: 'revenue-grid',
+                    style: {
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(2, 1fr)',
+                      gap: '1.5rem',
+                      marginBottom: '1.5rem'
+                    }
+                  }, [
+                    React.createElement('div', {
+                      key: 'hourly',
+                      style: {
+                        background: 'linear-gradient(135deg, #eff6ff, #dbeafe)',
+                        padding: '1.5rem',
+                        borderRadius: '1rem',
+                        border: '1px solid #bfdbfe'
+                      }
+                    }, [
+                      React.createElement('div', {
+                        key: 'hourly-amount',
+                        style: { fontSize: '2rem', fontWeight: '700', color: '#1e40af' }
+                      }, `$${marketData.revenue.hourly}/hr`),
+                      React.createElement('div', {
+                        key: 'hourly-label',
+                        style: { fontSize: '0.875rem', color: '#6b7280' }
+                      }, 'Average Hourly Rate')
+                    ]),
+                    React.createElement('div', {
+                      key: 'annual',
+                      style: {
+                        background: 'linear-gradient(135deg, #f0fdf4, #dcfce7)',
+                        padding: '1.5rem',
+                        borderRadius: '1rem',
+                        border: '1px solid #bbf7d0'
+                      }
+                    }, [
+                      React.createElement('div', {
+                        key: 'annual-amount',
+                        style: { fontSize: '2rem', fontWeight: '700', color: '#059669' }
+                      }, `$${marketData.revenue.annual.toLocaleString()}`),
+                      React.createElement('div', {
+                        key: 'annual-label',
+                        style: { fontSize: '0.875rem', color: '#6b7280' }
+                      }, 'Annual Potential')
+                    ])
+                  ]),
+                  React.createElement('p', {
+                    key: 'revenue-desc',
+                    style: { color: '#6b7280', fontSize: '1.1rem' }
+                  }, `Earn ${marketData.revenue.comparison} compared to traditional hospital employment, with complete schedule flexibility.`)
+                ])
+              },
+              {
+                title: "Flexibility & Freedom",
+                icon: "🌍",
+                content: marketData && React.createElement('div', { className: 'text-center' }, [
+                  React.createElement('div', {
+                    key: 'flexibility-features',
+                    style: {
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(1, 1fr)',
+                      gap: '1rem',
+                      marginBottom: '1.5rem'
+                    }
+                  }, [
+                    React.createElement('div', {
+                      key: 'locations',
+                      style: {
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '1rem',
+                        background: '#f8fafc',
+                        borderRadius: '0.75rem',
+                        border: '1px solid #e2e8f0'
+                      }
+                    }, [
+                      React.createElement('span', {
+                        key: 'locations-icon',
+                        style: { fontSize: '1.5rem', marginRight: '0.75rem' }
+                      }, '🏥'),
+                      React.createElement('div', { key: 'locations-text' }, [
+                        React.createElement('div', {
+                          key: 'locations-number',
+                          style: { fontWeight: '600', color: '#1f2937' }
+                        }, `${marketData.flexibility.locations}+ Partner Facilities`),
+                        React.createElement('div', {
+                          key: 'locations-desc',
+                          style: { fontSize: '0.875rem', color: '#6b7280' }
+                        }, 'Across multiple states and time zones')
+                      ])
+                    ]),
+                    React.createElement('div', {
+                      key: 'schedule',
+                      style: {
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '1rem',
+                        background: '#f8fafc',
+                        borderRadius: '0.75rem',
+                        border: '1px solid #e2e8f0'
+                      }
+                    }, [
+                      React.createElement('span', {
+                        key: 'schedule-icon',
+                        style: { fontSize: '1.5rem', marginRight: '0.75rem' }
+                      }, '⏰'),
+                      React.createElement('div', { key: 'schedule-text' }, [
+                        React.createElement('div', {
+                          key: 'schedule-type',
+                          style: { fontWeight: '600', color: '#1f2937' }
+                        }, 'Flexible Scheduling'),
+                        React.createElement('div', {
+                          key: 'schedule-desc',
+                          style: { fontSize: '0.875rem', color: '#6b7280' }
+                        }, 'Work when and where you want')
+                      ])
+                    ])
+                  ]),
+                  React.createElement('p', {
+                    key: 'flexibility-desc',
+                    style: { color: '#6b7280', fontSize: '1.1rem' }
+                  }, 'Join the growing number of radiologists who have discovered the freedom of teleradiology. Work from anywhere, set your own schedule, and focus on what you do best.')
+                ])
+              },
+              {
+                title: "Technology & Support",
+                icon: "🚀",
+                content: marketData && React.createElement('div', { className: 'text-center' }, [
+                  React.createElement('div', {
+                    key: 'tech-features',
+                    style: {
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(1, 1fr)',
+                      gap: '1rem',
+                      marginBottom: '1.5rem'
+                    }
+                  }, [
+                    React.createElement('div', {
+                      key: 'tech-item-1',
+                      style: {
+                        padding: '1rem',
+                        background: 'linear-gradient(135deg, #fef3c7, #fcd34d)',
+                        borderRadius: '0.75rem',
+                        border: '1px solid #f59e0b'
+                      }
+                    }, [
+                      React.createElement('div', {
+                        key: 'tech-title-1',
+                        style: { fontWeight: '600', color: '#92400e', marginBottom: '0.25rem' }
+                      }, '☁️ Cloud-Based PACS'),
+                      React.createElement('div', {
+                        key: 'tech-desc-1',
+                        style: { fontSize: '0.875rem', color: '#78350f' }
+                      }, 'Access studies instantly from any device')
+                    ]),
+                    React.createElement('div', {
+                      key: 'tech-item-2',
+                      style: {
+                        padding: '1rem',
+                        background: 'linear-gradient(135deg, #e0e7ff, #c7d2fe)',
+                        borderRadius: '0.75rem',
+                        border: '1px solid #6366f1'
+                      }
+                    }, [
+                      React.createElement('div', {
+                        key: 'tech-title-2',
+                        style: { fontWeight: '600', color: '#3730a3', marginBottom: '0.25rem' }
+                      }, '🤖 AI-Assisted Workflow'),
+                      React.createElement('div', {
+                        key: 'tech-desc-2',
+                        style: { fontSize: '0.875rem', color: '#312e81' }
+                      }, 'Smart case prioritization and screening')
+                    ]),
+                    React.createElement('div', {
+                      key: 'tech-item-3',
+                      style: {
+                        padding: '1rem',
+                        background: 'linear-gradient(135deg, #dcfce7, #bbf7d0)',
+                        borderRadius: '0.75rem',
+                        border: '1px solid #10b981'
+                      }
+                    }, [
+                      React.createElement('div', {
+                        key: 'tech-title-3',
+                        style: { fontWeight: '600', color: '#064e3b', marginBottom: '0.25rem' }
+                      }, '📱 24/7 Support'),
+                      React.createElement('div', {
+                        key: 'tech-desc-3',
+                        style: { fontSize: '0.875rem', color: '#065f46' }
+                      }, 'Technical and clinical support always available')
+                    ])
+                  ]),
+                  React.createElement('p', {
+                    key: 'tech-desc',
+                    style: { color: '#6b7280', fontSize: '1.1rem' }
+                  }, 'Our cutting-edge technology platform and dedicated support team ensure you can focus on delivering exceptional patient care.')
+                ])
+              }
+            ];
+            
+            if (loading) {
+              return React.createElement('div', {
+                style: {
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '400px'
+                }
+              }, [
+                React.createElement('div', {
+                  key: 'loading-spinner',
+                  style: {
+                    width: '40px',
+                    height: '40px',
+                    border: '4px solid #e5e7eb',
+                    borderTop: '4px solid #3b82f6',
+                    borderRadius: '50%',
+                    animation: 'spin 1s linear infinite',
+                    marginBottom: '1rem'
+                  }
+                }),
+                React.createElement('p', {
+                  key: 'loading-text',
+                  style: { color: '#6b7280' }
+                }, 'Loading market insights...')
+              ]);
+            }
+            
+            return React.createElement('div', {
+              style: { maxWidth: '800px', margin: '0 auto', padding: '2rem 1rem' }
+            }, [
+              // Header
+              React.createElement('div', {
+                key: 'header',
+                style: { textAlign: 'center', marginBottom: '3rem' }
+              }, [
+                React.createElement('div', {
+                  key: 'header-icon',
+                  style: {
+                    width: '80px',
+                    height: '80px',
+                    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 1.5rem',
+                    fontSize: '2rem'
+                  }
+                }, '🎯'),
+                React.createElement('h1', {
+                  key: 'header-title',
+                  style: {
+                    fontSize: '2.5rem',
+                    fontWeight: '700',
+                    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    marginBottom: '1rem'
+                  }
+                }, 'Discover Your Opportunity'),
+                React.createElement('p', {
+                  key: 'header-subtitle',
+                  style: {
+                    fontSize: '1.25rem',
+                    color: '#6b7280',
+                    maxWidth: '600px',
+                    margin: '0 auto'
+                  }
+                }, 'Learn why thousands of radiologists are choosing teleradiology for better work-life balance and higher earnings.')
+              ]),
+              
+              // Progress Indicator
+              React.createElement('div', {
+                key: 'progress',
+                style: {
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginBottom: '2rem'
+                }
+              }, sections.map((section, index) => 
+                React.createElement('div', {
+                  key: index,
+                  style: {
+                    width: '12px',
+                    height: '12px',
+                    borderRadius: '50%',
+                    background: index === currentSection ? '#3b82f6' : '#e5e7eb',
+                    margin: '0 0.25rem',
+                    transition: 'background 0.3s ease'
+                  }
+                })
+              )),
+              
+              // Main Content
+              React.createElement('div', {
+                key: 'content',
+                style: {
+                  background: 'white',
+                  borderRadius: '1.5rem',
+                  padding: '3rem',
+                  boxShadow: '0 20px 40px -5px rgba(0, 0, 0, 0.1)',
+                  border: '1px solid #e5e7eb',
+                  minHeight: '400px'
+                }
+              }, [
+                React.createElement('div', {
+                  key: 'section-header',
+                  style: { textAlign: 'center', marginBottom: '2rem' }
+                }, [
+                  React.createElement('div', {
+                    key: 'section-icon',
+                    style: { fontSize: '3rem', marginBottom: '1rem' }
+                  }, sections[currentSection].icon),
+                  React.createElement('h2', {
+                    key: 'section-title',
+                    style: {
+                      fontSize: '2rem',
+                      fontWeight: '600',
+                      color: '#1f2937',
+                      marginBottom: '0.5rem'
+                    }
+                  }, sections[currentSection].title)
+                ]),
+                
+                React.createElement('div', {
+                  key: 'section-content',
+                  style: { marginBottom: '3rem' }
+                }, sections[currentSection].content)
+              ]),
+              
+              // Navigation
+              React.createElement('div', {
+                key: 'navigation',
+                style: {
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginTop: '2rem'
+                }
+              }, [
+                React.createElement('button', {
+                  key: 'prev-btn',
+                  onClick: prevSection,
+                  disabled: currentSection === 0,
+                  style: {
+                    padding: '0.75rem 1.5rem',
+                    borderRadius: '0.75rem',
+                    border: '1px solid #d1d5db',
+                    background: currentSection === 0 ? '#f9fafb' : 'white',
+                    color: currentSection === 0 ? '#9ca3af' : '#374151',
+                    cursor: currentSection === 0 ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.2s ease'
+                  }
+                }, '← Previous'),
+                
+                React.createElement('div', {
+                  key: 'step-indicator',
+                  style: {
+                    fontSize: '0.875rem',
+                    color: '#6b7280',
+                    fontWeight: '500'
+                  }
+                }, `${currentSection + 1} of ${sections.length}`),
+                
+                currentSection < sections.length - 1 ? 
+                  React.createElement('button', {
+                    key: 'next-btn',
+                    onClick: nextSection,
+                    style: {
+                      padding: '0.75rem 1.5rem',
+                      borderRadius: '0.75rem',
+                      border: 'none',
+                      background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+                      color: 'white',
+                      cursor: 'pointer',
+                      fontWeight: '600',
+                      transition: 'all 0.2s ease'
+                    }
+                  }, 'Next →') :
+                  React.createElement('button', {
+                    key: 'continue-btn',
+                    onClick: handleContinue,
+                    style: {
+                      padding: '0.75rem 2rem',
+                      borderRadius: '0.75rem',
+                      border: 'none',
+                      background: 'linear-gradient(135deg, #10b981, #059669)',
+                      color: 'white',
+                      cursor: 'pointer',
+                      fontWeight: '600',
+                      fontSize: '1rem',
+                      transition: 'all 0.2s ease',
+                      boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)'
+                    }
+                  }, 'Calculate My Revenue →')
+              ])
+            ]);
+          };
+          
+          // Render the market education component
+          const container = document.getElementById("market-education-container");
+          const root = ReactDOM.createRoot(container);
+          root.render(React.createElement(MarketEducationComponent));
+          
+          console.log("✅ Market Education loaded successfully");
+          
+        } catch (error) {
+          console.error("❌ Error loading Market Education:", error);
+          
+          // Fallback content
+          const container = document.getElementById("market-education-container");
+          container.innerHTML = `
+            <div style="text-align: center; padding: 2rem; color: #dc2626;">
+              <h2>Error Loading Market Education</h2>
+              <p>Please refresh the page or contact support.</p>
+              <button onclick="window.location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #3b82f6; color: white; border: none; border-radius: 0.5rem; cursor: pointer;">
+                Refresh Page
+              </button>
+            </div>
+          `;
+        }
+      });
+      
+      // Add CSS animation for spinner
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

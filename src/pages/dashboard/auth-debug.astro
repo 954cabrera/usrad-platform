@@ -1,0 +1,424 @@
+---
+// src/pages/dashboard/auth-debug.astro
+import DashboardLayout from "../../components/dashboard/DashboardLayout.astro";
+
+let user = null;
+let imagingCenter = null;
+
+// Client-side authentication and debugging
+---
+
+<script>
+  // Add this script to handle authentication and load debugger
+  window.addEventListener("DOMContentLoaded", async () => {
+    console.log("🔍 Loading Authentication Debugger...");
+    
+    // Import Supabase
+    const { createClient } = await import(
+      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+    );
+
+    const supabaseUrl = document.querySelector(
+      'meta[name="supabase-url"]'
+    )?.content;
+    const supabaseAnonKey = document.querySelector(
+      'meta[name="supabase-anon-key"]'
+    )?.content;
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.error("❌ Missing Supabase config - this is an authentication issue!");
+      displayError("Missing Supabase configuration. Check environment variables.");
+      return;
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+    try {
+      // Check authentication status
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
+
+      if (error) {
+        console.error("❌ Supabase auth error:", error);
+        displayError(`Supabase authentication error: ${error.message}`);
+        return;
+      }
+
+      if (!session) {
+        console.log("⚠️ No session found - user not authenticated");
+        displayNoAuth();
+        return;
+      }
+
+      console.log("✅ Session found for user:", session.user.email);
+
+      // Store comprehensive user data in window for the debugger
+      window.USRadUserDebug = {
+        supabaseSession: session,
+        user: session.user,
+        timestamp: new Date().toISOString(),
+        source: 'auth-debug-page'
+      };
+
+      // Check if DashboardLayout has already set up USRadUser
+      if (window.USRadUser) {
+        console.log("✅ USRadUser object found from DashboardLayout");
+        window.USRadUserDebug.existingUSRadUser = window.USRadUser;
+      } else {
+        console.log("⚠️ USRadUser object not found - potential integration issue");
+      }
+
+      // Store user data in window for compatibility
+      window.userData = {
+        id: session.user.id,
+        email: session.user.email,
+        firstName:
+          session.user.user_metadata?.first_name ||
+          session.user.user_metadata?.firstName ||
+          "",
+        lastName:
+          session.user.user_metadata?.last_name ||
+          session.user.user_metadata?.lastName ||
+          "",
+        phone: session.user.user_metadata?.phone || "",
+        role: session.user.user_metadata?.user_type || "imaging_center",
+        createdAt: session.user.created_at,
+      };
+
+      // Trigger a custom event to let React components know data is ready
+      window.dispatchEvent(new CustomEvent("userDataReady"));
+      
+      console.log("✅ Authentication debugger data prepared");
+      
+    } catch (error) {
+      console.error("❌ Auth debug setup error:", error);
+      displayError(`Authentication setup error: ${error.message}`);
+    }
+  });
+
+  function displayError(message) {
+    const container = document.getElementById("debug-container");
+    container.innerHTML = `
+      <div style="max-width: 800px; margin: 2rem auto; padding: 2rem;">
+        <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 0.5rem; padding: 1.5rem;">
+          <div style="flex items-center; margin-bottom: 1rem;">
+            <svg style="width: 1.5rem; height: 1.5rem; color: #dc2626; margin-right: 0.5rem;" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+            <h2 style="color: #dc2626; font-weight: 700; font-size: 1.25rem;">Authentication Error Detected</h2>
+          </div>
+          <p style="color: #7f1d1d; margin-bottom: 1rem;">${message}</p>
+          <div style="background: white; padding: 1rem; border-radius: 0.25rem; border: 1px solid #f3f4f6;">
+            <p style="font-size: 0.875rem; color: #4b5563; margin-bottom: 0.5rem;"><strong>Troubleshooting Steps:</strong></p>
+            <ul style="font-size: 0.875rem; color: #6b7280; list-style-type: disc; padding-left: 1.5rem;">
+              <li>Check if Supabase environment variables are configured correctly</li>
+              <li>Verify you are logged in at <a href="/login/imaginglogin" style="color: #2563eb; text-decoration: underline;">Login Page</a></li>
+              <li>Clear browser cache and cookies</li>
+              <li>Check browser console for additional error messages</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function displayNoAuth() {
+    const container = document.getElementById("debug-container");
+    container.innerHTML = `
+      <div style="max-width: 800px; margin: 2rem auto; padding: 2rem;">
+        <div style="background: #fffbeb; border: 1px solid #fed7aa; border-radius: 0.5rem; padding: 1.5rem;">
+          <div style="flex items-center; margin-bottom: 1rem;">
+            <svg style="width: 1.5rem; height: 1.5rem; color: #d97706; margin-right: 0.5rem;" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+            <h2 style="color: #d97706; font-weight: 700; font-size: 1.25rem;">No Authentication Found</h2>
+          </div>
+          <p style="color: #92400e; margin-bottom: 1rem;">You are not currently authenticated. Please log in to use the authentication debugger.</p>
+          <div style="margin-top: 1rem;">
+            <a href="/login/imaginglogin" style="background: #2563eb; color: white; padding: 0.75rem 1.5rem; border-radius: 0.375rem; text-decoration: none; display: inline-block;">
+              Go to Login Page
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authentication Debugger - USRad Dashboard</title>
+
+    <!-- Supabase Configuration Meta Tags -->
+    <meta name="supabase-url" content={import.meta.env.PUBLIC_SUPABASE_URL} />
+    <meta
+      name="supabase-anon-key"
+      content={import.meta.env.PUBLIC_SUPABASE_ANON_KEY}
+    />
+  </head>
+  <body>
+    <DashboardLayout title="Authentication Debugger" user={user} imagingCenter={imagingCenter}>
+      <div id="debug-container">
+        <div id="loading-message" style="text-align: center; padding: 2rem;">
+          <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+            <div style="width: 2rem; height: 2rem; border: 4px solid #e5e7eb; border-top: 4px solid #3b82f6; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 1rem;"></div>
+            <span style="color: #6b7280; font-size: 1.125rem;">Loading authentication debugger...</span>
+          </div>
+          <p style="color: #9ca3af; font-size: 0.875rem;">Analyzing authentication state and system configuration</p>
+        </div>
+      </div>
+    </DashboardLayout>
+
+    <script type="module">
+      // Wait for user data to be ready, then load the debugger
+      window.addEventListener("userDataReady", async () => {
+        try {
+          console.log("🚀 Loading Authentication Debugger Component...");
+          
+          // For now, we'll create a status display since the React component needs proper setup
+          const container = document.getElementById("debug-container");
+          
+          // Get debug data
+          const debugInfo = {
+            timestamp: new Date().toISOString(),
+            url: window.location.href,
+            userAgent: navigator.userAgent,
+            supabaseConfig: {
+              url: document.querySelector('meta[name="supabase-url"]')?.content ? 'Configured' : 'Missing',
+              anonKey: document.querySelector('meta[name="supabase-anon-key"]')?.content ? 'Configured' : 'Missing'
+            },
+            windowObjects: {
+              USRadUser: !!window.USRadUser,
+              userData: !!window.userData,
+              USRadUserDebug: !!window.USRadUserDebug
+            },
+            sessionInfo: window.USRadUserDebug || {}
+          };
+          
+          container.innerHTML = `
+            <div style="max-width: 1400px; margin: 0 auto; padding: 2rem;">
+              <!-- Header -->
+              <div style="margin-bottom: 2rem;">
+                <h1 style="font-size: 2.25rem; font-weight: 700; color: #111827; margin-bottom: 0.5rem;">🔍 Authentication Debugger</h1>
+                <p style="color: #6b7280; font-size: 1.125rem;">Comprehensive authentication status and testing for USRad platform</p>
+                <div style="margin-top: 1rem; padding: 1rem; background: #dbeafe; border: 1px solid #93c5fd; border-radius: 0.5rem;">
+                  <p style="color: #1e40af; font-size: 0.875rem; margin: 0;">
+                    <strong>Debug Session Started:</strong> ${debugInfo.timestamp} | 
+                    <strong>Page:</strong> ${debugInfo.url}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Quick Status Cards -->
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                <div style="background: ${debugInfo.supabaseConfig.url === 'Configured' ? '#f0fdf4' : '#fef2f2'}; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid ${debugInfo.supabaseConfig.url === 'Configured' ? '#bbf7d0' : '#fecaca'};">
+                  <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                    <span style="color: ${debugInfo.supabaseConfig.url === 'Configured' ? '#16a34a' : '#dc2626'}; margin-right: 0.5rem;">
+                      ${debugInfo.supabaseConfig.url === 'Configured' ? '✅' : '❌'}
+                    </span>
+                    <span style="font-weight: 600;">Supabase Config</span>
+                  </div>
+                  <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">
+                    URL: ${debugInfo.supabaseConfig.url} | Key: ${debugInfo.supabaseConfig.anonKey}
+                  </p>
+                </div>
+
+                <div style="background: ${window.USRadUser ? '#f0fdf4' : '#fef2f2'}; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid ${window.USRadUser ? '#bbf7d0' : '#fecaca'};">
+                  <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                    <span style="color: ${window.USRadUser ? '#16a34a' : '#dc2626'}; margin-right: 0.5rem;">
+                      ${window.USRadUser ? '✅' : '❌'}
+                    </span>
+                    <span style="font-weight: 600;">USRad User Object</span>
+                  </div>
+                  <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">
+                    ${window.USRadUser ? `User: ${window.USRadUser.user?.email || 'Available'}` : 'Not found - check DashboardLayout integration'}
+                  </p>
+                </div>
+
+                <div style="background: ${window.userData ? '#f0fdf4' : '#fffbeb'}; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid ${window.userData ? '#bbf7d0' : '#fed7aa'};">
+                  <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                    <span style="color: ${window.userData ? '#16a34a' : '#d97706'}; margin-right: 0.5rem;">
+                      ${window.userData ? '✅' : '⚠️'}
+                    </span>
+                    <span style="font-weight: 600;">User Data Object</span>
+                  </div>
+                  <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">
+                    ${window.userData ? `Email: ${window.userData.email}` : 'Fallback user data'}
+                  </p>
+                </div>
+
+                <div style="background: ${debugInfo.sessionInfo.supabaseSession ? '#f0fdf4' : '#fef2f2'}; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid ${debugInfo.sessionInfo.supabaseSession ? '#bbf7d0' : '#fecaca'};">
+                  <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                    <span style="color: ${debugInfo.sessionInfo.supabaseSession ? '#16a34a' : '#dc2626'}; margin-right: 0.5rem;">
+                      ${debugInfo.sessionInfo.supabaseSession ? '✅' : '❌'}
+                    </span>
+                    <span style="font-weight: 600;">Supabase Session</span>
+                  </div>
+                  <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">
+                    ${debugInfo.sessionInfo.supabaseSession ? 'Active session found' : 'No active session'}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Component Testing Section -->
+              <div style="background: white; border-radius: 0.75rem; border: 1px solid #e5e7eb; padding: 2rem; margin-bottom: 2rem;">
+                <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: #111827;">🧪 Component Authentication Testing</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                  <a href="/dashboard/settings" style="display: block; padding: 1.5rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='#f8fafc'">
+                    <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+                      <span style="font-size: 1.25rem; margin-right: 0.5rem;">⚙️</span>
+                      <span style="font-weight: 600; color: #374151;">Enhanced Settings System</span>
+                    </div>
+                    <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">Test user data loading, sign-out functionality, and profile management</p>
+                  </a>
+
+                  <a href="/dashboard/onboarding/enhanced-psa" style="display: block; padding: 1.5rem; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 0.5rem; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='#e0f2fe'" onmouseout="this.style.background='#f0f9ff'">
+                    <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+                      <span style="font-size: 1.25rem; margin-right: 0.5rem;">📄</span>
+                      <span style="font-weight: 600; color: #374151;">Enhanced PSA System</span>
+                    </div>
+                    <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">Test authentication in PSA workflow and document signing</p>
+                  </a>
+
+                  <a href="/dashboard/onboarding/market-education" style="display: block; padding: 1.5rem; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 0.5rem; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='#ecfdf5'" onmouseout="this.style.background='#f0fdf4'">
+                    <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+                      <span style="font-size: 1.25rem; margin-right: 0.5rem;">🎓</span>
+                      <span style="font-weight: 600; color: #374151;">Market Education</span>
+                    </div>
+                    <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">Test authentication in onboarding flow and educational content</p>
+                  </a>
+
+                  <a href="/dashboard/psa/success" style="display: block; padding: 1.5rem; background: #fefce8; border: 1px solid #fef08a; border-radius: 0.5rem; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='#fef9c3'" onmouseout="this.style.background='#fefce8'">
+                    <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+                      <span style="font-size: 1.25rem; margin-right: 0.5rem;">🎉</span>
+                      <span style="font-weight: 600; color: #374151;">PSA Success Page</span>
+                    </div>
+                    <p style="font-size: 0.875rem; color: #6b7280; margin: 0;">Test authentication in PSA completion flow</p>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Sign-Out Testing Section -->
+              <div style="background: white; border-radius: 0.75rem; border: 1px solid #e5e7eb; padding: 2rem; margin-bottom: 2rem;">
+                <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: #111827;">🚪 Sign-Out Testing</h2>
+                <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem;">
+                  <p style="color: #991b1b; font-size: 0.875rem; margin: 0;">
+                    <strong>⚠️ Warning:</strong> These tests will actually sign you out. Make sure to test them one at a time and re-authenticate between tests.
+                  </p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                  <button onclick="testDirectSignOut()" style="padding: 1rem; background: #fee2e2; border: 1px solid #fecaca; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='#fee2e2'">
+                    <div style="font-weight: 600; color: #991b1b; margin-bottom: 0.25rem;">Direct Supabase Sign-Out</div>
+                    <div style="font-size: 0.75rem; color: #7f1d1d;">Test raw Supabase auth.signOut()</div>
+                  </button>
+                  
+                  <button onclick="testHookSignOut()" style="padding: 1rem; background: #fee2e2; border: 1px solid #fecaca; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='#fee2e2'">
+                    <div style="font-weight: 600; color: #991b1b; margin-bottom: 0.25rem;">useUSRadAuth Hook Sign-Out</div>
+                    <div style="font-size: 0.75rem; color: #7f1d1d;">Test shared auth hook sign-out</div>
+                  </button>
+                  
+                  <button onclick="testDashboardSignOut()" style="padding: 1rem; background: #fee2e2; border: 1px solid #fecaca; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='#fee2e2'">
+                    <div style="font-weight: 600; color: #991b1b; margin-bottom: 0.25rem;">Dashboard Layout Sign-Out</div>
+                    <div style="font-size: 0.75rem; color: #7f1d1d;">Test existing dashboard logout buttons</div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Debug Data Display -->
+              <div style="background: white; border-radius: 0.75rem; border: 1px solid #e5e7eb; padding: 2rem;">
+                <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: #111827;">📊 Raw Debug Data</h2>
+                <details style="margin-bottom: 1rem;">
+                  <summary style="cursor: pointer; font-weight: 600; color: #374151; padding: 0.5rem; background: #f9fafb; border-radius: 0.25rem;">Window Objects</summary>
+                  <pre style="background: #1f2937; color: #f9fafb; padding: 1rem; border-radius: 0.25rem; overflow-x: auto; font-size: 0.75rem; margin-top: 0.5rem;">${JSON.stringify({
+                    USRadUser: window.USRadUser ? 'Present' : 'Missing',
+                    userData: window.userData ? 'Present' : 'Missing',
+                    USRadUserDebug: window.USRadUserDebug ? 'Present' : 'Missing'
+                  }, null, 2)}</pre>
+                </details>
+                
+                <details style="margin-bottom: 1rem;">
+                  <summary style="cursor: pointer; font-weight: 600; color: #374151; padding: 0.5rem; background: #f9fafb; border-radius: 0.25rem;">Environment Configuration</summary>
+                  <pre style="background: #1f2937; color: #f9fafb; padding: 1rem; border-radius: 0.25rem; overflow-x: auto; font-size: 0.75rem; margin-top: 0.5rem;">${JSON.stringify(debugInfo.supabaseConfig, null, 2)}</pre>
+                </details>
+                
+                <details>
+                  <summary style="cursor: pointer; font-weight: 600; color: #374151; padding: 0.5rem; background: #f9fafb; border-radius: 0.25rem;">Session Information</summary>
+                  <pre style="background: #1f2937; color: #f9fafb; padding: 1rem; border-radius: 0.25rem; overflow-x: auto; font-size: 0.75rem; margin-top: 0.5rem;">${JSON.stringify(debugInfo.sessionInfo, null, 2)}</pre>
+                </details>
+              </div>
+            </div>
+          `;
+          
+          console.log("✅ Authentication Debugger loaded successfully");
+          
+        } catch (error) {
+          console.error("❌ Error loading authentication debugger:", error);
+          
+          const container = document.getElementById("debug-container");
+          container.innerHTML = `
+            <div style="text-align: center; padding: 2rem; color: #dc2626;">
+              <h2>Debugger Loading Error</h2>
+              <p>Failed to load the authentication debugger: ${error.message}</p>
+              <div style="margin-top: 1rem; padding: 1rem; background: #f3f4f6; border-radius: 0.5rem;">
+                <p style="color: #374151; font-size: 0.875rem;">
+                  Check the browser console for detailed error information.
+                </p>
+              </div>
+            </div>
+          `;
+        }
+      });
+
+      // Sign-out test functions
+      async function testDirectSignOut() {
+        if (!confirm('This will sign you out. Are you sure?')) return;
+        
+        try {
+          const { createClient } = await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm");
+          const supabaseUrl = document.querySelector('meta[name="supabase-url"]')?.content;
+          const supabaseAnonKey = document.querySelector('meta[name="supabase-anon-key"]')?.content;
+          const supabase = createClient(supabaseUrl, supabaseAnonKey);
+          
+          const { error } = await supabase.auth.signOut();
+          if (error) throw error;
+          
+          sessionStorage.setItem('logout_success', 'true');
+          sessionStorage.setItem('logout_test', 'direct_supabase');
+          window.location.href = '/';
+        } catch (error) {
+          alert('Direct sign-out failed: ' + error.message);
+        }
+      }
+
+      function testHookSignOut() {
+        alert('Hook sign-out test requires the React component to be fully loaded. Use the component testing links above.');
+      }
+
+      function testDashboardSignOut() {
+        const logoutButton = document.getElementById('logout-button') || document.getElementById('sidebar-logout-button');
+        if (logoutButton) {
+          if (confirm('This will sign you out using the dashboard layout button. Are you sure?')) {
+            sessionStorage.setItem('logout_test', 'dashboard_layout');
+            logoutButton.click();
+          }
+        } else {
+          alert('Dashboard logout button not found. This indicates an integration issue.');
+        }
+      }
+      
+      // Add CSS animation for spinner
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

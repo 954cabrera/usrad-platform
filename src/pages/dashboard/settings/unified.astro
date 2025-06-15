@@ -7,44 +7,46 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
     <!-- Header Section -->
     <div class="border-b border-gray-200 pb-6">
       <h1 class="text-3xl font-bold text-gray-900">Settings</h1>
-      <p class="text-lg text-gray-600 mt-2">Manage your account, organization, and platform preferences</p>
+      <p class="text-lg text-gray-600 mt-2">
+        Manage your account, organization, and platform preferences
+      </p>
     </div>
 
     <!-- Tab Navigation -->
     <div class="border-b border-gray-200">
       <nav class="-mb-px flex space-x-8" id="tab-navigation">
-        <button 
-          class="tab-button active border-b-2 border-blue-600 py-4 px-1 text-sm font-medium text-blue-600" 
+        <button
+          class="tab-button active border-b-2 border-blue-600 py-4 px-1 text-sm font-medium text-blue-600"
           data-tab="profile"
         >
           Profile
         </button>
-        <button 
-          class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" 
+        <button
+          class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
           data-tab="organization"
         >
           Organization
         </button>
-        <button 
-          class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" 
+        <button
+          class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
           data-tab="account"
         >
           Account
         </button>
-        <button 
-          class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" 
+        <button
+          class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
           data-tab="security"
         >
           Security
         </button>
-        <button 
-          class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" 
+        <button
+          class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
           data-tab="notifications"
         >
           Notifications
         </button>
-        <button 
-          class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" 
+        <button
+          class="tab-button border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
           data-tab="billing"
         >
           Billing
@@ -60,63 +62,89 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
           <div class="lg:col-span-2">
             <div class="bg-white rounded-lg shadow-sm border p-6 space-y-6">
               <div>
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">Personal Information</h2>
-                <p class="text-sm text-gray-600 mb-6">Update your personal details and contact information.</p>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">
+                  Personal Information
+                </h2>
+                <p class="text-sm text-gray-600 mb-6">
+                  Update your personal details and contact information.
+                </p>
               </div>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label for="first-name" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                  <input 
-                    type="text" 
-                    id="first-name" 
+                  <label
+                    for="first-name"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                    >First Name</label
+                  >
+                  <input
+                    type="text"
+                    id="first-name"
                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Enter your first name"
-                  >
+                  />
                 </div>
                 <div>
-                  <label for="last-name" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                  <input 
-                    type="text" 
-                    id="last-name" 
+                  <label
+                    for="last-name"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                    >Last Name</label
+                  >
+                  <input
+                    type="text"
+                    id="last-name"
                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Enter your last name"
-                  >
+                  />
                 </div>
               </div>
 
               <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                <input 
-                  type="email" 
-                  id="email" 
+                <label
+                  for="profile_email"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Email Address</label
+                >
+                <input
+                  type="email"
+                  id="profile_email"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter your email address"
-                >
+                />
               </div>
 
               <div>
-                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                <input 
-                  type="tel" 
-                  id="phone" 
+                <label
+                  for="profile_phone"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Phone Number</label
+                >
+                <input
+                  type="tel"
+                  id="profile_phone"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="(555) 123-4567"
-                >
+                />
               </div>
 
               <div>
-                <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Professional Title</label>
-                <input 
-                  type="text" 
-                  id="title" 
+                <label
+                  for="title"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Professional Title</label
+                >
+                <input
+                  type="text"
+                  id="title"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="e.g., Chief Executive Officer, Medical Director"
-                >
+                />
               </div>
 
               <div class="pt-4 border-t">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200">
+                <button
+                  class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200"
+                >
                   Save Changes
                 </button>
               </div>
@@ -125,14 +153,27 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
 
           <div>
             <div class="bg-white rounded-lg shadow-sm border p-6">
-              <h3 class="text-lg font-semibold text-gray-900 mb-4">Profile Photo</h3>
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                Profile Photo
+              </h3>
               <div class="text-center">
-                <div class="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <svg class="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                <div
+                  class="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center"
+                >
+                  <svg
+                    class="w-12 h-12 text-gray-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                      clip-rule="evenodd"></path>
                   </svg>
                 </div>
-                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200">
+                <button
+                  class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200"
+                >
                   Upload Photo
                 </button>
                 <p class="text-xs text-gray-500 mt-2">JPG, PNG up to 5MB</p>
@@ -149,40 +190,63 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
           <div class="bg-white rounded-lg shadow-sm border p-6">
             <div class="flex justify-between items-start mb-6">
               <div>
-                <h2 class="text-xl font-semibold text-gray-900">Organization Overview</h2>
-                <p class="text-sm text-gray-600 mt-1">Manage your organization details and facility network</p>
+                <h2 class="text-xl font-semibold text-gray-900">
+                  Organization Overview
+                </h2>
+                <p class="text-sm text-gray-600 mt-1">
+                  Manage your organization details and facility network
+                </p>
               </div>
               <div class="text-right">
-                <div class="text-2xl font-bold text-blue-600" id="facility-count">0</div>
+                <div
+                  class="text-2xl font-bold text-blue-600"
+                  id="facility-count"
+                >
+                  0
+                </div>
                 <div class="text-sm text-gray-500">Total Facilities</div>
               </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label for="legal-name" class="block text-sm font-medium text-gray-700 mb-2">Legal Entity Name</label>
-                <input 
-                  type="text" 
-                  id="legal-name" 
+                <label
+                  for="legal_name"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Legal Entity Name</label
+                >
+                <input
+                  type="text"
+                  id="legal_name"
+                  name="legal_name"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter legal entity name"
-                >
+                />
               </div>
               <div>
-                <label for="tax-id" class="block text-sm font-medium text-gray-700 mb-2">Tax ID (EIN)</label>
-                <input 
-                  type="text" 
-                  id="tax-id" 
+                <label
+                  for="tax_id"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Tax ID (EIN)</label
+                >
+                <input
+                  type="text"
+                  id="tax_id"
+                  name="tax_id"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="XX-XXXXXXX"
-                >
+                />
               </div>
             </div>
 
             <div class="mt-6">
-              <label for="organization-type" class="block text-sm font-medium text-gray-700 mb-2">Organization Type</label>
-              <select 
-                id="organization-type" 
+              <label
+                for="organization-type"
+                class="block text-sm font-medium text-gray-700 mb-2"
+                >Organization Type</label
+              >
+              <select
+                id="organization-type"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="">Select organization type</option>
@@ -195,25 +259,111 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
             </div>
 
             <div class="mt-6">
-              <label for="corporate-address" class="block text-sm font-medium text-gray-700 mb-2">Corporate Address</label>
-              <textarea 
-                id="corporate-address" 
+              <label
+                for="corporate-address"
+                class="block text-sm font-medium text-gray-700 mb-2"
+                >Corporate Address</label
+              >
+              <textarea
+                id="corporate-address"
                 rows="3"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Enter complete corporate address"
-              ></textarea>
+                placeholder="Enter complete corporate address"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+              <div>
+                <label
+                  for="organization-phone"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Phone Number</label
+                >
+                <input
+                  type="tel"
+                  id="organization-phone"
+                  name="phone"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="(555) 123-4567"
+                />
+              </div>
+              <div>
+                <label
+                  for="organization-email"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Email Address</label
+                >
+                <input
+                  type="email"
+                  id="organization-email"
+                  name="email"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="organization@example.com"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+              <div>
+                <label
+                  for="signer_name"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Authorized Signer Name</label
+                >
+                <input
+                  type="text"
+                  id="signer_name"
+                  name="signer_name"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Full name of authorized signer"
+                />
+              </div>
+              <div>
+                <label
+                  for="signer_title"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Signer Title</label
+                >
+                <input
+                  type="text"
+                  id="signer_title"
+                  name="signer_title"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="e.g., CEO, President, Managing Partner"
+                />
+              </div>
+            </div>
+
+            <div class="mt-6 pt-6 border-t flex gap-4">
+              <button
+                id="sync-settings"
+                type="button"
+                class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-6 rounded-lg transition-colors duration-200"
+              >
+                Sync with Settings
+              </button>
+              <button
+                id="save-org-info"
+                type="button"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200"
+              >
+                Save Progress
+              </button>
             </div>
           </div>
 
           <!-- Facility Management -->
           <div class="bg-white rounded-lg shadow-sm border p-6">
             <div class="flex justify-between items-center mb-6">
-              <h3 class="text-lg font-semibold text-gray-900">Facility Management</h3>
+              <h3 class="text-lg font-semibold text-gray-900">
+                Facility Management
+              </h3>
               <div class="space-x-3">
-                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200">
+                <button
+                  class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200"
+                >
                   Export CSV
                 </button>
-                <button 
+                <button
                   onclick="window.location.href='/dashboard/contract/csv-upload'"
                   class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200"
                 >
@@ -225,13 +375,16 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
             <div id="facility-list" class="space-y-4">
               <!-- Facility list will be populated by JavaScript -->
               <div class="text-center text-gray-500 py-8">
-                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                <div
+                  class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"
+                >
+                </div>
                 <p class="mt-2">Loading facilities...</p>
               </div>
             </div>
 
             <div class="mt-6 pt-6 border-t">
-              <button 
+              <button
                 onclick="window.location.href='/dashboard/onboarding/facilities'"
                 class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors duration-200"
               >
@@ -247,75 +400,133 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
         <div class="space-y-8">
           <!-- Network Onboarding Progress -->
           <div class="bg-white rounded-lg shadow-sm border p-6">
-            <h2 class="text-xl font-semibold text-gray-900 mb-6">Network Onboarding Progress</h2>
-            
+            <h2 class="text-xl font-semibold text-gray-900 mb-6">
+              Network Onboarding Progress
+            </h2>
+
             <div class="space-y-6">
               <div class="flex items-center">
                 <div class="flex items-center">
-                  <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold">✓</div>
+                  <div
+                    class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+                  >
+                    ✓
+                  </div>
                   <div class="ml-4">
-                    <div class="text-sm font-medium text-gray-900">Account Created</div>
-                    <div class="text-sm text-gray-500">Your USRad account has been created</div>
+                    <div class="text-sm font-medium text-gray-900">
+                      Account Created
+                    </div>
+                    <div class="text-sm text-gray-500">
+                      Your USRad account has been created
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="flex items-center" id="profile-setup-step">
                 <div class="flex items-center">
-                  <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                  <div
+                    class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold"
+                  >
+                    2
+                  </div>
                   <div class="ml-4">
-                    <div class="text-sm font-medium text-gray-900">Profile Setup</div>
-                    <div class="text-sm text-gray-500">Complete your personal and organization information</div>
+                    <div class="text-sm font-medium text-gray-900">
+                      Profile Setup
+                    </div>
+                    <div class="text-sm text-gray-500">
+                      Complete your personal and organization information
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="flex items-center" id="facilities-added-step">
                 <div class="flex items-center">
-                  <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                  <div
+                    class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold"
+                  >
+                    3
+                  </div>
                   <div class="ml-4">
-                    <div class="text-sm font-medium text-gray-900">Facilities Added</div>
-                    <div class="text-sm text-gray-500">Add your imaging center locations to the network</div>
+                    <div class="text-sm font-medium text-gray-900">
+                      Facilities Added
+                    </div>
+                    <div class="text-sm text-gray-500">
+                      Add your imaging center locations to the network
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="flex items-center" id="psa-signed-step">
                 <div class="flex items-center">
-                  <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold">4</div>
+                  <div
+                    class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold"
+                  >
+                    4
+                  </div>
                   <div class="ml-4">
-                    <div class="text-sm font-medium text-gray-900">PSA Signed</div>
-                    <div class="text-sm text-gray-500">Complete digital signing of Provider Service Agreement</div>
+                    <div class="text-sm font-medium text-gray-900">
+                      PSA Signed
+                    </div>
+                    <div class="text-sm text-gray-500">
+                      Complete digital signing of Provider Service Agreement
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="flex items-center" id="credentialing-step">
                 <div class="flex items-center">
-                  <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold">5</div>
+                  <div
+                    class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold"
+                  >
+                    5
+                  </div>
                   <div class="ml-4">
-                    <div class="text-sm font-medium text-gray-900">Credentialing Completed</div>
-                    <div class="text-sm text-gray-500">Verify credentials and insurance requirements</div>
+                    <div class="text-sm font-medium text-gray-900">
+                      Credentialing Completed
+                    </div>
+                    <div class="text-sm text-gray-500">
+                      Verify credentials and insurance requirements
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="flex items-center" id="banking-step">
                 <div class="flex items-center">
-                  <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold">6</div>
+                  <div
+                    class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold"
+                  >
+                    6
+                  </div>
                   <div class="ml-4">
-                    <div class="text-sm font-medium text-gray-900">Banking Information</div>
-                    <div class="text-sm text-gray-500">Set up payment processing and direct deposit</div>
+                    <div class="text-sm font-medium text-gray-900">
+                      Banking Information
+                    </div>
+                    <div class="text-sm text-gray-500">
+                      Set up payment processing and direct deposit
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="flex items-center" id="launch-ready-step">
                 <div class="flex items-center">
-                  <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold">7</div>
+                  <div
+                    class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold"
+                  >
+                    7
+                  </div>
                   <div class="ml-4">
-                    <div class="text-sm font-medium text-gray-900">Launch Ready</div>
-                    <div class="text-sm text-gray-500">Begin receiving patient appointments through USRad</div>
+                    <div class="text-sm font-medium text-gray-900">
+                      Launch Ready
+                    </div>
+                    <div class="text-sm text-gray-500">
+                      Begin receiving patient appointments through USRad
+                    </div>
                   </div>
                 </div>
               </div>
@@ -328,31 +539,58 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
                 <span id="progress-percentage">14%</span>
               </div>
               <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-blue-600 h-2 rounded-full transition-all duration-300" id="progress-bar" style="width: 14%"></div>
+                <div
+                  class="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                  id="progress-bar"
+                  style="width: 14%"
+                >
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Account Information -->
           <div class="bg-white rounded-lg shadow-sm border p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Account Information</h3>
-            
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+              Account Information
+            </h3>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <div class="text-sm text-gray-500">Account Type</div>
-                <div class="text-lg font-medium text-gray-900" id="account-type">Imaging Center Provider</div>
+                <div
+                  class="text-lg font-medium text-gray-900"
+                  id="account-type"
+                >
+                  Imaging Center Provider
+                </div>
               </div>
               <div>
                 <div class="text-sm text-gray-500">Network Status</div>
-                <div class="text-lg font-medium text-green-600" id="network-status">Active</div>
+                <div
+                  class="text-lg font-medium text-green-600"
+                  id="network-status"
+                >
+                  Active
+                </div>
               </div>
               <div>
                 <div class="text-sm text-gray-500">Member Since</div>
-                <div class="text-lg font-medium text-gray-900" id="member-since">Loading...</div>
+                <div
+                  class="text-lg font-medium text-gray-900"
+                  id="member-since"
+                >
+                  Loading...
+                </div>
               </div>
               <div>
                 <div class="text-sm text-gray-500">Network Access Level</div>
-                <div class="text-lg font-medium text-blue-600" id="access-level">Standard</div>
+                <div
+                  class="text-lg font-medium text-blue-600"
+                  id="access-level"
+                >
+                  Standard
+                </div>
               </div>
             </div>
           </div>
@@ -364,40 +602,56 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
         <div class="space-y-8">
           <!-- Password Security -->
           <div class="bg-white rounded-lg shadow-sm border p-6">
-            <h2 class="text-xl font-semibold text-gray-900 mb-6">Password & Authentication</h2>
-            
+            <h2 class="text-xl font-semibold text-gray-900 mb-6">
+              Password & Authentication
+            </h2>
+
             <div class="space-y-6">
               <div>
-                <label for="current-password" class="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
-                <input 
-                  type="password" 
-                  id="current-password" 
+                <label
+                  for="current-password"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Current Password</label
+                >
+                <input
+                  type="password"
+                  id="current-password"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter current password"
-                >
+                />
               </div>
 
               <div>
-                <label for="new-password" class="block text-sm font-medium text-gray-700 mb-2">New Password</label>
-                <input 
-                  type="password" 
-                  id="new-password" 
+                <label
+                  for="new-password"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >New Password</label
+                >
+                <input
+                  type="password"
+                  id="new-password"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter new password"
-                >
+                />
               </div>
 
               <div>
-                <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
-                <input 
-                  type="password" 
-                  id="confirm-password" 
+                <label
+                  for="confirm-password"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Confirm New Password</label
+                >
+                <input
+                  type="password"
+                  id="confirm-password"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Confirm new password"
-                >
+                />
               </div>
 
-              <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200">
+              <button
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200"
+              >
                 Update Password
               </button>
             </div>
@@ -405,20 +659,32 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
 
           <!-- Session Management -->
           <div class="bg-white rounded-lg shadow-sm border p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Active Sessions</h3>
-            <p class="text-sm text-gray-600 mb-6">Manage your active login sessions across devices</p>
-            
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+              Active Sessions
+            </h3>
+            <p class="text-sm text-gray-600 mb-6">
+              Manage your active login sessions across devices
+            </p>
+
             <div class="space-y-4">
-              <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+              <div
+                class="flex justify-between items-center p-4 bg-gray-50 rounded-lg"
+              >
                 <div>
-                  <div class="text-sm font-medium text-gray-900">Current Session</div>
-                  <div class="text-sm text-gray-500">Chrome on Windows • Current device</div>
+                  <div class="text-sm font-medium text-gray-900">
+                    Current Session
+                  </div>
+                  <div class="text-sm text-gray-500">
+                    Chrome on Windows • Current device
+                  </div>
                 </div>
                 <span class="text-sm text-green-600 font-medium">Active</span>
               </div>
             </div>
 
-            <button class="mt-4 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200">
+            <button
+              class="mt-4 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200"
+            >
               Sign Out All Other Sessions
             </button>
           </div>
@@ -428,42 +694,78 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
       <!-- Notifications Tab -->
       <div id="notifications-tab" class="tab-content hidden">
         <div class="bg-white rounded-lg shadow-sm border p-6">
-          <h2 class="text-xl font-semibold text-gray-900 mb-6">Notification Preferences</h2>
-          
+          <h2 class="text-xl font-semibold text-gray-900 mb-6">
+            Notification Preferences
+          </h2>
+
           <div class="space-y-6">
             <div>
-              <h3 class="text-lg font-medium text-gray-900 mb-4">Email Notifications</h3>
+              <h3 class="text-lg font-medium text-gray-900 mb-4">
+                Email Notifications
+              </h3>
               <div class="space-y-4">
                 <label class="flex items-center">
-                  <input type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" checked>
-                  <span class="ml-3 text-sm text-gray-700">New appointment notifications</span>
+                  <input
+                    type="checkbox"
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    checked
+                  />
+                  <span class="ml-3 text-sm text-gray-700"
+                    >New appointment notifications</span
+                  >
                 </label>
                 <label class="flex items-center">
-                  <input type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" checked>
-                  <span class="ml-3 text-sm text-gray-700">Payment confirmations</span>
+                  <input
+                    type="checkbox"
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    checked
+                  />
+                  <span class="ml-3 text-sm text-gray-700"
+                    >Payment confirmations</span
+                  >
                 </label>
                 <label class="flex items-center">
-                  <input type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                  <span class="ml-3 text-sm text-gray-700">Marketing communications</span>
+                  <input
+                    type="checkbox"
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <span class="ml-3 text-sm text-gray-700"
+                    >Marketing communications</span
+                  >
                 </label>
               </div>
             </div>
 
             <div>
-              <h3 class="text-lg font-medium text-gray-900 mb-4">SMS Notifications</h3>
+              <h3 class="text-lg font-medium text-gray-900 mb-4">
+                SMS Notifications
+              </h3>
               <div class="space-y-4">
                 <label class="flex items-center">
-                  <input type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" checked>
-                  <span class="ml-3 text-sm text-gray-700">Appointment reminders</span>
+                  <input
+                    type="checkbox"
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    checked
+                  />
+                  <span class="ml-3 text-sm text-gray-700"
+                    >Appointment reminders</span
+                  >
                 </label>
                 <label class="flex items-center">
-                  <input type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                  <span class="ml-3 text-sm text-gray-700">Urgent notifications</span>
+                  <input
+                    type="checkbox"
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <span class="ml-3 text-sm text-gray-700"
+                    >Urgent notifications</span
+                  >
                 </label>
               </div>
             </div>
 
-            <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200">
+            <button
+              class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200"
+            >
               Save Preferences
             </button>
           </div>
@@ -475,18 +777,29 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
         <div class="space-y-8">
           <!-- Payment Information -->
           <div class="bg-white rounded-lg shadow-sm border p-6">
-            <h2 class="text-xl font-semibold text-gray-900 mb-6">Payment Information</h2>
-            
+            <h2 class="text-xl font-semibold text-gray-900 mb-6">
+              Payment Information
+            </h2>
+
             <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
               <div class="flex">
                 <div class="flex-shrink-0">
-                  <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                  <svg
+                    class="h-5 w-5 text-blue-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                      clip-rule="evenodd"></path>
                   </svg>
                 </div>
                 <div class="ml-3">
                   <p class="text-sm text-blue-700">
-                    USRad providers receive payments directly from patient transactions. Set up your banking information to enable automatic deposits.
+                    USRad providers receive payments directly from patient
+                    transactions. Set up your banking information to enable
+                    automatic deposits.
                   </p>
                 </div>
               </div>
@@ -494,36 +807,52 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label for="bank-name" class="block text-sm font-medium text-gray-700 mb-2">Bank Name</label>
-                <input 
-                  type="text" 
-                  id="bank-name" 
+                <label
+                  for="bank-name"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Bank Name</label
+                >
+                <input
+                  type="text"
+                  id="bank-name"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter bank name"
-                >
+                />
               </div>
               <div>
-                <label for="routing-number" class="block text-sm font-medium text-gray-700 mb-2">Routing Number</label>
-                <input 
-                  type="text" 
-                  id="routing-number" 
+                <label
+                  for="routing-number"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Routing Number</label
+                >
+                <input
+                  type="text"
+                  id="routing-number"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="9-digit routing number"
-                >
+                />
               </div>
               <div>
-                <label for="account-number" class="block text-sm font-medium text-gray-700 mb-2">Account Number</label>
-                <input 
-                  type="text" 
-                  id="account-number" 
+                <label
+                  for="account-number"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Account Number</label
+                >
+                <input
+                  type="text"
+                  id="account-number"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Account number"
-                >
+                />
               </div>
               <div>
-                <label for="account-type" class="block text-sm font-medium text-gray-700 mb-2">Account Type</label>
-                <select 
-                  id="account-type" 
+                <label
+                  for="account-type"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Account Type</label
+                >
+                <select
+                  id="account-type"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Select account type</option>
@@ -534,21 +863,37 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
               </div>
             </div>
 
-            <button class="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200">
+            <button
+              class="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200"
+            >
               Save Banking Information
             </button>
           </div>
 
           <!-- Payment History -->
           <div class="bg-white rounded-lg shadow-sm border p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Payments</h3>
-            
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+              Recent Payments
+            </h3>
+
             <div class="text-center text-gray-500 py-8">
-              <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM13 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm0 5a.5.5 0 11-1 0 .5.5 0 011 0z"></path>
+              <svg
+                class="w-12 h-12 text-gray-400 mx-auto mb-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM13 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm0 5a.5.5 0 11-1 0 .5.5 0 011 0z"
+                ></path>
               </svg>
               <p>No payment history available yet</p>
-              <p class="text-sm">Payments will appear here once you start receiving appointments</p>
+              <p class="text-sm">
+                Payments will appear here once you start receiving appointments
+              </p>
             </div>
           </div>
         </div>
@@ -556,133 +901,193 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
     </div>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
+  <script type="module">
+    document.addEventListener("DOMContentLoaded", async function () {
+      console.log("🚀 Settings page initializing...");
+
       // Initialize tabs
       initializeTabs();
-      
-      // Load user data
-      loadUserData();
-      
-      // Load organization data
-      loadOrganizationData();
-      
-      // Update progress tracking
+
+      // Wait for USRadUser to be available
+      let attempts = 0;
+      while ((!window.USRadUser || !window.USRadUser.user) && attempts < 50) {
+        console.log("⏳ Waiting for USRadUser...", attempts);
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        attempts++;
+      }
+
+      if (!window.USRadUser || !window.USRadUser.user) {
+        console.error("❌ USRadUser not available after 5 seconds");
+        return;
+      }
+
+      const userId = window.USRadUser.user?.id;
+      const supabase = window.USRadUser.supabase;
+
+      if (!userId) {
+        console.error("❌ No user ID found");
+        return;
+      }
+
+      console.log("✅ User ID:", userId);
+      console.log("✅ Supabase client available:", !!supabase);
+
+      // Load all data
+      await loadUserData();
+      await loadOrganizationData();
       updateProgressTracking();
     });
 
     function initializeTabs() {
-      const tabButtons = document.querySelectorAll('.tab-button');
-      const tabContents = document.querySelectorAll('.tab-content');
-      
-      tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
+      const tabButtons = document.querySelectorAll(".tab-button");
+      const tabContents = document.querySelectorAll(".tab-content");
+
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
           const targetTab = button.dataset.tab;
-          
+
           // Update button states
-          tabButtons.forEach(btn => {
-            btn.classList.remove('active', 'border-blue-600', 'text-blue-600');
-            btn.classList.add('border-transparent', 'text-gray-500');
+          tabButtons.forEach((btn) => {
+            btn.classList.remove("active", "border-blue-600", "text-blue-600");
+            btn.classList.add("border-transparent", "text-gray-500");
           });
-          
-          button.classList.add('active', 'border-blue-600', 'text-blue-600');
-          button.classList.remove('border-transparent', 'text-gray-500');
-          
+
+          button.classList.add("active", "border-blue-600", "text-blue-600");
+          button.classList.remove("border-transparent", "text-gray-500");
+
           // Update content visibility
-          tabContents.forEach(content => {
-            content.classList.add('hidden');
+          tabContents.forEach((content) => {
+            content.classList.add("hidden");
           });
-          
-          document.getElementById(`${targetTab}-tab`).classList.remove('hidden');
+
+          document
+            .getElementById(`${targetTab}-tab`)
+            .classList.remove("hidden");
         });
       });
     }
 
     async function loadUserData() {
       try {
-        // Wait for USRadUser to be available
-        if (!window.USRadUser || !window.USRadUser.user) {
-          setTimeout(loadUserData, 100);
+        const user = window.USRadUser.user;
+        const supabase = window.USRadUser.supabase;
+
+        if (!user || !user.id) {
+          console.error("❌ No user available for loadUserData");
           return;
         }
 
-        const user = window.USRadUser.user;
-        
-        // Populate profile fields
-        document.getElementById('first-name').value = user.user_metadata?.first_name || '';
-        document.getElementById('last-name').value = user.user_metadata?.last_name || '';
-        document.getElementById('email').value = user.email || '';
-        document.getElementById('phone').value = user.user_metadata?.phone || '';
-        document.getElementById('title').value = user.user_metadata?.title || '';
-        
+        console.log("📋 Loading user data for:", user.id);
+
+        // Populate profile fields from auth metadata
+        document.getElementById("first-name").value =
+          user.user_metadata?.first_name || "";
+        document.getElementById("last-name").value =
+          user.user_metadata?.last_name || "";
+        document.getElementById("profile_email").value = user.email || "";
+        document.getElementById("profile_phone").value =
+          user.user_metadata?.phone || "";
+        document.getElementById("title").value =
+          user.user_metadata?.title || "";
+
         // Update account information
-        document.getElementById('member-since').textContent = new Date(user.created_at).toLocaleDateString();
-        
-        // Load user profile data
-        const supabase = window.USRadUser.supabase;
-        const { data: profile } = await supabase
-          .from('user_profiles')
-          .select('*')
-          .eq('user_id', user.id)
+        document.getElementById("member-since").textContent = new Date(
+          user.created_at
+        ).toLocaleDateString();
+
+        // Load user profile data using proper query
+        const { data: profile, error } = await supabase
+          .from("user_profiles")
+          .select("*")
+          .eq("id", user.id)
           .single();
 
-        if (profile) {
-          document.getElementById('progress-percentage').textContent = profile.onboarding_progress + '%';
-          document.getElementById('progress-bar').style.width = profile.onboarding_progress + '%';
-          document.getElementById('access-level').textContent = profile.network_access_level || 'Standard';
-        }
+        if (error) {
+          console.error("❌ Error loading user profile:", error);
+        } else {
+          console.log("✅ Loaded user profile:", profile);
 
+          if (profile) {
+            document.getElementById("progress-percentage").textContent =
+              profile.onboarding_progress + "%";
+            document.getElementById("progress-bar").style.width =
+              profile.onboarding_progress + "%";
+            document.getElementById("access-level").textContent =
+              profile.network_access_level || "Standard";
+          }
+        }
       } catch (error) {
-        console.error('Error loading user data:', error);
+        console.error("❌ Error in loadUserData:", error);
       }
     }
 
     async function loadOrganizationData() {
       try {
-        if (!window.USRadUser || !window.USRadUser.user) {
-          setTimeout(loadOrganizationData, 100);
-          return;
-        }
-
         const user = window.USRadUser.user;
         const supabase = window.USRadUser.supabase;
 
-        // Load corporate entity
-        const { data: corporateInfo } = await supabase
-          .from('corporate_entities')
-          .select('*')
-          .eq('user_id', user.id)
-          .single();
-
-        if (corporateInfo) {
-          document.getElementById('legal-name').value = corporateInfo.legal_name || '';
-          document.getElementById('tax-id').value = corporateInfo.tax_id || '';
-          document.getElementById('organization-type').value = corporateInfo.organization_type || '';
-          document.getElementById('corporate-address').value = corporateInfo.corporate_address || '';
+        if (!user || !user.id) {
+          console.error("❌ No user available for loadOrganizationData");
+          return;
         }
 
-        // Load facilities
-        const { data: facilities } = await supabase
-          .from('user_facilities')
-          .select('*')
-          .eq('user_id', user.id)
-          .order('is_primary', { ascending: false });
+        console.log("🏢 Loading organization data for:", user.id);
 
-        updateFacilityCount(facilities?.length || 0);
-        populateFacilityList(facilities || []);
+        // Load corporate entity using proper query
+        const { data: corporateInfo, error: corpError } = await supabase
+          .from("corporate_entities")
+          .select("*")
+          .eq("user_id", user.id)
+          .single();
 
+        if (corpError && corpError.code !== "PGRST116") {
+          console.error("❌ Error loading corporate entity:", corpError);
+        } else if (corporateInfo) {
+          console.log("✅ Loaded corporate entity:", corporateInfo);
+
+          document.getElementById("legal_name").value =
+            corporateInfo.legal_name || "";
+          document.getElementById("tax_id").value = corporateInfo.tax_id || "";
+          document.getElementById("organization-type").value =
+            corporateInfo.organization_type || "";
+          document.getElementById("corporate-address").value =
+            corporateInfo.corporate_address || "";
+          document.getElementById("organization-phone").value =
+            corporateInfo.phone || "";
+          document.getElementById("organization-email").value =
+            corporateInfo.email || "";
+          document.getElementById("signer_name").value =
+            corporateInfo.signer_name || "";
+          document.getElementById("signer_title").value =
+            corporateInfo.signer_title || "";
+        }
+
+        // Load facilities using proper query
+        const { data: facilities, error: facilityError } = await supabase
+          .from("user_facilities")
+          .select("*")
+          .eq("user_id", user.id)
+          .order("is_primary", { ascending: false });
+
+        if (facilityError) {
+          console.error("❌ Error loading facilities:", facilityError);
+        } else {
+          console.log("✅ Loaded facilities:", facilities);
+          updateFacilityCount(facilities?.length || 0);
+          populateFacilityList(facilities || []);
+        }
       } catch (error) {
-        console.error('Error loading organization data:', error);
+        console.error("❌ Error in loadOrganizationData:", error);
       }
     }
 
     function updateFacilityCount(count) {
-      document.getElementById('facility-count').textContent = count;
+      document.getElementById("facility-count").textContent = count;
     }
 
     function populateFacilityList(facilities) {
-      const container = document.getElementById('facility-list');
-      
+      const container = document.getElementById("facility-list");
+
       if (facilities.length === 0) {
         container.innerHTML = `
           <div class="text-center text-gray-500 py-8">
@@ -696,59 +1101,137 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
         return;
       }
 
-      container.innerHTML = facilities.map(facility => `
+      container.innerHTML = facilities
+        .map(
+          (facility) => `
         <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
           <div class="flex-1">
             <div class="flex items-center">
               <h4 class="font-medium text-gray-900">${facility.facility_name}</h4>
-              ${facility.is_primary ? `
+              ${
+                facility.is_primary
+                  ? `
                 <span class="ml-2 inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Primary</span>
-              ` : ''}
+              `
+                  : ""
+              }
             </div>
             <div class="text-sm text-gray-600 mt-1">
               ${facility.street_address}, ${facility.city}, ${facility.state} ${facility.zip_code}
             </div>
-            ${facility.modalities ? `
+            ${
+              facility.modalities
+                ? `
               <div class="text-xs text-gray-500 mt-1">
                 <strong>Modalities:</strong> ${facility.modalities}
               </div>
-            ` : ''}
+            `
+                : ""
+            }
           </div>
           <div class="text-right">
-            ${facility.is_acr_verified ? `
+            ${
+              facility.is_acr_verified
+                ? `
               <span class="text-xs text-green-600 font-medium">ACR Verified</span>
-            ` : `
+            `
+                : `
               <span class="text-xs text-gray-500">Manual Entry</span>
-            `}
+            `
+            }
           </div>
         </div>
-      `).join('');
+      `
+        )
+        .join("");
     }
 
     function updateProgressTracking() {
       // This would update based on actual user progress
       // For now, just showing the structure
       const steps = [
-        { id: 'profile-setup-step', completed: true },
-        { id: 'facilities-added-step', completed: false },
-        { id: 'psa-signed-step', completed: false },
-        { id: 'credentialing-step', completed: false },
-        { id: 'banking-step', completed: false },
-        { id: 'launch-ready-step', completed: false }
+        { id: "profile-setup-step", completed: true },
+        { id: "facilities-added-step", completed: false },
+        { id: "psa-signed-step", completed: false },
+        { id: "credentialing-step", completed: false },
+        { id: "banking-step", completed: false },
+        { id: "launch-ready-step", completed: false },
       ];
 
       steps.forEach((step, index) => {
         const stepElement = document.getElementById(step.id);
-        const circle = stepElement.querySelector('.w-8.h-8');
-        
+        const circle = stepElement.querySelector(".w-8.h-8");
+
         if (step.completed) {
-          circle.className = 'w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold';
-          circle.textContent = '✓';
+          circle.className =
+            "w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold";
+          circle.textContent = "✓";
         } else {
-          circle.className = 'w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold';
+          circle.className =
+            "w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold";
           circle.textContent = index + 2;
         }
       });
     }
+
+    // Add save handlers
+    document.addEventListener("DOMContentLoaded", function () {
+      const saveOrgButton = document.getElementById("save-org-info");
+      if (saveOrgButton) {
+        saveOrgButton.addEventListener("click", async () => {
+          const user = window.USRadUser?.user;
+          const supabase = window.USRadUser?.supabase;
+
+          if (!user || !supabase) {
+            console.error("❌ Cannot save: no user or Supabase client");
+            return;
+          }
+
+          /*
+          // STATIC TEST ORG DATA
+          const orgData = {
+            user_id: user.id,
+            legal_name: "Alpine MRI",
+            tax_id: "123456789",
+            organization_type: "corporation",
+            corporate_address: "1234 Mocking Bird Lane",
+            phone: "555-555-5555",
+            email: "contact@alpinemri.com",
+            signer_name: "Jane Doe",
+            signer_title: "CEO",
+          };
+          */
+
+          
+      // Uncomment below to use live form values again
+      const orgData = {
+        user_id: user.id,
+        legal_name: document.getElementById("legal_name").value,
+        tax_id: document.getElementById("tax_id").value,
+        organization_type: document.getElementById("organization-type").value,
+        corporate_address: document.getElementById("corporate-address").value,
+        phone: document.getElementById("organization-phone").value,
+        email: document.getElementById("organization-email").value,
+        signer_name: document.getElementById("signer_name").value,
+        signer_title: document.getElementById("signer_title").value
+      };
+      
+
+          console.log("💾 Attempting upsert with orgData:", orgData);
+
+          const { data, error } = await supabase
+            .from("corporate_entities")
+            .upsert(orgData, { onConflict: "user_id" });
+
+          if (error) {
+            console.error("❌ Error saving organization:", error);
+            alert("❌ Failed to save organization: " + error.message);
+          } else {
+            console.log("✅ Organization saved successfully:", data);
+            alert("✅ Organization information saved!");
+          }
+        });
+      }
+    });
   </script>
 </DashboardLayout>

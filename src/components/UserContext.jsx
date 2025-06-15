@@ -42,6 +42,13 @@ export const UserProvider = ({ children }) => {
       if (currentUser) {
         // Get user profile
         const userProfile = await getUserProfile(currentUser.id)
+        
+        if (!userProfile) {
+          console.warn('⚠️ No user profile found for userId:', currentUser.id)
+          // You might want to create a default profile here
+          // or redirect to profile creation
+        }
+        
         setProfile(userProfile)
 
         // Get imaging center if profile has one
@@ -55,7 +62,13 @@ export const UserProvider = ({ children }) => {
       }
     } catch (err) {
       console.error('Error loading user data:', err)
-      setError(err.message)
+      
+      // Check if it's a 406 error
+      if (err.message?.includes('406')) {
+        setError('Database connection error. Please refresh the page.')
+      } else {
+        setError(err.message)
+      }
     } finally {
       setLoading(false)
     }

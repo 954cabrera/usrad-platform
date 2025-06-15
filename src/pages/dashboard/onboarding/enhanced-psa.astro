@@ -1,0 +1,640 @@
+---
+// Enhanced PSA Page - Professional progress tracking with success flow
+import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
+---
+
+<script>
+  // Handle authentication and user data on the client side
+  window.addEventListener("DOMContentLoaded", async () => {
+    // Import Supabase
+    const { createClient } = await import(
+      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+    );
+
+    const supabaseUrl = document.querySelector(
+      'meta[name="supabase-url"]'
+    )?.content;
+    const supabaseAnonKey = document.querySelector(
+      'meta[name="supabase-anon-key"]'
+    )?.content;
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.error("Missing Supabase config");
+      window.location.href = "/login/imaginglogin";
+      return;
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+    try {
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
+
+      if (error || !session) {
+        console.log("No session found, redirecting to login");
+        window.location.href = "/login/imaginglogin";
+        return;
+      }
+
+      console.log("Session found for user:", session.user.email);
+
+      // Store user data in window for the React component
+      window.USRadUser = {
+        user: {
+          id: session.user.id,
+          email: session.user.email,
+          user_metadata: {
+            first_name: session.user.user_metadata?.first_name || session.user.user_metadata?.firstName || "",
+            last_name: session.user.user_metadata?.last_name || session.user.user_metadata?.lastName || "",
+            full_name: session.user.user_metadata?.full_name || 
+                      `${session.user.user_metadata?.firstName || ""} ${session.user.user_metadata?.lastName || ""}`.trim() ||
+                      "Provider",
+            phone: session.user.user_metadata?.phone || "",
+            user_type: session.user.user_metadata?.user_type || "imaging_center"
+          },
+          created_at: session.user.created_at
+        }
+      };
+
+      // Load user profile and corporate data for auto-population
+      const [profileResult, corporateResult, facilitiesResult] = await Promise.all([
+        supabase.from('user_profiles').select('*').eq('user_id', session.user.id).single(),
+        supabase.from('corporate_entities').select('*').eq('user_id', session.user.id).single(),
+        supabase.from('user_facilities').select('*').eq('user_id', session.user.id)
+      ]);
+
+      // Store user data for auto-population
+      window.USRadUserData = {
+        profile: profileResult.data,
+        corporate: corporateResult.data,
+        facilities: facilitiesResult.data || []
+      };
+
+      console.log("✅ User data loaded for auto-population:", Object.keys(window.USRadUserData));
+
+      // Trigger a custom event to let React components know data is ready
+      window.dispatchEvent(new CustomEvent("userDataReady"));
+    } catch (error) {
+      console.error("Auth check error:", error);
+      window.location.href = "/login/imaginglogin";
+    }
+  });
+</script>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enhanced PSA Signing - USRad Dashboard</title>
+
+    <!-- Supabase Configuration Meta Tags -->
+    <meta name="supabase-url" content={import.meta.env.PUBLIC_SUPABASE_URL} />
+    <meta
+      name="supabase-anon-key"
+      content={import.meta.env.PUBLIC_SUPABASE_ANON_KEY}
+    />
+
+    <!-- Enhanced PSA Styles -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+      
+      .animate-fade-in {
+        animation: fadeIn 0.6s ease-out forwards;
+      }
+      
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      
+      @keyframes pulse {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: .5;
+        }
+      }
+      
+      .gradient-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .professional-shadow {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+      
+      .step-indicator {
+        transition: all 0.3s ease;
+      }
+      
+      .step-indicator.active {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+      }
+      
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <DashboardLayout title="Enhanced PSA Signing" user={null}>
+      <div id="enhanced-psa-container">
+        <div id="loading-message" style="text-align: center; padding: 2rem;" class="animate-fade-in">
+          <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);">
+            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
+              <svg style="width: 30px; height: 30px; color: white; animation: pulse 2s infinite;" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <h2 style="font-size: 1.5rem; font-weight: 600; color: #1f2937; margin-bottom: 0.5rem;">Initializing Enhanced PSA System</h2>
+            <p style="color: #6b7280;">Loading your profile data and preparing the agreement...</p>
+            <div style="margin-top: 1.5rem;">
+              <div style="width: 100%; background: #e5e7eb; border-radius: 9999px; height: 4px;">
+                <div style="background: linear-gradient(135deg, #667eea, #764ba2); height: 4px; border-radius: 9999px; width: 60%; animation: pulse 2s infinite;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
+
+    <script type="module">
+      // Wait for user data to be ready
+      window.addEventListener("userDataReady", async () => {
+        try {
+          console.log("🚀 Loading Enhanced PSA System...");
+          
+          // Dynamically import React and the enhanced PSA component
+          const React = await import("https://unpkg.com/react@18/umd/react.development.js");
+          const ReactDOM = await import("https://unpkg.com/react-dom@18/umd/react-dom.development.js");
+          
+          // Create the enhanced PSA system
+          const container = document.getElementById("enhanced-psa-container");
+          
+          // Enhanced PSA Component (inline for now)
+          const EnhancedPSAComponent = () => {
+            const [loading, setLoading] = React.useState(true);
+            const [currentStep, setCurrentStep] = React.useState(1);
+            const [embedSrc, setEmbedSrc] = React.useState(null);
+            const [completed, setCompleted] = React.useState(false);
+            
+            React.useEffect(() => {
+              initializeEnhancedPSA();
+            }, []);
+            
+            const initializeEnhancedPSA = async () => {
+              console.log("🔧 Initializing Enhanced PSA...");
+              
+              try {
+                // Simulate progress through steps
+                setCurrentStep(1); // Review Agreement
+                await delay(1000);
+                
+                setCurrentStep(2); // Provider Information
+                await delay(1000);
+                
+                // Create DocuSeal submission
+                console.log("📄 Creating DocuSeal submission...");
+                const response = await fetch('/api/docuseal/create-submission', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    email: window.USRadUser.user.email,
+                    name: window.USRadUser.user.user_metadata.full_name
+                  }),
+                });
+
+                const data = await response.json();
+                console.log("✅ DocuSeal response:", data);
+                
+                if (data.success && data.embed_url) {
+                  setEmbedSrc(data.embed_url);
+                  setCurrentStep(3); // Digital Signature
+                } else {
+                  throw new Error(data.error || 'Failed to create DocuSeal submission');
+                }
+              } catch (error) {
+                console.error("❌ Enhanced PSA initialization error:", error);
+              } finally {
+                setLoading(false);
+              }
+            };
+            
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+            
+            const handlePSACompletion = async () => {
+              console.log("🎉 Enhanced PSA completed!");
+              setCompleted(true);
+              setCurrentStep(4); // Completed
+              
+              // Update progress in database
+              try {
+                const { createClient } = await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm");
+                const supabase = createClient(
+                  document.querySelector('meta[name="supabase-url"]').content,
+                  document.querySelector('meta[name="supabase-anon-key"]').content
+                );
+                
+                await supabase
+                  .from('user_profiles')
+                  .update({ 
+                    onboarding_progress: 50,
+                    psa_signed: true 
+                  })
+                  .eq('user_id', window.USRadUser.user.id);
+                  
+                console.log("✅ Progress updated successfully");
+              } catch (error) {
+                console.error("❌ Error updating progress:", error);
+              }
+              
+              // Redirect to success page
+              setTimeout(() => {
+                window.location.href = '/dashboard/psa/success';
+              }, 2000);
+            };
+            
+            // Progress steps
+            const steps = [
+              { id: 1, title: "Review Agreement", description: "Review terms and conditions", icon: "📄" },
+              { id: 2, title: "Provider Information", description: "Verify your details", icon: "👤" },
+              { id: 3, title: "Digital Signature", description: "Sign the agreement", icon: "✍️" },
+              { id: 4, title: "Completed", description: "PSA successfully signed", icon: "🏆" }
+            ];
+            
+            return React.createElement('div', {
+              style: { minHeight: '100vh', background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)' }
+            }, [
+              // Progress Header
+              React.createElement('div', {
+                key: 'header',
+                style: {
+                  background: 'white',
+                  borderBottom: '1px solid #e5e7eb',
+                  boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                }
+              }, [
+                React.createElement('div', {
+                  key: 'header-content',
+                  style: {
+                    maxWidth: '1200px',
+                    margin: '0 auto',
+                    padding: '1.5rem 1rem'
+                  }
+                }, [
+                  React.createElement('div', {
+                    key: 'title-section',
+                    style: { marginBottom: '1.5rem' }
+                  }, [
+                    React.createElement('h1', {
+                      key: 'title',
+                      style: {
+                        fontSize: '1.875rem',
+                        fontWeight: '700',
+                        color: '#1f2937',
+                        marginBottom: '0.5rem'
+                      }
+                    }, 'Provider Services Agreement'),
+                    React.createElement('p', {
+                      key: 'subtitle',
+                      style: { color: '#6b7280' }
+                    }, 'Complete your PSA to join the USRad network')
+                  ]),
+                  
+                  // Progress Steps
+                  React.createElement('div', {
+                    key: 'progress-steps',
+                    style: {
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between'
+                    }
+                  }, steps.map((step, index) => [
+                    React.createElement('div', {
+                      key: step.id,
+                      style: {
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        flex: '1'
+                      }
+                    }, [
+                      React.createElement('div', {
+                        key: 'step-circle',
+                        style: {
+                          width: '60px',
+                          height: '60px',
+                          borderRadius: '50%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '1.5rem',
+                          fontWeight: '600',
+                          marginBottom: '0.75rem',
+                          transition: 'all 0.3s ease',
+                          ...(currentStep >= step.id ? {
+                            background: currentStep === step.id ? 
+                              'linear-gradient(135deg, #3b82f6, #1d4ed8)' : 
+                              'linear-gradient(135deg, #10b981, #059669)',
+                            color: 'white',
+                            boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
+                          } : {
+                            background: '#f3f4f6',
+                            color: '#9ca3af',
+                            border: '2px solid #e5e7eb'
+                          })
+                        }
+                      }, currentStep > step.id ? '✓' : step.icon),
+                      
+                      React.createElement('div', {
+                        key: 'step-info',
+                        style: { textAlign: 'center' }
+                      }, [
+                        React.createElement('div', {
+                          key: 'step-title',
+                          style: {
+                            fontSize: '0.875rem',
+                            fontWeight: '600',
+                            color: currentStep >= step.id ? '#1f2937' : '#9ca3af'
+                          }
+                        }, step.title),
+                        React.createElement('div', {
+                          key: 'step-desc',
+                          style: {
+                            fontSize: '0.75rem',
+                            color: '#6b7280',
+                            marginTop: '0.25rem'
+                          }
+                        }, step.description)
+                      ])
+                    ]),
+                    
+                    // Connector line
+                    index < steps.length - 1 ? React.createElement('div', {
+                      key: \`connector-\${step.id}\`,
+                      style: {
+                        flex: '1',
+                        height: '2px',
+                        margin: '0 1rem',
+                        background: currentStep > step.id ? 
+                          'linear-gradient(to right, #10b981, #059669)' : 
+                          '#e5e7eb'
+                      }
+                    }) : null
+                  ]).flat().filter(Boolean))
+                ])
+              ]),
+              
+              // Main Content
+              React.createElement('div', {
+                key: 'main-content',
+                style: {
+                  maxWidth: '1200px',
+                  margin: '0 auto',
+                  padding: '2rem 1rem'
+                }
+              }, [
+                // Auto-population info
+                window.USRadUserData && React.createElement('div', {
+                  key: 'auto-pop-info',
+                  style: {
+                    background: '#eff6ff',
+                    border: '1px solid #bfdbfe',
+                    borderRadius: '0.75rem',
+                    padding: '1rem',
+                    marginBottom: '1.5rem'
+                  }
+                }, [
+                  React.createElement('div', {
+                    key: 'auto-pop-content',
+                    style: { display: 'flex', alignItems: 'start' }
+                  }, [
+                    React.createElement('div', {
+                      key: 'auto-pop-icon',
+                      style: {
+                        fontSize: '1.25rem',
+                        marginRight: '0.75rem',
+                        marginTop: '0.125rem'
+                      }
+                    }, '✨'),
+                    React.createElement('div', {
+                      key: 'auto-pop-text'
+                    }, [
+                      React.createElement('h4', {
+                        key: 'auto-pop-title',
+                        style: {
+                          fontSize: '0.875rem',
+                          fontWeight: '600',
+                          color: '#1e40af',
+                          marginBottom: '0.25rem'
+                        }
+                      }, 'Auto-Population Ready'),
+                      React.createElement('p', {
+                        key: 'auto-pop-desc',
+                        style: {
+                          fontSize: '0.875rem',
+                          color: '#1e40af'
+                        }
+                      }, 'Your profile and organization data will be automatically filled in the PSA form.')
+                    ])
+                  ])
+                ]),
+                
+                // PSA Content
+                React.createElement('div', {
+                  key: 'psa-content',
+                  style: {
+                    background: 'white',
+                    borderRadius: '1rem',
+                    padding: '2rem',
+                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
+                    minHeight: '600px'
+                  }
+                }, [
+                  loading ? [
+                    React.createElement('div', {
+                      key: 'loading',
+                      style: {
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '400px'
+                      }
+                    }, [
+                      React.createElement('div', {
+                        key: 'loading-spinner',
+                        style: {
+                          width: '40px',
+                          height: '40px',
+                          border: '4px solid #e5e7eb',
+                          borderTop: '4px solid #3b82f6',
+                          borderRadius: '50%',
+                          animation: 'spin 1s linear infinite',
+                          marginBottom: '1rem'
+                        }
+                      }),
+                      React.createElement('p', {
+                        key: 'loading-text',
+                        style: { color: '#6b7280' }
+                      }, 'Preparing your PSA agreement...')
+                    ])
+                  ] : completed ? [
+                    React.createElement('div', {
+                      key: 'completed',
+                      style: {
+                        textAlign: 'center',
+                        padding: '2rem',
+                        color: '#059669'
+                      }
+                    }, [
+                      React.createElement('div', {
+                        key: 'success-icon',
+                        style: {
+                          fontSize: '4rem',
+                          marginBottom: '1rem'
+                        }
+                      }, '🎉'),
+                      React.createElement('h3', {
+                        key: 'success-title',
+                        style: {
+                          fontSize: '1.5rem',
+                          fontWeight: '600',
+                          marginBottom: '0.5rem'
+                        }
+                      }, 'PSA Completed Successfully!'),
+                      React.createElement('p', {
+                        key: 'success-desc',
+                        style: { color: '#6b7280' }
+                      }, 'Redirecting to success page...')
+                    ])
+                  ] : embedSrc ? [
+                    React.createElement('div', {
+                      key: 'docuseal-embed'
+                    }, [
+                      React.createElement('p', {
+                        key: 'ready-message',
+                        style: {
+                          color: '#059669',
+                          marginBottom: '1rem',
+                          display: 'flex',
+                          alignItems: 'center'
+                        }
+                      }, [
+                        React.createElement('span', {
+                          key: 'ready-icon',
+                          style: { marginRight: '0.5rem' }
+                        }, '✅'),
+                        'Ready to sign PSA'
+                      ]),
+                      React.createElement('iframe', {
+                        key: 'docuseal-iframe',
+                        src: embedSrc,
+                        style: {
+                          width: '100%',
+                          height: '800px',
+                          border: 'none',
+                          borderRadius: '0.5rem'
+                        },
+                        onLoad: () => {
+                          // PSA form loaded successfully
+                          console.log('✅ DocuSeal form loaded');
+                          
+                          // Listen for completion events
+                          window.addEventListener('message', (event) => {
+                            if (event.data && event.data.type === 'docuseal:completed') {
+                              handlePSACompletion();
+                            }
+                          });
+                        }
+                      })
+                    ])
+                  ] : [
+                    React.createElement('div', {
+                      key: 'error',
+                      style: {
+                        textAlign: 'center',
+                        padding: '2rem',
+                        color: '#dc2626'
+                      }
+                    }, [
+                      React.createElement('div', {
+                        key: 'error-icon',
+                        style: {
+                          fontSize: '3rem',
+                          marginBottom: '1rem'
+                        }
+                      }, '⚠️'),
+                      React.createElement('h3', {
+                        key: 'error-title',
+                        style: {
+                          fontSize: '1.25rem',
+                          fontWeight: '600',
+                          marginBottom: '0.5rem'
+                        }
+                      }, 'Unable to load PSA form'),
+                      React.createElement('p', {
+                        key: 'error-desc',
+                        style: { color: '#6b7280' }
+                      }, 'Please check your DocuSeal configuration or contact support.')
+                    ])
+                  ]
+                ])
+              ])
+            ]);
+          };
+          
+          // Render the enhanced PSA component
+          const root = ReactDOM.createRoot(container);
+          root.render(React.createElement(EnhancedPSAComponent));
+          
+          console.log("✅ Enhanced PSA System loaded successfully");
+          
+        } catch (error) {
+          console.error("❌ Error loading Enhanced PSA System:", error);
+          
+          // Fallback to basic PSA system
+          const container = document.getElementById("enhanced-psa-container");
+          container.innerHTML = \`
+            <div style="text-align: center; padding: 2rem; color: #dc2626;">
+              <h2>Error Loading Enhanced PSA</h2>
+              <p>Falling back to basic PSA system...</p>
+              <button onclick="window.location.href='/dashboard/onboarding/psa'" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #3b82f6; color: white; border: none; border-radius: 0.5rem; cursor: pointer;">
+                Load Basic PSA
+              </button>
+            </div>
+          \`;
+        }
+      });
+      
+      // Add CSS animation for spinner
+      const style = document.createElement('style');
+      style.textContent = \`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      \`;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>
