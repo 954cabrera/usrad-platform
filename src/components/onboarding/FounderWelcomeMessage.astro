@@ -1,0 +1,99 @@
+---
+const showVideo = false; // Set to true later for A/B test
+---
+
+<section class="max-w-4xl mx-auto mt-10 mb-12 px-6 fade-in">
+  <div
+    class="bg-white border border-gray-200 rounded-xl shadow-md p-8 space-y-6"
+  >
+    <h1 class="text-3xl font-bold text-gray-900 text-center">
+      Welcome to the USRad Network
+    </h1>
+    <p class="text-lg text-gray-700 text-center">
+      A personal note from our founder before you begin
+    </p>
+
+    {
+      showVideo ? (
+        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+          <iframe
+            src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+            title="Welcome to USRad"
+            frameborder="0"
+            allowfullscreen
+            class="w-full h-full"
+          ></iframe>
+        </div>
+      ) : (
+        <div class="text-base text-gray-800 leading-relaxed space-y-5 text-left">
+          <p>
+            <strong>Dear Imaging Center Leader,</strong>
+          </p>
+
+          <p>
+            Welcome — and thank you for your interest in joining the USRad
+            Network.
+          </p>
+
+          <p>
+            You’ve taken the first step toward something powerful: filling
+            unused scan slots, growing your patient volume, and gaining a
+            competitive edge in a market that’s rapidly shifting toward
+            affordability and access.
+          </p>
+
+          <p>
+            At USRad, we believe that exceptional imaging care shouldn't be
+            reserved for those with perfect insurance. That’s why we built a
+            national platform that connects high-quality imaging centers like
+            yours with self-pay patients who are actively looking for
+            affordable, trusted options.
+          </p>
+
+          <p>
+            We maintain one of the most comprehensive databases of over 30,000
+            accredited imaging facilities in the U.S. — and we use it to help
+            match your center with the right patients at the right time. That
+            data advantage is part of what makes USRad uniquely effective at
+            filling scan slots and driving volume.
+          </p>
+
+          <p>
+            The journey ahead is simple — just a few short steps — and our
+            system saves your progress automatically so you can start and stop
+            at your convenience.
+          </p>
+
+          <p>Let’s grow together.</p>
+
+          <p class="pt-4">
+            <strong>
+              Warm regards,
+              <br />
+              Michael Cabrera
+              <br />
+              Founder, USRad
+              <br />
+              Former CEO, AnciCare PPO
+            </strong>
+          </p>
+        </div>
+      )
+    }
+  </div>
+
+  <style>
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</section>

@@ -156,6 +156,14 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
     </style>
   </head>
   <body>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        if (!localStorage.getItem('psa_confirmation_completed')) {
+          alert("Please complete PSA confirmation before signing the agreement.");
+          window.location.href = '/dashboard/contract/confirmation';
+        }
+      });
+    </script>
     <DashboardLayout title="Enhanced PSA Signing" user={null}>
       <div id="enhanced-psa-container">
         <div id="loading-message" style="text-align: center; padding: 2rem;" class="animate-fade-in">

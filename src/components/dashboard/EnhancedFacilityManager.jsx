@@ -102,7 +102,7 @@ const EnhancedFacilityManager = () => {
     if (corporate && Object.keys(corporate).length > 0) {
       setCorporateInfo({
         legalName: corporate.legal_name || '',
-        legalEntityName: corporate.legal_entity_name || '',
+        legalEntityName: corporate.legal_name || '',
         taxId: formatTaxId(corporate.tax_id || ''),
         signerName: corporate.signer_name || profile?.full_name || '',
         signerTitle: corporate.signer_title || '',
@@ -169,7 +169,7 @@ const EnhancedFacilityManager = () => {
       const corporateData = {
         corporate_name: data.legalName,
         legal_name: data.legalName,
-        legal_entity_name: data.legalEntityName,
+        legal_name: data.legalEntityName,
         tax_id: data.taxId,
         signer_name: data.signerName,
         signer_title: data.signerTitle,

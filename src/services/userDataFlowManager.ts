@@ -23,7 +23,7 @@ export interface CorporateEntityData {
   user_id?: number;
   corporate_name?: string;
   legal_name?: string;
-  legal_entity_name?: string;
+  legal_name?: string;
   tax_id?: string;
   signer_name?: string;
   signer_title?: string;

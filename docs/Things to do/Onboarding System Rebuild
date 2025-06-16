@@ -1,0 +1,161 @@
+June 15, 2025
+
+# USRad Onboarding System: Strategic Rebuild Summary
+
+## Executive Overview
+
+This document outlines the issues identified, solutions implemented, and future priorities in rebuilding the USRad enterprise onboarding system. It is intended for periodic review with developers, investors, and strategic stakeholders to ensure continuity, alignment, and quality as the platform scales.
+
+---
+
+## 1. 🔍 Initial Challenges
+
+### A. Missing PSA Flow Steps
+
+* The structured PSA signing process (Review Info → Digital Signature → Completed) was unintentionally removed.
+* "PSA Completed Successfully" page and visual confirmation were lost.
+* PSA embed logic was fragile and not to be disturbed.
+
+### B. System Fragmentation
+
+* Organization setup, facility entry, contract terms, and signature flows were disconnected.
+* Dashboard onboarding cards caused confusion and lacked cohesive guidance.
+* Facility entry lacked persistence, causing data loss on reload.
+
+### C. UX + Data Flow Friction
+
+* Settings/Profile save buttons were non-functional.
+* Facility onboarding did not prefill from organization data.
+* EIN, address, and phone formats lacked consistency or validation.
+* Dashboard steps overwhelmed the user and didn’t reflect progression logically.
+
+### D. Reimbursement Strategy Misalignment
+
+* Imaging centers weren’t adequately educated on why USRad uses 100% Medicare rates.
+* Critical CTA education page was missing upfront, leading to abandoned onboarding.
+* No incentive structure or explanation of volume exchange vs rate clarity.
+
+---
+
+## 2. ✅ Solutions Implemented
+
+### A. Unified Form Enhancements
+
+* Modular `unifiedForm.js` now controls all formatting (EIN, phone, email) with validation.
+* Toasts for error/success added across all form interactions.
+* Debounce utility ensures save button can't be spammed.
+* Error handling includes tooltips + focused input correction.
+
+### B. Rebuilt Settings Save Logic
+
+* `Settings/Profile` and `Settings/Organization` wired to save directly to Supabase.
+* EIN auto-format to `XX-XXXXXXX`, phone to `(XXX) XXX-XXXX`.
+* Corporate address input structured: street, suite, city, state, zip.
+
+### C. Refactored PSA Contract Flow
+
+* Retained the stable embedded PSA signing component.
+* Added new sequence pages:
+
+  * `market-education.astro`
+  * `terms.astro`
+  * `confirmation.astro`
+  * `exhibit-b-preview.astro`
+
+### D. Streamlined Dashboard Display
+
+* Reorganized onboarding card layout:
+
+  * **Stage 1 (Pre-Signing):** Organization, Facility, PSA
+  * **Stage 2 (Post-Signing):** Credentialing, Banking, Activation
+* Post-PSA confirmation page unlocks next steps visually.
+
+---
+
+## 3. 🚧 Next Strategic Enhancements
+
+### 🥇 Phase 1: Full Save & Resume System
+
+#### Objective:
+
+Ensure user progress is always saved and resumed, supporting large, multi-day facility uploads.
+
+#### Features:
+
+* Supabase `onboarding_progress` field added to `user_profiles`.
+* Each step auto-saves on input change or blur.
+* Resume from last incomplete step on login via `/dashboard/onboarding/resume`.
+* Facilities saved incrementally to `user_facilities` table.
+
+#### Implementation Plan:
+
+| Step              | Behavior                           | Tech                          |
+| ----------------- | ---------------------------------- | ----------------------------- |
+| Organization Info | Save to `corporate_entities`       | Debounced field listeners     |
+| Facilities        | Live save to `user_facilities`     | Validated input, auto-persist |
+| Exhibit B         | Save JSON snapshot on confirmation | Lock list after PSA signing   |
+| Resume Logic      | Use `onboarding_progress` enum     | Redirect user to last step    |
+
+### 🥈 Phase 2: Sync with Settings Toggle
+
+* Add toggles across onboarding forms to prefill from `corporate_entities` and `user_profiles`.
+* Helps minimize redundant data entry.
+
+### 🥉 Phase 3: Simplify Navigation with Stepper
+
+* Convert dashboard onboarding cards to a vertical stepper.
+* Shows only active step, clearly indicates progress, and simplifies UI.
+
+---
+
+## 4. 💡 Strategic Messaging
+
+### Why Accept 100% Medicare?
+
+> "You're already accepting Medicare. USRad fills your unscheduled slots and sends you cash-pay patients seeking affordability without sacrificing quality. We only need 5% of centers in your market. If you're in, you're competing on value — and winning volume."
+
+Placed across:
+
+* Market Education Page
+* Contract Terms Selection Page
+* Confirmation Pages
+
+---
+
+## 5. 📌 Final Thoughts
+
+USRad is very close to delivering a truly enterprise-grade onboarding experience. What remains is connecting and polishing the existing components into a seamless flow that:
+
+* Saves user data persistently
+* Educates providers transparently
+* Streamlines decision-making
+* Minimizes perceived friction
+
+---
+
+## 📈 Status Dashboard
+
+| Module                 | Status | Notes                            |
+| ---------------------- | ------ | -------------------------------- |
+| PSA Signing Flow       | ✅      | Do not modify PSA embed          |
+| Organization Save      | ✅      | Working + validated              |
+| Facility Save + Resume | ⚠️     | Needs Supabase insert+sync       |
+| Exhibit B Preview      | ✅      | Confirm before PSA signing       |
+| Terms Selection        | ✅      | Save locally + to DB             |
+| Resume Workflow        | ⚠️     | Needs onboarding\_progress logic |
+
+---
+
+## 🧭 Next Steps
+
+1. ✅ Finalize Org Info Save/Resume
+2. 🔄 Refactor Facility Add + Save Logic
+3. 🎯 Build onboarding\_progress tracker
+4. 🚀 Enable /resume redirection
+5. 🧠 Lock Exhibit B snapshot before PSA
+6. 💼 Add sync toggles for prefilling fields
+7. 📊 Replace onboarding cards with dynamic progress tracker
+
+---
+
+This document serves as the foundation for all future onboarding improvements, internal reviews, and investor-grade demos. Let this be the roadmap to scaling the USRad network with confidence and class.

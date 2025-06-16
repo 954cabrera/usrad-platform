@@ -82,7 +82,7 @@ export const saveFacilityConfiguration = async (userId, corporateInfo, facilitie
     const corporateData = {
       user_id: user.id,
       legal_name: corporateInfo.legalName,
-      legal_entity_name: corporateInfo.legalEntityName || corporateInfo.legalName,
+      legal_name: corporateInfo.legalEntityName || corporateInfo.legalName,
       tax_id: corporateInfo.taxId,
       signer_name: corporateInfo.signerName,
       signer_title: corporateInfo.signerTitle || 'Owner',

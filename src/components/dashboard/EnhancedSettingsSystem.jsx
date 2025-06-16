@@ -38,7 +38,7 @@ const EnhancedSettingsSystem = ({ initialUser, initialImagingCenter }) => {
   const [organizationForm, setOrganizationForm] = useState({
     corporate_name: '',
     legal_name: '',
-    legal_entity_name: '',
+    legal_name: '',
     tax_id: '',
     signer_name: '',
     signer_title: '',
@@ -457,8 +457,8 @@ const EnhancedSettingsSystem = ({ initialUser, initialImagingCenter }) => {
                 </label>
                 <input
                   type="text"
-                  value={organizationForm.legal_entity_name}
-                  onChange={(e) => handleOrganizationChange('legal_entity_name', e.target.value)}
+                  value={organizationForm.legal_name}
+                  onChange={(e) => handleOrganizationChange('legal_name', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>

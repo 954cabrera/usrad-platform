@@ -1,9 +1,10 @@
 ---
-// src/pages/dashboard/onboarding/index.astro
 import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
 import EnhancedOnboardingSystem from "../../../components/dashboard/EnhancedOnboardingSystem";
+import FounderWelcomeMessage from "../../../components/onboarding/FounderWelcomeMessage.astro";
 ---
 
 <DashboardLayout title="Provider Onboarding" user={null}>
+  <FounderWelcomeMessage />
   <EnhancedOnboardingSystem client:load />
 </DashboardLayout>

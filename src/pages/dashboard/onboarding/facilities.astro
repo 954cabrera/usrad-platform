@@ -1,11 +1,13 @@
 ---
 import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
 import FacilityManager from "../../../components/dashboard/FacilityManager.jsx";
+import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.jsx";
 
 // Get user from your existing auth system
 const user = null; // Replace with your actual user logic
 ---
 
 <DashboardLayout title="Facility Setup" user={user}>
+  <OnboardingStepper currentStep={1} client:load />
   <FacilityManager client:load />
 </DashboardLayout>

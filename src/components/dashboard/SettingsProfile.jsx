@@ -119,7 +119,7 @@ const ProfileSettings = () => {
         if (facilityConfig.corporateInfo) {
           setCorporateInfo({
             legalName: facilityConfig.corporateInfo.legal_name || '',
-            legalEntityName: facilityConfig.corporateInfo.legal_entity_name || '',
+            legalEntityName: facilityConfig.corporateInfo.legal_name || '',
             taxId: facilityConfig.corporateInfo.tax_id || '',
             signerName: facilityConfig.corporateInfo.signer_name || '',
             signerTitle: facilityConfig.corporateInfo.signer_title || '',
@@ -235,7 +235,7 @@ const ProfileSettings = () => {
         .upsert({
           user_id: userData.id,
           legal_name: editCorporate.legalName,
-          legal_entity_name: editCorporate.legalEntityName || editCorporate.legalName,
+          legal_name: editCorporate.legalEntityName || editCorporate.legalName,
           tax_id: editCorporate.taxId,
           signer_name: editCorporate.signerName,
           signer_title: editCorporate.signerTitle,

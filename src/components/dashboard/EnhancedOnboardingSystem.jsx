@@ -424,7 +424,7 @@ const EnhancedOnboardingSystem = () => {
               <div className="w-4 h-4 bg-white/30 rounded-full"></div>
               <span className="text-blue-100">Enterprise-grade platform for imaging providers</span>
             </div>
-            <span className="text-blue-200">Trusted by 500+ centers nationwide</span>
+            <span className="text-blue-200">Trusted by 1,200+ centers nationwide</span>
           </div>
         </div>
       </div>
