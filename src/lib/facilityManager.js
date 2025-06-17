@@ -141,19 +141,16 @@ export const saveFacilityConfiguration = async (userId, corporateInfo, facilitie
           user_id: user.id,
           acr_facility_id: facility.acrId || null,
           facility_name: facility.name,
-          street_address: facility.address,
-          city: facility.city,
-          state: facility.state,
-          zip_code: facility.zip,
-          phone_number: facility.phone || '',
+          facility_address: `${facility.address}, ${facility.city}, ${facility.state} ${facility.zip}`, // ✅ Use existing column
+          facility_phone: facility.phone || '',     // ✅ Use existing column
           email: facility.email || '',
           website: facility.website || '',
-          modalities: facility.modalities || [],
+          modality: facility.modalities ? facility.modalities.join(', ') : '', // ✅ Use existing singular column
           equipment_brands: facility.equipmentBrands || [],
           primary_contact: facility.primaryContact || '',
           contact_title: facility.contactTitle || '',
           notes: facility.notes || '',
-          is_acr_verified: facility.acrVerified || false,
+          acr_verified: facility.acrVerified || false,  // ✅ Use existing column
           is_manual_entry: facility.isManualEntry || false,
           is_primary: facility.isPrimary || false,
           is_edited: facility.isEdited || false,

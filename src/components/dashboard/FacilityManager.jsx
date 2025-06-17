@@ -84,28 +84,22 @@ const FacilityManager = () => {
         return null;
       }
 
-      // Get user profile data
+      // Get user profile data with correct column name
       const { data: profile, error: profileError } = await supabase
         .from('user_profiles')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('id', user.id)  // Fixed: Changed from 'user_id' to 'id'
         .single();
 
-      if (profileError) {
+      if (profileError && profileError.code !== 'PGRST116') {
         console.error('Profile fetch error:', profileError);
-        // Return basic user data if profile fetch fails
-        return {
-          id: user.id,
-          email: user.email,
-          profile: null
-        };
       }
 
-      // Combine auth user with profile data
+      // Return user data even if profile doesn't exist
       return {
         id: user.id,
         email: user.email,
-        profile: profile,
+        profile: profile || null,
         // Extract commonly used fields
         fullName: profile?.full_name || '',
         firstName: profile?.full_name?.split(' ')[0] || '',
@@ -188,9 +182,9 @@ const FacilityManager = () => {
               isEdited: f.is_edited,
               originalACRData: f.original_acr_data
             }));
-            if (!localStorage.getItem('market_education_completed')) {
-              window.location.href = '/dashboard/contract/market-education';
-            }
+            
+            setSelectedFacilities(transformedFacilities);
+            console.log('Loaded facilities:', transformedFacilities);
           }
         } else if (currentUser.profile) {
           // No existing facility data, but we have user profile - pre-populate
@@ -305,79 +299,108 @@ const FacilityManager = () => {
   }, [organizationType]);
 
   // Enhanced facility selection from ACR search
-  const selectFacility = (facility) => {
-    if (!selectedFacilities.find(f => f.id === facility.id)) {
-      const newFacility = { 
-        ...facility, 
-        isPrimary: selectedFacilities.length === 0,
-        addedDate: new Date().toISOString(),
-        isManualEntry: false,
-        acrVerified: true
-      };
-      setSelectedFacilities([...selectedFacilities, newFacility]);
-      setSearchTerm('');
-      setSearchResults([]);
-    }
-  };
-
-  // Enhanced facility management
-  const removeFacility = (facilityId) => {
-    const updatedFacilities = selectedFacilities.filter(f => f.id !== facilityId);
-    if (updatedFacilities.length > 0 && !updatedFacilities.find(f => f.isPrimary)) {
-      updatedFacilities[0].isPrimary = true;
-    }
-    setSelectedFacilities(updatedFacilities);
-  };
-
-  const setPrimaryFacility = (facilityId) => {
-    setSelectedFacilities(selectedFacilities.map(f => ({
-      ...f,
-      isPrimary: f.id === facilityId
-    })));
-  };
-
-  // Enhanced manual facility addition
-  const addManualFacility = () => {
-    const newErrors = {};
-    
-    if (!validateRequired(manualFacility.name)) newErrors.name = 'Facility name is required';
-    if (!validateRequired(manualFacility.address)) newErrors.address = 'Address is required';
-    if (!validateRequired(manualFacility.city)) newErrors.city = 'City is required';
-    if (!validateRequired(manualFacility.state)) newErrors.state = 'State is required';
-    
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    const newFacility = {
-      ...manualFacility,
-      id: `manual_${Date.now()}`,
-      acrVerified: false,
+const selectFacility = (facility) => {
+  if (!selectedFacilities.find(f => f.id === facility.id)) {
+    const normalizedFacility = {
+      id: facility.id || `acr_${Date.now()}`,
+      name: facility.name || 'Unnamed Facility',
+      address: facility.address || 'Unknown Address',
+      city: facility.city || 'Unknown City',
+      state: facility.state || 'CA',
+      zip: facility.zip || '00000',
+      phone: facility.phone || '',
+      website: facility.website || '',
       isPrimary: selectedFacilities.length === 0,
+      acrVerified: true,
       addedDate: new Date().toISOString(),
-      isManualEntry: true
+      isManualEntry: false,
+      modalities: facility.modalities || [],
+      equipmentBrands: facility.equipmentBrands || [],
+      primaryContact: facility.primaryContact || '',
+      contactTitle: facility.contactTitle || '',
+      notes: facility.notes || ''
     };
-    
-    setSelectedFacilities([...selectedFacilities, newFacility]);
-    setManualFacility({
-      name: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: '',
-      phone: '',
-      website: '',
-      modalities: [],
-      equipmentBrands: [],
-      primaryContact: '',
-      contactTitle: '',
-      notes: '',
-      isManualEntry: true
-    });
-    setShowManualEntry(false);
-    setErrors({});
+
+    setSelectedFacilities([...selectedFacilities, normalizedFacility]);
+    setSearchTerm('');
+    setSearchResults([]);
+  }
+};
+
+// Enhanced facility removal logic
+const removeFacility = (facilityId) => {
+  const updatedFacilities = selectedFacilities.filter(f => f.id !== facilityId);
+  if (updatedFacilities.length > 0 && !updatedFacilities.some(f => f.isPrimary)) {
+    updatedFacilities[0].isPrimary = true;
+  }
+  setSelectedFacilities(updatedFacilities);
+};
+
+// Update primary flag for facilities
+const setPrimaryFacility = (facilityId) => {
+  setSelectedFacilities(selectedFacilities.map(f => ({
+    ...f,
+    isPrimary: f.id === facilityId
+  })));
+};
+
+// Enhanced manual facility addition
+const addManualFacility = () => {
+  const newErrors = {};
+  
+  if (!validateRequired(manualFacility.name)) newErrors.name = 'Facility name is required';
+  if (!validateRequired(manualFacility.address)) newErrors.address = 'Address is required';
+  if (!validateRequired(manualFacility.city)) newErrors.city = 'City is required';
+  if (!validateRequired(manualFacility.state)) newErrors.state = 'State is required';
+  
+  if (Object.keys(newErrors).length > 0) {
+    setErrors(newErrors);
+    return;
+  }
+
+  const newFacility = {
+    id: `manual_${Date.now()}`,
+    name: manualFacility.name || 'Manual Facility',
+    address: manualFacility.address || 'Unknown Address',
+    city: manualFacility.city || 'Unknown City',
+    state: manualFacility.state || 'CA',
+    zip: manualFacility.zip || '00000',
+    phone: manualFacility.phone || '',
+    website: manualFacility.website || '',
+    isPrimary: selectedFacilities.length === 0,
+    acrVerified: false,
+    addedDate: new Date().toISOString(),
+    isManualEntry: true,
+    modalities: manualFacility.modalities || [],
+    equipmentBrands: manualFacility.equipmentBrands || [],
+    primaryContact: manualFacility.primaryContact || '',
+    contactTitle: manualFacility.contactTitle || '',
+    notes: manualFacility.notes || ''
   };
+
+  setSelectedFacilities([...selectedFacilities, newFacility]);
+
+  // Reset manual input form
+  setManualFacility({
+    name: '',
+    address: '',
+    city: '',
+    state: '',
+    zip: '',
+    phone: '',
+    website: '',
+    modalities: [],
+    equipmentBrands: [],
+    primaryContact: '',
+    contactTitle: '',
+    notes: '',
+    isManualEntry: true
+  });
+  
+  setShowManualEntry(false);
+  setErrors({});
+};
+
 
   // Enhanced progress calculation
   useEffect(() => {
@@ -431,14 +454,19 @@ const FacilityManager = () => {
         return;
       }
       
+      console.log('Saving facilities:', selectedFacilities);
+      console.log('Saving corporate info:', corporateInfo);
+      
       const result = await saveFacilityConfiguration(currentUser.id, corporateInfo, selectedFacilities);
       
       if (result.success) {
         setSaveMessage('✅ Progress saved successfully!');
+        console.log('Save successful');
         // Update progress to PSA ready
         setProgress(75);
       } else {
         setSaveMessage(`❌ Error saving: ${result.error}`);
+        console.error('Save failed:', result.error);
       }
     } catch (error) {
       console.error('Save error:', error);
@@ -1805,60 +1833,102 @@ const FacilityManager = () => {
         </div>
 
         {/* Enhanced Action Buttons */}
-<div className="flex justify-between items-center bg-white rounded-3xl shadow-lg border border-gray-200 p-8">
-  <button
-    onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
-    disabled={currentStep === 1}
-    className="flex items-center px-8 py-4 text-gray-700 border-2 border-gray-300 rounded-2xl hover:bg-gray-50 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-semibold"
-  >
-    <ArrowRight className="h-5 w-5 mr-2 transform rotate-180" />
-    Previous
-  </button>
-  
-  <div className="flex items-center space-x-4">
-    {saveMessage && (
-      <div className={`px-4 py-2 rounded-lg text-sm font-medium ${
-        saveMessage.includes('✅') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-      }`}>
-        {saveMessage}
-      </div>
-    )}
-    
-    <button
-      onClick={saveProgress}
-      disabled={isSaving}
-      className="flex items-center px-8 py-4 text-gray-700 border-2 border-gray-300 rounded-2xl hover:bg-gray-50 hover:border-gray-400 disabled:opacity-50 transition-all font-semibold"
-    >
-      {isSaving ? (
-        <>
-          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-500 mr-2"></div>
-          Saving...
-        </>
-      ) : (
-        <>
-          <Download className="h-5 w-5 mr-2" />
-          Save Progress
-        </>
-      )}
-    </button>
-    
-    <button
-      onClick={() => {
-        if (selectedFacilities.length > 0 && !localStorage.getItem('market_education_completed')) {
-          window.location.href = '/dashboard/contract/market-education';
-        } else {
-          setCurrentStep(Math.min(5, currentStep + 1));
-        }
-      }}
-      
-      disabled={currentStep === 5 || !canProceedToNextStep()}
-      className="flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-semibold shadow-lg hover:shadow-xl"
-    >
-      Continue
-      <ArrowRight className="h-5 w-5 ml-2" />
-    </button>
-  </div>
-</div>
+        <div className="flex justify-between items-center bg-white rounded-3xl shadow-lg border border-gray-200 p-8">
+          <button
+            onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
+            disabled={currentStep === 1}
+            className="flex items-center px-8 py-4 text-gray-700 border-2 border-gray-300 rounded-2xl hover:bg-gray-50 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-semibold"
+          >
+            <ArrowRight className="h-5 w-5 mr-2 transform rotate-180" />
+            Previous
+          </button>
+          
+          <div className="flex items-center space-x-4">
+            {saveMessage && (
+              <div className={`px-4 py-2 rounded-lg text-sm font-medium ${
+                saveMessage.includes('✅') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+              }`}>
+                {saveMessage}
+              </div>
+            )}
+            
+            <button
+              onClick={saveProgress}
+              disabled={isSaving}
+              className="flex items-center px-8 py-4 text-gray-700 border-2 border-gray-300 rounded-2xl hover:bg-gray-50 hover:border-gray-400 disabled:opacity-50 transition-all font-semibold"
+            >
+              {isSaving ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-500 mr-2"></div>
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <Download className="h-5 w-5 mr-2" />
+                  Save Progress
+                </>
+              )}
+            </button>
+            
+            <button
+              onClick={async () => {
+                if (selectedFacilities.length > 0) {
+                  // Save facilities before navigating
+                  try {
+                    setIsSaving(true);
+                    await saveProgress(); // This should save the facilities
+                    
+                    // Then determine where to go next
+                    const marketEducationCompleted = localStorage.getItem('market_education_completed');
+                    const contractTermsAccepted = localStorage.getItem('contract_terms_accepted');
+                    const psaConfirmationCompleted = localStorage.getItem('psa_confirmation_completed');
+                    
+                    console.log('Debug - localStorage status:');
+                    console.log('market_education_completed:', marketEducationCompleted);
+                    console.log('contract_terms_accepted:', contractTermsAccepted);
+                    console.log('psa_confirmation_completed:', psaConfirmationCompleted);
+                    
+                    if (!marketEducationCompleted) {
+                      console.log('Going to market education');
+                      window.location.href = '/dashboard/contract/market-education';
+                    } else if (!contractTermsAccepted) {
+                      console.log('Going to terms');
+                      window.location.href = '/dashboard/contract/terms';
+                    } else if (!psaConfirmationCompleted) {
+                      console.log('Going to confirmation');
+                      window.location.href = '/dashboard/contract/confirmation';
+                    } else {
+                      console.log('Going to PSA signing');
+                      window.location.href = '/dashboard/onboarding/psa';
+                    }
+                  } catch (error) {
+                    console.error('Error saving facilities:', error);
+                    alert('Error saving facilities. Please try again.');
+                  } finally {
+                    setIsSaving(false);
+                  }
+                } else {
+                  setCurrentStep(Math.min(5, currentStep + 1));
+                }
+              }}
+              
+              disabled={currentStep === 5 || !canProceedToNextStep() || isSaving}
+              className="flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-semibold shadow-lg hover:shadow-xl"
+            >
+              {isSaving ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                  Saving...
+                </>
+              ) : (
+                <>
+                  Continue
+                  <ArrowRight className="h-5 w-5 ml-2" />
+                </>
+              )}
+            </button>
+          </div>
+        </div>
 
       </div>
     </div>

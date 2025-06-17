@@ -45,24 +45,34 @@ const validateFacilityBeforePSA = async (userId) => {
       console.log('📋 Validating facility...');
       const isValid = await validateFacilityBeforePSA(user.id);
       setFacilityValid(isValid);
-
+  
       if (!isValid) {
         console.log('❌ Facility validation failed');
         setLoading(false);
         return;
       }
-
-      // Create DocuSeal submission
-      console.log('📄 Creating DocuSeal submission...');
+  
+      // Construct name/email with fallbacks
+      const name = user.user_metadata?.full_name || user.user_metadata?.company_name || user.email || 'Provider';
+      const email = user.email || user.user_metadata?.email || 'provider@usrad.com';
+  
+      console.log('📤 PSA Submitter Payload:', { name, email });
+  
       const response = await fetch('/api/docuseal/create-submission', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: user.email,
-          name: user.user_metadata && user.user_metadata.full_name ? user.user_metadata.full_name : 'Provider'
+          template_id: 1155842,
+          submitters: [
+            {
+              role: 'Provider',
+              name,
+              email
+            }
+          ]
         }),
       });
-
+  
       const data = await response.json();
       console.log('✅ DocuSeal response:', data);
       
@@ -78,6 +88,7 @@ const validateFacilityBeforePSA = async (userId) => {
       setLoading(false);
     }
   };
+  
 
   const handlePSACompletion = async () => {
     console.log('🎉 PSA completed!');

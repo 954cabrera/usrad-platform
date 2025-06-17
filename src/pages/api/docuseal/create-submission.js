@@ -6,51 +6,68 @@ export async function POST({ request }) {
     const body = await request.json();
     console.log("📦 Incoming request payload:", JSON.stringify(body, null, 2));
 
-    if (!body?.submitters?.[0]?.email || !body?.submitters?.[0]?.name) {
-      console.error("❌ Missing required `email` or `name` in payload:", body);
-      return new Response(JSON.stringify({ error: "Missing submitter email or name" }), { status: 400 });
+    const submitter = body?.submitters?.[0];
+    const name = submitter?.name?.trim();
+    const email = submitter?.email?.trim();
+
+    if (!name || !email) {
+      console.error("❌ Missing or invalid submitter `email` or `name` in payload:", { name, email });
+      return new Response(JSON.stringify({ error: "Missing or invalid submitter email or name" }), {
+        status: 400
+      });
     }
 
     const apiKey = import.meta.env.DOCUSEAL_API_TOKEN;
-    const templateId = parseInt(import.meta.env.DOCUSEAL_TEMPLATE_ID) || 1155842; 
+    const templateId = parseInt(import.meta.env.DOCUSEAL_TEMPLATE_ID) || 1155842;
 
-    console.log("🔍 Loaded .env values:", {
-      apiKey,
+    console.log("🔐 Loaded .env values:", {
+      apiKeyLoaded: !!apiKey,
       templateId
     });
-    
 
-    if (!apiKey) throw new Error('Missing DOCUSEAL_API_TOKEN');
-    if (!templateId) throw new Error('Missing DOCUSEAL_TEMPLATE_ID');
+    if (!apiKey) throw new Error("Missing DOCUSEAL_API_TOKEN");
+    if (!templateId) throw new Error("Missing DOCUSEAL_TEMPLATE_ID");
 
-    const res = await fetch('https://api.docuseal.com/submissions', {
-      method: 'POST',
+    const docuSealRes = await fetch("https://api.docuseal.com/submissions", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'X-Auth-Token': apiKey
+        "Content-Type": "application/json",
+        "X-Auth-Token": apiKey
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify({
+        template_id: templateId,
+        submitters: body.submitters
+      })
     });
 
-    const data = await res.json();
-    console.log('✅ DocuSeal Cloud response:', JSON.stringify(data, null, 2));
+    const docuSealData = await docuSealRes.json();
+    console.log("📥 DocuSeal Cloud response:", JSON.stringify(docuSealData, null, 2));
 
-    const embedUrl = Array.isArray(data) && data.length > 0 
-  ? data[0].embed_src 
-  : data?.submitters?.[0]?.embed_url || data?.submitters?.[0]?.embed_src;
+    // Extract embed URL
+    const embedUrl =
+      Array.isArray(docuSealData) && docuSealData[0]?.embed_src
+        ? docuSealData[0].embed_src
+        : docuSealData?.submitters?.[0]?.embed_url || docuSealData?.submitters?.[0]?.embed_src;
 
     if (!embedUrl) {
-      return new Response(JSON.stringify({ error: 'No embed URL returned from DocuSeal' }), { status: 500 });
+      console.error("❌ No embed URL returned by DocuSeal");
+      return new Response(JSON.stringify({ error: "No embed URL returned from DocuSeal" }), {
+        status: 500
+      });
     }
 
     return new Response(JSON.stringify({
       success: true,
       embed_url: embedUrl,
-      submission_id: data.id
-    }), { status: 200 });
+      submission_id: docuSealData.id || null
+    }), {
+      status: 200
+    });
 
   } catch (err) {
     console.error("❌ DocuSeal handler failed:", err);
-    return new Response(JSON.stringify({ error: err.message }), { status: 500 });
+    return new Response(JSON.stringify({ error: err.message }), {
+      status: 500
+    });
   }
 }

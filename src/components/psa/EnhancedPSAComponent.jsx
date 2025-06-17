@@ -207,70 +207,105 @@ export default function EnhancedPSAComponent() {
 
   const initializeEnhancedPSA = async () => {
     console.log('🚀 initializeEnhancedPSA called!');
-    
+  
     try {
       setCurrentStep(2); // Move to "Provider Info" step
-      
-      // Get user data - use fallbacks if corporate data not available
-      const user = window.USRadUser?.user;
-      const profile = window.USRadUserData?.profile;
-      const corporate = window.USRadUserData?.corporate;
+  
+      // Pull in stored user data
+      const user = window.USRadUser?.user || {};
+      const profile = window.USRadUserData?.profile || {};
+      const corporate = window.USRadUserData?.corporate || {};
       const facilities = window.USRadUserData?.facilities || [];
-      
+  
       console.log('🔍 Available data:', {
-        user: !!user,
-        profile: !!profile,
-        corporate: !!corporate,
+        user: !!user?.id,
+        profile: !!profile?.id,
+        corporate: !!corporate?.user_id,
         facilities: facilities.length
       });
-      
-      const name = corporate?.legal_name || profile?.company_name || user?.user_metadata?.company_name || 'USRad Provider';
-      const email = user?.email || 'provider@usrad.com';
-      
-      console.log('📤 PSA Data for DocuSeal:', { name, email });
-      
+  
+      // Extract and fallback critical fields
+      const name =
+        corporate?.legal_name?.trim() ||
+        profile?.company_name?.trim() ||
+        user?.user_metadata?.company_name?.trim() ||
+        user?.full_name?.trim() ||
+        `${user?.user_metadata?.first_name || ''} ${user?.user_metadata?.last_name || ''}`.trim() ||
+        user?.email?.split('@')[0] ||
+        'USRad Provider';
+
+      const email =
+        user?.email?.trim() ||
+        user?.user_metadata?.email?.trim() ||
+        'provider@usrad.com';
+
+      console.log("✅ Resolved submitter name/email:", { name, email });
+
+ 
+  
+      const phone =
+        profile.phone ||
+        corporate.phone ||
+        user.user_metadata?.phone ||
+        '000-000-0000';
+  
+      const taxId =
+        corporate.tax_id ||
+        '00-0000000';
+  
+      const primaryFacility =
+        facilities[0]?.name || 'Primary Location';
+  
+      const facilityList =
+        facilities.length > 0
+          ? facilities
+              .map(f => `${f.name}, ${f.city}, ${f.state}`)
+              .join('\n')
+          : 'Facilities to be configured';
+  
+      // Construct payload
       const payload = {
         template_id: 1155842,
         submitters: [
           {
             role: 'Provider',
-            name,
-            email,
+            name: name,     // should be real name like 'Mark Malone'
+            email: email,   // should be real email like 'mark@example.com'
             values: {
-              legal_business_name: corporate?.legal_name || name,
-              federal_tax_id: corporate?.tax_id || 'TBD',
+              legal_business_name: name,
+              federal_tax_id: taxId,
               signer_name: name,
               business_email: email,
-              business_phone: profile?.phone || corporate?.phone || 'TBD',
-              total_facilities: facilities.length.toString() || '1',
-              primary_facility: facilities[0]?.name || 'Primary Location',
-              facility_list: facilities.length > 0 ? 
-                facilities.map(f => `${f.name}, ${f.city}, ${f.state}`).join("\n") : 
-                'Facilities to be configured'
+              business_phone: phone,
+              total_facilities: facilities.length.toString(),
+              primary_facility: primaryFacility,
+              facility_list: facilityList
             }
           }
         ]
       };
       
-      console.log('🚀 About to call API with payload:', JSON.stringify(payload, null, 2));
-      
+  
+      console.log('📤 Final PSA Payload:', JSON.stringify(payload, null, 2));
+  
+      // API Call
       const response = await fetch('/api/docuseal/create-submission', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      
+  
       console.log('📡 API Response status:', response.status, response.statusText);
-      
+  
       if (!response.ok) {
         const errorData = await response.json();
         console.log('❌ API Error response:', JSON.stringify(errorData));
         throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
       }
-      
+  
       const data = await response.json();
       console.log('📥 DocuSeal API Success:', data);
-      
+  
       if (data.success && data.embed_url) {
         setEmbedSrc(data.embed_url);
         setCurrentStep(3);
@@ -279,13 +314,13 @@ export default function EnhancedPSAComponent() {
       } else {
         throw new Error('No embed URL returned from DocuSeal');
       }
-      
     } catch (err) {
       console.log('❌ PSA Load Failed:', err);
       setError(err.message);
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="max-w-4xl mx-auto p-6">
