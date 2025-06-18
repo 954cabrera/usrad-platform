@@ -1,11 +1,13 @@
 // File: /src/pages/api/update-psa-status.js
-// This is the FIXED version that handles the Supabase configuration properly
+// SIMPLIFIED VERSION that focuses on user_profiles table
 
 import { createClient } from '@supabase/supabase-js';
 
 export async function POST({ request }) {
   try {
     const { userId, psaSigned, completedAt } = await request.json();
+    
+    console.log('🔍 API received:', { userId, psaSigned, completedAt });
     
     if (!userId) {
       return new Response(
@@ -14,7 +16,6 @@ export async function POST({ request }) {
       );
     }
 
-    // Check if we have the required Supabase environment variables
     const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
     const supabaseServiceKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -30,81 +31,83 @@ export async function POST({ request }) {
       );
     }
 
-    // Create Supabase client with proper error handling
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    // Update user metadata in auth.users
-    const { data: authUser, error: authError } = await supabase.auth.admin.updateUserById(
-      userId,
-      {
-        user_metadata: {
-          psa_signed: psaSigned,
-          psa_completed_at: completedAt,
-          onboarding_step: psaSigned ? 'psa_completed' : 'psa_pending'
-        }
-      }
-    );
-
-    if (authError) {
-      console.error('Auth update error:', authError);
-      return new Response(
-        JSON.stringify({ 
-          error: 'Failed to update user auth metadata', 
-          details: authError.message 
-        }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // Also update user_profiles table if you have one
-    const { data: profileData, error: profileError } = await supabase
+    // First, check if user_profiles record exists
+    const { data: existingProfile, error: checkError } = await supabase
       .from('user_profiles')
-      .upsert({
-        id: userId,
-        psa_signed: psaSigned,
-        psa_completed_at: completedAt,
-        updated_at: new Date().toISOString()
-      }, {
-        onConflict: 'id'
-      });
+      .select('id')
+      .eq('id', userId)
+      .single();
 
-    if (profileError) {
-      console.error('Profile update error:', profileError);
-      // Don't fail if profile update fails, auth update is primary
-    }
+    console.log('🔍 Existing profile check:', { existingProfile, checkError });
 
-    // Log the completion for analytics (optional)
-    try {
-      await supabase
-        .from('psa_completions')
+    let updateResult;
+    
+    if (existingProfile) {
+      // Record exists, update it
+      console.log('📝 Updating existing profile...');
+      updateResult = await supabase
+        .from('user_profiles')
+        .update({
+          psa_signed: psaSigned,
+          onboarding_progress: psaSigned ? 60 : 0,
+          updated_at: completedAt
+        })
+        .eq('id', userId)
+        .select();
+    } else {
+      // No record exists, create one
+      console.log('📝 Creating new profile...');
+      updateResult = await supabase
+        .from('user_profiles')
         .insert({
-          user_id: userId,
-          completed_at: completedAt,
-          ip_address: request.headers.get('x-forwarded-for') || 'unknown',
-          user_agent: request.headers.get('user-agent') || 'unknown'
-        });
-    } catch (logError) {
-      // Non-critical, don't fail for this
-      console.log('Analytics logging failed (non-critical):', logError);
+          id: userId,
+          user_id: userId, // Include both fields to be safe
+          psa_signed: psaSigned,
+          onboarding_progress: psaSigned ? 60 : 0,
+          updated_at: completedAt,
+          created_at: completedAt
+        })
+        .select();
     }
 
-    return new Response(
-      JSON.stringify({ 
-        success: true, 
-        message: 'PSA status updated successfully',
-        user: authUser?.user || { id: userId }
-      }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
+    const { data, error } = updateResult;
+    
+    console.log('🔍 Update result:', { data, error });
+
+    if (error) {
+      console.error('❌ Database update error:', error);
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: error.message,
+        details: error
+      }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    console.log('✅ Database updated successfully:', data);
+
+    return new Response(JSON.stringify({ 
+      success: true, 
+      message: 'PSA status updated successfully',
+      data: data,
+      user: { id: userId }
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
 
   } catch (error) {
-    console.error('PSA status update error:', error);
-    return new Response(
-      JSON.stringify({ 
-        error: 'Internal server error', 
-        details: error.message 
-      }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    console.error('❌ API Error:', error);
+    return new Response(JSON.stringify({ 
+      success: false, 
+      error: error.message 
+    }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 }

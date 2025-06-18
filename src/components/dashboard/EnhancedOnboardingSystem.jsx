@@ -54,14 +54,21 @@ const OnboardingCard = ({
   justCompleted = false
 }) => {
   const getStatusColor = () => {
-    if (justCompleted) return 'bg-yellow-500';
+    if (justCompleted) return 'bg-gradient-to-r from-yellow-400 to-amber-500';
     switch (status) {
-      case 'completed': return 'bg-green-500';
-      case 'active': return 'bg-blue-500';
-      case 'in_progress': return 'bg-orange-500';
-      case 'unlocked': return 'bg-gray-300';
-      default: return 'bg-gray-200';
+      case 'completed': return 'bg-gradient-to-r from-green-500 to-emerald-600';
+      case 'active': return 'bg-gradient-to-r from-blue-500 to-indigo-600';
+      case 'in_progress': return 'bg-gradient-to-r from-orange-500 to-red-500';
+      case 'unlocked': return 'bg-gray-400';
+      default: return 'bg-gray-300';
     }
+  };
+
+  const getCardBackground = () => {
+    if (justCompleted) return 'bg-gradient-to-br from-yellow-50 to-amber-50 border-yellow-300 shadow-lg ring-2 ring-yellow-200';
+    if (status === 'completed') return 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-300';
+    if (inProgress) return 'border-orange-300 bg-orange-50';
+    return 'bg-white hover:border-blue-300';
   };
 
   const getStatusIcon = () => {
@@ -90,40 +97,61 @@ const OnboardingCard = ({
     return icon;
   };
 
+  const getCompletedBadge = () => {
+    if (status === 'completed' || justCompleted) {
+      return (
+        <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${
+          justCompleted 
+            ? 'bg-yellow-100 text-yellow-800 border border-yellow-300' 
+            : 'bg-green-100 text-green-800 border border-green-300'
+        }`}>
+          <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+          </svg>
+          {justCompleted ? 'Just Completed!' : 'Completed'}
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div 
-      className={`bg-white rounded-lg shadow-sm border-2 p-6 cursor-pointer transition-all duration-200 hover:shadow-md ${
-        isLocked ? 'opacity-50 cursor-not-allowed' : 'hover:border-blue-300'
-      } ${inProgress ? 'border-orange-300 bg-orange-50' : ''} ${
-        justCompleted ? 'border-yellow-300 bg-yellow-50 shadow-lg ring-2 ring-yellow-200' : ''
-      }`}
+      className={`rounded-lg shadow-sm border-2 p-6 cursor-pointer transition-all duration-200 hover:shadow-md ${
+        isLocked ? 'opacity-50 cursor-not-allowed' : ''
+      } ${getCardBackground()}`}
       onClick={!isLocked ? onClick : undefined}
     >
       <div className="flex items-start">
-        <div className={`w-12 h-12 rounded-full flex items-center justify-center mr-4 ${getStatusColor()}`}>
+        <div className={`w-12 h-12 rounded-full flex items-center justify-center mr-4 ${getStatusColor()} shadow-lg`}>
           {getStatusIcon()}
         </div>
         <div className="flex-1">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-            {status === 'completed' && completedDate && (
-              <span className="text-xs text-green-600 font-medium">
-                Completed {completedDate.toLocaleDateString()}
-              </span>
-            )}
-            {inProgress && (
-              <span className="text-xs text-orange-600 font-medium bg-orange-100 px-2 py-1 rounded-full">
-                In Progress
-              </span>
-            )}
-            {justCompleted && (
-              <span className="text-xs text-yellow-600 font-medium bg-yellow-100 px-2 py-1 rounded-full animate-pulse">
-                Just Completed! ✨
-              </span>
-            )}
+            <h3 className={`text-lg font-semibold ${
+              justCompleted ? 'text-yellow-900' : 
+              status === 'completed' ? 'text-green-900' : 'text-gray-900'
+            }`}>
+              {title}
+            </h3>
+            <div className="flex items-center space-x-2">
+              {getCompletedBadge()}
+              {status === 'completed' && completedDate && (
+                <span className={`text-xs font-medium ${
+                  justCompleted ? 'text-yellow-700' : 'text-green-700'
+                }`}>
+                  {completedDate.toLocaleDateString()}
+                </span>
+              )}
+            </div>
           </div>
           
-          <p className="text-gray-600 text-sm mb-4">{description}</p>
+          <p className={`text-sm mb-4 ${
+            justCompleted ? 'text-yellow-800' : 
+            status === 'completed' ? 'text-green-800' : 'text-gray-600'
+          }`}>
+            {description}
+          </p>
           
           {estimatedTime && status !== 'completed' && (
             <div className="text-xs text-gray-500 mb-3">
@@ -150,6 +178,18 @@ const OnboardingCard = ({
               <span className="text-blue-600 font-medium text-sm hover:text-blue-700">
                 {inProgress ? 'Continue →' : 'Start →'}
               </span>
+            </div>
+          )}
+
+          {/* Special celebration for just completed */}
+          {justCompleted && (
+            <div className="mt-4 pt-4 border-t border-yellow-200">
+              <div className="flex items-center space-x-2 text-yellow-800">
+                <svg className="w-5 h-5 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                <span className="font-semibold text-sm">Congratulations! You're making great progress.</span>
+              </div>
             </div>
           )}
         </div>
