@@ -1,11 +1,42 @@
 ---
+// File: /src/components/onboarding/FounderWelcomeMessage.astro
+// REPLACE your existing FounderWelcomeMessage.astro with this enhanced version
+
 const showVideo = false; // Set to true later for A/B test
 ---
 
-<section class="max-w-4xl mx-auto mt-10 mb-12 px-6 fade-in">
+<section
+  id="founder-welcome-message"
+  class="max-w-4xl mx-auto mt-10 mb-12 px-6 fade-in"
+  style="display: none;"
+>
   <div
     class="bg-white border border-gray-200 rounded-xl shadow-md p-8 space-y-6"
   >
+    <!-- Close button -->
+    <div class="flex justify-between items-start mb-4">
+      <div></div>
+      <!-- Spacer -->
+      <button
+        id="dismiss-welcome"
+        class="text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full hover:bg-gray-100"
+        aria-label="Dismiss welcome message"
+      >
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
     <h1 class="text-3xl font-bold text-gray-900 text-center">
       Welcome to the USRad Network
     </h1>
@@ -22,7 +53,7 @@ const showVideo = false; // Set to true later for A/B test
             frameborder="0"
             allowfullscreen
             class="w-full h-full"
-          ></iframe>
+          />
         </div>
       ) : (
         <div class="text-base text-gray-800 leading-relaxed space-y-5 text-left">
@@ -36,15 +67,15 @@ const showVideo = false; // Set to true later for A/B test
           </p>
 
           <p>
-            You’ve taken the first step toward something powerful: filling
+            You've taken the first step toward something powerful: filling
             unused scan slots, growing your patient volume, and gaining a
-            competitive edge in a market that’s rapidly shifting toward
+            competitive edge in a market that's rapidly shifting toward
             affordability and access.
           </p>
 
           <p>
             At USRad, we believe that exceptional imaging care shouldn't be
-            reserved for those with perfect insurance. That’s why we built a
+            reserved for those with perfect insurance. That's why we built a
             national platform that connects high-quality imaging centers like
             yours with self-pay patients who are actively looking for
             affordable, trusted options.
@@ -64,7 +95,7 @@ const showVideo = false; // Set to true later for A/B test
             at your convenience.
           </p>
 
-          <p>Let’s grow together.</p>
+          <p>Let's grow together.</p>
 
           <p class="pt-4">
             <strong>
@@ -80,20 +111,126 @@ const showVideo = false; // Set to true later for A/B test
         </div>
       )
     }
+
+    <!-- Action button -->
+    <div class="text-center pt-4">
+      <button
+        id="start-onboarding"
+        class="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-medium hover:bg-blue-700 transition-colors shadow-md"
+      >
+        Let's Get Started →
+      </button>
+    </div>
   </div>
+</section>
 
-  <style>
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.6s ease-out forwards;
-    }
+<script>
+  // Show once logic using localStorage
+  function initializeWelcomeMessage() {
+    const welcomeSection = document.getElementById("founder-welcome-message");
+    const dismissButton = document.getElementById("dismiss-welcome");
+    const startButton = document.getElementById("start-onboarding");
 
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
+    if (!welcomeSection) return;
+
+    // Check if user has seen the welcome message before
+    const hasSeenWelcome = localStorage.getItem("usrad_founder_welcome_seen");
+
+    // Check URL parameters for special cases (like PSA completion)
+    const urlParams = new URLSearchParams(window.location.search);
+    const forceWelcome = urlParams.get("welcome") === "true";
+    const psaCompleted = urlParams.get("psa_completed") === "true";
+
+    // Show welcome message if:
+    // 1. They haven't seen it before, OR
+    // 2. They just completed PSA and have welcome=true parameter
+    if (!hasSeenWelcome || forceWelcome) {
+      welcomeSection.style.display = "block";
+
+      // Special handling for PSA completion
+      if (psaCompleted && forceWelcome) {
+        // Update the message slightly for PSA completion
+        const title = welcomeSection.querySelector("h1");
+        const subtitle = welcomeSection.querySelector("p");
+
+        if (title) {
+          title.textContent = "🎉 Welcome to the USRad Network!";
+        }
+        if (subtitle) {
+          subtitle.textContent =
+            "Congratulations on completing your PSA signing!";
+        }
       }
     }
-  </style>
-</section>
+
+    // Handle dismiss button click
+    if (dismissButton) {
+      dismissButton.addEventListener("click", function () {
+        localStorage.setItem("usrad_founder_welcome_seen", "true");
+        welcomeSection.style.display = "none";
+        cleanupURL();
+      });
+    }
+
+    // Handle start button click
+    if (startButton) {
+      startButton.addEventListener("click", function () {
+        localStorage.setItem("usrad_founder_welcome_seen", "true");
+        welcomeSection.style.display = "none";
+        cleanupURL();
+
+        // Scroll to onboarding content
+        const onboardingContent = document.querySelector(
+          "[data-onboarding-content]"
+        );
+        if (onboardingContent) {
+          onboardingContent.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    }
+
+    // Clean up URL parameters after showing message
+    function cleanupURL() {
+      setTimeout(() => {
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, "", newUrl);
+      }, 1000);
+    }
+
+    // Auto-cleanup URL if message was already seen
+    if (hasSeenWelcome && !forceWelcome) {
+      cleanupURL();
+    }
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeWelcomeMessage);
+  } else {
+    initializeWelcomeMessage();
+  }
+</script>
+
+<style>
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Ensure the section is hidden by default and only shown by JavaScript */
+  #founder-welcome-message {
+    display: none !important;
+  }
+
+  #founder-welcome-message[style*="block"] {
+    display: block !important;
+  }
+</style>

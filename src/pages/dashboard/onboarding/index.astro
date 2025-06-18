@@ -1,4 +1,7 @@
 ---
+// File: /src/pages/dashboard/onboarding/index.astro
+// REPLACE your existing index.astro with this updated version
+
 import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
 import EnhancedOnboardingSystem from "../../../components/dashboard/EnhancedOnboardingSystem";
 import FounderWelcomeMessage from "../../../components/onboarding/FounderWelcomeMessage.astro";
@@ -6,5 +9,7 @@ import FounderWelcomeMessage from "../../../components/onboarding/FounderWelcome
 
 <DashboardLayout title="Provider Onboarding" user={null}>
   <FounderWelcomeMessage />
-  <EnhancedOnboardingSystem client:load />
+  <div data-onboarding-content>
+    <EnhancedOnboardingSystem client:load />
+  </div>
 </DashboardLayout>

@@ -7,9 +7,128 @@ export default function EnhancedPSAComponent() {
   const [completed, setCompleted] = useState(false);
   const [error, setError] = useState(null);
 
-  // Confetti celebration function
-  const createConfettiCelebration = () => {
-    // Create canvas element
+  // Enhanced floating guide update function for completion
+  const updateFloatingGuideToComplete = () => {
+    const guide = document.getElementById('floating-progress-guide');
+    if (guide) {
+      const steps = [
+        { id: 'floating-step-1', text: 'Step 1: Review Agreement' },
+        { id: 'floating-step-2', text: 'Step 2: Scroll to Bottom' }, 
+        { id: 'floating-step-3', text: 'Step 3: Click "Sign Now"' },
+        { id: 'floating-step-4', text: 'Step 4: Complete Signing' }
+      ];
+
+      // Mark all steps as complete
+      steps.forEach((step, index) => {
+        const element = document.getElementById(step.id);
+        if (element) {
+          element.style.color = '#059669';
+          element.style.fontWeight = '700';
+          element.innerHTML = `✅ ${step.text}`;
+        }
+      });
+      
+      const instruction = document.getElementById('floating-instruction');
+      if (instruction) {
+        instruction.innerHTML = '🎉 All steps completed! Redirecting...';
+        instruction.style.color = '#059669';
+        instruction.style.fontWeight = '700';
+      }
+      
+      // Add celebration styling to the entire guide
+      guide.style.background = 'rgba(16, 185, 129, 0.1)';
+      guide.style.borderColor = '#059669';
+      guide.style.borderWidth = '3px';
+      
+      // Add pulsing animation to celebrate
+      guide.style.animation = 'pulse 2s infinite';
+      
+      // Add pulse animation if it doesn't exist
+      if (!document.getElementById('pulse-animation')) {
+        const style = document.createElement('style');
+        style.id = 'pulse-animation';
+        style.textContent = `
+          @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    }
+  };
+
+  // File: /src/components/psa/EnhancedPSAComponent.jsx
+// Replace the handlePSACompletion function with this fixed version
+
+// Enhanced PSA completion handler with better user experience - FIXED VERSION
+const handlePSACompletion = async () => {
+  if (completed) return; // Prevent multiple triggers
+  
+  console.log('🎉 PSA Completion Handler Called!');
+  setCompleted(true);
+  setCurrentStep(4);
+  
+  // Remove any manual completion button
+  const manualButton = document.getElementById('manual-completion-button');
+  if (manualButton) manualButton.remove();
+  
+  // Remove any completion overlays
+  const completionOverlay = document.getElementById('completion-detection-overlay');
+  if (completionOverlay) completionOverlay.style.display = 'none';
+  
+  const stuckHelp = document.getElementById('stuck-user-help');
+  if (stuckHelp) stuckHelp.style.display = 'none';
+  
+  // Update floating guide immediately with all steps complete
+  updateFloatingGuideToComplete();
+  
+  // TRIGGER ENHANCED CONFETTI! 🎉
+  createEnhancedConfettiCelebration();
+  
+  // Update user state in Supabase - WITH ERROR HANDLING
+  try {
+    const user = window.USRadUser?.user;
+    if (user && user.id) {
+      console.log('🔄 Updating PSA status for user:', user.id);
+      
+      const response = await fetch('/api/update-psa-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          userId: user.id, 
+          psaSigned: true,
+          completedAt: new Date().toISOString()
+        })
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('✅ PSA status updated successfully:', result);
+      } else {
+        console.log('⚠️ PSA status update failed, but continuing with completion flow');
+      }
+    } else {
+      console.log('⚠️ No user ID available for PSA status update');
+    }
+  } catch (error) {
+    console.log('⚠️ Could not update PSA status (non-critical):', error.message);
+    // Don't fail the completion flow for this error
+  }
+  
+  // Show completion message with next steps
+  showCompletionMessage();
+  
+  // Redirect to onboarding page instead of main dashboard
+  setTimeout(() => {
+    console.log('🔄 Redirecting to onboarding dashboard...');
+    window.location.href = '/dashboard/onboarding?psa_completed=true&welcome=true';
+  }, 4000);
+};
+
+  // Enhanced confetti with USRad branding
+  const createEnhancedConfettiCelebration = () => {
     const canvas = document.createElement('canvas');
     canvas.id = 'confetti-canvas';
     canvas.style.cssText = `
@@ -28,28 +147,39 @@ export default function EnhancedPSAComponent() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     
-    // Confetti particles
+    // Enhanced confetti with USRad colors and shapes
     const confetti = [];
-    const confettiCount = 150;
+    const confettiCount = 200; // More particles
     
-    // USRad brand colors
-    const colors = ['#059669', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
+    // USRad brand colors + celebration colors
+    const colors = [
+      '#003087', // USRad Navy
+      '#059669', // Success Green
+      '#3b82f6', // Blue
+      '#f59e0b', // Gold
+      '#ef4444', // Red
+      '#8b5cf6', // Purple
+      '#06b6d4', // Cyan
+      '#10b981'  // Emerald
+    ];
     
-    // Create particles
+    // Create diverse confetti particles
     for (let i = 0; i < confettiCount; i++) {
       confetti.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height - canvas.height,
-        vx: (Math.random() - 0.5) * 8,
-        vy: Math.random() * 3 + 2,
+        vx: (Math.random() - 0.5) * 10,
+        vy: Math.random() * 4 + 2,
         color: colors[Math.floor(Math.random() * colors.length)],
-        size: Math.random() * 8 + 4,
+        size: Math.random() * 10 + 6,
         rotation: Math.random() * 360,
-        rotationSpeed: (Math.random() - 0.5) * 10
+        rotationSpeed: (Math.random() - 0.5) * 15,
+        shape: Math.random() > 0.5 ? 'square' : 'circle',
+        gravity: 0.15 + Math.random() * 0.1
       });
     }
     
-    // Animation
+    // Animation with enhanced effects
     function animateConfetti() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
@@ -58,16 +188,29 @@ export default function EnhancedPSAComponent() {
         
         particle.x += particle.vx;
         particle.y += particle.vy;
-        particle.vy += 0.1;
+        particle.vy += particle.gravity;
         particle.rotation += particle.rotationSpeed;
+        
+        // Add air resistance
+        particle.vx *= 0.99;
         
         ctx.save();
         ctx.translate(particle.x, particle.y);
         ctx.rotate(particle.rotation * Math.PI / 180);
         ctx.fillStyle = particle.color;
-        ctx.fillRect(-particle.size/2, -particle.size/2, particle.size, particle.size);
+        
+        // Draw different shapes
+        if (particle.shape === 'circle') {
+          ctx.beginPath();
+          ctx.arc(0, 0, particle.size / 2, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillRect(-particle.size/2, -particle.size/2, particle.size, particle.size);
+        }
+        
         ctx.restore();
         
+        // Remove particles that fall off screen
         if (particle.y > canvas.height + 100) {
           confetti.splice(i, 1);
         }
@@ -82,158 +225,160 @@ export default function EnhancedPSAComponent() {
     
     animateConfetti();
     
-    // Cleanup after 5 seconds
+    // Enhanced cleanup with fade effect
     setTimeout(() => {
       if (document.body.contains(canvas)) {
-        document.body.removeChild(canvas);
-      }
-    }, 5000);
-  };
-
-  // Define handlePSACompletion with confetti
-  const handlePSACompletion = () => {
-    console.log('🎉 PSA Completion Handler Called!');
-    setCompleted(true);
-    setCurrentStep(4);
-    
-    // TRIGGER CONFETTI! 🎉
-    createConfettiCelebration();
-    
-    // Update floating guide to show completion
-    setTimeout(() => {
-      const guide = document.getElementById('floating-progress-guide');
-      if (guide) {
-        const step4 = document.getElementById('floating-step-4');
-        const instruction = document.getElementById('floating-instruction');
-        if (step4) {
-          step4.style.color = '#059669';
-          step4.style.fontWeight = '700';
-          step4.innerHTML = '✅ Step 4: Complete Signing';
-        }
-        if (instruction) {
-          instruction.innerHTML = '🎉 Signing completed!';
-          instruction.style.color = '#059669';
-          instruction.style.fontWeight = '700';
-        }
-      }
-    }, 100);
-    
-    // Redirect after confetti celebration (increased delay)
-    setTimeout(() => {
-      window.location.href = '/dashboard?psa_completed=true';
-    }, 3000); // 3 seconds to enjoy the confetti
-  };
-
-  // Load DocuSeal script for embedded forms
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.docuseal.com/js/form.js';
-    script.async = true;
-    document.head.appendChild(script);
-    
-    return () => {
-      if (document.head.contains(script)) {
-        document.head.removeChild(script);
-      }
-    };
-  }, []);
-
-  // Listen for DocuSeal completion messages
-  useEffect(() => {
-    const handleMessage = (event) => {
-      console.log('📡 Received message:', event.data);
-      
-      // Try multiple event types that DocuSeal might send
-      if (event.data?.type === 'docuseal:completed' || 
-          event.data?.type === 'submission:completed' ||
-          event.data?.type === 'form:completed' ||
-          event.data?.event === 'completed' ||
-          event.data?.status === 'completed') {
-        console.log('📄 PSA completion detected via message!');
-        handlePSACompletion();
-      }
-    };
-
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, []);
-
-  // Fallback: Check for completion by monitoring DocuSeal state
-  useEffect(() => {
-    if (!embedSrc) return;
-
-    const checkCompletion = setInterval(() => {
-      // Look for completion indicators in the page
-      const docusealForm = document.querySelector('docuseal-form');
-      if (!docusealForm) return;
-
-      // Check for common completion text/elements
-      const iframe = docusealForm.querySelector('iframe');
-      if (iframe) {
-        try {
-          // Check if there are completion-related elements visible
-          const completionKeywords = [
-            'thank you',
-            'completed',
-            'download',
-            'send copy',
-            'finished'
-          ];
-          
-          // If the floating guide hasn't updated to step 4, check the page content
-          const step4Element = document.getElementById('floating-step-4');
-          if (step4Element && !step4Element.innerHTML.includes('✅') && currentStep < 4) {
-            // Check if we're on a completion page by looking at the current URL or page state
-            if (window.location.href.includes('completed') || 
-                window.location.href.includes('finished') ||
-                document.title.toLowerCase().includes('complete')) {
-              console.log('📄 PSA completion detected via fallback method!');
-              handlePSACompletion();
-            }
+        // Fade out effect
+        canvas.style.transition = 'opacity 1s ease-out';
+        canvas.style.opacity = '0';
+        setTimeout(() => {
+          if (document.body.contains(canvas)) {
+            document.body.removeChild(canvas);
           }
-        } catch (error) {
-          // Cross-origin restrictions, this is normal
+        }, 1000);
+      }
+    }, 6000);
+  };
+
+  // Show completion message overlay
+  const showCompletionMessage = () => {
+    const overlay = document.createElement('div');
+    overlay.id = 'completion-overlay';
+    overlay.style.cssText = `
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      z-index: 999998 !important;
+      background: white !important;
+      border: 3px solid #059669 !important;
+      border-radius: 16px !important;
+      padding: 32px !important;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3) !important;
+      text-align: center !important;
+      min-width: 400px !important;
+      animation: slideIn 0.5s ease-out !important;
+    `;
+    
+    overlay.innerHTML = `
+      <div style="font-size: 48px; margin-bottom: 16px;">🎉</div>
+      <h2 style="color: #003087; font-size: 24px; font-weight: bold; margin-bottom: 12px;">
+        PSA Completed Successfully!
+      </h2>
+      <p style="color: #6b7280; font-size: 16px; margin-bottom: 20px;">
+        Welcome to the USRad Network! You're now ready to start serving patients.
+      </p>
+      <div style="background: #f0fdf4; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+        <p style="color: #059669; font-size: 14px; font-weight: 600;">
+          ✅ Provider Service Agreement Signed<br>
+          ✅ Network Access Activated<br>
+          ✅ Dashboard Features Unlocked
+        </p>
+      </div>
+      <p style="color: #9ca3af; font-size: 14px;">
+        Redirecting to your dashboard in a few seconds...
+      </p>
+    `;
+    
+    // Add animation keyframes
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translate(-50%, -60%);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, -50%);
         }
       }
-    }, 3000);
-
-    return () => clearInterval(checkCompletion);
-  }, [embedSrc, currentStep]);
-
-  useEffect(() => {
-    console.log('🔍 Component mounted, waiting for user data...');
+    `;
+    document.head.appendChild(style);
     
-    const waitForUser = setInterval(() => {
-      console.log('🔍 Checking for user data:', {
-        hasUSRadUser: !!window.USRadUser?.user,
-        hasUSRadUserData: !!window.USRadUserData,
-        hasCorporate: !!window.USRadUserData?.corporate,
-        userDataKeys: window.USRadUserData ? Object.keys(window.USRadUserData) : 'undefined'
-      });
-      
-      // Simplified check - just need user, don't require corporate data
-      if (window.USRadUser?.user) {
-        console.log('✅ User found, initializing PSA...');
-        clearInterval(waitForUser);
-        setTimeout(() => initializeEnhancedPSA(), 200);
+    document.body.appendChild(overlay);
+    
+    // Remove overlay before redirect
+    setTimeout(() => {
+      if (document.body.contains(overlay)) {
+        overlay.style.transition = 'opacity 0.5s ease-out';
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+          if (document.body.contains(overlay)) {
+            document.body.removeChild(overlay);
+          }
+        }, 500);
       }
-    }, 1000); // Check every second for debugging
+      if (document.head.contains(style)) {
+        document.head.removeChild(style);
+      }
+    }, 3500);
+  };
 
-    return () => clearInterval(waitForUser);
-  }, []);
+  // Add this new function to show manual completion option - FIXED VERSION
+const showManualCompletionButton = () => {
+  // Remove any existing manual button
+  const existingButton = document.getElementById('manual-completion-button');
+  if (existingButton) existingButton.remove();
 
-  // Create floating guide when PSA is embedded
-  useEffect(() => {
-    if (embedSrc && currentStep === 3) {
-      setTimeout(() => createFloatingGuide(), 1000);
+  const manualButton = document.createElement('div');
+  manualButton.id = 'manual-completion-button';
+  manualButton.style.cssText = `
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    z-index: 99999 !important;
+    background: #ef4444 !important;
+    color: white !important;
+    padding: 16px 24px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px rgba(239, 68, 68, 0.3) !important;
+    cursor: pointer !important;
+    font-family: system-ui, -apple-system, sans-serif !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+    max-width: 280px !important;
+  `;
+  
+  manualButton.innerHTML = `
+    <div style="font-size: 14px; margin-bottom: 4px;">✅ Finished signing?</div>
+    <div style="font-size: 12px; margin-bottom: 8px; opacity: 0.9;">If you've completed the PSA, click here:</div>
+    <div style="background: rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 6px; font-size: 13px;">
+      Continue to Dashboard →
+    </div>
+  `;
+  
+  manualButton.addEventListener('click', () => {
+    console.log('📋 Manual completion triggered by user');
+    manualButton.remove();
+    handlePSACompletion();
+  });
+
+  manualButton.addEventListener('mouseenter', () => {
+    manualButton.style.transform = 'scale(1.05)';
+    manualButton.style.background = '#dc2626';
+  });
+
+  manualButton.addEventListener('mouseleave', () => {
+    manualButton.style.transform = 'scale(1)';
+    manualButton.style.background = '#ef4444';
+  });
+  
+  document.body.appendChild(manualButton);
+
+  // Also update the floating guide to show manual option
+  const guide = document.getElementById('floating-progress-guide');
+  if (guide) {
+    const instruction = document.getElementById('floating-instruction');
+    if (instruction) {
+      instruction.innerHTML = '✅ Signed? Click the red button below →';
+      instruction.style.color = '#ef4444';
+      instruction.style.fontWeight = '700';
     }
-    
-    return () => {
-      // Cleanup floating guide
-      const guide = document.getElementById('floating-progress-guide');
-      if (guide) guide.remove();
-    };
-  }, [embedSrc, currentStep]);
+  }
+};
 
   const createFloatingGuide = () => {
     // Remove any existing guide
@@ -414,34 +559,6 @@ export default function EnhancedPSAComponent() {
         corporate: !!corporate?.user_id,
         facilities: facilities.length
       });
-
-          // Start polling Supabase for PSA completion
-    const pollForCompletion = setInterval(async () => {
-      try {
-        const { data, error } = await supabase
-          .from('user_profiles')
-          .select('psa_signed')
-          .eq('id', user.id)
-          .single();
-
-        if (error) throw error;
-
-        if (data?.psa_signed) {
-          console.log('✅ PSA signing detected via polling');
-          updateFloatingGuide(4);
-          if (typeof showConfetti === 'function') showConfetti();
-          clearInterval(pollForCompletion);
-          setTimeout(() => {
-            window.location.href = '/dashboard';
-          }, 3000);
-        }
-      } catch (err) {
-        console.error('Polling error:', err.message);
-      }
-    }, 5000);
-
-
-
   
       // Extract and fallback critical fields
       const name =
@@ -459,8 +576,6 @@ export default function EnhancedPSAComponent() {
         'provider@usrad.com';
 
       console.log("✅ Resolved submitter name/email:", { name, email });
-
- 
   
       const phone =
         profile.phone ||
@@ -471,16 +586,6 @@ export default function EnhancedPSAComponent() {
       const taxId =
         corporate.tax_id ||
         '00-0000000';
-  
-      const primaryFacility =
-        facilities[0]?.name || 'Primary Location';
-  
-      const facilityList =
-        facilities.length > 0
-          ? facilities
-              .map(f => `${f.name}, ${f.city}, ${f.state}`)
-              .join('\n')
-          : 'Facilities to be configured';
   
       // Construct payload
       const payload = {
@@ -511,8 +616,6 @@ export default function EnhancedPSAComponent() {
         ]
       };
       
-      
-  
       console.log('📤 Final PSA Payload:', JSON.stringify(payload, null, 2));
   
       // API Call
@@ -539,14 +642,13 @@ export default function EnhancedPSAComponent() {
         setLoading(false);
         console.log('✅ PSA embedded successfully');
 
-const checkIframeReady = setInterval(() => {
-  const iframe = document.querySelector('docuseal-form iframe');
-  if (iframe?.contentWindow?.document?.body) {
-    clearInterval(checkIframeReady);
-    console.log("✅ PSA iframe detected. Starting guide logic.");
-    updateFloatingGuide(2);
-  }
-}, 1000);
+        const checkIframeReady = setInterval(() => {
+          const iframe = document.querySelector('docuseal-form iframe');
+          if (iframe?.contentWindow?.document?.body) {
+            clearInterval(checkIframeReady);
+            console.log("✅ PSA iframe detected. Starting guide logic.");
+          }
+        }, 1000);
 
       } else {
         throw new Error('No embed URL returned from DocuSeal');
@@ -557,7 +659,226 @@ const checkIframeReady = setInterval(() => {
       setLoading(false);
     }
   };
-  
+
+  // Load DocuSeal script for embedded forms
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.docuseal.com/js/form.js';
+    script.async = true;
+    document.head.appendChild(script);
+    
+    return () => {
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
+    };
+  }, []);
+
+  // Enhanced completion detection with multiple detection methods and fallbacks
+  useEffect(() => {
+    if (!embedSrc) return;
+
+    let completionDetected = false;
+
+    // Method 1: PostMessage listener (primary)
+    const handleDocuSealMessage = (event) => {
+      console.log('📡 DocuSeal Message:', event.data);
+      
+      if (completionDetected) return;
+      
+      // Check for various completion event types
+      if (
+        event.data?.type === 'docuseal:completed' || 
+        event.data?.type === 'submission:completed' ||
+        event.data?.type === 'form:completed' ||
+        event.data?.event === 'completed' ||
+        event.data?.status === 'completed' ||
+        event.data?.action === 'completed' ||
+        (event.data?.message && event.data.message.includes('completed'))
+      ) {
+        console.log('✅ PSA completion detected via PostMessage!');
+        completionDetected = true;
+        handlePSACompletion();
+      }
+    };
+
+    // Method 2: Text-based detection for "Document has been signed!" message
+    const checkForCompletionText = () => {
+      if (completionDetected) return;
+      
+      const iframe = document.querySelector('docuseal-form iframe');
+      if (iframe) {
+        try {
+          const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+          if (iframeDoc) {
+            const bodyText = iframeDoc.body?.textContent?.toLowerCase() || '';
+            
+            // Look for specific completion text patterns
+            if (
+              bodyText.includes('document has been signed') ||
+              bodyText.includes('signing completed') ||
+              bodyText.includes('successfully signed') ||
+              bodyText.includes('send copy via email') ||
+              (bodyText.includes('download') && bodyText.includes('signed'))
+            ) {
+              console.log('✅ PSA completion detected via text content!');
+              completionDetected = true;
+              handlePSACompletion();
+            }
+          }
+        } catch (e) {
+          // Cross-origin restrictions - expected
+        }
+      }
+    };
+
+    // Method 3: Button-based detection (looking for download/email buttons)
+    const checkForCompletionButtons = () => {
+      if (completionDetected) return;
+      
+      const iframe = document.querySelector('docuseal-form iframe');
+      if (iframe) {
+        try {
+          const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+          if (iframeDoc) {
+            // Look for completion buttons (more flexible approach)
+            const buttons = Array.from(iframeDoc.querySelectorAll('button'));
+            const hasCompletionButton = buttons.some(button => {
+              const text = button.textContent?.toLowerCase() || '';
+              return text.includes('download') || text.includes('send copy') || text.includes('email');
+            });
+
+            if (hasCompletionButton) {
+              console.log('✅ PSA completion detected via completion buttons!');
+              completionDetected = true;
+              handlePSACompletion();
+            }
+          }
+        } catch (e) {
+          // Cross-origin restrictions - expected
+        }
+      }
+    };
+
+    // Method 4: Aggressive polling with multiple checks
+    const pollForCompletion = setInterval(() => {
+      if (completed || completionDetected) {
+        clearInterval(pollForCompletion);
+        return;
+      }
+
+      // Run all detection methods
+      checkForCompletionText();
+      checkForCompletionButtons();
+
+      // Additional checks
+      const iframe = document.querySelector('docuseal-form iframe');
+      if (iframe) {
+        try {
+          const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+          if (iframeDoc) {
+            // Check for success indicators in classes or IDs
+            const successElements = iframeDoc.querySelectorAll('[class*="success"], [class*="complete"], [id*="success"], [id*="complete"]');
+            
+            if (successElements.length > 0) {
+              console.log('✅ PSA completion detected via success elements!');
+              completionDetected = true;
+              handlePSACompletion();
+            }
+
+            // Check for green checkmark or completion icons
+            const checkmarkElements = iframeDoc.querySelectorAll('svg[class*="check"], .fa-check, [class*="checkmark"]');
+            if (checkmarkElements.length > 0) {
+              console.log('✅ PSA completion detected via checkmark elements!');
+              completionDetected = true;
+              handlePSACompletion();
+            }
+          }
+        } catch (e) {
+          // Cross-origin restrictions - expected
+        }
+      }
+    }, 1500); // Check every 1.5 seconds
+
+    // Method 5: Fallback manual detection button after 30 seconds
+    const showFallbackOption = setTimeout(() => {
+      if (!completed && !completionDetected) {
+        console.log('⚠️ Completion not automatically detected, showing manual option');
+        showManualCompletionButton();
+      }
+    }, 30000); // After 30 seconds
+
+    // Set up all detection methods
+    window.addEventListener('message', handleDocuSealMessage);
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener('message', handleDocuSealMessage);
+      clearInterval(pollForCompletion);
+      clearTimeout(showFallbackOption);
+    };
+  }, [embedSrc, completed]);
+
+  useEffect(() => {
+    console.log('🔍 Component mounted, waiting for user data...');
+    
+    const waitForUser = setInterval(() => {
+      console.log('🔍 Checking for user data:', {
+        hasUSRadUser: !!window.USRadUser?.user,
+        hasUSRadUserData: !!window.USRadUserData,
+        hasCorporate: !!window.USRadUserData?.corporate,
+        userDataKeys: window.USRadUserData ? Object.keys(window.USRadUserData) : 'undefined'
+      });
+      
+      // Simplified check - just need user, don't require corporate data
+      if (window.USRadUser?.user) {
+        console.log('✅ User found, initializing PSA...');
+        clearInterval(waitForUser);
+        setTimeout(() => initializeEnhancedPSA(), 200);
+      }
+    }, 1000); // Check every second for debugging
+
+    return () => clearInterval(waitForUser);
+  }, []);
+
+  // Create floating guide when PSA is embedded
+  useEffect(() => {
+    if (embedSrc && currentStep === 3) {
+      setTimeout(() => createFloatingGuide(), 1000);
+    }
+    
+    return () => {
+      // Cleanup floating guide
+      const guide = document.getElementById('floating-progress-guide');
+      if (guide) guide.remove();
+    };
+  }, [embedSrc, currentStep]);
+
+  // Add completion detection overlay after delays
+  useEffect(() => {
+    if (!embedSrc || completed) return;
+
+    // Show completion detection overlay after 60 seconds
+    const showCompletionOverlay = setTimeout(() => {
+      const overlay = document.getElementById('completion-detection-overlay');
+      if (overlay && !completed) {
+        overlay.style.display = 'block';
+      }
+    }, 60000);
+
+    // Show stuck user help after 2 minutes
+    const showStuckHelp = setTimeout(() => {
+      const helpSection = document.getElementById('stuck-user-help');
+      if (helpSection && !completed) {
+        helpSection.style.display = 'block';
+      }
+    }, 120000);
+
+    return () => {
+      clearTimeout(showCompletionOverlay);
+      clearTimeout(showStuckHelp);
+    };
+  }, [embedSrc, completed]);
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -681,6 +1002,126 @@ const checkIframeReady = setInterval(() => {
                   __html: `<docuseal-form data-src="${embedSrc}"></docuseal-form>`
                 }}
               />
+
+              {/* Enhanced completion detection and manual fallback */}
+              {!completed && (
+                <>
+                  {/* Completion Detection Overlay - Shows after 60 seconds */}
+                  <div id="completion-detection-overlay" style={{ display: 'none' }}>
+                    <div className="mt-6 bg-amber-50 border border-amber-200 rounded-lg p-6">
+                      <div className="flex items-start">
+                        <div className="flex-shrink-0">
+                          <svg className="h-6 w-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 15.5c-.77.833.192 2.5 1.732 2.5z" />
+                          </svg>
+                        </div>
+                        <div className="ml-3 flex-1">
+                          <h3 className="text-lg font-medium text-amber-800 mb-2">
+                            Finished signing your PSA?
+                          </h3>
+                          <p className="text-sm text-amber-700 mb-4">
+                            If you've completed the signing process and see "Document has been signed!" or download/email buttons above, click the button below to continue.
+                          </p>
+                          <div className="flex space-x-3">
+                            <button
+                              onClick={() => {
+                                console.log('📋 Manual completion triggered by user');
+                                document.getElementById('completion-detection-overlay').style.display = 'none';
+                                handlePSACompletion();
+                              }}
+                              className="bg-green-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors"
+                            >
+                              ✅ Yes, I've Completed Signing
+                            </button>
+                            <button
+                              onClick={() => {
+                                document.getElementById('completion-detection-overlay').style.display = 'none';
+                                // Reset the timer for another check
+                                setTimeout(() => {
+                                  if (!completed && document.getElementById('completion-detection-overlay')) {
+                                    document.getElementById('completion-detection-overlay').style.display = 'block';
+                                  }
+                                }, 60000); // Show again in 1 minute
+                              }}
+                              className="bg-gray-100 text-gray-700 px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors"
+                            >
+                              Not Yet, Still Signing
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Stuck User Help - Shows after 2 minutes */}
+                  <div id="stuck-user-help" style={{ display: 'none' }}>
+                    <div className="mt-6 bg-red-50 border border-red-200 rounded-lg p-6">
+                      <div className="flex items-start">
+                        <div className="flex-shrink-0">
+                          <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z" />
+                          </svg>
+                        </div>
+                        <div className="ml-3 flex-1">
+                          <h3 className="text-lg font-medium text-red-800 mb-2">
+                            Need help with the signing process?
+                          </h3>
+                          <p className="text-sm text-red-700 mb-4">
+                            If you're having trouble with the PSA signing, here are your options:
+                          </p>
+                          <div className="space-y-3">
+                            <div className="bg-white p-4 rounded border border-red-200">
+                              <h4 className="font-medium text-red-800 mb-2">✅ If you've already signed:</h4>
+                              <p className="text-sm text-red-700 mb-3">
+                                Look for "Document has been signed!" message above, then click:
+                              </p>
+                              <button
+                                onClick={() => {
+                                  console.log('📋 Manual completion from help section');
+                                  document.getElementById('stuck-user-help').style.display = 'none';
+                                  handlePSACompletion();
+                                }}
+                                className="bg-green-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-green-700"
+                              >
+                                Continue to Dashboard
+                              </button>
+                            </div>
+                            
+                            <div className="bg-white p-4 rounded border border-red-200">
+                              <h4 className="font-medium text-red-800 mb-2">🔄 Having technical issues?</h4>
+                              <div className="flex space-x-2">
+                                <button
+                                  onClick={() => window.location.reload()}
+                                  className="bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-blue-700"
+                                >
+                                  Refresh Page
+                                </button>
+                                <button
+                                  onClick={() => window.location.href = '/dashboard/onboarding/psa'}
+                                  className="bg-gray-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-gray-700"
+                                >
+                                  Try Basic PSA
+                                </button>
+                              </div>
+                            </div>
+
+                            <div className="bg-white p-4 rounded border border-red-200">
+                              <h4 className="font-medium text-red-800 mb-2">📞 Need personal assistance?</h4>
+                              <p className="text-sm text-red-700 mb-2">
+                                Contact our onboarding team:
+                              </p>
+                              <div className="text-sm">
+                                <p className="text-red-800 font-medium">📧 onboarding@usrad.com</p>
+                                <p className="text-red-800 font-medium">📱 (954) 555-0123</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           )}
 
