@@ -1,81 +1,87 @@
-// src/pages/api/docuseal/webhook.js
+// /api/docuseal-webhook.js
+
 import { createClient } from '@supabase/supabase-js';
 
-// ✅ Supabase client for secure server-side updates
 const supabase = createClient(
-  process.env.PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY // Use service role key for write access
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
 );
-
-// 📧 (Future) Email notification handler (Resend, etc.)
-async function sendConfirmationEmail({ email, documentUrl }) {
-  // Placeholder only. Integrate Resend later here.
-  console.log('📨 [Email] Would send confirmation to:', email);
-}
 
 export async function POST({ request }) {
   try {
-    const webhookData = await request.json();
-    console.log('🔔 DocuSeal webhook received:', webhookData);
+    const payload = await request.json();
+    const eventType = payload?.event_type;
+    const data = payload?.data;
 
-    // ✅ Check for form completion event
-    if (webhookData.event_type === 'form.completed') {
-      const { data } = webhookData;
+    console.log('📩 Incoming DocuSeal Webhook:', JSON.stringify(payload, null, 2));
 
-      const userEmail = data.email;
-      const submissionId = data.submission_id;
-      const documentUrl = data.documents?.[0]?.url;
-      const completedAt = data.completed_at;
-
-      // 🔍 Update user in Supabase
-      const { error } = await supabase
-        .from('user_profiles')
-        .update({
-          psa_signed: true,
-          psa_signed_at: completedAt,
-          psa_document_url: documentUrl,
-          psa_submission_id: submissionId,
-          onboarding_progress: 75
-        })
-        .eq('email', userEmail);
-
-      if (error) {
-        console.error('❌ Supabase update failed:', error.message);
-        return new Response(
-          JSON.stringify({ success: false, error: error.message }),
-          { status: 500, headers: { 'Content-Type': 'application/json' } }
-        );
-      }
-
-      console.log('✅ PSA completion recorded for:', userEmail);
-
-      // ✉️ Optional email confirmation (future)
-      if (process.env.ENABLE_EMAIL_NOTIFICATIONS === 'true') {
-        await sendConfirmationEmail({ email: userEmail, documentUrl });
-      }
+    // Only handle completion
+    if (eventType !== 'form.completed') {
+      return new Response('Ignored event type', { status: 200 });
     }
 
-    return new Response(
-      JSON.stringify({ success: true, message: 'Webhook processed successfully' }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
-  } catch (error) {
-    console.error('❌ Webhook processing error:', error);
+    const submissionId = data?.submission_id;
+    const email = data?.email;
+    const completedAt = data?.completed_at;
 
-    return new Response(
-      JSON.stringify({ success: false, error: error.message }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    if (!email || !submissionId) {
+      console.error('❌ Missing email or submission ID');
+      return new Response('Invalid payload', { status: 400 });
+    }
+
+    // 🔍 Helper to extract field values from DocuSeal
+    const extractValue = (fieldName) => {
+      return data.values?.find((v) => v.field === fieldName)?.value || null;
+    };
+
+    const primaryContactName = extractValue('primary_contact_name');
+    const primaryContactPhone = extractValue('primary_contact_phone');
+    const primaryContactEmail = extractValue('primary_contact_email');
+    const totalLocations = extractValue('total_locations');
+    const agreementDate = extractValue('agreement_date');
+    const providerName = extractValue('provider_name');
+    const signerName = extractValue('signer_name');
+    const signerTitle = extractValue('signer_title');
+    const providerDate = extractValue('provider_date');
+    const taxId = extractValue('tax_id');
+    const providerEmail = extractValue('provider_email');
+    const providerPhone = extractValue('provider_phone');
+
+    // 🔄 Update the matching user profile in Supabase
+    const { error } = await supabase
+      .from('user_profiles')
+      .update({
+        psa_signed: true,
+        psa_signed_at: completedAt,
+        psa_document_url: data.document_url,
+        psa_submission_id: submissionId,
+        onboarding_progress: 75,
+
+        // ✍️ Auto-filled fields
+        primary_contact_name: primaryContactName,
+        primary_contact_phone: primaryContactPhone,
+        primary_contact_email: primaryContactEmail,
+        total_locations: totalLocations,
+        agreement_date: agreementDate,
+        provider_name: providerName,
+        signer_name: signerName,
+        signer_title: signerTitle,
+        provider_date: providerDate,
+        tax_id: taxId,
+        provider_email: providerEmail,
+        provider_phone: providerPhone,
+      })
+      .eq('email', email);
+
+    if (error) {
+      console.error('❌ Failed to update Supabase:', error);
+      return new Response('Database error', { status: 500 });
+    }
+
+    console.log(`✅ PSA record updated for ${email}`);
+    return new Response('Webhook processed', { status: 200 });
+  } catch (err) {
+    console.error('❌ Webhook processing failed:', err);
+    return new Response('Internal Server Error', { status: 500 });
   }
-}
-
-export async function GET() {
-  return new Response(
-    JSON.stringify({
-      message: 'DocuSeal webhook endpoint is active',
-      supported_events: ['form.completed'],
-      endpoint: '/api/docuseal/webhook'
-    }),
-    { status: 200, headers: { 'Content-Type': 'application/json' } }
-  );
 }

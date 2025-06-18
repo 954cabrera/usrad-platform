@@ -7,11 +7,97 @@ export default function EnhancedPSAComponent() {
   const [completed, setCompleted] = useState(false);
   const [error, setError] = useState(null);
 
-  // Define handlePSACompletion FIRST
+  // Confetti celebration function
+  const createConfettiCelebration = () => {
+    // Create canvas element
+    const canvas = document.createElement('canvas');
+    canvas.id = 'confetti-canvas';
+    canvas.style.cssText = `
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 999999 !important;
+      pointer-events: none !important;
+    `;
+    
+    document.body.appendChild(canvas);
+    
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    // Confetti particles
+    const confetti = [];
+    const confettiCount = 150;
+    
+    // USRad brand colors
+    const colors = ['#059669', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
+    
+    // Create particles
+    for (let i = 0; i < confettiCount; i++) {
+      confetti.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        vx: (Math.random() - 0.5) * 8,
+        vy: Math.random() * 3 + 2,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        size: Math.random() * 8 + 4,
+        rotation: Math.random() * 360,
+        rotationSpeed: (Math.random() - 0.5) * 10
+      });
+    }
+    
+    // Animation
+    function animateConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      for (let i = confetti.length - 1; i >= 0; i--) {
+        const particle = confetti[i];
+        
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.vy += 0.1;
+        particle.rotation += particle.rotationSpeed;
+        
+        ctx.save();
+        ctx.translate(particle.x, particle.y);
+        ctx.rotate(particle.rotation * Math.PI / 180);
+        ctx.fillStyle = particle.color;
+        ctx.fillRect(-particle.size/2, -particle.size/2, particle.size, particle.size);
+        ctx.restore();
+        
+        if (particle.y > canvas.height + 100) {
+          confetti.splice(i, 1);
+        }
+      }
+      
+      if (confetti.length > 0) {
+        requestAnimationFrame(animateConfetti);
+      } else {
+        document.body.removeChild(canvas);
+      }
+    }
+    
+    animateConfetti();
+    
+    // Cleanup after 5 seconds
+    setTimeout(() => {
+      if (document.body.contains(canvas)) {
+        document.body.removeChild(canvas);
+      }
+    }, 5000);
+  };
+
+  // Define handlePSACompletion with confetti
   const handlePSACompletion = () => {
     console.log('🎉 PSA Completion Handler Called!');
     setCompleted(true);
     setCurrentStep(4);
+    
+    // TRIGGER CONFETTI! 🎉
+    createConfettiCelebration();
     
     // Update floating guide to show completion
     setTimeout(() => {
@@ -32,10 +118,10 @@ export default function EnhancedPSAComponent() {
       }
     }, 100);
     
-    // Redirect after celebration
+    // Redirect after confetti celebration (increased delay)
     setTimeout(() => {
       window.location.href = '/dashboard?psa_completed=true';
-    }, 1500);
+    }, 3000); // 3 seconds to enjoy the confetti
   };
 
   // Load DocuSeal script for embedded forms
@@ -55,7 +141,14 @@ export default function EnhancedPSAComponent() {
   // Listen for DocuSeal completion messages
   useEffect(() => {
     const handleMessage = (event) => {
-      if (event.data?.type === 'docuseal:completed') {
+      console.log('📡 Received message:', event.data);
+      
+      // Try multiple event types that DocuSeal might send
+      if (event.data?.type === 'docuseal:completed' || 
+          event.data?.type === 'submission:completed' ||
+          event.data?.type === 'form:completed' ||
+          event.data?.event === 'completed' ||
+          event.data?.status === 'completed') {
         console.log('📄 PSA completion detected via message!');
         handlePSACompletion();
       }
@@ -64,6 +157,48 @@ export default function EnhancedPSAComponent() {
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
   }, []);
+
+  // Fallback: Check for completion by monitoring DocuSeal state
+  useEffect(() => {
+    if (!embedSrc) return;
+
+    const checkCompletion = setInterval(() => {
+      // Look for completion indicators in the page
+      const docusealForm = document.querySelector('docuseal-form');
+      if (!docusealForm) return;
+
+      // Check for common completion text/elements
+      const iframe = docusealForm.querySelector('iframe');
+      if (iframe) {
+        try {
+          // Check if there are completion-related elements visible
+          const completionKeywords = [
+            'thank you',
+            'completed',
+            'download',
+            'send copy',
+            'finished'
+          ];
+          
+          // If the floating guide hasn't updated to step 4, check the page content
+          const step4Element = document.getElementById('floating-step-4');
+          if (step4Element && !step4Element.innerHTML.includes('✅') && currentStep < 4) {
+            // Check if we're on a completion page by looking at the current URL or page state
+            if (window.location.href.includes('completed') || 
+                window.location.href.includes('finished') ||
+                document.title.toLowerCase().includes('complete')) {
+              console.log('📄 PSA completion detected via fallback method!');
+              handlePSACompletion();
+            }
+          }
+        } catch (error) {
+          // Cross-origin restrictions, this is normal
+        }
+      }
+    }, 3000);
+
+    return () => clearInterval(checkCompletion);
+  }, [embedSrc, currentStep]);
 
   useEffect(() => {
     console.log('🔍 Component mounted, waiting for user data...');
@@ -141,22 +276,20 @@ export default function EnhancedPSAComponent() {
 
   const setupGuideLogic = () => {
     let psaStep = 1;
-
+  
     const updateFloatingGuide = (step) => {
-      console.log(`🚀 Updating PSA floating guide to Step ${step}`);
-      
       const stepElements = [
         { id: 'floating-step-1', text: 'Step 1: Review Agreement' },
         { id: 'floating-step-2', text: 'Step 2: Scroll to Bottom' },
         { id: 'floating-step-3', text: 'Step 3: Click "Sign Now"' },
         { id: 'floating-step-4', text: 'Step 4: Complete Signing' }
       ];
-      
+  
       stepElements.forEach((step_info, index) => {
         const element = document.getElementById(step_info.id);
         if (element) {
           const stepNumber = index + 1;
-          
+  
           if (stepNumber < step) {
             element.style.color = '#059669';
             element.style.fontWeight = '600';
@@ -172,7 +305,7 @@ export default function EnhancedPSAComponent() {
           }
         }
       });
-      
+  
       const instruction = document.getElementById('floating-instruction');
       if (instruction) {
         switch(step) {
@@ -197,14 +330,72 @@ export default function EnhancedPSAComponent() {
             break;
         }
       }
-      
+  
       psaStep = step;
     };
-
-    // Add scroll and interaction detection logic here if needed
-    // This is where your existing setupGuideLogic continues...
+  
+    // Clean scroll detection without debugging
+    const scrollWatcher = setInterval(() => {
+      const docusealForm = document.querySelector('docuseal-form');
+      if (!docusealForm) return;
+  
+      const iframe = docusealForm.querySelector('iframe');
+      if (!iframe) return;
+  
+      try {
+        const rect = iframe.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const scrollY = window.scrollY;
+  
+        // Conservative triggers for step progression
+        if (scrollY > 1000 && rect.top < -200 && psaStep === 1) {
+          updateFloatingGuide(2);
+          return;
+        }
+  
+        if (rect.bottom <= windowHeight + 50 && rect.bottom > 0 && psaStep === 2) {
+          updateFloatingGuide(3);
+          return;
+        }
+  
+      } catch (error) {
+        // Silent error handling
+      }
+    }, 3000);
+  
+    // Conservative scroll listener
+    const conservativeScrollHandler = () => {
+      if (psaStep >= 3) return;
+  
+      const scrolled = window.scrollY;
+  
+      if (scrolled > 1500 && psaStep === 1) {
+        updateFloatingGuide(2);
+      } else if (scrolled > 3000 && psaStep === 2) {
+        updateFloatingGuide(3);
+      }
+    };
+  
+    // Throttled scroll listener
+    let scrollTimeout;
+    const throttledScrollHandler = () => {
+      if (scrollTimeout) return;
+      
+      scrollTimeout = setTimeout(() => {
+        conservativeScrollHandler();
+        scrollTimeout = null;
+      }, 1000);
+    };
+  
+    window.addEventListener('scroll', throttledScrollHandler);
+  
+    // Clean up
+    window.addEventListener('beforeunload', () => {
+      clearInterval(scrollWatcher);
+      window.removeEventListener('scroll', throttledScrollHandler);
+    });
   };
-
+  
   const initializeEnhancedPSA = async () => {
     console.log('🚀 initializeEnhancedPSA called!');
   
@@ -223,6 +414,34 @@ export default function EnhancedPSAComponent() {
         corporate: !!corporate?.user_id,
         facilities: facilities.length
       });
+
+          // Start polling Supabase for PSA completion
+    const pollForCompletion = setInterval(async () => {
+      try {
+        const { data, error } = await supabase
+          .from('user_profiles')
+          .select('psa_signed')
+          .eq('id', user.id)
+          .single();
+
+        if (error) throw error;
+
+        if (data?.psa_signed) {
+          console.log('✅ PSA signing detected via polling');
+          updateFloatingGuide(4);
+          if (typeof showConfetti === 'function') showConfetti();
+          clearInterval(pollForCompletion);
+          setTimeout(() => {
+            window.location.href = '/dashboard';
+          }, 3000);
+        }
+      } catch (err) {
+        console.error('Polling error:', err.message);
+      }
+    }, 5000);
+
+
+
   
       // Extract and fallback critical fields
       const name =
@@ -269,21 +488,29 @@ export default function EnhancedPSAComponent() {
         submitters: [
           {
             role: 'Provider',
-            name: name,     // should be real name like 'Mark Malone'
-            email: email,   // should be real email like 'mark@example.com'
+            name,
+            email,
             values: {
-              legal_business_name: name,
-              federal_tax_id: taxId,
-              signer_name: name,
-              business_email: email,
-              business_phone: phone,
-              total_facilities: facilities.length.toString(),
-              primary_facility: primaryFacility,
-              facility_list: facilityList
+              primary_contact_name: profile?.full_name || name,
+              primary_contact_phone: profile?.phone || corporate?.phone || '(000) 000-0000',
+              primary_contact_email: user?.email,
+      
+              total_locations: facilities?.length?.toString() || '1',
+              agreement_date: new Date().toLocaleDateString('en-US'),
+      
+              provider_name: corporate?.legal_name || profile?.company_name || 'USRad Provider',
+              signer_name: profile?.full_name || name,
+              signer_title: profile?.signer_title || 'President',
+      
+              provider_date: new Date().toLocaleDateString('en-US'),
+              tax_id: corporate?.tax_id || '00-0000000',
+              provider_email: user?.email,
+              provider_phone: profile?.phone || corporate?.phone || '(000) 000-0000'
             }
           }
         ]
       };
+      
       
   
       console.log('📤 Final PSA Payload:', JSON.stringify(payload, null, 2));
@@ -311,6 +538,16 @@ export default function EnhancedPSAComponent() {
         setCurrentStep(3);
         setLoading(false);
         console.log('✅ PSA embedded successfully');
+
+const checkIframeReady = setInterval(() => {
+  const iframe = document.querySelector('docuseal-form iframe');
+  if (iframe?.contentWindow?.document?.body) {
+    clearInterval(checkIframeReady);
+    console.log("✅ PSA iframe detected. Starting guide logic.");
+    updateFloatingGuide(2);
+  }
+}, 1000);
+
       } else {
         throw new Error('No embed URL returned from DocuSeal');
       }
@@ -426,6 +663,18 @@ export default function EnhancedPSAComponent() {
 
           {embedSrc && (
             <div className="space-y-4">
+              {/* DEBUG: Manual completion button for testing */}
+              {process.env.NODE_ENV === 'development' && (
+                <div className="text-center py-2">
+                  <button
+                    onClick={handlePSACompletion}
+                    className="bg-purple-600 text-white px-4 py-2 rounded text-sm hover:bg-purple-700"
+                  >
+                    🧪 Test Completion (Dev Only)
+                  </button>
+                </div>
+              )}
+              
               <div 
                 className="w-full h-[800px] border-0"
                 dangerouslySetInnerHTML={{

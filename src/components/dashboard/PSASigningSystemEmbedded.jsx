@@ -39,7 +39,7 @@ const validateFacilityBeforePSA = async (userId) => {
   const initializePSA = async () => {
     const user = window.USRadUser.user;
     console.log('🚀 Starting PSA initialization for:', user.email);
-    
+  
     try {
       // Validate facility
       console.log('📋 Validating facility...');
@@ -52,9 +52,31 @@ const validateFacilityBeforePSA = async (userId) => {
         return;
       }
   
-      // Construct name/email with fallbacks
-      const name = user.user_metadata?.full_name || user.user_metadata?.company_name || user.email || 'Provider';
-      const email = user.email || user.user_metadata?.email || 'provider@usrad.com';
+      // 🎯 Fetch user profile from Supabase
+      const { data: profile, error } = await supabase
+        .from('user_profiles')
+        .select('full_name, company_name')
+        .eq('user_id', user.id)
+        .single();
+  
+      if (error) {
+        console.warn('⚠️ Supabase profile fetch failed:', error.message);
+      } else {
+        console.log('📄 Fetched user profile from Supabase:', profile);
+      }
+  
+      // 🧠 Determine submitter values
+      const name =
+        profile?.company_name ||
+        profile?.full_name ||
+        user.user_metadata?.company_name ||
+        user.user_metadata?.full_name ||
+        user.email;
+  
+      const email =
+        user.email ||
+        user.user_metadata?.email ||
+        'provider@usrad.com';
   
       console.log('📤 PSA Submitter Payload:', { name, email });
   
@@ -67,15 +89,15 @@ const validateFacilityBeforePSA = async (userId) => {
             {
               role: 'Provider',
               name,
-              email
-            }
-          ]
+              email,
+            },
+          ],
         }),
       });
   
       const data = await response.json();
       console.log('✅ DocuSeal response:', data);
-      
+  
       if (data.success && data.embed_url) {
         setEmbedSrc(data.embed_url);
         console.log('🎯 Embed URL set:', data.embed_url);
@@ -88,6 +110,7 @@ const validateFacilityBeforePSA = async (userId) => {
       setLoading(false);
     }
   };
+  
   
 
   const handlePSACompletion = async () => {
