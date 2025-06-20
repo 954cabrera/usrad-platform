@@ -438,7 +438,7 @@ import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.
         // Load facilities with debug logging
         console.log("🏥 Loading facilities for user:", user.id);
         const { data: facilities, error: facilitiesError } = await supabase
-          .from("user_facilities")
+          .from("facilities")
           .select("*")
           .eq("user_id", user.id);
 
@@ -498,11 +498,23 @@ import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.
           ${
             corporateInfo.corporate_address
               ? `
-            <div class="border-t pt-4">
-              <h3 class="font-semibold text-gray-900 mb-2">Corporate Address</h3>
-              <div class="text-sm text-gray-700">${corporateInfo.corporate_address}</div>
-            </div>
-          `
+        <div class="border-t pt-4">
+          <h3 class="font-semibold text-gray-900 mb-2">Corporate Address</h3>
+          <div class="text-sm text-gray-700">
+            ${[
+              corporateInfo.corporate_address,
+              corporateInfo.corporate_city,
+              corporateInfo.corporate_state && corporateInfo.corporate_zip
+                ? corporateInfo.corporate_state +
+                  " " +
+                  corporateInfo.corporate_zip
+                : corporateInfo.corporate_state || corporateInfo.corporate_zip,
+            ]
+              .filter(Boolean)
+              .join(", ")}
+          </div>
+        </div>
+      `
               : ""
           }
         `;
@@ -524,13 +536,13 @@ import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.
 
       if (facilities.length === 0) {
         facilityContainer.innerHTML = `
-          <div class="text-center text-gray-500">
-            <p>No facilities found. Please add facilities before proceeding.</p>
-            <button onclick="window.location.href='/dashboard/onboarding/facilities'" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">
-              Add Facilities
-            </button>
-          </div>
-        `;
+      <div class="text-center text-gray-500">
+        <p>No facilities found. Please add facilities before proceeding.</p>
+        <button onclick="window.location.href='/dashboard/onboarding/facilities'" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">
+          Add Facilities
+        </button>
+      </div>
+    `;
         return;
       }
 
@@ -539,47 +551,47 @@ import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.
       const totalFacilities = facilities.length;
 
       facilityContainer.innerHTML = `
-        <div class="space-y-4">
-          <div class="flex justify-between items-center">
-            <h3 class="font-semibold text-gray-900">Facility Count</h3>
-            <span class="text-2xl font-bold text-blue-600">${totalFacilities}</span>
+    <div class="space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="font-semibold text-gray-900">Facility Count</h3>
+        <span class="text-2xl font-bold text-blue-600">${totalFacilities}</span>
+      </div>
+      
+      <div class="border-t pt-4">
+        <h3 class="font-semibold text-gray-900 mb-3">Primary Facility</h3>
+        <div class="bg-blue-50 p-4 rounded-lg">
+          <div class="font-medium text-blue-900">${primaryFacility.name}</div>
+          <div class="text-sm text-blue-700 mt-1">
+            ${primaryFacility.address || "Address not provided"}
           </div>
-          
-          <div class="border-t pt-4">
-            <h3 class="font-semibold text-gray-900 mb-3">Primary Facility</h3>
-            <div class="bg-blue-50 p-4 rounded-lg">
-              <div class="font-medium text-blue-900">${primaryFacility.facility_name}</div>
-              <div class="text-sm text-blue-700 mt-1">
-                ${primaryFacility.facility_address || "Address not provided"}
-              </div>
-              ${
-                primaryFacility.modalities
-                  ? `
-                <div class="text-xs text-blue-600 mt-2">
-                  <strong>Modalities:</strong> ${primaryFacility.modalities}
-                </div>
-              `
-                  : ""
-              }
-            </div>
-          </div>
-          
           ${
-            totalFacilities > 1
+            primaryFacility.modality // Note: 'modality' not 'modalities' based on your schema
               ? `
-            <div class="border-t pt-4">
-              <div class="flex justify-between items-center">
-                <span class="text-sm text-gray-600">Additional facilities will be listed in Exhibit B</span>
-                <button onclick="window.location.href='/dashboard/contract/exhibit-b-preview'" class="text-blue-600 hover:underline text-sm">
-                  Preview Exhibit B
-                </button>
-              </div>
+            <div class="text-xs text-blue-600 mt-2">
+              <strong>Modalities:</strong> ${primaryFacility.modality}
             </div>
           `
               : ""
           }
         </div>
-      `;
+      </div>
+      
+      ${
+        totalFacilities > 1
+          ? `
+        <div class="border-t pt-4">
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-600">Additional facilities will be listed in Exhibit B</span>
+            <button onclick="window.location.href='/dashboard/contract/exhibit-b-preview'" class="text-blue-600 hover:underline text-sm">
+              Preview Exhibit B
+            </button>
+          </div>
+        </div>
+      `
+          : ""
+      }
+    </div>
+  `;
     }
 
     function showErrorState() {

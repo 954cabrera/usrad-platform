@@ -143,6 +143,7 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
 
               <div class="pt-4 border-t">
                 <button
+                  id="save-profile-button"
                   class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200"
                 >
                   Save Changes
@@ -1135,26 +1136,149 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
           .eq("user_id", user.id)
           .single();
 
+        // 🔄 NEW: Also get user profile data for auto-population
+        const { data: userProfile, error: profileError } = await supabase
+          .from("user_profiles")
+          .select("*")
+          .eq("id", user.id)
+          .single();
+
+        // 🔄 NEW: Get auth user metadata (from signup)
+        const {
+          data: { user: authUser },
+          error: authError,
+        } = await supabase.auth.getUser();
+
+        console.log("🔍 Corporate data:", corporateInfo);
+        console.log("🔍 User profile:", userProfile);
+        console.log("🔍 Auth metadata:", authUser?.user_metadata);
+
         if (corpError && corpError.code !== "PGRST116") {
           console.error("❌ Error loading corporate entity:", corpError);
-        } else if (corporateInfo) {
-          console.log("✅ Loaded corporate entity:", corporateInfo);
+        } else {
+          // 🔄 ENHANCED: Combine all data sources with priority: corporate_entities > user_profile > auth_metadata
+          const organizationData = {
+            // Legal Entity Name - auto-populate from signup if not saved
+            legal_name:
+              corporateInfo?.legal_name ||
+              userProfile?.company_name ||
+              userProfile?.business_name ||
+              authUser?.user_metadata?.company_name ||
+              "",
 
-          document.getElementById("legal_name").value =
-            corporateInfo.legal_name || "";
-          document.getElementById("tax_id").value = corporateInfo.tax_id || "";
-          document.getElementById("organization-type").value =
-            corporateInfo.organization_type || "";
-          document.getElementById("corporate-address").value =
-            corporateInfo.corporate_address || "";
-          document.getElementById("organization-phone").value =
-            corporateInfo.phone || "";
-          document.getElementById("organization-email").value =
-            corporateInfo.email || "";
-          document.getElementById("signer_name").value =
-            corporateInfo.signer_name || "";
-          document.getElementById("signer_title").value =
-            corporateInfo.signer_title || "";
+            // Tax ID
+            tax_id: corporateInfo?.tax_id || userProfile?.tax_id || "",
+
+            // Organization Type
+            organization_type: corporateInfo?.organization_type || "single",
+
+            // Corporate Address
+            corporate_address: corporateInfo?.corporate_address || "",
+            corporate_city: corporateInfo?.corporate_city || "",
+            corporate_state: corporateInfo?.corporate_state || "",
+            corporate_zip: corporateInfo?.corporate_zip || "",
+
+            // Contact Information - auto-populate from user data
+            phone:
+              corporateInfo?.phone ||
+              userProfile?.phone ||
+              authUser?.user_metadata?.phone ||
+              "",
+
+            email:
+              corporateInfo?.email ||
+              userProfile?.email ||
+              authUser?.email ||
+              "",
+
+            // Authorized Signer - auto-populate from user profile
+            signer_name:
+              corporateInfo?.signer_name ||
+              userProfile?.signer_name ||
+              `${userProfile?.first_name || ""} ${userProfile?.last_name || ""}`.trim() ||
+              authUser?.user_metadata?.full_name ||
+              "",
+
+            signer_title:
+              corporateInfo?.signer_title ||
+              userProfile?.signer_title ||
+              authUser?.user_metadata?.title ||
+              "",
+          };
+
+          console.log(
+            "✅ Final organization data with auto-population:",
+            organizationData
+          );
+
+          // 🔄 ENHANCED: Populate all fields with combined data (with error handling)
+          try {
+            const legalNameField = document.getElementById("legal_name");
+            if (legalNameField)
+              legalNameField.value = organizationData.legal_name;
+
+            const taxIdField = document.getElementById("tax_id");
+            if (taxIdField) taxIdField.value = organizationData.tax_id;
+
+            // Handle organization type dropdown
+            const orgTypeField =
+              document.getElementById("organization-type") ||
+              document.querySelector('select[name="organization_type"]');
+            if (orgTypeField)
+              orgTypeField.value = organizationData.organization_type;
+
+            const corporateAddressField =
+              document.getElementById("corporate-address");
+            if (corporateAddressField)
+              corporateAddressField.value = organizationData.corporate_address;
+
+            const corporateCityField =
+              document.getElementById("corporate-city");
+            if (corporateCityField)
+              corporateCityField.value = organizationData.corporate_city;
+
+            const corporateStateField =
+              document.getElementById("corporate-state");
+            if (corporateStateField)
+              corporateStateField.value = organizationData.corporate_state;
+
+            const corporateZipField = document.getElementById("corporate-zip");
+            if (corporateZipField)
+              corporateZipField.value = organizationData.corporate_zip;
+
+            const orgPhoneField = document.getElementById("organization-phone");
+            if (orgPhoneField) orgPhoneField.value = organizationData.phone;
+
+            const orgEmailField = document.getElementById("organization-email");
+            if (orgEmailField) orgEmailField.value = organizationData.email;
+
+            const signerNameField = document.getElementById("signer_name");
+            if (signerNameField)
+              signerNameField.value = organizationData.signer_name;
+
+            const signerTitleField = document.getElementById("signer_title");
+            if (signerTitleField) {
+              signerTitleField.value = organizationData.signer_title;
+
+              // 🔄 NEW: Mark auto-populated fields so sync knows they can be overridden
+              if (
+                !corporateInfo?.signer_title &&
+                organizationData.signer_title
+              ) {
+                signerTitleField.setAttribute("data-auto-synced", "true");
+                console.log(
+                  "🔄 Marked signer title as auto-synced for future profile sync"
+                );
+              }
+            }
+
+            console.log("✅ All organization fields populated successfully");
+          } catch (fieldError) {
+            console.error(
+              "❌ Error populating organization fields:",
+              fieldError
+            );
+          }
         }
 
         // Load facilities using proper query
@@ -1176,67 +1300,76 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
       }
     }
 
+    // 🔄 MOVED: Functions outside of async function to avoid nesting issues
     function updateFacilityCount(count) {
-      document.getElementById("facility-count").textContent = count;
+      const facilityCountElement = document.getElementById("facility-count");
+      if (facilityCountElement) {
+        facilityCountElement.textContent = count;
+      }
     }
 
     function populateFacilityList(facilities) {
       const container = document.getElementById("facility-list");
 
+      if (!container) {
+        console.warn("⚠️ Facility list container not found");
+        return;
+      }
+
       if (facilities.length === 0) {
         container.innerHTML = `
-          <div class="text-center text-gray-500 py-8">
-            <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0a2 2 0 002-2m-2 2H5m14 0v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5m12 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v12m14 0h2m-2 0h-5"></path>
-            </svg>
-            <p>No facilities configured</p>
-            <p class="text-sm">Add your first imaging center to get started</p>
-          </div>
-        `;
+      <div class="text-center text-gray-500 py-8">
+        <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0a2 2 0 002-2m-2 2H5m14 0v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5m12 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v12m14 0h2m-2 0h-5"></path>
+        </svg>
+        <p>No facilities configured</p>
+        <p class="text-sm">Add your first imaging center to get started</p>
+      </div>
+    `;
         return;
       }
 
       container.innerHTML = facilities
         .map(
           (facility) => `
-        <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-          <div class="flex-1">
-            <div class="flex items-center">
-              <h4 class="font-medium text-gray-900">${facility.facility_name}</h4>
-              ${
-                facility.is_primary
-                  ? `
-                <span class="ml-2 inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Primary</span>
-              `
-                  : ""
-              }
-            </div>
-            <div class="text-sm text-gray-600 mt-1">
-              ${facility.street_address}, ${facility.city}, ${facility.state} ${facility.zip_code}
-            </div>
-            ${
-              facility.modalities
-                ? `
-              <div class="text-xs text-gray-500 mt-1">
-                <strong>Modalities:</strong> ${facility.modalities}
-              </div>
-            `
-                : ""
-            }
-          </div>
-          <div class="text-right">
-            ${
-              facility.is_acr_verified
-                ? `
-              <span class="text-xs text-green-600 font-medium">ACR Verified</span>
-            `
-                : `
-              <span class="text-xs text-gray-500">Manual Entry</span>
-            `
-            }
-          </div>
+    <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+      <div class="flex-1">
+        <div class="flex items-center">
+          <h4 class="font-medium text-gray-900">${facility.facility_name}</h4>
+          ${
+            facility.is_primary
+              ? `
+            <span class="ml-2 inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Primary</span>
+          `
+              : ""
+          }
         </div>
-      `
+        <div class="text-sm text-gray-600 mt-1">
+          ${facility.street_address}, ${facility.city}, ${facility.state} ${facility.zip_code}
+        </div>
+        ${
+          facility.modalities
+            ? `
+          <div class="text-xs text-gray-500 mt-1">
+            <strong>Modalities:</strong> ${facility.modalities}
+          </div>
+        `
+            : ""
+        }
+      </div>
+      <div class="text-right">
+        ${
+          facility.is_acr_verified
+            ? `
+          <span class="text-xs text-green-600 font-medium">ACR Verified</span>
+        `
+            : `
+          <span class="text-xs text-gray-500">Manual Entry</span>
+        `
+        }
+      </div>
+    </div>
+  `
         )
         .join("");
     }
@@ -1255,16 +1388,20 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
 
       steps.forEach((step, index) => {
         const stepElement = document.getElementById(step.id);
-        const circle = stepElement.querySelector(".w-8.h-8");
+        if (stepElement) {
+          const circle = stepElement.querySelector(".w-8.h-8");
 
-        if (step.completed) {
-          circle.className =
-            "w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold";
-          circle.textContent = "✓";
-        } else {
-          circle.className =
-            "w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold";
-          circle.textContent = index + 2;
+          if (circle) {
+            if (step.completed) {
+              circle.className =
+                "w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold";
+              circle.textContent = "✓";
+            } else {
+              circle.className =
+                "w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold";
+              circle.textContent = index + 2;
+            }
+          }
         }
       });
     }
@@ -1314,6 +1451,221 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
           }
         });
       }
+
+      // Profile Save Button Handler with Smart Timing - FINAL CORRECTED VERSION
+      const saveProfileButton = document.getElementById("save-profile-button");
+      if (saveProfileButton) {
+        saveProfileButton.addEventListener("click", async () => {
+          const user = window.USRadUser?.user;
+          const supabase = window.USRadUser?.supabase;
+
+          if (!user || !supabase) {
+            console.error("❌ Cannot save profile: no user or Supabase client");
+            alert("❌ Error: User session not available");
+            return;
+          }
+
+          console.log("💾 Saving profile data for user:", user.id);
+
+          // Collect form data - using actual database columns
+          const profileData = {
+            first_name: document.getElementById("first-name").value.trim(),
+            last_name: document.getElementById("last-name").value.trim(),
+            email: document.getElementById("profile_email").value.trim(),
+            phone: document.getElementById("profile_phone").value.trim(),
+            signer_title: document.getElementById("title").value.trim(),
+            updated_at: new Date().toISOString(),
+          };
+
+          console.log("📋 Profile data to save:", profileData);
+
+          try {
+            // Save to user_profiles table with user ID filter
+            const { data, error } = await supabase.from("user_profiles").upsert(
+              {
+                id: user.id, // Use auth user ID as primary key
+                ...profileData,
+              },
+              {
+                onConflict: "id",
+                returning: "minimal",
+              }
+            );
+
+            if (error) {
+              console.error("❌ Database save error:", error);
+              throw error;
+            }
+
+            console.log("✅ Profile saved successfully");
+
+            // 🔄 Store the professional title for later sync
+            window.pendingProfileSync = {
+              professionalTitle: profileData.signer_title,
+              timestamp: Date.now(),
+            };
+            console.log(
+              "📝 Stored professional title for sync:",
+              profileData.signer_title
+            );
+
+            // Try immediate sync if Organization tab is already loaded
+            const signerTitleField = document.getElementById("signer_title");
+            if (signerTitleField && profileData.signer_title) {
+              const currentValue = signerTitleField.value.trim();
+              const isAutoSynced =
+                signerTitleField.getAttribute("data-auto-synced") === "true";
+
+              if (!currentValue || isAutoSynced) {
+                signerTitleField.value = profileData.signer_title;
+                signerTitleField.setAttribute("data-auto-synced", "true");
+                console.log(
+                  "🔄 Immediate sync successful:",
+                  profileData.signer_title
+                );
+                delete window.pendingProfileSync; // Clear since we synced
+              }
+            }
+
+            // Show success message
+            alert("✅ Profile information saved successfully!");
+          } catch (error) {
+            console.error("❌ Error saving profile:", error);
+            alert(
+              "❌ Failed to save profile: " + (error.message || "Unknown error")
+            );
+          }
+        });
+      }
+
+      // 🔄 Smart sync that triggers when Organization tab is viewed
+      const setupSmartSync = () => {
+        try {
+          // Watch for tab clicks using a more generic approach
+          const tabButtons = document.querySelectorAll("button");
+          tabButtons.forEach((button) => {
+            if (
+              button.textContent.trim().toLowerCase().includes("organization")
+            ) {
+              button.addEventListener("click", () => {
+                console.log(
+                  "🔄 Organization tab clicked - checking for pending sync"
+                );
+
+                // Wait for tab content to load
+                setTimeout(() => {
+                  performSyncIfNeeded();
+                }, 500);
+              });
+            }
+          });
+
+          // Also check if we're already viewing Organization tab
+          setTimeout(() => {
+            if (document.getElementById("signer_title")) {
+              performSyncIfNeeded();
+            }
+          }, 2000);
+
+          console.log("✅ Smart sync setup complete");
+        } catch (error) {
+          console.warn("⚠️ Smart sync setup failed:", error);
+        }
+      };
+
+      // 🎯 Function to perform the actual sync
+      const performSyncIfNeeded = () => {
+        try {
+          const pendingSync = window.pendingProfileSync;
+          const signerTitleField = document.getElementById("signer_title");
+
+          if (
+            pendingSync &&
+            signerTitleField &&
+            pendingSync.professionalTitle
+          ) {
+            const currentSignerTitle = signerTitleField.value.trim();
+            const isAutoSynced =
+              signerTitleField.getAttribute("data-auto-synced") === "true";
+
+            // Only sync if signer title is empty or was previously auto-synced
+            if (!currentSignerTitle || isAutoSynced) {
+              signerTitleField.value = pendingSync.professionalTitle;
+              signerTitleField.setAttribute("data-auto-synced", "true");
+              console.log(
+                "✅ Delayed sync successful:",
+                pendingSync.professionalTitle
+              );
+
+              // Clear the pending sync
+              delete window.pendingProfileSync;
+            } else {
+              console.log("⏭️ Signer title has manual content - skipping sync");
+            }
+          }
+        } catch (error) {
+          console.warn("⚠️ Sync failed:", error);
+        }
+      };
+
+      // 🔄 Real-time typing sync for when both fields are visible
+      const setupRealTimeSync = () => {
+        try {
+          const professionalTitleField = document.getElementById("title");
+
+          if (professionalTitleField) {
+            professionalTitleField.addEventListener("input", (e) => {
+              // Store for later sync
+              window.pendingProfileSync = {
+                professionalTitle: e.target.value,
+                timestamp: Date.now(),
+              };
+
+              // Try immediate sync if signer field is visible
+              const signerTitleField = document.getElementById("signer_title");
+              if (signerTitleField) {
+                const isAutoSynced =
+                  signerTitleField.getAttribute("data-auto-synced") === "true";
+                const isEmpty = !signerTitleField.value.trim();
+
+                if (isEmpty || isAutoSynced) {
+                  signerTitleField.value = e.target.value;
+                  signerTitleField.setAttribute("data-auto-synced", "true");
+                  console.log(
+                    "🔄 Real-time sync: Professional Title → Signer Title"
+                  );
+                }
+              }
+            });
+
+            // Handle manual editing of signer title when visible
+            const checkSignerField = () => {
+              const signerTitleField = document.getElementById("signer_title");
+              if (
+                signerTitleField &&
+                !signerTitleField.hasAttribute("data-listener-added")
+              ) {
+                signerTitleField.addEventListener("input", () => {
+                  signerTitleField.setAttribute("data-auto-synced", "false");
+                  console.log(
+                    "✏️ Signer title manually edited - auto-sync disabled"
+                  );
+                });
+                signerTitleField.setAttribute("data-listener-added", "true");
+              }
+            };
+
+            // Check periodically for signer field
+            setInterval(checkSignerField, 1000);
+          }
+        } catch (error) {
+          console.warn("⚠️ Real-time sync setup failed:", error);
+        }
+      };
+
+      // Initialize all sync functionality
+      setupSmartSync();
+      setupRealTimeSync();
 
       const facility = window.USRadUser?.selectedFacility || {
         address: "123 Facility St.",
