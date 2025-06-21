@@ -1,9 +1,19 @@
-// Enhanced facilityManager.js with proper user data integration
-import { createClient } from '@supabase/supabase-js';
+// Enhanced facilityManager.js with real ACR database integration
+import { supabase } from './supabase.js';
 
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// State name to abbreviation mapping
+const stateMapping = {
+  'alabama': 'AL', 'alaska': 'AK', 'arizona': 'AZ', 'arkansas': 'AR', 'california': 'CA',
+  'colorado': 'CO', 'connecticut': 'CT', 'delaware': 'DE', 'florida': 'FL', 'georgia': 'GA',
+  'hawaii': 'HI', 'idaho': 'ID', 'illinois': 'IL', 'indiana': 'IN', 'iowa': 'IA',
+  'kansas': 'KS', 'kentucky': 'KY', 'louisiana': 'LA', 'maine': 'ME', 'maryland': 'MD',
+  'massachusetts': 'MA', 'michigan': 'MI', 'minnesota': 'MN', 'mississippi': 'MS', 'missouri': 'MO',
+  'montana': 'MT', 'nebraska': 'NE', 'nevada': 'NV', 'new hampshire': 'NH', 'new jersey': 'NJ',
+  'new mexico': 'NM', 'new york': 'NY', 'north carolina': 'NC', 'north dakota': 'ND', 'ohio': 'OH',
+  'oklahoma': 'OK', 'oregon': 'OR', 'pennsylvania': 'PA', 'rhode island': 'RI', 'south carolina': 'SC',
+  'south dakota': 'SD', 'tennessee': 'TN', 'texas': 'TX', 'utah': 'UT', 'vermont': 'VT',
+  'virginia': 'VA', 'washington': 'WA', 'west virginia': 'WV', 'wisconsin': 'WI', 'wyoming': 'WY'
+};
 
 // Get current user with complete profile data
 export const getCurrentUser = async () => {
@@ -126,6 +136,8 @@ export const saveFacilityConfiguration = async (userId, corporateInfo, facilitie
 
     // 3. Save facilities if any exist
     if (facilities && facilities.length > 0) {
+      console.log('🔍 About to save facilities:', facilities);
+      
       // Delete existing facilities for this user
       const { error: deleteError } = await supabase
         .from('user_facilities')
@@ -136,27 +148,50 @@ export const saveFacilityConfiguration = async (userId, corporateInfo, facilitie
         console.error('Delete facilities error:', deleteError);
         errors.push(`Delete old facilities: ${deleteError.message}`);
       } else {
-        // Insert new facilities
-        const facilitiesData = facilities.map(facility => ({
-          user_id: user.id,
-          acr_facility_id: facility.acrId || null,
-          facility_name: facility.name,
-          facility_address: `${facility.address}, ${facility.city}, ${facility.state} ${facility.zip}`, // ✅ Use existing column
-          facility_phone: facility.phone || '',     // ✅ Use existing column
-          email: facility.email || '',
-          website: facility.website || '',
-          modality: facility.modalities ? facility.modalities.join(', ') : '', // ✅ Use existing singular column
-          equipment_brands: facility.equipmentBrands || [],
-          primary_contact: facility.primaryContact || '',
-          contact_title: facility.contactTitle || '',
-          notes: facility.notes || '',
-          acr_verified: facility.acrVerified || false,  // ✅ Use existing column
-          is_manual_entry: facility.isManualEntry || false,
-          is_primary: facility.isPrimary || false,
-          is_edited: facility.isEdited || false,
-          original_acr_data: facility.originalACRData || null,
-          created_at: new Date().toISOString()
-        }));
+        // Insert new facilities with proper column mapping
+        const facilitiesData = facilities.map(facility => {
+          console.log('🔍 Processing facility for save:', facility);
+          
+          const facilityData = {
+            user_id: user.id,
+            acr_facility_id: facility.acrId || null,
+            facility_name: facility.name,
+            
+            // ✅ Use the individual columns instead of concatenated address
+            street_address: facility.address,
+            city: facility.city,
+            state: facility.state,
+            zip_code: facility.zip,  // ✅ This preserves the zip code!
+            
+            // Phone mapping
+            facility_phone: facility.phone || '',
+            phone_number: facility.phone || '',
+            
+            // Other fields
+            email: facility.email || '',
+            website: facility.website || '',
+            modalities: facility.modalities || [],
+            modality: facility.modalities ? facility.modalities.join(', ') : '',
+            equipment_brands: facility.equipmentBrands || [],
+            primary_contact: facility.primaryContact || '',
+            contact_title: facility.contactTitle || '',
+            notes: facility.notes || '',
+            
+            // ACR verification flags
+            acr_verified: facility.acrVerified || false,
+            is_acr_verified: facility.acrVerified || false,
+            
+            // Flags
+            is_manual_entry: facility.isManualEntry || false,
+            is_primary: facility.isPrimary || false,
+            is_edited: facility.isEdited || false,
+            original_acr_data: facility.originalACRData || null,
+            created_at: new Date().toISOString()
+          };
+          
+          console.log('🔍 Mapped facility data:', facilityData);
+          return facilityData;
+        });
 
         const { error: facilitiesError } = await supabase
           .from('user_facilities')
@@ -224,52 +259,78 @@ export const autoSaveProgress = async (userId, nextStep, data, percentage) => {
   }
 };
 
-// Enhanced ACR search with real database integration
+// Fixed ACR database search function
 export const searchAcrFacilities = async (searchTerm) => {
   try {
-    // For now, return mock data that matches your ACR database structure
-    // Replace this with your actual ACR database search logic
-    const mockResults = [
-      {
-        id: 'acr_12345',
-        acrId: '12345',
-        name: `${searchTerm} Imaging Center`,
-        address: '123 Medical Plaza Drive',
-        city: 'Miami',
-        state: 'FL',
-        zip: '33101',
-        phone: '(305) 555-0123',
-        email: 'info@imaging.com',
-        website: 'www.imagingcenter.com',
-        modalities: ['MRI', 'CT', 'Ultrasound'],
-        equipmentBrands: ['GE', 'Siemens'],
-        accredited: true,
-        acrVerified: true
-      },
-      {
-        id: 'acr_67890',
-        acrId: '67890',
-        name: `Advanced ${searchTerm} Diagnostics`,
-        address: '456 Healthcare Boulevard',
-        city: 'Tampa',
-        state: 'FL',
-        zip: '33602',
-        phone: '(813) 555-0456',
-        email: 'contact@advanced.com',
-        website: 'www.advanceddiagnostics.com',
-        modalities: ['MRI', 'CT', 'PET', 'Nuclear Medicine'],
-        equipmentBrands: ['GE', 'Philips'],
-        accredited: true,
-        acrVerified: true
-      }
-    ];
-
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 500));
+    console.log('🟡 searchAcrFacilities called with:', searchTerm);
     
-    return mockResults;
+    if (!searchTerm || searchTerm.length < 2) {
+      console.log('❌ Search term too short:', searchTerm);
+      return [];
+    }
+
+    console.log('🔍 Searching ACR facilities for:', searchTerm);
+
+    const searchLower = searchTerm.toLowerCase().trim();
+    
+    // Check if search term might be a state name and convert to abbreviation
+    const stateAbbr = stateMapping[searchLower];
+    
+    let query = supabase
+      .from('facilities')
+      .select('*')
+      .eq('source', 'acr');
+
+    // Build the OR conditions properly
+    if (stateAbbr) {
+      // State search - search by state abbreviation
+      console.log(`🗺️ Detected state search: "${searchTerm}" → "${stateAbbr}"`);
+      query = query.eq('state', stateAbbr);
+    } else if (searchTerm.length === 2 && searchTerm.toUpperCase() === searchTerm) {
+      // 2-letter uppercase might be state abbreviation
+      console.log(`🏷️ 2-letter search, treating as state: ${searchTerm}`);
+      query = query.eq('state', searchTerm.toUpperCase());
+    } else {
+      // General search across name, city, address, modality
+      query = query.or(`name.ilike.%${searchTerm}%,city.ilike.%${searchTerm}%,address.ilike.%${searchTerm}%,modality.ilike.%${searchTerm}%`);
+    }
+
+    const { data, error } = await query
+      .order('name')
+      .limit(50);
+
+    if (error) {
+      console.error('❌ ACR search error:', error);
+      return [];
+    }
+
+    console.log(`✅ Raw database results count:`, data?.length || 0);
+    console.log(`✅ Raw database results:`, data);
+
+    // Transform the database results to match your expected format
+    const transformedResults = data?.map(facility => ({
+      id: facility.id,
+      acrId: facility.id,
+      name: facility.name,
+      address: facility.address,
+      city: facility.city,
+      state: facility.state,
+      zip: facility.zip_code,
+      phone: facility.phone,
+      email: '', 
+      website: '', 
+      modalities: [facility.modality], 
+      equipmentBrands: [], 
+      accredited: true, 
+      acrVerified: true
+    })) || [];
+
+    console.log(`🔄 Transformed results count:`, transformedResults.length);
+
+    return transformedResults;
+
   } catch (error) {
-    console.error('ACR search error:', error);
+    console.error('❌ ACR search error:', error);
     return [];
   }
 };
