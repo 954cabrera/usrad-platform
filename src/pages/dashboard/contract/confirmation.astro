@@ -562,8 +562,19 @@ import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.
         <div class="bg-blue-50 p-4 rounded-lg">
           <div class="font-medium text-blue-900">${primaryFacility.name}</div>
           <div class="text-sm text-blue-700 mt-1">
-            ${primaryFacility.address || "Address not provided"}
+            ${
+              [
+                primaryFacility.address,
+                primaryFacility.city,
+                primaryFacility.state && primaryFacility.zip_code
+                  ? primaryFacility.state + " " + primaryFacility.zip_code
+                  : primaryFacility.state || primaryFacility.zip_code,
+              ]
+                .filter(Boolean)
+                .join(", ") || "Address not provided"
+            }
           </div>
+
           ${
             primaryFacility.modality // Note: 'modality' not 'modalities' based on your schema
               ? `

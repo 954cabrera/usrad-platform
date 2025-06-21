@@ -139,7 +139,7 @@ const SelectedFacilitiesList = ({
                 <div className="space-y-2">
                   <p className="text-sm text-gray-600 flex items-center">
                     <MapPin className="h-4 w-4 mr-2 text-gray-400" />
-                    {facility.address}, {facility.city}, {facility.state} {facility.zip}
+                    {facility.address}, {facility.city}, {facility.state} {facility.zip || facility.zipCode}
                   </p>
                   
                   {facility.phone && (

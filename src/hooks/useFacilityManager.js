@@ -288,6 +288,7 @@ export const useFacilityManager = () => {
           city: facility.city,
           state: facility.state,
           zipCode: facility.zip_code,
+          zip: facility.zip_code, // ✅ Enables components expecting `zip`
           phone: facility.phone,
           modality: facility.modality,
           isPrimary: facility.is_primary || false,
@@ -541,62 +542,63 @@ export const useFacilityManager = () => {
   };
 
   // 🔒 SECURITY: Save facilities with user isolation  
-  const saveFacilitiesToDatabase = async (userId) => {
-    if (!userId) throw new Error('User ID required');
+const saveFacilitiesToDatabase = async (userId) => {
+  if (!userId) throw new Error('User ID required');
 
-    try {
-      // First, delete existing facilities for this user
-      await supabase
+  try {
+    // First, delete existing facilities for this user
+    await supabase
+      .from('facilities')
+      .delete()
+      .eq('user_id', userId); // 🔒 CRITICAL: Only delete user's facilities
+
+    // Then insert new facilities
+    const facilitiesData = selectedFacilities.map(facility => {
+      // 🔍 DEBUG: Log the source facility data
+      console.log('🔍 Source facility data:', {
+        name: facility.name,
+        address: facility.address,
+        city: facility.city,
+        state: facility.state,
+        zipCode: facility.zipCode,
+        zip: facility.zip,  // Also log fallback
+        phone: facility.phone,
+        modality: facility.modality
+      });
+
+      return {
+        user_id: userId, // 🔒 CRITICAL: Always include user_id
+        name: facility.name,
+        address: facility.address,
+        city: facility.city,
+        state: facility.state,
+        zip_code: facility.zipCode || facility.zip, // ✅ FIXED: fallback support
+        phone: facility.phone,
+        modality: facility.modality,
+        is_primary: facility.isPrimary,
+        source: facility.source,
+        created_at: new Date().toISOString()
+      };
+    });
+
+    if (facilitiesData.length > 0) {
+      const { error } = await supabase
         .from('facilities')
-        .delete()
-        .eq('user_id', userId); // 🔒 CRITICAL: Only delete user's facilities
+        .insert(facilitiesData);
 
-      // Then insert new facilities
-      // Then insert new facilities
-const facilitiesData = selectedFacilities.map(facility => {
-  // 🔍 DEBUG: Log the source facility data
-  console.log('🔍 Source facility data:', {
-    name: facility.name,
-    address: facility.address,
-    city: facility.city,
-    state: facility.state,
-    zipCode: facility.zipCode,  // ← Check this value
-    phone: facility.phone,
-    modality: facility.modality
-  });
-
-  return {
-    user_id: userId, // 🔒 CRITICAL: Always include user_id
-    name: facility.name,
-    address: facility.address,
-    city: facility.city,
-    state: facility.state,
-    zip_code: facility.zipCode,
-    phone: facility.phone,
-    modality: facility.modality,
-    is_primary: facility.isPrimary,
-    source: facility.source,
-    created_at: new Date().toISOString()
-  };
-});
-
-      if (facilitiesData.length > 0) {
-        const { error } = await supabase
-          .from('facilities')
-          .insert(facilitiesData);
-
-        if (error) {
-          console.error('❌ Database facilities save error:', error);
-          throw error;
-        }
-
-        console.log(`✅ ${facilitiesData.length} facilities saved to database`);
+      if (error) {
+        console.error('❌ Database facilities save error:', error);
+        throw error;
       }
-    } catch (error) {
-      console.error('❌ Error saving facilities:', error);
-      throw error;
+
+      console.log(`✅ ${facilitiesData.length} facilities saved to database`);
     }
-  };
+  } catch (error) {
+    console.error('❌ Error saving facilities:', error);
+    throw error;
+  }
+};
+
 
   // Check if can proceed to next step
   const canProceedToNextStep = () => {
