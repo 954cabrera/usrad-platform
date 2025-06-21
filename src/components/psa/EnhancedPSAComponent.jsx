@@ -631,47 +631,119 @@ export default function EnhancedPSAComponent() {
     console.log('🚀 initializeEnhancedPSA called!');
   
     try {
-      setCurrentStep(2); // Move to "Provider Info" step
-  
-      // Pull in stored user data
+      setCurrentStep(2);
       const user = window.USRadUser?.user || {};
-      const profile = window.USRadUserData?.profile || {};
-      const corporate = window.USRadUserData?.corporate || {};
-      const facilities = window.USRadUserData?.facilities || [];
-  
-      console.log('🔍 Available data:', {
-        user: !!user?.id,
-        profile: !!profile?.id,
-        corporate: !!corporate?.user_id,
-        facilities: facilities.length
+      console.log('👤 Current user:', user.email);
+
+      // 🎯 STEP 1: ALWAYS query database first
+      let corporate = null;
+      let facilities = [];
+      
+      console.log('🔍 Step 1: Fetching from Supabase database...');
+      
+      try {
+        const { supabase } = await import('/src/lib/supabase.js');
+        console.log('✅ Supabase imported successfully');
+        
+        // Query corporate_entities table
+        console.log('🔍 Querying corporate_entities table for user:', user.id);
+        const { data: corpData, error: corpError } = await supabase
+          .from('corporate_entities')
+          .select('*')
+          .eq('user_id', user.id)
+          .single();
+
+        if (corpError) {
+          console.warn('⚠️ Corporate query failed:', corpError.message);
+        } else if (corpData) {
+          corporate = corpData;
+          console.log('✅ SUCCESS: Found corporate data:', corporate);
+          console.log('🎯 Tax ID from database:', corporate.tax_id);
+        }
+
+        // Query facilities
+        const { data: facilitiesData, error: facilitiesError } = await supabase
+          .from('facilities')
+          .select('*')
+          .eq('user_id', user.id);
+
+        if (!facilitiesError && facilitiesData) {
+          facilities = facilitiesData;
+          console.log(`✅ Found ${facilities.length} facilities`);
+        }
+        
+      } catch (dbError) {
+        console.error('❌ Database query failed:', dbError);
+      }
+
+      // 🔄 STEP 2: Fallback to metadata only if database failed
+      if (!corporate) {
+        console.log('🔄 No database data found, using metadata fallback...');
+        
+        if (user?.user_metadata?.center_name) {
+          corporate = {
+            legal_name: user.user_metadata.center_name,
+            tax_id: null, // No tax ID in metadata
+            phone: user.user_metadata.phone
+          };
+          console.log('📝 Created fallback corporate data from metadata');
+        }
+      }
+
+      // 🏗️ Build names and data
+      const fullName = user?.user_metadata?.first_name && user?.user_metadata?.last_name 
+        ? `${user.user_metadata.first_name} ${user.user_metadata.last_name}`.trim()
+        : 'Provider Representative';
+
+      const legalBusinessName = corporate?.legal_name?.trim() ||
+                               corporate?.legal_business_name?.trim() ||
+                               (user?.user_metadata?.center_name ? `${user.user_metadata.center_name}, LLC` : null) ||
+                               'Medical Imaging Provider LLC';
+
+      const email = user?.email?.trim() || 'provider@usrad.com';
+      const facilityCount = facilities?.length || 1;
+      
+      // 🎯 Tax ID with database priority
+      const taxId = corporate?.tax_id?.trim() ||
+                   corporate?.federal_tax_id?.trim() ||
+                   corporate?.ein?.trim() ||
+                   '12-3456789'; // Last resort fallback
+
+      console.log('🔍 Final tax ID resolution:', {
+        'database_tax_id': corporate?.tax_id,
+        'database_federal_tax_id': corporate?.federal_tax_id,
+        'final_used': taxId
+      });
+
+      console.log('✅ Final resolved data:', {
+        fullName,
+        legalBusinessName,
+        email,
+        facilityCount,
+        taxId,
+        corporateFound: !!corporate
       });
   
-      // Extract and fallback critical fields
-      const name =
-        corporate?.legal_name?.trim() ||
-        profile?.company_name?.trim() ||
-        user?.user_metadata?.company_name?.trim() ||
-        user?.full_name?.trim() ||
-        `${user?.user_metadata?.first_name || ''} ${user?.user_metadata?.last_name || ''}`.trim() ||
-        user?.email?.split('@')[0] ||
-        'USRad Provider';
+      // Build comprehensive values object
+      const submitterValues = {
+        primary_contact_name: fullName,
+        primary_contact_phone: corporate?.phone || user?.user_metadata?.phone || '(000) 000-0000',
+        primary_contact_email: email,
+        
+        provider_name: legalBusinessName,
+        provider_email: email,
+        provider_phone: corporate?.phone || user?.user_metadata?.phone || '(000) 000-0000',
+        tax_id: taxId,
+        
+        signer_name: fullName,
+        signer_title: corporate?.signer_title || 'President',
+        
+        total_authorized_locations: facilityCount.toString(),
+        agreement_date: new Date().toLocaleDateString('en-US'),
+        provider_date: new Date().toLocaleDateString('en-US')
+      };
 
-      const email =
-        user?.email?.trim() ||
-        user?.user_metadata?.email?.trim() ||
-        'provider@usrad.com';
-
-      console.log("✅ Resolved submitter name/email:", { name, email });
-  
-      const phone =
-        profile.phone ||
-        corporate.phone ||
-        user.user_metadata?.phone ||
-        '000-000-0000';
-  
-      const taxId =
-        corporate.tax_id ||
-        '00-0000000';
+      const name = legalBusinessName;
   
       // Construct payload
       const payload = {
@@ -681,23 +753,7 @@ export default function EnhancedPSAComponent() {
             role: 'Provider',
             name,
             email,
-            values: {
-              primary_contact_name: profile?.full_name || name,
-              primary_contact_phone: profile?.phone || corporate?.phone || '(000) 000-0000',
-              primary_contact_email: user?.email,
-      
-              total_locations: facilities?.length?.toString() || '1',
-              agreement_date: new Date().toLocaleDateString('en-US'),
-      
-              provider_name: corporate?.legal_name || profile?.company_name || 'USRad Provider',
-              signer_name: profile?.full_name || name,
-              signer_title: profile?.signer_title || 'President',
-      
-              provider_date: new Date().toLocaleDateString('en-US'),
-              tax_id: corporate?.tax_id || '00-0000000',
-              provider_email: user?.email,
-              provider_phone: profile?.phone || corporate?.phone || '(000) 000-0000'
-            }
+            values: submitterValues
           }
         ]
       };

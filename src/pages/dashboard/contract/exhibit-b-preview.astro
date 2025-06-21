@@ -268,7 +268,7 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
 
           // Load facilities
           const { data: facilitiesData } = await supabase
-            .from("user_facilities")
+            .from("facilities") // ✅ CORRECT TABLE
             .select("*")
             .eq("user_id", user.id)
             .order("is_primary", { ascending: false });
@@ -394,12 +394,24 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
           .map((facility) => createFacilityCard(facility))
           .join("");
 
+        const headerTitle = `<h2 class="text-lg font-semibold text-gray-900 mb-4 print:mb-2 border-b border-gray-300 pb-1">
+          Exhibit B – Facility Listing (${facilities.length} total facilities)
+        </h2>`;
+
         pageDiv.innerHTML = `
-          ${headerHtml}
-          <div class="${gridClass}">
-            ${facilitiesHtml}
-          </div>
-        `;
+  <h2 class="text-lg font-semibold text-gray-900 mb-4 pb-1 text-center border-b border-gray-300 flex items-center justify-center gap-2">
+  <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m2 8H7a2 2 0 01-2-2V6a2 2 0 012-2h3l2-2h4l2 2h3a2 2 0 012 2v12a2 2 0 01-2 2z"/>
+  </svg>
+  <span>Exhibit B – Facility Listing (${facilities.length} total facilities)</span>
+</h2>
+
+
+  ${headerHtml}
+  <div class="${gridClass}">
+    ${facilitiesHtml}
+  </div>
+`;
 
         return pageDiv;
       }
@@ -418,46 +430,72 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
           ? '<span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mb-2">Primary</span>'
           : "";
 
-        if (layoutType === "detailed") {
-          return `
-            <div class="${cardClass}">
-              ${primaryBadge}
-              <h3 class="font-semibold text-gray-900 mb-2">${facility.facility_name}</h3>
-              <div class="space-y-2 text-sm text-gray-700">
-                <div><strong>Address:</strong><br>
-                  ${facility.facility_address || "Address not provided"}
-                </div>
-                ${facility.acr_facility_id ? `<div><strong>ACR ID:</strong> ${facility.acr_facility_id}</div>` : ""}
-                ${facility.modalities ? `<div><strong>Modalities:</strong> ${facility.modalities}</div>` : ""}
-                ${facility.equipment_brands ? `<div><strong>Equipment:</strong> ${facility.equipment_brands}</div>` : ""}
-                <div><strong>ACR Verified:</strong> ${facility.is_acr_verified ? "Yes" : "No"}</div>
-              </div>
-            </div>
-          `;
-        } else if (layoutType === "standard") {
-          return `
-            <div class="${cardClass}">
-              ${primaryBadge}
-              <h3 class="font-semibold text-gray-900 mb-2 text-sm">${facility.facility_name}</h3>
-              <div class="space-y-1 text-xs text-gray-700">
-                <div>${facility.facility_address || "Address not provided"}</div>
-                ${facility.modalities ? `<div><strong>Modalities:</strong> ${facility.modalities}</div>` : ""}
-                ${facility.acr_facility_id ? `<div><strong>ACR ID:</strong> ${facility.acr_facility_id}</div>` : ""}
-              </div>
-            </div>
-          `;
-        } else {
-          return `
-            <div class="${cardClass}">
-              ${primaryBadge}
-              <h3 class="font-semibold text-gray-900 mb-1 text-xs">${facility.facility_name}</h3>
-              <div class="text-xs text-gray-700 space-y-1">
-                ${facility.facility_address || "Address not provided"}
-                ${facility.acr_facility_id ? `<div>ACR: ${facility.acr_facility_id}</div>` : ""}
-              </div>
-            </div>
-          `;
-        }
+        const fullAddress = [
+          facility.address,
+          facility.city,
+          facility.state && facility.zip_code
+            ? `${facility.state} ${facility.zip_code}`
+            : facility.state || facility.zip_code,
+        ]
+          .filter(Boolean)
+          .join(", ");
+
+        return `
+    <div class="${cardClass}">
+      ${primaryBadge}
+      <h3 class="font-semibold text-gray-900 text-base leading-tight">${facility.name}</h3>
+      <p class="text-sm text-gray-700 mt-1 mb-2">${fullAddress || "Address not provided"}</p>
+      ${
+        layoutType === "detailed"
+          ? `
+        <div class="ml-1 space-y-1 text-sm text-gray-700">
+          ${
+            facility.acr_facility_id
+              ? `<div><strong>ACR ID:</strong> ${facility.acr_facility_id}</div>`
+              : ""
+          }
+          ${
+            facility.modality
+              ? `<div><strong>Modalities:</strong> ${facility.modality}</div>`
+              : ""
+          }
+          ${
+            facility.equipment_brands
+              ? `<div><strong>Equipment:</strong> ${facility.equipment_brands}</div>`
+              : ""
+          }
+          <div><strong>ACR Verified:</strong> ${
+            facility.is_acr_verified ? "Yes" : "No"
+          }</div>
+        </div>
+      `
+          : layoutType === "standard"
+            ? `
+        <div class="text-xs text-gray-700 space-y-1">
+          ${
+            facility.modality
+              ? `<div><strong>Modalities:</strong> ${facility.modality}</div>`
+              : ""
+          }
+          ${
+            facility.acr_facility_id
+              ? `<div><strong>ACR ID:</strong> ${facility.acr_facility_id}</div>`
+              : ""
+          }
+        </div>
+      `
+            : `
+        <div class="text-xs text-gray-700 space-y-1">
+          ${
+            facility.acr_facility_id
+              ? `<div>ACR: ${facility.acr_facility_id}</div>`
+              : ""
+          }
+        </div>
+      `
+      }
+    </div>
+  `;
       }
 
       function setupNavigation() {
