@@ -234,7 +234,6 @@ const ProfileSettings = () => {
         .from('corporate_entities')
         .upsert({
           user_id: userData.id,
-          legal_name: editCorporate.legalName,
           legal_name: editCorporate.legalEntityName || editCorporate.legalName,
           tax_id: editCorporate.taxId,
           signer_name: editCorporate.signerName,
