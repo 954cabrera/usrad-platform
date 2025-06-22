@@ -1,10 +1,10 @@
 ---
 import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
-import PSASigningSystemEmbedded from "../../../components/dashboard/PSASigningSystemEmbedded.jsx";
+import EnhancedPSAComponent from "../../../components/psa/EnhancedPSAComponent.jsx";
 ---
 
 <DashboardLayout title="PSA Signing" user={null}>
   <div id="psa-container">
-    <PSASigningSystemEmbedded client:only="react" />
+    <EnhancedPSAComponent client:only="react" />
   </div>
 </DashboardLayout>
