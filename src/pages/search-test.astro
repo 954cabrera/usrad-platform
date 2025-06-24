@@ -1,0 +1,1213 @@
+---
+import MainPatientLayout from "../layouts/MainPatientLayout.astro";
+
+const title = "Provider Search Test - USRad";
+---
+
+<MainPatientLayout title={title}>
+  <div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <div class="bg-white shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="py-6">
+          <h1 class="text-3xl font-bold text-gray-900">
+            USRad Provider Search Test
+          </h1>
+          <p class="mt-2 text-lg text-gray-600">
+            Test your Medicare pricing engine with real provider data
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Form -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div>
+            <label
+              for="zipCode"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >ZIP Code</label
+            >
+            <input
+              type="text"
+              id="zipCode"
+              value="33330"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter ZIP code"
+            />
+            <p class="text-xs text-gray-500 mt-1">
+              Try: 33012 (Miami), 33330 (Fort Lauderdale)
+            </p>
+          </div>
+
+          <div>
+            <label
+              for="procedure"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Procedure</label
+            >
+            <select
+              id="procedure"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="70551">MRI Brain without contrast</option>
+              <!-- Additional procedures available - contact for pricing:
+                    <option value="70552">MRI Brain with contrast</option>
+                    <option value="72148">MRI Lumbar Spine without contrast</option>
+                    <option value="72149">MRI Lumbar Spine with contrast</option>
+                    <option value="74177">CT Abdomen and Pelvis with contrast</option>
+                    <option value="76700">Ultrasound Abdomen</option>
+                    <option value="71046">Chest X-Ray</option>
+                    -->
+            </select>
+          </div>
+
+          <div>
+            <label
+              for="state"
+              class="block text-sm font-medium text-gray-700 mb-2">State</label
+            >
+            <select
+              id="state"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="FL">Florida</option>
+              <option value="GA">Georgia</option>
+            </select>
+          </div>
+
+          <div class="flex items-end">
+            <button
+              id="searchBtn"
+              class="w-full bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 font-medium"
+            >
+              Search Providers
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div id="loadingState" class="hidden">
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8 text-center">
+          <div class="inline-flex items-center">
+            <div
+              class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mr-3"
+            >
+            </div>
+            <span class="text-lg text-gray-700 font-medium">
+              🔍 Searching providers<span class="loading-dots"></span>
+            </span>
+          </div>
+          <p class="text-sm text-gray-500 mt-2">
+            Analyzing Medicare rates across our network of 1,500+ centers
+          </p>
+        </div>
+      </div>
+
+      <!-- Results Container -->
+      <div id="resultsContainer" class="hidden">
+        <!-- Search Summary -->
+        <div
+          id="searchSummary"
+          class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-6 mb-6 border border-green-200"
+        >
+          <div class="flex items-center justify-between flex-wrap">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                Search Results
+              </h3>
+              <p id="summaryText" class="text-sm text-gray-600"></p>
+            </div>
+            <div
+              id="networkBadge"
+              class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
+            >
+              Part of 1,500+ center network
+            </div>
+          </div>
+
+          <!-- Enhanced Metrics with Icons -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+            <div
+              class="bg-white rounded-lg p-4 shadow-sm border-l-4 border-green-500"
+            >
+              <div class="flex items-center">
+                <div class="text-green-500 mr-3">
+                  <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <div
+                    class="text-2xl font-bold text-green-600"
+                    id="avgSavings"
+                  >
+                    76%
+                  </div>
+                  <div class="text-sm text-gray-600">Average Savings</div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-white rounded-lg p-4 shadow-sm border-l-4 border-blue-500"
+            >
+              <div class="flex items-center">
+                <div class="text-blue-500 mr-3">
+                  <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"
+                    ></path>
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <div
+                    class="text-2xl font-bold text-blue-600"
+                    id="totalSavings"
+                  >
+                    $1,027
+                  </div>
+                  <div class="text-sm text-gray-600">Best Deal Found</div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-white rounded-lg p-4 shadow-sm border-l-4 border-purple-500"
+            >
+              <div class="flex items-center">
+                <div class="text-purple-500 mr-3">
+                  <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <div
+                    class="text-2xl font-bold text-purple-600"
+                    id="searchTime"
+                  >
+                    1.0s
+                  </div>
+                  <div class="text-sm text-gray-600">Search Time</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Content Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Provider Results (Left 2/3) -->
+            <div class="lg:col-span-2">
+              <div class="mb-6">
+                <div class="flex items-center justify-between mb-4">
+                  <h3
+                    id="resultsTitle"
+                    class="text-xl font-semibold text-gray-900"
+                  >
+                    Found 0 providers
+                  </h3>
+                  <div class="flex items-center space-x-4">
+                    <div>
+                      <label for="sortBy" class="text-sm text-gray-600 mr-2"
+                        >Sort by:</label
+                      >
+                      <select
+                        id="sortBy"
+                        class="px-3 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      >
+                        <option value="price_low">Price: Low to High</option>
+                        <option value="price_high">Price: High to Low</option>
+                        <option value="savings_high"
+                          >Savings: High to Low</option
+                        >
+                        <option value="distance">Distance</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label for="priceRange" class="text-sm text-gray-600 mr-2"
+                        >Price Range:</label
+                      >
+                      <select
+                        id="priceRange"
+                        class="px-3 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      >
+                        <option value="all">All Prices</option>
+                        <option value="under_300">Under $300</option>
+                        <option value="300_400">$300 - $400</option>
+                        <option value="over_400">Over $400</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="text-sm text-gray-600 mb-6">
+                  All prices include technical and professional components
+                </p>
+              </div>
+
+              <!-- Provider Cards Container -->
+              <div id="providerResults">
+                <!-- Results will be inserted here -->
+              </div>
+            </div>
+
+            <!-- Map (Right 1/3) -->
+            <div class="lg:col-span-1">
+              <div
+                class="bg-white rounded-lg shadow-lg overflow-hidden sticky top-4"
+              >
+                <div class="p-4 bg-gray-50 border-b">
+                  <h3 class="text-lg font-semibold text-gray-900">
+                    Provider Locations
+                  </h3>
+                  <p id="mapStatus" class="text-sm text-gray-600">
+                    10 centers found
+                  </p>
+                </div>
+                <div id="map" class="h-96 bg-gray-100 relative">
+                  <!-- Map will be initialized here -->
+                  <div
+                    class="absolute inset-0 flex items-center justify-center"
+                  >
+                    <div class="text-gray-400">
+                      <svg
+                        class="w-16 h-16 mx-auto mb-2"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                      <p class="text-sm">Loading map...</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced Styles -->
+    <style>
+      /* Loading Animation */
+      .loading-dots::after {
+        content: "";
+        animation: dots 1.5s steps(5, end) infinite;
+      }
+
+      @keyframes dots {
+        0%,
+        20% {
+          content: "";
+        }
+        40% {
+          content: ".";
+        }
+        60% {
+          content: "..";
+        }
+        80%,
+        100% {
+          content: "...";
+        }
+      }
+
+      /* Enhanced Card Hover Effects */
+      .provider-card {
+        transition: all 0.3s ease;
+      }
+
+      .provider-card:hover {
+        transform: translateY(-2px);
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      /* Enhanced Savings Display */
+      .savings-highlight {
+        background: linear-gradient(135deg, #10b981, #059669);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
+        font-size: 1.25rem;
+      }
+
+      /* Pulse Animation for Loading */
+      .pulse-bg {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      /* Enhanced Button Styles */
+      .book-btn {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        transition: all 0.3s ease;
+      }
+
+      .book-btn:hover {
+        background: linear-gradient(135deg, #1d4ed8, #1e40af);
+        transform: translateY(-1px);
+        box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+      }
+
+      /* Map Enhancement */
+      #map {
+        border-radius: 0 0 8px 8px;
+      }
+
+      /* Responsive Enhancements */
+      @media (max-width: 768px) {
+        .grid.grid-cols-1.md\\:grid-cols-4 {
+          grid-template-columns: 1fr;
+        }
+
+        .lg\\:col-span-2,
+        .lg\\:col-span-1 {
+          grid-column: span 1;
+        }
+      }
+
+      /* More dramatic hover effects */
+      .provider-card:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        border-left-width: 6px;
+      }
+
+      /* Animated savings highlight */
+      .savings-highlight {
+        background: linear-gradient(45deg, #10b981, #059669, #047857);
+        background-size: 200% 200%;
+        animation: gradientShift 3s ease infinite;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Pulse effect for best deals */
+      .border-yellow-400 {
+        animation: bestDealPulse 2s ease-in-out infinite;
+      }
+
+      @keyframes bestDealPulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 0 8px rgba(251, 191, 36, 0);
+        }
+      }
+
+      /* Subtle background pattern */
+      .min-h-screen.bg-gray-50 {
+        background-image: radial-gradient(
+          circle at 1px 1px,
+          rgba(255, 255, 255, 0.3) 1px,
+          transparent 0
+        );
+        background-size: 20px 20px;
+      }
+
+      /* Enhanced header with gradient */
+      .bg-white.shadow-sm {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      }
+    </style>
+
+    <!-- Enhanced JavaScript -->
+    <script>
+      // Define initMap IMMEDIATELY - before any other code
+      window.initMap = function () {
+        console.log("🗺️ initMap function called");
+        const mapContainer = document.getElementById("map");
+        console.log("📍 Map container found:", mapContainer);
+
+        if (!mapContainer) {
+          console.error('❌ Map container with id="map" not found!');
+          return;
+        }
+
+        console.log("🎯 Creating Google Map...");
+
+        try {
+          // Use window.map to make it globally accessible
+          window.map = new google.maps.Map(mapContainer, {
+            zoom: 10,
+            center: { lat: 26.1224, lng: -80.1373 }, // Default to Fort Lauderdale
+            mapTypeControl: false,
+            streetViewControl: false,
+            styles: [
+              {
+                featureType: "poi",
+                elementType: "labels",
+                stylers: [{ visibility: "off" }],
+              },
+              {
+                featureType: "transit",
+                elementType: "labels",
+                stylers: [{ visibility: "off" }],
+              },
+            ],
+          });
+          console.log("✅ Google Map created successfully!");
+
+          // Set map reference for other functions
+          map = window.map;
+        } catch (error) {
+          console.error("❌ Error creating map:", error);
+        }
+      };
+
+      // Global variables for map and search
+      let map = null;
+      let markers = [];
+      let userMarker = null;
+      let allProviders = [];
+      let searchStartTime = 0;
+
+      // Enhanced marker highlighting with bounce and scale
+      window.highlightMarker = function (index) {
+        if (markers[index] && window.google) {
+          // Bounce animation
+          markers[index].setAnimation(google.maps.Animation.BOUNCE);
+
+          // Scale up the marker temporarily
+          const originalIcon = markers[index].getIcon();
+          markers[index].setIcon({
+            ...originalIcon,
+            scale: originalIcon.scale * 1.5,
+          });
+
+          setTimeout(() => {
+            if (markers[index]) {
+              markers[index].setAnimation(null);
+              markers[index].setIcon(originalIcon);
+            }
+          }, 1500);
+        }
+      };
+
+      window.unhighlightMarker = function (index) {
+        if (markers[index]) {
+          markers[index].setAnimation(null);
+        }
+      };
+
+      // Enhanced search function with loading states
+      async function searchProviders() {
+        console.log("🔍 searchProviders called!");
+
+        searchStartTime = Date.now();
+        const zipCode = document.getElementById("zipCode").value.trim();
+        const procedure = document.getElementById("procedure").value;
+        const state = document.getElementById("state").value;
+
+        console.log("Search inputs:", { zipCode, procedure, state });
+
+        if (!zipCode) {
+          alert("Please enter a ZIP code");
+          return;
+        }
+
+        // Add ZIP code validation
+        if (zipCode.length !== 5 || !/^\d{5}$/.test(zipCode)) {
+          alert("Please enter a valid 5-digit ZIP code");
+          return;
+        }
+
+        // Show loading state
+        showLoadingState();
+
+        try {
+          // Include ZIP code in API call for better results
+          const response = await fetch(
+            `/api/centers/search-with-pricing?state=${state}&cptCode=${procedure}&zipCode=${zipCode}`
+          );
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          console.log("Search response:", data);
+
+          // Simulate minimum loading time for better UX
+          const loadingTime = Date.now() - searchStartTime;
+          const minLoadingTime = 800; // Minimum 800ms loading
+
+          if (loadingTime < minLoadingTime) {
+            await new Promise((resolve) =>
+              setTimeout(resolve, minLoadingTime - loadingTime)
+            );
+          }
+
+          allProviders = data.results || [];
+
+          if (allProviders.length === 0) {
+            hideLoadingState();
+            showErrorState(
+              "No providers found for this location and procedure."
+            );
+            return;
+          }
+
+          // Hide loading and show results
+          hideLoadingState();
+          showResults();
+
+          // Update search summary with enhanced metrics
+          updateSearchSummary(allProviders, zipCode, procedure);
+
+          // Render results with default sorting
+          renderResults(allProviders, "price_low");
+
+          // Add map markers with enhanced styling
+          addMapMarkers(allProviders);
+
+          // Geocode user location
+          if (zipCode) {
+            await geocodeZipCode(zipCode);
+          }
+
+          // Smooth scroll to results with highlight
+          if (allProviders.length > 0) {
+            setTimeout(() => {
+              document.getElementById("resultsContainer").scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }, 100);
+          }
+        } catch (error) {
+          console.error("Search error:", error);
+          hideLoadingState();
+
+          // Enhanced error messages
+          let errorMessage = "Unable to search providers. Please try again.";
+          if (error.message.includes("404")) {
+            errorMessage = "No providers found for this location.";
+          } else if (error.message.includes("500")) {
+            errorMessage = "Server error. Please try again in a moment.";
+          }
+
+          showErrorState(errorMessage);
+        }
+      }
+
+      // Make function globally accessible
+      window.searchProviders = searchProviders;
+
+      // Enhanced loading state with better animation
+      function showLoadingState() {
+        document.getElementById("loadingState").classList.remove("hidden");
+        document.getElementById("resultsContainer").classList.add("hidden");
+
+        // Update button state with pulsing effect
+        const searchBtn = document.getElementById("searchBtn");
+        searchBtn.disabled = true;
+        searchBtn.innerHTML = `
+  <div class="flex items-center justify-center">
+    <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+    <span class="animate-pulse">Analyzing 1,500+ centers</span>
+  </div>
+  `;
+      }
+      // Hide loading state
+      function hideLoadingState() {
+        document.getElementById("loadingState").classList.add("hidden");
+
+        // Restore button state
+        const searchBtn = document.getElementById("searchBtn");
+        searchBtn.disabled = false;
+        searchBtn.innerHTML = "Search Providers";
+      }
+
+      // Show results with enhanced summary
+      function showResults() {
+        document.getElementById("resultsContainer").classList.remove("hidden");
+      }
+
+      // Enhanced search summary with metrics
+      function updateSearchSummary(providers, zipCode, procedure) {
+        const searchTime = ((Date.now() - searchStartTime) / 1000).toFixed(1);
+        const procedureText =
+          document.getElementById("procedure").selectedOptions[0].text;
+
+        // Calculate enhanced metrics
+        const avgSavings =
+          providers.length > 0
+            ? Math.round(
+                providers.reduce(
+                  (sum, p) => sum + p.pricing.savings_percentage,
+                  0
+                ) / providers.length
+              )
+            : 0;
+
+        // Calculate best deal (highest savings amount)
+        const bestSavings =
+          providers.length > 0
+            ? Math.max(...providers.map((p) => p.pricing.patient_savings))
+            : 0;
+
+        // Update summary text
+        document.getElementById("summaryText").textContent =
+          `Found ${providers.length} providers for ${procedureText} near ${zipCode} • Searched in ${searchTime}s`;
+
+        // Update metrics - replaced "Total Savings" with "Best Deal Found"
+        document.getElementById("avgSavings").textContent = `${avgSavings}%`;
+        document.getElementById("totalSavings").textContent =
+          `$${Math.round(bestSavings).toLocaleString()}`;
+        document.getElementById("searchTime").textContent = `${searchTime}s`;
+
+        showSuccessFeedback(providers.length);
+      }
+
+      // Enhanced render results with better styling
+      function renderResults(providers, sortBy = "price_low") {
+        const container = document.getElementById("providerResults");
+        const title = document.getElementById("resultsTitle");
+
+        title.textContent = `Found ${providers.length} providers`;
+
+        if (providers.length === 0) {
+          container.innerHTML = `
+        <div class="text-center py-12">
+          <div class="text-gray-400 mb-4">
+            <svg class="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-gray-900 mb-2">No providers found</h3>
+          <p class="text-gray-500">Try adjusting your search criteria or expanding your search radius.</p>
+        </div>
+      `;
+          return;
+        }
+
+        // Sort providers
+        const sortedProviders = [...providers].sort((a, b) => {
+          switch (sortBy) {
+            case "price_high":
+              return b.pricing.patient_price - a.pricing.patient_price;
+            case "savings_high":
+              return b.pricing.patient_savings - a.pricing.patient_savings;
+            case "distance":
+              return (
+                (a.location.distance_miles || 0) -
+                (b.location.distance_miles || 0)
+              );
+            default: // price_low
+              return a.pricing.patient_price - b.pricing.patient_price;
+          }
+        });
+
+        // Enhanced provider cards with better styling
+        container.innerHTML = sortedProviders
+          .map(
+            (provider, index) => `
+      <div class="provider-card bg-white rounded-xl shadow-md p-6 mb-6 hover:shadow-xl transition-all duration-300 border-l-4 ${getBorderClass(index)}" 
+           data-provider-index="${index}"
+           onmouseenter="highlightMarker(${index})" 
+           onmouseleave="unhighlightMarker(${index})">
+        
+        <!-- Provider Header with Enhanced Badge -->
+        <div class="flex items-start justify-between mb-4">
+          <div class="flex-1">
+            <div class="flex items-center mb-2">
+              <h3 class="text-xl font-bold text-gray-900 mr-3">${provider.name}</h3>
+              ${getBadge(index)}
+            </div>
+            <div class="flex items-center text-gray-600 mb-2">
+              <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm">${provider.location.city}, ${provider.location.state}</span>
+              ${provider.medicare_locality ? `<span class="ml-2 text-xs text-gray-500">• Medicare Locality: ${provider.medicare_locality}</span>` : ""}
+            </div>
+            <div class="flex items-center text-green-600 text-sm font-medium">
+              <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Available for booking
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-3xl font-bold text-green-600 mb-1">$${provider.pricing.patient_price.toFixed(2)}</div>
+            <div class="text-sm text-gray-500">Medicare + $75</div>
+          </div>
+        </div>
+  
+        <!-- Enhanced Pricing Breakdown -->
+        <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-4 mb-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <div class="text-sm text-gray-600 mb-1">You Save</div>
+              <div class="savings-highlight text-2xl font-bold">
+                $${provider.pricing.patient_savings.toFixed(2)}
+              </div>
+            </div>
+            <div>
+              <div class="text-sm text-gray-600 mb-1">vs Hospital</div>
+              <div class="text-lg text-red-500 line-through font-semibold">
+                $${provider.pricing.hospital_estimate.toFixed(2)}
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 pt-3 border-t border-gray-200">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">Medicare Rate: $${provider.pricing.medicare_rate.toFixed(2)}</span>
+              <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-bold">
+                ${provider.pricing.savings_percentage}% OFF
+              </span>
+            </div>
+            <div class="text-xs text-gray-500 mt-1">USRad Price: Medicare + $75 markup</div>
+          </div>
+        </div>
+  
+        <!-- Enhanced Action Buttons -->
+        <div class="flex space-x-3">
+          <button class="book-btn text-white px-6 py-3 rounded-lg font-semibold flex-1 transition-all duration-200">
+            Book Now - Save $${Math.round(provider.pricing.patient_savings)}
+          </button>
+          <button class="border border-gray-300 text-gray-700 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+            View Details
+          </button>
+        </div>
+      </div>
+    `
+          )
+          .join("");
+      }
+
+      // Enhanced marker styling with better colors
+      function addMapMarkers(providers) {
+        if (!map || !window.google) {
+          console.log("Map or Google not available for markers");
+          return;
+        }
+
+        // Clear existing markers
+        markers.forEach((marker) => marker.setMap(null));
+        markers = [];
+
+        if (providers.length === 0) return;
+
+        const bounds = new google.maps.LatLngBounds();
+
+        providers.forEach((provider, index) => {
+          const coordinates = getProviderCoordinates(provider);
+
+          // Enhanced marker colors based on ranking and savings
+          let markerColor;
+          const savingsPercent = provider.pricing.savings_percentage;
+
+          if (index < 3) {
+            markerColor = "#10B981"; // Top 3: Bright green
+          } else if (savingsPercent >= 75) {
+            markerColor = "#059669"; // High savings: Dark green
+          } else if (savingsPercent >= 70) {
+            markerColor = "#3B82F6"; // Good savings: Blue
+          } else {
+            markerColor = "#6B7280"; // Lower savings: Gray
+          }
+
+          const marker = new google.maps.Marker({
+            position: coordinates,
+            map: map,
+            title: provider.name,
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: index < 3 ? 10 : 8, // Bigger markers for top deals
+              fillColor: markerColor,
+              fillOpacity: 1,
+              strokeColor: "#ffffff",
+              strokeWeight: 2,
+            },
+          });
+
+          // Enhanced info window with better styling (COMPACT VERSION)
+          const infoWindow = new google.maps.InfoWindow({
+            content: `
+  <div style="padding: 6px; width: 180px; font-family: system-ui, -apple-system, sans-serif;">
+    <div style="display: flex; align-items: center; margin-bottom: 4px;">
+      <h3 style="margin: 0; color: #1f2937; font-size: 12px; font-weight: 600; flex: 1;">
+        ${provider.name}
+      </h3>
+      ${index < 3 ? `<span style="background: #10B981; color: white; font-size: 7px; padding: 1px 3px; border-radius: 6px; font-weight: bold;">${["🥇", "🥈", "🥉"][index]}</span>` : ""}
+    </div>
+    <div style="color: #6b7280; font-size: 9px; margin-bottom: 6px;">
+      📍 ${provider.location.city}, ${provider.location.state}
+    </div>
+    <div style="background: #f8f9fa; padding: 6px; border-radius: 4px; margin-bottom: 6px;">
+      <div style="display: flex; justify-between; align-items: center; margin-bottom: 3px;">
+        <div style="color: #10b981; font-size: 16px; font-weight: 800;">
+          $${provider.pricing.patient_price.toFixed(2)}
+        </div>
+        <div style="background: #10B981; color: white; padding: 1px 4px; border-radius: 8px; font-size: 8px; font-weight: bold;">
+          ${provider.pricing.savings_percentage}% OFF
+        </div>
+      </div>
+      <div style="font-size: 8px; color: #059669;">
+        Save $${provider.pricing.patient_savings.toFixed(0)} vs hospital
+      </div>
+    </div>
+    <button onclick="window.location.href='#book-${provider.id}'" style="background: #3B82F6; color: white; border: none; padding: 4px 8px; border-radius: 3px; font-size: 9px; font-weight: 600; cursor: pointer; width: 100%;">
+      Book Now
+    </button>
+  </div>
+  `,
+            maxWidth: 180,
+            pixelOffset: new google.maps.Size(0, -5),
+          });
+          marker.addListener("click", () => {
+            // Close any open info windows
+            markers.forEach((m, i) => {
+              if (m.infoWindow) m.infoWindow.close();
+            });
+
+            // Open this info window
+            infoWindow.open(map, marker);
+
+            // Scroll to provider in list
+            const providerCard = document.querySelector(
+              `[data-provider-index="${index}"]`
+            );
+            if (providerCard) {
+              providerCard.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+              });
+              // Add temporary highlight
+              providerCard.style.background =
+                "linear-gradient(135deg, #dbeafe, #bfdbfe)";
+              setTimeout(() => {
+                providerCard.style.background = "white";
+              }, 2000);
+            }
+          });
+
+          marker.infoWindow = infoWindow;
+          markers.push(marker);
+          bounds.extend(coordinates);
+        });
+
+        // Fit map to show all markers with better padding
+        if (providers.length > 0) {
+          map.fitBounds(bounds, { padding: 50 });
+
+          // Don't zoom in too much for single provider
+          google.maps.event.addListenerOnce(map, "bounds_changed", () => {
+            if (map.getZoom() > 12) {
+              map.setZoom(12);
+            }
+          });
+        }
+
+        // Update map status with enhanced info
+        const mapStatus = document.getElementById("mapStatus");
+        if (mapStatus && providers.length > 0) {
+          const avgSavings = Math.round(
+            providers.reduce(
+              (sum, p) => sum + p.pricing.savings_percentage,
+              0
+            ) / providers.length
+          );
+          mapStatus.innerHTML = `<span class="font-semibold">${providers.length} centers found</span> • <span class="text-green-600">${avgSavings}% avg savings</span>`;
+        }
+      }
+
+      // Enhanced coordinate mapping with more cities
+      function getProviderCoordinates(provider) {
+        const cityCoordinates = {
+          Miami: { lat: 25.7617, lng: -80.1918 },
+          "Fort Lauderdale": { lat: 26.1224, lng: -80.1373 },
+          "Ft. Lauderdale": { lat: 26.1224, lng: -80.1373 },
+          Tampa: { lat: 27.9506, lng: -82.4572 },
+          Orlando: { lat: 28.5383, lng: -81.3792 },
+          Jacksonville: { lat: 30.3322, lng: -81.6557 },
+          "Vero Beach": { lat: 27.6386, lng: -80.3973 },
+          "Ormond Beach": { lat: 29.2858, lng: -81.0659 },
+          Hialeah: { lat: 25.8576, lng: -80.2781 },
+          "Port Richey": { lat: 28.2697, lng: -82.7193 },
+          Tallahassee: { lat: 30.4518, lng: -84.2807 },
+          Lakeland: { lat: 28.0395, lng: -81.9498 },
+          Atlanta: { lat: 33.749, lng: -84.388 },
+          Gainesville: { lat: 29.6516, lng: -82.3248 },
+          Pensacola: { lat: 30.4213, lng: -87.2169 },
+          Sarasota: { lat: 27.3364, lng: -82.5307 },
+        };
+
+        const city = provider.location.city;
+        const coords = cityCoordinates[city];
+
+        if (coords) {
+          // Add small random offset to avoid exact overlap
+          return {
+            lat: coords.lat + (Math.random() - 0.5) * 0.01,
+            lng: coords.lng + (Math.random() - 0.5) * 0.01,
+          };
+        }
+
+        // Default to center of search area if city not found
+        return { lat: 26.1224, lng: -80.1373 };
+      }
+
+      // Enhanced geocoding with user marker
+      async function geocodeZipCode(zipCode) {
+        if (!window.google || !zipCode) return null;
+
+        const geocoder = new google.maps.Geocoder();
+
+        try {
+          const result = await new Promise((resolve, reject) => {
+            geocoder.geocode(
+              { address: zipCode + ", USA" },
+              (results, status) => {
+                if (status === "OK" && results[0]) {
+                  resolve(results[0]);
+                } else {
+                  reject(new Error("Geocoding failed"));
+                }
+              }
+            );
+          });
+
+          const location = result.geometry.location;
+
+          // Remove existing user marker
+          if (userMarker) {
+            userMarker.setMap(null);
+          }
+
+          // Add enhanced user location marker
+          userMarker = new google.maps.Marker({
+            position: location,
+            map: map,
+            title: `Your location: ${zipCode}`,
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 8,
+              fillColor: "#1D4ED8",
+              fillOpacity: 1,
+              strokeColor: "#ffffff",
+              strokeWeight: 3,
+            },
+          });
+
+          // Add user location info window
+          const userInfoWindow = new google.maps.InfoWindow({
+            content: `
+          <div style="padding: 10px; text-align: center; font-family: system-ui;">
+            <div style="font-weight: 600; color: #1f2937; margin-bottom: 4px;">📍 Your Location</div>
+            <div style="color: #6b7280; font-size: 13px;">${zipCode}</div>
+          </div>
+        `,
+          });
+
+          userMarker.addListener("click", () => {
+            userInfoWindow.open(map, userMarker);
+          });
+
+          return location;
+        } catch (error) {
+          console.error("Geocoding error:", error);
+          return null;
+        }
+      }
+
+      // Enhanced helper functions
+      function getBorderClass(index) {
+        if (index === 0) return "border-yellow-400"; // Best deal
+        if (index === 1) return "border-green-400"; // Second best
+        if (index === 2) return "border-blue-400"; // Third best
+        return "border-gray-200"; // Others
+      }
+
+      function getBadge(index) {
+        if (index === 0)
+          return '<span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-bold">🥇 Best Deal</span>';
+        if (index === 1)
+          return '<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-bold">🥈 Great Value</span>';
+        if (index === 2)
+          return '<span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-bold">🥉 Good Choice</span>';
+        return "";
+      }
+
+      // Add this to show success feedback
+      function showSuccessFeedback(count) {
+        const summary = document.getElementById("searchSummary");
+        summary.style.transform = "scale(1.02)";
+        summary.style.transition = "transform 0.3s ease";
+
+        setTimeout(() => {
+          summary.style.transform = "scale(1)";
+        }, 300);
+
+        // Add a subtle green glow
+        summary.classList.add("ring-2", "ring-green-200");
+        setTimeout(() => {
+          summary.classList.remove("ring-2", "ring-green-200");
+        }, 2000);
+      }
+
+      // Sorting function
+      function applySorting(sortBy) {
+        renderResults(allProviders, sortBy);
+        // Re-add markers to maintain consistency
+        addMapMarkers(allProviders);
+      }
+
+      // Price filtering function
+      function applyPriceFilter(range) {
+        let filteredProviders = [...allProviders];
+
+        switch (range) {
+          case "under_300":
+            filteredProviders = allProviders.filter(
+              (p) => p.pricing.patient_price < 300
+            );
+            break;
+          case "300_400":
+            filteredProviders = allProviders.filter(
+              (p) =>
+                p.pricing.patient_price >= 300 && p.pricing.patient_price <= 400
+            );
+            break;
+          case "over_400":
+            filteredProviders = allProviders.filter(
+              (p) => p.pricing.patient_price > 400
+            );
+            break;
+          default:
+            filteredProviders = allProviders;
+        }
+
+        renderResults(
+          filteredProviders,
+          document.getElementById("sortBy").value
+        );
+        addMapMarkers(filteredProviders);
+      }
+
+      // Error state display
+      function showErrorState(message) {
+        const container = document.getElementById("providerResults");
+        container.innerHTML = `
+  <div class="text-center py-12 bg-gradient-to-br from-red-50 to-orange-50 rounded-lg border border-red-200">
+    <div class="text-red-400 mb-4 animate-pulse">
+      <svg class="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+      </svg>
+    </div>
+    <h3 class="text-lg font-medium text-gray-900 mb-2">Oops! Something went wrong</h3>
+    <p class="text-gray-500 mb-4">${message}</p>
+    <button onclick="searchProviders()" class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 transform hover:scale-105 shadow-lg">
+      🔄 Try Again
+    </button>
+  </div>
+  `;
+      }
+      // Event listeners setup
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("🔍 DOM loaded, setting up event listeners...");
+
+        // Add click event listener to search button
+        const searchBtn = document.getElementById("searchBtn");
+        if (searchBtn) {
+          searchBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            console.log("🖱️ Search button clicked via event listener");
+            searchProviders();
+          });
+        }
+
+        // Add Enter key support for ZIP code
+        const zipCodeInput = document.getElementById("zipCode");
+        if (zipCodeInput) {
+          zipCodeInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              searchProviders();
+            }
+          });
+        }
+
+        // Add event listeners for sorting and filtering
+        const sortBy = document.getElementById("sortBy");
+        if (sortBy) {
+          sortBy.addEventListener("change", function () {
+            applySorting(this.value);
+          });
+        }
+
+        const priceRange = document.getElementById("priceRange");
+        if (priceRange) {
+          priceRange.addEventListener("change", function () {
+            applyPriceFilter(this.value);
+          });
+        }
+
+        // Auto-trigger search for demo purposes
+        setTimeout(() => {
+          console.log("🚀 Auto-triggering search for demo...");
+          searchProviders();
+        }, 1000);
+      });
+
+      // Debug: Check when Google Maps tries to call initMap
+      console.log(
+        "🚀 Script loaded - initMap defined as:",
+        typeof window.initMap
+      );
+    </script>
+
+    <!-- Google Maps API -->
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1l1zMNzrY6IImdOwaGTlAV-Fo1xlHYYg&callback=initMap&libraries=places"
+    ></script>
+  </div>
+</MainPatientLayout>
