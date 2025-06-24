@@ -1220,6 +1220,38 @@ const title = "Provider Search Test - USRad";
         console.error("Google Maps API key not found in environment variables");
       }
     </script>
-    >
+    <script>
+       window.addEventListener('load', function() { 
+        const zipInput = document.getElementById('zipCode');
+    const procedureSelect = document.getElementById('procedure');
+    const resultsContainer = document.getElementById('results');
+    
+    if (zipInput) {
+      zipInput.value = '';
+      zipInput.setAttribute('autocomplete', 'off');
+    }
+    
+    if (procedureSelect) {
+      procedureSelect.selectedIndex = 0;
+    }
+    
+    if (resultsContainer) {
+      resultsContainer.innerHTML = '';
+      resultsContainer.style.display = 'none';
+    }
+    
+    console.log('✅ Form reset - clean slate for new visitor');
+  });
+
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) {
+      const zipInput = document.getElementById('zipCode');
+      if (zipInput && zipInput.value === '33330') {
+        zipInput.value = '';
+        console.log('✅ Cleared cached ZIP code');
+      }
+    }
+  });
+</script>
   </div>
 </MainPatientLayout>
