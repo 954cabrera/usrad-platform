@@ -1,0 +1,829 @@
+---
+// ===========================================
+// src/pages/search-v2.astro
+// Refactored main search page - Clean, modular, maintainable
+// Replaces the monolithic 1,200+ line search-test.astro
+// ===========================================
+
+import MainPatientLayout from "../layouts/MainPatientLayout.astro";
+import SearchForm from "../components/search/SearchForm.astro";
+import LoadingState from "../components/search/LoadingState.astro";
+import SearchSummary from "../components/search/SearchSummary.astro";
+import ProviderList from "../components/provider/ProviderList.astro";
+import SearchMap from "../components/map/SearchMap.astro";
+import Modal from "../components/ui/Modal.astro";
+import Button from "../components/ui/Button.astro";
+import Badge from "../components/ui/Badge.astro";
+
+const title = "Find Medical Imaging Providers - USRad";
+const description =
+  "Search 1,500+ imaging centers with transparent Medicare pricing. Save 60-80% vs hospitals.";
+
+// Get initial search parameters from URL
+const urlParams = Astro.url.searchParams;
+const initialSearch = {
+  zipCode: urlParams.get("zip") || "",
+  state: urlParams.get("state") || "FL",
+  procedure: urlParams.get("procedure") || "70551",
+};
+---
+
+<MainPatientLayout title={title} description={description}>
+  <div class="min-h-screen bg-gray-50">
+    <!-- Header Section -->
+    <div class="bg-white shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="py-6">
+          <h1 class="text-3xl font-bold text-gray-900">
+            Find Medical Imaging Providers
+          </h1>
+          <p class="mt-2 text-lg text-gray-600">
+            Search our network of 1,500+ centers with transparent Medicare
+            pricing
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Search Form Component -->
+      <SearchForm
+        initialZipCode={initialSearch.zipCode}
+        initialState={initialSearch.state}
+        initialProcedure={initialSearch.procedure}
+        onSearch="handleSearch"
+      />
+
+      <!-- Loading State Component -->
+      <LoadingState
+        type="search"
+        message="🔍 Searching providers"
+        subMessage="Analyzing Medicare rates across our network of 1,500+ centers"
+      />
+
+      <!-- Results Container -->
+      <div id="resultsContainer" class="hidden">
+        <!-- Search Summary Component (Replaces hardcoded summary) -->
+        <SearchSummary
+          totalResults={0}
+          searchCriteria={initialSearch}
+          averageSavings={0}
+          averagePrice={0}
+          networkSize={1500}
+        />
+
+        <!-- Filters and Sorting -->
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+          <div class="flex flex-wrap items-center gap-4">
+            <div class="flex items-center space-x-2">
+              <label class="text-sm font-medium text-gray-700">Sort by:</label>
+              <select
+                id="sortBy"
+                class="px-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="distance">Distance</option>
+                <option value="price">Price (Low to High)</option>
+                <option value="savings">Savings (High to Low)</option>
+                <option value="name">Provider Name</option>
+                <option value="availability">Availability</option>
+              </select>
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <label class="text-sm font-medium text-gray-700"
+                >Max Distance:</label
+              >
+              <select
+                id="maxDistance"
+                class="px-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="10">10 miles</option>
+                <option value="25" selected>25 miles</option>
+                <option value="50">50 miles</option>
+                <option value="100">100 miles</option>
+              </select>
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <label class="text-sm font-medium text-gray-700">Max Price:</label
+              >
+              <select
+                id="maxPrice"
+                class="px-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Any Price</option>
+                <option value="300">Under $300</option>
+                <option value="400">Under $400</option>
+                <option value="500">Under $500</option>
+              </select>
+            </div>
+
+            <!-- Clear Filters Button Component -->
+            <Button
+              variant="ghost"
+              size="sm"
+              id="clearFilters"
+              onclick="clearFilters()"
+            >
+              Clear Filters
+            </Button>
+          </div>
+        </div>
+
+        <!-- Results Layout: Split View -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Provider List Component -->
+          <div class="lg:order-1">
+            <ProviderList
+              providers={[]}
+              currentPage={1}
+              totalPages={1}
+              totalResults={0}
+              onPageChange="handlePageChange"
+              loading={false}
+            />
+          </div>
+
+          <!-- Map Component -->
+          <div class="lg:order-2 lg:sticky lg:top-4">
+            <SearchMap
+              containerId="searchMap"
+              height="600px"
+              onMapReady="onMapReady"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results State -->
+      <div id="noResults" class="hidden text-center py-12">
+        <div class="text-6xl mb-4">🔍</div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">
+          No providers found
+        </h3>
+        <p class="text-gray-600 mb-6">
+          Try adjusting your search criteria or expanding your search area.
+        </p>
+        <div class="space-y-3">
+          <!-- Using Button Component -->
+          <Button
+            variant="primary"
+            size="md"
+            id="expandSearch"
+            onclick="expandSearch()"
+          >
+            Expand Search to 50 Miles
+          </Button>
+          <br />
+          <Button
+            variant="ghost"
+            size="sm"
+            id="changeLocation"
+            onclick="changeLocation()"
+          >
+            Search Different Location
+          </Button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking Modal Component -->
+    <Modal id="bookingModal" title="Book Your Appointment" size="md">
+      <!-- Modal content will be dynamically inserted by provider-selection.js -->
+      <div id="bookingModalContent">
+        <p class="text-gray-600">Loading booking information...</p>
+      </div>
+    </Modal>
+
+    <!-- Error Display -->
+    <div id="errorContainer" class="hidden fixed top-4 right-4 z-50">
+      <div class="bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg">
+        <div class="flex items-center">
+          <span class="mr-2">❌</span>
+          <span id="errorMessage">An error occurred</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Core JavaScript Modules -->
+  <script src="/src/scripts/search-engine.js" type="module"></script>
+  <script src="/src/scripts/map-manager.js" type="module"></script>
+  <script src="/src/scripts/provider-selection.js" type="module"></script>
+  <script src="/src/scripts/ui-manager.js" type="module"></script>
+  <script src="/src/utils/api-client.js" type="module"></script>
+  <script src="/src/utils/cache-manager.js" type="module"></script>
+  <script src="/src/utils/formatting.js" type="module"></script>
+  <script src="/src/utils/constants.js" type="module"></script>
+
+  <!-- Main Application Logic -->
+  <script define:vars={{ initialSearch }}>
+    // ===========================================
+    // Main Application Controller
+    // Orchestrates all the modular components
+    // ===========================================
+
+    class SearchPageController {
+      constructor() {
+        this.searchEngine = null;
+        this.mapManager = null;
+        this.providerSelection = null;
+        this.uiManager = null;
+        this.currentResults = [];
+        this.currentFilters = {};
+
+        this.initializeApplication();
+      }
+
+      async initializeApplication() {
+        try {
+          // Wait for modules to load
+          await this.waitForModules();
+
+          // Initialize core components
+          this.searchEngine = new USRadSearchEngine();
+          this.uiManager = new UIManager();
+          this.providerSelection = new ProviderSelectionManager();
+
+          // Setup event handlers
+          this.setupEventHandlers();
+
+          // Setup component callbacks
+          this.setupComponentCallbacks();
+
+          // Auto-trigger search if we have initial parameters
+          if (initialSearch.zipCode) {
+            setTimeout(() => {
+              this.handleSearch(initialSearch);
+            }, 500);
+          }
+
+          console.log("✅ Search page initialized successfully");
+        } catch (error) {
+          console.error("❌ Failed to initialize search page:", error);
+          this.showError(
+            "Failed to initialize search. Please refresh the page."
+          );
+        }
+      }
+
+      async waitForModules() {
+        const maxAttempts = 50;
+        let attempts = 0;
+
+        return new Promise((resolve, reject) => {
+          const checkModules = () => {
+            attempts++;
+
+            const modulesReady =
+              window.USRadSearchEngine &&
+              window.UIManager &&
+              window.ProviderSelectionManager;
+
+            if (modulesReady) {
+              resolve();
+            } else if (attempts >= maxAttempts) {
+              reject(new Error("Modules failed to load"));
+            } else {
+              setTimeout(checkModules, 100);
+            }
+          };
+
+          checkModules();
+        });
+      }
+
+      // ===========================================
+      // Search Functionality
+      // ===========================================
+
+      async handleSearch(params) {
+        try {
+          console.log("🔍 Starting search with params:", params);
+
+          // Show loading state
+          this.uiManager.showSearchLoading();
+
+          // Perform search
+          const results = await this.searchEngine.search(params);
+
+          // Update UI with results
+          this.displaySearchResults(results);
+
+          // Update map
+          if (this.mapManager) {
+            this.mapManager.addProviderMarkers(results.results);
+          }
+
+          // Update URL
+          this.updateURL(params);
+        } catch (error) {
+          console.error("❌ Search failed:", error);
+          this.showError("Search failed. Please try again.");
+          this.uiManager.hideLoading("loadingState");
+        }
+      }
+
+      displaySearchResults(results) {
+        this.currentResults = results.results;
+
+        // Update SearchSummary component data
+        this.updateSearchSummaryComponent(results);
+
+        // Show results container
+        this.uiManager.showSearchResults(results);
+
+        // Update provider list
+        this.updateProviderList(results.results);
+
+        // Animate metrics
+        this.animateMetrics(results);
+
+        console.log(
+          "✅ Search results displayed:",
+          results.results.length,
+          "providers"
+        );
+      }
+
+      updateSearchSummaryComponent(results) {
+        // Update the SearchSummary component with new data
+        const summaryElement = document.getElementById("searchSummary");
+        if (summaryElement) {
+          // Trigger the search results updated event for the component
+          const updateEvent = new CustomEvent("searchResultsUpdated", {
+            detail: {
+              results: results.results,
+              averageSavings: results.averageSavings || 0,
+              averagePrice: results.priceRange
+                ? (results.priceRange.min + results.priceRange.max) / 2
+                : 0,
+              totalResults: results.results.length,
+            },
+          });
+          window.dispatchEvent(updateEvent);
+        }
+
+        // Also update the summary text directly
+        const summaryText = document.getElementById("summaryText");
+        if (summaryText) {
+          const count = results.results.length;
+          const avgSavings = results.averageSavings || 0;
+          summaryText.textContent = `Found ${count} providers • Average savings: ${avgSavings}% vs hospitals`;
+        }
+      }
+
+      animateMetrics(results) {
+        // Animate average savings
+        if (window.uiManager) {
+          window.uiManager.animateCounter(
+            "avgSavings",
+            results.averageSavings || 0,
+            {
+              suffix: "%",
+              duration: 1000,
+            }
+          );
+
+          window.uiManager.animateCounter(
+            "totalProviders",
+            results.results.length,
+            {
+              duration: 800,
+            }
+          );
+
+          const avgPrice =
+            results.results.length > 0
+              ? results.results.reduce(
+                  (sum, p) => sum + p.pricing.patient_price,
+                  0
+                ) / results.results.length
+              : 0;
+          window.uiManager.animateCounter("avgPrice", avgPrice, {
+            prefix: "$",
+            duration: 1200,
+          });
+        }
+      }
+
+      updateProviderList(providers) {
+        const providerCards = document.getElementById("providerCards");
+        if (!providerCards) return;
+
+        // Clear existing cards
+        providerCards.innerHTML = "";
+
+        // Add new provider cards
+        providers.forEach((provider, index) => {
+          const cardElement = this.createProviderCardElement(provider, index);
+          providerCards.appendChild(cardElement);
+        });
+
+        // Animate cards in
+        if (this.uiManager) {
+          this.uiManager.animateElementsIn(".provider-card", { delay: 100 });
+        }
+      }
+
+      createProviderCardElement(provider, index) {
+        const pricing = provider.pricing;
+        const savings = Math.round(pricing.patient_savings);
+        const savingsPercent = Math.round(pricing.savings_percentage);
+
+        const cardDiv = document.createElement("div");
+        cardDiv.className =
+          "provider-card bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-6 border border-gray-200 cursor-pointer";
+        cardDiv.setAttribute("data-provider-id", provider.id);
+        cardDiv.setAttribute("data-provider-index", index);
+        cardDiv.setAttribute("data-provider-data", JSON.stringify(provider));
+
+        cardDiv.innerHTML = `
+          <div class="flex justify-between items-start mb-4">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                ${provider.facility_name}
+              </h3>
+              <p class="text-sm text-gray-600 flex items-center">
+                <span class="mr-1">📍</span>
+                ${provider.address}
+              </p>
+              ${
+                provider.phone
+                  ? `
+                <p class="text-sm text-gray-600 flex items-center mt-1">
+                  <span class="mr-1">📞</span>
+                  ${provider.phone}
+                </p>
+              `
+                  : ""
+              }
+            </div>
+            ${
+              provider.distance_miles
+                ? `
+              <div class="text-right">
+                <span class="text-sm text-gray-500">
+                  ${provider.distance_miles.toFixed(1)} miles
+                </span>
+              </div>
+            `
+                : ""
+            }
+          </div>
+
+          <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-lg font-bold text-green-600">
+                $${Math.round(pricing.patient_price)}
+              </span>
+              <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
+                Save $${savings} (${savingsPercent}%)
+              </span>
+            </div>
+            
+            <div class="space-y-1 text-xs text-gray-600">
+              <div class="flex justify-between">
+                <span>Medicare Rate:</span>
+                <span>$${Math.round(pricing.medicare_rate)}</span>
+              </div>
+              <div class="flex justify-between">
+                <span>USRad Fee:</span>
+                <span>$${Math.round(pricing.patient_price - pricing.medicare_rate)}</span>
+              </div>
+              <div class="flex justify-between text-gray-400">
+                <span>vs Hospital:</span>
+                <span class="line-through">$${Math.round(pricing.hospital_estimate)}</span>
+              </div>
+            </div>
+          </div>
+
+          ${
+            provider.availability.available_slots > 0
+              ? `
+            <div class="flex items-center text-sm text-green-600 mb-4">
+              <span class="mr-2">📅</span>
+              <span class="font-medium">
+                ${provider.availability.available_slots} slots available
+              </span>
+            </div>
+          `
+              : ""
+          }
+
+          <button 
+            class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors font-medium"
+            onclick="selectProvider('${provider.id}', ${index})"
+          >
+            Book Now & Save $${savings}
+          </button>
+        `;
+
+        // Add hover effects for map integration
+        cardDiv.addEventListener("mouseenter", () => {
+          if (this.mapManager && this.mapManager.highlightMarkerByIndex) {
+            this.mapManager.highlightMarkerByIndex(index);
+          }
+        });
+
+        return cardDiv;
+      }
+
+      // ===========================================
+      // Event Handlers
+      // ===========================================
+
+      setupEventHandlers() {
+        // Filter and sort handlers
+        document.getElementById("sortBy")?.addEventListener("change", (e) => {
+          this.handleSort(e.target.value);
+        });
+
+        document
+          .getElementById("maxDistance")
+          ?.addEventListener("change", (e) => {
+            this.handleFilter("maxDistance", e.target.value);
+          });
+
+        document.getElementById("maxPrice")?.addEventListener("change", (e) => {
+          this.handleFilter("maxPrice", e.target.value);
+        });
+      }
+
+      setupComponentCallbacks() {
+        // Map ready callback
+        window.onMapReady = (mapManager) => {
+          this.mapManager = mapManager;
+
+          // Add current results to map if available
+          if (this.currentResults.length > 0) {
+            mapManager.addProviderMarkers(this.currentResults);
+          }
+        };
+
+        // Provider selection callback
+        if (this.providerSelection) {
+          this.providerSelection.setOnProviderSelected((provider, index) => {
+            console.log("Provider selected:", provider.facility_name);
+          });
+
+          this.providerSelection.setOnBookingCompleted((bookingData) => {
+            console.log("Booking completed:", bookingData);
+            if (this.uiManager) {
+              this.uiManager.showSuccess(
+                "Booking confirmed! Check your email for details."
+              );
+            }
+          });
+        }
+      }
+
+      // ===========================================
+      // Filter and Sort Handlers
+      // ===========================================
+
+      handleSort(sortBy) {
+        if (this.searchEngine) {
+          const sortedResults = this.searchEngine.sort(sortBy);
+          this.updateProviderList(sortedResults);
+
+          if (this.mapManager) {
+            this.mapManager.addProviderMarkers(sortedResults);
+          }
+        }
+      }
+
+      handleFilter(filterType, value) {
+        this.currentFilters[filterType] = value;
+
+        if (this.searchEngine) {
+          const filteredResults = this.searchEngine.filter(this.currentFilters);
+          this.updateProviderList(filteredResults);
+
+          if (this.mapManager) {
+            this.mapManager.addProviderMarkers(filteredResults);
+          }
+        }
+      }
+
+      clearFilters() {
+        this.currentFilters = {};
+
+        // Reset form controls
+        document.getElementById("sortBy").value = "distance";
+        document.getElementById("maxDistance").value = "25";
+        document.getElementById("maxPrice").value = "";
+
+        // Show all results
+        this.updateProviderList(this.currentResults);
+
+        if (this.mapManager) {
+          this.mapManager.addProviderMarkers(this.currentResults);
+        }
+      }
+
+      // ===========================================
+      // Pagination and Navigation
+      // ===========================================
+
+      handlePageChange(page) {
+        if (this.searchEngine) {
+          const pageResults = this.searchEngine.getPage(page);
+          this.updateProviderList(pageResults.results);
+
+          // Scroll to top of results
+          document.getElementById("resultsContainer")?.scrollIntoView({
+            behavior: "smooth",
+          });
+        }
+      }
+
+      expandSearch() {
+        // Expand search radius and re-search
+        if (this.searchEngine && this.searchEngine.searchParams) {
+          const currentParams = { ...this.searchEngine.searchParams };
+          currentParams.maxDistance = 50;
+          this.handleSearch(currentParams);
+        }
+      }
+
+      changeLocation() {
+        // Clear search and focus on ZIP input
+        document.getElementById("zipCode")?.focus();
+        if (this.uiManager) {
+          this.uiManager.hideElement("resultsContainer");
+          this.uiManager.hideElement("noResults");
+        }
+      }
+
+      // ===========================================
+      // Utility Functions
+      // ===========================================
+
+      updateURL(params) {
+        const url = new URL(window.location);
+        url.searchParams.set("zip", params.zipCode || "");
+        url.searchParams.set("state", params.state || "FL");
+        url.searchParams.set("procedure", params.procedure || "70551");
+
+        window.history.replaceState({}, "", url);
+      }
+
+      showError(message) {
+        if (this.uiManager) {
+          this.uiManager.showError(message);
+        } else {
+          // Fallback error display
+          const errorContainer = document.getElementById("errorContainer");
+          const errorMessage = document.getElementById("errorMessage");
+
+          if (errorContainer && errorMessage) {
+            errorMessage.textContent = message;
+            errorContainer.classList.remove("hidden");
+
+            setTimeout(() => {
+              errorContainer.classList.add("hidden");
+            }, 5000);
+          }
+        }
+      }
+    }
+
+    // ===========================================
+    // Global Functions for Components
+    // ===========================================
+
+    // Make functions available globally for component callbacks
+    window.handleSearch = (params) => {
+      if (window.searchPageController) {
+        window.searchPageController.handleSearch(params);
+      }
+    };
+
+    window.handlePageChange = (page) => {
+      if (window.searchPageController) {
+        window.searchPageController.handlePageChange(page);
+      }
+    };
+
+    window.selectProvider = (providerId, index) => {
+      if (window.providerSelectionManager) {
+        window.providerSelectionManager.selectProvider(providerId, index);
+      }
+    };
+
+    window.clearFilters = () => {
+      if (window.searchPageController) {
+        window.searchPageController.clearFilters();
+      }
+    };
+
+    window.expandSearch = () => {
+      if (window.searchPageController) {
+        window.searchPageController.expandSearch();
+      }
+    };
+
+    window.changeLocation = () => {
+      if (window.searchPageController) {
+        window.searchPageController.changeLocation();
+      }
+    };
+
+    // Initialize the application
+    document.addEventListener("DOMContentLoaded", () => {
+      window.searchPageController = new SearchPageController();
+    });
+  </script>
+
+  <!-- Google Maps API -->
+  <script
+    define:vars={{
+      googleMapsApiKey: import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY,
+    }}
+  >
+    if (googleMapsApiKey) {
+      window.GOOGLE_MAPS_API_KEY = googleMapsApiKey;
+    } else {
+      console.error("Google Maps API key not found in environment variables");
+    }
+  </script>
+
+  <!-- Custom Styles for Animations -->
+  <style>
+    .fade-in {
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .fade-out {
+      animation: fadeOut 0.3s ease forwards;
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .slide-in-up {
+      animation: slideInUp 0.4s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .provider-card {
+      transition: all 0.2s ease;
+    }
+
+    .provider-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .toast-enter {
+      transform: translateX(0) !important;
+      opacity: 1 !important;
+    }
+
+    .toast-exit {
+      transform: translateX(100%) !important;
+      opacity: 0 !important;
+    }
+  </style>
+</MainPatientLayout>

@@ -1,0 +1,170 @@
+---
+export interface ModalProps {
+  id: string;
+  title?: string;
+  size?: "sm" | "md" | "lg" | "xl";
+  closable?: boolean;
+  backdrop?: boolean;
+}
+
+const {
+  id,
+  title = "",
+  size = "md",
+  closable = true,
+  backdrop = true,
+} = Astro.props;
+
+const sizeClasses = {
+  sm: "max-w-sm",
+  md: "max-w-md",
+  lg: "max-w-lg",
+  xl: "max-w-xl",
+};
+---
+
+<!-- ===========================================
+     src/components/ui/Modal.astro
+     Reusable modal component
+     =========================================== -->
+<div
+  id={id}
+  class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden modal-backdrop"
+  data-backdrop={backdrop}
+>
+  <div class="flex items-center justify-center min-h-screen p-4">
+    <div
+      class={`bg-white rounded-lg shadow-xl ${sizeClasses[size]} w-full max-h-screen overflow-y-auto modal-content`}
+    >
+      {
+        (title || closable) && (
+          <div class="flex items-center justify-between p-6 border-b border-gray-200">
+            {title && (
+              <h3 class="text-lg font-semibold text-gray-900">{title}</h3>
+            )}
+
+            {closable && (
+              <button
+                class="modal-close text-gray-400 hover:text-gray-600 transition-colors"
+                aria-label="Close modal"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            )}
+          </div>
+        )
+      }
+
+      <div class="modal-body p-6">
+        <slot />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ id, backdrop, closable }}>
+  document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById(id);
+    const closeButtons = modal.querySelectorAll(".modal-close");
+
+    // Close button handlers
+    closeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        hideModal();
+      });
+    });
+
+    // Backdrop click handler
+    if (backdrop) {
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          hideModal();
+        }
+      });
+    }
+
+    // ESC key handler
+    if (closable) {
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          hideModal();
+        }
+      });
+    }
+
+    function hideModal() {
+      if (window.uiManager) {
+        window.uiManager.hideModal(id);
+      } else {
+        modal.classList.add("hidden");
+        document.body.classList.remove("overflow-hidden");
+      }
+    }
+
+    // Expose show/hide functions globally
+    window[`show${id.charAt(0).toUpperCase() + id.slice(1)}`] = () => {
+      if (window.uiManager) {
+        window.uiManager.showModal(id);
+      } else {
+        modal.classList.remove("hidden");
+        document.body.classList.add("overflow-hidden");
+      }
+    };
+
+    window[`hide${id.charAt(0).toUpperCase() + id.slice(1)}`] = hideModal;
+  });
+</script>
+
+<style>
+  .modal-backdrop {
+    transition: opacity 0.3s ease;
+  }
+
+  .modal-content {
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  .modal-enter {
+    animation: modalEnter 0.3s ease forwards;
+  }
+
+  .modal-exit {
+    animation: modalExit 0.3s ease forwards;
+  }
+
+  @keyframes modalEnter {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes modalExit {
+    from {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+  }
+</style>

@@ -1,0 +1,150 @@
+<!-- ===========================================
+     src/components/provider/ProviderList.astro
+     Provider grid/list container with pagination - FIXED
+     =========================================== -->
+
+     ---
+     export interface ProviderListProps {
+       providers?: any[];
+       currentPage?: number;
+       totalPages?: number;
+       totalResults?: number;
+       onPageChange?: string;
+       loading?: boolean;
+     }
+     
+     const {
+       providers = [],
+       currentPage = 1,
+       totalPages = 1,
+       totalResults = 0,
+       onPageChange = 'handlePageChange',
+       loading = false
+     } = Astro.props;
+     ---
+     
+     <div id="providerList" class="space-y-4">
+       <!-- Results Header -->
+       <div class="flex justify-between items-center mb-6">
+         <div>
+           <h2 class="text-xl font-semibold text-gray-900">
+             Available Providers
+           </h2>
+           <p class="text-sm text-gray-600">
+             Showing {providers.length} of {totalResults} providers
+           </p>
+         </div>
+         
+         <!-- View Toggle -->
+         <div class="flex items-center space-x-2">
+           <button id="gridView" class="p-2 text-gray-600 hover:text-blue-600 transition-colors">
+             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+               <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+             </svg>
+           </button>
+           <button id="listView" class="p-2 text-blue-600 hover:text-blue-800 transition-colors">
+             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+               <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+             </svg>
+           </button>
+         </div>
+       </div>
+     
+       <!-- Provider Cards Container -->
+       <div id="providerCards" class={`grid gap-4 ${loading ? 'opacity-50' : ''}`}>
+         {providers.map((provider, index) => (
+           <div class="provider-card-wrapper" data-aos="fade-up" data-aos-delay={index * 100}>
+             <!-- ProviderCard component would be imported here -->
+             <div class="provider-card-placeholder bg-gray-100 rounded-lg p-6">
+               <p>Provider card for {provider.facility_name} would render here</p>
+             </div>
+           </div>
+         ))}
+       </div>
+     
+       <!-- No Results State -->
+       {providers.length === 0 && !loading && (
+         <div class="text-center py-12">
+           <div class="text-6xl mb-4">🔍</div>
+           <h3 class="text-lg font-semibold text-gray-900 mb-2">
+             No providers found
+           </h3>
+           <p class="text-gray-600 mb-4">
+             Try adjusting your search criteria or expanding your search area.
+           </p>
+           <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+             Expand Search Area
+           </button>
+         </div>
+       )}
+     
+       <!-- Pagination -->
+       {totalPages > 1 && (
+         <div class="flex justify-center items-center space-x-2 mt-8">
+           <button 
+             class="px-3 py-2 text-sm text-gray-600 hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+             disabled={currentPage === 1}
+             onclick={`${onPageChange}(${currentPage - 1})`}
+           >
+             Previous
+           </button>
+           
+           <!-- Page Numbers - Fixed Fragment Issue -->
+           {Array.from({ length: Math.min(7, totalPages) }, (_, i) => {
+             let page;
+             if (totalPages <= 7) {
+               page = i + 1;
+             } else if (currentPage <= 4) {
+               page = i + 1;
+             } else if (currentPage > totalPages - 4) {
+               page = totalPages - 6 + i;
+             } else {
+               page = currentPage - 3 + i;
+             }
+             
+             return (
+               <button 
+                 key={page}
+                 class={`px-3 py-2 text-sm rounded-md transition-colors ${
+                   page === currentPage 
+                     ? 'bg-blue-600 text-white' 
+                     : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                 }`}
+                 onclick={`${onPageChange}(${page})`}
+               >
+                 {page}
+               </button>
+             );
+           })}
+           
+           <button 
+             class="px-3 py-2 text-sm text-gray-600 hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+             disabled={currentPage === totalPages}
+             onclick={`${onPageChange}(${currentPage + 1})`}
+           >
+             Next
+           </button>
+         </div>
+       )}
+     </div>
+     
+     <script define:vars={{ onPageChange }}>
+       document.addEventListener('DOMContentLoaded', () => {
+         // Setup view toggle functionality
+         const gridView = document.getElementById('gridView');
+         const listView = document.getElementById('listView');
+         const providerCards = document.getElementById('providerCards');
+         
+         gridView?.addEventListener('click', () => {
+           providerCards.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4';
+           gridView.classList.add('text-blue-600');
+           listView.classList.remove('text-blue-600');
+         });
+         
+         listView?.addEventListener('click', () => {
+           providerCards.className = 'grid grid-cols-1 gap-4';
+           listView.classList.add('text-blue-600');
+           gridView.classList.remove('text-blue-600');
+         });
+       });
+     </script>

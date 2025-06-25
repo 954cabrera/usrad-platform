@@ -1,0 +1,76 @@
+---
+export interface BadgeProps {
+  variant?: "default" | "success" | "warning" | "danger" | "info" | "purple";
+  size?: "sm" | "md" | "lg";
+  rounded?: boolean;
+  icon?: string;
+  class?: string;
+}
+
+const {
+  variant = "default",
+  size = "md",
+  rounded = false,
+  icon,
+  class: className = "",
+} = Astro.props;
+
+// Base classes
+const baseClasses = "inline-flex items-center font-medium";
+
+// Variant classes
+const variantClasses = {
+  default: "bg-gray-100 text-gray-800",
+  success: "bg-green-100 text-green-800",
+  warning: "bg-yellow-100 text-yellow-800",
+  danger: "bg-red-100 text-red-800",
+  info: "bg-blue-100 text-blue-800",
+  purple: "bg-purple-100 text-purple-800",
+};
+
+// Size classes
+const sizeClasses = {
+  sm: "px-2 py-0.5 text-xs",
+  md: "px-2.5 py-1 text-sm",
+  lg: "px-3 py-1.5 text-base",
+};
+
+// Rounded classes
+const roundedClass = rounded ? "rounded-full" : "rounded-md";
+
+// Combine all classes
+const badgeClasses = [
+  baseClasses,
+  variantClasses[variant],
+  sizeClasses[size],
+  roundedClass,
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<!-- ===========================================
+     src/components/ui/Badge.astro
+     Status indicators and badges
+     =========================================== -->
+<span class={badgeClasses}>
+  {icon && <span class="mr-1">{icon}</span>}
+  <slot />
+</span>
+
+<!-- Usage Examples:
+     
+     Basic Badge:
+     <Badge>New</Badge>
+     
+     Success Badge with Icon:
+     <Badge variant="success" icon="✓">Available</Badge>
+     
+     Large Rounded Badge:
+     <Badge variant="info" size="lg" rounded>1,500+ Centers</Badge>
+     
+     Custom Styling:
+     <Badge variant="warning" class="animate-pulse">Limited Time</Badge>
+     
+     -->
