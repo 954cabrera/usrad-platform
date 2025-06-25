@@ -306,6 +306,414 @@ const title = "Provider Search Test - USRad";
 
     <!-- Enhanced Styles -->
     <style>
+      /* USRad "Book Now & Save" Button Styles */
+      .usrad-select-btn {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        border: none;
+        border-radius: 14px;
+        padding: 18px 24px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow:
+          0 4px 15px rgba(16, 185, 129, 0.3),
+          0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        font-size: 16px;
+        margin-top: 20px;
+      }
+
+      .usrad-select-btn:hover {
+        transform: translateY(-2px);
+        box-shadow:
+          0 8px 25px rgba(16, 185, 129, 0.4),
+          0 4px 8px rgba(0, 0, 0, 0.15);
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      }
+
+      .usrad-select-btn:active {
+        transform: translateY(0);
+      }
+
+      .usrad-select-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .btn-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .action {
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      .savings {
+        font-size: 28px;
+        font-weight: 900;
+        color: #fef3c7;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        line-height: 1;
+      }
+
+      .btn-subtitle {
+        font-size: 13px;
+        opacity: 0.95;
+        margin-top: 2px;
+        font-weight: 500;
+      }
+
+      /* Animated shine effect */
+      .usrad-select-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.25),
+          transparent
+        );
+        transition: left 0.6s ease;
+      }
+
+      .usrad-select-btn:hover::before {
+        left: 100%;
+      }
+
+      /* Selection modal styles */
+      .selection-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+      }
+
+      .modal-content {
+        background: white;
+        padding: 32px;
+        border-radius: 16px;
+        max-width: 400px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .modal-content h3 {
+        color: #059669;
+        font-size: 1.5rem;
+        margin-bottom: 16px;
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .modal-actions button {
+        flex: 1;
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+      }
+
+      .modal-actions button:first-child {
+        background: #10b981;
+        color: white;
+      }
+
+      .modal-actions button:first-child:hover {
+        background: #059669;
+      }
+
+      .modal-actions button:last-child {
+        background: #f3f4f6;
+        color: #374151;
+      }
+
+      .modal-actions button:last-child:hover {
+        background: #e5e7eb;
+      }
+
+      @media (max-width: 768px) {
+        .usrad-select-btn {
+          padding: 16px 20px;
+        }
+
+        .savings {
+          font-size: 24px;
+        }
+      }
+
+      /* USRad Provider Card Enhancements */
+      .provider-card {
+        /* Keep your existing styles and add: */
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .provider-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+      }
+
+      .provider-card.selected {
+        border: 3px solid #10b981;
+        transform: translateY(-4px);
+        box-shadow: 0 16px 48px rgba(16, 185, 129, 0.3);
+      }
+
+      /* Enhanced pricing section */
+      .pricing-section {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border-radius: 12px;
+        padding: 20px;
+        margin: 20px 0;
+        border-left: 4px solid #10b981;
+      }
+
+      .usrad-price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .price-label {
+        font-size: 0.9rem;
+        color: #6b7280;
+        font-weight: 500;
+      }
+
+      .price-amount {
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: #059669;
+      }
+
+      .hospital-comparison {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 12px;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .hospital-price {
+        font-size: 0.9rem;
+        color: #dc2626;
+        text-decoration: line-through;
+        font-weight: 500;
+      }
+
+      .savings-badge {
+        background: linear-gradient(135deg, #fecaca 0%, #f87171 100%);
+        color: #7f1d1d;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        border: 1px solid #fca5a5;
+      }
+
+      /* Unique USRad CTA Button */
+      .usrad-select-btn {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        border: none;
+        border-radius: 14px;
+        padding: 18px 24px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow:
+          0 4px 15px rgba(16, 185, 129, 0.3),
+          0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        font-size: 16px;
+        margin-top: 20px;
+      }
+
+      .usrad-select-btn:hover {
+        transform: translateY(-2px);
+        box-shadow:
+          0 8px 25px rgba(16, 185, 129, 0.4),
+          0 4px 8px rgba(0, 0, 0, 0.15);
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      }
+
+      .usrad-select-btn:active {
+        transform: translateY(0);
+      }
+
+      .btn-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .action {
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      .savings {
+        font-size: 28px;
+        font-weight: 900;
+        color: #fef3c7;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        line-height: 1;
+      }
+
+      .btn-subtitle {
+        font-size: 13px;
+        opacity: 0.95;
+        margin-top: 2px;
+        font-weight: 500;
+      }
+
+      /* Animated shine effect */
+      .usrad-select-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.25),
+          transparent
+        );
+        transition: left 0.6s ease;
+      }
+
+      .usrad-select-btn:hover::before {
+        left: 100%;
+      }
+
+      /* Provider details styling */
+      .provider-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #f3f4f6;
+        font-size: 0.85rem;
+        color: #6b7280;
+      }
+
+      .locality-badge {
+        background: #e0f2fe;
+        color: #0369a1;
+        padding: 4px 8px;
+        border-radius: 8px;
+        font-weight: 500;
+      }
+
+      /* Selection modal */
+      .selection-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+      }
+
+      .modal-content {
+        background: white;
+        padding: 32px;
+        border-radius: 16px;
+        max-width: 400px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .modal-content h3 {
+        color: #059669;
+        font-size: 1.5rem;
+        margin-bottom: 16px;
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .modal-actions button {
+        flex: 1;
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+      }
+
+      .modal-actions button:first-child {
+        background: #10b981;
+        color: white;
+      }
+
+      .modal-actions button:first-child:hover {
+        background: #059669;
+      }
+
+      .modal-actions button:last-child {
+        background: #f3f4f6;
+        color: #374151;
+      }
+
+      .modal-actions button:last-child:hover {
+        background: #e5e7eb;
+      }
+
+      @media (max-width: 768px) {
+        .usrad-select-btn {
+          padding: 16px 20px;
+        }
+
+        .savings {
+          font-size: 24px;
+        }
+      }
+
       /* Loading Animation */
       .loading-dots::after {
         content: "";
@@ -452,6 +860,397 @@ const title = "Provider Search Test - USRad";
       /* Enhanced header with gradient */
       .bg-white.shadow-sm {
         background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      }
+
+      /* USRad SIGNATURE "Book Now & Save" Button */
+      .usrad-signature-btn {
+        background: linear-gradient(
+          135deg,
+          #ff6b6b 0%,
+          #4ecdc4 50%,
+          #45b7d1 100%
+        );
+        background-size: 200% 200%;
+        border: none;
+        border-radius: 16px;
+        padding: 20px 24px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        box-shadow:
+          0 8px 25px rgba(255, 107, 107, 0.3),
+          0 4px 15px rgba(78, 205, 196, 0.2),
+          0 2px 8px rgba(69, 183, 209, 0.1);
+        width: 100%;
+        font-size: 16px;
+        margin-top: 16px;
+        animation: gradientShift 4s ease infinite;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .usrad-signature-btn:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow:
+          0 15px 35px rgba(255, 107, 107, 0.4),
+          0 8px 20px rgba(78, 205, 196, 0.3),
+          0 4px 12px rgba(69, 183, 209, 0.2);
+        animation-duration: 2s;
+      }
+
+      .usrad-signature-btn:active {
+        transform: translateY(-1px) scale(1.01);
+      }
+
+      /* Gradient animation */
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .btn-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .btn-top-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+      }
+
+      .action-text {
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .savings-amount {
+        font-size: 24px;
+        font-weight: 900;
+        color: #fef3c7;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        line-height: 1;
+        background: linear-gradient(45deg, #fef3c7, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .btn-subtitle {
+        font-size: 12px;
+        opacity: 0.95;
+        font-weight: 500;
+        text-align: center;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Shine effect */
+      .btn-shine {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        transition: left 0.8s ease;
+        z-index: 1;
+      }
+
+      .usrad-signature-btn:hover .btn-shine {
+        left: 100%;
+      }
+
+      /* Subtle pulse effect */
+      .btn-pulse {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 16px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        animation: pulse 3s ease-in-out infinite;
+        z-index: 1;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.5;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 0.8;
+        }
+      }
+
+      /* Disabled state */
+      .usrad-signature-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+        animation: none;
+      }
+
+      @media (max-width: 768px) {
+        .usrad-signature-btn {
+          padding: 18px 20px;
+        }
+
+        .savings-amount {
+          font-size: 20px;
+        }
+
+        .action-text {
+          font-size: 14px;
+        }
+      }
+
+      /* Selection modal styles */
+      .selection-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+      }
+
+      .modal-content {
+        background: white;
+        padding: 32px;
+        border-radius: 16px;
+        max-width: 400px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .modal-content h3 {
+        color: #059669;
+        font-size: 1.5rem;
+        margin-bottom: 16px;
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .modal-actions button {
+        flex: 1;
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+      }
+
+      .modal-actions button:first-child {
+        background: #10b981;
+        color: white;
+      }
+
+      .modal-actions button:first-child:hover {
+        background: #059669;
+      }
+
+      .modal-actions button:last-child {
+        background: #f3f4f6;
+        color: #374151;
+      }
+
+      .modal-actions button:last-child:hover {
+        background: #e5e7eb;
+      }
+
+      /* Selected provider card styling */
+      .provider-card.selected {
+        border: 3px solid #10b981;
+        transform: translateY(-4px);
+        box-shadow: 0 16px 48px rgba(16, 185, 129, 0.3);
+      }
+
+      /* USRad SIGNATURE "Book Now & Save" Button */
+      .usrad-signature-btn {
+        background: linear-gradient(
+          135deg,
+          #ff6b6b 0%,
+          #4ecdc4 50%,
+          #45b7d1 100%
+        );
+        background-size: 200% 200%;
+        border: none;
+        border-radius: 16px;
+        padding: 20px 24px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        box-shadow:
+          0 8px 25px rgba(255, 107, 107, 0.3),
+          0 4px 15px rgba(78, 205, 196, 0.2),
+          0 2px 8px rgba(69, 183, 209, 0.1);
+        width: 100%;
+        font-size: 16px;
+        margin-top: 16px;
+        animation: gradientShift 4s ease infinite;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .usrad-signature-btn:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow:
+          0 15px 35px rgba(255, 107, 107, 0.4),
+          0 8px 20px rgba(78, 205, 196, 0.3),
+          0 4px 12px rgba(69, 183, 209, 0.2);
+        animation-duration: 2s;
+      }
+
+      .usrad-signature-btn:active {
+        transform: translateY(-1px) scale(1.01);
+      }
+
+      /* Gradient animation */
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .btn-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .btn-top-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+      }
+
+      .action-text {
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .savings-amount {
+        font-size: 24px;
+        font-weight: 900;
+        color: #fef3c7;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        line-height: 1;
+      }
+
+      .btn-subtitle {
+        font-size: 12px;
+        opacity: 0.95;
+        font-weight: 500;
+        text-align: center;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Shine effect */
+      .btn-shine {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        transition: left 0.8s ease;
+        z-index: 1;
+      }
+
+      .usrad-signature-btn:hover .btn-shine {
+        left: 100%;
+      }
+
+      /* Pulse effect */
+      .btn-pulse {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 16px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        animation: pulse 3s ease-in-out infinite;
+        z-index: 1;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.5;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 0.8;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .usrad-signature-btn {
+          padding: 18px 20px;
+        }
+
+        .savings-amount {
+          font-size: 20px;
+        }
+
+        .action-text {
+          font-size: 14px;
+        }
       }
     </style>
 
@@ -744,6 +1543,7 @@ const title = "Provider Search Test - USRad";
         });
 
         // Enhanced provider cards with better styling
+        // Enhanced provider cards with detailed information and signature button
         container.innerHTML = sortedProviders
           .map(
             (provider, index) => `
@@ -766,21 +1566,82 @@ const title = "Provider Search Test - USRad";
               <span class="text-sm">${provider.location.city}, ${provider.location.state}</span>
               ${provider.medicare_locality ? `<span class="ml-2 text-xs text-gray-500">• Medicare Locality: ${provider.medicare_locality}</span>` : ""}
             </div>
-            <div class="flex items-center text-green-600 text-sm font-medium">
+            <div class="flex items-center text-green-600 text-sm font-medium mb-2">
               <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
               </svg>
-              Available for booking
+              ✅ Available for booking
+            </div>
+            <!-- Distance Badge -->
+            <div class="inline-flex items-center bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium mb-3">
+              <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+              </svg>
+              ${getRandomDistance()} miles away
             </div>
           </div>
           <div class="text-right">
             <div class="text-3xl font-bold text-green-600 mb-1">$${provider.pricing.patient_price.toFixed(2)}</div>
             <div class="text-sm text-gray-500">Medicare + $75</div>
+            <div class="text-xs text-green-600 font-medium mt-1">${provider.pricing.savings_percentage}% OFF Hospital</div>
+          </div>
+        </div>
+
+        <!-- Procedure Details Section (Like Competitor) -->
+        <div class="bg-gray-50 rounded-lg p-4 mb-4">
+          <div class="text-sm font-semibold text-gray-700 mb-2">Studies Selected</div>
+          <div class="text-sm text-gray-600 mb-3">MRI - Brain - Without Contrast ($${provider.pricing.patient_price.toFixed(2)})</div>
+          
+          <div class="space-y-2">
+            <div class="text-sm font-medium text-gray-700">More Information:</div>
+            <div class="space-y-1 text-sm text-gray-600">
+              <div class="flex items-center">
+                <span class="text-green-600 mr-2">✓</span>
+                <span>Appointment Availability: Short Wait (0-3 days)</span>
+              </div>
+              <div class="flex items-center cursor-pointer hover:text-blue-600 transition-colors" onclick="toggleDetails(${index}, 'included')">
+                <span class="text-blue-600 mr-2">ℹ️</span>
+                <span class="underline">What's included?</span>
+              </div>
+              <div class="flex items-center cursor-pointer hover:text-blue-600 transition-colors" onclick="toggleDetails(${index}, 'rates')">
+                <span class="text-blue-600 mr-2">💰</span>
+                <span class="underline">Why our rates are lower?</span>
+              </div>
+              <div class="flex items-center cursor-pointer hover:text-blue-600 transition-colors" onclick="toggleDetails(${index}, 'process')">
+                <span class="text-blue-600 mr-2">📋</span>
+                <span class="underline">Scheduling Process</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Expandable Details (Hidden by default) -->
+          <div id="details-included-${index}" class="hidden mt-3 p-3 bg-blue-50 rounded-lg text-sm text-gray-700">
+            <strong>What's Included:</strong><br>
+            • Complete MRI Brain scan without contrast<br>
+            • Board-certified radiologist interpretation<br>
+            • Digital report delivery within 24-48 hours<br>
+            • USRad customer support throughout process
+          </div>
+          
+          <div id="details-rates-${index}" class="hidden mt-3 p-3 bg-green-50 rounded-lg text-sm text-gray-700">
+            <strong>Why Our Rates Are Lower:</strong><br>
+            • Direct Medicare pricing ($${provider.pricing.medicare_rate ? provider.pricing.medicare_rate.toFixed(2) : "244.97"} base rate)<br>
+            • No hospital facility fees or markups<br>
+            • Transparent $75 USRad service fee<br>
+            • Volume discounts with imaging centers
+          </div>
+          
+          <div id="details-process-${index}" class="hidden mt-3 p-3 bg-purple-50 rounded-lg text-sm text-gray-700">
+            <strong>Easy Scheduling Process:</strong><br>
+            1. Book online instantly with guaranteed pricing<br>
+            2. Receive appointment confirmation within 4 hours<br>
+            3. Pay securely online before your appointment<br>
+            4. Present digital voucher at imaging center
           </div>
         </div>
   
         <!-- Enhanced Pricing Breakdown -->
-        <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-4 mb-4">
+        <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-4 mb-4 border border-green-200">
           <div class="grid grid-cols-2 gap-4">
             <div>
               <div class="text-sm text-gray-600 mb-1">You Save</div>
@@ -797,7 +1658,7 @@ const title = "Provider Search Test - USRad";
           </div>
           <div class="mt-3 pt-3 border-t border-gray-200">
             <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-600">Medicare Rate: $${provider.pricing.medicare_rate.toFixed(2)}</span>
+              <span class="text-sm text-gray-600">Medicare Rate: $${provider.pricing.medicare_rate ? provider.pricing.medicare_rate.toFixed(2) : "244.97"}</span>
               <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-bold">
                 ${provider.pricing.savings_percentage}% OFF
               </span>
@@ -806,14 +1667,43 @@ const title = "Provider Search Test - USRad";
           </div>
         </div>
   
-        <!-- Enhanced Action Buttons -->
-        <div class="flex space-x-3">
-          <button class="book-btn text-white px-6 py-3 rounded-lg font-semibold flex-1 transition-all duration-200">
-            Book Now - Save $${Math.round(provider.pricing.patient_savings)}
-          </button>
-          <button class="border border-gray-300 text-gray-700 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
-            View Details
-          </button>
+        <!-- ENHANCED "Book Now & Save" Button with SIGNATURE STYLING -->
+        <div class="flex justify-end items-start mb-2">
+        <button
+            class="inline-flex items-center gap-2 bg-gradient-to-r from-[#cc9933] to-yellow-400 text-[#003087] font-semibold text-sm px-5 py-2.5 rounded-full shadow hover:scale-105 hover:shadow-xl transition-all duration-200"
+            onclick="selectProvider('${provider.id}', this, ${index})"
+        >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M17 16l4-4m0 0l-4-4m4 4H3" />
+            </svg>
+            Book Now & Save
+        </button>
+        </div>
+
+
+
+          
+          <!-- Trust indicators below button -->
+          <div class="flex items-center justify-center mt-2 text-xs text-gray-500 space-x-4">
+            <span class="flex items-center">
+              <svg class="w-3 h-3 mr-1 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Secure Payment
+            </span>
+            <span class="flex items-center">
+              <svg class="w-3 h-3 mr-1 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+              </svg>
+              Quick Booking
+            </span>
+            <span class="flex items-center">
+              <svg class="w-3 h-3 mr-1 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Guaranteed Price
+            </span>
+          </div>
         </div>
       </div>
     `
@@ -1057,6 +1947,178 @@ const title = "Provider Search Test - USRad";
         }
       }
 
+      // Helper function for random distance (you can replace with real data later)
+      function getRandomDistance() {
+        return (Math.random() * 30 + 2).toFixed(1);
+      }
+
+      // Function to toggle detail sections
+      function toggleDetails(index, type) {
+        const detailsId = `details-${type}-${index}`;
+        const element = document.getElementById(detailsId);
+
+        if (element) {
+          // Hide all other details for this provider
+          ["included", "rates", "process"].forEach((detailType) => {
+            if (detailType !== type) {
+              const otherElement = document.getElementById(
+                `details-${detailType}-${index}`
+              );
+              if (otherElement) {
+                otherElement.classList.add("hidden");
+              }
+            }
+          });
+
+          // Toggle current element
+          element.classList.toggle("hidden");
+
+          // Smooth scroll to element if opening
+          if (!element.classList.contains("hidden")) {
+            setTimeout(() => {
+              element.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }, 100);
+          }
+        }
+      }
+
+      // Enhanced provider selection with modal
+      let selectedProvider = null;
+
+      function selectProvider(providerId, buttonElement, providerIndex) {
+        // Remove previous selections
+        document.querySelectorAll(".provider-card").forEach((card) => {
+          card.classList.remove("selected");
+        });
+
+        // Add selected state to current card
+        const card = buttonElement.closest(".provider-card");
+        card.classList.add("selected");
+
+        selectedProvider = {
+          id: providerId,
+          index: providerIndex,
+          data: allProviders[providerIndex],
+        };
+
+        // Get provider details
+        const providerName = allProviders[providerIndex].name;
+        const savingsAmount = Math.round(
+          allProviders[providerIndex].pricing.patient_savings
+        );
+        const patientPrice = allProviders[providerIndex].pricing.patient_price;
+
+        // Show selection confirmation
+        showSelectionModal(providerName, savingsAmount, patientPrice);
+
+        // Analytics tracking
+        console.log(
+          "Provider selected:",
+          providerId,
+          "Provider:",
+          providerName,
+          "Savings:",
+          savingsAmount
+        );
+      }
+
+      function showSelectionModal(providerName, savings, price) {
+        const modal = document.createElement("div");
+        modal.className = "selection-modal";
+        modal.innerHTML = `
+    <div class="modal-content">
+      <h3>Excellent Choice! 🎉</h3>
+      <p>You selected <strong>${providerName}</strong></p>
+      <div style="background: #f0fdf4; padding: 16px; border-radius: 8px; margin: 16px 0;">
+        <div style="color: #059669; font-size: 24px; font-weight: 900; margin-bottom: 8px;">
+          Save $${savings}
+        </div>
+        <div style="color: #6b7280; font-size: 14px;">
+          Your price: $${price.toFixed(2)} vs hospital pricing
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button onclick="proceedToBooking()" style="background: #10b981; color: white; padding: 12px 16px; border-radius: 8px; border: none; cursor: pointer; flex: 1; font-weight: 600;">Continue to Booking</button>
+        <button onclick="closeModal()" style="background: #f3f4f6; color: #374151; padding: 12px 16px; border-radius: 8px; border: none; cursor: pointer; flex: 1; font-weight: 600; margin-left: 12px;">Keep Shopping</button>
+      </div>
+    </div>
+  `;
+
+        // Apply modal styles
+        modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+  `;
+
+        // Apply modal content styles
+        const modalContent = modal.querySelector(".modal-content");
+        if (modalContent) {
+          modalContent.style.cssText = `
+      background: white;
+      padding: 32px;
+      border-radius: 16px;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    `;
+        }
+
+        // Apply modal actions styles
+        const modalActions = modal.querySelector(".modal-actions");
+        if (modalActions) {
+          modalActions.style.cssText = `
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    `;
+        }
+
+        document.body.appendChild(modal);
+
+        // Add click outside to close
+        modal.addEventListener("click", function (e) {
+          if (e.target === modal) {
+            closeModal();
+          }
+        });
+
+        // Add keyboard support (Escape key)
+        document.addEventListener("keydown", function escapeHandler(e) {
+          if (e.key === "Escape") {
+            closeModal();
+            document.removeEventListener("keydown", escapeHandler);
+          }
+        });
+      }
+
+      function proceedToBooking() {
+        closeModal();
+
+        if (selectedProvider && selectedProvider.data) {
+          alert(
+            `Proceeding to booking for ${selectedProvider.data.name}...\nSavings: $${Math.round(selectedProvider.data.pricing.patient_savings)}\nPrice: $${selectedProvider.data.pricing.patient_price.toFixed(2)}`
+          );
+          // Replace with actual navigation when ready:
+          // window.location.href = `/booking/${selectedProvider.id}`;
+        }
+      }
+
+      function closeModal() {
+        const modal = document.querySelector(".selection-modal");
+        if (modal) {
+          modal.remove();
+        }
+      }
+
       // Enhanced helper functions
       function getBorderClass(index) {
         if (index === 0) return "border-yellow-400"; // Best deal
@@ -1102,7 +2164,6 @@ const title = "Provider Search Test - USRad";
       // Price filtering function
       function applyPriceFilter(range) {
         let filteredProviders = [...allProviders];
-
         switch (range) {
           case "under_300":
             filteredProviders = allProviders.filter(
@@ -1221,37 +2282,37 @@ const title = "Provider Search Test - USRad";
       }
     </script>
     <script>
-       window.addEventListener('load', function() { 
-        const zipInput = document.getElementById('zipCode');
-    const procedureSelect = document.getElementById('procedure');
-    const resultsContainer = document.getElementById('results');
-    
-    if (zipInput) {
-      zipInput.value = '';
-      zipInput.setAttribute('autocomplete', 'off');
-    }
-    
-    if (procedureSelect) {
-      procedureSelect.selectedIndex = 0;
-    }
-    
-    if (resultsContainer) {
-      resultsContainer.innerHTML = '';
-      resultsContainer.style.display = 'none';
-    }
-    
-    console.log('✅ Form reset - clean slate for new visitor');
-  });
+      window.addEventListener("load", function () {
+        const zipInput = document.getElementById("zipCode");
+        const procedureSelect = document.getElementById("procedure");
+        const resultsContainer = document.getElementById("results");
 
-  document.addEventListener('visibilitychange', function() {
-    if (!document.hidden) {
-      const zipInput = document.getElementById('zipCode');
-      if (zipInput && zipInput.value === '33330') {
-        zipInput.value = '';
-        console.log('✅ Cleared cached ZIP code');
-      }
-    }
-  });
-</script>
+        if (zipInput) {
+          zipInput.value = "";
+          zipInput.setAttribute("autocomplete", "off");
+        }
+
+        if (procedureSelect) {
+          procedureSelect.selectedIndex = 0;
+        }
+
+        if (resultsContainer) {
+          resultsContainer.innerHTML = "";
+          resultsContainer.style.display = "none";
+        }
+
+        console.log("✅ Form reset - clean slate for new visitor");
+      });
+
+      document.addEventListener("visibilitychange", function () {
+        if (!document.hidden) {
+          const zipInput = document.getElementById("zipCode");
+          if (zipInput && zipInput.value === "33330") {
+            zipInput.value = "";
+            console.log("✅ Cleared cached ZIP code");
+          }
+        }
+      });
+    </script>
   </div>
 </MainPatientLayout>
