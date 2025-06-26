@@ -1,0 +1,566 @@
+/* ===========================================
+   src/styles/provider-cards.css
+   Complete CSS styling to match search-test.astro exactly
+   =========================================== */
+
+/* Enhanced Card Hover Effects - EXACT match to search-test.astro */
+.provider-card {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.provider-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    border-left-width: 6px;
+}
+
+.provider-card.selected {
+    border: 3px solid #10b981;
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(16, 185, 129, 0.3);
+}
+
+/* Border color classes for provider cards */
+.border-blue-500 {
+    border-left-color: #3b82f6;
+}
+
+.border-green-500 {
+    border-left-color: #10b981;
+}
+
+.border-purple-500 {
+    border-left-color: #8b5cf6;
+}
+
+.border-orange-500 {
+    border-left-color: #f97316;
+}
+
+.border-red-500 {
+    border-left-color: #ef4444;
+}
+
+.border-indigo-500 {
+    border-left-color: #6366f1;
+}
+
+.border-pink-500 {
+    border-left-color: #ec4899;
+}
+
+.border-yellow-500 {
+    border-left-color: #eab308;
+}
+
+/* Enhanced Savings Display - EXACT gradient from search-test.astro */
+.savings-highlight {
+    background: linear-gradient(45deg, #10b981, #059669, #047857);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    animation: gradient-shift 3s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Enhanced pricing section - EXACT styling from search-test.astro */
+.pricing-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    border-left: 4px solid #10b981;
+}
+
+.usrad-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px 0;
+}
+
+.price-label {
+    font-size: 0.9rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+/* Enhanced Button Styles - EXACT from search-test.astro */
+.book-btn {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.book-btn:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+}
+
+.book-btn:focus {
+    outline: none;
+    ring: 2px;
+    ring-color: #3b82f6;
+    ring-offset: 2px;
+}
+
+/* Badge styles for different provider types */
+.badge-best-value {
+    background-color: #dbeafe;
+    color: #1e40af;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-fastest {
+    background-color: #dcfce7;
+    color: #166534;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-premium {
+    background-color: #f3e8ff;
+    color: #7c3aed;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-popular {
+    background-color: #fed7aa;
+    color: #9a3412;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-new {
+    background-color: #fee2e2;
+    color: #991b1b;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-trusted {
+    background-color: #e0e7ff;
+    color: #3730a3;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-featured {
+    background-color: #fce7f3;
+    color: #be185d;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-certified {
+    background-color: #fef3c7;
+    color: #92400e;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Distance badge styling */
+.distance-badge {
+    background-color: #eff6ff;
+    color: #1d4ed8;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+/* Trust indicators styling */
+.trust-indicators {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.trust-item svg {
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-right: 0.25rem;
+    color: #10b981;
+}
+
+/* Availability section styling */
+.availability-section {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.availability-content {
+    display: flex;
+    align-items: center;
+    color: #15803d;
+}
+
+.availability-content svg {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+}
+
+/* Features section styling */
+.features-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-tag {
+    background-color: #eff6ff;
+    color: #1d4ed8;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Loading animation for provider cards */
+.provider-card-skeleton {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.skeleton-line {
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 0.25rem;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Modal styling - EXACT from search-test.astro */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modal-appear 0.3s ease-out;
+}
+
+@keyframes modal-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modal-content h3 {
+    color: #059669;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.modal-actions button {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+}
+
+.modal-actions button:first-child {
+    background: #10b981;
+    color: white;
+}
+
+.modal-actions button:first-child:hover {
+    background: #059669;
+    transform: translateY(-1px);
+}
+
+.modal-actions button:last-child {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.modal-actions button:last-child:hover {
+    background: #e5e7eb;
+}
+
+/* Loading dots animation - EXACT from search-test.astro */
+.loading-dots::after {
+    content: "";
+    animation: loading-dots 1.5s infinite;
+}
+
+@keyframes loading-dots {
+
+    0%,
+    20% {
+        content: "";
+    }
+
+    40% {
+        content: ".";
+    }
+
+    60% {
+        content: "..";
+    }
+
+    80%,
+    100% {
+        content: "...";
+    }
+}
+
+/* Pulse animation for loading states */
+.pulse-bg {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Map enhancement styling */
+#map {
+    border-radius: 0 0 8px 8px;
+    position: relative;
+}
+
+.map-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f4f6;
+}
+
+.map-placeholder-content {
+    text-align: center;
+    color: #9ca3af;
+}
+
+.map-placeholder-content svg {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 0.5rem;
+}
+
+/* Responsive adjustments - EXACT from search-test.astro */
+@media (max-width: 768px) {
+    .provider-card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .provider-card:hover {
+        transform: translateY(-2px) scale(1.01);
+    }
+
+    .pricing-section {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    .text-3xl {
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+
+    .modal-content {
+        padding: 24px;
+        margin: 1rem;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .book-btn {
+        padding: 16px 20px;
+        font-size: 1rem;
+    }
+
+    .savings-highlight {
+        font-size: 1.125rem;
+    }
+
+    .grid.grid-cols-1.md\\:grid-cols-4 {
+        grid-template-columns: 1fr;
+    }
+
+    .lg\\:col-span-2,
+    .lg\\:col-span-1 {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 640px) {
+    .provider-card {
+        padding: 0.75rem;
+    }
+
+    .pricing-section {
+        padding: 0.75rem;
+    }
+
+    .usrad-price {
+        margin-bottom: 8px;
+    }
+
+    .distance-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .feature-tag {
+        font-size: 0.625rem;
+        padding: 0.125rem 0.375rem;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .provider-card {
+        border: 2px solid #000;
+    }
+
+    .savings-highlight {
+        background: #059669;
+        -webkit-background-clip: initial;
+        -webkit-text-fill-color: initial;
+        background-clip: initial;
+        color: white;
+        padding: 0.125rem 0.25rem;
+        border-radius: 0.25rem;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+
+    .provider-card,
+    .book-btn,
+    .modal-content {
+        transition: none;
+    }
+
+    .provider-card:hover {
+        transform: none;
+    }
+
+    .book-btn:hover {
+        transform: none;
+    }
+
+    .savings-highlight {
+        animation: none;
+    }
+
+    .loading-dots::after {
+        animation: none;
+        content: "...";
+    } }

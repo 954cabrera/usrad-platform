@@ -1,0 +1,400 @@
+---
+// ===========================================
+// src/components/provider/ProviderList.astro
+// Provider grid/list container with EXACT layout from search-test.astro
+// ===========================================
+
+export interface ProviderListProps {
+  providers?: any[];
+  currentPage?: number;
+  totalPages?: number;
+  totalResults?: number;
+  onPageChange?: string;
+  loading?: boolean;
+  showFilters?: boolean;
+}
+
+const {
+  providers = [],
+  currentPage = 1,
+  totalPages = 1,
+  totalResults = 0,
+  onPageChange = "handlePageChange",
+  loading = false,
+  showFilters = true,
+} = Astro.props;
+
+// Import the ProviderCard component
+import ProviderCard from "./ProviderCard.astro";
+
+// Create pagination pages array
+const createPaginationPages = (current, total) => {
+  const pages = [];
+
+  if (total <= 7) {
+    for (let i = 1; i <= total; i++) {
+      pages.push(i);
+    }
+  } else if (current <= 4) {
+    for (let i = 1; i <= 7; i++) {
+      pages.push(i);
+    }
+  } else if (current > total - 4) {
+    for (let i = total - 6; i <= total; i++) {
+      pages.push(i);
+    }
+  } else {
+    for (let i = current - 3; i <= current + 3; i++) {
+      pages.push(i);
+    }
+  }
+
+  return pages;
+};
+
+const paginationPages = createPaginationPages(currentPage, totalPages);
+---
+
+<!-- Provider Cards Container - Matching search-test.astro exactly -->
+<div id="providerResults">
+  <!-- Filters Section (matching search-test.astro) -->
+  {
+    showFilters && (
+      <div class="bg-white rounded-lg shadow-sm p-4 mb-6 border border-gray-200">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center space-x-4">
+            <div>
+              <label for="sortBy" class="text-sm text-gray-600 mr-2">
+                Sort by:
+              </label>
+              <select
+                id="sortBy"
+                class="px-3 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="price">Lowest Price</option>
+                <option value="distance">Distance</option>
+                <option value="rating">Highest Rated</option>
+                <option value="availability">Most Available</option>
+              </select>
+            </div>
+            <div>
+              <label for="priceRange" class="text-sm text-gray-600 mr-2">
+                Price Range:
+              </label>
+              <select
+                id="priceRange"
+                class="px-3 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="all">All Prices</option>
+                <option value="under_300">Under $300</option>
+                <option value="300_400">$300 - $400</option>
+                <option value="over_400">Over $400</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  <!-- Important Pricing Disclaimer (matching search-test.astro) -->
+  <p class="text-sm text-gray-600 mb-6">
+    All prices include technical and professional components
+  </p>
+
+  <!-- Loading State -->
+  {
+    loading && (
+      <div class="space-y-4">
+        <div class="bg-white rounded-xl shadow-md p-6 animate-pulse">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <div class="h-6 bg-gray-200 rounded w-3/4 mb-2" />
+              <div class="h-4 bg-gray-200 rounded w-1/2 mb-2" />
+              <div class="h-4 bg-gray-200 rounded w-1/3" />
+            </div>
+            <div class="text-right">
+              <div class="h-8 bg-gray-200 rounded w-20 mb-2" />
+              <div class="h-4 bg-gray-200 rounded w-16" />
+            </div>
+          </div>
+          <div class="h-24 bg-gray-200 rounded mb-4" />
+          <div class="h-12 bg-gray-200 rounded" />
+        </div>
+        <div class="bg-white rounded-xl shadow-md p-6 animate-pulse">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <div class="h-6 bg-gray-200 rounded w-3/4 mb-2" />
+              <div class="h-4 bg-gray-200 rounded w-1/2 mb-2" />
+              <div class="h-4 bg-gray-200 rounded w-1/3" />
+            </div>
+            <div class="text-right">
+              <div class="h-8 bg-gray-200 rounded w-20 mb-2" />
+              <div class="h-4 bg-gray-200 rounded w-16" />
+            </div>
+          </div>
+          <div class="h-24 bg-gray-200 rounded mb-4" />
+          <div class="h-12 bg-gray-200 rounded" />
+        </div>
+        <div class="bg-white rounded-xl shadow-md p-6 animate-pulse">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <div class="h-6 bg-gray-200 rounded w-3/4 mb-2" />
+              <div class="h-4 bg-gray-200 rounded w-1/2 mb-2" />
+              <div class="h-4 bg-gray-200 rounded w-1/3" />
+            </div>
+            <div class="text-right">
+              <div class="h-8 bg-gray-200 rounded w-20 mb-2" />
+              <div class="h-4 bg-gray-200 rounded w-16" />
+            </div>
+          </div>
+          <div class="h-24 bg-gray-200 rounded mb-4" />
+          <div class="h-12 bg-gray-200 rounded" />
+        </div>
+      </div>
+    )
+  }
+
+  <!-- Provider Cards -->
+  {
+    !loading && providers.length > 0 && (
+      <div class="space-y-6">
+        {providers.map((provider, index) => (
+          <ProviderCard
+            provider={provider}
+            index={index}
+            onSelect="selectProvider"
+          />
+        ))}
+      </div>
+    )
+  }
+
+  <!-- No Results State -->
+  {
+    !loading && providers.length === 0 && (
+      <div class="bg-white rounded-lg shadow-md p-8 text-center">
+        <div class="text-gray-400 mb-4">
+          <svg
+            class="w-16 h-16 mx-auto"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          No providers found
+        </h3>
+        <p class="text-gray-600 mb-4">
+          Try adjusting your search criteria or expanding your search radius.
+        </p>
+        <button class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
+          Expand Search
+        </button>
+      </div>
+    )
+  }
+
+  <!-- Pagination (if totalPages > 1) -->
+  {
+    totalPages > 1 && (
+      <div class="flex justify-center items-center space-x-2 mt-8">
+        <button
+          class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+            currentPage === 1
+              ? "text-gray-400 cursor-not-allowed"
+              : "text-gray-700 hover:bg-gray-100"
+          }`}
+          disabled={currentPage === 1}
+          onclick={currentPage > 1 ? `${onPageChange}(${currentPage - 1})` : ""}
+        >
+          Previous
+        </button>
+
+        {paginationPages.map((pageNum) => (
+          <button
+            key={pageNum}
+            class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              pageNum === currentPage
+                ? "bg-blue-600 text-white"
+                : "text-gray-700 hover:bg-gray-100"
+            }`}
+            onclick={`${onPageChange}(${pageNum})`}
+          >
+            {pageNum}
+          </button>
+        ))}
+
+        <button
+          class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+            currentPage === totalPages
+              ? "text-gray-400 cursor-not-allowed"
+              : "text-gray-700 hover:bg-gray-100"
+          }`}
+          disabled={currentPage === totalPages}
+          onclick={
+            currentPage < totalPages
+              ? `${onPageChange}(${currentPage + 1})`
+              : ""
+          }
+        >
+          Next
+        </button>
+      </div>
+    )
+  }
+
+  <!-- Results Summary Footer -->
+  {
+    providers.length > 0 && (
+      <div class="mt-6 text-center text-sm text-gray-600">
+        Showing {(currentPage - 1) * 20 + 1} to{" "}
+        {Math.min(currentPage * 20, totalResults)} of {totalResults} providers
+      </div>
+    )
+  }
+</div>
+
+<style>
+  /* Smooth animations for loading states */
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Pagination hover effects */
+  .pagination-button {
+    transition: all 0.2s ease;
+  }
+
+  .pagination-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Filter section styling */
+  select:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .flex.flex-wrap.items-center.justify-between {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .flex.items-center.space-x-4 {
+      flex-direction: column;
+      align-items: stretch;
+      space-x: 0;
+      gap: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // ===========================================
+  // Provider List JavaScript - Matching search-test.astro functionality
+  // ===========================================
+
+  // Filter and sort functionality
+  document.addEventListener("DOMContentLoaded", function () {
+    const sortBy = document.getElementById("sortBy");
+    const priceRange = document.getElementById("priceRange");
+
+    if (sortBy) {
+      sortBy.addEventListener("change", function () {
+        const sortValue = this.value;
+        console.log("Sorting by:", sortValue);
+
+        // Trigger custom event for parent component to handle
+        window.dispatchEvent(
+          new CustomEvent("providerSort", {
+            detail: { sortBy: sortValue },
+          })
+        );
+      });
+    }
+
+    if (priceRange) {
+      priceRange.addEventListener("change", function () {
+        const rangeValue = this.value;
+        console.log("Filtering by price range:", rangeValue);
+
+        // Trigger custom event for parent component to handle
+        window.dispatchEvent(
+          new CustomEvent("providerFilter", {
+            detail: { priceRange: rangeValue },
+          })
+        );
+      });
+    }
+  });
+
+  // Highlight provider card when marker is hovered
+  window.highlightProviderCard = function (index) {
+    // Remove existing highlights
+    document.querySelectorAll(".provider-card").forEach((card) => {
+      card.classList.remove("ring-2", "ring-blue-500", "shadow-lg");
+    });
+
+    // Highlight the selected card
+    const targetCard = document.querySelector(
+      `[data-provider-index="${index}"]`
+    );
+    if (targetCard) {
+      targetCard.classList.add("ring-2", "ring-blue-500", "shadow-lg");
+      targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
+  // Remove highlight from provider card
+  window.unhighlightProviderCard = function (index) {
+    const targetCard = document.querySelector(
+      `[data-provider-index="${index}"]`
+    );
+    if (targetCard) {
+      targetCard.classList.remove("ring-2", "ring-blue-500", "shadow-lg");
+    }
+  };
+
+  // Select provider function
+  window.selectProvider = function (providerId, index) {
+    console.log("Provider selected:", providerId, index);
+
+    // Get provider data
+    const providerCard = document.querySelector(
+      `[data-provider-id="${providerId}"]`
+    );
+    const providerData = providerCard
+      ? JSON.parse(providerCard.dataset.providerData)
+      : null;
+
+    if (providerData) {
+      // Trigger selection event
+      window.dispatchEvent(
+        new CustomEvent("providerSelected", {
+          detail: {
+            provider: providerData,
+            index: index,
+          },
+        })
+      );
+    }
+  };
+</script>

@@ -33,7 +33,7 @@ const title = "Provider Search Test - USRad";
             <input
               type="text"
               id="zipCode"
-              value=""
+              value="33330"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter ZIP code"
             />
@@ -80,8 +80,6 @@ const title = "Provider Search Test - USRad";
 
           <div class="flex items-end">
             <button
-              type=""
-              button"
               id="searchBtn"
               class="w-full bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 font-medium"
             >
@@ -1603,15 +1601,15 @@ const title = "Provider Search Test - USRad";
               </div>
               <div class="flex items-center cursor-pointer hover:text-blue-600 transition-colors" onclick="toggleDetails(${index}, 'included')">
                 <span class="text-blue-600 mr-2">ℹ️</span>
-                <span class="underline">What's Covered in This Price?</span>
+                <span class="underline">What's included?</span>
               </div>
               <div class="flex items-center cursor-pointer hover:text-blue-600 transition-colors" onclick="toggleDetails(${index}, 'rates')">
                 <span class="text-blue-600 mr-2">💰</span>
-                <span class="underline">How Are We 76% Less Than Hospitals</span>
+                <span class="underline">Why our rates are lower?</span>
               </div>
               <div class="flex items-center cursor-pointer hover:text-blue-600 transition-colors" onclick="toggleDetails(${index}, 'process')">
                 <span class="text-blue-600 mr-2">📋</span>
-                <span class="underline">SHow Booking Works (in 2 Minutes)</span>
+                <span class="underline">Scheduling Process</span>
               </div>
             </div>
           </div>
@@ -2216,34 +2214,24 @@ const title = "Provider Search Test - USRad";
       document.addEventListener("DOMContentLoaded", function () {
         console.log("🔍 DOM loaded, setting up event listeners...");
 
-        // FIRST: Set up form validation prevention
-        const zipCodeInput = document.getElementById("zipCode");
-        if (zipCodeInput) {
-          zipCodeInput.removeAttribute("required"); // Remove if present
-          zipCodeInput.value = ""; // Ensure empty on page load
-          zipCodeInput.setAttribute("autocomplete", "off");
-
-          // Add Enter key support for ZIP code
-          zipCodeInput.addEventListener("keypress", function (e) {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              console.log("⏎ Enter key pressed in ZIP field");
-              searchProviders(true); // Show validation for manual searches
-            }
+        // Add click event listener to search button
+        const searchBtn = document.getElementById("searchBtn");
+        if (searchBtn) {
+          searchBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            console.log("🖱️ Search button clicked via event listener");
+            searchProviders();
           });
         }
 
-        // SECOND: Set up search button
-        const searchBtn = document.getElementById("searchBtn");
-        if (searchBtn) {
-          searchBtn.type = "button"; // Prevent form submission
-
-          // Add click event listener to search button
-          searchBtn.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log("🖱️ Search button clicked via event listener");
-            searchProviders(true); // Show validation for manual searches
+        // Add Enter key support for ZIP code
+        const zipCodeInput = document.getElementById("zipCode");
+        if (zipCodeInput) {
+          zipCodeInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              searchProviders();
+            }
           });
         }
 
@@ -2262,15 +2250,10 @@ const title = "Provider Search Test - USRad";
           });
         }
 
-        // Modified auto-trigger - NO popup, only runs if ZIP exists
+        // Auto-trigger search for demo purposes
         setTimeout(() => {
-          const zipCode = document.getElementById("zipCode").value.trim();
-          if (zipCode && zipCode !== "") {
-            console.log("🚀 Auto-triggering search for demo...");
-            searchProviders(false); // Pass false = no popup
-          } else {
-            console.log("🔍 No ZIP code provided - skipping auto-search");
-          }
+          console.log("🚀 Auto-triggering search for demo...");
+          searchProviders();
         }, 1000);
       });
 
