@@ -1259,6 +1259,9 @@ const title = "Provider Search Test - USRad";
     <!-- Enhanced JavaScript -->
     <script>
       // Define initMap IMMEDIATELY - before any other code
+      // REPLACE your window.initMap function with this version that starts hidden:
+
+      // SOLUTION 1: Update your initMap function to completely hide the map container
       window.initMap = function () {
         console.log("🗺️ initMap function called");
         const mapContainer = document.getElementById("map");
@@ -1270,6 +1273,9 @@ const title = "Provider Search Test - USRad";
         }
 
         console.log("🎯 Creating Google Map...");
+
+        // COMPLETELY HIDE the map container initially
+        mapContainer.style.display = "none"; // This completely hides it
 
         try {
           // Use window.map to make it globally accessible
@@ -1293,12 +1299,139 @@ const title = "Provider Search Test - USRad";
           });
           console.log("✅ Google Map created successfully!");
 
-          // Set map reference for other functions
-          map = window.map;
+          // IMPORTANT: Also set the local map variable for backward compatibility
+          if (typeof map !== "undefined") {
+            map = window.map;
+          }
+
+          // Mark map as initialized
+          window.mapInitialized = true;
+
+          console.log("🔗 Map references set:", {
+            "window.map": !!window.map,
+            "map variable": !!map,
+            "map has fitBounds": !!(window.map && window.map.fitBounds),
+          });
+
+          // Execute any pending callbacks
+          if (window.mapReadyCallbacks) {
+            console.log("🚀 Executing pending map callbacks");
+            window.mapReadyCallbacks.forEach((callback) => {
+              try {
+                callback();
+              } catch (error) {
+                console.error("Error in map callback:", error);
+              }
+            });
+            window.mapReadyCallbacks = [];
+          }
         } catch (error) {
           console.error("❌ Error creating map:", error);
         }
       };
+
+      // SOLUTION 2: Update the end of your addMapMarkersDirectly function
+      // Replace the end section with this:
+
+      /*
+At the very end of your addMapMarkersDirectly function, replace this section:
+
+console.log("✅ Map markers added successfully!");
+
+// Show the map with smooth transition (reduces flash effect)
+const mapContainer = document.getElementById("map");
+if (mapContainer) {
+  mapContainer.style.opacity = "1";
+  mapContainer.style.transition = "opacity 0.3s ease";
+}
+
+WITH THIS:
+
+console.log("✅ Map markers added successfully!");
+
+// Show the map container ONLY when we have results
+const mapContainer = document.getElementById("map");
+if (mapContainer && providers.length > 0) {
+  mapContainer.style.display = "block"; // Make it visible
+  mapContainer.style.opacity = "0"; // Start transparent
+  mapContainer.style.transition = "opacity 0.5s ease";
+  
+  // Fade in smoothly
+  setTimeout(() => {
+    mapContainer.style.opacity = "1";
+  }, 50);
+  
+  console.log("🎨 Map container made visible with", providers.length, "markers");
+} else {
+  console.log("⚠️ Map kept hidden - no providers to show");
+}
+*/
+
+      // SOLUTION 3: Alternative - Show placeholder text instead of empty map
+      // Add this to your searchProviders function right after showResults():
+
+      /*
+After this line in your searchProviders function:
+showResults();
+
+Add this:
+// Hide the map initially until markers are loaded
+const mapContainer = document.getElementById("map");
+if (mapContainer) {
+  mapContainer.style.display = "none";
+}
+*/
+
+      // ADD THIS NEW FUNCTION - ensureMapReady
+      function ensureMapReady(callback) {
+        console.log("🔍 ensureMapReady called");
+
+        if (
+          window.map &&
+          window.google &&
+          window.google.maps &&
+          window.mapInitialized
+        ) {
+          console.log("✅ Map is already ready - executing callback");
+          callback();
+          return;
+        }
+
+        // Wait for Google Maps API to load
+        if (window.google && window.google.maps) {
+          if (!window.mapInitialized) {
+            console.log("🧭 Google Maps API ready, calling initMap ONCE");
+            if (!window._mapInitTriggered) {
+              window._mapInitTriggered = true;
+              window.initMap(); // ✅ initialize only once manually
+            }
+          }
+
+          const waitForMap = setInterval(() => {
+            if (window.map && window.mapInitialized) {
+              clearInterval(waitForMap);
+              console.log("✅ Map initialized - executing callback");
+              callback();
+            }
+          }, 100);
+          return;
+        }
+
+        // If Google Maps not loaded yet, queue the callback
+        console.log("⏳ Google Maps API not ready, queueing callback");
+
+        if (!window.mapReadyCallbacks) {
+          window.mapReadyCallbacks = [];
+        }
+        window.mapReadyCallbacks.push(callback);
+
+        // Force-load Maps script if not already loaded
+        if (!window.google && !window.googleMapsLoading) {
+          console.log("🔄 Force loading Google Maps API");
+          window.googleMapsLoading = true;
+          loadGoogleMapsAPI();
+        }
+      }
 
       // Global variables for map and search
       let map = null;
@@ -1715,126 +1848,199 @@ const title = "Provider Search Test - USRad";
 
       // Enhanced marker styling with better colors
       function addMapMarkers(providers) {
-        if (!map || !window.google) {
-          console.log("Map or Google not available for markers");
+        console.log(
+          "🗺️ addMapMarkers called with",
+          providers.length,
+          "providers"
+        );
+
+        // If ensureMapReady doesn't exist, fall back to old behavior
+        if (typeof ensureMapReady !== "function") {
+          console.log("⚠️ ensureMapReady not available, using fallback");
+
+          if (!map || !window.google) {
+            console.log("Map or Google not available for markers");
+            return;
+          }
+
+          // Your original addMapMarkers logic here...
+          // (I'll provide the fallback version below)
+          addMapMarkersDirectly(providers);
           return;
         }
 
-        // Clear existing markers
-        markers.forEach((marker) => marker.setMap(null));
-        markers = [];
+        // Use the enhanced version with ensureMapReady
+        ensureMapReady(() => {
+          console.log("🎯 Map is ready, adding markers...");
+          addMapMarkersDirectly(providers);
+        });
+      }
 
-        if (providers.length === 0) return;
+      // STEP 3: Add this helper function that contains the actual marker logic:
+
+      // REPLACE your addMapMarkersDirectly function with this fixed version:
+
+      // ONLY REPLACE your addMapMarkersDirectly function with this:
+
+      function addMapMarkersDirectly(providers) {
+        // Clear existing markers
+        if (window.markers) {
+          markers.forEach((marker) => {
+            try {
+              marker.setMap(null);
+            } catch (error) {
+              console.warn("Error removing marker:", error);
+            }
+          });
+          markers = [];
+        } else {
+          window.markers = [];
+          markers = window.markers;
+        }
+
+        if (providers.length === 0) {
+          console.log("⚠️ No providers to show on map");
+          return;
+        }
+
+        // FIX: Make sure we have a valid map reference
+        const currentMap = window.map;
+
+        if (!currentMap || !currentMap.fitBounds) {
+          console.error("❌ No valid map instance available");
+          console.log("window.map:", window.map);
+          console.log("map variable:", map);
+          return;
+        }
+
+        console.log("✅ Using valid map instance:", currentMap);
 
         const bounds = new google.maps.LatLngBounds();
 
         providers.forEach((provider, index) => {
-          const coordinates = getProviderCoordinates(provider);
+          try {
+            const coordinates = getProviderCoordinates(provider);
 
-          // Enhanced marker colors based on ranking and savings
-          let markerColor;
-          const savingsPercent = provider.pricing.savings_percentage;
+            // Enhanced marker colors based on ranking and savings
+            let markerColor;
+            const savingsPercent = provider.pricing.savings_percentage;
 
-          if (index < 3) {
-            markerColor = "#10B981"; // Top 3: Bright green
-          } else if (savingsPercent >= 75) {
-            markerColor = "#059669"; // High savings: Dark green
-          } else if (savingsPercent >= 70) {
-            markerColor = "#3B82F6"; // Good savings: Blue
-          } else {
-            markerColor = "#6B7280"; // Lower savings: Gray
-          }
+            if (index < 3) {
+              markerColor = "#10B981"; // Top 3: Bright green
+            } else if (savingsPercent >= 75) {
+              markerColor = "#059669"; // High savings: Dark green
+            } else if (savingsPercent >= 70) {
+              markerColor = "#3B82F6"; // Good savings: Blue
+            } else {
+              markerColor = "#6B7280"; // Lower savings: Gray
+            }
 
-          const marker = new google.maps.Marker({
-            position: coordinates,
-            map: map,
-            title: provider.name,
-            icon: {
-              path: google.maps.SymbolPath.CIRCLE,
-              scale: index < 3 ? 10 : 8, // Bigger markers for top deals
-              fillColor: markerColor,
-              fillOpacity: 1,
-              strokeColor: "#ffffff",
-              strokeWeight: 2,
-            },
-          });
-
-          // Enhanced info window with better styling (COMPACT VERSION)
-          const infoWindow = new google.maps.InfoWindow({
-            content: `
-  <div style="padding: 6px; width: 180px; font-family: system-ui, -apple-system, sans-serif;">
-    <div style="display: flex; align-items: center; margin-bottom: 4px;">
-      <h3 style="margin: 0; color: #1f2937; font-size: 12px; font-weight: 600; flex: 1;">
-        ${provider.name}
-      </h3>
-      ${index < 3 ? `<span style="background: #10B981; color: white; font-size: 7px; padding: 1px 3px; border-radius: 6px; font-weight: bold;">${["🥇", "🥈", "🥉"][index]}</span>` : ""}
-    </div>
-    <div style="color: #6b7280; font-size: 9px; margin-bottom: 6px;">
-      📍 ${provider.location.city}, ${provider.location.state}
-    </div>
-    <div style="background: #f8f9fa; padding: 6px; border-radius: 4px; margin-bottom: 6px;">
-      <div style="display: flex; justify-between; align-items: center; margin-bottom: 3px;">
-        <div style="color: #10b981; font-size: 16px; font-weight: 800;">
-          $${provider.pricing.patient_price.toFixed(2)}
-        </div>
-        <div style="background: #10B981; color: white; padding: 1px 4px; border-radius: 8px; font-size: 8px; font-weight: bold;">
-          ${provider.pricing.savings_percentage}% OFF
-        </div>
-      </div>
-      <div style="font-size: 8px; color: #059669;">
-        Save $${provider.pricing.patient_savings.toFixed(0)} vs hospital
-      </div>
-    </div>
-    <button onclick="window.location.href='#book-${provider.id}'" style="background: #3B82F6; color: white; border: none; padding: 4px 8px; border-radius: 3px; font-size: 9px; font-weight: 600; cursor: pointer; width: 100%;">
-      Book Now
-    </button>
-  </div>
-  `,
-            maxWidth: 180,
-            pixelOffset: new google.maps.Size(0, -5),
-          });
-          marker.addListener("click", () => {
-            // Close any open info windows
-            markers.forEach((m, i) => {
-              if (m.infoWindow) m.infoWindow.close();
+            const marker = new google.maps.Marker({
+              position: coordinates,
+              map: currentMap,
+              title: provider.name,
+              icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: index < 3 ? 10 : 8, // Bigger markers for top deals
+                fillColor: markerColor,
+                fillOpacity: 1,
+                strokeColor: "#ffffff",
+                strokeWeight: 2,
+              },
             });
 
-            // Open this info window
-            infoWindow.open(map, marker);
+            // Enhanced info window with better styling (COMPACT VERSION)
+            const infoWindow = new google.maps.InfoWindow({
+              content: `
+<div style="padding: 6px; width: 180px; font-family: system-ui, -apple-system, sans-serif;">
+  <div style="display: flex; align-items: center; margin-bottom: 4px;">
+    <h3 style="margin: 0; color: #1f2937; font-size: 12px; font-weight: 600; flex: 1;">
+      ${provider.name}
+    </h3>
+    ${index < 3 ? `<span style="background: #10B981; color: white; font-size: 7px; padding: 1px 3px; border-radius: 6px; font-weight: bold;">${["🥇", "🥈", "🥉"][index]}</span>` : ""}
+  </div>
+  <div style="color: #6b7280; font-size: 9px; margin-bottom: 6px;">
+    📍 ${provider.location.city}, ${provider.location.state}
+  </div>
+  <div style="background: #f8f9fa; padding: 6px; border-radius: 4px; margin-bottom: 6px;">
+    <div style="display: flex; justify-between; align-items: center; margin-bottom: 3px;">
+      <div style="color: #10b981; font-size: 16px; font-weight: 800;">
+        $${provider.pricing.patient_price.toFixed(2)}
+      </div>
+      <div style="background: #10B981; color: white; padding: 1px 4px; border-radius: 8px; font-size: 8px; font-weight: bold;">
+        ${provider.pricing.savings_percentage}% OFF
+      </div>
+    </div>
+    <div style="font-size: 8px; color: #059669;">
+      Save $${provider.pricing.patient_savings.toFixed(0)} vs hospital
+    </div>
+  </div>
+  <button onclick="window.location.href='#book-${provider.id}'" style="background: #3B82F6; color: white; border: none; padding: 4px 8px; border-radius: 3px; font-size: 9px; font-weight: 600; cursor: pointer; width: 100%;">
+    Book Now
+  </button>
+</div>
+`,
+              maxWidth: 180,
+              pixelOffset: new google.maps.Size(0, -5),
+            });
 
-            // Scroll to provider in list
-            const providerCard = document.querySelector(
-              `[data-provider-index="${index}"]`
-            );
-            if (providerCard) {
-              providerCard.scrollIntoView({
-                behavior: "smooth",
-                block: "center",
+            marker.addListener("click", () => {
+              // Close any open info windows
+              markers.forEach((m, i) => {
+                if (m.infoWindow) m.infoWindow.close();
               });
-              // Add temporary highlight
-              providerCard.style.background =
-                "linear-gradient(135deg, #dbeafe, #bfdbfe)";
-              setTimeout(() => {
-                providerCard.style.background = "white";
-              }, 2000);
-            }
-          });
 
-          marker.infoWindow = infoWindow;
-          markers.push(marker);
-          bounds.extend(coordinates);
+              // Open this info window
+              infoWindow.open(currentMap, marker);
+
+              // Scroll to provider in list
+              const providerCard = document.querySelector(
+                `[data-provider-index="${index}"]`
+              );
+              if (providerCard) {
+                providerCard.scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                });
+                // Add temporary highlight
+                providerCard.style.background =
+                  "linear-gradient(135deg, #dbeafe, #bfdbfe)";
+                setTimeout(() => {
+                  providerCard.style.background = "white";
+                }, 2000);
+              }
+            });
+
+            marker.infoWindow = infoWindow;
+            markers.push(marker);
+            bounds.extend(coordinates);
+          } catch (error) {
+            console.error(
+              "Error creating marker for provider:",
+              provider.name,
+              error
+            );
+          }
         });
 
         // Fit map to show all markers with better padding
-        if (providers.length > 0) {
-          map.fitBounds(bounds, { padding: 50 });
+        try {
+          if (providers.length > 0 && currentMap.fitBounds) {
+            currentMap.fitBounds(bounds, { padding: 50 });
 
-          // Don't zoom in too much for single provider
-          google.maps.event.addListenerOnce(map, "bounds_changed", () => {
-            if (map.getZoom() > 12) {
-              map.setZoom(12);
-            }
-          });
+            // Don't zoom in too much for single provider
+            google.maps.event.addListenerOnce(
+              currentMap,
+              "bounds_changed",
+              () => {
+                if (currentMap.getZoom() > 12) {
+                  currentMap.setZoom(12);
+                }
+              }
+            );
+          }
+        } catch (error) {
+          console.error("Error fitting map bounds:", error);
         }
 
         // Update map status with enhanced info
@@ -1848,7 +2054,84 @@ const title = "Provider Search Test - USRad";
           );
           mapStatus.innerHTML = `<span class="font-semibold">${providers.length} centers found</span> • <span class="text-green-600">${avgSavings}% avg savings</span>`;
         }
+
+        console.log("✅ Map markers added successfully!");
+
+        // Show the map container ONLY when we have results
+        const mapContainer = document.getElementById("map");
+        if (mapContainer && providers.length > 0) {
+          mapContainer.style.display = "block"; // Make it visible
+          mapContainer.style.opacity = "0"; // Start transparent
+          mapContainer.style.transition = "opacity 0.5s ease";
+
+          // Fade in smoothly
+          setTimeout(() => {
+            mapContainer.style.opacity = "1";
+          }, 50);
+
+          console.log(
+            "🎨 Map container made visible with",
+            providers.length,
+            "markers"
+          );
+        } else {
+          console.log("⚠️ Map kept hidden - no providers to show");
+        }
       }
+
+      // ALSO: Make sure your initMap function properly sets the map reference
+      // Update your initMap function to ensure proper setup:
+      window.initMap = function () {
+        console.log("🗺️ initMap function called");
+        const mapContainer = document.getElementById("map");
+        console.log("📍 Map container found:", mapContainer);
+
+        if (!mapContainer) {
+          console.error('❌ Map container with id="map" not found!');
+          return;
+        }
+
+        console.log("🎯 Creating Google Map...");
+
+        try {
+          // Use window.map to make it globally accessible
+          window.map = new google.maps.Map(mapContainer, {
+            zoom: 10,
+            center: { lat: 26.1224, lng: -80.1373 }, // Default to Fort Lauderdale
+            mapTypeControl: false,
+            streetViewControl: false,
+            styles: [
+              {
+                featureType: "poi",
+                elementType: "labels",
+                stylers: [{ visibility: "off" }],
+              },
+              {
+                featureType: "transit",
+                elementType: "labels",
+                stylers: [{ visibility: "off" }],
+              },
+            ],
+          });
+          console.log("✅ Google Map created successfully!");
+
+          // IMPORTANT: Also set the local map variable for backward compatibility
+          if (typeof map !== "undefined") {
+            map = window.map;
+          }
+
+          // Mark map as initialized
+          window.mapInitialized = true;
+
+          console.log("🔗 Map references set:", {
+            "window.map": !!window.map,
+            "map variable": !!map,
+            "map has fitBounds": !!(window.map && window.map.fitBounds),
+          });
+        } catch (error) {
+          console.error("❌ Error creating map:", error);
+        }
+      };
 
       // Enhanced coordinate mapping with more cities
       function getProviderCoordinates(provider) {
@@ -1886,67 +2169,93 @@ const title = "Provider Search Test - USRad";
         return { lat: 26.1224, lng: -80.1373 };
       }
 
-      // Enhanced geocoding with user marker
+      // Enhanced geocoding with user marker - UPDATED VERSION
       async function geocodeZipCode(zipCode) {
-        if (!window.google || !zipCode) return null;
+        if (!zipCode) return null;
 
-        const geocoder = new google.maps.Geocoder();
+        return new Promise((resolve) => {
+          ensureMapReady(async () => {
+            if (!window.google || !window.google.maps) {
+              console.error("❌ Google Maps API not available for geocoding");
+              resolve(null);
+              return;
+            }
 
-        try {
-          const result = await new Promise((resolve, reject) => {
-            geocoder.geocode(
-              { address: zipCode + ", USA" },
-              (results, status) => {
-                if (status === "OK" && results[0]) {
-                  resolve(results[0]);
-                } else {
-                  reject(new Error("Geocoding failed"));
+            const geocoder = new google.maps.Geocoder();
+
+            try {
+              const result = await new Promise(
+                (geocodeResolve, geocodeReject) => {
+                  geocoder.geocode(
+                    { address: zipCode + ", USA" },
+                    (results, status) => {
+                      if (status === "OK" && results[0]) {
+                        geocodeResolve(results[0]);
+                      } else {
+                        geocodeReject(new Error("Geocoding failed"));
+                      }
+                    }
+                  );
                 }
+              );
+
+              const location = result.geometry.location;
+
+              // Remove existing user marker
+              if (window.userMarker) {
+                window.userMarker.setMap(null);
               }
-            );
+
+              // Make sure we have a valid map reference
+              const currentMap = window.map;
+              if (!currentMap) {
+                console.error("❌ No valid map instance for user marker");
+                resolve(null);
+                return;
+              }
+
+              // Add enhanced user location marker
+              window.userMarker = new google.maps.Marker({
+                position: location,
+                map: currentMap,
+                title: `Your location: ${zipCode}`,
+                icon: {
+                  path: google.maps.SymbolPath.CIRCLE,
+                  scale: 8,
+                  fillColor: "#1D4ED8",
+                  fillOpacity: 1,
+                  strokeColor: "#ffffff",
+                  strokeWeight: 3,
+                },
+              });
+
+              // Add user location info window
+              const userInfoWindow = new google.maps.InfoWindow({
+                content: `
+              <div style="padding: 10px; text-align: center; font-family: system-ui;">
+                <div style="font-weight: 600; color: #1f2937; margin-bottom: 4px;">📍 Your Location</div>
+                <div style="color: #6b7280; font-size: 13px;">${zipCode}</div>
+              </div>
+            `,
+              });
+
+              window.userMarker.addListener("click", () => {
+                userInfoWindow.open(currentMap, window.userMarker);
+              });
+
+              // Update the global userMarker variable for backward compatibility
+              if (typeof userMarker !== "undefined") {
+                userMarker = window.userMarker;
+              }
+
+              console.log("✅ User location marker added successfully");
+              resolve(location);
+            } catch (error) {
+              console.error("Geocoding error:", error);
+              resolve(null);
+            }
           });
-
-          const location = result.geometry.location;
-
-          // Remove existing user marker
-          if (userMarker) {
-            userMarker.setMap(null);
-          }
-
-          // Add enhanced user location marker
-          userMarker = new google.maps.Marker({
-            position: location,
-            map: map,
-            title: `Your location: ${zipCode}`,
-            icon: {
-              path: google.maps.SymbolPath.CIRCLE,
-              scale: 8,
-              fillColor: "#1D4ED8",
-              fillOpacity: 1,
-              strokeColor: "#ffffff",
-              strokeWeight: 3,
-            },
-          });
-
-          // Add user location info window
-          const userInfoWindow = new google.maps.InfoWindow({
-            content: `
-          <div style="padding: 10px; text-align: center; font-family: system-ui;">
-            <div style="font-weight: 600; color: #1f2937; margin-bottom: 4px;">📍 Your Location</div>
-            <div style="color: #6b7280; font-size: 13px;">${zipCode}</div>
-          </div>
-        `,
-          });
-
-          userMarker.addListener("click", () => {
-            userInfoWindow.open(map, userMarker);
-          });
-
-          return location;
-        } catch (error) {
-          console.error("Geocoding error:", error);
-          return null;
-        }
+        });
       }
 
       // Helper function for random distance (you can replace with real data later)
