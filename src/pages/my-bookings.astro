@@ -415,10 +415,10 @@ import MainPatientLayout from "../layouts/MainPatientLayout.astro";
       <!-- Upgrade Modal -->
       <div
         id="upgradeModal"
-        class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
+        class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-[9999]"
       >
         <div
-          class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white"
+          class="relative top-32 mx-auto p-5 border w-11/12 sm:w-96 max-w-md shadow-lg rounded-md bg-white"
         >
           <div class="mt-3 text-center">
             <h3 class="text-lg font-medium text-gray-900 mb-4">
@@ -428,7 +428,7 @@ import MainPatientLayout from "../layouts/MainPatientLayout.astro";
               Create an account to access your complete health journey,
               appointment history, and advanced features.
             </p>
-            <div class="flex space-x-4">
+            <div class="flex flex-col sm:flex-row gap-3">
               <button
                 onclick="hideUpgradeModal()"
                 class="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 transition duration-200"
@@ -441,132 +441,141 @@ import MainPatientLayout from "../layouts/MainPatientLayout.astro";
               >
                 Create Account
               </button>
+              <button
+                onclick="window.location.href = 'http://localhost:4321/patient-dashboard'"
+                class="flex-1 bg-gradient-to-r from-gray-400 to-gray-500 text-white py-2 px-4 rounded-md hover:from-gray-500 hover:to-gray-600 transition duration-200 text-sm"
+              >
+                🎯 Demo
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <script>
-    // Global functions for booking lookup
-    window.lookupByBookingId = async function () {
-      const bookingId = document.getElementById("bookingId").value.trim();
-      if (!bookingId) {
-        alert("Please enter a booking ID");
-        return;
-      }
-      await lookupBooking({ bookingId });
-    };
-
-    window.lookupByEmail = async function () {
-      const email = document.getElementById("email").value.trim();
-      if (!email) {
-        alert("Please enter an email address");
-        return;
-      }
-      await lookupBooking({ email });
-    };
-
-    async function lookupBooking(params) {
-      showLoading();
-
-      try {
-        // Simulate API call - replace with real API
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-
-        // Mock successful response
-        const mockBooking = {
-          bookingId: "USR-S3H9QE3S",
-          patientName: "John Smith",
-          procedure: "MRI Brain without contrast",
-          facilityName: "Cleveland Clinic Indian River Hospital",
-          amountPaid: "$319.97",
-          status: "pending_confirmation",
-          requestedDate: "Dec 15, 2024",
-          timeRemaining: "3h 45m",
+      <script>
+        // Global functions for booking lookup
+        window.lookupByBookingId = async function () {
+          const bookingId = document.getElementById("bookingId").value.trim();
+          if (!bookingId) {
+            alert("Please enter a booking ID");
+            return;
+          }
+          await lookupBooking({ bookingId });
         };
 
-        showBookingResults(mockBooking);
-      } catch (error) {
-        showError();
-      }
-    }
+        window.lookupByEmail = async function () {
+          const email = document.getElementById("email").value.trim();
+          if (!email) {
+            alert("Please enter an email address");
+            return;
+          }
+          await lookupBooking({ email });
+        };
 
-    function showLoading() {
-      document.getElementById("loading").classList.remove("hidden");
-      document.getElementById("error").classList.add("hidden");
-      document.getElementById("bookingResults").classList.add("hidden");
-    }
+        async function lookupBooking(params) {
+          showLoading();
 
-    function showError() {
-      document.getElementById("loading").classList.add("hidden");
-      document.getElementById("error").classList.remove("hidden");
-      document.getElementById("bookingResults").classList.add("hidden");
-    }
+          try {
+            // Simulate API call - replace with real API
+            await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    function showBookingResults(booking) {
-      document.getElementById("loading").classList.add("hidden");
-      document.getElementById("error").classList.add("hidden");
-      document.getElementById("bookingResults").classList.remove("hidden");
+            // Mock successful response
+            const mockBooking = {
+              bookingId: "USR-S3H9QE3S",
+              patientName: "John Smith",
+              procedure: "MRI Brain without contrast",
+              facilityName: "Cleveland Clinic Indian River Hospital",
+              amountPaid: "$319.97",
+              status: "pending_confirmation",
+              requestedDate: "Dec 15, 2024",
+              timeRemaining: "3h 45m",
+            };
 
-      // Populate booking details
-      document.getElementById("displayBookingId").textContent =
-        booking.bookingId;
-      document.getElementById("patientName").textContent = booking.patientName;
-      document.getElementById("procedureName").textContent = booking.procedure;
-      document.getElementById("facilityName").innerHTML =
-        `<span class="text-[#003087] font-semibold">USRad</span> via ${booking.facilityName}`;
-      document.getElementById("amountPaid").textContent = booking.amountPaid;
-      document.getElementById("requestedDate").textContent =
-        booking.requestedDate;
-      document.getElementById("timeRemaining").textContent =
-        booking.timeRemaining;
+            showBookingResults(mockBooking);
+          } catch (error) {
+            showError();
+          }
+        }
 
-      // Scroll to results
-      document
-        .getElementById("bookingResults")
-        .scrollIntoView({ behavior: "smooth" });
-    }
+        function showLoading() {
+          document.getElementById("loading").classList.remove("hidden");
+          document.getElementById("error").classList.add("hidden");
+          document.getElementById("bookingResults").classList.add("hidden");
+        }
 
-    window.showUpgradeModal = function () {
-      document.getElementById("upgradeModal").classList.remove("hidden");
-    };
+        function showError() {
+          document.getElementById("loading").classList.add("hidden");
+          document.getElementById("error").classList.remove("hidden");
+          document.getElementById("bookingResults").classList.add("hidden");
+        }
 
-    window.hideUpgradeModal = function () {
-      document.getElementById("upgradeModal").classList.add("hidden");
-    };
+        function showBookingResults(booking) {
+          document.getElementById("loading").classList.add("hidden");
+          document.getElementById("error").classList.add("hidden");
+          document.getElementById("bookingResults").classList.remove("hidden");
 
-    // Auto-populate from URL params (if coming from booking confirmation)
-    window.addEventListener("DOMContentLoaded", function () {
-      const urlParams = new URLSearchParams(window.location.search);
-      const bookingId = urlParams.get("bookingId");
-      const email = urlParams.get("email");
+          // Populate booking details
+          document.getElementById("displayBookingId").textContent =
+            booking.bookingId;
+          document.getElementById("patientName").textContent =
+            booking.patientName;
+          document.getElementById("procedureName").textContent =
+            booking.procedure;
+          document.getElementById("facilityName").innerHTML =
+            `<span class="text-[#003087] font-semibold">USRad</span> via ${booking.facilityName}`;
+          document.getElementById("amountPaid").textContent =
+            booking.amountPaid;
+          document.getElementById("requestedDate").textContent =
+            booking.requestedDate;
+          document.getElementById("timeRemaining").textContent =
+            booking.timeRemaining;
 
-      if (bookingId) {
-        document.getElementById("bookingId").value = bookingId;
-        lookupByBookingId();
-      } else if (email) {
-        document.getElementById("email").value = email;
-        lookupByEmail();
-      }
-    });
-  </script>
+          // Scroll to results
+          document
+            .getElementById("bookingResults")
+            .scrollIntoView({ behavior: "smooth" });
+        }
 
-  <style>
-    /* Custom animations for better UX */
-    .animate-pulse {
-      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
+        window.showUpgradeModal = function () {
+          document.getElementById("upgradeModal").classList.remove("hidden");
+        };
 
-    @keyframes pulse {
-      0%,
-      100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.5;
-      }
-    }
-  </style>
-</MainPatientLayout>
+        window.hideUpgradeModal = function () {
+          document.getElementById("upgradeModal").classList.add("hidden");
+        };
+
+        // Auto-populate from URL params (if coming from booking confirmation)
+        window.addEventListener("DOMContentLoaded", function () {
+          const urlParams = new URLSearchParams(window.location.search);
+          const bookingId = urlParams.get("bookingId");
+          const email = urlParams.get("email");
+
+          if (bookingId) {
+            document.getElementById("bookingId").value = bookingId;
+            lookupByBookingId();
+          } else if (email) {
+            document.getElementById("email").value = email;
+            lookupByEmail();
+          }
+        });
+      </script>
+
+      <style>
+        /* Custom animations for better UX */
+        .animate-pulse {
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+          0%,
+          100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.5;
+          }
+        }
+      </style>
+    </div>
+  </div></MainPatientLayout
+>
