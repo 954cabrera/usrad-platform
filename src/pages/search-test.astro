@@ -1744,7 +1744,7 @@ if (mapContainer) {
               </div>
               <div class="flex items-center cursor-pointer hover:text-blue-600 transition-colors" onclick="toggleDetails(${index}, 'process')">
                 <span class="text-blue-600 mr-2">📋</span>
-                <span class="underline">Show How Booking Works (in 2 Minutes)</span>
+                <span class="underline">Show HowBooking Works (in 2 Minutes)</span>
               </div>
             </div>
           </div>
@@ -1804,20 +1804,18 @@ if (mapContainer) {
   
         <!-- ENHANCED "Book Now & Save" Button with SIGNATURE STYLING -->
         <div class="flex justify-end items-start mb-2">
-        <button
-            class="inline-flex items-center gap-2 bg-gradient-to-r from-[#cc9933] to-yellow-400 text-[#003087] font-semibold text-sm px-5 py-2.5 rounded-full shadow hover:scale-105 hover:shadow-xl transition-all duration-200"
-            onclick="selectProvider('${provider.id}', this, ${index})"
-        >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M17 16l4-4m0 0l-4-4m4 4H3" />
-            </svg>
-            Book Now & Save
-        </button>
-        </div>
+  <a
+    href="/book?facilityId=${provider.id}&procedure=${encodeURIComponent("MRI Brain without contrast")}&cptCode=70551&price=${provider.pricing.patient_price}"
+    class="inline-flex items-center gap-2 bg-gradient-to-r from-[#cc9933] to-yellow-400 text-[#003087] font-semibold text-sm px-5 py-2.5 rounded-full shadow hover:scale-105 hover:shadow-xl transition-all duration-200"
+  >
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M17 16l4-4m0 0l-4-4m4 4H3" />
+    </svg>
+    Book Now & Save
+  </a>
+</div>
 
 
-
-          
           <!-- Trust indicators below button -->
           <div class="flex items-center justify-center mt-2 text-xs text-gray-500 space-x-4">
             <span class="flex items-center">
