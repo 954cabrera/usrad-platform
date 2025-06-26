@@ -101,6 +101,9 @@ const SkeletonReportsSystem = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
   const [sortBy, setSortBy] = useState('date');
+  const [selectedReport, setSelectedReport] = useState(null);
+  const [showReportModal, setShowReportModal] = useState(false);
+
 
   useEffect(() => {
     // 1 second loading time
@@ -330,10 +333,24 @@ const SkeletonReportsSystem = () => {
             </div>
 
             <div className="flex gap-2">
-              <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center justify-center">
-                <Eye className="w-4 h-4 mr-2" />
-                View
-              </button>
+            
+            <button 
+            onClick={() => {
+              if (report.id === 1) { // Brain MRI report
+                setSelectedReport({...report, reportUrl: '/reports/sarah-johnson-mri-report.html'});
+                setShowReportModal(true);
+              } else if (report.id === 3) { // Knee MRI report
+                setSelectedReport({...report, reportUrl: '/reports/sarah-johnson-knee-mri-report.html'});
+                setShowReportModal(true);
+              } else {
+                alert('Report viewer coming soon!');
+              }
+            }}
+            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center justify-center"
+          >
+            <Eye className="w-4 h-4 mr-2" />
+            View
+          </button>
               <button className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center justify-center">
                 <Download className="w-4 h-4 mr-2" />
                 Download
@@ -360,6 +377,31 @@ const SkeletonReportsSystem = () => {
           </div>
         </div>
       </div>
+
+      {/* Report Modal */}
+{showReportModal && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div className="bg-white rounded-lg max-w-6xl max-h-[95vh] overflow-auto w-full">
+      <div className="flex justify-between items-center p-4 border-b">
+        <h2 className="text-xl font-bold">Medical Report</h2>
+        <button 
+          onClick={() => setShowReportModal(false)}
+          className="text-gray-500 hover:text-gray-700 text-2xl px-2"
+        >
+          ✕
+        </button>
+      </div>
+      <div className="p-4">
+        <iframe 
+          src={selectedReport?.reportUrl || "/reports/sarah-johnson-mri-report.html"}
+          className="w-full h-[700px] border-0"
+          title="Medical Report"
+        />
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };

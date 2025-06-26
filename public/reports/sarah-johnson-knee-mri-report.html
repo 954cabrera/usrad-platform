@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRI Knee Report - Sarah Johnson</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 1in;
+            background: white;
+            color: #000;
+            line-height: 1.4;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        .facility-info {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .report-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-transform: uppercase;
+        }
+
+        .patient-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+        }
+
+        .info-section {
+            margin-bottom: 25px;
+        }
+
+        .section-header {
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 3px;
+            margin-bottom: 10px;
+        }
+
+        .finding {
+            margin-bottom: 15px;
+        }
+
+        .impression {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .signature-section {
+            margin-top: 40px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+
+        .physician-info {
+            float: right;
+            text-align: right;
+            width: 300px;
+        }
+
+        .accreditation {
+            margin-top: 30px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+            clear: both;
+        }
+
+        .demo-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 120px;
+            font-weight: bold;
+            color: rgba(128, 128, 128, 0.1);
+            pointer-events: none;
+            z-index: 1000;
+            user-select: none;
+        }
+
+        .urgent {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0.5in;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Demo Watermark -->
+    <div class="demo-watermark">DEMO PURPOSES</div>
+
+    <div class="header">
+        <div class="logo">South Beach Radiology</div>
+        <div class="facility-info">
+            1450 Lincoln Rd, Suite 301, Miami Beach, FL 33139<br>
+            Phone: (305) 674-2778 | Fax: (305) 674-2779<br>
+            Advanced Musculoskeletal Imaging Center
+        </div>
+    </div>
+
+    <div class="report-title">
+        Magnetic Resonance Imaging (MRI) Left Knee Report
+    </div>
+
+    <div class="patient-info">
+        <div>
+            <strong>Patient:</strong> Johnson, Sarah M.<br>
+            <strong>DOB:</strong> 06/15/1985 (Age: 39)<br>
+            <strong>MRN:</strong> SBR2024-94578<br>
+            <strong>Gender:</strong> Female<br>
+            <strong>Referring Physician:</strong> Dr. James Martinez, MD (Orthopedics)
+        </div>
+        <div>
+            <strong>Study Date:</strong> October 21, 2024<br>
+            <strong>Study Time:</strong> 16:15 EST<br>
+            <strong>Accession #:</strong> SBR24210934<br>
+            <strong>Study ID:</strong> MRI-KN-241021-007<br>
+            <strong>Modality:</strong> MRI
+        </div>
+    </div>
+
+    <div class="info-section">
+        <div class="section-header">Clinical History</div>
+        <p>39-year-old female with 6-week history of left knee pain following recreational running. Patient reports pain
+            is worse with weight-bearing activities, climbing stairs, and prolonged sitting. Some swelling noted. No
+            history of acute trauma or previous knee surgery. Physical exam reveals mild effusion and medial joint line
+            tenderness. Referring physician requesting MRI to evaluate for meniscal tear and assess cartilage integrity.
+        </p>
+    </div>
+
+    <div class="info-section">
+        <div class="section-header">Technique</div>
+        <p>MRI of the left knee was performed using a 1.5 Tesla MRI scanner with dedicated knee coil. Multiplanar
+            imaging was obtained including sagittal T1-weighted, T2-weighted, proton density, and coronal T2-weighted
+            sequences. Axial T2-weighted images were also acquired. No intravenous contrast was administered per
+            protocol.</p>
+    </div>
+
+    <div class="info-section">
+        <div class="section-header">Findings</div>
+
+        <div class="finding">
+            <strong>Menisci:</strong> The lateral meniscus appears intact with normal morphology and signal intensity.
+            There is a small horizontal tear involving the posterior horn of the medial meniscus (grade 3 signal
+            extending to the articular surface). No displaced fragments are identified.
+        </div>
+
+        <div class="finding">
+            <strong>Cruciate Ligaments:</strong> The anterior cruciate ligament (ACL) demonstrates normal morphology and
+            signal characteristics. The posterior cruciate ligament (PCL) is intact.
+        </div>
+
+        <div class="finding">
+            <strong>Collateral Ligaments:</strong> The medial collateral ligament (MCL) and lateral collateral ligament
+            (LCL) appear intact with normal signal intensity.
+        </div>
+
+        <div class="finding">
+            <strong>Articular Cartilage:</strong> Mild thinning of the articular cartilage is noted along the medial
+            femoral condyle consistent with early degenerative changes (grade 2 chondromalacia). The lateral compartment
+            cartilage appears preserved.
+        </div>
+
+        <div class="finding">
+            <strong>Bone Marrow:</strong> No evidence of bone marrow edema, fracture, or focal osseous lesions. Normal
+            bone marrow signal throughout the distal femur, proximal tibia, and patella.
+        </div>
+
+        <div class="finding">
+            <strong>Joint Effusion:</strong> Small to moderate joint effusion is present within the suprapatellar recess
+            and posterior joint space.
+        </div>
+
+        <div class="finding">
+            <strong>Soft Tissues:</strong> No significant soft tissue abnormalities. The patellar tendon and quadriceps
+            tendon appear intact. Baker's cyst is not present.
+        </div>
+    </div>
+
+    <div class="impression">
+        <div class="section-header">Impression</div>
+        <ol>
+            <li><strong>Small horizontal tear of the posterior horn of the medial meniscus.</strong> This finding is
+                consistent with the patient's clinical symptoms and physical examination.</li>
+            <li><strong>Mild degenerative changes</strong> of the medial compartment with grade 2 chondromalacia of the
+                medial femoral condyle.</li>
+            <li><strong>Small to moderate knee joint effusion.</strong></li>
+            <li><strong>Intact cruciate and collateral ligaments.</strong> No evidence of ligamentous injury.</li>
+            <li><strong>No acute fracture or bone marrow abnormalities.</strong></li>
+        </ol>
+    </div>
+
+    <div class="info-section">
+        <div class="section-header">Recommendations</div>
+        <ul>
+            <li>Orthopedic consultation for evaluation of meniscal tear treatment options</li>
+            <li>Consider conservative management initially with physical therapy and activity modification</li>
+            <li>Anti-inflammatory medications may help reduce effusion and symptoms</li>
+            <li>Arthroscopic evaluation may be considered if conservative management fails</li>
+            <li>Weight-bearing restrictions and knee bracing as clinically indicated</li>
+        </ul>
+    </div>
+
+    <div class="signature-section">
+        <div class="physician-info">
+            <strong>Electronically signed by:</strong><br>
+            Dr. Roberto Silva, MD<br>
+            Board Certified Radiologist<br>
+            Subspecialty: Musculoskeletal Imaging<br>
+            Florida License #RS67891<br>
+            <br>
+            <strong>Dictated:</strong> 10/21/2024 17:30<br>
+            <strong>Transcribed:</strong> 10/21/2024 18:15<br>
+            <strong>Signed:</strong> 10/21/2024 18:45
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <div class="accreditation">
+        <hr style="margin: 20px 0;">
+        South Beach Radiology - Advanced Musculoskeletal Imaging<br>
+        ACR Accredited Facility | American College of Radiology Certified<br>
+        This report contains confidential medical information. Unauthorized disclosure is prohibited.<br>
+        <strong>USRad Case #:</strong> USR-MRI-241021-SJ | <strong>Patient Savings:</strong> $892 vs. Hospital Rate
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRI Brain Report - Sarah Johnson</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 1in;
+            background: white;
+            color: #000;
+            line-height: 1.4;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #003087;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #003087;
+            margin-bottom: 10px;
+        }
+
+        .facility-info {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .report-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-transform: uppercase;
+        }
+
+        .patient-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+        }
+
+        .info-section {
+            margin-bottom: 25px;
+        }
+
+        .section-header {
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 3px;
+            margin-bottom: 10px;
+        }
+
+        .finding {
+            margin-bottom: 15px;
+        }
+
+        .impression {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .signature-section {
+            margin-top: 40px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+
+        .physician-info {
+            float: right;
+            text-align: right;
+            width: 300px;
+        }
+
+        .accreditation {
+            margin-top: 30px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+            clear: both;
+        }
+
+        .demo-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 120px;
+            font-weight: bold;
+            color: rgba(128, 128, 128, 0.1);
+            pointer-events: none;
+            z-index: 1000;
+            user-select: none;
+        }
+
+        .urgent {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0.5in;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Demo Watermark -->
+    <div class="demo-watermark">DEMO PURPOSES</div>
+
+    <div class="header">
+        <div class="logo">Miami Lakes Medical Center</div>
+        <div class="facility-info">
+            6201 W 20th Ave, Hialeah, FL 33012<br>
+            Phone: (305) 558-2500 | Fax: (305) 558-2599<br>
+            Department of Radiology & Medical Imaging
+        </div>
+    </div>
+
+    <div class="report-title">
+        Magnetic Resonance Imaging (MRI) Brain Report
+    </div>
+
+    <div class="patient-info">
+        <div>
+            <strong>Patient:</strong> Johnson, Sarah M.<br>
+            <strong>DOB:</strong> 06/15/1985 (Age: 39)<br>
+            <strong>MRN:</strong> ML2024-78432<br>
+            <strong>Gender:</strong> Female<br>
+            <strong>Referring Physician:</strong> Dr. Michael Rodriguez, MD
+        </div>
+        <div>
+            <strong>Study Date:</strong> November 27, 2024<br>
+            <strong>Study Time:</strong> 14:30 EST<br>
+            <strong>Accession #:</strong> ML24327891<br>
+            <strong>Study ID:</strong> MRI-BR-241127-003<br>
+            <strong>Modality:</strong> MRI
+        </div>
+    </div>
+
+    <div class="info-section">
+        <div class="section-header">Clinical History</div>
+        <p>39-year-old female presenting with persistent headaches, dizziness, and occasional visual disturbances for
+            the past 3 months. Patient reports headaches are more frequent in the morning and worsen with physical
+            activity. No history of head trauma. Referring physician requesting evaluation to rule out structural
+            abnormalities.</p>
+    </div>
+
+    <div class="info-section">
+        <div class="section-header">Technique</div>
+        <p>MRI of the brain was performed using a 3.0 Tesla MRI scanner. Multiplanar T1-weighted, T2-weighted, FLAIR,
+            and diffusion-weighted imaging sequences were obtained. Gadolinium-based contrast agent (Gadavist 0.1
+            mmol/kg) was administered intravenously for post-contrast T1-weighted imaging in axial, sagittal, and
+            coronal planes.</p>
+    </div>
+
+    <div class="info-section">
+        <div class="section-header">Findings</div>
+
+        <div class="finding">
+            <strong>Brain Parenchyma:</strong> The cerebral hemispheres demonstrate normal signal intensity on all pulse
+            sequences. No evidence of acute infarction, hemorrhage, or mass lesion. The gray-white matter
+            differentiation is preserved bilaterally.
+        </div>
+
+        <div class="finding">
+            <strong>Ventricular System:</strong> The lateral, third, and fourth ventricles are normal in size and
+            configuration. No evidence of hydrocephalus or midline shift.
+        </div>
+
+        <div class="finding">
+            <strong>Extra-axial Spaces:</strong> The subarachnoid spaces are unremarkable. No evidence of subdural or
+            epidural collections.
+        </div>
+
+        <div class="finding">
+            <strong>Posterior Fossa:</strong> The brainstem and cerebellum appear normal. The cerebellopontine angles
+            are clear bilaterally.
+        </div>
+
+        <div class="finding">
+            <strong>Vascular Structures:</strong> The major intracranial vessels demonstrate normal flow voids. No
+            evidence of aneurysm or vascular malformation on this non-angiographic study.
+        </div>
+
+        <div class="finding">
+            <strong>Sinuses and Mastoids:</strong> Mild mucosal thickening in the bilateral maxillary sinuses, likely
+            representing acute sinusitis. The frontal, ethmoid, and sphenoid sinuses are clear. Mastoid air cells are
+            well-aerated bilaterally.
+        </div>
+
+        <div class="finding">
+            <strong>Post-Contrast Enhancement:</strong> No abnormal parenchymal enhancement. Normal enhancement of the
+            choroid plexus and venous structures.
+        </div>
+    </div>
+
+    <div class="impression">
+        <div class="section-header">Impression</div>
+        <ol>
+            <li><strong>No acute intracranial abnormality.</strong> Specifically, no evidence of mass lesion, acute
+                infarction, or hemorrhage.</li>
+            <li><strong>Mild bilateral maxillary sinusitis</strong> - clinical correlation recommended. This finding may
+                explain the patient's headache symptoms.</li>
+            <li><strong>Normal brain MRI with contrast</strong> - The persistent headaches are likely not related to
+                structural brain abnormalities.</li>
+        </ol>
+    </div>
+
+    <div class="info-section">
+        <div class="section-header">Recommendations</div>
+        <ul>
+            <li>Clinical correlation with ENT evaluation for sinusitis management</li>
+            <li>Consider tension-type headache or migraine evaluation if symptoms persist</li>
+            <li>Follow-up imaging not indicated unless clinical symptoms change significantly</li>
+            <li>Patient education regarding normal findings and symptomatic treatment options</li>
+        </ul>
+    </div>
+
+    <div class="signature-section">
+        <div class="physician-info">
+            <strong>Electronically signed by:</strong><br>
+            Dr. Elena Vasquez, MD<br>
+            Board Certified Radiologist<br>
+            Florida License #ME12345<br>
+            <br>
+            <strong>Dictated:</strong> 11/27/2024 15:45<br>
+            <strong>Transcribed:</strong> 11/27/2024 16:20<br>
+            <strong>Signed:</strong> 11/27/2024 16:45
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <div class="accreditation">
+        <hr style="margin: 20px 0;">
+        Miami Lakes Medical Center - Department of Radiology<br>
+        ACR Accredited Facility | Joint Commission Certified<br>
+        This report contains confidential medical information. Unauthorized disclosure is prohibited.<br>
+        <strong>USRad Case #:</strong> USR-MRI-241127-SJ | <strong>Patient Savings:</strong> $876 vs. Hospital Rate
+    </div>
+</body>
+
+</html>
