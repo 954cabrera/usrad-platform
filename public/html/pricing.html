@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transparent Pricing - USRad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #fcf9f0 0%, #f8f5e8 100%);
+            background-image:
+                radial-gradient(circle at 25% 25%, rgba(0, 48, 135, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(204, 153, 51, 0.03) 0%, transparent 50%);
+            background-size: 120px 120px, 80px 80px;
+        }
+
+        .price-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+            border-color: #cc9933;
+            box-shadow: 0 20px 40px rgba(0, 48, 135, 0.1);
+        }
+
+        .savings-badge {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    <!-- Header with Logo (same as your existing design) -->
+    <header class="bg-[#fefbf5] shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <img src="/images/usrad-logo.png" alt="USRad" class="h-10 w-auto">
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="/about" class="text-[#003087] hover:text-[#cc9933]">About</a>
+                    <a href="/how-it-works" class="text-[#003087] hover:text-[#cc9933]">How It Works</a>
+                    <a href="/locations" class="text-[#003087] hover:text-[#cc9933]">Locations</a>
+                    <a href="/pricing" class="text-[#003087] hover:text-[#cc9933] font-semibold">Pricing</a>
+                    <a href="/contact" class="text-[#003087] hover:text-[#cc9933]">Contact</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <a href="/for-employers"
+                        class="bg-[#cc9933] text-white px-4 py-2 rounded-lg text-sm font-medium">For Employers</a>
+                    <button class="text-[#003087] hover:text-[#cc9933]">Login</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-[#003087] text-white py-20">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 fade-in-up">
+                <span class="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+                    Transparent Pricing.
+                </span><br>
+                <span class="text-[#cc9933]">No Surprises.</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-4xl mx-auto opacity-90">
+                Finally, medical imaging at prices that make sense.
+                <span class="text-[#cc9933] font-semibold">30-70% below hospital rates</span>
+                with the same high-quality equipment and expert care.
+            </p>
+            <div
+                class="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-full text-lg font-semibold">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                100% Quality Guarantee
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Comparison Section -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#003087] mb-4">
+                    Stop Overpaying for Medical Imaging
+                </h2>
+                <p class="text-lg text-[#003087]/80 max-w-3xl mx-auto">
+                    See how much you can save with USRad's transparent pricing compared to typical hospital charges
+                </p>
+            </div>
+
+            <!-- Price Cards Grid -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <!-- MRI Pricing -->
+                <div class="price-card bg-white rounded-2xl p-8 shadow-lg">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-[#003087] mb-2">MRI Scan</h3>
+                        <p class="text-gray-600">Brain, Spine, Joints</p>
+                    </div>
+
+                    <div class="text-center mb-6">
+                        <div class="text-red-500 line-through text-xl mb-2">Hospital: $1,200-$8,000</div>
+                        <div class="text-4xl font-bold text-[#003087] mb-2">$260-$325</div>
+                        <div
+                            class="savings-badge bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                            Save up to 96%
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Same equipment as hospitals
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Results in 24-48 hours
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            No insurance required
+                        </li>
+                    </ul>
+
+                    <button
+                        class="w-full bg-[#cc9933] text-white py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-colors">
+                        Find MRI Centers
+                    </button>
+                </div>
+
+                <!-- CT Scan Pricing -->
+                <div class="price-card bg-white rounded-2xl p-8 shadow-lg">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-[#003087] mb-2">CT Scan</h3>
+                        <p class="text-gray-600">Chest, Abdomen, Head</p>
+                    </div>
+
+                    <div class="text-center mb-6">
+                        <div class="text-red-500 line-through text-xl mb-2">Hospital: $800-$4,000</div>
+                        <div class="text-4xl font-bold text-[#003087] mb-2">$150-$225</div>
+                        <div
+                            class="savings-badge bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                            Save up to 94%
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Latest CT technology
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Same-day appointments
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Board-certified radiologists
+                        </li>
+                    </ul>
+
+                    <button
+                        class="w-full bg-[#cc9933] text-white py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-colors">
+                        Find CT Centers
+                    </button>
+                </div>
+
+                <!-- Ultrasound Pricing -->
+                <div class="price-card bg-white rounded-2xl p-8 shadow-lg">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-[#003087] mb-2">Ultrasound</h3>
+                        <p class="text-gray-600">Abdominal, Pelvic, Vascular</p>
+                    </div>
+
+                    <div class="text-center mb-6">
+                        <div class="text-red-500 line-through text-xl mb-2">Hospital: $400-$1,500</div>
+                        <div class="text-4xl font-bold text-[#003087] mb-2">$85-$150</div>
+                        <div
+                            class="savings-badge bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                            Save up to 90%
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            High-resolution imaging
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            No radiation exposure
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Immediate results available
+                        </li>
+                    </ul>
+
+                    <button
+                        class="w-full bg-[#cc9933] text-white py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-colors">
+                        Find Ultrasound Centers
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search Preview Section -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl">
+                <h3 class="text-2xl font-bold text-[#003087] text-center mb-8">
+                    See What's Available in Your Area
+                </h3>
+
+                <!-- Mock Search Interface -->
+                <div class="max-w-2xl mx-auto mb-8">
+                    <div class="flex gap-4 mb-6">
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">ZIP Code</label>
+                            <input type="text" placeholder="Enter your ZIP code"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#cc9933] focus:border-transparent">
+                        </div>
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Study Type</label>
+                            <select
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#cc9933] focus:border-transparent">
+                                <option>MRI - Brain without contrast</option>
+                                <option>MRI - Knee without contrast</option>
+                                <option>CT - Chest without contrast</option>
+                                <option>Ultrasound - Abdominal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button
+                        class="w-full bg-[#cc9933] text-white py-4 rounded-lg font-semibold text-lg hover:bg-yellow-600 transition-colors">
+                        Find Imaging Centers Near Me
+                    </button>
+                </div>
+
+                <!-- Sample Results Preview -->
+                <div class="border-t pt-8">
+                    <h4 class="text-lg font-semibold text-[#003087] mb-4">Sample Results in Your Area:</h4>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h5 class="font-semibold text-[#003087]">Advanced Imaging Center</h5>
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-medium">Best
+                                    Deal</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">2.5 miles away • Same-day appointments</p>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="text-2xl font-bold text-[#003087]">$289</span>
+                                    <span class="text-sm text-gray-500 line-through ml-2">vs Hospital $1,347</span>
+                                </div>
+                                <span class="text-green-600 font-semibold">76% OFF</span>
+                            </div>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h5 class="font-semibold text-[#003087]">Premier Diagnostics</h5>
+                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-medium">Great
+                                    Value</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">3.8 miles away • Next-day appointments</p>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="text-2xl font-bold text-[#003087]">$315</span>
+                                    <span class="text-sm text-gray-500 line-through ml-2">vs Hospital $1,425</span>
+                                </div>
+                                <span class="text-green-600 font-semibold">78% OFF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why These Prices Section -->
+    <section class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#003087] mb-4">
+                    How We Make These Prices Possible
+                </h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Understanding the economics behind transparent, affordable medical imaging
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h3 class="text-2xl font-bold text-[#003087] mb-6">The Win-Win Partnership</h3>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 bg-[#cc9933] rounded-full flex items-center justify-center">
+                                <span class="text-white font-bold">1</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-[#003087] mb-2">Centers Fill Empty Slots</h4>
+                                <p class="text-gray-600">Imaging centers often have unused capacity. We help them fill
+                                    these slots with cash-paying patients.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 bg-[#cc9933] rounded-full flex items-center justify-center">
+                                <span class="text-white font-bold">2</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-[#003087] mb-2">Fast Payment (5-7 Days)</h4>
+                                <p class="text-gray-600">Unlike insurance that takes 30-90 days to pay, cash patients
+                                    provide immediate revenue flow.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 bg-[#cc9933] rounded-full flex items-center justify-center">
+                                <span class="text-white font-bold">3</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-[#003087] mb-2">Volume Drives Down Costs</h4>
+                                <p class="text-gray-600">Higher patient volume allows centers to offer lower prices
+                                    while maintaining profitability.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-[#f8f9fa] rounded-2xl p-8">
+                    <h4 class="text-xl font-bold text-[#003087] mb-4">Traditional Insurance vs USRad</h4>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                            <span class="text-gray-600">Payment Timeline</span>
+                            <div class="text-right">
+                                <div class="text-red-500 text-sm">Insurance: 30-90 days</div>
+                                <div class="text-green-600 font-semibold">USRad: 5-7 days</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                            <span class="text-gray-600">Administrative Burden</span>
+                            <div class="text-right">
+                                <div class="text-red-500 text-sm">Insurance: High</div>
+                                <div class="text-green-600 font-semibold">USRad: Minimal</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                            <span class="text-gray-600">Payment Certainty</span>
+                            <div class="text-right">
+                                <div class="text-red-500 text-sm">Insurance: Uncertain</div>
+                                <div class="text-green-600 font-semibold">USRad: Guaranteed</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center py-3">
+                            <span class="text-gray-600">Empty Slot Utilization</span>
+                            <div class="text-right">
+                                <div class="text-red-500 text-sm">Insurance: Limited</div>
+                                <div class="text-green-600 font-semibold">USRad: Maximized</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder's Story Section -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#003087] mb-8">
+                    Built by Someone Who's Been There
+                </h2>
+                <div class="bg-white rounded-2xl p-8 shadow-xl">
+                    <div class="text-left space-y-6">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            <strong class="text-[#003087]">I've experienced this problem firsthand.</strong> After
+                            building and selling the first medical imaging network for workers' compensation, I was
+                            shocked when I needed an MRI for myself. Hospitals quoted <span
+                                class="text-red-600 font-semibold">$8,000</span>, but my insurance would only pay their
+                            negotiated rate of <span class="text-blue-600 font-semibold">$1,600</span> — which became my
+                            responsibility because I hadn't met my deductible.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            The games hospitals play frustrated me most. If you mention insurance, they won't offer cash
+                            prices. But approach them without mentioning insurance, and suddenly cash discounts become
+                            available. <strong class="text-[#003087]">These games hurt the 90+ million Americans who are
+                                uninsured or underinsured.</strong>
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            That's why I created USRad — to eliminate the guesswork, the haggling, and the fear of
+                            overpaying. You deserve to know exactly what you'll pay for high-quality medical imaging,
+                            backed by a guarantee that ensures your scan meets your doctor's standards.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-gray-200 text-center">
+                        <p class="text-[#003087] font-semibold">— USRad Founder</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantees Section -->
+    <section class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#003087] mb-4">
+                    Our Ironclad Guarantees
+                </h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    We stand behind our service with guarantees that protect your investment and peace of mind
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-[#cc9933] rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#003087] mb-4">100% Quality Guarantee</h3>
+                    <p class="text-gray-600">
+                        If your scan doesn't meet your referring physician's standards, we'll arrange a re-scan at no
+                        cost to you.
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-[#cc9933] rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#003087] mb-4">Free Cancellation</h3>
+                    <p class="text-gray-600">
+                        Cancel your appointment up to 24 hours before your scheduled time with no fees or penalties.
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-[#cc9933] rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path>
+                            <path fill-rule="evenodd"
+                                d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#003087] mb-4">Price Lock Guarantee</h3>
+                    <p class="text-gray-600">
+                        The price you see is the price you pay. No surprise bills, no hidden fees, no insurance games.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Impact Section -->
+    <section class="bg-[#003087] text-white py-20">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8">
+                Help Your Community Access Affordable Care
+            </h2>
+            <div class="max-w-4xl mx-auto">
+                <p class="text-xl mb-8 opacity-90">
+                    When you book with USRad, you're not just saving money — you're helping drive volume to local
+                    imaging centers, making affordable scans available to more people in your community who need them.
+                </p>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <div class="text-4xl font-bold text-[#cc9933] mb-2">90M+</div>
+                        <p class="text-blue-100">Americans without adequate insurance coverage</p>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-[#cc9933] mb-2">70%</div>
+                        <p class="text-blue-100">Average savings vs hospital rates</p>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-[#cc9933] mb-2">24-48hr</div>
+                        <p class="text-blue-100">Typical turnaround for results</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#003087] mb-6">
+                Ready to Get Your Scan?
+            </h2>
+            <p class="text-xl text-gray-700 mb-8">
+                Join thousands who've already saved on high-quality medical imaging. Enter your ZIP code to see what's
+                available near you.
+            </p>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl max-w-2xl mx-auto">
+                <div class="flex gap-4 mb-6">
+                    <input type="text" placeholder="Enter ZIP Code"
+                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#cc9933] focus:border-transparent text-lg">
+                    <button
+                        class="bg-[#cc9933] text-white px-8 py-3 rounded-lg font-semibold text-lg hover:bg-yellow-600 transition-colors whitespace-nowrap">
+                        Find Centers
+                    </button>
+                </div>
+                <div class="flex items-center justify-center gap-6 text-sm text-gray-600">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        No insurance required
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        Same-day booking
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        100% guaranteed
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#003087] text-white py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <img src="/images/usrad-logo-white.png" alt="USRad" class="h-8 mb-4">
+                    <p class="text-blue-200 text-sm">
+                        Making high-quality medical imaging accessible and affordable for everyone.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Services</h4>
+                    <ul class="space-y-2 text-sm text-blue-200">
+                        <li><a href="#" class="hover:text-white">MRI Scans</a></li>
+                        <li><a href="#" class="hover:text-white">CT Scans</a></li>
+                        <li><a href="#" class="hover:text-white">Ultrasound</a></li>
+                        <li><a href="#" class="hover:text-white">X-Ray</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-blue-200">
+                        <li><a href="#" class="hover:text-white">About</a></li>
+                        <li><a href="#" class="hover:text-white">How It Works</a></li>
+                        <li><a href="#" class="hover:text-white">Locations</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-blue-200">
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-blue-800 mt-8 pt-8 text-center text-sm text-blue-200">
+                <p>&copy; 2025 USRad. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
