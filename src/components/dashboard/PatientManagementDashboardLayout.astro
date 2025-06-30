@@ -1,0 +1,194 @@
+---
+// src/components/dashboard/PatientManagementDashboardLayout.astro
+// Professional Patient Management Layout matching Corporate Dashboard
+
+interface Props {
+  title?: string;
+  user?: any;
+}
+
+const { title = "Patient Management Dashboard", user } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | USRad</title>
+  </head>
+
+  <body class="bg-gray-50 min-h-screen">
+    <div class="flex h-screen">
+      <!-- Left Sidebar Navigation (matches Corporate Dashboard) -->
+      <div class="w-64 bg-primary text-white flex flex-col shadow-xl">
+        <!-- Logo Section -->
+        <div class="p-6 border-b border-blue-700">
+          <div class="flex items-center">
+            <div
+              class="w-8 h-8 bg-white rounded-full flex items-center justify-center mr-3"
+            >
+              <span class="text-primary font-bold text-sm">UR</span>
+            </div>
+            <div>
+              <div class="text-white font-bold text-lg font-manrope">USRad</div>
+              <div class="text-blue-200 text-xs">Patient Management Suite</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <nav class="flex-1 px-4 py-6 space-y-2">
+          <div class="text-blue-200 text-xs uppercase tracking-wider mb-4 px-2">
+            PATIENT OPERATIONS
+          </div>
+
+          <a
+            href="/dashboard/patient-management"
+            class="flex items-center px-4 py-3 rounded-lg bg-blue-600 text-white"
+          >
+            <span class="mr-3">📊</span>
+            <span class="font-medium">Dashboard Overview</span>
+          </a>
+
+          <a
+            href="/dashboard/patient-management/requests"
+            class="flex items-center px-4 py-3 rounded-lg text-blue-200 hover:bg-blue-700 hover:text-white transition-colors"
+          >
+            <span class="mr-3">⏳</span>
+            <span>Pending Requests</span>
+          </a>
+
+          <a
+            href="/dashboard/patient-management/scheduled"
+            class="flex items-center px-4 py-3 rounded-lg text-blue-200 hover:bg-blue-700 hover:text-white transition-colors"
+          >
+            <span class="mr-3">📅</span>
+            <span>Scheduled Appointments</span>
+          </a>
+
+          <a
+            href="/dashboard/patient-management/reports"
+            class="flex items-center px-4 py-3 rounded-lg text-blue-200 hover:bg-blue-700 hover:text-white transition-colors"
+          >
+            <span class="mr-3">📋</span>
+            <span>SLA & Reports</span>
+          </a>
+
+          <a
+            href="/dashboard/patient-management/feedback"
+            class="flex items-center px-4 py-3 rounded-lg text-blue-200 hover:bg-blue-700 hover:text-white transition-colors"
+          >
+            <span class="mr-3">⭐</span>
+            <span>Patient Satisfaction</span>
+          </a>
+
+          <div class="border-t border-blue-700 my-4"></div>
+
+          <div class="text-blue-200 text-xs uppercase tracking-wider mb-4 px-2">
+            ANALYTICS & INSIGHTS
+          </div>
+
+          <a
+            href="/dashboard/patient-management/analytics"
+            class="flex items-center px-4 py-3 rounded-lg text-blue-200 hover:bg-blue-700 hover:text-white transition-colors"
+          >
+            <span class="mr-3">📈</span>
+            <span>Analytics & Reports</span>
+          </a>
+
+          <a
+            href="/dashboard/patient-management/performance"
+            class="flex items-center px-4 py-3 rounded-lg text-blue-200 hover:bg-blue-700 hover:text-white transition-colors"
+          >
+            <span class="mr-3">🏥</span>
+            <span>Provider Performance</span>
+          </a>
+
+          <a
+            href="/dashboard/patient-management/revenue"
+            class="flex items-center px-4 py-3 rounded-lg text-blue-200 hover:bg-blue-700 hover:text-white transition-colors"
+          >
+            <span class="mr-3">💰</span>
+            <span>Revenue Intelligence</span>
+          </a>
+
+          <div class="border-t border-blue-700 my-4"></div>
+
+          <div class="text-blue-200 text-xs uppercase tracking-wider mb-4 px-2">
+            ADMINISTRATION
+          </div>
+
+          <a
+            href="/dashboard/patient-management/settings"
+            class="flex items-center px-4 py-3 rounded-lg text-blue-200 hover:bg-blue-700 hover:text-white transition-colors"
+          >
+            <span class="mr-3">⚙️</span>
+            <span>System Settings</span>
+          </a>
+        </nav>
+
+        <!-- User Info Footer -->
+        <div class="p-4 border-t border-blue-700">
+          <div class="flex items-center">
+            <div
+              class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-3"
+            >
+              <span class="text-white text-sm font-bold">PM</span>
+            </div>
+            <div class="flex-1">
+              <div class="text-white text-sm font-medium">Patient Manager</div>
+              <div class="text-blue-200 text-xs">Admin Access</div>
+            </div>
+            <a href="/login" class="text-blue-200 hover:text-white">
+              <span class="text-lg">⏻</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Header Bar -->
+        <header class="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center">
+              <h1 class="text-2xl font-bold text-gray-900 font-manrope">
+                Patient Management Dashboard - Executive Command Center
+              </h1>
+            </div>
+            <div class="flex items-center space-x-4">
+              <button
+                class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+              >
+                📊 Board Report
+              </button>
+              <div
+                class="w-8 h-8 bg-accent rounded-full flex items-center justify-center"
+              >
+                <span class="text-white font-bold text-sm">1</span>
+              </div>
+              <div
+                class="w-8 h-8 bg-primary rounded-full flex items-center justify-center"
+              >
+                <span class="text-white font-bold text-sm">E</span>
+              </div>
+              <span class="text-gray-600 text-sm">Executive</span>
+              <button class="text-gray-500 hover:text-gray-700">
+                <span class="text-lg">⏻</span>
+                <span class="ml-1 text-sm">Sign Out</span>
+              </button>
+            </div>
+          </div>
+          <div class="text-sm text-gray-600 mt-1">Executive Command Center</div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-auto bg-gray-50 p-6">
+          <slot />
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
