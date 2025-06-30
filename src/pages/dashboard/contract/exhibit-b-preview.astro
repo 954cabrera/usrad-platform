@@ -295,12 +295,12 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
       function determineLayout() {
         const facilityCount = facilities.length;
 
-        if (facilityCount <= 4) {
+        if (facilityCount <= 5) {
           layoutType = "detailed";
-          facilitiesPerPage = 1;
+          facilitiesPerPage = facilityCount; // All facilities on one page
         } else if (facilityCount <= 12) {
           layoutType = "standard";
-          facilitiesPerPage = 6;
+          facilitiesPerPage = facilityCount <= 10 ? facilityCount : 6; // Up to 10 on one page, then paginate
         } else if (facilityCount <= 50) {
           layoutType = "compact";
           facilitiesPerPage = 12;
@@ -312,12 +312,19 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
           facilitiesPerPage = 25;
         }
 
-        totalPages = Math.ceil(facilityCount / facilitiesPerPage) + 1; // +1 for cover page
+        totalPages =
+          layoutType === "detailed" ||
+          (layoutType === "standard" && facilityCount <= 10)
+            ? 2
+            : Math.ceil(facilityCount / facilitiesPerPage) + 1; // +1 for cover page
 
         // Update layout description
         const layoutDescriptions = {
-          detailed: "Detailed layout - All facilities on single page",
-          standard: "Standard layout - 6 facilities per page",
+          detailed: "Detailed layout - All facilities on single page (up to 5)",
+          standard:
+            facilityCount <= 10
+              ? "Standard layout - All facilities on single page"
+              : "Standard layout - 6 facilities per page",
           compact: "Compact layout - 12 facilities per page",
           condensed: "Condensed layout - 18 facilities per page",
           "ultra-compact": "Ultra-compact layout - 25 facilities per page",
@@ -362,16 +369,28 @@ import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro
           return;
         }
 
-        // Group facilities into pages
-        const facilityPages = [];
-        for (let i = 0; i < facilities.length; i += facilitiesPerPage) {
-          facilityPages.push(facilities.slice(i, i + facilitiesPerPage));
-        }
-
-        facilityPages.forEach((pageFacilities, pageIndex) => {
-          const pageElement = createFacilityPage(pageFacilities, pageIndex + 2); // +2 because cover page is page 1
+        // For detailed layout (5 or fewer facilities) or standard with ≤10 facilities, put all on one page
+        if (
+          layoutType === "detailed" ||
+          (layoutType === "standard" && facilities.length <= 10)
+        ) {
+          const pageElement = createFacilityPage(facilities, 2); // All facilities on page 2
           container.appendChild(pageElement);
-        });
+        } else {
+          // Group facilities into pages for other layouts
+          const facilityPages = [];
+          for (let i = 0; i < facilities.length; i += facilitiesPerPage) {
+            facilityPages.push(facilities.slice(i, i + facilitiesPerPage));
+          }
+
+          facilityPages.forEach((pageFacilities, pageIndex) => {
+            const pageElement = createFacilityPage(
+              pageFacilities,
+              pageIndex + 2
+            ); // +2 because cover page is page 1
+            container.appendChild(pageElement);
+          });
+        }
       }
 
       function createFacilityPage(pageFacilities, pageNumber) {
