@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USRad - Investor Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .slide {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: linear-gradient(to right, #cc9933 0%, #cc9933 var(--progress), #e5e7eb var(--progress), #e5e7eb 100%);
+            transition: all 0.3s ease;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-gray-50 to-blue-50 font-sans">
+    <!-- Progress Bar -->
+    <div class="progress-bar fixed top-0 left-0 w-full z-50" style="--progress: 0%"></div>
+
+    <!-- Navigation Controls -->
+    <div class="fixed bottom-6 right-6 z-50 flex gap-3">
+        <button onclick="previousSlide()"
+            class="bg-[#003087] text-white px-4 py-2 rounded-lg shadow-lg hover:bg-[#002266] transition-all">
+            ← Previous
+        </button>
+        <button onclick="nextSlide()"
+            class="bg-[#cc9933] text-white px-4 py-2 rounded-lg shadow-lg hover:bg-yellow-600 transition-all">
+            Next →
+        </button>
+    </div>
+
+    <!-- Slide Counter -->
+    <div class="fixed bottom-6 left-6 z-50 bg-white/90 px-3 py-2 rounded-lg shadow-lg text-sm font-medium">
+        <span id="current-slide">1</span> / <span id="total-slides">12</span>
+    </div>
+
+    <!-- Slide 1: Title -->
+    <div class="slide active flex-col justify-center items-center text-center px-8"
+        style="background: linear-gradient(135deg, #003087 0%, #0066cc 100%);">
+        <div class="animate-fade-in text-white">
+            <h1 class="text-6xl font-bold mb-6">
+                <span class="text-[#cc9933]">USRad</span>
+            </h1>
+            <p class="text-2xl mb-8 opacity-90">Modern MRI. Transparent Pricing.</p>
+            <div class="text-lg space-y-2 opacity-80">
+                <p>Investor Presentation</p>
+                <p id="current-date"></p>
+            </div>
+            <div class="mt-12 bg-white/10 backdrop-blur-sm rounded-xl p-6 max-w-md mx-auto">
+                <p class="text-sm font-semibold text-[#cc9933] mb-2">Domain Heritage</p>
+                <p class="text-base">usrad.com registered in <span class="font-bold text-[#cc9933]">2003</span></p>
+                <p class="text-sm mt-2 opacity-80">20+ years of brand development</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: Founder Story -->
+    <div class="slide flex-col justify-center items-center px-8">
+        <div class="max-w-5xl mx-auto animate-fade-in">
+            <h2 class="text-5xl font-bold text-[#003087] text-center mb-8">Built by Someone Who's Been There</h2>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h3 class="text-2xl font-bold text-[#cc9933] mb-4">Proven Track Record</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <div class="border-l-4 border-[#003087] pl-4">
+                            <h4 class="font-bold text-[#003087]">1994: Built First Medical Imaging Network</h4>
+                            <p>Workers' compensation marketplace from scratch</p>
+                        </div>
+                        <div class="border-l-4 border-[#cc9933] pl-4">
+                            <h4 class="font-bold text-[#003087]">10 Years Later</h4>
+                            <p><strong>1,200</strong> imaging centers nationwide<br />
+                                <strong>3,000</strong> board-certified radiologists<br />
+                                <strong>40,000+</strong> MRIs annually
+                            </p>
+                        </div>
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h4 class="font-bold text-[#003087]">Successful Exit</h4>
+                            <p>Sold to Corvel (publicly traded company)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-[#003087] to-blue-600 text-white rounded-xl p-8">
+                    <h3 class="text-2xl font-bold mb-4">Personal Mission</h3>
+                    <div class="space-y-4">
+                        <p class="text-lg"><em>"I've experienced this problem firsthand."</em></p>
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <p class="font-semibold text-[#cc9933]">The Hospital Experience:</p>
+                            <p>Hospital quoted <strong>$8,000</strong> for my MRI<br />
+                                Insurance contracted rate: <strong>$1,600</strong><br />
+                                <strong>I paid $1,600 (hadn't met $5,000 deductible)</strong>
+                            </p>
+                        </div>
+                        <p class="text-base opacity-90">"If you mention insurance, hospitals won't offer cash prices.
+                            But approach without mentioning insurance, and suddenly discounts become available."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 bg-[#cc9933] text-white rounded-xl p-6 text-center">
+                <p class="text-xl font-bold">"No one should choose between their health and financial security."</p>
+                <p class="text-lg mt-2 opacity-90">Built with 30 years of industry experience + modern technology</p>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Slide 3: The Problem -->
+    <div class="slide flex-col justify-center items-center px-8">
+        <div class="max-w-4xl mx-auto text-center animate-fade-in">
+            <h2 class="text-5xl font-bold text-[#003087] mb-8">The Problem</h2>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="text-left space-y-6">
+                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+                        <h3 class="text-3xl font-bold text-red-700 mb-2">90M+ Americans</h3>
+                        <p class="text-lg text-red-600">Priced out of traditional medical imaging</p>
+                    </div>
+                    <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg">
+                        <h3 class="text-2xl font-bold text-orange-700 mb-2">$3,000-$5,000</h3>
+                        <p class="text-lg text-orange-600">Average hospital MRI cost</p>
+                    </div>
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+                        <h3 class="text-2xl font-bold text-yellow-700 mb-2">High Deductibles</h3>
+                        <p class="text-lg text-yellow-600">$5,000+ deductibles = cash-pay reality</p>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="bg-gray-100 rounded-2xl p-8">
+                        <h4 class="text-xl font-semibold text-gray-700 mb-4">Market Size</h4>
+                        <div class="text-4xl font-bold text-[#003087] mb-2">$100B+</div>
+                        <p class="text-lg text-gray-600">Medical imaging market</p>
+                    </div>
+                    <div class="mt-6 bg-[#003087] text-white rounded-lg p-4">
+                        <p class="text-sm font-semibold">Perfect Timing</p>
+                        <p class="text-xs opacity-90">Technology + Experience + Market Need</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Our Solution -->
+    <div class="slide flex-col justify-center items-center px-8">
+        <div class="max-w-5xl mx-auto text-center animate-fade-in">
+            <h2 class="text-5xl font-bold text-[#003087] mb-8">Our Solution</h2>
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#cc9933]">
+                    <div class="text-[#cc9933] text-4xl mb-4">💰</div>
+                    <h3 class="text-xl font-bold text-[#003087] mb-2">30-70% Savings</h3>
+                    <p class="text-gray-600">Below hospital rates with transparent pricing</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-green-500">
+                    <div class="text-green-500 text-4xl mb-4">⚡</div>
+                    <h3 class="text-xl font-bold text-[#003087] mb-2">Same-Day Access</h3>
+                    <p class="text-gray-600">No insurance required, immediate booking</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-blue-500">
+                    <div class="text-blue-500 text-4xl mb-4">🏥</div>
+                    <h3 class="text-xl font-bold text-[#003087] mb-2">Top-Tier Centers</h3>
+                    <p class="text-gray-600">Direct access to quality imaging facilities</p>
+                </div>
+            </div>
+            <div class="bg-[#003087] text-white rounded-2xl p-8">
+                <h3 class="text-2xl font-bold mb-4">Not Just a Marketplace</h3>
+                <p class="text-lg opacity-90">Full-scale managed care organization with dedicated teams for provider
+                    relations, quality assurance, and medical oversight</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Technology Stack -->
+    <div class="slide flex-col justify-center items-center px-8">
+        <div class="max-w-5xl mx-auto animate-fade-in">
+            <h2 class="text-5xl font-bold text-[#003087] text-center mb-8">Technology Stack</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-bold text-[#003087] mb-4">Frontend</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• <strong>Astro.js</strong> - Modern static site generator</li>
+                            <li>• <strong>React</strong> - Interactive components</li>
+                            <li>• <strong>Tailwind CSS</strong> - Responsive design</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-bold text-[#003087] mb-4">Backend & Infrastructure</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• <strong>Supabase</strong> - PostgreSQL + real-time</li>
+                            <li>• <strong>Supabase Auth</strong> - Enterprise authentication</li>
+                            <li>• <strong>HIPAA-compliant</strong> architecture</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-[#003087] to-blue-600 text-white rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold mb-6">Compliance & Security</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                            <span>HIPAA-compliant from day one</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                            <span>Enterprise-grade authentication</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                            <span>Encrypted patient data storage</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                            <span>SOC 2 Type II ready</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                            <span><strong>Trademark filed yesterday</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Platform Demo Overview -->
+    <div class="slide flex-col justify-center items-center px-8">
+        <div class="max-w-4xl mx-auto text-center animate-fade-in">
+            <h2 class="text-5xl font-bold text-[#003087] mb-8">Platform Demo</h2>
+            <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+                <h3 class="text-2xl font-bold text-[#003087] mb-6">What We'll Review</h3>
+                <div class="grid md:grid-cols-2 gap-6 text-left">
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-lg text-[#cc9933]">Patient Experience</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Main website (usrad.com)</li>
+                            <li>• MRI booking flow</li>
+                            <li>• Patient dashboard</li>
+                            <li>• Progressive disclosure UX</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-lg text-[#cc9933]">Provider Platform</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Provider onboarding system</li>
+                            <li>• Dashboard analytics</li>
+                            <li>• PSA (Provider Service Agreement)</li>
+                            <li>• Revenue tracking</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-[#cc9933] text-white rounded-xl p-6">
+                <a href="https://usrad-platform.vercel.app" target="_blank" class="inline-block w-full">
+                    <button
+                        class="w-full bg-white text-[#cc9933] font-bold py-4 px-8 rounded-lg text-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg">
+                        🚀 Live demonstration of dual-sided platform architecture
+                        <div class="text-sm mt-1 opacity-80">Click to open usrad.com</div>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Market Coverage -->
+    <div class="slide flex-col justify-center items-center px-8">
+        <div class="max-w-5xl mx-auto text-center animate-fade-in">
+            <h2 class="text-5xl font-bold text-[#003087] mb-8">National Footprint</h2>
+            <div class="bg-white rounded-2xl shadow-xl p-8 mb-6">
+                <div class="flex justify-center items-center gap-4 mb-6">
+                    <span class="bg-[#003087] text-white px-4 py-2 rounded-full text-sm font-semibold">INITIAL
+                        LAUNCH</span>
+                    <h3 class="text-2xl font-bold text-[#003087]">10+ States Operational</h3>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-center">
+                    <div class="bg-[#003087] text-white rounded-lg p-3">Florida</div>
+                    <div class="bg-[#003087] text-white rounded-lg p-3">Texas</div>
+                    <div class="bg-[#003087] text-white rounded-lg p-3">Georgia</div>
+                    <div class="bg-[#003087] text-white rounded-lg p-3">N. Carolina</div>
+                    <div class="bg-[#003087] text-white rounded-lg p-3">S. Carolina</div>
+                    <div class="bg-[#003087] text-white rounded-lg p-3">New York</div>
+                    <div class="bg-[#003087] text-white rounded-lg p-3">New Jersey</div>
+                    <div class="bg-[#003087] text-white rounded-lg p-3">Pennsylvania</div>
+                    <div class="bg-[#003087] text-white rounded-lg p-3">Illinois</div>
+                    <div class="bg-[#003087] text-white rounded-lg p-3">California</div>
+                </div>
+            </div>
+            <div class="text-lg text-gray-600">
+                Strategic expansion targeting high-density uninsured populations
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Business Model -->
+    <div class="slide flex-col justify-center items-center px-8">
+        <div class="max-w-5xl mx-auto animate-fade-in">
+            <h2 class="text-5xl font-bold text-[#003087] text-center mb-8">Business Model</h2>
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#cc9933]">
+                    <h3 class="text-xl font-bold text-[#003087] mb-4">B2B2C Platform</h3>
+                    <p class="text-gray-700">Partner with imaging centers to serve cash-pay patients directly</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-blue-500">
+                    <h3 class="text-xl font-bold text-[#003087] mb-4">Transaction Fees</h3>
+                    <p class="text-gray-700">Revenue per completed scan with transparent pricing model</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-green-500">
+                    <h3 class="text-xl font-bold text-[#003087] mb-4">Carve-Out Strategy</h3>
+                    <p class="text-gray-700">Specialized focus exclusively on diagnostic imaging</p>
+                </div>
+            </div>
+            <div class="bg-gradient-to-r from-[#003087] to-blue-600 text-white rounded-2xl p-8">
+                <h3 class="text-2xl font-bold mb-4">Revenue Streams</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <ul class="space-y-2">
+                        <li>• Transaction fees from completed scans</li>
+                        <li>• Provider subscription models</li>
+                        <li>• Data analytics services</li>
+                    </ul>
+                    <ul class="space-y-2">
+                        <li>• Premium support packages</li>
+                        <li>• Integration partnerships</li>
+                        <li>• White-label licensing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Competitive Advantage -->
+    <div class="slide flex-col justify-center items-center px-8">
+        <div class="max-w-5xl mx-auto text-center animate-fade-in">
+            <h2 class="text-5xl font-bold text-[#003087] mb-8">Competitive Advantage</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-[#cc9933]">
+                        <h3 class="text-xl font-bold text-[#003087] mb-2">Domain Heritage</h3>
+                        <p class="text-gray-700">usrad.com registered 2003 - 20+ years of brand development</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-blue-500">
+                        <h3 class="text-xl font-bold text-[#003087] mb-2">HIPAA-First Architecture</h3>
+                        <p class="text-gray-700">Built compliant from day one, not retrofitted</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-green-500">
+                        <h3 class="text-xl font-bold text-[#003087] mb-2">Full-Scale Operations</h3>
+                        <p class="text-gray-700">Managed care organization, not just a booking platform</p>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-[#003087] to-blue-600 text-white rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold mb-6">Key Differentiators</h3>
+                    <div class="space-y-4 text-left">
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 bg-[#cc9933] rounded-full"></div>
+                            <span>Progressive disclosure UX design</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 bg-[#cc9933] rounded-full"></div>
+                            <span>Dual-sided platform architecture</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 bg-[#cc9933] rounded-full"></div>
+                            <span>Enterprise-grade security infrastructure</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 bg-[#cc9933] rounded-full"></div>
+                            <span>Quality assurance & medical oversight</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 bg-[#cc9933] rounded-full"></div>
+                            <span>Trademark protection (filed)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Development Status -->
+    <div class="slide flex-col justify-center items-center px-8">
+        <div class="max-w-5xl mx-auto animate-fade-in">
+            <h2 class="text-5xl font-bold text-[#003087] text-center mb-8">Development Status</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-2xl font-bold text-green-600 mb-4">✅ Completed</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-center gap-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span>Marketing website (fully operational)</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span>MRI booking system</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span>Integrated customer support chatbot</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span>HIPAA-compliant infrastructure</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span>Multi-state operational footprint</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-2xl font-bold text-orange-600 mb-4">🚧 In Development</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-center gap-3">
+                            <div class="w-2 h-2 bg-orange-500 rounded-full"></div>
+                            <span>Provider onboarding (75% complete)</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-2 h-2 bg-orange-500 rounded-full"></div>
+                            <span>Provider dashboard & analytics</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-2 h-2 bg-orange-500 rounded-full"></div>
+                            <span>Patient dashboard system</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-2 h-2 bg-orange-500 rounded-full"></div>
+                            <span>PSA (Provider Service Agreement) flow</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-2 h-2 bg-orange-500 rounded-full"></div>
+                            <span>Revenue tracking & reporting</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 bg-[#003087] text-white rounded-xl p-6 text-center">
+                <p class="text-lg font-semibold">Ready for scale - execution phase, not concept stage</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Market Opportunity -->
+    <div class="slide flex-col justify-center items-center px-8">
+        <div class="max-w-5xl mx-auto text-center animate-fade-in">
+            <h2 class="text-5xl font-bold text-[#003087] mb-8">Market Opportunity</h2>
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <div class="text-4xl font-bold text-[#003087] mb-2">$100B+</div>
+                    <p class="text-lg text-gray-600">Medical imaging market size</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <div class="text-4xl font-bold text-[#cc9933] mb-2">90M+</div>
+                    <p class="text-lg text-gray-600">Uninsured and Underinsured Americans</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <div class="text-4xl font-bold text-green-600 mb-2">40%</div>
+                    <p class="text-lg text-gray-600">Annual market growth (cash-pay)</p>
+                </div>
+            </div>
+            <div class="bg-gradient-to-r from-[#003087] to-blue-600 text-white rounded-2xl p-8">
+                <h3 class="text-2xl font-bold mb-4">Perfect Market Timing</h3>
+                <div class="grid md:grid-cols-2 gap-6 text-left">
+                    <ul class="space-y-2">
+                        <li>• Rising healthcare costs pushing more to cash-pay</li>
+                        <li>• Increasing consumer demand for price transparency</li>
+                        <li>• Growing acceptance of direct-pay models</li>
+                    </ul>
+                    <ul class="space-y-2">
+                        <li>• Technology enabling efficient marketplace operations</li>
+                        <li>• Provider networks seeking new revenue streams</li>
+                        <li>• Regulatory environment supporting innovation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: Investment Ask -->
+    <div class="slide flex-col justify-center items-center px-8">
+        <div class="max-w-4xl mx-auto text-center animate-fade-in">
+            <h2 class="text-5xl font-bold text-[#003087] mb-8">Investment Opportunity</h2>
+            <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+                <h3 class="text-2xl font-bold text-[#003087] mb-6">Why Invest in USRad Now</h3>
+                <div class="grid md:grid-cols-2 gap-6 text-left">
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-lg text-[#cc9933]">Execution Ready</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Platform 75% complete</li>
+                            <li>• Multi-state operations live</li>
+                            <li>• HIPAA-compliant infrastructure</li>
+                            <li>• Proven technology stack</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-lg text-[#cc9933]">Market Position</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• 20+ year domain heritage</li>
+                            <li>• Trademark protection filed</li>
+                            <li>• First-mover advantage in compliance</li>
+                            <li>• Scalable business model</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-[#cc9933] text-white rounded-xl p-6">
+                <p class="text-xl font-semibold">Ready to scale nationwide and capture market share in the $100B+
+                    imaging industry</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 12: Next Steps -->
+    <div class="slide flex-col justify-center items-center px-8">
+        <div class="max-w-4xl mx-auto text-center animate-fade-in">
+            <h2 class="text-5xl font-bold text-[#003087] mb-8">Next Steps</h2>
+            <div class="space-y-6 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-[#003087] mb-4">Immediate Priorities</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-left text-gray-700">
+                        <ul class="space-y-2">
+                            <li>• Complete provider onboarding system</li>
+                            <li>• Finalize dashboard analytics</li>
+                            <li>• Scale provider network</li>
+                        </ul>
+                        <ul class="space-y-2">
+                            <li>• Launch patient acquisition campaigns</li>
+                            <li>• Expand to additional states</li>
+                            <li>• Build strategic partnerships</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-[#003087] to-blue-600 text-white rounded-xl p-6">
+                    <h3 class="text-xl font-bold mb-4">Partnership Opportunity</h3>
+                    <p class="text-lg">Join us in revolutionizing medical imaging access for millions of Americans</p>
+                </div>
+            </div>
+            <div class="text-2xl font-bold text-[#cc9933]">
+                Questions & Discussion
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.querySelector('.progress-bar').style.setProperty('--progress', `${progress}%`);
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+
+</html>
