@@ -1,0 +1,340 @@
+---
+// src/components/dashboard/PatientAdvocateLayout.astro
+// Patient Advocate Dashboard Layout - Optimized for frontline customer service
+
+interface Props {
+  title?: string;
+  user?: any;
+}
+
+const { title = "Patient Advocate Dashboard", user } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | USRad</title>
+  </head>
+
+  <body class="bg-gray-50 min-h-screen">
+    <div class="flex h-screen">
+      <!-- Left Sidebar Navigation (Optimized for Patient Service) -->
+      <div class="w-64 bg-emerald-700 text-white flex flex-col shadow-xl">
+        <!-- Logo Section -->
+        <div class="p-6 border-b border-emerald-600">
+          <div class="flex items-center">
+            <div
+              class="w-8 h-8 bg-white rounded-full flex items-center justify-center mr-3"
+            >
+              <span class="text-emerald-700 font-bold text-sm">PA</span>
+            </div>
+            <div>
+              <div class="text-white font-bold text-lg font-manrope">USRad</div>
+              <div class="text-emerald-200 text-xs">Patient Advocate Suite</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="px-4 py-3 bg-emerald-800 border-b border-emerald-600">
+          <div class="grid grid-cols-2 gap-2 text-center">
+            <div>
+              <div class="text-lg font-bold text-white" id="active-calls">
+                8
+              </div>
+              <div class="text-emerald-200 text-xs">Active Calls</div>
+            </div>
+            <div>
+              <div class="text-lg font-bold text-white" id="urgent-tasks">
+                3
+              </div>
+              <div class="text-emerald-200 text-xs">Urgent Tasks</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <nav class="flex-1 px-4 py-6 space-y-2">
+          <div
+            class="text-emerald-200 text-xs uppercase tracking-wider mb-4 px-2"
+          >
+            PATIENT SERVICE
+          </div>
+
+          <a
+            href="/dashboard/patient-advocate"
+            class="flex items-center px-4 py-3 rounded-lg bg-emerald-600 text-white"
+          >
+            <span class="mr-3">🎧</span>
+            <span class="font-medium">Service Dashboard</span>
+          </a>
+
+          <a
+            href="/dashboard/patient-advocate/search"
+            class="flex items-center px-4 py-3 rounded-lg text-emerald-200 hover:bg-emerald-600 hover:text-white transition-colors"
+          >
+            <span class="mr-3">🔍</span>
+            <span>Patient Lookup</span>
+          </a>
+
+          <a
+            href="/dashboard/patient-advocate/calls"
+            class="flex items-center px-4 py-3 rounded-lg text-emerald-200 hover:bg-emerald-600 hover:text-white transition-colors"
+          >
+            <span class="mr-3">📞</span>
+            <span>Active Calls</span>
+            <span
+              class="ml-auto bg-emerald-600 text-white px-2 py-1 rounded-full text-xs"
+              >8</span
+            >
+          </a>
+
+          <a
+            href="/dashboard/patient-advocate/tasks"
+            class="flex items-center px-4 py-3 rounded-lg text-emerald-200 hover:bg-emerald-600 hover:text-white transition-colors"
+          >
+            <span class="mr-3">✅</span>
+            <span>My Tasks</span>
+            <span
+              class="ml-auto bg-red-500 text-white px-2 py-1 rounded-full text-xs"
+              >3</span
+            >
+          </a>
+
+          <a
+            href="/dashboard/patient-advocate/urgent"
+            class="flex items-center px-4 py-3 rounded-lg text-emerald-200 hover:bg-emerald-600 hover:text-white transition-colors"
+          >
+            <span class="mr-3">🚨</span>
+            <span>Urgent Issues</span>
+          </a>
+
+          <div class="border-t border-emerald-600 my-4"></div>
+
+          <div
+            class="text-emerald-200 text-xs uppercase tracking-wider mb-4 px-2"
+          >
+            QUICK TOOLS
+          </div>
+
+          <a
+            href="/dashboard/patient-advocate/schedule"
+            class="flex items-center px-4 py-3 rounded-lg text-emerald-200 hover:bg-emerald-600 hover:text-white transition-colors"
+          >
+            <span class="mr-3">📅</span>
+            <span>Quick Schedule</span>
+          </a>
+
+          <a
+            href="/dashboard/patient-advocate/payments"
+            class="flex items-center px-4 py-3 rounded-lg text-emerald-200 hover:bg-emerald-600 hover:text-white transition-colors"
+          >
+            <span class="mr-3">💳</span>
+            <span>Payment Tools</span>
+          </a>
+
+          <a
+            href="/dashboard/patient-advocate/communications"
+            class="flex items-center px-4 py-3 rounded-lg text-emerald-200 hover:bg-emerald-600 hover:text-white transition-colors"
+          >
+            <span class="mr-3">💬</span>
+            <span>Communications</span>
+          </a>
+
+          <a
+            href="/dashboard/patient-advocate/reports"
+            class="flex items-center px-4 py-3 rounded-lg text-emerald-200 hover:bg-emerald-600 hover:text-white transition-colors"
+          >
+            <span class="mr-3">📋</span>
+            <span>Report Center</span>
+          </a>
+
+          <div class="border-t border-emerald-600 my-4"></div>
+
+          <div
+            class="text-emerald-200 text-xs uppercase tracking-wider mb-4 px-2"
+          >
+            SUPPORT
+          </div>
+
+          <a
+            href="/dashboard/patient-advocate/knowledge"
+            class="flex items-center px-4 py-3 rounded-lg text-emerald-200 hover:bg-emerald-600 hover:text-white transition-colors"
+          >
+            <span class="mr-3">📚</span>
+            <span>Knowledge Base</span>
+          </a>
+
+          <a
+            href="/dashboard/patient-advocate/escalation"
+            class="flex items-center px-4 py-3 rounded-lg text-emerald-200 hover:bg-emerald-600 hover:text-white transition-colors"
+          >
+            <span class="mr-3">⬆️</span>
+            <span>Escalation Tools</span>
+          </a>
+        </nav>
+
+        <!-- User Info Footer -->
+        <div class="p-4 border-t border-emerald-600">
+          <div class="flex items-center">
+            <div
+              class="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center mr-3"
+            >
+              <span class="text-white text-sm font-bold">PA</span>
+            </div>
+            <div class="flex-1">
+              <div class="text-white text-sm font-medium">Patient Advocate</div>
+              <div class="text-emerald-200 text-xs">Service Team</div>
+            </div>
+            <div class="text-emerald-200">
+              <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+            </div>
+          </div>
+          <div class="mt-2 text-emerald-200 text-xs">
+            <span>Shift: 9:00 AM - 6:00 PM</span>
+            <span class="ml-2">Online</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Header Bar -->
+        <header class="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+              <h1 class="text-xl font-bold text-gray-900 font-manrope">
+                Patient Advocate Dashboard
+              </h1>
+              <div class="flex items-center space-x-2">
+                <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span class="text-sm text-gray-600">Ready for Calls</span>
+              </div>
+            </div>
+
+            <!-- Quick Action Bar -->
+            <div class="flex items-center space-x-3">
+              <!-- Quick Patient Search -->
+              <div class="relative">
+                <input
+                  type="text"
+                  placeholder="Quick patient search..."
+                  id="quick-search"
+                  class="w-64 px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                />
+                <div class="absolute right-3 top-2.5 text-gray-400">🔍</div>
+              </div>
+
+              <!-- Quick Actions -->
+              <button
+                class="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-700 transition-colors"
+              >
+                📞 Take Call
+              </button>
+              <button
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+              >
+                ➕ New Task
+              </button>
+
+              <!-- Status Indicator -->
+              <div class="flex items-center space-x-2">
+                <div
+                  class="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center"
+                >
+                  <span class="text-white font-bold text-sm">PA</span>
+                </div>
+                <div class="text-sm">
+                  <div class="font-medium text-gray-900">Patient Advocate</div>
+                  <div class="text-gray-500">Available</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-auto bg-gray-50 p-6">
+          <slot />
+        </main>
+      </div>
+    </div>
+
+    <!-- Quick Action Modal Overlay (Hidden by default) -->
+    <div
+      id="quick-action-modal"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
+    >
+      <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
+        <div class="space-y-3">
+          <button
+            class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            📞 Answer Incoming Call
+          </button>
+          <button
+            class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            🔍 Lookup Patient Account
+          </button>
+          <button
+            class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            📅 Schedule New Appointment
+          </button>
+          <button
+            class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            💳 Process Payment/Refund
+          </button>
+          <button
+            class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            📧 Send Patient Communication
+          </button>
+        </div>
+        <button
+          onclick="document.getElementById('quick-action-modal').classList.add('hidden')"
+          class="mt-4 w-full bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Updates Script -->
+    <script>
+      // Update live counters
+      function updateLiveCounters() {
+        // Simulate real-time updates
+        const activeCalls = Math.floor(Math.random() * 12) + 3;
+        const urgentTasks = Math.floor(Math.random() * 5) + 1;
+
+        document.getElementById("active-calls").textContent = activeCalls;
+        document.getElementById("urgent-tasks").textContent = urgentTasks;
+      }
+
+      // Update every 30 seconds
+      setInterval(updateLiveCounters, 30000);
+
+      // Quick search functionality
+      document
+        .getElementById("quick-search")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            const searchTerm = this.value;
+            if (searchTerm.trim()) {
+              // Simulate patient lookup
+              alert(
+                `🔍 Searching for patient: "${searchTerm}"\n\nIn production, this would instantly show:\n• Patient profile\n• Appointment history\n• Recent communications\n• Payment status\n• Active issues`
+              );
+            }
+          }
+        });
+    </script>
+  </body>
+</html>
