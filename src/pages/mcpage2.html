@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A New Kind of Managed Care - USRad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hero Section - Managed Care First -->
+    <section class="relative w-full min-h-[700px] bg-[#fcf9f0] overflow-hidden mt-0 pt-0">
+        <img src="/images/managed-care-hero.webp" alt="Coordinator helping patient on tablet"
+            class="absolute inset-0 w-full h-full object-cover object-center md:object-left" loading="eager" />
+
+        <div class="absolute inset-0 bg-gradient-to-r from-[#fcf9f0]/90 via-white/85 to-transparent z-0"></div>
+
+        <div
+            class="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 py-24 md:py-32 flex flex-col md:flex-row items-center md:items-start">
+            <div class="w-full md:w-1/2 text-center md:text-left">
+                <h1
+                    class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#003087] mb-6 leading-tight">
+                    A New Kind of <br class="hidden sm:inline" />Managed Care
+                </h1>
+
+                <!-- Managed Care Differentiation -->
+                <div
+                    class="text-2xl sm:text-3xl font-bold mb-6 flex justify-center md:justify-start items-center gap-2 tracking-tight">
+                    <span>Built for the</span>
+                    <span class="relative h-[40px] w-[12ch] overflow-hidden inline-block">
+                        <span id="rotating-container" class="absolute top-0 left-0 font-extrabold text-[#cc9933]">
+                            <span class="block text-left h-[40px] leading-[40px]">Uninsured</span>
+                            <span class="block text-left h-[40px] leading-[40px]">Underinsured</span>
+                            <span class="block text-left h-[40px] leading-[40px]">Uninsured</span>
+                        </span>
+                    </span>
+                </div>
+
+                <p class="text-lg sm:text-xl text-[#003087] mb-8 max-w-xl">
+                    USRad is the first managed care platform focused on ancillary services—starting with diagnostic
+                    imaging.
+                    <strong>Experience how it works in your provider dashboard.</strong>
+                </p>
+
+                <!-- PLG CTAs with Managed Care Context -->
+                <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-3 sm:gap-4">
+                    <button
+                        class="bg-[#cc9933] hover:bg-[#b8862e] text-[#003087] px-8 py-4 rounded-xl font-bold transition-all text-lg">
+                        See the Managed Care Difference
+                    </button>
+                    <button
+                        class="border-2 border-[#003087] text-[#003087] hover:bg-[#003087] hover:text-white px-6 py-3 rounded-xl font-semibold transition-all">
+                        Learn About the Model
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Managed Care vs Traditional - Core Differentiation -->
+    <section class="py-20 bg-white text-[#003087] px-6 sm:px-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">How Managed Care Changes Everything</h2>
+                <p class="text-xl text-gray-700">Experience the difference between traditional healthcare and true
+                    managed care through your provider dashboard</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Traditional System -->
+                <div class="bg-red-50 border border-red-200 p-8 rounded-xl">
+                    <h3 class="text-xl font-semibold text-red-800 mb-6">Traditional Insurance Model</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div class="text-red-500 mt-1">❌</div>
+                            <div>
+                                <div class="font-semibold text-red-700">High deductibles & copays</div>
+                                <div class="text-sm text-red-600">Patients often can't afford care</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="text-red-500 mt-1">❌</div>
+                            <div>
+                                <div class="font-semibold text-red-700">Complex referral requirements</div>
+                                <div class="text-sm text-red-600">Delays and administrative burden</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="text-red-500 mt-1">❌</div>
+                            <div>
+                                <div class="font-semibold text-red-700">Surprise bills & markups</div>
+                                <div class="text-sm text-red-600">Hospital pricing games</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="text-red-500 mt-1">❌</div>
+                            <div>
+                                <div class="font-semibold text-red-700">Payment delays & denials</div>
+                                <div class="text-sm text-red-600">Cash flow uncertainty</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- USRad Managed Care -->
+                <div class="bg-green-50 border border-green-200 p-8 rounded-xl">
+                    <h3 class="text-xl font-semibold text-green-800 mb-6">USRad Managed Care Model</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div class="text-green-500 mt-1">✅</div>
+                            <div>
+                                <div class="font-semibold text-green-700">Flat-rate pricing</div>
+                                <div class="text-sm text-green-600">Patients know exact cost upfront</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="text-green-500 mt-1">✅</div>
+                            <div>
+                                <div class="font-semibold text-green-700">Direct scheduling</div>
+                                <div class="text-sm text-green-600">No referrals, no gatekeepers</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="text-green-500 mt-1">✅</div>
+                            <div>
+                                <div class="font-semibold text-green-700">All-inclusive fees</div>
+                                <div class="text-sm text-green-600">Scan + radiologist read included</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="text-green-500 mt-1">✅</div>
+                            <div>
+                                <div class="font-semibold text-green-700">Payment in 5-7 days</div>
+                                <div class="text-sm text-green-600">Guaranteed, fast payment</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Experience CTA -->
+            <div class="text-center bg-[#f8f2e1] p-8 rounded-xl">
+                <h3 class="text-2xl font-bold text-[#003087] mb-4">See This Difference in Action</h3>
+                <p class="text-lg text-gray-700 mb-6">Your provider dashboard shows exactly how our managed care model
+                    works for your center</p>
+                <button
+                    class="bg-[#cc9933] text-[#003087] px-8 py-4 rounded-xl font-bold hover:bg-[#b8862e] transition-all text-lg">
+                    Experience Your Dashboard →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Coverage Crisis -->
+    <section class="py-20 bg-[#fcf9f0] text-[#003087] px-6 sm:px-12 text-center">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6">Why Managed Care for Self-Pay?</h2>
+            <p class="text-xl text-gray-700 mb-12 max-w-4xl mx-auto">
+                Over 90 million Americans are either uninsured or underinsured. Traditional managed care isn't built for
+                them.
+                <strong>We are.</strong>
+            </p>
+
+            <!-- Market Stats -->
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="text-4xl font-bold text-[#cc9933] mb-3">90M+</div>
+                    <div class="text-lg font-semibold text-[#003087] mb-2">Uninsured & Underinsured</div>
+                    <div class="text-sm text-gray-600">Growing every year</div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="text-4xl font-bold text-[#003087] mb-3">$45B</div>
+                    <div class="text-lg font-semibold text-[#003087] mb-2">Self-Pay Market</div>
+                    <div class="text-sm text-gray-600">Underserved opportunity</div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="text-4xl font-bold text-[#cc9933] mb-3">30-70%</div>
+                    <div class="text-lg font-semibold text-[#003087] mb-2">Cost Savings</div>
+                    <div class="text-sm text-gray-600">vs hospital rates</div>
+                </div>
+            </div>
+
+            <!-- Dashboard Preview -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl max-w-4xl mx-auto">
+                <h3 class="text-xl font-bold text-[#003087] mb-6">Your Dashboard Shows Real Impact</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <div class="font-semibold text-green-800 mb-2">Patient Volume</div>
+                        <div class="text-2xl font-bold text-green-600">15-25</div>
+                        <div class="text-sm text-green-700">Self-pay MRIs/month</div>
+                    </div>
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <div class="font-semibold text-blue-800 mb-2">Average Revenue</div>
+                        <div class="text-2xl font-bold text-blue-600">$425-$650</div>
+                        <div class="text-sm text-blue-700">Per scan (all-inclusive)</div>
+                    </div>
+                    <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                        <div class="font-semibold text-purple-800 mb-2">Monthly Potential</div>
+                        <div class="text-2xl font-bold text-purple-600">$8,500-$15,200</div>
+                        <div class="text-sm text-purple-700">Additional revenue</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proven Experience -->
+    <section class="py-20 bg-white text-[#003087] px-6 sm:px-12">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Left: Experience Story -->
+                <div>
+                    <h2 class="text-3xl font-bold mb-6">This Isn't Our First Managed Care Network</h2>
+                    <p class="text-lg text-gray-700 mb-6">
+                        Our founder, Michael Cabrera, built AnciCare PPO into a $20M/year specialty network serving
+                        1,200+ imaging centers
+                        before its successful acquisition by a public company.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-8">
+                        <strong>Now we're applying that same managed care expertise to the underserved self-pay
+                            market.</strong>
+                    </p>
+
+                    <!-- Achievement Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-[#f8f2e1] p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-[#cc9933]">$20M+</div>
+                            <div class="text-sm text-gray-600">Annual Revenue</div>
+                        </div>
+                        <div class="bg-[#f8f2e1] p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-[#003087]">1,200+</div>
+                            <div class="text-sm text-gray-600">Imaging Centers</div>
+                        </div>
+                        <div class="bg-[#f8f2e1] p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-[#cc9933]">3,000+</div>
+                            <div class="text-sm text-gray-600">Radiologists</div>
+                        </div>
+                        <div class="bg-[#f8f2e1] p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-[#003087]">2019</div>
+                            <div class="text-sm text-gray-600">Successful Exit</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Dashboard Experience -->
+                <div class="bg-gradient-to-br from-[#003087] to-[#0052cc] rounded-2xl p-8 text-white">
+                    <h3 class="text-2xl font-bold mb-6">Experience Our Managed Care Platform</h3>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-8 h-8 bg-[#cc9933] rounded-full flex items-center justify-center text-sm font-bold">
+                                1</div>
+                            <div>See your revenue potential instantly</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-8 h-8 bg-[#cc9933] rounded-full flex items-center justify-center text-sm font-bold">
+                                2</div>
+                            <div>Complete Provider Service Agreement online</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-8 h-8 bg-[#cc9933] rounded-full flex items-center justify-center text-sm font-bold">
+                                3</div>
+                            <div>Track credentialing and setup progress</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-8 h-8 bg-[#cc9933] rounded-full flex items-center justify-center text-sm font-bold">
+                                4</div>
+                            <div>Start receiving self-pay patients</div>
+                        </div>
+                    </div>
+
+                    <button
+                        class="w-full bg-[#cc9933] text-[#003087] py-4 rounded-xl font-bold hover:bg-[#e6c378] transition-all text-lg">
+                        Access Your Provider Dashboard
+                    </button>
+
+                    <p class="text-sm opacity-80 text-center mt-4">No sales calls • Complete online • Free to explore
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-20 bg-[#003087] text-white px-6 sm:px-12 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-6">Ready to Experience Managed Care Done Right?</h2>
+            <p class="text-xl mb-8 opacity-90">
+                See how our managed care model works for providers through your personalized dashboard experience.
+            </p>
+
+            <!-- Value Props -->
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-white/10 rounded-lg p-6">
+                    <div class="text-xl font-bold text-[#cc9933] mb-2">Managed Care</div>
+                    <div class="text-sm">Built for self-pay patients</div>
+                </div>
+                <div class="bg-white/10 rounded-lg p-6">
+                    <div class="text-xl font-bold text-[#cc9933] mb-2">Proven Team</div>
+                    <div class="text-sm">$20M network experience</div>
+                </div>
+                <div class="bg-white/10 rounded-lg p-6">
+                    <div class="text-xl font-bold text-[#cc9933] mb-2">Self-Service</div>
+                    <div class="text-sm">Complete online dashboard</div>
+                </div>
+            </div>
+
+            <!-- Final CTAs -->
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button
+                    class="px-10 py-4 bg-[#cc9933] text-[#003087] font-bold rounded-xl hover:bg-[#e6c378] transition-all text-lg">
+                    Experience the Dashboard
+                </button>
+                <button
+                    class="px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-[#003087] font-semibold rounded-xl transition-all">
+                    Learn More About Our Model
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rotating Text Script -->
+    <script>
+        const container = document.getElementById("rotating-container");
+        const wordHeight = 40;
+        let index = 0;
+
+        setInterval(() => {
+            index++;
+            container.style.transition = "transform 0.2s ease-in-out";
+            container.style.transform = `translateY(-${index * wordHeight}px)`;
+
+            if (index === 2) {
+                setTimeout(() => {
+                    container.style.transition = "none";
+                    container.style.transform = "translateY(0)";
+                    index = 0;
+                }, 600);
+            }
+        }, 3000);
+    </script>
+</body>
+
+</html>

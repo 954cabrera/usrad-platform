@@ -229,7 +229,7 @@ export default function PatientHeader({ showStickyBar = true }) {
                 {[
                   { href: "/about", label: "About" },
                   { href: "/how-it-works", label: "How It Works" },
-                  { href: "/locations", label: "Locations" },
+                  { href: "/search-test", label: "Locations" },
                   { href: "/pricing", label: "Pricing" },
                   { href: "/contact", label: "Contact" },
                 ].map((link) => (
