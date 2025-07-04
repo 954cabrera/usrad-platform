@@ -1,0 +1,1070 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import AOSInit from "../components/AOSInit.astro";
+
+// Page metadata
+const title = "Stop Leaving Money on the Table - USRad Provider Marketplace";
+const description =
+  "Set your own reimbursement. Get patients directly. Turn unfilled MRI slots into reliable monthly revenue with transparent marketplace pricing.";
+---
+
+<MainLayout>
+  <Fragment slot="title">{title}</Fragment>
+
+  <AOSInit />
+
+  <!-- Hero Section - Enhanced Mobile Optimized -->
+  <section
+    class="relative overflow-hidden min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh] pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-12 lg:pb-16"
+  >
+    <!-- Video Background -->
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      class="absolute inset-0 w-full h-full object-cover z-0"
+      poster="/images/website/imaging-center-hero-fallback.webp?v=2.1"
+    >
+      <source
+        src="/videos/imaging-center-hero-mobile.mp4"
+        type="video/mp4"
+        media="(max-width: 768px)"
+      />
+      <source src="/videos/imaging-center-hero.mp4" type="video/mp4" />
+      <source src="/videos/imaging-center-hero.webm" type="video/webm" />
+      <img
+        src="/images/website/imaging-center-hero-fallback.webp?v=2.1"
+        alt="Radiologist collaboration"
+        class="w-full h-full object-cover"
+      />
+    </video>
+
+    <!-- Radial Overlay -->
+    <div
+      class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.7)_40%,transparent_85%)] z-0"
+    >
+    </div>
+
+    <div
+      class="relative max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 h-full flex items-center z-10"
+    >
+      <div class="max-w-2xl mx-auto text-center w-full">
+        <!-- Status Badge -->
+        <div
+          class="inline-flex items-center justify-center px-3 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs sm:text-sm font-semibold rounded-full animate-pulse mb-4 sm:mb-6 lg:mb-8"
+          data-aos="fade-down"
+        >
+          <span class="w-2 h-2 bg-white rounded-full mr-2 animate-ping"></span>
+          <span class="whitespace-nowrap"
+            >Provider Panels Closing Soon by Region</span
+          >
+        </div>
+
+        <!-- Headlines -->
+        <div
+          class="space-y-3 sm:space-y-4 lg:space-y-6 mb-4 sm:mb-6 lg:mb-8"
+          data-aos="fade-up"
+        >
+          <h1
+            class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-gray-900 leading-tight px-2 sm:px-0"
+          >
+            Turn Empty Slots<br />
+            Into <span
+              class="bg-gradient-to-r from-blue-600 to-amber-600 bg-clip-text text-transparent"
+              >Revenue</span
+            ><br />
+            Within Days
+          </h1>
+
+          <p
+            class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed px-2 sm:px-0"
+          >
+            Set your rate. Get booked. Get paid fast.
+          </p>
+        </div>
+
+        <!-- Quote Box -->
+        <div
+          class="bg-gradient-to-r from-amber-50 to-blue-50 p-3 sm:p-4 lg:p-6 rounded-lg sm:rounded-xl border-l-4 border-amber-400 mb-4 sm:mb-6 lg:mb-8 backdrop-blur-sm bg-opacity-90 mx-2 sm:mx-0"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <p class="text-sm sm:text-base lg:text-lg text-gray-700 italic mb-2">
+            "You're already offering discounts. You're already sitting on unused
+            capacity."
+          </p>
+          <p
+            class="text-sm sm:text-base lg:text-lg font-semibold text-amber-700"
+          >
+            Why not turn that into consistent revenue—and new referring
+            physicians?
+          </p>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div
+          class="flex flex-col gap-3 sm:gap-4 justify-center items-center mb-4 sm:mb-6 lg:mb-8 px-2 sm:px-0"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          <a
+            href="/login/imaginglogin"
+            class="w-full max-w-md sm:w-auto bg-gradient-to-r from-amber-500 to-amber-600 text-white px-4 sm:px-6 lg:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base lg:text-lg hover:from-amber-600 hover:to-amber-700 transform hover:scale-105 transition-all duration-300 shadow-lg text-center min-h-[48px] flex items-center justify-center"
+          >
+            Start Onboarding – Takes 5 Minutes →
+          </a>
+          <a
+            href="#"
+            class="w-full max-w-md sm:w-auto border-2 border-blue-600 text-blue-600 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base lg:text-lg hover:bg-blue-600 hover:text-white transition-all duration-300 backdrop-blur-sm text-center min-h-[48px] flex items-center justify-center"
+          >
+            <span class="hidden sm:inline"
+              >How We Built AnciCare serving over 400,000 patients</span
+            >
+            <span class="sm:hidden">AnciCare Success Story</span>
+          </a>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div
+          class="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 lg:mb-6 px-2 sm:px-0"
+          data-aos="fade-up"
+          data-aos-delay="600"
+        >
+          <span class="flex items-center whitespace-nowrap">
+            <svg
+              class="w-3 h-3 sm:w-4 sm:h-4 text-green-500 mr-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"></path>
+            </svg>
+            No setup cost
+          </span>
+          <span class="flex items-center whitespace-nowrap">
+            <svg
+              class="w-3 h-3 sm:w-4 sm:h-4 text-green-500 mr-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"></path>
+            </svg>
+            Set your own rates
+          </span>
+          <span class="flex items-center whitespace-nowrap">
+            <svg
+              class="w-3 h-3 sm:w-4 sm:h-4 text-green-500 mr-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"></path>
+            </svg>
+            Consistent volume
+          </span>
+        </div>
+
+        <p
+          class="text-blue-600 font-medium text-xs sm:text-sm lg:text-base px-2 sm:px-0"
+          data-aos="fade-up"
+          data-aos-delay="800"
+        >
+          Already started? <a
+            href="/login/imaginglogin"
+            class="underline hover:no-underline">Resume here</a
+          >
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dynamic Revenue Calculator - Enhanced Mobile -->
+  <section class="py-12 sm:py-16 lg:py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+      <div class="text-center mb-8 sm:mb-12 lg:mb-16" data-aos="fade-up">
+        <h2
+          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 lg:mb-6 px-2 sm:px-0"
+        >
+          Calculate Your Revenue Potential
+        </h2>
+        <p
+          class="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-2 sm:px-0"
+        >
+          See how your pricing strategy affects your monthly revenue with real
+          volume data from our marketplace.
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-xl sm:rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <!-- Calculator Controls -->
+        <div class="grid grid-cols-1 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2 sm:mb-3"
+              >Modality</label
+            >
+            <select
+              id="modality"
+              class="w-full px-3 sm:px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base min-h-[48px]"
+            >
+              <option value="mri">MRI</option>
+              <option value="ct">CT Scan - Coming Soon!</option>
+              <option value="ultrasound">Ultrasound - Coming Soon!</option>
+              <option value="xray">X-Ray - Coming Soon!</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2 sm:mb-3"
+              >Current Empty Slots/Day</label
+            >
+            <input
+              type="range"
+              id="emptySlots2"
+              min="1"
+              max="10"
+              value="3"
+              class="w-full h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer"
+            />
+            <div
+              class="flex justify-between items-center text-sm text-gray-600 mt-2"
+            >
+              <span>1</span>
+              <span
+                id="slotsDisplay"
+                class="text-xl sm:text-2xl font-bold text-blue-600 bg-blue-50 px-3 py-2 rounded-lg border-2 border-blue-200 min-w-[48px] text-center"
+                >3</span
+              >
+              <span>10</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2 sm:mb-3"
+              >Your Pricing Strategy</label
+            >
+            <select
+              id="pricingStrategy"
+              class="w-full px-3 sm:px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base min-h-[48px]"
+            >
+              <option value="100">100% of Medicare ($270) - High Volume</option>
+              <option value="120">120% of Medicare ($300) - Balanced</option>
+              <option value="140">140% of Medicare ($330) - Premium</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Results Display -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+          <div
+            class="bg-blue-50 rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 text-center"
+          >
+            <div
+              class="text-lg sm:text-xl lg:text-2xl font-bold text-blue-600 mb-1 sm:mb-2"
+              id="expectedVolume"
+            >
+              25
+            </div>
+            <div class="text-xs sm:text-sm text-gray-600">Monthly Scans</div>
+          </div>
+
+          <div
+            class="bg-green-50 rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 text-center"
+          >
+            <div
+              class="text-lg sm:text-xl lg:text-2xl font-bold text-green-600 mb-1 sm:mb-2"
+              id="revenuePerScan"
+            >
+              $270
+            </div>
+            <div class="text-xs sm:text-sm text-gray-600">Revenue/Scan</div>
+          </div>
+
+          <div
+            class="bg-purple-50 rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 text-center"
+          >
+            <div
+              class="text-lg sm:text-xl lg:text-2xl font-bold text-purple-600 mb-1 sm:mb-2"
+              id="monthlyRevenue"
+            >
+              $6,750
+            </div>
+            <div class="text-xs sm:text-sm text-gray-600">Monthly Revenue</div>
+          </div>
+
+          <div
+            class="bg-amber-50 rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 text-center"
+          >
+            <div
+              class="text-lg sm:text-xl lg:text-2xl font-bold text-amber-600 mb-1 sm:mb-2"
+              id="marketplaceRank"
+            >
+              Top 20%
+            </div>
+            <div class="text-xs sm:text-sm text-gray-600">Marketplace Rank</div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center mt-6 sm:mt-8">
+          <a
+            href="/login/imaginglogin"
+            class="w-full sm:w-auto inline-block bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 sm:px-8 py-4 rounded-xl font-semibold text-base sm:text-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg min-h-[48px]"
+          >
+            Lock in These Numbers →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust & Quality Reassurance - Enhanced Mobile -->
+  <section
+    class="py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-[#fefbf5] to-[#f8f5e8] relative overflow-hidden"
+  >
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+      <div class="text-center mb-8 sm:mb-12 lg:mb-16" data-aos="fade-up">
+        <h2
+          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#003087] mb-4 sm:mb-6 lg:mb-8 font-manrope px-2 sm:px-0"
+        >
+          Patients Choose Price. We Ensure Quality.
+        </h2>
+        <p
+          class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-2 sm:px-0"
+        >
+          All USRad centers are pre-vetted for licensure, accreditation, and
+          service reputation. Every patient knows that no matter the price,
+          they'll receive world-class imaging.
+        </p>
+      </div>
+
+      <!-- Quality Standards Grid -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12 lg:mb-16"
+      >
+        <!-- Standard 1 -->
+        <div
+          class="bg-white rounded-lg sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl border border-gray-100 text-center group hover:-translate-y-2 transition-all duration-300"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <div
+            class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-[#003087] to-[#0052cc] rounded-lg sm:rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6 text-white text-xl sm:text-2xl lg:text-3xl group-hover:scale-110 transition-transform"
+          >
+            🏥
+          </div>
+          <h3
+            class="text-base sm:text-lg lg:text-xl font-bold text-[#003087] mb-2 sm:mb-3 lg:mb-4"
+          >
+            Full Accreditation
+          </h3>
+          <p class="text-xs sm:text-sm lg:text-base text-gray-600">
+            ACR or equivalent accreditation required for all network centers
+          </p>
+        </div>
+
+        <!-- Standard 2 -->
+        <div
+          class="bg-white rounded-lg sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl border border-gray-100 text-center group hover:-translate-y-2 transition-all duration-300"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <div
+            class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-[#cc9933] to-[#e6c378] rounded-lg sm:rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6 text-white text-xl sm:text-2xl lg:text-3xl group-hover:scale-110 transition-transform"
+          >
+            👨‍⚕️
+          </div>
+          <h3
+            class="text-base sm:text-lg lg:text-xl font-bold text-[#003087] mb-2 sm:mb-3 lg:mb-4"
+          >
+            Board-Certified Reads
+          </h3>
+          <p class="text-xs sm:text-sm lg:text-base text-gray-600">
+            Every scan interpreted by board-certified radiologists within 24-48
+            hours
+          </p>
+        </div>
+
+        <!-- Standard 3 -->
+        <div
+          class="bg-white rounded-lg sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl border border-gray-100 text-center group hover:-translate-y-2 transition-all duration-300"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          <div
+            class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-lg sm:rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6 text-white text-xl sm:text-2xl lg:text-3xl group-hover:scale-110 transition-transform"
+          >
+            🔧
+          </div>
+          <h3
+            class="text-base sm:text-lg lg:text-xl font-bold text-[#003087] mb-2 sm:mb-3 lg:mb-4"
+          >
+            Modern Equipment
+          </h3>
+          <p class="text-xs sm:text-sm lg:text-base text-gray-600">
+            Only centers with 1.5T or higher MRI and 64-slice or higher CT
+            scanners from leading manufacturers are eligible.
+          </p>
+        </div>
+
+        <!-- Standard 4 -->
+        <div
+          class="bg-white rounded-lg sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl border border-gray-100 text-center group hover:-translate-y-2 transition-all duration-300"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          <div
+            class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg sm:rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6 text-white text-xl sm:text-2xl lg:text-3xl group-hover:scale-110 transition-transform"
+          >
+            ⭐
+          </div>
+          <h3
+            class="text-base sm:text-lg lg:text-xl font-bold text-[#003087] mb-2 sm:mb-3 lg:mb-4"
+          >
+            Patient Satisfaction
+          </h3>
+          <p class="text-xs sm:text-sm lg:text-base text-gray-600">
+            Continuous monitoring of patient experience and outcomes across
+            network
+          </p>
+        </div>
+      </div>
+
+      <!-- Quality Guarantee -->
+      <div
+        class="bg-gradient-to-r from-[#003087] to-[#0052cc] rounded-lg sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-10 text-white text-center shadow-2xl"
+        data-aos="fade-up"
+        data-aos-delay="500"
+      >
+        <h3
+          class="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4 lg:mb-6"
+        >
+          🛡️ Our Quality Guarantee
+        </h3>
+        <p
+          class="text-sm sm:text-base lg:text-xl leading-relaxed max-w-4xl mx-auto mb-4 sm:mb-6 lg:mb-8 px-2 sm:px-0"
+        >
+          Price competition drives volume, but quality standards are
+          non-negotiable. Every USRad center meets the same rigorous standards,
+          regardless of their marketplace pricing strategy.
+        </p>
+        <div
+          class="inline-flex items-center gap-2 sm:gap-4 bg-white/20 rounded-lg sm:rounded-xl lg:rounded-2xl px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4"
+        >
+          <span class="text-[#cc9933] text-lg sm:text-xl lg:text-2xl">✓</span>
+          <span class="font-semibold text-xs sm:text-sm lg:text-base"
+            >Same quality at every price point</span
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Referral Growth Path – Enhanced Mobile -->
+  <section
+    class="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-50 to-white"
+  >
+    <div class="max-w-6xl mx-auto px-3 sm:px-4 lg:px-6">
+      <h2
+        class="text-center text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#003087] mb-4 sm:mb-6 font-manrope px-2 sm:px-0"
+        data-aos="fade-up"
+      >
+        The Referral Growth Path
+      </h2>
+      <p
+        class="text-center text-sm sm:text-base lg:text-lg text-gray-700 max-w-2xl mx-auto mb-8 sm:mb-12 lg:mb-16 px-2 sm:px-0"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Every patient is a strategic opportunity to build trust, expand referral
+        networks, and elevate your reimbursement mix.
+      </p>
+
+      <div
+        class="relative border-l-4 border-blue-200 pl-4 sm:pl-6 space-y-8 sm:space-y-10 lg:space-y-14 mb-12 sm:mb-16 lg:mb-20"
+      >
+        <!-- Step 1 -->
+        <div
+          class="relative pl-8 sm:pl-12"
+          data-aos="fade-right"
+          data-aos-delay="200"
+        >
+          <div
+            class="absolute -left-[33px] sm:-left-[45px] top-1 bg-green-500 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold shadow-lg text-sm sm:text-base"
+          >
+            1
+          </div>
+          <div class="flex items-start gap-3 sm:gap-4">
+            <svg
+              class="w-5 h-5 sm:w-6 sm:h-6 text-green-500 mt-1 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="M12 8c-1.1 0-2 .9-2 2v4h4v-4c0-1.1-.9-2-2-2z"
+              ></path><path d="M12 2v2"></path><path d="M12 20v2"></path><path
+                d="M4.93 4.93l1.41 1.41"></path><path d="M17.66 17.66l1.41 1.41"
+              ></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path
+                d="M4.93 19.07l1.41-1.41"></path><path d="M17.66 6.34l1.41-1.41"
+              ></path></svg
+            >
+            <div>
+              <h3
+                class="text-green-600 font-bold text-base sm:text-lg lg:text-xl mb-1 sm:mb-2"
+              >
+                Strategic Pricing Advantage
+              </h3>
+              <p class="text-gray-600 text-sm sm:text-base">
+                Position your center for optimal visibility and case volume.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div
+          class="relative pl-8 sm:pl-12"
+          data-aos="fade-left"
+          data-aos-delay="300"
+        >
+          <div
+            class="absolute -left-[33px] sm:-left-[45px] top-1 bg-blue-500 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold shadow-lg text-sm sm:text-base"
+          >
+            2
+          </div>
+          <div class="flex items-start gap-3 sm:gap-4">
+            <svg
+              class="w-5 h-5 sm:w-6 sm:h-6 text-blue-500 mt-1 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="M22 12H2"></path><path d="M15 5l7 7-7 7"></path></svg
+            >
+            <div>
+              <h3
+                class="text-blue-600 font-bold text-base sm:text-lg lg:text-xl mb-1 sm:mb-2"
+              >
+                Accelerated Patient Flow
+              </h3>
+              <p class="text-gray-600 text-sm sm:text-base">
+                A surge in self-pay bookings earns you market share fast.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div
+          class="relative pl-8 sm:pl-12"
+          data-aos="fade-right"
+          data-aos-delay="400"
+        >
+          <div
+            class="absolute -left-[33px] sm:-left-[45px] top-1 bg-purple-500 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold shadow-lg text-sm sm:text-base"
+          >
+            3
+          </div>
+          <div class="flex items-start gap-3 sm:gap-4">
+            <svg
+              class="w-5 h-5 sm:w-6 sm:h-6 text-purple-500 mt-1 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+              ></path><circle cx="12" cy="7" r="4"></circle></svg
+            >
+            <div>
+              <h3
+                class="text-purple-600 font-bold text-base sm:text-lg lg:text-xl mb-1 sm:mb-2"
+              >
+                Physician Recognition
+              </h3>
+              <p class="text-gray-600 text-sm sm:text-base">
+                Increased volume puts your name in front of new referring
+                providers.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div
+          class="relative pl-8 sm:pl-12"
+          data-aos="fade-left"
+          data-aos-delay="500"
+        >
+          <div
+            class="absolute -left-[33px] sm:-left-[45px] top-1 bg-orange-500 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold shadow-lg text-sm sm:text-base"
+          >
+            4
+          </div>
+          <div class="flex items-start gap-3 sm:gap-4">
+            <svg
+              class="w-5 h-5 sm:w-6 sm:h-6 text-orange-500 mt-1 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              stroke-linecap="round"
+              stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg
+            >
+            <div>
+              <h3
+                class="text-orange-600 font-bold text-base sm:text-lg lg:text-xl mb-1 sm:mb-2"
+              >
+                Trusted Referral Growth
+              </h3>
+              <p class="text-gray-600 text-sm sm:text-base">
+                Earn long-term inbound referrals through proven quality.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div
+          class="relative pl-8 sm:pl-12"
+          data-aos="fade-right"
+          data-aos-delay="600"
+        >
+          <div
+            class="absolute -left-[33px] sm:-left-[45px] top-1 bg-yellow-500 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold shadow-lg text-sm sm:text-base"
+          >
+            5
+          </div>
+          <div class="flex items-start gap-3 sm:gap-4">
+            <svg
+              class="w-5 h-5 sm:w-6 sm:h-6 text-yellow-500 mt-1 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="M6 20h12"></path><path d="M12 14v6"></path><path
+                d="M18 10a6 6 0 1 0-12 0c0 3.866 2.239 6 6 6s6-2.134 6-6z"
+              ></path></svg
+            >
+            <div>
+              <h3
+                class="text-yellow-600 font-bold text-base sm:text-lg lg:text-xl mb-1 sm:mb-2"
+              >
+                Diversified & Improved Payor Mix
+              </h3>
+              <p class="text-gray-600 text-sm sm:text-base">
+                Attract higher-reimbursing cases as referral relationships
+                deepen.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3D Founder Insight Card - Mobile Enhanced -->
+      <div
+        class="relative px-2 sm:px-0"
+        data-aos="fade-up"
+        data-aos-delay="700"
+      >
+        <!-- 3D Shadow Layers -->
+        <div
+          class="absolute top-2 sm:top-3 left-2 sm:left-3 w-full h-full bg-gray-300 rounded-2xl sm:rounded-3xl transform rotate-1"
+        >
+        </div>
+        <div
+          class="absolute top-1 sm:top-2 left-1 sm:left-2 w-full h-full bg-gray-200 rounded-2xl sm:rounded-3xl transform rotate-0.5"
+        >
+        </div>
+
+        <!-- Main Card -->
+        <div
+          class="relative bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 border-2 border-amber-200 shadow-2xl transform transition-all duration-300 hover:-translate-y-2 hover:shadow-3xl"
+        >
+          <!-- Decorative corner elements -->
+          <div
+            class="absolute top-3 sm:top-4 left-3 sm:left-4 w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-amber-400 to-amber-500 rounded-full opacity-20"
+          >
+          </div>
+          <div
+            class="absolute bottom-3 sm:bottom-4 right-3 sm:right-4 w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-400 to-blue-500 rounded-full opacity-20"
+          >
+          </div>
+
+          <!-- Content -->
+          <div class="relative z-10">
+            <div class="text-center mb-6 sm:mb-8">
+              <div
+                class="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-amber-400 to-amber-500 rounded-full mb-3 sm:mb-4 shadow-lg"
+              >
+                <span class="text-xl sm:text-2xl">💡</span>
+              </div>
+              <h3
+                class="text-xl sm:text-2xl lg:text-3xl font-bold text-[#003087] mb-2 font-manrope"
+              >
+                Founder Insight
+              </h3>
+              <div
+                class="w-16 sm:w-24 h-1 bg-gradient-to-r from-amber-400 to-amber-500 mx-auto rounded-full"
+              >
+              </div>
+            </div>
+
+            <blockquote
+              class="text-base sm:text-lg lg:text-xl text-gray-700 italic leading-relaxed mb-6 sm:mb-8 text-center max-w-4xl mx-auto relative"
+            >
+              <div
+                class="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 text-3xl sm:text-6xl text-amber-300 opacity-50 font-serif"
+              >
+                "
+              </div>
+              <div
+                class="absolute -bottom-4 sm:-bottom-8 -right-2 sm:-right-4 text-3xl sm:text-6xl text-amber-300 opacity-50 font-serif"
+              >
+                "
+              </div>
+              In my previous venture, we saw that providers who got in early and
+              priced competitively gained market share that couldn't be disrupted
+              later. They built referral relationships that lasted for years beyond
+              the initial marketplace advantage.
+            </blockquote>
+
+            <div class="text-center">
+              <div
+                class="inline-block bg-white rounded-xl sm:rounded-2xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6 shadow-lg border border-amber-200"
+              >
+                <div
+                  class="font-bold text-blue-600 text-base sm:text-lg lg:text-xl mb-1 sm:mb-2"
+                >
+                  — Michael Cabrera, Founder & CEO
+                </div>
+                <div
+                  class="text-gray-600 font-medium text-sm sm:text-base lg:text-lg"
+                >
+                  Built & sold AnciCare PPO after serving over 400,000 patients
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Subtle pattern overlay -->
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-transparent via-white/10 to-transparent rounded-2xl sm:rounded-3xl"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA - Enhanced Mobile -->
+  <section
+    class="py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-[#003087] via-[#0052cc] to-[#003087] text-white relative overflow-hidden"
+  >
+    <div class="absolute inset-0">
+      <div
+        class="absolute top-10 left-10 w-32 h-32 sm:w-64 sm:h-64 lg:w-96 lg:h-96 bg-[#cc9933]/20 rounded-full blur-3xl animate-pulse"
+      >
+      </div>
+      <div
+        class="absolute bottom-10 right-10 w-24 h-24 sm:w-48 sm:h-48 lg:w-80 lg:h-80 bg-white/10 rounded-full blur-3xl"
+      >
+      </div>
+      <div
+        class="absolute top-1/2 left-1/3 w-16 h-16 sm:w-32 sm:h-32 lg:w-64 lg:h-64 bg-green-500/10 rounded-full blur-3xl"
+      >
+      </div>
+    </div>
+
+    <div
+      class="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 lg:px-12 text-center"
+    >
+      <h2
+        class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 sm:mb-6 lg:mb-8 font-manrope leading-tight px-2 sm:px-0"
+        data-aos="fade-up"
+      >
+        Get Listed.<br />
+        Get Booked.<br />
+        Get Paid.
+      </h2>
+      <p
+        class="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 sm:mb-12 opacity-90 leading-relaxed max-w-4xl mx-auto px-2 sm:px-0"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Start onboarding now. It takes 5 minutes and zero setup cost.
+        <strong style="white-space: nowrap;"
+          >Set your price.  Drive your growth.</strong
+        >
+      </p>
+
+      <!-- Urgency Stats -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12 lg:mb-16"
+      >
+        <div
+          class="bg-white/15 backdrop-blur-lg rounded-lg sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 border border-white/30"
+          data-aos="zoom-in"
+          data-aos-delay="200"
+        >
+          <div
+            class="text-2xl sm:text-3xl lg:text-4xl font-black text-[#cc9933] mb-2 sm:mb-3 lg:mb-4"
+          >
+            5 min
+          </div>
+          <div class="text-sm sm:text-base lg:text-lg opacity-90">
+            Complete onboarding
+          </div>
+          <div class="text-xs sm:text-sm opacity-70 mt-1 sm:mt-2">
+            Set rates, upload docs, go live
+          </div>
+        </div>
+        <div
+          class="bg-white/15 backdrop-blur-lg rounded-lg sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 border border-white/30"
+          data-aos="zoom-in"
+          data-aos-delay="300"
+        >
+          <div
+            class="text-2xl sm:text-3xl lg:text-4xl font-black text-[#cc9933] mb-2 sm:mb-3 lg:mb-4"
+          >
+            5-7 days
+          </div>
+          <div class="text-sm sm:text-base lg:text-lg opacity-90">
+            Payment received
+          </div>
+          <div class="text-xs sm:text-sm opacity-70 mt-1 sm:mt-2">
+            No insurance delays or denials
+          </div>
+        </div>
+        <div
+          class="bg-white/15 backdrop-blur-lg rounded-lg sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 border border-white/30"
+          data-aos="zoom-in"
+          data-aos-delay="400"
+        >
+          <div
+            class="text-2xl sm:text-3xl lg:text-4xl font-black text-[#cc9933] mb-2 sm:mb-3 lg:mb-4"
+          >
+            Go Live
+          </div>
+          <div class="text-sm sm:text-base lg:text-lg opacity-90">
+            Revenue starts flowing
+          </div>
+          <div class="text-xs sm:text-sm opacity-70 mt-1 sm:mt-2">
+            Fill empty slots immediately
+          </div>
+        </div>
+      </div>
+
+      <!-- Ultimate CTA -->
+      <div
+        class="mb-4 sm:mb-6 lg:mb-8 px-2 sm:px-0"
+        data-aos="fade-up"
+        data-aos-delay="500"
+      >
+        <a
+          href="/login/imaginglogin"
+          class="group relative overflow-hidden bg-gradient-to-r from-[#cc9933] via-[#e6c378] to-[#cc9933] text-[#003087] font-black text-lg sm:text-xl md:text-2xl lg:text-3xl px-6 sm:px-8 md:px-12 lg:px-20 py-4 sm:py-6 lg:py-8 rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-3 inline-block w-full max-w-md sm:w-auto min-h-[56px] sm:min-h-[64px]"
+        >
+          <span
+            class="relative z-10 flex items-center justify-center gap-2 sm:gap-3 lg:gap-4"
+          >
+            Join the Network Now
+            <svg
+              class="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 group-hover:translate-x-2 transition-transform duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </span>
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-[#e6c378] via-[#cc9933] to-[#e6c378] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          >
+          </div>
+        </a>
+      </div>
+
+      <p
+        class="text-sm sm:text-base lg:text-lg opacity-80 px-2 sm:px-0"
+        data-aos="fade-up"
+        data-aos-delay="600"
+      >
+        <strong>Network enrollment is open by region.</strong> Early provider participants
+        gain ranking advantage.
+      </p>
+    </div>
+  </section>
+
+  <!-- JavaScript for Calculator -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const slotsSlider = document.getElementById("emptySlots2");
+      const slotsDisplay = document.getElementById("slotsDisplay");
+      const pricingStrategy = document.getElementById("pricingStrategy");
+      const expectedVolume = document.getElementById("expectedVolume");
+      const revenuePerScan = document.getElementById("revenuePerScan");
+      const monthlyRevenue = document.getElementById("monthlyRevenue");
+      const marketplaceRank = document.getElementById("marketplaceRank");
+
+      function updateCalculator() {
+        const slots = parseInt(slotsSlider.value);
+        const strategy = parseInt(pricingStrategy.value);
+
+        // Update slots display
+        slotsDisplay.textContent = slots;
+
+        // Volume calculation based on pricing strategy
+        let volume;
+        let rank;
+
+        if (strategy === 100) {
+          volume = Math.floor(slots * 8.5); // Higher volume at 100%
+          rank = "Top 20%";
+        } else if (strategy === 120) {
+          volume = Math.floor(slots * 5.5); // Medium volume at 120%
+          rank = "Top 50%";
+        } else {
+          // 140%
+          volume = Math.floor(slots * 2.5); // Lower volume at 140%
+          rank = "Top 80%";
+        }
+
+        // Revenue per scan based on strategy
+        let perScan;
+        if (strategy === 100) {
+          perScan = 270;
+        } else if (strategy === 120) {
+          perScan = 300;
+        } else {
+          perScan = 330;
+        }
+
+        // Calculate monthly revenue
+        const monthly = volume * perScan;
+
+        // Update display
+        expectedVolume.textContent = volume;
+        revenuePerScan.textContent = `$${perScan}`;
+        monthlyRevenue.textContent = `$${monthly.toLocaleString()}`;
+        marketplaceRank.textContent = rank;
+      }
+
+      // Event listeners
+      slotsSlider.addEventListener("input", updateCalculator);
+      pricingStrategy.addEventListener("change", updateCalculator);
+
+      // Initialize
+      updateCalculator();
+    });
+  </script>
+
+  <!-- Enhanced Mobile Styles -->
+  <style>
+    .shadow-3xl {
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Enhanced mobile touch targets */
+    @media (max-width: 768px) {
+      .touch-target {
+        min-height: 48px;
+        min-width: 48px;
+      }
+
+      /* Prevent horizontal scrolling */
+      body {
+        overflow-x: hidden;
+      }
+
+      /* Better text readability on small screens */
+      .text-responsive {
+        font-size: clamp(0.875rem, 4vw, 1.125rem);
+        line-height: 1.5;
+      }
+    }
+
+    /* Enhanced slider for mobile */
+    #emptySlots2 {
+      height: 12px;
+    }
+
+    #emptySlots2::-webkit-slider-thumb {
+      appearance: none;
+      height: 28px;
+      width: 28px;
+      border-radius: 50%;
+      background: #2563eb;
+      cursor: pointer;
+      border: 3px solid #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    #emptySlots2::-moz-range-thumb {
+      height: 28px;
+      width: 28px;
+      border-radius: 50%;
+      background: #2563eb;
+      cursor: pointer;
+      border: 3px solid #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Improved form elements for mobile */
+    select,
+    input[type="range"] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    /* Better spacing for mobile */
+    @media (max-width: 640px) {
+      .mobile-spacing {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+      }
+    }
+
+    /* Prevent text from being too small on mobile */
+    @media (max-width: 480px) {
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+    }
+
+    /* Enhanced animations for mobile */
+    @media (prefers-reduced-motion: reduce) {
+      .animate-pulse,
+      .transition-all,
+      .transform {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</MainLayout>
