@@ -1,5 +1,7 @@
 // Enhanced Onboarding System with Smart Return Journey
 import React, { useState, useEffect } from 'react';
+import RatePreviewCard from '@/components/dashboard/RatePreviewCard';
+
 
 const SmartReturnBanner = ({ currentStep, lastSaved, progressPercentage, onContinue }) => {
   if (!currentStep || progressPercentage >= 100) return null;
@@ -539,6 +541,13 @@ const EnhancedOnboardingSystem = () => {
           }
         </p>
       </div>
+
+      {/* Rate Preview before PSA step */}
+      {!userProgress.psa_signed && (
+              <div className="mt-8">
+                <RatePreviewCard />
+              </div>
+            )}
 
       {/* Onboarding Steps */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

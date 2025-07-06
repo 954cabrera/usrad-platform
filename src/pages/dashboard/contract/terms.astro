@@ -1,6 +1,7 @@
 ---
 import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
 import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.jsx";
+import RatePreviewCard from "../../../components/dashboard/RatePreviewCard.jsx";
 ---
 
 <DashboardLayout title="Contract Terms" user={null}>
@@ -23,8 +24,9 @@ import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.
     <div class="text-center space-y-4">
       <h1 class="text-3xl font-bold text-gray-900">Contract Terms Selection</h1>
       <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-        Choose the contract terms that best fit your center's operational needs
-        and market positioning.
+        Choose how you'd like to be reimbursed. You can align with
+        Medicare-based pricing or set your own rates during onboarding. Sample
+        rates are available for review.
       </p>
     </div>
 
@@ -76,24 +78,28 @@ import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.
                 </h3>
                 <div class="mt-2 text-sm text-blue-800 space-y-1">
                   <p>
-                    • <strong>Patient Accessibility:</strong> Pricing that patients
-                    can afford drives higher volume
+                    • <strong>Transparent & Predictable:</strong> Medicare-aligned
+                    pricing is familiar and easy to verify
                   </p>
                   <p>
-                    • <strong>Market Positioning:</strong> Competitive rates attract
-                    price-conscious consumers
+                    • <strong>Trusted Benchmark:</strong> Patients and payors alike
+                    recognize Medicare as a national standard
                   </p>
                   <p>
-                    • <strong>Cash-Pay Benefits:</strong> Faster payments + reduced
-                    administrative overhead
+                    • <strong>Administrative Simplicity:</strong> No need for complex
+                    negotiations or variable pricing logic
                   </p>
                   <p>
-                    • <strong>Volume Economics:</strong> Higher patient throughput
-                    compensates for unit pricing
+                    • <strong>Volume Leverage:</strong> Competitive pricing increases
+                    inbound patient flow
                   </p>
                 </div>
               </div>
             </div>
+          </div>
+
+          <div client:visible>
+            <RatePreviewCard />
           </div>
 
           <!-- Standard Terms Details -->
@@ -125,7 +131,7 @@ import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.
                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                       clip-rule="evenodd"></path>
                   </svg>
-                  Payment within 24-48 hours
+                  Payment within 7 days
                 </li>
                 <li class="flex items-center">
                   <svg
