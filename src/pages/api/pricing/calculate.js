@@ -29,7 +29,7 @@ export async function GET({ url }) {
       try {
         const fs = await import('fs');
         const path = await import('path');
-        const dataPath = path.join(process.cwd(), 'data/processed/florida-medicare-pricing-complete.json');
+        const dataPath = path.join(process.cwd(), 'public/data/processed/florida-medicare-pricing-complete.json');
         const rawData = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
         
         // Florida data is wrapped in metadata structure
@@ -125,7 +125,7 @@ export async function GET({ url }) {
       try {
         const fs = await import('fs');
         const path = await import('path');
-        const dataPath = path.join(process.cwd(), 'data/processed/georgia-pricing.json');
+        const dataPath = path.join(process.cwd(), 'public/data/processed/georgia-pricing.json');
         const georgiaData = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
         
         console.log(`📊 Loaded Georgia data: ${georgiaData.length} procedures`);
