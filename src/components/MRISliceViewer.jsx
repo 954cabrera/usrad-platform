@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const TOTAL_SLICES = 60;
+const TOTAL_SLICES = 22;
 const LABELED_SLICES = {
   10: "Frontal Lobe",
   20: "Corpus Callosum",

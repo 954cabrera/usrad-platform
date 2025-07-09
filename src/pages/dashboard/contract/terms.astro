@@ -1,7 +1,6 @@
 ---
 import DashboardLayout from "../../../components/dashboard/DashboardLayout.astro";
 import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.jsx";
-import RatePreviewCard from "../../../components/dashboard/RatePreviewCard.jsx";
 ---
 
 <DashboardLayout title="Contract Terms" user={null}>
@@ -133,10 +132,6 @@ import RatePreviewCard from "../../../components/dashboard/RatePreviewCard.jsx";
                 <span>Calculate My Rates</span>
               </button>
             </div>
-          </div>
-
-          <div client:visible>
-            <RatePreviewCard />
           </div>
 
           <!-- Standard Terms Details -->
@@ -1115,7 +1110,7 @@ import RatePreviewCard from "../../../components/dashboard/RatePreviewCard.jsx";
 
           // Call your REAL Medicare pricing API for each procedure
           const apiPromises = popularProcedures.map(async (proc) => {
-            const apiUrl = `/api/pricing/calculate?cpt=${proc.cpt}&state=${state}&county=${encodeURIComponent(county)}`;
+            const apiUrl = `/api/pricing/calculate-db?cpt=${proc.cpt}&state=${state}&county=${encodeURIComponent(county)}`;
             console.log(`Calling API: ${apiUrl}`);
 
             const response = await fetch(apiUrl);
