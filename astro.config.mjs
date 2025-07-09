@@ -1,17 +1,18 @@
-// astro.config.mjs
-// Compatible configuration for older Astro versions
-
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
-import vercel from '@astrojs/vercel'; // ✅ Fixed import
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   integrations: [tailwind(), react()],
   
-  // ✅ Use 'server' mode to enable API routes
+  // Server mode for API routes (perfect for Medicare pricing APIs)
   output: 'server',
   
-  // ✅ Fixed adapter import
+  // Vercel adapter (great for deployment)
   adapter: vercel(),
+  
+  server: {
+    port: 3000
+  }
 });

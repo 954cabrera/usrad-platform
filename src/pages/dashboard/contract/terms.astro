@@ -98,6 +98,43 @@ import RatePreviewCard from "../../../components/dashboard/RatePreviewCard.jsx";
             </div>
           </div>
 
+          <!-- Medicare Pricing Calculator Button - NEW! -->
+          <div
+            class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 p-6 rounded-lg"
+          >
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-semibold text-blue-900 mb-2">
+                  Preview Your Exact Reimbursement Rates
+                </h3>
+                <p class="text-blue-800 text-sm">
+                  See what you'll earn for actual procedures in your specific
+                  location, and adjust percentages to explore different
+                  scenarios.
+                </p>
+              </div>
+              <button
+                id="open-pricing-modal"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-sm flex items-center space-x-2"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                  ></path>
+                </svg>
+                <span>Calculate My Rates</span>
+              </button>
+            </div>
+          </div>
+
           <div client:visible>
             <RatePreviewCard />
           </div>
@@ -505,8 +542,435 @@ import RatePreviewCard from "../../../components/dashboard/RatePreviewCard.jsx";
     </div>
   </div>
 
+  <!-- Medicare Pricing Modal - THIS IS THE NEW MODAL -->
+  <div class="modal-overlay" id="pricing-modal-overlay" style="display: none;">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2>Medicare Reimbursement Calculator</h2>
+        <p>
+          See exactly what you'll earn with Medicare-aligned pricing in your
+          market
+        </p>
+        <button class="modal-close-button" id="close-pricing-modal">×</button>
+      </div>
+
+      <div class="modal-content">
+        <!-- Location Selection -->
+        <div class="location-section">
+          <h3 class="location-title">Select Your Location</h3>
+          <div class="location-inputs">
+            <div class="input-group">
+              <label for="modal-state-select">State</label>
+              <select id="modal-state-select">
+                <option value="">Select State</option>
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="TX">Texas</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="modal-county-select">County</label>
+              <select id="modal-county-select">
+                <option value="">Select County</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reimbursement Percentage Slider -->
+        <div class="slider-section">
+          <h3 class="slider-title">Reimbursement Percentage</h3>
+          <p style="color: #666; margin-bottom: 16px;">
+            Adjust the percentage above Medicare rates to see your potential
+            earnings
+          </p>
+          <div class="slider-container">
+            <span class="slider-label">100%</span>
+            <input
+              type="range"
+              id="modal-percentage-slider"
+              class="slider-input"
+              min="100"
+              max="140"
+              value="100"
+              step="5"
+            />
+            <span class="slider-label">140%</span>
+            <div class="slider-value" id="modal-slider-value">100%</div>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="results-section" id="modal-results-section">
+          <div class="loading" id="modal-loading-state" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>Calculating Medicare rates...</p>
+          </div>
+
+          <div id="modal-results-grid" class="results-grid">
+            <!-- Results will be populated here -->
+          </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="cta-section" id="modal-cta-section" style="display: none;">
+          <h3 class="cta-title">Ready to Get Started?</h3>
+          <p class="cta-text">
+            These rates provide transparent, predictable income with immediate
+            patient payment
+          </p>
+          <button class="cta-button" id="modal-proceed-button"
+            >Accept These Terms</button
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Modal Styles - These are the critical z-index fixes */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 9999; /* Critical: Higher than anything else */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-container {
+      background: white;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+      z-index: 10000; /* Even higher */
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+      color: white;
+      padding: 24px;
+      border-radius: 16px 16px 0 0;
+      position: relative;
+    }
+
+    .modal-header h2 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .modal-header p {
+      opacity: 0.9;
+      font-size: 16px;
+    }
+
+    .modal-close-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+    }
+
+    .modal-close-button:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .modal-content {
+      padding: 32px;
+    }
+
+    .location-section {
+      margin-bottom: 32px;
+    }
+
+    .location-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 16px;
+    }
+
+    .location-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-group label {
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .input-group select {
+      padding: 12px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 16px;
+      background: white;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .input-group select:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+
+    .slider-section {
+      margin-bottom: 32px;
+      padding: 24px;
+      background: #f9fafb;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .slider-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 16px;
+    }
+
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .slider-input {
+      flex: 1;
+      height: 8px;
+      background: #d1d5db;
+      border-radius: 4px;
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    .slider-input::-webkit-slider-thumb {
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      background: #3b82f6;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s;
+    }
+
+    .slider-input::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+    }
+
+    .slider-label {
+      font-weight: 600;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .slider-value {
+      background: #3b82f6;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 18px;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .results-section {
+      margin-top: 32px;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .procedure-card {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .procedure-card:hover {
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .procedure-code {
+      background: #3b82f6;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .procedure-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 4px;
+    }
+
+    .procedure-description {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .pricing-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .pricing-row:last-child {
+      border-bottom: none;
+      font-weight: 600;
+      color: #16a34a;
+      font-size: 18px;
+    }
+
+    .pricing-label {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .pricing-value {
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #6b7280;
+    }
+
+    .loading-spinner {
+      border: 3px solid #f3f4f6;
+      border-top: 3px solid #3b82f6;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+      color: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    .cta-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .cta-text {
+      opacity: 0.9;
+      margin-bottom: 16px;
+    }
+
+    .cta-button {
+      background: white;
+      color: #16a34a;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.2s;
+    }
+
+    .cta-button:hover {
+      background: #f9fafb;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .modal-container {
+        width: 95%;
+        margin: 10px;
+      }
+
+      .location-inputs {
+        grid-template-columns: 1fr;
+      }
+
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .slider-container {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .modal-content {
+        padding: 20px;
+      }
+    }
+  </style>
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      // Existing script content...
       const showCustomFormBtn = document.getElementById("show-custom-form");
       const customTermsForm = document.getElementById("custom-terms-form");
       const acceptStandardBtn = document.getElementById(
@@ -523,13 +987,254 @@ import RatePreviewCard from "../../../components/dashboard/RatePreviewCard.jsx";
         document.getElementById("negotiation-reason");
       const otherReasonInput = document.getElementById("other-reason-input");
 
-      // Show custom form
+      // MODAL FUNCTIONALITY - USING REAL API
+      const openModalBtn = document.getElementById("open-pricing-modal");
+      const modalOverlay = document.getElementById("pricing-modal-overlay");
+      const closeModalBtn = document.getElementById("close-pricing-modal");
+      const modalStateSelect = document.getElementById("modal-state-select");
+      const modalCountySelect = document.getElementById("modal-county-select");
+      const modalPercentageSlider = document.getElementById(
+        "modal-percentage-slider"
+      );
+      const modalSliderValue = document.getElementById("modal-slider-value");
+      const modalProceedBtn = document.getElementById("modal-proceed-button");
+
+      // REAL county data that matches your API
+      const countyData = {
+        FL: [
+          { value: "Miami-Dade", label: "Miami-Dade County" },
+          { value: "Broward", label: "Broward County" },
+          { value: "Palm Beach", label: "Palm Beach County" },
+          { value: "Lee", label: "Lee County" },
+          { value: "Collier", label: "Collier County" },
+          { value: "Other", label: "All Other Florida Counties" },
+        ],
+        GA: [
+          { value: "Fulton", label: "Fulton County (Atlanta)" },
+          { value: "DeKalb", label: "DeKalb County" },
+          { value: "Gwinnett", label: "Gwinnett County" },
+          { value: "Cobb", label: "Cobb County" },
+          { value: "Other", label: "All Other Georgia Counties" },
+        ],
+        TX: [
+          { value: "Harris", label: "Harris County (Houston)" },
+          { value: "Dallas", label: "Dallas County" },
+          { value: "Travis", label: "Travis County (Austin)" },
+          { value: "Other", label: "All Other Texas Counties" },
+        ],
+      };
+
+      // Popular procedures to demonstrate (no hardcoded rates!)
+      const popularProcedures = [
+        { cpt: "72148", displayName: "MRI Lumbar Spine" },
+        { cpt: "72158", displayName: "MRI Lumbar + Contrast" },
+        { cpt: "70551", displayName: "MRI Brain" },
+        { cpt: "73721", displayName: "MRI Knee" },
+      ];
+
+      let currentPercentage = 100;
+
+      // Modal event listeners
+      openModalBtn.addEventListener("click", function () {
+        modalOverlay.style.display = "flex";
+        document.body.style.overflow = "hidden";
+      });
+
+      closeModalBtn.addEventListener("click", function () {
+        modalOverlay.style.display = "none";
+        document.body.style.overflow = "auto";
+      });
+
+      // Close modal when clicking outside
+      modalOverlay.addEventListener("click", function (e) {
+        if (e.target === modalOverlay) {
+          modalOverlay.style.display = "none";
+          document.body.style.overflow = "auto";
+        }
+      });
+
+      // Handle escape key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && modalOverlay.style.display === "flex") {
+          modalOverlay.style.display = "none";
+          document.body.style.overflow = "auto";
+        }
+      });
+
+      // Update counties when state changes
+      modalStateSelect.addEventListener("change", function () {
+        const state = this.value;
+        modalCountySelect.innerHTML = '<option value="">Select County</option>';
+
+        if (state && countyData[state]) {
+          countyData[state].forEach((county) => {
+            const option = document.createElement("option");
+            option.value = county.value;
+            option.textContent = county.label;
+            modalCountySelect.appendChild(option);
+          });
+        }
+
+        // Clear results when state changes
+        document.getElementById("modal-results-grid").innerHTML = "";
+        document.getElementById("modal-cta-section").style.display = "none";
+      });
+
+      // Update percentage display and recalculate
+      modalPercentageSlider.addEventListener("input", function () {
+        currentPercentage = parseInt(this.value);
+        modalSliderValue.textContent = currentPercentage + "%";
+
+        // Recalculate if we have results
+        if (document.getElementById("modal-results-grid").children.length > 0) {
+          calculateModalRates();
+        }
+      });
+
+      // Calculate rates when county is selected
+      modalCountySelect.addEventListener("change", function () {
+        if (modalStateSelect.value && this.value) {
+          calculateModalRates();
+        }
+      });
+
+      // FIXED: Use REAL API instead of hardcoded data
+      async function calculateModalRates() {
+        const state = modalStateSelect.value;
+        const county = modalCountySelect.value;
+
+        if (!state || !county) return;
+
+        // Show loading
+        document.getElementById("modal-loading-state").style.display = "block";
+        document.getElementById("modal-results-grid").innerHTML = "";
+        document.getElementById("modal-cta-section").style.display = "none";
+
+        try {
+          console.log(`Fetching real rates for ${state}, ${county}`);
+
+          // Call your REAL Medicare pricing API for each procedure
+          const apiPromises = popularProcedures.map(async (proc) => {
+            const apiUrl = `/api/pricing/calculate?cpt=${proc.cpt}&state=${state}&county=${encodeURIComponent(county)}`;
+            console.log(`Calling API: ${apiUrl}`);
+
+            const response = await fetch(apiUrl);
+
+            if (!response.ok) {
+              throw new Error(
+                `API error for ${proc.cpt}: ${response.status} ${response.statusText}`
+              );
+            }
+
+            const data = await response.json();
+            console.log(`API response for ${proc.cpt}:`, data);
+
+            if (data.error) {
+              throw new Error(`API error for ${proc.cpt}: ${data.error}`);
+            }
+
+            return {
+              ...data,
+              displayName: proc.displayName,
+            };
+          });
+
+          // Wait for all REAL API calls to complete
+          const apiResults = await Promise.all(apiPromises);
+          console.log("All API results:", apiResults);
+
+          // Hide loading
+          document.getElementById("modal-loading-state").style.display = "none";
+
+          // Generate results using REAL Medicare data
+          const resultsGrid = document.getElementById("modal-results-grid");
+          resultsGrid.innerHTML = "";
+
+          apiResults.forEach((result) => {
+            // Use REAL Medicare rate from your API (not hardcoded!)
+            const medicareRate = result.pricing.medicare_rate;
+
+            // Apply percentage multiplier to REAL rate
+            const finalRate = medicareRate * (currentPercentage / 100);
+
+            // Use REAL hospital estimate from your API
+            const hospitalEstimate = result.pricing.hospital_estimate;
+
+            // Calculate real patient savings
+            const patientSavings = hospitalEstimate - finalRate;
+            const savingsPercentage = Math.round(
+              (patientSavings / hospitalEstimate) * 100
+            );
+
+            const card = document.createElement("div");
+            card.className = "procedure-card";
+            card.innerHTML = `
+          <div class="procedure-code">${result.procedure.cpt_code}</div>
+          <div class="procedure-title">${result.procedure.modality}</div>
+          <div class="procedure-description">${result.procedure.description}</div>
+          
+          <div class="pricing-row">
+            <span class="pricing-label">Medicare Base Rate</span>
+            <span class="pricing-value">$${medicareRate.toFixed(2)}</span>
+          </div>
+          <div class="pricing-row">
+            <span class="pricing-label">Your Rate (${currentPercentage}%)</span>
+            <span class="pricing-value">$${finalRate.toFixed(2)}</span>
+          </div>
+          <div class="pricing-row">
+            <span class="pricing-label">Hospital Estimate</span>
+            <span class="pricing-value">$${hospitalEstimate.toFixed(2)}</span>
+          </div>
+          <div class="pricing-row">
+            <span style="color: #16A34A;">Patient Saves</span>
+            <span style="color: #16A34A;">$${patientSavings.toFixed(2)} (${savingsPercentage}%)</span>
+          </div>
+          
+          <div style="margin-top: 12px; padding: 8px; background: #f0f9ff; border-radius: 6px; font-size: 12px; color: #1e40af;">
+            <strong>Location:</strong> ${result.location.locality_description}<br>
+            <strong>GPCI:</strong> PE=${result.geographic_adjustments.pe_gpci}, MP=${result.geographic_adjustments.mp_gpci}
+          </div>
+        `;
+            resultsGrid.appendChild(card);
+          });
+
+          // Show CTA section
+          document.getElementById("modal-cta-section").style.display = "block";
+        } catch (error) {
+          console.error("Error fetching real Medicare rates:", error);
+
+          // Hide loading
+          document.getElementById("modal-loading-state").style.display = "none";
+
+          // Show error message
+          const resultsGrid = document.getElementById("modal-results-grid");
+          resultsGrid.innerHTML = `
+        <div style="text-align: center; padding: 40px; color: #ef4444;">
+          <h3>Error Loading Rates</h3>
+          <p style="margin-top: 8px; color: #6b7280;">
+            Unable to fetch current Medicare rates. Please try again or contact support.
+          </p>
+          <p style="margin-top: 8px; font-size: 12px; color: #9ca3af;">
+            Error: ${error.message}
+          </p>
+        </div>
+      `;
+        }
+      }
+
+      // Proceed from modal to accept standard terms
+      modalProceedBtn.addEventListener("click", function () {
+        modalOverlay.style.display = "none";
+        document.body.style.overflow = "auto";
+        acceptStandardBtn.click();
+      });
+
+      // REST OF EXISTING EVENT LISTENERS (unchanged)...
       showCustomFormBtn.addEventListener("click", function () {
         customTermsForm.style.display = "block";
         showCustomFormBtn.style.display = "none";
       });
 
-      // Handle custom rate input visibility
       requestedRateSelect.addEventListener("change", function () {
         if (this.value === "custom") {
           customRateInput.style.display = "block";
@@ -538,7 +1243,6 @@ import RatePreviewCard from "../../../components/dashboard/RatePreviewCard.jsx";
         }
       });
 
-      // Handle other reason input visibility
       negotiationReasonSelect.addEventListener("change", function () {
         if (this.value === "other") {
           otherReasonInput.style.display = "block";
@@ -547,9 +1251,7 @@ import RatePreviewCard from "../../../components/dashboard/RatePreviewCard.jsx";
         }
       });
 
-      // Accept standard terms
       acceptStandardBtn.addEventListener("click", function () {
-        // Save the acceptance and proceed to next step
         if (window.USRadUser && window.USRadUser.user) {
           localStorage.setItem(
             "contract_terms_accepted",
@@ -565,7 +1267,6 @@ import RatePreviewCard from "../../../components/dashboard/RatePreviewCard.jsx";
         window.location.href = "/dashboard/contract/confirmation";
       });
 
-      // Submit negotiation request
       submitNegotiationBtn.addEventListener("click", function () {
         const requestedRate = requestedRateSelect.value;
         const customRate = document.getElementById("custom-rate-value").value;
@@ -573,7 +1274,6 @@ import RatePreviewCard from "../../../components/dashboard/RatePreviewCard.jsx";
         const otherReason = document.getElementById("other-reason-text").value;
         const justification = document.getElementById("justification").value;
 
-        // Validation
         if (!requestedRate || !negotiationReason) {
           alert("Please fill in all required fields.");
           return;
@@ -589,7 +1289,6 @@ import RatePreviewCard from "../../../components/dashboard/RatePreviewCard.jsx";
           return;
         }
 
-        // Prepare negotiation data
         const negotiationData = {
           type: "custom",
           requested_rate:
@@ -607,27 +1306,23 @@ import RatePreviewCard from "../../../components/dashboard/RatePreviewCard.jsx";
           negotiationData.user_id = window.USRadUser.user.id;
         }
 
-        // Save negotiation request
         localStorage.setItem(
           "contract_negotiation_request",
           JSON.stringify(negotiationData)
         );
 
-        // Populate request details
         const requestDetails = document.getElementById("request-details");
         requestDetails.innerHTML = `
-          <div><strong>Requested Rate:</strong> ${negotiationData.requested_rate}</div>
-          <div><strong>Reason:</strong> ${negotiationData.reason}</div>
-          ${negotiationData.justification ? `<div><strong>Justification:</strong> ${negotiationData.justification}</div>` : ""}
-          <div><strong>Submitted:</strong> ${new Date().toLocaleDateString()}</div>
-        `;
+      <div><strong>Requested Rate:</strong> ${negotiationData.requested_rate}</div>
+      <div><strong>Reason:</strong> ${negotiationData.reason}</div>
+      ${negotiationData.justification ? `<div><strong>Justification:</strong> ${negotiationData.justification}</div>` : ""}
+      <div><strong>Submitted:</strong> ${new Date().toLocaleDateString()}</div>
+    `;
 
-        // Show pending review state
         document.querySelector(".space-y-6").style.display = "none";
         pendingReviewState.style.display = "block";
       });
 
-      // Proceed with standard terms while waiting
       const proceedStandardBtn = document.getElementById(
         "proceed-standard-while-waiting"
       );

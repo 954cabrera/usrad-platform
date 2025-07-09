@@ -1,0 +1,198 @@
+// src/pages/api/pricing/calculate.js
+// Updated API to handle multiple states including Georgia
+
+export const prerender = false;
+
+export async function GET({ url }) {
+  try {
+    const searchParams = new URL(url).searchParams;
+    const cptCode = searchParams.get('cpt')?.trim();
+    const state = searchParams.get('state')?.trim()?.toUpperCase() || 'FL'; // Default to FL
+    const county = searchParams.get('county')?.trim();
+
+    // Validation
+    if (!cptCode) {
+      return new Response(JSON.stringify({ 
+        error: 'CPT code is required',
+        message: 'Please provide a valid CPT code'
+      }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    if (!county) {
+      return new Response(JSON.stringify({ 
+        error: 'County is required',
+        message: 'Please provide a county name'
+      }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    // Load appropriate state data directly from JSON files
+    let pricingData;
+    try {
+      if (state === 'GA') {
+        // Load Georgia data directly from the generated JSON file
+        const fs = await import('fs');
+        const path = await import('path');
+        const dataPath = path.join(process.cwd(), 'data/processed/georgia-pricing.json');
+        pricingData = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+        console.log(`📊 Loaded ${pricingData.length} Georgia pricing combinations`);
+      } else {
+        // Load Florida data (update this path to match your Florida data file)
+        const fs = await import('fs');
+        const path = await import('path');
+        
+        // Try to find your Florida data file
+        const floridaPaths = [
+          'data/processed/florida-medicare-pricing-complete.json',
+          'data/processed/florida-pricing.json',
+          'data/processed/pricing-data.json'
+        ];
+        
+        let floridaData = null;
+        for (const floridaPath of floridaPaths) {
+          try {
+            const fullPath = path.join(process.cwd(), floridaPath);
+            const rawData = fs.readFileSync(fullPath, 'utf8');
+            const parsedData = JSON.parse(rawData);
+            
+            // Handle different Florida data formats
+            if (parsedData.pricing_data) {
+              // If it has a pricing_data wrapper
+              floridaData = parsedData.pricing_data;
+            } else if (Array.isArray(parsedData)) {
+              // If it's a direct array
+              floridaData = parsedData;
+            }
+            
+            console.log(`📊 Loaded Florida data from ${floridaPath}: ${floridaData.length} combinations`);
+            break;
+          } catch (err) {
+            continue; // Try next path
+          }
+        }
+        
+        if (!floridaData) {
+          throw new Error('Florida data file not found');
+        }
+        
+        pricingData = floridaData;
+      }
+    } catch (error) {
+      console.error(`Error loading ${state} data:`, error);
+      return new Response(JSON.stringify({ 
+        error: `${state} data not available`,
+        message: `Pricing data for ${state} is not currently loaded: ${error.message}`
+      }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    // Find the pricing data for this combination
+    const result = pricingData.find(item => 
+      item.cpt_code === cptCode && 
+      item.county === county &&
+      item.state === state
+    );
+
+    if (!result) {
+      // Try with "Other" county as fallback for both states
+      const fallbackResult = pricingData.find(item => 
+        item.cpt_code === cptCode && 
+        item.county === 'Other' &&
+        item.state === state
+      );
+      
+      if (fallbackResult) {
+        // Return fallback result with modified description
+        const stateNames = { 'FL': 'Florida', 'GA': 'Georgia' };
+        const modifiedResult = {
+          ...fallbackResult,
+          location: {
+            ...fallbackResult,
+            county: county,
+            locality_description: `${county} County (using Rest of ${stateNames[state]} rates)`
+          }
+        };
+        
+        return formatResponse(modifiedResult, cptCode, county, state);
+      }
+
+      return new Response(JSON.stringify({ 
+        error: 'Pricing data not found',
+        message: `No pricing data found for CPT ${cptCode} in ${county} County, ${state}`,
+        suggestions: [
+          'Check that the CPT code is correct',
+          'Verify the county name spelling',
+          'Try selecting "Other" for the county if available'
+        ]
+      }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    return formatResponse(result, cptCode, county, state);
+
+  } catch (error) {
+    console.error('API Error:', error);
+    return new Response(JSON.stringify({ 
+      error: 'Internal server error',
+      message: 'An error occurred while calculating pricing'
+    }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+}
+
+function formatResponse(result, cptCode, county, state) {
+  const response = {
+    procedure: {
+      cpt_code: cptCode,
+      description: result.description,
+      modality: result.modality
+    },
+    location: {
+      state: state,
+      county: county,
+      locality_code: result.locality_code,
+      locality_name: result.locality_name,
+      locality_description: result.locality_description
+    },
+    pricing: {
+      medicare_rate: result.medicare_rate,
+      usrad_price: result.usrad_price,
+      usrad_markup: result.usrad_markup,
+      hospital_estimate: result.hospital_estimate,
+      patient_savings: result.patient_savings,
+      savings_percentage: result.savings_percentage
+    },
+    rvu_breakdown: {
+      work_rvu: result.work_rvu,
+      pe_rvu_facility: result.pe_rvu_facility,
+      mp_rvu: result.mp_rvu,
+      total_rvu: result.total_rvu,
+      conversion_factor: result.conversion_factor
+    },
+    geographic_adjustments: {
+      work_gpci: result.work_gpci,
+      pe_gpci: result.pe_gpci,
+      mp_gpci: result.mp_gpci
+    },
+    generated_at: new Date().toISOString()
+  };
+
+  return new Response(JSON.stringify(response), {
+    status: 200,
+    headers: { 
+      'Content-Type': 'application/json',
+      'Cache-Control': 'public, max-age=3600' // Cache for 1 hour
+    }
+  });
+}
