@@ -31,16 +31,18 @@ export async function GET({ url }) {
   }
   
   try {
-    // Query your medicare_pricing table
+    // Query your medicare_pricing table (handle multiple localities per county)
     const startTime = Date.now();
     
-    const { data, error } = await supabase
+    const { data: results, error } = await supabase
       .from('medicare_pricing')
       .select('*')
       .eq('state', state)
       .eq('county', county)
       .eq('cpt_code', cptCode)
-      .single();
+      .limit(1);
+    
+    const data = results?.[0]; // Take first result if multiple exist
     
     const queryTime = Date.now() - startTime;
     console.log(`⚡ Database query took: ${queryTime}ms`);
