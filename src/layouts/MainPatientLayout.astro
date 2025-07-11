@@ -1,7 +1,8 @@
 ---
-// layouts/MainPatientLayout.astro - Fixed Header Height
+// layouts/MainPatientLayout.astro
 import "../styles/global.css";
 import AOSInit from "../components/AOSInit.astro";
+import UtilityHeader from "../components/UtilityHeader.astro";
 import PatientHeader from "../components/PatientHeader.jsx";
 import Footer from "../components/Footer.astro";
 ---
@@ -23,65 +24,11 @@ import Footer from "../components/Footer.astro";
   </head>
 
   <body class="font-manrope text-[#003087] bg-[#fcf9f0] min-h-screen">
-    <!-- Utility Header with Fixed Height -->
-    <header
-      class="w-full bg-[#fcf9f0] border-b border-gray-200 relative z-50"
-      style="min-height: 56px !important; height: 56px !important;"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="height: 100%;">
-        <div
-          class="flex justify-between items-center"
-          style="height: 100%; min-height: 56px; padding: 8px 0;"
-        >
-          <!-- Left side -->
-          <div class="flex items-center">
-            <span class="text-sm text-gray-600 font-medium">
-              Revolutionizing Medical Imaging Access
-            </span>
-          </div>
-
-          <!-- Right side - Fixed Position Button -->
-          <div
-            class="flex items-center"
-            style="position: relative; z-index: 100;"
-          >
-            <a
-              href="/partners/managed-care"
-              style="
-                background-color: #e67e22 !important;
-                color: white !important;
-                text-decoration: none !important;
-                display: inline-block !important;
-                font-weight: 600 !important;
-                padding: 10px 20px !important;
-                border-radius: 8px !important;
-                font-size: 14px !important;
-                box-shadow: 0 3px 6px rgba(0,0,0,0.2) !important;
-                border: 2px solid #d35400 !important;
-                position: relative !important;
-                z-index: 1000 !important;
-                min-width: 160px !important;
-                text-align: center !important;
-                white-space: nowrap !important;
-                line-height: 1.2 !important;
-              "
-              class="imaging-centers-btn-final"
-            >
-              For Imaging Centers
-            </a>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- Patient Header -->
+    <UtilityHeader />
     <PatientHeader client:load showStickyBar={true} />
-
-    <!-- Main Content -->
     <main class="main-content relative z-10">
       <slot />
     </main>
-
     <Footer />
 
     <!-- Logout Success Toast -->
@@ -152,54 +99,6 @@ import Footer from "../components/Footer.astro";
     </div>
 
     <style>
-      /* Force proper header height and visibility */
-      header {
-        position: relative !important;
-        z-index: 50 !important;
-        min-height: 56px !important;
-        height: 56px !important;
-        background-color: #fcf9f0 !important;
-        border-bottom: 1px solid #e5e7eb !important;
-        width: 100% !important;
-        overflow: visible !important;
-      }
-
-      /* Force button visibility */
-      .imaging-centers-btn-final {
-        background-color: #e67e22 !important;
-        color: white !important;
-        text-decoration: none !important;
-        display: inline-block !important;
-        font-weight: 600 !important;
-        padding: 10px 20px !important;
-        border-radius: 8px !important;
-        font-size: 14px !important;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2) !important;
-        border: 2px solid #d35400 !important;
-        position: relative !important;
-        z-index: 1000 !important;
-        min-width: 160px !important;
-        text-align: center !important;
-        white-space: nowrap !important;
-        line-height: 1.2 !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        overflow: visible !important;
-      }
-
-      .imaging-centers-btn-final:hover {
-        background-color: #d35400 !important;
-        color: white !important;
-        transform: translateY(-1px) !important;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25) !important;
-      }
-
-      /* Ensure no parent containers are clipping */
-      header * {
-        overflow: visible !important;
-      }
-
-      /* Toast animations */
       @keyframes shrink-width {
         from {
           width: 100%;
@@ -227,59 +126,9 @@ import Footer from "../components/Footer.astro";
           opacity: 1;
         }
       }
-
-      /* Simple main content spacing */
-      .main-content {
-        margin-top: 0;
-        padding-top: 0;
-      }
-
-      /* Ensure body has no conflicts */
-      body {
-        padding-top: 0;
-        margin-top: 0;
-        overflow-x: hidden;
-      }
-
-      /* Prevent any global styles from interfering */
-      * {
-        box-sizing: border-box;
-      }
-
-      /* Mobile responsiveness */
-      @media (max-width: 768px) {
-        header {
-          min-height: 52px !important;
-          height: 52px !important;
-        }
-
-        .imaging-centers-btn-final {
-          font-size: 13px !important;
-          padding: 8px 16px !important;
-          min-width: 140px !important;
-        }
-
-        header .text-sm {
-          font-size: 12px !important;
-        }
-      }
-
-      @media (max-width: 640px) {
-        /* Hide tagline on mobile */
-        header .flex.items-center:first-child {
-          display: none !important;
-        }
-
-        /* Center button on mobile */
-        header .flex.justify-between {
-          justify-content: center !important;
-        }
-      }
     </style>
 
     <script>
-      console.log("🔍 Final version - checking button visibility...");
-
       // Make functions global to avoid conflicts
       window.closeToast = function () {
         window.hideToast();
@@ -318,45 +167,19 @@ import Footer from "../components/Footer.astro";
             }, 5000);
           }
         }
-
-        // Final debug check
-        const button = document.querySelector(".imaging-centers-btn-final");
-        const header = document.querySelector("header");
-
-        console.log("🔍 FINAL CHECK:");
-        console.log("🔍 Header found:", !!header);
-        console.log("🔍 Button found:", !!button);
-
-        if (header) {
-          const headerRect = header.getBoundingClientRect();
-          console.log("🔍 Header position:", {
-            top: headerRect.top,
-            left: headerRect.left,
-            width: headerRect.width,
-            height: headerRect.height,
-            bottom: headerRect.bottom,
-          });
-        }
-
-        if (button) {
-          const buttonRect = button.getBoundingClientRect();
-          console.log("🔍 Button position:", {
-            top: buttonRect.top,
-            left: buttonRect.left,
-            width: buttonRect.width,
-            height: buttonRect.height,
-            bottom: buttonRect.bottom,
-            right: buttonRect.right,
-          });
-          console.log(
-            "🔍 Button is visible in viewport:",
-            buttonRect.top >= 0 &&
-              buttonRect.left >= 0 &&
-              buttonRect.bottom <= window.innerHeight &&
-              buttonRect.right <= window.innerWidth
-          );
-        }
-      }, 1000);
+      }, 1000); // Wait 1 second for page to fully load
     </script>
+
+    <style>
+      .main-content {
+        padding-top: 148px; /* header (90px) + sticky bar (58px) */
+      }
+
+      @media (max-width: 768px) {
+        .main-content {
+          padding-top: 124px; /* header (76px) + sticky bar (48px) */
+        }
+      }
+    </style>
   </body>
 </html>
