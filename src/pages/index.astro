@@ -731,4 +731,61 @@ const showPatientHeader = true;
 
     <ChatbotToggle chatbotLabel="💬 Let's Talk" />
   </FadeIn>
+
+  <!-- Add this script to the bottom of your index.astro file, just before </body> -->
+  <script>
+    // Fix homepage fade animation after navigation
+    function fixFadeAnimation() {
+      const mainContent = document.querySelector("main > div.fade");
+      if (mainContent && window.getComputedStyle(mainContent).opacity === "0") {
+        console.log("🔧 Fixing stuck fade animation...");
+
+        // Remove the fade class and force visible state
+        mainContent.classList.remove("fade");
+        mainContent.style.opacity = "1";
+        mainContent.style.transform = "translateY(0px)";
+
+        console.log("✅ Homepage content restored");
+      }
+    }
+
+    // Multiple triggers for different navigation scenarios
+    document.addEventListener("DOMContentLoaded", fixFadeAnimation);
+
+    // Astro navigation events
+    document.addEventListener("astro:page-load", function () {
+      setTimeout(fixFadeAnimation, 10);
+      setTimeout(fixFadeAnimation, 50);
+      setTimeout(fixFadeAnimation, 100);
+    });
+
+    document.addEventListener("astro:after-swap", function () {
+      setTimeout(fixFadeAnimation, 10);
+    });
+
+    // Browser navigation
+    window.addEventListener("pageshow", function (event) {
+      setTimeout(fixFadeAnimation, 10);
+      if (event.persisted) {
+        setTimeout(fixFadeAnimation, 50);
+      }
+    });
+
+    // Force immediate check when page becomes visible
+    window.addEventListener("focus", fixFadeAnimation);
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) {
+        setTimeout(fixFadeAnimation, 10);
+      }
+    });
+
+    // Reduced interval for faster recovery
+    setInterval(function () {
+      const mainContent = document.querySelector("main > div.fade");
+      if (mainContent && window.getComputedStyle(mainContent).opacity === "0") {
+        console.log("🔧 Auto-fixing invisible homepage...");
+        fixFadeAnimation();
+      }
+    }, 1000); // Check every 1 second instead of 3
+  </script>
 </MainPatientLayout>
