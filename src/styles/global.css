@@ -385,3 +385,115 @@ input.border-red-500 {
 .animate-fade-in-out {
   animation: fadeInOut 3s ease-in-out forwards;
 }
+
+/* ========================================
+   UTILITY HEADER STYLES
+   Add these to your global.css file
+   ======================================== */
+
+/* Utility Header Base Styles */
+.utility-header {
+  position: relative;
+  z-index: 50;
+  min-height: 48px;
+  background-color: #fcf9f0;
+  border-bottom: 1px solid #e5e7eb;
+  width: 100%;
+}
+
+/* For Imaging Centers Button Styling */
+.utility-header a[href="/partners/managed-care"],
+.imaging-centers-btn {
+  background-color: #e67e22 !important;
+  color: white !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid #d35400 !important;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.utility-header a[href="/partners/managed-care"]:hover,
+.imaging-centers-btn:hover {
+  background-color: #d35400 !important;
+  color: white !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-1px);
+}
+
+/* Focus states for accessibility */
+.utility-header a:focus,
+.imaging-centers-btn:focus {
+  outline: 2px solid #003087;
+  outline-offset: 2px;
+}
+
+/* Utility Header Container */
+.utility-header .container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.utility-header .header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+}
+
+/* Utility Header Text */
+.utility-header .tagline {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Mobile Responsiveness for Utility Header */
+@media (max-width: 768px) {
+  .utility-header .header-content {
+    padding: 8px 0;
+  }
+
+  .utility-header .tagline {
+    font-size: 12px;
+  }
+
+  .utility-header a[href="/partners/managed-care"],
+  .imaging-centers-btn {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+/* Hide tagline on mobile, center the button */
+@media (max-width: 640px) {
+  .utility-header .header-content {
+    justify-content: center;
+  }
+
+  .utility-header .tagline {
+    display: none;
+  }
+}
+
+/* Ensure utility header appears above other content */
+.utility-header {
+  position: relative;
+  z-index: 50;
+}
+
+/* Optional: If you want to make it sticky */
+.utility-header.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ========================================
+   END UTILITY HEADER STYLES
+   ======================================== */

@@ -10,418 +10,743 @@ const showPatientHeader = true;
 <MainPatientLayout showPatientHeader={true}>
   <AOSInit />
 
-  <section
-    class="relative w-full h-[500px] sm:h-[600px] md:h-[700px] overflow-hidden"
-  >
+  <!-- HERO SECTION - CREDIBILITY + ANXIETY REDUCTION -->
+  <section class="relative w-full h-[600px] md:h-[700px] overflow-hidden">
     <!-- Background Image -->
     <img
       src="/images/how-it-works-hero-blank.webp"
-      alt="Patient using tablet to book scan"
+      alt="Patient confidently using tablet to book scan"
       class="absolute inset-0 w-full h-full object-cover z-0"
       loading="eager"
     />
 
-    <!-- Gradient Overlay -->
+    <!-- Enhanced Gradient Overlay -->
     <div
-      class="absolute inset-0 z-10 pointer-events-none before:absolute before:inset-0 before:bg-gradient-to-r sm:before:bg-gradient-to-r before:from-[#000000e0] before:via-[#00000033] before:to-transparent before:blur-sm"
+      class="absolute inset-0 z-10 bg-gradient-to-r from-[#003087]/90 via-[#003087]/60 to-transparent"
     >
     </div>
 
     <!-- Text Content -->
     <div
-      class="relative z-20 flex items-start sm:items-center justify-center sm:justify-start h-full px-6 sm:px-12 pt-16 sm:pt-0 text-white text-left"
+      class="relative z-20 flex items-center justify-start h-full px-6 sm:px-12 text-white"
     >
-      <div class="max-w-xl space-y-4" data-aos="fade-up" data-aos-delay="100">
-        <h1 class="text-4xl sm:text-5xl font-bold">How It Works</h1>
-        <p class="text-lg sm:text-xl leading-relaxed">
-          No referrals. No insurance hurdles. <br />
-          Just the scan you need — fast, transparent, and affordable.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Patient-Centric Model Summary -->
-  <section class="bg-white py-20 px-6 text-[#003087]">
-    <div
-      class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-12"
-    >
-      <!-- Text Content -->
-      <div
-        class="text-center md:text-left space-y-4 text-lg leading-relaxed px-4"
-      >
-        <p
-          class="text-sm font-medium text-[#cc9933] uppercase tracking-wide mb-2"
-        >
-          Direct Access, No Complexity
-        </p>
-        <p>
-          Whether you're uninsured, underinsured, or simply want clarity before
-          committing to care — USRad makes medical imaging simple. We connect
-          you directly to high-quality imaging centers across the country,
-          eliminating the complexity of traditional healthcare.
-        </p>
-        <p>
-          There are no surprise bills. You know your all-in price before you
-          book. Every scan is read by a board-certified radiologist, and if
-          needed, reviewed by a subspecialist — all within 24–48 hours.
-        </p>
-        <p>
-          We believe imaging should be effortless, not a maze of referrals,
-          authorizations, or unclear costs.
-        </p>
-      </div>
-
-      <!-- Image -->
-      <div class="w-full self-center px-4">
-        <img
-          src="/images/radiologist-virtual-consult.webp"
-          alt="Radiologist virtually guiding a patient through scan options"
-          class="rounded-2xl shadow-xl ring-1 ring-[#e6c378]/40 transition hover:shadow-2xl w-full h-auto object-cover"
-          loading="lazy"
-          data-aos="zoom-in"
-          data-aos-delay="200"
-        />
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works Sequential Grid -->
-  <section
-    id="steps-section"
-    class="relative bg-[#fefbf5] py-20 px-6 overflow-hidden"
-  >
-    <div class="max-w-6xl mx-auto text-center text-[#003087]">
-      <h2 class="text-3xl font-semibold mb-4">How It Works</h2>
-      <p class="text-lg mb-12">
-        From booking to results in four simple steps. No referrals. No
-        confusion.
-      </p>
-
-      <div
-        class="relative flex flex-col sm:flex-row items-center justify-between gap-10 sm:gap-4 px-4"
-      >
-        <!-- Animated Connector Line -->
+      <div class="max-w-2xl space-y-6" data-aos="fade-up" data-aos-delay="100">
+        <!-- Credibility Badge -->
         <div
-          class="absolute top-[32px] left-0 right-0 h-px z-10 overflow-hidden pointer-events-none"
+          class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20 mb-4"
         >
-          <div
-            id="step-connector-line"
-            class="h-full bg-[#cc9933] w-0 transition-[width] duration-500 ease-out"
+          <svg
+            class="w-4 h-4 text-[#cc9933]"
+            fill="currentColor"
+            viewBox="0 0 20 20"
           >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-sm font-medium"
+            >Proven Process • 400K+ Patients Served • Acquired by CorVel (NYSE:
+            CVL)</span
+          >
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+          Simple Process,
+          <span class="text-[#cc9933]">Proven Results</span>
+        </h1>
+
+        <p class="text-lg sm:text-xl leading-relaxed opacity-95">
+          The same streamlined process that delivered $400M+ in savings to
+          400,000+ patients through AnciCare (1994-2002).
+          <strong>No referrals. No insurance hurdles. No surprises.</strong>
+        </p>
+
+        <!-- Trust Indicators -->
+        <div class="flex flex-wrap gap-6 text-sm opacity-90 mt-6">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 bg-[#cc9933] rounded-full"></div>
+            <span>2-3 day average (vs 10-14 days industry)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 bg-[#cc9933] rounded-full"></div>
+            <span>Acquired by CorVel Corporation (NYSE: CVL)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 bg-[#cc9933] rounded-full"></div>
+            <span>100% price guarantee</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS OVERVIEW - ANXIETY REDUCTION FOCUSED -->
+  <section class="bg-gradient-to-br from-[#fefbf5] to-[#f8f5e8] py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2
+          class="text-3xl md:text-4xl font-bold text-[#003087] mb-4"
+          data-aos="fade-up"
+        >
+          A Process Perfected Through AnciCare Success
+        </h2>
+        <p
+          class="text-lg text-[#003087]/80 max-w-3xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          We've eliminated every friction point that makes medical imaging
+          stressful. This isn't theory—it's the proven system AnciCare used
+          (1994-2002) to serve 400,000+ patients before being acquired by CorVel
+          Corporation (NYSE: CVL).
+        </p>
+      </div>
+
+      <!-- Problem vs Solution Comparison -->
+      <div class="grid md:grid-cols-2 gap-8 mb-16">
+        <!-- Traditional Process Problems -->
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-red-400"
+          data-aos="fade-right"
+        >
+          <div class="flex items-center mb-6">
+            <div
+              class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4"
+            >
+              <svg
+                class="w-6 h-6 text-red-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-red-700">
+              Traditional Healthcare Imaging (Before AnciCare)
+            </h3>
+          </div>
+          <div class="space-y-3 text-[#003087]/80">
+            <p>❌ <strong>10-14 day wait times</strong> for appointments</p>
+            <p>
+              ❌ <strong>Complex referral requirements</strong> and authorization
+              delays
+            </p>
+            <p>❌ <strong>Hidden costs</strong> and surprise billing</p>
+            <p>❌ <strong>Insurance hassles</strong> and claim denials</p>
+            <p>❌ <strong>Inconsistent quality</strong> across providers</p>
+            <p>❌ <strong>Poor communication</strong> about results</p>
           </div>
         </div>
 
-        <!-- Step 1 -->
+        <!-- USRad Solution -->
         <div
-          class="relative z-10 flex flex-col items-center"
+          class="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-[#cc9933]"
+          data-aos="fade-left"
+        >
+          <div class="flex items-center mb-6">
+            <div
+              class="w-12 h-12 bg-[#cc9933]/10 rounded-full flex items-center justify-center mr-4"
+            >
+              <svg
+                class="w-6 h-6 text-[#cc9933]"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-[#cc9933]">
+              The USRad Proven Process (Perfected 1994-2002)
+            </h3>
+          </div>
+          <div class="space-y-3 text-[#003087]/80">
+            <p>
+              ✅ <strong>2-3 day appointments</strong> (often next-day available)
+            </p>
+            <p>✅ <strong>No referrals needed</strong> - direct access</p>
+            <p>✅ <strong>100% transparent pricing</strong> before you book</p>
+            <p>✅ <strong>No insurance required</strong> - simple payment</p>
+            <p>✅ <strong>Guaranteed quality</strong> at vetted facilities</p>
+            <p>
+              ✅ <strong>Results in 24-48 hours</strong> with clear communication
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Metrics Bar -->
+      <div class="bg-white rounded-2xl p-6 shadow-lg" data-aos="fade-up">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div>
+            <div class="text-2xl font-bold text-[#cc9933]">400K+</div>
+            <div class="text-sm text-[#003087]">
+              Patients Successfully Served
+            </div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-[#cc9933]">$400M+</div>
+            <div class="text-sm text-[#003087]">Total Savings Delivered</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-[#cc9933]">98%</div>
+            <div class="text-sm text-[#003087]">Patient Satisfaction Rate</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-[#cc9933]">2002</div>
+            <div class="text-sm text-[#003087]">CorVel Acquisition Year</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAILED 4-STEP PROCESS - ENHANCED -->
+  <section class="bg-white py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2
+          class="text-3xl md:text-4xl font-bold text-[#003087] mb-4"
+          data-aos="fade-up"
+        >
+          Your Journey: From Click to Results
+        </h2>
+        <p
+          class="text-lg text-[#003087]/80"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          Every step optimized through AnciCare's 400,000+ patient experiences
+          (1994-2002)
+        </p>
+      </div>
+
+      <div class="space-y-16">
+        <!-- Step 1: Choose Your Scan -->
+        <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
+          <div class="order-2 md:order-1">
+            <div class="flex items-center mb-6">
+              <div
+                class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center text-white text-2xl font-bold mr-6"
+              >
+                1
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-[#003087]">
+                  Choose Your Scan
+                </h3>
+                <p class="text-[#cc9933] font-medium">
+                  Select type & location • 30 seconds • AnciCare-proven
+                  interface
+                </p>
+              </div>
+            </div>
+            <div class="space-y-4 text-[#003087]/90">
+              <p class="text-lg">
+                Browse MRI, CT, and ultrasound options with <strong
+                  >transparent pricing</strong
+                > displayed upfront. No hidden fees, no surprise bills—ever. The
+                same pricing transparency that earned CorVel Corporation's acquisition.
+              </p>
+              <div class="bg-[#f0f4f9] rounded-xl p-4">
+                <h4 class="font-bold text-[#003087] mb-2">What You'll See:</h4>
+                <ul class="space-y-1 text-sm">
+                  <li>✓ Exact price before booking (AnciCare innovation)</li>
+                  <li>✓ Available appointment times</li>
+                  <li>✓ Facility ratings and credentials</li>
+                  <li>✓ Distance and directions</li>
+                  <li>✓ Insurance acceptance (if you choose to use it)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="order-1 md:order-2">
+            <img
+              src="/images/website/search-interface-mockup.webp"
+              alt="USRad search interface showing transparent pricing"
+              class="w-full h-auto rounded-2xl shadow-xl"
+            />
+          </div>
+        </div>
+
+        <!-- Step 2: Get Matched -->
+        <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
+          <div>
+            <img
+              src="/images/website/facility-matching.webp"
+              alt="High-quality imaging center facilities"
+              class="w-full h-auto rounded-2xl shadow-xl"
+            />
+          </div>
+          <div>
+            <div class="flex items-center mb-6">
+              <div
+                class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center text-white text-2xl font-bold mr-6"
+              >
+                2
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-[#003087]">
+                  Get Matched to Excellence
+                </h3>
+                <p class="text-[#cc9933] font-medium">
+                  Vetted facilities only • Quality guaranteed • AnciCare
+                  standards
+                </p>
+              </div>
+            </div>
+            <div class="space-y-4 text-[#003087]/90">
+              <p class="text-lg">
+                We connect you to <strong>top-rated imaging centers</strong> in our
+                proven network—the same quality standards AnciCare used to serve
+                400,000+ patients successfully before CorVel's acquisition.
+              </p>
+              <div class="bg-[#f0f4f9] rounded-xl p-4">
+                <h4 class="font-bold text-[#003087] mb-2">
+                  Our Quality Promise (Proven Since 1994):
+                </h4>
+                <ul class="space-y-1 text-sm">
+                  <li>✓ State-of-the-art equipment (same as hospitals)</li>
+                  <li>✓ Board-certified technologists</li>
+                  <li>✓ Comfortable, anxiety-reducing environments</li>
+                  <li>✓ Regular quality audits and certification</li>
+                  <li>✓ 8+ years of network refinement perfected</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Confirm & Pay -->
+        <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
+          <div class="order-2 md:order-1">
+            <div class="flex items-center mb-6">
+              <div
+                class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center text-white text-2xl font-bold mr-6"
+              >
+                3
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-[#003087]">Confirm & Pay</h3>
+                <p class="text-[#cc9933] font-medium">
+                  100% transparent pricing • Instant confirmation •
+                  CorVel-validated
+                </p>
+              </div>
+            </div>
+            <div class="space-y-4 text-[#003087]/90">
+              <p class="text-lg">
+                <strong>All-inclusive pricing</strong> covers both facility and radiologist
+                fees. No separate bills, no insurance hassles, no surprises—guaranteed.
+                The same pricing model that made AnciCare worth acquiring.
+              </p>
+              <div class="bg-[#f0f4f9] rounded-xl p-4">
+                <h4 class="font-bold text-[#003087] mb-2">
+                  Pricing Transparency (Perfected 1994-2002):
+                </h4>
+                <ul class="space-y-1 text-sm">
+                  <li>✓ All-inclusive rate (facility + radiologist)</li>
+                  <li>✓ 30-70% savings vs hospital rates</li>
+                  <li>✓ Payment plans available</li>
+                  <li>✓ HSA/FSA accepted</li>
+                  <li>✓ Price lock guarantee</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="order-1 md:order-2">
+            <img
+              src="/images/website/payment-confirmation.webp"
+              alt="Transparent pricing and payment confirmation"
+              class="w-full h-auto rounded-2xl shadow-xl"
+            />
+          </div>
+        </div>
+
+        <!-- Step 4: Get Expert Care -->
+        <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
+          <div>
+            <img
+              src="/images/radiologist-virtual-consult.webp"
+              alt="Board-certified radiologist reviewing scans"
+              class="w-full h-auto rounded-2xl shadow-xl"
+            />
+          </div>
+          <div>
+            <div class="flex items-center mb-6">
+              <div
+                class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center text-white text-2xl font-bold mr-6"
+              >
+                4
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-[#003087]">
+                  Get Expert Care
+                </h3>
+                <p class="text-[#cc9933] font-medium">
+                  Board-certified reads • 24-48 hour results • AnciCare quality
+                </p>
+              </div>
+            </div>
+            <div class="space-y-4 text-[#003087]/90">
+              <p class="text-lg">
+                Every scan is reviewed by <strong
+                  >board-certified radiologists</strong
+                >, with subspecialist consultation when needed. Results
+                delivered directly to you and your doctor—the same expert
+                process that served 400,000+ AnciCare patients.
+              </p>
+              <div class="bg-[#f0f4f9] rounded-xl p-4">
+                <h4 class="font-bold text-[#003087] mb-2">
+                  Expert Review Process (Proven Since 1994):
+                </h4>
+                <ul class="space-y-1 text-sm">
+                  <li>✓ Board-certified radiologist primary review</li>
+                  <li>✓ Subspecialist consultation if needed</li>
+                  <li>✓ Results in 24-48 hours (vs 3-5 days typical)</li>
+                  <li>✓ Direct delivery to you and your doctor</li>
+                  <li>✓ Follow-up support available</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMFORT & ANXIETY REDUCTION SECTION -->
+  <section class="bg-[#f0f4f9] py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2
+          class="text-3xl md:text-4xl font-bold text-[#003087] mb-4"
+          data-aos="fade-up"
+        >
+          Designed for Your Comfort & Peace of Mind
+        </h2>
+        <p
+          class="text-lg text-[#003087]/80"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          AnciCare's 8 years serving patients (1994-2002) taught us exactly what
+          matters most
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Anxiety Support -->
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg text-center"
           data-aos="fade-up"
           data-aos-delay="100"
         >
           <div
-            class="bg-[#003087] rounded-full h-16 w-16 flex items-center justify-center mb-3"
+            class="w-16 h-16 bg-[#cc9933]/10 rounded-full flex items-center justify-center mx-auto mb-6"
           >
             <svg
-              viewBox="0 0 24 24"
+              class="w-8 h-8 text-[#cc9933]"
               fill="none"
-              class="h-8 w-8 animate-pulse"
-              xmlns="http://www.w3.org/2000/svg"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <circle cx="11" cy="11" r="7" stroke="#e6c378" stroke-width="2"
-              ></circle>
-              <line
-                x1="15.5"
-                y1="15.5"
-                x2="20"
-                y2="20"
-                stroke="#e6c378"
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
                 stroke-width="2"
-                stroke-linecap="round"></line>
-              <animateTransform
-                attributeName="transform"
-                type="scale"
-                values="1;1.1;1"
-                dur="2s"
-                repeatCount="indefinite"
-                additive="sum"></animateTransform>
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              ></path>
             </svg>
           </div>
-          <h3 class="font-semibold text-sm mb-1">Choose Your Scan</h3>
-          <p class="text-xs">Select scan type & location</p>
+          <h3 class="text-xl font-bold text-[#003087] mb-4">Anxiety Support</h3>
+          <div class="text-left space-y-2 text-[#003087]/80">
+            <p>• Open MRI options for claustrophobia</p>
+            <p>• Music and comfort items provided</p>
+            <p>• Pre-scan consultation available</p>
+            <p>• Experienced, caring technologists</p>
+            <p>• Clear explanation of every step</p>
+          </div>
         </div>
 
-        <!-- Step 2 -->
+        <!-- Time Commitment -->
         <div
-          class="relative z-10 flex flex-col items-center"
+          class="bg-white rounded-2xl p-8 shadow-lg text-center"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <div
+            class="w-16 h-16 bg-[#cc9933]/10 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-[#cc9933]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-[#003087] mb-4">
+            Quick & Efficient
+          </h3>
+          <div class="text-left space-y-2 text-[#003087]/80">
+            <p>• Most scans: 15-45 minutes</p>
+            <p>• Check-in: 5-10 minutes</p>
+            <p>• Free parking at every location</p>
+            <p>• Minimal wait times</p>
+            <p>• Streamlined paperwork</p>
+          </div>
+        </div>
+
+        <!-- Results & Follow-up -->
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg text-center"
           data-aos="fade-up"
           data-aos-delay="300"
         >
           <div
-            class="bg-[#003087] rounded-full h-16 w-16 flex items-center justify-center mb-3"
+            class="w-16 h-16 bg-[#cc9933]/10 rounded-full flex items-center justify-center mx-auto mb-6"
           >
             <svg
-              viewBox="0 0 24 24"
+              class="w-8 h-8 text-[#cc9933]"
               fill="none"
-              class="h-8 w-8 animate-pulse"
-              xmlns="http://www.w3.org/2000/svg"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
               <path
-                d="M12 2C8.5 2 6 4.8 6 8c0 4 6 12 6 12s6-8 6-12c0-3.2-2.5-6-6-6z"
-                stroke="#e6c378"
-                stroke-width="2"></path>
-              <circle cx="12" cy="8" r="2" fill="#e6c378">
-                <animate
-                  attributeName="r"
-                  values="2;2.6;2"
-                  dur="2s"
-                  repeatCount="indefinite"></animate>
-              </circle>
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
             </svg>
           </div>
-          <h3 class="font-semibold text-sm mb-1">Get Matched</h3>
-          <p class="text-xs">Top-rated centers near you</p>
-        </div>
-
-        <!-- Step 3 -->
-        <div
-          class="relative z-10 flex flex-col items-center"
-          data-aos="fade-up"
-          data-aos-delay="500"
-        >
-          <div
-            class="bg-[#003087] rounded-full h-16 w-16 flex items-center justify-center mb-3"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              class="h-8 w-8"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                x="3"
-                y="6"
-                width="18"
-                height="12"
-                rx="2"
-                stroke="#e6c378"
-                stroke-width="2"></rect>
-              <line
-                x1="3"
-                y1="10"
-                x2="21"
-                y2="10"
-                stroke="#e6c378"
-                stroke-width="2"></line>
-              <circle cx="8" cy="15" r="1" fill="#e6c378">
-                <animate
-                  attributeName="r"
-                  values="1;1.8;1"
-                  dur="2s"
-                  repeatCount="indefinite"></animate>
-              </circle>
-            </svg>
+          <h3 class="text-xl font-bold text-[#003087] mb-4">
+            Clear Communication
+          </h3>
+          <div class="text-left space-y-2 text-[#003087]/80">
+            <p>• Results within 24-48 hours</p>
+            <p>• Sent directly to you & your doctor</p>
+            <p>• Plain-language explanations</p>
+            <p>• Follow-up support available</p>
+            <p>• Secure online portal access</p>
           </div>
-          <h3 class="font-semibold text-sm mb-1">Confirm & Pay</h3>
-          <p class="text-xs">Transparent, All-In Pricing</p>
-        </div>
-
-        <!-- Step 4 -->
-        <div
-          class="relative z-10 flex flex-col items-center"
-          data-aos="fade-up"
-          data-aos-delay="700"
-        >
-          <div
-            class="bg-[#003087] rounded-full h-16 w-16 flex items-center justify-center mb-3"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              class="h-8 w-8"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9 3a4 4 0 0 0 0 8 4 4 0 0 1 0 8"
-                stroke="#e6c378"
-                stroke-width="2"></path>
-              <path
-                d="M15 3a4 4 0 0 1 0 8 4 4 0 0 0 0 8"
-                stroke="#e6c378"
-                stroke-width="2"></path>
-              <animateTransform
-                attributeName="transform"
-                type="scale"
-                values="1;1.05;1"
-                dur="2s"
-                repeatCount="indefinite"></animateTransform>
-            </svg>
-          </div>
-          <h3 class="font-semibold text-sm mb-1">Get Expert Care</h3>
-          <p class="text-xs">Board-certified reads, fast results</p>
         </div>
       </div>
     </div>
-
-    <!-- Walking Person - Clean Start -->
-    <div
-      class="absolute bottom-6 left-0 right-0 h-32 pointer-events-none hidden md:block z-10"
-    >
-      <img
-        id="walker"
-        src="/images/illustrations/walking-person.webp"
-        alt="A user navigating the four imaging steps"
-        class="walker h-32"
-        loading="lazy"
-      />
-    </div>
-
-    <!-- 👇 Add this spacer to give more scroll space -->
-    <div class="h-16 sm:h-24"></div>
   </section>
 
-  <!-- Why Patients Choose USRad -->
-  <section class="bg-white py-20 px-6 text-[#003087]">
-    <div class="max-w-6xl mx-auto text-center mb-12">
+  <!-- PROOF SECTION - TESTIMONIAL STYLE -->
+  <section class="bg-white py-20 px-6">
+    <div class="max-w-4xl mx-auto text-center">
       <h2
-        class="text-3xl font-semibold"
+        class="text-3xl md:text-4xl font-bold text-[#003087] mb-8"
+        data-aos="fade-up"
+      >
+        Proven Results You Can Trust
+      </h2>
+
+      <div
+        class="bg-gradient-to-br from-[#f8f2e1] to-[#fcf9f0] rounded-3xl p-8 md:p-12 shadow-xl"
         data-aos="fade-up"
         data-aos-delay="100"
       >
-        Why Patients Choose USRad
-      </h2>
-    </div>
-
-    <div
-      class="grid gap-10 sm:grid-cols-2 md:grid-cols-3 max-w-5xl mx-auto text-center"
-    >
-      <!-- Pillar 1 -->
-      <div class="text-center">
-        <img
-          src="/images/icons/pricing.webp"
-          alt="Flat rate pricing icon"
-          class="mx-auto h-14 w-14 mb-3"
-          loading="lazy"
-        />
-        <h3 class="text-lg font-semibold mb-2">
-          Transparent Flat-Rate Pricing
-        </h3>
-        <p class="text-sm">
-          All-inclusive rates. No hidden fees or separate radiologist bills.
-        </p>
-      </div>
-
-      <!-- Pillar 2 -->
-      <div data-aos="fade-up" data-aos-delay="200" class="space-y-3 px-4">
-        <img
-          src="/images/icons/radiologist.webp"
-          alt="Radiologist Icon"
-          class="mx-auto h-14 w-14 mb-3"
-        />
-        <h3 class="text-lg font-semibold">Board-Certified Interpretation</h3>
-        <p class="text-sm">
-          Every scan is reviewed by experienced radiologists, with subspecialist
-          oversight when needed.
-        </p>
-      </div>
-
-      <!-- Pillar 3 -->
-      <div data-aos="fade-up" data-aos-delay="300" class="space-y-3 px-4">
-        <img
-          src="/images/icons/scheduling.webp"
-          alt="Calendar Icon"
-          class="mx-auto h-14 w-14 mb-3"
-        />
-        <h3 class="text-lg font-semibold">Priority Scheduling</h3>
-        <p class="text-sm">2–4 day average appointment times — not weeks.</p>
+        <div class="text-6xl text-[#cc9933] opacity-30 mb-4">"</div>
+        <blockquote
+          class="text-xl md:text-2xl italic text-[#003087] leading-relaxed mb-8"
+        >
+          This process isn't experimental—it's the same proven system that
+          revolutionized medical imaging for Fortune 500 companies through
+          AnciCare (1994-2002). We eliminated the 10-14 day wait times, the
+          hidden costs, and the quality inconsistencies that plagued traditional
+          healthcare. CorVel Corporation was so convinced of our success that
+          they acquired us.
+        </blockquote>
+        <div class="grid md:grid-cols-3 gap-6 text-center">
+          <div>
+            <div class="text-3xl font-bold text-[#cc9933]">400K+</div>
+            <div class="text-sm text-[#003087]">
+              Patients Successfully Served
+            </div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-[#cc9933]">$400M+</div>
+            <div class="text-sm text-[#003087]">Total Savings Delivered</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-[#cc9933]">2-3 Days</div>
+            <div class="text-sm text-[#003087]">Average Wait Time</div>
+          </div>
+        </div>
+        <div class="mt-6 text-sm text-[#003087]/70">
+          — The USRad Founding Team, Based on AnciCare Success (1994-2002) and
+          CorVel Acquisition
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="bg-[#003087] py-20 px-6 text-white text-center">
-    <div class="max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-      <h2 class="text-3xl font-semibold mb-4">Ready to Book Your Scan?</h2>
-      <p class="text-lg mb-8">
-        Choose a location, confirm your flat rate, and schedule — all in just
-        minutes.
-      </p>
-      <a
-        href="/search-test"
-        class="inline-block bg-white text-[#003087] font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-[#f7f7f7] transition"
+  <!-- FAQ SECTION - ADDRESSING COMMON CONCERNS -->
+  <section class="bg-[#f0f4f9] py-20 px-6">
+    <div class="max-w-4xl mx-auto">
+      <h2
+        class="text-3xl md:text-4xl font-bold text-[#003087] text-center mb-12"
+        data-aos="fade-up"
       >
-        See Available Locations →
-      </a>
+        Common Questions About Our Process
+      </h2>
+
+      <div class="space-y-6">
+        <div
+          class="bg-white rounded-xl p-6 shadow-md"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <h3 class="text-lg font-bold text-[#003087] mb-3">
+            Do I really not need a referral?
+          </h3>
+          <p class="text-[#003087]/80">
+            Correct! You can book directly with us—the same direct access
+            AnciCare provided for 8 years. However, if your doctor ordered the
+            scan, make sure to bring that order to your appointment so we can
+            include it in your results.
+          </p>
+        </div>
+
+        <div
+          class="bg-white rounded-xl p-6 shadow-md"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <h3 class="text-lg font-bold text-[#003087] mb-3">
+            How are your prices so much lower than hospitals?
+          </h3>
+          <p class="text-[#003087]/80">
+            We perfected the managed care model through AnciCare (1994-2002) and
+            delivered $400M+ in proven savings. By eliminating administrative
+            overhead and working directly with imaging centers, we cut out the
+            middleman costs that hospitals pass on to patients.
+          </p>
+        </div>
+
+        <div
+          class="bg-white rounded-xl p-6 shadow-md"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          <h3 class="text-lg font-bold text-[#003087] mb-3">
+            Is the quality really the same as hospitals?
+          </h3>
+          <p class="text-[#003087]/80">
+            Often better! We only partner with accredited centers using the same
+            equipment as hospitals—the same standards that earned CorVel
+            Corporation's acquisition. Plus, all scans are read by
+            board-certified radiologists with subspecialty consultation when
+            needed.
+          </p>
+        </div>
+
+        <div
+          class="bg-white rounded-xl p-6 shadow-md"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          <h3 class="text-lg font-bold text-[#003087] mb-3">
+            What if I have anxiety about MRIs?
+          </h3>
+          <p class="text-[#003087]/80">
+            We've helped thousands of anxious patients through AnciCare's proven
+            approach! We offer open MRI options, comfort items, pre-scan
+            consultations, and our technologists are specially trained to help
+            you feel at ease throughout the process.
+          </p>
+        </div>
+
+        <div
+          class="bg-white rounded-xl p-6 shadow-md"
+          data-aos="fade-up"
+          data-aos-delay="500"
+        >
+          <h3 class="text-lg font-bold text-[#003087] mb-3">
+            Why should I trust USRad over established providers?
+          </h3>
+          <p class="text-[#003087]/80">
+            We ARE the established provider! Our founders built AnciCare
+            (1994-2002), served 400,000+ patients, delivered $400M+ in savings,
+            and were acquired by CorVel Corporation (NYSE: CVL). CorVel still
+            operates our model 20+ years later because it works. Now we're
+            expanding that same proven approach to everyone.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENHANCED CTA -->
+  <section
+    class="bg-gradient-to-br from-[#003087] to-[#002266] py-20 px-6 text-white text-center"
+  >
+    <div class="max-w-4xl mx-auto" data-aos="fade-up">
+      <!-- Credibility Banner -->
+      <div
+        class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-6 py-2 border border-white/20 mb-6"
+      >
+        <svg
+          class="w-4 h-4 text-[#cc9933]"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd"></path>
+        </svg>
+        <span class="text-sm font-medium"
+          >PROVEN BY 400K+ PATIENTS • ACQUIRED BY CORVEL (NYSE: CVL)</span
+        >
+      </div>
+
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">
+        Ready to Experience AnciCare-Proven Excellence?
+      </h2>
+      <p class="text-lg md:text-xl mb-8 opacity-95">
+        Join 400,000+ patients who've trusted our streamlined process. The same
+        model that CorVel Corporation acquired and operates 20+ years later.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/search-test"
+          class="bg-[#cc9933] hover:bg-[#b8851f] text-white font-bold px-8 py-4 rounded-xl shadow-lg transition-all duration-300 hover:scale-105"
+        >
+          Book Your Scan Now →
+        </a>
+        <a
+          href="/pricing"
+          class="border-2 border-white text-white hover:bg-white hover:text-[#003087] font-bold px-8 py-4 rounded-xl transition-all duration-300"
+        >
+          See Transparent Pricing
+        </a>
+      </div>
+
+      <div class="mt-8 text-sm opacity-80">
+        ⭐ Average 2-3 day appointments • 100% price guarantee • Same model
+        CorVel acquired
+      </div>
     </div>
   </section>
 </MainPatientLayout>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const section = document.getElementById("steps-section");
-    const line = document.getElementById("step-connector-line");
-    const walker = document.getElementById("walker");
-    let hasReachedEnd = false;
-    let lastProgress = 0;
-
-    if (!section || !line) {
-      console.warn("step-connector-line or steps-section not found");
-      return;
-    }
-
-    function updateEffects() {
-      const rect = section.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const sectionHeight = section.offsetHeight;
-
-      const rawProgress = Math.min(
-        1,
-        Math.max(0, (windowHeight - rect.top) / (sectionHeight + windowHeight))
-      );
-
-      // Smooth easing toward scroll position
-      lastProgress += (rawProgress - lastProgress) * 0.1;
-      line.style.width = `${(lastProgress * 100).toFixed(1)}%`;
-
-      // Animate walker if available
-      if (walker) {
-        walker.style.opacity = rawProgress > 0.1 ? "1" : "0";
-
-        if (rawProgress >= 0.95) {
-          hasReachedEnd = true;
-          walker.style.left = `${section.offsetWidth - 150}px`;
-        } else if (!hasReachedEnd) {
-          const startPos = -150;
-          const endPos = section.offsetWidth - 150;
-          const currentPos = startPos + rawProgress * (endPos - startPos);
-          walker.style.left = `${currentPos}px`;
-        }
-      }
-
-      requestAnimationFrame(updateEffects); // Loop for smooth animation
-    }
-
-    updateEffects(); // Kick off first loop
-  });
-</script>
-
-<style>
-  /* Clean start - only what we need */
-  .walker {
-    position: absolute;
-    bottom: 20px;
-    left: -150px;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    animation: gentleFloat 3s ease-in-out infinite;
-  }
-
-  @keyframes gentleFloat {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-</style>
