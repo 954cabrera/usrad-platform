@@ -1,5 +1,73 @@
 import React, { useEffect, useRef, useState } from "react";
 
+// Glass Select Component
+function GlassSelect({ label, value, onChange, options, id }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const selectRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (selectRef.current && !selectRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const selectedOption = options.find(opt => opt.value === value);
+
+  return (
+    <div>
+      <label htmlFor={id} className="block text-sm font-medium text-white mb-2">
+        {label}
+      </label>
+      <div className="relative" ref={selectRef}>
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-full px-4 py-3 rounded-lg text-sm transition-all duration-200 bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder-white/70 hover:bg-white/15 focus:ring-2 focus:ring-white/30 focus:border-white/40 text-left flex items-center justify-between"
+        >
+          <span className="text-white">{selectedOption?.label || 'Select...'}</span>
+          <svg 
+            className={`w-4 h-4 text-white transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        
+        {isOpen && (
+          <div className="absolute z-50 w-full mt-1 bg-white/15 backdrop-blur-xl border border-white/20 rounded-lg shadow-2xl max-h-60 overflow-auto">
+            {options.map((option, index) => (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => {
+                  onChange(option.value);
+                  setIsOpen(false);
+                }}
+                className={`w-full px-4 py-3 text-left text-white hover:bg-white/20 transition-colors duration-150 ${
+                  index === 0 ? 'rounded-t-lg' : ''
+                } ${
+                  index === options.length - 1 ? 'rounded-b-lg' : ''
+                } ${
+                  value === option.value ? 'bg-white/25' : ''
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // Apple-Style Desktop Login Dropdown Component
 function AppleStyleLoginDropdown() {
   const [isOpen, setIsOpen] = useState(false);
@@ -173,6 +241,255 @@ function AppleStyleMobileLoginDropdown({ onMenuClose }) {
   );
 }
 
+// Complete Glass SearchModal Component
+function SearchModal({ isOpen, onClose }) {
+  const [searchData, setSearchData] = useState({
+    zipCode: '',
+    procedure: '70551',
+    state: 'FL'
+  });
+  const [isSearching, setIsSearching] = useState(false);
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      // Focus on ZIP input when modal opens
+      setTimeout(() => {
+        const zipInput = document.getElementById('modal-zipcode');
+        if (zipInput) zipInput.focus();
+      }, 100);
+
+      // Handle escape key
+      const handleEscape = (event) => {
+        if (event.key === 'Escape') {
+          onClose();
+        }
+      };
+
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden'; // Prevent background scroll
+
+      return () => {
+        document.removeEventListener('keydown', handleEscape);
+        document.body.style.overflow = 'unset';
+      };
+    }
+  }, [isOpen, onClose]);
+
+  const handleInputChange = (field, value) => {
+    setSearchData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleZipCodeChange = (e) => {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 5) {
+      value = value.slice(0, 5);
+    }
+    handleInputChange('zipCode', value);
+  };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    
+    if (!searchData.zipCode || searchData.zipCode.length !== 5) {
+      alert('Please enter a valid 5-digit ZIP code.');
+      return;
+    }
+
+    setIsSearching(true);
+
+    try {
+      const searchParams = new URLSearchParams({
+        zipCode: searchData.zipCode,
+        procedure: searchData.procedure,
+        state: searchData.state,
+        autoSearch: 'true'
+      });
+
+      window.location.href = `/search-results?${searchParams.toString()}`;
+    } catch (error) {
+      console.error('Search error:', error);
+      alert('Search failed. Please try again.');
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const quickFillLocation = (zipCode, cityName) => {
+    setSearchData(prev => ({ ...prev, zipCode }));
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <>
+      {/* Enhanced Backdrop with Blur */}
+      <div 
+        className="fixed inset-0 bg-black/60 backdrop-blur-md z-50"
+        onClick={onClose}
+      />
+      
+      {/* Glass Modal */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div 
+          ref={modalRef}
+          className="bg-white/10 backdrop-blur-2xl rounded-3xl shadow-2xl w-full max-w-md mx-auto transform transition-all duration-300 scale-100 border border-white/20"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between p-6 border-b border-white/20">
+            <h2 className="text-xl font-semibold text-white">Find Imaging Centers</h2>
+            <button
+              onClick={onClose}
+              className="text-white/70 hover:text-white transition-colors p-1 hover:bg-white/10 rounded-full"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSearch} className="p-6 space-y-4">
+            <div>
+              <label htmlFor="modal-zipcode" className="block text-sm font-medium text-white mb-2">
+                ZIP Code *
+              </label>
+              <input
+                id="modal-zipcode"
+                type="text"
+                value={searchData.zipCode}
+                onChange={handleZipCodeChange}
+                placeholder="Enter ZIP code"
+                required
+                pattern="[0-9]{5}"
+                maxLength="5"
+                className="w-full px-4 py-3 rounded-lg text-sm bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder-white/70 focus:ring-2 focus:ring-white/30 focus:border-white/40 transition-all"
+              />
+            </div>
+
+            <GlassSelect
+              label="Procedure"
+              id="modal-procedure"
+              value={searchData.procedure}
+              onChange={(value) => handleInputChange('procedure', value)}
+              options={[
+                { value: '70551', label: 'MRI Brain (without contrast)' },
+                { value: '73721', label: 'MRI Knee' },
+                { value: '72148', label: 'MRI Spine' },
+                { value: '74181', label: 'CT Abdomen' },
+                { value: '70450', label: 'CT Head' }
+              ]}
+            />
+
+            <GlassSelect
+              label="State"
+              id="modal-state"
+              value={searchData.state}
+              onChange={(value) => handleInputChange('state', value)}
+              options={[
+                { value: 'FL', label: 'Florida' },
+                { value: 'GA', label: 'Georgia' }
+              ]}
+            />
+
+            <button
+              type="submit"
+              disabled={isSearching}
+              className="w-full bg-white/20 backdrop-blur-md text-white font-semibold py-3 rounded-lg hover:bg-white/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border border-white/30"
+            >
+              {isSearching ? (
+                <>
+                  <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Searching...
+                </>
+              ) : (
+                <>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                  </svg>
+                  Find Centers
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Quick Locations */}
+          <div className="px-6 pb-6 border-t border-white/20">
+            <p className="text-sm text-white/80 mb-3 mt-4">Popular locations:</p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { zip: '33012', city: 'Miami' },
+                { zip: '32801', city: 'Orlando' },
+                { zip: '33602', city: 'Tampa' },
+                { zip: '30309', city: 'Atlanta' }
+              ].map((location) => (
+                <button
+                  key={location.zip}
+                  type="button"
+                  onClick={() => quickFillLocation(location.zip, location.city)}
+                  className="text-sm bg-white/10 backdrop-blur-md text-white px-3 py-1 rounded-full hover:bg-white/20 transition-all duration-200 border border-white/20"
+                >
+                  {location.city}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+// Header Search Component
+function HeaderSearch({ showSearchBar, onToggleSearch }) {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleSearchClick = () => {
+    setShowModal(true);
+  };
+
+  const handleQuickDemo = () => {
+    window.location.href = '/search-results?zipCode=33330&procedure=70551&state=FL&autoSearch=true';
+  };
+
+  return (
+    <>
+      <div className="fixed left-0 right-0 top-[76px] md:top-[90px] z-40 bg-[#f8f2e1] shadow-md border-y border-[#e6c378] px-4 md:px-0 transition-all duration-300">
+        <div className="max-w-7xl mx-auto flex items-center justify-between py-3">
+          <button
+            className="flex items-center space-x-2 text-[#003087] font-semibold text-base"
+            onClick={handleSearchClick}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-[#cc9933]">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+            </svg>
+            <span>Find an Imaging Center</span>
+          </button>
+          
+          <button
+            onClick={handleQuickDemo}
+            className="hidden md:flex items-center space-x-1 bg-[#cc9933] text-white px-3 py-1.5 rounded-md text-sm font-medium hover:bg-[#b5832d] transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <span>Quick Demo</span>
+          </button>
+        </div>
+      </div>
+
+      <SearchModal isOpen={showModal} onClose={() => setShowModal(false)} />
+    </>
+  );
+}
+
 export default function PatientHeader({ showStickyBar = true }) {
   const headerRef = useRef(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -186,16 +503,27 @@ export default function PatientHeader({ showStickyBar = true }) {
       <header
         ref={headerRef}
         className="fixed top-0 left-0 right-0 z-50 bg-[#f8f2e1] border-b border-[#e6c378] shadow-sm w-full h-[76px] md:h-[90px] sticky-header-fix transition-all duration-300"
+        style={{ pointerEvents: 'auto', zIndex: 1001 }}
       >
         <div className="w-full px-4 pt-6 pb-4 md:pt-6 md:pb-5">
           <div className="flex items-center justify-between max-w-7xl mx-auto">
             {/* === Mobile: Logo + Hamburger === */}
             <div className="flex items-center justify-between w-full md:hidden">
-              <a href="/" className="flex items-center pt-1">
+              <a 
+                href="/" 
+                className="flex items-center pt-1"
+                style={{ pointerEvents: 'auto', zIndex: 9999, position: 'relative' }}
+                onClick={(e) => {
+                  console.log('Mobile logo clicked!');
+                  e.stopPropagation();
+                  window.location.href = '/';
+                }}
+              >
                 <img
                   src="/logo/USRad-Logo-final.png"
                   alt="USRad Logo"
                   className="h-10"
+                  style={{ pointerEvents: 'none' }}
                 />
               </a>
               <button
@@ -217,19 +545,28 @@ export default function PatientHeader({ showStickyBar = true }) {
 
             {/* === Desktop: Logo + Nav === */}
             <div className="hidden md:flex w-full items-center justify-between">
-              <a href="/" className="flex items-center">
+              <a 
+                href="/" 
+                className="flex items-center"
+                style={{ pointerEvents: 'auto', zIndex: 9999, position: 'relative' }}
+                onClick={(e) => {
+                  console.log('Desktop logo clicked!');
+                  e.stopPropagation();
+                  window.location.href = '/';
+                }}
+              >
                 <img
                   src="/logo/USRad-Logo-final.png"
                   alt="USRad Logo"
                   className="h-12"
+                  style={{ pointerEvents: 'none' }}
                 />
               </a>
               <nav className="flex justify-center space-x-6 md:space-x-8 lg:space-x-10 text-sm md:text-base font-medium text-[#003087]">
-
                 {[
                   { href: "/about", label: "About" },
                   { href: "/how-it-works", label: "How It Works" },
-                  { href: "/search-test", label: "Locations" },
+                  { href: "/education/what-is-mri", label: "What is an MRI?" },
                   { href: "/pricing", label: "Pricing" },
                   { href: "/contact", label: "Contact" },
                 ].map((link) => (
@@ -238,12 +575,11 @@ export default function PatientHeader({ showStickyBar = true }) {
                     href={link.href}
                     className="relative hover:text-[#cc9933] transition-colors duration-200"
                   >
-                    <span className="hover-underline-animation">{link.label}</span>
+                    <span>{link.label}</span>
                   </a>
                 ))}
               </nav>
               <div className="flex items-center space-x-4 pt-2 md:pt-6">
-
                 <a
                   href="/employer"
                   className="bg-[#cc9933] text-white px-4 py-[6px] rounded-lg text-sm font-semibold shadow-md hover:bg-[#b5832d] transition duration-200"
@@ -251,12 +587,8 @@ export default function PatientHeader({ showStickyBar = true }) {
                   For Employers
                 </a>
                 
-                {/* Apple-Style Desktop Login Dropdown */}
                 <AppleStyleLoginDropdown />
-
               </div>
-
-
             </div>
           </div>
         </div>
@@ -305,10 +637,8 @@ export default function PatientHeader({ showStickyBar = true }) {
               For Employers
             </a>
             
-            {/* Apple-Style Mobile Login Dropdown */}
             <AppleStyleMobileLoginDropdown onMenuClose={toggleMobileMenu} />
           </div>
-
         </div>
 
         <div className="px-6 py-4 text-sm text-white text-center opacity-60">
@@ -317,86 +647,11 @@ export default function PatientHeader({ showStickyBar = true }) {
       </div>
 
       {showStickyBar && (
-        <div className="fixed left-0 right-0 top-[76px] md:top-[90px] z-40 bg-[#f8f2e1] shadow-md border-y border-[#e6c378] px-4 md:px-0 transition-all duration-300">
-          <div className="max-w-7xl mx-auto flex items-center justify-between py-3">
-            <button
-              className="flex items-center space-x-2 text-[#003087] font-semibold text-base"
-              onClick={toggleSearchBar}
-              aria-expanded={showSearchBar}
-              aria-controls="search-form"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-[#cc9933]">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
-              </svg>
-              <span>Find an Imaging Center</span>
-            </button>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`w-5 h-5 text-[#cc9933] transform transition-transform duration-300 ${showSearchBar ? "" : "rotate-180"}`}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </div>
-          <div
-            id="search-form"
-            className={`max-w-7xl mx-auto px-4 pb-4 transition-all duration-300 origin-top ${showSearchBar ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0 h-0 overflow-hidden"}`}
-          >
-            <form className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="text"
-                placeholder="Type of scan (e.g. MRI)"
-                className="flex-1 border border-[#ccc] px-3 py-2 rounded-md text-sm"
-              />
-              <input
-                type="text"
-                placeholder="ZIP code or city"
-                className="flex-1 border border-[#ccc] px-3 py-2 rounded-md text-sm"
-              />
-              <button
-                type="submit"
-                className="bg-[#cc9933] text-white px-4 py-2 rounded-md font-semibold text-sm hover:bg-[#b5832d]"
-              >
-                Find
-              </button>
-            </form>
-          </div>
-        </div>
+        <HeaderSearch 
+          showSearchBar={showSearchBar} 
+          onToggleSearch={toggleSearchBar}
+        />
       )}
-
-      <style jsx>{`
-        .hover-underline-animation {
-          position: relative;
-        }
-        .hover-underline-animation::after {
-          content: "";
-          position: absolute;
-          width: 100%;
-          transform: scaleX(0);
-          height: 2px;
-          bottom: -2px;
-          left: 0;
-          background-color: #cc9933;
-          transform-origin: bottom right;
-          transition: transform 0.3s ease-out;
-        }
-        .hover-underline-animation:hover::after {
-          transform: scaleX(1);
-          transform-origin: bottom left;
-        }
-        @keyframes fadeIn {
-          0% {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </>
   );
 }
