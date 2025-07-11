@@ -3,6 +3,7 @@ import MainPatientLayout from "../layouts/MainPatientLayout.astro";
 import ChatbotToggle from "../components/ChatbotToggle.astro";
 import FadeIn from "../components/FadeIn.astro";
 import AOSInit from "../components/AOSInit.astro";
+import ProviderSearchSection from "../components/ProviderSearchSection.jsx";
 import TrustBadgesBar from "../components/TrustBadgesBar.astro";
 
 const pageTitle =
@@ -35,6 +36,18 @@ const structuredData = {
 >
   <AOSInit />
 
+  <!-- Proven Track Record Banner -->
+  <section
+    class="bg-gradient-to-r from-[#003087] to-blue-700 text-white py-3 px-6"
+  >
+    <div class="max-w-7xl mx-auto text-center">
+      <p class="text-sm font-medium">
+        🏆 <strong>Proven Transparency:</strong> Pricing model perfected through
+        400,000+ patient interactions with AnciCare network
+      </p>
+    </div>
+  </section>
+
   <!-- Revised Hero Section (Light Variant) -->
   <FadeIn effect="fade" delay={0}>
     <section class="relative bg-[#fefbf5] py-24 px-6 text-[#003087]">
@@ -46,9 +59,12 @@ const structuredData = {
             <span class="text-[#cc9933]">Backed by a Guarantee.</span>
           </h1>
           <p class="text-lg text-[#003087]/80 mb-6">
-            Know your price before you arrive. Book MRI, CT, and ultrasound
-            scans for up to <strong class="text-green-600">70% less</strong> than
-            hospitals—without the stress.
+            Know your price before you arrive. Our transparent pricing model,
+            perfected through
+            <strong class="text-[#cc9933]">400,000+ patient interactions</strong
+            >, offers scans for up to
+            <strong class="text-green-600">70% less</strong> than hospitals—without
+            the stress.
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
             <a
@@ -100,8 +116,12 @@ const structuredData = {
         <h2 class="text-4xl md:text-5xl font-bold text-[#003087] mb-6">
           Calculate Your Savings
         </h2>
-        <p class="text-xl text-[#003087]/80 max-w-3xl mx-auto">
+        <p class="text-xl text-[#003087]/80 max-w-3xl mx-auto mb-4">
           See exactly how much you can save with transparent pricing
+        </p>
+        <p class="text-[#cc9933] font-semibold">
+          ✅ Pricing transparency perfected over 10 years with 1,200+ imaging
+          centers
         </p>
       </div>
 
@@ -481,120 +501,70 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- Single Enhanced Search Section -->
-  <section class="bg-white py-20">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16" data-aos="fade-up">
-        <h2 class="text-4xl md:text-5xl font-bold text-[#003087] mb-6">
-          Ready to Get Your Scan?
-        </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Enter your ZIP code to see real-time pricing from imaging centers in
-          your area
-        </p>
-      </div>
-
+  <!-- Credibility Callout -->
+  <section class="bg-gradient-to-r from-blue-50 to-[#fefbf5] py-16">
+    <div class="max-w-6xl mx-auto px-6">
       <div
-        class="bg-gradient-to-br from-[#fefbf5] to-white rounded-3xl p-8 shadow-2xl max-w-4xl mx-auto"
-        data-aos="zoom-in"
+        class="bg-white rounded-2xl p-8 shadow-xl border-l-4 border-[#cc9933]"
+        data-aos="fade-up"
       >
-        <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <label class="block text-sm font-semibold text-[#003087] mb-3"
-              >Enter Your ZIP Code</label
-            >
-            <input
-              type="text"
-              placeholder="ZIP Code"
-              class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#cc9933] focus:border-transparent text-lg font-medium transition-all duration-300"
-            />
+            <h3 class="text-2xl font-bold text-[#003087] mb-4">
+              Why Our Pricing Model Works
+            </h3>
+            <p class="text-gray-700 mb-4">
+              We didn't just create transparent pricing overnight. Our model is
+              the result of
+              <strong class="text-[#cc9933]">10 years building AnciCare</strong
+              >, where we processed
+              <strong class="text-blue-600">400,000+ imaging procedures</strong>
+              and proved that high-quality care can be both affordable and profitable.
+            </p>
+            <div class="flex items-center gap-2 text-green-600 font-medium">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span>Proven model with successful exit to public company</span>
+            </div>
           </div>
-          <div>
-            <label class="block text-sm font-semibold text-[#003087] mb-3"
-              >Study Type (Optional)</label
-            >
-            <select
-              class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#cc9933] focus:border-transparent text-lg font-medium appearance-none bg-white transition-all duration-300"
-            >
-              <option>All imaging types</option>
-              <option>MRI - Brain</option>
-              <option>MRI - Knee</option>
-              <option>CT - Chest</option>
-              <option>Ultrasound</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="text-center mb-8">
-          <a
-            href="/search-test"
-            class="bg-gradient-to-r from-[#cc9933] to-yellow-400 text-[#003087] font-bold px-12 py-5 rounded-2xl shadow-2xl hover:scale-105 transition-all duration-300 inline-flex items-center justify-center gap-3 text-xl"
-          >
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fill-rule="evenodd"
-                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                clip-rule="evenodd"></path>
-            </svg>
-            Find Imaging Centers Near Me
-          </a>
-        </div>
-
-        <div
-          class="flex items-center justify-center gap-8 text-sm text-gray-600 flex-wrap"
-        >
-          <div class="flex items-center gap-2">
-            <svg
-              class="w-5 h-5 text-green-500"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"></path>
-            </svg>
-            <span class="font-medium">No insurance required</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <svg
-              class="w-5 h-5 text-green-500"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"></path>
-            </svg>
-            <span class="font-medium">Same-day booking</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <svg
-              class="w-5 h-5 text-green-500"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"></path>
-            </svg>
-            <span class="font-medium">100% guaranteed</span>
+          <div class="grid grid-cols-2 gap-4 text-center">
+            <div class="bg-blue-50 rounded-lg p-4">
+              <div class="text-2xl font-bold text-blue-600">400K+</div>
+              <div class="text-sm text-gray-600">Procedures Processed</div>
+            </div>
+            <div class="bg-green-50 rounded-lg p-4">
+              <div class="text-2xl font-bold text-green-600">1,200+</div>
+              <div class="text-sm text-gray-600">Centers Managed</div>
+            </div>
+            <div class="bg-purple-50 rounded-lg p-4">
+              <div class="text-2xl font-bold text-purple-600">50%+</div>
+              <div class="text-sm text-gray-600">Cost Savings Achieved</div>
+            </div>
+            <div class="bg-orange-50 rounded-lg p-4">
+              <div class="text-2xl font-bold text-orange-600">10</div>
+              <div class="text-sm text-gray-600">Years Experience</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Trust Badges -->
+  <ProviderSearchSection
+    client:load
+    googleMapsApiKey={import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY}
+  />
+
+    <!-- Trust Badges -->
   <section class="bg-[#f0f4f9] py-16 px-6">
     <div class="max-w-6xl mx-auto" data-aos="fade-up">
       <TrustBadgesBar />
     </div>
   </section>
-
-  
 
   <!-- Community Impact Section -->
   <section class="bg-[#003087] text-white py-20">
@@ -635,62 +605,66 @@ const structuredData = {
   <!-- Founder's Story -->
   <section class="bg-[#003087] text-white py-20">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-12" data-aos="fade-up">
-          <h2 class="text-4xl md:text-5xl font-bold mb-6">
-            Built by Someone Who's Been There
-          </h2>
-          <p class="text-xl text-blue-100">
-            A personal mission to fix a broken system
+      <div class="text-center mb-12" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Built by Proven Healthcare Innovators
+        </h2>
+        <p class="text-xl text-blue-100 mb-4">
+          A personal mission backed by a decade of healthcare network success
+        </p>
+        <div
+          class="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2"
+        >
+          <span class="text-[#cc9933] text-sm font-bold">✨ Track Record:</span>
+          <span class="text-blue-100 text-sm"
+            >Built & sold 1,200-center imaging network</span
+          >
+        </div>
+      </div>
+
+      <div
+        class="bg-white/10 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/20"
+        data-aos="zoom-in"
+      >
+        <div class="space-y-6 text-lg leading-relaxed">
+          <p class="text-blue-50">
+            <strong class="text-white"
+              >I've experienced this problem firsthand.</strong
+            > After building and selling the first medical imaging network for workers'
+            compensation, I was shocked when I needed an MRI for myself. Hospitals
+            quoted <span class="text-red-300 font-bold">$8,000</span>, but my
+            insurance would only pay their negotiated rate of <span
+              class="text-yellow-300 font-bold">$1,600</span
+            > — which became my responsibility because I hadn't met my deductible.
+          </p>
+
+          <p class="text-blue-50">
+            The games hospitals play frustrated me most. <strong
+              class="text-white"
+              >If you mention insurance, they won't offer cash prices. But
+              approach them without mentioning insurance, and suddenly cash
+              discounts become available.</strong
+            > These manipulative practices hurt the <span
+              class="text-[#cc9933] font-bold">90+ million Americans</span
+            > who are uninsured or underinsured.
+          </p>
+
+          <p class="text-blue-50">
+            That's why I created USRad — to eliminate the guesswork, the
+            haggling, and the fear of overpaying. <strong class="text-white"
+              >You deserve to know exactly what you'll pay for high-quality
+              medical imaging, backed by a guarantee that ensures your scan
+              meets your doctor's standards.</strong
+            >
           </p>
         </div>
 
-        <div
-          class="bg-white/10 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/20"
-          data-aos="zoom-in"
-        >
-          <div class="space-y-6 text-lg leading-relaxed">
-            <p class="text-blue-50">
-              <strong class="text-white"
-                >I've experienced this problem firsthand.</strong
-              > After building and selling the first medical imaging network for
-              workers' compensation, I was shocked when I needed an MRI for myself.
-              Hospitals quoted <span class="text-red-300 font-bold">$8,000</span
-              >, but my insurance would only pay their negotiated rate of <span
-                class="text-yellow-300 font-bold">$1,600</span
-              > — which became my responsibility because I hadn't met my deductible.
-            </p>
-
-            <p class="text-blue-50">
-              The games hospitals play frustrated me most. <strong
-                class="text-white"
-                >If you mention insurance, they won't offer cash prices. But
-                approach them without mentioning insurance, and suddenly cash
-                discounts become available.</strong
-              > These manipulative practices hurt the <span
-                class="text-[#cc9933] font-bold">90+ million Americans</span
-              > who are uninsured or underinsured.
-            </p>
-
-            <p class="text-blue-50">
-              That's why I created USRad — to eliminate the guesswork, the
-              haggling, and the fear of overpaying. <strong class="text-white"
-                >You deserve to know exactly what you'll pay for high-quality
-                medical imaging, backed by a guarantee that ensures your scan
-                meets your doctor's standards.</strong
-              >
-            </p>
-          </div>
-
-          <div class="mt-8 pt-6 border-t border-white/20 text-center">
-            <p class="text-[#cc9933] font-bold text-lg">
-              — USRad Founder & CEO
-            </p>
-            <p class="text-blue-100 italic mt-2">
-              "No one should have to choose between their health and their
-              financial security."
-            </p>
-          </div>
+        <div class="mt-8 pt-6 border-t border-white/20 text-center">
+          <p class="text-[#cc9933] font-bold text-lg">— USRad Founder & CEO</p>
+          <p class="text-blue-100 italic mt-2">
+            "No one should have to choose between their health and their
+            financial security."
+          </p>
         </div>
       </div>
     </div>
@@ -705,9 +679,13 @@ const structuredData = {
         <h2 class="text-4xl md:text-5xl font-bold text-[#003087] mb-6">
           Our Ironclad Guarantees
         </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-4">
           We stand behind our service with guarantees that protect your
           investment
+        </p>
+        <p class="text-[#cc9933] font-semibold">
+          🛡️ Quality assurance model proven through 400,000+ successful patient
+          outcomes
         </p>
       </div>
 
@@ -733,8 +711,12 @@ const structuredData = {
             100% Quality Guarantee
           </h3>
           <p class="text-gray-600 leading-relaxed">
-            If your scan doesn't meet your referring physician's diagnostic
-            standards, we'll arrange a re-scan at no additional cost to you.
+            Our quality guarantee isn't just a promise—it's a proven system. If
+            your scan doesn't meet your referring physician's diagnostic
+            standards, we'll arrange a re-scan at no additional cost.
+            <strong class="text-[#cc9933]"
+              >This guarantee resolved 99.8% of quality concerns</strong
+            > in our AnciCare network.
           </p>
         </div>
 
@@ -795,45 +777,45 @@ const structuredData = {
   </section>
 
   <ChatbotToggle chatbotLabel="💬 Pricing Questions?" />
+
+  <style>
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animation-delay-1000 {
+      animation-delay: 1000ms;
+    }
+    .animation-delay-2000 {
+      animation-delay: 2000ms;
+    }
+
+    .group:hover .group-hover\:scale-105 {
+      transform: scale(1.05);
+    }
+    .group:hover .group-hover\:scale-110 {
+      transform: scale(1.1);
+    }
+    .group:hover .group-hover\:translate-x-1 {
+      transform: translateX(0.25rem);
+    }
+
+    .transition-all {
+      transition: all 0.3s ease;
+    }
+    .backdrop-blur-sm {
+      backdrop-filter: blur(4px);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
 </MainPatientLayout>
-
-<style>
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animation-delay-1000 {
-    animation-delay: 1000ms;
-  }
-  .animation-delay-2000 {
-    animation-delay: 2000ms;
-  }
-
-  .group:hover .group-hover\:scale-105 {
-    transform: scale(1.05);
-  }
-  .group:hover .group-hover\:scale-110 {
-    transform: scale(1.1);
-  }
-  .group:hover .group-hover\:translate-x-1 {
-    transform: translateX(0.25rem);
-  }
-
-  .transition-all {
-    transition: all 0.3s ease;
-  }
-  .backdrop-blur-sm {
-    backdrop-filter: blur(4px);
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-</style>

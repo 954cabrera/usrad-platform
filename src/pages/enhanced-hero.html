@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USRad Hero Section - Enhanced</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animation-delay-300 {
+            animation-delay: 300ms;
+            opacity: 0;
+        }
+
+        .animation-delay-600 {
+            animation-delay: 600ms;
+            opacity: 0;
+        }
+
+        .animation-delay-900 {
+            animation-delay: 900ms;
+            opacity: 0;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(0, 48, 135, 0.8) 0%, rgba(0, 48, 135, 0.6) 50%, rgba(204, 153, 51, 0.3) 100%);
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .floating-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900">
+    <!-- Hero Section -->
+    <section class="relative h-screen overflow-hidden">
+        <!-- Background Video Simulation -->
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
+            <!-- Simulated video overlay pattern -->
+            <div class="absolute inset-0 opacity-20">
+                <div class="absolute top-10 left-10 w-32 h-32 bg-white rounded-full opacity-10 floating-animation">
+                </div>
+                <div class="absolute top-32 right-20 w-24 h-24 bg-white rounded-full opacity-5"
+                    style="animation-delay: 1s;"></div>
+                <div class="absolute bottom-20 left-32 w-28 h-28 bg-white rounded-full opacity-8"
+                    style="animation-delay: 2s;"></div>
+            </div>
+        </div>
+
+        <!-- Enhanced Gradient Overlay -->
+        <div
+            class="absolute inset-0 hero-gradient flex flex-col justify-center items-center text-white text-center px-4">
+            <!-- Animated Heading -->
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-semibold mb-4 drop-shadow-lg animate-fade-in-up">
+                <span class="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+                    Modern MRI.
+                </span>
+                <br />
+                <span class="text-yellow-400 font-bold">Transparent Pricing.</span>
+            </h1>
+
+            <!-- Enhanced Subtitle -->
+            <p class="max-w-xl text-lg sm:text-xl mb-6 drop-shadow animate-fade-in-up animation-delay-300">
+                Direct access to <span class="text-yellow-400 font-semibold">top-tier imaging centers</span> —
+                <span class="text-yellow-300 font-bold">30–70% below</span> hospital rates.
+            </p>
+
+            <!-- Enhanced CTA Button with Dual Action -->
+            <div class="animate-fade-in-up animation-delay-600">
+                <div class="flex flex-col sm:flex-row gap-4 items-center justify-center">
+                    <!-- Primary CTA - Quick Book -->
+                    <a href="/pricing?zipCode=33330&procedure=70551&state=FL&autoSearch=true"
+                        class="group bg-gradient-to-r from-yellow-400 to-yellow-500 text-blue-900 font-semibold px-8 py-4 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 inline-flex items-center gap-2 hover:shadow-2xl">
+                        Book an MRI
+                        <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </a>
+
+                    <!-- Secondary CTA - Custom Search -->
+                    <button onclick="toggleHeroSearch()"
+                        class="group border-2 border-white text-white font-semibold px-6 py-4 rounded-xl hover:bg-white hover:text-blue-900 transition-all duration-300 inline-flex items-center gap-2 glass-effect hover:scale-105">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                        </svg>
+                        Search by ZIP
+                    </button>
+                </div>
+
+                <!-- Expandable Search Form -->
+                <div id="heroSearchForm" class="hidden mt-6 max-w-2xl mx-auto">
+                    <div
+                        class="glass-effect bg-white/10 rounded-2xl p-6 shadow-2xl border border-white/20 backdrop-blur-xl">
+                        <form onsubmit="handleHeroSearch(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label for="hero-zipcode" class="block text-sm font-medium text-white mb-1">
+                                        ZIP Code *
+                                    </label>
+                                    <input id="hero-zipcode" type="text" placeholder="Enter ZIP code" required
+                                        pattern="[0-9]{5}" maxLength="5"
+                                        class="w-full px-3 py-2 border border-white/30 rounded-lg text-sm bg-white/20 text-white placeholder-white/70 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition-colors backdrop-blur-sm" />
+                                </div>
+
+                                <div>
+                                    <label for="hero-procedure" class="block text-sm font-medium text-white mb-1">
+                                        Procedure
+                                    </label>
+                                    <select id="hero-procedure"
+                                        class="w-full px-3 py-2 border border-white/30 rounded-lg text-sm bg-white/20 text-white focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition-colors backdrop-blur-sm">
+                                        <option value="70551" class="text-gray-900">MRI Brain</option>
+                                        <option value="73721" class="text-gray-900">MRI Knee</option>
+                                        <option value="72148" class="text-gray-900">MRI Spine</option>
+                                        <option value="74181" class="text-gray-900">CT Abdomen</option>
+                                        <option value="70450" class="text-gray-900">CT Head</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="hero-state" class="block text-sm font-medium text-white mb-1">
+                                        State
+                                    </label>
+                                    <select id="hero-state"
+                                        class="w-full px-3 py-2 border border-white/30 rounded-lg text-sm bg-white/20 text-white focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition-colors backdrop-blur-sm">
+                                        <option value="FL" class="text-gray-900">Florida</option>
+                                        <option value="GA" class="text-gray-900">Georgia</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button type="submit"
+                                class="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-blue-900 font-semibold py-3 rounded-lg hover:from-yellow-500 hover:to-yellow-600 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+                                </svg>
+                                Find Imaging Centers
+                            </button>
+                        </form>
+
+                        <!-- Popular Locations -->
+                        <div class="mt-4 pt-4 border-t border-white/20">
+                            <p class="text-xs text-white/80 mb-2">Popular locations:</p>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="quickFillLocation('33012', 'Miami')"
+                                    class="text-xs bg-white/20 text-white px-3 py-1 rounded-full hover:bg-yellow-400 hover:text-blue-900 transition-colors backdrop-blur-sm">
+                                    Miami
+                                </button>
+                                <button onclick="quickFillLocation('32801', 'Orlando')"
+                                    class="text-xs bg-white/20 text-white px-3 py-1 rounded-full hover:bg-yellow-400 hover:text-blue-900 transition-colors backdrop-blur-sm">
+                                    Orlando
+                                </button>
+                                <button onclick="quickFillLocation('33602', 'Tampa')"
+                                    class="text-xs bg-white/20 text-white px-3 py-1 rounded-full hover:bg-yellow-400 hover:text-blue-900 transition-colors backdrop-blur-sm">
+                                    Tampa
+                                </button>
+                                <button onclick="quickFillLocation('30309', 'Atlanta')"
+                                    class="text-xs bg-white/20 text-white px-3 py-1 rounded-full hover:bg-yellow-400 hover:text-blue-900 transition-colors backdrop-blur-sm">
+                                    Atlanta
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class="mt-6 animate-fade-in-up animation-delay-900">
+                <div class="flex flex-wrap justify-center items-center gap-4 text-base sm:text-sm opacity-90">
+                    <div class="flex items-center gap-1">
+                        <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span>Same-Day Appointments</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span>No Insurance Required</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span>Results in 24-48 Hours</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section showing the difference -->
+    <section class="bg-white py-16 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Visual Improvements</h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Before -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Before: Single CTA</h3>
+                    <div class="bg-blue-900 rounded-lg p-8 text-white text-center">
+                        <h4 class="text-2xl font-bold mb-4">Modern MRI. Transparent Pricing.</h4>
+                        <button class="bg-yellow-400 text-blue-900 px-6 py-3 rounded-lg font-semibold">
+                            Book an MRI →
+                        </button>
+                    </div>
+                    <div class="mt-4 text-sm text-gray-600">
+                        <p>❌ Only one path for users</p>
+                        <p>❌ No customization options</p>
+                        <p>❌ Less engagement</p>
+                    </div>
+                </div>
+
+                <!-- After -->
+                <div class="bg-green-50 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">After: Dual CTA + Progressive Search</h3>
+                    <div class="bg-blue-900 rounded-lg p-8 text-white text-center">
+                        <h4 class="text-2xl font-bold mb-4">Modern MRI. Transparent Pricing.</h4>
+                        <div class="flex gap-2 justify-center mb-4">
+                            <button class="bg-yellow-400 text-blue-900 px-4 py-2 rounded-lg font-semibold text-sm">
+                                Book an MRI →
+                            </button>
+                            <button class="border border-white text-white px-4 py-2 rounded-lg text-sm">
+                                🔍 Search by ZIP
+                            </button>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-3 text-xs">
+                            <p>+ Expandable search form</p>
+                            <p>+ Popular locations</p>
+                            <p>+ Smart validation</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-sm text-green-600">
+                        <p>✅ Multiple user paths</p>
+                        <p>✅ Progressive disclosure</p>
+                        <p>✅ Higher engagement</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-blue-50 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-blue-900 mb-2">Key Benefits</h3>
+                <div class="grid sm:grid-cols-3 gap-4 text-sm">
+                    <div class="text-center">
+                        <div class="text-2xl mb-2">🎯</div>
+                        <p><strong>Better Conversion</strong><br>Two clear paths match different user intents</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl mb-2">📱</div>
+                        <p><strong>Mobile Optimized</strong><br>Responsive design works on all devices</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl mb-2">⚡</div>
+                        <p><strong>Fast Experience</strong><br>Progressive disclosure keeps hero clean</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Hero search functionality
+        function toggleHeroSearch() {
+            const form = document.getElementById('heroSearchForm');
+            const isHidden = form.classList.contains('hidden');
+
+            if (isHidden) {
+                form.classList.remove('hidden');
+                form.style.opacity = '0';
+                form.style.transform = 'translateY(-20px)';
+
+                // Animate in
+                setTimeout(() => {
+                    form.style.transition = 'all 0.3s ease';
+                    form.style.opacity = '1';
+                    form.style.transform = 'translateY(0)';
+                }, 10);
+
+                // Focus on ZIP code input
+                setTimeout(() => {
+                    document.getElementById('hero-zipcode').focus();
+                }, 300);
+            } else {
+                form.style.opacity = '0';
+                form.style.transform = 'translateY(-20px)';
+                setTimeout(() => {
+                    form.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function handleHeroSearch(event) {
+            event.preventDefault();
+
+            const zipCode = document.getElementById('hero-zipcode').value;
+            const procedure = document.getElementById('hero-procedure').value;
+            const state = document.getElementById('hero-state').value;
+
+            if (!zipCode || zipCode.length !== 5) {
+                alert('Please enter a valid 5-digit ZIP code.');
+                return;
+            }
+
+            // Show success message for demo
+            alert(`Demo: Would redirect to pricing page with:\nZIP: ${zipCode}\nProcedure: ${procedure}\nState: ${state}`);
+        }
+
+        function quickFillLocation(zipCode, cityName) {
+            document.getElementById('hero-zipcode').value = zipCode;
+
+            // Optional: Show brief confirmation
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = '✓ ' + cityName;
+            button.style.backgroundColor = 'rgba(34, 197, 94, 0.8)';
+
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.backgroundColor = '';
+            }, 1000);
+        }
+
+        // ZIP code validation
+        document.addEventListener('DOMContentLoaded', function () {
+            const zipInput = document.getElementById('hero-zipcode');
+            if (zipInput) {
+                zipInput.addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 5) {
+                        value = value.slice(0, 5);
+                    }
+                    e.target.value = value;
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

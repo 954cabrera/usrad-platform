@@ -1,0 +1,150 @@
+---
+// search-results.astro
+import MainPatientLayout from "../layouts/MainPatientLayout.astro";
+import FadeIn from "../components/FadeIn.astro";
+import ProviderSearchSection from "../components/ProviderSearchSection.jsx";
+
+const pageTitle = "Search Results - Medical Imaging Centers | USRad";
+const pageDescription =
+  "Find affordable medical imaging centers near you with transparent pricing and same-day appointments.";
+const canonicalURL = Astro.site
+  ? new URL("/search-results", Astro.site).toString()
+  : "/search-results";
+---
+
+<MainPatientLayout
+  showPatientHeader={true}
+  title={pageTitle}
+  description={pageDescription}
+  canonicalURL={canonicalURL}
+>
+  <!-- Search Results Hero -->
+  <FadeIn effect="fade" delay={0}>
+    <section class="bg-gradient-to-br from-[#fefbf5] to-white py-12 md:py-16">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold text-[#003087] mb-4">
+          Medical Imaging Centers
+        </h1>
+        <p class="text-lg text-gray-600 mb-6">
+          Find affordable, high-quality imaging centers with transparent pricing
+        </p>
+
+        <!-- Trust Indicators -->
+        <div
+          class="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-600"
+        >
+          <div class="flex items-center gap-2">
+            <svg
+              class="w-5 h-5 text-green-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span>Same-Day Appointments</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg
+              class="w-5 h-5 text-green-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span>Transparent Pricing</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg
+              class="w-5 h-5 text-green-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span>No Insurance Required</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </FadeIn>
+
+  <!-- Search Component with Auto-Search -->
+  <ProviderSearchSection
+    client:load
+    googleMapsApiKey={import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY}
+    mapId={import.meta.env.PUBLIC_GOOGLE_MAPS_MAP_ID}
+    title="Search Results"
+    subtitle=""
+    badgeText=""
+    showHelpSection={false}
+  />
+
+  <!-- Auto-search script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const autoSearch = urlParams.get("autoSearch");
+      const zipCode = urlParams.get("zipCode");
+      const procedure = urlParams.get("procedure");
+      const state = urlParams.get("state");
+
+      if (autoSearch === "true" && zipCode) {
+        console.log("🔍 Auto-search triggered:", { zipCode, procedure, state });
+
+        // Wait for the component to be ready
+        setTimeout(() => {
+          const zipCodeInput = document.getElementById("zipCode");
+          const procedureSelect = document.getElementById("procedure");
+          const stateSelect = document.getElementById("state");
+          const searchForm = document.getElementById("searchForm");
+
+          if (zipCodeInput && procedureSelect && stateSelect && searchForm) {
+            // Fill in the form fields
+            zipCodeInput.value = zipCode;
+            if (procedure) procedureSelect.value = procedure;
+            if (state) stateSelect.value = state;
+
+            // Trigger the search
+            console.log("✅ Auto-triggering search");
+            const submitEvent = new Event("submit", {
+              bubbles: true,
+              cancelable: true,
+            });
+            searchForm.dispatchEvent(submitEvent);
+
+            // Clean up URL params
+            const newUrl = window.location.pathname;
+            window.history.replaceState({}, document.title, newUrl);
+          }
+        }, 1000);
+      }
+    });
+  </script>
+
+  <style>
+    /* Remove default search section background since we have hero */
+    #search-section {
+      background: white !important;
+      padding-top: 2rem !important;
+    }
+
+    /* Hide the default title/subtitle */
+    #search-section .text-center.mb-12 {
+      display: none;
+    }
+
+    /* Hide the badge */
+    #search-section .text-center.mb-6 {
+      display: none;
+    }
+  </style>
+</MainPatientLayout>

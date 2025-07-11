@@ -77,362 +77,658 @@ const showPatientHeader = true;
           <span class="text-yellow-300 font-bold"> 30–70% below</span> hospital rates.
         </p>
 
-        <!-- Enhanced CTA Button -->
+        <!-- Enhanced CTA Button with Dual Action -->
         <div class="animate-fade-in-up animation-delay-600">
-          <a
-            href="/search-test"
-            class="group bg-gradient-to-r from-[#cc9933] to-yellow-400 text-[#003087] font-semibold px-8 py-5 sm:py-4 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 inline-flex items-center gap-2"
-          >
-            Book an MRI
-            <svg
-              class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-            </svg>
-          </a>
-        </div>
-
-        <!-- Trust Indicators -->
-        <div class="mt-6 animate-fade-in-up animation-delay-900">
           <div
-            class="flex flex-wrap justify-center items-center gap-4 text-base sm:text-sm opacity-90"
+            class="flex flex-col sm:flex-row gap-4 items-center justify-center"
           >
+            <!-- Primary CTA - Quick Book -->
+            <a
+              href="/search-results?zipCode=33330&procedure=70551&state=FL&autoSearch=true"
+              class="group bg-gradient-to-r from-[#cc9933] to-yellow-400 text-[#003087] font-semibold px-8 py-5 sm:py-4 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 inline-flex items-center gap-2"
             >
-            <div class="flex items-center gap-1">
+              Book an MRI
               <svg
-                class="w-4 h-4 text-green-400"
-                fill="currentColor"
-                viewBox="0 0 20 20"
+                class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
                 <path
-                  fill-rule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clip-rule="evenodd"></path>
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
               </svg>
-              <span>Same-Day Appointments</span>
+            </a>
+
+            <!-- Secondary CTA - Custom Search -->
+            <button
+              id="heroSearchToggle"
+              class="group border-2 border-white text-white font-semibold px-6 py-5 sm:py-4 rounded-xl hover:bg-white hover:text-[#003087] transition-all duration-300 inline-flex items-center gap-2 backdrop-blur-sm"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
+                ></path>
+              </svg>
+              Search by ZIP
+            </button>
+          </div>
+
+          <!-- Replace the hero search form in your index.astro with this glass version -->
+
+          <!-- Expandable Search Form -->
+          <div id="heroSearchForm" class="hidden mt-6 max-w-2xl mx-auto">
+            <div
+              class="bg-white/10 backdrop-blur-2xl rounded-3xl p-6 shadow-2xl border border-white/20"
+            >
+              <form id="heroSearchFormElement" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label
+                      for="hero-zipcode"
+                      class="block text-sm font-medium text-white mb-1"
+                    >
+                      ZIP Code *
+                    </label>
+                    <input
+                      id="hero-zipcode"
+                      type="text"
+                      placeholder="Enter ZIP code"
+                      required
+                      pattern="[0-9]{5}"
+                      maxLength="5"
+                      class="w-full px-3 py-2 rounded-lg text-sm bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder-white/70 focus:ring-2 focus:ring-white/30 focus:border-white/40 transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      for="hero-procedure"
+                      class="block text-sm font-medium text-white mb-1"
+                    >
+                      Procedure
+                    </label>
+                    <select
+                      id="hero-procedure"
+                      class="w-full px-3 py-2 rounded-lg text-sm bg-white/10 backdrop-blur-md border border-white/20 text-white focus:ring-2 focus:ring-white/30 focus:border-white/40 transition-colors"
+                      style="color-scheme: dark;"
+                    >
+                      <option
+                        value="70551"
+                        style="background-color: rgba(255,255,255,0.9); color: #1f2937;"
+                        >MRI Brain</option
+                      >
+                      <option
+                        value="73721"
+                        style="background-color: rgba(255,255,255,0.9); color: #1f2937;"
+                        >MRI Knee</option
+                      >
+                      <option
+                        value="72148"
+                        style="background-color: rgba(255,255,255,0.9); color: #1f2937;"
+                        >MRI Spine</option
+                      >
+                      <option
+                        value="74181"
+                        style="background-color: rgba(255,255,255,0.9); color: #1f2937;"
+                        >CT Abdomen</option
+                      >
+                      <option
+                        value="70450"
+                        style="background-color: rgba(255,255,255,0.9); color: #1f2937;"
+                        >CT Head</option
+                      >
+                    </select>
+                  </div>
+
+                  <div>
+                    <label
+                      for="hero-state"
+                      class="block text-sm font-medium text-white mb-1"
+                    >
+                      State
+                    </label>
+                    <select
+                      id="hero-state"
+                      class="w-full px-3 py-2 rounded-lg text-sm bg-white/10 backdrop-blur-md border border-white/20 text-white focus:ring-2 focus:ring-white/30 focus:border-white/40 transition-colors"
+                      style="color-scheme: dark;"
+                    >
+                      <option
+                        value="FL"
+                        style="background-color: rgba(255,255,255,0.9); color: #1f2937;"
+                        >Florida</option
+                      >
+                      <option
+                        value="GA"
+                        style="background-color: rgba(255,255,255,0.9); color: #1f2937;"
+                        >Georgia</option
+                      >
+                    </select>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="w-full bg-white/20 backdrop-blur-md text-white font-semibold py-3 rounded-lg hover:bg-white/30 transition-all duration-300 flex items-center justify-center gap-2 border border-white/30"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
+                    ></path>
+                  </svg>
+                  Find Imaging Centers
+                </button>
+              </form>
+
+              <!-- Popular Locations -->
+              <div class="mt-4 pt-4 border-t border-white/20">
+                <p class="text-xs text-white/80 mb-2">Popular locations:</p>
+                <div class="flex flex-wrap gap-2">
+                  <button
+                    data-zip="33012"
+                    data-city="Miami"
+                    class="quick-location text-xs bg-white/10 backdrop-blur-md text-white px-3 py-1 rounded-full hover:bg-white/20 transition-all duration-200 border border-white/20"
+                  >
+                    Miami
+                  </button>
+                  <button
+                    data-zip="32801"
+                    data-city="Orlando"
+                    class="quick-location text-xs bg-white/10 backdrop-blur-md text-white px-3 py-1 rounded-full hover:bg-white/20 transition-all duration-200 border border-white/20"
+                  >
+                    Orlando
+                  </button>
+                  <button
+                    data-zip="33602"
+                    data-city="Tampa"
+                    class="quick-location text-xs bg-white/10 backdrop-blur-md text-white px-3 py-1 rounded-full hover:bg-white/20 transition-all duration-200 border border-white/20"
+                  >
+                    Tampa
+                  </button>
+                  <button
+                    data-zip="30309"
+                    data-city="Atlanta"
+                    class="quick-location text-xs bg-white/10 backdrop-blur-md text-white px-3 py-1 rounded-full hover:bg-white/20 transition-all duration-200 border border-white/20"
+                  >
+                    Atlanta
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="flex items-center gap-1">
-              <svg
-                class="w-4 h-4 text-green-400"
-                fill="currentColor"
-                viewBox="0 0 20 20"
+          </div>
+
+          <!-- Script section - place this at the bottom of your index.astro file, just before the closing </body> tag -->
+          <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              console.log("🎯 Hero search script loaded");
+
+              // Hero search toggle functionality
+              const toggleButton = document.getElementById("heroSearchToggle");
+              const searchForm = document.getElementById("heroSearchForm");
+              const formElement = document.getElementById(
+                "heroSearchFormElement"
+              );
+              const zipInput = document.getElementById("hero-zipcode");
+
+              // Toggle search form
+              if (toggleButton && searchForm) {
+                toggleButton.addEventListener("click", function () {
+                  console.log("🔍 Search toggle clicked");
+                  const isHidden = searchForm.classList.contains("hidden");
+
+                  if (isHidden) {
+                    searchForm.classList.remove("hidden");
+                    searchForm.style.opacity = "0";
+                    searchForm.style.transform = "translateY(-20px)";
+
+                    // Animate in
+                    setTimeout(() => {
+                      searchForm.style.transition = "all 0.3s ease";
+                      searchForm.style.opacity = "1";
+                      searchForm.style.transform = "translateY(0)";
+                    }, 10);
+
+                    // Focus on ZIP code input
+                    setTimeout(() => {
+                      if (zipInput) zipInput.focus();
+                    }, 300);
+                  } else {
+                    searchForm.style.opacity = "0";
+                    searchForm.style.transform = "translateY(-20px)";
+                    setTimeout(() => {
+                      searchForm.classList.add("hidden");
+                    }, 300);
+                  }
+                });
+              }
+
+              // Form submission
+              if (formElement) {
+                formElement.addEventListener("submit", function (event) {
+                  event.preventDefault();
+                  console.log("📝 Hero search form submitted");
+
+                  const zipCode =
+                    document.getElementById("hero-zipcode")?.value;
+                  const procedure =
+                    document.getElementById("hero-procedure")?.value;
+                  const state = document.getElementById("hero-state")?.value;
+
+                  if (!zipCode || zipCode.length !== 5) {
+                    alert("Please enter a valid 5-digit ZIP code.");
+                    return;
+                  }
+
+                  // Redirect to pricing page with parameters
+                  const searchParams = new URLSearchParams({
+                    zipCode: zipCode,
+                    procedure: procedure,
+                    state: state,
+                    autoSearch: "true",
+                  });
+
+                  console.log("🚀 Redirecting to pricing with params:", {
+                    zipCode,
+                    procedure,
+                    state,
+                  });
+
+                  window.location.href = `/search-results?${searchParams.toString()}`;
+                });
+              }
+
+              // Quick location buttons
+              const quickLocationButtons =
+                document.querySelectorAll(".quick-location");
+              quickLocationButtons.forEach((button) => {
+                button.addEventListener("click", function () {
+                  const zipCode = this.getAttribute("data-zip");
+                  const cityName = this.getAttribute("data-city");
+
+                  if (zipInput && zipCode) {
+                    zipInput.value = zipCode;
+
+                    // Show brief confirmation
+                    const originalText = this.textContent;
+                    this.textContent = "✓ " + cityName;
+                    this.style.backgroundColor = "#059669";
+                    this.style.color = "white";
+
+                    setTimeout(() => {
+                      this.textContent = originalText;
+                      this.style.backgroundColor = "";
+                      this.style.color = "";
+                    }, 1000);
+                  }
+                });
+              });
+
+              // ZIP code validation
+              if (zipInput) {
+                zipInput.addEventListener("input", function (e) {
+                  let value = e.target.value.replace(/\D/g, "");
+                  if (value.length > 5) {
+                    value = value.slice(0, 5);
+                  }
+                  e.target.value = value;
+                });
+              }
+            });
+          </script>
+
+          <!-- Trust Indicators -->
+          <div class="mt-6 animate-fade-in-up animation-delay-900">
+            <div
+              class="flex flex-wrap justify-center items-center gap-4 text-base sm:text-sm opacity-90"
+            >
               >
-                <path
-                  fill-rule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span>No Insurance Required</span>
-            </div>
-            <div class="flex items-center gap-1">
-              <svg
-                class="w-4 h-4 text-green-400"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span>Results in 24-48 Hours</span>
+              <div class="flex items-center gap-1">
+                <svg
+                  class="w-4 h-4 text-green-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span>Same-Day Appointments</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <svg
+                  class="w-4 h-4 text-green-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span>No Insurance Required</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <svg
+                  class="w-4 h-4 text-green-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span>Results in 24-48 Hours</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-  </FadeIn>
 
-  <section class="bg-[#fefbf5] py-20 px-6 text-[#003087]">
-    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-      <!-- Image on Left -->
-      <div data-aos="fade-right">
-        <img
-          src="/images/two-rads-control-center.webp"
-          loading="lazy"
-          alt="Expert medical team reviewing imaging results"
-          class="w-full h-auto rounded-2xl shadow-xl"
-        />
-      </div>
+    <section class="bg-[#fefbf5] py-20 px-6 text-[#003087]">
+      <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <!-- Image on Left -->
+        <div data-aos="fade-right">
+          <img
+            src="/images/two-rads-control-center.webp"
+            loading="lazy"
+            alt="Expert medical team reviewing imaging results"
+            class="w-full h-auto rounded-2xl shadow-xl"
+          />
+        </div>
 
-      <!-- Text on Right -->
-      <div data-aos="fade-left" class="text-left">
-        <p
-          class="text-sm uppercase tracking-wide font-semibold text-[#cc9933] mb-4"
-        >
-          Behind the Simplicity
-        </p>
-        <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-[#003087]">
-          Full-Scale Care Organization
-        </h2>
-        <div class="space-y-4 text-lg text-[#003087]/90">
-          <p>
-            USRad isn't just a booking tool or referral marketplace. We operate
-            like a full-scale managed care organization — with dedicated teams
-            for provider relations, customer support, quality assurance, and
-            medical oversight.
+        <!-- Text on Right -->
+        <div data-aos="fade-left" class="text-left">
+          <p
+            class="text-sm uppercase tracking-wide font-semibold text-[#cc9933] mb-4"
+          >
+            Behind the Simplicity
           </p>
-          <p>
-            The difference? We do it all as a carve-out — focused entirely on
-            diagnostic imaging, and built for the 90+ million Americans priced
-            out of traditional insurance.
-          </p>
+          <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-[#003087]">
+            Full-Scale Care Organization
+          </h2>
+          <div class="space-y-4 text-lg text-[#003087]/90">
+            <p>
+              USRad isn't just a booking tool or referral marketplace. We
+              operate like a full-scale managed care organization — with
+              dedicated teams for provider relations, customer support, quality
+              assurance, and medical oversight.
+            </p>
+            <p>
+              The difference? We do it all as a carve-out — focused entirely on
+              diagnostic imaging, and built for the 90+ million Americans priced
+              out of traditional insurance.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Core Benefits -->
-  <section
-    class="relative pt-16 pb-20"
-    style="
+    <!-- Core Benefits -->
+    <section
+      class="relative pt-16 pb-20"
+      style="
     background: linear-gradient(135deg, #fcf9f0 0%, #f8f5e8 100%);
     background-image: 
       radial-gradient(circle at 25% 25%, rgba(0, 48, 135, 0.03) 0%, transparent 50%),
       radial-gradient(circle at 75% 75%, rgba(204, 153, 51, 0.03) 0%, transparent 50%);
     background-size: 120px 120px, 80px 80px;
   "
-  >
-    <div class="relative z-10">
-      <CoreBenefits />
-    </div>
-  </section>
+    >
+      <div class="relative z-10">
+        <CoreBenefits />
+      </div>
+    </section>
 
-  <!-- Make the new photo a featured section -->
-  <section class="bg-white py-20 px-6">
-    <div class="max-w-7xl mx-auto text-center mb-12">
-      <h2 class="text-3xl font-bold text-[#003087] mb-4" data-aos="fade-up">
-        Personal Care Every Step
-      </h2>
-      <p
-        class="text-lg text-[#003087]/80"
-        data-aos="fade-up"
-        data-aos-delay="100"
-      >
-        Our dedicated team guides you through your entire MRI experience
-      </p>
-    </div>
-
-    <div class="max-w-4xl mx-auto" data-aos="zoom-in" data-aos-delay="200">
-      <img
-        src="/images/website/trust-duo.webp"
-        loading=""
-        lazy"
-        alt="Technologist guiding patient through MRI process"
-        class="w-full h-auto rounded-3xl shadow-2xl"
-      />
-    </div>
-  </section>
-
-  <!-- Separate Trust Badges section -->
-  <section class="bg-[#f0f4f9] py-16 px-6">
-    <div class="max-w-6xl mx-auto" data-aos="fade-up" data-aos-delay="300">
-      <TrustBadgesBar />
-    </div>
-  </section>
-
-  <!-- Network Map -->
-  <FadeIn effect="fade" delay={100}>
-    <section class="bg-white dark:bg-[#0f172a] py-24">
-      <div class="max-w-5xl mx-auto px-6 sm:px-12 text-center">
-        <div
-          class="flex flex-col items-center justify-center sm:flex-row sm:justify-center gap-2 mb-4"
+    <!-- Make the new photo a featured section -->
+    <section class="bg-white py-20 px-6">
+      <div class="max-w-7xl mx-auto text-center mb-12">
+        <h2 class="text-3xl font-bold text-[#003087] mb-4" data-aos="fade-up">
+          Personal Care Every Step
+        </h2>
+        <p
+          class="text-lg text-[#003087]/80"
+          data-aos="fade-up"
+          data-aos-delay="100"
         >
-          <p
-            class="text-xl sm:text-2xl font-semibold uppercase tracking-wide text-[#cc9933]"
+          Our dedicated team guides you through your entire MRI experience
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto" data-aos="zoom-in" data-aos-delay="200">
+        <img
+          src="/images/website/trust-duo.webp"
+          loading=""
+          lazy"
+          alt="Technologist guiding patient through MRI process"
+          class="w-full h-auto rounded-3xl shadow-2xl"
+        />
+      </div>
+    </section>
+
+    <!-- Separate Trust Badges section -->
+    <section class="bg-[#f0f4f9] py-16 px-6">
+      <div class="max-w-6xl mx-auto" data-aos="fade-up" data-aos-delay="300">
+        <TrustBadgesBar />
+      </div>
+    </section>
+
+    <!-- Network Map -->
+    <FadeIn effect="fade" delay={100}>
+      <section class="bg-white dark:bg-[#0f172a] py-24">
+        <div class="max-w-5xl mx-auto px-6 sm:px-12 text-center">
+          <div
+            class="flex flex-col items-center justify-center sm:flex-row sm:justify-center gap-2 mb-4"
           >
-            National Footprint
-          </p>
-          <span
-            class="bg-[#003087] text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide"
+            <p
+              class="text-xl sm:text-2xl font-semibold uppercase tracking-wide text-[#cc9933]"
+            >
+              National Footprint
+            </p>
+            <span
+              class="bg-[#003087] text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide"
+            >
+              Initial Launch
+            </span>
+          </div>
+
+          <div
+            class="relative bg-[#fdfaf3] dark:bg-[#1e293b] border border-[#e6c378]/30 rounded-3xl p-8 shadow-2xl"
           >
-            Initial Launch
-          </span>
-        </div>
+            <!-- Transparent US Map -->
+            <img
+              src="/images/usa-transparent.svg"
+              alt="US Map"
+              loading="lazy"
+              class="w-full mx-auto max-w-3xl rounded-xl"
+            />
 
-        <div
-          class="relative bg-[#fdfaf3] dark:bg-[#1e293b] border border-[#e6c378]/30 rounded-3xl p-8 shadow-2xl"
-        >
-          <!-- Transparent US Map -->
-          <img
-            src="/images/usa-transparent.svg"
-            alt="US Map"
-            loading="lazy"
-            class="w-full mx-auto max-w-3xl rounded-xl"
-          />
+            <!-- Interactive Pin Container -->
+            <div class="absolute inset-0">
+              <!-- Each pin is wrapped for hover tooltip + scale effect -->
+              <div class="group absolute" style="top: 77%; left: 77.5%;">
+                <img
+                  src="/images/usrad-pin-dark.png"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                  class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+                />
+                <div
+                  class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+                >
+                  Florida
+                </div>
+              </div>
+              <div class="group absolute" style="top: 74%; left: 46%;">
+                <img
+                  src="/images/usrad-pin-dark.png"
+                  data-aos="fade-up"
+                  data-aos-delay="500"
+                  class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+                />
+                <div
+                  class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+                >
+                  Texas
+                </div>
+              </div>
+              <div class="group absolute" style="top: 62%; left: 72%;">
+                <img
+                  src="/images/usrad-pin-dark.png"
+                  data-aos="fade-up"
+                  data-aos-delay="300"
+                  class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+                />
+                <div
+                  class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+                >
+                  Georgia
+                </div>
+              </div>
+              <div class="group absolute" style="top: 57%; left: 77%;">
+                <img
+                  src="/images/usrad-pin-dark.png"
+                  data-aos="fade-up"
+                  data-aos-delay="500"
+                  class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+                />
+                <div
+                  class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+                >
+                  South Carolina
+                </div>
+              </div>
+              <div class="group absolute" style="top: 49%; left: 79%;">
+                <img
+                  src="/images/usrad-pin-dark.png"
+                  data-aos="fade-up"
+                  data-aos-delay="700"
+                  class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+                />
+                <div
+                  class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+                >
+                  North Carolina
+                </div>
+              </div>
+              <div class="group absolute" style="top: 21%; left: 81%;">
+                <img
+                  src="/images/usrad-pin-dark.png"
+                  data-aos="fade-up"
+                  data-aos-delay="900"
+                  class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+                />
+                <div
+                  class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+                >
+                  New York
+                </div>
+              </div>
+              <div class="group absolute" style="top: 32%; left: 83%;">
+                <img
+                  src="/images/usrad-pin-dark.png"
+                  data-aos="fade-up"
+                  data-aos-delay="1100"
+                  class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+                />
+                <div
+                  class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+                >
+                  New Jersey
+                </div>
+              </div>
+              <div class="group absolute" style="top: 30.5%; left: 78%;">
+                <img
+                  src="/images/usrad-pin-dark.png"
+                  data-aos="fade-up"
+                  data-aos-delay="1300"
+                  class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+                />
+                <div
+                  class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+                >
+                  Pennsylvania
+                </div>
+              </div>
+              <div class="group absolute" style="top: 35%; left: 62%;">
+                <img
+                  src="/images/usrad-pin-dark.png"
+                  data-aos="fade-up"
+                  data-aos-delay="1500"
+                  class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+                />
+                <div
+                  class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+                >
+                  Illinois
+                </div>
+              </div>
 
-          <!-- Interactive Pin Container -->
-          <div class="absolute inset-0">
-            <!-- Each pin is wrapped for hover tooltip + scale effect -->
-            <div class="group absolute" style="top: 77%; left: 77.5%;">
-              <img
-                src="/images/usrad-pin-dark.png"
-                data-aos="fade-up"
-                data-aos-delay="100"
-                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-              />
-              <div
-                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-              >
-                Florida
-              </div>
-            </div>
-            <div class="group absolute" style="top: 74%; left: 46%;">
-              <img
-                src="/images/usrad-pin-dark.png"
-                data-aos="fade-up"
-                data-aos-delay="500"
-                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-              />
-              <div
-                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-              >
-                Texas
-              </div>
-            </div>
-            <div class="group absolute" style="top: 62%; left: 72%;">
-              <img
-                src="/images/usrad-pin-dark.png"
-                data-aos="fade-up"
-                data-aos-delay="300"
-                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-              />
-              <div
-                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-              >
-                Georgia
-              </div>
-            </div>
-            <div class="group absolute" style="top: 57%; left: 77%;">
-              <img
-                src="/images/usrad-pin-dark.png"
-                data-aos="fade-up"
-                data-aos-delay="500"
-                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-              />
-              <div
-                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-              >
-                South Carolina
-              </div>
-            </div>
-            <div class="group absolute" style="top: 49%; left: 79%;">
-              <img
-                src="/images/usrad-pin-dark.png"
-                data-aos="fade-up"
-                data-aos-delay="700"
-                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-              />
-              <div
-                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-              >
-                North Carolina
-              </div>
-            </div>
-            <div class="group absolute" style="top: 21%; left: 81%;">
-              <img
-                src="/images/usrad-pin-dark.png"
-                data-aos="fade-up"
-                data-aos-delay="900"
-                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-              />
-              <div
-                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-              >
-                New York
-              </div>
-            </div>
-            <div class="group absolute" style="top: 32%; left: 83%;">
-              <img
-                src="/images/usrad-pin-dark.png"
-                data-aos="fade-up"
-                data-aos-delay="1100"
-                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-              />
-              <div
-                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-              >
-                New Jersey
-              </div>
-            </div>
-            <div class="group absolute" style="top: 30.5%; left: 78%;">
-              <img
-                src="/images/usrad-pin-dark.png"
-                data-aos="fade-up"
-                data-aos-delay="1300"
-                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-              />
-              <div
-                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-              >
-                Pennsylvania
-              </div>
-            </div>
-            <div class="group absolute" style="top: 35%; left: 62%;">
-              <img
-                src="/images/usrad-pin-dark.png"
-                data-aos="fade-up"
-                data-aos-delay="1500"
-                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-              />
-              <div
-                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-              >
-                Illinois
-              </div>
-            </div>
-
-            <div class="group absolute" style="top: 45%; left: 13%;">
-              <img
-                src="/images/usrad-pin-dark.png"
-                data-aos="fade-up"
-                data-aos-delay="500"
-                class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-              />
-              <div
-                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-              >
-                California
+              <div class="group absolute" style="top: 45%; left: 13%;">
+                <img
+                  src="/images/usrad-pin-dark.png"
+                  data-aos="fade-up"
+                  data-aos-delay="500"
+                  class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
+                />
+                <div
+                  class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
+                >
+                  California
+                </div>
               </div>
             </div>
           </div>
+
+          <p class="text-[#003087] dark:text-white text-base mt-6">
+            Our signal is growing—launching now with top imaging centers to
+            bring fast, affordable diagnostics nationwide.
+          </p>
+
+          <a
+            href="/managed-care"
+            class="mt-6 inline-block bg-[#003087] text-white px-6 py-3 rounded-xl shadow-md hover:bg-[#002266] hover:scale-105 hover:shadow-xl transition-all duration-300 text-sm sm:text-base"
+          >
+            For Imaging Providers: Expand with USRad →
+          </a>
         </div>
+      </section>
+    </FadeIn>
 
-        <p class="text-[#003087] dark:text-white text-base mt-6">
-          Our signal is growing—launching now with top imaging centers to bring
-          fast, affordable diagnostics nationwide.
-        </p>
-
-        <a
-          href="/managed-care"
-          class="mt-6 inline-block bg-[#003087] text-white px-6 py-3 rounded-xl shadow-md hover:bg-[#002266] hover:scale-105 hover:shadow-xl transition-all duration-300 text-sm sm:text-base"
-        >
-          For Imaging Providers: Expand with USRad →
-        </a>
+    <section class="bg-white py-20 px-6">
+      <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <ClinicalIntroWithImage />
+        <ClinicalCredentialsGrid />
       </div>
     </section>
+
+    <FAQPreview />
+
+    <!-- CTA -->
+    <FadeIn effect="fade" delay={100}>
+      <CallToAction />
+    </FadeIn>
+
+    <ChatbotToggle chatbotLabel="💬 Let's Talk" />
   </FadeIn>
-
-  <section class="bg-white py-20 px-6">
-    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-      <ClinicalIntroWithImage />
-      <ClinicalCredentialsGrid />
-    </div>
-  </section>
-
-  <FAQPreview />
-
-  <!-- CTA -->
-  <FadeIn effect="fade" delay={100}>
-    <CallToAction />
-  </FadeIn>
-
-  <ChatbotToggle chatbotLabel="💬 Let's Talk" />
 </MainPatientLayout>
