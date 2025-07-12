@@ -1,0 +1,144 @@
+---
+// Proof Section Component - Displays USRad's track record and credibility
+export interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
+---
+
+<!-- PROOF SECTION - BALANCED CREDIBILITY -->
+<section
+  class={`bg-gradient-to-br from-[#fefbf5] to-[#f8f5e8] py-16 px-6 ${className}`}
+>
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <div
+        class="inline-flex items-center gap-2 bg-[#cc9933] text-white px-4 py-2 rounded-full text-sm font-semibold mb-4"
+      >
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd"></path>
+        </svg>
+        PROVEN RESULTS
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-[#003087] mb-4">
+        A Track Record You Can Trust
+      </h2>
+      <p class="text-lg text-[#003087]/80 max-w-3xl mx-auto">
+        Our team pioneered managed care imaging, delivering exceptional results
+        that transformed healthcare access for hundreds of thousands of
+        patients.
+      </p>
+    </div>
+
+    <!-- SUCCESS METRICS GRID -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+      <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+        <div
+          class="bg-white rounded-2xl p-6 shadow-lg border border-[#e6c378]/20"
+        >
+          <div class="text-3xl md:text-4xl font-bold text-[#cc9933] mb-2">
+            $400M+
+          </div>
+          <div class="text-sm text-[#003087] font-medium">
+            Total Savings Delivered
+          </div>
+          <div class="text-xs text-[#003087]/60 mt-1">
+            Direct + productivity savings
+          </div>
+        </div>
+      </div>
+      <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+        <div
+          class="bg-white rounded-2xl p-6 shadow-lg border border-[#e6c378]/20"
+        >
+          <div class="text-3xl md:text-4xl font-bold text-[#cc9933] mb-2">
+            400,000+
+          </div>
+          <div class="text-sm text-[#003087] font-medium">Patients Served</div>
+          <div class="text-xs text-[#003087]/60 mt-1">Proven track record</div>
+        </div>
+      </div>
+      <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+        <div
+          class="bg-white rounded-2xl p-6 shadow-lg border border-[#e6c378]/20"
+        >
+          <div class="text-3xl md:text-4xl font-bold text-[#cc9933] mb-2">
+            2-3
+          </div>
+          <div class="text-sm text-[#003087] font-medium">Day Average Wait</div>
+          <div class="text-xs text-[#003087]/60 mt-1">
+            vs 10-14 days industry
+          </div>
+        </div>
+      </div>
+      <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+        <div
+          class="bg-white rounded-2xl p-6 shadow-lg border border-[#e6c378]/20"
+        >
+          <div class="text-3xl md:text-4xl font-bold text-[#cc9933] mb-2">
+            ✓
+          </div>
+          <div class="text-sm text-[#003087] font-medium">Successful Exit</div>
+          <div class="text-xs text-[#003087]/60 mt-1">
+            NYSE-listed acquisition
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CREDIBILITY STORY - BALANCED -->
+    <div
+      class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-[#e6c378]/30"
+      data-aos="fade-up"
+      data-aos-delay="500"
+    >
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h3 class="text-2xl font-bold text-[#003087] mb-4">
+            Proven Innovation, Expanded Access
+          </h3>
+          <p class="text-[#003087]/90 mb-4">
+            We pioneered the managed care imaging model, achieving
+            <strong>50%+ cost savings</strong> while reducing appointment wait times
+            from
+            <strong>10-14 days to 2-3 days</strong>.
+          </p>
+          <p class="text-[#003087]/90 mb-6">
+            After our successful healthcare exit to a public company, we're now
+            applying the same proven approach to serve the 90 million uninsured
+            and underinsured Americans who deserve access to affordable,
+            high-quality imaging.
+          </p>
+          <div class="flex items-center gap-4">
+            <a
+              href="/about"
+              class="bg-[#003087] text-white px-6 py-3 rounded-xl hover:bg-[#002266] transition-colors font-medium"
+            >
+              Our Story →
+            </a>
+            <div class="text-sm text-[#003087]/70">
+              ⭐ Validated by public company acquisition
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <img
+            src="/images/two-rads-control-center.webp"
+            alt="Proven medical imaging team"
+            class="w-full h-auto rounded-2xl shadow-lg"
+          />
+          <div
+            class="absolute -bottom-4 -right-4 bg-[#cc9933] text-white p-4 rounded-xl shadow-lg"
+          >
+            <div class="text-sm font-bold">✓ PROVEN</div>
+            <div class="text-xs">Track Record</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

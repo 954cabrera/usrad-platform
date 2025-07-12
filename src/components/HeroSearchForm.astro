@@ -1,0 +1,172 @@
+---
+// Hero Search Form Component
+// Can accept props for customization if needed
+export interface Props {
+  defaultZip?: string;
+  defaultProcedure?: string;
+  defaultState?: string;
+}
+
+const {
+  defaultZip = "",
+  defaultProcedure = "70551",
+  defaultState = "FL",
+} = Astro.props;
+---
+
+<!-- Hero Search Form -->
+<div id="heroSearchForm" class="hidden mt-6 max-w-2xl mx-auto">
+  <div
+    class="bg-white/10 backdrop-blur-2xl rounded-3xl p-6 shadow-2xl border border-white/20"
+  >
+    <form id="heroSearchFormElement" class="space-y-4">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+          <label
+            for="hero-zipcode"
+            class="block text-sm font-medium text-white mb-1"
+          >
+            ZIP Code *
+          </label>
+          <input
+            id="hero-zipcode"
+            type="text"
+            placeholder="Enter ZIP code"
+            required
+            pattern="[0-9]{5}"
+            maxLength="5"
+            value={defaultZip}
+            class="w-full px-3 py-2 rounded-lg text-sm bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder-white/70 focus:ring-2 focus:ring-white/30 focus:border-white/40 transition-colors"
+          />
+        </div>
+
+        <div>
+          <label
+            for="hero-procedure"
+            class="block text-sm font-medium text-white mb-1"
+          >
+            Procedure
+          </label>
+          <select
+            id="hero-procedure"
+            class="w-full px-3 py-2 rounded-lg text-sm bg-white/10 backdrop-blur-md border border-white/20 text-white focus:ring-2 focus:ring-white/30 focus:border-white/40 transition-colors"
+            style="color-scheme: dark;"
+          >
+            <option
+              value="70551"
+              selected={defaultProcedure === "70551"}
+              style="background-color: rgba(255,255,255,0.9); color: #1f2937;"
+              >MRI Brain</option
+            >
+            <option
+              value="73721"
+              selected={defaultProcedure === "73721"}
+              style="background-color: rgba(255,255,255,0.9); color: #1f2937;"
+              >MRI Knee</option
+            >
+            <option
+              value="72148"
+              selected={defaultProcedure === "72148"}
+              style="background-color: rgba(255,255,255,0.9); color: #1f2937;"
+              >MRI Spine</option
+            >
+            <option
+              value="74181"
+              selected={defaultProcedure === "74181"}
+              style="background-color: rgba(255,255,255,0.9); color: #1f2937;"
+              >CT Abdomen</option
+            >
+            <option
+              value="70450"
+              selected={defaultProcedure === "70450"}
+              style="background-color: rgba(255,255,255,0.9); color: #1f2937;"
+              >CT Head</option
+            >
+          </select>
+        </div>
+
+        <div>
+          <label
+            for="hero-state"
+            class="block text-sm font-medium text-white mb-1"
+          >
+            State
+          </label>
+          <select
+            id="hero-state"
+            class="w-full px-3 py-2 rounded-lg text-sm bg-white/10 backdrop-blur-md border border-white/20 text-white focus:ring-2 focus:ring-white/30 focus:border-white/40 transition-colors"
+            style="color-scheme: dark;"
+          >
+            <option
+              value="FL"
+              selected={defaultState === "FL"}
+              style="background-color: rgba(255,255,255,0.9); color: #1f2937;"
+              >Florida</option
+            >
+            <option
+              value="GA"
+              selected={defaultState === "GA"}
+              style="background-color: rgba(255,255,255,0.9); color: #1f2937;"
+              >Georgia</option
+            >
+          </select>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-white/20 backdrop-blur-md text-white font-semibold py-3 rounded-lg hover:bg-white/30 transition-all duration-300 flex items-center justify-center gap-2 border border-white/30"
+      >
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
+          ></path>
+        </svg>
+        Find Imaging Centers
+      </button>
+    </form>
+
+    <!-- Popular Locations -->
+    <div class="mt-4 pt-4 border-t border-white/20">
+      <p class="text-xs text-white/80 mb-2">Popular locations:</p>
+      <div class="flex flex-wrap gap-2">
+        <button
+          data-zip="33012"
+          data-city="Miami"
+          class="quick-location text-xs bg-white/10 backdrop-blur-md text-white px-3 py-1 rounded-full hover:bg-white/20 transition-all duration-200 border border-white/20"
+        >
+          Miami
+        </button>
+        <button
+          data-zip="32801"
+          data-city="Orlando"
+          class="quick-location text-xs bg-white/10 backdrop-blur-md text-white px-3 py-1 rounded-full hover:bg-white/20 transition-all duration-200 border border-white/20"
+        >
+          Orlando
+        </button>
+        <button
+          data-zip="33602"
+          data-city="Tampa"
+          class="quick-location text-xs bg-white/10 backdrop-blur-md text-white px-3 py-1 rounded-full hover:bg-white/20 transition-all duration-200 border border-white/20"
+        >
+          Tampa
+        </button>
+        <button
+          data-zip="30309"
+          data-city="Atlanta"
+          class="quick-location text-xs bg-white/10 backdrop-blur-md text-white px-3 py-1 rounded-full hover:bg-white/20 transition-all duration-200 border border-white/20"
+        >
+          Atlanta
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
