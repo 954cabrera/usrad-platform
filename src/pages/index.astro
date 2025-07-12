@@ -12,6 +12,7 @@ import ClinicalCredentialsGrid from "../components/ClinicalCredentialsGrid.astro
 import SecondaryButton from "../components/SecondaryButton.astro";
 import HeroSearchForm from "../components/HeroSearchForm.astro";
 import ProofSection from "../components/ProofSection.astro";
+import HeroVideoSection from "../components/HeroVideoSection.astro";
 import NetworkMapPins from "../components/NetworkMapPins.astro";
 
 const showPatientHeader = true;
@@ -22,160 +23,41 @@ const showPatientHeader = true;
 
   <!-- Enhanced Video Hero Section - CREDIBILITY FIRST -->
   <FadeIn effect="fade" delay={0}>
-    <section class="relative h-[80vh] overflow-hidden hero-section-mobile">
-      <video
-        autoplay
-        muted
-        loop
-        playsinline
-        class="absolute inset-0 w-full h-full object-cover z-0"
-        poster="/images/home-hero-mri.webp?v=2.1"
-      >
-        <source
-          src="/videos/home-hero-mri-mobile.mp4"
-          type="video/mp4"
-          media="(max-width: 768px)"
-        />
-        <source src="/videos/home-hero-mri.mp4" type="video/mp4" />
-        <source src="/videos/home-hero-mri.webm" type="video/webm" />
-        <img
-          src="/images/website/home-hero-mri.webp?v=2.1"
-          alt="MRI Hero"
-          class="w-full h-full object-cover"
-        />
-      </video>
-
-      <!-- Enhanced Gradient Overlay -->
-      <div
-        class="absolute inset-0 bg-[#003087]/75 flex flex-col justify-center items-center text-white text-center px-4"
-      >
-        <!-- CREDIBILITY BANNER - More Balanced -->
-        <div class="animate-fade-in-up mb-6">
-          <div
-            class="bg-white/10 backdrop-blur-md rounded-full px-6 py-2 border border-white/20"
-          >
-            <span class="text-[#cc9933] font-bold text-sm"
-              >🏆 PROVEN TRACK RECORD:</span
-            >
-            <span class="text-white text-sm ml-2"
-              >$400 Million+ saved • 400,000+ patients served • Acquired by
-              CorVel (NYSE: CVL)</span
-            >
-          </div>
-        </div>
-
-        <!-- PRIMARY HEADLINE - SPEED FOCUSED -->
-        <h1
-          class="text-3xl sm:text-5xl lg:text-6xl font-semibold mb-4 drop-shadow-lg animate-fade-in-up"
-        >
-          <span class="text-white"> Get Your MRI This Week, </span>
-          <br />
-          <span class="text-[#cc9933] font-bold">Not Next Month</span>
-        </h1>
-
-        <!-- CREDIBILITY-ENHANCED SUBTITLE -->
-        <p
-          class="max-w-2xl text-lg sm:text-xl mb-6 drop-shadow animate-fade-in-up animation-delay-300"
-        >
-          From the team that revolutionized medical imaging access.
-          <br class="hidden sm:block" />
-          <span class="text-white"
-            >2-4 day appointments • 30-70% below hospitals • Board-certified
-            radiologists</span
-          >
-        </p>
-
-        <!-- Enhanced CTA Button with Dual Action -->
-        <div class="animate-fade-in-up animation-delay-600">
-          <div
-            class="flex flex-col sm:flex-row gap-4 items-center justify-center"
-          >
-            <!-- Primary CTA - Quick Book -->
-            <a
-              href="/search-results?zipCode=33330&procedure=70551&state=FL&autoSearch=true"
-              class="group bg-gradient-to-r from-[#cc9933] to-yellow-400 text-[#003087] font-semibold px-8 py-5 sm:py-4 rounded-xl shadow-lg hover:scale-105 transition-all duration-300 inline-flex items-center gap-2"
-            >
-              Book Your MRI Now
-              <svg
-                class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-              </svg>
-            </a>
-
-            <!-- Secondary CTA - Custom Search -->
-            <button
-              id="heroSearchToggle"
-              class="group border-2 border-white text-white font-semibold px-6 py-5 sm:py-4 rounded-xl hover:bg-white hover:text-[#003087] transition-all duration-300 inline-flex items-center gap-2 backdrop-blur-sm"
-            >
-              <svg
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
-                ></path>
-              </svg>
-              Check Prices
-            </button>
-          </div>
-
-          <!-- Hero Search Form Component -->
-          <HeroSearchForm />
-
-          <!-- CREDIBILITY TRUST INDICATORS -->
-          <div class="mt-6 animate-fade-in-up animation-delay-900">
-            <div
-              class="flex flex-wrap justify-center items-center gap-6 text-base sm:text-sm opacity-90"
-            >
-              <div class="flex items-center gap-2">
-                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse">
-                </div>
-                <span>📅 Next available: Tomorrow</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <svg
-                  class="w-4 h-4 text-[#cc9933]"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clip-rule="evenodd"></path>
-                </svg>
-                <span>Proven healthcare model</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <svg
-                  class="w-4 h-4 text-green-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clip-rule="evenodd"></path>
-                </svg>
-                <span>100% price guarantee</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <HeroVideoSection
+      headlineText={`<span class="text-white"> Get Your MRI This Week, </span><br /><span class="text-[#cc9933] font-bold">Not Next Month</span>`}
+      subText={`From the team that revolutionized medical imaging access.<br class="hidden sm:block" /><span class="text-white">2-4 day appointments • 30-70% below hospitals • Board-certified radiologists</span>`}
+      credibilityText="🏆 PROVEN TRACK RECORD: $400 Million+ saved • 400,000+ patients served • Acquired by CorVel (NYSE: CVL)"
+      videoSources={[
+        {
+          src: "/videos/home-hero-mri-mobile.mp4",
+          type: "video/mp4",
+          media: "(max-width: 768px)",
+        },
+        { src: "/videos/home-hero-mri.mp4", type: "video/mp4" },
+        { src: "/videos/home-hero-mri.webm", type: "video/webm" },
+      ]}
+      posterUrl="/images/home-hero-mri.webp?v=2.1"
+      primaryCTA={{
+        label: "Book Your MRI Now",
+        href: "/search-results?zipCode=33330&procedure=70551&state=FL&autoSearch=true",
+      }}
+      secondaryCTA={{ label: "Check Prices", id: "heroSearchToggle" }}
+      showSearchForm={true}
+      trustIndicators={[
+        {
+          icon: `<div class='w-3 h-3 bg-green-400 rounded-full animate-pulse'></div>`,
+          text: "📅 Next available: Tomorrow",
+        },
+        {
+          icon: `<svg class='w-4 h-4 text-[#cc9933]' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'></path></svg>`,
+          text: "Proven healthcare model",
+        },
+        {
+          icon: `<svg class='w-4 h-4 text-green-400' fill='currentColor' viewBox='0 0 20 20'><path fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'></path></svg>`,
+          text: "100% price guarantee",
+        },
+      ]}
+    />
 
     <!-- Proof Section Component -->
     <ProofSection />
