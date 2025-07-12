@@ -78,15 +78,17 @@ const canonicalURL = Astro.site
   </FadeIn>
 
   <!-- Search Component with Auto-Search -->
-  <ProviderSearchSection
-    client:load
-    googleMapsApiKey={import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY}
-    mapId={import.meta.env.PUBLIC_GOOGLE_MAPS_MAP_ID}
-    title="Search Results"
-    subtitle=""
-    badgeText=""
-    showHelpSection={false}
-  />
+  <div id="results">
+    <ProviderSearchSection
+      client:load
+      googleMapsApiKey={import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY}
+      mapId={import.meta.env.PUBLIC_GOOGLE_MAPS_MAP_ID}
+      title="Search Results"
+      subtitle=""
+      badgeText=""
+      showHelpSection={false}
+    />
+  </div>
 
   <!-- Auto-search script -->
   <script>
