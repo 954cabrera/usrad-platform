@@ -1,10 +1,10 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
+import MainPatientLayout from "../layouts/MainPatientLayout.astro";
 import ChatbotToggle from "../components/ChatbotToggle.astro";
 import AOSInit from "../components/AOSInit.astro";
 ---
 
-<MainLayout>
+<MainPatientLayout showPatientHeader={true}>
   <fragment slot="title">Contact Us | USRad</fragment>
   <AOSInit />
 
@@ -662,4 +662,4 @@ import AOSInit from "../components/AOSInit.astro";
   </section>
 
   <ChatbotToggle chatbotLabel="💬 Let's Talk" />
-</MainLayout>
+</MainPatientLayout>

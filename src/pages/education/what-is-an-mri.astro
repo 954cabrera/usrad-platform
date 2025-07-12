@@ -1,14 +1,14 @@
 ---
 // src/pages/education/what-is-mri.astro
 import MultiModalViewer from "../../components/education/MultiModalViewer.jsx";
-import Layout from "../../layouts/MainLayout.astro";
+import MainPatientLayout from "../../layouts/MainPatientLayout.astro";
 
 const title = "What is an MRI? | USRad Medical Imaging Education";
 const description =
   "Experience professional-grade medical imaging education with interactive viewers. Founded by proven leaders who built AnciCare (1994-2002), served 400K+ patients, and were acquired by CorVel Corporation (NYSE: CVL).";
 ---
 
-<Layout title={title} description={description}>
+<MainPatientLayout showPatientHeader={true}>
   <!-- Hero Section with Enhanced Track Record -->
   <section
     class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 py-20 sm:py-32"
@@ -949,7 +949,7 @@ const description =
       </p>
     </div>
   </section>
-</Layout>
+</MainPatientLayout>
 
 <script>
   // Enhanced Animated Counter
