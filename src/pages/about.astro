@@ -1,8 +1,8 @@
 ---
 import MainPatientLayout from "../layouts/MainPatientLayout.astro";
-import Footer from "../components/Footer.astro";
 import ChatbotToggle from "../components/ChatbotToggle.astro";
-import FadeIn from "../components/FadeIn.astro";
+import ProofMetricsSection from "../components/ProofMetricsSection.astro";
+import InnovationTimeline from "../components/InnovationTimeline.astro";
 import AOSInit from "../components/AOSInit.astro";
 
 export const prerender = true;
@@ -50,70 +50,32 @@ const showPatientHeader = true;
           first managed care imaging network, serving <strong
             >400,000+ patients</strong
           > and delivering
-          <strong>$400 Million+ in total savings</strong> before being acquired by CorVel
-          Corporation (NYSE: CVL).
+          <strong>$400 Million+ in total savings</strong> before being acquired by
+          CorVel Corporation (NYSE: CVL).
         </p>
       </div>
 
       <!-- PROOF METRICS - ENHANCED -->
-      <div
-        class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-16"
-        data-aos="fade-up"
-        data-aos-delay="200"
-      >
-        <div
-          class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 border-t-4 border-[#cc9933]"
-        >
-          <div
-            class="text-[#cc9933] text-4xl md:text-5xl font-bold mb-2 font-manrope"
-          >
-            $400M+
-          </div>
-          <p class="text-sm md:text-base font-manrope font-medium">
-            Total Savings Delivered
-          </p>
-          <p class="text-xs text-[#003087]/60 mt-1">Medical + Productivity</p>
-        </div>
-        <div
-          class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 border-t-4 border-[#cc9933]"
-        >
-          <div
-            class="text-[#cc9933] text-4xl md:text-5xl font-bold mb-2 font-manrope"
-          >
-            400,000+
-          </div>
-          <p class="text-sm md:text-base font-manrope font-medium">
-            Patients Served
-          </p>
-          <p class="text-xs text-[#003087]/60 mt-1">Proven Track Record</p>
-        </div>
-        <div
-          class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 border-t-4 border-[#cc9933]"
-        >
-          <div
-            class="text-[#cc9933] text-4xl md:text-5xl font-bold mb-2 font-manrope"
-          >
-            8
-          </div>
-          <p class="text-sm md:text-base font-manrope font-medium">
-            Years Building
-          </p>
-          <p class="text-xs text-[#003087]/60 mt-1">1994-2002</p>
-        </div>
-        <div
-          class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 border-t-4 border-[#cc9933]"
-        >
-          <div
-            class="text-[#cc9933] text-4xl md:text-5xl font-bold mb-2 font-manrope"
-          >
-            ✓
-          </div>
-          <p class="text-sm md:text-base font-manrope font-medium">
-            Successful Exit
-          </p>
-          <p class="text-xs text-[#003087]/60 mt-1">NYSE-listed acquisition</p>
-        </div>
-      </div>
+      <ProofMetricsSection
+        metrics={[
+          {
+            value: "$400M+",
+            label: "Total Savings Delivered",
+            caption: "Medical + Productivity",
+          },
+          {
+            value: "400,000+",
+            label: "Patients Served",
+            caption: "Proven Track Record",
+          },
+          { value: "8", label: "Years Building", caption: "1994-2002" },
+          {
+            value: "✓",
+            label: "Successful Exit",
+            caption: "NYSE-listed acquisition",
+          },
+        ]}
+      />
     </div>
   </section>
 
@@ -140,74 +102,34 @@ const showPatientHeader = true;
       <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
         <!-- LEFT: Success Timeline -->
         <div data-aos="fade-right">
-          <div class="space-y-8">
-            <div class="flex items-start">
-              <div
-                class="bg-[#cc9933] text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl mr-6 flex-shrink-0"
-              >
-                1
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-[#003087] mb-2">
-                  Created AnciCare (1994)
-                </h3>
-                <p class="text-[#003087]/80">
-                  Founded AnciCare as the first comprehensive managed care
-                  imaging network when traditional healthcare couldn't solve the
-                  cost and access crisis.
-                </p>
-              </div>
-            </div>
-            <div class="flex items-start">
-              <div
-                class="bg-[#cc9933] text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl mr-6 flex-shrink-0"
-              >
-                2
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-[#003087] mb-2">
-                  Revolutionary Results
-                </h3>
-                <p class="text-[#003087]/80">
-                  Achieved 50%+ cost savings while reducing wait times from
-                  10-14 days to 2-3 days—transforming the patient experience.
-                </p>
-              </div>
-            </div>
-            <div class="flex items-start">
-              <div
-                class="bg-[#cc9933] text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl mr-6 flex-shrink-0"
-              >
-                3
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-[#003087] mb-2">
-                  Massive Scale Impact
-                </h3>
-                <p class="text-[#003087]/80">
-                  Delivered $200 Million+ in direct medical savings and $200 Million+ in
-                  productivity savings through faster return-to-work.
-                </p>
-              </div>
-            </div>
-            <div class="flex items-start">
-              <div
-                class="bg-[#cc9933] text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl mr-6 flex-shrink-0"
-              >
-                4
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-[#003087] mb-2">
-                  CorVel Acquisition (2002)
-                </h3>
-                <p class="text-[#003087]/80">
-                  CorVel Corporation (NYSE: CVL) acquired AnciCare, validating
-                  our model at enterprise scale. They continue operating it
-                  successfully over 20 years later.
-                </p>
-              </div>
-            </div>
-          </div>
+          <InnovationTimeline
+            steps={[
+              {
+                number: "1",
+                title: "Created AnciCare (1994)",
+                description:
+                  "Founded AnciCare as the first comprehensive managed care imaging network when traditional healthcare couldn't solve the cost and access crisis.",
+              },
+              {
+                number: "2",
+                title: "Revolutionary Results",
+                description:
+                  "Achieved 50%+ cost savings while reducing wait times from 10-14 days to 2-3 days—transforming the patient experience.",
+              },
+              {
+                number: "3",
+                title: "Massive Scale Impact",
+                description:
+                  "Delivered $200 Million+ in direct medical savings and $200 Million+ in productivity savings through faster return-to-work.",
+              },
+              {
+                number: "4",
+                title: "CorVel Acquisition (2002)",
+                description:
+                  "CorVel Corporation (NYSE: CVL) acquired AnciCare, validating our model at enterprise scale. They continue operating it successfully over 20 years later.",
+              },
+            ]}
+          />
         </div>
 
         <!-- RIGHT: Impact Visualization -->
@@ -226,7 +148,9 @@ const showPatientHeader = true;
                   <span class="text-[#003087] font-medium"
                     >Medical Imaging Savings</span
                   >
-                  <span class="text-2xl font-bold text-[#cc9933]">$200 Million+</span>
+                  <span class="text-2xl font-bold text-[#cc9933]"
+                    >$200 Million+</span
+                  >
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-3">
                   <div class="bg-[#cc9933] h-3 rounded-full" style="width: 50%">
@@ -239,7 +163,9 @@ const showPatientHeader = true;
                   <span class="text-[#003087] font-medium"
                     >Productivity Savings</span
                   >
-                  <span class="text-2xl font-bold text-[#cc9933]">$200 Million+</span>
+                  <span class="text-2xl font-bold text-[#cc9933]"
+                    >$200 Million+</span
+                  >
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-3">
                   <div class="bg-[#cc9933] h-3 rounded-full" style="width: 50%">
@@ -254,7 +180,9 @@ const showPatientHeader = true;
                   <span class="text-[#003087] font-bold"
                     >Total Value Created</span
                   >
-                  <span class="text-3xl font-bold text-[#cc9933]">$400 Million+</span>
+                  <span class="text-3xl font-bold text-[#cc9933]"
+                    >$400 Million+</span
+                  >
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-4">
                   <div
@@ -400,7 +328,9 @@ const showPatientHeader = true;
                 <div class="text-sm text-[#003087]">Growth Achieved</div>
               </div>
               <div class="bg-[#f0f4f9] rounded-xl p-4">
-                <div class="text-2xl font-bold text-[#cc9933]">$400 Million+</div>
+                <div class="text-2xl font-bold text-[#cc9933]">
+                  $400 Million+
+                </div>
                 <div class="text-sm text-[#003087]">Value Created</div>
               </div>
             </div>

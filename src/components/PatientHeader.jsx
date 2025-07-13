@@ -539,7 +539,7 @@ export default function PatientHeader({ showStickyBar = true }) {
           {[
             { href: "/about", label: "About" },
             { href: "/how-it-works", label: "How It Works" },
-            { href: "/locations", label: "Locations" },
+            { href: "/education/what-is-an-mri?", label: "What is an MRI?" },
             { href: "/pricing", label: "Pricing" },
             { href: "/contact", label: "Contact" },
           ].map((link) => (
