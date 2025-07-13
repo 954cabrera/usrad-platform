@@ -21,12 +21,25 @@ const showPatientHeader = true;
 <MainPatientLayout showPatientHeader={true}>
   <AOSInit />
 
-  <!-- Enhanced Video Hero Section - CREDIBILITY FIRST -->
+  <!-- Professional Credibility Banner -->
+  <section
+    class="bg-gradient-to-r from-[#f0f4f9] to-[#fefbf5] py-3 px-6 border-b border-[#e6c378]/20"
+  >
+    <div class="max-w-7xl mx-auto text-center">
+      <p class="text-sm text-[#003087] font-medium">
+        🏆 <strong>From the proven team behind AnciCare</strong> • Big Four financial
+        review (EY) • First-tier legal (Greenberg Traurig) • Successful healthcare
+        exit • Model operating 20+ years
+      </p>
+    </div>
+  </section>
+
+  <!-- Enhanced Video Hero Section - EVOLUTION STORY -->
   <FadeIn effect="fade" delay={0}>
     <HeroVideoSection
-      headlineText={`<span class="text-white"> Get Your MRI This Week, </span><br /><span class="text-[#cc9933] font-bold">Not Next Month</span>`}
+      headlineText={`<span class="text-white">Get Your MRI This Week,</span><br /><span class="text-[#cc9933] font-bold">Not Next Month</span>`}
       subText={`From the team that revolutionized medical imaging access.<br class="hidden sm:block" /><span class="text-white">2-4 day appointments • 30-70% below hospitals • Board-certified radiologists</span>`}
-      credibilityText="🏆 PROVEN TRACK RECORD: $400 Million+ saved • 400,000+ patients served • Acquired by CorVel (NYSE: CVL)"
+      credibilityText="🏆 PROVEN EXCELLENCE: 400,000+ patients served • $400M+ saved • EY-validated success"
       videoSources={[
         {
           src: "/videos/home-hero-mri-mobile.mp4",
@@ -62,8 +75,184 @@ const showPatientHeader = true;
     <!-- Proof Section Component -->
     <ProofSection />
 
-    <!-- ENHANCED "BEHIND THE SIMPLICITY" - BALANCED MESSAGING -->
+    <!-- THE EVOLUTION STORY - FOUNDATION → EVOLUTION → MISSION -->
     <section class="bg-[#fefbf5] py-20 px-6 text-[#003087]">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+          <p
+            class="text-sm uppercase tracking-wide font-semibold text-[#cc9933] mb-4"
+          >
+            The Evolution of Proven Healthcare
+          </p>
+          <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-[#003087]">
+            Same Foundation. Exponentially More Powerful.
+            <span class="text-lg font-normal text-[#003087]/70 block mt-2">
+              How we transformed our proven model to serve millions
+            </span>
+          </h2>
+        </div>
+
+        <!-- The Power Grid -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg mb-12">
+          <div class="grid md:grid-cols-3 gap-8 text-center">
+            <div>
+              <p class="text-sm text-[#cc9933] font-semibold mb-2">
+                NETWORK SCALE
+              </p>
+              <div class="text-3xl font-bold text-[#003087] mb-1">225x</div>
+              <p class="text-sm text-[#003087]/70">
+                Market expansion<br />400K → 90M Americans
+              </p>
+            </div>
+            <div>
+              <p class="text-sm text-[#cc9933] font-semibold mb-2">
+                BOOKING SPEED
+              </p>
+              <div class="text-3xl font-bold text-[#003087] mb-1">1000x</div>
+              <p class="text-sm text-[#003087]/70">
+                Faster scheduling<br />Hours → Seconds
+              </p>
+            </div>
+            <div>
+              <p class="text-sm text-[#cc9933] font-semibold mb-2">
+                ACCESSIBILITY
+              </p>
+              <div class="text-3xl font-bold text-[#003087] mb-1">24/7</div>
+              <p class="text-sm text-[#003087]/70">
+                Always available<br />Not just business hours
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Evolution Timeline -->
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+          <!-- Foundation Era -->
+          <div
+            class="bg-white rounded-xl p-8 border border-[#003087]/10"
+            data-aos="fade-right"
+          >
+            <div class="text-center mb-6">
+              <div class="text-6xl mb-4">🏛️</div>
+              <h3 class="text-xl font-bold text-[#003087]">
+                Proven Foundation
+              </h3>
+              <p class="text-sm text-[#cc9933] font-semibold">1994-2002</p>
+            </div>
+            <ul class="space-y-3 text-[#003087]/80">
+              <li class="flex items-start">
+                <span class="text-[#cc9933] mr-2 mt-1">✓</span>
+                <span>Pioneered managed care imaging model</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-[#cc9933] mr-2 mt-1">✓</span>
+                <span>400,000+ patients successfully served</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-[#cc9933] mr-2 mt-1">✓</span>
+                <span>$400M+ in verified savings delivered</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-[#cc9933] mr-2 mt-1">✓</span>
+                <span>Big Four (EY) validated exit</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Evolution Era -->
+          <div
+            class="bg-gradient-to-br from-[#f0f4f9] to-[#e8ecf4] rounded-xl p-8 border border-[#cc9933]/20"
+            data-aos="fade-up"
+          >
+            <div class="text-center mb-6">
+              <div class="text-6xl mb-4">⚡</div>
+              <h3 class="text-xl font-bold text-[#003087]">Modern Evolution</h3>
+              <p class="text-sm text-[#cc9933] font-semibold">2025</p>
+            </div>
+            <ul class="space-y-3 text-[#003087]">
+              <li class="flex items-start">
+                <span class="text-[#cc9933] mr-2 mt-1">⚡</span>
+                <span>Digital transformation at scale</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-[#cc9933] mr-2 mt-1">⚡</span>
+                <span>Real-time pricing & booking</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-[#cc9933] mr-2 mt-1">⚡</span>
+                <span>1,500+ centers competing for you</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-[#cc9933] mr-2 mt-1">⚡</span>
+                <span>Same proven standards, modern delivery</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Mission Era -->
+          <div
+            class="bg-gradient-to-br from-[#cc9933]/10 to-[#cc9933]/5 rounded-xl p-8 border border-[#cc9933]/30"
+            data-aos="fade-left"
+          >
+            <div class="text-center mb-6">
+              <div class="text-6xl mb-4">🚀</div>
+              <h3 class="text-xl font-bold text-[#003087]">Expanded Mission</h3>
+              <p class="text-sm text-[#cc9933] font-semibold">
+                Serving Millions
+              </p>
+            </div>
+            <ul class="space-y-3 text-[#003087]">
+              <li class="flex items-start">
+                <span class="text-[#cc9933] mr-2 mt-1">🎯</span>
+                <span>90 million Americans to serve</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-[#cc9933] mr-2 mt-1">🎯</span>
+                <span>Uninsured & underinsured focus</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-[#cc9933] mr-2 mt-1">🎯</span>
+                <span>Transparent, affordable access</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-[#cc9933] mr-2 mt-1">🎯</span>
+                <span>Proven care for everyone</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- The Professional Power Statement -->
+        <div
+          class="bg-gradient-to-r from-[#003087]/5 to-[#cc9933]/5 rounded-2xl p-8 border border-[#003087]/10"
+        >
+          <h4 class="text-xl font-bold text-[#003087] mb-4 text-center">
+            Evolution Validated by Excellence
+          </h4>
+          <p
+            class="text-[#003087] text-center max-w-3xl mx-auto leading-relaxed"
+          >
+            We're not just another imaging company—we're the proven team that
+            built AnciCare, underwent Big Four financial review, achieved a
+            successful exit with first-tier legal counsel, and created a model
+            that's still operating successfully 20+ years later. Now we're
+            bringing that same excellence, enhanced with modern technology, to
+            serve 90 million Americans.
+          </p>
+          <p class="text-center mt-6">
+            <span
+              class="inline-block bg-white px-6 py-3 rounded-full text-sm font-semibold text-[#003087] border border-[#cc9933]/30"
+            >
+              Proven past. Powerful present. Scaled for the future.
+            </span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced "Behind the Simplicity" Section -->
+    <section class="bg-white py-20 px-6 text-[#003087]">
       <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         <!-- Image on Left -->
         <div data-aos="fade-right">
@@ -75,30 +264,31 @@ const showPatientHeader = true;
           />
         </div>
 
-        <!-- Text on Right - ENHANCED WITH CREDIBILITY -->
+        <!-- Text on Right - Enhanced with Evolution Story -->
         <div data-aos="fade-left" class="text-left">
           <p
             class="text-sm uppercase tracking-wide font-semibold text-[#cc9933] mb-4"
           >
-            Proven Infrastructure
+            Built Different From Day One
           </p>
           <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-[#003087]">
-            Full-Scale Care Organization
+            Institutional Excellence, Startup Energy
             <span class="text-lg font-normal text-[#003087]/70 block mt-2">
-              Built on decades of healthcare innovation
+              Big Four discipline meets healthcare innovation
             </span>
           </h2>
           <div class="space-y-4 text-lg text-[#003087]/90">
             <p>
-              USRad isn't just a booking tool or referral marketplace. We
-              operate like a full-scale managed care organization — with
-              dedicated teams for provider relations, customer support, quality
-              assurance, and medical oversight.
+              Most healthcare startups never see Big Four involvement. We built
+              AnciCare with the financial discipline and operational excellence
+              that warranted EY financial review and Greenberg Traurig
+              representation during our exit.
             </p>
             <p>
-              The difference? We've done this before. Our proven approach has
-              already helped <strong>400,000+ patients</strong> access affordable,
-              high-quality imaging while delivering significant cost savings.
+              <strong
+                >That foundation of excellence continues with USRad.</strong
+              > We're bringing the same institutional rigor that made our acquisition
+              smooth and our model sustainable for 20+ years.
             </p>
             <div class="bg-[#f0f4f9] rounded-xl p-4 mt-6">
               <div
@@ -110,12 +300,13 @@ const showPatientHeader = true;
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                     clip-rule="evenodd"></path>
                 </svg>
-                PROVEN RESULTS
+                THE ONLY IMAGING COMPANY WITH THIS PEDIGREE
               </div>
               <div class="text-sm text-[#003087]">
-                ✓ $400 Million+ in total healthcare savings<br />
-                ✓ 2-3 day average appointment times<br />
-                ✓ Validated by successful healthcare exit
+                ✓ Big Four (EY) financial review completed<br />
+                ✓ First-tier legal (Greenberg Traurig) validated<br />
+                ✓ Successful exit to NYSE-listed company<br />
+                ✓ Model proven sustainable for 20+ years
               </div>
             </div>
           </div>
@@ -123,7 +314,7 @@ const showPatientHeader = true;
       </div>
     </section>
 
-    <!-- Core Benefits -->
+    <!-- Keep existing Core Benefits section -->
     <section
       class="relative pt-16 pb-20"
       style="
@@ -139,13 +330,13 @@ const showPatientHeader = true;
       </div>
     </section>
 
-    <!-- Personal Care Section - BALANCED -->
+    <!-- Enhanced Personal Care Section -->
     <section class="bg-white py-20 px-6">
       <div class="max-w-7xl mx-auto text-center mb-12">
         <h2 class="text-3xl font-bold text-[#003087] mb-4" data-aos="fade-up">
-          Personal Care Every Step
+          Personal Care Perfected Over 400,000 Interactions
           <span class="text-lg font-normal text-[#003087]/70 block mt-2">
-            Refined through hundreds of thousands of patient interactions
+            The same patient-first approach, now digitally enhanced
           </span>
         </h2>
         <p
@@ -153,8 +344,9 @@ const showPatientHeader = true;
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          Our dedicated team guides you through your entire MRI experience,
-          using processes proven through years of healthcare excellence
+          Our care model was validated through hundreds of thousands of patient
+          experiences and refined through Big Four standards—now evolved for
+          modern healthcare
         </p>
       </div>
 
@@ -171,13 +363,12 @@ const showPatientHeader = true;
     <!-- Enhanced Trust Badges section -->
     <section class="bg-[#f0f4f9] py-16 px-6">
       <div class="max-w-6xl mx-auto" data-aos="fade-up" data-aos-delay="300">
-        <!-- Add credibility header -->
         <div class="text-center mb-8">
           <h3 class="text-2xl font-bold text-[#003087] mb-2">
-            Quality You Can Trust
+            Quality Standards Validated by Exit
           </h3>
           <p class="text-[#003087]/70">
-            The same high standards that earned our successful healthcare exit
+            The same excellence validated through Big Four financial review
           </p>
         </div>
         <TrustBadgesBar />
@@ -199,7 +390,7 @@ const showPatientHeader = true;
 
     <FAQPreview />
 
-    <!-- Enhanced CTA with Credibility - BALANCED -->
+    <!-- Enhanced CTA with Evolution Story -->
     <FadeIn effect="fade" delay={100}>
       <section
         class="bg-gradient-to-br from-[#003087] to-[#002266] text-white py-20 px-6 sm:px-12 relative overflow-hidden"
@@ -220,31 +411,31 @@ const showPatientHeader = true;
         </div>
 
         <div class="max-w-6xl mx-auto text-center relative z-10">
-          <!-- Add credibility banner -->
+          <!-- Evolution credibility banner -->
           <div
             class="bg-white/10 backdrop-blur-md rounded-full px-6 py-2 border border-white/20 inline-block mb-6"
           >
             <span class="text-[#cc9933] font-bold text-sm"
-              >✓ PROVEN BY 400,000+ PATIENTS • VALIDATED BY SUCCESSFUL EXIT</span
+              >✓ PROVEN FOUNDATION • MODERN EVOLUTION • EXPANDED MISSION</span
             >
           </div>
 
           <h2 class="text-4xl font-semibold mb-6 font-manrope">
-            Ready to Experience Better Medical Imaging?
+            Experience Healthcare Evolution
           </h2>
           <p class="text-xl max-w-3xl mx-auto mb-12 font-manrope">
-            Join hundreds of thousands who've already experienced our proven
-            approach. Skip the wait, see transparent pricing, and book with
-            confidence.
+            Join the healthcare revolution that started with 400,000 patients
+            and is now evolving to serve millions. Same proven excellence,
+            enhanced for the digital age.
           </p>
 
           <div class="flex flex-col sm:flex-row justify-center gap-6">
             <PrimaryButton
               href="/search-test"
               color="gold"
-              text="Book Your MRI Now"
+              text="Book Your Evolution Experience"
             />
-            <SecondaryButton href="/about" text="Our Proven Track Record" />
+            <SecondaryButton href="/about" text="Our Proven Journey" />
           </div>
         </div>
       </section>
