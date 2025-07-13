@@ -1,8 +1,8 @@
 ---
 // pages/how-it-works.astro
 import MainPatientLayout from "../layouts/MainPatientLayout.astro";
+import HowItWorksMetricsBar from "../components/HowItWorksMetricsBar.astro";
 import AOSInit from "../components/AOSInit.astro";
-import Footer from "../components/Footer.astro";
 
 const showPatientHeader = true;
 ---
@@ -46,7 +46,8 @@ const showPatientHeader = true;
               clip-rule="evenodd"></path>
           </svg>
           <span class="text-sm font-medium"
-            >Proven Process • 400,000+ Patients Served • Successful Healthcare Exit</span
+            >Proven Process • 400,000+ Patients Served • Successful Healthcare
+            Exit</span
           >
         </div>
 
@@ -183,28 +184,14 @@ const showPatientHeader = true;
       </div>
 
       <!-- Success Metrics Bar -->
-      <div class="bg-white rounded-2xl p-6 shadow-lg" data-aos="fade-up">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          <div>
-            <div class="text-2xl font-bold text-[#cc9933]">400,000+</div>
-            <div class="text-sm text-[#003087]">
-              Patients Successfully Served
-            </div>
-          </div>
-          <div>
-            <div class="text-2xl font-bold text-[#cc9933]">$400 Million+</div>
-            <div class="text-sm text-[#003087]">Total Savings Delivered</div>
-          </div>
-          <div>
-            <div class="text-2xl font-bold text-[#cc9933]">98%</div>
-            <div class="text-sm text-[#003087]">Patient Satisfaction Rate</div>
-          </div>
-          <div>
-            <div class="text-2xl font-bold text-[#cc9933]">✓</div>
-            <div class="text-sm text-[#003087]">Successful Exit</div>
-          </div>
-        </div>
-      </div>
+      <HowItWorksMetricsBar
+        metrics={[
+          { value: "400,000+", label: "Patients Successfully Served" },
+          { value: "$400 Million+", label: "Total Savings Delivered" },
+          { value: "98%", label: "Patient Satisfaction Rate" },
+          { value: "✓", label: "Successful Exit" },
+        ]}
+      />
     </div>
   </section>
 
@@ -629,10 +616,10 @@ const showPatientHeader = true;
             How are your prices so much lower than hospitals?
           </h3>
           <p class="text-[#003087]/80">
-            We perfected the managed care model and delivered $400 Million+ in proven
-            savings. By eliminating administrative overhead and working directly
-            with imaging centers, we cut out the middleman costs that hospitals
-            pass on to patients.
+            We perfected the managed care model and delivered $400 Million+ in
+            proven savings. By eliminating administrative overhead and working
+            directly with imaging centers, we cut out the middleman costs that
+            hospitals pass on to patients.
           </p>
         </div>
 
@@ -678,10 +665,10 @@ const showPatientHeader = true;
           </h3>
           <p class="text-[#003087]/80">
             We ARE the established provider! Our founders built AnciCare
-            (1994-2002), served 400,000+ patients, delivered $400 Million+ in savings,
-            and achieved a successful exit to a NYSE-listed company that still
-            operates the model today. Now we're expanding that same proven
-            approach to everyone.
+            (1994-2002), served 400,000+ patients, delivered $400 Million+ in
+            savings, and achieved a successful exit to a NYSE-listed company
+            that still operates the model today. Now we're expanding that same
+            proven approach to everyone.
           </p>
         </div>
       </div>
