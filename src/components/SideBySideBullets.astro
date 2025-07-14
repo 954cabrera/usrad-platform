@@ -1,0 +1,42 @@
+---
+export interface Props {
+  left: {
+    title: string;
+    bullets: string[];
+  };
+  right: {
+    title: string;
+    bullets: string[];
+  };
+}
+
+const { left, right } = Astro.props;
+---
+
+<div class="grid md:grid-cols-2 gap-8">
+  <div>
+    <h4 class="text-xl font-bold text-[#003087] mb-4">{left.title}</h4>
+    <div class="space-y-3 text-[#003087]/90">
+      {
+        left.bullets.map((item) => (
+          <p>
+            • <strong>{item}</strong>
+          </p>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h4 class="text-xl font-bold text-[#003087] mb-4">{right.title}</h4>
+    <div class="space-y-3 text-[#003087]/90">
+      {
+        right.bullets.map((item) => (
+          <p>
+            • <strong>{item}</strong>
+          </p>
+        ))
+      }
+    </div>
+  </div>
+</div>

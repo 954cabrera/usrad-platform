@@ -1,0 +1,228 @@
+MultiModal Medical Imaging Viewer - Technical Documentation & Development Reference
+Project Overview
+Component Name: MultiModalViewer.jsx
+Date Developed: January 2025
+Developer: USRad Development Team
+Purpose: Interactive medical imaging viewer for educational and demonstration purposes
+Current Implementation (v1.0)
+Core Features
+
+MRI Viewer (Fully Implemented)
+
+Displays 24 T1-weighted axial brain MRI slices
+Real patient data from TCIA DFCI-BCH-BWH Pediatric HGG Dataset
+Interactive controls: brightness, contrast, zoom, pan
+Slice navigation: scroll wheel, drag, arrow buttons
+Animation playback with adjustable speed (0.075s - 0.5s per slice)
+Anatomically accurate labels for each slice level
+
+
+Placeholder Modalities
+
+CT, Ultrasound, PET: "Coming Soon" modal
+Infrastructure ready for expansion
+
+
+
+Technical Architecture
+Data Structure
+javascriptmodalityConfig = {
+  mri: {
+    name: 'MRI',
+    fullName: 'Magnetic Resonance Imaging',
+    totalSlices: 24,
+    imagePath: '/mri/patient_001/',
+    sequenceType: 'T1-weighted',
+    scanInfo: {
+      field: '3T',
+      sliceThickness: '5mm',
+      acquisition: 'Axial',
+      source: 'TCIA DFCI-BCH-BWH',
+      status: 'Pediatric HGG Dataset'
+    }
+  }
+}
+Image Format & Naming Convention
+
+Format: WebP (optimized for web)
+Naming: slice_XXX.webp (zero-padded, 3 digits)
+Location: /public/mri/patient_001/
+Range: slice_000.webp through slice_024.webp
+
+Key Components
+
+Canvas-based rendering for performance
+React hooks for state management
+Responsive design with Tailwind CSS
+Accessibility features included
+
+Future Expansion Guide
+Adding CT Modality
+1. Image Preparation
+Directory: /public/ct/patient_001/
+Format: slice_XXX.webp
+Typical range: 100-300 slices (depending on coverage)
+Window/Level presets needed:
+- Bone: W:2000 L:500
+- Soft tissue: W:400 L:40
+- Lung: W:1500 L:-600
+2. Code Modifications
+javascriptct: {
+  name: 'CT',
+  fullName: 'Computed Tomography',
+  totalSlices: [ACTUAL_COUNT],
+  imagePath: '/ct/patient_001/',
+  scanInfo: {
+    kvp: '120',
+    mAs: 'Auto',
+    sliceThickness: '1mm',
+    reconstruction: 'Standard',
+    contrast: 'Non-contrast' // or 'IV contrast'
+  },
+  windowPresets: [
+    { name: 'Bone', window: 2000, level: 500 },
+    { name: 'Soft Tissue', window: 400, level: 40 },
+    { name: 'Lung', window: 1500, level: -600 }
+  ]
+}
+3. Anatomy Labels for CT
+javascriptanatomyData.ct = [
+  { name: "Skull Base", function: "Bony structures", intensity: "Bone window" },
+  { name: "Paranasal Sinuses", function: "Air-filled cavities", intensity: "Soft tissue window" },
+  // ... complete anatomical progression
+]
+Adding Ultrasound Modality
+1. Special Considerations
+
+Cine loops (video) vs static images
+Different probe types (linear, curved, phased array)
+Doppler overlays (color, power, spectral)
+
+2. Implementation Approach
+javascriptultrasound: {
+  name: 'Ultrasound',
+  fullName: 'Ultrasound Imaging',
+  imagePath: '/ultrasound/patient_001/',
+  probeType: 'Curved Array',
+  frequency: '3.5 MHz',
+  depth: '15 cm',
+  gain: 'Auto',
+  hasColorDoppler: true,
+  hasCineLoop: true,
+  frameRate: 30 // if video
+}
+Adding PET Modality
+1. Special Requirements
+
+Color mapping (rainbow, hot metal, etc.)
+SUV (Standardized Uptake Value) measurements
+Often fused with CT (PET/CT)
+
+2. Implementation
+javascriptpet: {
+  name: 'PET',
+  fullName: 'Positron Emission Tomography',
+  imagePath: '/pet/patient_001/',
+  tracer: 'FDG',
+  injectedDose: '10 mCi',
+  uptakeTime: '60 min',
+  colormap: 'rainbow',
+  suvMax: 15,
+  fusionModality: 'CT' // if PET/CT
+}
+Implementation Checklist for New Modalities
+Pre-Development
+
+ Acquire appropriate dataset with proper licensing
+ Verify HIPAA compliance and anonymization
+ Determine optimal image format and compression
+ Plan directory structure
+ Document acquisition parameters
+
+Development
+
+ Update modalityConfig object
+ Add anatomical labels to anatomyData
+ Implement modality-specific controls (window/level for CT, gain for US)
+ Add image loading logic
+ Test navigation and controls
+ Verify responsive behavior
+
+Post-Development
+
+ Update attribution and citations
+ Add educational disclaimers
+ Document known limitations
+ Create user guide
+ Performance testing
+
+Best Practices & Lessons Learned
+Image Optimization
+
+WebP format provides best compression for medical images
+Lazy loading for large datasets (implement for CT with 200+ slices)
+Progressive loading for better UX
+
+User Experience
+
+Consistent controls across modalities
+Keyboard shortcuts for power users
+Touch gestures for mobile devices
+Presets for common viewing scenarios
+
+Medical Accuracy
+
+Always indicate imaging parameters
+Show anatomical orientation markers
+Include scale/measurement tools
+Maintain DICOM-compliant terminology
+
+Technical Debt & Future Improvements
+Performance Optimizations
+
+Implement WebGL rendering for large datasets
+Add progressive image loading
+Cache processed images
+Implement virtual scrolling for slice lists
+
+Feature Additions
+
+DICOM file upload capability
+Measurement tools (distance, angle, ROI)
+Multi-planar reconstruction (MPR)
+3D volume rendering
+Side-by-side comparison
+Annotation system
+Export functionality
+
+Accessibility Enhancements
+
+Screen reader optimization
+Keyboard-only navigation
+High contrast mode
+Configurable UI scaling
+
+Resources & References
+Medical Imaging Standards
+
+DICOM Standard: https://www.dicomstandard.org/
+IHE Radiology: https://www.ihe.net/ihe_domains/radiology/
+ACR Guidelines: https://www.acr.org/
+
+Dataset Sources
+
+The Cancer Imaging Archive: https://www.cancerimagingarchive.net/
+OpenfMRI: https://openfmri.org/
+OASIS Brain: https://www.oasis-brains.org/
+
+Libraries & Tools
+
+Cornerstone.js: Medical imaging rendering
+DWV (DICOM Web Viewer): Full DICOM support
+Papaya: Research-focused viewer
+OHIF Viewer: Open-source PACS viewer
+
+Contact & Support
+For questions about implementation or access to additional datasets, contact the USRad development team.
+
+This document should be updated with each major version release of the MultiModalViewer component.

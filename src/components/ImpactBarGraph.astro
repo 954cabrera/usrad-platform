@@ -1,0 +1,52 @@
+---
+export interface Props {
+  title: string;
+  metrics: {
+    label: string;
+    value: string;
+    percent: number;
+    highlight?: boolean;
+  }[];
+}
+
+const { title, metrics } = Astro.props;
+---
+
+<div
+  class="bg-gradient-to-br from-[#f8f2e1] to-[#fcf9f0] rounded-3xl p-8 shadow-xl"
+>
+  <h3 class="text-2xl font-bold text-[#003087] mb-6 text-center">
+    {title}
+  </h3>
+
+  <div class="space-y-6">
+    {
+      metrics.map((item) => (
+        <div
+          class={`bg-white rounded-xl p-6 shadow-md ${item.highlight ? "border-2 border-[#cc9933]" : ""}`}
+        >
+          <div class="flex justify-between items-center mb-2">
+            <span
+              class={`text-[#003087] ${item.highlight ? "font-bold" : "font-medium"}`}
+            >
+              {item.label}
+            </span>
+            <span
+              class={`text-2xl ${item.highlight ? "text-3xl font-bold" : "font-bold"} text-[#cc9933]`}
+            >
+              {item.value}
+            </span>
+          </div>
+          <div
+            class={`w-full bg-gray-200 rounded-full ${item.highlight ? "h-4" : "h-3"}`}
+          >
+            <div
+              class={`${item.highlight ? "bg-gradient-to-r from-[#cc9933] to-[#e6c378]" : "bg-[#cc9933]"} h-full rounded-full`}
+              style={`width: ${item.percent}%`}
+            />
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>

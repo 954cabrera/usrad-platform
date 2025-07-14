@@ -1,0 +1,25 @@
+---
+export interface Metric {
+  value: string;
+  label: string;
+}
+
+export interface Props {
+  metrics: Metric[];
+}
+
+const { metrics } = Astro.props;
+---
+
+<div class="bg-white rounded-2xl p-6 shadow-lg" data-aos="fade-up">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+    {
+      metrics.map(({ value, label }) => (
+        <div>
+          <div class="text-2xl font-bold text-[#cc9933]">{value}</div>
+          <div class="text-sm text-[#003087]">{label}</div>
+        </div>
+      ))
+    }
+  </div>
+</div>

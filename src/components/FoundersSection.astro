@@ -1,0 +1,58 @@
+---
+import FounderCard from "./FounderCard.astro";
+---
+
+<section class="py-20 px-6 bg-gradient-to-br from-[#f8f2e1] to-[#fcf9f0]">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2
+        class="text-3xl md:text-4xl font-bold text-[#003087] mb-4"
+        data-aos="fade-up"
+      >
+        Meet the Healthcare Innovators
+      </h2>
+      <p
+        class="text-lg text-[#003087]/80 max-w-3xl mx-auto"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        The visionary team that revolutionized medical imaging access and
+        delivered $400 Million+ in healthcare savings
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-16">
+      <FounderCard
+        image="/images/michael.jpg"
+        name="Michael Cabrera"
+        title="Co-Founder & CEO"
+        highlights={[
+          { label: "Growth Achieved", value: "1,236%" },
+          { label: "Value Created", value: "$400 Million+" },
+        ]}
+        bio={[
+          "<strong>Healthcare Transformation Leader:</strong> Michael co-founded and led AnciCare to 1,236% growth, serving 400,000+ patients and delivering unprecedented healthcare savings before its successful acquisition.",
+          "<strong>Proven Scale Builder:</strong> Successfully grew AnciCare from startup to enterprise scale, culminating in acquisition by CorVel Corporation—validating the model's effectiveness at the highest level.",
+          "<strong>Elite Recognition:</strong> Graduate of the prestigious 'Birthing of Giants' program, co-created by MIT, Inc. Magazine, and Entrepreneurs' Organization.",
+        ]}
+        cta={{ label: "Read Michael's Full Story", href: "/founder" }}
+      />
+
+      <FounderCard
+        image="/images/donna.webp"
+        name="Donna Cabrera"
+        title="Co-Founder & Patient Advocacy Advisor"
+        highlights={[
+          { label: "Patients Served", value: "400,000+" },
+          { label: "Satisfaction Rate", value: "99.8%" },
+        ]}
+        bio={[
+          "<strong>Patient Care Pioneer:</strong> Donna co-founded AnciCare and created the gold standard for patient experience in medical imaging, ensuring dignity and care quality for every patient interaction.",
+          "<strong>Operations Excellence:</strong> Built and managed the compliance and service delivery framework that consistently delivered exceptional care across 1,200+ imaging centers nationwide.",
+          "<strong>Patient-First Philosophy:</strong> Developed the patient advocacy approach that reduced anxiety, improved outcomes, and earned the trust that drove sustained growth and client retention.",
+        ]}
+        cta={{ label: "Learn About Donna's Role", href: "/co-founder" }}
+      />
+    </div>
+  </div>
+</section>

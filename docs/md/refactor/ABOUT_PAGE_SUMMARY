@@ -1,0 +1,103 @@
+# About Page Refactor Summary (July 2025)
+
+## 📍 Page Refactored
+`src/pages/about.astro`
+
+## 🎯 Objective
+Transform a large, monolithic page into modular, reusable, and scalable components without altering visual design or behavior.
+
+---
+
+## ✅ Refactored Components Breakdown
+
+### 1. `ProofMetricsSection.astro`
+- **Purpose:** Displays credibility stats in a 2x2 grid.
+- **Props:**
+  ```ts
+  metrics: { value: string; label: string; caption: string }[]
+  ```
+
+---
+
+### 2. `InnovationTimeline.astro`
+- **Purpose:** Timeline of 4 key steps (AnciCare → CorVel).
+- **Props:**
+  ```ts
+  steps: { number: string; title: string; description: string }[]
+  ```
+
+---
+
+### 3. `ImpactBarGraph.astro`
+- **Purpose:** Side-by-side bar charts showing medical + productivity + total value.
+- **Props:**
+  ```ts
+  title: string;
+  metrics: { label: string; value: string; percent: number; highlight?: boolean }[]
+  ```
+
+---
+
+### 4. `SideBySideBullets.astro`
+- **Purpose:** Dual-column bullets (Problem vs. Solution).
+- **Props:**
+  ```ts
+  left: { title: string; bullets: string[] };
+  right: { title: string; bullets: string[] };
+  ```
+
+---
+
+### 5. `FounderCard.astro`
+- **Purpose:** Individual founder bio card.
+- **Props:**
+  ```ts
+  image: string;
+  name: string;
+  title: string;
+  highlights: { label: string; value: string }[];
+  bio: string[]; // HTML-capable via set:html
+  cta: { label: string; href: string };
+  ```
+
+---
+
+### 6. `FoundersSection.astro`
+- **Purpose:** Renders the full section layout with heading, intro text, and two `<FounderCard />`s.
+- **Props:** None (static internal composition of Michael + Donna cards)
+
+---
+
+## 🔁 Usage Updates in `about.astro`
+
+### ✅ Replaced raw markup with:
+```astro
+<ProofMetricsSection ... />
+<InnovationTimeline ... />
+<ImpactBarGraph ... />
+<SideBySideBullets ... />
+<FoundersSection />
+```
+
+### ✅ Imports Added:
+```astro
+import ProofMetricsSection from "../components/ProofMetricsSection.astro";
+import InnovationTimeline from "../components/InnovationTimeline.astro";
+import ImpactBarGraph from "../components/ImpactBarGraph.astro";
+import SideBySideBullets from "../components/SideBySideBullets.astro";
+import FoundersSection from "../components/FoundersSection.astro";
+```
+
+---
+
+## 📁 Component File Locations
+All components live in:  
+`src/components/`
+
+---
+
+## ✅ Result
+- Page size reduced drastically.
+- Logic separated from layout.
+- All major blocks are reusable across the site.
+- Future support for looping and CMS-driven content is now trivial.

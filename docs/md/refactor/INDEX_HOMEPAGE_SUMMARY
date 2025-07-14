@@ -1,0 +1,84 @@
+# Homepage (`index.astro`) Refactor Summary
+
+## 🗂 File Refactored
+`src/pages/index.astro`
+
+## 🎯 Objective
+Organize and simplify the homepage into modular components that are reusable, visually consistent, and scalable for future personalization or CMS integration.
+
+---
+
+## ✅ Key Modular Components Used
+
+### 1. `HeroVideoSection.astro`
+- Animated video banner with dynamic props:
+  - `headlineText`, `subText`, `credibilityText`
+  - CTA buttons
+  - Video sources and trust indicators
+
+### 2. `ProofSection.astro`
+- Reusable proof block showing credibility metrics.
+
+### 3. `FadeIn.astro`
+- Applied to key visual sections to handle animation entry.
+- Custom delay support.
+
+### 4. `CoreBenefits.astro`
+- Reusable grid of patient-centric benefits.
+
+### 5. `TrustBadgesBar.astro`
+- Visual trust indicators with supporting text.
+
+### 6. `NetworkMapPins.astro`
+- Map of USRad provider locations (visual + dynamic-ready).
+
+### 7. `ClinicalIntroWithImage` and `ClinicalCredentialsGrid`
+- Dual-column credibility section (image + credentials).
+
+### 8. `FAQPreview.astro`
+- Displays a limited FAQ subset.
+
+### 9. `PrimaryButton` and `SecondaryButton`
+- Encapsulated CTA logic with color/hover/variant control.
+
+### 10. `ChatbotToggle.astro`
+- Fixed-action button for initiating chat.
+
+---
+
+## 🧱 Layout Wrapper
+Used: `<MainPatientLayout showPatientHeader={true} />`
+
+- Sets the consistent layout wrapper across all patient-facing pages.
+- Enables toggling patient header visibility via prop.
+
+---
+
+## 🧠 Strategic Notes
+
+- Components follow **balanced UX**: credibility, clarity, call-to-action.
+- Refactored page reduces surface complexity without visual compromise.
+- New video and CTA sections are now easily replicable on future landing pages.
+- All text, icons, metrics are now prop-driven and externally configurable.
+- Future personalization (geo-based, procedure-based) is now trivial.
+
+---
+
+## 📁 Locations
+All major components reside in:  
+`src/components/`
+
+Layout wrapper lives in:  
+`src/layouts/MainPatientLayout.astro`
+
+---
+
+## 🧩 Remaining Opportunities (Optional)
+- Modularize “Behind the Simplicity” section as a component
+- Create `PersonalCareSection.astro` to encapsulate care message + image
+- Abstract final CTA block as `FinalCallToAction.astro`
+
+---
+
+## 🟢 Status
+Fully modular homepage with clear structure and reusable components.
