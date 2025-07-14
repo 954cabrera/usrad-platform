@@ -1,10 +1,8 @@
 ---
 import MainPatientLayout from "../layouts/MainPatientLayout.astro";
 import ChatbotToggle from "../components/ChatbotToggle.astro";
-import ProofMetricsSection from "../components/ProofMetricsSection.astro";
 import InnovationTimeline from "../components/InnovationTimeline.astro";
 import ImpactBarGraph from "../components/ImpactBarGraph.astro";
-import SideBySideBullets from "../components/SideBySideBullets.astro";
 import FoundersSection from "../components/FoundersSection.astro";
 import AOSInit from "../components/AOSInit.astro";
 
@@ -15,7 +13,7 @@ const showPatientHeader = true;
 <MainPatientLayout>
   <AOSInit />
 
-  <!-- HERO SECTION - EVOLUTION STORY -->
+  <!-- HERO SECTION - STREAMLINED -->
   <section
     class="bg-gradient-to-br from-[#f8f2e1] to-[#fcf9f0] text-[#003087] py-16 md:py-24 lg:py-32 px-4 md:px-6"
   >
@@ -47,52 +45,148 @@ const showPatientHeader = true;
           >
         </h1>
         <p
-          class="text-base sm:text-lg md:text-xl text-[#003087] max-w-4xl mx-auto leading-relaxed font-manrope"
+          class="text-base sm:text-lg md:text-xl text-[#003087] max-w-3xl mx-auto leading-relaxed font-manrope"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="100"
         >
-          The proven team behind USRad previously built AnciCare (1994-2002),
-          America's first managed care imaging network. We served <strong
-            >400,000+ patients</strong
-          >, delivered
-          <strong>$400 Million+ in total savings</strong>, and achieved a
-          <strong class="text-[#cc9933]"
-            >successful exit with EY financial review and Greenberg Traurig
-            representation</strong
-          >. Now we're evolving that proven model for the digital age.
+          We built AnciCare (1994-2002), America's first managed care imaging
+          network.
+          <strong>400,000+ patients served. $400M+ saved.</strong>
+          Now we're evolving that proven model for the digital age.
         </p>
       </div>
 
-      <!-- ENHANCED PROOF METRICS -->
-      <ProofMetricsSection
-        metrics={[
-          {
-            value: "$400M+",
-            label: "Total Savings Delivered",
-            caption: "Verified through exit",
-          },
-          {
-            value: "400,000+",
-            label: "Patients Served",
-            caption: "Proven Track Record",
-          },
-          {
-            value: "Big Four",
-            label: "Financial Review",
-            caption: "EY validation",
-          },
-          {
-            value: "20+",
-            label: "Years Operating",
-            caption: "Model still successful",
-          },
-        ]}
-      />
+      <!-- NEW VISUAL COMPARISON SECTION -->
+      <div
+        class="relative bg-white rounded-3xl shadow-2xl overflow-hidden"
+        data-aos="fade-up"
+      >
+        <!-- Split background -->
+        <div class="absolute inset-0 flex">
+          <div class="w-1/2 bg-gradient-to-br from-gray-50 to-gray-100"></div>
+          <div class="w-1/2 bg-gradient-to-br from-[#fefbf5] to-[#fff8e8]">
+          </div>
+        </div>
+
+        <!-- Center divider with arrow -->
+        <div
+          class="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#cc9933] to-transparent"
+        >
+        </div>
+        <div
+          class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
+        >
+          <div class="bg-white rounded-full p-4 shadow-xl">
+            <svg
+              class="w-8 h-8 text-[#cc9933] animate-pulse"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative grid md:grid-cols-2 gap-8 p-8 md:p-12">
+          <!-- Foundation Side -->
+          <div class="text-center space-y-6">
+            <div>
+              <h3
+                class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2"
+              >
+                Foundation
+              </h3>
+              <p class="text-xl font-bold text-[#003087]">What We Built</p>
+            </div>
+
+            <div class="space-y-4">
+              <div class="transform hover:scale-105 transition-transform">
+                <div class="text-2xl font-bold text-gray-600">
+                  Regional Network
+                </div>
+              </div>
+
+              <div class="transform hover:scale-105 transition-transform">
+                <div class="text-2xl font-bold text-gray-600">Days to Book</div>
+              </div>
+
+              <div class="transform hover:scale-105 transition-transform">
+                <div class="text-2xl font-bold text-gray-600">
+                  Limited Hours
+                </div>
+              </div>
+
+              <div class="transform hover:scale-105 transition-transform">
+                <div class="text-2xl font-bold text-gray-600">400K Served</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Evolution Side -->
+          <div class="text-center space-y-6">
+            <div>
+              <h3
+                class="text-sm font-bold text-[#cc9933] uppercase tracking-wider mb-2"
+              >
+                Evolution
+              </h3>
+              <p class="text-xl font-bold text-[#003087]">
+                What We're Building
+              </p>
+            </div>
+
+            <div class="space-y-4">
+              <div
+                class="transform hover:scale-110 transition-all hover:text-[#cc9933]"
+              >
+                <div class="text-2xl font-bold text-[#003087]">
+                  Nationwide Network
+                </div>
+              </div>
+
+              <div
+                class="transform hover:scale-110 transition-all hover:text-[#cc9933]"
+              >
+                <div class="text-2xl font-bold text-[#003087]">
+                  Book in Seconds
+                </div>
+              </div>
+
+              <div
+                class="transform hover:scale-110 transition-all hover:text-[#cc9933]"
+              >
+                <div class="text-2xl font-bold text-[#003087]">
+                  24/7 Availability
+                </div>
+              </div>
+
+              <div
+                class="transform hover:scale-110 transition-all hover:text-[#cc9933]"
+              >
+                <div
+                  class="text-3xl font-bold bg-gradient-to-r from-[#cc9933] to-yellow-400 bg-clip-text text-transparent"
+                >
+                  90 Million Ready
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom accent -->
+        <div
+          class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-gray-300 via-[#cc9933] to-yellow-400"
+        >
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- THE COMPLETE EVOLUTION STORY -->
+  <!-- STREAMLINED JOURNEY SECTION -->
   <section class="py-20 px-6 bg-white">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-16">
@@ -100,655 +194,397 @@ const showPatientHeader = true;
           class="text-3xl md:text-4xl font-bold text-[#003087] mb-4"
           data-aos="fade-up"
         >
-          The Evolution Journey: Foundation → Evolution → Mission
+          The Innovation Story: From AnciCare to USRad
         </h2>
         <p
           class="text-lg text-[#003087]/80 max-w-3xl mx-auto"
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          How we built healthcare innovation, achieved institutional validation,
-          and are now expanding our proven model to serve millions
+          How we built a revolutionary healthcare company and are now expanding
+          that proven model to serve 90 million Americans
         </p>
       </div>
 
-      <!-- Chapter 1: Foundation -->
-      <div class="mb-20">
-        <div class="text-center mb-12" data-aos="fade-up">
-          <div
-            class="inline-flex items-center gap-3 bg-[#f0f4f9] rounded-full px-6 py-3"
-          >
-            <span class="text-5xl">🏛️</span>
-            <h3 class="text-2xl font-bold text-[#003087]">
-              Chapter 1: The Foundation (1994-2002)
-            </h3>
+      <!-- Combined Timeline & Impact Visual -->
+      <div class="grid lg:grid-cols-3 gap-8 mb-16">
+        <!-- Left: Timeline Steps -->
+        <div class="lg:col-span-2 space-y-6" data-aos="fade-right">
+          <!-- Step 1 -->
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0">
+              <div
+                class="w-12 h-12 bg-[#cc9933] rounded-full flex items-center justify-center text-white font-bold text-lg"
+              >
+                1
+              </div>
+            </div>
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold text-[#003087] mb-2">
+                Created AnciCare (1994)
+              </h3>
+              <p class="text-[#003087]/80">
+                Founded America's first comprehensive managed care imaging
+                network when traditional healthcare couldn't solve the cost and
+                access crisis.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0">
+              <div
+                class="w-12 h-12 bg-[#cc9933] rounded-full flex items-center justify-center text-white font-bold text-lg"
+              >
+                2
+              </div>
+            </div>
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold text-[#003087] mb-2">
+                Revolutionary Results
+              </h3>
+              <p class="text-[#003087]/80">
+                Achieved 50%+ cost savings while reducing wait times from 10-14
+                days to 2-3 days—transforming the patient experience.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0">
+              <div
+                class="w-12 h-12 bg-[#cc9933] rounded-full flex items-center justify-center text-white font-bold text-lg"
+              >
+                3
+              </div>
+            </div>
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold text-[#003087] mb-2">
+                Massive Scale Impact
+              </h3>
+              <p class="text-[#003087]/80">
+                Delivered $200M+ in direct medical savings and $200M+ in
+                productivity savings through faster return-to-work.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="flex gap-4 items-start">
+            <div class="flex-shrink-0">
+              <div
+                class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center text-white font-bold text-lg"
+              >
+                4
+              </div>
+            </div>
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold text-[#003087] mb-2">
+                CorVel Acquisition (2002)
+              </h3>
+              <p class="text-[#003087]/80">
+                CorVel Corporation (NYSE: CVL) acquired AnciCare, validating our
+                model at enterprise scale. They continue operating it
+                successfully 20+ years later.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <!-- LEFT: Foundation Timeline -->
-          <div data-aos="fade-right">
-            <InnovationTimeline
-              steps={[
-                {
-                  number: "1",
-                  title: "Pioneered the Model (1994)",
-                  description:
-                    "Created America's first managed care imaging network when healthcare needed innovation most.",
-                },
-                {
-                  number: "2",
-                  title: "Revolutionary Results",
-                  description:
-                    "Achieved 50%+ cost savings while reducing wait times from 10-14 days to 2-3 days.",
-                },
-                {
-                  number: "3",
-                  title: "Institutional Excellence",
-                  description:
-                    "Built with financial discipline that attracted EY financial review and Greenberg Traurig legal counsel.",
-                },
-                {
-                  number: "4",
-                  title: "Successful Exit (2002)",
-                  description:
-                    "CorVel Corporation (NYSE: CVL) acquired AnciCare, validating our model at enterprise scale.",
-                },
-              ]}
-            />
+        <!-- Right: Impact Metrics -->
+        <div
+          class="bg-gradient-to-br from-[#fefbf5] to-[#f8f5e8] rounded-2xl p-6 h-fit"
+          data-aos="fade-left"
+        >
+          <h3 class="text-xl font-bold text-[#003087] mb-6 text-center">
+            Total Impact Delivered
+          </h3>
+
+          <!-- Savings Bars -->
+          <div class="space-y-4 mb-6">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-[#003087]">Medical Imaging Savings</span>
+                <span class="text-[#cc9933] font-bold">$200M+</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3">
+                <div
+                  class="bg-gradient-to-r from-[#cc9933] to-yellow-400 h-3 rounded-full"
+                  style="width: 50%"
+                >
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-[#003087]">Productivity Savings</span>
+                <span class="text-[#cc9933] font-bold">$200M+</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3">
+                <div
+                  class="bg-gradient-to-r from-[#cc9933] to-yellow-400 h-3 rounded-full"
+                  style="width: 50%"
+                >
+                </div>
+              </div>
+            </div>
           </div>
 
-          <!-- RIGHT: Impact Visualization -->
-          <div data-aos="fade-left">
-            <ImpactBarGraph
-              title="Foundation Era Impact"
-              metrics={[
-                {
-                  label: "Medical Imaging Savings",
-                  value: "$200 Million+",
-                  percent: 50,
-                },
-                {
-                  label: "Productivity Savings",
-                  value: "$200 Million+",
-                  percent: 50,
-                },
-                {
-                  label: "Total Value Created",
-                  value: "$400 Million+",
-                  percent: 100,
-                  highlight: true,
-                },
-              ]}
-            />
+          <!-- Total Value -->
+          <div
+            class="bg-white rounded-xl p-4 text-center border-2 border-[#cc9933]"
+          >
+            <p class="text-sm text-[#003087] mb-1">Total Value Created</p>
+            <p class="text-3xl font-bold text-[#cc9933]">$400 Million+</p>
+          </div>
+
+          <!-- Key Metrics Grid -->
+          <div class="grid grid-cols-2 gap-4 mt-6">
+            <div class="text-center">
+              <p class="text-2xl font-bold text-[#003087]">2-3 Days</p>
+              <p class="text-xs text-[#003087]/70">Avg. Wait Time</p>
+            </div>
+            <div class="text-center">
+              <p class="text-2xl font-bold text-[#003087]">50%+</p>
+              <p class="text-xs text-[#003087]/70">Cost Savings</p>
+            </div>
+            <div class="text-center">
+              <p class="text-2xl font-bold text-[#003087]">100%</p>
+              <p class="text-xs text-[#003087]/70">Quality Guarantee</p>
+            </div>
+            <div class="text-center">
+              <p class="text-2xl font-bold text-[#003087]">1,200+</p>
+              <p class="text-xs text-[#003087]/70">Network Centers</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- PROFESSIONAL VALIDATION SECTION -->
+      <!-- Evolution to Today -->
       <div
-        class="bg-gradient-to-br from-[#003087]/5 to-[#cc9933]/5 rounded-3xl p-8 md:p-12 shadow-xl mb-20"
+        class="bg-gradient-to-r from-[#003087] to-[#002266] rounded-2xl p-8 text-white text-center"
         data-aos="fade-up"
       >
-        <h3
-          class="text-2xl md:text-3xl font-bold text-[#003087] mb-8 text-center"
-        >
-          Validated by the Best in Business
-        </h3>
-
-        <div class="grid md:grid-cols-2 gap-8">
-          <div class="bg-white rounded-2xl p-8">
-            <div class="mb-6">
-              <h4 class="text-xl font-bold text-[#003087] mb-2">
-                Big Four Financial Excellence
-              </h4>
-              <p class="text-sm text-[#cc9933] font-semibold">
-                Ernst & Young (EY)
-              </p>
-            </div>
-            <p class="text-[#003087]/80 mb-4">
-              Our acquisition process included comprehensive financial review by
-              EY, one of the world's Big Four accounting firms. This level of
-              institutional scrutiny is rare in healthcare and validates our
-              business fundamentals.
+        <h3 class="text-2xl font-bold mb-4">Now: The Digital Evolution</h3>
+        <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div>
+            <div class="text-4xl mb-2">⚡</div>
+            <h4 class="font-bold mb-1">2025 Launch</h4>
+            <p class="text-sm opacity-90">
+              Same proven model, digitally enhanced
             </p>
-            <div class="bg-[#f0f4f9] rounded-lg p-4">
-              <p class="text-sm text-[#003087]">
-                <strong>What This Means:</strong> Our financial model, operational
-                metrics, and business practices met the rigorous standards required
-                for a successful enterprise acquisition.
-              </p>
-            </div>
           </div>
-
-          <div class="bg-white rounded-2xl p-8">
-            <div class="mb-6">
-              <h4 class="text-xl font-bold text-[#003087] mb-2">
-                First-Tier Legal Excellence
-              </h4>
-              <p class="text-sm text-[#cc9933] font-semibold">
-                Greenberg Traurig LLP
-              </p>
-            </div>
-            <p class="text-[#003087]/80 mb-4">
-              Greenberg Traurig didn't just guide our exit—they were our trusted
-              legal counsel for several years, helping us navigate the complex
-              healthcare marketplace. Their healthcare division's deep expertise
-              ensured not only a successful exit but also sustainable growth
-              throughout our journey.
-            </p>
-            <div class="bg-[#f0f4f9] rounded-lg p-4">
-              <p class="text-sm text-[#003087]">
-                <strong>The Validation:</strong> When a premier law firm partners
-                with you for years and successfully guides your exit, it demonstrates
-                long-term institutional confidence in your model's viability and
-                compliance.
-              </p>
-            </div>
+          <div>
+            <div class="text-4xl mb-2">🌐</div>
+            <h4 class="font-bold mb-1">Nationwide Scale</h4>
+            <p class="text-sm opacity-90">1,500+ centers competing for you</p>
           </div>
-        </div>
-
-        <div class="text-center mt-8">
-          <p class="text-lg font-bold text-[#003087]">
-            "We're the only imaging company with this level of professional
-            validation."
-          </p>
-          <p class="text-sm text-[#003087]/70 mt-2">
-            Our model continues operating successfully 20+ years
-            post-acquisition
-          </p>
-        </div>
-      </div>
-
-      <!-- Chapter 2: Evolution -->
-      <div class="mb-20">
-        <div class="text-center mb-12" data-aos="fade-up">
-          <div
-            class="inline-flex items-center gap-3 bg-gradient-to-r from-[#f0f4f9] to-[#fefbf5] rounded-full px-6 py-3"
-          >
-            <span class="text-5xl">⚡</span>
-            <h3 class="text-2xl font-bold text-[#003087]">
-              Chapter 2: The Evolution (2025)
-            </h3>
-          </div>
-        </div>
-
-        <div
-          class="bg-white rounded-3xl p-8 md:p-12 shadow-lg"
-          data-aos="fade-up"
-        >
-          <p class="text-lg text-[#003087] mb-8 text-center">
-            We're not just replicating what worked—we're enhancing it with
-            modern capabilities that allow us to serve at unprecedented scale.
-          </p>
-
-          <div class="grid md:grid-cols-3 gap-8 mb-8">
-            <div class="text-center">
-              <div class="text-4xl font-bold text-[#cc9933] mb-2">225x</div>
-              <div class="text-lg font-semibold text-[#003087] mb-2">
-                Market Expansion
-              </div>
-              <p class="text-sm text-[#003087]/70">400K → 90M Americans</p>
-            </div>
-            <div class="text-center">
-              <div class="text-4xl font-bold text-[#cc9933] mb-2">1000x</div>
-              <div class="text-lg font-semibold text-[#003087] mb-2">
-                Booking Speed
-              </div>
-              <p class="text-sm text-[#003087]/70">Hours → Seconds</p>
-            </div>
-            <div class="text-center">
-              <div class="text-4xl font-bold text-[#cc9933] mb-2">24/7</div>
-              <div class="text-lg font-semibold text-[#003087] mb-2">
-                Accessibility
-              </div>
-              <p class="text-sm text-[#003087]/70">Always available</p>
-            </div>
-          </div>
-
-          <div class="bg-[#f0f4f9] rounded-2xl p-6">
-            <h4 class="font-bold text-[#003087] mb-4 text-center">
-              Same DNA + Modern Capabilities = Exponential Impact
-            </h4>
-            <!-- Better aligned version -->
-            <div class="grid md:grid-cols-2 gap-8 mt-8">
-              <div class="bg-[#f0f4f9] rounded-xl p-6">
-                <h5 class="font-semibold text-[#003087] mb-3 text-center">
-                  Foundation Elements
-                </h5>
-                <ul class="text-sm text-[#003087]/80 space-y-2">
-                  <li class="flex items-start">
-                    <span class="text-[#003087] mr-2">✓</span>
-                    <span>Managed care expertise</span>
-                  </li>
-                  <li class="flex items-start">
-                    <span class="text-[#003087] mr-2">✓</span>
-                    <span>Quality guarantees</span>
-                  </li>
-                  <li class="flex items-start">
-                    <span class="text-[#003087] mr-2">✓</span>
-                    <span>Transparent pricing</span>
-                  </li>
-                  <li class="flex items-start">
-                    <span class="text-[#003087] mr-2">✓</span>
-                    <span>Patient-first approach</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="bg-[#fefbf5] rounded-xl p-6">
-                <h5 class="font-semibold text-[#cc9933] mb-3 text-center">
-                  Evolution Enhancements
-                </h5>
-                <ul class="text-sm text-[#003087]/80 space-y-2">
-                  <li class="flex items-start">
-                    <span class="text-[#cc9933] mr-2">⚡</span>
-                    <span>Digital-first platform</span>
-                  </li>
-                  <li class="flex items-start">
-                    <span class="text-[#cc9933] mr-2">⚡</span>
-                    <span>Real-time booking</span>
-                  </li>
-                  <li class="flex items-start">
-                    <span class="text-[#cc9933] mr-2">⚡</span>
-                    <span>Nationwide scale</span>
-                  </li>
-                  <li class="flex items-start">
-                    <span class="text-[#cc9933] mr-2">⚡</span>
-                    <span>24/7 accessibility</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Chapter 3: Mission -->
-      <div>
-        <div class="text-center mb-12" data-aos="fade-up">
-          <div
-            class="inline-flex items-center gap-3 bg-gradient-to-r from-[#cc9933]/10 to-[#cc9933]/5 rounded-full px-6 py-3"
-          >
-            <span class="text-5xl">🚀</span>
-            <h3 class="text-2xl font-bold text-[#003087]">
-              Chapter 3: The Mission (Now)
-            </h3>
-          </div>
-        </div>
-
-        <div
-          class="bg-gradient-to-br from-[#003087] to-[#002266] rounded-3xl p-8 md:p-12 text-white"
-          data-aos="fade-up"
-        >
-          <h4 class="text-2xl font-bold mb-6 text-center">
-            Serving the 90 Million Americans Who Need Us Most
-          </h4>
-          <p class="text-lg mb-8 text-center opacity-90">
-            Our proven model is now focused on the uninsured and
-            underinsured—those who need quality, affordable imaging but have
-            been locked out of the system.
-          </p>
-
-          <div class="grid md:grid-cols-3 gap-6">
-            <div class="bg-white/10 rounded-xl p-6 text-center">
-              <div class="text-3xl mb-3">🎯</div>
-              <h5 class="font-bold mb-2">Clear Mission</h5>
-              <p class="text-sm opacity-90">
-                Bring proven excellence to those who need it most
-              </p>
-            </div>
-            <div class="bg-white/10 rounded-xl p-6 text-center">
-              <div class="text-3xl mb-3">💰</div>
-              <h5 class="font-bold mb-2">Transparent Pricing</h5>
-              <p class="text-sm opacity-90">
-                No insurance games, no surprise bills
-              </p>
-            </div>
-            <div class="bg-white/10 rounded-xl p-6 text-center">
-              <div class="text-3xl mb-3">🏆</div>
-              <h5 class="font-bold mb-2">Proven Quality</h5>
-              <p class="text-sm opacity-90">
-                Same standards that earned our exit
-              </p>
-            </div>
+          <div>
+            <div class="text-4xl mb-2">🚀</div>
+            <h4 class="font-bold mb-1">90M Americans</h4>
+            <p class="text-sm opacity-90">Ready to serve the underserved</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- BUSINESS TRANSFORMATION STORY -->
-  <section class="bg-[#f0f4f9] py-20 px-6">
-    <div class="max-w-7xl mx-auto">
-      <div
-        class="bg-white rounded-3xl p-8 md:p-12 shadow-xl"
-        data-aos="fade-up"
-      >
-        <!-- Banner at the top -->
-        <div class="text-center mb-10">
-          <div
-            class="inline-flex items-center gap-2 bg-[#cc9933] text-white px-6 py-3 rounded-full text-sm font-bold"
-          >
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clip-rule="evenodd"></path>
-            </svg>
-            PROVEN FOUNDATION + MODERN EVOLUTION = EXPANDED IMPACT
-          </div>
-        </div>
-
-        <h3
-          class="text-2xl md:text-3xl font-bold text-[#003087] mb-12 text-center"
-        >
-          How We Transformed Healthcare: Then and Now
-        </h3>
-
-        <!-- Two Column Grid with Better Visual Balance -->
-        <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
-          <!-- Left Column - Problems Solved -->
-          <div
-            class="bg-gradient-to-br from-[#f8f5e8] to-[#fefbf5] rounded-2xl p-8"
-          >
-            <div class="flex items-center mb-6">
-              <div
-                class="w-12 h-12 bg-[#003087] rounded-xl flex items-center justify-center mr-4"
-              >
-                <span class="text-2xl text-white">🏛️</span>
-              </div>
-              <h4 class="text-xl font-bold text-[#003087]">
-                Problems We Solved<br /><span
-                  class="text-sm font-normal text-[#003087]/70"
-                  >(1994-2002)</span>
-              </h4>
-            </div>
-
-            <div class="space-y-4">
-              <div class="flex items-start">
-                <span class="text-[#cc9933] mr-3 mt-1">•</span>
-                <p class="text-[#003087]">
-                  <span class="font-semibold">10-14 day wait times</span> → 2-3 days
-                </p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-[#cc9933] mr-3 mt-1">•</span>
-                <p class="text-[#003087]">
-                  <span class="font-semibold">$1,000+ imaging costs</span> → 50%+
-                  savings
-                </p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-[#cc9933] mr-3 mt-1">•</span>
-                <p class="text-[#003087]">
-                  <span class="font-semibold">Complex referrals</span> → Direct access
-                </p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-[#cc9933] mr-3 mt-1">•</span>
-                <p class="text-[#003087]">
-                  <span class="font-semibold">Quality uncertainty</span> → Guaranteed
-                  standards
-                </p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-[#cc9933] mr-3 mt-1">•</span>
-                <p class="text-[#003087]">
-                  <span class="font-semibold">Hidden costs</span> → Transparent pricing
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right Column - Evolution -->
-          <div
-            class="bg-gradient-to-br from-[#e8ecf4] to-[#f0f4f9] rounded-2xl p-8"
-          >
-            <div class="flex items-center mb-6">
-              <div
-                class="w-12 h-12 bg-[#cc9933] rounded-xl flex items-center justify-center mr-4"
-              >
-                <span class="text-2xl text-white">⚡</span>
-              </div>
-              <h4 class="text-xl font-bold text-[#003087]">
-                Evolution for Today<br /><span
-                  class="text-sm font-normal text-[#003087]/70">(2025)</span>
-              </h4>
-            </div>
-
-            <div class="space-y-4">
-              <div class="flex items-start">
-                <span class="text-[#cc9933] mr-3 mt-1">•</span>
-                <p class="text-[#003087]">
-                  <span class="font-semibold">Phone booking</span> → 60-second digital
-                </p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-[#cc9933] mr-3 mt-1">•</span>
-                <p class="text-[#003087]">
-                  <span class="font-semibold">Business hours</span> → 24/7 access
-                </p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-[#cc9933] mr-3 mt-1">•</span>
-                <p class="text-[#003087]">
-                  <span class="font-semibold">Regional</span> → Nationwide coverage
-                </p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-[#cc9933] mr-3 mt-1">•</span>
-                <p class="text-[#003087]">
-                  <span class="font-semibold">Thousands served</span> → Millions
-                  ready
-                </p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-[#cc9933] mr-3 mt-1">•</span>
-                <p class="text-[#003087]">
-                  <span class="font-semibold">Same proven model</span> → Digitally
-                  enhanced
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Summary Statement -->
-        <div class="mt-10 text-center">
-          <p class="text-lg text-[#003087]/80 max-w-3xl mx-auto">
-            The same innovative approach that revolutionized imaging access 20
-            years ago, now enhanced with digital capabilities to serve
-            exponentially more Americans.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOUNDERS SECTION - Keep existing but enhanced intro -->
+  <!-- FOUNDERS SECTION - Keep as is -->
   <FoundersSection />
 
-  <!-- VISION & VALUES - EVOLUTION FOCUSED -->
+  <!-- STREAMLINED VALUES -->
   <section class="py-20 px-6 bg-white">
     <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <h2
           class="text-3xl md:text-4xl font-bold text-[#003087] mb-4"
           data-aos="fade-up"
         >
           Our Vision & Values
-          <span class="text-lg font-normal text-[#003087]/70 block mt-2">
-            Same values, evolved delivery, expanded mission
-          </span>
         </h2>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-16">
-        <!-- Vision Column -->
-        <div class="space-y-8" data-aos="fade-right">
-          <h3 class="text-2xl md:text-3xl font-bold text-[#003087] mb-6">
-            From Proven Success to Scaled Impact
-          </h3>
-
-          <div class="bg-[#f0f4f9] rounded-2xl p-6">
-            <p class="text-lg leading-relaxed text-[#003087]">
-              We're not experimenting—we're <strong
-                >evolving proven success</strong
-              >. After building AnciCare into a model so effective that it
-              achieved Big Four validation and continues operating 20+ years
-              later, we're now bringing the same innovation to serve the 90
-              million Americans who deserve affordable, quality healthcare.
-            </p>
-          </div>
-
-          <div class="space-y-6">
-            <div class="flex items-start">
-              <div
-                class="bg-[#cc9933] text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm mr-4 flex-shrink-0 mt-1"
-              >
-                ✓
-              </div>
-              <div>
-                <h4 class="font-bold text-[#003087] mb-1">
-                  Validated Excellence
-                </h4>
-                <p class="text-[#003087]/80">
-                  EY financial review and successful exit prove our model
-                </p>
-              </div>
-            </div>
-            <div class="flex items-start">
-              <div
-                class="bg-[#cc9933] text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm mr-4 flex-shrink-0 mt-1"
-              >
-                ⚡
-              </div>
-              <div>
-                <h4 class="font-bold text-[#003087] mb-1">Digital Evolution</h4>
-                <p class="text-[#003087]/80">
-                  Same proven approach, enhanced with modern technology
-                </p>
-              </div>
-            </div>
-            <div class="flex items-start">
-              <div
-                class="bg-[#cc9933] text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm mr-4 flex-shrink-0 mt-1"
-              >
-                🚀
-              </div>
-              <div>
-                <h4 class="font-bold text-[#003087] mb-1">Expanded Mission</h4>
-                <p class="text-[#003087]/80">
-                  From 400,000 to 90 million Americans who need access
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Values Column - Enhanced with Evolution -->
-        <div class="space-y-8" data-aos="fade-left">
-          <h3 class="text-2xl md:text-3xl font-bold text-[#003087] mb-6">
-            Values That Evolve With Purpose
-          </h3>
-
-          <div class="space-y-6">
-            <div
-              class="bg-white border-2 border-[#e6c378] rounded-xl p-6 hover:shadow-lg transition-shadow"
-            >
-              <div class="flex items-center mb-4">
-                <div
-                  class="w-12 h-12 bg-[#003087] rounded-xl flex items-center justify-center text-white text-xl font-bold mr-4"
-                >
-                  T
-                </div>
-                <div>
-                  <h4 class="text-xl font-bold text-[#003087]">Transparency</h4>
-                  <p class="text-sm text-[#cc9933] font-medium">
-                    Pioneered then, perfected now
-                  </p>
-                </div>
-              </div>
-              <p class="text-[#003087]/90">
-                We pioneered transparent pricing with AnciCare. Now enhanced
-                with real-time digital visibility, our pricing model remains the
-                industry standard others aspire to match.
-              </p>
-            </div>
-
-            <div
-              class="bg-white border-2 border-[#e6c378] rounded-xl p-6 hover:shadow-lg transition-shadow"
-            >
-              <div class="flex items-center mb-4">
-                <div
-                  class="w-12 h-12 bg-[#003087] rounded-xl flex items-center justify-center text-white text-xl font-bold mr-4"
-                >
-                  A
-                </div>
-                <div>
-                  <h4 class="text-xl font-bold text-[#003087]">
-                    Accessibility
-                  </h4>
-                  <p class="text-sm text-[#cc9933] font-medium">
-                    $400M+ in proven savings, now for everyone
-                  </p>
-                </div>
-              </div>
-              <p class="text-[#003087]/90">
-                Our managed care model delivered verified savings while
-                maintaining quality. Now evolved with 24/7 digital access,
-                bringing those same savings to 90 million Americans.
-              </p>
-            </div>
-
-            <div
-              class="bg-white border-2 border-[#e6c378] rounded-xl p-6 hover:shadow-lg transition-shadow"
-            >
-              <div class="flex items-center mb-4">
-                <div
-                  class="w-12 h-12 bg-[#003087] rounded-xl flex items-center justify-center text-white text-xl font-bold mr-4"
-                >
-                  Q
-                </div>
-                <div>
-                  <h4 class="text-xl font-bold text-[#003087]">Quality</h4>
-                  <p class="text-sm text-[#cc9933] font-medium">
-                    Big Four validated, patient proven
-                  </p>
-                </div>
-              </div>
-              <p class="text-[#003087]/90">
-                Our quality standards passed EY financial review and earned
-                successful acquisition. The same excellence that served 400,000+
-                patients continues today, enhanced for scale.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Vision Quote - Evolution Enhanced -->
-      <div class="mt-16 text-center" data-aos="fade-up">
-        <div
-          class="bg-gradient-to-r from-[#f8f2e1] to-[#fcf9f0] rounded-3xl p-8 md:p-12 shadow-xl"
+        <p
+          class="text-lg text-[#003087]/70"
+          data-aos="fade-up"
+          data-aos-delay="100"
         >
-          <div class="max-w-4xl mx-auto">
-            <div class="text-6xl text-[#cc9933] opacity-30 mb-4">"</div>
-            <p
-              class="text-xl md:text-2xl italic text-[#003087] leading-relaxed mb-6"
-            >
-              We're not just improving medical imaging—we're evolving the proven
-              AnciCare model that transformed healthcare for 400,000+ patients.
-              With Big Four validation and 20+ years of continued success, we're
-              now expanding that excellence to reach 90 million Americans.
-            </p>
-            <div
-              class="flex items-center justify-center gap-8 text-sm text-[#003087]/70"
-            >
-              <span>✓ Foundation: 400,000+ served</span>
-              <span>⚡ Evolution: Digital scale</span>
-              <span>🚀 Mission: 90 million to go</span>
+          From proven foundation to digital revolution—making quality imaging
+          affordable for everyone
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12">
+        <!-- Left: Vision -->
+        <div data-aos="fade-right">
+          <h3 class="text-2xl font-bold text-[#003087] mb-6">
+            Expanding Proven Innovation
+          </h3>
+
+          <p class="text-lg text-[#003087]/80 mb-8">
+            We're not experimenting—we're <strong class="text-[#003087]"
+              >expanding proven success</strong
+            >. After building AnciCare into a model so effective it was acquired
+            by a NYSE-listed company and continues operating successfully today,
+            we're now bringing the same innovation to serve 90 million Americans
+            who deserve affordable, quality healthcare.
+          </p>
+
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div
+                class="w-10 h-10 bg-[#cc9933] rounded-full flex items-center justify-center flex-shrink-0"
+              >
+                <svg
+                  class="w-5 h-5 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-[#003087]">Validated Model</h4>
+                <p class="text-sm text-[#003087]/70">
+                  Successful acquisition proved the model works
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div
+                class="w-10 h-10 bg-[#cc9933] rounded-full flex items-center justify-center flex-shrink-0"
+              >
+                <svg
+                  class="w-5 h-5 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-[#003087]">Massive Impact</h4>
+                <p class="text-sm text-[#003087]/70">
+                  From hundreds of thousands to 90 million Americans
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div
+                class="w-10 h-10 bg-[#cc9933] rounded-full flex items-center justify-center flex-shrink-0"
+              >
+                <svg
+                  class="w-5 h-5 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-[#003087]">Proven Results</h4>
+                <p class="text-sm text-[#003087]/70">
+                  $400M+ in delivered savings proves our approach
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Values -->
+        <div class="space-y-6" data-aos="fade-left">
+          <h3 class="text-2xl font-bold text-[#003087]">
+            Values That Deliver Results
+          </h3>
+
+          <!-- Transparency -->
+          <div
+            class="bg-gradient-to-br from-[#fefbf5] to-white rounded-2xl p-6 border border-[#e6c378]/20 hover:shadow-lg transition-shadow"
+          >
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-[#003087] rounded-xl flex items-center justify-center text-white text-xl font-bold flex-shrink-0"
+              >
+                T
+              </div>
+              <div class="flex-grow">
+                <h4 class="text-xl font-bold text-[#003087] mb-1">
+                  Transparency
+                </h4>
+                <p class="text-sm text-[#cc9933] font-medium mb-3">
+                  Proven through 400,000+ interactions
+                </p>
+                <p class="text-sm text-[#003087]/80">
+                  We pioneered transparent pricing in medical imaging. Our
+                  all-inclusive model eliminated surprise billing and became the
+                  industry standard—and now our nationwide network brings you
+                  real-time competitive pricing from 1,500+ centers, ensuring
+                  you always get the best value.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accessibility -->
+          <div
+            class="bg-gradient-to-br from-[#f0f4f9] to-white rounded-2xl p-6 border border-[#003087]/10 hover:shadow-lg transition-shadow"
+          >
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-[#003087] rounded-xl flex items-center justify-center text-white text-xl font-bold flex-shrink-0"
+              >
+                A
+              </div>
+              <div class="flex-grow">
+                <h4 class="text-xl font-bold text-[#003087] mb-1">
+                  Accessibility
+                </h4>
+                <p class="text-sm text-[#cc9933] font-medium mb-3">
+                  $400 Million+ in savings delivered
+                </p>
+                <p class="text-sm text-[#003087]/80">
+                  We proved that premium imaging can be affordable. Our managed
+                  care model delivered 50%+ savings while maintaining the
+                  highest quality standards—a formula still in use today.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quality -->
+          <div
+            class="bg-gradient-to-br from-[#fefbf5] to-white rounded-2xl p-6 border border-[#e6c378]/20 hover:shadow-lg transition-shadow"
+          >
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-[#003087] rounded-xl flex items-center justify-center text-white text-xl font-bold flex-shrink-0"
+              >
+                Q
+              </div>
+              <div class="flex-grow">
+                <h4 class="text-xl font-bold text-[#003087] mb-1">Quality</h4>
+                <p class="text-sm text-[#cc9933] font-medium mb-3">
+                  100% quality guarantee
+                </p>
+                <p class="text-sm text-[#003087]/80">
+                  We were first to offer a quality guarantee in medical imaging.
+                  Our network maintained consistent excellence that earned
+                  Fortune 500 trust and set the industry standard—and now we
+                  extend that same guarantee to you.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -756,44 +592,251 @@ const showPatientHeader = true;
     </div>
   </section>
 
-  <!-- CALL TO ACTION - EVOLUTION FOCUSED -->
+  <!-- SIMPLIFIED CTA -->
   <section
-    class="py-20 px-6 bg-gradient-to-br from-[#003087] to-[#002266] text-white"
+    class="py-20 px-6 bg-gradient-to-br from-[#003087] to-[#002266] text-white relative overflow-hidden"
   >
-    <div class="max-w-4xl mx-auto text-center">
+    <!-- Background Elements -->
+    <div class="absolute inset-0">
+      <!-- Subtle grid pattern -->
       <div
-        class="bg-white/10 backdrop-blur-md rounded-full px-6 py-2 border border-white/20 inline-block mb-6"
+        class="absolute inset-0 opacity-5"
+        style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 1px);
+        background-size: 40px 40px;"
       >
-        <span class="text-[#cc9933] font-bold text-sm">✓ PROVEN PAST</span>
-        <span class="text-white text-sm ml-2">⚡ POWERFUL PRESENT</span>
-        <span class="text-white text-sm ml-2">🚀 SCALED FUTURE</span>
+      </div>
+      <!-- Glow effects -->
+      <div
+        class="absolute top-20 left-20 w-96 h-96 bg-[#cc9933] rounded-full filter blur-3xl opacity-10"
+      >
+      </div>
+      <div
+        class="absolute bottom-20 right-20 w-96 h-96 bg-white rounded-full filter blur-3xl opacity-5"
+      >
+      </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+      <!-- Impact Numbers Animation -->
+      <div
+        class="grid grid-cols-3 gap-8 max-w-3xl mx-auto mb-10"
+        data-aos="fade-down"
+      >
+        <div class="text-center">
+          <div class="text-4xl md:text-5xl font-bold text-[#cc9933] mb-2">
+            $400M+
+          </div>
+          <div class="text-sm opacity-80">Saved for Patients</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl md:text-5xl font-bold text-white mb-2">
+            1,500+
+          </div>
+          <div class="text-sm opacity-80">Centers Competing</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl md:text-5xl font-bold text-[#cc9933] mb-2">
+            24/7
+          </div>
+          <div class="text-sm opacity-80">Instant Access</div>
+        </div>
       </div>
 
-      <h2 class="text-3xl md:text-4xl font-bold mb-6">
-        Experience the Evolution of Healthcare
+      <!-- Main Message -->
+      <h2
+        class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 whitespace-nowrap"
+        data-aos="fade-up"
+      >
+        The Future of <span
+          class="bg-gradient-to-r from-[#cc9933] to-yellow-400 bg-clip-text text-transparent"
+          >Affordable</span
+        > Medical Imaging is Here
       </h2>
-      <p class="text-lg md:text-xl mb-8 opacity-90">
-        Join the healthcare revolution that started with 400,000 patients,
-        earned Big Four validation, and is now evolving to serve millions. Same
-        proven excellence, enhanced for the digital age.
+
+      <!-- Transformation Visual -->
+      <div
+        class="flex items-center justify-center gap-4 mb-8"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="flex items-center gap-2">
+          <span class="text-lg opacity-70">Traditional Healthcare</span>
+          <div
+            class="w-12 h-12 bg-gray-600/30 rounded-lg flex items-center justify-center"
+          >
+            <svg
+              class="w-6 h-6 text-gray-400"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </div>
+        </div>
+
+        <svg
+          class="w-8 h-8 text-[#cc9933] animate-pulse"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+
+        <div class="flex items-center gap-2">
+          <div
+            class="w-12 h-12 bg-gradient-to-br from-[#cc9933] to-yellow-400 rounded-lg flex items-center justify-center shadow-lg"
+          >
+            <svg
+              class="w-6 h-6 text-white"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <span class="text-lg font-semibold">Your USRad Experience</span>
+        </div>
+      </div>
+
+      <p
+        class="text-xl md:text-2xl mb-10 opacity-90 max-w-3xl mx-auto"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        Skip the wait. Skip the confusion. Skip the surprise bills.
+        <span class="text-[#cc9933] font-semibold"
+          >Get world-class imaging on your schedule, at your price.</span
+        >
       </p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <!-- Feature Pills -->
+      <div
+        class="flex flex-wrap justify-center gap-3 mb-10"
+        data-aos="fade-up"
+        data-aos-delay="250"
+      >
+        <div
+          class="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-sm"
+        >
+          ✓ Book in 60 seconds
+        </div>
+        <div
+          class="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-sm"
+        >
+          ✓ Appointments this week
+        </div>
+        <div
+          class="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-sm"
+        >
+          ✓ Save up to 70%
+        </div>
+        <div
+          class="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-sm"
+        >
+          ✓ 100% price guarantee
+        </div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div
+        class="flex flex-col sm:flex-row gap-4 justify-center items-center"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
         <a
           href="/search-test"
-          class="bg-[#cc9933] hover:bg-[#b8851f] text-white px-8 py-4 rounded-xl font-bold transition-colors inline-block text-center"
+          class="group relative bg-gradient-to-r from-[#cc9933] to-yellow-400 text-[#003087] px-10 py-5 rounded-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-2xl inline-flex items-center gap-3 overflow-hidden"
         >
-          Book Your Evolution Experience
+          <span class="relative z-10">Get Started Now</span>
+          <svg
+            class="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+          <!-- Shimmer effect -->
+          <div
+            class="absolute inset-0 -top-2 -bottom-2 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12 group-hover:animate-shimmer"
+          >
+          </div>
         </a>
         <a
           href="/how-it-works"
-          class="border-2 border-white text-white hover:bg-white hover:text-[#003087] px-8 py-4 rounded-xl font-bold transition-colors inline-block text-center"
+          class="group border-2 border-white text-white hover:bg-white hover:text-[#003087] px-10 py-5 rounded-xl font-bold transition-all duration-300 inline-flex items-center gap-2"
         >
-          See How We've Evolved
+          <span>See How It Works</span>
+          <svg
+            class="w-5 h-5 opacity-70 group-hover:opacity-100"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+            <path
+              fill-rule="evenodd"
+              d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+              clip-rule="evenodd"></path>
+          </svg>
         </a>
+      </div>
+
+      <!-- Social Proof -->
+      <div
+        class="mt-12 text-sm opacity-70"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        <div class="flex items-center justify-center gap-2">
+          <div class="flex -space-x-2">
+            <div
+              class="w-8 h-8 bg-gray-300 rounded-full border-2 border-[#003087]"
+            >
+            </div>
+            <div
+              class="w-8 h-8 bg-gray-400 rounded-full border-2 border-[#003087]"
+            >
+            </div>
+            <div
+              class="w-8 h-8 bg-gray-500 rounded-full border-2 border-[#003087]"
+            >
+            </div>
+            <div
+              class="w-8 h-8 bg-gray-600 rounded-full border-2 border-[#003087]"
+            >
+            </div>
+          </div>
+          <span>Join hundreds of thousands who've already saved</span>
+        </div>
       </div>
     </div>
   </section>
+
+  <style>
+    @keyframes shimmer {
+      to {
+        transform: translateX(100%) skewX(12deg);
+      }
+    }
+    .animate-shimmer {
+      animation: shimmer 3s infinite;
+    }
+  </style>
 </MainPatientLayout>
 
 <ChatbotToggle chatbotLabel="💬 Let's Talk" />
