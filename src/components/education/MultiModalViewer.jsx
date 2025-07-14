@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 const MultiModalViewer = () => {
   const [activeModality, setActiveModality] = useState('mri');
-  const [currentSlice, setCurrentSlice] = useState(15);
+  const [currentSlice, setCurrentSlice] = useState(12); // Start at middle slice
   const [isPlaying, setIsPlaying] = useState(false);
   const [playSpeed, setPlaySpeed] = useState(300);
   const [brightness, setBrightness] = useState(100);
@@ -12,21 +12,42 @@ const MultiModalViewer = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [lastY, setLastY] = useState(0);
   const [showAnnotations, setShowAnnotations] = useState(true);
+  const [imageLoadError, setImageLoadError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showComingSoon, setShowComingSoon] = useState(false);
   
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
   const containerRef = useRef(null);
+  const imageRef = useRef(null);
   
+  // Initialize image ref after component mounts
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !imageRef.current) {
+      imageRef.current = new window.Image();
+    }
+  }, []);
+  
+  // Updated modality config for real MRI images
   const modalityConfig = {
     mri: {
       name: 'MRI',
       fullName: 'Magnetic Resonance Imaging',
       icon: '🧠',
       color: 'blue',
-      totalSlices: 30,
-      description: 'No radiation, detailed soft tissue imaging',
+      totalSlices: 24, // Updated to match your actual slice count
+      description: 'T1-weighted brain imaging',
       benefits: ['No radiation exposure', 'Excellent soft tissue contrast', 'Multiple imaging planes'],
-      commonUses: ['Brain imaging', 'Spine evaluation', 'Joint assessment', 'Organ visualization']
+      commonUses: ['Brain imaging', 'Spine evaluation', 'Joint assessment', 'Organ visualization'],
+      imagePath: '/mri/patient_001/', // Path to your images
+      sequenceType: 'T1-weighted', // Added sequence type
+      scanInfo: {
+        field: '3T',
+        sliceThickness: '5mm',
+        acquisition: 'Axial',
+        source: 'TCIA DFCI-BCH-BWH',
+        status: 'Pediatric HGG Dataset'
+      }
     },
     ct: {
       name: 'CT',
@@ -60,280 +81,57 @@ const MultiModalViewer = () => {
     }
   };
   
+  // Anatomy data updated for real MRI slices
   const anatomyData = {
     mri: [
-      { name: "Superior Frontal Gyrus", function: "Executive functions, working memory", intensity: "High T1 signal" },
-      { name: "Middle Frontal Gyrus", function: "Cognitive control, attention", intensity: "Moderate T1 signal" },
-      { name: "Precentral Gyrus", function: "Primary motor control", intensity: "Gray matter signal" },
-      { name: "Corpus Callosum", function: "Interhemispheric communication", intensity: "White matter signal" },
-      { name: "Caudate Nucleus", function: "Movement, learning", intensity: "Deep gray matter" },
-      { name: "Putamen", function: "Motor control", intensity: "Deep gray matter" },
-      { name: "Thalamus", function: "Sensory relay", intensity: "Deep gray matter" },
-      { name: "Hippocampus", function: "Memory formation", intensity: "Gray matter" },
-      { name: "Amygdala", function: "Fear processing", intensity: "Gray matter" },
-      { name: "Midbrain", function: "Visual/auditory reflexes", intensity: "Brainstem signal" },
-      { name: "Pons", function: "Sleep, motor control", intensity: "Brainstem signal" },
-      { name: "Medulla", function: "Vital functions", intensity: "Brainstem signal" },
-      { name: "Cerebellum", function: "Motor coordination", intensity: "Cerebellar signal" },
-      { name: "Occipital Lobe", function: "Visual processing", intensity: "Cortical signal" },
-      { name: "Temporal Lobe", function: "Auditory processing", intensity: "Cortical signal" }
+      { name: "Vertex / Superior Parietal", function: "Top of cerebral hemispheres", intensity: "T1: Gray-white differentiation" },
+      { name: "Superior Frontal Gyrus", function: "Executive functions, motor planning", intensity: "T1: Cortical gray (hypointense)" },
+      { name: "Superior Parietal Lobule", function: "Spatial awareness, attention", intensity: "T1: Cortical gray (hypointense)" },
+      { name: "Centrum Semiovale", function: "White matter tracts", intensity: "T1: White matter (hyperintense)" },
+      { name: "Corona Radiata", function: "Projection & association fibers", intensity: "T1: White matter (hyperintense)" },
+      { name: "Body of Lateral Ventricles", function: "CSF circulation", intensity: "T1: CSF (hypointense/dark)" },
+      { name: "Corpus Callosum (Body)", function: "Interhemispheric connections", intensity: "T1: White matter (hyperintense)" },
+      { name: "Genu of Corpus Callosum", function: "Frontal lobe connections", intensity: "T1: White matter (hyperintense)" },
+      { name: "Caudate Head", function: "Basal ganglia - cognition", intensity: "T1: Gray matter (intermediate)" },
+      { name: "Putamen & Globus Pallidus", function: "Motor control", intensity: "T1: Deep gray (intermediate)" },
+      { name: "Thalamus", function: "Sensory relay center", intensity: "T1: Deep gray (intermediate)" },
+      { name: "Internal Capsule", function: "Motor & sensory pathways", intensity: "T1: White matter (hyperintense)" },
+      { name: "Third Ventricle", function: "Midline CSF space", intensity: "T1: CSF (hypointense/dark)" },
+      { name: "Insula", function: "Interoception, emotion", intensity: "T1: Cortical gray (hypointense)" },
+      { name: "Midbrain (Tectum)", function: "Visual & auditory reflexes", intensity: "T1: Gray matter (intermediate)" },
+      { name: "Temporal Lobes", function: "Memory, language, hearing", intensity: "T1: Cortical gray (hypointense)" },
+      { name: "Hippocampus", function: "Memory formation", intensity: "T1: Gray matter (intermediate)" },
+      { name: "Pons (Upper)", function: "Cranial nerve nuclei", intensity: "T1: Mixed signal" },
+      { name: "Cerebellum (Superior)", function: "Motor coordination", intensity: "T1: Gray/white differentiation" },
+      { name: "Middle Cerebellar Peduncles", function: "Pontocerebellar fibers", intensity: "T1: White matter (hyperintense)" },
+      { name: "Fourth Ventricle", function: "CSF circulation", intensity: "T1: CSF (hypointense/dark)" },
+      { name: "Lower Medulla", function: "Cardiovascular control", intensity: "T1: Brainstem (intermediate)" },
+      { name: "Cerebellar Hemispheres", function: "Fine motor control", intensity: "T1: Gray/white differentiation" },
+      { name: "Foramen Magnum Level", function: "Skull base opening", intensity: "T1: CSF spaces (dark)" }
     ],
-    ct: [
-      { name: "Frontal Bone", function: "Skull protection", intensity: "High attenuation" },
-      { name: "Frontal Sinus", function: "Air cavity", intensity: "Low attenuation" },
-      { name: "Brain Parenchyma", function: "Neural tissue", intensity: "Moderate attenuation" },
-      { name: "Lateral Ventricles", function: "CSF spaces", intensity: "Low attenuation" },
-      { name: "Basal Ganglia", function: "Movement control", intensity: "Moderate attenuation" },
-      { name: "Thalamus", function: "Relay center", intensity: "Moderate attenuation" },
-      { name: "Temporal Bone", function: "Skull protection", intensity: "High attenuation" },
-      { name: "Cerebellum", function: "Balance coordination", intensity: "Moderate attenuation" },
-      { name: "Occipital Bone", function: "Skull protection", intensity: "High attenuation" },
-      { name: "Brainstem", function: "Vital functions", intensity: "Moderate attenuation" }
-    ],
-    ultrasound: [
-      { name: "Liver Parenchyma", function: "Metabolic processing", intensity: "Moderate echogenicity" },
-      { name: "Gallbladder", function: "Bile storage", intensity: "Anechoic" },
-      { name: "Portal Vein", function: "Hepatic blood flow", intensity: "Anechoic" },
-      { name: "Hepatic Artery", function: "Arterial blood supply", intensity: "Anechoic" },
-      { name: "Kidney Cortex", function: "Filtration", intensity: "Moderate echogenicity" },
-      { name: "Kidney Medulla", function: "Concentration", intensity: "Low echogenicity" },
-      { name: "Renal Pelvis", function: "Urine collection", intensity: "Anechoic" },
-      { name: "Pancreas", function: "Enzyme production", intensity: "Moderate echogenicity" },
-      { name: "Spleen", function: "Blood filtration", intensity: "Moderate echogenicity" },
-      { name: "Aorta", function: "Main arterial supply", intensity: "Anechoic" }
-    ],
-    pet: [
-      { name: "Frontal Cortex", function: "Executive functions", intensity: "High FDG uptake" },
-      { name: "Cingulate Cortex", function: "Attention/emotion", intensity: "Moderate FDG uptake" },
-      { name: "Basal Ganglia", function: "Movement control", intensity: "High FDG uptake" },
-      { name: "Thalamus", function: "Relay center", intensity: "Moderate FDG uptake" },
-      { name: "Visual Cortex", function: "Visual processing", intensity: "Variable FDG uptake" },
-      { name: "Temporal Cortex", function: "Memory/language", intensity: "Moderate FDG uptake" },
-      { name: "Cerebellum", function: "Motor coordination", intensity: "High FDG uptake" },
-      { name: "Brainstem", function: "Vital functions", intensity: "Moderate FDG uptake" },
-      { name: "White Matter", function: "Neural connections", intensity: "Low FDG uptake" },
-      { name: "Ventricles", function: "CSF spaces", intensity: "No FDG uptake" }
-    ]
+    ct: [],
+    ultrasound: [],
+    pet: []
   };
   
-  const generateModalityTexture = useCallback((modality, sliceIndex) => {
-    const canvas = document.createElement('canvas');
-    const size = 512;
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext('2d');
-    
-    // Clear canvas
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, size, size);
-    
-    const centerX = size / 2;
-    const centerY = size / 2;
-    const config = modalityConfig[modality];
-    const slicePos = sliceIndex / config.totalSlices;
-    
-    // Generate modality-specific patterns
-    switch(modality) {
-      case 'mri':
-        generateMRITexture(ctx, centerX, centerY, size, slicePos);
-        break;
-      case 'ct':
-        generateCTTexture(ctx, centerX, centerY, size, slicePos);
-        break;
-      case 'ultrasound':
-        generateUltrasoundTexture(ctx, centerX, centerY, size, slicePos);
-        break;
-      case 'pet':
-        generatePETTexture(ctx, centerX, centerY, size, slicePos);
-        break;
+  // Function to get the current image path
+  const getCurrentImagePath = useCallback(() => {
+    if (activeModality === 'mri' && modalityConfig.mri.imagePath) {
+      // Format slice number with leading zeros (e.g., slice_001.webp)
+      const sliceNumber = currentSlice.toString().padStart(3, '0');
+      return `${modalityConfig.mri.imagePath}slice_${sliceNumber}.webp`;
     }
-    
-    return canvas;
-  }, []);
+    return null;
+  }, [activeModality, currentSlice]);
   
-  const generateMRITexture = (ctx, centerX, centerY, size, slicePos) => {
-    // Brain outline
-    ctx.beginPath();
-    ctx.ellipse(centerX, centerY, size * 0.35, size * 0.4, 0, 0, 2 * Math.PI);
-    ctx.clip();
-    
-    // Gray matter
-    const grayGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, size * 0.35);
-    grayGradient.addColorStop(0, `rgba(${120 + slicePos * 40}, ${120 + slicePos * 40}, ${120 + slicePos * 40}, 0.8)`);
-    grayGradient.addColorStop(0.7, `rgba(${80 + slicePos * 30}, ${80 + slicePos * 30}, ${80 + slicePos * 30}, 0.6)`);
-    grayGradient.addColorStop(1, 'rgba(40, 40, 40, 0.3)');
-    ctx.fillStyle = grayGradient;
-    ctx.fillRect(0, 0, size, size);
-    
-    // White matter
-    if (slicePos > 0.2 && slicePos < 0.8) {
-      const whiteGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, size * 0.25);
-      whiteGradient.addColorStop(0, `rgba(${180 + slicePos * 30}, ${180 + slicePos * 30}, ${180 + slicePos * 30}, 0.9)`);
-      whiteGradient.addColorStop(1, `rgba(${120 + slicePos * 20}, ${120 + slicePos * 20}, ${120 + slicePos * 20}, 0.4)`);
-      ctx.fillStyle = whiteGradient;
-      ctx.beginPath();
-      ctx.ellipse(centerX, centerY, size * 0.25, size * 0.3, 0, 0, 2 * Math.PI);
-      ctx.fill();
-    }
-    
-    // Ventricles
-    if (slicePos > 0.3 && slicePos < 0.7) {
-      ctx.fillStyle = 'rgba(20, 20, 20, 0.9)';
-      ctx.beginPath();
-      ctx.ellipse(centerX - 40, centerY - 20, 12, 20, 0, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(centerX + 40, centerY - 20, 12, 20, 0, 0, 2 * Math.PI);
-      ctx.fill();
-    }
-  };
-  
-  const generateCTTexture = (ctx, centerX, centerY, size, slicePos) => {
-    // Skull
-    ctx.strokeStyle = 'rgba(220, 220, 220, 0.9)';
-    ctx.lineWidth = 8;
-    ctx.beginPath();
-    ctx.ellipse(centerX, centerY, size * 0.4, size * 0.45, 0, 0, 2 * Math.PI);
-    ctx.stroke();
-    
-    // Brain parenchyma
-    ctx.beginPath();
-    ctx.ellipse(centerX, centerY, size * 0.35, size * 0.4, 0, 0, 2 * Math.PI);
-    ctx.clip();
-    
-    const brainGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, size * 0.35);
-    brainGradient.addColorStop(0, `rgba(${100 + slicePos * 20}, ${100 + slicePos * 20}, ${100 + slicePos * 20}, 0.7)`);
-    brainGradient.addColorStop(1, 'rgba(60, 60, 60, 0.5)');
-    ctx.fillStyle = brainGradient;
-    ctx.fillRect(0, 0, size, size);
-    
-    // Bone structures (high attenuation)
-    if (slicePos > 0.1 && slicePos < 0.9) {
-      ctx.fillStyle = 'rgba(200, 200, 200, 0.8)';
-      // Temporal bones
-      ctx.beginPath();
-      ctx.ellipse(centerX - size * 0.3, centerY, 15, 25, 0, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(centerX + size * 0.3, centerY, 15, 25, 0, 0, 2 * Math.PI);
-      ctx.fill();
-    }
-    
-    // Ventricles (low attenuation)
-    if (slicePos > 0.3 && slicePos < 0.7) {
-      ctx.fillStyle = 'rgba(10, 10, 10, 0.9)';
-      ctx.beginPath();
-      ctx.ellipse(centerX - 35, centerY - 15, 10, 18, 0, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(centerX + 35, centerY - 15, 10, 18, 0, 0, 2 * Math.PI);
-      ctx.fill();
-    }
-  };
-  
-  const generateUltrasoundTexture = (ctx, centerX, centerY, size, slicePos) => {
-    // Ultrasound fan shape
-    ctx.save();
-    ctx.translate(centerX, size * 0.9);
-    
-    // Create fan gradient
-    const fanGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, size * 0.8);
-    fanGradient.addColorStop(0, `rgba(${100 + slicePos * 50}, ${100 + slicePos * 50}, ${100 + slicePos * 50}, 0.8)`);
-    fanGradient.addColorStop(0.5, `rgba(${80 + slicePos * 30}, ${80 + slicePos * 30}, ${80 + slicePos * 30}, 0.6)`);
-    fanGradient.addColorStop(1, 'rgba(30, 30, 30, 0.2)');
-    
-    // Draw fan shape
-    ctx.beginPath();
-    ctx.arc(0, 0, size * 0.8, -Math.PI * 0.6, -Math.PI * 0.4);
-    ctx.lineTo(0, 0);
-    ctx.closePath();
-    ctx.clip();
-    
-    ctx.fillStyle = fanGradient;
-    ctx.fill();
-    
-    // Add organ structures
-    if (slicePos > 0.2 && slicePos < 0.8) {
-      // Liver-like structure
-      ctx.fillStyle = `rgba(${120 + slicePos * 40}, ${120 + slicePos * 40}, ${120 + slicePos * 40}, 0.7)`;
-      ctx.beginPath();
-      ctx.ellipse(-50, -150, 80, 40, 0, 0, 2 * Math.PI);
-      ctx.fill();
-      
-      // Vessel-like structure (anechoic)
-      ctx.fillStyle = 'rgba(10, 10, 10, 0.9)';
-      ctx.beginPath();
-      ctx.ellipse(0, -100, 6, 30, Math.PI / 4, 0, 2 * Math.PI);
-      ctx.fill();
-    }
-    
-    // Add ultrasound noise/speckle
-    for (let i = 0; i < 500; i++) {
-      const angle = Math.random() * Math.PI * 0.4 - Math.PI * 0.2;
-      const distance = Math.random() * size * 0.7;
-      const x = Math.sin(angle) * distance;
-      const y = -Math.cos(angle) * distance;
-      
-      ctx.fillStyle = `rgba(${Math.random() * 100}, ${Math.random() * 100}, ${Math.random() * 100}, 0.3)`;
-      ctx.beginPath();
-      ctx.arc(x, y, 1, 0, 2 * Math.PI);
-      ctx.fill();
-    }
-    
-    ctx.restore();
-  };
-  
-  const generatePETTexture = (ctx, centerX, centerY, size, slicePos) => {
-    // Brain outline
-    ctx.beginPath();
-    ctx.ellipse(centerX, centerY, size * 0.35, size * 0.4, 0, 0, 2 * Math.PI);
-    ctx.clip();
-    
-    // Create colorful PET scan appearance
-    const colors = [
-      `rgba(255, 0, 0, 0.8)`,    // Red - high uptake
-      `rgba(255, 165, 0, 0.7)`,  // Orange - moderate uptake
-      `rgba(255, 255, 0, 0.6)`,  // Yellow - mild uptake
-      `rgba(0, 255, 0, 0.5)`,    // Green - low uptake
-      `rgba(0, 0, 255, 0.4)`     // Blue - very low uptake
-    ];
-    
-    // Generate metabolic hotspots
-    const hotspots = [
-      { x: centerX - 30, y: centerY - 20, intensity: 0.9 }, // Frontal
-      { x: centerX + 30, y: centerY - 20, intensity: 0.9 }, // Frontal
-      { x: centerX, y: centerY, intensity: 0.7 },           // Central
-      { x: centerX - 20, y: centerY + 30, intensity: 0.8 }, // Temporal
-      { x: centerX + 20, y: centerY + 30, intensity: 0.8 }, // Temporal
-      { x: centerX, y: centerY + 50, intensity: 0.6 }       // Cerebellum
-    ];
-    
-    hotspots.forEach(spot => {
-      const colorIndex = Math.floor((1 - spot.intensity) * colors.length);
-      const gradient = ctx.createRadialGradient(spot.x, spot.y, 0, spot.x, spot.y, 25);
-      gradient.addColorStop(0, colors[Math.min(colorIndex, colors.length - 1)]);
-      gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      
-      ctx.fillStyle = gradient;
-      ctx.beginPath();
-      ctx.arc(spot.x, spot.y, 25, 0, 2 * Math.PI);
-      ctx.fill();
-    });
-    
-    // Add background metabolic activity
-    for (let i = 0; i < 100; i++) {
-      const angle = Math.random() * 2 * Math.PI;
-      const distance = Math.random() * size * 0.3;
-      const x = centerX + Math.cos(angle) * distance;
-      const y = centerY + Math.sin(angle) * distance;
-      
-      const intensity = Math.random();
-      const colorIndex = Math.floor((1 - intensity) * colors.length);
-      
-      ctx.fillStyle = colors[Math.min(colorIndex, colors.length - 1)];
-      ctx.beginPath();
-      ctx.arc(x, y, 2 + Math.random() * 3, 0, 2 * Math.PI);
-      ctx.fill();
+  // Handle modality tab clicks
+  const handleModalityClick = (key) => {
+    if (key === 'mri') {
+      setActiveModality(key);
+      setShowComingSoon(false);
+    } else {
+      // Show coming soon modal for other modalities
+      setShowComingSoon(true);
     }
   };
   
@@ -346,7 +144,7 @@ const MultiModalViewer = () => {
           const next = prev + 1;
           if (next > totalSlices) {
             setIsPlaying(false);
-            return 1;
+            return 0;
           }
           return next;
         });
@@ -361,8 +159,9 @@ const MultiModalViewer = () => {
   // Reset slice when modality changes
   useEffect(() => {
     const totalSlices = modalityConfig[activeModality].totalSlices;
-    setCurrentSlice(Math.ceil(totalSlices / 2));
+    setCurrentSlice(Math.floor(totalSlices / 2));
     setIsPlaying(false);
+    setImageLoadError(false);
   }, [activeModality]);
   
   // Handle wheel scrolling
@@ -370,7 +169,7 @@ const MultiModalViewer = () => {
     e.preventDefault();
     const delta = e.deltaY > 0 ? 1 : -1;
     const totalSlices = modalityConfig[activeModality].totalSlices;
-    setCurrentSlice(prev => Math.max(1, Math.min(totalSlices, prev + delta)));
+    setCurrentSlice(prev => Math.max(0, Math.min(totalSlices, prev + delta)));
   }, [activeModality]);
   
   // Handle mouse drag
@@ -387,7 +186,7 @@ const MultiModalViewer = () => {
       const sliceDelta = Math.round(deltaY / 10);
       if (sliceDelta !== 0) {
         const totalSlices = modalityConfig[activeModality].totalSlices;
-        setCurrentSlice(prev => Math.max(1, Math.min(totalSlices, prev + sliceDelta)));
+        setCurrentSlice(prev => Math.max(0, Math.min(totalSlices, prev + sliceDelta)));
         setLastY(e.clientY);
       }
     }
@@ -413,47 +212,98 @@ const MultiModalViewer = () => {
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, rect.width, rect.height);
     
-    // Generate texture
-    const texture = generateModalityTexture(activeModality, currentSlice - 1);
+    const imagePath = getCurrentImagePath();
     
-    // Apply transformations
-    ctx.save();
-    ctx.translate(rect.width / 2 + pan.x, rect.height / 2 + pan.y);
-    ctx.scale(zoom, zoom);
-    
-    // Apply filters
-    ctx.filter = `brightness(${brightness / 100}) contrast(${contrast / 100})`;
-    
-    // Draw texture
-    const size = Math.min(rect.width, rect.height) * 0.8;
-    ctx.drawImage(texture, -size / 2, -size / 2, size, size);
-    
-    ctx.restore();
+    if (activeModality === 'mri' && imagePath && imageRef.current) {
+      // Load and display real MRI image
+      setIsLoading(true);
+      
+      imageRef.current.onload = () => {
+        setIsLoading(false);
+        setImageLoadError(false);
+        
+        ctx.save();
+        ctx.translate(rect.width / 2 + pan.x, rect.height / 2 + pan.y);
+        ctx.scale(zoom, zoom);
+        
+        // Apply filters
+        ctx.filter = `brightness(${brightness / 100}) contrast(${contrast / 100})`;
+        
+        // Calculate dimensions to fit image
+        const imgAspect = imageRef.current.width / imageRef.current.height;
+        const canvasAspect = rect.width / rect.height;
+        let drawWidth, drawHeight;
+        
+        if (imgAspect > canvasAspect) {
+          drawWidth = rect.width * 0.8;
+          drawHeight = drawWidth / imgAspect;
+        } else {
+          drawHeight = rect.height * 0.8;
+          drawWidth = drawHeight * imgAspect;
+        }
+        
+        // Draw the image centered
+        ctx.drawImage(
+          imageRef.current,
+          -drawWidth / 2,
+          -drawHeight / 2,
+          drawWidth,
+          drawHeight
+        );
+        
+        ctx.restore();
+      };
+      
+      imageRef.current.onerror = () => {
+        setIsLoading(false);
+        setImageLoadError(true);
+      };
+      
+      imageRef.current.src = imagePath;
+    }
     
     // Draw annotations
     if (showAnnotations) {
       const config = modalityConfig[activeModality];
-      const anatomy = anatomyData[activeModality][Math.min(currentSlice - 1, anatomyData[activeModality].length - 1)];
+      const anatomy = anatomyData[activeModality][Math.min(currentSlice, anatomyData[activeModality].length - 1)];
       
       ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-      ctx.fillRect(10, 10, 300, 80);
+      ctx.fillRect(10, 10, 300, 100);
       
       ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 16px -apple-system, BlinkMacSystemFont, sans-serif';
-      ctx.fillText(`${config.name} - Slice ${currentSlice}/${config.totalSlices}`, 20, 30);
-      
-      ctx.font = '14px -apple-system, BlinkMacSystemFont, sans-serif';
-      ctx.fillText(anatomy?.name || 'Unknown Structure', 20, 50);
+      ctx.fillText(`${config.name} - T1-weighted - Slice ${currentSlice}/${config.totalSlices}`, 20, 30);
       
       ctx.font = '12px -apple-system, BlinkMacSystemFont, sans-serif';
       ctx.fillStyle = '#cccccc';
-      ctx.fillText(anatomy?.intensity || '', 20, 70);
+      ctx.fillText('Anonymized', 20, 48);
+      
+      if (anatomy) {
+        ctx.font = '14px -apple-system, BlinkMacSystemFont, sans-serif';
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(anatomy.name, 20, 68);
+        
+        ctx.font = '12px -apple-system, BlinkMacSystemFont, sans-serif';
+        ctx.fillStyle = '#cccccc';
+        ctx.fillText(anatomy.intensity, 20, 86);
+      }
     }
     
-  }, [activeModality, currentSlice, brightness, contrast, zoom, pan, showAnnotations, generateModalityTexture]);
+    // Loading indicator
+    if (isLoading && activeModality === 'mri') {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      ctx.fillRect(0, 0, rect.width, rect.height);
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '20px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Loading...', rect.width / 2, rect.height / 2);
+      ctx.textAlign = 'left';
+    }
+    
+  }, [activeModality, currentSlice, brightness, contrast, zoom, pan, showAnnotations, getCurrentImagePath]);
   
   const currentConfig = modalityConfig[activeModality];
-  const currentAnatomy = anatomyData[activeModality][Math.min(currentSlice - 1, anatomyData[activeModality].length - 1)];
+  const currentAnatomy = anatomyData[activeModality][Math.min(currentSlice, anatomyData[activeModality].length - 1)];
   
   return (
     <div className="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden">
@@ -463,7 +313,7 @@ const MultiModalViewer = () => {
           {Object.entries(modalityConfig).map(([key, config]) => (
             <button
               key={key}
-              onClick={() => setActiveModality(key)}
+              onClick={() => handleModalityClick(key)}
               className={`flex-1 min-w-0 px-4 py-4 text-center transition-all duration-200 ${
                 activeModality === key
                   ? `bg-${config.color}-600 text-white shadow-lg`
@@ -485,7 +335,19 @@ const MultiModalViewer = () => {
             <h3 className="text-2xl font-bold text-gray-900 mb-2">
               {currentConfig.fullName} Viewer
             </h3>
-            <p className="text-gray-600">{currentConfig.description}</p>
+            <p className="text-gray-600">T1-weighted axial brain imaging</p>
+            <p className="text-sm text-gray-500 mt-1">Anonymized patient data for educational purposes</p>
+            {currentConfig.scanInfo && (
+              <div className="mt-2 text-xs text-gray-500 space-y-0.5">
+                <p>Source: {currentConfig.scanInfo.source} | Dataset: {currentConfig.scanInfo.status}</p>
+                <p>Acquisition: {currentConfig.scanInfo.field} MRI, {currentConfig.scanInfo.sliceThickness} {currentConfig.scanInfo.acquisition} slices</p>
+              </div>
+            )}
+            {imageLoadError && activeModality === 'mri' && (
+              <p className="text-red-600 text-sm mt-2">
+                ⚠️ Unable to load image. Please check image path.
+              </p>
+            )}
           </div>
           
           <div 
@@ -512,9 +374,9 @@ const MultiModalViewer = () => {
           {/* Quick Controls */}
           <div className="flex items-center justify-center gap-4">
             <button
-              onClick={() => setCurrentSlice(Math.max(1, currentSlice - 1))}
+              onClick={() => setCurrentSlice(Math.max(0, currentSlice - 1))}
               className="p-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
-              disabled={currentSlice === 1}
+              disabled={currentSlice === 0}
             >
               ←
             </button>
@@ -524,7 +386,7 @@ const MultiModalViewer = () => {
               className={`px-6 py-3 rounded-lg font-medium transition-colors ${
                 isPlaying 
                   ? 'bg-red-600 hover:bg-red-700 text-white' 
-                  : `bg-${currentConfig.color}-600 hover:bg-${currentConfig.color}-700 text-white`
+                  : 'bg-blue-600 hover:bg-blue-700 text-white'
               }`}
             >
               {isPlaying ? 'Pause' : 'Play'}
@@ -549,7 +411,7 @@ const MultiModalViewer = () => {
             </label>
             <input
               type="range"
-              min="1"
+              min="0"
               max={currentConfig.totalSlices}
               value={currentSlice}
               onChange={(e) => setCurrentSlice(parseInt(e.target.value))}
@@ -558,12 +420,14 @@ const MultiModalViewer = () => {
           </div>
           
           {/* Anatomy Info */}
-          <div className={`bg-${currentConfig.color}-50 border border-${currentConfig.color}-200 rounded-lg p-4`}>
-            <h4 className="font-semibold text-gray-900 mb-2">Current Structure</h4>
-            <p className={`text-${currentConfig.color}-700 font-medium`}>{currentAnatomy?.name}</p>
-            <p className="text-gray-600 text-sm mt-1">{currentAnatomy?.function}</p>
-            <p className="text-gray-500 text-xs mt-2">{currentAnatomy?.intensity}</p>
-          </div>
+          {currentAnatomy && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 mb-2">Current Structure</h4>
+              <p className="text-blue-700 font-medium">{currentAnatomy.name}</p>
+              <p className="text-gray-600 text-sm mt-1">{currentAnatomy.function}</p>
+              <p className="text-gray-500 text-xs mt-2">{currentAnatomy.intensity}</p>
+            </div>
+          )}
           
           {/* Imaging Controls */}
           <div>
@@ -612,6 +476,22 @@ const MultiModalViewer = () => {
                   className="w-full"
                 />
               </div>
+              
+              <div>
+                <label className="block text-gray-600 text-sm mb-1">
+                  Animation Speed
+                </label>
+                <select
+                  value={playSpeed}
+                  onChange={(e) => setPlaySpeed(parseInt(e.target.value))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                >
+                  <option value={500}>Slow (0.5s)</option>
+                  <option value={300}>Normal (0.3s)</option>
+                  <option value={150}>Fast (0.15s)</option>
+                  <option value={75}>Very Fast (0.075s)</option>
+                </select>
+              </div>
             </div>
           </div>
           
@@ -642,6 +522,31 @@ const MultiModalViewer = () => {
             </div>
           </div>
           
+          {/* Scan Information */}
+          {currentConfig.scanInfo && (
+            <div className="bg-gray-100 border border-gray-200 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-900 mb-2">Scan Information</h4>
+              <div className="space-y-1 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Field Strength:</span>
+                  <span className="text-gray-800">{currentConfig.scanInfo.field}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Slice Thickness:</span>
+                  <span className="text-gray-800">{currentConfig.scanInfo.sliceThickness}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Orientation:</span>
+                  <span className="text-gray-800">{currentConfig.scanInfo.acquisition}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Dataset:</span>
+                  <span className="text-gray-800">{currentConfig.scanInfo.status}</span>
+                </div>
+              </div>
+            </div>
+          )}
+          
           {/* Options */}
           <div className="space-y-3">
             <label className="flex items-center">
@@ -662,9 +567,9 @@ const MultiModalViewer = () => {
               setContrast(100);
               setZoom(1);
               setPan({ x: 0, y: 0 });
-              setCurrentSlice(Math.ceil(currentConfig.totalSlices / 2));
+              setCurrentSlice(Math.floor(currentConfig.totalSlices / 2));
             }}
-            className={`w-full bg-${currentConfig.color}-600 hover:bg-${currentConfig.color}-700 text-white py-3 rounded-lg transition-colors font-medium`}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition-colors font-medium"
           >
             Reset View
           </button>
@@ -679,7 +584,43 @@ const MultiModalViewer = () => {
           <span>📱 <strong>Mobile:</strong> Touch & drag</span>
           <span>⌨️ <strong>Keyboard:</strong> Arrow keys</span>
         </div>
+        <div className="text-xs text-gray-500 mt-2 text-center">
+          Data courtesy of The Cancer Imaging Archive (TCIA) | For educational demonstration only
+        </div>
       </div>
+      
+      {/* Coming Soon Modal */}
+      {showComingSoon && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center transform transition-all">
+            <div className="mb-6">
+              <div className="mx-auto w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                <svg className="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Coming Soon!</h3>
+              <p className="text-gray-600 mb-6">
+                We're working hard to bring you additional imaging modalities. CT, Ultrasound, and PET viewers will be available in the near future.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <button
+                  onClick={() => setShowComingSoon(false)}
+                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+                >
+                  Back to MRI Viewer
+                </button>
+                <button
+                  onClick={() => window.open('mailto:info@usradiology.com?subject=Interest%20in%20Additional%20Imaging%20Modalities', '_blank')}
+                  className="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-medium transition-colors"
+                >
+                  Notify Me
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
