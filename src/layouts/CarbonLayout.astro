@@ -1,0 +1,140 @@
+---
+// CarbonLayout.astro
+import "../styles/global-carbon.css";
+import CarbonFooter from "../components/CarbonFooter.astro";
+import CarbonHeader from "../components/CarbonHeader.jsx";
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "USRad - MRI Scans in 48 Hours, 70% Less",
+  description = "Get same-day MRI appointments at 70% less than hospital prices. Board-certified radiologists, 1,500+ locations nationwide.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Prevent zooming on mobile -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <!-- Theme -->
+    <meta name="color-scheme" content="light only" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+    <!-- Fonts - Inter for that clean Carbon Health look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+
+  <body class="font-inter text-gray-900 bg-white antialiased">
+    <!-- Carbon Header Component -->
+    <CarbonHeader client:load />
+
+    <!-- Main Content -->
+    <main class="pt-16">
+      <slot />
+    </main>
+
+    <!-- Carbon Style Footer - Using Astro Component -->
+    <CarbonFooter />
+
+    <!-- Simple Chat Widget -->
+    <div class="fixed bottom-6 right-6 z-50">
+      <button
+        class="bg-[#003087] text-white w-14 h-14 rounded-full shadow-lg hover:bg-[#002266] transition flex items-center justify-center group"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4v-4z"
+          ></path>
+        </svg>
+        <span
+          class="absolute bottom-full right-0 mb-2 px-2 py-1 text-xs bg-gray-900 text-white rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap"
+        >
+          Need help?
+        </span>
+      </button>
+    </div>
+
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script is:inline>
+      // Wait for AOS to load before initializing
+      window.addEventListener("load", function () {
+        if (typeof AOS !== "undefined") {
+          AOS.init({
+            duration: 800,
+            once: true,
+            easing: "ease-out",
+          });
+        }
+      });
+    </script>
+
+    <style is:global>
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    </style>
+  </body>
+</html>

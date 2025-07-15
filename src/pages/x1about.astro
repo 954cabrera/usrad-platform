@@ -1,0 +1,169 @@
+---
+import MainPatientLayout from "../layouts/MainPatientLayout.astro";
+import ChatbotToggle from "../components/ChatbotToggle.astro";
+import AOSInit from "../components/AOSInit.astro";
+import PrimaryButton from "../components/PrimaryButton.astro";
+import SecondaryButton from "../components/SecondaryButton.astro";
+import FoundersSection from "../components/FoundersSection.astro";
+---
+
+<MainPatientLayout>
+  <AOSInit />
+
+  <!-- HERO SECTION -->
+  <section
+    class="bg-gradient-to-br from-[#f8f2e1] to-[#fcf9f0] py-24 px-6 text-[#003087] text-center"
+  >
+    <div class="max-w-5xl mx-auto">
+      <div
+        class="inline-flex items-center gap-2 bg-[#cc9933] text-white px-6 py-2 rounded-full text-xs font-bold mb-6"
+      >
+        ✓ PROVEN FOUNDATION • MODERN EVOLUTION • EXPANDED MISSION
+      </div>
+      <h1 class="text-5xl font-bold mb-4">From Pioneer to National Platform</h1>
+      <p class="text-xl text-[#003087]/80 max-w-3xl mx-auto mb-10">
+        We created the first managed care imaging network. Now we’re scaling
+        that $400M savings model to serve 90 million Americans with 1,500+
+        centers nationwide.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <PrimaryButton text="Explore the Mission" href="/how-it-works" />
+        <SecondaryButton text="Meet Our Founders" href="#founders" />
+      </div>
+    </div>
+  </section>
+
+  <!-- VISUAL EVOLUTION SPLIT -->
+  <section class="relative py-20 px-6 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div class="text-left">
+        <p class="text-sm font-semibold text-[#cc9933] uppercase mb-3">
+          The Evolution Story
+        </p>
+        <h2 class="text-3xl font-bold text-[#003087] mb-4">
+          1994 → 2025 → The Future
+        </h2>
+        <p class="text-lg text-[#003087]/80 mb-6">
+          What started as AnciCare, a pioneering imaging network that delivered
+          over $400 million in savings, is now evolving into a modern
+          platform—USRad.
+        </p>
+        <ul class="space-y-4 text-[#003087]/90">
+          <li>
+            <strong>✔ 400,000+ patients</strong> received timely, affordable scans
+          </li>
+          <li>
+            <strong>✔ 50%+</strong> average savings vs. traditional healthcare
+          </li>
+          <li><strong>✔ Acquired</strong> by NYSE-traded healthcare leader</li>
+          <li><strong>✔ Platform reborn</strong> for underserved Americans</li>
+        </ul>
+      </div>
+      <div>
+        <img
+          src="/images/about/evolution-journey.webp"
+          alt="Evolution Journey"
+          class="rounded-2xl shadow-xl"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE BLOCK -->
+  <section class="bg-[#fefbf5] py-24 px-6">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-3xl font-bold text-[#003087] mb-8">
+        From Proven Success to Digital Reinvention
+      </h2>
+      <div class="grid md:grid-cols-3 gap-12">
+        <div
+          class="bg-white rounded-xl shadow-md p-6 border border-[#cc9933]/20"
+        >
+          <div class="text-4xl mb-2">🏛</div>
+          <h3 class="text-xl font-semibold text-[#003087] mb-1">
+            1994 – Foundation
+          </h3>
+          <p class="text-sm text-[#003087]/80">
+            AnciCare launches first managed care imaging network, disrupting
+            cost and access barriers.
+          </p>
+        </div>
+        <div
+          class="bg-white rounded-xl shadow-md p-6 border border-[#cc9933]/20"
+        >
+          <div class="text-4xl mb-2">⚙️</div>
+          <h3 class="text-xl font-semibold text-[#003087] mb-1">
+            2002 – Validation
+          </h3>
+          <p class="text-sm text-[#003087]/80">
+            Acquired by CorVel Corporation (NYSE: CRVL). Model scales under
+            enterprise oversight.
+          </p>
+        </div>
+        <div
+          class="bg-white rounded-xl shadow-md p-6 border border-[#cc9933]/20"
+        >
+          <div class="text-4xl mb-2">🚀</div>
+          <h3 class="text-xl font-semibold text-[#003087] mb-1">
+            2025 – Expansion
+          </h3>
+          <p class="text-sm text-[#003087]/80">
+            USRad launches nationwide with 1,500+ centers, real-time booking,
+            and transparent pricing.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDERS STORY -->
+  <section id="founders" class="bg-white py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <FoundersSection />
+    </div>
+  </section>
+
+  <!-- IMPACT DATA GRID -->
+  <section
+    class="bg-gradient-to-br from-[#003087] to-[#002266] text-white py-20 px-6"
+  >
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-12">The Impact We’ve Already Made</h2>
+      <div class="grid md:grid-cols-4 gap-6">
+        <div class="bg-white/10 p-6 rounded-xl">
+          <p class="text-4xl font-bold text-[#cc9933] mb-2">400K+</p>
+          <p class="text-sm opacity-80">Patients Served</p>
+        </div>
+        <div class="bg-white/10 p-6 rounded-xl">
+          <p class="text-4xl font-bold text-[#cc9933] mb-2">$400M+</p>
+          <p class="text-sm opacity-80">Savings Delivered</p>
+        </div>
+        <div class="bg-white/10 p-6 rounded-xl">
+          <p class="text-4xl font-bold text-[#cc9933] mb-2">1,200+</p>
+          <p class="text-sm opacity-80">Centers in Prior Network</p>
+        </div>
+        <div class="bg-white/10 p-6 rounded-xl">
+          <p class="text-4xl font-bold text-[#cc9933] mb-2">90M</p>
+          <p class="text-sm opacity-80">Americans to Serve</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA CLOSER -->
+  <section class="bg-[#fefbf5] py-24 px-6 text-center">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-4xl font-bold text-[#003087] mb-4">
+        This Is Healthcare Rebuilt
+      </h2>
+      <p class="text-lg text-[#003087]/80 mb-8">
+        You shouldn't need insurance—or insider access—to get an affordable MRI.
+        That’s why we built USRad. Same standards. Same radiologists. 70% less.
+      </p>
+      <PrimaryButton href="/search-results" text="Check Prices Near You" />
+    </div>
+  </section>
+
+  <ChatbotToggle chatbotLabel="💬 Let's Talk" />
+</MainPatientLayout>

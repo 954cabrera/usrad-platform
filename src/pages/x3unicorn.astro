@@ -1,0 +1,589 @@
+---
+import MainPatientLayout from "../layouts/MainPatientLayout.astro";
+import ChatbotToggle from "../components/ChatbotToggle.astro";
+import FadeIn from "../components/FadeIn.astro";
+import AOSInit from "../components/AOSInit.astro";
+import FAQPreview from "../components/FAQPreview.astro";
+import PrimaryButton from "../components/PrimaryButton.astro";
+import SecondaryButton from "../components/SecondaryButton.astro";
+import HeroSearchForm from "../components/HeroSearchForm.astro";
+import NetworkMapPins from "../components/NetworkMapPins.astro";
+
+const showPatientHeader = true;
+---
+
+<MainPatientLayout showPatientHeader={true}>
+  <AOSInit />
+
+  <!-- HEALTH TECH UNICORN HERO -->
+  <section
+    class="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-[#f0f7ff] via-white to-[#fff5f0]"
+  >
+    <!-- Animated Background Elements -->
+    <div class="absolute inset-0">
+      <div
+        class="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"
+      >
+      </div>
+      <div
+        class="absolute top-40 right-10 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"
+      >
+      </div>
+      <div
+        class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"
+      >
+      </div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-6 py-20 w-full">
+      <div class="text-center">
+        <!-- Playful Badge -->
+        <div
+          class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-sm font-medium px-6 py-3 rounded-full mb-8"
+          data-aos="zoom-in"
+        >
+          <span class="animate-pulse">🚀</span>
+          <span>Healthcare reimagined for 90 million Americans</span>
+        </div>
+
+        <h1
+          class="text-6xl md:text-7xl lg:text-8xl font-black text-gray-900 mb-6 leading-tight"
+          data-aos="fade-up"
+        >
+          Medical imaging
+          <span
+            class="block text-transparent bg-clip-text bg-gradient-to-r from-[#003087] via-purple-600 to-[#cc9933]"
+          >
+            without the BS
+          </span>
+        </h1>
+
+        <p
+          class="text-2xl md:text-3xl text-gray-600 mb-12 max-w-3xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          MRIs from $325. Not $3,000. Book in seconds. Get results tomorrow.
+        </p>
+
+        <!-- Inline Search Bar -->
+        <div
+          class="max-w-2xl mx-auto mb-12"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <div
+            class="bg-white rounded-2xl shadow-2xl p-3 border border-gray-100"
+          >
+            <div class="flex flex-col md:flex-row gap-3">
+              <input
+                type="text"
+                placeholder="Enter your ZIP code"
+                class="flex-1 px-6 py-4 rounded-xl border-0 focus:ring-2 focus:ring-[#003087]/20 text-lg"
+              />
+              <button
+                class="bg-gradient-to-r from-[#003087] to-[#0052cc] hover:from-[#002266] hover:to-[#003087] text-white px-8 py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-[1.02] whitespace-nowrap"
+              >
+                Find centers →
+              </button>
+            </div>
+          </div>
+          <p class="mt-4 text-gray-500">
+            🔥 <span class="font-medium">2,847 people</span> saved on imaging this
+            week
+          </p>
+        </div>
+
+        <!-- Visual Stats -->
+        <div
+          class="flex flex-wrap justify-center gap-8"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          <div class="text-center">
+            <div class="text-5xl font-black text-[#003087]">90%</div>
+            <div class="text-gray-600">cheaper</div>
+          </div>
+          <div class="text-center">
+            <div class="text-5xl font-black text-green-500">48hr</div>
+            <div class="text-gray-600">results</div>
+          </div>
+          <div class="text-center">
+            <div class="text-5xl font-black text-purple-600">4.9★</div>
+            <div class="text-gray-600">rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF TICKER -->
+  <section class="bg-gray-900 text-white py-4 overflow-hidden">
+    <div class="flex animate-scroll">
+      <div class="flex gap-12 items-center whitespace-nowrap">
+        <span class="text-sm">💰 Sarah M. saved $2,675 on her MRI</span>
+        <span class="text-gray-500">•</span>
+        <span class="text-sm">📍 Miami, FL: 47 centers available</span>
+        <span class="text-gray-500">•</span>
+        <span class="text-sm">⚡ Average wait time: 2.3 days</span>
+        <span class="text-gray-500">•</span>
+        <span class="text-sm">🏥 1,500+ accredited centers</span>
+        <span class="text-gray-500">•</span>
+        <span class="text-sm">💰 Michael R. saved $1,805 on his CT scan</span>
+        <span class="text-gray-500">•</span>
+        <span class="text-sm">📍 Orlando, FL: 38 centers available</span>
+        <span class="text-gray-500">•</span>
+      </div>
+      <div class="flex gap-12 items-center whitespace-nowrap">
+        <span class="text-sm">💰 Sarah M. saved $2,675 on her MRI</span>
+        <span class="text-gray-500">•</span>
+        <span class="text-sm">📍 Miami, FL: 47 centers available</span>
+        <span class="text-gray-500">•</span>
+        <span class="text-sm">⚡ Average wait time: 2.3 days</span>
+        <span class="text-gray-500">•</span>
+        <span class="text-sm">🏥 1,500+ accredited centers</span>
+        <span class="text-gray-500">•</span>
+        <span class="text-sm">💰 Michael R. saved $1,805 on his CT scan</span>
+        <span class="text-gray-500">•</span>
+        <span class="text-sm">📍 Orlando, FL: 38 centers available</span>
+        <span class="text-gray-500">•</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM/SOLUTION - BOLD -->
+  <section class="py-20 px-6 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-5xl font-black text-gray-900 mb-4" data-aos="fade-up">
+          Healthcare is broken.<br />
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-[#003087] to-[#cc9933]"
+            >We're the fix.</span
+          >
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- The Problem -->
+        <div
+          class="bg-gradient-to-br from-red-50 to-pink-50 rounded-3xl p-8 border-2 border-red-100"
+          data-aos="fade-right"
+        >
+          <div class="text-4xl mb-4">😤</div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">
+            The old way sucks
+          </h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start gap-2">
+              <span class="text-red-500 mt-1">×</span>
+              <span>Call 10 places for prices (nobody knows)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-500 mt-1">×</span>
+              <span>Wait 3-4 weeks for insurance approval</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-500 mt-1">×</span>
+              <span>Get surprise bills for months</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-500 mt-1">×</span>
+              <span>Pay $3,000+ because... hospital</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- The Solution -->
+        <div
+          class="bg-gradient-to-br from-green-50 to-blue-50 rounded-3xl p-8 border-2 border-green-100"
+          data-aos="fade-left"
+        >
+          <div class="text-4xl mb-4">😎</div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">The USRad way</h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start gap-2">
+              <span class="text-green-500 mt-1">✓</span>
+              <span>See all prices instantly online</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green-500 mt-1">✓</span>
+              <span>Book your scan for this week</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green-500 mt-1">✓</span>
+              <span>One price. Period. No BS.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green-500 mt-1">✓</span>
+              <span>Save $2,000+ every single time</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE PRICING -->
+  <section
+    class="py-20 px-6 bg-gradient-to-br from-gray-50 via-white to-blue-50"
+  >
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-5xl font-black text-gray-900 mb-4" data-aos="fade-up">
+          Watch your savings grow
+        </h2>
+        <p
+          class="text-xl text-gray-600"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          Real prices. Real savings. Really.
+        </p>
+      </div>
+
+      <!-- Pricing Cards -->
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="group relative" data-aos="fade-up">
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity"
+          >
+          </div>
+          <div
+            class="relative bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:scale-105 transition-transform"
+          >
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-2xl flex items-center justify-center mb-6"
+            >
+              <span class="text-2xl">🧠</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">MRI Scan</h3>
+            <div class="flex items-baseline gap-2 mb-4">
+              <span class="text-5xl font-black text-[#003087]">$325</span>
+              <span class="text-gray-500 line-through">$3,200</span>
+            </div>
+            <div
+              class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold inline-block mb-4"
+            >
+              Save $2,875
+            </div>
+            <ul class="space-y-2 text-gray-600 text-sm">
+              <li>✓ 1.5T or 3T scanners</li>
+              <li>✓ Board-certified review</li>
+              <li>✓ 24-hour results</li>
+            </ul>
+            <button
+              class="w-full mt-6 bg-gradient-to-r from-[#003087] to-[#0052cc] text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all"
+            >
+              Book MRI →
+            </button>
+          </div>
+        </div>
+
+        <div class="group relative" data-aos="fade-up" data-aos-delay="100">
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity"
+          >
+          </div>
+          <div
+            class="relative bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:scale-105 transition-transform"
+          >
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-400 rounded-2xl flex items-center justify-center mb-6"
+            >
+              <span class="text-2xl">🫁</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">CT Scan</h3>
+            <div class="flex items-baseline gap-2 mb-4">
+              <span class="text-5xl font-black text-[#003087]">$195</span>
+              <span class="text-gray-500 line-through">$2,000</span>
+            </div>
+            <div
+              class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold inline-block mb-4"
+            >
+              Save $1,805
+            </div>
+            <ul class="space-y-2 text-gray-600 text-sm">
+              <li>✓ Low-dose protocols</li>
+              <li>✓ 3D reconstruction</li>
+              <li>✓ Same-day available</li>
+            </ul>
+            <button
+              class="w-full mt-6 bg-gradient-to-r from-[#003087] to-[#0052cc] text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all"
+            >
+              Book CT →
+            </button>
+          </div>
+        </div>
+
+        <div class="group relative" data-aos="fade-up" data-aos-delay="200">
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity"
+          >
+          </div>
+          <div
+            class="relative bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:scale-105 transition-transform"
+          >
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-2xl flex items-center justify-center mb-6"
+            >
+              <span class="text-2xl">👶</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Ultrasound</h3>
+            <div class="flex items-baseline gap-2 mb-4">
+              <span class="text-5xl font-black text-[#003087]">$125</span>
+              <span class="text-gray-500 line-through">$800</span>
+            </div>
+            <div
+              class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold inline-block mb-4"
+            >
+              Save $675
+            </div>
+            <ul class="space-y-2 text-gray-600 text-sm">
+              <li>✓ No radiation</li>
+              <li>✓ Real-time imaging</li>
+              <li>✓ Walk-ins welcome</li>
+            </ul>
+            <button
+              class="w-full mt-6 bg-gradient-to-r from-[#003087] to-[#0052cc] text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all"
+            >
+              Book Ultrasound →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS - PLAYFUL -->
+  <section class="py-20 px-6 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-5xl font-black text-gray-900 mb-4" data-aos="fade-up">
+          Stupidly simple
+        </h2>
+        <p
+          class="text-xl text-gray-600"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          Healthcare doesn't have to be complicated
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        <div
+          class="flex flex-col md:flex-row items-center gap-8"
+          data-aos="fade-up"
+        >
+          <div class="flex-shrink-0">
+            <div
+              class="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-500 rounded-3xl flex items-center justify-center text-white text-4xl font-black shadow-xl"
+            >
+              1
+            </div>
+          </div>
+          <div
+            class="flex-1 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6"
+          >
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">
+              Type your ZIP code
+            </h3>
+            <p class="text-gray-600">
+              We'll show you every imaging center nearby with real prices. No
+              calling around. No guessing.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="flex flex-col md:flex-row items-center gap-8"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <div class="flex-shrink-0">
+            <div
+              class="w-24 h-24 bg-gradient-to-br from-green-500 to-teal-500 rounded-3xl flex items-center justify-center text-white text-4xl font-black shadow-xl"
+            >
+              2
+            </div>
+          </div>
+          <div
+            class="flex-1 bg-gradient-to-r from-green-50 to-teal-50 rounded-2xl p-6"
+          >
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">
+              Pick your spot
+            </h3>
+            <p class="text-gray-600">
+              Choose based on price, location, or next available appointment.
+              It's your call.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="flex flex-col md:flex-row items-center gap-8"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <div class="flex-shrink-0">
+            <div
+              class="w-24 h-24 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-3xl flex items-center justify-center text-white text-4xl font-black shadow-xl"
+            >
+              3
+            </div>
+          </div>
+          <div
+            class="flex-1 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl p-6"
+          >
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">
+              Show up & scan
+            </h3>
+            <p class="text-gray-600">
+              That's it. Results in your inbox within 48 hours. Share with any
+              doctor.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST SIGNALS -->
+  <section
+    class="py-20 px-6 bg-gradient-to-br from-[#003087] via-[#0052cc] to-[#003087] text-white"
+  >
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-4xl font-black mb-4" data-aos="fade-up">
+        Real healthcare for real people
+      </h2>
+      <p
+        class="text-xl mb-12 opacity-90"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        We're building the future of medical imaging
+      </p>
+
+      <div class="grid md:grid-cols-4 gap-6">
+        <div
+          class="bg-white/10 backdrop-blur rounded-2xl p-6"
+          data-aos="fade-up"
+        >
+          <div class="text-5xl font-black mb-2">90M</div>
+          <p class="opacity-90">Americans we're serving</p>
+        </div>
+        <div
+          class="bg-white/10 backdrop-blur rounded-2xl p-6"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <div class="text-5xl font-black mb-2">1,500+</div>
+          <p class="opacity-90">imaging centers</p>
+        </div>
+        <div
+          class="bg-white/10 backdrop-blur rounded-2xl p-6"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <div class="text-5xl font-black mb-2">80%</div>
+          <p class="opacity-90">average savings</p>
+        </div>
+        <div
+          class="bg-white/10 backdrop-blur rounded-2xl p-6"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          <div class="text-5xl font-black mb-2">24hr</div>
+          <p class="opacity-90">results delivery</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section
+    class="py-20 px-6 bg-gradient-to-br from-gray-900 to-black text-white"
+  >
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-5xl md:text-6xl font-black mb-6" data-aos="fade-up">
+        Stop overpaying.<br />
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-[#cc9933] to-yellow-400"
+        >
+          Start saving.
+        </span>
+      </h2>
+      <p
+        class="text-2xl mb-10 opacity-90"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Join thousands who've discovered smarter healthcare
+      </p>
+
+      <div
+        class="flex flex-col sm:flex-row gap-4 justify-center items-center"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <a
+          href="/search-results"
+          class="bg-gradient-to-r from-[#cc9933] to-yellow-400 hover:from-yellow-400 hover:to-[#cc9933] text-gray-900 px-10 py-5 rounded-2xl font-black text-xl transition-all transform hover:scale-105 inline-flex items-center gap-2"
+        >
+          Find your center
+          <span class="text-2xl">→</span>
+        </a>
+        <a
+          href="/pricing"
+          class="border-2 border-white hover:bg-white hover:text-gray-900 text-white px-10 py-5 rounded-2xl font-black text-xl transition-all"
+        >
+          See all prices
+        </a>
+      </div>
+
+      <p class="mt-8 text-white/50 text-sm">
+        No insurance BS • No hidden fees • No waiting weeks
+      </p>
+    </div>
+  </section>
+
+  <ChatbotToggle chatbotLabel="💬 Need help?" />
+
+  <style>
+    @keyframes blob {
+      0% {
+        transform: translate(0px, 0px) scale(1);
+      }
+      33% {
+        transform: translate(30px, -50px) scale(1.1);
+      }
+      66% {
+        transform: translate(-20px, 20px) scale(0.9);
+      }
+      100% {
+        transform: translate(0px, 0px) scale(1);
+      }
+    }
+    .animate-blob {
+      animation: blob 7s infinite;
+    }
+    .animation-delay-2000 {
+      animation-delay: 2s;
+    }
+    .animation-delay-4000 {
+      animation-delay: 4s;
+    }
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    .animate-scroll {
+      animation: scroll 30s linear infinite;
+    }
+  </style>
+</MainPatientLayout>
