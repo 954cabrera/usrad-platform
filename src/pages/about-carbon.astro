@@ -1,0 +1,936 @@
+---
+import CarbonLayout from "../layouts/CarbonLayout.astro";
+import AOSInit from "../components/AOSInit.astro";
+
+export const prerender = true;
+---
+
+<CarbonLayout title="About USRad - The Full Story">
+  <AOSInit />
+
+  <!-- Hero Section with Background Image -->
+  <section
+    class="relative pt-32 pb-20 px-4 sm:px-6 min-h-[600px] flex items-center"
+  >
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="/images/about-hero.png"
+        alt="Worker with family"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40">
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto">
+      <div class="max-w-5xl">
+        <h1
+          class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 text-white leading-tight"
+          data-aos="fade-up"
+        >
+          The Full Story Behind<br />
+          <span class="text-[#cc9933]">The Revolution</span>
+        </h1>
+        <p
+          class="text-xl md:text-2xl text-gray-100 leading-relaxed"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          How a Workers' Compensation crisis in 1994 led to a healthcare model
+          that saved $585 million and is now evolving to serve 90 million
+          Americans.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Origin Story -->
+  <section class="py-20 px-4 sm:px-6 bg-white">
+    <div class="max-w-4xl mx-auto">
+      <h2
+        class="text-4xl md:text-5xl font-bold text-gray-900 mb-12 text-center"
+        data-aos="fade-up"
+      >
+        It Started With a Simple Question
+      </h2>
+
+      <div
+        class="space-y-8 text-xl text-gray-600 leading-relaxed"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <p class="text-2xl font-semibold text-gray-900">
+          "Why does an MRI cost $3,200 at a hospital but $1,000 at an outpatient
+          center two blocks away?"
+        </p>
+
+        <p>
+          In 1994, while managing Workers' Compensation claims, we discovered
+          that injured workers waited an average of 14 days for imaging that
+          determined their entire treatment path. The human cost was
+          immeasurable. The financial cost was destroying businesses.
+        </p>
+
+        <p>
+          We saw a broken system: Hospitals had monopolized imaging, driving up
+          prices. Insurance companies had no leverage. Patients had no choices.
+          Quality outpatient centers sat empty while hospitals had two-week
+          backlogs.
+        </p>
+
+        <div
+          class="bg-[#fefbf5] rounded-2xl p-8 my-12 border-l-4 border-[#cc9933]"
+        >
+          <p class="text-2xl font-semibold text-gray-900 mb-4">
+            The Breakthrough:
+          </p>
+          <p class="text-gray-700">
+            What if we could create a network where imaging centers competed for
+            patients based on quality, speed, and price? What if transparency
+            could fix healthcare?
+          </p>
+        </div>
+
+        <p>
+          That question led to AnciCare. America's first managed care imaging
+          network.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEW PREMIUM SAVINGS SECTION -->
+  <section
+    class="py-24 px-4 sm:px-6 bg-gradient-to-br from-white to-gray-50 overflow-hidden"
+  >
+    <div class="max-w-6xl mx-auto">
+      <!-- Premium Header -->
+      <div class="text-center mb-20" data-aos="fade-up">
+        <div
+          class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-6"
+        >
+          <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+          Our Proven Track Record
+        </div>
+        <h1
+          class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-gray-900 leading-tight"
+        >
+          How We Saved<br />
+          <span
+            class="text-6xl md:text-7xl lg:text-8xl bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-clip-text text-transparent"
+            >$585 Million</span
+          >
+        </h1>
+        <p
+          class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+        >
+          20 years ago, we revolutionized healthcare for 400,000 American
+          workers. Here's exactly how we did it.
+        </p>
+      </div>
+
+      <!-- Photo Grid Introduction -->
+      <div class="grid md:grid-cols-3 gap-8 mb-24">
+        <div
+          class="relative rounded-2xl overflow-hidden shadow-2xl group"
+          data-aos="fade-up"
+        >
+          <img
+            src="/images/website/about_worker.webp"
+            alt="Construction worker"
+            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6"
+          >
+            <div class="text-white">
+              <h3 class="text-2xl font-bold mb-2">The Workers</h3>
+              <p class="text-sm opacity-90">
+                400,000 injured Americans waiting for care
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="relative rounded-2xl overflow-hidden shadow-2xl group"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <img
+            src="/images/website/about_solution.webp"
+            alt="MRI machine"
+            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6"
+          >
+            <div class="text-white">
+              <h3 class="text-2xl font-bold mb-2">The Solution</h3>
+              <p class="text-sm opacity-90">
+                Direct access to quality imaging centers
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="relative rounded-2xl overflow-hidden shadow-2xl group"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=90"
+            alt="Happy professional"
+            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6"
+          >
+            <div class="text-white">
+              <h3 class="text-2xl font-bold mb-2">The Impact</h3>
+              <p class="text-sm opacity-90">Lives changed, families saved</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline with Photos -->
+      <div class="space-y-32">
+        <!-- The Problem -->
+        <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
+          <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+            <img
+              src="/images/website/about_waiting.webp"
+              alt="Modern MRI facility"
+              class="w-full h-96 object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+            >
+            </div>
+          </div>
+          <div>
+            <div
+              class="inline-block bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-medium mb-4"
+            >
+              The Old Way
+            </div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">
+              14 Days of Waiting
+            </h2>
+            <div class="space-y-4">
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                >
+                  <span class="text-2xl">😰</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-lg text-gray-900">
+                    Pain without answers
+                  </p>
+                  <p class="text-gray-600">
+                    Workers suffered while insurance processed paperwork
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                >
+                  <span class="text-2xl">💸</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-lg text-gray-900">
+                    $3,000 for a plain MRI
+                  </p>
+                  <p class="text-gray-600">
+                    Hospital monopolies drove prices sky-high
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Our Solution -->
+        <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
+          <div class="order-2 md:order-1">
+            <div
+              class="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium mb-4"
+            >
+              Our Revolution
+            </div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">
+              2 Days to Answers
+            </h2>
+            <div class="space-y-4">
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                >
+                  <span class="text-2xl">⚡</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-lg text-gray-900">
+                    Same-week imaging
+                  </p>
+                  <p class="text-gray-600">
+                    Direct contracts cut through red tape
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                >
+                  <span class="text-2xl">✨</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-lg text-gray-900">
+                    $475 transparent pricing
+                  </p>
+                  <p class="text-gray-600">No surprises, no hidden fees</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="order-1 md:order-2 relative rounded-3xl overflow-hidden shadow-2xl"
+          >
+            <img
+              src="/images/website/imaging-center-hero-fallback.webp"
+              alt="Modern MRI facility"
+              class="w-full h-96 object-cover"
+            />
+          </div>
+        </div>
+
+        <!-- The Impact -->
+        <div class="relative">
+          <div
+            class="relative rounded-3xl overflow-hidden shadow-2xl mb-12"
+            data-aos="fade-up"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1609220136736-443140cffec6?w=1600&q=90"
+              alt="Happy family"
+              class="w-full h-96 object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end"
+            >
+              <div class="p-12 text-white">
+                <h2 class="text-5xl font-bold mb-4">400,000 Lives Changed</h2>
+                <p class="text-2xl opacity-90">
+                  $585 Million in healthcare costs eliminated
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Impact Stats -->
+          <div class="grid md:grid-cols-3 gap-8">
+            <div
+              class="bg-white rounded-2xl p-8 shadow-lg text-center hover:-translate-y-2 transition-transform"
+              data-aos="zoom-in"
+            >
+              <div
+                class="w-20 h-20 mx-auto mb-4 bg-blue-100 rounded-2xl flex items-center justify-center p-3"
+              >
+                <img
+                  src="/images/icons/savings.png"
+                  alt="Medical savings"
+                  class="w-full h-full object-contain"
+                />
+              </div>
+              <div class="text-4xl font-bold text-blue-600 mb-2">$226M</div>
+              <p class="text-gray-600">Medical savings</p>
+              <p class="text-sm text-gray-500 mt-2">52% cost reduction</p>
+            </div>
+
+            <div
+              class="bg-white rounded-2xl p-8 shadow-lg text-center hover:-translate-y-2 transition-transform"
+              data-aos="zoom-in"
+              data-aos-delay="200"
+            >
+              <div
+                class="w-20 h-20 mx-auto mb-4 bg-orange-100 rounded-2xl flex items-center justify-center p-3"
+              >
+                <img
+                  src="/images/icons/productivity.png"
+                  alt="Productivity saved"
+                  class="w-full h-full object-contain"
+                />
+              </div>
+              <div class="text-4xl font-bold text-orange-600 mb-2">$359M</div>
+              <p class="text-gray-600">Productivity saved</p>
+              <p class="text-sm text-gray-500 mt-2">3.2M work days</p>
+            </div>
+
+            <div
+              class="bg-white rounded-2xl p-8 shadow-lg text-center hover:-translate-y-2 transition-transform"
+              data-aos="zoom-in"
+              data-aos-delay="400"
+            >
+              <div
+                class="w-20 h-20 mx-auto mb-4 bg-green-100 rounded-2xl flex items-center justify-center p-3"
+              >
+                <img
+                  src="/images/icons/save-the-world.png"
+                  alt="Total impact"
+                  class="w-full h-full object-contain"
+                />
+              </div>
+              <div class="text-4xl font-bold text-green-600 mb-2">$585M</div>
+              <p class="text-gray-600">Total impact</p>
+              <p class="text-sm text-gray-500 mt-2">Employer savings</p>
+            </div>
+          </div>
+
+          <!-- Emotional Close of Savings Section -->
+          <div
+            class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#003087] to-[#002266] p-12 md:p-16 text-white text-center mt-20"
+            data-aos="fade-up"
+          >
+            <div class="relative z-10">
+              <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+                Behind Every Dollar Was a Life Changed
+              </h2>
+              <div class="max-w-3xl mx-auto space-y-4 text-lg md:text-xl mb-8">
+                <p class="opacity-90">400,000 families who kept their homes</p>
+                <p class="opacity-90">
+                  3.2 million days parents didn't miss with their kids
+                </p>
+                <p class="opacity-90">
+                  Countless lives that didn't spiral into medical debt
+                </p>
+              </div>
+              <div class="pt-8 border-t border-white/20">
+                <p class="text-2xl md:text-3xl font-semibold">
+                  We did it once. But we weren't done.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEW EMOTIONAL "WHY WE'RE DOING THIS AGAIN" SECTION -->
+      <section class="py-24 px-4 sm:px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+          <!-- Transition from past to present -->
+          <div class="text-center mb-20" data-aos="fade-up">
+            <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-8">
+              Then Something Happened...
+            </h2>
+            <p class="text-2xl text-gray-600 max-w-3xl mx-auto">
+              We sold our company. We celebrated. We moved on.<br />
+              But healthcare didn't get better. It got worse.
+            </p>
+          </div>
+
+          <!-- The Current Crisis - Visual Grid -->
+          <div
+            class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
+            data-aos="fade-up"
+          >
+            <div class="bg-red-50 rounded-2xl p-6 border-2 border-red-100">
+              <div class="text-4xl mb-4">📈</div>
+              <h3 class="text-4xl font-bold text-red-600 mb-2">150%</h3>
+              <p class="text-gray-700">MRI price increase since 2002</p>
+            </div>
+            <div
+              class="bg-orange-50 rounded-2xl p-6 border-2 border-orange-100"
+            >
+              <div class="text-4xl mb-4">😔</div>
+              <h3 class="text-4xl font-bold text-orange-600 mb-2">90M</h3>
+              <p class="text-gray-700">Americans can't afford imaging</p>
+            </div>
+            <div
+              class="bg-yellow-50 rounded-2xl p-6 border-2 border-yellow-100"
+            >
+              <div class="text-4xl mb-4">⏰</div>
+              <h3 class="text-4xl font-bold text-yellow-600 mb-2">45%</h3>
+              <p class="text-gray-700">Skip care due to cost</p>
+            </div>
+            <div
+              class="bg-purple-50 rounded-2xl p-6 border-2 border-purple-100"
+            >
+              <div class="text-4xl mb-4">💔</div>
+              <h3 class="text-4xl font-bold text-purple-600 mb-2">#1</h3>
+              <p class="text-gray-700">Cause of bankruptcy</p>
+            </div>
+          </div>
+
+          <!-- The Personal Story -->
+          <div class="max-w-4xl mx-auto mb-20">
+            <div class="relative">
+              <div
+                class="absolute left-0 top-0 text-8xl text-gray-200 font-serif"
+              >
+                "
+              </div>
+              <div class="relative z-10 pt-12 pl-8 pr-8" data-aos="fade-up">
+                <p
+                  class="text-2xl md:text-3xl text-gray-700 leading-relaxed mb-8"
+                >
+                  I was at a neighborhood barbecue when someone asked what I
+                  did. I explained our old company—how we'd made MRIs affordable
+                  for injured workers. The silence was deafening. Then: 'Must be
+                  nice to be a worker.' 'My dad waited six months for his scan.'
+                  'Insurance wanted $2,800 for my daughter's MRI.' That's when I
+                  realized: We'd won the battle but ignored the war.
+                  <span
+                    class="text-8xl text-gray-200 font-serif align-top inline-block -mb-8 -mr-4"
+                    >"</span
+                  >
+                </p>
+                <p class="text-xl text-gray-600 italic">
+                  We came back to win the war.
+                </p>
+                <p class="text-lg text-gray-500 mt-4">
+                  — Michael Cabrera, Founder & CEO
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Why NOW - Split Screen -->
+          <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+            <div class="space-y-8" data-aos="fade-right">
+              <h3 class="text-4xl font-bold text-gray-900">
+                The Problem Got <span class="text-red-600">Bigger</span>
+              </h3>
+              <div class="space-y-6">
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0 p-2"
+                  >
+                    <img
+                      src="/images/icons/alert-icon.png"
+                      alt="Alert"
+                      class="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div>
+                    <p class="font-semibold text-lg text-gray-900">
+                      It's not just workers anymore
+                    </p>
+                    <p class="text-gray-600">
+                      Teachers, nurses, gig workers, your family
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0 p-2"
+                  >
+                    <img
+                      src="/images/icons/alert-icon.png"
+                      alt="Alert"
+                      class="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div>
+                    <p class="font-semibold text-lg text-gray-900">
+                      Hospitals became monopolies
+                    </p>
+                    <p class="text-gray-600">
+                      No competition, no transparency, no mercy
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0 p-2"
+                  >
+                    <img
+                      src="/images/icons/alert-icon.png"
+                      alt="Alert"
+                      class="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div>
+                    <p class="font-semibold text-lg text-gray-900">
+                      People are dying
+                    </p>
+                    <p class="text-gray-600">
+                      From treatable conditions they can't afford to diagnose
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-8" data-aos="fade-left">
+              <h3 class="text-4xl font-bold text-gray-900">
+                The Solution Got <span class="text-green-600">Smarter</span>
+              </h3>
+              <div class="space-y-6">
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0 p-2"
+                  >
+                    <img
+                      src="/images/icons/solution-icon.png"
+                      alt="Solution"
+                      class="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div>
+                    <p class="font-semibold text-lg text-gray-900">
+                      No insurance required
+                    </p>
+                    <p class="text-gray-600">
+                      Direct pricing for everyone, insured or not
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0 p-2"
+                  >
+                    <img
+                      src="/images/icons/solution-icon.png"
+                      alt="Solution"
+                      class="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div>
+                    <p class="font-semibold text-lg text-gray-900">
+                      Book in 60 seconds
+                    </p>
+                    <p class="text-gray-600">
+                      No calls, no faxes, no waiting for approval
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0 p-2"
+                  >
+                    <img
+                      src="/images/icons/solution-icon.png"
+                      alt="Solution"
+                      class="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div>
+                    <p class="font-semibold text-lg text-gray-900">
+                      Same centers, new access
+                    </p>
+                    <p class="text-gray-600">
+                      1,500+ quality centers ready to serve you
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- The Mission Statement -->
+          <div
+            class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 to-gray-800 p-12 md:p-20 text-white"
+            data-aos="fade-up"
+          >
+            <div class="relative z-10 text-center">
+              <div class="text-6xl mb-8 animate-pulse">❤️</div>
+              <h2 class="text-4xl md:text-5xl font-bold mb-8">
+                This Time, It's Personal
+              </h2>
+              <p
+                class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto leading-relaxed"
+              >
+                We're not building for corporations. We're not optimizing for
+                insurance companies. We're building for that dad who waited six
+                months. For the daughter who needed a $2,800 MRI. For the
+                teacher who can't afford a scan. For the 90 million Americans
+                who deserve better.
+              </p>
+              <div class="mt-12 pt-12 border-t border-white/20">
+                <p class="text-3xl font-semibold mb-4">
+                  We saved employers $585 million.
+                </p>
+                <p class="text-2xl opacity-90">Now let's save lives.</p>
+              </div>
+            </div>
+
+            <!-- Background decoration -->
+            <div class="absolute inset-0 opacity-10">
+              <div
+                class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full filter blur-3xl transform translate-x-32 -translate-y-32"
+              >
+              </div>
+              <div
+                class="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full filter blur-3xl transform -translate-x-32 translate-y-32"
+              >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EMOTIONAL FOUNDERS SECTION -->
+      <section
+        class="py-20 px-4 sm:px-6 bg-gradient-to-br from-[#fefbf5] to-white"
+      >
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+              The Hearts Behind the Mission
+            </h2>
+            <p class="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto">
+              Two people who couldn't watch healthcare fail any longer. Who came
+              back to finish what they started.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            <!-- Michael -->
+            <div
+              class="bg-white rounded-3xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition-all"
+              data-aos="fade-right"
+            >
+              <div class="p-8 md:p-10">
+                <div
+                  class="w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden shadow-lg"
+                >
+                  <img
+                    src="/images/michael.jpg"
+                    alt="Michael Cabrera"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+
+                <h3 class="text-3xl font-bold text-gray-900 text-center mb-2">
+                  Michael Cabrera
+                </h3>
+                <p class="text-[#cc9933] font-semibold text-center mb-6">
+                  Co-Founder & CEO
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                  <div class="text-center p-4 bg-gray-50 rounded-xl">
+                    <div class="text-3xl font-bold text-[#003087]">1,236%</div>
+                    <div class="text-sm text-gray-600">Growth Achieved</div>
+                  </div>
+                  <div class="text-center p-4 bg-gray-50 rounded-xl">
+                    <div class="text-3xl font-bold text-[#cc9933]">$585M+</div>
+                    <div class="text-sm text-gray-600">Value Created</div>
+                  </div>
+                </div>
+
+                <p class="text-gray-600 text-center mb-8 italic">
+                  "Every delayed scan is someone's parent, child, or friend. We
+                  can't let that continue."
+                </p>
+
+                <a
+                  href="/michael-story"
+                  class="block w-full bg-gradient-to-r from-[#003087] to-[#002266] text-white px-6 py-3 rounded-xl font-semibold text-center hover:shadow-lg transition-all"
+                >
+                  Read Michael's Full Story →
+                </a>
+              </div>
+            </div>
+
+            <!-- Donna -->
+            <div
+              class="bg-white rounded-3xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition-all"
+              data-aos="fade-left"
+            >
+              <div class="p-8 md:p-10">
+                <div
+                  class="w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden shadow-lg"
+                >
+                  <img
+                    src="/images/donna.webp"
+                    alt="Donna Cabrera"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+
+                <h3 class="text-3xl font-bold text-gray-900 text-center mb-2">
+                  Donna Cabrera
+                </h3>
+                <p class="text-[#cc9933] font-semibold text-center mb-6">
+                  Co-Founder & Patient Advocacy Advisor
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                  <div class="text-center p-4 bg-gray-50 rounded-xl">
+                    <div class="text-3xl font-bold text-[#003087]">400K+</div>
+                    <div class="text-sm text-gray-600">Patients Served</div>
+                  </div>
+                  <div class="text-center p-4 bg-gray-50 rounded-xl">
+                    <div class="text-3xl font-bold text-[#cc9933]">99.8%</div>
+                    <div class="text-sm text-gray-600">Satisfaction Rate</div>
+                  </div>
+                </div>
+
+                <p class="text-gray-600 text-center mb-8 italic">
+                  "Behind every statistic is a real person with a real story.
+                  That's who we fight for."
+                </p>
+
+                <a
+                  href="/donna-story"
+                  class="block w-full bg-gradient-to-r from-[#003087] to-[#002266] text-white px-6 py-3 rounded-xl font-semibold text-center hover:shadow-lg transition-all"
+                >
+                  Learn About Donna's Role →
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-12" data-aos="fade-up">
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+              Together, they've turned personal conviction into a movement
+              that's reshaping American healthcare—one transparent scan at a
+              time.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- The USRad Difference -->
+      <section class="py-20 px-4 sm:px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+          <h2
+            class="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center"
+            data-aos="fade-up"
+          >
+            What Makes USRad Different
+          </h2>
+
+          <div class="grid md:grid-cols-3 gap-8">
+            <!-- Experience -->
+            <div
+              class="text-center p-8 bg-gradient-to-br from-gray-50 to-white rounded-2xl hover:shadow-xl transition-all"
+              data-aos="zoom-in"
+              data-aos-delay="100"
+            >
+              <div class="text-6xl mb-6">🎯</div>
+              <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                We've Done This Before
+              </h3>
+              <p class="text-lg text-gray-600">
+                Not our first rodeo. We know exactly what works because we've
+                already built it, scaled it, and sold it.
+              </p>
+              <div class="mt-6 text-5xl font-bold text-[#cc9933]">
+                20+ Years
+              </div>
+              <p class="text-sm text-gray-600">Of proven success</p>
+            </div>
+
+            <!-- Technology -->
+            <div
+              class="text-center p-8 bg-gradient-to-br from-[#fefbf5] to-white rounded-2xl hover:shadow-xl transition-all"
+              data-aos="zoom-in"
+              data-aos-delay="200"
+            >
+              <div class="text-6xl mb-6">🚀</div>
+              <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                Modern Technology
+              </h3>
+              <p class="text-lg text-gray-600">
+                What took phone calls and faxes in 1994 now happens instantly
+                online. Same proven model, exponentially more powerful.
+              </p>
+              <div class="mt-6 text-5xl font-bold text-[#003087]">
+                60 Seconds
+              </div>
+              <p class="text-sm text-gray-600">To book your scan</p>
+            </div>
+
+            <!-- Mission -->
+            <div
+              class="text-center p-8 bg-gradient-to-br from-gray-50 to-white rounded-2xl hover:shadow-xl transition-all"
+              data-aos="zoom-in"
+              data-aos-delay="300"
+            >
+              <div class="text-6xl mb-6">❤️</div>
+              <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                Bigger Mission
+              </h3>
+              <p class="text-lg text-gray-600">
+                We're not serving employers this time. We're serving you—the 90
+                million Americans who deserve better.
+              </p>
+              <div class="mt-6 text-5xl font-bold text-[#cc9933]">90M</div>
+              <p class="text-sm text-gray-600">Americans to serve</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final CTA -->
+      <section
+        class="py-24 px-4 sm:px-6 bg-gradient-to-br from-[#003087] to-[#002266] text-white relative overflow-hidden"
+      >
+        <div class="absolute inset-0">
+          <div
+            class="absolute inset-0 opacity-5"
+            style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 1px); background-size: 40px 40px;"
+          >
+          </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto text-center relative z-10">
+          <h2
+            class="text-4xl sm:text-5xl md:text-6xl font-bold mb-8"
+            data-aos="fade-up"
+          >
+            Ready to Join the Revolution?
+          </h2>
+
+          <p
+            class="text-2xl mb-12 opacity-90 max-w-3xl mx-auto"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            We've spent 30 years perfecting this model. Now it's your turn to
+            benefit.
+          </p>
+
+          <div
+            class="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <a
+              href="/search-test"
+              class="group relative bg-gradient-to-r from-[#cc9933] to-yellow-400 text-[#003087] px-12 py-5 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl inline-flex items-center gap-3"
+            >
+              <span class="relative z-10">Find Your Scan</span>
+              <svg
+                class="w-6 h-6 group-hover:translate-x-1 transition-transform relative z-10"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </a>
+
+            <a
+              href="/how-it-works"
+              class="group border-2 border-white text-white hover:bg-white hover:text-[#003087] px-12 py-5 rounded-xl font-bold text-lg transition-all duration-300 inline-flex items-center gap-2"
+            >
+              <span>See How It Works</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section></CarbonLayout
+>
