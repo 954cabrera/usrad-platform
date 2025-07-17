@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USRad Timeline Animation</title>
+    <style>
+        /* Timeline Container - Add this to your about-carbon.astro */
+        .timeline-wrapper {
+            position: relative;
+            padding: 0 20px;
+        }
+
+        /* Vertical Timeline Line */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom,
+                    transparent 0%,
+                    #e5e5e5 10%,
+                    #e5e5e5 90%,
+                    transparent 100%);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        /* Animated Progress Line */
+        .timeline-progress {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #cc9933 0%, #cc9933 40%, #003087 60%, #003087 100%);
+            transform: translateX(-50%);
+            height: 0%;
+            z-index: 2;
+            transition: height 2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Timeline Nodes */
+        .timeline-node {
+            position: relative;
+            margin: 80px 0;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .timeline-node.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Alternating Layout */
+        .timeline-node:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-node:nth-child(odd) .timeline-content {
+            margin-right: 60px;
+            text-align: right;
+        }
+
+        .timeline-node:nth-child(even) .timeline-content {
+            margin-left: 60px;
+            text-align: left;
+        }
+
+        /* Timeline Dots */
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 4px solid #e5e5e5;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-node.visible .timeline-dot {
+            border-color: #cc9933;
+        }
+
+        .timeline-node.usrad-era.visible .timeline-dot {
+            border-color: #003087;
+            width: 28px;
+            height: 28px;
+        }
+
+        /* Pulse Effect for Current Node */
+        .timeline-dot.pulse::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #003087;
+            transform: translate(-50%, -50%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Content Styling */
+        .timeline-content {
+            flex: 1;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-node:nth-child(odd) .timeline-content {
+            background: linear-gradient(135deg, #fefbf5 0%, #fff 100%);
+        }
+
+        .timeline-node.usrad-era .timeline-content {
+            background: linear-gradient(135deg, #f0f4f8 0%, #fff 100%);
+            border: 2px solid #e1e8f0;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Year Badge */
+        .timeline-year {
+            display: inline-block;
+            padding: 6px 16px;
+            background: #cc9933;
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .timeline-node.usrad-era .timeline-year {
+            background: #003087;
+        }
+
+        /* Content Typography */
+        .timeline-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .timeline-description {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Impact Numbers */
+        .timeline-impact {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .impact-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #cc9933;
+            display: block;
+        }
+
+        .timeline-node.usrad-era .impact-number {
+            color: #003087;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+
+            .timeline-line,
+            .timeline-progress {
+                left: 30px;
+            }
+
+            .timeline-node {
+                flex-direction: column !important;
+                margin: 60px 0;
+            }
+
+            .timeline-node:nth-child(odd) .timeline-content,
+            .timeline-node:nth-child(even) .timeline-content {
+                margin: 0 0 0 60px;
+                text-align: left;
+            }
+
+            .timeline-dot {
+                left: 30px;
+            }
+        }
+
+        /* Floating Year Indicator */
+        .floating-year {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 12px 24px;
+            background: rgba(0, 48, 135, 0.9);
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+        }
+
+        .floating-year.visible {
+            opacity: 1;
+        }
+
+        /* Section Transition Marker */
+        .era-transition {
+            position: relative;
+            text-align: center;
+            margin: 100px 0;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.6s ease;
+        }
+
+        .era-transition.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .era-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #ccc 50%, transparent 100%);
+            margin: 40px 0;
+        }
+
+        .era-badge {
+            display: inline-block;
+            padding: 12px 32px;
+            background: white;
+            border: 2px solid #003087;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #003087;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Add this structure to your about-carbon.astro file -->
+
+    <!-- Timeline Section - Insert after "How We Made Medical Imaging Affordable" section -->
+    <section class="py-20 bg-gradient-to-b from-white to-gray-50">
+        <div class="max-w-6xl mx-auto timeline-wrapper">
+            <!-- Background Timeline Line -->
+            <div class="timeline-line"></div>
+            <!-- Animated Progress Line -->
+            <div class="timeline-progress" id="timelineProgress"></div>
+
+            <!-- Floating Year Indicator -->
+            <div class="floating-year" id="floatingYear">1994</div>
+
+            <!-- 1994: The Discovery -->
+            <div class="timeline-node" data-year="1994">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-year">1994</span>
+                    <h3 class="timeline-title">The Discovery</h3>
+                    <p class="timeline-description">
+                        Managing Workers' Comp claims revealed the opportunity: 14-day waits while quality centers sat
+                        empty.
+                    </p>
+                    <div class="timeline-impact">
+                        <span class="impact-number">14 days</span>
+                        <span class="text-sm text-gray-600">Average wait time</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1996: AnciCare Launch -->
+            <div class="timeline-node" data-year="1996">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-year">1996</span>
+                    <h3 class="timeline-title">AnciCare Launches</h3>
+                    <p class="timeline-description">
+                        America's first imaging network goes live. Direct contracts with providers, guaranteed volume
+                        for lower prices.
+                    </p>
+                    <div class="timeline-impact">
+                        <span class="impact-number">50%+ savings</span>
+                        <span class="text-sm text-gray-600">Below fee schedules</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1999: Rapid Growth -->
+            <div class="timeline-node" data-year="1999">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-year">1999</span>
+                    <h3 class="timeline-title">Explosive Growth</h3>
+                    <p class="timeline-description">
+                        Network expands nationwide. Major employers adopt the model. Lives change daily.
+                    </p>
+                    <div class="timeline-impact">
+                        <span class="impact-number">400,000</span>
+                        <span class="text-sm text-gray-600">Workers served</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2002: The Exit -->
+            <div class="timeline-node" data-year="2002">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-year">2002</span>
+                    <h3 class="timeline-title">Mission Accomplished?</h3>
+                    <p class="timeline-description">
+                        AnciCare sold. $585 million saved. We thought we were done.
+                    </p>
+                    <div class="timeline-impact">
+                        <span class="impact-number">$585M</span>
+                        <span class="text-sm text-gray-600">Total impact</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Era Transition -->
+            <div class="era-transition">
+                <div class="era-line"></div>
+                <span class="era-badge">But healthcare got worse, not better...</span>
+                <div class="era-line"></div>
+            </div>
+
+            <!-- 2024: The Return -->
+            <div class="timeline-node usrad-era" data-year="2024">
+                <div class="timeline-dot pulse"></div>
+                <div class="timeline-content">
+                    <span class="timeline-year">2024</span>
+                    <h3 class="timeline-title">We Came Back</h3>
+                    <p class="timeline-description">
+                        That barbecue conversation changed everything. 90 million Americans need what we built for
+                        400,000 workers.
+                    </p>
+                    <div class="timeline-impact">
+                        <span class="impact-number">90M</span>
+                        <span class="text-sm text-gray-600">Americans to serve</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2025: USRad Revolution -->
+            <div class="timeline-node usrad-era" data-year="2025">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-year">2025</span>
+                    <h3 class="timeline-title">The Revolution Begins</h3>
+                    <p class="timeline-description">
+                        Same proven model. Modern technology. No insurance required. Book in 60 seconds.
+                    </p>
+                    <div class="timeline-impact">
+                        <span class="impact-number">1,500+</span>
+                        <span class="text-sm text-gray-600">Centers ready now</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for Timeline Animation -->
+    <script>
+        // Timeline Animation Script
+        document.addEventListener('DOMContentLoaded', function () {
+            const timelineProgress = document.getElementById('timelineProgress');
+            const floatingYear = document.getElementById('floatingYear');
+            const timelineNodes = document.querySelectorAll('.timeline-node');
+            const eraTransition = document.querySelector('.era-transition');
+
+            // Calculate timeline progress based on scroll
+            function updateTimeline() {
+                const windowHeight = window.innerHeight;
+                const scrolled = window.scrollY;
+
+                // Update progress line
+                const timelineSection = document.querySelector('.timeline-wrapper');
+                if (timelineSection) {
+                    const sectionTop = timelineSection.offsetTop;
+                    const sectionHeight = timelineSection.offsetHeight;
+                    const sectionScrolled = scrolled - sectionTop + windowHeight * 0.5;
+                    const progress = Math.min(Math.max(sectionScrolled / sectionHeight * 100, 0), 100);
+
+                    timelineProgress.style.height = progress + '%';
+                }
+
+                // Animate nodes as they come into view
+                timelineNodes.forEach((node, index) => {
+                    const rect = node.getBoundingClientRect();
+                    if (rect.top < windowHeight * 0.75) {
+                        setTimeout(() => {
+                            node.classList.add('visible');
+                        }, index * 100);
+
+                        // Update floating year
+                        if (rect.top < windowHeight * 0.5 && rect.bottom > windowHeight * 0.5) {
+                            floatingYear.textContent = node.dataset.year;
+                            floatingYear.classList.add('visible');
+                        }
+                    }
+                });
+
+                // Show era transition
+                if (eraTransition) {
+                    const transitionRect = eraTransition.getBoundingClientRect();
+                    if (transitionRect.top < windowHeight * 0.75) {
+                        eraTransition.classList.add('visible');
+                    }
+                }
+            }
+
+            // Throttle scroll events
+            let ticking = false;
+            function requestTick() {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateTimeline);
+                    ticking = true;
+                    setTimeout(() => { ticking = false; }, 100);
+                }
+            }
+
+            window.addEventListener('scroll', requestTick);
+            updateTimeline(); // Initial call
+        });
+    </script>
+</body>
+
+</html>
