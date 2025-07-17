@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>USRad Savings - Version 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.1;
+        }
+        50% {
+          opacity: 0.15;
+        }
+      }
+      .pulse-bg {
+        animation: pulse 3s ease-in-out infinite;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Patient-Friendly Savings Section with Visual Impact -->
+    <section class="py-20 px-4 sm:px-6 bg-white">
+      <div class="max-w-5xl mx-auto">
+        <!-- Relatable headline -->
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            We've Done This Before
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            20 years ago, we helped 400,000 injured workers get back on their
+            feet faster. Here's what happened.
+          </p>
+        </div>
+
+        <!-- Visual Story Section -->
+        <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+          <!-- Before/After Visual -->
+          <div class="space-y-8" data-aos="fade-right">
+            <div
+              class="bg-red-50 rounded-2xl p-6 border-2 border-red-100 transform hover:scale-105 transition-transform duration-300"
+            >
+              <div class="flex items-center gap-4 mb-4">
+                <div class="text-4xl">😔</div>
+                <div class="text-xl font-semibold text-gray-900">
+                  Before USRad
+                </div>
+              </div>
+              <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+                  <span class="text-gray-700">14 days waiting in pain</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+                  <span class="text-gray-700">$3,000 for an MRI</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+                  <span class="text-gray-700">Missed paychecks piling up</span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-green-50 rounded-2xl p-6 border-2 border-green-100 transform hover:scale-105 transition-transform duration-300"
+            >
+              <div class="flex items-center gap-4 mb-4">
+                <div class="text-4xl">🎉</div>
+                <div class="text-xl font-semibold text-gray-900">
+                  With USRad
+                </div>
+              </div>
+              <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <span class="text-gray-700">2 days to get answers</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <span class="text-gray-700">$475 flat rate</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <span class="text-gray-700">Back to work 8 days sooner</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Impact Visual -->
+          <div class="text-center" data-aos="fade-left">
+            <div class="relative">
+              <div
+                class="text-8xl md:text-9xl font-bold text-yellow-600 opacity-10 absolute inset-0 flex items-center justify-center pulse-bg"
+              >
+                $585M
+              </div>
+              <div class="relative z-10 pt-12">
+                <p class="text-2xl font-semibold text-gray-900 mb-8">
+                  That's how much we saved<br />
+                  <span class="text-4xl text-yellow-600">400,000 families</span>
+                </p>
+                <div
+                  class="inline-flex items-center gap-2 bg-yellow-50 rounded-full px-6 py-3 border-2 border-yellow-100"
+                >
+                  <span class="text-3xl">≈</span>
+                  <span class="text-lg font-semibold">$1,462 per family</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simple Visual Breakdown -->
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 md:p-12 shadow-lg"
+          data-aos="fade-up"
+        >
+          <h3 class="text-2xl font-bold text-center text-gray-900 mb-8">
+            Where the savings came from
+          </h3>
+
+          <!-- Visual Progress Bars -->
+          <div class="space-y-6 max-w-3xl mx-auto">
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-gray-700 font-medium">Lower scan prices</span>
+                <span class="text-2xl font-bold text-blue-700">$226M</span>
+              </div>
+              <div class="bg-gray-200 rounded-full h-4 overflow-hidden">
+                <div
+                  class="bg-gradient-to-r from-blue-700 to-blue-400 h-full rounded-full transition-all duration-1000 ease-out"
+                  style="width: 0%"
+                  data-aos="progress-bar"
+                  data-aos-anchor-placement="top-bottom"
+                >
+                </div>
+              </div>
+              <p class="text-sm text-gray-600 mt-2">
+                Paid $475 instead of $1,000+ per scan
+              </p>
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-gray-700 font-medium">Faster recovery</span>
+                <span class="text-2xl font-bold text-yellow-600">$359M</span>
+              </div>
+              <div class="bg-gray-200 rounded-full h-4 overflow-hidden">
+                <div
+                  class="bg-gradient-to-r from-yellow-600 to-yellow-400 h-full rounded-full transition-all duration-1000 ease-out"
+                  style="width: 0%"
+                  data-aos="progress-bar-2"
+                  data-aos-anchor-placement="top-bottom"
+                >
+                </div>
+              </div>
+              <p class="text-sm text-gray-600 mt-2">
+                Got people back to work 8 days sooner
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Human Touch -->
+        <div class="text-center mt-16" data-aos="fade-up">
+          <p class="text-2xl text-gray-900 font-semibold mb-4">
+            Behind every dollar saved was a person who got their life back
+            faster.
+          </p>
+          <p class="text-lg text-gray-600">Now it's your turn.</p>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
+
+      // Animate progress bars when they come into view
+      const observerOptions = {
+        threshold: 0.5,
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target.getAttribute("data-aos") === "progress-bar") {
+              setTimeout(() => {
+                entry.target.style.width = "39%";
+              }, 500);
+            } else if (
+              entry.target.getAttribute("data-aos") === "progress-bar-2"
+            ) {
+              setTimeout(() => {
+                entry.target.style.width = "61%";
+              }, 700);
+            }
+          }
+        });
+      }, observerOptions);
+
+      document
+        .querySelectorAll(
+          '[data-aos="progress-bar"], [data-aos="progress-bar-2"]'
+        )
+        .forEach((el) => {
+          observer.observe(el);
+        });
+    </script>
+  </body>
+</html>

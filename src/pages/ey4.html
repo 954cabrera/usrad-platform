@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>USRad - Photo-Enhanced Savings Story</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+      * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Previous styles remain the same */
+      @keyframes draw-line {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 0 0 20px rgba(59, 130, 246, 0);
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        25% {
+          transform: translateY(-8px) rotate(2deg);
+        }
+        75% {
+          transform: translateY(-5px) rotate(-2deg);
+        }
+      }
+
+      @keyframes gradient-shift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .timeline-line {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+      }
+
+      .timeline-line.animate {
+        animation: draw-line 2.5s ease-out forwards;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(-45deg, #003087, #0052cc, #0066ff, #4d94ff);
+        background-size: 400% 400%;
+        animation: gradient-shift 10s ease infinite;
+      }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .hero-text {
+        background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .money-gradient {
+        background: linear-gradient(
+          135deg,
+          #ffd700 0%,
+          #ffa500 50%,
+          #ff8c00 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* New photo-specific styles */
+      .photo-overlay {
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.7) 100%
+        );
+      }
+
+      .photo-container {
+        overflow: hidden;
+        position: relative;
+      }
+
+      .photo-container img {
+        transition: transform 0.6s ease;
+      }
+
+      .photo-container:hover img {
+        transform: scale(1.05);
+      }
+
+      .parallax-container {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .parallax-bg {
+        position: absolute;
+        top: -20%;
+        left: 0;
+        width: 100%;
+        height: 120%;
+        object-fit: cover;
+        will-change: transform;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 font-sans">
+    <!-- Hero Section with Background Image -->
+    <section
+      class="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
+      <!-- Background Image with Parallax -->
+      <div class="absolute inset-0 parallax-container">
+        <img
+          src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=2000&q=90"
+          alt="Medical professional"
+          class="parallax-bg opacity-20"
+        />
+        <div class="absolute inset-0 gradient-bg opacity-90"></div>
+      </div>
+
+      <!-- Content -->
+      <div
+        class="relative z-10 text-center px-4 sm:px-6 py-24"
+        data-aos="fade-up"
+      >
+        <div
+          class="inline-flex items-center gap-2 bg-white/20 backdrop-blur text-white px-4 py-2 rounded-full text-sm font-medium mb-6"
+        >
+          <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+          Our Proven Track Record
+        </div>
+        <h1
+          class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white leading-tight"
+        >
+          How We Saved<br />
+          <span class="text-6xl md:text-7xl lg:text-8xl money-gradient"
+            >$585 Million</span
+          >
+        </h1>
+        <p
+          class="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed"
+        >
+          20 years ago, we revolutionized healthcare for 400,000 American
+          workers. Now we're doing it for you.
+        </p>
+      </div>
+    </section>
+
+    <!-- Premium Timeline with Photos -->
+    <section class="py-24 px-4 sm:px-6 bg-white">
+      <div class="max-w-6xl mx-auto">
+        <!-- Photo Grid Introduction -->
+        <div class="grid md:grid-cols-3 gap-8 mb-24">
+          <div
+            class="photo-container rounded-2xl overflow-hidden shadow-2xl"
+            data-aos="fade-up"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1584432810601-6c7f27d2362b?w=800&q=90"
+              alt="Construction worker"
+              class="w-full h-64 object-cover"
+            />
+            <div class="absolute inset-0 photo-overlay flex items-end p-6">
+              <div class="text-white">
+                <h3 class="text-2xl font-bold mb-2">The Workers</h3>
+                <p class="text-sm opacity-90">
+                  400,000 injured Americans waiting for care
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="photo-container rounded-2xl overflow-hidden shadow-2xl"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&q=90"
+              alt="MRI machine"
+              class="w-full h-64 object-cover"
+            />
+            <div class="absolute inset-0 photo-overlay flex items-end p-6">
+              <div class="text-white">
+                <h3 class="text-2xl font-bold mb-2">The Solution</h3>
+                <p class="text-sm opacity-90">
+                  Direct access to quality imaging centers
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="photo-container rounded-2xl overflow-hidden shadow-2xl"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=90"
+              alt="Happy professional"
+              class="w-full h-64 object-cover"
+            />
+            <div class="absolute inset-0 photo-overlay flex items-end p-6">
+              <div class="text-white">
+                <h3 class="text-2xl font-bold mb-2">The Impact</h3>
+                <p class="text-sm opacity-90">Lives changed, families saved</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline with Integrated Photos -->
+        <div class="relative">
+          <!-- Timeline Items -->
+          <div class="space-y-32">
+            <!-- The Problem - with photo -->
+            <div
+              class="grid md:grid-cols-2 gap-12 items-center"
+              data-aos="fade-up"
+            >
+              <div
+                class="photo-container rounded-3xl overflow-hidden shadow-2xl"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=1200&q=90"
+                  alt="Person in pain"
+                  class="w-full h-96 object-cover"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+                >
+                </div>
+              </div>
+              <div>
+                <div
+                  class="inline-block bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-medium mb-4"
+                >
+                  The Old Way
+                </div>
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                  14 Days of Waiting
+                </h2>
+                <div class="space-y-4">
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                    >
+                      <span class="text-2xl">😰</span>
+                    </div>
+                    <div>
+                      <p class="font-semibold text-lg text-gray-900">
+                        Pain without answers
+                      </p>
+                      <p class="text-gray-600">
+                        Workers suffered while insurance processed paperwork
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                    >
+                      <span class="text-2xl">💸</span>
+                    </div>
+                    <div>
+                      <p class="font-semibold text-lg text-gray-900">
+                        $3,000 for basic imaging
+                      </p>
+                      <p class="text-gray-600">
+                        Hospital monopolies drove prices sky-high
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                    >
+                      <span class="text-2xl">📉</span>
+                    </div>
+                    <div>
+                      <p class="font-semibold text-lg text-gray-900">
+                        Lost wages mounting daily
+                      </p>
+                      <p class="text-gray-600">
+                        Families falling behind on bills
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Our Solution - with photo -->
+            <div
+              class="grid md:grid-cols-2 gap-12 items-center"
+              data-aos="fade-up"
+            >
+              <div class="order-2 md:order-1">
+                <div
+                  class="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium mb-4"
+                >
+                  Our Revolution
+                </div>
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                  2 Days to Recovery
+                </h2>
+                <div class="space-y-4">
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                    >
+                      <span class="text-2xl">⚡</span>
+                    </div>
+                    <div>
+                      <p class="font-semibold text-lg text-gray-900">
+                        Same-week imaging
+                      </p>
+                      <p class="text-gray-600">
+                        Direct contracts cut through red tape
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                    >
+                      <span class="text-2xl">✨</span>
+                    </div>
+                    <div>
+                      <p class="font-semibold text-lg text-gray-900">
+                        $475 transparent pricing
+                      </p>
+                      <p class="text-gray-600">No surprises, no hidden fees</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                    >
+                      <span class="text-2xl">🎯</span>
+                    </div>
+                    <div>
+                      <p class="font-semibold text-lg text-gray-900">
+                        Quality guaranteed
+                      </p>
+                      <p class="text-gray-600">
+                        Top-rated imaging centers competing for patients
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="order-1 md:order-2 photo-container rounded-3xl overflow-hidden shadow-2xl"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1559028012-481c04fa702d?w=1200&q=90"
+                  alt="Modern MRI facility"
+                  class="w-full h-96 object-cover"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+                >
+                </div>
+              </div>
+            </div>
+
+            <!-- The Impact - with photo -->
+            <div class="relative">
+              <div
+                class="photo-container rounded-3xl overflow-hidden shadow-2xl mb-12"
+                data-aos="fade-up"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1609220136736-443140cffec6?w=1600&q=90"
+                  alt="Happy family"
+                  class="w-full h-96 object-cover"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end"
+                >
+                  <div class="p-12 text-white">
+                    <h2 class="text-5xl font-bold mb-4">
+                      400,000 Lives Changed
+                    </h2>
+                    <p class="text-2xl opacity-90">
+                      $585 Million returned to American families
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Impact Stats with Photos -->
+              <div class="grid md:grid-cols-3 gap-8">
+                <div class="relative group" data-aos="zoom-in">
+                  <div class="photo-container rounded-2xl overflow-hidden h-64">
+                    <img
+                      src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=90"
+                      alt="Cost savings"
+                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div
+                      class="absolute inset-0 bg-blue-900/80 flex items-center justify-center"
+                    >
+                      <div class="text-center text-white p-6">
+                        <div class="text-5xl font-bold mb-2">$226M</div>
+                        <p class="text-lg">Medical savings</p>
+                        <p class="text-sm opacity-80 mt-2">
+                          52% cost reduction
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="relative group"
+                  data-aos="zoom-in"
+                  data-aos-delay="200"
+                >
+                  <div class="photo-container rounded-2xl overflow-hidden h-64">
+                    <img
+                      src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=90"
+                      alt="Productivity"
+                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div
+                      class="absolute inset-0 bg-orange-900/80 flex items-center justify-center"
+                    >
+                      <div class="text-center text-white p-6">
+                        <div class="text-5xl font-bold mb-2">$359M</div>
+                        <p class="text-lg">Productivity saved</p>
+                        <p class="text-sm opacity-80 mt-2">3.2M work days</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="relative group"
+                  data-aos="zoom-in"
+                  data-aos-delay="400"
+                >
+                  <div class="photo-container rounded-2xl overflow-hidden h-64">
+                    <img
+                      src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=90"
+                      alt="Total impact"
+                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div
+                      class="absolute inset-0 bg-green-900/80 flex items-center justify-center"
+                    >
+                      <div class="text-center text-white p-6">
+                        <div class="text-5xl font-bold mb-2">$585M</div>
+                        <p class="text-lg">Total impact</p>
+                        <p class="text-sm opacity-80 mt-2">Life-changing</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo Recommendations Section -->
+    <section class="py-20 px-4 sm:px-6 bg-gray-50">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl">
+          <h2 class="text-3xl font-bold text-gray-900 mb-8">
+            Photo Strategy Guide
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-12">
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 mb-4">
+                🎯 Hero Photos Needed:
+              </h3>
+              <ul class="space-y-3 text-gray-600">
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500">✓</span>
+                  <div>
+                    <strong>Construction/Labor Workers:</strong> Authentic shots
+                    of blue-collar workers, hard hats, safety vests
+                  </div>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500">✓</span>
+                  <div>
+                    <strong>Medical Imaging Centers:</strong> Modern, clean MRI/CT
+                    facilities (not hospital-looking)
+                  </div>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500">✓</span>
+                  <div>
+                    <strong>Happy Families:</strong> Diverse families at home, parents
+                    with kids, real moments
+                  </div>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500">✓</span>
+                  <div>
+                    <strong>Recovery Moments:</strong> Workers back on the job, people
+                    active and healthy
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 mb-4">
+                📸 Photo Style Guide:
+              </h3>
+              <ul class="space-y-3 text-gray-600">
+                <li class="flex items-start gap-3">
+                  <span class="text-blue-500">•</span>
+                  <div>
+                    <strong>Lighting:</strong> Natural, bright, optimistic (like
+                    One Medical)
+                  </div>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-blue-500">•</span>
+                  <div>
+                    <strong>Color Grading:</strong> Warm, approachable tones with
+                    blue accents
+                  </div>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-blue-500">•</span>
+                  <div>
+                    <strong>Composition:</strong> Wide shots showing environment,
+                    close-ups for emotion
+                  </div>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-blue-500">•</span>
+                  <div>
+                    <strong>Avoid:</strong> Stock photo look, overly posed, clinical/cold
+                    feeling
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8 p-6 bg-blue-50 rounded-2xl">
+            <p class="text-blue-900">
+              <strong>Pro Tip:</strong> Consider hiring a photographer for a half-day
+              shoot at a partner imaging center. Get real patients (with consent)
+              or hire diverse models. Authenticity beats perfection.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      AOS.init({
+        duration: 1000,
+        once: true,
+        offset: 100,
+      });
+
+      // Parallax effect
+      window.addEventListener("scroll", () => {
+        const scrolled = window.pageYOffset;
+        const parallax = document.querySelector(".parallax-bg");
+        if (parallax) {
+          parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+      });
+    </script>
+  </body>
+</html>

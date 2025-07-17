@@ -31,7 +31,7 @@ export default function CarbonHeader() {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
-              <a href="/" className="flex items-center">
+              <a href="/index-carbon" className="flex items-center">
                 <img 
                   src="/logo/USRad-Logo-final-rev.png" 
                   alt="USRad Logo" 
@@ -52,7 +52,7 @@ export default function CarbonHeader() {
               <a href="/locations" className="text-sm font-medium text-gray-700 hover:text-[#003087] transition">
                 Locations
               </a>
-              <a href="/about" className="text-sm font-medium text-gray-700 hover:text-[#003087] transition">
+              <a href="/about-carbon" className="text-sm font-medium text-gray-700 hover:text-[#003087] transition">
                 About
               </a>
             </nav>
@@ -127,7 +127,7 @@ export default function CarbonHeader() {
               <MobileNavLink href="/locations" onClick={() => setMobileMenuOpen(false)}>
                 Locations
               </MobileNavLink>
-              <MobileNavLink href="/about" onClick={() => setMobileMenuOpen(false)}>
+              <MobileNavLink href="/about-carbon" onClick={() => setMobileMenuOpen(false)}>
                 About
               </MobileNavLink>
             </div>

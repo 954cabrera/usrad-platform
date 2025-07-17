@@ -10,86 +10,119 @@ import SecondaryButton from "../components/SecondaryButton.astro";
 <CarbonLayout title="USRad - MRI Scans in 48 Hours, 70% Less">
   <AOSInit />
 
-  <!-- Hero Section -->
+  <!-- Hero Section with Video Background -->
   <section
-    class="relative pt-16 pb-20 px-4 sm:px-6 overflow-hidden"
+    class="relative pt-32 sm:pt-36 md:pt-40 pb-20 px-4 sm:px-6 overflow-hidden"
     data-aos="fade-up"
   >
-    <!-- Add subtle gradient blobs -->
+    <!-- Video Background -->
+    <div class="absolute inset-0 z-0">
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        class="absolute inset-0 w-full h-full object-cover"
+        poster="/images/home-hero-mri.webp?v=2.1"
+      >
+        <source
+          src="/videos/home-hero-mri-mobile.mp4"
+          type="video/mp4"
+          media="(max-width: 768px)"
+        />
+        <source src="/videos/home-hero-mri.mp4" type="video/mp4" />
+        <source src="/videos/home-hero-mri.webm" type="video/webm" />
+      </video>
+
+      <!-- Video Overlay for better text contrast -->
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"
+      >
+      </div>
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/30"
+      >
+      </div>
+    </div>
+
+    <!-- Gradient blobs (subtle over video) -->
     <div
-      class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-50 to-purple-50 rounded-full blur-3xl opacity-50"
+      class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl opacity-30 z-10"
     >
     </div>
     <div
-      class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-full blur-3xl opacity-30"
+      class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-[#cc9933]/20 to-orange-500/20 rounded-full blur-3xl opacity-20 z-10"
     >
     </div>
 
-    <div class="max-w-7xl mx-auto relative z-10">
-      <div class="max-w-4xl mx-auto text-center">
-        <!-- Trust Badge -->
-        <div class="inline-flex items-center gap-2 bg-green-50 border"></div>
-
-        <!-- Main Headline - MUCH LARGER -->
+    <div class="max-w-7xl mx-auto relative z-20">
+      <div class="max-w-5xl mx-auto text-center">
+        <!-- Main Headline - Properly Formatted -->
         <h1
-          class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 text-gray-900 leading-tight"
+          class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 text-white leading-tight tracking-tight"
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          Get your MRI in <span class="text-[#003087] relative inline-block">
-            48 hours
+          <span class="block">Same Radiologists.</span>
+          <span class="block">Same Scanners.</span>
+          <span class="text-[#cc9933] relative inline-block">
+            70% Less
             <svg
-              class="absolute -bottom-4 left-0 w-full"
-              height="16"
-              viewBox="0 0 200 16"
+              class="absolute -bottom-2 sm:-bottom-3 left-0 w-full"
+              height="20"
+              viewBox="0 0 200 20"
               preserveAspectRatio="none"
             >
               <path
-                d="M2 10 Q50 2 100 10 T198 10"
+                d="M2 14 Q50 4 100 14 T198 14"
                 stroke="#cc9933"
                 stroke-width="5"
                 fill="none"
-                class="animate-draw-line"
-                stroke-linecap="round"></path>
+                class="animate-draw-line drop-shadow-md"
+                stroke-linecap="round"
+                opacity="0.8"></path>
             </svg>
-          </span>,<br />not 6 weeks
+          </span>
+          <span class="text-white">.</span>
         </h1>
+
+        <!-- Subheadline - Perfect Visual Balance -->
+        <p
+          class="text-xl sm:text-2xl md:text-3xl text-white/90 max-w-3xl mx-auto leading-relaxed drop-shadow-lg"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <span class="block">Book in minutes. Get scanned this week.</span>
+          <span class="block">Pay hundreds, not thousands.</span>
+        </p>
 
         <style>
           @keyframes draw-line {
             from {
               stroke-dashoffset: 200;
+              opacity: 0;
             }
             to {
               stroke-dashoffset: 0;
+              opacity: 0.8;
             }
           }
           .animate-draw-line {
             stroke-dasharray: 200;
-            animation: draw-line 1.5s ease-out 0.5s forwards;
+            stroke-dashoffset: 200;
+            animation: draw-line 1.5s ease-out 0.8s forwards;
           }
         </style>
 
-        <!-- Subheadline - LARGER -->
-        <p
-          class="text-2xl md:text-3xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          Same board-certified radiologists. Same quality imaging.
-          <span class="font-semibold text-gray-900"
-            >70% less than hospitals.</span
-          >
-        </p>
-
-        <!-- Right after your hero subheading -->
+        <!-- Availability badge - Moved down for better spacing -->
         <div
-          class="flex justify-center mb-10"
+          class="flex justify-center mt-10 mb-10"
           data-aos="fade-up"
           data-aos-delay="300"
         >
           <div
-            class="inline-flex items-center gap-2 bg-green-50 border border-green-200 rounded-full px-6 py-3 animate-float"
+            class="inline-flex items-center gap-2 bg-white/90 backdrop-blur-md border border-green-200 rounded-full px-6 py-3 animate-float shadow-xl"
           >
             <span class="flex h-3 w-3">
               <span
@@ -120,9 +153,9 @@ import SecondaryButton from "../components/SecondaryButton.astro";
           }
         </style>
 
-        <!-- Search Form - BIGGER -->
+        <!-- Search Form -->
         <div
-          class="bg-white rounded-2xl shadow-xl p-3 max-w-2xl mx-auto mb-8"
+          class="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-3 max-w-2xl mx-auto mb-8"
           data-aos="fade-up"
           data-aos-delay="400"
         >
@@ -138,29 +171,29 @@ import SecondaryButton from "../components/SecondaryButton.astro";
               pattern="[0-9]{5}"
               maxlength="5"
               required
-              class="flex-1 px-6 py-4 rounded-xl text-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#003087] focus:border-transparent"
+              class="flex-1 px-6 py-4 rounded-xl text-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#003087] focus:border-transparent bg-white"
             />
             <input type="hidden" name="procedure" value="70551" />
             <input type="hidden" name="state" value="FL" />
             <input type="hidden" name="autoSearch" value="true" />
             <button
               type="submit"
-              class="bg-[#003087] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[#002266] transition whitespace-nowrap"
+              class="bg-[#003087] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[#002266] transition whitespace-nowrap shadow-lg hover:scale-105 transform"
             >
               Check prices →
             </button>
           </form>
         </div>
 
-        <!-- Trust Indicators - LARGER -->
+        <!-- Trust Indicators -->
         <div
-          class="flex flex-wrap justify-center gap-8 text-base text-gray-600"
+          class="flex flex-wrap justify-center gap-8 text-base text-white drop-shadow-md"
           data-aos="fade-up"
           data-aos-delay="500"
         >
           <div class="flex items-center gap-2">
             <svg
-              class="w-5 h-5 text-green-500"
+              class="w-5 h-5 text-green-400 drop-shadow"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -173,7 +206,7 @@ import SecondaryButton from "../components/SecondaryButton.astro";
           </div>
           <div class="flex items-center gap-2">
             <svg
-              class="w-5 h-5 text-green-500"
+              class="w-5 h-5 text-green-400 drop-shadow"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -186,7 +219,7 @@ import SecondaryButton from "../components/SecondaryButton.astro";
           </div>
           <div class="flex items-center gap-2">
             <svg
-              class="w-5 h-5 text-green-500"
+              class="w-5 h-5 text-green-400 drop-shadow"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -217,7 +250,7 @@ import SecondaryButton from "../components/SecondaryButton.astro";
           <div class="text-3xl md:text-4xl font-bold text-[#003087]">
             $400M+
           </div>
-          <div class="text-base text-gray-600">Saved for patients</div>
+          <div class="text-base text-gray-600">Amount clients saved</div>
         </div>
         <div data-aos="fade-up" data-aos-delay="300">
           <div class="text-3xl md:text-4xl font-bold text-[#003087]">48hr</div>
@@ -242,7 +275,7 @@ import SecondaryButton from "../components/SecondaryButton.astro";
           class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-gray-900"
           data-aos="fade-up"
         >
-          Getting your scan is this easy
+          Getting your MRI is this easy
         </h2>
         <p
           class="text-2xl text-gray-600"
@@ -425,74 +458,67 @@ import SecondaryButton from "../components/SecondaryButton.astro";
     <NetworkMapPinsCarbon />
   </section>
 
-  <!-- About/Trust Section -->
+  <!-- About/Trust Section - Fixed CTA Alignment -->
   <section
-    class="py-24 px-4 sm:px-6 bg-gradient-to-br from-white via-gray-50/30 to-white"
+    class="py-20 px-4 sm:px-6 bg-gradient-to-br from-white via-gray-50/30 to-white"
     data-aos="fade-up"
   >
     <div class="max-w-7xl mx-auto">
       <div class="max-w-4xl mx-auto text-center">
+        <!-- Headline -->
         <h2
           class="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 text-gray-900"
-          data-aos="fade-up"
         >
-          Built by healthcare pioneers
+          We've Done This Before —<br />
+          <span class="text-[#cc9933]">And This Time, It's Even Smarter</span>
         </h2>
-        <p
-          class="text-2xl text-gray-600 mb-12 leading-relaxed"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          We created America's first managed care imaging network, serving
-          400,000+ patients and saving $400 Million+. Now we're supercharging
-          that proven model with AI and digital innovation to make world-class
-          medical imaging affordable for everyone.
+
+        <!-- Copy Block -->
+        <p class="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
+          After building one of the largest diagnostic imaging networks in the
+          country—serving over 1,200 centers and leading to a
+          <strong class="text-gray-900">public company acquisition</strong>—we
+          saw an opportunity to go further.
         </p>
 
-        <!-- Credentials -->
-        <div class="grid sm:grid-cols-3 gap-8 mb-16">
-          <div
-            class="bg-white rounded-xl p-8 hover:shadow-lg transition-shadow"
-            data-aos="zoom-in"
-            data-aos-delay="200"
-          >
-            <div class="text-5xl mb-4">🏥</div>
-            <h3 class="font-semibold text-xl mb-3">Medical excellence</h3>
-            <p class="text-base text-gray-600">
-              All centers meet strict quality standards
-            </p>
+        <p
+          class="text-xl md:text-2xl text-gray-900 mb-12 leading-relaxed font-semibold"
+        >
+          USRad is the next evolution: A transparent marketplace using
+          <span class="text-[#cc9933]">Medicare-based pricing</span>. Simple,
+          modern, and built for 90+ million Americans without adequate imaging
+          coverage.
+        </p>
+
+        <!-- Visual Proof -->
+        <div class="inline-flex items-center gap-8 text-center mb-10">
+          <div>
+            <p class="text-5xl font-bold text-[#003087]">1,200+</p>
+            <p class="text-sm text-gray-600">Centers Built</p>
           </div>
-          <div
-            class="bg-white rounded-xl p-8 hover:shadow-lg transition-shadow"
-            data-aos="zoom-in"
-            data-aos-delay="300"
-          >
-            <div class="text-5xl mb-4">🛡️</div>
-            <h3 class="font-semibold text-xl mb-3">Price protection</h3>
-            <p class="text-base text-gray-600">
-              What you see is what you pay, guaranteed
-            </p>
+          <div class="text-3xl text-gray-300">→</div>
+          <div>
+            <p class="text-5xl font-bold text-[#cc9933]">NASDAQ</p>
+            <p class="text-sm text-gray-600">Acquired</p>
           </div>
-          <div
-            class="bg-white rounded-xl p-8 hover:shadow-lg transition-shadow"
-            data-aos="zoom-in"
-            data-aos-delay="400"
-          >
-            <div class="text-5xl mb-4">⚡</div>
-            <h3 class="font-semibold text-xl mb-3">Fast results</h3>
-            <p class="text-base text-gray-600">
-              24-48 hour turnaround from expert radiologists
-            </p>
+          <div class="text-3xl text-gray-300">→</div>
+          <div>
+            <p class="text-5xl font-bold text-[#003087]">90M</p>
+            <p class="text-sm text-gray-600">To Serve</p>
           </div>
         </div>
 
-        <!-- CTA Button Section -->
-        <div class="bg-gray-50 px-8 py-6 text-center">
+        <!-- CTA Button Centered -->
+        <div
+          class="flex justify-center"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
           <a
             href="/about"
-            class="inline-block bg-[#003087] text-white px-8 py-3 rounded-lg font-medium hover:bg-[#002266] transition"
+            class="bg-[#003087] text-white px-10 py-4 rounded-xl font-semibold text-lg hover:bg-[#002266] transition-all duration-300 transform hover:scale-105"
           >
-            Read our story →
+            See the full story →
           </a>
         </div>
       </div>
