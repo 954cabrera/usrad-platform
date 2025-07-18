@@ -432,43 +432,61 @@ const MultiModalViewer = () => {
               </div>
             )}
             
-            {/* Annotations Overlay - Split into three corners */}
+            {/* Responsive Annotations Overlay */}
             {showAnnotations && imagesLoaded && (
               <>
-                {/* Top Left - Main anatomy focus */}
-                {currentAnatomy && (
-                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-sm text-white p-3 rounded-lg pointer-events-none max-w-[200px]">
-                    <div className="text-sm font-medium text-white mb-1">
-                      Learning Focus: {currentAnatomy.name}
-                    </div>
-                    <div className="text-xs text-gray-300">{currentAnatomy.function}</div>
-                    <div className="text-xs text-gray-400 mt-1">{currentAnatomy.intensity}</div>
-                  </div>
-                )}
-                
-                {/* Top Right - Additional visible structures */}
-                {currentAnatomy?.visibleStructures && (
-                  <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white p-3 rounded-lg pointer-events-none max-w-[200px]">
-                    <div className="text-xs text-blue-300">
-                      Also visible: {currentAnatomy.visibleStructures}
+                {isMobile ? (
+                  // Mobile: Minimal single overlay bar
+                  <div className="absolute top-2 left-2 right-2 bg-black/75 backdrop-blur-sm text-white px-3 py-2 rounded-lg pointer-events-none">
+                    <div className="flex justify-between items-center">
+                      <div className="flex-1">
+                        <div className="text-xs font-medium truncate">{currentAnatomy?.name}</div>
+                        <div className="text-xs text-gray-300 truncate">{currentAnatomy?.function}</div>
+                      </div>
+                      <div className="text-xs text-gray-400 ml-2 whitespace-nowrap">
+                        {currentSlice}/{currentConfig.totalSlices}
+                      </div>
                     </div>
                   </div>
+                ) : (
+                  // Desktop: Full 4-corner layout
+                  <>
+                    {/* Top Left - Main anatomy focus */}
+                    {currentAnatomy && (
+                      <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-sm text-white p-3 rounded-lg pointer-events-none max-w-[200px]">
+                        <div className="text-sm font-medium text-white mb-1">
+                          Learning Focus: {currentAnatomy.name}
+                        </div>
+                        <div className="text-xs text-gray-300">{currentAnatomy.function}</div>
+                        <div className="text-xs text-gray-400 mt-1">{currentAnatomy.intensity}</div>
+                      </div>
+                    )}
+                    
+                    {/* Top Right - Additional visible structures */}
+                    {currentAnatomy?.visibleStructures && (
+                      <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white p-3 rounded-lg pointer-events-none max-w-[200px]">
+                        <div className="text-xs text-blue-300">
+                          Also visible: {currentAnatomy.visibleStructures}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Bottom Right - Technical Information */}
+                    <div className="absolute bottom-4 right-4 bg-black/70 backdrop-blur-sm text-white px-3 py-2 rounded-lg pointer-events-none">
+                      <div className="text-xs sm:text-sm font-medium">
+                        {currentConfig.name} - T1-weighted - Slice {currentSlice}/{currentConfig.totalSlices}
+                      </div>
+                      <div className="text-xs text-gray-300">Anonymized</div>
+                    </div>
+                    
+                    {/* Bottom Left - Source attribution */}
+                    <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm text-white px-3 py-2 rounded-lg pointer-events-none">
+                      <div className="text-xs text-gray-300">
+                        Source: {currentConfig.scanInfo?.source || 'OASIS-1 Dataset'}
+                      </div>
+                    </div>
+                  </>
                 )}
-                
-                {/* Bottom Right - Technical Information */}
-                <div className="absolute bottom-4 right-4 bg-black/70 backdrop-blur-sm text-white px-3 py-2 rounded-lg pointer-events-none">
-                  <div className="text-xs sm:text-sm font-medium">
-                    {currentConfig.name} - T1-weighted - Slice {currentSlice}/{currentConfig.totalSlices}
-                  </div>
-                  <div className="text-xs text-gray-300">Anonymized</div>
-                </div>
-                
-                {/* Bottom Left - Source attribution */}
-                <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm text-white px-3 py-2 rounded-lg pointer-events-none">
-                  <div className="text-xs text-gray-300">
-                    Source: {currentConfig.scanInfo?.source || 'OASIS-1 Dataset'}
-                  </div>
-                </div>
               </>
             )}
             
