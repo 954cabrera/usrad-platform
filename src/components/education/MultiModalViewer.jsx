@@ -2,45 +2,51 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 const MultiModalViewer = () => {
   const [activeModality, setActiveModality] = useState('mri');
-  const [currentSlice, setCurrentSlice] = useState(12); // Start at middle slice
+  const [currentSlice, setCurrentSlice] = useState(12);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [playSpeed, setPlaySpeed] = useState(300);
+  const [playSpeed, setPlaySpeed] = useState(100);
   const [brightness, setBrightness] = useState(100);
   const [contrast, setContrast] = useState(100);
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0, panX: 0, panY: 0 });
   const [lastY, setLastY] = useState(0);
   const [showAnnotations, setShowAnnotations] = useState(true);
   const [imageLoadError, setImageLoadError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showComingSoon, setShowComingSoon] = useState(false);
+  const [preloadedImages, setPreloadedImages] = useState({});
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   
-  const canvasRef = useRef(null);
-  const animationRef = useRef(null);
   const containerRef = useRef(null);
-  const imageRef = useRef(null);
+  const modalRef = useRef(null);
+  const animationRef = useRef(null);
   
-  // Initialize image ref after component mounts
+  // Detect mobile device
   useEffect(() => {
-    if (typeof window !== 'undefined' && !imageRef.current) {
-      imageRef.current = new window.Image();
-    }
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
   
-  // Updated modality config for real MRI images
+  // Updated modality config
   const modalityConfig = {
     mri: {
       name: 'MRI',
       fullName: 'Magnetic Resonance Imaging',
       icon: '🧠',
       color: 'blue',
-      totalSlices: 24, // Updated to match your actual slice count
+      totalSlices: 24,
       description: 'T1-weighted brain imaging',
       benefits: ['No radiation exposure', 'Excellent soft tissue contrast', 'Multiple imaging planes'],
       commonUses: ['Brain imaging', 'Spine evaluation', 'Joint assessment', 'Organ visualization'],
-      imagePath: '/mri/patient_001/', // Path to your images
-      sequenceType: 'T1-weighted', // Added sequence type
+      imagePath: '/mri/patient_001/',
+      sequenceType: 'T1-weighted',
       scanInfo: {
         field: '3T',
         sliceThickness: '5mm',
@@ -81,7 +87,7 @@ const MultiModalViewer = () => {
     }
   };
   
-  // Anatomy data updated for real MRI slices
+  // Anatomy data
   const anatomyData = {
     mri: [
       { name: "Vertex / Superior Parietal", function: "Top of cerebral hemispheres", intensity: "T1: Gray-white differentiation" },
@@ -114,15 +120,44 @@ const MultiModalViewer = () => {
     pet: []
   };
   
-  // Function to get the current image path
-  const getCurrentImagePath = useCallback(() => {
+  // Preload all images for smooth playback
+  useEffect(() => {
     if (activeModality === 'mri' && modalityConfig.mri.imagePath) {
-      // Format slice number with leading zeros (e.g., slice_001.webp)
-      const sliceNumber = currentSlice.toString().padStart(3, '0');
-      return `${modalityConfig.mri.imagePath}slice_${sliceNumber}.webp`;
+      setImagesLoaded(false);
+      setIsLoading(true);
+      const imagePromises = [];
+      const tempImages = {};
+      
+      for (let i = 0; i <= modalityConfig.mri.totalSlices; i++) {
+        const sliceNumber = i.toString().padStart(3, '0');
+        const path = `${modalityConfig.mri.imagePath}slice_${sliceNumber}.webp`;
+        
+        const img = new Image();
+        const promise = new Promise((resolve, reject) => {
+          img.onload = () => {
+            tempImages[i] = img;
+            resolve();
+          };
+          img.onerror = reject;
+        });
+        img.src = path;
+        imagePromises.push(promise);
+      }
+      
+      Promise.all(imagePromises)
+        .then(() => {
+          setPreloadedImages(tempImages);
+          setImagesLoaded(true);
+          setIsLoading(false);
+        })
+        .catch(err => {
+          console.error('Failed to preload images:', err);
+          setImagesLoaded(false);
+          setIsLoading(false);
+          setImageLoadError(true);
+        });
     }
-    return null;
-  }, [activeModality, currentSlice]);
+  }, [activeModality]);
   
   // Handle modality tab clicks
   const handleModalityClick = (key) => {
@@ -130,31 +165,36 @@ const MultiModalViewer = () => {
       setActiveModality(key);
       setShowComingSoon(false);
     } else {
-      // Show coming soon modal for other modalities
       setShowComingSoon(true);
+      setTimeout(() => {
+        if (modalRef.current && window.innerWidth <= 768) {
+          modalRef.current.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center',
+            inline: 'nearest'
+          });
+        }
+      }, 100);
     }
   };
   
-  // Auto-play functionality
+  // Smoother auto-play functionality
   useEffect(() => {
-    if (isPlaying) {
-      const totalSlices = modalityConfig[activeModality].totalSlices;
-      animationRef.current = setInterval(() => {
+    if (isPlaying && imagesLoaded) {
+      const interval = setInterval(() => {
         setCurrentSlice(prev => {
           const next = prev + 1;
-          if (next > totalSlices) {
+          if (next > modalityConfig[activeModality].totalSlices) {
             setIsPlaying(false);
             return 0;
           }
           return next;
         });
       }, playSpeed);
-    } else {
-      clearInterval(animationRef.current);
+      
+      return () => clearInterval(interval);
     }
-    
-    return () => clearInterval(animationRef.current);
-  }, [isPlaying, playSpeed, activeModality]);
+  }, [isPlaying, playSpeed, activeModality, imagesLoaded]);
   
   // Reset slice when modality changes
   useEffect(() => {
@@ -172,135 +212,70 @@ const MultiModalViewer = () => {
     setCurrentSlice(prev => Math.max(0, Math.min(totalSlices, prev + delta)));
   }, [activeModality]);
   
-  // Handle mouse drag
+  // Enhanced mouse drag for panning
   const handleMouseDown = useCallback((e) => {
     if (e.button === 0) {
       setIsDragging(true);
+      setDragStart({
+        x: e.clientX,
+        y: e.clientY,
+        panX: pan.x,
+        panY: pan.y
+      });
       setLastY(e.clientY);
     }
-  }, []);
+  }, [pan]);
   
   const handleMouseMove = useCallback((e) => {
     if (isDragging) {
+      // Check if dragging vertically for slice navigation
       const deltaY = e.clientY - lastY;
       const sliceDelta = Math.round(deltaY / 10);
-      if (sliceDelta !== 0) {
+      if (sliceDelta !== 0 && Math.abs(deltaY) > Math.abs(e.clientX - dragStart.x)) {
         const totalSlices = modalityConfig[activeModality].totalSlices;
         setCurrentSlice(prev => Math.max(0, Math.min(totalSlices, prev + sliceDelta)));
         setLastY(e.clientY);
+      } else if (zoom > 1) {
+        // Pan when zoomed in
+        const deltaX = e.clientX - dragStart.x;
+        const deltaY = e.clientY - dragStart.y;
+        setPan({
+          x: dragStart.panX + deltaX,
+          y: dragStart.panY + deltaY
+        });
       }
     }
-  }, [isDragging, lastY, activeModality]);
+  }, [isDragging, lastY, dragStart, activeModality, zoom]);
   
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
   }, []);
   
-  // Render canvas
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    const rect = canvas.getBoundingClientRect();
-    
-    canvas.width = rect.width * devicePixelRatio;
-    canvas.height = rect.height * devicePixelRatio;
-    ctx.scale(devicePixelRatio, devicePixelRatio);
-    
-    // Clear canvas
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, rect.width, rect.height);
-    
-    const imagePath = getCurrentImagePath();
-    
-    if (activeModality === 'mri' && imagePath && imageRef.current) {
-      // Load and display real MRI image
-      setIsLoading(true);
-      
-      imageRef.current.onload = () => {
-        setIsLoading(false);
-        setImageLoadError(false);
-        
-        ctx.save();
-        ctx.translate(rect.width / 2 + pan.x, rect.height / 2 + pan.y);
-        ctx.scale(zoom, zoom);
-        
-        // Apply filters
-        ctx.filter = `brightness(${brightness / 100}) contrast(${contrast / 100})`;
-        
-        // Calculate dimensions to fit image
-        const imgAspect = imageRef.current.width / imageRef.current.height;
-        const canvasAspect = rect.width / rect.height;
-        let drawWidth, drawHeight;
-        
-        if (imgAspect > canvasAspect) {
-          drawWidth = rect.width * 0.8;
-          drawHeight = drawWidth / imgAspect;
-        } else {
-          drawHeight = rect.height * 0.8;
-          drawWidth = drawHeight * imgAspect;
-        }
-        
-        // Draw the image centered
-        ctx.drawImage(
-          imageRef.current,
-          -drawWidth / 2,
-          -drawHeight / 2,
-          drawWidth,
-          drawHeight
-        );
-        
-        ctx.restore();
-      };
-      
-      imageRef.current.onerror = () => {
-        setIsLoading(false);
-        setImageLoadError(true);
-      };
-      
-      imageRef.current.src = imagePath;
-    }
-    
-    // Draw annotations
-    if (showAnnotations) {
-      const config = modalityConfig[activeModality];
-      const anatomy = anatomyData[activeModality][Math.min(currentSlice, anatomyData[activeModality].length - 1)];
-      
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-      ctx.fillRect(10, 10, 300, 100);
-      
-      ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 16px -apple-system, BlinkMacSystemFont, sans-serif';
-      ctx.fillText(`${config.name} - T1-weighted - Slice ${currentSlice}/${config.totalSlices}`, 20, 30);
-      
-      ctx.font = '12px -apple-system, BlinkMacSystemFont, sans-serif';
-      ctx.fillStyle = '#cccccc';
-      ctx.fillText('Anonymized', 20, 48);
-      
-      if (anatomy) {
-        ctx.font = '14px -apple-system, BlinkMacSystemFont, sans-serif';
-        ctx.fillStyle = '#ffffff';
-        ctx.fillText(anatomy.name, 20, 68);
-        
-        ctx.font = '12px -apple-system, BlinkMacSystemFont, sans-serif';
-        ctx.fillStyle = '#cccccc';
-        ctx.fillText(anatomy.intensity, 20, 86);
+  // Touch events for mobile
+  const handleTouchStart = useCallback((e) => {
+    const touch = e.touches[0];
+    setIsDragging(true);
+    setDragStart({
+      x: touch.clientX,
+      y: touch.clientY,
+      panX: pan.x,
+      panY: pan.y
+    });
+    setLastY(touch.clientY);
+  }, [pan]);
+  
+  const handleTouchMove = useCallback((e) => {
+    if (isDragging && e.touches.length === 1) {
+      const touch = e.touches[0];
+      const deltaY = touch.clientY - lastY;
+      const sliceDelta = Math.round(deltaY / 20); // Less sensitive on mobile
+      if (sliceDelta !== 0) {
+        const totalSlices = modalityConfig[activeModality].totalSlices;
+        setCurrentSlice(prev => Math.max(0, Math.min(totalSlices, prev + sliceDelta)));
+        setLastY(touch.clientY);
       }
     }
-    
-    // Loading indicator
-    if (isLoading && activeModality === 'mri') {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-      ctx.fillRect(0, 0, rect.width, rect.height);
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '20px -apple-system, BlinkMacSystemFont, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('Loading...', rect.width / 2, rect.height / 2);
-      ctx.textAlign = 'left';
-    }
-    
-  }, [activeModality, currentSlice, brightness, contrast, zoom, pan, showAnnotations, getCurrentImagePath]);
+  }, [isDragging, lastY, activeModality]);
   
   const currentConfig = modalityConfig[activeModality];
   const currentAnatomy = anatomyData[activeModality][Math.min(currentSlice, anatomyData[activeModality].length - 1)];
@@ -350,22 +325,80 @@ const MultiModalViewer = () => {
             )}
           </div>
           
+          {/* CSS-Based Image Viewer for Better Performance */}
           <div 
             ref={containerRef}
-            className="relative bg-black rounded-xl overflow-hidden aspect-square cursor-crosshair select-none mb-4"
+            className="relative bg-black rounded-xl overflow-hidden aspect-square select-none mb-4"
             onWheel={handleWheel}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleMouseUp}
           >
-            <canvas
-              ref={canvasRef}
-              className="w-full h-full"
-            />
+            {/* Loading State */}
+            {isLoading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-20">
+                <div className="text-center">
+                  <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-white mb-4"></div>
+                  <p className="text-white">Loading images for smooth playback...</p>
+                </div>
+              </div>
+            )}
             
+            {/* Image Display with CSS Transforms */}
+            {imagesLoaded && (
+              <div 
+                className="relative w-full h-full flex items-center justify-center"
+                style={{
+                  transform: `scale(${zoom})`,
+                  transformOrigin: 'center',
+                  transition: isDragging ? 'none' : 'transform 0.3s ease',
+                }}
+              >
+                {/* Use CSS layers for smooth transitions */}
+                {Object.entries(preloadedImages).map(([slice, img]) => (
+                  <img
+                    key={slice}
+                    src={img.src}
+                    alt={`MRI slice ${slice}`}
+                    className="absolute inset-0 w-full h-full object-contain"
+                    style={{
+                      opacity: currentSlice === parseInt(slice) ? 1 : 0,
+                      transform: `translate(${pan.x}px, ${pan.y}px)`,
+                      filter: `brightness(${brightness / 100}) contrast(${contrast / 100})`,
+                      transition: isPlaying ? 'opacity 0.05s linear' : 'opacity 0.15s ease-in-out',
+                      willChange: 'opacity',
+                      backfaceVisibility: 'hidden',
+                      WebkitBackfaceVisibility: 'hidden',
+                      imageRendering: isMobile ? 'crisp-edges' : 'high-quality',
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+            
+            {/* Annotations Overlay */}
+            {showAnnotations && imagesLoaded && (
+              <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-sm text-white p-4 rounded-lg pointer-events-none">
+                <div className="font-bold text-sm sm:text-base">
+                  {currentConfig.name} - T1-weighted - Slice {currentSlice}/{currentConfig.totalSlices}
+                </div>
+                <div className="text-xs text-gray-300 mt-1">Anonymized</div>
+                {currentAnatomy && (
+                  <>
+                    <div className="text-sm mt-2 text-white">{currentAnatomy.name}</div>
+                    <div className="text-xs text-gray-300">{currentAnatomy.intensity}</div>
+                  </>
+                )}
+              </div>
+            )}
+            
+            {/* Drag Indicator */}
             {isDragging && (
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg">
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg pointer-events-none">
                 Slice {currentSlice}
               </div>
             )}
@@ -388,6 +421,7 @@ const MultiModalViewer = () => {
                   ? 'bg-red-600 hover:bg-red-700 text-white' 
                   : 'bg-blue-600 hover:bg-blue-700 text-white'
               }`}
+              disabled={!imagesLoaded}
             >
               {isPlaying ? 'Pause' : 'Play'}
             </button>
@@ -489,7 +523,8 @@ const MultiModalViewer = () => {
                   <option value={500}>Slow (0.5s)</option>
                   <option value={300}>Normal (0.3s)</option>
                   <option value={150}>Fast (0.15s)</option>
-                  <option value={75}>Very Fast (0.075s)</option>
+                  <option value={100}>Smooth (0.1s)</option>
+                  <option value={50}>Ultra Smooth (0.05s)</option>
                 </select>
               </div>
             </div>
@@ -581,7 +616,7 @@ const MultiModalViewer = () => {
         <div className="flex flex-wrap gap-4 justify-center">
           <span>🖱️ <strong>Scroll:</strong> Navigate slices</span>
           <span>🖱️ <strong>Drag:</strong> Precise control</span>
-          <span>📱 <strong>Mobile:</strong> Touch & drag</span>
+          <span>📱 <strong>Touch:</strong> Swipe up/down</span>
           <span>⌨️ <strong>Keyboard:</strong> Arrow keys</span>
         </div>
         <div className="text-xs text-gray-500 mt-2 text-center">
@@ -592,7 +627,15 @@ const MultiModalViewer = () => {
       {/* Coming Soon Modal */}
       {showComingSoon && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center transform transition-all">
+          <div 
+            ref={modalRef}
+            className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center transform transition-all"
+            style={{ 
+              position: 'relative',
+              maxHeight: '90vh',
+              overflowY: 'auto'
+            }}
+          >
             <div className="mb-6">
               <div className="mx-auto w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
                 <svg className="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -621,6 +664,34 @@ const MultiModalViewer = () => {
           </div>
         </div>
       )}
+      
+      <style jsx>{`
+        .slider::-webkit-slider-thumb {
+          appearance: none;
+          width: 16px;
+          height: 16px;
+          background: #3B82F6;
+          cursor: pointer;
+          border-radius: 50%;
+        }
+        
+        .slider::-moz-range-thumb {
+          width: 16px;
+          height: 16px;
+          background: #3B82F6;
+          cursor: pointer;
+          border-radius: 50%;
+          border: none;
+        }
+        
+        /* Optimize for mobile performance */
+        @media (max-width: 768px) {
+          img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+          }
+        }
+      `}</style>
     </div>
   );
 };
