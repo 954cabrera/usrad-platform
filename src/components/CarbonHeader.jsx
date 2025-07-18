@@ -49,8 +49,8 @@ export default function CarbonHeader() {
               <a href="/pricing" className="text-sm font-medium text-gray-700 hover:text-[#003087] transition">
                 Pricing
               </a>
-              <a href="/locations" className="text-sm font-medium text-gray-700 hover:text-[#003087] transition">
-                Locations
+              <a href="/education/what-is-an-mri-carbon" className="text-sm font-medium text-gray-700 hover:text-[#003087] transition">
+                What is an MRI?
               </a>
               <a href="/about-carbon" className="text-sm font-medium text-gray-700 hover:text-[#003087] transition">
                 About
@@ -124,8 +124,8 @@ export default function CarbonHeader() {
               <MobileNavLink href="/pricing" onClick={() => setMobileMenuOpen(false)}>
                 Pricing
               </MobileNavLink>
-              <MobileNavLink href="/locations" onClick={() => setMobileMenuOpen(false)}>
-                Locations
+              <MobileNavLink href="/education/what-is-an-mri-carbon" onClick={() => setMobileMenuOpen(false)}>
+                What is an MRI?
               </MobileNavLink>
               <MobileNavLink href="/about-carbon" onClick={() => setMobileMenuOpen(false)}>
                 About
