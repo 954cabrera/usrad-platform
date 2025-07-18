@@ -695,6 +695,18 @@ export const prerender = true;
       opacity: 0.7;
       filter: blur(0.5px) brightness(1.1);
     }
+
+    @media (max-width: 640px) {
+      .highlight-text-2 {
+        display: inline-block;
+        min-width: 100%;
+      }
+
+      .highlight-text-2::before {
+        left: -20px;
+        right: -20px;
+      }
+    }
   </style>
 
   <script>
