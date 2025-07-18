@@ -438,7 +438,11 @@ export const prerender = true;
 
       <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
         <div class="text-center" data-aos="zoom-in">
-          <div class="text-6xl mb-4">🏆</div>
+          <img
+            src="/images/icons/market.png"
+            alt="Performance Growth"
+            class="w-20 h-20 mx-auto mb-4 filter brightness-0 invert"
+          />
           <h3 class="text-2xl font-bold mb-3">168,224 MRIs Performed</h3>
           <p class="text-white/80">
             Our leadership team has overseen hundreds of thousands of MRI scans.
@@ -447,7 +451,11 @@ export const prerender = true;
         </div>
 
         <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
-          <div class="text-6xl mb-4">👨‍⚕️</div>
+          <img
+            src="/images/icons/license.png"
+            alt="Board Certified"
+            class="w-20 h-20 mx-auto mb-4 filter brightness-0 invert"
+          />
           <h3 class="text-2xl font-bold mb-3">Board-Certified Radiologists</h3>
           <p class="text-white/80">
             Every scan reviewed by qualified specialists. Same radiologists
@@ -456,8 +464,14 @@ export const prerender = true;
         </div>
 
         <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
-          <div class="text-6xl mb-4">🛡️</div>
-          <h3 class="text-2xl font-bold mb-3">Your MRI, Your Peace of Mind</h3>
+          <img
+            src="/images/icons/shield.png"
+            alt="Peace of Mind"
+            class="w-20 h-20 mx-auto mb-4 filter brightness-0 invert"
+          />
+          <h3 class="text-2xl font-bold mb-3 whitespace-nowrap">
+            Your Peace of Mind
+          </h3>
           <p class="text-white/80">
             Clear explanations. Comfortable experience. Results in 24-48 hours.
             Healthcare how it should be.
@@ -718,6 +732,22 @@ export const prerender = true;
         left: -20px;
         right: -20px;
       }
+    }
+
+    /* Convert black icons to white for blue background */
+    .trust-icon {
+      filter: brightness(0) invert(1);
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      margin: 0 auto 1.5rem;
+      display: block;
+    }
+
+    /* Optional hover effect */
+    .trust-section .trust-item:hover .trust-icon {
+      transform: scale(1.1);
+      transition: transform 0.3s ease;
     }
   </style>
 
