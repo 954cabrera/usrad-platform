@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 const MultiModalViewer = () => {
   const [activeModality, setActiveModality] = useState('mri');
-  const [currentSlice, setCurrentSlice] = useState(12);
+  const [currentSlice, setCurrentSlice] = useState(25);
   const [isPlaying, setIsPlaying] = useState(false);
   const [playSpeed, setPlaySpeed] = useState(100);
   const [brightness, setBrightness] = useState(100);
@@ -41,7 +41,7 @@ const MultiModalViewer = () => {
       fullName: 'Magnetic Resonance Imaging',
       icon: '🧠',
       color: 'blue',
-      totalSlices: 24,
+      totalSlices: 164,
       description: 'T1-weighted brain imaging',
       benefits: ['No radiation exposure', 'Excellent soft tissue contrast', 'Multiple imaging planes'],
       commonUses: ['Brain imaging', 'Spine evaluation', 'Joint assessment', 'Organ visualization'],
@@ -51,8 +51,9 @@ const MultiModalViewer = () => {
         field: '3T',
         sliceThickness: '5mm',
         acquisition: 'Axial',
-        source: 'TCIA DFCI-BCH-BWH',
-        status: 'Pediatric HGG Dataset'
+        source: 'OASIS-1 Dataset',
+        status: 'Anonymized Adult Brain',
+        educationalNote: 'Anatomical labels represent approximate regions for educational purposes. Individual anatomy varies.'
       }
     },
     ct: {
@@ -90,36 +91,87 @@ const MultiModalViewer = () => {
   // Anatomy data
   const anatomyData = {
     mri: [
-      { name: "Vertex / Superior Parietal", function: "Top of cerebral hemispheres", intensity: "T1: Gray-white differentiation" },
-      { name: "Superior Frontal Gyrus", function: "Executive functions, motor planning", intensity: "T1: Cortical gray (hypointense)" },
-      { name: "Superior Parietal Lobule", function: "Spatial awareness, attention", intensity: "T1: Cortical gray (hypointense)" },
-      { name: "Centrum Semiovale", function: "White matter tracts", intensity: "T1: White matter (hyperintense)" },
-      { name: "Corona Radiata", function: "Projection & association fibers", intensity: "T1: White matter (hyperintense)" },
-      { name: "Body of Lateral Ventricles", function: "CSF circulation", intensity: "T1: CSF (hypointense/dark)" },
-      { name: "Corpus Callosum (Body)", function: "Interhemispheric connections", intensity: "T1: White matter (hyperintense)" },
-      { name: "Genu of Corpus Callosum", function: "Frontal lobe connections", intensity: "T1: White matter (hyperintense)" },
-      { name: "Caudate Head", function: "Basal ganglia - cognition", intensity: "T1: Gray matter (intermediate)" },
-      { name: "Putamen & Globus Pallidus", function: "Motor control", intensity: "T1: Deep gray (intermediate)" },
-      { name: "Thalamus", function: "Sensory relay center", intensity: "T1: Deep gray (intermediate)" },
-      { name: "Internal Capsule", function: "Motor & sensory pathways", intensity: "T1: White matter (hyperintense)" },
-      { name: "Third Ventricle", function: "Midline CSF space", intensity: "T1: CSF (hypointense/dark)" },
-      { name: "Insula", function: "Interoception, emotion", intensity: "T1: Cortical gray (hypointense)" },
-      { name: "Midbrain (Tectum)", function: "Visual & auditory reflexes", intensity: "T1: Gray matter (intermediate)" },
-      { name: "Temporal Lobes", function: "Memory, language, hearing", intensity: "T1: Cortical gray (hypointense)" },
-      { name: "Hippocampus", function: "Memory formation", intensity: "T1: Gray matter (intermediate)" },
-      { name: "Pons (Upper)", function: "Cranial nerve nuclei", intensity: "T1: Mixed signal" },
-      { name: "Cerebellum (Superior)", function: "Motor coordination", intensity: "T1: Gray/white differentiation" },
-      { name: "Middle Cerebellar Peduncles", function: "Pontocerebellar fibers", intensity: "T1: White matter (hyperintense)" },
-      { name: "Fourth Ventricle", function: "CSF circulation", intensity: "T1: CSF (hypointense/dark)" },
-      { name: "Lower Medulla", function: "Cardiovascular control", intensity: "T1: Brainstem (intermediate)" },
-      { name: "Cerebellar Hemispheres", function: "Fine motor control", intensity: "T1: Gray/white differentiation" },
-      { name: "Foramen Magnum Level", function: "Skull base opening", intensity: "T1: CSF spaces (dark)" }
+      // Top slices (0-20)
+      { 
+        name: "Vertex / Superior Parietal Level", 
+        function: "Top of cerebral hemispheres",
+        visibleStructures: "Superior sagittal sinus, Parietal lobes",
+        intensity: "T1: Gray-white differentiation" 
+      },
+      
+      // Centrum semiovale level (21-40)
+      { 
+        name: "Centrum Semiovale Level", 
+        function: "White matter tracts",
+        visibleStructures: "Cingulate gyrus, Corpus callosum (body), Lateral ventricle (body)",
+        intensity: "T1: White matter (hyperintense)" 
+      },
+      
+      // Lateral ventricle level (41-60)
+      { 
+        name: "Lateral Ventricles Level", 
+        function: "CSF circulation",
+        visibleStructures: "Caudate head, Corpus callosum (genu/splenium), Thalamus",
+        intensity: "T1: CSF (hypointense/dark)" 
+      },
+      
+      // Basal ganglia level (61-90)
+      { 
+        name: "Basal Ganglia Level", 
+        function: "Motor control and cognition",
+        visibleStructures: "Putamen, Globus pallidus, Internal capsule, Thalamus",
+        intensity: "T1: Deep gray structures" 
+      },
+      
+      // Midbrain level (91-110)
+      { 
+        name: "Midbrain Level", 
+        function: "Cranial nerves III-IV, Motor pathways",
+        visibleStructures: "Cerebral peduncles, Substantia nigra, Red nucleus, Cerebral aqueduct",
+        intensity: "T1: Mixed gray/white" 
+      },
+      
+      // Pons level (111-130)
+      { 
+        name: "Pontine Level", 
+        function: "Cranial nerves V-VIII",
+        visibleStructures: "Pons, 4th ventricle, Middle cerebellar peduncles, Cerebellum",
+        intensity: "T1: Brainstem structures" 
+      },
+      
+      // Medulla level (131-150)
+      { 
+        name: "Medulla Oblongata Level", 
+        function: "Respiratory/Cardiac centers",
+        visibleStructures: "Medulla, 4th ventricle, Cerebellar tonsils, Vertebral arteries",
+        intensity: "T1: Brainstem" 
+      },
+      
+      // Cervical cord level (151-164)
+      { 
+        name: "Cervicomedullary Junction", 
+        function: "Transition to spinal cord",
+        visibleStructures: "Upper cervical cord, Foramen magnum, CSF spaces",
+        intensity: "T1: CSF prominent" 
+      }
     ],
     ct: [],
     ultrasound: [],
     pet: []
   };
   
+  // Add the helper function HERE - right after anatomyData
+  const getAnatomyForSlice = (slice) => {
+    if (slice <= 20) return anatomyData.mri[0];
+    if (slice <= 40) return anatomyData.mri[1];
+    if (slice <= 60) return anatomyData.mri[2];
+    if (slice <= 90) return anatomyData.mri[3];
+    if (slice <= 110) return anatomyData.mri[4];
+    if (slice <= 130) return anatomyData.mri[5];
+    if (slice <= 150) return anatomyData.mri[6];
+    return anatomyData.mri[7];  // This now covers 151-164
+  };
+
   // Preload all images for smooth playback
   useEffect(() => {
     if (activeModality === 'mri' && modalityConfig.mri.imagePath) {
@@ -199,7 +251,7 @@ const MultiModalViewer = () => {
   // Reset slice when modality changes
   useEffect(() => {
     const totalSlices = modalityConfig[activeModality].totalSlices;
-    setCurrentSlice(Math.floor(totalSlices / 2));
+    setCurrentSlice(25);  // Changed to 25 instead of Math.floor(totalSlices / 2)
     setIsPlaying(false);
     setImageLoadError(false);
   }, [activeModality]);
@@ -278,7 +330,7 @@ const MultiModalViewer = () => {
   }, [isDragging, lastY, activeModality]);
   
   const currentConfig = modalityConfig[activeModality];
-  const currentAnatomy = anatomyData[activeModality][Math.min(currentSlice, anatomyData[activeModality].length - 1)];
+  const currentAnatomy = activeModality === 'mri' ? getAnatomyForSlice(currentSlice) : null;
   
   return (
     <div className="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden">
@@ -380,14 +432,26 @@ const MultiModalViewer = () => {
               </div>
             )}
             
-            {/* Annotations Overlay - Split into top and bottom */}
+            {/* Annotations Overlay - Split into three corners */}
             {showAnnotations && imagesLoaded && (
               <>
-                {/* Top Left - Anatomical Information */}
+                {/* Top Left - Main anatomy focus */}
                 {currentAnatomy && (
-                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-sm text-white p-3 rounded-lg pointer-events-none max-w-[280px]">
-                    <div className="text-sm font-medium text-white">{currentAnatomy.name}</div>
-                    <div className="text-xs text-gray-300 mt-1">{currentAnatomy.intensity}</div>
+                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-sm text-white p-3 rounded-lg pointer-events-none max-w-[200px]">
+                    <div className="text-sm font-medium text-white mb-1">
+                      Learning Focus: {currentAnatomy.name}
+                    </div>
+                    <div className="text-xs text-gray-300">{currentAnatomy.function}</div>
+                    <div className="text-xs text-gray-400 mt-1">{currentAnatomy.intensity}</div>
+                  </div>
+                )}
+                
+                {/* Top Right - Additional visible structures */}
+                {currentAnatomy?.visibleStructures && (
+                  <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white p-3 rounded-lg pointer-events-none max-w-[200px]">
+                    <div className="text-xs text-blue-300">
+                      Also visible: {currentAnatomy.visibleStructures}
+                    </div>
                   </div>
                 )}
                 
@@ -397,6 +461,13 @@ const MultiModalViewer = () => {
                     {currentConfig.name} - T1-weighted - Slice {currentSlice}/{currentConfig.totalSlices}
                   </div>
                   <div className="text-xs text-gray-300">Anonymized</div>
+                </div>
+                
+                {/* Bottom Left - Source attribution */}
+                <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm text-white px-3 py-2 rounded-lg pointer-events-none">
+                  <div className="text-xs text-gray-300">
+                    Source: {currentConfig.scanInfo?.source || 'OASIS-1 Dataset'}
+                  </div>
                 </div>
               </>
             )}
@@ -584,8 +655,15 @@ const MultiModalViewer = () => {
                   <span className="text-gray-800">{currentConfig.scanInfo.status}</span>
                 </div>
               </div>
-            </div>
-          )}
+              {currentConfig.scanInfo.educationalNote && (
+      <div className="mt-3 pt-3 border-t border-gray-200">
+        <p className="text-xs text-gray-500 italic">
+          {currentConfig.scanInfo.educationalNote}
+        </p>
+      </div>
+    )}
+  </div>
+)}
           
           {/* Options */}
           <div className="space-y-3">
@@ -607,7 +685,7 @@ const MultiModalViewer = () => {
               setContrast(100);
               setZoom(1);
               setPan({ x: 0, y: 0 });
-              setCurrentSlice(Math.floor(currentConfig.totalSlices / 2));
+              setCurrentSlice(25);  // Changed to 25
             }}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition-colors font-medium"
           >
