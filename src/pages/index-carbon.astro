@@ -243,7 +243,9 @@ import SecondaryButton from "../components/SecondaryButton.astro";
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
         <div data-aos="fade-up" data-aos-delay="100">
-          <div class="text-3xl md:text-4xl font-bold text-[#003087]">168,244</div>
+          <div class="text-3xl md:text-4xl font-bold text-[#003087]">
+            168,244
+          </div>
           <div class="text-base text-gray-600">Patients served</div>
         </div>
         <div data-aos="fade-up" data-aos-delay="200">
@@ -264,7 +266,7 @@ import SecondaryButton from "../components/SecondaryButton.astro";
     </div>
   </section>
 
-  <!-- How It Works -->
+  <!-- How It Works Section -->
   <section
     class="py-24 px-4 sm:px-6 bg-gradient-to-br from-white via-blue-50/20 to-white"
     data-aos="fade-up"
@@ -286,20 +288,33 @@ import SecondaryButton from "../components/SecondaryButton.astro";
         </p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+      <!-- Add specific class for steps grid -->
+      <div
+        class="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto how-it-works-steps"
+      >
         <!-- Step 1 -->
         <div
           class="text-center flex flex-col"
           data-aos="fade-up"
           data-aos-delay="200"
         >
-          <!-- Larger image without number -->
-          <div class="h-56 flex items-center justify-center mb-8">
-            <img
-              src="/images/icons/envato_comparingprices.webp"
-              alt="Compare prices"
-              class="max-w-[224px] max-h-[224px] object-contain"
-            />
+          <!-- Icon Container with Step Number -->
+          <div class="relative h-56 flex items-center justify-center mb-8">
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2">
+              <span
+                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-200 text-gray-600 text-sm font-semibold"
+                >1</span
+              >
+            </div>
+            <div
+              class="w-40 h-40 bg-gray-50 rounded-2xl flex items-center justify-center"
+            >
+              <img
+                src="/images/icons/expenses.svg"
+                alt="Compare prices"
+                class="w-24 h-24"
+              />
+            </div>
           </div>
           <h3 class="text-2xl font-semibold mb-4">Compare prices</h3>
           <p class="text-lg text-gray-600">
@@ -314,13 +329,23 @@ import SecondaryButton from "../components/SecondaryButton.astro";
           data-aos="fade-up"
           data-aos-delay="300"
         >
-          <!-- Larger image without number -->
-          <div class="h-56 flex items-center justify-center mb-8">
-            <img
-              src="/images/icons/envato_bookinstantly.webp"
-              alt="Book instantly"
-              class="max-w-[224px] max-h-[224px] object-contain"
-            />
+          <!-- Icon Container with Step Number -->
+          <div class="relative h-56 flex items-center justify-center mb-8">
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2">
+              <span
+                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#003087] text-white text-sm font-semibold"
+                >2</span
+              >
+            </div>
+            <div
+              class="w-40 h-40 bg-[#fefbf5] rounded-2xl flex items-center justify-center"
+            >
+              <img
+                src="/images/icons/appointment.svg"
+                alt="Book instantly"
+                class="w-24 h-24"
+              />
+            </div>
           </div>
           <h3 class="text-2xl font-semibold mb-4">Book instantly</h3>
           <p class="text-lg text-gray-600">
@@ -334,13 +359,23 @@ import SecondaryButton from "../components/SecondaryButton.astro";
           data-aos="fade-up"
           data-aos-delay="400"
         >
-          <!-- Larger image without number -->
-          <div class="h-56 flex items-center justify-center mb-8">
-            <img
-              src="/images/icons/envato_docpatient.webp"
-              alt="Get results fast"
-              class="max-w-[224px] max-h-[224px] object-contain"
-            />
+          <!-- Icon Container with Step Number -->
+          <div class="relative h-56 flex items-center justify-center mb-8">
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2">
+              <span
+                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#cc9933] text-white text-sm font-semibold"
+                >3</span
+              >
+            </div>
+            <div
+              class="w-40 h-40 bg-gray-50 rounded-2xl flex items-center justify-center"
+            >
+              <img
+                src="/images/icons/fast.svg"
+                alt="Get results fast"
+                class="w-24 h-24"
+              />
+            </div>
           </div>
           <h3 class="text-2xl font-semibold mb-4">Get results fast</h3>
           <p class="text-lg text-gray-600">
@@ -349,6 +384,30 @@ import SecondaryButton from "../components/SecondaryButton.astro";
           </p>
         </div>
       </div>
+
+      <!-- Style for connecting lines - ONLY for how-it-works section -->
+      <style>
+        @media (min-width: 768px) {
+          .how-it-works-steps > div:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            top: 128px;
+            right: -48px;
+            width: 96px;
+            height: 2px;
+            background: linear-gradient(
+              to right,
+              #e5e7eb 0%,
+              #e5e7eb 45%,
+              transparent 45%,
+              transparent 55%,
+              #e5e7eb 55%,
+              #e5e7eb 100%
+            );
+            background-size: 8px 2px;
+          }
+        }
+      </style>
     </div>
   </section>
 
@@ -393,27 +452,56 @@ import SecondaryButton from "../components/SecondaryButton.astro";
           </p>
         </div>
 
-        <!-- Benefits Grid -->
-        <div class="grid md:grid-cols-3 gap-12 mb-16">
-          <div data-aos="fade-up" data-aos-delay="300">
-            <div class="text-4xl mb-4">⚡</div>
-            <h3 class="font-semibold text-xl text-gray-900 mb-2">
+        <!-- Benefits Grid - NO connecting lines class -->
+        <div class="grid md:grid-cols-3 gap-12 mb-16 pricing-benefits">
+          <!-- 48-hour booking -->
+          <div data-aos="fade-up" data-aos-delay="300" class="group">
+            <div
+              class="w-20 h-20 mx-auto mb-6 flex items-center justify-center"
+            >
+              <img
+                src="/images/icons/flash.svg"
+                alt="Fast booking"
+                class="w-16 h-16 filter-brand-blue group-hover:scale-110 transition-transform duration-300"
+              />
+            </div>
+            <h3 class="font-semibold text-xl text-gray-900 mb-3">
               48-hour booking
             </h3>
             <p class="text-base text-gray-600">
               Get scanned this week, not next month
             </p>
           </div>
-          <div data-aos="fade-up" data-aos-delay="400">
-            <div class="text-4xl mb-4">💰</div>
-            <h3 class="font-semibold text-xl text-gray-900 mb-2">
+
+          <!-- Upfront pricing -->
+          <div data-aos="fade-up" data-aos-delay="400" class="group">
+            <div
+              class="w-20 h-20 mx-auto mb-6 flex items-center justify-center"
+            >
+              <img
+                src="/images/icons/protection2.svg"
+                alt="Upfront pricing"
+                class="w-16 h-16 filter-brand-blue group-hover:scale-110 transition-transform duration-300"
+              />
+            </div>
+            <h3 class="font-semibold text-xl text-gray-900 mb-3">
               Upfront pricing
             </h3>
             <p class="text-base text-gray-600">No surprises, no hidden fees</p>
           </div>
-          <div data-aos="fade-up" data-aos-delay="500">
-            <div class="text-4xl mb-4">✅</div>
-            <h3 class="font-semibold text-xl text-gray-900 mb-2">
+
+          <!-- No insurance needed -->
+          <div data-aos="fade-up" data-aos-delay="500" class="group">
+            <div
+              class="w-20 h-20 mx-auto mb-6 flex items-center justify-center"
+            >
+              <img
+                src="/images/icons/no-insurance.svg"
+                alt="No insurance needed"
+                class="w-16 h-16 filter-brand-blue group-hover:scale-110 transition-transform duration-300"
+              />
+            </div>
+            <h3 class="font-semibold text-xl text-gray-900 mb-3">
               No insurance needed
             </h3>
             <p class="text-base text-gray-600">
@@ -423,7 +511,7 @@ import SecondaryButton from "../components/SecondaryButton.astro";
         </div>
 
         <!-- CTA Button Section -->
-        <div class="bg-gray-50 px-8 py-6 text-center">
+        <div class="bg-gray-50 px-8 py-6 text-center rounded-2xl">
           <a
             href="/pricing"
             class="inline-block bg-[#003087] text-white px-8 py-3 rounded-lg font-medium hover:bg-[#002266] transition"
@@ -434,6 +522,21 @@ import SecondaryButton from "../components/SecondaryButton.astro";
       </div>
     </div>
   </section>
+
+  <style>
+    /* CSS filter to convert black SVGs to brand blue #003087 */
+    .filter-brand-blue {
+      filter: brightness(0) saturate(100%) invert(13%) sepia(94%)
+        saturate(4107%) hue-rotate(216deg) brightness(94%) contrast(101%);
+    }
+
+    /* Optional: Add a subtle shadow on hover for more depth */
+    .group:hover .filter-brand-blue {
+      filter: brightness(0) saturate(100%) invert(13%) sepia(94%)
+        saturate(4107%) hue-rotate(216deg) brightness(94%) contrast(101%)
+        drop-shadow(0 4px 6px rgba(0, 48, 135, 0.1));
+    }
+  </style>
 
   <!-- Locations Map Section -->
   <section class="py-24 px-4 sm:px-6 bg-white" data-aos="fade-up">
