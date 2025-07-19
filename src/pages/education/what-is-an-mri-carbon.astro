@@ -10,6 +10,14 @@ export const prerender = true;
 <CarbonLayout title="What is an MRI? | USRad Medical Imaging">
   <AOSInit />
 
+  <!-- Meta tags for social sharing -->
+  <meta
+    property="og:image"
+    content="/images/education-mri-hero.webp"
+    slot="head"
+  />
+  <meta name="twitter:card" content="summary_large_image" slot="head" />
+
   <!-- Hero Section with Optimized Video and Mobile Fallback -->
   <section
     class="relative pt-32 pb-20 px-4 sm:px-6 min-h-[700px] flex items-center overflow-hidden"
@@ -35,7 +43,8 @@ export const prerender = true;
         poster="/images/education-mri-hero-blur.webp"
         class="absolute inset-0 w-full h-full object-cover"
         data-src-desktop="/videos/education-mri-desktop.webm"
-        data-src-mobile="/videos/education-mri-mobile.webm"></video>
+        data-src-mobile="/videos/education-mri-mobile.webm"
+        loading="lazy"></video>
 
       <!-- Overlay Gradients -->
       <div
@@ -58,7 +67,7 @@ export const prerender = true;
     >
     </div>
 
-    <!-- Hero Content (unchanged) -->
+    <!-- Hero Content -->
     <div class="relative z-10 max-w-7xl mx-auto">
       <div class="max-w-5xl">
         <div
@@ -71,13 +80,13 @@ export const prerender = true;
           >
         </div>
         <h1
-          class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 text-white leading-tight"
+          class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 text-white leading-tight tracking-tight"
           data-aos="fade-up"
         >
           See Inside.<br />
           Without Surgery.<br />
           Without Radiation.<br />
-          <span class="text-[#cc9933]"
+          <span class="text-[#cc9933] countdown-glow"
             >In <span
               id="countdown"
               aria-label="Time until appointment available">48:00:00</span
@@ -100,7 +109,7 @@ export const prerender = true;
         >
           <button
             onclick="document.getElementById('viewer-section').scrollIntoView({behavior: 'smooth'})"
-            class="bg-white text-[#003087] px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all transform hover:scale-105"
+            class="bg-white text-[#003087] px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 hover:shadow-lg transition-all transform hover:scale-105"
           >
             Explore Interactive MRI
           </button>
@@ -120,11 +129,13 @@ export const prerender = true;
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-20" data-aos="fade-up">
         <h2
-          class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
+          class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
         >
           The Invisible Made Visible
         </h2>
-        <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+        <p
+          class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+        >
           Using magnetic fields 30,000 times stronger than Earth's, MRI creates
           detailed images without any radiation exposure.
         </p>
@@ -193,125 +204,19 @@ export const prerender = true;
         </div>
       </div>
 
-      <!-- Simple Process Timeline -->
-      <div class="relative">
-        <div
-          class="absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 transform -translate-x-1/2 hidden md:block"
-        >
-        </div>
-
-        <div class="space-y-16 md:space-y-24">
-          <!-- You Arrive -->
-          <div
-            class="relative flex items-center timeline-step"
-            data-aos="fade-right"
-          >
-            <div class="w-full md:w-1/2 text-right pr-8 md:pr-16">
-              <h3 class="text-3xl font-bold text-gray-900 mb-3">You Arrive</h3>
-              <p class="text-lg text-gray-600 max-w-md ml-auto">
-                Quick check-in. Change into comfortable clothing. Remove any
-                metal objects. The technician explains everything.
-              </p>
-            </div>
-            <div
-              class="absolute left-1/2 transform -translate-x-1/2 z-10 hidden md:block"
-            >
-              <div
-                class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center"
-              >
-                <img
-                  src="/images/icons/reception2.svg"
-                  alt="Check In"
-                  class="w-8 h-8"
-                  *
-                  All
-                  icons
-                  in
-                  brand
-                  blue
-                  *
-                  style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
-                />
-              </div>
-            </div>
-            <div class="hidden md:block w-1/2"></div>
-          </div>
-
-          <!-- The Scan -->
-          <div
-            class="relative flex items-center timeline-step"
-            data-aos="fade-left"
-          >
-            <div class="hidden md:block w-1/2"></div>
-            <div
-              class="absolute left-1/2 transform -translate-x-1/2 z-10 hidden md:block"
-            >
-              <!-- The Scan - with blue border instead of orange -->
-              <div
-                class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center"
-              >
-                <img
-                  src="/images/icons/mri2.svg"
-                  alt="MRI Scan"
-                  class="w-8 h-8"
-                  style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
-                />
-              </div>
-            </div>
-            <div class="w-full md:w-1/2 pl-8 md:pl-16">
-              <h3 class="text-3xl font-bold text-gray-900 mb-3">
-                20-45 Minutes
-              </h3>
-              <p class="text-lg text-gray-600 max-w-md">
-                Lie still while the machine creates images. You'll hear clicking
-                sounds—that's normal. Headphones provided.
-              </p>
-            </div>
-          </div>
-
-          <!-- Results -->
-          <div
-            class="relative flex items-center timeline-step"
-            data-aos="fade-right"
-          >
-            <div class="w-full md:w-1/2 text-right pr-8 md:pr-16">
-              <h3 class="text-3xl font-bold text-gray-900 mb-3">24-48 Hours</h3>
-              <p class="text-lg text-gray-600 max-w-md ml-auto">
-                Board-certified radiologists review your images. Results sent
-                directly to you and your doctor.
-              </p>
-            </div>
-            <div
-              class="absolute left-1/2 transform -translate-x-1/2 z-10 hidden md:block"
-            >
-              <!-- The Scan - with blue border instead of orange -->
-              <div
-                class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center"
-              >
-                <img
-                  src="/images/icons/medical.svg"
-                  alt="Results Ready"
-                  class="w-8 h-8"
-                  style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
-                />
-              </div>
-            </div>
-            <div class="hidden md:block w-1/2"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Interactive Viewer Section - Streamlined -->
+      <!-- Interactive Viewer Section -->
       <section
         id="viewer-section"
-        class="bg-gradient-to-br from-gray-50 to-white py-24 px-4 sm:px-6"
+        class="bg-gradient-to-br from-gray-50 to-white py-32 px-4 sm:px-6"
       >
         <div class="max-w-7xl mx-auto">
           <div class="text-center mb-12" data-aos="fade-up">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2
+              class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight"
+            >
               Explore MRI Technology
             </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Interactive viewers showing real MRI, CT, and other medical
               imaging. See what your doctor sees.
             </p>
@@ -337,7 +242,7 @@ export const prerender = true;
               </div>
             </div>
             <MultiModalViewer client:load />
-            <!-- Add this attribution below the viewer -->
+            <!-- Attribution -->
             <p class="text-center text-xs text-gray-500 mt-6">
               MRI imaging data provided by OASIS-1 (Open Access Series of
               Imaging Studies)
@@ -355,16 +260,18 @@ export const prerender = true;
 
       <!-- Human Impact Section -->
       <section
-        class="py-24 px-4 sm:px-6 bg-gradient-to-br from-white via-blue-50/20 to-white"
+        class="py-32 px-4 sm:px-6 bg-gradient-to-br from-white via-blue-50 to-white"
       >
         <div class="max-w-6xl mx-auto">
           <div class="text-center mb-16" data-aos="fade-up">
             <h2
-              class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
+              class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
             >
               Why Every Day Matters
             </h2>
-            <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+            <p
+              class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            >
               For serious conditions, early detection can mean the difference
               between simple treatment and life-threatening complications.
             </p>
@@ -388,7 +295,7 @@ export const prerender = true;
                   <h3 class="text-xl font-semibold text-gray-900 mb-2">
                     14 Days Average Wait
                   </h3>
-                  <p class="text-gray-600">
+                  <p class="text-gray-600 leading-relaxed">
                     At hospitals. Pain without answers. Anxiety building.
                   </p>
                 </div>
@@ -409,7 +316,7 @@ export const prerender = true;
                   <h3 class="text-xl font-semibold text-gray-900 mb-2">
                     $3,200 Average Cost
                   </h3>
-                  <p class="text-gray-600">
+                  <p class="text-gray-600 leading-relaxed">
                     Hospital pricing. Forcing people to delay or skip care
                     entirely.
                   </p>
@@ -431,7 +338,7 @@ export const prerender = true;
                   <h3 class="text-xl font-semibold text-gray-900 mb-2 relative">
                     <span class="highlight-text">48 Hours with USRad</span>
                   </h3>
-                  <p class="text-gray-600 relative">
+                  <p class="text-gray-600 relative leading-relaxed">
                     <span class="highlight-text-2 inline-block">
                       Fast appointments. Clear pricing. Peace of mind.
                     </span>
@@ -464,13 +371,15 @@ export const prerender = true;
         </div>
       </section>
 
-      <!-- The USRad Difference - MRI Expertise Focus -->
+      <!-- The USRad Difference -->
       <section
         class="py-24 px-4 sm:px-6 bg-gradient-to-br from-[#003087] to-[#002266] text-white"
       >
         <div class="max-w-6xl mx-auto">
           <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <h2
+              class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+            >
               MRI Expertise You Can Trust.<br />
               <span class="text-[#cc9933]">From Day One.</span>
             </h2>
@@ -484,7 +393,7 @@ export const prerender = true;
                 class="w-20 h-20 mx-auto mb-4 filter brightness-0 invert"
               />
               <h3 class="text-2xl font-bold mb-3">168,224 MRIs Performed</h3>
-              <p class="text-white/80">
+              <p class="text-white/80 leading-relaxed">
                 Our leadership team has overseen hundreds of thousands of MRI
                 scans. We know what quality looks like.
               </p>
@@ -499,7 +408,7 @@ export const prerender = true;
               <h3 class="text-2xl font-bold mb-3">
                 Board-Certified Radiologists
               </h3>
-              <p class="text-white/80">
+              <p class="text-white/80 leading-relaxed">
                 Every scan reviewed by qualified specialists. Same radiologists
                 hospitals use, without the hospital markup.
               </p>
@@ -514,7 +423,7 @@ export const prerender = true;
               <h3 class="text-2xl font-bold mb-3 whitespace-nowrap">
                 Your Peace of Mind
               </h3>
-              <p class="text-white/80">
+              <p class="text-white/80 leading-relaxed">
                 Clear explanations. Comfortable experience. Results in 24-48
                 hours. Healthcare how it should be.
               </p>
@@ -534,18 +443,199 @@ export const prerender = true;
         </div>
       </section>
 
-      <!-- Final CTA - Simple and Direct -->
-      <section class="py-24 px-4 sm:px-6 bg-white">
+      <!-- Timeline Section -->
+      <section class="py-32 px-4 sm:px-6">
+        <div class="max-w-6xl mx-auto">
+          <h2
+            class="text-4xl md:text-5xl font-bold text-center mb-4 leading-tight"
+          >
+            What to Expect During Your MRI
+          </h2>
+          <p
+            class="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto leading-relaxed"
+          >
+            Understanding the process helps reduce anxiety and ensures a smooth
+            experience
+          </p>
+
+          <!-- Simple Process Timeline -->
+          <div class="relative">
+            <div
+              class="absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 transform -translate-x-1/2 hidden md:block"
+            >
+            </div>
+
+            <div class="space-y-16 md:space-y-24">
+              <!-- You Arrive -->
+              <div
+                class="relative flex items-center timeline-step"
+                data-aos="fade-right"
+              >
+                <!-- Mobile icon -->
+                <div class="md:hidden mb-4">
+                  <div
+                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center mx-auto"
+                  >
+                    <img
+                      src="/images/icons/reception2.svg"
+                      alt="Check In"
+                      class="w-8 h-8"
+                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
+                    />
+                  </div>
+                </div>
+
+                <div class="w-full md:w-1/2 text-center md:text-right md:pr-16">
+                  <h3 class="text-3xl font-bold text-gray-900 mb-3">
+                    You Arrive
+                  </h3>
+                  <p
+                    class="text-lg text-gray-600 max-w-md mx-auto md:ml-auto leading-relaxed"
+                  >
+                    Quick check-in. Change into comfortable clothing. Remove any
+                    metal objects. The technician explains everything.
+                  </p>
+                </div>
+
+                <!-- Desktop icon -->
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 z-10 hidden md:block"
+                >
+                  <div
+                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center"
+                  >
+                    <img
+                      src="/images/icons/reception2.svg"
+                      alt="Check In"
+                      class="w-8 h-8"
+                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
+                    />
+                  </div>
+                </div>
+                <div class="hidden md:block w-1/2"></div>
+              </div>
+
+              <!-- The Scan -->
+              <div
+                class="relative flex items-center timeline-step"
+                data-aos="fade-left"
+              >
+                <!-- Mobile icon -->
+                <div class="md:hidden mb-4">
+                  <div
+                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center mx-auto"
+                  >
+                    <img
+                      src="/images/icons/mri2.svg"
+                      alt="MRI Scan"
+                      class="w-8 h-8"
+                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
+                    />
+                  </div>
+                </div>
+
+                <div class="hidden md:block w-1/2"></div>
+
+                <!-- Desktop icon -->
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 z-10 hidden md:block"
+                >
+                  <div
+                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center"
+                  >
+                    <img
+                      src="/images/icons/mri2.svg"
+                      alt="MRI Scan"
+                      class="w-8 h-8"
+                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="w-full md:w-1/2 pl-0 md:pl-16 text-center md:text-left"
+                >
+                  <h3 class="text-3xl font-bold text-gray-900 mb-3">
+                    20-45 Minutes
+                  </h3>
+                  <p
+                    class="text-lg text-gray-600 max-w-md mx-auto md:ml-0 leading-relaxed"
+                  >
+                    Lie still while the machine creates images. You'll hear
+                    clicking sounds—that's normal. Headphones provided.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Results -->
+              <div
+                class="relative flex items-center timeline-step"
+                data-aos="fade-right"
+              >
+                <!-- Mobile icon -->
+                <div class="md:hidden mb-4">
+                  <div
+                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center mx-auto"
+                  >
+                    <img
+                      src="/images/icons/medical.svg"
+                      alt="Results Ready"
+                      class="w-8 h-8"
+                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
+                    />
+                  </div>
+                </div>
+
+                <div class="w-full md:w-1/2 text-center md:text-right md:pr-16">
+                  <h3 class="text-3xl font-bold text-gray-900 mb-3">
+                    24-48 Hours
+                  </h3>
+                  <p
+                    class="text-lg text-gray-600 max-w-md mx-auto md:ml-auto leading-relaxed"
+                  >
+                    Board-certified radiologists review your images. Results
+                    sent directly to you and your doctor.
+                  </p>
+                </div>
+
+                <!-- Desktop icon -->
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 z-10 hidden md:block"
+                >
+                  <div
+                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center"
+                  >
+                    <img
+                      src="/images/icons/medical.svg"
+                      alt="Results Ready"
+                      class="w-8 h-8"
+                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
+                    />
+                  </div>
+                </div>
+                <div class="hidden md:block w-1/2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="py-8">
+        <hr class="max-w-xs mx-auto border-gray-300" />
+      </div>
+
+      <!-- Final CTA -->
+      <section class="py-32 px-4 sm:px-6 bg-white">
         <div class="max-w-4xl mx-auto text-center">
           <h2
-            class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8"
+            class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8 leading-tight"
             data-aos="fade-up"
           >
             Ready to Get Answers?
           </h2>
 
           <p
-            class="text-xl md:text-2xl text-gray-600 mb-12"
+            class="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed"
             data-aos="fade-up"
             data-aos-delay="100"
           >
@@ -577,7 +667,7 @@ export const prerender = true;
               <input type="hidden" name="autoSearch" value="true" />
               <button
                 type="submit"
-                class="bg-[#003087] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[#002266] transition-all transform hover:scale-105"
+                class="bg-[#003087] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[#002266] hover:shadow-lg transition-all transform hover:scale-105"
               >
                 Find Centers Near You →
               </button>
@@ -610,27 +700,19 @@ export const prerender = true;
           animation: float 3s ease-in-out infinite;
         }
 
-        /* Countdown styling */
+        /* Countdown styling with glow */
         #countdown {
           font-variant-numeric: tabular-nums;
           letter-spacing: 0.05em;
         }
 
+        .countdown-glow:hover {
+          text-shadow: 0 0 20px rgba(204, 153, 51, 0.5);
+          transition: text-shadow 0.3s ease;
+        }
+
         /* Mobile timeline adjustments */
         @media (max-width: 768px) {
-          .relative.flex.items-center {
-            flex-direction: column !important;
-          }
-
-          .text-right {
-            text-align: left !important;
-          }
-
-          .ml-auto {
-            margin-left: 0 !important;
-          }
-
-          /* Add step numbers for mobile timeline */
           .timeline-step {
             counter-increment: step;
             position: relative;
@@ -642,7 +724,7 @@ export const prerender = true;
             content: counter(step);
             position: absolute;
             left: 0;
-            top: 0;
+            top: 60px;
             width: 40px;
             height: 40px;
             background: #003087;
@@ -777,47 +859,10 @@ export const prerender = true;
           }
         }
 
-        /* Convert black icons to white for blue background */
-        .trust-icon {
-          filter: brightness(0) invert(1);
-          width: 64px;
-          height: 64px;
-          object-fit: contain;
-          margin: 0 auto 1.5rem;
-          display: block;
-        }
-
-        /* Optional hover effect */
-        .trust-section .trust-item:hover .trust-icon {
-          transform: scale(1.1);
-          transition: transform 0.3s ease;
-        }
-
-        /* Timeline icon styles */
-        .timeline-icon-blue {
-          filter: brightness(0) invert(1); /* Makes black SVG white */
-        }
-
-        .timeline-icon-orange {
-          filter: brightness(0) invert(1); /* Makes black SVG white */
-        }
-
-        .timeline-icon-green {
-          filter: brightness(0) invert(1); /* Makes black SVG white */
-        }
-
-        /* Mobile timeline styles */
-        @media (max-width: 768px) {
-          .timeline-step {
-            text-align: center;
-          }
-
-          .timeline-step .icon-circle {
-            position: relative !important;
-            transform: none !important;
-            margin: 0 auto 1rem !important;
-            left: auto !important;
-          }
+        /* Subtle pattern for white sections */
+        .bg-pattern {
+          background-color: #ffffff;
+          background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
       </style>
 
@@ -1016,5 +1061,5 @@ export const prerender = true;
         });
       </script>
     </div>
-  </section></CarbonLayout
->
+  </section>
+</CarbonLayout>
