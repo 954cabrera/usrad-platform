@@ -55,6 +55,9 @@ export default function CarbonHeader() {
               <a href="/about-carbon" className="text-sm font-medium text-gray-700 hover:text-[#003087] transition">
                 About
               </a>
+              <a href="/contact-carbon" className="text-sm font-medium text-gray-700 hover:text-[#003087] transition">
+                Contact
+              </a>
             </nav>
             
             {/* Desktop Actions */}
@@ -129,6 +132,9 @@ export default function CarbonHeader() {
               </MobileNavLink>
               <MobileNavLink href="/about-carbon" onClick={() => setMobileMenuOpen(false)}>
                 About
+              </MobileNavLink>
+              <MobileNavLink href="/contact-carbon" onClick={() => setMobileMenuOpen(false)}>
+                Contact
               </MobileNavLink>
             </div>
 
