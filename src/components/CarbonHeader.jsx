@@ -1,17 +1,38 @@
 import React, { useEffect, useRef, useState } from "react";
 
-export default function CarbonHeader() {
+export default function CarbonHeader({ isHeroPage = false }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const currentScrollY = window.scrollY;
+      
+      // Set scrolled state for desktop transition
+      setIsScrolled(currentScrollY > 50);
+      
+      // Mobile auto-hide logic
+      if (window.innerWidth < 768) {
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          // Scrolling down - hide header
+          setIsVisible(false);
+        } else if (currentScrollY < lastScrollY) {
+          // Scrolling up - show header
+          setIsVisible(true);
+        }
+      } else {
+        // Desktop - always visible
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -21,12 +42,45 @@ export default function CarbonHeader() {
     }
   }, [mobileMenuOpen]);
 
+  // Determine header styling based on hero page and scroll state
+  const getHeaderStyles = () => {
+    if (isHeroPage && !isScrolled) {
+      // Transparent header for hero sections
+      return {
+        background: 'bg-transparent',
+        textColor: 'text-white',
+        hoverColor: 'hover:text-white/80',
+        logoFilter: 'brightness-0 invert',
+        betaBg: 'bg-white/20',
+        betaText: 'text-white',
+        buttonBg: 'bg-white/10 border-white/30',
+        buttonText: 'text-white',
+        buttonHover: 'hover:bg-white/20'
+      };
+    } else {
+      // White header (default or after scroll)
+      return {
+        background: isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm' : 'bg-white',
+        textColor: 'text-gray-700',
+        hoverColor: 'hover:text-[#003087]',
+        logoFilter: '',
+        betaBg: 'bg-[#cc9933]',
+        betaText: 'text-white',
+        buttonBg: 'bg-[#003087]',
+        buttonText: 'text-white',
+        buttonHover: 'hover:bg-[#002266]'
+      };
+    }
+  };
+
+  const styles = getHeaderStyles();
+
   return (
     <>
       {/* Header */}
-      <header className={`fixed top-0 w-full z-50 transition-all duration-200 ${
-        isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm' : 'bg-white'
-      }`}>
+      <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      } ${styles.background}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -35,37 +89,39 @@ export default function CarbonHeader() {
                 <img 
                   src="/logo/USRad-Logo-final-rev.png" 
                   alt="USRad Logo" 
-                  className="h-10 w-auto"
+                  className={`h-10 w-auto transition-all duration-300 ${styles.logoFilter}`}
                 />
-                <span className="ml-2 text-xs bg-[#cc9933] text-white px-2 py-1 rounded-full font-medium">BETA</span>
+                <span className={`ml-2 text-xs px-2 py-1 rounded-full font-medium transition-all duration-300 ${styles.betaBg} ${styles.betaText}`}>
+                  BETA
+                </span>
               </a>
             </div>
             
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="/how-it-works" className="text-sm font-medium text-gray-700 hover:text-[#003087] transition">
+              <a href="/how-it-works" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
                 How it works
               </a>
-              <a href="/pricing" className="text-sm font-medium text-gray-700 hover:text-[#003087] transition">
+              <a href="/pricing" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
                 Pricing
               </a>
-              <a href="/education/what-is-an-mri-carbon" className="text-sm font-medium text-gray-700 hover:text-[#003087] transition">
+              <a href="/education/what-is-an-mri-carbon" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
                 What is an MRI?
               </a>
-              <a href="/about-carbon" className="text-sm font-medium text-gray-700 hover:text-[#003087] transition">
+              <a href="/about-carbon" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
                 About
               </a>
-              <a href="/contact-carbon" className="text-sm font-medium text-gray-700 hover:text-[#003087] transition">
+              <a href="/contact-carbon" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
                 Contact
               </a>
             </nav>
             
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center space-x-4">
-              <LoginDropdown />
+              <LoginDropdown isHeroPage={isHeroPage} isScrolled={isScrolled} />
               <a
                 href="/search-results"
-                className="bg-[#003087] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#002266] transition"
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${styles.buttonBg} ${styles.buttonText} ${styles.buttonHover}`}
               >
                 Book scan
               </a>
@@ -78,11 +134,11 @@ export default function CarbonHeader() {
               aria-label="Toggle menu"
             >
               {!mobileMenuOpen ? (
-                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={`w-6 h-6 transition-colors duration-300 ${styles.textColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               ) : (
-                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={`w-6 h-6 transition-colors duration-300 ${styles.textColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               )}
@@ -194,7 +250,7 @@ function MobileNavLink({ href, onClick, children }) {
 }
 
 // Desktop Login Dropdown
-function LoginDropdown() {
+function LoginDropdown({ isHeroPage, isScrolled }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -227,11 +283,14 @@ function LoginDropdown() {
     }
   ];
 
+  // Determine text color based on hero page and scroll state
+  const textColor = (isHeroPage && !isScrolled) ? 'text-white hover:text-white/80' : 'text-gray-700 hover:text-[#003087]';
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="text-sm font-medium text-gray-700 hover:text-[#003087] transition flex items-center gap-1"
+        className={`text-sm font-medium transition-all duration-300 flex items-center gap-1 ${textColor}`}
       >
         Sign in
         <svg 

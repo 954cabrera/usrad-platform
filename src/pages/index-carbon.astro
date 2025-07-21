@@ -5,9 +5,11 @@ import NetworkMapPinsCarbon from "../components/NetworkMapPinsCarbon.astro";
 import AOSInit from "../components/AOSInit.astro";
 import PrimaryButton from "../components/PrimaryButton.astro";
 import SecondaryButton from "../components/SecondaryButton.astro";
+
+export const prerender = true;
 ---
 
-<CarbonLayout title="USRad - MRI Scans in 48 Hours, 70% Less">
+<CarbonLayout title="USRad - MRI Scans in 48 Hours, 70% Less" isHeroPage={true}>
   <AOSInit />
 
   <!-- Hero Section with Video Background -->
@@ -35,13 +37,13 @@ import SecondaryButton from "../components/SecondaryButton.astro";
         <source src="/videos/home-hero-mri.webm" type="video/webm" />
       </video>
 
-      <!-- Video Overlay for better text contrast -->
+      <!-- Enhanced Video Overlay for transparent header compatibility -->
       <div
-        class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"
+        class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40"
       >
       </div>
       <div
-        class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/30"
+        class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/40"
       >
       </div>
     </div>
@@ -234,6 +236,9 @@ import SecondaryButton from "../components/SecondaryButton.astro";
       </div>
     </div>
   </section>
+
+  <!-- Rest of your existing sections... -->
+  <!-- I'm keeping the rest exactly as you had it -->
 
   <!-- Social Proof Bar - BIGGER NUMBERS -->
   <section
@@ -618,7 +623,7 @@ import SecondaryButton from "../components/SecondaryButton.astro";
           data-aos-delay="400"
         >
           <a
-            href="/about"
+            href="/about-carbon"
             class="bg-[#003087] text-white px-10 py-4 rounded-xl font-semibold text-lg hover:bg-[#002266] transition-all duration-300 transform hover:scale-105"
           >
             See the full story →

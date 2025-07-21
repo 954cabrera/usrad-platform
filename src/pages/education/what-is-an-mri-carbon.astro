@@ -7,7 +7,7 @@ import AOSInit from "../../components/AOSInit.astro";
 export const prerender = true;
 ---
 
-<CarbonLayout title="What is an MRI? | USRad Medical Imaging">
+<CarbonLayout title="What is an MRI? | USRad Medical Imaging" isHeroPage={true}>
   <AOSInit />
 
   <!-- Meta tags for social sharing -->
@@ -46,13 +46,13 @@ export const prerender = true;
         data-src-mobile="/videos/education-mri-mobile.webm"
         loading="lazy"></video>
 
-      <!-- Overlay Gradients -->
+      <!-- Enhanced Overlay Gradients for transparent header compatibility -->
       <div
-        class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40"
+        class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50"
       >
       </div>
       <div
-        class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"
+        class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70"
       >
       </div>
     </div>

@@ -7,11 +7,13 @@ import CarbonHeader from "../components/CarbonHeader.jsx";
 export interface Props {
   title?: string;
   description?: string;
+  isHeroPage?: boolean;
 }
 
 const {
   title = "USRad - MRI Scans in 48 Hours, 70% Less",
   description = "Get same-day MRI appointments at 70% less than hospital prices. Board-certified radiologists, 1,500+ locations nationwide.",
+  isHeroPage = false,
 } = Astro.props;
 ---
 
@@ -50,11 +52,11 @@ const {
   </head>
 
   <body class="font-inter text-gray-900 bg-white antialiased">
-    <!-- Carbon Header Component -->
-    <CarbonHeader client:load />
+    <!-- Enhanced Carbon Header Component with Hero Page Prop -->
+    <CarbonHeader client:load isHeroPage={isHeroPage} />
 
     <!-- Main Content -->
-    <main class="pt-16">
+    <main class={isHeroPage ? "" : "pt-16"}>
       <slot />
     </main>
 
