@@ -1,0 +1,410 @@
+---
+import AOSInit from "../components/AOSInit.astro";
+---
+
+<section
+  class="relative min-h-[680px] flex items-center justify-center bg-black overflow-hidden"
+  role="banner"
+  aria-label="USRad support team with medical imaging expertise"
+>
+  <picture>
+    <source srcset="/images/contact-support-team.webp" type="image/webp" />
+    <img
+      src="/images/contact-support-team.webp"
+      alt="USRad support agent helping patients with medical imaging while MRI scan is visible on monitor"
+      class="absolute inset-0 w-full h-full object-cover brightness-[.85] sm:brightness-[.80] hero-bg"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </picture>
+
+  <!-- Enhanced Overlay Gradient -->
+  <div
+    class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/25 z-10"
+  >
+  </div>
+
+  <!-- Content -->
+  <div
+    class="relative z-20 text-white text-center max-w-5xl px-4 sm:px-6 pt-28 pb-20 sm:pt-36 sm:pb-28"
+    data-aos="fade-up"
+  >
+    <!-- Enhanced Availability Badge with Pulse -->
+    <div
+      class="inline-flex items-center justify-center gap-2 mb-8 px-5 py-2 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white/95 text-sm font-medium shadow-lg pulse-badge"
+      data-aos="fade-down"
+    >
+      <span class="flex h-3 w-3">
+        <span
+          class="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-green-400 opacity-75"
+        ></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"
+        ></span>
+      </span>
+      <span class="whitespace-nowrap"
+        ><strong>Live support available</strong> • &lt;2 hour response guaranteed</span
+      >
+    </div>
+
+    <!-- Enhanced Headline with Dynamic Underline -->
+    <h1
+      class="text-6xl sm:text-7xl md:text-8xl font-bold leading-tight mb-8 drop-shadow-xl"
+      data-aos="fade-up"
+      data-aos-delay="100"
+    >
+      <span class="block typing-effect" data-text="Questions?">Questions?</span>
+      <span class="block">We Have</span>
+      <span class="relative inline-block text-[#cc9933] answers-highlight">
+        Answers
+        <svg
+          class="absolute -bottom-3 left-0 w-full"
+          height="12"
+          viewBox="0 0 200 12"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M2 8 Q50 2 100 8 T198 8"
+            stroke="#cc9933"
+            stroke-width="6"
+            fill="none"
+            class="animate-draw-underline drop-shadow-md"
+            stroke-linecap="round"
+            opacity="0.9"></path>
+        </svg>
+      </span>
+      <span class="text-white">.</span>
+    </h1>
+
+    <!-- Enhanced Subheadline -->
+    <p
+      class="text-xl sm:text-2xl lg:text-3xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed drop-shadow-lg"
+      data-aos="fade-up"
+      data-aos-delay="200"
+    >
+      Expert imaging support from healthcare professionals who
+      <span class="text-[#cc9933] font-semibold">actually understand</span> your
+      needs.
+    </p>
+
+    <!-- Enhanced CTA Buttons -->
+    <div
+      class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6"
+      data-aos="fade-up"
+      data-aos-delay="300"
+    >
+      <a
+        href="tel:1-800-USRAD-24"
+        class="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-[#cc9933] text-[#003087] font-bold text-lg shadow-xl hover:bg-[#ffcc44] hover:scale-105 hover:shadow-2xl transition-all duration-300 transform"
+        aria-label="Call our support team"
+      >
+        <!-- Replace with Flaticon: "phone call medical" or "healthcare phone" -->
+        <img
+          src="/images/icons/phone-medical.svg"
+          alt="Phone call"
+          class="w-6 h-6 group-hover:rotate-12 transition-transform duration-300 filter-medical-blue"
+        />
+        Call now: (800) USRad-24
+      </a>
+      <a
+        href="#contact-form"
+        class="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl border-2 border-white text-white font-bold text-lg hover:bg-white hover:text-[#003087] hover:scale-105 transition-all duration-300 transform shadow-lg"
+        aria-label="Send a message to support"
+      >
+        <!-- Replace with Flaticon: "headset support" or "customer service medical" -->
+        <img
+          src="/images/icons/headset-support.svg"
+          alt="Send message"
+          class="w-6 h-6 group-hover:scale-110 transition-transform duration-300 filter-white group-hover:filter-medical-blue"
+        />
+        Send a message
+      </a>
+    </div>
+
+    <!-- Enhanced Helper Text -->
+    <div
+      class="text-lg text-white/80 mb-12 font-medium"
+      data-aos="fade-up"
+      data-aos-delay="350"
+    >
+      <span class="text-[#cc9933]">Immediate help?</span> Call now.
+      <span class="text-blue-300">Detailed support?</span> Send a message.
+    </div>
+
+    <!-- Enhanced Trust Indicators with Staggered Animation -->
+    <div
+      class="flex flex-wrap justify-center items-center gap-8 text-white/85 text-base"
+    >
+      <div
+        class="flex items-center gap-2 trust-indicator"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        <!-- Replace with Flaticon: "medical professional" or "stethoscope" or "doctor badge" -->
+        <img
+          src="/images/icons/medical-professional.svg"
+          alt="Healthcare specialists"
+          class="w-5 h-5 drop-shadow filter-green"
+        />
+        <span class="font-medium">Healthcare specialists</span>
+      </div>
+
+      <div
+        class="flex items-center gap-2 trust-indicator"
+        data-aos="fade-up"
+        data-aos-delay="500"
+      >
+        <!-- Replace with Flaticon: "clock time" or "response time" -->
+        <img
+          src="/images/icons/response-time.svg"
+          alt="Response time"
+          class="w-5 h-5 drop-shadow filter-blue"
+        />
+        <span class="font-medium">&lt;2 hour response</span>
+      </div>
+
+      <div
+        class="flex items-center gap-2 trust-indicator"
+        data-aos="fade-up"
+        data-aos-delay="600"
+      >
+        <!-- Replace with Flaticon: "medical shield" or "healthcare quality" or "medical checkmark" -->
+        <img
+          src="/images/icons/medical-quality.svg"
+          alt="Resolution rate"
+          class="w-5 h-5 drop-shadow filter-gold"
+        />
+        <span class="font-medium">99.8% resolution rate</span>
+      </div>
+
+      <div
+        class="flex items-center gap-2 text-white/60 animate-bounce ml-8"
+        data-aos="fade-up"
+        data-aos-delay="700"
+      >
+        <!-- Replace with Flaticon: "scroll down" or "arrow down" -->
+        <img
+          src="/images/icons/scroll-down.svg"
+          alt="Scroll down"
+          class="w-4 h-4 filter-white opacity-60"
+        />
+        <span class="text-sm">Scroll for more</span>
+      </div>
+    </div>
+
+    <AOSInit />
+  </div>
+</section>
+
+<style>
+  /* CSS Filters for Flaticon SVGs to match USRad brand colors */
+  .filter-medical-blue {
+    filter: brightness(0) saturate(100%) invert(13%) sepia(94%) saturate(4107%)
+      hue-rotate(216deg) brightness(94%) contrast(101%);
+    transition: filter 0.3s ease;
+  }
+
+  .filter-white {
+    filter: brightness(0) invert(1);
+    transition: filter 0.3s ease;
+  }
+
+  .filter-green {
+    filter: brightness(0) saturate(100%) invert(64%) sepia(78%) saturate(1933%)
+      hue-rotate(85deg) brightness(117%) contrast(119%);
+  }
+
+  .filter-blue {
+    filter: brightness(0) saturate(100%) invert(48%) sepia(96%) saturate(1206%)
+      hue-rotate(200deg) brightness(97%) contrast(94%);
+  }
+
+  .filter-gold {
+    filter: brightness(0) saturate(100%) invert(79%) sepia(50%) saturate(1500%)
+      hue-rotate(359deg) brightness(1.1) contrast(0.9);
+  }
+
+  /* Enhanced button hover states with proper icon transitions */
+  .group:hover .filter-white {
+    filter: brightness(0) saturate(100%) invert(13%) sepia(94%) saturate(4107%)
+      hue-rotate(216deg) brightness(94%) contrast(101%);
+  }
+
+  /* Enhanced Background Animation */
+  @keyframes bg-zoom {
+    0% {
+      transform: scale(1);
+      opacity: 0.85;
+    }
+    100% {
+      transform: scale(1.08);
+      opacity: 1;
+    }
+  }
+
+  @keyframes subtle-float {
+    0%,
+    100% {
+      transform: scale(1.08) translateY(0px);
+    }
+    50% {
+      transform: scale(1.08) translateY(-8px);
+    }
+  }
+
+  .hero-bg {
+    animation:
+      bg-zoom 10s ease-out forwards,
+      subtle-float 8s ease-in-out infinite 10s;
+  }
+
+  /* Pulse Badge Animation */
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  .pulse-badge {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  /* Dynamic Underline Animation */
+  @keyframes draw-underline {
+    from {
+      stroke-dashoffset: 400;
+      opacity: 0;
+    }
+    to {
+      stroke-dashoffset: 0;
+      opacity: 0.9;
+    }
+  }
+
+  .animate-draw-underline {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: draw-underline 2s ease-out 1.5s forwards;
+  }
+
+  /* Shimmer Effect for Answers */
+  @keyframes shimmer {
+    0% {
+      text-shadow: 0 0 10px rgba(204, 153, 51, 0.3);
+    }
+    50% {
+      text-shadow:
+        0 0 20px rgba(204, 153, 51, 0.6),
+        0 0 30px rgba(255, 204, 68, 0.4);
+    }
+    100% {
+      text-shadow: 0 0 10px rgba(204, 153, 51, 0.3);
+    }
+  }
+
+  .answers-highlight {
+    animation: shimmer 3s ease-in-out infinite 2s;
+  }
+
+  /* Trust Indicator Hover Effects */
+  .trust-indicator {
+    transition: all 0.3s ease;
+  }
+
+  .trust-indicator:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Enhanced Button Hover States */
+  .group:hover svg {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
+
+  /* Typing Effect (Optional - can be enabled with JS) */
+  .typing-effect {
+    position: relative;
+  }
+
+  .typing-effect::after {
+    content: "|";
+    animation: blink 1s infinite;
+    opacity: 0;
+  }
+
+  @keyframes blink {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    51%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /* Responsive Enhancements */
+  @media (max-width: 640px) {
+    .hero-bg {
+      animation: bg-zoom 8s ease-out forwards;
+    }
+
+    .trust-indicator {
+      font-size: 0.9rem;
+    }
+  }
+
+  /* Performance Optimization */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg,
+    .pulse-badge,
+    .animate-draw-underline,
+    .answers-highlight,
+    .trust-indicator {
+      animation: none;
+    }
+
+    .group:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  // Optional: Add typing effect for headline
+  document.addEventListener("DOMContentLoaded", function () {
+    const typingElement = document.querySelector(".typing-effect");
+
+    if (
+      typingElement &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      const text = typingElement.getAttribute("data-text") || "Questions?";
+      typingElement.textContent = "";
+
+      let i = 0;
+      const typeWriter = () => {
+        if (i < text.length) {
+          typingElement.textContent += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, 100);
+        } else {
+          // Remove cursor after typing is complete
+          setTimeout(() => {
+            typingElement.style.position = "static";
+          }, 1000);
+        }
+      };
+
+      // Start typing after initial page load animation
+      setTimeout(typeWriter, 1000);
+    } else if (typingElement) {
+      // Fallback for reduced motion
+      typingElement.textContent =
+        typingElement.getAttribute("data-text") || "Questions?";
+    }
+  });
+</script>
