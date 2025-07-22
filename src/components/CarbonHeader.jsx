@@ -177,7 +177,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
           {/* Mobile Nav Links */}
           <nav className="p-4">
             <div className="space-y-1">
-              <MobileNavLink href="/how-it-works" onClick={() => setMobileMenuOpen(false)}>
+              <MobileNavLink href="/how-it-works-carbon" onClick={() => setMobileMenuOpen(false)}>
                 How it works
               </MobileNavLink>
               <MobileNavLink href="/pricing" onClick={() => setMobileMenuOpen(false)}>
