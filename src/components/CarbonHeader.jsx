@@ -99,7 +99,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
             
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="/how-it-works" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
+              <a href="/how-it-works-carbon" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
                 How it works
               </a>
               <a href="/pricing" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>

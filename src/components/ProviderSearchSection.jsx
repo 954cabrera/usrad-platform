@@ -9,13 +9,19 @@ const ProviderSearchSection = ({
   subtitle = "Search our network of trusted, board-certified imaging centers. Transparent pricing, proven quality, guaranteed results.",
   badgeText = "Search powered by 10 years of imaging center partnerships",
   showHelpSection = true,
-  googleMapsApiKey = null
+  googleMapsApiKey = null,
+  // New props for auto-search
+  initialZipCode = '',
+  initialCptCode = '70551',
+  initialState = 'FL',
+  autoSearch = false
 }) => {
   
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const markersRef = useRef([]);
   const userMarkerRef = useRef(null);
+  const autoSearchTriggered = useRef(false);
   
   const { 
     isLoaded: mapsLoaded, 
@@ -29,6 +35,7 @@ const ProviderSearchSection = ({
 
   const [searchResults, setSearchResults] = useState([]);
   const [allProviders, setAllProviders] = useState([]);
+  const [autoSearching, setAutoSearching] = useState(false);
 
   // Debug effect to track map loading state
   useEffect(() => {
@@ -70,16 +77,50 @@ const ProviderSearchSection = ({
     }
   }, [mapsLoaded, createMap]);
 
+  // Auto-search effect
+  useEffect(() => {
+    if (
+      autoSearch &&
+      initialZipCode &&
+      !autoSearchTriggered.current
+    ) {
+      autoSearchTriggered.current = true;
+      
+      // Wait for component to mount and form elements to be ready
+      setTimeout(() => {
+        // Set initial form values
+        const zipCodeInput = document.getElementById('zipCode');
+        const procedureSelect = document.getElementById('procedure');
+        const stateSelect = document.getElementById('state');
+        
+        if (zipCodeInput) zipCodeInput.value = initialZipCode;
+        if (procedureSelect) procedureSelect.value = initialCptCode;
+        if (stateSelect) stateSelect.value = initialState;
+        
+        // Trigger search
+        console.log('🚀 Auto-search triggered with:', {
+          zipCode: initialZipCode,
+          cptCode: initialCptCode,
+          state: initialState
+        });
+        
+        setAutoSearching(true);
+        searchProviders();
+      }, 500); // Small delay to ensure DOM is ready
+    }
+  }, [autoSearch, initialZipCode, initialCptCode, initialState]);
+
   // Search providers function
   const searchProviders = async () => {
-    const zipCode = document.getElementById('zipCode')?.value.trim();
-    const procedure = document.getElementById('procedure')?.value;
-    const state = document.getElementById('state')?.value;
+    const zipCode = document.getElementById('zipCode')?.value.trim() || initialZipCode;
+    const procedure = document.getElementById('procedure')?.value || initialCptCode;
+    const state = document.getElementById('state')?.value || initialState;
 
     console.log('🔍 Search params:', { zipCode, procedure, state });
 
     if (!zipCode || zipCode.length !== 5) {
       showError('Please enter a valid 5-digit ZIP code.');
+      setAutoSearching(false);
       return;
     }
 
@@ -142,13 +183,15 @@ const ProviderSearchSection = ({
           mapRef.current.style.opacity = '1';
         }
         
-        // Scroll to results
-        setTimeout(() => {
-          const resultsElement = document.getElementById('search-results');
-          if (resultsElement) {
-            resultsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, 100);
+        // Scroll to results if auto-searching
+        if (autoSearching) {
+          setTimeout(() => {
+            const resultsElement = document.getElementById('searchResults');
+            if (resultsElement) {
+              resultsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 100);
+        }
         
       } else {
         console.log('❌ No results found');
@@ -163,6 +206,7 @@ const ProviderSearchSection = ({
       if (buttonText) buttonText.classList.remove('hidden');
       if (loadingSpinner) loadingSpinner.classList.add('hidden');
       if (searchButton) searchButton.disabled = false;
+      setAutoSearching(false);
     }
   };
 
@@ -511,10 +555,11 @@ const ProviderSearchSection = ({
         e.target.value = value;
       });
 
-      // Form submission
-      searchForm?.addEventListener('submit', function(e) {
+      // Click handler for the search "form" div
+      const searchButton = document.getElementById('searchButton');
+      searchButton?.addEventListener('click', function(e) {
         e.preventDefault();
-        console.log('📝 Form submitted');
+        console.log('📝 Search button clicked');
         searchProviders();
       });
 
@@ -563,7 +608,7 @@ const ProviderSearchSection = ({
         {/* Search Form */}
         <div className="max-w-5xl mx-auto">
           <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-            <form id="searchForm" className="space-y-6">
+            <div id="searchForm" className="space-y-6">
               <div className="grid md:grid-cols-3 gap-6">
                 {/* ZIP Code */}
                 <div>
@@ -615,8 +660,9 @@ const ProviderSearchSection = ({
               {/* Search Button */}
               <div className="flex justify-center pt-4">
                 <button
-                  type="submit"
+                  type="button"
                   id="searchButton"
+                  onClick={() => searchProviders()}
                   className="bg-gradient-to-r from-[#cc9933] to-yellow-400 text-white px-12 py-4 rounded-lg font-bold text-lg hover:from-[#b8862e] hover:to-yellow-500 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
                   <span id="buttonText">Search Providers</span>
@@ -629,7 +675,7 @@ const ProviderSearchSection = ({
                   </span>
                 </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
 

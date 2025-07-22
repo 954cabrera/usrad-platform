@@ -1,0 +1,769 @@
+---
+import CarbonLayout from "../layouts/CarbonLayout.astro";
+import AOSInit from "../components/AOSInit.astro";
+
+export const prerender = true;
+---
+
+<CarbonLayout
+  title="How USRad Works - Simple, Fast, Transparent Medical Imaging"
+  isHeroPage={false}
+>
+  <AOSInit />
+
+  <!-- Hero Section with Confidence -->
+  <section
+    class="relative pt-32 pb-20 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
+  >
+    <!-- Animated Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <div
+        class="absolute inset-0"
+        style="background-image: url('data:image/svg+xml,%3Csvg width="
+        60"
+        height="60"
+        viewBox="0 0 60 60"
+        xmlns="http://www.w3.org/2000/svg"
+        %3E%3Cg
+        fill="none"
+        fill-rule="evenodd"
+        %3E%3Cg
+        fill="%239C92AC"
+        fill-opacity="0.4"
+        %3E%3Cpath
+        d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"
+        %3E%3C
+        g%3E%3C
+        g%3E%3C
+        svg%3E');"
+      >
+      </div>
+    </div>
+
+    <!-- Floating Elements -->
+    <div
+      class="absolute top-20 right-10 w-96 h-96 bg-[#003087]/20 rounded-full blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-10 left-20 w-96 h-96 bg-[#cc9933]/10 rounded-full blur-3xl"
+    >
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto">
+      <div class="text-center">
+        <!-- Trust Badge -->
+        <div
+          class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-8"
+          data-aos="fade-down"
+        >
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          <span class="text-white/80 text-sm font-medium"
+            >The new standard in medical imaging</span
+          >
+        </div>
+
+        <h1
+          class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 text-white leading-tight tracking-tight"
+          data-aos="fade-up"
+        >
+          Healthcare Made
+          <span class="block text-[#cc9933] mt-2">Shockingly Simple</span>
+        </h1>
+
+        <p
+          class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          Book quality medical imaging in 90 seconds. No insurance mazes. No
+          surprise bills. Just transparent pricing and appointments within 48
+          hours.
+        </p>
+
+        <!-- Live Stats Bar -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+            <div class="text-3xl font-bold text-white mb-1">90 seconds</div>
+            <div class="text-white/70 text-sm">Average booking time</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+            <div class="text-3xl font-bold text-[#cc9933] mb-1">70% less</div>
+            <div class="text-white/70 text-sm">Than hospital prices</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+            <div class="text-3xl font-bold text-white mb-1">48 hours</div>
+            <div class="text-white/70 text-sm">Typical appointment wait</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Process Section - Premium Interactive -->
+  <section
+    class="py-24 px-4 sm:px-6 bg-gradient-to-br from-white via-gray-50 to-white relative overflow-hidden"
+  >
+    <!-- Subtle Background Pattern -->
+    <div class="absolute inset-0 opacity-[0.02]">
+      <div
+        class="absolute inset-0"
+        style="background-image: radial-gradient(circle at 2px 2px, #003087 1px, transparent 1px); background-size: 32px 32px;"
+      >
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="text-center mb-20">
+        <h2
+          class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
+          data-aos="fade-up"
+        >
+          Four Steps to Peace of Mind
+        </h2>
+        <p
+          class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          While others make you wait weeks, we get you answers in days
+        </p>
+      </div>
+
+      <!-- Interactive Process Cards -->
+      <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 mb-20">
+        <!-- Step 1: Search -->
+        <div class="group relative" data-aos="fade-up" data-aos-delay="100">
+          <div
+            class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 h-full border border-gray-100 hover:border-[#003087]/20"
+          >
+            <!-- Step Number -->
+            <div
+              class="absolute -top-4 -right-4 w-12 h-12 bg-[#003087] text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg"
+            >
+              1
+            </div>
+
+            <!-- Icon -->
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+            >
+              <img
+                src="/images/icons/search-location.svg"
+                alt="Search"
+                class="w-12 h-12"
+              />
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              Search Instantly
+            </h3>
+            <p class="text-gray-600 mb-6">
+              Enter your ZIP code. See every quality imaging center near you
+              with real prices. No phone calls needed.
+            </p>
+
+            <!-- Mini Demo -->
+            <div class="bg-gray-50 rounded-lg p-4 mt-auto">
+              <div class="flex items-center gap-2 text-sm">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
+                ></span>
+                <span class="text-gray-700">23 centers within 10 miles</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Compare -->
+        <div class="group relative" data-aos="fade-up" data-aos-delay="200">
+          <div
+            class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 h-full border border-gray-100 hover:border-[#cc9933]/20"
+          >
+            <!-- Step Number -->
+            <div
+              class="absolute -top-4 -right-4 w-12 h-12 bg-[#cc9933] text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg"
+            >
+              2
+            </div>
+
+            <!-- Icon -->
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-yellow-50 to-orange-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+            >
+              <img
+                src="/images/icons/compare.svg"
+                alt="Compare"
+                class="w-12 h-12"
+              />
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              Compare Transparently
+            </h3>
+            <p class="text-gray-600 mb-6">
+              See upfront prices, reviews, and available times. Make an informed
+              choice with all the facts.
+            </p>
+
+            <!-- Price Comparison Visual -->
+            <div class="bg-gray-50 rounded-lg p-4 mt-auto">
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">USRad Price:</span>
+                  <span class="font-bold text-green-600">$260</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Hospital Average:</span>
+                  <span class="text-gray-400 line-through">$3,200</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Book -->
+        <div class="group relative" data-aos="fade-up" data-aos-delay="300">
+          <div
+            class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 h-full border border-gray-100 hover:border-[#003087]/20"
+          >
+            <!-- Step Number -->
+            <div
+              class="absolute -top-4 -right-4 w-12 h-12 bg-[#003087] text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg"
+            >
+              3
+            </div>
+
+            <!-- Icon -->
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+            >
+              <img
+                src="/images/icons/calendar-check.svg"
+                alt="Book"
+                class="w-12 h-12"
+              />
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              Book Confidently
+            </h3>
+            <p class="text-gray-600 mb-6">
+              Select your time, enter basic info, done. Instant confirmation.
+              Most appointments within 48 hours.
+            </p>
+
+            <!-- Booking Speed -->
+            <div class="bg-gray-50 rounded-lg p-4 mt-auto">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-600">Booking time:</span>
+                <span class="font-mono font-bold text-[#003087]">0:90</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Results -->
+        <div class="group relative" data-aos="fade-up" data-aos-delay="400">
+          <div
+            class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 h-full border border-gray-100 hover:border-green-500/20"
+          >
+            <!-- Step Number -->
+            <div
+              class="absolute -top-4 -right-4 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg"
+            >
+              ✓
+            </div>
+
+            <!-- Icon -->
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+            >
+              <img
+                src="/images/icons/results.svg"
+                alt="Results"
+                class="w-12 h-12"
+              />
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              Get Results Fast
+            </h3>
+            <p class="text-gray-600 mb-6">
+              Board-certified radiologists review every scan. Results in 24-48
+              hours, sent directly to you.
+            </p>
+
+            <!-- Results Timeline -->
+            <div class="bg-gray-50 rounded-lg p-4 mt-auto">
+              <div class="flex items-center gap-2 text-sm">
+                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                <span class="text-gray-700">Direct to your inbox</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Demo CTA -->
+      <div class="text-center">
+        <button
+          onclick="startDemo()"
+          class="bg-[#003087] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[#002266] hover:shadow-lg transition-all transform hover:scale-105"
+        >
+          Try Interactive Demo →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Section - Us vs Them -->
+  <section
+    class="py-24 px-4 sm:px-6 bg-gradient-to-br from-[#003087] to-[#002266] text-white relative overflow-hidden"
+  >
+    <div class="absolute inset-0 opacity-10">
+      <div
+        class="absolute inset-0"
+        style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 1px); background-size: 40px 40px;"
+      >
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="text-center mb-16">
+        <h2
+          class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+          data-aos="fade-up"
+        >
+          The Old Way vs. The USRad Way
+        </h2>
+        <p
+          class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          We eliminated every frustrating step of traditional medical imaging
+        </p>
+      </div>
+
+      <!-- Comparison Table -->
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- Traditional Way -->
+        <div
+          class="bg-white/10 backdrop-blur-sm rounded-2xl p-8"
+          data-aos="fade-right"
+        >
+          <h3 class="text-2xl font-bold mb-6 text-red-400">The Old Way</h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-red-400 mt-1">✗</span>
+              <div>
+                <p class="font-semibold">Mystery Pricing</p>
+                <p class="text-white/70 text-sm">
+                  "We'll bill your insurance and see"
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-red-400 mt-1">✗</span>
+              <div>
+                <p class="font-semibold">14+ Day Wait</p>
+                <p class="text-white/70 text-sm">
+                  Pain and anxiety while you wait
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-red-400 mt-1">✗</span>
+              <div>
+                <p class="font-semibold">Phone Tag Hell</p>
+                <p class="text-white/70 text-sm">
+                  "We'll call you back" (they won't)
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-red-400 mt-1">✗</span>
+              <div>
+                <p class="font-semibold">Surprise Bills</p>
+                <p class="text-white/70 text-sm">
+                  $3,200 bill arrives months later
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-red-400 mt-1">✗</span>
+              <div>
+                <p class="font-semibold">Insurance Maze</p>
+                <p class="text-white/70 text-sm">
+                  Prior auth, denials, appeals...
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- USRad Way -->
+        <div
+          class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border-2 border-[#cc9933]/30"
+          data-aos="fade-left"
+        >
+          <h3 class="text-2xl font-bold mb-6 text-[#cc9933]">The USRad Way</h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-green-400 mt-1">✓</span>
+              <div>
+                <p class="font-semibold">Upfront Pricing</p>
+                <p class="text-white/70 text-sm">
+                  Know your exact cost before booking
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green-400 mt-1">✓</span>
+              <div>
+                <p class="font-semibold">48 Hour Access</p>
+                <p class="text-white/70 text-sm">
+                  Get scanned this week, not next month
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green-400 mt-1">✓</span>
+              <div>
+                <p class="font-semibold">90 Second Booking</p>
+                <p class="text-white/70 text-sm">
+                  Online booking, instant confirmation
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green-400 mt-1">✓</span>
+              <div>
+                <p class="font-semibold">One Simple Price</p>
+                <p class="text-white/70 text-sm">
+                  Starting at $260 - that's it
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green-400 mt-1">✓</span>
+              <div>
+                <p class="font-semibold">No Insurance Needed</p>
+                <p class="text-white/70 text-sm">Direct pay, no hassles</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Network Section -->
+  <section class="py-24 px-4 sm:px-6 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2
+          class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
+          data-aos="fade-up"
+        >
+          Your Nationwide Network
+        </h2>
+        <p
+          class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          1,500+ quality imaging centers ready to serve you
+        </p>
+      </div>
+
+      <!-- Network Stats -->
+      <div class="grid md:grid-cols-4 gap-8 mb-16">
+        <div class="text-center" data-aos="zoom-in">
+          <div class="text-5xl font-bold text-[#003087] mb-2">1,500+</div>
+          <p class="text-gray-600">Imaging Centers</p>
+        </div>
+        <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
+          <div class="text-5xl font-bold text-[#cc9933] mb-2">50</div>
+          <p class="text-gray-600">States Covered</p>
+        </div>
+        <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
+          <div class="text-5xl font-bold text-[#003087] mb-2">4.9★</div>
+          <p class="text-gray-600">Average Rating</p>
+        </div>
+        <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
+          <div class="text-5xl font-bold text-[#cc9933] mb-2">ACR</div>
+          <p class="text-gray-600">Accredited</p>
+        </div>
+      </div>
+
+      <!-- Interactive Map Preview -->
+      <div class="bg-gray-100 rounded-2xl p-8 text-center" data-aos="fade-up">
+        <img
+          src="/images/network-map-preview.png"
+          alt="USRad Network Map"
+          class="mx-auto mb-6 rounded-lg shadow-lg"
+        />
+        <a
+          href="/locations"
+          class="inline-block bg-[#003087] text-white px-8 py-3 rounded-lg font-medium hover:bg-[#002266] transition"
+        >
+          Explore Full Network Map →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Section -->
+  <section class="py-24 px-4 sm:px-6 bg-gradient-to-br from-gray-50 to-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div data-aos="fade-right">
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Why Trust USRad?
+          </h2>
+          <p class="text-xl text-gray-600 mb-8">
+            Because we've revolutionized medical imaging before. Our leadership
+            team built AnciCare, served 168,224 patients, and saved $246 million
+            in healthcare costs.
+          </p>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-[#003087] rounded-xl flex items-center justify-center flex-shrink-0"
+              >
+                <img
+                  src="/images/icons/shield-check.svg"
+                  alt="Trust"
+                  class="w-6 h-6"
+                  style="filter: brightness(0) invert(1);"
+                />
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg text-gray-900">
+                  Board-Certified Radiologists
+                </h3>
+                <p class="text-gray-600">
+                  Same experts hospitals use, without the markup
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-[#cc9933] rounded-xl flex items-center justify-center flex-shrink-0"
+              >
+                <img
+                  src="/images/icons/award.svg"
+                  alt="Quality"
+                  class="w-6 h-6"
+                  style="filter: brightness(0) invert(1);"
+                />
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg text-gray-900">
+                  ACR Accredited Facilities
+                </h3>
+                <p class="text-gray-600">
+                  Every center meets the highest quality standards
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center flex-shrink-0"
+              >
+                <img
+                  src="/images/icons/clock.svg"
+                  alt="Speed"
+                  class="w-6 h-6"
+                  style="filter: brightness(0) invert(1);"
+                />
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg text-gray-900">
+                  30 Years of Innovation
+                </h3>
+                <p class="text-gray-600">
+                  Proven expertise in healthcare transformation
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative" data-aos="fade-left">
+          <img
+            src="/images/trust-collage.jpg"
+            alt="USRad Trust"
+            class="rounded-2xl shadow-2xl"
+          />
+          <div
+            class="absolute -bottom-6 -right-6 bg-[#cc9933] text-[#003087] p-6 rounded-2xl shadow-xl"
+          >
+            <div class="text-4xl font-bold">168,224</div>
+            <div class="text-sm font-semibold">Patients Served</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section
+    class="py-24 px-4 sm:px-6 bg-gradient-to-br from-[#003087] to-[#002266] text-white relative overflow-hidden"
+  >
+    <div class="absolute inset-0">
+      <div
+        class="absolute inset-0 opacity-5"
+        style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 1px); background-size: 40px 40px;"
+      >
+      </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+      <h2
+        class="text-4xl sm:text-5xl md:text-6xl font-bold mb-8"
+        data-aos="fade-up"
+      >
+        Ready to Experience Healthcare
+        <span class="block text-[#cc9933] mt-2">The Way It Should Be?</span>
+      </h2>
+
+      <p
+        class="text-xl md:text-2xl mb-12 text-white/90 max-w-3xl mx-auto"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Join thousands choosing transparency, speed, and savings for their
+        medical imaging needs.
+      </p>
+
+      <!-- ZIP Code Form -->
+      <div
+        class="bg-white/10 backdrop-blur-sm rounded-2xl p-3 max-w-2xl mx-auto"
+        data-aos="zoom-in"
+        data-aos-delay="200"
+      >
+        <form
+          class="flex flex-col sm:flex-row gap-3"
+          action="/search-results"
+          method="GET"
+        >
+          <input
+            type="text"
+            name="zipCode"
+            placeholder="Enter your ZIP code"
+            pattern="[0-9]{5}"
+            maxlength="5"
+            required
+            class="flex-1 px-6 py-4 rounded-xl text-lg text-gray-900 placeholder-gray-500 focus:outline-none"
+          />
+          <input type="hidden" name="procedure" value="70551" />
+          <input type="hidden" name="state" value="FL" />
+          <input type="hidden" name="autoSearch" value="true" />
+          <button
+            type="submit"
+            class="bg-white text-[#003087] px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition whitespace-nowrap transform hover:scale-105"
+          >
+            Find Centers Near You →
+          </button>
+        </form>
+      </div>
+
+      <p
+        class="text-white/60 text-sm mt-8"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        No commitment required. See real prices instantly.
+      </p>
+    </div>
+  </section>
+
+  <style>
+    /* Interactive Demo Styles */
+    .demo-active {
+      transform: scale(1.05);
+      box-shadow: 0 20px 40px rgba(0, 48, 135, 0.2);
+    }
+
+    /* Process Card Hover Effects */
+    .group:hover .process-icon {
+      transform: rotate(5deg) scale(1.1);
+    }
+
+    /* Comparison Table Animations */
+    @keyframes checkmark {
+      0% {
+        transform: scale(0) rotate(-180deg);
+      }
+      50% {
+        transform: scale(1.2) rotate(10deg);
+      }
+      100% {
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    .comparison-check {
+      animation: checkmark 0.5s ease-out;
+    }
+
+    /* Network Map Hover */
+    .network-preview:hover {
+      transform: scale(1.02);
+      transition: transform 0.3s ease;
+    }
+
+    /* Form Focus Effects */
+    input:focus {
+      box-shadow: 0 0 0 3px rgba(0, 48, 135, 0.1);
+    }
+
+    /* Mobile Optimizations */
+    @media (max-width: 768px) {
+      .process-step {
+        margin-bottom: 2rem;
+      }
+    }
+  </style>
+
+  <script>
+    // Interactive Demo Function
+    function startDemo() {
+      alert(
+        "Interactive demo coming soon! For now, try entering your ZIP code below to see real prices."
+      );
+      // Future: Launch interactive walkthrough
+    }
+
+    // Animate numbers on scroll
+    const observerOptions = {
+      threshold: 0.5,
+      rootMargin: "0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Animate counters, progress bars, etc.
+          entry.target.classList.add("animate-in");
+        }
+      });
+    }, observerOptions);
+
+    // Observe all animatable elements
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("[data-animate]").forEach((el) => {
+        observer.observe(el);
+      });
+    });
+  </script>
+</CarbonLayout>

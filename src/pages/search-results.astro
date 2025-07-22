@@ -1,152 +1,328 @@
 ---
-// search-results.astro
-import MainPatientLayout from "../layouts/MainPatientLayout.astro";
-import FadeIn from "../components/FadeIn.astro";
+// search-results-carbon.astro
+import CarbonLayout from "../layouts/CarbonLayout.astro";
+import AOSInit from "../components/AOSInit.astro";
 import ProviderSearchSection from "../components/ProviderSearchSection.jsx";
 
-const pageTitle = "Search Results - Medical Imaging Centers | USRad";
+const pageTitle = "Search Results - Find Your MRI Center | USRad";
 const pageDescription =
-  "Find affordable medical imaging centers near you with transparent pricing and same-day appointments.";
+  "Compare prices and book affordable MRI scans near you. Transparent pricing, same-day appointments, no insurance required.";
 const canonicalURL = Astro.site
   ? new URL("/search-results", Astro.site).toString()
   : "/search-results";
+
+export const prerender = false;
+
+// Get URL parameters
+const { searchParams } = Astro.url;
+const zipCode = searchParams.get("zipCode");
+const procedure = searchParams.get("procedure") || "70551"; // Default to MRI Brain
+const autoSearch = searchParams.get("autoSearch");
+
+// Redirect to home if no ZIP code provided
+if (!zipCode) {
+  return Astro.redirect("/");
+}
+
+// Map procedure codes to names
+const procedureNames = {
+  "70551": "MRI Brain without Contrast",
+  "72148": "MRI Lumbar Spine",
+  "74177": "CT Abdomen & Pelvis",
+  "71250": "CT Chest",
+};
+
+const procedureName = procedureNames[procedure] || "MRI Brain without Contrast";
 ---
 
-<MainPatientLayout
-  showPatientHeader={true}
+<CarbonLayout
   title={pageTitle}
   description={pageDescription}
   canonicalURL={canonicalURL}
 >
-  <!-- Search Results Hero -->
-  <FadeIn effect="fade" delay={0}>
-    <section class="bg-gradient-to-br from-[#fefbf5] to-white py-12 md:py-16">
-      <div class="max-w-7xl mx-auto px-6 text-center">
-        <h1 class="text-3xl md:text-4xl font-bold text-[#003087] mb-4">
-          Medical Imaging Centers
-        </h1>
-        <p class="text-lg text-gray-600 mb-6">
-          Find affordable, high-quality imaging centers with transparent pricing
-        </p>
+  <style>
+    /* Hide only the search form from ProviderSearchSection */
+    #searchForm {
+      display: none !important;
+    }
 
-        <!-- Trust Indicators -->
-        <div
-          class="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-600"
-        >
-          <div class="flex items-center gap-2">
-            <svg
-              class="w-5 h-5 text-green-500"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"></path>
-            </svg>
-            <span>Same-Day Appointments</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <svg
-              class="w-5 h-5 text-green-500"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"></path>
-            </svg>
-            <span>Transparent Pricing</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <svg
-              class="w-5 h-5 text-green-500"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"></path>
-            </svg>
-            <span>No Insurance Required</span>
-          </div>
+    /* Ensure map stays visible */
+    #map {
+      display: block !important;
+      height: 400px !important;
+    }
+
+    /* Remove extra padding/margins from provider section */
+    #provider-search-container > div:first-child {
+      padding-top: 0 !important;
+    }
+
+    /* Sticky search bar styles */
+    #sticky-search {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      transform: translateY(-100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 50;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    #sticky-search.visible {
+      transform: translateY(0);
+    }
+  </style>
+
+  <!-- Minimal Results Header -->
+  <section class="bg-white pt-20 pb-4 border-b">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3 text-gray-700">
+          <svg
+            class="w-5 h-5 text-teal-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+            ></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          <span>Results near <strong>{zipCode}</strong></span>
+          <span class="text-gray-400">•</span>
+          <svg
+            class="w-5 h-5 text-teal-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+            ></path>
+          </svg>
+          <span>{procedureName}</span>
         </div>
+        <button
+          onclick="showStickySearch()"
+          class="text-teal-600 hover:text-teal-700 font-medium transition flex items-center gap-1"
+        >
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+            ></path>
+          </svg>
+          Modify Search
+        </button>
       </div>
-    </section>
-  </FadeIn>
+    </div>
+  </section>
 
-  <!-- Search Component with Auto-Search -->
-  <div id="results">
-    <ProviderSearchSection
-      client:load
-      googleMapsApiKey={import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY}
-      mapId={import.meta.env.PUBLIC_GOOGLE_MAPS_MAP_ID}
-      title="Search Results"
-      subtitle=""
-      badgeText=""
-      showHelpSection={false}
-    />
+  <!-- Sticky Search Bar (Hidden by default) -->
+  <div id="sticky-search">
+    <div class="max-w-7xl mx-auto px-6 py-3">
+      <form
+        action="/search-results"
+        method="GET"
+        class="flex flex-col sm:flex-row gap-3"
+      >
+        <input type="hidden" name="autoSearch" value="true" />
+
+        <div class="flex-1">
+          <input
+            type="text"
+            name="zipCode"
+            id="sticky-zip"
+            placeholder="ZIP Code"
+            maxlength="5"
+            pattern="[0-9]{5}"
+            value={zipCode}
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+            required
+          />
+        </div>
+
+        <div class="flex-1">
+          <select
+            name="procedure"
+            id="sticky-procedure"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+          >
+            <option value="70551" selected={procedure === "70551"}
+              >MRI Brain without Contrast</option
+            >
+            <option value="72148" selected={procedure === "72148"}
+              >MRI Lumbar Spine</option
+            >
+            <option value="74177" selected={procedure === "74177"}
+              >CT Abdomen & Pelvis</option
+            >
+            <option value="71250" selected={procedure === "71250"}
+              >CT Chest</option
+            >
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition"
+        >
+          Update Search
+        </button>
+      </form>
+    </div>
   </div>
 
-  <!-- Auto-search script -->
-  <script>
+  <!-- Results Section -->
+  <section class="bg-gray-50 min-h-screen">
+    <div id="provider-search-container" class="py-8">
+      <ProviderSearchSection
+        client:load
+        initialZipCode={zipCode}
+        initialCptCode={procedure}
+      />
+    </div>
+  </section>
+
+  <AOSInit />
+
+  <script is:inline>
+    // Prevent any navigation to /search-results
+    if (
+      window.location.pathname === "/search-results" &&
+      !window.location.pathname.includes("carbon")
+    ) {
+      console.log("Redirecting from /search-results to home");
+      window.location.href = "/";
+      return;
+    }
+
+    // Global functions
+    function showStickySearch() {
+      var stickyBar = document.getElementById("sticky-search");
+      if (stickyBar) {
+        stickyBar.classList.add("visible");
+        setTimeout(function () {
+          var zipInput = document.getElementById("sticky-zip");
+          if (zipInput) zipInput.focus();
+        }, 300);
+      }
+    }
+
+    // Main initialization
     document.addEventListener("DOMContentLoaded", function () {
-      const urlParams = new URLSearchParams(window.location.search);
-      const autoSearch = urlParams.get("autoSearch");
-      const zipCode = urlParams.get("zipCode");
-      const procedure = urlParams.get("procedure");
-      const state = urlParams.get("state");
+      // Prevent ALL form submissions on this page
+      document.addEventListener(
+        "submit",
+        function (e) {
+          console.log("Form submission prevented:", e.target);
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        },
+        true
+      );
 
-      if (autoSearch === "true" && zipCode) {
-        console.log("🔍 Auto-search triggered:", { zipCode, procedure, state });
+      // Get URL parameters
+      var urlParams = new URLSearchParams(window.location.search);
+      var autoSearch = urlParams.get("autoSearch");
+      var zipCode = urlParams.get("zipCode");
+      var procedure = urlParams.get("procedure") || "70551";
 
-        // Wait for the component to be ready
-        setTimeout(() => {
-          const zipCodeInput = document.getElementById("zipCode");
-          const procedureSelect = document.getElementById("procedure");
-          const stateSelect = document.getElementById("state");
-          const searchForm = document.getElementById("searchForm");
-
-          if (zipCodeInput && procedureSelect && stateSelect && searchForm) {
-            // Fill in the form fields
-            zipCodeInput.value = zipCode;
-            if (procedure) procedureSelect.value = procedure;
-            if (state) stateSelect.value = state;
-
-            // Trigger the search
-            console.log("✅ Auto-triggering search");
-            const submitEvent = new Event("submit", {
-              bubbles: true,
-              cancelable: true,
-            });
-            searchForm.dispatchEvent(submitEvent);
-
-            // Clean up URL params
-            const newUrl = window.location.pathname;
-            window.history.replaceState({}, document.title, newUrl);
+      // Debug: Log all clicks and form interactions
+      document.addEventListener(
+        "click",
+        function (e) {
+          if (e.target.tagName === "BUTTON" || e.target.tagName === "A") {
+            console.log(
+              "Click detected on:",
+              e.target.tagName,
+              e.target.textContent,
+              e.target.href || "no href"
+            );
           }
+        },
+        true
+      );
+
+      // Auto-trigger search
+      if (zipCode) {
+        // Wait for React component to mount
+        setTimeout(function () {
+          // Find and populate the search inputs
+          var inputs = document.querySelectorAll('input[type="text"]');
+          var selects = document.querySelectorAll("select");
+
+          inputs.forEach(function (input) {
+            if (input.placeholder && input.placeholder.includes("ZIP")) {
+              input.value = zipCode;
+              input.dispatchEvent(new Event("input", { bubbles: true }));
+              input.dispatchEvent(new Event("change", { bubbles: true }));
+            }
+          });
+
+          selects.forEach(function (select) {
+            select.value = procedure;
+            select.dispatchEvent(new Event("change", { bubbles: true }));
+          });
+
+          // Find and click search button
+          var buttons = document.querySelectorAll("button");
+          buttons.forEach(function (button) {
+            if (
+              button.textContent.includes("Search") ||
+              button.textContent.includes("Find")
+            ) {
+              button.click();
+              return;
+            }
+          });
         }, 1000);
+      }
+
+      // Sticky search bar scroll functionality
+      var stickySearch = document.getElementById("sticky-search");
+
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 150) {
+          stickySearch.classList.add("visible");
+        } else {
+          stickySearch.classList.remove("visible");
+        }
+      });
+
+      // Clean up URL
+      if (autoSearch === "true") {
+        setTimeout(function () {
+          var newUrl =
+            window.location.pathname +
+            "?zipCode=" +
+            zipCode +
+            "&procedure=" +
+            procedure;
+          window.history.replaceState({}, document.title, newUrl);
+        }, 2000);
       }
     });
   </script>
-
-  <style>
-    /* Remove default search section background since we have hero */
-    #search-section {
-      background: white !important;
-      padding-top: 2rem !important;
-    }
-
-    /* Hide the default title/subtitle */
-    #search-section .text-center.mb-12 {
-      display: none;
-    }
-
-    /* Hide the badge */
-    #search-section .text-center.mb-6 {
-      display: none;
-    }
-  </style>
-</MainPatientLayout>
+</CarbonLayout>

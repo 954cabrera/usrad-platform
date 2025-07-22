@@ -1,0 +1,501 @@
+---
+// search-results-carbon.astro
+import CarbonLayout from "../layouts/CarbonLayout.astro";
+import AOSInit from "../components/AOSInit.astro";
+import ProviderSearchSection from "../components/ProviderSearchSection.jsx";
+
+const pageTitle = "Search Results - Find Your MRI Center | USRad";
+const pageDescription = "Compare prices and book affordable MRI scans near you. Transparent pricing, same-day appointments, no insurance required.";
+const canonicalURL = Astro.site ? new URL("/search-results", Astro.site).toString() : "/search-results";
+
+export const prerender = false;
+---
+
+<CarbonLayout title={pageTitle} description={pageDescription} canonicalURL={canonicalURL} isHeroPage={false}>
+  <AOSInit />
+
+  <!-- Sticky Search Bar (Hidden by default) -->
+  <div id="sticky-search" class="fixed top-16 left-0 right-0 bg-white shadow-lg z-40 transform -translate-y-full transition-transform duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3">
+      <form class="flex flex-col sm:flex-row gap-3 items-center">
+        <div class="flex items-center gap-2 text-sm text-gray-600">
+          <span class="font-medium">Modify Search:</span>
+        </div>
+        
+        <div class="flex flex-1 gap-3 max-w-3xl">
+          <!-- ZIP Code -->
+          <div class="relative flex-1">
+            <input
+              type="text"
+              id="sticky-zipCode"
+              name="zipCode"
+              placeholder="ZIP Code"
+              pattern="[0-9]{5}"
+              maxlength="5"
+              required
+              class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-teal-500 focus:outline-none text-sm"
+            />
+            <svg class="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+            </svg>
+          </div>
+
+          <!-- Procedure -->
+          <select
+            id="sticky-procedure"
+            name="procedure"
+            class="px-4 py-2 rounded-lg border border-gray-300 focus:border-teal-500 focus:outline-none text-sm bg-white"
+          >
+            <option value="70551">MRI Brain (without contrast)</option>
+          </select>
+
+          <!-- Search Button -->
+          <button
+            type="button"
+            onclick="updateSearch()"
+            class="bg-teal-500 hover:bg-teal-600 text-white px-6 py-2 rounded-lg font-medium text-sm transition-colors whitespace-nowrap"
+          >
+            Update Search
+          </button>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="hidden lg:flex items-center gap-3 ml-4">
+          <button type="button" onclick="resetSearch()" class="text-sm text-gray-500 hover:text-gray-700">
+            Clear
+          </button>
+          <span class="text-gray-300">|</span>
+          <a href="#search-form-section" class="text-sm text-teal-600 hover:text-teal-700">
+            Advanced Search ↑
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Hero Section with Search Status -->
+  <section id="hero-section" class="relative pt-32 pb-16 px-4 sm:px-6 bg-gradient-to-br from-slate-900 via-[#003087] to-teal-900 overflow-hidden transition-all duration-500">
+    <!-- Animated Background -->
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute top-20 right-10 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-10 left-20 w-96 h-96 bg-[#003087]/30 rounded-full blur-3xl animate-pulse animation-delay-1000"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto">
+      <!-- Default State -->
+      <div id="hero-default" class="text-center">
+        <!-- Status Badge -->
+        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-8" data-aos="fade-down">
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          <span class="text-white/80 text-sm font-medium">Real-time availability</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-white leading-tight" data-aos="fade-up">
+          Your MRI Centers
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300 mt-2">
+            Transparent Prices. Real Availability.
+          </span>
+        </h1>
+
+        <p class="text-xl text-gray-200 max-w-3xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="200">
+          Compare verified prices from quality imaging centers near you. 
+          Book instantly with no hidden fees.
+        </p>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-3 gap-4 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="300">
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+            <div class="text-2xl font-bold text-white mb-1">70%</div>
+            <div class="text-white/70 text-sm">Average Savings</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+            <div class="text-2xl font-bold text-teal-400 mb-1">48hr</div>
+            <div class="text-white/70 text-sm">Typical Wait</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+            <div class="text-2xl font-bold text-white mb-1">$260+</div>
+            <div class="text-white/70 text-sm">Starting Price</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Searching State (Hidden by default) -->
+      <div id="hero-searching" class="text-center hidden">
+        <div class="inline-flex items-center gap-2 bg-teal-500/20 backdrop-blur-sm rounded-full px-6 py-3 mb-6">
+          <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+          <span class="text-white text-sm font-medium">Searching for centers...</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+          Finding the best prices near <span id="searching-zip" class="text-teal-400"></span>
+        </h2>
+        <p class="text-lg text-gray-300">This will just take a moment...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search Form Section -->
+  <section id="search-form-section" class="bg-gradient-to-br from-white to-teal-50/30 py-12 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(0,206,209,.1) 35px, rgba(0,206,209,.1) 70px);"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <!-- Enhanced Search Form -->
+      <div class="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto" data-aos="zoom-in">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Refine Your Search</h2>
+        
+        <form id="searchForm" class="space-y-6">
+          <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <!-- ZIP Code -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">ZIP Code *</label>
+              <div class="relative">
+                <input
+                  type="text"
+                  id="zipCode"
+                  name="zipCode"
+                  placeholder="Enter ZIP"
+                  pattern="[0-9]{5}"
+                  maxlength="5"
+                  required
+                  class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-teal-500 focus:outline-none transition-colors"
+                />
+                <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Procedure -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Procedure</label>
+              <select
+                id="procedure"
+                name="procedure"
+                class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-teal-500 focus:outline-none transition-colors appearance-none bg-white"
+              >
+                <option value="70551">MRI Brain (without contrast)</option>
+                <!-- Add more procedures as they become available -->
+              </select>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button
+              type="submit"
+              class="bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-lg"
+            >
+              <span class="flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                Search Providers
+              </span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Search Tips -->
+        <div class="mt-6 grid md:grid-cols-3 gap-4 text-center">
+          <div class="flex items-center justify-center gap-2 text-sm text-gray-600">
+            <span class="text-teal-500">✓</span>
+            <span>No login required</span>
+          </div>
+          <div class="flex items-center justify-center gap-2 text-sm text-gray-600">
+            <span class="text-teal-500">✓</span>
+            <span>100% free search</span>
+          </div>
+          <div class="flex items-center justify-center gap-2 text-sm text-gray-600">
+            <span class="text-teal-500">✓</span>
+            <span>Real-time prices</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- In-Results Search Banner -->
+  <div id="results-search-banner" class="hidden bg-gradient-to-r from-teal-50 to-white border-y border-gray-200 py-4 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="text-sm text-gray-600">
+            <span class="font-medium">Current Search:</span>
+            <span class="inline-flex items-center gap-2 ml-2">
+              <span class="bg-gray-100 px-3 py-1 rounded-full">
+                📍 <span id="current-zip" class="font-medium"></span>
+              </span>
+              <span class="bg-gray-100 px-3 py-1 rounded-full">
+                🏥 <span id="current-procedure" class="font-medium"></span>
+              </span>
+            </span>
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-3">
+          <button 
+            onclick="document.getElementById('search-form-section').scrollIntoView({behavior: 'smooth'})"
+            class="text-sm bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            ↑ Modify Search
+          </button>
+          <button 
+            onclick="startNewSearch()"
+            class="text-sm bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition-colors"
+          >
+            New Search
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Section with Provider Search Component -->
+  <section id="results-section" class="py-16 px-4 sm:px-6 bg-white">
+    <div id="provider-search-container">
+      <ProviderSearchSection
+        client:load
+        googleMapsApiKey={import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY}
+        mapId={import.meta.env.PUBLIC_GOOGLE_MAPS_MAP_ID}
+        showHelpSection={false}
+        embedMode={true}
+      />
+    </div>
+  </section>
+
+  <style>
+    /* Filter Pills */
+    .filter-pill {
+      @apply px-4 py-2 rounded-full text-sm font-medium border-2 border-gray-200 text-gray-600 hover:border-teal-500 hover:text-teal-600 transition-all;
+    }
+    
+    .filter-pill.active {
+      @apply bg-teal-500 border-teal-500 text-white;
+    }
+
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Compact hero transition */
+    #hero-section.compact {
+      padding-bottom: 2rem;
+      min-height: 300px;
+    }
+    
+    /* Searching state animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    #hero-searching {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    /* Hide the duplicate search form in ProviderSearchSection */
+    #provider-search-container #searchForm {
+      display: none !important;
+    }
+
+    /* Hide default titles in ProviderSearchSection */
+    #provider-search-container .text-center.mb-12 h1,
+    #provider-search-container .text-center.mb-6 {
+      display: none !important;
+    }
+
+    /* Style adjustments for embedded component */
+    #provider-search-container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+  </style>
+
+  <script is:inline>
+    document.addEventListener("DOMContentLoaded", function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const autoSearch = urlParams.get("autoSearch");
+      const zipCode = urlParams.get("zipCode");
+      const procedure = urlParams.get("procedure");
+
+      // Elements
+      const zipCodeInput = document.getElementById("zipCode");
+      const procedureSelect = document.getElementById("procedure");
+
+      // Sticky search bar functionality
+      const stickySearch = document.getElementById('sticky-search');
+      const searchFormSection = document.getElementById('search-form-section');
+      const stickyZipInput = document.getElementById('sticky-zipCode');
+      const stickyProcedureSelect = document.getElementById('sticky-procedure');
+      
+      // Sync sticky inputs with main form
+      function syncStickyInputs() {
+        if (stickyZipInput && zipCodeInput) {
+          stickyZipInput.value = zipCodeInput.value;
+        // Start new search function
+      window.startNewSearch = function() {
+        // Clear all inputs
+        if (zipCodeInput) zipCodeInput.value = '';
+        if (procedureSelect) procedureSelect.selectedIndex = 0;
+        
+        // Scroll to search form
+        document.getElementById('search-form-section').scrollIntoView({behavior: 'smooth'});
+        
+        // Focus on ZIP input
+        setTimeout(() => {
+          if (zipCodeInput) zipCodeInput.focus();
+        }, 500);
+      };
+      
+      // Show results banner when search is performed
+      function showResultsBanner() {
+        const banner = document.getElementById('results-search-banner');
+        const currentZipSpan = document.getElementById('current-zip');
+        const currentProcedureSpan = document.getElementById('current-procedure');
+        
+        if (banner && zipCodeInput && zipCodeInput.value) {
+          banner.classList.remove('hidden');
+          if (currentZipSpan) currentZipSpan.textContent = zipCodeInput.value;
+          if (currentProcedureSpan) {
+            currentProcedureSpan.textContent = procedureSelect.options[procedureSelect.selectedIndex].text;
+          }
+        }
+      }
+      
+      // Update the auto-search section to show banner
+      if (autoSearch === "true" && zipCode) {
+        // ... existing auto-search code ...
+        
+        // Add this after triggering search
+        setTimeout(() => {
+          showResultsBanner();
+        }, 3000);
+      }
+        if (stickyProcedureSelect && procedureSelect) {
+          stickyProcedureSelect.value = procedureSelect.value;
+        }
+      }
+      
+      // Show/hide sticky search based on scroll
+      let lastScrollY = window.scrollY;
+      let searchFormBottom = 0;
+      
+      function updateStickySearch() {
+        if (searchFormSection) {
+          searchFormBottom = searchFormSection.offsetTop + searchFormSection.offsetHeight;
+        }
+        
+        const currentScrollY = window.scrollY;
+        
+        if (currentScrollY > searchFormBottom) {
+          // User has scrolled past the search form
+          stickySearch.classList.remove('-translate-y-full');
+          syncStickyInputs();
+        } else {
+          // User is at or above the search form
+          stickySearch.classList.add('-translate-y-full');
+        }
+        
+        lastScrollY = currentScrollY;
+      }
+      
+      // Throttle scroll events for performance
+      let scrollTimer;
+      window.addEventListener('scroll', () => {
+        if (scrollTimer) return;
+        scrollTimer = setTimeout(() => {
+          updateStickySearch();
+          scrollTimer = null;
+        }, 100);
+      });
+      
+      // Update search function
+      window.updateSearch = function() {
+        const newZip = stickyZipInput.value;
+        const newProcedure = stickyProcedureSelect.value;
+        
+        if (!newZip || newZip.length !== 5) {
+          alert("Please enter a valid 5-digit ZIP code");
+          return;
+        }
+        
+        // Update main form
+        if (zipCodeInput) zipCodeInput.value = newZip;
+        if (procedureSelect) procedureSelect.value = newProcedure;
+        
+        // Trigger search
+        const providerSearchBtn = document.querySelector('#searchForm button[type="submit"]');
+        if (providerSearchBtn) {
+          providerSearchBtn.click();
+        }
+      };
+      
+      // Reset search function
+      window.resetSearch = function() {
+        stickyZipInput.value = '';
+        stickyProcedureSelect.selectedIndex = 0;
+        if (zipCodeInput) zipCodeInput.value = '';
+        if (procedureSelect) procedureSelect.selectedIndex = 0;
+      };
+      
+      // Auto-populate and search if coming from another page
+      if (autoSearch === "true" && zipCode) {
+        console.log("🔍 Auto-search triggered:", { zipCode, procedure });
+        
+        // Update hero to searching state
+        const heroDefault = document.getElementById("hero-default");
+        const heroSearching = document.getElementById("hero-searching");
+        const searchingZip = document.getElementById("searching-zip");
+        const heroSection = document.getElementById("hero-section");
+        
+        if (heroDefault && heroSearching) {
+          heroDefault.classList.add("hidden");
+          heroSearching.classList.remove("hidden");
+          if (searchingZip) searchingZip.textContent = zipCode;
+          
+          // Make hero more compact during search
+          heroSection.classList.add("pb-8");
+          heroSection.classList.remove("pb-16");
+        }
+        
+        // Fill in the form
+        if (zipCodeInput) zipCodeInput.value = zipCode;
+        if (procedure && procedureSelect) procedureSelect.value = procedure;
+
+        // Brief pause to show searching state
+        setTimeout(() => {
+          // Smooth scroll to form section first
+          document.getElementById('search-form-section').scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+          
+          // Then trigger the search
+          setTimeout(() => {
+            const providerSearchBtn = document.querySelector('#searchForm button[type="submit"]');
+            if (providerSearchBtn) {
+              providerSearchBtn.click();
+            }
+            
+            // After search is triggered, scroll to results
+            setTimeout(() => {
+              document.getElementById('results-section').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+              });
+              
+              // Optionally collapse the hero even more or hide it
+              heroSection.style.minHeight = '200px';
+            }, 2500); // Increased from 1500ms to 2500ms
+          }, 1000); // Increased from 500ms to 1000ms
+        }, 2000); // Increased from 1000ms to 2000ms
+
+        // Clean up URL
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+      }
+    });
+  </script>
+</CarbonLayout>
