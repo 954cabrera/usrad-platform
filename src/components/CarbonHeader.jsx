@@ -55,7 +55,11 @@ export default function CarbonHeader({ isHeroPage = false }) {
         betaText: 'text-white',
         buttonBg: 'bg-white/10 border-white/30',
         buttonText: 'text-white',
-        buttonHover: 'hover:bg-white/20'
+        buttonHover: 'hover:bg-white/20',
+        // B2B link styles for transparent header
+        b2bText: 'text-white/60',
+        b2bHover: 'hover:text-white/80',
+        b2bDivider: 'text-white/30'
       };
     } else {
       // White header (default or after scroll)
@@ -68,7 +72,11 @@ export default function CarbonHeader({ isHeroPage = false }) {
         betaText: 'text-white',
         buttonBg: 'bg-[#003087]',
         buttonText: 'text-white',
-        buttonHover: 'hover:bg-[#002266]'
+        buttonHover: 'hover:bg-[#002266]',
+        // B2B link styles for white header
+        b2bText: 'text-gray-400',
+        b2bHover: 'hover:text-gray-600',
+        b2bDivider: 'text-gray-300'
       };
     }
   };
@@ -118,6 +126,24 @@ export default function CarbonHeader({ isHeroPage = false }) {
             
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center space-x-4">
+              {/* Subtle B2B Links - Desktop Only */}
+              <div className="flex items-center text-xs">
+                <a 
+                  href="/employer" 
+                  className={`transition-all duration-300 ${styles.b2bText} ${styles.b2bHover}`}
+                >
+                  For Employers
+                </a>
+                <span className={`mx-2 ${styles.b2bDivider}`}>|</span>
+                <a 
+                  href="/provider" 
+                  className={`transition-all duration-300 ${styles.b2bText} ${styles.b2bHover}`}
+                >
+                  For Imaging Centers
+                </a>
+                <span className={`mx-3 ${styles.b2bDivider}`}>|</span>
+              </div>
+              
               <LoginDropdown isHeroPage={isHeroPage} isScrolled={isScrolled} />
               <a
                 href="/search-results"
@@ -157,8 +183,8 @@ export default function CarbonHeader({ isHeroPage = false }) {
           onClick={() => setMobileMenuOpen(false)}
         />
         
-        {/* Menu Panel - Updated width from w-72 to w-full sm:w-80 */}
-        <div className={`absolute right-0 top-0 h-full w-full sm:w-80 bg-white shadow-xl transform transition-transform duration-300 ${
+        {/* Menu Panel */}
+        <div className={`absolute right-0 top-0 h-full w-72 bg-white shadow-xl transform transition-transform duration-300 ${
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}>
           {/* Mobile Menu Header */}
@@ -204,14 +230,6 @@ export default function CarbonHeader({ isHeroPage = false }) {
               >
                 Book scan
               </a>
-              {/* New Provider CTA */}
-              <a
-                href="/dashboard/onboarding"
-                className="block w-full bg-gradient-to-r from-[#cc9933] to-[#FFA500] text-[#003087] px-4 py-3 rounded-lg text-center font-bold hover:shadow-lg transition"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Join Network - Imaging Centers
-              </a>
             </div>
 
             {/* Bottom Links */}
@@ -244,20 +262,13 @@ export default function CarbonHeader({ isHeroPage = false }) {
   );
 }
 
-// Mobile Nav Link Component - Updated with better touch targets
+// Mobile Nav Link Component
 function MobileNavLink({ href, onClick, children }) {
-  // Get current path for active state (optional)
-  const isActive = typeof window !== 'undefined' && window.location.pathname === href;
-  
   return (
     <a
       href={href}
       onClick={onClick}
-      className={`block py-4 px-4 text-base font-medium rounded-lg transition ${
-        isActive 
-          ? 'text-[#003087] bg-blue-50' 
-          : 'text-gray-700 hover:text-[#003087] hover:bg-gray-50'
-      }`}
+      className="block py-3 text-base font-medium text-gray-700 hover:text-[#003087] transition"
     >
       {children}
     </a>
