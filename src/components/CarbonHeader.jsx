@@ -1,5 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 
+// Add CSS animation for smooth dropdown appearance
+const dropdownStyles = `
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fadeIn {
+    animation: fadeIn 0.2s ease-out;
+  }
+`;
+
 export default function CarbonHeader({ isHeroPage = false }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -85,6 +103,9 @@ export default function CarbonHeader({ isHeroPage = false }) {
 
   return (
     <>
+      {/* Inject animation styles */}
+      <style dangerouslySetInnerHTML={{ __html: dropdownStyles }} />
+      
       {/* Header */}
       <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isVisible ? 'translate-y-0' : '-translate-y-full'
@@ -136,7 +157,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
                 </a>
                 <span className={`mx-2 ${styles.b2bDivider}`}>|</span>
                 <a 
-                  href="/provider" 
+                  href="/managed-care" 
                   className={`transition-all duration-300 ${styles.b2bText} ${styles.b2bHover}`}
                 >
                   For Imaging Centers
@@ -295,29 +316,65 @@ function LoginDropdown({ isHeroPage, isScrolled }) {
     {
       href: "/login/patientlogin",
       title: "Patient Portal",
-      icon: "👤"
+      subtitle: "View results & book scans",
+      icon: (
+        <img 
+          src="/images/icons/patient.svg" 
+          alt="Patient Portal" 
+          className="w-5 h-5"
+        />
+      ),
+      color: "text-[#003087]",
+      bgColor: "bg-[#003087]/10"
     },
     {
       href: "/login/imaginglogin", 
       title: "Imaging Center",
-      icon: "🏥"
+      subtitle: "Manage facility & reports",
+      icon: (
+        <img 
+          src="/images/icons/mri-machine.svg" 
+          alt="Imaging Center" 
+          className="w-5 h-5"
+        />
+      ),
+      color: "text-[#cc9933]",
+      bgColor: "bg-[#cc9933]/10"
     },
     {
       href: "/login/referrallogin",
-      title: "Physician Portal", 
-      icon: "👨‍⚕️"
+      title: "Physician Portal",
+      subtitle: "Refer patients & view reports",
+      icon: (
+        <img 
+          src="/images/icons/analytic.svg" 
+          alt="Physician Portal" 
+          className="w-5 h-5"
+        />
+      ),
+      color: "text-emerald-600",
+      bgColor: "bg-emerald-600/10"
     }
   ];
 
   // Determine text color based on hero page and scroll state
   const textColor = (isHeroPage && !isScrolled) ? 'text-white hover:text-white/80' : 'text-gray-700 hover:text-[#003087]';
+  const iconColor = (isHeroPage && !isScrolled) ? 'text-white' : 'text-gray-500';
 
   return (
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`text-sm font-medium transition-all duration-300 flex items-center gap-1 ${textColor}`}
+        className={`text-sm font-medium transition-all duration-300 flex items-center gap-2 group ${textColor}`}
       >
+        <img 
+          src="/images/icons/lock.svg" 
+          alt="Sign in" 
+          className={`w-4 h-4 transition-all duration-300 ${iconColor}`}
+          style={{
+            filter: (isHeroPage && !isScrolled) ? 'brightness(0) invert(1)' : 'none'
+          }}
+        />
         Sign in
         <svg 
           className={`w-3 h-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
@@ -330,18 +387,40 @@ function LoginDropdown({ isHeroPage, isScrolled }) {
       </button>
       
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 overflow-hidden">
-          {loginOptions.map((option) => (
-            <a
-              key={option.href}
-              href={option.href}
-              className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition"
-              onClick={() => setIsOpen(false)}
-            >
-              <span className="text-lg">{option.icon}</span>
-              <span className="text-sm font-medium text-gray-700">{option.title}</span>
-            </a>
-          ))}
+        <div className="absolute right-0 top-full mt-3 w-72 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden animate-fadeIn">
+          <div className="p-2">
+            <div className="px-3 py-2 border-b border-gray-100">
+              <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Choose Portal</p>
+            </div>
+            {loginOptions.map((option, index) => (
+              <a
+                key={option.href}
+                href={option.href}
+                className="flex items-center gap-3 px-3 py-3 mt-1 rounded-lg hover:bg-gray-50 transition-all duration-200 group"
+                onClick={() => setIsOpen(false)}
+              >
+                <div className={`w-10 h-10 rounded-lg ${option.bgColor} flex items-center justify-center transition-transform duration-200 group-hover:scale-110`}>
+                  <span className={option.color}>{option.icon}</span>
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
+                    {option.title}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    {option.subtitle}
+                  </p>
+                </div>
+                <svg className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-all duration-200 transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            ))}
+          </div>
+          <div className="bg-gray-50 px-5 py-3 border-t border-gray-100">
+            <p className="text-xs text-gray-500 text-center">
+              Secure login • HIPAA compliant
+            </p>
+          </div>
         </div>
       )}
     </div>
@@ -356,29 +435,63 @@ function MobileLoginSection({ onClose }) {
     {
       href: "/login/patientlogin",
       title: "Patient Portal",
-      icon: "👤"
+      subtitle: "View results & book scans",
+      icon: (
+        <img 
+          src="/images/icons/patient.svg" 
+          alt="Patient Portal" 
+          className="w-5 h-5"
+        />
+      ),
+      color: "text-[#003087]",
+      bgColor: "bg-[#003087]/10"
     },
     {
       href: "/login/imaginglogin", 
       title: "Imaging Center",
-      icon: "🏥"
+      subtitle: "Manage facility & reports",
+      icon: (
+        <img 
+          src="/images/icons/mri-machine.svg" 
+          alt="Imaging Center" 
+          className="w-5 h-5"
+        />
+      ),
+      color: "text-[#cc9933]",
+      bgColor: "bg-[#cc9933]/10"
     },
     {
       href: "/login/referrallogin",
-      title: "Physician Portal", 
-      icon: "👨‍⚕️"
+      title: "Physician Portal",
+      subtitle: "Refer patients & view reports",
+      icon: (
+        <img 
+          src="/images/icons/analytic.svg" 
+          alt="Physician Portal" 
+          className="w-5 h-5"
+        />
+      ),
+      color: "text-emerald-600",
+      bgColor: "bg-emerald-600/10"
     }
   ];
 
   return (
-    <div className="bg-gray-50 rounded-lg p-1">
+    <div className="bg-gray-50 rounded-lg overflow-hidden">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between p-3 text-sm font-medium text-gray-700"
+        className="w-full flex items-center justify-between p-3 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
       >
-        <span>Sign in</span>
+        <div className="flex items-center gap-2">
+          <img 
+            src="/images/icons/lock.svg" 
+            alt="Sign in" 
+            className="w-4 h-4"
+          />
+          <span>Sign in</span>
+        </div>
         <svg 
-          className={`w-4 h-4 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 transition-transform duration-200 text-gray-400 ${isExpanded ? 'rotate-180' : ''}`}
           fill="none" 
           stroke="currentColor" 
           viewBox="0 0 24 24"
@@ -388,18 +501,35 @@ function MobileLoginSection({ onClose }) {
       </button>
       
       {isExpanded && (
-        <div className="px-1 pb-1">
+        <div className="px-2 pb-2 space-y-1">
           {loginOptions.map((option) => (
             <a
               key={option.href}
               href={option.href}
-              className="flex items-center gap-3 px-3 py-2 rounded hover:bg-white transition"
+              className="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-white transition-all group"
               onClick={onClose}
             >
-              <span>{option.icon}</span>
-              <span className="text-sm text-gray-700">{option.title}</span>
+              <div className={`w-10 h-10 rounded-lg ${option.bgColor} flex items-center justify-center transition-transform duration-200 group-hover:scale-105`}>
+                <span className={option.color}>{option.icon}</span>
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-gray-900">
+                  {option.title}
+                </p>
+                <p className="text-xs text-gray-500">
+                  {option.subtitle}
+                </p>
+              </div>
+              <svg className="w-4 h-4 text-gray-300 group-hover:text-gray-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </a>
           ))}
+          <div className="pt-2 mt-2 border-t border-gray-200">
+            <p className="text-xs text-gray-500 text-center">
+              Secure login • HIPAA compliant
+            </p>
+          </div>
         </div>
       )}
     </div>
