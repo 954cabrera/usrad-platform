@@ -1,0 +1,468 @@
+---
+// src/components/provider/priority-markets/NetworkMap.astro
+export interface Props {
+  showLegend?: boolean;
+}
+
+const { showLegend = true } = Astro.props;
+---
+
+<div
+  class="relative w-full h-[500px] md:h-[600px] lg:h-[700px] xl:h-[800px] bg-black/20 rounded-2xl overflow-hidden"
+  data-aos="fade-up"
+>
+  {
+    showLegend && (
+      <div class="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 bg-black/60 backdrop-blur-sm rounded-lg px-6 py-3 border border-white/10">
+        <h4 class="text-sm font-bold text-white mb-2 text-center">
+          Network Sync Activity
+        </h4>
+        <div class="flex gap-6">
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 bg-[#00ff88] rounded-sm" />
+            <span class="text-xs text-gray-300">Patient Referrals →</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 bg-[#4A90E2] rounded-sm" />
+            <span class="text-xs text-gray-300">Reimbursements →</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 bg-[#FFA500] rounded-sm" />
+            <span class="text-xs text-gray-300">← Medical Reports</span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  <svg
+    class="absolute inset-0 w-full h-full"
+    viewBox="0 0 1200 600"
+    preserveAspectRatio="xMidYMid meet"
+  >
+    <!-- Definitions -->
+    <defs>
+      <!-- Grid Pattern -->
+      <pattern
+        id="grid"
+        x="0"
+        y="0"
+        width="40"
+        height="40"
+        patternUnits="userSpaceOnUse"
+      >
+        <line
+          x1="0"
+          y1="0"
+          x2="0"
+          y2="40"
+          stroke="#1a2744"
+          stroke-width="0.5"
+          opacity="0.3"></line>
+        <line
+          x1="0"
+          y1="0"
+          x2="40"
+          y2="0"
+          stroke="#1a2744"
+          stroke-width="0.5"
+          opacity="0.3"></line>
+      </pattern>
+
+      <!-- Hub Gradient -->
+      <radialGradient id="hub-gradient" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" style="stop-color:#cc9933;stop-opacity:1">
+          <animate
+            attributeName="stop-opacity"
+            values="1;0.4;1"
+            dur="2s"
+            repeatCount="indefinite"></animate>
+        </stop>
+        <stop offset="50%" style="stop-color:#FFA500;stop-opacity:0.5"></stop>
+        <stop offset="100%" style="stop-color:#cc9933;stop-opacity:0"></stop>
+      </radialGradient>
+
+      <!-- State Gradient -->
+      <radialGradient id="state-gradient" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" style="stop-color:#cc9933;stop-opacity:0.8"></stop>
+        <stop offset="100%" style="stop-color:#cc9933;stop-opacity:0"></stop>
+      </radialGradient>
+
+      <!-- Glow Filter -->
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="3" result="coloredBlur"></feGaussianBlur>
+        <feMerge>
+          <feMergeNode in="coloredBlur"></feMergeNode>
+          <feMergeNode in="SourceGraphic"></feMergeNode>
+        </feMerge>
+      </filter>
+
+      <!-- Patient Referral Packet (Green - From Hub) -->
+      <g id="referral-packet">
+        <rect x="-3" y="-1.5" width="6" height="3" fill="#00ff88" opacity="0.8"
+        ></rect>
+        <circle cx="0" cy="0" r="4" fill="#00ff88" opacity="0.3"></circle>
+      </g>
+
+      <!-- Reimbursement Packet (Blue - From Hub) -->
+      <g id="reimbursement-packet">
+        <rect x="-3" y="-1.5" width="6" height="3" fill="#4A90E2" opacity="0.8"
+        ></rect>
+        <circle cx="0" cy="0" r="4" fill="#4A90E2" opacity="0.3"></circle>
+      </g>
+
+      <!-- Medical Report Packet (Orange - From Centers) -->
+      <g id="report-packet">
+        <rect x="-3" y="-1.5" width="6" height="3" fill="#FFA500" opacity="0.8"
+        ></rect>
+        <circle cx="0" cy="0" r="4" fill="#FFA500" opacity="0.3"></circle>
+      </g>
+    </defs>
+
+    <!-- Background -->
+    <rect width="100%" height="100%" fill="url(#grid)"></rect>
+
+    <!-- Connection Lines -->
+    <g
+      id="connections"
+      stroke="#cc9933"
+      stroke-width="1.5"
+      fill="none"
+      opacity="0.3"
+    >
+      <!-- Outbound paths (Hub to States) -->
+      <path id="path-tx-out" d="M 900 450 Q 650 400 400 350"></path>
+      <path id="path-ca-out" d="M 900 450 Q 550 350 150 280"></path>
+      <path id="path-ny-out" d="M 900 450 Q 950 300 1000 150"></path>
+      <path id="path-pa-out" d="M 900 450 Q 920 330 950 200"></path>
+      <path id="path-il-out" d="M 900 450 Q 750 350 600 250"></path>
+      <path id="path-oh-out" d="M 900 450 Q 800 350 700 250"></path>
+      <path id="path-ga-out" d="M 900 450 Q 850 400 800 350"></path>
+      <path id="path-nc-out" d="M 900 450 Q 920 370 950 300"></path>
+      <path id="path-nj-out" d="M 900 450 Q 950 330 1000 200"></path>
+
+      <!-- Return paths (States to Hub) -->
+      <path id="path-tx-return" d="M 400 350 Q 650 400 900 450"></path>
+      <path id="path-ca-return" d="M 150 280 Q 550 350 900 450"></path>
+      <path id="path-ny-return" d="M 1000 150 Q 950 300 900 450"></path>
+      <path id="path-pa-return" d="M 950 200 Q 920 330 900 450"></path>
+      <path id="path-il-return" d="M 600 250 Q 750 350 900 450"></path>
+      <path id="path-oh-return" d="M 700 250 Q 800 350 900 450"></path>
+      <path id="path-ga-return" d="M 800 350 Q 850 400 900 450"></path>
+      <path id="path-nc-return" d="M 950 300 Q 920 370 900 450"></path>
+      <path id="path-nj-return" d="M 1000 200 Q 950 330 900 450"></path>
+    </g>
+
+    <!-- State Nodes -->
+    <g id="states">
+      <!-- California -->
+      <g transform="translate(150, 280)">
+        <circle r="25" fill="url(#state-gradient)" opacity="0.8"></circle>
+        <circle r="12" fill="#cc9933" filter="url(#glow)"></circle>
+        <text
+          y="-35"
+          text-anchor="middle"
+          fill="white"
+          font-size="14"
+          font-weight="bold">California</text
+        >
+        <text
+          y="35"
+          text-anchor="middle"
+          fill="#cc9933"
+          font-size="10"
+          opacity="0.7">Los Angeles • San Diego</text
+        >
+      </g>
+
+      <!-- Texas -->
+      <g transform="translate(400, 350)">
+        <circle r="25" fill="url(#state-gradient)" opacity="0.8"></circle>
+        <circle r="12" fill="#cc9933" filter="url(#glow)"></circle>
+        <text
+          y="-35"
+          text-anchor="middle"
+          fill="white"
+          font-size="14"
+          font-weight="bold">Texas</text
+        >
+        <text
+          y="35"
+          text-anchor="middle"
+          fill="#cc9933"
+          font-size="10"
+          opacity="0.7">Houston • Dallas</text
+        >
+      </g>
+
+      <!-- Illinois -->
+      <g transform="translate(600, 250)">
+        <circle r="22" fill="url(#state-gradient)" opacity="0.8"></circle>
+        <circle r="10" fill="#cc9933" filter="url(#glow)"></circle>
+        <text
+          y="-32"
+          text-anchor="middle"
+          fill="white"
+          font-size="13"
+          font-weight="bold">Illinois</text
+        >
+        <text
+          y="32"
+          text-anchor="middle"
+          fill="#cc9933"
+          font-size="9"
+          opacity="0.7">Chicago Metro</text
+        >
+      </g>
+
+      <!-- Ohio -->
+      <g transform="translate(700, 250)">
+        <circle r="20" fill="url(#state-gradient)" opacity="0.8"></circle>
+        <circle r="9" fill="#cc9933" filter="url(#glow)"></circle>
+        <text
+          y="-30"
+          text-anchor="middle"
+          fill="white"
+          font-size="12"
+          font-weight="bold">Ohio</text
+        >
+        <text
+          y="30"
+          text-anchor="middle"
+          fill="#cc9933"
+          font-size="9"
+          opacity="0.7">Cleveland • Columbus</text
+        >
+      </g>
+
+      <!-- Georgia -->
+      <g transform="translate(800, 350)">
+        <circle r="20" fill="url(#state-gradient)" opacity="0.8"></circle>
+        <circle r="9" fill="#cc9933" filter="url(#glow)"></circle>
+        <text
+          y="-30"
+          text-anchor="middle"
+          fill="white"
+          font-size="12"
+          font-weight="bold">Georgia</text
+        >
+        <text
+          y="30"
+          text-anchor="middle"
+          fill="#cc9933"
+          font-size="9"
+          opacity="0.7">Atlanta Metro</text
+        >
+      </g>
+
+      <!-- North Carolina -->
+      <g transform="translate(950, 300)">
+        <circle r="20" fill="url(#state-gradient)" opacity="0.8"></circle>
+        <circle r="9" fill="#cc9933" filter="url(#glow)"></circle>
+        <text
+          y="-30"
+          text-anchor="middle"
+          fill="white"
+          font-size="12"
+          font-weight="bold">N. Carolina</text
+        >
+        <text
+          y="30"
+          text-anchor="middle"
+          fill="#cc9933"
+          font-size="9"
+          opacity="0.7">Charlotte • Raleigh</text
+        >
+      </g>
+
+      <!-- Pennsylvania -->
+      <g transform="translate(950, 200)">
+        <circle r="22" fill="url(#state-gradient)" opacity="0.8"></circle>
+        <circle r="10" fill="#cc9933" filter="url(#glow)"></circle>
+        <text
+          y="-32"
+          text-anchor="middle"
+          fill="white"
+          font-size="13"
+          font-weight="bold">Pennsylvania</text
+        >
+        <text
+          y="32"
+          text-anchor="middle"
+          fill="#cc9933"
+          font-size="9"
+          opacity="0.7">Philadelphia • Pittsburgh</text
+        >
+      </g>
+
+      <!-- New Jersey -->
+      <g transform="translate(1000, 200)">
+        <circle r="18" fill="url(#state-gradient)" opacity="0.8"></circle>
+        <circle r="8" fill="#cc9933" filter="url(#glow)"></circle>
+        <text
+          y="-28"
+          text-anchor="middle"
+          fill="white"
+          font-size="11"
+          font-weight="bold">New Jersey</text
+        >
+        <text
+          y="28"
+          text-anchor="middle"
+          fill="#cc9933"
+          font-size="9"
+          opacity="0.7">Newark</text
+        >
+      </g>
+
+      <!-- New York -->
+      <g transform="translate(1000, 150)">
+        <circle r="25" fill="url(#state-gradient)" opacity="0.8"></circle>
+        <circle r="12" fill="#cc9933" filter="url(#glow)"></circle>
+        <text
+          y="-35"
+          text-anchor="middle"
+          fill="white"
+          font-size="14"
+          font-weight="bold">New York</text
+        >
+        <text
+          y="35"
+          text-anchor="middle"
+          fill="#cc9933"
+          font-size="10"
+          opacity="0.7">NYC Metro</text
+        >
+      </g>
+
+      <!-- Fort Lauderdale Hub - Last so it's on top -->
+      <g transform="translate(900, 450)">
+        <!-- Outer pulse rings -->
+        <circle r="60" fill="url(#hub-gradient)"></circle>
+        <circle
+          r="45"
+          fill="none"
+          stroke="#cc9933"
+          stroke-width="2"
+          opacity="0.5"
+        >
+          <animate
+            attributeName="r"
+            values="45;70;45"
+            dur="3s"
+            repeatCount="indefinite"></animate>
+          <animate
+            attributeName="opacity"
+            values="0.5;0;0.5"
+            dur="3s"
+            repeatCount="indefinite"></animate>
+        </circle>
+        <circle
+          r="30"
+          fill="none"
+          stroke="#FFA500"
+          stroke-width="1.5"
+          opacity="0.4"
+        >
+          <animate
+            attributeName="r"
+            values="30;50;30"
+            dur="2.5s"
+            repeatCount="indefinite"></animate>
+          <animate
+            attributeName="opacity"
+            values="0.4;0;0.4"
+            dur="2.5s"
+            repeatCount="indefinite"></animate>
+        </circle>
+
+        <!-- Hub center -->
+        <circle r="15" fill="#cc9933" filter="url(#glow)"></circle>
+        <circle r="10" fill="#FFA500"></circle>
+
+        <!-- Hub label -->
+        <text
+          y="-70"
+          text-anchor="middle"
+          fill="white"
+          font-size="16"
+          font-weight="bold">FORT LAUDERDALE</text
+        >
+        <text y="-50" text-anchor="middle" fill="#cc9933" font-size="12"
+          >USRad Command Center</text
+        >
+        <text
+          y="60"
+          text-anchor="middle"
+          fill="#FFA500"
+          font-size="11"
+          opacity="0.8">Processing Hub</text
+        >
+      </g>
+    </g>
+
+    <!-- Animated Data Packets -->
+    <g id="animations">
+      <!-- Patient Referrals (Green - Outbound from Hub) -->
+      <use href="#referral-packet" filter="url(#glow)">
+        <animateMotion dur="3s" repeatCount="indefinite">
+          <mpath href="#path-tx-out"></mpath>
+        </animateMotion>
+      </use>
+      <use href="#referral-packet" filter="url(#glow)">
+        <animateMotion dur="4s" repeatCount="indefinite" begin="0.5s">
+          <mpath href="#path-ca-out"></mpath>
+        </animateMotion>
+      </use>
+      <use href="#referral-packet" filter="url(#glow)">
+        <animateMotion dur="3.5s" repeatCount="indefinite" begin="1s">
+          <mpath href="#path-ny-out"></mpath>
+        </animateMotion>
+      </use>
+
+      <!-- Reimbursements (Blue - Outbound from Hub) -->
+      <use href="#reimbursement-packet" filter="url(#glow)">
+        <animateMotion dur="3.2s" repeatCount="indefinite" begin="1.5s">
+          <mpath href="#path-il-out"></mpath>
+        </animateMotion>
+      </use>
+      <use href="#reimbursement-packet" filter="url(#glow)">
+        <animateMotion dur="3.3s" repeatCount="indefinite" begin="2s">
+          <mpath href="#path-ga-out"></mpath>
+        </animateMotion>
+      </use>
+      <use href="#reimbursement-packet" filter="url(#glow)">
+        <animateMotion dur="3.4s" repeatCount="indefinite" begin="2.5s">
+          <mpath href="#path-oh-out"></mpath>
+        </animateMotion>
+      </use>
+
+      <!-- Medical Reports (Orange - Returning to Hub) -->
+      <use href="#report-packet" filter="url(#glow)">
+        <animateMotion dur="3.1s" repeatCount="indefinite" begin="0.8s">
+          <mpath href="#path-nc-return"></mpath>
+        </animateMotion>
+      </use>
+      <use href="#report-packet" filter="url(#glow)">
+        <animateMotion dur="3.5s" repeatCount="indefinite" begin="1.3s">
+          <mpath href="#path-pa-return"></mpath>
+        </animateMotion>
+      </use>
+      <use href="#report-packet" filter="url(#glow)">
+        <animateMotion dur="3s" repeatCount="indefinite" begin="1.8s">
+          <mpath href="#path-nj-return"></mpath>
+        </animateMotion>
+      </use>
+      <use href="#report-packet" filter="url(#glow)">
+        <animateMotion dur="3.2s" repeatCount="indefinite" begin="2.3s">
+          <mpath href="#path-tx-return"></mpath>
+        </animateMotion>
+      </use>
+      <use href="#report-packet" filter="url(#glow)">
+        <animateMotion dur="3.4s" repeatCount="indefinite" begin="2.8s">
+          <mpath href="#path-ca-return"></mpath>
+        </animateMotion>
+      </use>
+    </g>
+  </svg>
+</div>
