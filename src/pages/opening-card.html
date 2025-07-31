@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USRad Opening</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e27;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 48, 135, 0.3) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+        }
+
+        /* Logo animation */
+        .logo-container {
+            opacity: 0;
+            transform: scale(0.3);
+            animation: logoReveal 1.5s ease-out 0.5s forwards;
+        }
+
+        @keyframes logoReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) rotate(-180deg);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.1) rotate(5deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .logo {
+            width: 500px;
+            height: 180px;
+            background: white;
+            border-radius: 20px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 900;
+            color: #003087;
+            box-shadow: 0 30px 80px rgba(204, 153, 51, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Shimmer effect */
+        .logo::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(204, 153, 51, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 2s ease-in-out 2s;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .logo img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Optional tagline for opening */
+        .opening-tagline {
+            font-size: 1.2rem;
+            color: #cc9933;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 2s forwards;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Light rays effect */
+        .light-rays {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            animation: raysAppear 1s ease-out 1.5s forwards;
+        }
+
+        @keyframes raysAppear {
+            to {
+                opacity: 0.3;
+            }
+        }
+
+        .ray {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(204, 153, 51, 0.5), transparent);
+            transform-origin: center;
+        }
+
+        .ray:nth-child(1) {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+        .ray:nth-child(2) {
+            transform: translate(-50%, -50%) rotate(30deg);
+        }
+
+        .ray:nth-child(3) {
+            transform: translate(-50%, -50%) rotate(60deg);
+        }
+
+        .ray:nth-child(4) {
+            transform: translate(-50%, -50%) rotate(90deg);
+        }
+
+        .ray:nth-child(5) {
+            transform: translate(-50%, -50%) rotate(120deg);
+        }
+
+        .ray:nth-child(6) {
+            transform: translate(-50%, -50%) rotate(150deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animation"></div>
+
+    <div class="light-rays">
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+    </div>
+
+    <div class="container">
+        <div class="logo-container">
+            <div class="logo">
+                <!-- Replace with your actual logo -->
+                <img src="logo/master/usrad-logo-bluetext.webp" alt="USRad">
+                <!-- Or placeholder text: -->
+                <!-- USRad Logo -->
+            </div>
+        </div>
+
+        <p class="opening-tagline">Presents</p>
+    </div>
+</body>
+
+</html>

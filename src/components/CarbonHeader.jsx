@@ -102,9 +102,9 @@ export default function CarbonHeader({ isHeroPage = false }) {
               <a href="/how-it-works-carbon" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
                 How it works
               </a>
-              <a href="/pricing" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
+              {/* <a href="/pricing" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
                 Pricing
-              </a>
+              </a> */}
               <a href="/education/what-is-an-mri-carbon" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
                 What is an MRI?
               </a>
@@ -180,9 +180,9 @@ export default function CarbonHeader({ isHeroPage = false }) {
               <MobileNavLink href="/how-it-works-carbon" onClick={() => setMobileMenuOpen(false)}>
                 How it works
               </MobileNavLink>
-              <MobileNavLink href="/pricing" onClick={() => setMobileMenuOpen(false)}>
+              {/*<MobileNavLink href="/pricing" onClick={() => setMobileMenuOpen(false)}>
                 Pricing
-              </MobileNavLink>
+              </MobileNavLink> */}
               <MobileNavLink href="/education/what-is-an-mri-carbon" onClick={() => setMobileMenuOpen(false)}>
                 What is an MRI?
               </MobileNavLink>

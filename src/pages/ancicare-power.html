@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnciCare's Massive Impact</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Animated background network */
+        .network-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .network-node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #4299e1;
+            border-radius: 50%;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 0.8;
+            }
+        }
+
+        /* Main container */
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            padding: 2vh;
+        }
+
+        /* Title section */
+        .title-section {
+            text-align: center;
+            margin-bottom: 3vh;
+            opacity: 0;
+            animation: fadeInDown 0.8s ease-out forwards;
+        }
+
+        .main-title {
+            font-size: 7rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #4299e1, #667eea, #9f7aea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            line-height: 1;
+        }
+
+        .subtitle {
+            font-size: 3.5rem;
+            color: #a0aec0;
+            font-weight: 300;
+        }
+
+        /* Stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3vw;
+            width: 94vw;
+            margin-bottom: 3vh;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 4vh 2vw;
+            text-align: center;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            position: relative;
+            overflow: hidden;
+            min-height: 45vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stat-card:nth-child(1) {
+            animation: slideInScale 0.8s ease-out 0.3s forwards;
+        }
+
+        .stat-card:nth-child(2) {
+            animation: slideInScale 0.8s ease-out 0.6s forwards;
+        }
+
+        .stat-card:nth-child(3) {
+            animation: slideInScale 0.8s ease-out 0.9s forwards;
+        }
+
+        @keyframes slideInScale {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.1),
+                    transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .stat-icon {
+            font-size: 6rem;
+            margin-bottom: 3vh;
+            filter: drop-shadow(0 0 30px currentColor);
+        }
+
+        .stat-number {
+            font-size: 7rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 2vh;
+            position: relative;
+            display: block;
+            line-height: 1;
+            text-align: center;
+            width: 100%;
+        }
+
+        .counting {
+            animation: countPulse 0.3s ease-out;
+        }
+
+        @keyframes countPulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .stat-label {
+            font-size: 2.5rem;
+            color: #cbd5e0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1vh;
+        }
+
+        .highlight {
+            color: #4299e1;
+            font-weight: 700;
+            font-size: 2.2rem;
+        }
+
+        /* Impact section */
+        .impact-section {
+            background: rgba(66, 153, 225, 0.1);
+            border: 3px solid rgba(66, 153, 225, 0.3);
+            border-radius: 40px;
+            padding: 4vh 5vw;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 1.2s forwards;
+            backdrop-filter: blur(10px);
+            width: 90vw;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .impact-text {
+            font-size: 3rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        .impact-emphasis {
+            color: #4299e1;
+            font-weight: 700;
+            font-size: 3.3rem;
+        }
+
+        /* Floating money particles */
+        .money-particle {
+            position: absolute;
+            font-size: 3rem;
+            color: #48bb78;
+            opacity: 0;
+            animation: float-up 4s ease-out infinite;
+        }
+
+        @keyframes float-up {
+            0% {
+                opacity: 0;
+                transform: translateY(100px) rotate(0deg);
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Success badge */
+        .success-badge {
+            position: absolute;
+            top: 3vh;
+            right: 3vw;
+            background: linear-gradient(45deg, #48bb78, #38a169);
+            color: white;
+            padding: 2vh 4vw;
+            border-radius: 60px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            opacity: 0;
+            animation: fadeInDown 0.8s ease-out 2s forwards;
+            box-shadow: 0 15px 40px rgba(72, 187, 120, 0.3);
+        }
+
+        /* Glow effects */
+        .glow {
+            filter: drop-shadow(0 0 40px rgba(66, 153, 225, 0.5));
+        }
+
+        /* 4K specific adjustments */
+        @media (min-width: 3000px) {
+            .main-title {
+                font-size: 9rem;
+            }
+
+            .subtitle {
+                font-size: 4.5rem;
+            }
+
+            .stat-icon {
+                font-size: 8rem;
+            }
+
+            .stat-number {
+                font-size: 9rem;
+            }
+
+            .stat-label {
+                font-size: 3.5rem;
+            }
+
+            .impact-text {
+                font-size: 4rem;
+            }
+
+            .impact-emphasis {
+                font-size: 4.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Network background -->
+    <div class="network-bg" id="networkBg"></div>
+
+    <!-- Success badge -->
+    <div class="success-badge">PROVEN SUCCESS</div>
+
+    <div class="container">
+        <!-- Title -->
+        <div class="title-section">
+            <h1 class="main-title">AnciCare's Massive Impact</h1>
+            <p class="subtitle">Building the Foundation for USRad's Future</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <!-- Centers -->
+            <div class="stat-card glow">
+                <div class="stat-icon">🏥</div>
+                <div class="stat-number" id="centersCount">0</div>
+                <div class="stat-label">Imaging Centers</div>
+                <div class="stat-label highlight">Nationwide Network</div>
+            </div>
+
+            <!-- Revenue -->
+            <div class="stat-card glow">
+                <div class="stat-icon">💰</div>
+                <div class="stat-number">$<span id="revenueCount">0</span>M</div>
+                <div class="stat-label">Patient Volume</div>
+                <div class="stat-label highlight">Delivered to Partners</div>
+            </div>
+
+            <!-- Impact -->
+            <div class="stat-card glow">
+                <div class="stat-icon">📈</div>
+                <div class="stat-number"><span id="profitCount">0</span>%</div>
+                <div class="stat-label">Profitability Boost</div>
+                <div class="stat-label highlight">For Every Payer</div>
+            </div>
+        </div>
+
+        <!-- Impact Statement -->
+        <div class="impact-section">
+            <p class="impact-text">
+                We transformed <span class="impact-emphasis">unused capacity</span> into
+                <span class="impact-emphasis">steady revenue streams</span>, covering fixed costs
+                and making <span class="impact-emphasis">every other payer more profitable</span>.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Create network background nodes
+        function createNetworkNodes() {
+            const networkBg = document.getElementById('networkBg');
+            for (let i = 0; i < 30; i++) {
+                const node = document.createElement('div');
+                node.className = 'network-node';
+                node.style.left = Math.random() * 100 + '%';
+                node.style.top = Math.random() * 100 + '%';
+                node.style.animationDelay = Math.random() * 3 + 's';
+                networkBg.appendChild(node);
+            }
+        }
+
+        // Animate counting
+        function animateValue(id, start, end, duration, suffix = '') {
+            const element = document.getElementById(id);
+            const range = end - start;
+            const increment = range / (duration / 50);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= end) {
+                    current = end;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current).toLocaleString();
+                element.classList.add('counting');
+                setTimeout(() => element.classList.remove('counting'), 300);
+            }, 50);
+        }
+
+        // Create floating money particles
+        function createMoneyParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'money-particle';
+            particle.textContent = '$';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 4 + 's';
+            document.body.appendChild(particle);
+
+            setTimeout(() => particle.remove(), 4000);
+        }
+
+        // Initialize animations
+        createNetworkNodes();
+
+        // Start counting animations after delay
+        setTimeout(() => {
+            animateValue('centersCount', 0, 1200, 2000);
+            animateValue('revenueCount', 0, 180, 2500);
+            animateValue('profitCount', 0, 100, 2000);
+        }, 500);
+
+        // Create money particles periodically
+        setInterval(createMoneyParticle, 500);
+
+        // Auto-refresh for recording
+        setTimeout(() => {
+            location.reload();
+        }, 12000);
+    </script>
+</body>
+
+</html>

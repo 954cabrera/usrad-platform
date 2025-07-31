@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USRad Priority Markets Map</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0e27;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .map-section {
+            position: relative;
+            min-height: 100vh;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #0a0e27 0%, #0f1629 50%, #003087 100%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Header Section */
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 8px 24px;
+            margin-bottom: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #cc9933;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        .header-badge span {
+            color: #cc9933;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        h1 {
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .highlight {
+            background: linear-gradient(90deg, #cc9933, #FFA500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 48px;
+        }
+
+        /* Main Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* Stats Section */
+        .stats-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Market Opportunity Card */
+        .opportunity-card {
+            background: linear-gradient(135deg, #003087, #0052cc);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .opportunity-card h3 {
+            font-size: 20px;
+            margin-bottom: 24px;
+        }
+
+        .opportunity-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            text-align: center;
+        }
+
+        .opportunity-stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .opportunity-stat-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Priority Markets List */
+        .markets-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .markets-card h3 {
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        .markets-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .market-tier h4 {
+            font-size: 12px;
+            color: #cc9933;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .market-item {
+            background: rgba(204, 153, 51, 0.1);
+            border: 1px solid rgba(204, 153, 51, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+        }
+
+        .market-item.secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .market-name {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .market-cities {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Map Container */
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .map-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(90deg, #cc9933, #FFA500);
+            color: #003087;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(204, 153, 51, 0.3);
+        }
+
+        .cta-secondary {
+            color: #4A90E2;
+            text-decoration: none;
+            margin-left: 24px;
+            font-weight: 500;
+        }
+
+        .cta-secondary:hover {
+            color: #cc9933;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .map-container {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .stats-row {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .opportunity-stats {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .markets-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="map-section">
+        <div class="container">
+            <!-- Header -->
+            <div class="header-badge">
+                <div class="pulse-dot"></div>
+                <span>Priority Markets Active Recruitment</span>
+            </div>
+
+            <h1>
+                High-volume<br>
+                <span class="highlight">opportunity markets</span>
+            </h1>
+
+            <p class="subtitle">
+                From our Fort Lauderdale headquarters, we're actively recruiting
+                imaging centers in 12 high-demand markets where our patient
+                acquisition programs show the strongest results.
+            </p>
+
+            <!-- Main Content -->
+            <div class="content-grid">
+                <!-- Left Column -->
+                <div>
+                    <!-- Key Stats -->
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-value" style="color: #cc9933;">90M+</div>
+                            <div class="stat-label">Underinsured Americans</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">35%</div>
+                            <div class="stat-label">Typical Slot Utilization</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" style="color: #FFA500;">$2.8B</div>
+                            <div class="stat-label">Addressable Market</div>
+                        </div>
+                    </div>
+
+                    <!-- Market Opportunity -->
+                    <div class="opportunity-card">
+                        <h3>Market Opportunity</h3>
+                        <div class="opportunity-stats">
+                            <div>
+                                <div class="opportunity-stat-value" style="color: #cc9933;">65%</div>
+                                <div class="opportunity-stat-label">Average Unfilled<br>Appointment Slots</div>
+                            </div>
+                            <div>
+                                <div class="opportunity-stat-value">100%</div>
+                                <div class="opportunity-stat-label">Payment<br>Collection Rate</div>
+                            </div>
+                            <div>
+                                <div class="opportunity-stat-value" style="color: #FFA500;">10 Days</div>
+                                <div class="opportunity-stat-label">Guaranteed<br>Payment Timeline</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Priority Markets List -->
+                    <div class="markets-card">
+                        <h3>12 Priority Markets</h3>
+                        <div class="markets-grid">
+                            <div class="market-tier">
+                                <h4>Tier 1 Markets</h4>
+                                <div class="market-item">
+                                    <div class="market-name">Florida</div>
+                                    <div class="market-cities" style="color: #cc9933;">HQ • Miami-Ft. Lauderdale</div>
+                                </div>
+                                <div class="market-item">
+                                    <div class="market-name">Texas</div>
+                                    <div class="market-cities">Houston • Dallas • Austin</div>
+                                </div>
+                                <div class="market-item">
+                                    <div class="market-name">California</div>
+                                    <div class="market-cities">LA • San Diego • Bay Area</div>
+                                </div>
+                                <div class="market-item">
+                                    <div class="market-name">New York</div>
+                                    <div class="market-cities">NYC Metro • Long Island</div>
+                                </div>
+                            </div>
+                            <div class="market-tier">
+                                <h4 style="color: #4A90E2;">Expansion Markets</h4>
+                                <div class="market-item secondary">
+                                    <div class="market-name">Pennsylvania</div>
+                                    <div class="market-cities">Philadelphia • Pittsburgh</div>
+                                </div>
+                                <div class="market-item secondary">
+                                    <div class="market-name">Illinois</div>
+                                    <div class="market-cities">Chicago Metro</div>
+                                </div>
+                                <div class="market-item secondary">
+                                    <div class="market-name">Ohio</div>
+                                    <div class="market-cities">Cleveland • Columbus</div>
+                                </div>
+                                <div class="market-item secondary">
+                                    <div class="market-name">Georgia</div>
+                                    <div class="market-cities">Atlanta Metro</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-top: 16px;">
+                            <div class="market-item secondary" style="flex: 1; text-align: center; padding: 8px;">
+                                <div class="market-name" style="font-size: 14px;">Michigan</div>
+                            </div>
+                            <div class="market-item secondary" style="flex: 1; text-align: center; padding: 8px;">
+                                <div class="market-name" style="font-size: 14px;">N. Carolina</div>
+                            </div>
+                            <div class="market-item secondary" style="flex: 1; text-align: center; padding: 8px;">
+                                <div class="market-name" style="font-size: 14px;">New Jersey</div>
+                            </div>
+                            <div class="market-item secondary" style="flex: 1; text-align: center; padding: 8px;">
+                                <div class="market-name" style="font-size: 14px;">Virginia</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Map -->
+                <div class="map-container">
+                    <svg class="map-svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet">
+                        <!-- Definitions -->
+                        <defs>
+                            <!-- Grid Pattern -->
+                            <pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                                <line x1="0" y1="0" x2="0" y2="40" stroke="#1a2744" stroke-width="0.5" opacity="0.3" />
+                                <line x1="0" y1="0" x2="40" y2="0" stroke="#1a2744" stroke-width="0.5" opacity="0.3" />
+                            </pattern>
+
+                            <!-- Hub Gradient -->
+                            <radialGradient id="hub-gradient" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" style="stop-color:#cc9933;stop-opacity:1">
+                                    <animate attributeName="stop-opacity" values="1;0.4;1" dur="2s"
+                                        repeatCount="indefinite" />
+                                </stop>
+                                <stop offset="50%" style="stop-color:#FFA500;stop-opacity:0.5" />
+                                <stop offset="100%" style="stop-color:#cc9933;stop-opacity:0" />
+                            </radialGradient>
+
+                            <!-- State Gradient -->
+                            <radialGradient id="state-gradient" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" style="stop-color:#cc9933;stop-opacity:0.8" />
+                                <stop offset="100%" style="stop-color:#cc9933;stop-opacity:0" />
+                            </radialGradient>
+
+                            <!-- Glow Filter -->
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+
+                            <!-- Data Packet -->
+                            <g id="data-packet">
+                                <rect x="-3" y="-1.5" width="6" height="3" fill="#00ff88" opacity="0.8" />
+                                <circle cx="0" cy="0" r="4" fill="#00ff88" opacity="0.3" />
+                            </g>
+                        </defs>
+
+                        <!-- Background -->
+                        <rect width="100%" height="100%" fill="url(#grid)" />
+
+                        <!-- Connection Lines -->
+                        <g id="connections" stroke="#cc9933" stroke-width="1.5" fill="none" opacity="0.3">
+                            <!-- Fort Lauderdale to Texas -->
+                            <path id="path-tx" d="M 650 400 Q 500 380 350 350" />
+                            <!-- Fort Lauderdale to California -->
+                            <path id="path-ca" d="M 650 400 Q 400 300 100 250" />
+                            <!-- Fort Lauderdale to New York -->
+                            <path id="path-ny" d="M 650 400 Q 680 250 700 150" />
+                            <!-- Fort Lauderdale to Pennsylvania -->
+                            <path id="path-pa" d="M 650 400 Q 660 300 670 180" />
+                            <!-- Fort Lauderdale to Illinois -->
+                            <path id="path-il" d="M 650 400 Q 550 300 450 200" />
+                            <!-- Fort Lauderdale to Ohio -->
+                            <path id="path-oh" d="M 650 400 Q 600 300 550 200" />
+                            <!-- Fort Lauderdale to Georgia -->
+                            <path id="path-ga" d="M 650 400 Q 620 360 590 320" />
+                            <!-- Fort Lauderdale to North Carolina -->
+                            <path id="path-nc" d="M 650 400 Q 660 340 670 280" />
+                            <!-- Fort Lauderdale to Michigan -->
+                            <path id="path-mi" d="M 650 400 Q 580 250 520 150" />
+                            <!-- Fort Lauderdale to New Jersey -->
+                            <path id="path-nj" d="M 650 400 Q 680 280 700 180" />
+                            <!-- Fort Lauderdale to Virginia -->
+                            <path id="path-va" d="M 650 400 Q 660 330 670 260" />
+                        </g>
+
+                        <!-- State Nodes -->
+                        <g id="states">
+                            <!-- California -->
+                            <g transform="translate(100, 250)">
+                                <circle r="20" fill="url(#state-gradient)" opacity="0.8" />
+                                <circle r="10" fill="#cc9933" filter="url(#glow)" />
+                                <text y="-30" text-anchor="middle" fill="white" font-size="12"
+                                    font-weight="bold">California</text>
+                                <text y="30" text-anchor="middle" fill="#cc9933" font-size="9" opacity="0.7">Los Angeles
+                                    • San Diego</text>
+                            </g>
+
+                            <!-- Texas -->
+                            <g transform="translate(350, 350)">
+                                <circle r="20" fill="url(#state-gradient)" opacity="0.8" />
+                                <circle r="10" fill="#cc9933" filter="url(#glow)" />
+                                <text y="-30" text-anchor="middle" fill="white" font-size="12"
+                                    font-weight="bold">Texas</text>
+                                <text y="30" text-anchor="middle" fill="#cc9933" font-size="9" opacity="0.7">Houston •
+                                    Dallas</text>
+                            </g>
+
+                            <!-- Illinois -->
+                            <g transform="translate(450, 200)">
+                                <circle r="18" fill="url(#state-gradient)" opacity="0.8" />
+                                <circle r="8" fill="#cc9933" filter="url(#glow)" />
+                                <text y="-28" text-anchor="middle" fill="white" font-size="11"
+                                    font-weight="bold">Illinois</text>
+                                <text y="28" text-anchor="middle" fill="#cc9933" font-size="8" opacity="0.7">Chicago
+                                    Metro</text>
+                            </g>
+
+                            <!-- Michigan -->
+                            <g transform="translate(520, 150)">
+                                <circle r="16" fill="url(#state-gradient)" opacity="0.8" />
+                                <circle r="7" fill="#cc9933" filter="url(#glow)" />
+                                <text y="-26" text-anchor="middle" fill="white" font-size="10"
+                                    font-weight="bold">Michigan</text>
+                                <text y="26" text-anchor="middle" fill="#cc9933" font-size="8" opacity="0.7">Detroit
+                                    Metro</text>
+                            </g>
+
+                            <!-- Ohio -->
+                            <g transform="translate(550, 200)">
+                                <circle r="16" fill="url(#state-gradient)" opacity="0.8" />
+                                <circle r="7" fill="#cc9933" filter="url(#glow)" />
+                                <text y="-26" text-anchor="middle" fill="white" font-size="10"
+                                    font-weight="bold">Ohio</text>
+                                <text y="26" text-anchor="middle" fill="#cc9933" font-size="8" opacity="0.7">Cleveland •
+                                    Columbus</text>
+                            </g>
+
+                            <!-- Georgia -->
+                            <g transform="translate(590, 320)">
+                                <circle r="16" fill="url(#state-gradient)" opacity="0.8" />
+                                <circle r="7" fill="#cc9933" filter="url(#glow)" />
+                                <text y="-26" text-anchor="middle" fill="white" font-size="10"
+                                    font-weight="bold">Georgia</text>
+                                <text y="26" text-anchor="middle" fill="#cc9933" font-size="8" opacity="0.7">Atlanta
+                                    Metro</text>
+                            </g>
+
+                            <!-- North Carolina -->
+                            <g transform="translate(670, 280)">
+                                <circle r="16" fill="url(#state-gradient)" opacity="0.8" />
+                                <circle r="7" fill="#cc9933" filter="url(#glow)" />
+                                <text y="-26" text-anchor="middle" fill="white" font-size="10" font-weight="bold">N.
+                                    Carolina</text>
+                                <text y="26" text-anchor="middle" fill="#cc9933" font-size="8" opacity="0.7">Charlotte •
+                                    Raleigh</text>
+                            </g>
+
+                            <!-- Virginia -->
+                            <g transform="translate(670, 260)">
+                                <circle r="14" fill="url(#state-gradient)" opacity="0.8" />
+                                <circle r="6" fill="#cc9933" filter="url(#glow)" />
+                                <text y="-24" text-anchor="middle" fill="white" font-size="9"
+                                    font-weight="bold">Virginia</text>
+                                <text y="24" text-anchor="middle" fill="#cc9933" font-size="7" opacity="0.7">Northern
+                                    VA</text>
+                            </g>
+
+                            <!-- Pennsylvania -->
+                            <g transform="translate(670, 180)">
+                                <circle r="18" fill="url(#state-gradient)" opacity="0.8" />
+                                <circle r="8" fill="#cc9933" filter="url(#glow)" />
+                                <text y="-28" text-anchor="middle" fill="white" font-size="11"
+                                    font-weight="bold">Pennsylvania</text>
+                                <text y="28" text-anchor="middle" fill="#cc9933" font-size="8"
+                                    opacity="0.7">Philadelphia • Pittsburgh</text>
+                            </g>
+
+                            <!-- New Jersey -->
+                            <g transform="translate(700, 180)">
+                                <circle r="14" fill="url(#state-gradient)" opacity="0.8" />
+                                <circle r="6" fill="#cc9933" filter="url(#glow)" />
+                                <text y="-24" text-anchor="middle" fill="white" font-size="9" font-weight="bold">New
+                                    Jersey</text>
+                                <text y="24" text-anchor="middle" fill="#cc9933" font-size="7"
+                                    opacity="0.7">Newark</text>
+                            </g>
+
+                            <!-- New York -->
+                            <g transform="translate(700, 150)">
+                                <circle r="20" fill="url(#state-gradient)" opacity="0.8" />
+                                <circle r="10" fill="#cc9933" filter="url(#glow)" />
+                                <text y="-30" text-anchor="middle" fill="white" font-size="12" font-weight="bold">New
+                                    York</text>
+                                <text y="30" text-anchor="middle" fill="#cc9933" font-size="9" opacity="0.7">NYC
+                                    Metro</text>
+                            </g>
+
+                            <!-- Fort Lauderdale Hub - Last so it's on top -->
+                            <g transform="translate(650, 400)">
+                                <!-- Outer pulse rings -->
+                                <circle r="50" fill="url(#hub-gradient)" />
+                                <circle r="35" fill="none" stroke="#cc9933" stroke-width="2" opacity="0.5">
+                                    <animate attributeName="r" values="35;60;35" dur="3s" repeatCount="indefinite" />
+                                    <animate attributeName="opacity" values="0.5;0;0.5" dur="3s"
+                                        repeatCount="indefinite" />
+                                </circle>
+                                <circle r="25" fill="none" stroke="#FFA500" stroke-width="1.5" opacity="0.4">
+                                    <animate attributeName="r" values="25;45;25" dur="2.5s" repeatCount="indefinite" />
+                                    <animate attributeName="opacity" values="0.4;0;0.4" dur="2.5s"
+                                        repeatCount="indefinite" />
+                                </circle>
+
+                                <!-- Hub center -->
+                                <circle r="12" fill="#cc9933" filter="url(#glow)" />
+                                <circle r="8" fill="#FFA500" />
+
+                                <!-- Hub label -->
+                                <text y="-60" text-anchor="middle" fill="white" font-size="14" font-weight="bold">FORT
+                                    LAUDERDALE</text>
+                                <text y="-45" text-anchor="middle" fill="#cc9933" font-size="10">USRad Command
+                                    Center</text>
+                                <text y="50" text-anchor="middle" fill="#FFA500" font-size="9" opacity="0.8">Processing
+                                    Hub</text>
+                            </g>
+                        </g>
+
+                        <!-- Animated Data Packets -->
+                        <g id="animations">
+                            <use href="#data-packet" filter="url(#glow)">
+                                <animateMotion dur="3s" repeatCount="indefinite">
+                                    <mpath href="#path-tx" />
+                                </animateMotion>
+                            </use>
+                            <use href="#data-packet" filter="url(#glow)">
+                                <animateMotion dur="4s" repeatCount="indefinite" begin="0.5s">
+                                    <mpath href="#path-ca" />
+                                </animateMotion>
+                            </use>
+                            <use href="#data-packet" filter="url(#glow)">
+                                <animateMotion dur="3.5s" repeatCount="indefinite" begin="1s">
+                                    <mpath href="#path-ny" />
+                                </animateMotion>
+                            </use>
+                            <use href="#data-packet" filter="url(#glow)">
+                                <animateMotion dur="3.2s" repeatCount="indefinite" begin="1.5s">
+                                    <mpath href="#path-il" />
+                                </animateMotion>
+                            </use>
+                            <use href="#data-packet" filter="url(#glow)">
+                                <animateMotion dur="3.3s" repeatCount="indefinite" begin="2s">
+                                    <mpath href="#path-ga" />
+                                </animateMotion>
+                            </use>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <a href="/dashboard/onboarding" class="cta-button">
+                    Apply for These Priority Markets
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                </a>
+                <a href="#market-analysis" class="cta-secondary">
+                    View Detailed Market Analysis →
+                </a>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Coverage Crisis - Past, Present, Future</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0e27 0%, #003087 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+            }
+        }
+
+        .main-container {
+            width: 98vw;
+            height: 96vh;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 20px 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 10;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #003087, #cc9933);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+            letter-spacing: -2px;
+        }
+
+        .subtitle {
+            font-size: 1.6rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            flex: 1;
+            background: linear-gradient(to bottom, rgba(0, 48, 135, 0.03), transparent);
+            border-radius: 16px;
+            padding: 10px 20px 60px 20px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+            min-height: 0;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .timeline-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            z-index: 20;
+        }
+
+        .timeline-section {
+            padding: 12px 24px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .past {
+            background: rgba(220, 38, 38, 0.15);
+            color: #dc2626;
+            border: 2px solid rgba(220, 38, 38, 0.3);
+        }
+
+        .present {
+            background: rgba(204, 153, 51, 0.25);
+            color: #cc9933;
+            box-shadow: 0 0 30px rgba(204, 153, 51, 0.4);
+            transform: scale(1.15);
+            border: 2px solid #cc9933;
+        }
+
+        .future {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 10px;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .stat-card:hover::before {
+            animation: shimmer 0.6s ease-out;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .stat-trend {
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 25px;
+            display: inline-block;
+        }
+
+        .trend-up {
+            background: rgba(220, 38, 38, 0.15);
+            color: #dc2626;
+        }
+
+        .trend-stable {
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(204, 153, 51, 0.15), rgba(0, 48, 135, 0.15));
+            border: 3px solid rgba(204, 153, 51, 0.4);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            animation: pulse 2s ease-in-out infinite;
+            display: none;
+            /* Hidden for cleaner video */
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(204, 153, 51, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 15px rgba(204, 153, 51, 0);
+            }
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .source-citation {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 600;
+            opacity: 0.8;
+            max-width: 90%;
+        }
+
+        /* Loading animation */
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            color: #666;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="particles" id="particles"></div>
+
+    <div class="main-container">
+        <div class="header">
+            <h1>The Healthcare Coverage Crisis Timeline</h1>
+            <p class="subtitle">90 Million Americans Without Adequate Coverage</p>
+        </div>
+
+        <div class="chart-wrapper">
+            <canvas id="myChart"></canvas>
+            <div class="timeline-indicator">
+                <div class="timeline-section past">
+                    <span style="font-size: 1.8rem;">📅</span>
+                    <span>Past (2015-2023)</span>
+                </div>
+                <div class="timeline-section present">
+                    <span style="font-size: 1.8rem;">📍</span>
+                    <span>Present (2024)</span>
+                </div>
+                <div class="timeline-section future">
+                    <span style="font-size: 1.8rem;">🔮</span>
+                    <span>Future (2025-2035)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon">🚨</div>
+                <div class="stat-number" style="color: #dc2626;">
+                    <span id="uninsured-count">27</span>M
+                </div>
+                <div class="stat-label">Currently Uninsured</div>
+                <div class="stat-trend trend-up">↗️ Growing Crisis</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">⚠️</div>
+                <div class="stat-number" style="color: #f59e0b;">
+                    <span id="underinsured-count">63</span>M
+                </div>
+                <div class="stat-label">Currently Underinsured</div>
+                <div class="stat-trend trend-stable">→ High Deductibles</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">💰</div>
+                <div class="stat-number" style="color: #003087;">
+                    <span id="total-count">90</span>M
+                </div>
+                <div class="stat-label">Total Market Opportunity</div>
+                <div class="stat-trend trend-up">↗️ $2.8B Market</div>
+            </div>
+        </div>
+
+        <div class="source-citation">
+            <strong>Sources:</strong> KFF 2024 | Commonwealth Fund 2024 | CDC NHIS 2024 | CBO Projections 2024-2034
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.2.1/dist/chartjs-plugin-annotation.min.js"></script>
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Animate numbers
+        function animateValue(id, start, end, duration) {
+            const element = document.getElementById(id);
+            const range = end - start;
+            const increment = range / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= end) {
+                    current = end;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current);
+            }, 16);
+        }
+
+        // Create the spectacular chart
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        // Gradient backgrounds
+        const gradientUninsured = ctx.createLinearGradient(0, 0, 0, 400);
+        gradientUninsured.addColorStop(0, 'rgba(220, 38, 38, 0.9)');
+        gradientUninsured.addColorStop(1, 'rgba(220, 38, 38, 0.4)');
+
+        const gradientUnderinsured = ctx.createLinearGradient(0, 0, 0, 400);
+        gradientUnderinsured.addColorStop(0, 'rgba(245, 158, 11, 0.9)');
+        gradientUnderinsured.addColorStop(1, 'rgba(245, 158, 11, 0.4)');
+
+        const gradientProjected = ctx.createLinearGradient(0, 0, 0, 400);
+        gradientProjected.addColorStop(0, 'rgba(59, 130, 246, 0.9)');
+        gradientProjected.addColorStop(1, 'rgba(59, 130, 246, 0.4)');
+
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032', '2033', '2034', '2035'],
+                datasets: [
+                    {
+                        label: 'Uninsured Americans',
+                        data: [33, 28, 27, 27, 28, 26, 27, 25, 25, 27, 29, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40],
+                        borderColor: 'rgb(220, 38, 38)',
+                        backgroundColor: gradientUninsured,
+                        borderWidth: 5,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 8,
+                        pointHoverRadius: 12,
+                        pointBackgroundColor: 'white',
+                        pointBorderColor: 'rgb(220, 38, 38)',
+                        pointBorderWidth: 3
+                    },
+                    {
+                        label: 'Underinsured Americans',
+                        data: [45, 48, 50, 52, 54, 56, 58, 60, 61, 63, 65, 67, 68, 70, 71, 72, 73, 74, 75, 76, 77],
+                        borderColor: 'rgb(245, 158, 11)',
+                        backgroundColor: gradientUnderinsured,
+                        borderWidth: 5,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 8,
+                        pointHoverRadius: 12,
+                        pointBackgroundColor: 'white',
+                        pointBorderColor: 'rgb(245, 158, 11)',
+                        pointBorderWidth: 3
+                    },
+                    {
+                        label: 'Total Affected (Projected)',
+                        data: [78, 76, 77, 79, 82, 82, 85, 85, 86, 90, 94, 98, 100, 103, 105, 107, 109, 111, 113, 115, 117],
+                        borderColor: 'rgb(0, 48, 135)',
+                        backgroundColor: gradientProjected,
+                        borderWidth: 6,
+                        tension: 0.4,
+                        fill: false,
+                        borderDash: [8, 8],
+                        pointRadius: 10,
+                        pointHoverRadius: 14,
+                        pointBackgroundColor: 'white',
+                        pointBorderColor: 'rgb(0, 48, 135)',
+                        pointBorderWidth: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                animation: {
+                    duration: 3000,
+                    easing: 'easeInOutQuart',
+                    onComplete: () => {
+                        // Animate counter numbers
+                        animateValue('uninsured-count', 0, 27, 1000);
+                        animateValue('underinsured-count', 0, 63, 1500);
+                        animateValue('total-count', 0, 90, 2000);
+
+                        // Auto refresh after 10 seconds
+                        setTimeout(() => {
+                            location.reload();
+                        }, 10000);
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 28,
+                                weight: 'bold'
+                            },
+                            padding: 35,
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            boxWidth: 50,
+                            boxHeight: 30
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                        padding: 20,
+                        titleFont: {
+                            size: 22,
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            size: 18
+                        },
+                        callbacks: {
+                            label: function (context) {
+                                return context.dataset.label + ': ' + context.parsed.y + ' million';
+                            }
+                        }
+                    },
+                    annotation: {
+                        annotations: {
+                            line1: {
+                                type: 'line',
+                                xMin: '2024',
+                                xMax: '2024',
+                                yMin: 0,
+                                yMax: 120,
+                                borderColor: 'rgba(204, 153, 51, 0.8)',
+                                borderWidth: 5,
+                                borderDash: [10, 10],
+                                label: {
+                                    enabled: true,
+                                    content: 'NOW',
+                                    position: 'start',
+                                    backgroundColor: 'rgba(204, 153, 51, 0.9)',
+                                    color: 'white',
+                                    font: {
+                                        weight: 'bold',
+                                        size: 24
+                                    },
+                                    padding: 12
+                                }
+                            },
+                            line2: {
+                                type: 'line',
+                                xMin: '2025',
+                                xMax: '2025',
+                                yMin: 0,
+                                yMax: 120,
+                                borderColor: 'rgba(59, 130, 246, 0.8)',
+                                borderWidth: 5,
+                                borderDash: [15, 8],
+                                label: {
+                                    enabled: true,
+                                    content: 'FUTURE PROJECTIONS →',
+                                    position: 'start',
+                                    backgroundColor: 'rgba(59, 130, 246, 0.9)',
+                                    color: 'white',
+                                    font: {
+                                        weight: 'bold',
+                                        size: 22
+                                    },
+                                    yAdjust: -50,
+                                    xAdjust: 100,
+                                    padding: 12
+                                }
+                            },
+                            box1: {
+                                type: 'box',
+                                xMin: '2025',
+                                xMax: '2035',
+                                yMin: 0,
+                                yMax: 120,
+                                backgroundColor: 'rgba(59, 130, 246, 0.05)',
+                                borderWidth: 0
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 120,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.08)',
+                            drawBorder: false,
+                            lineWidth: 2
+                        },
+                        ticks: {
+                            font: {
+                                size: 32,
+                                weight: '800'
+                            },
+                            callback: function (value) {
+                                return value + 'M';
+                            },
+                            padding: 10
+                        },
+                        title: {
+                            display: true,
+                            text: 'Americans (Millions)',
+                            font: {
+                                size: 36,
+                                weight: 'bold'
+                            },
+                            padding: 20
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 28,
+                                weight: '800'
+                            },
+                            maxRotation: 0,
+                            minRotation: 0,
+                            padding: 8
+                        },
+                        title: {
+                            display: true,
+                            text: 'Year',
+                            font: {
+                                size: 36,
+                                weight: 'bold'
+                            },
+                            padding: 20
+                        }
+                    }
+                }
+            }
+        });
+
+        // Keyboard controls
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'r' || e.key === 'R') {
+                location.reload();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USRad End Card</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #003087 0%, #0052cc 100%);
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background particles */
+        .bg-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(204, 153, 51, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+
+            10%,
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+            }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            max-width: 800px;
+            padding: 40px;
+        }
+
+        /* Logo placeholder - replace with your actual logo */
+        .logo-container {
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInScale 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .logo {
+            width: 400px;
+            height: 150px;
+            background: white;
+            border-radius: 20px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 900;
+            color: #003087;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+        }
+
+        .logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #cc9933;
+            margin-bottom: 40px;
+            font-weight: 300;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 1s forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .cta-text {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: #e0e7ff;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #cc9933;
+            color: #003087;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(204, 153, 51, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 10px 30px rgba(204, 153, 51, 0.3);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 15px 40px rgba(204, 153, 51, 0.5);
+            }
+        }
+
+        .cta-button:hover {
+            background: #f59e0b;
+            transform: scale(1.1);
+        }
+
+        .website-url {
+            margin-top: 30px;
+            font-size: 1.1rem;
+            color: #94a3b8;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 2s forwards;
+        }
+
+        /* Additional credibility badges */
+        .badges {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 2.3s forwards;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .badge-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #cc9933;
+        }
+
+        .badge-label {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-particles" id="particles"></div>
+
+    <div class="container">
+        <div class="logo-container">
+            <div class="logo">
+                <!-- Replace this with your actual logo image -->
+                <img src="logo/master/usrad-logo-bluetext.webp" alt="USRad">
+                <!-- Or if you want placeholder text for now: -->
+                <!-- USRad Logo Here -->
+            </div>
+        </div>
+
+        <p class="tagline">True Managed Care for Medical Imaging</p>
+
+        <div class="cta-section">
+            <p class="cta-text">Your next patient is already looking...</p>
+
+            <a href="#" class="cta-button">
+                Join Our Provider Network
+            </a>
+
+            <p class="website-url">Visit our provider portal at www.usrad.com/imaging-center</p>
+        </div>
+
+        <div class="badges">
+            <div class="badge">
+                <div class="badge-number">90M+</div>
+                <div class="badge-label">Patients</div>
+            </div>
+            <div class="badge">
+                <div class="badge-number">96%</div>
+                <div class="badge-label">Show Rate</div>
+            </div>
+            <div class="badge">
+                <div class="badge-number">10</div>
+                <div class="badge-label">Day Payment</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+
+</html>
