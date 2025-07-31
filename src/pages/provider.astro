@@ -1,355 +1,105 @@
 ---
+// imaging-center-carbon.astro
 import CarbonLayout from "../layouts/CarbonLayout.astro";
 import AOSInit from "../components/AOSInit.astro";
+import HeroSection from "../components/provider/HeroSection.astro";
+import TrustBar from "../components/provider/TrustBar.astro";
+import HowItWorks from "../components/provider/HowItWorks.astro";
+import ProvenSuccess from "../components/provider/ProvenSuccess.astro";
+import GuaranteeSection from "../components/provider/GuaranteeSection.astro";
+import AnciCareStory from "../components/provider/AnciCareStory.astro";
+import FAQSection from "../components/provider/FAQSection.astro";
+import NetworkBuilding from "../components/provider/NetworkBuilding.astro";
+import ExitModal from "../components/provider/ExitModal.astro";
+import PriorityMarketsMap from "../components/provider/PriorityMarketsMap.astro";
 
 export const prerender = true;
 ---
 
-<CarbonLayout title="Join the USRad Imaging Network" isHeroPage={true}>
+<CarbonLayout
+  title="Join USRad Network - 10 Day Payment Guarantee"
+  isHeroPage={true}
+>
   <AOSInit />
 
-  <!-- Enhanced Hero Section with Strategic Credibility -->
-  <section
-    class="relative w-full min-h-[700px] overflow-hidden bg-[#fcf9f0] text-[#003087] pt-12"
-  >
-    <!-- Credibility Banner -->
-    <div
-      class="absolute top-0 left-0 right-0 bg-gradient-to-r from-[#cc9933] to-[#003087] text-white py-1.5 px-4 text-center text-xs sm:text-sm z-50 mb-4"
-    >
-      <p class="font-medium">
-        🏆 <strong>PROVIDER RECRUITMENT EXPERTS:</strong> Successfully recruited
-        1,200+ centers (1994–2002) • $240M+ volume delivered • Acquired by CorVel
-        Corporation (NYSE: CVL)
-      </p>
-    </div>
+  <HeroSection />
 
-    <!-- Video Background -->
-    <video
-      autoplay
-      muted
-      loop
-      playsinline
-      class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-75"
-      poster="/images/website/imaging-center-hero-fallback.webp?v=2.1"
-    >
-      <source
-        src="/videos/imaging-center-hero-mobile.mp4"
-        type="video/mp4"
-        media="(max-width: 768px)"
-      />
-      <source src="/videos/imaging-center-hero.mp4" type="video/mp4" />
-      <source src="/videos/imaging-center-hero.webm" type="video/webm" />
-      <img
-        src="/images/website/imaging-center-hero-fallback.webp?v=2.1"
-        alt="Radiologist collaboration - Join the proven USRad network"
-        class="w-full h-full object-cover"
-      />
-    </video>
+  <TrustBar />
 
-    <!-- Enhanced Dark Radial Overlay for Readability -->
-    <div
-      class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(10,10,10,0.7)_0%,rgba(10,10,10,0.85)_40%,rgba(0,0,0,0.95)_85%)] z-10"
-    >
-    </div>
+  <GuaranteeSection />
 
-    <!-- Hero Content -->
-    <div class="max-w-6xl mx-auto relative z-20 px-6 py-20 mt-0">
-      <div class="text-center mb-12">
-        <div class="mb-6" data-aos="fade-up" data-aos-delay="50">
-          <span
-            class="inline-flex items-center gap-2 px-6 py-3 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-[#cc9933]/30"
-          >
-            <svg
-              class="w-5 h-5 text-[#cc9933]"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clip-rule="evenodd"></path>
-            </svg>
-            <span class="text-[#003087] font-bold text-sm"
-              >PROVEN VOLUME DRIVERS • NOT JUST ANOTHER PLATFORM</span
-            >
-          </span>
-        </div>
+  <PriorityMarketsMap />
 
-        <h1
-          class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight font-manrope text-white drop-shadow-[0_3px_6px_rgba(0,0,0,0.25)]"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          Join the <span class="text-[#cc9933] relative font-black">
-            Proven Legacy
-            <svg
-              class="absolute -bottom-2 left-0 w-full"
-              height="6"
-              viewBox="0 0 340 6"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M2 3.5C2 3.5 70 0.5 170 3.5C270 6.5 338 3.5 338 3.5"
-                stroke="#cc9933"
-                stroke-width="4"
-                stroke-linecap="round"></path>
-            </svg>
-          </span>
-        </h1>
+  <HowItWorks />
 
-        <p
-          class="mt-6 text-xl sm:text-2xl text-white max-w-4xl mx-auto leading-relaxed font-manrope drop-shadow-[0_1px_3px_rgba(0,0,0,0.25)]"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          The same team that successfully recruited 1,200+ imaging centers and
-          delivered $240 Million+ in volume is now building USRad. Join the
-          proven network that imaging centers trust.
-        </p>
+  <ProvenSuccess />
 
-        <p
-          class="mt-4 text-lg text-white/90 max-w-3xl mx-auto font-manrope drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]"
-          data-aos="fade-up"
-          data-aos-delay="250"
-        >
-          <strong class="text-[#cc9933]"
-            >90 million uninsured and underinsured patients</strong
-          > need direct-pay imaging. We bring them to your center with guaranteed
-          payment and zero billing complexity.
-        </p>
+  <AnciCareStory />
 
-        <div
-          class="flex flex-col sm:flex-row gap-4 justify-center mt-10"
-          data-aos="fade-up"
-          data-aos-delay="300"
-        >
-          <a
-            href="/dashboard/onboarding"
-            class="bg-gradient-to-r from-[#cc9933] to-yellow-300 text-black px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:scale-105 transition"
-          >
-            Join the Network
-          </a>
-          <a
-            href="#how-it-works"
-            class="border border-[#cc9933] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[#cc9933]/10 transition"
-          >
-            How It Works
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <FAQSection />
 
-  <!-- Stripe-Style Canvas Map Section -->
-  <section class="relative bg-[#0b0e1c] py-24 px-6 overflow-hidden">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-white text-3xl sm:text-4xl font-extrabold mb-8">
-        US Imaging Network Map
-      </h2>
-      <div
-        class="relative w-full h-[480px] rounded-xl overflow-hidden shadow-2xl"
-      >
-        <img
-          src="/images/website/us-map-outline.svg"
-          alt="US Map"
-          class="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none"
-        />
-        <canvas id="network-map" class="w-full h-full"></canvas>
-      </div>
-    </div>
-    <script>
-      const canvas = document.getElementById("network-map");
-      const ctx = canvas.getContext("2d");
-
-      function resizeCanvas() {
-        canvas.width = canvas.clientWidth * window.devicePixelRatio;
-        canvas.height = canvas.clientHeight * window.devicePixelRatio;
-        ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset before scaling
-        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-      }
-
-      function drawNode(x, y) {
-        ctx.beginPath();
-        ctx.arc(x, y, 5, 0, 2 * Math.PI);
-        ctx.fillStyle = "#cc9933";
-        ctx.shadowColor = "#cc9933";
-        ctx.shadowBlur = 10;
-        ctx.fill();
-      }
-
-      function drawArc(x1, y1, x2, y2) {
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.bezierCurveTo(
-          (x1 + x2) / 2,
-          y1 - 100,
-          (x1 + x2) / 2,
-          y2 - 100,
-          x2,
-          y2
-        );
-        ctx.strokeStyle = "#cc9933";
-        ctx.lineWidth = 2;
-        ctx.shadowColor = "#cc9933";
-        ctx.shadowBlur = 8;
-        ctx.stroke();
-      }
-
-      function renderNetwork() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const connections = [
-          { from: [120, 300], to: [480, 160] },
-          { from: [180, 320], to: [520, 180] },
-          { from: [200, 280], to: [540, 120] },
-        ];
-        connections.forEach(({ from, to }) => {
-          drawArc(...from, ...to);
-          drawNode(...from);
-          drawNode(...to);
-        });
-      }
-
-      window.addEventListener("resize", () => {
-        resizeCanvas();
-        renderNetwork();
-      });
-
-      resizeCanvas();
-      renderNetwork();
-    </script>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section
-    id="how-it-works"
-    class="py-24 px-6 sm:px-12 bg-gradient-to-b from-slate-100 to-white text-[#003087]"
-  >
-    <div class="max-w-6xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-4">Three Steps to Start</h2>
-      <p class="text-lg text-gray-600 mb-16">
-        Most centers are live within 72 hours.
-      </p>
-
-      <div class="grid md:grid-cols-3 gap-12">
-        <div>
-          <div
-            class="w-16 h-16 mx-auto bg-teal-500 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg"
-          >
-            1
-          </div>
-          <h3 class="text-xl font-semibold mt-6 mb-2">
-            Review & Sign Agreement
-          </h3>
-          <p class="text-sm text-gray-600">
-            Plain-English PSA, no lawyers needed. Takes 5 minutes.
-          </p>
-        </div>
-        <div>
-          <div
-            class="w-16 h-16 mx-auto bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg"
-          >
-            2
-          </div>
-          <h3 class="text-xl font-semibold mt-6 mb-2">Connect Your Schedule</h3>
-          <p class="text-sm text-gray-600">
-            Use any system. We integrate or accept manual uploads.
-          </p>
-        </div>
-        <div>
-          <div
-            class="w-16 h-16 mx-auto bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg"
-          >
-            3
-          </div>
-          <h3 class="text-xl font-semibold mt-6 mb-2">Start Scanning</h3>
-          <p class="text-sm text-gray-600">
-            We handle everything else — scheduling, support, payment.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GUARANTEE SECTION -->
-  <section class="py-24 px-6 sm:px-12 bg-white text-[#003087]">
-    <div class="max-w-6xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-4">The USRad Guarantee</h2>
-      <p class="text-lg text-gray-600 mb-12">
-        No risk. No confusion. Just results.
-      </p>
-      <div class="grid md:grid-cols-4 gap-6">
-        <div>
-          <div class="text-3xl font-bold text-teal-500 mb-2">10 Days</div>
-          <p class="text-sm text-gray-700">
-            Guaranteed direct deposit after scan
-          </p>
-        </div>
-        <div>
-          <div class="text-3xl font-bold text-green-500 mb-2">96%</div>
-          <p class="text-sm text-gray-700">
-            Average show rate from pre-qualified patients
-          </p>
-        </div>
-        <div>
-          <div class="text-3xl font-bold text-blue-600 mb-2">$0</div>
-          <p class="text-sm text-gray-700">No setup or integration costs</p>
-        </div>
-        <div>
-          <div class="text-3xl font-bold text-purple-600 mb-2">100%</div>
-          <p class="text-sm text-gray-700">Billing handled by USRad</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA FINAL SECTION -->
-  <section
-    class="py-24 px-6 sm:px-12 bg-gradient-to-br from-[#003087] via-blue-900 to-black text-white text-center"
-  >
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-4xl font-bold mb-6">Ready to Join?</h2>
-      <p class="text-xl mb-10 max-w-3xl mx-auto">
-        No sales calls. No pressure. Review the Provider Agreement online and
-        decide for yourself.
-      </p>
-      <a
-        href="/dashboard/onboarding"
-        class="inline-block bg-gradient-to-r from-teal-400 to-cyan-400 text-[#003087] px-10 py-5 rounded-xl font-bold text-lg hover:scale-105 shadow-xl transition"
-      >
-        Review Provider Agreement
-      </a>
-      <p class="text-sm text-white/50 mt-6">
-        Or call <a href="tel:1-800-USRAD-24" class="underline">1-800-USRAD-24</a
-        > for questions
-      </p>
-    </div>
-  </section>
+  <NetworkBuilding />
 
   <style>
+    /* Float animations */
     @keyframes float {
       0%,
       100% {
-        transform: translateY(0);
+        transform: translateY(0px);
       }
       50% {
         transform: translateY(-20px);
       }
     }
+
     @keyframes float-delayed {
       0%,
       100% {
-        transform: translateY(0);
+        transform: translateY(0px);
       }
       50% {
         transform: translateY(-15px);
       }
     }
+
     .animate-float {
       animation: float 6s ease-in-out infinite;
     }
+
     .animate-float-delayed {
       animation: float-delayed 6s ease-in-out infinite;
       animation-delay: 3s;
     }
+
+    /* Pulse animation */
+    @keyframes pulse {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .animate-pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    /* Animation delays */
+    .delay-100 {
+      animation-delay: 0.1s;
+    }
+    .delay-200 {
+      animation-delay: 0.2s;
+    }
+    .delay-300 {
+      animation-delay: 0.3s;
+    }
+    .delay-500 {
+      animation-delay: 0.5s;
+    }
   </style>
+
+  <ExitModal />
 </CarbonLayout>

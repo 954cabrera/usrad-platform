@@ -1,0 +1,95 @@
+---
+// HeroSection.astro - Main hero section with floating orbs
+---
+
+<!-- Hero Section -->
+<section
+  class="relative pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 overflow-hidden bg-gradient-to-br from-slate-900 via-[#003087] to-black"
+>
+  <!-- Reduced particle effects on mobile for performance -->
+  <div class="absolute inset-0 opacity-10">
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-[#cc9933]/20 to-[#FFA500]/20"
+    >
+    </div>
+  </div>
+
+  <!-- Smaller floating orbs on mobile -->
+  <div
+    class="hidden sm:block absolute top-40 -left-20 w-72 h-72 bg-[#cc9933]/20 rounded-full blur-3xl animate-float"
+  >
+  </div>
+  <div
+    class="hidden sm:block absolute bottom-20 -right-20 w-96 h-96 bg-[#FFA500]/20 rounded-full blur-3xl animate-float-delayed"
+  >
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <div class="max-w-4xl mx-auto text-center">
+      <!-- Mobile-friendly trust badge -->
+      <div
+        class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 sm:px-6 sm:py-3 mb-6 sm:mb-8"
+        data-aos="fade-down"
+      >
+        <div class="w-2 h-2 bg-[#cc9933] rounded-full animate-pulse"></div>
+        <span class="text-white/90 text-xs sm:text-sm font-medium"
+          >Now accepting select imaging centers</span
+        >
+      </div>
+
+      <!-- Mobile-optimized heading -->
+      <h1
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 sm:mb-8 text-white leading-tight"
+        data-aos="fade-up"
+      >
+        Fill Empty Slots.<br />
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-[#cc9933] to-[#FFA500]"
+        >
+          Get Paid in 10 Days.
+        </span>
+      </h1>
+
+      <!-- Readable paragraph on all screens -->
+      <p
+        class="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        We bring pre-paid patients. You provide the scan. No insurance hassles,
+        no billing complexity, no waiting for payment.
+      </p>
+
+      <!-- Touch-friendly CTAs -->
+      <div
+        class="flex flex-col sm:flex-row gap-4 justify-center"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <a
+          href="/dashboard/onboarding"
+          class="group bg-gradient-to-r from-[#cc9933] to-[#FFA500] text-[#003087] px-8 py-4 min-h-[48px] rounded-xl font-bold text-base sm:text-lg hover:shadow-2xl transition-all transform hover:scale-105 inline-flex items-center justify-center gap-3 shadow-lg"
+        >
+          <span>Join the Network</span>
+          <span class="group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+
+        <a
+          href="#how-it-works"
+          class="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 min-h-[48px] rounded-xl font-bold text-base sm:text-lg transition-all backdrop-blur-sm inline-flex items-center justify-center"
+        >
+          See How It Works
+        </a>
+      </div>
+
+      <!-- Smaller credibility text on mobile -->
+      <p
+        class="text-xs sm:text-sm text-white/60 mt-6"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        From the team that built a 1,200+ center network
+      </p>
+    </div>
+  </div>
+</section>
