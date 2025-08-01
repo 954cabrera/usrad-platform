@@ -157,7 +157,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
                 </a>
                 <span className={`mx-2 ${styles.b2bDivider}`}>|</span>
                 <a 
-                  href="/managed-care" 
+                  href="/provider" 
                   className={`transition-all duration-300 ${styles.b2bText} ${styles.b2bHover}`}
                 >
                   For Imaging Centers
@@ -266,7 +266,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
                 </svg>
               </a>
               <a
-                href="/managed-care"
+                href="/provider"
                 className="flex items-center justify-between py-2 text-sm text-gray-600 hover:text-[#003087]"
                 onClick={() => setMobileMenuOpen(false)}
               >
