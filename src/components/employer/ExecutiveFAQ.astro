@@ -1,0 +1,297 @@
+---
+export interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+
+<!-- Executive FAQ - Mobile Optimized -->
+<section
+  class={`py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-br from-gray-50 to-white ${className}`}
+>
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-8 sm:mb-12">
+      <h2
+        class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4"
+        data-aos="fade-up"
+      >
+        Executive Briefing: Your Questions Answered
+      </h2>
+      <p
+        class="text-lg sm:text-xl text-gray-600"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Direct answers to what CEOs, CFOs, and HR leaders ask us
+      </p>
+    </div>
+
+    <div class="space-y-3 sm:space-y-4">
+      <details
+        class="group bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow"
+        data-aos="fade-up"
+      >
+        <summary
+          class="px-4 sm:px-6 py-3 sm:py-4 cursor-pointer flex justify-between items-center"
+        >
+          <span class="font-semibold text-base sm:text-lg text-gray-900 pr-2"
+            >"What's our implementation risk?"</span
+          >
+          <svg
+            class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </summary>
+        <div class="px-4 sm:px-6 pb-3 sm:pb-4">
+          <div
+            class="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700"
+          >
+            <p>
+              • <strong>Zero disruption</strong> to existing plans - this is an overlay
+              benefit
+            </p>
+            <p>
+              • <strong>30-day implementation</strong> with dedicated project manager
+            </p>
+            <p>
+              • <strong>API integration</strong> with your current TPA/benefits platform
+            </p>
+            <p>
+              • <strong>Pilot program option</strong> to test with subset of employees
+            </p>
+            <p>
+              • <strong>No IT burden</strong> - we handle all technical requirements
+            </p>
+          </div>
+          <div class="mt-3 sm:mt-4 p-2 sm:p-3 bg-green-50 rounded-lg">
+            <p class="text-xs sm:text-sm text-green-800">
+              <strong>De-risked:</strong> We've implemented this exact model 1,200+
+              times through AnciCare
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <details
+        class="group bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <summary
+          class="px-4 sm:px-6 py-3 sm:py-4 cursor-pointer flex justify-between items-center"
+        >
+          <span class="font-semibold text-base sm:text-lg text-gray-900 pr-2"
+            >"How do we ensure quality isn't compromised?"</span
+          >
+          <svg
+            class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </summary>
+        <div class="px-4 sm:px-6 pb-3 sm:pb-4">
+          <div
+            class="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700"
+          >
+            <p>
+              • <strong>ACR accreditation required</strong> for all facilities (same
+              as hospitals)
+            </p>
+            <p>
+              • <strong>Board-certified radiologists only</strong> - no exceptions
+            </p>
+            <p>
+              • <strong>Real-time quality scoring</strong> with member feedback loop
+            </p>
+            <p>
+              • <strong>Same facilities</strong> your employees already use - just
+              better pricing
+            </p>
+            <p>• <strong>24/7 support line</strong> for any member concerns</p>
+          </div>
+          <div class="mt-3 sm:mt-4 p-2 sm:p-3 bg-blue-50 rounded-lg">
+            <p class="text-xs sm:text-sm text-blue-800">
+              <strong>Track record:</strong> 98% satisfaction across 168,000+ imaging
+              services delivered
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <details
+        class="group bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <summary
+          class="px-4 sm:px-6 py-3 sm:py-4 cursor-pointer flex justify-between items-center"
+        >
+          <span class="font-semibold text-base sm:text-lg text-gray-900 pr-2"
+            >"What's the actual ROI timeline?"</span
+          >
+          <svg
+            class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </summary>
+        <div class="px-4 sm:px-6 pb-3 sm:pb-4">
+          <div
+            class="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700"
+          >
+            <p>
+              • <strong>Day 1:</strong> Immediate savings on every redirected scan
+              (50-70% reduction)
+            </p>
+            <p>
+              • <strong>Month 1:</strong> Measurable increase in employee utilization
+            </p>
+            <p>
+              • <strong>Month 3:</strong> 40-60% total imaging cost reduction visible
+            </p>
+            <p>
+              • <strong>Month 6:</strong> Reduced disability duration impacts WC
+              costs
+            </p>
+            <p>
+              • <strong>Year 1:</strong> Full ROI including productivity and satisfaction
+              gains
+            </p>
+          </div>
+          <div class="mt-3 sm:mt-4 p-2 sm:p-3 bg-[#cc9933]/10 rounded-lg">
+            <p class="text-xs sm:text-sm text-[#cc9933]">
+              <strong>Proven formula:</strong> Average client saves $1.7M in year
+              one (5,000 lives)
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <details
+        class="group bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <summary
+          class="px-4 sm:px-6 py-3 sm:py-4 cursor-pointer flex justify-between items-center"
+        >
+          <span class="font-semibold text-base sm:text-lg text-gray-900 pr-2"
+            >"How does this work with our existing TPA/carrier?"</span
+          >
+          <svg
+            class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </summary>
+        <div class="px-4 sm:px-6 pb-3 sm:pb-4">
+          <div
+            class="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700"
+          >
+            <p>
+              • <strong>Seamless integration</strong> - we work with all major TPAs
+            </p>
+            <p>
+              • <strong>Direct billing options</strong> for both WC and health claims
+            </p>
+            <p>
+              • <strong>No network conflicts</strong> - this is a supplemental benefit
+            </p>
+            <p>
+              • <strong>Claims data feeds</strong> integrate with existing reporting
+            </p>
+            <p>
+              • <strong>White-label options</strong> available for branded experience
+            </p>
+          </div>
+          <div class="mt-3 sm:mt-4 p-2 sm:p-3 bg-purple-50 rounded-lg">
+            <p class="text-xs sm:text-sm text-purple-800">
+              <strong>Partnership approach:</strong> We enhance your existing relationships,
+              not replace them
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <details
+        class="group bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        <summary
+          class="px-4 sm:px-6 py-3 sm:py-4 cursor-pointer flex justify-between items-center"
+        >
+          <span class="font-semibold text-base sm:text-lg text-gray-900 pr-2"
+            >"What about compliance and regulatory issues?"</span
+          >
+          <svg
+            class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </summary>
+        <div class="px-4 sm:px-6 pb-3 sm:pb-4">
+          <div
+            class="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700"
+          >
+            <p>
+              • <strong>ERISA compliant</strong> - structured as permissible benefit
+            </p>
+            <p>• <strong>HIPAA certified</strong> - SOC 2 Type II compliance</p>
+            <p>
+              • <strong>State regulations</strong> - licensed in all 50 states
+            </p>
+            <p>
+              • <strong>Workers' comp approved</strong> - meets all state requirements
+            </p>
+            <p>
+              • <strong>Legal review included</strong> - we provide all documentation
+            </p>
+          </div>
+          <div class="mt-3 sm:mt-4 p-2 sm:p-3 bg-gray-100 rounded-lg">
+            <p class="text-xs sm:text-sm text-gray-700">
+              <strong>Peace of mind:</strong> Same compliance framework that passed
+              muster for Fortune 500 clients and NYSE acquisition
+            </p>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>

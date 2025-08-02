@@ -1,0 +1,132 @@
+---
+export interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+
+<!-- Hero Section - Mobile Optimized -->
+<section
+  class={`relative pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 ${className}`}
+>
+  <!-- Subtle pattern background -->
+  <div class="absolute inset-0 opacity-10">
+    <div
+      class="absolute inset-0"
+      style="background-image: url('data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"
+    >
+    </div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <div class="max-w-5xl">
+      <!-- Problem Badge -->
+      <div
+        class="inline-flex items-center gap-2 bg-red-500/20 text-red-300 backdrop-blur-sm rounded-full px-3 sm:px-4 py-1.5 sm:py-2 mb-4 sm:mb-6"
+        data-aos="fade-down"
+      >
+        <span class="w-2 h-2 bg-red-400 rounded-full animate-pulse"></span>
+        <span class="text-xs sm:text-sm font-medium"
+          >The Hidden Benefits Crisis</span
+        >
+      </div>
+
+      <h1
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight"
+        data-aos="fade-up"
+      >
+        Your Employees Can't Afford
+        <span class="text-red-400 block">Your Health Plan</span>
+      </h1>
+
+      <p
+        class="text-lg sm:text-xl md:text-2xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-3xl"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        67% skip necessary imaging due to high deductibles. Extended
+        disabilities. Lost productivity. Higher costs for everyone.
+      </p>
+
+      <!-- Quick Value Props - Stack on mobile -->
+      <div
+        class="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6 text-base sm:text-lg mb-8 sm:mb-10"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <div class="flex items-center gap-2">
+          <svg
+            class="w-5 h-5 text-green-400 flex-shrink-0"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-gray-200">$260 MRIs (not $3,200)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg
+            class="w-5 h-5 text-green-400 flex-shrink-0"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-gray-200">48-hour appointments</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg
+            class="w-5 h-5 text-green-400 flex-shrink-0"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-gray-200">Zero setup cost</span>
+        </div>
+      </div>
+
+      <!-- CTAs - Full width on mobile, inline on desktop -->
+      <div
+        class="flex flex-col sm:flex-row gap-3 sm:gap-4"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <a
+          href="#roi-calculator"
+          class="bg-white hover:bg-gray-100 text-gray-900 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all inline-flex items-center justify-center gap-2 w-full sm:w-auto"
+        >
+          Calculate Your Savings
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="#proven-solution"
+          class="bg-transparent hover:bg-white/10 text-white border-2 border-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all w-full sm:w-auto text-center"
+        >
+          See How It Works
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

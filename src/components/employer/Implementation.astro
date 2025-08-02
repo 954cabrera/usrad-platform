@@ -1,0 +1,141 @@
+---
+export interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+
+<!-- Implementation Timeline - Mobile Optimized -->
+<section
+  class={`py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-br from-gray-50 to-white ${className}`}
+>
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12 sm:mb-16">
+      <h2
+        class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6"
+        data-aos="fade-up"
+      >
+        Go Live in 30 Days
+      </h2>
+      <p
+        class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Our proven implementation process gets you saving immediately
+      </p>
+    </div>
+
+    <div class="relative max-w-4xl mx-auto">
+      <!-- Timeline - Hidden on mobile -->
+      <div
+        class="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-gray-300 to-gray-100 transform -translate-x-1/2 hidden md:block"
+      >
+      </div>
+
+      <div class="space-y-8 sm:space-y-12">
+        <!-- Week 1 -->
+        <div
+          class="relative flex flex-col md:flex-row items-center"
+          data-aos="fade-right"
+        >
+          <div class="w-full md:w-1/2 md:text-right md:pr-12">
+            <div
+              class="bg-white rounded-2xl shadow-lg p-4 sm:p-6 inline-block text-left w-full md:w-auto"
+            >
+              <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+                Week 1: Contract & Discovery
+              </h3>
+              <ul class="text-gray-600 space-y-1 text-xs sm:text-sm">
+                <li>• Execute master agreement</li>
+                <li>• Claims data analysis</li>
+                <li>• Integration planning</li>
+                <li>• Stakeholder alignment</li>
+              </ul>
+            </div>
+          </div>
+          <div
+            class="absolute left-1/2 transform -translate-x-1/2 w-10 sm:w-12 h-10 sm:h-12 bg-gradient-to-br from-gray-800 to-gray-900 rounded-full flex items-center justify-center text-white font-bold shadow-lg z-10 mt-4 md:mt-0"
+          >
+            1
+          </div>
+          <div class="hidden md:block w-1/2"></div>
+        </div>
+
+        <!-- Week 2-3 -->
+        <div
+          class="relative flex flex-col md:flex-row items-center"
+          data-aos="fade-left"
+        >
+          <div class="hidden md:block w-1/2"></div>
+          <div
+            class="absolute left-1/2 transform -translate-x-1/2 w-10 sm:w-12 h-10 sm:h-12 bg-gradient-to-br from-gray-800 to-gray-900 rounded-full flex items-center justify-center text-white font-bold shadow-lg z-10 mt-4 md:mt-0"
+          >
+            2
+          </div>
+          <div class="w-full md:w-1/2 md:pl-12">
+            <div
+              class="bg-white rounded-2xl shadow-lg p-4 sm:p-6 inline-block text-left w-full md:w-auto"
+            >
+              <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+                Week 2-3: Technical Setup
+              </h3>
+              <ul class="text-gray-600 space-y-1 text-xs sm:text-sm">
+                <li>• API/portal configuration</li>
+                <li>• Benefits platform integration</li>
+                <li>• Claims workflow setup</li>
+                <li>• Testing & validation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Week 4 -->
+        <div
+          class="relative flex flex-col md:flex-row items-center"
+          data-aos="fade-right"
+        >
+          <div class="w-full md:w-1/2 md:text-right md:pr-12">
+            <div
+              class="bg-white rounded-2xl shadow-lg p-4 sm:p-6 inline-block text-left w-full md:w-auto"
+            >
+              <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+                Week 4: Launch & Training
+              </h3>
+              <ul class="text-gray-600 space-y-1 text-xs sm:text-sm">
+                <li>• Employee communications</li>
+                <li>• HR/adjuster training</li>
+                <li>• Go-live support</li>
+                <li>• Success monitoring</li>
+              </ul>
+            </div>
+          </div>
+          <div
+            class="absolute left-1/2 transform -translate-x-1/2 w-10 sm:w-12 h-10 sm:h-12 bg-gradient-to-br from-green-600 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg z-10 mt-4 md:mt-0"
+          >
+            ✓
+          </div>
+          <div class="hidden md:block w-1/2"></div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="text-center mt-12 sm:mt-16 p-6 sm:p-8 bg-blue-50 rounded-2xl max-w-3xl mx-auto"
+      data-aos="fade-up"
+    >
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3">
+        Why Our Implementation Never Fails
+      </h3>
+      <p class="text-sm sm:text-base text-gray-700 mb-4 sm:mb-6">
+        We've done this before. 168,000+ times. Our team knows every potential
+        pitfall and exactly how to avoid them.
+      </p>
+      <a
+        href="/employer/implementation-guide"
+        class="text-blue-600 font-semibold hover:text-blue-700 text-sm sm:text-base"
+        >Download Implementation Guide →</a
+      >
+    </div>
+  </div>
+</section>

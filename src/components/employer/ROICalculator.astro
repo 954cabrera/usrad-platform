@@ -1,0 +1,243 @@
+---
+export interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+
+<!-- ROI Calculator - Mobile Optimized -->
+<section
+  id="roi-calculator"
+  class={`py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-br from-gray-900 to-gray-800 text-white ${className}`}
+>
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12 sm:mb-16">
+      <h2
+        class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6"
+        data-aos="fade-up"
+      >
+        Calculate Your Total Imaging Savings
+      </h2>
+      <p
+        class="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        See the combined impact across workers' comp and employee health
+        benefits
+      </p>
+    </div>
+
+    <div
+      class="bg-white/10 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12"
+      data-aos="zoom-in"
+    >
+      <div class="grid md:grid-cols-2 gap-8 sm:gap-12">
+        <!-- Input Side -->
+        <div>
+          <h3 class="text-xl sm:text-2xl font-bold mb-6">
+            Your Current Numbers
+          </h3>
+          <div class="space-y-5 sm:space-y-6">
+            <div>
+              <label class="block text-sm font-medium mb-2"
+                >Total Employees</label
+              >
+              <input
+                type="number"
+                id="total-employees"
+                value="5000"
+                class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-green-400 text-base"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2"
+                >Annual WC Imaging Scans</label
+              >
+              <input
+                type="number"
+                id="wc-scans"
+                value="120"
+                class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-green-400 text-base"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2"
+                >Annual Employee Health Scans</label
+              >
+              <input
+                type="number"
+                id="health-scans"
+                value="380"
+                class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-green-400 text-base"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2"
+                >Average Cost per Scan Today</label
+              >
+              <input
+                type="number"
+                id="avg-cost"
+                value="2400"
+                class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-green-400 text-base"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Side -->
+        <div>
+          <h3 class="text-xl sm:text-2xl font-bold mb-6">
+            Your Savings Potential
+          </h3>
+          <div class="space-y-4">
+            <div class="bg-white/10 rounded-xl p-4 sm:p-6">
+              <p class="text-xs sm:text-sm text-gray-300 mb-2">
+                Current Annual Spend
+              </p>
+              <p
+                class="text-2xl sm:text-3xl font-bold text-red-400 break-words"
+                id="current-spend"
+              >
+                $1,200,000
+              </p>
+            </div>
+
+            <div class="bg-white/10 rounded-xl p-4 sm:p-6">
+              <p class="text-xs sm:text-sm text-gray-300 mb-2">
+                USRad Annual Cost (Both Programs)
+              </p>
+              <p
+                class="text-2xl sm:text-3xl font-bold text-green-400 break-words"
+                id="usrad-cost"
+              >
+                $350,000
+              </p>
+            </div>
+
+            <div
+              class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl p-4 sm:p-6"
+            >
+              <p class="text-xs sm:text-sm text-white mb-2">
+                Total Annual Savings
+              </p>
+              <p
+                class="text-3xl sm:text-4xl font-bold text-white break-words"
+                id="annual-savings"
+              >
+                $850,000
+              </p>
+              <p
+                class="text-base sm:text-lg text-white/80 mt-2"
+                id="savings-percent"
+              >
+                71% cost reduction
+              </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 sm:gap-4 mt-6">
+              <div class="bg-white/10 rounded-lg p-3 sm:p-4 text-center">
+                <p
+                  class="text-xl sm:text-2xl font-bold text-blue-400 break-words"
+                  id="wc-savings"
+                >
+                  $204,000
+                </p>
+                <p class="text-xs text-gray-400">WC Savings</p>
+              </div>
+              <div class="bg-white/10 rounded-lg p-3 sm:p-4 text-center">
+                <p
+                  class="text-xl sm:text-2xl font-bold text-green-400 break-words"
+                  id="health-savings"
+                >
+                  $646,000
+                </p>
+                <p class="text-xs text-gray-400">Health Plan Savings</p>
+              </div>
+            </div>
+          </div>
+
+          <button
+            onclick="window.location.href='/employer/roi-analysis'"
+            class="w-full mt-6 bg-white text-gray-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-base"
+          >
+            Get Detailed ROI Analysis →
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="mt-6 sm:mt-8 p-4 sm:p-6 bg-yellow-500/20 rounded-xl border border-yellow-500/40"
+      >
+        <p class="text-xs sm:text-sm text-yellow-200">
+          <span class="font-semibold">💡 Not included:</span> Reduced disability
+          duration, lower indemnity costs, improved productivity, and increased employee
+          satisfaction. Actual savings typically 20-40% higher.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // ROI Calculator Logic
+  function updateCalculator() {
+    const totalEmployees =
+      parseInt(document.getElementById("total-employees").value) || 0;
+    const wcScans = parseInt(document.getElementById("wc-scans").value) || 0;
+    const healthScans =
+      parseInt(document.getElementById("health-scans").value) || 0;
+    const avgCost = parseInt(document.getElementById("avg-cost").value) || 0;
+
+    const totalScans = wcScans + healthScans;
+    const currentSpend = totalScans * avgCost;
+    const usradCost = totalScans * 350; // Average USRad price
+    const savings = currentSpend - usradCost;
+    const savingsPercent = Math.round((savings / currentSpend) * 100);
+
+    // Update main displays
+    document.getElementById("current-spend").textContent =
+      `$${currentSpend.toLocaleString()}`;
+    document.getElementById("usrad-cost").textContent =
+      `$${usradCost.toLocaleString()}`;
+    document.getElementById("annual-savings").textContent =
+      `$${savings.toLocaleString()}`;
+    document.getElementById("savings-percent").textContent =
+      `${savingsPercent}% cost reduction`;
+
+    // Calculate split savings
+    const wcCurrentSpend = wcScans * avgCost;
+    const wcUsradCost = wcScans * 350;
+    const wcSavings = wcCurrentSpend - wcUsradCost;
+
+    const healthCurrentSpend = healthScans * avgCost;
+    const healthUsradCost = healthScans * 350;
+    const healthSavings = healthCurrentSpend - healthUsradCost;
+
+    document.getElementById("wc-savings").textContent =
+      `$${wcSavings.toLocaleString()}`;
+    document.getElementById("health-savings").textContent =
+      `$${healthSavings.toLocaleString()}`;
+  }
+
+  // Add event listeners
+  document
+    .getElementById("total-employees")
+    ?.addEventListener("input", updateCalculator);
+  document
+    .getElementById("wc-scans")
+    ?.addEventListener("input", updateCalculator);
+  document
+    .getElementById("health-scans")
+    ?.addEventListener("input", updateCalculator);
+  document
+    .getElementById("avg-cost")
+    ?.addEventListener("input", updateCalculator);
+
+  // Initial calculation
+  updateCalculator();
+</script>

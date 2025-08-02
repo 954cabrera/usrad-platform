@@ -1,0 +1,126 @@
+---
+export interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+
+<!-- Final CTA Section - Mobile Optimized -->
+<section
+  class={`py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-br from-gray-900 to-gray-800 text-white ${className}`}
+>
+  <div class="max-w-5xl mx-auto text-center">
+    <h2
+      class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8"
+      data-aos="fade-up"
+    >
+      Your Employees Deserve Affordable Access.<br />
+      Your Bottom Line Demands It.
+    </h2>
+
+    <p
+      class="text-lg sm:text-xl md:text-2xl mb-8 sm:mb-12 opacity-90 max-w-3xl mx-auto"
+      data-aos="fade-up"
+      data-aos-delay="100"
+    >
+      Join progressive employers saving millions while actually improving
+      employee satisfaction. One solution for both populations.
+    </p>
+
+    <!-- Value Reminders -->
+    <div
+      class="grid grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto mb-8 sm:mb-12"
+      data-aos="fade-up"
+      data-aos-delay="200"
+    >
+      <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6">
+        <div class="text-2xl sm:text-3xl font-bold text-green-400 mb-1 sm:mb-2">
+          50-70%
+        </div>
+        <p class="text-xs sm:text-sm">Cost reduction on all imaging</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6">
+        <div class="text-2xl sm:text-3xl font-bold text-blue-400 mb-1 sm:mb-2">
+          30 Days
+        </div>
+        <p class="text-xs sm:text-sm">To full implementation</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6">
+        <div
+          class="text-2xl sm:text-3xl font-bold text-purple-400 mb-1 sm:mb-2"
+        >
+          Zero
+        </div>
+        <p class="text-xs sm:text-sm">Setup or integration costs</p>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div
+      class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center"
+      data-aos="fade-up"
+      data-aos-delay="300"
+    >
+      <a
+        href="/employer/schedule"
+        class="group bg-white text-gray-900 px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl inline-flex items-center gap-3 w-full sm:w-auto justify-center"
+      >
+        <span>Schedule Executive Briefing</span>
+        <svg
+          class="w-5 sm:w-6 h-5 sm:h-6 group-hover:translate-x-1 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </a>
+
+      <a
+        href="/employer/roi-calculator"
+        class="group border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 inline-flex items-center gap-2 w-full sm:w-auto justify-center"
+      >
+        <span>Calculate Your Savings</span>
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+          ></path>
+        </svg>
+      </a>
+    </div>
+
+    <p
+      class="text-xs sm:text-sm opacity-80 mt-6 sm:mt-8"
+      data-aos="fade-up"
+      data-aos-delay="400"
+    >
+      Questions? Call us at <a
+        href="tel:1-888-USRAD"
+        class="underline hover:no-underline">(888) USR-AD24</a
+      > or email <a
+        href="mailto:employers@usrad.com"
+        class="underline hover:no-underline">employers@usrad.com</a
+      >
+    </p>
+
+    <!-- Founder signature -->
+    <div class="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-white/20">
+      <p class="text-xs sm:text-sm opacity-70">
+        From the founders who created the managed imaging category and delivered
+        it to 168,000+ claimants
+      </p>
+    </div>
+  </div>
+</section>
