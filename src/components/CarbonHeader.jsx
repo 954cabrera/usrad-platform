@@ -150,7 +150,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
               {/* Subtle B2B Links - Desktop Only */}
               <div className="flex items-center text-xs">
                 <a 
-                  href="/employer" 
+                  href="/employer-carbon4" 
                   className={`transition-all duration-300 ${styles.b2bText} ${styles.b2bHover}`}
                 >
                   For Employers
@@ -256,7 +256,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
             {/* Bottom Links */}
             <div className="mt-8 pt-6 border-t">
               <a
-                href="/employer"
+                href="/employer-carbon4"
                 className="flex items-center justify-between py-2 text-sm text-gray-600 hover:text-[#003087]"
                 onClick={() => setMobileMenuOpen(false)}
               >
