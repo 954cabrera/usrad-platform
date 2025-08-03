@@ -363,21 +363,129 @@ export const prerender = true;
         </div>
 
         <div class="relative" data-aos="fade-left">
-          <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-            <img
-              src="/api/placeholder/600/400"
-              alt="USRad Platform Demo"
-              class="w-full h-auto"
-            />
+          <!-- Main container for the angled presentation -->
+          <div class="relative px-8 py-12">
+            <!-- Angled laptop/screen container -->
             <div
-              class="absolute inset-0 bg-gradient-to-t from-[#003087]/80 to-transparent flex items-end p-6 md:p-8"
+              class="relative transform-gpu transition-transform duration-500 hover:scale-105"
+              style="transform: perspective(1000px) rotateY(-15deg) rotateX(5deg);"
             >
-              <div class="text-white">
-                <p class="text-xs md:text-sm font-medium mb-2">Platform Demo</p>
-                <p class="text-xl md:text-2xl font-bold">See How USRad Works</p>
+              <!-- Browser/laptop frame -->
+              <div class="bg-gray-900 rounded-t-lg p-2">
+                <div class="flex items-center gap-2 px-2">
+                  <div class="flex gap-1.5">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                  </div>
+                  <div class="flex-1 flex justify-center">
+                    <div
+                      class="bg-gray-800 rounded px-4 py-1 text-xs text-gray-400"
+                    >
+                      dashboard.usrad.com
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Screenshot container -->
+              <div
+                class="relative bg-white rounded-b-lg shadow-2xl overflow-hidden"
+              >
+                <img
+                  src="/images/usrad-platform-dashboard.png"
+                  alt="USRad Platform Dashboard showing real-time appointment management"
+                  class="w-full h-auto"
+                />
+
+                <!-- Subtle overlay gradient for depth -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-tr from-transparent via-transparent to-white/10 pointer-events-none"
+                >
+                </div>
+              </div>
+
+              <!-- Shadow for 3D effect -->
+              <div
+                class="absolute -bottom-4 left-8 right-8 h-8 bg-black/20 blur-xl rounded-full"
+                style="transform: translateZ(-10px) scaleX(0.9);"
+              >
+              </div>
+            </div>
+
+            <!-- Floating metric badges -->
+            <div
+              class="absolute -top-2 -right-2 bg-white rounded-xl shadow-xl p-4 transform rotate-3 hover:rotate-0 transition-transform duration-300"
+              data-aos="zoom-in"
+              data-aos-delay="400"
+            >
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-10 h-10 bg-[#cc9933]/10 rounded-lg flex items-center justify-center"
+                >
+                  <svg
+                    class="w-5 h-5 text-[#cc9933]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-2xl font-bold text-[#cc9933]">$47K</div>
+                  <div class="text-xs text-gray-600">Weekly Revenue</div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="absolute -bottom-2 -left-2 bg-white rounded-xl shadow-xl p-4 transform -rotate-3 hover:rotate-0 transition-transform duration-300"
+              data-aos="zoom-in"
+              data-aos-delay="500"
+            >
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center"
+                >
+                  <svg
+                    class="w-5 h-5 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-2xl font-bold text-green-600">98</div>
+                  <div class="text-xs text-gray-600">Completed Scans</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Platform caption -->
+            <div
+              class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full mt-4"
+            >
+              <div
+                class="bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg"
+              >
+                Live Platform Demo
               </div>
             </div>
           </div>
+
+          <!-- Background glow effects -->
           <div
             class="absolute -top-6 -right-6 w-24 md:w-32 h-24 md:h-32 bg-[#cc9933] rounded-full opacity-20 blur-2xl"
           >
@@ -1305,7 +1413,7 @@ export const prerender = true;
           Download Investor Deck
         </a>
       </div>
-      
+
       <!-- Trust signals -->
       <div
         class="mt-12
@@ -1365,6 +1473,25 @@ export const prerender = true;
 
         .animate-float {
           animation: float 3s ease-in-out infinite;
+        }
+
+        /* 3D Transform Support */
+        .transform-gpu {
+          transform-style: preserve-3d;
+          will-change: transform;
+        }
+
+        /* Smooth transitions for hover effects */
+        .transition-transform {
+          transition-property: transform;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* For browsers that support backdrop filters */
+        @supports (backdrop-filter: blur(10px)) {
+          .backdrop-blur-xl {
+            backdrop-filter: blur(20px);
+          }
         }
       </style>
     </div>
