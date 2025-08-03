@@ -1,0 +1,558 @@
+---
+import CarbonLayout from "../layouts/CarbonLayout.astro";
+import AOSInit from "../components/AOSInit.astro";
+
+export const prerender = true;
+---
+
+<CarbonLayout title="Michael Cabrera - Founder & CEO | USRad">
+  <AOSInit />
+
+  <!-- Hero Section - Full Screen with Gradient Background -->
+  <section
+    class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0a0e27] via-[#003087] to-black"
+  >
+    <!-- Animated Background Elements -->
+    <div class="absolute inset-0 opacity-30">
+      <div
+        class="absolute top-40 -left-20 w-96 h-96 bg-[#cc9933]/20 rounded-full blur-3xl animate-float"
+      >
+      </div>
+      <div
+        class="absolute bottom-40 -right-20 w-96 h-96 bg-[#003087]/30 rounded-full blur-3xl animate-float-delayed"
+      >
+      </div>
+    </div>
+
+    <!-- Particle System -->
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-32">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Image Column -->
+        <div class="relative" data-aos="fade-right">
+          <div class="relative inline-block">
+            <!-- Glow Effect Behind Image -->
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-[#cc9933] to-[#FFA500] opacity-50 blur-2xl scale-110"
+            >
+            </div>
+
+            <img
+              src="/images/michael.jpg"
+              alt="Michael Cabrera"
+              class="relative w-full max-w-md mx-auto rounded-2xl shadow-2xl border-2 border-[#cc9933]/20"
+            />
+
+            <!-- Floating Badge -->
+            <div
+              class="absolute -bottom-6 -right-6 bg-gradient-to-r from-[#003087] to-[#0052cc] text-white px-6 py-3 rounded-full shadow-xl"
+            >
+              <span class="font-bold">MIT Birthing of Giants</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bio Column -->
+        <div class="space-y-8 text-white" data-aos="fade-left">
+          <div>
+            <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold mb-4">
+              Michael<br />
+              <span
+                class="text-transparent bg-clip-text bg-gradient-to-r from-[#cc9933] to-[#FFA500]"
+              >
+                Cabrera
+              </span>
+            </h1>
+            <p class="text-2xl text-[#cc9933] font-light">Founder & CEO</p>
+          </div>
+
+          <p class="text-xl leading-relaxed text-gray-300">
+            Healthcare entrepreneur who previously led a national imaging
+            network to a successful exit with a publicly traded company.
+            Selected for MIT's prestigious "Birthing of Giants" program. Now
+            focused on expanding access to affordable, high-quality imaging
+            through systems built on empathy, simplicity, and trust.
+          </p>
+
+          <div class="flex flex-wrap gap-4">
+            <a
+              href="https://www.linkedin.com/in/usradfl/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group inline-flex items-center gap-3 bg-gradient-to-r from-[#cc9933] to-[#FFA500] text-white px-8 py-4 rounded-xl font-bold hover:shadow-2xl transition-all transform hover:scale-105"
+            >
+              <span>Connect on LinkedIn</span>
+              <svg
+                class="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                ></path>
+              </svg>
+            </a>
+          </div>
+
+          <a href="/docs/founder-presskit.pdf" download="USRad-Founder-Press-Kit.pdf" class="group inline-flex items-center gap-3 border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all">
+  <span>Download Press Kit</span>
+  <svg class="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+  </svg>
+</a>
+</div>
+</div>
+</section>
+
+  <!-- Impact Counter Section -->
+  <section class="py-24 bg-gradient-to-b from-black to-[#0a0e27] text-white">
+    <div class="max-w-4xl mx-auto px-6 text-center" data-aos="zoom-in">
+      <div class="inline-block">
+        <p
+          class="text-7xl md:text-8xl lg:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#cc9933] to-[#FFA500]"
+        >
+          <span id="counter" data-target="168000">0</span>+
+        </p>
+        <div
+          class="h-1 bg-gradient-to-r from-[#cc9933] to-[#FFA500] rounded-full mt-4"
+        >
+        </div>
+      </div>
+      <p class="text-xl text-gray-400 mt-8 max-w-2xl mx-auto">
+        Imaging procedures delivered under Michael's leadership—each one a step
+        toward earlier diagnoses and better outcomes.
+      </p>
+    </div>
+  </section>
+
+  <!-- Values Section - Modern Cards -->
+  <section class="py-32 bg-gradient-to-br from-gray-50 to-white px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-20" data-aos="fade-up">
+        <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+          Driven by
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-[#003087] to-[#0052cc]"
+          >
+            Purpose
+          </span>
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Building healthcare systems that put humanity first
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Mission Card -->
+        <div class="group relative" data-aos="fade-up" data-aos-delay="100">
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-[#003087] to-[#0052cc] rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500"
+          >
+          </div>
+          <div
+            class="relative bg-white rounded-2xl p-10 shadow-xl border border-gray-100 group-hover:border-[#003087]/20 transition-all duration-500 group-hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-[#003087] to-[#0052cc] rounded-xl flex items-center justify-center mb-6"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Mission</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Expand access to affordable, high-quality imaging—with
+              transparency, empathy, and innovation at every step.
+            </p>
+          </div>
+        </div>
+
+        <!-- Vision Card -->
+        <div class="group relative" data-aos="fade-up" data-aos-delay="200">
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-[#cc9933] to-[#FFA500] rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500"
+          >
+          </div>
+          <div
+            class="relative bg-white rounded-2xl p-10 shadow-xl border border-gray-100 group-hover:border-[#cc9933]/20 transition-all duration-500 group-hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-[#cc9933] to-[#FFA500] rounded-xl flex items-center justify-center mb-6"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Vision</h3>
+            <p class="text-gray-600 leading-relaxed">
+              A healthcare system where no one delays care due to confusion or
+              cost, and where imaging centers thrive through shared values.
+            </p>
+          </div>
+        </div>
+
+        <!-- Promise Card -->
+        <div class="group relative" data-aos="fade-up" data-aos-delay="300">
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500"
+          >
+          </div>
+          <div
+            class="relative bg-white rounded-2xl p-10 shadow-xl border border-gray-100 group-hover:border-green-500/20 transition-all duration-500 group-hover:-translate-y-2"
+          >
+            <div
+              class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-6"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Promise</h3>
+            <p class="text-gray-600 leading-relaxed">
+              We treat every patient like family—with dignity, trust, and clear,
+              honest pricing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recognition Section -->
+  <section
+    class="py-32 bg-gradient-to-br from-[#0a0e27] via-[#003087] to-black text-white px-6"
+  >
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-20" data-aos="fade-up">
+        <h2 class="text-5xl md:text-6xl font-bold mb-4">
+          Track Record of
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-[#cc9933] to-[#FFA500]"
+          >
+            Excellence
+          </span>
+        </h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+          Building and scaling successful healthcare companies for over two
+          decades
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Career Highlights -->
+        <div
+          class="bg-white/5 backdrop-blur-md rounded-2xl p-10 border border-white/10"
+          data-aos="fade-right"
+        >
+          <h3
+            class="text-3xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-[#cc9933] to-[#FFA500]"
+          >
+            Career Highlights
+          </h3>
+          <ul class="space-y-6">
+            <li class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-2 h-2 bg-[#cc9933] rounded-full mt-2">
+              </div>
+              <p class="text-lg text-gray-300">
+                Built and scaled a national imaging network from startup to
+                successful acquisition by a NASDAQ-listed company
+              </p>
+            </li>
+            <li class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-2 h-2 bg-[#cc9933] rounded-full mt-2">
+              </div>
+              <p class="text-lg text-gray-300">
+                Selected for MIT's exclusive "Birthing of Giants"
+                entrepreneurship program
+              </p>
+            </li>
+            <li class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-2 h-2 bg-[#cc9933] rounded-full mt-2">
+              </div>
+              <p class="text-lg text-gray-300">
+                30+ years of healthcare innovation and market disruption
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Awards Grid -->
+        <div
+          class="bg-white/5 backdrop-blur-md rounded-2xl p-10 border border-white/10"
+          data-aos="fade-left"
+        >
+          <h3
+            class="text-3xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-[#cc9933] to-[#FFA500]"
+          >
+            Recognition & Awards
+          </h3>
+          <div class="grid grid-cols-2 gap-6">
+            <div class="text-center">
+              <div class="text-4xl font-bold text-[#cc9933] mb-2">#210</div>
+              <p class="text-sm text-gray-400">Inc. 500 Fastest Growing</p>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-bold text-[#cc9933] mb-2">3x</div>
+              <p class="text-sm text-gray-400">Hispanic Business Top 500</p>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-bold text-[#cc9933] mb-2">2x</div>
+              <p class="text-sm text-gray-400">UF 100 Fastest Growing</p>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-bold text-[#cc9933] mb-2">40<40</div>
+              <p class="text-sm text-gray-400">SFBJ Up & Comers</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quote Section -->
+      <div class="mt-20 max-w-4xl mx-auto text-center" data-aos="fade-up">
+        <blockquote class="relative">
+          <div class="absolute -top-8 -left-8 text-[#cc9933]/20 text-8xl">
+            "
+          </div>
+          <p
+            class="text-2xl md:text-3xl font-light italic leading-relaxed text-gray-300 relative z-10"
+          >
+            Innovation in healthcare isn't about the latest technology—it's
+            about making care more human, more accessible, more affordable.
+          </p>
+          <div
+            class="absolute -bottom-8 -right-8 text-[#cc9933]/20 text-8xl rotate-180"
+          >
+            "
+          </div>
+        </blockquote>
+        <p class="mt-8 text-[#cc9933] font-medium">— Michael Cabrera</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section
+    class="py-24 bg-gradient-to-b from-black to-[#0a0e27] text-white text-center px-6"
+  >
+    <div class="max-w-4xl mx-auto" data-aos="zoom-in">
+      <h2 class="text-4xl md:text-5xl font-bold mb-8">
+        Let's Build the Future of Healthcare Together
+      </h2>
+      <p class="text-xl text-gray-400 mb-12">
+        Connect with Michael to discuss partnerships, innovation, or the future
+        of medical imaging
+      </p>
+      <div class="flex flex-wrap gap-6 justify-center">
+  <a href="https://www.linkedin.com/in/usradfl/" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 bg-gradient-to-r from-[#cc9933] to-[#FFA500] text-white px-10 py-5 rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:scale-105">
+    <span>Connect on LinkedIn</span>
+    <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+    </svg>
+  </a>
+</div>
+</div>
+</section>
+</CarbonLayout>
+
+<style>
+  /* Float animations */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes float-delayed {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float-delayed 6s ease-in-out infinite;
+    animation-delay: 3s;
+  }
+
+  /* Counter animation */
+  #counter {
+    transition: all 0.3s ease;
+  }
+</style>
+
+<script>
+  // Particle Network Background
+  const canvas = document.getElementById("particle-network");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    const particles = [];
+    const particleCount = 50;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
+        this.radius = Math.random() * 2 + 1;
+        this.color = Math.random() > 0.5 ? "#cc9933" : "#003087";
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    // Initialize particles
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    function animate() {
+      ctx.fillStyle = "rgba(10, 14, 39, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((particle, index) => {
+        particle.update();
+        particle.draw();
+
+        // Draw connections
+        particles.forEach((otherParticle, otherIndex) => {
+          if (index !== otherIndex) {
+            const distance = Math.hypot(
+              particle.x - otherParticle.x,
+              particle.y - otherParticle.y
+            );
+            if (distance < 100) {
+              ctx.beginPath();
+              ctx.moveTo(particle.x, particle.y);
+              ctx.lineTo(otherParticle.x, otherParticle.y);
+              ctx.strokeStyle = `rgba(204, 153, 51, ${0.1 * (1 - distance / 100)})`;
+              ctx.stroke();
+            }
+          }
+        });
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  }
+
+  // Counter Animation
+  function animateCounter() {
+    const counter = document.getElementById("counter");
+    const target = parseInt(counter.getAttribute("data-target"));
+    const duration = 2000;
+    const increment = target / (duration / 16);
+    let current = 0;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+
+      counter.textContent = Math.floor(current).toLocaleString();
+    }, 16);
+  }
+
+  // Intersection Observer
+  function setupCounterObserver() {
+    const counter = document.getElementById("counter");
+    let hasAnimated = false;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            hasAnimated = true;
+            animateCounter();
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+      }
+    );
+
+    observer.observe(counter);
+  }
+
+  // Initialize when DOM is loaded
+  document.addEventListener("DOMContentLoaded", setupCounterObserver);
+
+  // Window resize handler
+  window.addEventListener("resize", () => {
+    if (canvas) {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+  });
+</script>
