@@ -314,7 +314,7 @@ function LoginDropdown({ isHeroPage, isScrolled }) {
 
   const loginOptions = [
     {
-      href: "/login/patientlogin",
+      href: "/login/patientlogin-carbon",
       title: "Patient Portal",
       subtitle: "View results & book scans",
       icon: (
@@ -433,7 +433,7 @@ function MobileLoginSection({ onClose }) {
 
   const loginOptions = [
     {
-      href: "/login/patientlogin",
+      href: "/login/patientlogin-carbon",
       title: "Patient Portal",
       subtitle: "View results & book scans",
       icon: (

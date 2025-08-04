@@ -1,5 +1,5 @@
 ---
-// NetworkMapPinsCarbon.astro
+// NetworkMapPinsCarbon.astro - Enhanced Version with Strategic Messaging
 interface Props {
   className?: string;
 }
@@ -7,260 +7,945 @@ interface Props {
 const { className = "" } = Astro.props;
 ---
 
-<div class={`${className}`}>
-  <div class="max-w-5xl mx-auto px-6 sm:px-12">
-    <!-- Map Container with relative positioning -->
-    <div
-      id="map-container"
-      class="relative bg-gradient-to-br from-gray-50 to-blue-50 rounded-3xl p-8 shadow-lg"
-    >
-      <!-- Map wrapper with relative positioning -->
-      <div class="relative w-full max-w-3xl mx-auto">
-        <!-- Transparent US Map -->
-        <img
-          src="/images/usa-transparent.svg"
-          alt="US Map"
-          loading="lazy"
-          class="w-full h-auto"
-        />
+<div class={`relative overflow-hidden ${className}`}>
+  <!-- Animated gradient background -->
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-[#003087] opacity-95"
+  >
+  </div>
 
-        <!-- Interactive Pin Container - positioned absolutely over the map -->
-        <div class="absolute inset-0">
-          <!-- Each pin is wrapped for hover tooltip + scale effect -->
-          <div
-            class="group absolute pin"
-            style="top: 83%; left: 83.5%;"
-            data-delay="100"
-          >
-            <img
-              src="/images/usrad-pin-dark.png"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              Florida
-            </div>
-          </div>
-          <div
-            class="group absolute pin"
-            style="top: 77%; left: 45%;"
-            data-delay="500"
-          >
-            <img
-              src="/images/usrad-pin-dark.png"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              Texas
-            </div>
-          </div>
-          <div
-            class="group absolute pin"
-            style="top: 62%; left: 77%;"
-            data-delay="300"
-          >
-            <img
-              src="/images/usrad-pin-dark.png"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              Georgia
-            </div>
-          </div>
-          <div
-            class="group absolute pin"
-            style="top: 57%; left: 82%;"
-            data-delay="500"
-          >
-            <img
-              src="/images/usrad-pin-dark.png"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              South Carolina
-            </div>
-          </div>
-          <div
-            class="group absolute pin"
-            style="top: 49%; left: 84%;"
-            data-delay="700"
-          >
-            <img
-              src="/images/usrad-pin-dark.png"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              North Carolina
-            </div>
-          </div>
-          <div
-            class="group absolute pin"
-            style="top: 19%; left: 86%;"
-            data-delay="900"
-          >
-            <img
-              src="/images/usrad-pin-dark.png"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              New York
-            </div>
-          </div>
-          <div
-            class="group absolute pin"
-            style="top: 30%; left: 90%;"
-            data-delay="1100"
-          >
-            <img
-              src="/images/usrad-pin-dark.png"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              New Jersey
-            </div>
-          </div>
-          <div
-            class="group absolute pin"
-            style="top: 29%; left: 83%;"
-            data-delay="1300"
-          >
-            <img
-              src="/images/usrad-pin-dark.png"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              Pennsylvania
-            </div>
-          </div>
-          <div
-            class="group absolute pin"
-            style="top: 35%; left: 63%;"
-            data-delay="1500"
-          >
-            <img
-              src="/images/usrad-pin-dark.png"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              Illinois
-            </div>
-          </div>
-          <div
-            class="group absolute pin"
-            style="top: 45%; left: 5%;"
-            data-delay="500"
-          >
-            <img
-              src="/images/usrad-pin-dark.png"
-              class="w-6 sm:w-7 md:w-8 h-auto transition-transform duration-200 group-hover:scale-125"
-            />
-            <div
-              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex px-2 py-1 bg-[#003087] text-white text-xs rounded shadow"
-            >
-              California
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- Animated particles background -->
+  <canvas id="particle-canvas" class="absolute inset-0 opacity-30"></canvas>
 
-      <!-- Stats Grid -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-        <div class="text-center">
-          <p class="text-2xl font-bold text-[#003087]">50</p>
-          <p class="text-sm text-gray-600">States coming</p>
-        </div>
-        <div class="text-center">
-          <p class="text-2xl font-bold text-[#003087]">1,500+</p>
-          <p class="text-sm text-gray-600">Expanding Network</p>
-        </div>
-        <div class="text-center">
-          <p class="text-2xl font-bold text-[#003087]">48hr</p>
-          <p class="text-sm text-gray-600">Booking</p>
-        </div>
-        <div class="text-center">
-          <p class="text-2xl font-bold text-[#003087]">95%</p>
-          <p class="text-sm text-gray-600">Coverage</p>
-        </div>
-      </div>
+  <!-- Subtle grid pattern -->
+  <div
+    class="absolute inset-0"
+    style="background-image: url('data:image/svg+xml,%3Csvg width=\"
+    40\"
+    height='\"40\"'
+    xmlns='\"http://www.w3.org/2000/svg\"%3E%3Cdefs%3E%3Cpattern'
+    id='\"grid\"'
+    width='\"40\"'
+    height='\"40\"'
+    patternUnits='\"userSpaceOnUse\"%3E%3Cpath'
+    d='\"M'
+    40
+    0
+    L
+    0
+    0
+    0
+    40\"
+    fill='\"none\"'
+    stroke='\"white\"'
+    stroke-width='\"0.5\"'
+    opacity='\"0.1\"/%3E%3C/pattern%3E%3C/defs%3E%3Crect'
+    width='\"100%25\"'
+    height='\"100%25\"'
+    fill='\"url(%23grid)\"/%3E%3C/svg%3E&apos;);'
+    opacity:
+    0.3;"
+  >
+  </div>
 
-      <!-- CTA Button -->
-      <!-- CTA Button Section -->
-      <div class="bg-gray-50 px-8 py-6 text-center">
-        <a
-          href="/search-results"
-          class="inline-block bg-[#003087] text-white px-8 py-3 rounded-lg font-medium hover:bg-[#002266] transition"
+  <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 py-20">
+    <!-- Enhanced Header with Strategic Messaging -->
+    <div class="text-center mb-16 animate-fade-in">
+      <h2 class="text-5xl font-bold text-white mb-4">
+        <span
+          class="bg-gradient-to-r from-[#e6c378] via-[#ffd700] to-[#cc9933] bg-clip-text text-transparent animate-gradient"
         >
-          Find Centers Near You →
-        </a>
+          A New Way to Get Your MRI
+        </span>
+      </h2>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+        Top imaging centers competing to serve you faster and for less
+      </p>
+    </div>
+
+    <!-- Enhanced Map Container -->
+    <div class="relative">
+      <!-- Multiple glow layers for depth -->
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-3xl animate-pulse-slow"
+      >
+      </div>
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-[#e6c378]/10 to-transparent blur-2xl"
+      >
       </div>
 
-      <style>
-        @keyframes floatUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
+      <!-- Map wrapper with enhanced glassmorphism -->
+      <div
+        class="relative bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 shadow-2xl overflow-hidden"
+      >
+        <!-- Animated corner accents -->
+        <div
+          class="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-[#e6c378] rounded-tl-3xl animate-corner-pulse"
+        >
+        </div>
+        <div
+          class="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-[#e6c378] rounded-tr-3xl animate-corner-pulse"
+          style="animation-delay: 0.5s"
+        >
+        </div>
+        <div
+          class="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-[#e6c378] rounded-bl-3xl animate-corner-pulse"
+          style="animation-delay: 1s"
+        >
+        </div>
+        <div
+          class="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-[#e6c378] rounded-br-3xl animate-corner-pulse"
+          style="animation-delay: 1.5s"
+        >
+        </div>
 
-        .pin {
-          opacity: 0;
-          transform: translateY(30px);
-        }
+        <!-- 3D perspective wrapper -->
+        <div
+          class="relative w-full max-w-4xl mx-auto transform perspective-1000"
+        >
+          <!-- Animated wave overlay -->
+          <div class="absolute inset-0 overflow-hidden rounded-2xl">
+            <div class="wave-overlay"></div>
+          </div>
 
-        .pin-visible {
-          animation: floatUp 0.8s ease-out forwards;
-        }
-      </style>
+          <!-- US Map with enhanced styling -->
+          <img
+            src="/images/usa-transparent.svg"
+            alt="US Map"
+            loading="lazy"
+            class="w-full h-auto filter drop-shadow-2xl relative z-10"
+            style="filter: brightness(1.2) contrast(1.1);"
+          />
 
-      <script>
-        // Intersection Observer for scroll-triggered animations
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                const pins = entry.target.querySelectorAll(".pin");
-                pins.forEach((pin) => {
-                  const delay = pin.getAttribute("data-delay") || "0";
-                  setTimeout(() => {
-                    pin.classList.add("pin-visible");
-                  }, parseInt(delay));
-                });
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          {
-            threshold: 0.3, // Trigger when 30% of the map is visible
-          }
-        );
+          <!-- Enhanced Pin Container with ripple effects -->
+          <div class="absolute inset-0 z-20">
+            <!-- Florida -->
+            <div
+              class="pin-wrapper absolute"
+              style="top: 83%; left: 83.5%;"
+              data-state="Florida"
+              data-status="Launching Q1 2025"
+              data-delay="100"
+            >
+              <div class="pin-glow"></div>
+              <img src="/images/usrad-pin-dark.png" class="pin-icon" />
+              <div class="pin-tooltip">
+                <h4 class="font-bold text-lg">Florida</h4>
+                <p class="text-sm opacity-90">Launching Q1 2025</p>
+                <p class="text-xs text-[#e6c378] mt-1">Join Early Access</p>
+                <div class="tooltip-arrow"></div>
+              </div>
+            </div>
 
-        // Observe the map container
-        const mapContainer = document.getElementById("map-container");
-        if (mapContainer) {
-          observer.observe(mapContainer);
-        }
-      </script>
+            <!-- Texas -->
+            <div
+              class="pin-wrapper absolute"
+              style="top: 77%; left: 45%;"
+              data-state="Texas"
+              data-status="Opening Q2 2025"
+              data-delay="500"
+            >
+              <div class="pin-glow"></div>
+              <img src="/images/usrad-pin-dark.png" class="pin-icon" />
+              <div class="pin-tooltip">
+                <h4 class="font-bold text-lg">Texas</h4>
+                <p class="text-sm opacity-90">Opening Q2 2025</p>
+                <p class="text-xs text-[#e6c378] mt-1">Join Waitlist</p>
+                <div class="tooltip-arrow"></div>
+              </div>
+            </div>
+
+            <!-- Georgia -->
+            <div
+              class="pin-wrapper absolute"
+              style="top: 62%; left: 77%;"
+              data-state="Georgia"
+              data-status="Opening Q2 2025"
+              data-delay="300"
+            >
+              <div class="pin-glow"></div>
+              <img src="/images/usrad-pin-dark.png" class="pin-icon" />
+              <div class="pin-tooltip">
+                <h4 class="font-bold text-lg">Georgia</h4>
+                <p class="text-sm opacity-90">Opening Q2 2025</p>
+                <p class="text-xs text-[#e6c378] mt-1">Join Waitlist</p>
+                <div class="tooltip-arrow"></div>
+              </div>
+            </div>
+
+            <!-- South Carolina -->
+            <div
+              class="pin-wrapper absolute"
+              style="top: 57%; left: 82%;"
+              data-state="South Carolina"
+              data-status="Coming Soon"
+              data-delay="500"
+            >
+              <div class="pin-glow"></div>
+              <img src="/images/usrad-pin-dark.png" class="pin-icon" />
+              <div class="pin-tooltip">
+                <h4 class="font-bold text-lg">South Carolina</h4>
+                <p class="text-sm opacity-90">Coming Soon</p>
+                <p class="text-xs text-[#e6c378] mt-1">Be First to Know</p>
+                <div class="tooltip-arrow"></div>
+              </div>
+            </div>
+
+            <!-- North Carolina -->
+            <div
+              class="pin-wrapper absolute"
+              style="top: 49%; left: 84%;"
+              data-state="North Carolina"
+              data-status="Coming Soon"
+              data-delay="700"
+            >
+              <div class="pin-glow"></div>
+              <img src="/images/usrad-pin-dark.png" class="pin-icon" />
+              <div class="pin-tooltip">
+                <h4 class="font-bold text-lg">North Carolina</h4>
+                <p class="text-sm opacity-90">Coming Soon</p>
+                <p class="text-xs text-[#e6c378] mt-1">Be First to Know</p>
+                <div class="tooltip-arrow"></div>
+              </div>
+            </div>
+
+            <!-- New York -->
+            <div
+              class="pin-wrapper absolute"
+              style="top: 19%; left: 86%;"
+              data-state="New York"
+              data-status="Opening Q3 2025"
+              data-delay="900"
+            >
+              <div class="pin-glow"></div>
+              <img src="/images/usrad-pin-dark.png" class="pin-icon" />
+              <div class="pin-tooltip">
+                <h4 class="font-bold text-lg">New York</h4>
+                <p class="text-sm opacity-90">Opening Q3 2025</p>
+                <p class="text-xs text-[#e6c378] mt-1">Join Waitlist</p>
+                <div class="tooltip-arrow"></div>
+              </div>
+            </div>
+
+            <!-- New Jersey -->
+            <div
+              class="pin-wrapper absolute"
+              style="top: 30%; left: 90%;"
+              data-state="New Jersey"
+              data-status="Coming Soon"
+              data-delay="1100"
+            >
+              <div class="pin-glow"></div>
+              <img src="/images/usrad-pin-dark.png" class="pin-icon" />
+              <div class="pin-tooltip">
+                <h4 class="font-bold text-lg">New Jersey</h4>
+                <p class="text-sm opacity-90">Coming Soon</p>
+                <p class="text-xs text-[#e6c378] mt-1">Be First to Know</p>
+                <div class="tooltip-arrow"></div>
+              </div>
+            </div>
+
+            <!-- Pennsylvania -->
+            <div
+              class="pin-wrapper absolute"
+              style="top: 29%; left: 83%;"
+              data-state="Pennsylvania"
+              data-status="Coming Soon"
+              data-delay="1300"
+            >
+              <div class="pin-glow"></div>
+              <img src="/images/usrad-pin-dark.png" class="pin-icon" />
+              <div class="pin-tooltip">
+                <h4 class="font-bold text-lg">Pennsylvania</h4>
+                <p class="text-sm opacity-90">Coming Soon</p>
+                <p class="text-xs text-[#e6c378] mt-1">Be First to Know</p>
+                <div class="tooltip-arrow"></div>
+              </div>
+            </div>
+
+            <!-- Illinois -->
+            <div
+              class="pin-wrapper absolute"
+              style="top: 35%; left: 63%;"
+              data-state="Illinois"
+              data-status="Opening Q2 2025"
+              data-delay="1500"
+            >
+              <div class="pin-glow"></div>
+              <img src="/images/usrad-pin-dark.png" class="pin-icon" />
+              <div class="pin-tooltip">
+                <h4 class="font-bold text-lg">Illinois</h4>
+                <p class="text-sm opacity-90">Opening Q2 2025</p>
+                <p class="text-xs text-[#e6c378] mt-1">Join Waitlist</p>
+                <div class="tooltip-arrow"></div>
+              </div>
+            </div>
+
+            <!-- California -->
+            <div
+              class="pin-wrapper absolute"
+              style="top: 45%; left: 5%;"
+              data-state="California"
+              data-status="Launching Q1 2025"
+              data-delay="500"
+            >
+              <div class="pin-glow"></div>
+              <img src="/images/usrad-pin-dark.png" class="pin-icon" />
+              <div class="pin-tooltip">
+                <h4 class="font-bold text-lg">California</h4>
+                <p class="text-sm opacity-90">Launching Q1 2025</p>
+                <p class="text-xs text-[#e6c378] mt-1">Join Early Access</p>
+                <div class="tooltip-arrow"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Strategic Stats Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+          <div class="stat-card group">
+            <div class="stat-icon-wrapper">
+              <img
+                src="/images/icons/mri.svg"
+                alt="Centers"
+                class="stat-icon-svg stat-icon-white"
+              />
+            </div>
+            <p class="stat-number" data-target="1500">1,500>
+            <p class="stat-label">Premium Centers Joining</p>
+            <div class="stat-glow"></div>
+          </div>
+          <div class="stat-card group">
+            <div class="stat-icon-wrapper">
+              <img
+                src="/logo/Florida.png"
+                alt="States"
+                class="stat-icon-svg"
+              />
+            </div>
+            <p class="stat-number" data-target="50">10</p>
+            <p class="stat-label">States Opening 2025</p>
+            <div class="stat-glow"></div>
+          </div>
+          <div class="stat-card group">
+            <div class="stat-icon-wrapper">
+              <img
+                src="/images/icons/flash.svg"
+                alt="Speed"
+                class="stat-icon-svg stat-icon-white"
+              />
+            </div>
+            <p class="stat-number" data-target="48">48-72</p>
+            <p class="stat-label">Hour Appointment Goal</p>
+            <div class="stat-glow"></div>
+          </div>
+          <div class="stat-card group">
+            <div class="stat-icon-wrapper">
+              <img
+                src="/images/icons/expenses.svg"
+                alt="Savings"
+                class="stat-icon-svg stat-icon-white"
+              />
+            </div>
+            <p class="stat-number" data-target="70">70</p>
+            <p class="stat-label">% Lower Than Hospitals</p>
+            <div class="stat-glow"></div>
+          </div>
+        </div>
+
+        <!-- Dynamic Network Status Indicator -->
+        <div class="network-status mt-12">
+          <div class="flex items-center justify-center gap-3 mb-4">
+            <span class="status-dot active"></span>
+            <span class="text-white font-medium text-center"
+              >Network Building: Phase 1 of 3</span
+            >
+          </div>
+          <div class="status-bar-container">
+            <div class="status-bar">
+              <div class="status-progress"></div>
+            </div>
+          </div>
+          <p class="status-text text-center text-gray-300 mt-4">
+            Accepting select centers in priority markets
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced CTA Section -->
+    <div class="text-center mt-12">
+      <a href="/search-results" class="cta-button group">
+        <div class="cta-bg"></div>
+        <span class="cta-text relative z-10">Find Centers Near You</span>
+        <svg
+          class="cta-arrow relative z-10"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <path
+            d="M5 12h14M12 5l7 7-7 7"
+            stroke-width="2"
+            stroke-linecap="round"></path>
+        </svg>
+      </a>
+      <p class="text-gray-400 mt-4 animate-fade-in" style="animation-delay: 2s">
+        Building America's first <span class="text-[#e6c378] font-semibold"
+          >transparent</span
+        > imaging marketplace
+      </p>
     </div>
   </div>
+
+  <style>
+    /* Enhanced animations */
+    @keyframes float-pin {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes wave-animation {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    @keyframes corner-pulse {
+      0%,
+      100% {
+        opacity: 0.3;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes gradient-animation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    @keyframes pulse-slow {
+      0%,
+      100% {
+        opacity: 0.3;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes progress-animation {
+      0% {
+        width: 0%;
+      }
+      100% {
+        width: 33%;
+      }
+    }
+
+    .animate-gradient {
+      background-size: 200% 200%;
+      animation: gradient-animation 3s ease infinite;
+    }
+
+    .animate-pulse-slow {
+      animation: pulse-slow 4s ease-in-out infinite;
+    }
+
+    .animate-corner-pulse {
+      animation: corner-pulse 3s ease-in-out infinite;
+    }
+
+    .wave-overlay {
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 40%,
+        rgba(230, 195, 120, 0.1) 50%,
+        transparent 60%
+      );
+      animation: wave-animation 8s linear infinite;
+    }
+
+    .pin-wrapper {
+      cursor: pointer;
+      z-index: 10;
+      opacity: 0;
+      animation: fade-in-up 0.8s ease-out forwards;
+      animation-delay: var(--animation-delay, 0ms);
+    }
+
+    .pin-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 24px;
+      height: 24px;
+      background: #e6c378;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      filter: blur(12px);
+      opacity: 0.4;
+      transition: all 0.3s ease;
+    }
+
+    .pin-wrapper:hover .pin-glow {
+      width: 32px;
+      height: 32px;
+      opacity: 0.6;
+    }
+
+    .pin-icon {
+      width: 36px;
+      height: auto;
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+      animation: float-pin 4s ease-in-out infinite;
+      animation-delay: var(--animation-delay, 0ms);
+    }
+
+    .pin-wrapper:hover .pin-icon {
+      transform: scale(1.15) translateY(-5px);
+      filter: drop-shadow(0 8px 16px rgba(230, 195, 120, 0.4));
+    }
+
+    .pin-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      background: linear-gradient(135deg, #003087 0%, #002266 100%);
+      color: white;
+      padding: 14px 18px;
+      border-radius: 14px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(230, 195, 120, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .pin-wrapper:hover .pin-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(-15px);
+    }
+
+    .tooltip-arrow {
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      background: #002266;
+      transform: translateX(-50%) rotate(45deg);
+      border-right: 1px solid rgba(230, 195, 120, 0.3);
+      border-bottom: 1px solid rgba(230, 195, 120, 0.3);
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at center,
+        rgba(230, 195, 120, 0.1) 0%,
+        transparent 70%
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .stat-card:hover::before {
+      opacity: 1;
+    }
+
+    .stat-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      border-color: rgba(230, 195, 120, 0.3);
+    }
+
+    .stat-icon-wrapper {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .stat-card:hover .stat-icon-wrapper {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .stat-icon-svg {
+      width: 36px;
+      height: 36px;
+      filter: brightness(0) saturate(100%) invert(84%) sepia(28%)
+        saturate(1245%) hue-rotate(5deg) brightness(97%) contrast(94%);
+      transition: all 0.3s ease;
+    }
+
+    /* White icons (for mri, flash and expenses) */
+    .stat-icon-white {
+      filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%)
+        hue-rotate(0deg) brightness(100%) contrast(100%) !important;
+    }
+
+    .stat-card:hover .stat-icon-svg {
+      transform: scale(1.1);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #e6c378;
+      margin-bottom: 8px;
+      text-shadow: 0 0 30px rgba(230, 195, 120, 0.5);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stat-glow {
+      position: absolute;
+      bottom: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #e6c378 0%, transparent 70%);
+      opacity: 0;
+      transition: all 0.3s ease;
+      filter: blur(30px);
+    }
+
+    .stat-card:hover .stat-glow {
+      opacity: 0.3;
+      bottom: -20%;
+    }
+
+    /* Network Status Styles */
+    .network-status {
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background: #e6c378;
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+    }
+
+    .status-dot.active::before {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      background: #e6c378;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: pulse-slow 2s ease-in-out infinite;
+    }
+
+    .status-bar-container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .status-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .status-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #e6c378, #ffd700);
+      border-radius: 4px;
+      animation: progress-animation 2s ease-out forwards;
+      animation-delay: 1s;
+      width: 0%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .status-progress::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%
+      );
+      animation: wave-animation 2s linear infinite;
+    }
+
+    .status-text {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 40px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1.125rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      color: #003087;
+      background: transparent;
+      isolation: isolate;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        #e6c378 0%,
+        #ffd700 50%,
+        #cc9933 100%
+      );
+      background-size: 200% 200%;
+      animation: gradient-animation 3s ease infinite;
+      z-index: -1;
+      border-radius: 60px;
+    }
+
+    .cta-button::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(
+        135deg,
+        #e6c378 0%,
+        #ffd700 50%,
+        #cc9933 100%
+      );
+      border-radius: 60px;
+      z-index: -2;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      filter: blur(20px);
+    }
+
+    .cta-button:hover::before {
+      opacity: 0.8;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 25px 50px rgba(230, 195, 120, 0.4);
+    }
+
+    .cta-arrow {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .cta-button:hover .cta-arrow {
+      transform: translateX(5px);
+    }
+
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fade-in 1s ease-out;
+    }
+  </style>
+
+  <script>
+    // Set animation delays based on data-delay attribute
+    document.querySelectorAll(".pin-wrapper").forEach((pin) => {
+      const delay = pin.getAttribute("data-delay") || "0";
+      pin.style.setProperty("--animation-delay", delay + "ms");
+    });
+
+    // Particle animation
+    const canvas = document.getElementById("particle-canvas");
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+
+      const particles = [];
+      for (let i = 0; i < 50; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2 + 1,
+          speedX: Math.random() * 0.5 - 0.25,
+          speedY: Math.random() * 0.5 - 0.25,
+        });
+      }
+
+      function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#e6c378";
+
+        particles.forEach((particle) => {
+          particle.x += particle.speedX;
+          particle.y += particle.speedY;
+
+          if (particle.x < 0 || particle.x > canvas.width)
+            particle.speedX *= -1;
+          if (particle.y < 0 || particle.y > canvas.height)
+            particle.speedY *= -1;
+
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        requestAnimationFrame(animateParticles);
+      }
+      animateParticles();
+    }
+
+    // Animated counter
+    function animateCounter(element, target) {
+      const duration = 2000;
+      const start = 0;
+      const increment = target / (duration / 16);
+      let current = start;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        element.textContent = Math.floor(current);
+      }, 16);
+    }
+
+    // Initialize counters when in view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const counters = entry.target.querySelectorAll("[data-target]");
+          counters.forEach((counter) => {
+            const target = parseInt(counter.dataset.target);
+            animateCounter(counter, target);
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+
+    const statsGrid = document.querySelector(".grid");
+    if (statsGrid) observer.observe(statsGrid);
+
+    // Add hover interaction for pins
+    document.querySelectorAll(".pin-wrapper").forEach((pin) => {
+      pin.addEventListener("mouseenter", () => {
+        // Create a temporary ripple effect
+        const ripple = document.createElement("div");
+        ripple.className = "pin-ripple";
+        ripple.style.animation = "ripple-effect 1s ease-out";
+        pin.appendChild(ripple);
+
+        setTimeout(() => ripple.remove(), 1000);
+      });
+    });
+
+    // Add parallax effect on mouse move
+    document.addEventListener("mousemove", (e) => {
+      const { clientX, clientY } = e;
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      const moveX = (clientX - centerX) / 50;
+      const moveY = (clientY - centerY) / 50;
+
+      document.querySelectorAll(".pin-icon").forEach((pin) => {
+        pin.style.transform = `translateX(${moveX}px) translateY(${moveY}px)`;
+      });
+    });
+  </script>
 </div>

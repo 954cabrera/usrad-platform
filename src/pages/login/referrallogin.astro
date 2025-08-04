@@ -65,8 +65,10 @@
       }
 
       .logo-side img {
-        max-width: 45%;
+        max-width: 200px; /* Reduce from 45% to match imaging center login */
+        width: auto;
         height: auto;
+        margin-bottom: 1.5rem;
         position: relative;
         z-index: 1;
       }
@@ -388,7 +390,7 @@
         }
 
         .logo-side img {
-          max-width: 160px;
+          max-width: 130px; /* Reduce from 180px to match imaging center login */
         }
 
         /* Even on small screens, keep font sizes readable */
@@ -400,12 +402,31 @@
           font-size: 1.05rem;
         }
       }
+      .brand-content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        max-width: 450px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .brand-title {
+        color: white;
+        font-size: 2.2rem;
+        font-weight: 300;
+        margin: 0 0 1.5rem 0;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
     </style>
   </head>
   <body>
     <div class="login-layout">
       <div class="logo-side">
-        <a href="/login" class="back-link">
+        <a href="/index-carbon" class="back-link">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -421,10 +442,8 @@
           </svg>
           Back to Selection
         </a>
-        <img
-          src="/logo/USRad-Logo-final-white-text-ref-phy-login.png"
-          alt="USRad Logo"
-        />
+        <img src="/logo/USRad-Logo-final-white-text.png" alt="USRad Logo" />
+        <h1 class="brand-title">Referring Physician Portal</h1>
         <p class="brand-tagline">
           Partnering with physicians to deliver excellence in diagnostic
           imaging.
