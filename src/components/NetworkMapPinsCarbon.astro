@@ -10,66 +10,33 @@ const { className = "" } = Astro.props;
 <div class={`relative overflow-hidden ${className}`}>
   <!-- Animated gradient background -->
   <div
-    class="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-[#003087] opacity-95"
+    class="absolute inset-0 bg-gradient-to-b from-[#003087] to-[#001a4d] opacity-95"
   >
   </div>
 
   <!-- Animated particles background -->
   <canvas id="particle-canvas" class="absolute inset-0 opacity-30"></canvas>
 
-  <!-- Subtle grid pattern -->
   <div
-    class="absolute inset-0"
-    style="background-image: url('data:image/svg+xml,%3Csvg width=\"
-    40\"
-    height='\"40\"'
-    xmlns='\"http://www.w3.org/2000/svg\"%3E%3Cdefs%3E%3Cpattern'
-    id='\"grid\"'
-    width='\"40\"'
-    height='\"40\"'
-    patternUnits='\"userSpaceOnUse\"%3E%3Cpath'
-    d='\"M'
-    40
-    0
-    L
-    0
-    0
-    0
-    40\"
-    fill='\"none\"'
-    stroke='\"white\"'
-    stroke-width='\"0.5\"'
-    opacity='\"0.1\"/%3E%3C/pattern%3E%3C/defs%3E%3Crect'
-    width='\"100%25\"'
-    height='\"100%25\"'
-    fill='\"url(%23grid)\"/%3E%3C/svg%3E&apos;);'
-    opacity:
-    0.3;"
+    class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-16 lg:py-20"
   >
-  </div>
-
-  <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 py-20">
     <!-- Enhanced Header with Strategic Messaging -->
-    <div class="text-center mb-16 animate-fade-in">
-      <h2 class="text-5xl font-bold text-white mb-4">
+    <div class="text-center mb-12 sm:mb-16 animate-fade-in">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
         <span
           class="bg-gradient-to-r from-[#e6c378] via-[#ffd700] to-[#cc9933] bg-clip-text text-transparent animate-gradient"
         >
           A New Way to Get Your MRI
         </span>
       </h2>
-      <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+      <p class="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto">
         Top imaging centers competing to serve you faster and for less
       </p>
     </div>
 
     <!-- Enhanced Map Container -->
     <div class="relative">
-      <!-- Multiple glow layers for depth -->
-      <div
-        class="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-3xl animate-pulse-slow"
-      >
-      </div>
+      <!-- Single subtle glow layer -->
       <div
         class="absolute inset-0 bg-gradient-to-t from-[#e6c378]/10 to-transparent blur-2xl"
       >
@@ -77,25 +44,25 @@ const { className = "" } = Astro.props;
 
       <!-- Map wrapper with enhanced glassmorphism -->
       <div
-        class="relative bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 shadow-2xl overflow-hidden"
+        class="relative bg-white/5 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-white/10 shadow-2xl overflow-hidden"
       >
-        <!-- Animated corner accents -->
+        <!-- Animated corner accents - hidden on mobile -->
         <div
-          class="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-[#e6c378] rounded-tl-3xl animate-corner-pulse"
+          class="hidden sm:block absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-[#e6c378] rounded-tl-3xl animate-corner-pulse"
         >
         </div>
         <div
-          class="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-[#e6c378] rounded-tr-3xl animate-corner-pulse"
+          class="hidden sm:block absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-[#e6c378] rounded-tr-3xl animate-corner-pulse"
           style="animation-delay: 0.5s"
         >
         </div>
         <div
-          class="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-[#e6c378] rounded-bl-3xl animate-corner-pulse"
+          class="hidden sm:block absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-[#e6c378] rounded-bl-3xl animate-corner-pulse"
           style="animation-delay: 1s"
         >
         </div>
         <div
-          class="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-[#e6c378] rounded-br-3xl animate-corner-pulse"
+          class="hidden sm:block absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-[#e6c378] rounded-br-3xl animate-corner-pulse"
           style="animation-delay: 1.5s"
         >
         </div>
@@ -118,7 +85,7 @@ const { className = "" } = Astro.props;
             style="filter: brightness(1.2) contrast(1.1);"
           />
 
-          <!-- Enhanced Pin Container with ripple effects -->
+          <!-- Enhanced Pin Container -->
           <div class="absolute inset-0 z-20">
             <!-- Florida -->
             <div
@@ -303,7 +270,9 @@ const { className = "" } = Astro.props;
         </div>
 
         <!-- Enhanced Strategic Stats Cards -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+        <div
+          class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-8 sm:mt-12"
+        >
           <div class="stat-card group">
             <div class="stat-icon-wrapper">
               <img
@@ -312,19 +281,15 @@ const { className = "" } = Astro.props;
                 class="stat-icon-svg stat-icon-white"
               />
             </div>
-            <p class="stat-number" data-target="1500">1,500>
+            <p class="stat-number" data-target="1500">1,500</p>
             <p class="stat-label">Premium Centers Joining</p>
             <div class="stat-glow"></div>
           </div>
           <div class="stat-card group">
             <div class="stat-icon-wrapper">
-              <img
-                src="/logo/Florida.png"
-                alt="States"
-                class="stat-icon-svg"
-              />
+              <img src="/logo/Florida.png" alt="States" class="stat-icon-svg" />
             </div>
-            <p class="stat-number" data-target="50">10</p>
+            <p class="stat-number" data-target="10">10</p>
             <p class="stat-label">States Opening 2025</p>
             <div class="stat-glow"></div>
           </div>
@@ -336,7 +301,7 @@ const { className = "" } = Astro.props;
                 class="stat-icon-svg stat-icon-white"
               />
             </div>
-            <p class="stat-number" data-target="48">48-72</p>
+            <p class="stat-number">48-72</p>
             <p class="stat-label">Hour Appointment Goal</p>
             <div class="stat-glow"></div>
           </div>
@@ -355,10 +320,11 @@ const { className = "" } = Astro.props;
         </div>
 
         <!-- Dynamic Network Status Indicator -->
-        <div class="network-status mt-12">
+        <div class="network-status mt-8 sm:mt-12">
           <div class="flex items-center justify-center gap-3 mb-4">
             <span class="status-dot active"></span>
-            <span class="text-white font-medium text-center"
+            <span
+              class="text-white font-medium text-center text-sm sm:text-base"
               >Network Building: Phase 1 of 3</span
             >
           </div>
@@ -367,7 +333,9 @@ const { className = "" } = Astro.props;
               <div class="status-progress"></div>
             </div>
           </div>
-          <p class="status-text text-center text-gray-300 mt-4">
+          <p
+            class="status-text text-center text-gray-300 mt-4 text-sm sm:text-base"
+          >
             Accepting select centers in priority markets
           </p>
         </div>
@@ -375,7 +343,7 @@ const { className = "" } = Astro.props;
     </div>
 
     <!-- Enhanced CTA Section -->
-    <div class="text-center mt-12">
+    <div class="text-center mt-8 sm:mt-12">
       <a href="/search-results" class="cta-button group">
         <div class="cta-bg"></div>
         <span class="cta-text relative z-10">Find Centers Near You</span>
@@ -391,7 +359,10 @@ const { className = "" } = Astro.props;
             stroke-linecap="round"></path>
         </svg>
       </a>
-      <p class="text-gray-400 mt-4 animate-fade-in" style="animation-delay: 2s">
+      <p
+        class="text-gray-400 mt-4 animate-fade-in text-sm sm:text-base"
+        style="animation-delay: 2s"
+      >
         Building America's first <span class="text-[#e6c378] font-semibold"
           >transparent</span
         > imaging marketplace
@@ -575,7 +546,7 @@ const { className = "" } = Astro.props;
       backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 20px;
-      padding: 28px;
+      padding: 20px;
       text-align: center;
       transition: all 0.4s ease;
       position: relative;
@@ -607,9 +578,9 @@ const { className = "" } = Astro.props;
     }
 
     .stat-icon-wrapper {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 16px;
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 12px;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
       display: flex;
@@ -626,8 +597,8 @@ const { className = "" } = Astro.props;
     }
 
     .stat-icon-svg {
-      width: 36px;
-      height: 36px;
+      width: 24px;
+      height: 24px;
       filter: brightness(0) saturate(100%) invert(84%) sepia(28%)
         saturate(1245%) hue-rotate(5deg) brightness(97%) contrast(94%);
       transition: all 0.3s ease;
@@ -644,18 +615,19 @@ const { className = "" } = Astro.props;
     }
 
     .stat-number {
-      font-size: 3rem;
+      font-size: 2rem;
       font-weight: 700;
       color: #e6c378;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       text-shadow: 0 0 30px rgba(230, 195, 120, 0.5);
     }
 
     .stat-label {
-      font-size: 0.9rem;
+      font-size: 0.75rem;
       color: rgba(255, 255, 255, 0.8);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
     }
 
     .stat-glow {
@@ -678,7 +650,7 @@ const { className = "" } = Astro.props;
 
     /* Network Status Styles */
     .network-status {
-      padding: 24px;
+      padding: 16px;
       background: rgba(255, 255, 255, 0.02);
       border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -749,10 +721,10 @@ const { className = "" } = Astro.props;
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      padding: 18px 40px;
+      padding: 16px 32px;
       border-radius: 60px;
       font-weight: 600;
-      font-size: 1.125rem;
+      font-size: 1rem;
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
@@ -810,6 +782,79 @@ const { className = "" } = Astro.props;
 
     .cta-button:hover .cta-arrow {
       transform: translateX(5px);
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+      .pin-icon {
+        width: 24px;
+      }
+
+      .pin-glow {
+        width: 16px;
+        height: 16px;
+      }
+
+      .pin-tooltip {
+        display: none !important;
+      }
+
+      .stat-icon-wrapper {
+        width: 40px;
+        height: 40px;
+      }
+
+      .stat-icon-svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+      }
+
+      .stat-card {
+        padding: 16px;
+      }
+
+      .cta-button {
+        padding: 14px 24px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .stat-card {
+        padding: 28px;
+      }
+
+      .stat-icon-wrapper {
+        width: 64px;
+        height: 64px;
+      }
+
+      .stat-icon-svg {
+        width: 36px;
+        height: 36px;
+      }
+
+      .stat-number {
+        font-size: 3rem;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+      }
+
+      .network-status {
+        padding: 24px;
+      }
+
+      .cta-button {
+        padding: 18px 40px;
+        font-size: 1.125rem;
+      }
     }
 
     @keyframes fade-in-up {
@@ -887,8 +932,11 @@ const { className = "" } = Astro.props;
       animateParticles();
     }
 
-    // Animated counter
+    // Animated counter - only animate numeric values
     function animateCounter(element, target) {
+      // Skip if the content contains non-numeric characters (like "48-72")
+      if (isNaN(target)) return;
+
       const duration = 2000;
       const start = 0;
       const increment = target / (duration / 16);
@@ -921,31 +969,24 @@ const { className = "" } = Astro.props;
     const statsGrid = document.querySelector(".grid");
     if (statsGrid) observer.observe(statsGrid);
 
-    // Add hover interaction for pins
-    document.querySelectorAll(".pin-wrapper").forEach((pin) => {
-      pin.addEventListener("mouseenter", () => {
-        // Create a temporary ripple effect
-        const ripple = document.createElement("div");
-        ripple.className = "pin-ripple";
-        ripple.style.animation = "ripple-effect 1s ease-out";
-        pin.appendChild(ripple);
+    // Mobile touch interaction for pins
+    if ("ontouchstart" in window) {
+      document.querySelectorAll(".pin-wrapper").forEach((pin) => {
+        pin.addEventListener("touchstart", function (e) {
+          // Show tooltip on mobile tap
+          const tooltip = this.querySelector(".pin-tooltip");
+          if (tooltip) {
+            tooltip.style.display = "block";
+            tooltip.style.opacity = "1";
+            tooltip.style.visibility = "visible";
 
-        setTimeout(() => ripple.remove(), 1000);
+            // Hide after 3 seconds
+            setTimeout(() => {
+              tooltip.style.display = "none";
+            }, 3000);
+          }
+        });
       });
-    });
-
-    // Add parallax effect on mouse move
-    document.addEventListener("mousemove", (e) => {
-      const { clientX, clientY } = e;
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-
-      const moveX = (clientX - centerX) / 50;
-      const moveY = (clientY - centerY) / 50;
-
-      document.querySelectorAll(".pin-icon").forEach((pin) => {
-        pin.style.transform = `translateX(${moveX}px) translateY(${moveY}px)`;
-      });
-    });
+    }
   </script>
 </div>
