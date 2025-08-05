@@ -1,0 +1,341 @@
+---
+// src/layouts/ProviderLayout.astro
+export interface Props {
+  title: string;
+  showBackToMain?: boolean;
+}
+
+const { title, showBackToMain = true } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      /* Provider-specific styling */
+      :root {
+        --usrad-blue: #003087;
+        --usrad-gold: #cc9933;
+        --provider-bg: #f8fafc;
+      }
+
+      /* Unicorn theme animations */
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      @keyframes float-delayed {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .animate-float-delayed {
+        animation: float-delayed 6s ease-in-out infinite;
+        animation-delay: 3s;
+      }
+
+      /* Focus states */
+      button:focus,
+      input:focus,
+      select:focus,
+      textarea:focus,
+      a:focus {
+        outline: 2px solid var(--usrad-blue);
+        outline-offset: 2px;
+      }
+
+      /* Mobile optimizations */
+      @media (max-width: 768px) {
+        input,
+        select,
+        textarea {
+          font-size: 16px; /* Prevents zoom on iOS */
+        }
+      }
+    </style>
+  </head>
+
+  <body class="h-full bg-gray-50 font-sans antialiased">
+    <!-- Provider-Specific Header -->
+    <header class="bg-white border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="flex justify-between items-center h-16">
+          <!-- Logo & Provider Branding -->
+          <div class="flex items-center space-x-4">
+            <a href="/providers/portal" class="flex items-center space-x-3">
+              <img
+                src="/images/usrad-logo.svg"
+                alt="USRad"
+                class="h-8 w-auto"
+              />
+              <div class="border-l border-gray-300 pl-3">
+                <span class="text-lg font-semibold text-gray-900"
+                  >Provider Portal</span
+                >
+              </div>
+            </a>
+          </div>
+
+          <!-- Navigation Actions -->
+          <div class="flex items-center space-x-4">
+            {
+              showBackToMain && (
+                <a
+                  href="/providers"
+                  class="text-sm text-gray-600 hover:text-gray-800 transition-colors"
+                >
+                  ← Back to Provider Info
+                </a>
+              )
+            }
+
+            <!-- User Menu Placeholder -->
+            <div class="flex items-center space-x-3">
+              <button
+                onclick="document.getElementById('user-menu').classList.toggle('hidden')"
+                class="flex items-center space-x-2 text-sm text-gray-700 hover:text-gray-900 transition-colors relative"
+              >
+                <div
+                  class="w-8 h-8 bg-[#003087] rounded-full flex items-center justify-center text-white text-xs font-medium"
+                >
+                  P
+                </div>
+                <span class="hidden sm:block">Provider Menu</span>
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+
+              <!-- Dropdown Menu -->
+              <div
+                id="user-menu"
+                class="hidden absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50"
+              >
+                <div class="py-2">
+                  <a
+                    href="/providers/portal"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    Portal Home
+                  </a>
+                  <a
+                    href="/providers/settings"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    Account Settings
+                  </a>
+                  <a
+                    href="/providers/security"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    Security
+                  </a>
+                  <div class="border-t border-gray-100 my-1"></div>
+                  <a
+                    href="/providers/support"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    Get Help
+                  </a>
+                  <button
+                    onclick="handleSignOut()"
+                    class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Provider-Specific Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        <div class="grid md:grid-cols-4 gap-8">
+          <!-- Company Info -->
+          <div class="md:col-span-2">
+            <div class="flex items-center space-x-3 mb-4">
+              <img
+                src="/images/usrad-logo.svg"
+                alt="USRad"
+                class="h-6 w-auto"
+              />
+              <span class="text-lg font-semibold text-gray-900"
+                >Provider Network</span
+              >
+            </div>
+            <p class="text-gray-600 text-sm leading-relaxed max-w-md">
+              Transforming healthcare access through innovative imaging
+              networks. Trusted by 200+ centers nationwide.
+            </p>
+          </div>
+
+          <!-- Provider Resources -->
+          <div>
+            <h4 class="font-semibold text-gray-900 mb-3">Provider Resources</h4>
+            <ul class="space-y-2 text-sm">
+              <li>
+                <a
+                  href="/providers/portal"
+                  class="text-gray-600 hover:text-gray-900 transition-colors"
+                  >Portal Home</a>
+              </li>
+              <li>
+                <a
+                  href="/providers/onboard"
+                  class="text-gray-600 hover:text-gray-900 transition-colors"
+                  >Complete Onboarding</a>
+              </li>
+              <li>
+                <a
+                  href="/providers/support"
+                  class="text-gray-600 hover:text-gray-900 transition-colors"
+                  >Support Center</a>
+              </li>
+              <li>
+                <a
+                  href="/providers/resources"
+                  class="text-gray-600 hover:text-gray-900 transition-colors"
+                  >Training Materials</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Support -->
+          <div>
+            <h4 class="font-semibold text-gray-900 mb-3">Need Help?</h4>
+            <ul class="space-y-2 text-sm">
+              <li>
+                <a
+                  href="tel:+1-800-USR-ADIO"
+                  class="text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  📞 (800) USR-ADIO
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:providers@usrad.com"
+                  class="text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  ✉️ providers@usrad.com
+                </a>
+              </li>
+              <li class="text-gray-500 text-xs">Mon-Fri 8AM-6PM EST</li>
+              <li class="text-gray-500 text-xs">Average response: 30 min</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div
+          class="border-t border-gray-200 mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0"
+        >
+          <div class="flex items-center space-x-6 text-xs text-gray-500">
+            <span>© 2025 USRad. All rights reserved.</span>
+            <span class="flex items-center space-x-1">
+              <span>🔒</span>
+              <span>HIPAA Compliant</span>
+            </span>
+            <span class="flex items-center space-x-1">
+              <span>🛡️</span>
+              <span>SOC 2 Certified</span>
+            </span>
+          </div>
+
+          <!-- Back to Main Site -->
+          <div class="text-xs">
+            <a
+              href="/providers"
+              class="text-[#003087] hover:text-[#002266] font-medium transition-colors"
+            >
+              ← Back to Provider Information
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Handle sign out
+      async function handleSignOut() {
+        try {
+          const { createClient } = await import("@supabase/supabase-js");
+          const supabase = createClient(
+            import.meta.env.PUBLIC_SUPABASE_URL,
+            import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+          );
+
+          await supabase.auth.signOut();
+          window.location.href = "/providers";
+        } catch (error) {
+          console.error("Error signing out:", error);
+          // Fallback - clear any local storage and redirect
+          localStorage.clear();
+          window.location.href = "/providers";
+        }
+      }
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", function (e) {
+        const userMenu = document.getElementById("user-menu");
+        const menuButton = e.target.closest("button");
+
+        if (
+          !menuButton ||
+          !menuButton.onclick?.toString().includes("user-menu")
+        ) {
+          userMenu?.classList.add("hidden");
+        }
+      });
+
+      // Close dropdown on escape key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          document.getElementById("user-menu")?.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

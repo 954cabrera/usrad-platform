@@ -1,0 +1,648 @@
+---
+// Email verification page for providers
+// File: /src/pages/providers/verify-email.astro
+export const prerender = false;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify Your Email | USRad Provider Network</title>
+
+    <!-- Supabase Configuration -->
+    <meta name="supabase-url" content={import.meta.env.PUBLIC_SUPABASE_URL} />
+    <meta
+      name="supabase-anon-key"
+      content={import.meta.env.PUBLIC_SUPABASE_ANON_KEY}
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        min-height: 100dvh; /* Dynamic viewport height */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .verification-container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        max-width: 480px;
+        width: 100%;
+        padding: 3rem;
+        text-align: center;
+      }
+
+      .logo {
+        width: 150px;
+        margin: 0 auto 2rem;
+      }
+
+      .email-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2rem;
+        font-size: 2.5rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 1rem;
+      }
+
+      .subtitle {
+        color: #64748b;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+      }
+
+      .email-display {
+        background: #f1f5f9;
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 2rem;
+        font-weight: 600;
+        color: #334155;
+        word-break: break-all;
+      }
+
+      .code-inputs {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: center;
+        margin-bottom: 2rem;
+      }
+
+      .code-input {
+        width: 60px;
+        height: 60px;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-align: center;
+        transition: all 0.2s;
+        background: white;
+      }
+
+      .code-input:focus {
+        outline: none;
+        border-color: #003087;
+        box-shadow: 0 0 0 3px rgba(0, 48, 135, 0.1);
+      }
+
+      .code-input.filled {
+        background: #f0f9ff;
+        border-color: #003087;
+      }
+
+      .verify-button {
+        width: 100%;
+        padding: 1rem;
+        background: #003087;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-bottom: 1.5rem;
+      }
+
+      .verify-button:hover:not(:disabled) {
+        background: #002266;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 48, 135, 0.3);
+      }
+
+      .verify-button:disabled {
+        background: #94a3b8;
+        cursor: not-allowed;
+      }
+
+      .resend-section {
+        padding-top: 1.5rem;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .resend-text {
+        color: #64748b;
+        font-size: 0.9rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .resend-button {
+        color: #003087;
+        background: none;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: opacity 0.2s;
+      }
+
+      .resend-button:hover:not(:disabled) {
+        opacity: 0.8;
+      }
+
+      .resend-button:disabled {
+        color: #94a3b8;
+        cursor: not-allowed;
+      }
+
+      .timer {
+        color: #64748b;
+        font-size: 0.9rem;
+      }
+
+      .message {
+        padding: 0.875rem 1rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        font-size: 0.875rem;
+      }
+
+      .message.error {
+        background: #fef2f2;
+        color: #dc2626;
+        border: 1px solid #fecaca;
+      }
+
+      .message.success {
+        background: #f0fdf4;
+        color: #16a34a;
+        border: 1px solid #bbf7d0;
+      }
+
+      .message.hidden {
+        display: none;
+      }
+
+      .loading-spinner {
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 0.8s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #64748b;
+        text-decoration: none;
+        font-size: 0.9rem;
+        margin-top: 1rem;
+        transition: color 0.2s;
+      }
+
+      .back-link:hover {
+        color: #003087;
+      }
+
+      @media (max-width: 480px) {
+        body {
+          min-height: 100dvh; /* Dynamic viewport height */
+        }
+
+        .verification-container {
+          padding: 2rem 1.5rem;
+        }
+
+        .code-inputs {
+          gap: 0.5rem;
+        }
+
+        .code-input {
+          width: 45px;
+          height: 45px;
+          font-size: 1.25rem;
+          font-size: 16px; /* Prevents iOS zoom while keeping appearance */
+          -webkit-text-size-adjust: 100%; /* Prevent iOS text size adjustment */
+        }
+
+        input[type="text"] {
+          font-size: 16px; /* Critical for iOS */
+        }
+
+        .verify-button {
+          padding: 1.125rem; /* Larger touch target */
+          font-size: 1.125rem;
+        }
+
+        .resend-button {
+          padding: 0.75rem 1.5rem; /* Better touch target */
+          display: inline-block;
+        }
+
+        .back-link {
+          padding: 0.75rem; /* Better touch target */
+          display: inline-block;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="verification-container">
+      <img src="/logo/USRad-Logo-final.png" alt="USRad" class="logo" />
+
+      <div class="email-icon">📧</div>
+
+      <h1>Check Your Email</h1>
+
+      <p class="subtitle">We've sent a 6-digit verification code to:</p>
+
+      <div class="email-display" id="user-email">
+        <!-- Email will be populated here -->
+      </div>
+
+      <p class="subtitle">
+        Enter the code below to verify your account and access your provider
+        portal.
+      </p>
+
+      <!-- Messages -->
+      <div id="error-message" class="message error hidden"></div>
+      <div id="success-message" class="message success hidden"></div>
+
+      <!-- Verification Code Input -->
+      <form id="verify-form">
+        <div class="code-inputs">
+          <input
+            type="text"
+            class="code-input"
+            maxlength="1"
+            pattern="[0-9]"
+            inputmode="numeric"
+          />
+          <input
+            type="text"
+            class="code-input"
+            maxlength="1"
+            pattern="[0-9]"
+            inputmode="numeric"
+          />
+          <input
+            type="text"
+            class="code-input"
+            maxlength="1"
+            pattern="[0-9]"
+            inputmode="numeric"
+          />
+          <input
+            type="text"
+            class="code-input"
+            maxlength="1"
+            pattern="[0-9]"
+            inputmode="numeric"
+          />
+          <input
+            type="text"
+            class="code-input"
+            maxlength="1"
+            pattern="[0-9]"
+            inputmode="numeric"
+          />
+          <input
+            type="text"
+            class="code-input"
+            maxlength="1"
+            pattern="[0-9]"
+            inputmode="numeric"
+          />
+        </div>
+
+        <button type="submit" class="verify-button" id="verify-button">
+          <span id="button-text">Verify Email</span>
+          <span id="button-loading" style="display: none;">
+            <span class="loading-spinner"></span> Verifying...
+          </span>
+        </button>
+      </form>
+
+      <div class="resend-section">
+        <p class="resend-text">Didn't receive the code?</p>
+        <button class="resend-button" id="resend-button" onclick="resendCode()">
+          Send new code
+        </button>
+        <div class="timer hidden" id="resend-timer">
+          Wait <span id="timer-seconds">60</span> seconds
+        </div>
+      </div>
+
+      <a href="/providers/join" class="back-link">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M19 12H5M12 19l-7-7 7-7"></path>
+        </svg>
+        Back to signup
+      </a>
+    </div>
+
+    <script>
+      // Get Supabase configuration
+      const supabaseUrl = document.querySelector(
+        'meta[name="supabase-url"]'
+      )?.content;
+      const supabaseAnonKey = document.querySelector(
+        'meta[name="supabase-anon-key"]'
+      )?.content;
+
+      // Get email from URL params or session storage
+      const urlParams = new URLSearchParams(window.location.search);
+      const userEmail =
+        urlParams.get("email") || sessionStorage.getItem("signup_email") || "";
+
+      // Display the email
+      document.getElementById("user-email").textContent = userEmail;
+
+      // Code input handling
+      const codeInputs = document.querySelectorAll(".code-input");
+
+      codeInputs.forEach((input, index) => {
+        // Auto-focus first input
+        if (index === 0) {
+          input.focus();
+        }
+
+        // Handle input
+        input.addEventListener("input", (e) => {
+          const value = e.target.value;
+
+          // Only allow numbers
+          if (!/^\d*$/.test(value)) {
+            e.target.value = "";
+            return;
+          }
+
+          // Mark as filled
+          if (value) {
+            e.target.classList.add("filled");
+
+            // Auto-advance to next input
+            if (index < codeInputs.length - 1) {
+              codeInputs[index + 1].focus();
+            }
+          } else {
+            e.target.classList.remove("filled");
+          }
+
+          // Check if all fields are filled
+          checkIfComplete();
+        });
+
+        // Handle backspace
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Backspace" && !e.target.value && index > 0) {
+            codeInputs[index - 1].focus();
+          }
+        });
+
+        // Handle paste
+        input.addEventListener("paste", (e) => {
+          e.preventDefault();
+          const pastedData = e.clipboardData.getData("text").replace(/\D/g, "");
+
+          // Fill inputs with pasted data
+          for (
+            let i = 0;
+            i < Math.min(pastedData.length, codeInputs.length);
+            i++
+          ) {
+            codeInputs[i].value = pastedData[i];
+            codeInputs[i].classList.add("filled");
+          }
+
+          // Focus on next empty input or last input
+          const nextEmpty = Array.from(codeInputs).findIndex(
+            (input) => !input.value
+          );
+          if (nextEmpty !== -1) {
+            codeInputs[nextEmpty].focus();
+          } else {
+            codeInputs[codeInputs.length - 1].focus();
+          }
+
+          checkIfComplete();
+        });
+      });
+
+      // Check if all inputs are filled
+      function checkIfComplete() {
+        const allFilled = Array.from(codeInputs).every((input) => input.value);
+        document.getElementById("verify-button").disabled = !allFilled;
+      }
+
+      // Show/hide messages
+      function showError(message) {
+        const errorDiv = document.getElementById("error-message");
+        const successDiv = document.getElementById("success-message");
+        errorDiv.textContent = message;
+        errorDiv.classList.remove("hidden");
+        successDiv.classList.add("hidden");
+      }
+
+      function showSuccess(message) {
+        const errorDiv = document.getElementById("error-message");
+        const successDiv = document.getElementById("success-message");
+        successDiv.textContent = message;
+        successDiv.classList.remove("hidden");
+        errorDiv.classList.add("hidden");
+      }
+
+      function hideMessages() {
+        document.getElementById("error-message").classList.add("hidden");
+        document.getElementById("success-message").classList.add("hidden");
+      }
+
+      // Resend code with timer
+      let resendTimer = null;
+      let resendSeconds = 0;
+
+      function startResendTimer() {
+        resendSeconds = 60;
+        const button = document.getElementById("resend-button");
+        const timer = document.getElementById("resend-timer");
+        const seconds = document.getElementById("timer-seconds");
+
+        button.disabled = true;
+        timer.classList.remove("hidden");
+
+        resendTimer = setInterval(() => {
+          resendSeconds--;
+          seconds.textContent = resendSeconds;
+
+          if (resendSeconds <= 0) {
+            clearInterval(resendTimer);
+            button.disabled = false;
+            timer.classList.add("hidden");
+          }
+        }, 1000);
+      }
+
+      // Resend verification code
+      window.resendCode = async function () {
+        hideMessages();
+
+        try {
+          // Start timer
+          startResendTimer();
+
+          // In production, this would call Supabase to resend the OTP
+          const { createClient } = await import(
+            "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+          );
+          const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+          // Resend OTP
+          const { error } = await supabase.auth.resend({
+            type: "signup",
+            email: userEmail,
+          });
+
+          if (error) throw error;
+
+          showSuccess("New verification code sent! Check your email.");
+
+          // Clear inputs
+          codeInputs.forEach((input) => {
+            input.value = "";
+            input.classList.remove("filled");
+          });
+          codeInputs[0].focus();
+        } catch (error) {
+          console.error("Resend error:", error);
+          showError("Failed to resend code. Please try again.");
+        }
+      };
+
+      // Handle form submission
+      document
+        .getElementById("verify-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          hideMessages();
+
+          // Get the code
+          const code = Array.from(codeInputs)
+            .map((input) => input.value)
+            .join("");
+
+          if (code.length !== 6) {
+            showError("Please enter all 6 digits");
+            return;
+          }
+
+          // Show loading state
+          const button = document.getElementById("verify-button");
+          const buttonText = document.getElementById("button-text");
+          const buttonLoading = document.getElementById("button-loading");
+
+          button.disabled = true;
+          buttonText.style.display = "none";
+          buttonLoading.style.display = "inline-flex";
+
+          try {
+            const { createClient } = await import(
+              "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+            );
+            const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+            // Verify OTP
+            const { data, error } = await supabase.auth.verifyOtp({
+              email: userEmail,
+              token: code,
+              type: "email",
+            });
+
+            if (error) throw error;
+
+            if (data.user) {
+              showSuccess("Email verified! Redirecting...");
+
+              // Clear session storage
+              sessionStorage.removeItem("signup_email");
+
+              // Redirect to success page
+              setTimeout(() => {
+                window.location.href = "/providers/verified";
+              }, 1500);
+            }
+          } catch (error) {
+            console.error("Verification error:", error);
+
+            if (error.message.includes("expired")) {
+              showError("This code has expired. Please request a new one.");
+            } else if (error.message.includes("Invalid")) {
+              showError(
+                "Invalid verification code. Please check and try again."
+              );
+            } else {
+              showError("Verification failed. Please try again.");
+            }
+
+            // Clear inputs on error
+            codeInputs.forEach((input) => {
+              input.value = "";
+              input.classList.remove("filled");
+            });
+            codeInputs[0].focus();
+          } finally {
+            button.disabled = false;
+            buttonText.style.display = "inline";
+            buttonLoading.style.display = "none";
+          }
+        });
+    </script>
+  </body>
+</html>
