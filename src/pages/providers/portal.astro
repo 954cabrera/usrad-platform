@@ -1,229 +1,805 @@
 ---
-// src/pages/providers/portal.astro
 import ProviderLayout from "../../layouts/ProviderLayout.astro";
-import ProviderPortalDashboard from "../../components/providers/ProviderPortalDashboard.jsx";
-import AOSInit from "../../components/AOSInit.astro";
-
-export const prerender = true;
 ---
 
-<ProviderLayout title="Provider Portal | USRad Network" showBackToMain={true}>
-  <AOSInit />
-
-  <!-- Portal Hero Section - Unicorn Style -->
-  <section
-    class="relative pt-32 pb-20 px-4 sm:px-6 min-h-[500px] flex items-center overflow-hidden"
-  >
-    <!-- Subtle gradient background matching your theme -->
-    <div class="absolute inset-0 z-0">
-      <div
-        class="absolute inset-0 bg-gradient-to-br from-[#003087]/5 via-white to-[#cc9933]/5"
-      >
-      </div>
+<ProviderLayout title="Provider Portal - Complete Your Setup">
+  <div class="portal-container">
+    <!-- Welcome Header -->
+    <div class="welcome-section">
+      <h1 class="welcome-title">Welcome to Your Provider Portal!</h1>
+      <p class="welcome-subtitle">
+        Let's set up your organization profile to get you started in the USRad
+        network
+      </p>
     </div>
 
-    <!-- Floating Elements - Minimal like your other pages -->
-    <div
-      class="absolute top-20 right-10 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-float"
-    >
-    </div>
-    <div
-      class="absolute bottom-20 left-10 w-80 h-80 bg-[#cc9933]/5 rounded-full blur-3xl animate-float-delayed"
-    >
-    </div>
-
-    <!-- Content -->
-    <div class="relative z-10 max-w-7xl mx-auto w-full">
-      <div class="max-w-4xl">
-        <!-- Welcome Message -->
-        <div
-          class="inline-flex items-center gap-2 bg-green-50 border border-green-200 rounded-full px-4 py-2 mb-8"
-          data-aos="fade-down"
-        >
-          <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-          <span class="text-green-700 text-sm font-medium"
-            >Welcome to your provider portal</span
-          >
+    <!-- Progress Overview -->
+    <div class="setup-progress">
+      <h2 class="progress-title">Setup Progress</h2>
+      <div class="progress-items">
+        <div class="progress-item active">
+          <div class="progress-icon">👤</div>
+          <div class="progress-content">
+            <h3>Organization Profile</h3>
+            <p>Tell us about your organization</p>
+          </div>
+          <div class="progress-status">Current Step</div>
         </div>
-
-        <h1
-          class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 text-gray-900 leading-tight"
-          data-aos="fade-up"
-        >
-          Your Gateway to the<br />
-          <span class="text-[#003087]">USRad Network</span>
-        </h1>
-
-        <p
-          class="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-3xl mb-12"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          Manage your partnership with the network that's transformed healthcare
-          for 200+ imaging centers. Complete onboarding, track progress, and
-          access everything you need to succeed.
-        </p>
+        <div class="progress-item">
+          <div class="progress-icon">🏥</div>
+          <div class="progress-content">
+            <h3>Add Centers</h3>
+            <p>Register your imaging centers</p>
+          </div>
+          <div class="progress-status">Next Step</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-icon">💰</div>
+          <div class="progress-content">
+            <h3>Set Pricing</h3>
+            <p>Choose your pricing strategy</p>
+          </div>
+          <div class="progress-status">Coming Up</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-icon">✍️</div>
+          <div class="progress-content">
+            <h3>Sign Agreement</h3>
+            <p>Review and sign PSA</p>
+          </div>
+          <div class="progress-status">Final Step</div>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- Main Portal Dashboard -->
-  <section
-    class="py-12 px-4 sm:px-6 bg-gradient-to-br from-gray-50/50 to-white"
-  >
-    <div class="max-w-7xl mx-auto">
-      <ProviderPortalDashboard client:load />
-    </div>
-  </section>
-
-  <!-- Trust Section - Matching your other pages -->
-  <section class="py-24 px-4 sm:px-6 bg-white">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16" data-aos="fade-up">
-        <h2
-          class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
-        >
-          Trusted by 200+ Centers
-        </h2>
-        <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
-          Join the network that's delivered $246 Million in savings and
-          revolutionized imaging access for patients nationwide.
+    <!-- Organization Setup Form -->
+    <div class="organization-form-section">
+      <div class="form-header">
+        <h2 class="form-title">Organization Information</h2>
+        <p class="form-description">
+          This information will be used for your Provider Service Agreement and
+          payment processing
         </p>
       </div>
 
-      <!-- Stats Grid - Clean like your other pages -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div data-aos="fade-up">
-          <div class="text-4xl md:text-5xl font-bold text-[#003087] mb-2">
-            200+
+      <form id="organization-form" class="organization-form">
+        <!-- Your Role Section -->
+        <div class="form-section">
+          <h3 class="section-title">Your Role</h3>
+          <div class="role-options">
+            <label class="role-option">
+              <input type="radio" name="role" value="single-admin" required />
+              <div class="role-card">
+                <div class="role-icon">👤</div>
+                <div class="role-details">
+                  <h4>Center Administrator</h4>
+                  <p>I manage a single imaging center</p>
+                </div>
+              </div>
+            </label>
+            <label class="role-option">
+              <input type="radio" name="role" value="multi-admin" required />
+              <div class="role-card">
+                <div class="role-icon">🏢</div>
+                <div class="role-details">
+                  <h4>Multi-Center Administrator</h4>
+                  <p>I manage 2-10 imaging centers</p>
+                </div>
+              </div>
+            </label>
+            <label class="role-option">
+              <input type="radio" name="role" value="executive" required />
+              <div class="role-card">
+                <div class="role-icon">💼</div>
+                <div class="role-details">
+                  <h4>Executive/Corporate</h4>
+                  <p>I represent 10+ centers or a corporate entity</p>
+                </div>
+              </div>
+            </label>
           </div>
-          <p class="text-gray-600">Partner Centers</p>
         </div>
-        <div data-aos="fade-up" data-aos-delay="100">
-          <div class="text-4xl md:text-5xl font-bold text-[#cc9933] mb-2">
-            168K+
+
+        <!-- Organization Details -->
+        <div class="form-section">
+          <h3 class="section-title">Organization Details</h3>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label class="form-label">
+                Legal Entity Name <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="legalName"
+                class="form-input"
+                placeholder="Advanced Imaging Centers, LLC"
+                required
+              />
+              <p class="form-hint">As registered with the state/IRS</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label"> DBA (Doing Business As) </label>
+              <input
+                type="text"
+                name="dba"
+                class="form-input"
+                placeholder="Advanced Imaging"
+              />
+              <p class="form-hint">If different from legal name</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Tax ID (EIN) <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="taxId"
+                class="form-input"
+                placeholder="12-3456789"
+                pattern="[0-9]{2}-[0-9]{7}"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Business Type <span class="required">*</span>
+              </label>
+              <select name="businessType" class="form-input" required>
+                <option value="">Select Type</option>
+                <option value="llc">LLC</option>
+                <option value="corporation">Corporation</option>
+                <option value="partnership">Partnership</option>
+                <option value="sole-proprietor">Sole Proprietorship</option>
+                <option value="non-profit">Non-Profit</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label"> Year Established </label>
+              <input
+                type="number"
+                name="yearEstablished"
+                class="form-input"
+                placeholder="2005"
+                min="1900"
+                max="2024"
+              />
+            </div>
           </div>
-          <p class="text-gray-600">Scans Completed</p>
         </div>
-        <div data-aos="fade-up" data-aos-delay="200">
-          <div class="text-4xl md:text-5xl font-bold text-green-600 mb-2">
-            4.9★
+
+        <!-- Corporate Address -->
+        <div class="form-section">
+          <h3 class="section-title">Corporate Address</h3>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label class="form-label">
+                Street Address <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="corpAddress"
+                class="form-input"
+                placeholder="123 Corporate Blvd, Suite 100"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                City <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="corpCity"
+                class="form-input"
+                placeholder="Miami"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                State <span class="required">*</span>
+              </label>
+              <select name="corpState" class="form-input" required>
+                <option value="">Select State</option>
+                <optgroup label="Common States">
+                  <option value="FL">Florida</option>
+                  <option value="GA">Georgia</option>
+                  <option value="TX">Texas</option>
+                  <option value="CA">California</option>
+                  <option value="NY">New York</option>
+                </optgroup>
+                <optgroup label="All States">
+                  <option value="AL">Alabama</option>
+                  <option value="AK">Alaska</option>
+                  <option value="AZ">Arizona</option>
+                  <option value="AR">Arkansas</option>
+                  <option value="CO">Colorado</option>
+                  <option value="CT">Connecticut</option>
+                  <option value="DE">Delaware</option>
+                  <option value="DC">District of Columbia</option>
+                  <option value="HI">Hawaii</option>
+                  <option value="ID">Idaho</option>
+                  <option value="IL">Illinois</option>
+                  <option value="IN">Indiana</option>
+                  <option value="IA">Iowa</option>
+                  <option value="KS">Kansas</option>
+                  <option value="KY">Kentucky</option>
+                  <option value="LA">Louisiana</option>
+                  <option value="ME">Maine</option>
+                  <option value="MD">Maryland</option>
+                  <option value="MA">Massachusetts</option>
+                  <option value="MI">Michigan</option>
+                  <option value="MN">Minnesota</option>
+                  <option value="MS">Mississippi</option>
+                  <option value="MO">Missouri</option>
+                  <option value="MT">Montana</option>
+                  <option value="NE">Nebraska</option>
+                  <option value="NV">Nevada</option>
+                  <option value="NH">New Hampshire</option>
+                  <option value="NJ">New Jersey</option>
+                  <option value="NM">New Mexico</option>
+                  <option value="NC">North Carolina</option>
+                  <option value="ND">North Dakota</option>
+                  <option value="OH">Ohio</option>
+                  <option value="OK">Oklahoma</option>
+                  <option value="OR">Oregon</option>
+                  <option value="PA">Pennsylvania</option>
+                  <option value="RI">Rhode Island</option>
+                  <option value="SC">South Carolina</option>
+                  <option value="SD">South Dakota</option>
+                  <option value="TN">Tennessee</option>
+                  <option value="UT">Utah</option>
+                  <option value="VT">Vermont</option>
+                  <option value="VA">Virginia</option>
+                  <option value="WA">Washington</option>
+                  <option value="WV">West Virginia</option>
+                  <option value="WI">Wisconsin</option>
+                  <option value="WY">Wyoming</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                ZIP Code <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="corpZip"
+                class="form-input"
+                placeholder="33101"
+                pattern="[0-9]{5}"
+                maxlength="5"
+                required
+              />
+            </div>
           </div>
-          <p class="text-gray-600">Patient Rating</p>
         </div>
-        <div data-aos="fade-up" data-aos-delay="300">
-          <div class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
-            48hr
+
+        <!-- Authorized Signer -->
+        <div class="form-section">
+          <h3 class="section-title">Authorized Signer Information</h3>
+          <p class="section-description">
+            This person will sign the Provider Service Agreement on behalf of
+            the organization
+          </p>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">
+                First Name <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="signerFirstName"
+                class="form-input"
+                placeholder="John"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Last Name <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="signerLastName"
+                class="form-input"
+                placeholder="Smith"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Title <span class="required">*</span>
+              </label>
+              <input
+                type="text"
+                name="signerTitle"
+                class="form-input"
+                placeholder="CEO"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Email <span class="required">*</span>
+              </label>
+              <input
+                type="email"
+                name="signerEmail"
+                class="form-input"
+                placeholder="john.smith@company.com"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                title="Please enter a valid email address"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Direct Phone <span class="required">*</span>
+              </label>
+              <input
+                type="tel"
+                name="signerPhone"
+                class="form-input"
+                placeholder="(305) 555-0100"
+                required
+              />
+            </div>
           </div>
-          <p class="text-gray-600">Average Booking</p>
         </div>
-      </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">
+            Save & Continue to Add Centers
+          </button>
+        </div>
+      </form>
     </div>
-  </section>
-
-  <!-- Support Section - Minimal like your theme -->
-  <section
-    class="py-20 px-4 sm:px-6 bg-gradient-to-br from-gray-50/30 to-white"
-  >
-    <div class="max-w-4xl mx-auto text-center">
-      <h2
-        class="text-3xl md:text-4xl font-bold text-gray-900 mb-6"
-        data-aos="fade-up"
-      >
-        Need Assistance?
-      </h2>
-      <p
-        class="text-lg text-gray-600 mb-10"
-        data-aos="fade-up"
-        data-aos-delay="100"
-      >
-        Our provider relations team is here to help you succeed in the USRad
-        network.
-      </p>
-
-      <div
-        class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto"
-        data-aos="fade-up"
-        data-aos-delay="200"
-      >
-        <a
-          href="tel:+1-800-USR-ADIO"
-          class="flex items-center justify-center gap-3 bg-[#003087] text-white px-6 py-4 rounded-xl font-semibold hover:bg-[#002266] transition-all transform hover:scale-105"
-        >
-          <span>📞</span>
-          <span>(800) USR-ADIO</span>
-        </a>
-        <a
-          href="mailto:providers@usrad.com"
-          class="flex items-center justify-center gap-3 bg-white border-2 border-gray-200 text-gray-700 px-6 py-4 rounded-xl font-semibold hover:border-gray-300 transition-all transform hover:scale-105"
-        >
-          <span>✉️</span>
-          <span>Email Support</span>
-        </a>
-      </div>
-
-      <p
-        class="text-sm text-gray-500 mt-6"
-        data-aos="fade-up"
-        data-aos-delay="300"
-      >
-        Average response time: Under 30 minutes during business hours
-      </p>
-    </div>
-  </section>
+  </div>
 
   <style>
-    /* Float animations matching your other pages */
-    @keyframes float {
-      0%,
-      100% {
-        transform: translateY(0px);
+    /* Container */
+    .portal-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Welcome Section */
+    .welcome-section {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .welcome-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 1rem;
+    }
+
+    .welcome-subtitle {
+      font-size: 1.25rem;
+      color: #6b7280;
+    }
+
+    /* Progress Overview */
+    .setup-progress {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+      margin-bottom: 3rem;
+    }
+
+    .progress-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-items {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .progress-item {
+      text-align: center;
+      padding: 1.5rem;
+      border-radius: 12px;
+      background: #f9fafb;
+      border: 2px solid #e5e7eb;
+      transition: all 0.3s ease;
+    }
+
+    .progress-item.active {
+      background: #eff6ff;
+      border-color: #3b82f6;
+    }
+
+    .progress-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .progress-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.25rem;
+    }
+
+    .progress-content p {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+
+    .progress-status {
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #9ca3af;
+    }
+
+    .progress-item.active .progress-status {
+      color: #3b82f6;
+    }
+
+    /* Form Section */
+    .organization-form-section {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    }
+
+    .form-header {
+      margin-bottom: 2rem;
+    }
+
+    .form-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-description {
+      color: #6b7280;
+    }
+
+    .form-section {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .form-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 1rem;
+    }
+
+    .section-description {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+
+    /* Role Options */
+    .role-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .role-option {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .role-option input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .role-card {
+      background: #f9fafb;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .role-option input:checked + .role-card {
+      background: #eff6ff;
+      border-color: #3b82f6;
+    }
+
+    .role-option:hover .role-card {
+      border-color: #d1d5db;
+    }
+
+    .role-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .role-details h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.25rem;
+    }
+
+    .role-details p {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    /* Form Grid */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .required {
+      color: #ef4444;
+    }
+
+    .form-input {
+      padding: 0.75rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+
+    .form-input.error {
+      border-color: #ef4444;
+      background-color: #fef2f2;
+    }
+
+    .error-message {
+      display: block;
+      color: #ef4444;
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+    }
+
+    .form-hint {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 0.25rem;
+    }
+
+    /* Form Actions */
+    .form-actions {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-primary {
+      background: #3b82f6;
+      color: white;
+      padding: 0.875rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #2563eb;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .progress-items {
+        grid-template-columns: repeat(2, 1fr);
       }
-      50% {
-        transform: translateY(-20px);
+
+      .role-options {
+        grid-template-columns: 1fr;
       }
     }
 
-    @keyframes float-delayed {
-      0%,
-      100% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-15px);
-      }
-    }
-
-    .animate-float {
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .animate-float-delayed {
-      animation: float-delayed 6s ease-in-out infinite;
-      animation-delay: 3s;
-    }
-
-    /* Mobile responsive adjustments */
     @media (max-width: 768px) {
-      .text-4xl {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .progress-items {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .welcome-title {
         font-size: 2rem;
       }
-      .text-5xl {
-        font-size: 2.5rem;
+
+      .portal-container {
+        padding: 1rem;
       }
-      .text-6xl {
-        font-size: 3rem;
+
+      .organization-form-section {
+        padding: 1.5rem;
       }
-      .text-7xl {
-        font-size: 3.5rem;
+    }
+  </style>
+
+  <script>
+    // Email validation
+    document.addEventListener("DOMContentLoaded", function () {
+      const emailInput = document.querySelector('input[name="signerEmail"]');
+      emailInput.addEventListener("blur", validateEmail);
+      emailInput.addEventListener("input", clearEmailError);
+    });
+
+    // Email validation function
+    function validateEmail(e) {
+      const email = e.target.value;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (email && !emailRegex.test(email)) {
+        e.target.classList.add("error");
+        // Check if error message already exists
+        if (!e.target.parentElement.querySelector(".error-message")) {
+          const errorMsg = document.createElement("span");
+          errorMsg.className = "error-message";
+          errorMsg.textContent = "Please enter a valid email address";
+          e.target.parentElement.appendChild(errorMsg);
+        }
+      } else {
+        clearEmailError(e);
       }
     }
 
-    /* Focus states for accessibility */
-    button:focus,
-    a:focus {
-      outline: 2px solid #003087;
-      outline-offset: 2px;
+    // Clear email error
+    function clearEmailError(e) {
+      e.target.classList.remove("error");
+      const errorMsg = e.target.parentElement.querySelector(".error-message");
+      if (errorMsg) {
+        errorMsg.remove();
+      }
     }
-  </style>
+
+    // Form submission
+    document
+      .getElementById("organization-form")
+      .addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Validate email before submission
+        const emailInput = document.querySelector('input[name="signerEmail"]');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(emailInput.value)) {
+          emailInput.focus();
+          validateEmail({ target: emailInput });
+          return;
+        }
+
+        const formData = new FormData(e.target);
+
+        // Create organization object
+        const organization = {
+          role: formData.get("role"),
+          legalName: formData.get("legalName"),
+          dba: formData.get("dba"),
+          taxId: formData.get("taxId"),
+          businessType: formData.get("businessType"),
+          yearEstablished: formData.get("yearEstablished"),
+          address: {
+            street: formData.get("corpAddress"),
+            city: formData.get("corpCity"),
+            state: formData.get("corpState"),
+            zip: formData.get("corpZip"),
+          },
+          signer: {
+            firstName: formData.get("signerFirstName"),
+            lastName: formData.get("signerLastName"),
+            fullName: `${formData.get("signerFirstName")} ${formData.get("signerLastName")}`,
+            title: formData.get("signerTitle"),
+            email: formData.get("signerEmail"),
+            phone: formData.get("signerPhone"),
+          },
+        };
+
+        // Save to localStorage
+        localStorage.setItem(
+          "provider_organization",
+          JSON.stringify(organization)
+        );
+
+        // Also update the provider signup data with organization name
+        const signupData = JSON.parse(
+          localStorage.getItem("provider_signup_data") || "{}"
+        );
+        signupData.organizationName = organization.legalName;
+        signupData.fullName = organization.signer.fullName;
+        localStorage.setItem(
+          "provider_signup_data",
+          JSON.stringify(signupData)
+        );
+
+        // Navigate to facilities
+        window.location.href = "/providers/onboarding/facilities";
+      });
+
+    // Phone number formatting
+    document
+      .querySelector('input[name="signerPhone"]')
+      .addEventListener("input", function (e) {
+        let value = e.target.value.replace(/\D/g, "");
+        if (value.length > 0) {
+          if (value.length <= 3) {
+            value = `(${value}`;
+          } else if (value.length <= 6) {
+            value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+          } else {
+            value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+          }
+        }
+        e.target.value = value;
+      });
+
+    // Tax ID formatting
+    document
+      .querySelector('input[name="taxId"]')
+      .addEventListener("input", function (e) {
+        let value = e.target.value.replace(/\D/g, "");
+        if (value.length > 2) {
+          value = value.slice(0, 2) + "-" + value.slice(2, 9);
+        }
+        e.target.value = value;
+      });
+  </script>
 </ProviderLayout>

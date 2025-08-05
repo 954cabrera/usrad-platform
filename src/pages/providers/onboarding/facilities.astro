@@ -1,0 +1,1859 @@
+---
+import ProviderLayout from "../../../layouts/ProviderLayout.astro";
+---
+
+<ProviderLayout title="Register Your Imaging Centers">
+  <!-- Progress Indicator -->
+  <div class="progress-container">
+    <div class="progress-steps">
+      <div class="step completed">
+        <div class="step-number">✓</div>
+        <div class="step-label">Account</div>
+      </div>
+      <div class="step active">
+        <div class="step-number">2</div>
+        <div class="step-label">Centers</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-label">Pricing</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-label">Review</div>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-label">Sign</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="facilities-container">
+    <!-- Header -->
+    <div class="header-section">
+      <h1 class="page-title">Register Your Imaging Centers</h1>
+      <p class="page-subtitle">
+        Add the imaging centers that will be part of the USRad network. You can
+        add more centers later.
+      </p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="quick-stats">
+      <div class="stat-card">
+        <div class="stat-icon">🏥</div>
+        <div class="stat-content">
+          <div class="stat-number" id="center-count">0</div>
+          <div class="stat-label">Centers Added</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📍</div>
+        <div class="stat-content">
+          <div class="stat-number" id="state-count">0</div>
+          <div class="stat-label">States Covered</div>
+        </div>
+      </div>
+      <div class="stat-card highlight">
+        <div class="stat-icon">💰</div>
+        <div class="stat-content">
+          <div class="stat-number">$180M+</div>
+          <div class="stat-label">Revenue Delivered</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Center Form -->
+    <div class="add-center-section" id="add-center-form">
+      <div class="section-header">
+        <h2 class="section-title">Add Your First Center</h2>
+        <p class="section-description">
+          Start with your primary imaging center. You can add additional
+          locations after.
+        </p>
+      </div>
+
+      <form id="facility-form" class="facility-form">
+        <!-- Pre-populate Toggle -->
+        <div class="form-group full-width" id="prepopulate-section">
+          <label class="toggle-label">
+            <input type="checkbox" id="use-org-info" />
+            <span class="toggle-text"
+              >Use organization address and contact information</span
+            >
+          </label>
+          <p class="toggle-hint">
+            Auto-fill this form with your organization details
+          </p>
+        </div>
+
+        <div class="form-grid">
+          <!-- Center Name -->
+          <div class="form-group full-width">
+            <label class="form-label">
+              Center Name <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              name="centerName"
+              class="form-input"
+              placeholder="Advanced Imaging of Miami"
+              required
+            />
+          </div>
+
+          <!-- Address -->
+          <div class="form-group full-width">
+            <label class="form-label">
+              Street Address <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              name="address"
+              class="form-input"
+              placeholder="123 Medical Plaza Drive"
+              required
+            />
+          </div>
+
+          <!-- City -->
+          <div class="form-group">
+            <label class="form-label">
+              City <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              name="city"
+              class="form-input"
+              placeholder="Miami"
+              required
+            />
+          </div>
+
+          <!-- State -->
+          <div class="form-group">
+            <label class="form-label">
+              State <span class="required">*</span>
+            </label>
+            <select name="state" class="form-input" required>
+              <option value="">Select State</option>
+              <optgroup label="Targeted States">
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="TX">Texas</option>
+                <option value="CA">California</option>
+                <option value="NY">New York</option>
+                <option value="IL">Illinois</option>
+                <option value="PA">Pennsylvania</option>
+                <option value="OH">Ohio</option>
+                <option value="NC">North Carolina</option>
+                <option value="MI">Michigan</option>
+              </optgroup>
+              <optgroup label="All Other States">
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CO">Colorado</option>
+                <option value="CT">Connecticut</option>
+                <option value="DE">Delaware</option>
+                <option value="DC">District of Columbia</option>
+                <option value="HI">Hawaii</option>
+                <option value="ID">Idaho</option>
+                <option value="IN">Indiana</option>
+                <option value="IA">Iowa</option>
+                <option value="KS">Kansas</option>
+                <option value="KY">Kentucky</option>
+                <option value="LA">Louisiana</option>
+                <option value="ME">Maine</option>
+                <option value="MD">Maryland</option>
+                <option value="MA">Massachusetts</option>
+                <option value="MN">Minnesota</option>
+                <option value="MS">Mississippi</option>
+                <option value="MO">Missouri</option>
+                <option value="MT">Montana</option>
+                <option value="NE">Nebraska</option>
+                <option value="NV">Nevada</option>
+                <option value="NH">New Hampshire</option>
+                <option value="NJ">New Jersey</option>
+                <option value="NM">New Mexico</option>
+                <option value="ND">North Dakota</option>
+                <option value="OK">Oklahoma</option>
+                <option value="OR">Oregon</option>
+                <option value="RI">Rhode Island</option>
+                <option value="SC">South Carolina</option>
+                <option value="SD">South Dakota</option>
+                <option value="TN">Tennessee</option>
+                <option value="UT">Utah</option>
+                <option value="VT">Vermont</option>
+                <option value="VA">Virginia</option>
+                <option value="WA">Washington</option>
+                <option value="WV">West Virginia</option>
+                <option value="WI">Wisconsin</option>
+                <option value="WY">Wyoming</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <!-- ZIP -->
+          <div class="form-group">
+            <label class="form-label">
+              ZIP Code <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              name="zipCode"
+              class="form-input"
+              placeholder="33101"
+              pattern="[0-9]{5}"
+              maxlength="5"
+              required
+            />
+          </div>
+
+          <!-- Phone -->
+          <div class="form-group">
+            <label class="form-label">
+              Center Phone <span class="required">*</span>
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              class="form-input"
+              placeholder="(305) 555-0123"
+              required
+            />
+          </div>
+
+          <!-- Administrator/Contact Section Header -->
+          <div class="form-group full-width">
+            <h3 class="subsection-title">Center Administrator</h3>
+            <p class="subsection-description">
+              Who should we contact about this location?
+            </p>
+          </div>
+
+          <!-- Admin Name -->
+          <div class="form-group">
+            <label class="form-label">
+              Contact Name <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              name="adminName"
+              class="form-input"
+              placeholder="Dr. Jane Smith"
+              required
+            />
+          </div>
+
+          <!-- Admin Title -->
+          <div class="form-group">
+            <label class="form-label">
+              Title/Role <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              name="adminTitle"
+              class="form-input"
+              placeholder="Center Director"
+              required
+            />
+          </div>
+
+          <!-- Admin Email -->
+          <div class="form-group">
+            <label class="form-label">
+              Contact Email <span class="required">*</span>
+            </label>
+            <input
+              type="email"
+              name="adminEmail"
+              class="form-input"
+              placeholder="jane.smith@imagingcenter.com"
+              title="Please enter a valid email address"
+              required
+            />
+          </div>
+
+          <!-- Admin Phone -->
+          <div class="form-group">
+            <label class="form-label">
+              Direct Phone <span class="required">*</span>
+            </label>
+            <input
+              type="tel"
+              name="adminPhone"
+              class="form-input"
+              placeholder="(305) 555-0124"
+              required
+            />
+          </div>
+
+          <!-- Equipment -->
+          <div class="form-group full-width">
+            <label class="form-label">
+              Available Equipment <span class="required">*</span>
+            </label>
+            <div class="equipment-grid">
+              <label class="equipment-option">
+                <input type="checkbox" name="equipment" value="MRI" />
+                <div class="equipment-card">
+                  <div class="equipment-icon">🧲</div>
+                  <div class="equipment-name">MRI</div>
+                </div>
+              </label>
+              <label class="equipment-option">
+                <input type="checkbox" name="equipment" value="CT" />
+                <div class="equipment-card">
+                  <div class="equipment-icon">💿</div>
+                  <div class="equipment-name">CT Scan</div>
+                </div>
+              </label>
+              <label class="equipment-option">
+                <input type="checkbox" name="equipment" value="X-Ray" />
+                <div class="equipment-card">
+                  <div class="equipment-icon">📷</div>
+                  <div class="equipment-name">X-Ray</div>
+                </div>
+              </label>
+              <label class="equipment-option">
+                <input type="checkbox" name="equipment" value="Ultrasound" />
+                <div class="equipment-card">
+                  <div class="equipment-icon">📡</div>
+                  <div class="equipment-name">Ultrasound</div>
+                </div>
+              </label>
+              <label class="equipment-option">
+                <input type="checkbox" name="equipment" value="PET" />
+                <div class="equipment-card">
+                  <div class="equipment-icon">⚡</div>
+                  <div class="equipment-name">PET Scan</div>
+                </div>
+              </label>
+              <label class="equipment-option">
+                <input type="checkbox" name="equipment" value="Mammography" />
+                <div class="equipment-card">
+                  <div class="equipment-icon">🎯</div>
+                  <div class="equipment-name">Mammography</div>
+                </div>
+              </label>
+            </div>
+            <p class="form-hint">
+              Select all equipment available at this location
+            </p>
+          </div>
+
+          <!-- Equipment Details Section -->
+          <div
+            class="form-group full-width"
+            id="equipment-details-section"
+            style="display: none;"
+          >
+            <h3 class="subsection-title">
+              Equipment Details <span class="optional">(Optional)</span>
+            </h3>
+            <p class="subsection-description">
+              Add specific details about your equipment to help patients find
+              the right center
+            </p>
+
+            <div id="equipment-details-container">
+              <!-- Equipment details will be dynamically added here -->
+            </div>
+          </div>
+
+          <!-- Primary Center -->
+          <div class="form-group full-width">
+            <label class="checkbox-label">
+              <input type="checkbox" name="isPrimary" checked />
+              <span>This is my primary imaging center</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" id="submit-btn">
+            Add Center
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Centers List -->
+    <div class="centers-list" id="centers-list" style="display: none;">
+      <div class="section-header">
+        <h2 class="section-title">Your Imaging Centers</h2>
+        <button class="btn-secondary" id="add-another-btn">
+          + Add Another Center
+        </button>
+      </div>
+
+      <div id="centers-container" class="centers-container">
+        <!-- Centers will be added here dynamically -->
+      </div>
+    </div>
+
+    <!-- Continue Button -->
+    <div class="continue-section" id="continue-section" style="display: none;">
+      <div class="continue-content">
+        <p class="continue-text">
+          Great! You've added <span id="final-count">0</span> imaging center(s) to
+          your network.
+        </p>
+        <button onclick="continueToNext()" class="btn-continue">
+          Continue to Pricing Strategy →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Progress Indicator */
+    .progress-container {
+      max-width: 800px;
+      margin: 2rem auto 3rem;
+      padding: 0 2rem;
+    }
+
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .progress-steps::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #e5e7eb;
+      z-index: -1;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      background: white;
+      padding: 0 0.5rem;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e5e7eb;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+    }
+
+    .step.completed .step-number {
+      background: #10b981;
+      color: white;
+    }
+
+    .step.active .step-number {
+      background: #3b82f6;
+      color: white;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    }
+
+    .step-label {
+      font-size: 0.875rem;
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    .step.active .step-label {
+      color: #1f2937;
+      font-weight: 600;
+    }
+
+    /* Container */
+    .facilities-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Header */
+    .header-section {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 1rem;
+    }
+
+    .page-subtitle {
+      font-size: 1.125rem;
+      color: #6b7280;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Quick Stats */
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card.highlight {
+      background: #fef3c7;
+      border-color: #f59e0b;
+    }
+
+    .stat-icon {
+      font-size: 2rem;
+    }
+
+    .stat-number {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #1f2937;
+    }
+
+    .stat-card.highlight .stat-number {
+      color: #92400e;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+
+    /* Form Section */
+    .add-center-section {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+      margin-bottom: 2rem;
+    }
+
+    /* Pre-populate Toggle */
+    #prepopulate-section {
+      background: #eff6ff;
+      border: 2px solid #3b82f6;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .toggle-label input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .toggle-hint {
+      font-size: 0.875rem;
+      color: #3b82f6;
+      margin-top: 0.5rem;
+      margin-left: 2rem;
+    }
+
+    .section-header {
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .section-description {
+      color: #6b7280;
+      margin-top: 0.5rem;
+    }
+
+    /* Form Grid */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .required {
+      color: #ef4444;
+    }
+
+    .optional {
+      color: #6b7280;
+      font-weight: 400;
+      font-size: 0.875rem;
+    }
+
+    .form-input {
+      padding: 0.75rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+
+    .form-input.error {
+      border-color: #ef4444;
+      background-color: #fef2f2;
+    }
+
+    .error-message {
+      display: block;
+      color: #ef4444;
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+    }
+
+    .form-hint {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 0.25rem;
+    }
+
+    /* Subsection Headers */
+    .subsection-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+
+    .subsection-description {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-bottom: 0;
+    }
+
+    /* Equipment Grid */
+    .equipment-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .equipment-option {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .equipment-option input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .equipment-card {
+      background: #f9fafb;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .equipment-option input:checked + .equipment-card {
+      background: #dbeafe;
+      border-color: #3b82f6;
+    }
+
+    .equipment-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .equipment-name {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    /* Equipment Details */
+    #equipment-details-section {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .equipment-detail-group {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .equipment-detail-title {
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.75rem;
+      font-size: 0.9375rem;
+    }
+
+    .detail-options {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .detail-option input[type="radio"],
+    .detail-option input[type="checkbox"] {
+      margin: 0;
+    }
+
+    .detail-option:has(input:checked) {
+      background: #dbeafe;
+      border-color: #3b82f6;
+      color: #1e40af;
+    }
+
+    .other-input {
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      width: 100%;
+    }
+
+    /* Checkbox */
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .checkbox-label input {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    /* Form Actions */
+    .form-actions {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: #3b82f6;
+      color: white;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #2563eb;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #3b82f6;
+      padding: 0.625rem 1.5rem;
+      border: 2px solid #3b82f6;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: #eff6ff;
+    }
+
+    /* Centers List */
+    .centers-list {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+      margin-bottom: 2rem;
+    }
+
+    .centers-container {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .center-card {
+      background: #f9fafb;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+    }
+
+    .center-card.primary {
+      border-color: #3b82f6;
+      background: #eff6ff;
+    }
+
+    .center-info h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+
+    .center-address {
+      color: #6b7280;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .center-admin {
+      color: #374151;
+      font-size: 0.875rem;
+      margin: 0.5rem 0;
+      padding: 0.75rem;
+      background: #f3f4f6;
+      border-radius: 6px;
+    }
+
+    .admin-contact {
+      font-size: 0.8125rem;
+      color: #6b7280;
+    }
+
+    .center-equipment {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .equipment-tag {
+      background: #e5e7eb;
+      color: #374151;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .primary-badge {
+      background: #3b82f6;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .center-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-icon {
+      background: transparent;
+      border: none;
+      color: #6b7280;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-icon:hover {
+      background: #f3f4f6;
+      color: #1f2937;
+    }
+
+    .btn-icon.delete:hover {
+      background: #fee2e2;
+      color: #ef4444;
+    }
+
+    /* Continue Section */
+    .continue-section {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 2px solid #3b82f6;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .continue-text {
+      font-size: 1.125rem;
+      color: #1e40af;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-continue {
+      background: #3b82f6;
+      color: white;
+      padding: 1rem 3rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1.125rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-continue:hover {
+      background: #2563eb;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .quick-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .equipment-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .center-card {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .center-actions {
+        width: 100%;
+        justify-content: flex-end;
+      }
+
+      .progress-steps {
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+      }
+
+      .step-label {
+        font-size: 0.75rem;
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-title {
+        font-size: 2rem;
+      }
+
+      .facilities-container {
+        padding: 1rem;
+      }
+
+      .add-center-section,
+      .centers-list {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+
+  <script>
+    console.log("Facilities script loaded");
+
+    // State management - make these global
+    window.centers = [];
+    window.editingIndex = null;
+
+    // Define global functions immediately
+    window.editCenter = function (index) {
+      // Set editing mode
+      window.editingIndex = index;
+      const center = window.centers[index];
+
+      // Show form without resetting (pass true for isEditing)
+      showAddForm(true);
+
+      // Hide prepopulate toggle when editing
+      const prepopSection = document.getElementById("prepopulate-section");
+      if (prepopSection) {
+        prepopSection.style.display = "none";
+      }
+
+      // Set title and button for editing
+      document.querySelector("#add-center-form .section-title").textContent =
+        "Edit Center";
+      document.getElementById("submit-btn").textContent = "Save Changes";
+
+      // Fill the form with center data
+      const form = document.getElementById("facility-form");
+      form.centerName.value = center.name;
+      form.address.value = center.address;
+      form.city.value = center.city;
+      form.state.value = center.state;
+      form.zipCode.value = center.zipCode;
+      form.phone.value = center.phone;
+      form.isPrimary.checked = center.isPrimary;
+      form.adminName.value = center.administrator.name;
+      form.adminTitle.value = center.administrator.title;
+      form.adminEmail.value = center.administrator.email;
+      form.adminPhone.value = center.administrator.phone;
+
+      // Check equipment boxes
+      document
+        .querySelectorAll('input[name="equipment"]')
+        .forEach((checkbox) => {
+          checkbox.checked = center.equipment.includes(checkbox.value);
+        });
+
+      // Update equipment details display
+      updateEquipmentDetails();
+
+      // Load saved equipment details if they exist
+      if (center.equipmentDetails) {
+        loadEquipmentDetails(center.equipmentDetails);
+      }
+    };
+
+    // Delete center
+    window.deleteCenter = function (index) {
+      if (confirm("Are you sure you want to remove this center?")) {
+        window.centers.splice(index, 1);
+        localStorage.setItem(
+          "provider_centers",
+          JSON.stringify(window.centers)
+        );
+        updateUI();
+      }
+    };
+
+    // Continue to next step
+    window.continueToNext = function () {
+      if (window.centers.length === 0) {
+        alert("Please add at least one imaging center before continuing.");
+        return;
+      }
+
+      // Save completion status
+      localStorage.setItem("facilities_completed", "true");
+
+      // Navigate to market calculator
+      window.location.href = "/providers/onboarding/market-calculator";
+    };
+
+    // Load saved centers and organization data on page load
+    document.addEventListener("DOMContentLoaded", function () {
+      const savedCenters = localStorage.getItem("provider_centers");
+      if (savedCenters) {
+        window.centers = JSON.parse(savedCenters);
+        updateUI();
+      }
+
+      // Load organization data
+      const orgData = JSON.parse(
+        localStorage.getItem("provider_organization") || "{}"
+      );
+      setupPrepopulate(orgData);
+
+      // Phone number formatting
+      const phoneInputs = document.querySelectorAll(
+        'input[name="phone"], input[name="adminPhone"]'
+      );
+      phoneInputs.forEach((input) => {
+        input.addEventListener("input", formatPhoneNumber);
+      });
+
+      // Email validation
+      const emailInput = document.querySelector('input[name="adminEmail"]');
+      emailInput.addEventListener("blur", validateEmail);
+      emailInput.addEventListener("input", clearEmailError);
+
+      // Add Another Center button - Add event listener after DOM loads
+      const addAnotherBtn = document.getElementById("add-another-btn");
+      if (addAnotherBtn) {
+        addAnotherBtn.addEventListener("click", function () {
+          showAddForm();
+        });
+      }
+
+      // Equipment checkbox listeners
+      document
+        .querySelectorAll('input[name="equipment"]')
+        .forEach((checkbox) => {
+          checkbox.addEventListener("change", updateEquipmentDetails);
+        });
+    });
+
+    // Update equipment details section
+    function updateEquipmentDetails() {
+      const selectedEquipment = [];
+      document
+        .querySelectorAll('input[name="equipment"]:checked')
+        .forEach((checkbox) => {
+          selectedEquipment.push(checkbox.value);
+        });
+
+      const detailsSection = document.getElementById(
+        "equipment-details-section"
+      );
+      const detailsContainer = document.getElementById(
+        "equipment-details-container"
+      );
+
+      if (selectedEquipment.length > 0) {
+        detailsSection.style.display = "block";
+        detailsContainer.innerHTML = "";
+
+        selectedEquipment.forEach((equipment) => {
+          const detailGroup = createEquipmentDetailGroup(equipment);
+          if (detailGroup) {
+            detailsContainer.appendChild(detailGroup);
+          }
+        });
+      } else {
+        detailsSection.style.display = "none";
+      }
+    }
+
+    // Create equipment detail group
+    function createEquipmentDetailGroup(equipment) {
+      const group = document.createElement("div");
+      group.className = "equipment-detail-group";
+      group.dataset.equipment = equipment;
+
+      switch (equipment) {
+        case "MRI":
+          group.innerHTML = `
+            <div class="equipment-detail-title">🧲 MRI Details</div>
+            <div class="detail-row">
+              <label class="detail-label">Tesla Strength:</label>
+              <div class="detail-options">
+                <label class="detail-option">
+                  <input type="radio" name="mri-tesla" value="1.5T">
+                  <span>1.5T</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="mri-tesla" value="3T">
+                  <span>3T</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="mri-tesla" value="other">
+                  <span>Other</span>
+                </label>
+              </div>
+              <input type="text" name="mri-tesla-other" class="other-input" placeholder="Enter tesla strength" style="display: none;">
+            </div>
+            <div class="detail-row">
+              <label class="detail-label">Type:</label>
+              <div class="detail-options">
+                <label class="detail-option">
+                  <input type="radio" name="mri-type" value="open">
+                  <span>Open</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="mri-type" value="closed">
+                  <span>Closed</span>
+                </label>
+              </div>
+            </div>
+            <div class="detail-row">
+              <label class="detail-label">Manufacturer:</label>
+              <div class="detail-options">
+                <label class="detail-option">
+                  <input type="radio" name="mri-manufacturer" value="GE">
+                  <span>GE</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="mri-manufacturer" value="Siemens">
+                  <span>Siemens</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="mri-manufacturer" value="Philips">
+                  <span>Philips</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="mri-manufacturer" value="Canon">
+                  <span>Canon</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="mri-manufacturer" value="Hitachi">
+                  <span>Hitachi</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="mri-manufacturer" value="other">
+                  <span>Other</span>
+                </label>
+              </div>
+              <input type="text" name="mri-manufacturer-other" class="other-input" placeholder="Enter manufacturer" style="display: none;">
+            </div>
+          `;
+          break;
+
+        case "CT":
+          group.innerHTML = `
+            <div class="equipment-detail-title">💿 CT Scanner Details</div>
+            <div class="detail-row">
+              <label class="detail-label">Slice Count:</label>
+              <div class="detail-options">
+                <label class="detail-option">
+                  <input type="radio" name="ct-slices" value="16">
+                  <span>16-slice</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="ct-slices" value="64">
+                  <span>64-slice</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="ct-slices" value="128">
+                  <span>128-slice</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="ct-slices" value="256">
+                  <span>256-slice</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="ct-slices" value="320">
+                  <span>320-slice</span>
+                </label>
+              </div>
+            </div>
+            <div class="detail-row">
+              <label class="detail-label">Cardiac Capable:</label>
+              <div class="detail-options">
+                <label class="detail-option">
+                  <input type="radio" name="ct-cardiac" value="yes">
+                  <span>Yes</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="ct-cardiac" value="no">
+                  <span>No</span>
+                </label>
+              </div>
+            </div>
+            <div class="detail-row">
+              <label class="detail-label">Manufacturer:</label>
+              <div class="detail-options">
+                <label class="detail-option">
+                  <input type="radio" name="ct-manufacturer" value="GE">
+                  <span>GE</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="ct-manufacturer" value="Siemens">
+                  <span>Siemens</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="ct-manufacturer" value="Philips">
+                  <span>Philips</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="ct-manufacturer" value="Canon">
+                  <span>Canon</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="ct-manufacturer" value="other">
+                  <span>Other</span>
+                </label>
+              </div>
+              <input type="text" name="ct-manufacturer-other" class="other-input" placeholder="Enter manufacturer" style="display: none;">
+            </div>
+          `;
+          break;
+
+        case "X-Ray":
+          group.innerHTML = `
+            <div class="equipment-detail-title">📷 X-Ray Details</div>
+            <div class="detail-row">
+              <label class="detail-label">Type:</label>
+              <div class="detail-options">
+                <label class="detail-option">
+                  <input type="radio" name="xray-type" value="digital">
+                  <span>Digital</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="xray-type" value="film">
+                  <span>Film</span>
+                </label>
+              </div>
+            </div>
+            <div class="detail-row">
+              <label class="detail-label">Fluoroscopy Capable:</label>
+              <div class="detail-options">
+                <label class="detail-option">
+                  <input type="radio" name="xray-fluoroscopy" value="yes">
+                  <span>Yes</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="xray-fluoroscopy" value="no">
+                  <span>No</span>
+                </label>
+              </div>
+            </div>
+          `;
+          break;
+
+        case "Ultrasound":
+          group.innerHTML = `
+            <div class="equipment-detail-title">📡 Ultrasound Details</div>
+            <div class="detail-row">
+              <label class="detail-label">Capabilities:</label>
+              <div class="detail-options">
+                <label class="detail-option">
+                  <input type="checkbox" name="ultrasound-3d" value="yes">
+                  <span>3D Capable</span>
+                </label>
+                <label class="detail-option">
+                  <input type="checkbox" name="ultrasound-4d" value="yes">
+                  <span>4D Capable</span>
+                </label>
+              </div>
+            </div>
+          `;
+          break;
+
+        case "PET":
+          group.innerHTML = `
+            <div class="equipment-detail-title">⚡ PET Scan Details</div>
+            <div class="detail-row">
+              <label class="detail-label">Type:</label>
+              <div class="detail-options">
+                <label class="detail-option">
+                  <input type="radio" name="pet-type" value="pet-ct">
+                  <span>PET/CT Combo</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="pet-type" value="pet-only">
+                  <span>PET Only</span>
+                </label>
+              </div>
+            </div>
+            <div class="detail-row">
+              <label class="detail-label">Radiopharmacy On-site:</label>
+              <div class="detail-options">
+                <label class="detail-option">
+                  <input type="radio" name="pet-pharmacy" value="yes">
+                  <span>Yes</span>
+                </label>
+                <label class="detail-option">
+                  <input type="radio" name="pet-pharmacy" value="no">
+                  <span>No</span>
+                </label>
+              </div>
+            </div>
+          `;
+          break;
+
+        case "Mammography":
+          group.innerHTML = `
+            <div class="equipment-detail-title">🎯 Mammography Details</div>
+            <div class="detail-row">
+              <label class="detail-label">Features:</label>
+              <div class="detail-options">
+                <label class="detail-option">
+                  <input type="checkbox" name="mammo-3d" value="yes">
+                  <span>3D Tomosynthesis</span>
+                </label>
+                <label class="detail-option">
+                  <input type="checkbox" name="mammo-cad" value="yes">
+                  <span>CAD (Computer-Aided Detection)</span>
+                </label>
+              </div>
+            </div>
+          `;
+          break;
+
+        default:
+          return null;
+      }
+
+      // Add event listeners for "Other" options
+      group
+        .querySelectorAll('input[type="radio"][value="other"]')
+        .forEach((radio) => {
+          radio.addEventListener("change", function () {
+            const otherInput = group.querySelector(
+              `input[name="${this.name}-other"]`
+            );
+            if (otherInput) {
+              otherInput.style.display = this.checked ? "block" : "none";
+              if (this.checked) {
+                otherInput.focus();
+              }
+            }
+          });
+        });
+
+      // Hide other inputs when different option selected
+      group
+        .querySelectorAll('input[type="radio"]:not([value="other"])')
+        .forEach((radio) => {
+          radio.addEventListener("change", function () {
+            if (this.checked) {
+              const otherInput = group.querySelector(
+                `input[name="${this.name}-other"]`
+              );
+              if (otherInput) {
+                otherInput.style.display = "none";
+                otherInput.value = "";
+              }
+            }
+          });
+        });
+
+      return group;
+    }
+
+    // Collect equipment details
+    function collectEquipmentDetails() {
+      const details = {};
+      const detailGroups = document.querySelectorAll(".equipment-detail-group");
+
+      detailGroups.forEach((group) => {
+        const equipment = group.dataset.equipment;
+        const equipmentDetails = {};
+
+        // Collect radio button values
+        group
+          .querySelectorAll('input[type="radio"]:checked')
+          .forEach((radio) => {
+            const name = radio.name;
+            const value = radio.value;
+
+            if (value === "other") {
+              const otherInput = group.querySelector(
+                `input[name="${name}-other"]`
+              );
+              equipmentDetails[name] = otherInput ? otherInput.value : value;
+            } else {
+              equipmentDetails[name] = value;
+            }
+          });
+
+        // Collect checkbox values
+        group
+          .querySelectorAll('input[type="checkbox"]:checked')
+          .forEach((checkbox) => {
+            equipmentDetails[checkbox.name] = checkbox.value;
+          });
+
+        if (Object.keys(equipmentDetails).length > 0) {
+          details[equipment] = equipmentDetails;
+        }
+      });
+
+      return details;
+    }
+
+    // Load equipment details when editing
+    function loadEquipmentDetails(savedDetails) {
+      Object.entries(savedDetails).forEach(([equipment, details]) => {
+        const group = document.querySelector(
+          `.equipment-detail-group[data-equipment="${equipment}"]`
+        );
+        if (!group) return;
+
+        Object.entries(details).forEach(([field, value]) => {
+          // Handle radio buttons
+          const radio = group.querySelector(
+            `input[name="${field}"][value="${value}"]`
+          );
+          if (radio) {
+            radio.checked = true;
+          } else {
+            // Handle "other" fields
+            const otherRadio = group.querySelector(
+              `input[name="${field}"][value="other"]`
+            );
+            if (otherRadio) {
+              otherRadio.checked = true;
+              const otherInput = group.querySelector(
+                `input[name="${field}-other"]`
+              );
+              if (otherInput) {
+                otherInput.style.display = "block";
+                otherInput.value = value;
+              }
+            }
+          }
+
+          // Handle checkboxes
+          const checkbox = group.querySelector(
+            `input[name="${field}"][type="checkbox"]`
+          );
+          if (checkbox && value === "yes") {
+            checkbox.checked = true;
+          }
+        });
+      });
+    }
+
+    // Setup pre-populate functionality
+    function setupPrepopulate(orgData) {
+      const toggle = document.getElementById("use-org-info");
+      const prepopSection = document.getElementById("prepopulate-section");
+
+      // Only show toggle if we have organization data
+      if (!orgData.legalName) {
+        prepopSection.style.display = "none";
+        return;
+      }
+
+      // Determine default state based on role
+      if (orgData.role === "single-admin") {
+        toggle.checked = true;
+        populateFromOrg(orgData);
+      } else if (orgData.role === "executive") {
+        prepopSection.style.display = "none";
+      }
+
+      // Handle toggle changes
+      toggle.addEventListener("change", function () {
+        if (this.checked) {
+          populateFromOrg(orgData);
+        } else {
+          clearForm();
+        }
+      });
+    }
+
+    // Populate form from organization data
+    function populateFromOrg(orgData) {
+      const form = document.getElementById("facility-form");
+
+      // Center name from organization name or DBA
+      form.centerName.value = orgData.dba || orgData.legalName || "";
+
+      // Address information
+      if (orgData.address) {
+        form.address.value = orgData.address.street || "";
+        form.city.value = orgData.address.city || "";
+        form.state.value = orgData.address.state || "";
+        form.zipCode.value = orgData.address.zip || "";
+      }
+
+      // Use main phone for center phone (user can change if different)
+      const signupData = JSON.parse(
+        localStorage.getItem("provider_signup_data") || "{}"
+      );
+      form.phone.value = signupData.phone || "";
+
+      // Administrator from authorized signer
+      if (orgData.signer) {
+        form.adminName.value = orgData.signer.fullName || "";
+        form.adminTitle.value = orgData.signer.title || "";
+        form.adminEmail.value = orgData.signer.email || "";
+        form.adminPhone.value = orgData.signer.phone || "";
+      }
+    }
+
+    // Clear form
+    function clearForm() {
+      const form = document.getElementById("facility-form");
+      // Only clear text inputs, not checkboxes or equipment
+      const textInputs = form.querySelectorAll(
+        'input[type="text"], input[type="email"], input[type="tel"], select'
+      );
+      textInputs.forEach((input) => {
+        if (input.name !== "isPrimary") {
+          input.value = "";
+        }
+      });
+    }
+
+    // Email validation function
+    function validateEmail(e) {
+      const email = e.target.value;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (email && !emailRegex.test(email)) {
+        e.target.classList.add("error");
+        // Check if error message already exists
+        if (!e.target.parentElement.querySelector(".error-message")) {
+          const errorMsg = document.createElement("span");
+          errorMsg.className = "error-message";
+          errorMsg.textContent = "Please enter a valid email address";
+          e.target.parentElement.appendChild(errorMsg);
+        }
+      } else {
+        clearEmailError(e);
+      }
+    }
+
+    // Clear email error
+    function clearEmailError(e) {
+      e.target.classList.remove("error");
+      const errorMsg = e.target.parentElement.querySelector(".error-message");
+      if (errorMsg) {
+        errorMsg.remove();
+      }
+    }
+
+    // Form submission
+    document
+      .getElementById("facility-form")
+      .addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Validate email before submission
+        const emailInput = document.querySelector('input[name="adminEmail"]');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(emailInput.value)) {
+          emailInput.focus();
+          validateEmail({ target: emailInput });
+          return;
+        }
+
+        const formData = new FormData(e.target);
+        const equipment = [];
+        formData.getAll("equipment").forEach((eq) => equipment.push(eq));
+
+        // Collect equipment details
+        const equipmentDetails = collectEquipmentDetails();
+
+        const center = {
+          name: formData.get("centerName"),
+          address: formData.get("address"),
+          city: formData.get("city"),
+          state: formData.get("state"),
+          zipCode: formData.get("zipCode"),
+          phone: formData.get("phone"),
+          equipment: equipment,
+          equipmentDetails: equipmentDetails,
+          isPrimary: formData.get("isPrimary") === "on",
+          administrator: {
+            name: formData.get("adminName"),
+            title: formData.get("adminTitle"),
+            email: formData.get("adminEmail"),
+            phone: formData.get("adminPhone"),
+          },
+        };
+
+        // If marking as primary, unmark others
+        if (center.isPrimary) {
+          centers.forEach((c) => (c.isPrimary = false));
+        }
+
+        if (editingIndex !== null) {
+          // Update existing center
+          centers[editingIndex] = center;
+          editingIndex = null;
+        } else {
+          // Add new center
+          centers.push(center);
+        }
+
+        // Save to localStorage
+        localStorage.setItem("provider_centers", JSON.stringify(centers));
+
+        // Reset form and button
+        e.target.reset();
+        document.getElementById("submit-btn").textContent = "Add Center";
+
+        // Update UI
+        updateUI();
+      });
+
+    // Update UI
+    function updateUI() {
+      // Update stats
+      document.getElementById("center-count").textContent =
+        window.centers.length;
+
+      // Count unique states
+      const states = new Set(window.centers.map((c) => c.state));
+      document.getElementById("state-count").textContent = states.size;
+
+      // Show/hide sections
+      if (window.centers.length > 0) {
+        document.getElementById("centers-list").style.display = "block";
+        document.getElementById("continue-section").style.display = "block";
+        document.getElementById("add-center-form").style.display = "none";
+        document.getElementById("final-count").textContent =
+          window.centers.length;
+
+        // Render centers
+        renderCenters();
+
+        // Add event listener to the Add Another Center button after rendering
+        setTimeout(() => {
+          const addAnotherBtn = document.getElementById("add-another-btn");
+          if (addAnotherBtn) {
+            addAnotherBtn.addEventListener("click", function () {
+              showAddForm();
+            });
+          }
+        }, 100);
+      } else {
+        document.getElementById("centers-list").style.display = "none";
+        document.getElementById("continue-section").style.display = "none";
+        document.getElementById("add-center-form").style.display = "block";
+      }
+    }
+
+    // Render centers list
+    function renderCenters() {
+      const container = document.getElementById("centers-container");
+      container.innerHTML = "";
+
+      window.centers.forEach((center, index) => {
+        const centerCard = document.createElement("div");
+        centerCard.className = `center-card ${center.isPrimary ? "primary" : ""}`;
+
+        centerCard.innerHTML = `
+          <div class="center-info">
+            <h3>${center.name}</h3>
+            <div class="center-address">
+              ${center.address}, ${center.city}, ${center.state} ${center.zipCode}
+            </div>
+            <div class="center-phone">📞 ${center.phone}</div>
+            <div class="center-admin">
+              👤 ${center.administrator.name} - ${center.administrator.title}
+              <br>
+              <span class="admin-contact">📧 ${center.administrator.email} | 📱 ${center.administrator.phone}</span>
+            </div>
+            <div class="center-equipment">
+              ${center.equipment.map((eq) => `<span class="equipment-tag">${eq}</span>`).join("")}
+            </div>
+            ${center.isPrimary ? '<span class="primary-badge">Primary Location</span>' : ""}
+          </div>
+          <div class="center-actions">
+            <button class="btn-icon" onclick="editCenter(${index})" title="Edit">
+              ✏️
+            </button>
+            <button class="btn-icon delete" onclick="deleteCenter(${index})" title="Delete">
+              🗑️
+            </button>
+          </div>
+        `;
+
+        container.appendChild(centerCard);
+      });
+    }
+
+    // Show add form
+    function showAddForm(isEditing = false) {
+      if (!isEditing) {
+        // Only reset when adding new center, not editing
+        document.getElementById("facility-form").reset();
+        window.editingIndex = null;
+
+        // Update the section header and button for adding
+        const sectionTitle = document.querySelector(
+          "#add-center-form .section-title"
+        );
+        sectionTitle.textContent = "Add Another Center";
+
+        const submitBtn = document.getElementById("submit-btn");
+        submitBtn.textContent = "Add Center";
+
+        // Show prepopulate section when adding
+        const prepopSection = document.getElementById("prepopulate-section");
+        if (prepopSection) {
+          prepopSection.style.display = "block";
+          document.getElementById("use-org-info").checked = false;
+        }
+
+        // Clear equipment details
+        document.getElementById("equipment-details-section").style.display =
+          "none";
+        document.getElementById("equipment-details-container").innerHTML = "";
+      }
+
+      // Always show the form and scroll to it
+      document.getElementById("add-center-form").style.display = "block";
+      document
+        .getElementById("add-center-form")
+        .scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Phone number formatting
+    function formatPhoneNumber(e) {
+      let value = e.target.value.replace(/\D/g, "");
+      if (value.length > 0) {
+        if (value.length <= 3) {
+          value = `(${value}`;
+        } else if (value.length <= 6) {
+          value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+        } else {
+          value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+        }
+      }
+      e.target.value = value;
+    }
+  </script>
+</ProviderLayout>
