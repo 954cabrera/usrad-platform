@@ -42,21 +42,27 @@ import ProviderLayout from "../../../layouts/ProviderLayout.astro";
     <!-- Quick Stats -->
     <div class="quick-stats">
       <div class="stat-card">
-        <div class="stat-icon">🏥</div>
+        <div class="stat-icon">
+          <img src="/images/icons/check-mark.svg" alt="Hospital icon" />
+        </div>
         <div class="stat-content">
           <div class="stat-number" id="center-count">0</div>
           <div class="stat-label">Centers Added</div>
         </div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon">📍</div>
+        <div class="stat-icon">
+          <img src="/images/icons/usa-map.svg" alt="Location icon" />
+        </div>
         <div class="stat-content">
           <div class="stat-number" id="state-count">0</div>
           <div class="stat-label">States Covered</div>
         </div>
       </div>
       <div class="stat-card highlight">
-        <div class="stat-icon">💰</div>
+        <div class="stat-icon">
+          <img src="/images/icons/revenue.svg" alt="Revenue icon" />
+        </div>
         <div class="stat-content">
           <div class="stat-number">$180M+</div>
           <div class="stat-label">Revenue Delivered</div>
@@ -300,42 +306,57 @@ import ProviderLayout from "../../../layouts/ProviderLayout.astro";
               <label class="equipment-option">
                 <input type="checkbox" name="equipment" value="MRI" />
                 <div class="equipment-card">
-                  <div class="equipment-icon">🧲</div>
+                  <div class="equipment-icon">
+                    <img src="/images/icons/mri-machine.svg" alt="MRI" />
+                  </div>
                   <div class="equipment-name">MRI</div>
                 </div>
               </label>
               <label class="equipment-option">
                 <input type="checkbox" name="equipment" value="CT" />
                 <div class="equipment-card">
-                  <div class="equipment-icon">💿</div>
+                  <div class="equipment-icon">
+                    <img src="/images/icons/ct-scan-1.svg" alt="CT Scan" />
+                  </div>
                   <div class="equipment-name">CT Scan</div>
                 </div>
               </label>
               <label class="equipment-option">
                 <input type="checkbox" name="equipment" value="X-Ray" />
                 <div class="equipment-card">
-                  <div class="equipment-icon">📷</div>
+                  <div class="equipment-icon">
+                    <img src="/images/icons/x-ray.svg" alt="X-Ray" />
+                  </div>
                   <div class="equipment-name">X-Ray</div>
                 </div>
               </label>
               <label class="equipment-option">
                 <input type="checkbox" name="equipment" value="Ultrasound" />
                 <div class="equipment-card">
-                  <div class="equipment-icon">📡</div>
+                  <div class="equipment-icon">
+                    <img
+                      src="/images/icons/ultrasound (1).svg"
+                      alt="Ultrasound"
+                    />
+                  </div>
                   <div class="equipment-name">Ultrasound</div>
                 </div>
               </label>
               <label class="equipment-option">
                 <input type="checkbox" name="equipment" value="PET" />
                 <div class="equipment-card">
-                  <div class="equipment-icon">⚡</div>
+                  <div class="equipment-icon">
+                    <img src="/images/icons/pet-scan.svg" alt="PET Scan" />
+                  </div>
                   <div class="equipment-name">PET Scan</div>
                 </div>
               </label>
               <label class="equipment-option">
                 <input type="checkbox" name="equipment" value="Mammography" />
                 <div class="equipment-card">
-                  <div class="equipment-icon">🎯</div>
+                  <div class="equipment-icon">
+                    <img src="/images/icons/screening.svg" alt="Mammography" />
+                  </div>
                   <div class="equipment-name">Mammography</div>
                 </div>
               </label>
@@ -1031,9 +1052,116 @@ import ProviderLayout from "../../../layouts/ProviderLayout.astro";
         padding: 1.5rem;
       }
     }
+
+    /* Equipment Grid */
+    .equipment-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .equipment-option {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .equipment-option input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .equipment-card {
+      background: #f9fafb;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      transition: all 0.2s;
+      /* Add height constraint */
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .equipment-option input:checked + .equipment-card {
+      background: #dbeafe;
+      border-color: #3b82f6;
+    }
+
+    .equipment-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      /* Add size constraints for images */
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Specifically for images inside equipment icons */
+    .equipment-icon img,
+    .equipment-icon svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      max-width: 40px;
+      max-height: 40px;
+    }
+
+    .equipment-name {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #374151;
+      margin-top: 0.5rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .equipment-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .equipment-card {
+        height: 100px;
+      }
+
+      .equipment-icon {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    .equipment-detail-title {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #1f2937;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .detail-title-icon {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
   </style>
 
   <script>
+    // Define equipment icon mappings
+    const equipmentIcons = {
+      MRI: "/images/icons/mri-machine.svg",
+      CT: "/images/icons/ct-scan-1.svg",
+      "X-Ray": "/images/icons/x-ray.svg",
+      Ultrasound: "/images/icons/ultrasound (1).svg",
+      PET: "/images/icons/pet-scan.svg",
+      Mammography: "/images/icons/screening.svg",
+    };
+
     console.log("Facilities script loaded");
 
     // State management - make these global
@@ -1199,7 +1327,10 @@ import ProviderLayout from "../../../layouts/ProviderLayout.astro";
       switch (equipment) {
         case "MRI":
           group.innerHTML = `
-            <div class="equipment-detail-title">🧲 MRI Details</div>
+            <div class="equipment-detail-title">
+              <img src="/images/icons/mri-machine.svg" alt="MRI" style="width: 16px; height: 16px; object-fit: contain;">
+              MRI Details
+            </div>
             <div class="detail-row">
               <label class="detail-label">Tesla Strength:</label>
               <div class="detail-options">
@@ -1266,7 +1397,7 @@ import ProviderLayout from "../../../layouts/ProviderLayout.astro";
 
         case "CT":
           group.innerHTML = `
-            <div class="equipment-detail-title">💿 CT Scanner Details</div>
+            <img src="/images/icons/ct-scan-1.svg" alt="CT" style="width: 16px; height: 16px; object-fit: contain;">
             <div class="detail-row">
               <label class="detail-label">Slice Count:</label>
               <div class="detail-options">
@@ -1336,7 +1467,7 @@ import ProviderLayout from "../../../layouts/ProviderLayout.astro";
 
         case "X-Ray":
           group.innerHTML = `
-            <div class="equipment-detail-title">📷 X-Ray Details</div>
+            <img src="/images/icons/x-ray.svg" alt="MRI" style="width: 16px; height: 16px; object-fit: contain;">
             <div class="detail-row">
               <label class="detail-label">Type:</label>
               <div class="detail-options">
@@ -1368,7 +1499,7 @@ import ProviderLayout from "../../../layouts/ProviderLayout.astro";
 
         case "Ultrasound":
           group.innerHTML = `
-            <div class="equipment-detail-title">📡 Ultrasound Details</div>
+            <img src="/images/icons/ultrasound (1).svg" alt="MRI" style="width: 16px; height: 16px; object-fit: contain;">
             <div class="detail-row">
               <label class="detail-label">Capabilities:</label>
               <div class="detail-options">
@@ -1387,7 +1518,7 @@ import ProviderLayout from "../../../layouts/ProviderLayout.astro";
 
         case "PET":
           group.innerHTML = `
-            <div class="equipment-detail-title">⚡ PET Scan Details</div>
+            <img src="/images/icons/pet-scan.svg" alt="MRI" style="width: 16px; height: 16px; object-fit: contain;">
             <div class="detail-row">
               <label class="detail-label">Type:</label>
               <div class="detail-options">
@@ -1419,7 +1550,7 @@ import ProviderLayout from "../../../layouts/ProviderLayout.astro";
 
         case "Mammography":
           group.innerHTML = `
-            <div class="equipment-detail-title">🎯 Mammography Details</div>
+            <img src="/images/icons/screening.svg" alt="MRI" style="width: 16px; height: 16px; object-fit: contain;">
             <div class="detail-row">
               <label class="detail-label">Features:</label>
               <div class="detail-options">
