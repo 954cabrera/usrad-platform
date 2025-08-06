@@ -339,6 +339,44 @@ export const prerender = false;
         margin-top: 0.375rem;
       }
 
+      .input-hint.error {
+        color: #ef4444;
+      }
+
+      /* Password input with toggle */
+      .password-input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .password-input-wrapper .form-input {
+        padding-right: 3rem;
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 0.75rem;
+        background: none;
+        border: none;
+        padding: 0.5rem;
+        cursor: pointer;
+        color: #6b7280;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s;
+      }
+
+      .password-toggle:hover {
+        color: #374151;
+      }
+
+      .password-toggle svg {
+        width: 20px;
+        height: 20px;
+      }
+
       /* Password strength indicator */
       .password-strength {
         margin-top: 0.5rem;
@@ -927,22 +965,128 @@ export const prerender = false;
                 <label for="password" class="input-label">
                   Create Password<span class="asterisk">*</span>
                 </label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  class="form-input"
-                  required
-                  minlength="6"
-                  placeholder="At least 6 characters"
-                  autocomplete="new-password"
-                />
+                <div class="password-input-wrapper">
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-input"
+                    required
+                    minlength="6"
+                    placeholder="At least 6 characters"
+                    autocomplete="new-password"
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle"
+                    id="password-toggle"
+                    aria-label="Toggle password visibility"
+                  >
+                    <svg
+                      class="eye-icon"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="eye-off-icon"
+                      style="display: none;"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
                 <div class="password-strength">
                   <div id="password-strength-bar" class="password-strength-bar">
                   </div>
                 </div>
                 <p class="input-hint">
                   You'll use this to access your provider portal
+                </p>
+              </div>
+
+              <!-- Confirm Password -->
+              <div class="input-group">
+                <label for="confirmPassword" class="input-label">
+                  Confirm Password<span class="asterisk">*</span>
+                </label>
+                <div class="password-input-wrapper">
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    class="form-input"
+                    required
+                    minlength="6"
+                    placeholder="Re-enter your password"
+                    autocomplete="new-password"
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle"
+                    id="confirm-password-toggle"
+                    aria-label="Toggle confirm password visibility"
+                  >
+                    <svg
+                      class="eye-icon"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="eye-off-icon"
+                      style="display: none;"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+                <p
+                  class="input-hint"
+                  id="password-match-hint"
+                  style="display: none;"
+                >
+                  Passwords do not match
                 </p>
               </div>
 
@@ -1331,6 +1475,57 @@ export const prerender = false;
             return value;
           }
 
+          // Password visibility toggle
+          function setupPasswordToggle() {
+            const passwordToggle = document.getElementById("password-toggle");
+            const confirmPasswordToggle = document.getElementById(
+              "confirm-password-toggle"
+            );
+            const passwordInput = document.getElementById("password");
+            const confirmPasswordInput =
+              document.getElementById("confirmPassword");
+
+            passwordToggle.addEventListener("click", function () {
+              const type =
+                passwordInput.getAttribute("type") === "password"
+                  ? "text"
+                  : "password";
+              passwordInput.setAttribute("type", type);
+
+              // Toggle icon
+              const eyeIcon = this.querySelector(".eye-icon");
+              const eyeOffIcon = this.querySelector(".eye-off-icon");
+
+              if (type === "password") {
+                eyeIcon.style.display = "block";
+                eyeOffIcon.style.display = "none";
+              } else {
+                eyeIcon.style.display = "none";
+                eyeOffIcon.style.display = "block";
+              }
+            });
+
+            confirmPasswordToggle.addEventListener("click", function () {
+              const type =
+                confirmPasswordInput.getAttribute("type") === "password"
+                  ? "text"
+                  : "password";
+              confirmPasswordInput.setAttribute("type", type);
+
+              // Toggle icon
+              const eyeIcon = this.querySelector(".eye-icon");
+              const eyeOffIcon = this.querySelector(".eye-off-icon");
+
+              if (type === "password") {
+                eyeIcon.style.display = "block";
+                eyeOffIcon.style.display = "none";
+              } else {
+                eyeIcon.style.display = "none";
+                eyeOffIcon.style.display = "block";
+              }
+            });
+          }
+
           // SSO handlers
           window.signInWithGoogle = async function () {
             try {
@@ -1382,11 +1577,30 @@ export const prerender = false;
               .value.trim();
             const phone = document.getElementById("phone").value.trim();
             const password = document.getElementById("password").value;
+            const confirmPassword =
+              document.getElementById("confirmPassword").value;
             const terms = document.getElementById("terms").checked;
 
             // Validate
-            if (!email || !organizationName || !phone || !password) {
+            if (
+              !email ||
+              !organizationName ||
+              !phone ||
+              !password ||
+              !confirmPassword
+            ) {
               showError("Please fill in all required fields");
+              return;
+            }
+
+            // Check password match
+            if (password !== confirmPassword) {
+              showError("Passwords do not match");
+              document.getElementById("password-match-hint").style.display =
+                "block";
+              document
+                .getElementById("password-match-hint")
+                .classList.add("error");
               return;
             }
 
@@ -1464,7 +1678,38 @@ export const prerender = false;
           // Password strength on input
           document.getElementById("password").addEventListener("input", (e) => {
             checkPasswordStrength(e.target.value);
+
+            // Check password match if confirm password has value
+            const confirmPassword =
+              document.getElementById("confirmPassword").value;
+            if (confirmPassword) {
+              checkPasswordMatch();
+            }
           });
+
+          // Password match checking
+          function checkPasswordMatch() {
+            const password = document.getElementById("password").value;
+            const confirmPassword =
+              document.getElementById("confirmPassword").value;
+            const hint = document.getElementById("password-match-hint");
+
+            if (confirmPassword && password !== confirmPassword) {
+              hint.style.display = "block";
+              hint.classList.add("error");
+            } else {
+              hint.style.display = "none";
+              hint.classList.remove("error");
+            }
+          }
+
+          // Check password match on confirm password input
+          document
+            .getElementById("confirmPassword")
+            .addEventListener("input", checkPasswordMatch);
+          document
+            .getElementById("confirmPassword")
+            .addEventListener("blur", checkPasswordMatch);
 
           // Phone formatting
           document.getElementById("phone").addEventListener("input", (e) => {
@@ -1475,6 +1720,9 @@ export const prerender = false;
           form.addEventListener("input", () => {
             saveProgress();
           });
+
+          // Setup password visibility toggles
+          setupPasswordToggle();
 
           // Load saved progress on page load
           loadSavedProgress();

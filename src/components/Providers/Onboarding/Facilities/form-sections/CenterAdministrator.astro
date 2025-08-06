@@ -1,0 +1,68 @@
+---
+// src/components/Providers/Onboarding/Facilities/form-sections/CenterAdministrator.astro
+---
+
+<!-- Administrator/Contact Section Header -->
+<div class="form-group full-width">
+  <h3 class="subsection-title">Center Administrator</h3>
+  <p class="subsection-description">
+    Who should we contact about this location?
+  </p>
+</div>
+
+<!-- Admin Name -->
+<div class="form-group">
+  <label class="form-label">
+    Contact Name <span class="required">*</span>
+  </label>
+  <input
+    type="text"
+    name="adminName"
+    class="form-input"
+    placeholder="Dr. Jane Smith"
+    required
+  />
+</div>
+
+<!-- Admin Title -->
+<div class="form-group">
+  <label class="form-label">
+    Title/Role <span class="required">*</span>
+  </label>
+  <input
+    type="text"
+    name="adminTitle"
+    class="form-input"
+    placeholder="Center Director"
+    required
+  />
+</div>
+
+<!-- Admin Email -->
+<div class="form-group">
+  <label class="form-label">
+    Contact Email <span class="required">*</span>
+  </label>
+  <input
+    type="email"
+    name="adminEmail"
+    class="form-input"
+    placeholder="jane.smith@imagingcenter.com"
+    title="Please enter a valid email address"
+    required
+  />
+</div>
+
+<!-- Admin Phone -->
+<div class="form-group">
+  <label class="form-label">
+    Direct Phone <span class="required">*</span>
+  </label>
+  <input
+    type="tel"
+    name="adminPhone"
+    class="form-input"
+    placeholder="(305) 555-0124"
+    required
+  />
+</div>

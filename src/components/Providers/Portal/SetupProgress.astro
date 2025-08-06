@@ -1,0 +1,57 @@
+---
+// SetupProgress.astro
+const progressItems = [
+  {
+    icon: "/images/icons/building.svg",
+    alt: "Organization Profile",
+    title: "Organization Profile",
+    description: "Tell us about your organization",
+    status: "Current Step",
+    isActive: true,
+  },
+  {
+    icon: "/images/icons/map-1.svg",
+    alt: "Add Centers",
+    title: "Add Centers",
+    description: "Register your imaging centers",
+    status: "Next Step",
+    isActive: false,
+  },
+  {
+    icon: "/images/icons/volatility.svg",
+    alt: "Set Pricing",
+    title: "Set Pricing",
+    description: "Choose your pricing strategy",
+    status: "Coming Up",
+    isActive: false,
+  },
+  {
+    icon: "/images/icons/contract-1.svg",
+    alt: "Sign Agreement",
+    title: "Sign Agreement",
+    description: "Review and sign PSA",
+    status: "Final Step",
+    isActive: false,
+  },
+];
+---
+
+<div class="setup-progress">
+  <h2 class="progress-title">Setup Progress</h2>
+  <div class="progress-items">
+    {
+      progressItems.map((item) => (
+        <div class={`progress-item ${item.isActive ? "active" : ""}`}>
+          <div class="progress-icon">
+            <img src={item.icon} alt={item.alt} width="48" height="48" />
+          </div>
+          <div class="progress-content">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </div>
+          <div class="progress-status">{item.status}</div>
+        </div>
+      ))
+    }
+  </div>
+</div>

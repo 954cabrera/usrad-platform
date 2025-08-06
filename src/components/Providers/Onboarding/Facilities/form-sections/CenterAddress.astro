@@ -1,0 +1,110 @@
+---
+// src/components/Providers/Onboarding/Facilities/form-sections/CenterAddress.astro
+import { states } from "../../../shared/data/statesData.js";
+
+// Define targeted states for imaging centers
+const targetedStates = [
+  "FL",
+  "GA",
+  "TX",
+  "CA",
+  "NY",
+  "IL",
+  "PA",
+  "OH",
+  "NC",
+  "MI",
+];
+
+// Get targeted state objects
+const targetedStateObjects = states.all.filter((state) =>
+  targetedStates.includes(state.value)
+);
+
+// Get other states (excluding targeted ones)
+const otherStates = states.all.filter(
+  (state) => !targetedStates.includes(state.value)
+);
+---
+
+<!-- Address -->
+<div class="form-group full-width">
+  <label class="form-label">
+    Street Address <span class="required">*</span>
+  </label>
+  <input
+    type="text"
+    name="address"
+    class="form-input"
+    placeholder="123 Medical Plaza Drive"
+    required
+  />
+</div>
+
+<!-- City -->
+<div class="form-group">
+  <label class="form-label">
+    City <span class="required">*</span>
+  </label>
+  <input
+    type="text"
+    name="city"
+    class="form-input"
+    placeholder="Miami"
+    required
+  />
+</div>
+
+<!-- State -->
+<div class="form-group">
+  <label class="form-label">
+    State <span class="required">*</span>
+  </label>
+  <select name="state" class="form-input" required>
+    <option value="">Select State</option>
+    <optgroup label="Targeted States">
+      {
+        targetedStateObjects.map((state) => (
+          <option value={state.value}>{state.label}</option>
+        ))
+      }
+    </optgroup>
+    <optgroup label="All Other States">
+      {
+        otherStates.map((state) => (
+          <option value={state.value}>{state.label}</option>
+        ))
+      }
+    </optgroup>
+  </select>
+</div>
+
+<!-- ZIP -->
+<div class="form-group">
+  <label class="form-label">
+    ZIP Code <span class="required">*</span>
+  </label>
+  <input
+    type="text"
+    name="zipCode"
+    class="form-input"
+    placeholder="33101"
+    pattern="[0-9]{5}"
+    maxlength="5"
+    required
+  />
+</div>
+
+<!-- Phone -->
+<div class="form-group">
+  <label class="form-label">
+    Center Phone <span class="required">*</span>
+  </label>
+  <input
+    type="tel"
+    name="phone"
+    class="form-input"
+    placeholder="(305) 555-0123"
+    required
+  />
+</div>

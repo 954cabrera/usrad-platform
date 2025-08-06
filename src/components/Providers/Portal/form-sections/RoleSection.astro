@@ -1,0 +1,46 @@
+---
+// form-sections/RoleSection.astro
+const roles = [
+  {
+    value: "single-admin",
+    icon: "/images/icons/architect.svg",
+    alt: "Center Administrator",
+    title: "Center Administrator",
+    description: "I manage a single imaging center",
+  },
+  {
+    value: "multi-admin",
+    icon: "/images/icons/enterprise.svg",
+    alt: "Multi-Center Administrator",
+    title: "Multi-Center Administrator",
+    description: "I manage 2-10 imaging centers",
+  },
+  {
+    value: "executive",
+    icon: "/images/icons/briefcase.svg",
+    alt: "Executive/Corporate",
+    title: "Executive/Corporate",
+    description: "I represent 10+ centers or a corporate entity",
+  },
+];
+---
+
+<div class="form-section">
+  <h3 class="section-title">Your Role</h3>
+  <div class="role-options">
+    {
+      roles.map((role) => (
+        <label class="role-option">
+          <input type="radio" name="role" value={role.value} required />
+          <div class="role-card">
+            <img src={role.icon} alt={role.alt} width="38" height="38" />
+            <div class="role-details">
+              <h4>{role.title}</h4>
+              <p>{role.description}</p>
+            </div>
+          </div>
+        </label>
+      ))
+    }
+  </div>
+</div>

@@ -1,0 +1,55 @@
+---
+// src/components/Providers/Onboarding/Facilities/AddCenterForm.astro
+import CenterInfo from "./form-sections/CenterInfo.astro";
+import CenterAddress from "./form-sections/CenterAddress.astro";
+import CenterAdministrator from "./form-sections/CenterAdministrator.astro";
+import EquipmentSelection from "./form-sections/EquipmentSelection.astro";
+import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
+---
+
+<div class="add-center-section" id="add-center-form">
+  <div class="section-header">
+    <h2 class="section-title">Add Your First Center</h2>
+    <p class="section-description">
+      Start with your primary imaging center. You can add additional locations
+      after.
+    </p>
+  </div>
+
+  <form id="facility-form" class="facility-form">
+    <!-- Pre-populate Toggle -->
+    <div class="form-group full-width" id="prepopulate-section">
+      <label class="toggle-label">
+        <input type="checkbox" id="use-org-info" />
+        <span class="toggle-text"
+          >Use organization address and contact information</span
+        >
+      </label>
+      <p class="toggle-hint">
+        Auto-fill this form with your organization details
+      </p>
+    </div>
+
+    <div class="form-grid">
+      <CenterInfo />
+      <CenterAddress />
+      <CenterAdministrator />
+      <EquipmentSelection />
+      <EquipmentDetails />
+
+      <!-- Primary Center -->
+      <div class="form-group full-width">
+        <label class="checkbox-label">
+          <input type="checkbox" name="isPrimary" checked />
+          <span>This is my primary imaging center</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-primary" id="submit-btn">
+        Add Center
+      </button>
+    </div>
+  </form>
+</div>

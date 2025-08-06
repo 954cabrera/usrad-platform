@@ -1,0 +1,323 @@
+/* portal.css - Extracted and organized styles */
+
+/* ========== Layout & Container Styles ========== */
+.portal-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ========== Welcome Section ========== */
+.welcome-section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.welcome-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+}
+
+.welcome-subtitle {
+    font-size: 1.25rem;
+    color: #6b7280;
+}
+
+/* ========== Progress Section ========== */
+.setup-progress {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    margin-bottom: 3rem;
+}
+
+.progress-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+}
+
+.progress-items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.progress-item {
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    transition: all 0.3s ease;
+}
+
+.progress-item.active {
+    background: #eff6ff;
+    border-color: #3b82f6;
+}
+
+.progress-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1rem;
+    background: #f3f4f6;
+    border-radius: 12px;
+}
+
+.progress-content h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+
+.progress-content p {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.progress-status {
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #9ca3af;
+}
+
+.progress-item.active .progress-status {
+    color: #3b82f6;
+}
+
+/* ========== Form Section ========== */
+.organization-form-section {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.form-header {
+    margin-bottom: 2rem;
+}
+
+.form-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.form-description {
+    color: #6b7280;
+}
+
+.form-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1rem;
+}
+
+.section-description {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 1rem;
+}
+
+/* ========== Role Selection ========== */
+.role-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.role-option {
+    position: relative;
+    cursor: pointer;
+}
+
+.role-option input {
+    position: absolute;
+    opacity: 0;
+}
+
+.role-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+.role-option input:checked+.role-card {
+    background: #eff6ff;
+    border-color: #3b82f6;
+}
+
+.role-option:hover .role-card {
+    border-color: #d1d5db;
+}
+
+.role-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1rem;
+}
+
+.role-icon img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.role-details h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+
+.role-details p {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+/* ========== Form Elements ========== */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.required {
+    color: #ef4444;
+}
+
+.form-input {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.form-input.error {
+    border-color: #ef4444;
+    background-color: #fef2f2;
+}
+
+.error-message {
+    display: block;
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.form-hint {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+/* ========== Form Actions ========== */
+.form-actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-primary {
+    background: #3b82f6;
+    color: white;
+    padding: 0.875rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: #2563eb;
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 1024px) {
+    .progress-items {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .role-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .progress-items {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .welcome-title {
+        font-size: 2rem;
+    }
+
+    .portal-container {
+        padding: 1rem;
+    }
+
+    .organization-form-section {
+        padding: 1.5rem;
+    }
+}

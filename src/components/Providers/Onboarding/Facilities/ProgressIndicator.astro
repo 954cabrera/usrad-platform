@@ -1,0 +1,23 @@
+---
+// src/components/Providers/Onboarding/Facilities/ProgressIndicator.astro
+const steps = [
+  { id: 1, label: "Account", status: "completed", icon: "✓" },
+  { id: 2, label: "Centers", status: "active", icon: "2" },
+  { id: 3, label: "Pricing", status: "pending", icon: "3" },
+  { id: 4, label: "Review", status: "pending", icon: "4" },
+  { id: 5, label: "Sign", status: "pending", icon: "5" },
+];
+---
+
+<div class="progress-container">
+  <div class="progress-steps">
+    {
+      steps.map((step) => (
+        <div class={`step ${step.status}`}>
+          <div class="step-number">{step.icon}</div>
+          <div class="step-label">{step.label}</div>
+        </div>
+      ))
+    }
+  </div>
+</div>

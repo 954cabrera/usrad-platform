@@ -1,0 +1,32 @@
+---
+// OrganizationForm.astro
+import RoleSection from "./form-sections/RoleSection.astro";
+import OrganizationDetails from "./form-sections/OrganizationDetails.astro";
+import CorporateAddress from "./form-sections/CorporateAddress.astro";
+import AuthorizedSigner from "./form-sections/AuthorizedSigner.astro";
+---
+
+<div class="organization-form-section">
+  <div class="form-header">
+    <h2 class="form-title">Organization Information</h2>
+    <p class="form-description">
+      This information will be used for your Provider Service Agreement and
+      payment processing
+    </p>
+  </div>
+
+  <form id="organization-form" class="organization-form">
+    <RoleSection />
+    <OrganizationDetails />
+    <CorporateAddress />
+    <AuthorizedSigner />
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button type="submit" class="btn-primary">
+        Save & Continue to Add Centers
+      </button>
+    </div>
+  </form>
+</div>
+

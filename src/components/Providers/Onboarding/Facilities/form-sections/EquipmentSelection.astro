@@ -1,0 +1,27 @@
+---
+// src/components/Providers/Onboarding/Facilities/form-sections/EquipmentSelection.astro
+import { EQUIPMENT_TYPES } from "../../../shared/data/equipmentData.js";
+---
+
+<!-- Equipment -->
+<div class="form-group full-width">
+  <label class="form-label">
+    Available Equipment <span class="required">*</span>
+  </label>
+  <div class="equipment-grid">
+    {
+      EQUIPMENT_TYPES.map((equipment) => (
+        <label class="equipment-option">
+          <input type="checkbox" name="equipment" value={equipment.value} />
+          <div class="equipment-card">
+            <div class="equipment-icon">
+              <img src={equipment.icon} alt={equipment.name} />
+            </div>
+            <div class="equipment-name">{equipment.name}</div>
+          </div>
+        </label>
+      ))
+    }
+  </div>
+  <p class="form-hint">Select all equipment available at this location</p>
+</div>
