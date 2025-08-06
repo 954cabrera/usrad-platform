@@ -1,0 +1,34 @@
+---
+// src/components/Providers/Onboarding/MarketCalculator/CalculatorPanel.astro
+import LocationSelection from "./calculator/LocationSelection.astro";
+import RateSlider from "./calculator/RateSlider.astro";
+import ResultsSection from "./calculator/ResultsSection.astro";
+---
+
+<div class="calculator-panel">
+  <div class="calculator-header">
+    <h2 class="calculator-title">Calculate Your Revenue Potential</h2>
+    <p class="calculator-description">
+      See real Medicare rates for your location and projected patient volume
+    </p>
+  </div>
+
+  <!-- Location Selection -->
+  <LocationSelection />
+
+  <!-- Rate Strategy Slider -->
+  <RateSlider />
+
+  <!-- Live Results -->
+  <ResultsSection />
+
+  <!-- CTA Section -->
+  <div class="calculator-cta">
+    <button id="accept-rates-btn" class="primary-button" disabled>
+      Accept These Rates & Continue
+    </button>
+    <p class="cta-note">
+      You can adjust your rates anytime based on market conditions
+    </p>
+  </div>
+</div>

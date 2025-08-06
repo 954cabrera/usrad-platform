@@ -1,11 +1,38 @@
 ---
 // src/components/Providers/Onboarding/Facilities/ProgressIndicator.astro
+const { currentStep = 2 } = Astro.props;
+
 const steps = [
-  { id: 1, label: "Account", status: "completed", icon: "✓" },
-  { id: 2, label: "Centers", status: "active", icon: "2" },
-  { id: 3, label: "Pricing", status: "pending", icon: "3" },
-  { id: 4, label: "Review", status: "pending", icon: "4" },
-  { id: 5, label: "Sign", status: "pending", icon: "5" },
+  {
+    id: 1,
+    label: "Account",
+    status:
+      currentStep > 1 ? "completed" : currentStep === 1 ? "active" : "pending",
+  },
+  {
+    id: 2,
+    label: "Centers",
+    status:
+      currentStep > 2 ? "completed" : currentStep === 2 ? "active" : "pending",
+  },
+  {
+    id: 3,
+    label: "Pricing",
+    status:
+      currentStep > 3 ? "completed" : currentStep === 3 ? "active" : "pending",
+  },
+  {
+    id: 4,
+    label: "Review",
+    status:
+      currentStep > 4 ? "completed" : currentStep === 4 ? "active" : "pending",
+  },
+  {
+    id: 5,
+    label: "Sign",
+    status:
+      currentStep > 5 ? "completed" : currentStep === 5 ? "active" : "pending",
+  },
 ];
 ---
 
@@ -14,7 +41,9 @@ const steps = [
     {
       steps.map((step) => (
         <div class={`step ${step.status}`}>
-          <div class="step-number">{step.icon}</div>
+          <div class="step-number">
+            {step.status === "completed" ? "✓" : step.id}
+          </div>
           <div class="step-label">{step.label}</div>
         </div>
       ))

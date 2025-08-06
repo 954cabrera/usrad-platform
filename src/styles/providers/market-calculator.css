@@ -1,0 +1,671 @@
+/* market-calculator.css - Market Calculator page styles */
+
+/* ========== Progress Indicator ========== */
+.progress-container {
+    max-width: 800px;
+    margin: 2rem auto 3rem;
+    padding: 0 2rem;
+}
+
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.progress-steps::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e5e7eb;
+    z-index: -1;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    background: white;
+    padding: 0 0.5rem;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.step.completed .step-number {
+    background: #10b981;
+    color: white;
+}
+
+.step.active .step-number {
+    background: #3b82f6;
+    color: white;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.step-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.step.active .step-label {
+    color: #1f2937;
+    font-weight: 600;
+}
+
+/* ========== Container & Layout ========== */
+.education-calculator-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ========== Hero Section ========== */
+.hero-section {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: #6b7280;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ========== Content Grid ========== */
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+/* ========== Education Panel ========== */
+.education-panel {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.section-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.section-description {
+    color: #6b7280;
+    margin-bottom: 2rem;
+}
+
+/* ========== Comparison Visual ========== */
+.comparison-visual {
+    margin: 3rem 0;
+}
+
+.center-comparison {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.center-card {
+    flex: 1;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.center-card.winning {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    border: 2px solid #34d399;
+}
+
+.center-card.losing {
+    background: #f3f4f6;
+    border: 2px solid #e5e7eb;
+    opacity: 0.8;
+}
+
+.center-label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 1rem;
+}
+
+.price-badge {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.center-card.winning .price-badge {
+    color: #059669;
+}
+
+.center-card.losing .price-badge {
+    color: #6b7280;
+}
+
+.medicare-rate {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.outcome-badge {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.outcome-badge.success {
+    background: #059669;
+    color: white;
+}
+
+.outcome-badge.low {
+    background: #9ca3af;
+    color: white;
+}
+
+.volume-number {
+    font-size: 1.75rem;
+    font-weight: 700;
+    display: block;
+}
+
+.volume-text {
+    font-size: 0.875rem;
+}
+
+.revenue-projection {
+    font-size: 0.875rem;
+    color: #374151;
+}
+
+.vs-divider {
+    font-weight: 700;
+    color: #9ca3af;
+    font-size: 1.25rem;
+}
+
+/* ========== Insights Section ========== */
+.insights-section {
+    margin: 3rem 0;
+}
+
+.insights-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1.5rem;
+}
+
+.insight-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.insight-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+.insight-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.insight-content h4 {
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+.insight-content p {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+/* ========== Success Metrics ========== */
+.success-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding: 2rem;
+    background: #fef3c7;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #92400e;
+}
+
+.metric-label {
+    font-size: 0.875rem;
+    color: #78350f;
+    margin-top: 0.25rem;
+}
+
+/* ========== Calculator Panel ========== */
+.calculator-panel {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.calculator-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.calculator-description {
+    color: #6b7280;
+    margin-bottom: 2rem;
+}
+
+.calculator-section {
+    margin-bottom: 2rem;
+}
+
+.input-label {
+    display: block;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.75rem;
+}
+
+/* ========== Location Selection ========== */
+.location-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.location-select {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    background: white;
+}
+
+.location-select:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+/* ========== Rate Slider ========== */
+.slider-container {
+    background: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.rate-slider {
+    width: 100%;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    outline: none;
+    -webkit-appearance: none;
+    margin: 1.5rem 0;
+}
+
+.rate-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    background: #3b82f6;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.rate-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    background: #3b82f6;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.slider-value-display {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+}
+
+.volume-indicator {
+    background: #e5e7eb;
+    border-radius: 8px;
+    height: 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+.volume-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #34d399 0%, #10b981 100%);
+    transition: width 0.3s ease;
+}
+
+.volume-label {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+}
+
+/* ========== Results Section ========== */
+.results-section {
+    margin-top: 2rem;
+    min-height: 300px;
+}
+
+.results-loading {
+    text-align: center;
+    padding: 3rem;
+    color: #6b7280;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e5e7eb;
+    border-top: 3px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.procedure-result {
+    background: #f9fafb;
+    padding: 1.25rem;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.procedure-code {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #3b82f6;
+    margin-bottom: 0.25rem;
+}
+
+.procedure-name {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+}
+
+.procedure-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #059669;
+}
+
+.savings-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+/* ========== Revenue Projection Card ========== */
+.revenue-projection-card {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+}
+
+.revenue-projection-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e3a8a;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.projection-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    text-align: center;
+}
+
+.projection-item {
+    padding: 1rem;
+}
+
+.projection-label {
+    display: block;
+    font-size: 0.875rem;
+    color: #1e40af;
+    margin-bottom: 0.5rem;
+}
+
+.projection-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+.projection-item.highlight {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ========== CTA Section ========== */
+.calculator-cta {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.primary-button {
+    width: 100%;
+    padding: 1rem 2rem;
+    background: #3b82f6;
+    color: white;
+    font-weight: 600;
+    font-size: 1.125rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.primary-button:hover:not(:disabled) {
+    background: #2563eb;
+}
+
+.primary-button:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+.cta-note {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.75rem;
+}
+
+/* ========== Mobile Toggle ========== */
+.mobile-toggle {
+    display: none;
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 1024px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mobile-toggle {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        background: #f3f4f6;
+        padding: 0.25rem;
+        border-radius: 8px;
+    }
+
+    .toggle-button {
+        flex: 1;
+        padding: 0.75rem;
+        background: transparent;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        color: #6b7280;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .toggle-button.active {
+        background: white;
+        color: #1f2937;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .education-panel,
+    .calculator-panel {
+        display: none;
+    }
+
+    .education-panel.active,
+    .calculator-panel.active {
+        display: block;
+    }
+
+    .center-comparison {
+        flex-direction: column;
+    }
+
+    .vs-divider {
+        transform: rotate(90deg);
+        margin: 1rem 0;
+    }
+
+    .success-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .location-inputs {
+        grid-template-columns: 1fr;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .projection-metrics {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.125rem;
+    }
+
+    .education-panel,
+    .calculator-panel {
+        padding: 1.5rem;
+    }
+
+    .price-badge {
+        font-size: 2rem;
+    }
+
+    .metric-value {
+        font-size: 1.5rem;
+    }
+
+    .education-calculator-container {
+        padding: 1rem;
+    }
+}

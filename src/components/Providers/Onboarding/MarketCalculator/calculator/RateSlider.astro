@@ -1,0 +1,28 @@
+---
+// src/components/Providers/Onboarding/MarketCalculator/calculator/RateSlider.astro
+---
+
+<div class="calculator-section">
+  <label class="input-label">Your Pricing Strategy</label>
+  <div class="slider-container">
+    <div class="slider-header">
+      <span class="slider-label">More Volume</span>
+      <span class="slider-label">Higher Margin</span>
+    </div>
+    <input
+      type="range"
+      id="rate-slider"
+      min="90"
+      max="150"
+      value="100"
+      class="rate-slider"
+    />
+    <div class="slider-value-display">
+      <span id="rate-percentage">100%</span> of Medicare
+    </div>
+    <div class="volume-indicator" id="volume-indicator">
+      <div class="volume-bar" style="width: 90%"></div>
+      <span class="volume-label">Expected Volume: High</span>
+    </div>
+  </div>
+</div>
