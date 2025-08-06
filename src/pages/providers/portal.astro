@@ -18,7 +18,14 @@ import ProviderLayout from "../../layouts/ProviderLayout.astro";
       <h2 class="progress-title">Setup Progress</h2>
       <div class="progress-items">
         <div class="progress-item active">
-          <div class="progress-icon">👤</div>
+          <div class="progress-icon">
+            <img
+              src="/images/icons/building.svg"
+              alt="Organization Profile"
+              width="48"
+              height="48"
+            />
+          </div>
           <div class="progress-content">
             <h3>Organization Profile</h3>
             <p>Tell us about your organization</p>
@@ -26,7 +33,14 @@ import ProviderLayout from "../../layouts/ProviderLayout.astro";
           <div class="progress-status">Current Step</div>
         </div>
         <div class="progress-item">
-          <div class="progress-icon">🏥</div>
+          <div class="progress-icon">
+            <img
+              src="/images/icons/map-1.svg"
+              alt="Add Centers"
+              width="48"
+              height="48"
+            />
+          </div>
           <div class="progress-content">
             <h3>Add Centers</h3>
             <p>Register your imaging centers</p>
@@ -34,7 +48,14 @@ import ProviderLayout from "../../layouts/ProviderLayout.astro";
           <div class="progress-status">Next Step</div>
         </div>
         <div class="progress-item">
-          <div class="progress-icon">💰</div>
+          <div class="progress-icon">
+            <img
+              src="/images/icons/volatility.svg"
+              alt="Set Pricing"
+              width="48"
+              height="48"
+            />
+          </div>
           <div class="progress-content">
             <h3>Set Pricing</h3>
             <p>Choose your pricing strategy</p>
@@ -42,7 +63,14 @@ import ProviderLayout from "../../layouts/ProviderLayout.astro";
           <div class="progress-status">Coming Up</div>
         </div>
         <div class="progress-item">
-          <div class="progress-icon">✍️</div>
+          <div class="progress-icon">
+            <img
+              src="/images/icons/contract-1.svg"
+              alt="Sign Agreement"
+              width="48"
+              height="48"
+            />
+          </div>
           <div class="progress-content">
             <h3>Sign Agreement</h3>
             <p>Review and sign PSA</p>
@@ -70,7 +98,12 @@ import ProviderLayout from "../../layouts/ProviderLayout.astro";
             <label class="role-option">
               <input type="radio" name="role" value="single-admin" required />
               <div class="role-card">
-                <div class="role-icon">👤</div>
+                <img
+                  src="/images/icons/architect.svg"
+                  alt="Center Administrator"
+                  width="38"
+                  height="38"
+                />
                 <div class="role-details">
                   <h4>Center Administrator</h4>
                   <p>I manage a single imaging center</p>
@@ -80,7 +113,12 @@ import ProviderLayout from "../../layouts/ProviderLayout.astro";
             <label class="role-option">
               <input type="radio" name="role" value="multi-admin" required />
               <div class="role-card">
-                <div class="role-icon">🏢</div>
+                <img
+                  src="/images/icons/enterprise.svg"
+                  alt="Multi-Center Administrator"
+                  width="38"
+                  height="38"
+                />
                 <div class="role-details">
                   <h4>Multi-Center Administrator</h4>
                   <p>I manage 2-10 imaging centers</p>
@@ -90,7 +128,12 @@ import ProviderLayout from "../../layouts/ProviderLayout.astro";
             <label class="role-option">
               <input type="radio" name="role" value="executive" required />
               <div class="role-card">
-                <div class="role-icon">💼</div>
+                <img
+                  src="/images/icons/briefcase.svg"
+                  alt="Executive/Corporate"
+                  width="38"
+                  height="38"
+                />
                 <div class="role-details">
                   <h4>Executive/Corporate</h4>
                   <p>I represent 10+ centers or a corporate entity</p>
@@ -371,6 +414,53 @@ import ProviderLayout from "../../layouts/ProviderLayout.astro";
   </div>
 
   <style>
+    /* For the role cards */
+    .role-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    /* For the icon container */
+    .role-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+
+    /* Ensure images are contained */
+    .role-icon img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .progress-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 48px; /* Set a fixed width */
+      height: 48px; /* Set a fixed height */
+      margin: 0 auto; /* Center the container itself */
+    }
+
+    /* Optional: Add some padding/background */
+    .progress-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 1rem;
+      background: #f3f4f6;
+      border-radius: 12px;
+    }
+
     /* Container */
     .portal-container {
       max-width: 1200px;
