@@ -152,7 +152,7 @@
     margin-bottom: 2rem;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .section-title {
@@ -164,6 +164,33 @@
 .section-description {
     color: #6b7280;
     margin-top: 0.5rem;
+}
+
+/* Cancel/Close Button */
+.btn-close {
+    background: #f3f4f6;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #6b7280;
+    font-size: 1.25rem;
+    font-weight: 300;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.btn-close:hover {
+    background: #e5e7eb;
+    color: #1f2937;
+}
+
+.btn-close:active {
+    transform: scale(0.95);
 }
 
 /* ========== Pre-populate Toggle ========== */

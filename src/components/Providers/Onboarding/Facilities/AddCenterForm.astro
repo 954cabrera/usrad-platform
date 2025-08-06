@@ -9,11 +9,22 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
 
 <div class="add-center-section" id="add-center-form">
   <div class="section-header">
-    <h2 class="section-title">Add Your First Center</h2>
-    <p class="section-description">
-      Start with your primary imaging center. You can add additional locations
-      after.
-    </p>
+    <div>
+      <h2 class="section-title">Add Your First Center</h2>
+      <p class="section-description">
+        Start with your primary imaging center. You can add additional locations
+        after.
+      </p>
+    </div>
+    <button
+      type="button"
+      class="btn-close"
+      id="cancel-add-center"
+      style="display: none;"
+      title="Cancel"
+    >
+      ✕
+    </button>
   </div>
 
   <form id="facility-form" class="facility-form">
