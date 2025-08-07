@@ -1,0 +1,522 @@
+// src/components/Providers/Onboarding/PSA/OnboardingPSA.jsx
+import React, { useState, useEffect, useCallback } from "react";
+import PSAProgressSteps from "./modules/PSAProgressSteps";
+import PSAReviewSection from "./modules/PSAReviewSection";
+import PSASigningSection from "./modules/PSASigningSection";
+import PSAFloatingGuide from "./modules/PSAFloatingGuide";
+import {
+  SignedCheckButton,
+  ReadyToContinueButton,
+  DocuSealNavigationHelper,
+} from "./modules/PSAHelperButtons";
+import PSACompletionOverlay from "./modules/PSACompletionOverlay";
+import PSAConfettiCelebration from "./modules/PSAConfettiCelebration";
+
+export default function OnboardingPSA() {
+  const [loading, setLoading] = useState(true);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [embedSrc, setEmbedSrc] = useState(null);
+  const [completed, setCompleted] = useState(false);
+  const [error, setError] = useState(null);
+  const [psaData, setPsaData] = useState(null);
+  const [guideStep, setGuideStep] = useState(1);
+  const [showSignedButton, setShowSignedButton] = useState(false);
+  const [showContinueButton, setShowContinueButton] = useState(false);
+  const [showCompletionOverlay, setShowCompletionOverlay] = useState(false);
+  const [triggerConfetti, setTriggerConfetti] = useState(false);
+
+  // Load data from localStorage
+  const loadOnboardingData = useCallback(() => {
+    try {
+      console.log("Loading onboarding data from localStorage...");
+
+      const orgDataStr = localStorage.getItem("provider_organization");
+      const orgData = orgDataStr ? JSON.parse(orgDataStr) : {};
+
+      const centersStr = localStorage.getItem("provider_centers");
+      const centers = centersStr ? JSON.parse(centersStr) : [];
+
+      const pricingStr = localStorage.getItem("selected_rate_strategy");
+      const pricing = pricingStr ? JSON.parse(pricingStr) : {};
+
+      const data = {
+        organization: orgData,
+        centers: centers,
+        primaryCenter: centers.find((c) => c.isPrimary) || centers[0] || {},
+        pricing: pricing,
+        signer: orgData.signer || {},
+      };
+
+      console.log("📊 Loaded onboarding data:", data);
+      setPsaData(data);
+      return data;
+    } catch (error) {
+      console.error("Error loading onboarding data:", error);
+      setError("Failed to load onboarding data: " + error.message);
+      return null;
+    }
+  }, []);
+
+  // Initialize PSA
+  useEffect(() => {
+    console.log("🚀 Initializing PSA for onboarding...");
+
+    const data = loadOnboardingData();
+    if (!data) {
+      setError("No onboarding data found. Please complete previous steps.");
+    }
+
+    setLoading(false);
+  }, [loadOnboardingData]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (window.psaCleanup) {
+        window.psaCleanup();
+      }
+    };
+  }, []);
+
+  // Start signing process
+  const startSigning = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      if (!psaData) {
+        throw new Error("No data available for signing");
+      }
+
+      const submitterValues = {
+        primary_contact_name: psaData.signer.fullName || "",
+        primary_contact_phone: psaData.signer.phone || "",
+        primary_contact_email: psaData.signer.email || "",
+        provider_name: psaData.organization.legalName || "",
+        provider_email: psaData.signer.email || "",
+        provider_phone: psaData.signer.phone || "",
+        tax_id: psaData.organization.taxId || "",
+        signer_name: psaData.signer.fullName || "",
+        signer_title: psaData.signer.title || "",
+        total_authorized_locations: psaData.centers.length.toString(),
+        agreement_date: new Date().toLocaleDateString("en-US"),
+        provider_date: new Date().toLocaleDateString("en-US"),
+        medicare_rate: psaData.pricing.percentage || "100",
+      };
+
+      const payload = {
+        template_id: 1155842,
+        send_email: false,
+        submitters: [
+          {
+            role: "Provider",
+            name: psaData.signer.fullName || "Provider",
+            email: psaData.signer.email || "",
+            values: submitterValues,
+          },
+        ],
+      };
+
+      console.log("📤 DocuSeal payload:", JSON.stringify(payload, null, 2));
+
+      const response = await fetch("/api/docuseal/create-submission", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to create submission");
+      }
+
+      const result = await response.json();
+      console.log("✅ DocuSeal response:", result);
+
+      const signingUrl = result.embed_url;
+
+      if (signingUrl) {
+        console.log("🎯 Got signing URL:", signingUrl);
+        setEmbedSrc(signingUrl);
+        setCurrentStep(2);
+        setLoading(false);
+
+        // Start monitoring for completion after a delay
+        setTimeout(() => {
+          setupCompletionMonitoring();
+        }, 3000);
+      } else {
+        throw new Error("No signing URL returned");
+      }
+    } catch (err) {
+      console.error("❌ Signing start failed:", err);
+      setError(err.message);
+      setLoading(false);
+    }
+  };
+
+  // Setup completion monitoring with enhanced tracking
+  const setupCompletionMonitoring = () => {
+    let scrollCheckInterval;
+    let lastScrollY = 0;
+    let currentPsaStep = 1;
+
+    // More aggressive scroll detection
+    const checkScrollProgress = () => {
+      const currentScrollY =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight;
+      const winHeight = window.innerHeight;
+      const scrollPercent = (currentScrollY / (docHeight - winHeight)) * 100;
+
+      console.log(
+        `Scroll: ${scrollPercent.toFixed(1)}%, Step: ${currentPsaStep}`
+      );
+
+      // Update to step 2 after minimal scrolling
+      if (currentScrollY > 500 && currentPsaStep === 1) {
+        setGuideStep(2);
+        currentPsaStep = 2;
+      }
+
+      // Update to step 3 when near bottom (80% scrolled)
+      if (scrollPercent > 80 && currentPsaStep === 2) {
+        setGuideStep(3);
+        currentPsaStep = 3;
+      }
+
+      // Alternative: Check if "Sign Now" button is visible
+      const signButton = document.querySelector('button[type="submit"]');
+      const docusealButton = document.querySelector(".docuseal-button");
+      const anyButton = document.querySelector('[data-testid="sign-button"]');
+
+      if ((signButton || docusealButton || anyButton) && currentPsaStep === 2) {
+        setGuideStep(3);
+        currentPsaStep = 3;
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    // Check scroll every second
+    scrollCheckInterval = setInterval(checkScrollProgress, 1000);
+
+    // Also check on actual scroll events (throttled)
+    let scrollTimeout;
+    const handleScroll = () => {
+      if (scrollTimeout) return;
+
+      scrollTimeout = setTimeout(() => {
+        checkScrollProgress();
+        scrollTimeout = null;
+      }, 500);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Force update to step 2 after 5 seconds if still on step 1
+    const forceStep2 = setTimeout(() => {
+      if (currentPsaStep === 1) {
+        setGuideStep(2);
+        currentPsaStep = 2;
+      }
+    }, 5000);
+
+    // Force update to step 3 after 15 seconds if still on step 2
+    const forceStep3 = setTimeout(() => {
+      if (currentPsaStep === 2) {
+        setGuideStep(3);
+        currentPsaStep = 3;
+      }
+    }, 15000);
+
+    // Show helper button after 15 seconds
+    const showHelperTimeout = setTimeout(() => {
+      if (!completed) {
+        setShowSignedButton(true);
+        setGuideStep(4);
+        currentPsaStep = 4;
+      }
+    }, 15000);
+
+    // Listen for completion messages
+    const handleMessage = (event) => {
+      console.log("📡 DocuSeal Message:", event.data);
+
+      if (
+        event.data?.type === "docuseal:completed" ||
+        event.data?.type === "submission:completed" ||
+        event.data?.status === "completed" ||
+        event.data?.action === "completed" ||
+        event.data?.event === "completed"
+      ) {
+        setGuideStep(4);
+        setTimeout(() => {
+          setShowSignedButton(true);
+        }, 1500);
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+
+    // Cleanup function
+    const cleanup = () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("message", handleMessage);
+      clearInterval(scrollCheckInterval);
+      clearTimeout(forceStep2);
+      clearTimeout(forceStep3);
+      clearTimeout(showHelperTimeout);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+    };
+
+    // Store cleanup function for later use
+    window.psaCleanup = cleanup;
+
+    return cleanup;
+  };
+
+  // Handle signed confirmation
+  const handleSignedConfirmation = () => {
+    setShowSignedButton(false);
+    setShowContinueButton(true);
+  };
+
+  // Handle PSA completion
+  const handlePSACompletion = () => {
+    if (completed) return;
+
+    console.log("🎉 PSA Completion Handler Called!");
+    setCompleted(true);
+    setCurrentStep(3);
+    setGuideStep(4);
+    setShowSignedButton(false);
+    setShowContinueButton(false);
+
+    // Show completion overlay
+    setShowCompletionOverlay(true);
+
+    // Trigger confetti
+    setTriggerConfetti(true);
+
+    // Save completion status
+    localStorage.setItem("psa_signed", "true");
+    localStorage.setItem("psa_signed_date", new Date().toISOString());
+
+    // Redirect after delay
+    setTimeout(() => {
+      console.log("🔄 Redirecting to success page...");
+      window.location.href = "/providers/onboarding/success";
+    }, 8000);
+  };
+
+  // Render loading state
+  if (loading && currentStep === 1) {
+    return (
+      <div className="psa-container">
+        <div className="loading-state">
+          <div className="spinner"></div>
+          <p>Loading your information...</p>
+        </div>
+        <style jsx>{`
+          .psa-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+          }
+
+          .loading-state {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+          }
+
+          .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+          }
+
+          @keyframes spin {
+            0% {
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+
+          @media (max-width: 768px) {
+            .psa-container {
+              padding: 1rem;
+            }
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  // Render error state
+  if (error && !embedSrc) {
+    return (
+      <div className="psa-container">
+        <div className="error-state">
+          <h3>Unable to load agreement</h3>
+          <p>{error}</p>
+          <button onClick={() => window.location.reload()}>Try Again</button>
+        </div>
+        <style jsx>{`
+          .psa-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+          }
+
+          .error-state {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+          }
+
+          .error-state h3 {
+            color: #dc2626;
+            margin-bottom: 1rem;
+          }
+
+          .error-state p {
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+          }
+
+          .error-state button {
+            background: #ef4444;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+          }
+
+          .error-state button:hover {
+            background: #dc2626;
+          }
+
+          @media (max-width: 768px) {
+            .psa-container {
+              padding: 1rem;
+            }
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  // Main render
+  return (
+    <div className="psa-container">
+      <PSAProgressSteps currentStep={currentStep} />
+
+      {currentStep === 1 && psaData && (
+        <PSAReviewSection
+          psaData={psaData}
+          onContinue={startSigning}
+          loading={loading}
+        />
+      )}
+
+      {currentStep === 2 && embedSrc && (
+        <>
+          <PSASigningSection embedSrc={embedSrc} />
+          <PSAFloatingGuide currentStep={guideStep} isVisible={true} />
+          <DocuSealNavigationHelper isVisible={true} />
+        </>
+      )}
+
+      {currentStep === 3 && completed && (
+        <div className="completion-message">
+          <div className="success-icon">✅</div>
+          <h2>Agreement Signed Successfully!</h2>
+          <p>Your Provider Service Agreement has been completed.</p>
+          <p className="redirect-text">Redirecting to complete your setup...</p>
+        </div>
+      )}
+
+      {/* Helper Buttons */}
+      {showSignedButton && (
+        <SignedCheckButton onConfirm={handleSignedConfirmation} />
+      )}
+
+      {showContinueButton && (
+        <ReadyToContinueButton onContinue={handlePSACompletion} />
+      )}
+
+      {/* Completion Overlay */}
+      <PSACompletionOverlay
+        psaData={psaData}
+        isVisible={showCompletionOverlay}
+      />
+
+      {/* Confetti Celebration */}
+      <PSAConfettiCelebration trigger={triggerConfetti} />
+
+      <style jsx>{`
+        .psa-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 2rem;
+          min-height: 100vh;
+        }
+
+        .completion-message {
+          text-align: center;
+          padding: 3rem;
+          background: white;
+          border-radius: 12px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+          max-width: 600px;
+          margin: 2rem auto;
+        }
+
+        .success-icon {
+          font-size: 4rem;
+          margin-bottom: 1rem;
+        }
+
+        .completion-message h2 {
+          color: #111827;
+          margin-bottom: 1rem;
+        }
+
+        .completion-message p {
+          color: #6b7280;
+          margin-bottom: 0.5rem;
+        }
+
+        .redirect-text {
+          font-style: italic;
+          color: #9ca3af;
+        }
+
+        @media (max-width: 768px) {
+          .psa-container {
+            padding: 0;
+          }
+
+          .completion-message {
+            margin: 1rem;
+            padding: 2rem;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}

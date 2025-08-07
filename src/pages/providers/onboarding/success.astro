@@ -1,0 +1,25 @@
+---
+// src/pages/providers/onboarding/success.astro
+import ProviderLayout from "../../../layouts/ProviderLayout.astro";
+import PSASuccessContent from "../../../components/Providers/Onboarding/PSA/modules/PSASuccessContent.jsx";
+---
+
+<ProviderLayout title="Welcome to USRad Network">
+  <div class="success-page">
+    <PSASuccessContent client:load />
+  </div>
+
+  <style>
+    .success-page {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #003087 0%, #0052cc 100%);
+      padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .success-page {
+        padding: 1rem;
+      }
+    }
+  </style>
+</ProviderLayout>
