@@ -1,0 +1,577 @@
+/* src/styles/providers/confirmation.css - Confirmation page styles */
+
+/* ========== Progress Indicator ========== */
+.progress-container {
+    max-width: 800px;
+    margin: 2rem auto 3rem;
+    padding: 0 2rem;
+}
+
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.progress-steps::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e5e7eb;
+    z-index: -1;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    background: white;
+    padding: 0 0.5rem;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.step.completed .step-number {
+    background: #10b981;
+    color: white;
+}
+
+.step.active .step-number {
+    background: #3b82f6;
+    color: white;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.step-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.step.active .step-label {
+    color: #1f2937;
+    font-weight: 600;
+}
+
+/* ========== Container ========== */
+.confirmation-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ========== Header ========== */
+.header-section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.success-icon {
+    margin-bottom: 1.5rem;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+}
+
+.page-subtitle {
+    font-size: 1.125rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ========== Review Sections ========== */
+.review-section {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    margin-bottom: 2rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+}
+
+.edit-link {
+    color: #3b82f6;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.edit-link:hover {
+    color: #2563eb;
+}
+
+/* ========== Info Grid ========== */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+}
+
+.info-value {
+    font-size: 1rem;
+    color: #1f2937;
+    font-weight: 600;
+}
+
+/* ========== Centers Summary ========== */
+.summary-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat {
+    text-align: center;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+.centers-review-list {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.center-review-item {
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.center-review-item.primary {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.center-name {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+
+.center-location {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.center-admin {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+/* ========== Pricing Summary ========== */
+.pricing-display {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.rate-percentage {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+.rate-description {
+    font-size: 1.125rem;
+    color: #3730a3;
+}
+
+.impact-preview {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.impact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+.impact-item.positive {
+    background: #d1fae5;
+}
+
+.impact-title {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+}
+
+.impact-value {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* ========== Agreement Section ========== */
+.agreement-section {
+    background: #fef3c7;
+    border: 2px solid #f59e0b;
+}
+
+.agreement-structure {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.doc-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+}
+
+.doc-details h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+
+.doc-details p {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+}
+
+.doc-meta {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.preview-button {
+    width: 100%;
+    padding: 0.75rem;
+    background: white;
+    color: #f59e0b;
+    border: 2px solid #f59e0b;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.preview-button:hover {
+    background: #fef3c7;
+}
+
+/* ========== Confirmation List ========== */
+.confirmation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.confirmation-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.confirmation-item:hover {
+    background: #f3f4f6;
+}
+
+.confirmation-checkbox {
+    position: absolute;
+    opacity: 0;
+}
+
+.checkbox-custom {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #d1d5db;
+    border-radius: 6px;
+    transition: all 0.2s;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.confirmation-checkbox:checked+.checkbox-custom {
+    background: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.confirmation-checkbox:checked+.checkbox-custom::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: 600;
+}
+
+.confirmation-text {
+    color: #374151;
+}
+
+/* ========== Action Buttons ========== */
+.action-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.btn-primary {
+    background: #3b82f6;
+    color: white;
+    padding: 0.875rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #2563eb;
+}
+
+.btn-primary:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background: white;
+    color: #6b7280;
+    padding: 0.875rem 2rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    border-color: #d1d5db;
+    background: #f9fafb;
+}
+
+/* ========== Modal ========== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 2rem;
+}
+
+.modal-container {
+    background: white;
+    border-radius: 16px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.modal-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6b7280;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.modal-close:hover {
+    background: #f3f4f6;
+    color: #1f2937;
+}
+
+.modal-content {
+    padding: 2rem;
+}
+
+.exhibit-preview {
+    font-family: "Courier New", monospace;
+    background: #f9fafb;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.exhibit-preview h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.exhibit-intro {
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.exhibit-center {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+}
+
+.exhibit-center-header {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.exhibit-center-detail {
+    margin-left: 1rem;
+    font-size: 0.875rem;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .impact-preview {
+        grid-template-columns: 1fr;
+    }
+
+    .action-section {
+        flex-direction: column-reverse;
+        gap: 1rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+    }
+
+    .progress-steps {
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+
+    .step-label {
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 640px) {
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .confirmation-container {
+        padding: 1rem;
+    }
+
+    .review-section {
+        padding: 1.5rem;
+    }
+}

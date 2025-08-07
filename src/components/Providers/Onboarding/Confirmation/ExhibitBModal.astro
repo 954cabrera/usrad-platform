@@ -1,0 +1,24 @@
+---
+// src/components/Providers/Onboarding/Confirmation/ExhibitBModal.astro
+---
+
+<div class="modal-overlay" id="exhibit-modal" style="display: none;">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2>Exhibit B Preview</h2>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-content">
+      <div class="exhibit-preview">
+        <h3>EXHIBIT B - AUTHORIZED IMAGING CENTERS</h3>
+        <p class="exhibit-intro">
+          The following imaging centers are authorized to provide services under
+          this agreement:
+        </p>
+        <div id="exhibit-centers-list">
+          <!-- Centers will be populated here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

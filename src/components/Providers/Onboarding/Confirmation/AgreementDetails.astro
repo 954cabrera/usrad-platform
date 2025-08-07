@@ -1,0 +1,47 @@
+---
+// src/components/Providers/Onboarding/Confirmation/AgreementDetails.astro
+---
+
+<div class="review-section agreement-section">
+  <div class="section-header">
+    <h2 class="section-title">Agreement Details</h2>
+  </div>
+
+  <div class="agreement-info">
+    <div class="agreement-structure">
+      <div class="doc-item">
+        <img
+          src="/images/icons/contract-2.svg"
+          alt="PSA Agreement"
+          width="48"
+          height="48"
+        />
+        <div class="doc-details">
+          <h3>Provider Service Agreement (PSA)</h3>
+          <p>Standard agreement covering all your centers</p>
+          <span class="doc-meta">10 pages • Digital signature required</span>
+        </div>
+      </div>
+
+      <div class="doc-item">
+        <img
+          src="/images/icons/list.svg"
+          alt="Facility Details"
+          width="48"
+          height="48"
+        />
+        <div class="doc-details">
+          <h3>Exhibit B - Facility Details</h3>
+          <p>
+            Lists all <span id="exhibit-count">0</span> of your imaging centers
+          </p>
+          <span class="doc-meta">Delivered separately after PSA signing</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="preview-button" onclick="previewExhibitB()">
+      Preview How Your Centers Will Appear in Exhibit B
+    </button>
+  </div>
+</div>

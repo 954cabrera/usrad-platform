@@ -1,0 +1,31 @@
+---
+// src/components/Providers/Onboarding/Confirmation/CentersReview.astro
+---
+
+<div class="review-section">
+  <div class="section-header">
+    <h2 class="section-title">Imaging Centers</h2>
+    <button class="edit-link" onclick="editCenters()">Edit</button>
+  </div>
+
+  <div class="centers-summary">
+    <div class="summary-stats">
+      <div class="stat">
+        <span class="stat-number" id="total-centers">0</span>
+        <span class="stat-label">Total Centers</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" id="total-states">0</span>
+        <span class="stat-label">States</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" id="total-equipment">0</span>
+        <span class="stat-label">Equipment Types</span>
+      </div>
+    </div>
+
+    <div id="centers-list" class="centers-review-list">
+      <!-- Centers will be populated here -->
+    </div>
+  </div>
+</div>

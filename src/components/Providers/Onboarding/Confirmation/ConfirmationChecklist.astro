@@ -1,0 +1,41 @@
+---
+// src/components/Providers/Onboarding/Confirmation/ConfirmationChecklist.astro
+const checkItems = [
+  {
+    id: "info",
+    text: "All information above is accurate and complete",
+  },
+  {
+    id: "authorized",
+    text: "I am authorized to sign agreements on behalf of this organization",
+  },
+  {
+    id: "terms",
+    text: "I understand the pricing terms and payment structure",
+  },
+  {
+    id: "exhibit",
+    text: "I understand Exhibit B will be delivered after PSA signing",
+  },
+];
+---
+
+<div class="review-section">
+  <h2 class="section-title">Please Confirm</h2>
+
+  <div class="confirmation-list">
+    {
+      checkItems.map((item) => (
+        <label class="confirmation-item">
+          <input
+            type="checkbox"
+            class="confirmation-checkbox"
+            data-confirm={item.id}
+          />
+          <span class="checkbox-custom" />
+          <span class="confirmation-text">{item.text}</span>
+        </label>
+      ))
+    }
+  </div>
+</div>

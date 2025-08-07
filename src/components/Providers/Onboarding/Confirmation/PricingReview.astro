@@ -1,0 +1,58 @@
+---
+// src/components/Providers/Onboarding/Confirmation/PricingReview.astro
+---
+
+<div class="review-section">
+  <div class="section-header">
+    <h2 class="section-title">Pricing Strategy</h2>
+    <button class="edit-link" onclick="editPricing()">Edit</button>
+  </div>
+
+  <div class="pricing-summary">
+    <div class="pricing-display">
+      <div class="rate-percentage">
+        <span id="rate-value">100</span>%
+      </div>
+      <div class="rate-description">of Medicare Rates</div>
+    </div>
+
+    <div class="impact-preview">
+      <div class="impact-item positive">
+        <div
+          class="progress-icon"
+          style="display: flex; justify-content: center; align-items: center;"
+        >
+          <img
+            src="/images/icons/trend.svg"
+            alt="Trend"
+            width="48"
+            height="48"
+          />
+        </div>
+        <div>
+          <div class="impact-title">Expected Volume</div>
+          <div class="impact-value" id="expected-volume">
+            High (15-20 patients/week)
+          </div>
+        </div>
+      </div>
+      <div class="impact-item">
+        <div
+          class="progress-icon"
+          style="display: flex; justify-content: center; align-items: center;"
+        >
+          <img
+            src="/images/icons/money.svg"
+            alt="Projected Annual Revenues"
+            width="48"
+            height="48"
+          />
+        </div>
+        <div>
+          <div class="impact-title">Projected Annual Revenue</div>
+          <div class="impact-value" id="projected-revenue">$351,000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
