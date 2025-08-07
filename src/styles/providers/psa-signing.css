@@ -1,0 +1,327 @@
+/* src/styles/providers/psa-signing.css - PSA Signing page styles */
+
+/* ========== Container ========== */
+.psa-signing-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.psa-onboarding-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ========== Header ========== */
+.psa-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+}
+
+.page-subtitle {
+    font-size: 1.125rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ========== Progress Steps ========== */
+.psa-steps {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    gap: 2rem;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.step.active {
+    opacity: 1;
+}
+
+.step-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.step.active .step-number {
+    background: #3b82f6;
+    color: white;
+}
+
+.step-label {
+    font-size: 0.875rem;
+    color: #4b5563;
+}
+
+.step.active .step-label {
+    color: #1f2937;
+    font-weight: 500;
+}
+
+/* ========== Loading & Error States ========== */
+.loading-container,
+.error-container,
+.completion-container {
+    text-align: center;
+    padding: 3rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.error-container h3 {
+    color: #dc2626;
+    margin-bottom: 1rem;
+}
+
+.error-container p {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.error-container button {
+    margin-top: 1rem;
+    background: #ef4444;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.error-container button:hover {
+    background: #dc2626;
+}
+
+/* ========== Review Section ========== */
+.review-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.review-container h2 {
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+}
+
+.info-section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+.info-section h3 {
+    margin-bottom: 0.5rem;
+    color: #1f2937;
+    font-size: 1.125rem;
+}
+
+.info-section p {
+    margin: 0.25rem 0;
+    color: #6b7280;
+}
+
+.info-section strong {
+    color: #374151;
+}
+
+/* ========== Continue Button ========== */
+.continue-btn {
+    background: #3b82f6;
+    color: white;
+    padding: 0.875rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 1rem;
+}
+
+.continue-btn:hover:not(:disabled) {
+    background: #2563eb;
+}
+
+.continue-btn:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+/* ========== Signing Section ========== */
+.signing-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    position: relative;
+    overflow: visible;
+}
+
+.signing-instructions {
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: #eff6ff;
+    border-radius: 8px;
+}
+
+.signing-instructions p {
+    margin: 0;
+    color: #1e40af;
+    font-weight: 500;
+}
+
+.docuseal-embed {
+    width: 100%;
+    min-height: 800px;
+    position: relative;
+    overflow: visible;
+}
+
+/* Ensure DocuSeal iframe can scroll properly */
+.docuseal-embed iframe,
+docuseal-form iframe {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 800px !important;
+    max-height: 90vh !important;
+    border: none !important;
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    position: relative !important;
+}
+
+/* Allow iframe to take full height when navigating */
+docuseal-form {
+    display: block;
+    width: 100%;
+    position: relative;
+    overflow: visible;
+}
+
+/* Prevent interference with DocuSeal navigation */
+.docuseal-embed:focus-within {
+    outline: none;
+}
+
+/* When DocuSeal is navigating, prevent parent scroll */
+body.docuseal-navigating {
+    overflow: hidden !important;
+}
+
+/* Ensure iframe content is scrollable */
+.docuseal-embed iframe:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* ========== Completion Section ========== */
+.success-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.completion-container h2 {
+    color: #059669;
+    margin-bottom: 1rem;
+}
+
+.redirect-message {
+    color: #6b7280;
+    font-style: italic;
+    margin-top: 1rem;
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 768px) {
+    .psa-signing-container {
+        padding: 1rem;
+    }
+
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .review-container {
+        padding: 1.5rem;
+    }
+
+    .info-section {
+        padding: 0.75rem;
+    }
+}
+
+/* Force DocuSeal iframe to be tall enough to show all content */
+docuseal-form {
+    display: block !important;
+    width: 100% !important;
+    min-height: 1200px !important;
+    /* Increase this if needed */
+    height: auto !important;
+}
+
+docuseal-form iframe {
+    position: static !important;
+    width: 100% !important;
+    min-height: 1200px !important;
+    /* Match the parent height */
+    height: 100% !important;
+    border: none !important;
+}
+
+/* Ensure the signing container doesn't restrict height */
+.signing-container {
+    overflow: visible !important;
+    max-height: none !important;
+}
+
+.docuseal-embed {
+    overflow: visible !important;
+    min-height: 1200px !important;
+    height: auto !important;
+}

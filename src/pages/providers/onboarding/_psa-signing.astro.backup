@@ -1,0 +1,68 @@
+---
+import ProviderLayout from "../../../layouts/ProviderLayout.astro";
+import ProgressIndicator from "../../../components/Providers/Onboarding/Facilities/ProgressIndicator.astro";
+import OnboardingPSA from "../../../components/Providers/Onboarding/PSA/OnboardingPSA.jsx";
+import "../../../styles/providers/psa-mobile.css";
+---
+
+<ProviderLayout title="Provider Service Agreement">
+  <ProgressIndicator currentStep={5} />
+
+  <div class="psa-signing-container">
+    <div class="psa-header">
+      <h1 class="page-title">Provider Service Agreement</h1>
+      <p class="page-subtitle">
+        Review and sign your Provider Service Agreement to complete your
+        onboarding
+      </p>
+    </div>
+
+    <div class="psa-content">
+      <OnboardingPSA client:only="react" />
+    </div>
+  </div>
+
+  <style>
+    .psa-signing-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .psa-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 1rem;
+    }
+
+    .page-subtitle {
+      font-size: 1.125rem;
+      color: #6b7280;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .psa-content {
+      /* Let the React component handle its own styling */
+    }
+
+    @media (max-width: 768px) {
+      .psa-signing-container {
+        padding: 1rem;
+      }
+
+      .page-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+
+  <!-- Updated script path to match your folder structure -->
+  <script src="../../../scripts/providers/psa/mobile-enhancements.js"></script>
+</ProviderLayout>

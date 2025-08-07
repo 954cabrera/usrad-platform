@@ -1,0 +1,13 @@
+---
+// src/components/Providers/Onboarding/PSA/PSASigningPage.astro
+import PSAHeader from "./PSAHeader.astro";
+import OnboardingPSA from "./OnboardingPSA.jsx";
+---
+
+<div class="psa-signing-container">
+  <PSAHeader />
+
+  <div class="psa-content">
+    <OnboardingPSA client:only="react" />
+  </div>
+</div>

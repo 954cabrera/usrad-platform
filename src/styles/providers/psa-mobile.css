@@ -1,0 +1,193 @@
+/* PSA Mobile Optimization Styles - Add to your existing CSS */
+/* This CSS can be added without modifying any existing code */
+
+/* Mobile Optimization for PSA Signing Page */
+@media (max-width: 768px) {
+
+    /* Floating Guide - Make it more mobile-friendly */
+    #floating-progress-guide {
+        top: 60px !important;
+        right: 10px !important;
+        left: 10px !important;
+        max-width: calc(100vw - 20px) !important;
+        font-size: 12px !important;
+    }
+
+    /* Helper Buttons - Better mobile positioning */
+    #signed-check-button,
+    #ready-to-continue-button {
+        bottom: 20px !important;
+        right: 10px !important;
+        left: 10px !important;
+        max-width: calc(100vw - 20px) !important;
+        padding: 16px 20px !important;
+    }
+
+    /* Completion Overlay - Mobile friendly */
+    #completion-overlay {
+        min-width: auto !important;
+        width: calc(100vw - 40px) !important;
+        max-width: 400px !important;
+        padding: 24px !important;
+    }
+
+    /* PSA Steps - Stack on mobile */
+    .psa-steps {
+        flex-wrap: wrap;
+        gap: 1rem !important;
+        padding: 0 1rem;
+    }
+
+    .step {
+        flex: 1 1 auto;
+        min-width: 100px;
+        justify-content: center;
+    }
+
+    .step-label {
+        font-size: 0.875rem;
+    }
+
+    /* Review Container - Mobile padding */
+    .review-container {
+        padding: 1.5rem !important;
+    }
+
+    .info-section {
+        padding: 0.75rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .info-section h3 {
+        font-size: 1.125rem;
+    }
+
+    .info-section p {
+        font-size: 0.875rem;
+    }
+
+    /* DocuSeal Embed - Ensure it fits */
+    .docuseal-embed {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .docuseal-embed docuseal-form,
+    .docuseal-embed iframe {
+        max-width: 100% !important;
+        min-height: 600px !important;
+    }
+
+    /* Signing Instructions - Mobile size */
+    .signing-instructions {
+        padding: 0.75rem !important;
+        font-size: 0.875rem;
+    }
+
+    /* Continue Button - Full width on mobile */
+    .continue-btn {
+        width: 100%;
+        padding: 1rem !important;
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+
+    /* Even more compact floating guide */
+    #floating-progress-guide {
+        padding: 12px !important;
+        font-size: 11px !important;
+    }
+
+    /* Smaller completion overlay text */
+    #completion-overlay h2 {
+        font-size: 20px !important;
+    }
+
+    #completion-overlay p {
+        font-size: 14px !important;
+    }
+
+    /* Stack PSA steps vertically */
+    .psa-steps {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .step {
+        justify-content: flex-start;
+        padding: 0.5rem;
+    }
+
+    /* Adjust page header */
+    .page-title {
+        font-size: 1.75rem !important;
+    }
+
+    .page-subtitle {
+        font-size: 1rem !important;
+    }
+}
+
+/* Landscape Mobile Optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+
+    /* Adjust floating guide for landscape */
+    #floating-progress-guide {
+        top: 10px !important;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    /* Move helper buttons to avoid overlap */
+    #signed-check-button,
+    #ready-to-continue-button {
+        bottom: 10px !important;
+    }
+
+    /* Reduce vertical spacing */
+    .psa-header {
+        margin-bottom: 1.5rem !important;
+    }
+
+    .psa-steps {
+        margin-bottom: 1.5rem !important;
+    }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Larger touch targets */
+    .continue-btn,
+    #signed-check-button,
+    #ready-to-continue-button {
+        min-height: 48px;
+    }
+
+    /* Better button spacing */
+    #signed-check-button>div:last-child,
+    #ready-to-continue-button>div:last-child {
+        padding: 12px 20px !important;
+    }
+}
+
+/* Prevent horizontal scroll */
+.psa-signing-container {
+    overflow-x: hidden;
+}
+
+/* Ensure confetti doesn't cause scroll */
+#confetti-canvas {
+    overflow: hidden !important;
+}
+
+/* Mobile-safe animations */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
