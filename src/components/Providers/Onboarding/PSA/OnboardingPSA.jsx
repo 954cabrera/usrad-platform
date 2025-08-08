@@ -142,6 +142,77 @@ export default function OnboardingPSA() {
     };
   }, [embedSrc]);
 
+  // Replace your diagnostic useEffect with this simpler version
+  // Simple completion detection like the original
+  useEffect(() => {
+    if (!embedSrc) return;
+
+    // Just listen for messages and check for completion
+    const handleMessage = (event) => {
+      console.log("📡 DocuSeal Message:", event.data);
+
+      if (
+        event.data?.type === "docuseal:completed" ||
+        event.data?.type === "submission:completed" ||
+        event.data?.status === "completed"
+      ) {
+        console.log("✅ PSA completion detected!");
+        setTimeout(() => {
+          showSignedCheckButton();
+        }, 1500);
+      }
+    };
+
+    // Simple polling like the original
+    const pollForCompletion = setInterval(() => {
+      if (completed) {
+        clearInterval(pollForCompletion);
+        return;
+      }
+
+      try {
+        const iframe = document.querySelector("docuseal-form iframe");
+        if (iframe?.contentDocument) {
+          const bodyText =
+            iframe.contentDocument.body?.textContent?.toLowerCase() || "";
+
+          if (
+            bodyText.includes("document has been signed") ||
+            bodyText.includes("send copy via email") ||
+            (bodyText.includes("download") && bodyText.includes("signed"))
+          ) {
+            console.log("✅ PSA completion detected via text!");
+
+            setTimeout(() => {
+              showSignedCheckButton();
+            }, 1500);
+
+            clearInterval(pollForCompletion);
+            return;
+          }
+        }
+      } catch (e) {
+        // Cross-origin restrictions - expected
+      }
+    }, 3000);
+
+    // Show helper button after 15 seconds like the original
+    const showGreenHelper = setTimeout(() => {
+      if (!completed) {
+        console.log("⏰ 15 seconds elapsed, showing helper button");
+        showSignedCheckButton();
+      }
+    }, 15000);
+
+    window.addEventListener("message", handleMessage);
+
+    return () => {
+      window.removeEventListener("message", handleMessage);
+      clearInterval(pollForCompletion);
+      clearTimeout(showGreenHelper);
+    };
+  }, [embedSrc, completed]);
+
   // Render loading state
   if (loading && currentStep === 1) {
     return (

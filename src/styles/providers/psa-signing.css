@@ -192,14 +192,12 @@
     cursor: not-allowed;
 }
 
-/* ========== Signing Section ========== */
+/* ========== Signing Section (Simple like original) ========== */
 .signing-container {
     background: white;
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-    position: relative;
-    overflow: visible;
 }
 
 .signing-instructions {
@@ -219,45 +217,6 @@
 .docuseal-embed {
     width: 100%;
     min-height: 800px;
-    position: relative;
-    overflow: visible;
-}
-
-/* Ensure DocuSeal iframe can scroll properly */
-.docuseal-embed iframe,
-docuseal-form iframe {
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 800px !important;
-    max-height: 90vh !important;
-    border: none !important;
-    overflow: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    position: relative !important;
-}
-
-/* Allow iframe to take full height when navigating */
-docuseal-form {
-    display: block;
-    width: 100%;
-    position: relative;
-    overflow: visible;
-}
-
-/* Prevent interference with DocuSeal navigation */
-.docuseal-embed:focus-within {
-    outline: none;
-}
-
-/* When DocuSeal is navigating, prevent parent scroll */
-body.docuseal-navigating {
-    overflow: hidden !important;
-}
-
-/* Ensure iframe content is scrollable */
-.docuseal-embed iframe:focus {
-    outline: 2px solid #3b82f6;
-    outline-offset: 2px;
 }
 
 /* ========== Completion Section ========== */
@@ -277,6 +236,14 @@ body.docuseal-navigating {
     margin-top: 1rem;
 }
 
+.completion-container {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 /* ========== Responsive Design ========== */
 @media (max-width: 768px) {
     .psa-signing-container {
@@ -294,34 +261,4 @@ body.docuseal-navigating {
     .info-section {
         padding: 0.75rem;
     }
-}
-
-/* Force DocuSeal iframe to be tall enough to show all content */
-docuseal-form {
-    display: block !important;
-    width: 100% !important;
-    min-height: 1200px !important;
-    /* Increase this if needed */
-    height: auto !important;
-}
-
-docuseal-form iframe {
-    position: static !important;
-    width: 100% !important;
-    min-height: 1200px !important;
-    /* Match the parent height */
-    height: 100% !important;
-    border: none !important;
-}
-
-/* Ensure the signing container doesn't restrict height */
-.signing-container {
-    overflow: visible !important;
-    max-height: none !important;
-}
-
-.docuseal-embed {
-    overflow: visible !important;
-    min-height: 1200px !important;
-    height: auto !important;
 }

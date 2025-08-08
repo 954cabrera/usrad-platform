@@ -118,10 +118,13 @@ export default function FloatingGuide({
   };
 
   const setupGuideLogic = () => {
+    // Don't set up scroll logic if we're already in the signing phase
+    if (psaStep >= 3) return;
+
     let scrollTimeout;
     const handleScroll = () => {
-      // Don't process scroll events if DocuSeal is navigating
-      if (window.docusealNavigating) return;
+      // Don't process scroll events if DocuSeal is navigating or if we're past step 2
+      if (window.docusealNavigating || psaStep >= 3) return;
 
       if (scrollTimeout) return;
 
