@@ -1,0 +1,107 @@
+---
+// src/pages/providers/portal/centers.astro
+import ProviderLayout from "../../../layouts/ProviderLayout.astro";
+import PortalLayout from "../../../components/Providers/Dashboard/PortalLayout.jsx";
+import CentersManager from "../../../components/Providers/Dashboard/CentersManager.jsx";
+import { supabase } from "../../../lib/supabase";
+
+// TEMPORARY: Use test data
+const provider = {
+  id: "test-123",
+  organization_name: "Test Medical Center",
+  legalName: "Test Medical Center LLC",
+};
+
+// Test centers data
+const centers = [
+  {
+    id: "center-1",
+    provider_id: "test-123",
+    name: "MRI of Davie",
+    address: "123 Main St, Davie, FL 33314",
+    phone: "(954) 555-0123",
+    email: "davie@testmedical.com",
+    hours: "Mon-Fri: 8AM-6PM, Sat: 9AM-2PM",
+    status: "active",
+    equipment: [
+      {
+        type: "MRI",
+        manufacturer: "GE Healthcare",
+        model: "SIGNA Artist 1.5T",
+        strength: "1.5T",
+      },
+      {
+        type: "MRI",
+        manufacturer: "Siemens",
+        model: "MAGNETOM Altea",
+        strength: "1.5T",
+      },
+    ],
+    features: ["wifi", "parking", "wheelchair"],
+    monthlyScans: 248,
+    rating: 4.8,
+    avgPrice: 350,
+  },
+  {
+    id: "center-2",
+    provider_id: "test-123",
+    name: "Advanced Imaging Pembroke Pines",
+    address: "456 Oak Blvd, Pembroke Pines, FL 33024",
+    phone: "(954) 555-0456",
+    email: "pembroke@testmedical.com",
+    hours: "Mon-Fri: 7AM-7PM, Sat-Sun: 8AM-4PM",
+    status: "active",
+    equipment: [
+      {
+        type: "CT",
+        manufacturer: "Canon Medical",
+        model: "Aquilion ONE",
+        strength: "320-slice",
+      },
+      {
+        type: "X-Ray",
+        manufacturer: "Philips",
+        model: "DigitalDiagnost C90",
+        strength: "Digital",
+      },
+    ],
+    features: ["wifi", "parking"],
+    monthlyScans: 412,
+    rating: 4.9,
+    avgPrice: 275,
+  },
+  {
+    id: "center-3",
+    provider_id: "test-123",
+    name: "Diagnostic Center Hollywood",
+    address: "789 Beach Ave, Hollywood, FL 33019",
+    phone: "(954) 555-0789",
+    email: "hollywood@testmedical.com",
+    hours: "Mon-Fri: 8AM-5PM",
+    status: "pending",
+    equipment: [
+      {
+        type: "Ultrasound",
+        manufacturer: "GE Healthcare",
+        model: "LOGIQ E10",
+        strength: "Premium",
+      },
+    ],
+    features: ["parking", "wheelchair"],
+    monthlyScans: 0,
+    rating: null,
+    avgPrice: null,
+  },
+];
+
+// Store provider info for layout
+if (typeof window !== "undefined") {
+  localStorage.setItem("provider_organization", JSON.stringify(provider));
+}
+---
+
+<ProviderLayout title="Centers - Provider Portal">
+  <PortalLayout currentPage="centers" client:load>
+    <CentersManager providerId={provider.id} centers={centers} client:load />
+  </PortalLayout>
+</ProviderLayout>

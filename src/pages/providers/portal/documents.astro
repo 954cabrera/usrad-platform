@@ -1,0 +1,79 @@
+---
+// src/pages/providers/portal/documents.astro
+import ProviderLayout from "../../../layouts/ProviderLayout.astro";
+import PortalLayout from "../../../components/Providers/Dashboard/PortalLayout.jsx";
+import DocumentsManager from "../../../components/Providers/Dashboard/DocumentsManager.jsx";
+import { supabase } from "../../../lib/supabase";
+
+// TEMPORARY: Use test data
+const provider = {
+  id: "test-123",
+  organization_name: "Test Medical Center",
+  legalName: "Test Medical Center LLC",
+};
+
+// Test documents with more realistic data
+const documents = [
+  {
+    id: "doc-1",
+    provider_id: "test-123",
+    document_type: "PSA",
+    signed_date: "2025-08-08T10:30:00Z",
+    created_at: "2025-08-08T10:30:00Z",
+    status: "active",
+    storage_path: "providers/test-123/psa.pdf",
+    last_accessed: "2025-08-08T14:30:00Z",
+  },
+  {
+    id: "doc-2",
+    provider_id: "test-123",
+    document_type: "EXHIBIT_B",
+    signed_date: "2025-08-08T10:35:00Z",
+    created_at: "2025-08-08T10:35:00Z",
+    status: "active",
+    storage_path: "providers/test-123/exhibit-b.pdf",
+    last_accessed: null,
+  },
+  {
+    id: "doc-3",
+    provider_id: "test-123",
+    document_type: "INSURANCE",
+    signed_date: "2025-07-15T09:00:00Z",
+    created_at: "2025-07-15T09:00:00Z",
+    status: "active",
+    storage_path: "providers/test-123/insurance.pdf",
+    expires_date: "2026-07-15T09:00:00Z",
+    last_accessed: "2025-08-01T11:20:00Z",
+  },
+  {
+    id: "doc-4",
+    provider_id: "test-123",
+    document_type: "CREDENTIAL",
+    signed_date: "2025-06-01T08:00:00Z",
+    created_at: "2025-06-01T08:00:00Z",
+    status: "pending",
+    storage_path: "providers/test-123/credential.pdf",
+    expires_date: "2025-12-31T23:59:59Z",
+    last_accessed: null,
+  },
+];
+
+// Store provider info for layout
+if (typeof window !== "undefined") {
+  localStorage.setItem("provider_organization", JSON.stringify(provider));
+}
+---
+
+<ProviderLayout title="Documents - Provider Portal">
+  <PortalLayout currentPage="documents" client:load>
+    <DocumentsManager
+      providerId={provider.id}
+      documents={documents}
+      client:load
+    />
+  </PortalLayout>
+</ProviderLayout>
+
+<style>
+  /* Add any page-specific styles here */
+</style>

@@ -1,0 +1,80 @@
+---
+// src/pages/providers/portal/index.astro
+import ProviderLayout from "../../../layouts/ProviderLayout.astro";
+import DashboardHome from "../../../components/Providers/Dashboard/DashboardHome.jsx";
+import PortalLayout from "../../../components/Providers/Dashboard/PortalLayout.jsx";
+import { supabase } from "../../../lib/supabase";
+
+// TEMPORARY: Comment out authentication for testing
+/*
+const {
+  data: { user },
+  error: authError,
+} = await supabase.auth.getUser();
+
+if (!user) {
+  return Astro.redirect('/providers/login');
+}
+
+// Get provider data
+const { data: provider } = await supabase
+  .from("providers")
+  .select("*")
+  .eq("user_id", user.id)
+  .single();
+
+if (!provider) {
+  return Astro.redirect("/providers/onboarding");
+}
+*/
+
+// TEMPORARY: Use test data instead
+const provider = {
+  id: "test-123",
+  user_id: "test-user-123",
+  organization_name: "Test Medical Center",
+  email: "test@example.com",
+  legalName: "Test Medical Center LLC",
+  created_at: new Date().toISOString(),
+};
+
+// TEMPORARY: Use empty arrays for test data
+const recentDocs = [
+  {
+    id: "doc-1",
+    provider_id: "test-123",
+    document_type: "PSA",
+    signed_date: new Date().toISOString(),
+    created_at: new Date().toISOString(),
+  },
+];
+
+const recentActivity = [
+  {
+    id: "activity-1",
+    provider_id: "test-123",
+    action: "PSA_SIGNED",
+    created_at: new Date().toISOString(),
+  },
+];
+
+// Store provider info in localStorage for the layout
+if (typeof window !== "undefined") {
+  localStorage.setItem("provider_organization", JSON.stringify(provider));
+}
+---
+
+<ProviderLayout title="Provider Portal">
+  <PortalLayout currentPage="dashboard" client:load>
+    <DashboardHome
+      provider={provider}
+      recentDocuments={recentDocs}
+      recentActivity={recentActivity}
+      client:load
+    />
+  </PortalLayout>
+</ProviderLayout>
+
+<style>
+  /* Portal styles will be in the components */
+</style>

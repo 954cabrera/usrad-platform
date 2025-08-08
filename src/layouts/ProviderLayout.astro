@@ -12,13 +12,36 @@ const { title, showBackToMain = true } = Astro.props;
 <html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- REMOVE THE OLD VIEWPORT TAG -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+
+    <!-- PWA-OPTIMIZED VIEWPORT TAG (Keep only this one) -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+
     <title>{title}</title>
     <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="USRad Portal" />
+    <meta name="theme-color" content="#667eea" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+
     <!-- Tailwind CSS -->
-    
 
     <style>
       /* Provider-specific styling */
@@ -219,25 +242,29 @@ const { title, showBackToMain = true } = Astro.props;
                 <a
                   href="/providers/portal"
                   class="text-gray-600 hover:text-gray-900 transition-colors"
-                  >Portal Home</a>
+                  >Portal Home</a
+                >
               </li>
               <li>
                 <a
                   href="/providers/onboard"
                   class="text-gray-600 hover:text-gray-900 transition-colors"
-                  >Complete Onboarding</a>
+                  >Complete Onboarding</a
+                >
               </li>
               <li>
                 <a
                   href="/providers/support"
                   class="text-gray-600 hover:text-gray-900 transition-colors"
-                  >Support Center</a>
+                  >Support Center</a
+                >
               </li>
               <li>
                 <a
                   href="/providers/resources"
                   class="text-gray-600 hover:text-gray-900 transition-colors"
-                  >Training Materials</a>
+                  >Training Materials</a
+                >
               </li>
             </ul>
           </div>

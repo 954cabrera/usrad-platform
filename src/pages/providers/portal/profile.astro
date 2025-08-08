@@ -1,0 +1,49 @@
+---
+// src/pages/providers/portal/profile.astro
+import ProviderLayout from "../../../layouts/ProviderLayout.astro";
+import PortalLayout from "../../../components/Providers/Dashboard/PortalLayout.jsx";
+import ProfileManager from "../../../components/Providers/Dashboard/ProfileManager.jsx";
+import { supabase } from "../../../lib/supabase";
+
+// TEMPORARY: Use test data
+const provider = {
+  id: "test-123",
+  organization_name: "Test Medical Center",
+  legalName: "Test Medical Center LLC",
+  dba: "Advanced Imaging Centers",
+  taxId: "12-3456789",
+  businessType: "llc",
+  yearEstablished: "2005",
+  npiNumber: "1234567890",
+
+  // Contact Info
+  primaryContact: "John Smith",
+  email: "admin@testmedical.com",
+  phone: "(954) 555-0100",
+  fax: "(954) 555-0101",
+  website: "https://testmedical.com",
+
+  // Address
+  address: "123 Medical Plaza",
+  city: "Pembroke Pines",
+  state: "FL",
+  zipCode: "33024",
+
+  // Banking (sensitive - only show last 4)
+  bankName: "Bank of America",
+  accountType: "checking",
+  routingNumber: "****5678",
+  accountNumber: "****1234",
+};
+
+// Store provider info for layout
+if (typeof window !== "undefined") {
+  localStorage.setItem("provider_organization", JSON.stringify(provider));
+}
+---
+
+<ProviderLayout title="Profile - Provider Portal">
+  <PortalLayout currentPage="profile" client:load>
+    <ProfileManager provider={provider} client:load />
+  </PortalLayout>
+</ProviderLayout>

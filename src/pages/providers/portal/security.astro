@@ -1,0 +1,25 @@
+---
+// src/pages/providers/portal/security.astro
+import ProviderLayout from "../../../layouts/ProviderLayout.astro";
+import PortalLayout from "../../../components/Providers/Dashboard/PortalLayout.jsx";
+import SecurityManager from "../../../components/Providers/Dashboard/SecurityManager.jsx";
+import { supabase } from "../../../lib/supabase";
+
+// TEMPORARY: Use test data
+const provider = {
+  id: "test-123",
+  organization_name: "Test Medical Center",
+  legalName: "Test Medical Center LLC",
+};
+
+// Store provider info for layout
+if (typeof window !== "undefined") {
+  localStorage.setItem("provider_organization", JSON.stringify(provider));
+}
+---
+
+<ProviderLayout title="Security - Provider Portal">
+  <PortalLayout currentPage="security" client:load>
+    <SecurityManager providerId={provider.id} client:load />
+  </PortalLayout>
+</ProviderLayout>

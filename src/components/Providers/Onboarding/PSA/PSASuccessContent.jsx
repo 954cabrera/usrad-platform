@@ -152,8 +152,8 @@ export default function PSASuccessContent() {
 
       {/* Action Buttons */}
       <div className="action-section">
-        <a href="/providers/dashboard" className="btn-primary">
-          <span>Go to Dashboard</span>
+        <a href="/providers/portal" className="btn-primary">
+          <span>Go to Provider Portal</span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path
               d="M5 12H19M19 12L12 5M19 12L12 19"

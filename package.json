@@ -47,6 +47,7 @@
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.50.3",
     "@tailwindcss/vite": "^4.1.4",
+    "@tremor/react": "^3.18.7",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "aos": "^2.3.4",
@@ -105,5 +106,10 @@
   },
   "author": "USRad Development Team",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "overrides": {
+    "@tremor/react": {
+      "react": "$react"
+    }
+  }
 }
