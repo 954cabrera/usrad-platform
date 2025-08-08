@@ -1,24 +1,129 @@
 ---
 // src/pages/providers/onboarding/success.astro
 import ProviderLayout from "../../../layouts/ProviderLayout.astro";
-import PSASuccessContent from "../../../components/Providers/Onboarding/PSA/modules/PSASuccessContent.jsx";
+import PSASuccessContent from "../../../components/Providers/Onboarding/PSA/PSASuccessContent.jsx";
+import "../../../styles/providers/success.css"; // Add this import
 ---
 
 <ProviderLayout title="Welcome to USRad Network">
   <div class="success-page">
+    <div class="background-effects">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+      <div class="gradient-orb orb-3"></div>
+    </div>
     <PSASuccessContent client:load />
   </div>
 
   <style>
     .success-page {
       min-height: 100vh;
-      background: linear-gradient(135deg, #003087 0%, #0052cc 100%);
+      background: linear-gradient(
+        135deg,
+        #003087 0%,
+        #0052cc 50%,
+        #003087 100%
+      );
       padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .background-effects {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .gradient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: orbitFloat 20s ease-in-out infinite;
+    }
+
+    .orb-1 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #0052cc 0%, transparent 70%);
+      top: -200px;
+      left: -200px;
+      animation-duration: 25s;
+    }
+
+    .orb-2 {
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, #22c55e 0%, transparent 70%);
+      bottom: -300px;
+      right: -300px;
+      animation-duration: 30s;
+      animation-delay: -10s;
+    }
+
+    .orb-3 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #60a5fa 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-duration: 35s;
+      animation-delay: -5s;
+    }
+
+    @keyframes orbitFloat {
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+      25% {
+        transform: translate(50px, -50px) scale(1.1);
+      }
+      50% {
+        transform: translate(-50px, 50px) scale(0.9);
+      }
+      75% {
+        transform: translate(-30px, -30px) scale(1.05);
+      }
+    }
+
+    /* Add subtle grid pattern */
+    .success-page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
     }
 
     @media (max-width: 768px) {
       .success-page {
         padding: 1rem;
+      }
+
+      .gradient-orb {
+        filter: blur(60px);
+      }
+
+      .orb-1 {
+        width: 400px;
+        height: 400px;
+      }
+
+      .orb-2 {
+        width: 500px;
+        height: 500px;
+      }
+
+      .orb-3 {
+        width: 300px;
+        height: 300px;
       }
     }
   </style>

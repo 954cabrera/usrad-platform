@@ -1,0 +1,196 @@
+/* Add this CSS to enhance mobile optimization for the success page */
+
+/* Mobile-First Enhancements */
+@media (max-width: 768px) {
+
+    /* Optimize hero section for mobile */
+    .hero-section {
+        margin-bottom: 3rem;
+    }
+
+    .success-badge {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 1.5rem;
+    }
+
+    .badge-glow {
+        inset: -15px;
+    }
+
+    .success-title {
+        font-size: 2rem !important;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+
+    .success-subtitle {
+        font-size: 1.1rem !important;
+        padding: 0 1rem;
+    }
+
+    /* Optimize status cards for mobile */
+    .status-cards {
+        gap: 1rem !important;
+        margin-bottom: 3rem;
+    }
+
+    .status-card {
+        padding: 1.5rem !important;
+        border-radius: 16px;
+    }
+
+    .card-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .status-card h3 {
+        font-size: 1.1rem !important;
+    }
+
+    .status-card p {
+        font-size: 0.9rem !important;
+    }
+
+    /* Mobile-optimized buttons */
+    .btn-primary,
+    .btn-secondary {
+        padding: 1rem 2rem !important;
+        font-size: 1rem !important;
+        min-height: 48px;
+        /* Touch-friendly size */
+        width: 100%;
+    }
+
+    /* Reduce particle count on mobile for performance */
+    .floating-particle {
+        display: none;
+    }
+
+    /* Optimize animations for mobile */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .success-content {
+        padding: 2rem 1rem !important;
+    }
+
+    .success-title {
+        font-size: 1.75rem !important;
+    }
+
+    .success-subtitle {
+        font-size: 1rem !important;
+    }
+
+    .status-card {
+        padding: 1.25rem !important;
+    }
+
+    /* Stack icon and title horizontally on very small screens */
+    @media (max-width: 360px) {
+        .status-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .card-icon {
+            flex-shrink: 0;
+        }
+
+        .status-card h3 {
+            margin-top: 0.25rem;
+        }
+    }
+}
+
+/* Landscape mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+    .success-badge {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1rem;
+    }
+
+    .hero-section {
+        margin-bottom: 2rem;
+    }
+
+    .success-title {
+        font-size: 2rem !important;
+        margin-bottom: 0.75rem;
+    }
+
+    .status-cards {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Remove hover effects on touch devices */
+    .status-card:hover {
+        transform: none;
+    }
+
+    /* Add touch feedback */
+    .btn-primary:active,
+    .btn-secondary:active {
+        transform: scale(0.98);
+    }
+
+    /* Larger touch targets */
+    a,
+    button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .status-card {
+        background: rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .status-card {
+        border-width: 2px;
+    }
+
+    .btn-primary {
+        border: 2px solid white;
+    }
+
+    .btn-secondary {
+        border-width: 3px;
+    }
+}
+
+/* Optimize for slower connections */
+@media (prefers-reduced-data: reduce) {
+
+    .gradient-orb,
+    .floating-particle {
+        display: none;
+    }
+
+    .success-page::before {
+        display: none;
+    }
+}
