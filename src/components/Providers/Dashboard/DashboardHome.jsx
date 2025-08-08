@@ -11,7 +11,10 @@ import {
   Users,
   Clock,
   ChevronRight,
-  AlertCircle
+  AlertCircle,
+  Shield,
+  Award,
+  CheckCircle
 } from 'lucide-react';
 
 export default function DashboardHome({ provider, recentDocuments = [], recentActivity = [] }) {
@@ -133,6 +136,20 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
     }
   };
 
+  // Add this new component inside DashboardHome (before the return statement)
+  const CertificationBadges = () => (
+    <div className="certification-badges">
+      <div className="badge-item">
+        <Shield size={16} />
+        <span>HIPAA Compliant</span>
+      </div>
+      <div className="badge-item">
+        <CheckCircle size={16} />
+        <span>ACR Accredited</span>
+      </div>
+    </div>
+  );
+
   return (
     <div className="dashboard-home">
       {/* Welcome Header */}
@@ -153,6 +170,9 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
         </div>
       </div>
 
+      {/* Certification Badges */}
+      <CertificationBadges />
+
       {/* Mobile Alert */}
       <div className="mobile-alert">
         <AlertCircle size={20} />
@@ -166,23 +186,26 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
           return (
             <div key={stat.id} className="stat-card glass-card">
               <div className="stat-header">
-                <div 
+                <div
                   className="stat-icon"
-                  style={{ 
+                  style={{
                     background: stat.bgColor,
                     borderColor: stat.borderColor,
-                    color: stat.iconColor
+                    color: stat.iconColor,
                   }}
                 >
                   <Icon size={24} />
                 </div>
                 {stat.trend && (
-                  <span className="stat-trend" style={{ color: stat.iconColor }}>
+                  <span
+                    className="stat-trend"
+                    style={{ color: stat.iconColor }}
+                  >
                     {stat.trend}
                   </span>
                 )}
               </div>
-              
+
               <div className="stat-body">
                 <div className="stat-value">{stat.value}</div>
                 <div className="stat-label">
@@ -198,6 +221,13 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
                 <span className={`status-badge ${stat.color}`}>
                   {stat.status}
                 </span>
+                {/* Add this trust indicator for compliance */}
+                {stat.label === "Compliance Score" && (
+                  <span className="trust-indicator">
+                    <CheckCircle size={12} />
+                    Verified
+                  </span>
+                )}
               </div>
             </div>
           );
@@ -321,7 +351,7 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
                     <FileText size={20} />
                   </div>
                   <div className="document-info">
-                    <p className="document-name">{doc.document_type.replace(/_/g, ' ')}</p>
+                    <p className="document-name">{doc.document_type.split('_').join(' ')}</p>
                     <p className="document-date">{formatDate(doc.signed_date)}</p>
                   </div>
                   <ChevronRight size={20} className="document-arrow" />
@@ -336,6 +366,9 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
           </div>
         </div>
       </div>
+
+      // src/components/Providers/Dashboard/DashboardHome.jsx
+// ... (all your existing code up to the Quick Actions section) ...
 
       {/* Quick Actions - Mobile Optimized */}
       <div className="quick-actions-section">
@@ -369,6 +402,28 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
         .dashboard-home {
           max-width: 1400px;
           margin: 0 auto;
+        }
+
+        /* Certification Badges */
+        .certification-badges {
+          display: flex;
+          gap: 1rem;
+          padding: 1rem;
+          background: rgba(14, 165, 233, 0.05);
+          border-radius: 12px;
+          border: 1px solid rgba(14, 165, 233, 0.1);
+          margin-bottom: 1.5rem;
+        }
+
+        .badge-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.5rem 1rem;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 8px;
+          font-size: 0.875rem;
+          color: #0ea5e9;
         }
 
         /* Welcome Header */
@@ -451,6 +506,8 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
           background: rgba(255, 255, 255, 0.08);
           transform: translateY(-2px);
           box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+          border-color: #0ea5e9;
+          box-shadow: 0 0 20px rgba(14, 165, 233, 0.1);
         }
 
         /* Stats Grid */
@@ -923,6 +980,15 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
           .action-label {
             font-size: 0.875rem;
           }
+
+          .certification-badges {
+            flex-wrap: wrap;
+          }
+
+          .badge-item {
+            font-size: 0.75rem;
+            padding: 0.375rem 0.75rem;
+          }
         }
 
         /* Small Mobile */
@@ -965,6 +1031,31 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
             transition: none !important;
           }
         }
+
+        /* Trust indicators */
+        .trust-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.25rem 0.75rem;
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        border-radius: 999px;
+        color: #10b981;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-left: 0.5rem;
+        }
+
+        .stat-footer {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        }
+
       `}</style>
     </div>
   );

@@ -3,6 +3,8 @@
 import ProviderLayout from "../../../layouts/ProviderLayout.astro";
 import DashboardHome from "../../../components/Providers/Dashboard/DashboardHome.jsx";
 import PortalLayout from "../../../components/Providers/Dashboard/PortalLayout.jsx";
+import MedicalStatus from "../../../components/Providers/Dashboard/MedicalStatus.jsx";
+import "../../../styles/providers/portal-medical.css";
 import { supabase } from "../../../lib/supabase";
 
 // TEMPORARY: Comment out authentication for testing
@@ -66,15 +68,28 @@ if (typeof window !== "undefined") {
 
 <ProviderLayout title="Provider Portal">
   <PortalLayout currentPage="dashboard" client:load>
-    <DashboardHome
-      provider={provider}
-      recentDocuments={recentDocs}
-      recentActivity={recentActivity}
-      client:load
-    />
+    <div class="dashboard-wrapper">
+      <DashboardHome
+        provider={provider}
+        recentDocuments={recentDocs}
+        recentActivity={recentActivity}
+        client:load
+      />
+      <MedicalStatus client:load />
+    </div>
   </PortalLayout>
 </ProviderLayout>
 
 <style>
-  /* Portal styles will be in the components */
+  .dashboard-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .dashboard-wrapper {
+      gap: 1rem;
+    }
+  }
 </style>
