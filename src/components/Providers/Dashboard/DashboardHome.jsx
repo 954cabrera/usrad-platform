@@ -32,6 +32,14 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
     { type: "Ultrasound", count: 120, percentage: 10 },
   ];
 
+  // Define colors directly
+  const colorMap = {
+    emerald: '#10b981',
+    blue: '#3b82f6',
+    amber: '#f59e0b',
+    purple: '#9333ea'
+  };
+
   const stats = [
     {
       id: 1,
@@ -39,6 +47,7 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
       value: recentDocuments.length || 1,
       icon: FileText,
       color: "emerald",
+      iconColor: '#10b981',
       bgColor: "rgba(34, 197, 94, 0.1)",
       borderColor: "rgba(34, 197, 94, 0.2)",
       status: "Active",
@@ -51,6 +60,7 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
       value: 1,
       icon: Building2,
       color: "blue",
+      iconColor: '#3b82f6',
       bgColor: "rgba(59, 130, 246, 0.1)",
       borderColor: "rgba(59, 130, 246, 0.2)",
       status: "Verified",
@@ -63,6 +73,7 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
       value: "0",
       icon: Activity,
       color: "amber",
+      iconColor: '#f59e0b',
       bgColor: "rgba(245, 158, 11, 0.1)",
       borderColor: "rgba(245, 158, 11, 0.2)",
       status: "Pending",
@@ -76,6 +87,7 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
       value: "95%",
       icon: TrendingUp,
       color: "emerald",
+      iconColor: '#10b981',
       bgColor: "rgba(34, 197, 94, 0.1)",
       borderColor: "rgba(34, 197, 94, 0.2)",
       status: "Excellent",
@@ -85,10 +97,10 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
   ];
 
   const quickActions = [
-    { label: "Upload Document", icon: FileText, href: "/providers/portal/documents", color: "blue" },
-    { label: "Add Center", icon: Building2, href: "/providers/portal/centers", color: "purple" },
-    { label: "View Reports", icon: TrendingUp, href: "/providers/portal/reports", color: "emerald" },
-    { label: "Get Support", icon: Users, href: "/providers/support", color: "amber" },
+    { label: "Upload Document", icon: FileText, href: "/providers/portal/documents", color: "blue", bgColor: "rgba(59, 130, 246, 0.05)", iconColor: "#3b82f6" },
+    { label: "Add Center", icon: Building2, href: "/providers/portal/centers", color: "purple", bgColor: "rgba(147, 51, 234, 0.05)", iconColor: "#9333ea" },
+    { label: "View Reports", icon: TrendingUp, href: "/providers/portal/reports", color: "emerald", bgColor: "rgba(34, 197, 94, 0.05)", iconColor: "#10b981" },
+    { label: "Get Support", icon: Users, href: "/providers/support", color: "amber", bgColor: "rgba(245, 158, 11, 0.05)", iconColor: "#f59e0b" },
   ];
 
   const formatDate = (dateString) => {
@@ -159,13 +171,13 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
                   style={{ 
                     background: stat.bgColor,
                     borderColor: stat.borderColor,
-                    color: `var(--${stat.color}-600)`
+                    color: stat.iconColor
                   }}
                 >
                   <Icon size={24} />
                 </div>
                 {stat.trend && (
-                  <span className="stat-trend" style={{ color: `var(--${stat.color}-600)` }}>
+                  <span className="stat-trend" style={{ color: stat.iconColor }}>
                     {stat.trend}
                   </span>
                 )}
@@ -336,12 +348,14 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
                 key={index}
                 href={action.href}
                 className="quick-action-card"
-                style={{
-                  '--action-color': `var(--${action.color}-600)`,
-                  '--action-bg': `var(--${action.color}-50)`
-                }}
               >
-                <div className="action-icon">
+                <div 
+                  className="action-icon"
+                  style={{
+                    background: action.bgColor,
+                    color: action.iconColor
+                  }}
+                >
                   <ActionIcon size={24} />
                 </div>
                 <span className="action-label">{action.label}</span>
@@ -355,18 +369,6 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
         .dashboard-home {
           max-width: 1400px;
           margin: 0 auto;
-        }
-
-        /* CSS Variables for colors */
-        :root {
-          --emerald-50: rgba(34, 197, 94, 0.05);
-          --emerald-600: #10b981;
-          --blue-50: rgba(59, 130, 246, 0.05);
-          --blue-600: #3b82f6;
-          --amber-50: rgba(245, 158, 11, 0.05);
-          --amber-600: #f59e0b;
-          --purple-50: rgba(147, 51, 234, 0.05);
-          --purple-600: #9333ea;
         }
 
         /* Welcome Header */
@@ -802,12 +804,10 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
         .action-icon {
           width: 48px;
           height: 48px;
-          background: var(--action-bg);
           border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--action-color);
         }
 
         .action-label {
