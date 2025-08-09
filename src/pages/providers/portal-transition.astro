@@ -1,54 +1,10 @@
-// src/pages/providers/portal-transition.astro
-
-import ProviderLayout from "../../layouts/ProviderLayout.astro"; import { CheckCircle,
-Shield, Activity } from 'lucide-react';
+---
+import ProviderLayout from "../../layouts/ProviderLayout.astro";
+import PortalTransition from "../../components/Providers/PortalTransition.jsx";
+---
 
 <ProviderLayout title="Welcome to USRad Network">
-  <div class="transition-container">
-    <div class="transition-content">
-      <div class="success-icon">
-        <CheckCircle size={80} />
-      </div>
-
-      <h1 class="transition-title">Welcome to the USRad Network!</h1>
-      <p class="transition-subtitle">
-        You've successfully completed onboarding
-      </p>
-
-      <div class="status-items">
-        <div class="status-item completed">
-          <CheckCircle size={20} />
-          <span>Organization Verified</span>
-        </div>
-        <div class="status-item completed">
-          <CheckCircle size={20} />
-          <span>Centers Added</span>
-        </div>
-        <div class="status-item completed">
-          <CheckCircle size={20} />
-          <span>PSA Signed</span>
-        </div>
-      </div>
-
-      <div class="portal-preview">
-        <h3>Entering Your Secure Provider Portal</h3>
-        <div class="features-preview">
-          <div class="feature">
-            <Shield size={24} />
-            <span>HIPAA Compliant Dashboard</span>
-          </div>
-          <div class="feature">
-            <Activity size={24} />
-            <span>Real-time Network Status</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="loading-bar">
-        <div class="loading-progress"></div>
-      </div>
-    </div>
-  </div>
+  <PortalTransition client:load />
 </ProviderLayout>
 
 <style>
