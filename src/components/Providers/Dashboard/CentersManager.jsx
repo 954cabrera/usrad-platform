@@ -1,21 +1,32 @@
 // src/components/Providers/Dashboard/CentersManager.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Building2, Plus, Search } from "lucide-react";
 import CenterCard from "./Centers/CenterCard";
 import CenterFilters from "./Centers/CenterFilters";
 import CenterStats from "./Centers/CenterStats";
 import AddCenterModal from "./Centers/AddCenterModal";
+import CentersSkeleton from "./Centers/CentersSkeleton";
 import { centerStyles } from "./Centers/shared/styles";
 
 export default function CentersManager({
   providerId,
   centers: initialCenters = [],
 }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [centers, setCenters] = useState(initialCenters);
   const [showAddModal, setShowAddModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+
+  useEffect(() => {
+    // Simulate loading centers
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Filter centers
   const filteredCenters = centers.filter((center) => {
@@ -46,6 +57,14 @@ export default function CentersManager({
     console.log("View details:", center);
     // Implement view details functionality
   };
+
+  if (isLoading) {
+    return (
+      <div className="centers-manager">
+        <CentersSkeleton />
+      </div>
+    );
+  }
 
   return (
     <div className="centers-manager">

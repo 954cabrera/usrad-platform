@@ -1,5 +1,5 @@
 // src/components/Providers/Dashboard/SecurityManager.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Shield,
   Lock,
@@ -14,10 +14,21 @@ import ApiKeysManager from "./Security/ApiKeysManager";
 import SessionsManager from "./Security/SessionsManager";
 import ActivityLogs from "./Security/ActivityLogs";
 import SecurityScore from "./Security/SecurityScore";
+import SecuritySkeleton from "./Security/SecuritySkeleton";
 
 export default function SecurityManager({ providerId }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("password");
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
+
+  useEffect(() => {
+    // Simulate loading security settings
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const tabs = [
     { id: "password", label: "Password", icon: Lock },
@@ -43,6 +54,14 @@ export default function SecurityManager({ providerId }) {
         return null;
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="security-manager">
+        <SecuritySkeleton />
+      </div>
+    );
+  }
 
   return (
     <div className="security-manager">
@@ -161,30 +180,6 @@ export default function SecurityManager({ providerId }) {
           font-size: 0.875rem;
         }
 
-        @media (max-width: 768px) {
-          .section-title {
-            font-size: 1.5rem;
-          }
-
-          .section-subtitle {
-            font-size: 1rem;
-          }
-
-          .tab-content {
-            padding: 1rem;
-          }
-
-          .tab-btn {
-            padding: 0.5rem 0.75rem;
-            font-size: 0.75rem;
-          }
-
-          .tab-btn svg {
-            width: 16px;
-            height: 16px;
-          }
-        }
-        // Add to SecurityManager.jsx after the mobile-tabs styles
         @media (max-width: 768px) {
           .section-title {
             font-size: 1.5rem;

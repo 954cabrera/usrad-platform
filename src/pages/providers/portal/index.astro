@@ -1,8 +1,8 @@
 ---
 // src/pages/providers/portal/index.astro
 import ProviderLayout from "../../../layouts/ProviderLayout.astro";
-import DashboardHome from "../../../components/Providers/Dashboard/DashboardHome.jsx";
-import PortalLayout from "../../../components/Providers/Dashboard/PortalLayout.jsx";
+import DashboardHome from "../../../components/Providers/Dashboard/DashboardHome";
+import PortalLayout from "../../../components/Providers/Dashboard/PortalLayout";
 import MedicalStatus from "../../../components/Providers/Dashboard/MedicalStatus.jsx";
 import "../../../styles/providers/portal-medical.css";
 import { supabase } from "../../../lib/supabase";
@@ -68,17 +68,26 @@ if (typeof window !== "undefined") {
 
 <ProviderLayout title="Provider Portal">
   <PortalLayout currentPage="dashboard" client:load>
-    
-      <DashboardHome
-        provider={provider}
-        recentDocuments={recentDocs}
-        recentActivity={recentActivity}
-        client:load
-      />
-      
-    </div>
+    <DashboardHome
+      provider={provider}
+      recentDocuments={recentDocs}
+      recentActivity={recentActivity}
+      client:load
+    />
   </PortalLayout>
 </ProviderLayout>
+
+<script>
+  // Simulate loading state
+  const dashboard = document.querySelector(".dashboard-home");
+  if (dashboard) {
+    // Show skeleton for 1 second on page load
+    dashboard.classList.add("loading");
+    setTimeout(() => {
+      dashboard.classList.remove("loading");
+    }, 1000);
+  }
+</script>
 
 <style>
   .dashboard-wrapper {

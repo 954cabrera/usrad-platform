@@ -1,5 +1,5 @@
 // src/components/Providers/Dashboard/DocumentsManager.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
   List,
@@ -13,9 +13,11 @@ import DocumentCard from "./Documents/DocumentCard";
 import DocumentFilters from "./Documents/DocumentFilters";
 import DocumentStats from "./Documents/DocumentStats";
 import UploadModal from "./Documents/UploadModal";
+import DocumentsSkeleton from "./Documents/DocumentsSkeleton";
 import { dashboardStyles } from "./shared/styles";
 
 export default function DocumentsManager({ providerId }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState("grid");
   const [searchQuery, setSearchQuery] = useState("");
   const [showMobileFilters, setShowMobileFilters] = useState(false);
@@ -41,6 +43,15 @@ export default function DocumentsManager({ providerId }) {
     // ... more documents
   ]);
 
+  useEffect(() => {
+    // Simulate loading documents
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleFilterChange = (filterType, value) => {
     setFilters((prev) => ({ ...prev, [filterType]: value }));
   };
@@ -61,6 +72,14 @@ export default function DocumentsManager({ providerId }) {
       filters.category === "All" || doc.category === filters.category;
     return matchesSearch && matchesCategory;
   });
+
+  if (isLoading) {
+    return (
+      <div className="documents-manager">
+        <DocumentsSkeleton />
+      </div>
+    );
+  }
 
   return (
     <div className="documents-manager">
