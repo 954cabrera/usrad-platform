@@ -60,6 +60,13 @@ class SignupForm extends HTMLElement {
     this.initializeForm();
     // Add mobile enhancements
     this.setupMobileEnhancements();
+    
+    // Dispatch event when form is ready
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('signup-form-ready', {
+        detail: { form: this.shadowRoot.querySelector('#provider-signup-form') }
+      }));
+    }, 100);
   }
 
   renderFormFields() {
@@ -294,7 +301,7 @@ class SignupForm extends HTMLElement {
     }));
   }
 
-  // NEW MOBILE ENHANCEMENT METHODS
+  // MOBILE ENHANCEMENT METHODS
   setupMobileEnhancements() {
     // Detect if mobile
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);

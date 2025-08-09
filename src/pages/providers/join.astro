@@ -43,14 +43,14 @@ export const prerender = false;
     <!-- Exit Intent Modal -->
     <exit-intent-modal></exit-intent-modal>
 
-    <!-- Import JavaScript -->
-    <script src="/src/scripts/providers/signup.js"></script>
+    <!-- Import Web Components FIRST -->
+    <script type="module">
+      import "/src/components/Providers/Signup/SignupBranding.js";
+      import "/src/components/Providers/Signup/SignupForm.js";
+      import "/src/components/Providers/Signup/ExitIntentModal.js";
+    </script>
+
+    <!-- Then import the main script as a module -->
+    <script type="module" src="/src/scripts/providers/signup.js"></script>
   </body>
 </html>
-
-<!-- Import Web Components -->
-<script>
-  import "/src/components/Providers/Signup/SignupBranding.js";
-  import "/src/components/Providers/Signup/SignupForm.js";
-  import "/src/components/Providers/Signup/ExitIntentModal.js";
-</script>

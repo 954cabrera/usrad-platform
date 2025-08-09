@@ -67,37 +67,45 @@ export class SupabaseAuth {
  }
 }
 
-// Make SSO functions globally available
-window.signInWithGoogle = async () => {
- try {
-   const auth = new SupabaseAuth();
-   await auth.initialize();
-   await auth.signInWithGoogle();
- } catch (error) {
-   console.error("Google sign-in error:", error);
-   // Show error message
-   const form = document.querySelector('signup-form');
-   if (form && form.shadowRoot) {
-     const errorMsg = form.shadowRoot.querySelector('#error-message');
-     errorMsg.textContent = "Google sign-in temporarily unavailable. Please use email signup.";
-     errorMsg.classList.remove("hidden");
-   }
- }
-};
+// Make SSO functions globally available ONLY if they don't already exist
+if (!window.signInWithGoogle) {
+  window.signInWithGoogle = async () => {
+    try {
+      const auth = new SupabaseAuth();
+      await auth.initialize();
+      await auth.signInWithGoogle();
+    } catch (error) {
+      console.error("Google sign-in error:", error);
+      // Show error message
+      const form = document.querySelector('signup-form');
+      if (form && form.shadowRoot) {
+        const errorMsg = form.shadowRoot.querySelector('#error-message');
+        if (errorMsg) {
+          errorMsg.textContent = "Google sign-in temporarily unavailable. Please use email signup.";
+          errorMsg.classList.remove("hidden");
+        }
+      }
+    }
+  };
+}
 
-window.signInWithMicrosoft = async () => {
- try {
-   const auth = new SupabaseAuth();
-   await auth.initialize();
-   await auth.signInWithMicrosoft();
- } catch (error) {
-   console.error("Microsoft sign-in error:", error);
-   // Show error message
-   const form = document.querySelector('signup-form');
-   if (form && form.shadowRoot) {
-     const errorMsg = form.shadowRoot.querySelector('#error-message');
-     errorMsg.textContent = "Microsoft sign-in temporarily unavailable. Please use email signup.";
-     errorMsg.classList.remove("hidden");
-   }
- }
-};
+if (!window.signInWithMicrosoft) {
+  window.signInWithMicrosoft = async () => {
+    try {
+      const auth = new SupabaseAuth();
+      await auth.initialize();
+      await auth.signInWithMicrosoft();
+    } catch (error) {
+      console.error("Microsoft sign-in error:", error);
+      // Show error message
+      const form = document.querySelector('signup-form');
+      if (form && form.shadowRoot) {
+        const errorMsg = form.shadowRoot.querySelector('#error-message');
+        if (errorMsg) {
+          errorMsg.textContent = "Microsoft sign-in temporarily unavailable. Please use email signup.";
+          errorMsg.classList.remove("hidden");
+        }
+      }
+    }
+  };
+}
