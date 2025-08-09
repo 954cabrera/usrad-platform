@@ -146,7 +146,7 @@ export default function PortalLayout({ children, currentPage = "dashboard" }) {
   };
 
   return (
-    <div 
+    <div
       className="portal-container"
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
@@ -170,23 +170,35 @@ export default function PortalLayout({ children, currentPage = "dashboard" }) {
             <Menu size={24} />
           </button>
           <h1 className="mobile-title">{getCurrentNav()}</h1>
-          <button className="mobile-notification-btn" aria-label="Notifications">
-            <Bell size={20} />
-            <span className="notification-dot"></span>
-          </button>
+          <div className="mobile-header-actions">
+            <button
+              className="mobile-notification-btn"
+              aria-label="Notifications"
+            >
+              <Bell size={20} />
+              <span className="notification-dot"></span>
+            </button>
+            <button
+              className="mobile-logout-btn"
+              onClick={handleLogout}
+              aria-label="Logout"
+            >
+              <LogOut size={20} />
+            </button>
+          </div>
         </header>
       )}
 
       {/* Sidebar Backdrop for Mobile */}
       {isMobile && isSidebarOpen && (
-        <div 
+        <div
           className="sidebar-backdrop"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
-      <aside 
+      <aside
         ref={sidebarRef}
         className={`portal-sidebar ${isSidebarOpen ? "open" : "closed"} ${isMobile ? "mobile" : ""}`}
       >
@@ -195,7 +207,9 @@ export default function PortalLayout({ children, currentPage = "dashboard" }) {
             <div className="logo-gradient">
               <Building2 size={28} />
             </div>
-            {(!isMobile || isSidebarOpen) && <span className="logo-text">Provider Portal</span>}
+            {(!isMobile || isSidebarOpen) && (
+              <span className="logo-text">Provider Portal</span>
+            )}
           </div>
           {!isMobile && (
             <button
@@ -203,72 +217,79 @@ export default function PortalLayout({ children, currentPage = "dashboard" }) {
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               aria-label="Toggle sidebar"
             >
-              <ChevronRight size={16} className={`toggle-icon ${isSidebarOpen ? "rotate-180" : ""}`} />
+              <ChevronRight
+                size={16}
+                className={`toggle-icon ${isSidebarOpen ? "rotate-180" : ""}`}
+              />
             </button>
           )}
         </div>
 
         <nav className="sidebar-nav" role="navigation">
-        {navigation.map((item) => {
+          {navigation.map((item) => {
             const Icon = item.icon;
             const isActive = currentPage === item.id;
             return (
-                <a
-            
+              <a
                 key={item.id}
                 href={item.href}
                 className={`nav-item ${isActive ? "active" : ""} ${item.soon ? "coming-soon" : ""}`}
                 onClick={(e) => {
-                if (item.soon) {
+                  if (item.soon) {
                     e.preventDefault();
                     alert("Coming soon!");
-                } else if (isMobile) {
+                  } else if (isMobile) {
                     // Close sidebar on mobile after navigation
                     setTimeout(() => setIsSidebarOpen(false), 100);
-                }
+                  }
                 }}
                 aria-current={isActive ? "page" : undefined}
-            >
+              >
                 <Icon size={20} className="nav-icon" />
                 {(!isMobile || isSidebarOpen) && (
-                <>
+                  <>
                     <span className="nav-label">{item.label}</span>
                     {item.soon && <span className="soon-badge">Soon</span>}
-                </>
+                  </>
                 )}
-            </a>
+              </a>
             );
-        })}
+          })}
         </nav>
 
+        {/* Combine both footer sections into ONE */}
         <div className="sidebar-footer">
+          {/* Network Status */}
+          <div className="network-status">
+            <div className="status-dot active"></div>
+            <span className="status-text">Network Operational</span>
+          </div>
+          <div className="compliance-info">
+            <span className="compliance-text">SOC 2 Certified</span>
+          </div>
+
+          {/* User Info */}
           {(!isMobile || isSidebarOpen) && provider && (
             <div className="user-info">
-              <div className="user-avatar">
-                {getProviderInitials()}
-              </div>
+              <div className="user-avatar">{getProviderInitials()}</div>
               <div className="user-details">
                 <div className="user-name">{getProviderName()}</div>
                 <div className="user-role">Provider Admin</div>
               </div>
             </div>
           )}
-          <button className="logout-btn" onClick={handleLogout} aria-label="Logout">
-            <LogOut size={20} />
-            {(!isMobile || isSidebarOpen) && <span>Logout</span>}
-          </button>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className={`portal-main ${isSidebarOpen && !isMobile ? "sidebar-open" : "sidebar-closed"}`}>
+      <main
+        className={`portal-main ${isSidebarOpen && !isMobile ? "sidebar-open" : "sidebar-closed"}`}
+      >
         {/* Desktop Header */}
         {!isMobile && (
           <header className="portal-header">
             <div className="header-content">
-              <h1 className="page-title">
-                {getCurrentNav()}
-              </h1>
+              <h1 className="page-title">{getCurrentNav()}</h1>
               <div className="header-actions">
                 <button className="notification-btn" aria-label="Notifications">
                   <Bell size={20} />
@@ -276,6 +297,14 @@ export default function PortalLayout({ children, currentPage = "dashboard" }) {
                 </button>
                 <button className="help-btn" aria-label="Help">
                   <HelpCircle size={20} />
+                </button>
+                {/* Add logout here - INSIDE header-actions */}
+                <button
+                  className="logout-btn-header"
+                  onClick={handleLogout}
+                  aria-label="Logout"
+                >
+                  <LogOut size={20} />
                 </button>
               </div>
             </div>
@@ -358,7 +387,8 @@ export default function PortalLayout({ children, currentPage = "dashboard" }) {
         }
 
         @keyframes float {
-          0%, 100% {
+          0%,
+          100% {
             transform: translate(0, 0) scale(1);
           }
           33% {
@@ -670,10 +700,6 @@ export default function PortalLayout({ children, currentPage = "dashboard" }) {
           min-height: 44px;
         }
 
-        .portal-sidebar.closed:not(.mobile) .logout-btn {
-          padding: 0.75rem;
-        }
-
         .logout-btn:hover {
           background: rgba(239, 68, 68, 0.2);
           transform: scale(1.02);
@@ -836,7 +862,7 @@ export default function PortalLayout({ children, currentPage = "dashboard" }) {
           .portal-sidebar {
             width: 200px;
           }
-          
+
           .portal-sidebar.closed {
             width: 60px;
           }
@@ -873,6 +899,101 @@ export default function PortalLayout({ children, currentPage = "dashboard" }) {
           .portal-content {
             padding-bottom: calc(56px + env(safe-area-inset-bottom) + 1rem);
           }
+        }
+
+        /* Sidebar Footer */
+        .sidebar-footer {
+          margin-top: auto;
+          padding: 1rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .network-status {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .status-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #dc2626;
+        }
+
+        .status-dot.active {
+          background: #10b981;
+          box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+
+        .status-text {
+          font-size: 0.75rem;
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        .compliance-info {
+          font-size: 0.75rem;
+          color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Pulse animation for status dot */
+        @keyframes pulse-dot {
+          0%,
+          100% {
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+          }
+          50% {
+            box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+          }
+        }
+
+        .status-dot.active {
+          animation: pulse-dot 2s infinite;
+        }
+
+        .logout-btn-header {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.5rem 1rem;
+          background: rgba(239, 68, 68, 0.1);
+          border: 1px solid rgba(239, 68, 68, 0.2);
+          border-radius: 12px;
+          color: #ef4444;
+          cursor: pointer;
+          transition: all 0.2s;
+          font-weight: 500;
+        }
+
+        .logout-btn-header:hover {
+          background: rgba(239, 68, 68, 0.2);
+          border-color: rgba(239, 68, 68, 0.3);
+          transform: translateY(-2px);
+        }
+
+        .mobile-header-actions {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .mobile-logout-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 36px;
+          height: 36px;
+          background: rgba(239, 68, 68, 0.1);
+          border: 1px solid rgba(239, 68, 68, 0.2);
+          border-radius: 10px;
+          color: #ef4444;
+          transition: all 0.2s;
+        }
+
+        .mobile-logout-btn:active {
+          transform: scale(0.95);
+          background: rgba(239, 68, 68, 0.2);
         }
       `}</style>
     </div>

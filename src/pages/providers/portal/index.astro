@@ -68,14 +68,14 @@ if (typeof window !== "undefined") {
 
 <ProviderLayout title="Provider Portal">
   <PortalLayout currentPage="dashboard" client:load>
-    <div class="dashboard-wrapper">
+    
       <DashboardHome
         provider={provider}
         recentDocuments={recentDocs}
         recentActivity={recentActivity}
         client:load
       />
-      <MedicalStatus client:load />
+      
     </div>
   </PortalLayout>
 </ProviderLayout>

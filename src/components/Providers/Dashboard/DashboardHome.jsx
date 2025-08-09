@@ -14,7 +14,8 @@ import {
   AlertCircle,
   Shield,
   Award,
-  CheckCircle
+  CheckCircle,
+  ArrowRight
 } from 'lucide-react';
 
 export default function DashboardHome({ provider, recentDocuments = [], recentActivity = [] }) {
@@ -43,7 +44,7 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
     purple: '#9333ea'
   };
 
-  const stats = [
+    const stats = [
     {
       id: 1,
       label: "Documents",
@@ -156,11 +157,25 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
       <div className="welcome-header">
         <div className="welcome-content">
           <h2 className="welcome-title">
-            Welcome back, <span className="provider-name">{provider?.organization_name || 'Provider'}</span>
+            Welcome back,{" "}
+            <span className="provider-name">
+              {provider?.organization_name || "Provider"}
+            </span>
           </h2>
           <p className="welcome-subtitle">
             Here's an overview of your USRad Network activity
           </p>
+          {/* Subtle inline badges */}
+          <div className="header-badges">
+            <span className="header-badge">
+              <Shield size={14} />
+              HIPAA Compliant
+            </span>
+            <span className="header-badge">
+              <CheckCircle size={14} />
+              ACR Accredited
+            </span>
+          </div>
         </div>
         <div className="header-actions">
           <button className="quick-action-btn mobile-hide">
@@ -170,15 +185,7 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
         </div>
       </div>
 
-      {/* Certification Badges */}
-      <CertificationBadges />
-
-      {/* Mobile Alert */}
-      <div className="mobile-alert">
-        <AlertCircle size={20} />
-        <span>Complete your profile to start receiving patients</span>
-      </div>
-
+      
       {/* Stats Grid */}
       <div className="stats-grid">
         {stats.map((stat) => {
@@ -217,18 +224,20 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
                 )}
               </div>
 
-              <div className="stat-footer">
-                <span className={`status-badge ${stat.color}`}>
-                  {stat.status}
-                </span>
-                {/* Add this trust indicator for compliance */}
-                {stat.label === "Compliance Score" && (
-                  <span className="trust-indicator">
-                    <CheckCircle size={12} />
-                    Verified
+              {stat.status && (
+                <div className="stat-footer">
+                  <span className={`status-badge ${stat.color}`}>
+                    {stat.status}
                   </span>
-                )}
-              </div>
+                  {/* Add trust indicator for compliance */}
+                  {stat.label === "Compliance Score" && (
+                    <span className="trust-indicator">
+                      <CheckCircle size={12} />
+                      Verified
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
           );
         })}
@@ -240,7 +249,9 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
         <div className="chart-card glass-card">
           <div className="chart-header">
             <h3 className="chart-title">Scan Volume Trend</h3>
-            <span className="chart-subtitle">Monthly scan volume over time</span>
+            <span className="chart-subtitle">
+              Monthly scan volume over time
+            </span>
           </div>
           <div className="chart-container">
             <LineChart
@@ -278,10 +289,12 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
           <div className="chart-legend">
             {scansByType.map((item, idx) => (
               <div key={idx} className="legend-item">
-                <span 
+                <span
                   className="legend-dot"
-                  style={{ 
-                    background: ['#6366f1', '#06b6d4', '#f59e0b', '#10b981'][idx] 
+                  style={{
+                    background: ["#6366f1", "#06b6d4", "#f59e0b", "#10b981"][
+                      idx
+                    ],
                   }}
                 />
                 <span className="legend-label">{item.type}</span>
@@ -303,7 +316,7 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
               <ChevronRight size={16} />
             </a>
           </div>
-          
+
           <div className="activity-list">
             {recentActivity.length > 0 ? (
               recentActivity.slice(0, 5).map((activity, index) => {
@@ -314,8 +327,12 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
                       <ActivityIcon size={16} />
                     </div>
                     <div className="activity-content">
-                      <p className="activity-text">{getActivityText(activity.action)}</p>
-                      <p className="activity-time">{formatDate(activity.created_at)}</p>
+                      <p className="activity-text">
+                        {getActivityText(activity.action)}
+                      </p>
+                      <p className="activity-time">
+                        {formatDate(activity.created_at)}
+                      </p>
                     </div>
                   </div>
                 );
@@ -338,21 +355,25 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
               <ChevronRight size={16} />
             </a>
           </div>
-          
+
           <div className="documents-list">
             {recentDocuments.length > 0 ? (
               recentDocuments.slice(0, 3).map((doc, index) => (
-                <a 
-                  key={doc.id || index} 
-                  href="/providers/portal/documents" 
+                <a
+                  key={doc.id || index}
+                  href="/providers/portal/documents"
                   className="document-item"
                 >
                   <div className="document-icon">
                     <FileText size={20} />
                   </div>
                   <div className="document-info">
-                    <p className="document-name">{doc.document_type.split('_').join(' ')}</p>
-                    <p className="document-date">{formatDate(doc.signed_date)}</p>
+                    <p className="document-name">
+                      {doc.document_type.split("_").join(" ")}
+                    </p>
+                    <p className="document-date">
+                      {formatDate(doc.signed_date)}
+                    </p>
                   </div>
                   <ChevronRight size={20} className="document-arrow" />
                 </a>
@@ -367,9 +388,6 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
         </div>
       </div>
 
-      // src/components/Providers/Dashboard/DashboardHome.jsx
-// ... (all your existing code up to the Quick Actions section) ...
-
       {/* Quick Actions - Mobile Optimized */}
       <div className="quick-actions-section">
         <h3 className="section-title">Quick Actions</h3>
@@ -377,16 +395,12 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
           {quickActions.map((action, index) => {
             const ActionIcon = action.icon;
             return (
-              <a
-                key={index}
-                href={action.href}
-                className="quick-action-card"
-              >
-                <div 
+              <a key={index} href={action.href} className="quick-action-card">
+                <div
                   className="action-icon"
                   style={{
                     background: action.bgColor,
-                    color: action.iconColor
+                    color: action.iconColor,
                   }}
                 >
                   <ActionIcon size={24} />
@@ -424,6 +438,82 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
           border-radius: 8px;
           font-size: 0.875rem;
           color: #0ea5e9;
+        }
+
+        /* Incomplete Profile Alert */
+        .incomplete-profile-alert {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 1.25rem;
+          background: rgba(245, 158, 11, 0.1);
+          border: 1px solid rgba(245, 158, 11, 0.2);
+          margin-bottom: 1.5rem;
+        }
+
+        .alert-icon {
+          color: #f59e0b;
+          flex-shrink: 0;
+        }
+
+        .alert-content {
+          flex: 1;
+        }
+
+        .alert-content h4 {
+          color: white;
+          font-size: 1rem;
+          font-weight: 600;
+          margin-bottom: 0.25rem;
+        }
+
+        .alert-content p {
+          color: rgba(255, 255, 255, 0.7);
+          font-size: 0.875rem;
+        }
+
+        .complete-btn {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.5rem 1rem;
+          background: rgba(245, 158, 11, 0.2);
+          border: 1px solid rgba(245, 158, 11, 0.3);
+          border-radius: 8px;
+          color: #f59e0b;
+          font-size: 0.875rem;
+          font-weight: 500;
+          text-decoration: none;
+          transition: all 0.2s;
+        }
+
+        .complete-btn:hover {
+          background: rgba(245, 158, 11, 0.3);
+          transform: translateX(2px);
+        }
+
+        /* Trust indicators */
+        .trust-indicator {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.25rem;
+          padding: 0.25rem 0.75rem;
+          background: rgba(16, 185, 129, 0.1);
+          border: 1px solid rgba(16, 185, 129, 0.2);
+          border-radius: 999px;
+          color: #10b981;
+          font-size: 0.75rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-left: 0.5rem;
+        }
+
+        .stat-footer {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          flex-wrap: wrap;
         }
 
         /* Welcome Header */
@@ -478,20 +568,7 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
           transform: translateY(-2px);
         }
 
-        /* Mobile Alert */
-        .mobile-alert {
-          display: none;
-          align-items: center;
-          gap: 0.75rem;
-          padding: 1rem;
-          background: rgba(245, 158, 11, 0.1);
-          border: 1px solid rgba(245, 158, 11, 0.2);
-          border-radius: 12px;
-          color: #f59e0b;
-          margin-bottom: 1.5rem;
-          font-size: 0.875rem;
-        }
-
+        
         /* Glass Card Base */
         .glass-card {
           background: rgba(255, 255, 255, 0.05);
@@ -879,9 +956,16 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
             padding: 0;
           }
 
-          /* Mobile Alert */
-          .mobile-alert {
-            display: flex;
+          
+          /* Incomplete Profile Alert */
+          .incomplete-profile-alert {
+            flex-direction: column;
+            text-align: center;
+          }
+
+          .complete-btn {
+            width: 100%;
+            justify-content: center;
           }
 
           /* Welcome Header */
@@ -1032,30 +1116,44 @@ export default function DashboardHome({ provider, recentDocuments = [], recentAc
           }
         }
 
-        /* Trust indicators */
-        .trust-indicator {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.25rem;
-        padding: 0.25rem 0.75rem;
-        background: rgba(16, 185, 129, 0.1);
-        border: 1px solid rgba(16, 185, 129, 0.2);
-        border-radius: 999px;
-        color: #10b981;
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-left: 0.5rem;
+        /* Header Badges - Subtle */
+        .header-badges {
+          display: flex;
+          gap: 1.5rem;
+          margin-top: 0.75rem;
         }
 
-        .stat-footer {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        flex-wrap: wrap;
+        .header-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.375rem;
+          font-size: 0.75rem;
+          color: rgba(255, 255, 255, 0.5);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          font-weight: 500;
         }
 
+        .header-badge svg {
+          opacity: 0.7;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+          .header-badges {
+            gap: 1rem;
+            margin-top: 0.5rem;
+          }
+
+          .header-badge {
+            font-size: 0.7rem;
+          }
+
+          .header-badge svg {
+            width: 12px;
+            height: 12px;
+          }
+        }
       `}</style>
     </div>
   );

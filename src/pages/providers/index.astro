@@ -1,0 +1,41 @@
+---
+// src/pages/providers/index.astro
+import { supabase } from "../../lib/supabase";
+
+// Check authentication
+const {
+  data: { user },
+} = await supabase.auth.getUser();
+
+if (!user) {
+  return Astro.redirect("/providers/login");
+}
+
+// Check if provider exists
+const { data: provider, error: providerError } = await supabase
+  .from("providers")
+  .select("*")
+  .eq("user_id", user.id)
+  .single();
+
+if (providerError || !provider) {
+  // New user - start pre-portal onboarding
+  return Astro.redirect("/providers/pre-portal");
+}
+
+// Check if PSA is signed
+const { data: psa, error: psaError } = await supabase
+  .from("provider_documents")
+  .select("*")
+  .eq("provider_id", provider.id)
+  .eq("document_type", "PSA")
+  .maybeSingle(); // Use maybeSingle() instead of single() to avoid errors when no PSA exists
+
+if (!psa) {
+  // Provider exists but no PSA - continue onboarding
+  return Astro.redirect("/providers/pre-portal");
+}
+
+// Fully onboarded - go to portal
+return Astro.redirect("/providers/portal");
+---
