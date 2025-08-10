@@ -1,0 +1,426 @@
+/* Mobile responsive styles for signup page */
+/* File: /src/styles/providers/signup-mobile.css */
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .signup-layout {
+        flex-direction: column;
+        min-height: 100dvh;
+    }
+
+    .logo-side {
+        padding: 2rem 1.5rem;
+        min-height: auto;
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .network-logo {
+        width: 200px;
+        margin-bottom: 2rem;
+    }
+
+    .revenue-amount {
+        font-size: 2.25rem;
+    }
+
+    .brand-title {
+        font-size: 1.75rem;
+    }
+
+    .brand-tagline {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .form-side {
+        padding: 1.5rem;
+    }
+
+    .progress-steps {
+        padding: 0;
+    }
+
+    .step-label {
+        font-size: 0.75rem;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+
+    .form-input {
+        font-size: 16px;
+        padding: 1rem;
+    }
+
+    .sso-options {
+        flex-direction: column;
+    }
+
+    .sso-button {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .submit-button {
+        padding: 1.125rem;
+        font-size: 1.125rem;
+    }
+
+    .value-props {
+        gap: 1rem;
+    }
+
+    .exit-content {
+        padding: 2rem;
+    }
+
+    .exit-close {
+        padding: 1rem;
+        font-size: 2rem;
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+
+    .exit-button {
+        padding: 1rem 1.5rem;
+    }
+
+    .form-content {
+        padding: 2rem;
+    }
+
+    /* Hide revenue tooltip on mobile */
+    .revenue-tooltip {
+        display: none;
+    }
+
+    /* Adjust gradient spheres for mobile */
+    .sphere-1 {
+        width: 300px;
+        height: 300px;
+        top: -100px;
+        left: -100px;
+    }
+
+    .sphere-2 {
+        width: 400px;
+        height: 400px;
+        bottom: -150px;
+        right: -150px;
+    }
+
+    .sphere-3 {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .logo-side {
+        padding: 1.5rem;
+    }
+
+    .back-nav {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .network-logo {
+        width: 160px;
+    }
+
+    .revenue-banner {
+        padding: 1.5rem;
+    }
+
+    .revenue-amount {
+        font-size: 1.75rem;
+    }
+
+    .revenue-description {
+        font-size: 0.95rem;
+    }
+
+    .brand-title {
+        font-size: 1.5rem;
+    }
+
+    .brand-tagline {
+        font-size: 0.9rem;
+    }
+
+    .form-side {
+        padding: 1rem;
+    }
+
+    .signup-container {
+        padding: 1rem 0;
+    }
+
+    .progress-steps {
+        margin-bottom: 2rem;
+    }
+
+    .step-number {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    .step-label {
+        font-size: 0.7rem;
+    }
+
+    .form-content {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+
+    .form-header {
+        margin-bottom: 2rem;
+    }
+
+    .form-title {
+        font-size: 1.25rem;
+    }
+
+    .form-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .input-group {
+        margin-bottom: 1.25rem;
+    }
+
+    .input-label {
+        font-size: 0.8rem;
+    }
+
+    .form-input {
+        padding: 0.875rem;
+        font-size: 16px;
+        /* Prevent zoom on iOS */
+    }
+
+    .input-hint {
+        font-size: 0.75rem;
+    }
+
+    .password-toggle svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .terms-consent {
+        font-size: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .terms-checkbox {
+        width: 16px;
+        height: 16px;
+    }
+
+    .submit-button {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .divider {
+        margin: 1rem 0;
+        font-size: 0.8rem;
+    }
+
+    .sso-button {
+        padding: 0.875rem;
+        font-size: 0.875rem;
+    }
+
+    .value-props {
+        gap: 0.75rem;
+        padding-top: 1rem;
+        margin-top: 1rem;
+    }
+
+    .value-prop {
+        font-size: 0.75rem;
+    }
+
+    .signin-link {
+        margin-top: 1.5rem;
+        font-size: 0.8rem;
+    }
+
+    .message {
+        padding: 0.75rem;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Exit modal adjustments */
+    .exit-modal {
+        padding: 10px;
+    }
+
+    .exit-content {
+        padding: 1.5rem;
+    }
+
+    .exit-title {
+        font-size: 1.25rem;
+    }
+
+    .exit-revenue {
+        padding: 1rem;
+    }
+
+    .exit-revenue-amount {
+        font-size: 1.75rem;
+    }
+
+    .exit-revenue-text {
+        font-size: 0.875rem;
+    }
+
+    .exit-benefits {
+        gap: 0.75rem;
+    }
+
+    .exit-benefit {
+        font-size: 0.875rem;
+    }
+
+    .exit-button {
+        padding: 0.875rem 1.25rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+    .signup-layout {
+        flex-direction: row;
+    }
+
+    .logo-side {
+        flex: 0 0 40%;
+        padding: 1.5rem;
+        border-right: 1px solid rgba(0, 0, 0, 0.05);
+        border-bottom: none;
+    }
+
+    .form-side {
+        flex: 1;
+        padding: 1rem;
+    }
+
+    .network-logo {
+        width: 150px;
+        margin-bottom: 1rem;
+    }
+
+    .revenue-banner {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .brand-title {
+        font-size: 1.25rem;
+    }
+
+    .brand-tagline {
+        display: none;
+    }
+
+    .form-content {
+        padding: 1.5rem;
+    }
+}
+
+/* iOS specific adjustments */
+@supports (-webkit-touch-callout: none) {
+
+    /* iOS only styles */
+    .form-input {
+        font-size: 16px;
+        /* Prevents zoom on focus */
+        -webkit-appearance: none;
+    }
+
+    .submit-button {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .sso-button {
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .form-input {
+        border-width: 3px;
+    }
+
+    .submit-button {
+        border: 2px solid currentColor;
+    }
+
+    .message {
+        border-width: 2px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .gradient-sphere {
+        animation: none;
+    }
+
+    .revenue-banner::before {
+        animation: none;
+    }
+
+    .submit-button::before {
+        transition: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .signup-layout {
+        background: white;
+    }
+
+    .bg-decoration {
+        display: none;
+    }
+
+    .back-nav {
+        display: none;
+    }
+
+    .submit-button {
+        background: #667eea;
+        color: white;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .sso-options {
+        display: none;
+    }
+
+    .exit-modal {
+        display: none !important;
+    }
+}
