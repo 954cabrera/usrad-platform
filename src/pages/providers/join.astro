@@ -2,6 +2,11 @@
 // Enhanced provider signup with premium light theme
 // File: /src/pages/providers/join.astro
 export const prerender = false;
+
+// Import styles - Astro will bundle these properly
+import "../../styles/providers/signup-base.css";
+import "../../styles/providers/signup-form.css";
+import "../../styles/providers/signup-mobile.css";
 ---
 
 <html lang="en">
@@ -21,11 +26,6 @@ export const prerender = false;
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-
-    <!-- Import external styles -->
-    <link rel="stylesheet" href="/src/styles/providers/signup-base.css" />
-    <link rel="stylesheet" href="/src/styles/providers/signup-form.css" />
-    <link rel="stylesheet" href="/src/styles/providers/signup-mobile.css" />
   </head>
 
   <body>
@@ -39,7 +39,7 @@ export const prerender = false;
 
       <!-- Left side - Branding -->
       <div class="logo-side">
-        <a href="/provider" class="back-nav">
+        <a href="/providers" class="back-nav">
           <svg
             width="16"
             height="16"
@@ -437,7 +437,7 @@ export const prerender = false;
             Complete Signup (60 seconds)
           </button>
           <button
-            onclick="window.location.href='/provider'"
+            onclick="window.location.href='/providers'"
             class="exit-button secondary"
           >
             Learn More About USRad
