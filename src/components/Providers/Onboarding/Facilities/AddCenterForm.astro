@@ -7,60 +7,1029 @@ import EquipmentSelection from "./form-sections/EquipmentSelection.astro";
 import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
 ---
 
-<div class="add-center-section" id="add-center-form">
-  <div class="section-header">
-    <div>
-      <h2 class="section-title">Add Your First Center</h2>
-      <p class="section-description">
-        Start with your primary imaging center. You can add additional locations
-        after.
-      </p>
-    </div>
-    <button
-      type="button"
-      class="btn-close"
-      id="cancel-add-center"
-      style="display: none;"
-      title="Cancel"
-    >
-      ✕
-    </button>
-  </div>
-
-  <form id="facility-form" class="facility-form">
-    <!-- Pre-populate Toggle -->
-    <div class="form-group full-width" id="prepopulate-section">
-      <label class="toggle-label">
-        <input type="checkbox" id="use-org-info" />
-        <span class="toggle-text"
-          >Use organization address and contact information</span
-        >
-      </label>
-      <p class="toggle-hint">
-        Auto-fill this form with your organization details
-      </p>
+<div class="add-center-section" id="add-center-section">
+  <!-- Standard Form (shown by default) -->
+  <div id="standard-form-container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Add Your First Center</h2>
+        <p class="section-description">
+          Start with your primary imaging center. You can add additional
+          locations after.
+        </p>
+      </div>
+      <button
+        type="button"
+        class="btn-close"
+        id="cancel-add-center"
+        style="display: none;"
+        title="Cancel"
+      >
+        ✕
+      </button>
     </div>
 
-    <div class="form-grid">
-      <CenterInfo />
-      <CenterAddress />
-      <CenterAdministrator />
-      <EquipmentSelection />
-      <EquipmentDetails />
-
-      <!-- Primary Center -->
-      <div class="form-group full-width">
-        <label class="checkbox-label">
-          <input type="checkbox" name="isPrimary" checked />
-          <span>This is my primary imaging center</span>
+    <form id="facility-form" class="facility-form">
+      <!-- Pre-populate Toggle -->
+      <div class="form-group full-width" id="prepopulate-section">
+        <label class="toggle-label">
+          <input type="checkbox" id="use-org-info" />
+          <span class="toggle-text"
+            >Use organization address and contact information</span
+          >
         </label>
+        <p class="toggle-hint">
+          Auto-fill this form with your organization details
+        </p>
+      </div>
+
+      <div class="form-grid">
+        <CenterInfo />
+        <CenterAddress />
+        <CenterAdministrator />
+        <EquipmentSelection />
+        <EquipmentDetails />
+
+        <!-- Primary Center -->
+        <div class="form-group full-width">
+          <label class="checkbox-label">
+            <input type="checkbox" name="isPrimary" checked />
+            <span>This is my primary imaging center</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary" id="submit-btn">
+          Add Center
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Bulk Upload Template (hidden by default) -->
+<template id="bulk-upload-template">
+  <div class="bulk-upload-card">
+    <div class="upload-header">
+      <div class="upload-icon">
+        <svg
+          class="icon-xl"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+          ></path>
+        </svg>
+      </div>
+      <h3 class="upload-title">Import Multiple Facilities</h3>
+      <p class="upload-subtitle">
+        As a corporate administrator, you can upload all your facilities at once
+        using our Excel template
+      </p>
+    </div>
+
+    <div class="upload-actions">
+      <button
+        type="button"
+        onclick="downloadFacilityTemplate()"
+        class="btn btn-secondary"
+      >
+        <svg class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
+          <path
+            fill-rule="evenodd"
+            d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+            clip-rule="evenodd"></path>
+        </svg>
+        Download Template
+      </button>
+
+      <div class="upload-dropzone" id="upload-dropzone">
+        <input
+          type="file"
+          id="facility-file-input"
+          accept=".csv,.xlsx,.xls"
+          hidden
+        />
+        <div class="dropzone-content">
+          <svg
+            class="icon-lg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            ></path>
+          </svg>
+          <p class="dropzone-text">
+            Drag and drop your facility file here, or
+            <button
+              type="button"
+              onclick="document.getElementById('facility-file-input').click()"
+              class="dropzone-link"
+            >
+              browse
+            </button>
+          </p>
+          <p class="dropzone-hint">Supports .xlsx, .xls, and .csv files</p>
+        </div>
       </div>
     </div>
 
-    <div class="form-actions">
-      <button type="submit" class="btn-primary" id="submit-btn">
-        Add Center
+    <div class="upload-options">
+      <button type="button" onclick="switchToManualEntry()" class="btn-text">
+        Or add facilities one by one →
       </button>
     </div>
-  </form>
-</div>
+
+    <!-- Upload Progress/Results -->
+    <div id="upload-results" class="upload-results" style="display: none;">
+      <!-- Results will be shown here -->
+    </div>
+  </div>
+</template>
+
+<script>
+  // Check user role and show appropriate interface
+  document.addEventListener("DOMContentLoaded", function () {
+    const userRole = localStorage.getItem("selectedRole");
+    const facilities = JSON.parse(localStorage.getItem("facilities") || "[]");
+
+    // Clear the lastBulkUploadTime if enough time has passed
+    const lastUploadTime = localStorage.getItem("lastBulkUploadTime");
+    if (lastUploadTime && Date.now() - parseInt(lastUploadTime) > 10000) {
+      localStorage.removeItem("lastBulkUploadTime");
+    }
+
+    // More comprehensive function to hide duplicate sections
+    const hideAllDuplicateSections = () => {
+      // Hide the bottom continue section
+      const continueSection = document.querySelector(".continue-section");
+      if (continueSection) {
+        continueSection.style.display = "none";
+      }
+
+      // Hide "Your Imaging Centers" section and its continue button
+      const yourCentersHeaders = document.querySelectorAll("h2, h3");
+      yourCentersHeaders.forEach((header) => {
+        if (header.textContent.includes("Your Imaging Centers")) {
+          // Find the parent section and hide it
+          let parentSection = header.parentElement;
+          while (
+            parentSection &&
+            !parentSection.classList.contains("facilities-container")
+          ) {
+            if (
+              parentSection.nextElementSibling &&
+              parentSection.nextElementSibling.textContent.includes(
+                "Continue to Pricing Strategy"
+              )
+            ) {
+              parentSection.nextElementSibling.style.display = "none";
+            }
+            parentSection = parentSection.parentElement;
+          }
+
+          // Hide the header itself
+          header.style.display = "none";
+
+          // Hide any following continue button section
+          let nextElement = header.nextElementSibling;
+          while (nextElement) {
+            if (
+              nextElement.textContent.includes(
+                "Continue to Pricing Strategy"
+              ) ||
+              nextElement.textContent.includes("Great! You've added")
+            ) {
+              nextElement.style.display = "none";
+            }
+            nextElement = nextElement.nextElementSibling;
+          }
+        }
+      });
+
+      // Hide any standalone continue sections
+      const allSections = document.querySelectorAll("div");
+      allSections.forEach((section) => {
+        if (
+          section.textContent.includes("Great! You've added") &&
+          section.textContent.includes("imaging center(s) to your network")
+        ) {
+          section.style.display = "none";
+        }
+      });
+    };
+
+    // If facilities exist and user is executive
+    if (
+      facilities.length > 0 &&
+      (userRole === "executive" || userRole === "Executive/Corporate")
+    ) {
+      // Check if they just uploaded (within last 10 seconds)
+      const lastUploadTime = localStorage.getItem("lastBulkUploadTime");
+      const now = Date.now();
+
+      if (lastUploadTime && now - parseInt(lastUploadTime) < 10000) {
+        // Show success state with continue button
+        showUploadSuccessState(facilities.length);
+        // Use setTimeout to ensure all other elements have loaded
+        setTimeout(hideAllDuplicateSections, 500);
+        localStorage.removeItem("lastBulkUploadTime");
+        return;
+      } else {
+        // Show summary of existing facilities
+        showExistingFacilitiesSummary(facilities.length);
+        setTimeout(hideAllDuplicateSections, 500);
+        return;
+      }
+    }
+
+    // Default to bulk upload for executive/corporate users with no facilities
+    if (
+      (userRole === "executive" || userRole === "Executive/Corporate") &&
+      facilities.length === 0
+    ) {
+      // Show bulk upload by default for corporate users
+      showBulkUploadInterface();
+    } else if (facilities.length > 0) {
+      // For other roles with facilities, ensure standard flow
+      const addSection = document.getElementById("add-center-section");
+      if (addSection && !userRole.includes("executive")) {
+        addSection.style.display = "none";
+      }
+    } else {
+      // For other roles, show manual form with option to switch
+      addBulkUploadToggle();
+    }
+  });
+
+  // Show summary when returning to page with existing facilities
+  function showExistingFacilitiesSummary(facilityCount) {
+    const section = document.getElementById("add-center-section");
+
+    section.innerHTML = `
+      <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 2rem; border-radius: 0.5rem; text-align: center; max-width: 600px; margin: 0 auto;">
+        <h3 style="font-size: 1.25rem; font-weight: 600; margin: 0 0 0.5rem 0; color: #374151;">
+          You have ${facilityCount} facilities registered
+        </h3>
+        <p style="color: #6b7280; margin-bottom: 1.5rem;">
+          Would you like to add more facilities or continue to pricing?
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+          <button onclick="showBulkUploadInterface()" 
+                  style="padding: 0.625rem 1.5rem; background: white; color: #374151; border: 1px solid #d1d5db; border-radius: 0.375rem; font-weight: 500; cursor: pointer;">
+            <svg style="width: 1rem; height: 1rem; display: inline-block; margin-right: 0.5rem;" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+            </svg>
+            Add More Facilities
+          </button>
+          <button onclick="window.location.href='/providers/onboarding/market-calculator'" 
+                  style="padding: 0.625rem 1.5rem; background: #3b82f6; color: white; border: none; border-radius: 0.375rem; font-weight: 500; cursor: pointer;">
+            Continue to Pricing Strategy →
+          </button>
+        </div>
+      </div>
+    `;
+
+    // Update stats when showing summary
+    if (window.updateQuickStats) {
+      setTimeout(() => window.updateQuickStats(), 100);
+    }
+  }
+
+  // Show success state after bulk upload
+  function showUploadSuccessState(facilityCount) {
+    const section = document.getElementById("add-center-section");
+
+    // First, make sure stats are updated before showing success state
+    if (window.updateQuickStats) {
+      window.updateQuickStats();
+    }
+
+    // Add a small delay to ensure stats are visible
+    setTimeout(() => {
+      section.innerHTML = `
+        <div style="background: #f0fdf4; border: 1px solid #86efac; padding: 2rem; border-radius: 0.5rem; text-align: center; max-width: 600px; margin: 0 auto;">
+          <div style="width: 4rem; height: 4rem; background: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+            <svg style="width: 2rem; height: 2rem; color: white;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 style="font-size: 1.5rem; font-weight: 600; margin: 0 0 0.5rem 0; color: #065f46;">
+            ${facilityCount} Facilities Successfully Added!
+          </h3>
+          <p style="color: #047857; margin-bottom: 2rem;">
+            Your imaging centers have been registered. Continue to set up your pricing strategy.
+          </p>
+          <div style="display: flex; gap: 1rem; justify-content: center;">
+            <button onclick="window.location.href='/providers/onboarding/market-calculator'" 
+                    style="padding: 0.75rem 2rem; background: #3b82f6; color: white; border: none; border-radius: 0.375rem; font-weight: 600; cursor: pointer; font-size: 1rem;">
+              Continue to Pricing Strategy →
+            </button>
+            <button onclick="showBulkUploadInterface()" 
+                    style="padding: 0.75rem 2rem; background: white; color: #374151; border: 1px solid #d1d5db; border-radius: 0.375rem; font-weight: 600; cursor: pointer; font-size: 1rem;">
+              Add More Facilities
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Update stats again after DOM changes
+      if (window.updateQuickStats) {
+        window.updateQuickStats();
+      }
+    }, 100);
+  }
+
+  // Add a toggle button to switch to bulk upload
+  function addBulkUploadToggle() {
+    const standardForm = document.getElementById("standard-form-container");
+
+    if (standardForm && !document.querySelector(".view-toggle-container")) {
+      // Add toggle button at the top
+      const toggleHtml = `
+        <div class="view-toggle-container" style="text-align: center; margin-bottom: 2rem;">
+          <button type="button" onclick="showBulkUploadInterface()" class="btn btn-secondary">
+            <svg class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+            Switch to Bulk Upload
+          </button>
+        </div>
+      `;
+      standardForm.insertAdjacentHTML("afterbegin", toggleHtml);
+    }
+  }
+
+  function showBulkUploadInterface() {
+    const section = document.getElementById("add-center-section");
+    const template = document.getElementById("bulk-upload-template");
+    const clone = template.content.cloneNode(true);
+
+    // Clear existing content and show bulk upload
+    section.innerHTML = "";
+    section.appendChild(clone);
+
+    // Setup drag and drop
+    setupDragAndDrop();
+  }
+
+  // Make showBulkUploadInterface available globally
+  window.showBulkUploadInterface = showBulkUploadInterface;
+
+  // Make showExistingFacilitiesSummary available globally
+  window.showExistingFacilitiesSummary = showExistingFacilitiesSummary;
+
+  // Global function to clean up duplicate sections
+  window.cleanupDuplicateSections = function () {
+    // Hide all duplicate continue sections
+    const allElements = document.querySelectorAll("*");
+    let foundSuccessMessage = false;
+
+    allElements.forEach((element) => {
+      const text = element.textContent || "";
+
+      // If we find the success message, mark it
+      if (
+        text.includes("Facilities Successfully Added!") &&
+        element.querySelector(".success-icon")
+      ) {
+        foundSuccessMessage = true;
+      }
+
+      // Hide duplicate sections if we have a success message
+      if (foundSuccessMessage) {
+        if (
+          (text.includes("Your Imaging Centers") &&
+            element.tagName.match(/^H[1-6]$/)) ||
+          (text.includes("Great! You've added") &&
+            text.includes("imaging center(s)")) ||
+          (text.includes("Continue to Pricing Strategy") &&
+            !element.closest('[style*="background: #f0fdf4"]'))
+        ) {
+          // Hide the section containing this element
+          let container = element;
+          while (
+            container &&
+            container.parentElement &&
+            !container.classList.contains("facilities-container")
+          ) {
+            container = container.parentElement;
+          }
+
+          if (container && container !== document.body) {
+            container.style.display = "none";
+          }
+        }
+      }
+    });
+  };
+
+  // Run cleanup after a delay to catch any dynamically added content
+  setTimeout(window.cleanupDuplicateSections, 1000);
+
+  function setupDragAndDrop() {
+    const dropzone = document.getElementById("upload-dropzone");
+    const fileInput = document.getElementById("facility-file-input");
+
+    if (!dropzone || !fileInput) return;
+
+    ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+      dropzone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    ["dragenter", "dragover"].forEach((eventName) => {
+      dropzone.addEventListener(eventName, highlight, false);
+    });
+
+    ["dragleave", "drop"].forEach((eventName) => {
+      dropzone.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight(e) {
+      dropzone.classList.add("dragover");
+    }
+
+    function unhighlight(e) {
+      dropzone.classList.remove("dragover");
+    }
+
+    dropzone.addEventListener("drop", handleDrop, false);
+    fileInput.addEventListener("change", handleFileSelect, false);
+  }
+
+  function handleDrop(e) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+
+    if (files.length > 0) {
+      processFile(files[0]);
+    }
+  }
+
+  function handleFileSelect(e) {
+    const files = e.target.files;
+    if (files.length > 0) {
+      processFile(files[0]);
+    }
+  }
+
+  async function processFile(file) {
+    // Show processing state
+    const resultsDiv = document.getElementById("upload-results");
+    resultsDiv.style.display = "block";
+    resultsDiv.innerHTML = `
+      <div class="processing-state">
+        <div class="spinner"></div>
+        <p>Processing ${file.name}...</p>
+      </div>
+    `;
+
+    // Use the file processing logic
+    try {
+      // Check if we have the upload handler available
+      if (window.parseExcelFile) {
+        const facilities = await window.parseExcelFile(file);
+        window.displayUploadResults(facilities);
+      } else {
+        // Fallback for simple CSV parsing
+        const text = await file.text();
+        const facilities = parseCSVFile(text);
+        window.displayUploadResults(facilities);
+      }
+    } catch (error) {
+      window.displayUploadError(error);
+    }
+  }
+
+  // Simple CSV parser as fallback
+  function parseCSVFile(text) {
+    const lines = text.split("\n").filter((line) => line.trim());
+    const headers = lines[0].split(",").map((h) => h.trim().replace(/"/g, ""));
+
+    const facilities = [];
+    for (let i = 1; i < lines.length; i++) {
+      const values = parseCSVLine(lines[i]);
+      const facility = {
+        name: values[0] || "",
+        address: values[1] || "",
+        city: values[2] || "",
+        state: values[3] || "",
+        zipCode: values[4] || "",
+        phone: values[5] || "",
+        acrId: values[6] || "",
+        equipment: values[7] ? values[7].split(";").map((e) => e.trim()) : [],
+        isPrimary: (values[9] || "").toUpperCase() === "Y",
+        administrator: {
+          name: "TBD",
+          email: "admin@example.com",
+        },
+      };
+
+      if (facility.name && facility.city && facility.state) {
+        facilities.push(facility);
+      }
+    }
+
+    return facilities;
+  }
+
+  function parseCSVLine(line) {
+    const values = [];
+    let current = "";
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (char === "," && !inQuotes) {
+        values.push(current.trim());
+        current = "";
+      } else {
+        current += char;
+      }
+    }
+
+    values.push(current.trim());
+    return values;
+  }
+
+  function downloadFacilityTemplate() {
+    // Create and download template
+    const templateData = [
+      [
+        "Facility Name",
+        "Address",
+        "City",
+        "State",
+        "ZIP Code",
+        "Phone",
+        "ACR Facility ID",
+        "Equipment/Modalities",
+        "Equipment Brands",
+        "Is Primary (Y/N)",
+        "Is ACR Verified (Y/N)",
+      ],
+      [
+        "Advanced Imaging Center - Main",
+        "123 Medical Plaza",
+        "Miami",
+        "FL",
+        "33101",
+        "(305) 555-0100",
+        "ACR123456",
+        "MRI;CT;X-Ray",
+        "GE;Siemens",
+        "Y",
+        "Y",
+      ],
+      [
+        "Advanced Imaging Center - North",
+        "456 Healthcare Blvd",
+        "Fort Lauderdale",
+        "FL",
+        "33301",
+        "(954) 555-0200",
+        "ACR123457",
+        "MRI;CT",
+        "Philips",
+        "N",
+        "Y",
+      ],
+    ];
+
+    // Convert to CSV
+    const csv = templateData
+      .map((row) => row.map((cell) => `"${cell}"`).join(","))
+      .join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "usrad_facility_template.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function switchToManualEntry() {
+    // Reload the page to reset to manual form
+    window.location.reload();
+  }
+
+  // Global functions for upload results
+  window.displayUploadResults = function (facilities) {
+    const resultsDiv = document.getElementById("upload-results");
+
+    resultsDiv.innerHTML = `
+      <div class="upload-success">
+        <div class="success-icon">
+          <svg class="icon-lg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <h4 class="success-title">Successfully parsed ${facilities.length} facilities!</h4>
+        <div class="facility-preview">
+          <h5>Preview:</h5>
+          <ul class="preview-list">
+            ${facilities
+              .slice(0, 3)
+              .map(
+                (f) => `
+              <li>${f.name} - ${f.city}, ${f.state}</li>
+            `
+              )
+              .join("")}
+            ${facilities.length > 3 ? `<li>... and ${facilities.length - 3} more</li>` : ""}
+          </ul>
+        </div>
+        <div class="upload-actions">
+          <button onclick="confirmBulkUpload()" class="btn btn-primary">
+            Import All ${facilities.length} Facilities
+          </button>
+          <button onclick="cancelBulkUpload()" class="btn btn-secondary">
+            Cancel
+          </button>
+        </div>
+      </div>
+    `;
+
+    // Store parsed facilities temporarily
+    window.tempBulkFacilities = facilities;
+  };
+
+  window.displayUploadError = function (error) {
+    const resultsDiv = document.getElementById("upload-results");
+
+    resultsDiv.innerHTML = `
+      <div class="upload-error">
+        <div class="error-icon">
+          <svg class="icon-lg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 101.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <h4 class="error-title">Upload Error</h4>
+        <p class="error-message">${error.message}</p>
+        <button onclick="resetUpload()" class="btn btn-secondary">
+          Try Again
+        </button>
+      </div>
+    `;
+  };
+
+  window.confirmBulkUpload = function () {
+    if (window.tempBulkFacilities) {
+      // Add to localStorage
+      const existingFacilities = JSON.parse(
+        localStorage.getItem("facilities") || "[]"
+      );
+      const allFacilities = [
+        ...existingFacilities,
+        ...window.tempBulkFacilities,
+      ];
+      localStorage.setItem("facilities", JSON.stringify(allFacilities));
+
+      // Show success and redirect
+      alert(
+        `Successfully imported ${window.tempBulkFacilities.length} facilities!`
+      );
+      window.location.href = "/providers/onboarding/pricing";
+    }
+  };
+
+  window.cancelBulkUpload = function () {
+    window.tempBulkFacilities = null;
+    resetUpload();
+  };
+
+  window.resetUpload = function () {
+    document.getElementById("upload-results").style.display = "none";
+    document.getElementById("facility-file-input").value = "";
+  };
+</script>
+
+<style>
+  /* Bulk Upload Styles */
+  .bulk-upload-card {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+  }
+
+  .upload-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .upload-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    background: #eff6ff;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+  }
+
+  .icon-xl {
+    width: 2rem;
+    height: 2rem;
+    color: #2563eb;
+  }
+
+  .icon-lg {
+    width: 3rem;
+    height: 3rem;
+    color: #9ca3af;
+  }
+
+  .icon-sm {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .upload-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+  }
+
+  .upload-subtitle {
+    color: #6b7280;
+    max-width: 32rem;
+    margin: 0 auto;
+  }
+
+  .upload-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .upload-dropzone {
+    width: 100%;
+    max-width: 32rem;
+    border: 2px dashed #d1d5db;
+    border-radius: 0.5rem;
+    padding: 3rem;
+    text-align: center;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .upload-dropzone:hover,
+  .upload-dropzone.dragover {
+    border-color: #2563eb;
+    background: #eff6ff;
+  }
+
+  .dropzone-content {
+    pointer-events: none;
+  }
+
+  .dropzone-text {
+    color: #374151;
+    margin: 1rem 0 0.5rem;
+  }
+
+  .dropzone-link {
+    color: #2563eb;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    cursor: pointer;
+    pointer-events: all;
+  }
+
+  .dropzone-hint {
+    font-size: 0.875rem;
+    color: #9ca3af;
+  }
+
+  .upload-options {
+    text-align: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary {
+    color: #374151;
+    background: white;
+    border: 1px solid #d1d5db;
+  }
+
+  .btn-secondary:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+  }
+
+  .btn-text {
+    color: #2563eb;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .btn-text:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+  }
+
+  /* Upload Results */
+  .upload-results {
+    margin-top: 2rem;
+  }
+
+  .processing-state,
+  .upload-success,
+  .upload-error {
+    text-align: center;
+    padding: 2rem;
+    background: #f9fafb;
+    border-radius: 0.5rem;
+  }
+
+  .upload-success {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    text-align: left;
+  }
+
+  .upload-error {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+  }
+
+  .success-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .success-icon-container {
+    width: 3rem;
+    height: 3rem;
+    background: #10b981;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .success-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: white;
+  }
+
+  .spinner {
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #e5e7eb;
+    border-top-color: #2563eb;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 1rem;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .error-icon svg {
+    color: #ef4444;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .success-title,
+  .error-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .success-title {
+    color: #065f46;
+  }
+
+  .error-title {
+    color: #991b1b;
+    margin: 1rem 0;
+  }
+
+  .error-message {
+    color: #dc2626;
+    margin-bottom: 1rem;
+  }
+
+  .facility-preview {
+    background: white;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #d1d5db;
+  }
+
+  .preview-title {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #374151;
+    font-size: 0.875rem;
+  }
+
+  .preview-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .preview-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #374151;
+    font-size: 0.875rem;
+  }
+
+  .preview-icon {
+    width: 1rem;
+    height: 1rem;
+    color: #6b7280;
+    flex-shrink: 0;
+  }
+
+  .preview-more {
+    color: #6b7280;
+    font-style: italic;
+    font-size: 0.875rem;
+    margin-left: 1.5rem;
+  }
+
+  .upload-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+  }
+
+  .upload-actions .btn {
+    padding: 0.625rem 1.25rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .bulk-upload-card {
+      padding: 1.5rem;
+    }
+
+    .upload-dropzone {
+      padding: 2rem;
+    }
+
+    .upload-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .upload-actions .btn {
+      width: 100%;
+    }
+  }
+</style>

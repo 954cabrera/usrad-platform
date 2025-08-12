@@ -1,31 +1,523 @@
 ---
-// src/components/Providers/Onboarding/Confirmation/CentersReview.astro
+// CentersReview.astro - Enhanced component for displaying facilities
 ---
 
-<div class="review-section">
+<section class="review-section centers-review">
   <div class="section-header">
-    <h2 class="section-title">Imaging Centers</h2>
-    <button class="edit-link" onclick="editCenters()">Edit</button>
-  </div>
-
-  <div class="centers-summary">
-    <div class="summary-stats">
-      <div class="stat">
-        <span class="stat-number" id="total-centers">0</span>
-        <span class="stat-label">Total Centers</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number" id="total-states">0</span>
-        <span class="stat-label">States</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number" id="total-equipment">0</span>
-        <span class="stat-label">Equipment Types</span>
-      </div>
+    <div class="header-content">
+      <h3 class="section-title">Imaging Centers</h3>
+      <p class="section-subtitle">
+        <span class="centers-count">Loading...</span> to be included in agreement
+      </p>
     </div>
-
-    <div id="centers-list" class="centers-review-list">
-      <!-- Centers will be populated here -->
+    <div class="centers-header-actions">
+      <button onclick="editCenters()" class="edit-btn">
+        <svg class="icon-sm" viewBox="0 0 20 20" fill="currentColor">
+          <path
+            d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+          ></path>
+        </svg>
+        Edit Centers
+      </button>
     </div>
   </div>
-</div>
+
+  <!-- Dynamic content will be inserted here by JavaScript -->
+  <div class="centers-review-content" id="centers-review-content">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading facilities...</p>
+    </div>
+  </div>
+
+  <!-- Exhibit B Notice -->
+  <div class="exhibit-b-notice">
+    <div class="notice-icon">
+      <svg class="icon-md" viewBox="0 0 20 20" fill="currentColor">
+        <path
+          fill-rule="evenodd"
+          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+          clip-rule="evenodd"></path>
+      </svg>
+    </div>
+    <div class="notice-content">
+      <p class="notice-text">
+        <strong>Note:</strong> Complete facility details including addresses, equipment
+        specifications, and operational information will be provided in Exhibit B
+        after agreement signing.
+      </p>
+      <button onclick="previewExhibitB()" class="notice-link">
+        Preview Exhibit B Format →
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .centers-review {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+  }
+
+  .section-subtitle {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+  }
+
+  .centers-count {
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .edit-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #2563eb;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .edit-btn:hover {
+    color: #1d4ed8;
+  }
+
+  .icon-sm {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .icon-md {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  /* Loading State */
+  .loading-state {
+    text-align: center;
+    padding: 3rem;
+  }
+
+  .spinner {
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #e5e7eb;
+    border-top-color: #2563eb;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 1rem;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Dynamic Content Area */
+  .centers-review-content {
+    min-height: 200px;
+  }
+
+  /* Summary View Styles */
+  .centers-summary .summary-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .stat-card.primary {
+    background: #dbeafe;
+    border-color: #bfdbfe;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1;
+  }
+
+  .stat-card.primary .stat-value {
+    color: #1e40af;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+  }
+
+  /* State Grid */
+  .state-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .state-item {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+  }
+
+  .state-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .state-name {
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .state-count {
+    font-weight: 500;
+    color: #6b7280;
+  }
+
+  .state-meta {
+    font-size: 0.75rem;
+    color: #2563eb;
+    margin-top: 0.25rem;
+  }
+
+  /* Controls */
+  .centers-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .search-box {
+    flex: 1;
+    min-width: 200px;
+    max-width: 400px;
+    position: relative;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #9ca3af;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    transition: border-color 0.2s;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+
+  .state-filter {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    background: white;
+    cursor: pointer;
+  }
+
+  /* Grid View */
+  .centers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Detailed View */
+  .centers-detailed {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .center-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+
+  .center-card.detailed {
+    padding: 1.5rem;
+  }
+
+  .center-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+  }
+
+  .center-name {
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+  }
+
+  .badge-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #1e40af;
+    background: #dbeafe;
+    border-radius: 9999px;
+  }
+
+  .badge-primary.sm {
+    padding: 0.125rem 0.5rem;
+    font-size: 0.625rem;
+  }
+
+  /* Table View */
+  .centers-table-wrapper {
+    overflow-x: auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .centers-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .centers-table th {
+    background: #f9fafb;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .centers-table td {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: #374151;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .pagination-info {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+
+  .pagination-controls {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+  }
+
+  .pagination-btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .pagination-btn:hover:not(:disabled) {
+    background: #f9fafb;
+    border-color: #9ca3af;
+  }
+
+  .pagination-btn:disabled {
+    color: #9ca3af;
+    cursor: not-allowed;
+  }
+
+  .pagination-btn.active {
+    color: white;
+    background: #2563eb;
+    border-color: #2563eb;
+  }
+
+  .pagination-ellipsis {
+    padding: 0 0.5rem;
+    color: #9ca3af;
+  }
+
+  /* Action Buttons */
+  .summary-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .btn-secondary {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+  }
+
+  .btn-text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .btn-text:hover {
+    color: #374151;
+  }
+
+  /* Exhibit B Notice */
+  .exhibit-b-notice {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: #fef3c7;
+    border: 1px solid #fcd34d;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .notice-icon {
+    flex-shrink: 0;
+    color: #d97706;
+  }
+
+  .notice-text {
+    font-size: 0.875rem;
+    color: #92400e;
+    margin: 0;
+  }
+
+  .notice-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #d97706;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .notice-link:hover {
+    color: #b45309;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .section-header {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .centers-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .state-grid {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .summary-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .pagination {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .pagination-controls {
+      justify-content: center;
+    }
+  }
+</style>
