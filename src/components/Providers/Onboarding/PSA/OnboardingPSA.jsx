@@ -48,6 +48,14 @@ export default function OnboardingPSA() {
     }
   };
 
+  // Create a helper function for consistent date formatting
+  const formatDateUS = (date = new Date()) => {
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
+  };
+
   // Start signing process
   const startSigning = async () => {
     setLoading(true);
@@ -70,8 +78,8 @@ export default function OnboardingPSA() {
         signer_name: psaData.signer.fullName || "",
         signer_title: psaData.signer.title || "",
         total_authorized_locations: psaData.centers.length.toString(),
-        agreement_date: new Date().toLocaleDateString("en-US"),
-        provider_date: new Date().toLocaleDateString("en-US"),
+        agreement_date: formatDateUS(),
+        provider_date: formatDateUS(),
         medicare_rate: psaData.pricing.percentage || "100",
       };
 
