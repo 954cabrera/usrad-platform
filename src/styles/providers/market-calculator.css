@@ -669,3 +669,603 @@
         padding: 1rem;
     }
 }
+
+/* Add these styles to your existing market-calculator.css file */
+
+/* ========== Customization Prompt Styles ========== */
+.customization-prompt {
+    margin-top: 2rem;
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.prompt-container {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 2px solid #0ea5e9;
+    border-radius: 1rem;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.prompt-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(180deg);
+    }
+}
+
+.prompt-content {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.prompt-icon {
+    font-size: 3.5rem;
+    flex-shrink: 0;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.prompt-text h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.75rem;
+    color: #0c4a6e;
+    font-weight: 700;
+}
+
+.prompt-text p {
+    margin: 0.5rem 0;
+    color: #334155;
+    font-size: 1.125rem;
+}
+
+.selected-rate-display {
+    font-weight: 700;
+    color: #0ea5e9;
+    font-size: 1.25rem;
+}
+
+.prompt-subtitle {
+    font-size: 1rem;
+    color: #64748b;
+    margin-top: 1rem !important;
+    font-weight: 500;
+}
+
+.option-list {
+    margin: 1rem 0 0;
+    padding-left: 1.5rem;
+    list-style: none;
+}
+
+.option-list li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 0.75rem;
+    color: #475569;
+    line-height: 1.6;
+}
+
+.option-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #0ea5e9;
+    font-size: 1.5rem;
+    line-height: 1.2;
+}
+
+.option-list strong {
+    color: #1e293b;
+    font-weight: 600;
+}
+
+/* Action Buttons */
+.prompt-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .prompt-actions {
+        flex-direction: column;
+    }
+}
+
+.prompt-actions button {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border-radius: 0.625rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-icon {
+    font-size: 1.25rem;
+}
+
+.btn-secondary {
+    background: white;
+    color: #475569;
+    border: 2px solid #e2e8f0;
+}
+
+.btn-secondary:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    color: white;
+    position: relative;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4);
+}
+
+/* Savings Note */
+.savings-note {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: #64748b;
+    position: relative;
+    z-index: 1;
+}
+
+.savings-note .icon {
+    font-size: 1.25rem;
+}
+
+/* Confirmation Overlay */
+.confirmation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.confirmation-overlay.show {
+    opacity: 1;
+}
+
+.confirmation-message {
+    background: white;
+    border-radius: 1rem;
+    padding: 3rem;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    max-width: 450px;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.confirmation-overlay.show .confirmation-message {
+    transform: scale(1);
+}
+
+.check-icon {
+    width: 5rem;
+    height: 5rem;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 1.5rem;
+    animation: checkPop 0.5s ease-out;
+}
+
+@keyframes checkPop {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.confirmation-message p {
+    font-size: 1.25rem;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.redirect-text {
+    font-size: 1rem;
+    color: #6b7280;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+}
+
+.progress-bar {
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6 0%, #0ea5e9 100%);
+    animation: progressFill 2s ease-out forwards;
+}
+
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .prompt-container {
+        padding: 1.5rem;
+    }
+
+    .prompt-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .prompt-icon {
+        font-size: 2.5rem;
+    }
+
+    .prompt-text h3 {
+        font-size: 1.5rem;
+    }
+
+    .prompt-text p {
+        font-size: 1rem;
+    }
+
+    .option-list {
+        text-align: left;
+    }
+
+    .confirmation-message {
+        padding: 2rem;
+        margin: 1rem;
+    }
+}
+
+/* ========== Customization Prompt Styles ========== */
+.customization-prompt {
+    margin-top: 2rem;
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.prompt-container {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 2px solid #0ea5e9;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.15);
+}
+
+.prompt-header {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    align-items: flex-start;
+}
+
+.prompt-icon {
+    font-size: 3rem;
+    line-height: 1;
+}
+
+.prompt-content {
+    flex: 1;
+}
+
+.prompt-content h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.75rem;
+    color: #0c4a6e;
+    font-weight: 700;
+}
+
+.rate-selection {
+    margin: 0.5rem 0;
+    color: #334155;
+    font-size: 1.125rem;
+}
+
+.selected-rate {
+    color: #0ea5e9;
+    font-size: 1.25rem;
+}
+
+.prompt-question {
+    font-size: 1rem;
+    color: #64748b;
+    margin-top: 1rem;
+}
+
+.options-list {
+    margin: 1rem 0 0;
+    padding-left: 1.5rem;
+    list-style: none;
+}
+
+.options-list li {
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.options-list .bullet {
+    position: absolute;
+    left: 0;
+    color: #0ea5e9;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-uniform,
+.btn-customize {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border-radius: 0.625rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.btn-uniform {
+    background: white;
+    color: #475569;
+    border: 2px solid #e2e8f0;
+}
+
+.btn-uniform:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+}
+
+.btn-customize {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    color: white;
+    border: none;
+}
+
+.btn-customize:hover {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 20px rgba(14, 165, 233, 0.3);
+}
+
+.tip-box {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.tip-icon {
+    font-size: 1.25rem;
+}
+
+/* Confirmation Overlay */
+.confirmation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.confirmation-box {
+    background: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    text-align: center;
+    max-width: 400px;
+    animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.success-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.confirmation-box h3 {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+    color: #0c4a6e;
+}
+
+.confirmation-box p {
+    margin: 0.5rem 0;
+    color: #64748b;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 4px;
+    background: #e5e7eb;
+    border-radius: 2px;
+    margin: 2rem 0 1rem;
+    overflow: hidden;
+}
+
+.loading-bar::after {
+    content: '';
+    display: block;
+    height: 100%;
+    background: #0ea5e9;
+    animation: loading 2s ease-out forwards;
+}
+
+@keyframes loading {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+.redirect-text {
+    font-size: 0.875rem;
+    color: #94a3b8;
+}

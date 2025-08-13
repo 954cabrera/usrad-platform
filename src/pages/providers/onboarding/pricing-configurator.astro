@@ -1,0 +1,37 @@
+---
+// src/pages/providers/onboarding/pricing-configurator.astro
+import ProviderLayout from "../../../layouts/ProviderLayout.astro";
+import ProgressIndicator from "../../../components/Providers/Onboarding/Facilities/ProgressIndicator.astro";
+import PricingConfigurator from "../../../components/Providers/Onboarding/PricingConfigurator.jsx";
+import "../../../styles/providers/pricing-configurator.css";
+---
+
+<ProviderLayout title="Configure Your Pricing - USRad">
+  <!-- Progress Indicator -->
+  <ProgressIndicator currentStep={3} />
+
+  <div class="pricing-configurator-container">
+    <!-- React Component -->
+    <PricingConfigurator client:load />
+  </div>
+</ProviderLayout>
+
+<style>
+  .pricing-configurator-container {
+    min-height: calc(100vh - 200px);
+    padding: 2rem 0;
+    background: #f9fafb;
+  }
+</style>
+
+<script>
+  // Validate facilities exist
+  document.addEventListener("DOMContentLoaded", () => {
+    const facilities = JSON.parse(localStorage.getItem("facilities") || "[]");
+
+    if (facilities.length === 0) {
+      alert("Please add facilities before configuring pricing.");
+      window.location.href = "/providers/onboarding/facilities";
+    }
+  });
+</script>

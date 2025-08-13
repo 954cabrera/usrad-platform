@@ -1,0 +1,47 @@
+---
+// src/pages/providers/onboarding/pricing-customizer.astro
+import ProviderLayout from "../../../layouts/ProviderLayout.astro";
+import ProgressIndicator from "../../../components/Providers/Onboarding/Facilities/ProgressIndicator.astro";
+import SmartPricingCustomizer from "../../../components/Providers/Onboarding/SmartPricingCustomizer.jsx";
+import "../../../styles/providers/pricing-customizer.css";
+---
+
+<ProviderLayout title="Customize Pricing by Location - USRad">
+  <!-- Progress Indicator -->
+  <ProgressIndicator currentStep={3} />
+
+  <div class="pricing-customizer-page">
+    <!-- React Component -->
+    <SmartPricingCustomizer client:load />
+  </div>
+</ProviderLayout>
+
+<style>
+  .pricing-customizer-page {
+    min-height: calc(100vh - 200px);
+    background: #f9fafb;
+    padding: 2rem 0;
+  }
+</style>
+
+<script>
+  // Validate data exists
+  document.addEventListener("DOMContentLoaded", () => {
+    const facilities = JSON.parse(localStorage.getItem("facilities") || "[]");
+    const marketCalcResult = JSON.parse(
+      localStorage.getItem("market_calculator_result") || "{}"
+    );
+
+    if (facilities.length === 0) {
+      alert("Please add facilities first.");
+      window.location.href = "/providers/onboarding/facilities";
+      return;
+    }
+
+    if (!marketCalcResult.selectedRate) {
+      alert("Please complete the market calculator first.");
+      window.location.href = "/providers/onboarding/market-calculator";
+      return;
+    }
+  });
+</script>
