@@ -123,35 +123,28 @@ export default function OnboardingPSA() {
     };
   };
 
-  // Generate dynamic Exhibit A content based on reimbursement structure
+  // UPDATED: Generate complete Exhibit A content (rates + standard language) - WITHOUT heading
   const generateExhibitA = (structure, facilities = []) => {
     const facilitiesCount = facilities.length || 1;
 
-    if (structure.type === "uniform") {
-      return `EXHIBIT A: REIMBURSEMENT SCHEDULE
-
-Agreed Reimbursement Rate: ${structure.rate}% of Medicare Allowable (Technical + Professional Components)
+    // Standard language that appears after rates for all agreements
+    const standardLanguage = `
 
 These rates apply to all payor sources routed through USRad (consumer, insurance, workers' comp, auto, etc.) and represent payment in full.
 
-Total Authorized Locations: ${facilitiesCount}
+**Alternate Rates:** Provider may request different reimbursement rates in writing. USRad approval required. Provider acknowledges that higher rates may reduce patient volume on the USRad marketplace platform.
 
-Alternate Rates: Provider may request different reimbursement rates in writing. USRad approval required. Provider acknowledges that higher rates may reduce patient volume on the USRad marketplace platform.
+**Payment Terms:** Rates constitute payment in full. No additional billing to patients or third parties permitted.`;
 
-Payment Terms: Rates constitute payment in full. No additional billing to patients or third parties permitted.`;
+    if (structure.type === "uniform") {
+      return `**Agreed Reimbursement Rate:** ${structure.rate}% of Medicare Allowable (Technical + Professional Components)
+
+Total Authorized Locations: ${facilitiesCount}${standardLanguage}`;
     }
 
     if (structure.type === "single-state") {
-      return `EXHIBIT A: REIMBURSEMENT SCHEDULE
-
-Agreed Reimbursement Rate: ${structure.rate}% of Medicare Allowable (Technical + Professional Components)
-State: ${structure.state} (${facilitiesCount} ${facilitiesCount === 1 ? "facility" : "facilities"})
-
-These rates apply to all payor sources routed through USRad (consumer, insurance, workers' comp, auto, etc.) and represent payment in full.
-
-Alternate Rates: Provider may request different reimbursement rates in writing. USRad approval required. Provider acknowledges that higher rates may reduce patient volume on the USRad marketplace platform.
-
-Payment Terms: Rates constitute payment in full. No additional billing to patients or third parties permitted.`;
+      return `**Agreed Reimbursement Rate:** ${structure.rate}% of Medicare Allowable (Technical + Professional Components)
+**State:** ${structure.state} (${facilitiesCount} ${facilitiesCount === 1 ? "facility" : "facilities"})${standardLanguage}`;
     }
 
     if (structure.type === "multi-state") {
@@ -180,35 +173,21 @@ Payment Terms: Rates constitute payment in full. No additional billing to patien
           ? Math.round(totalWeightedRate / totalFacilities)
           : 100;
 
-      return `EXHIBIT A: REIMBURSEMENT SCHEDULE
-
-State-Based Reimbursement Rates:
+      return `**State-Based Reimbursement Rates (Technical + Professional Components):**
 ${stateEntries}
 
-Portfolio Average Rate: ${portfolioAverage}% of Medicare Allowable
+**Agreed Reimbursement Rate:** ${portfolioAverage}% of Medicare Allowable (Portfolio Average)
 Total Authorized Locations: ${facilitiesCount}
 
-These rates apply to all payor sources routed through USRad (consumer, insurance, workers' comp, auto, etc.) and represent payment in full.
-
-This rate structure reflects market-based pricing optimized for competitive positioning in each state.
-
-Alternate Rates: Provider may request different reimbursement rates in writing. USRad approval required. Provider acknowledges that higher rates may reduce patient volume on the USRad marketplace platform.
-
-Payment Terms: Rates constitute payment in full. No additional billing to patients or third parties permitted.`;
+This rate structure reflects market-based pricing optimized for competitive positioning in each state.${standardLanguage}`;
     }
 
-    return `EXHIBIT A: REIMBURSEMENT SCHEDULE
+    // Fallback
+    return `**Agreed Reimbursement Rate:** 100% of Medicare Allowable (Technical + Professional Components)
 
-Agreed Reimbursement Rate: 100% of Medicare Allowable (Technical + Professional Components)
-
-These rates apply to all payor sources routed through USRad (consumer, insurance, workers' comp, auto, etc.) and represent payment in full.
-
-Total Authorized Locations: ${facilitiesCount}
-
-Alternate Rates: Provider may request different reimbursement rates in writing. USRad approval required. Provider acknowledges that higher rates may reduce patient volume on the USRad marketplace platform.
-
-Payment Terms: Rates constitute payment in full. No additional billing to patients or third parties permitted.`;
+Total Authorized Locations: ${facilitiesCount}${standardLanguage}`;
   };
+
   const generateExhibitB = (structure, facilities = []) => {
     const facilitiesCount = facilities.length || 1;
 
@@ -340,8 +319,8 @@ Payment Terms: Net 10 days from receipt of completed claim.`;
         // Legacy medicare_rate for backward compatibility
         medicare_rate: reimbursementStructure.rate || "100",
 
-        // Generate exhibit content
-        exhibit_a_content: generateExhibitA(
+        // Generate exhibit content - UPDATED to use new format
+        exhibit_a_rates: generateExhibitA(
           reimbursementStructure,
           psaData.centers
         ),
