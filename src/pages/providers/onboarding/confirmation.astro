@@ -28,7 +28,7 @@ import "../../../styles/providers/confirmation.css";
   </div>
 
   <ExhibitBModal />
-
+  
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       // More robust timing with multiple attempts
@@ -63,18 +63,6 @@ import "../../../styles/providers/confirmation.css";
         console.warn("Organization data load attempt failed:", error);
       }
     }
-  </script>
-
-  <script>
-    import { CONFIRMATION_CONFIG } from "../../../scripts/providers/confirmation/confirmation.config.js";
-    import {
-      OrganizationLoader,
-      CentersLoader,
-      PricingLoader,
-      ChecklistManager,
-      NavigationManager,
-      ExhibitBManager,
-    } from "../../../scripts/providers/confirmation/modules/index.js";
 
     class EnhancedConfirmationPage {
       constructor() {
