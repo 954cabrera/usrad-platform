@@ -45,7 +45,7 @@ window.continueToNext = function() {
   console.log('🚀 Navigating to Pricing Configurator...');
   
   // Navigate to pricing configurator
-  window.location.href = '/providers/onboarding/pricing-configurator';
+  window.location.href = '/providers/onboarding/market-calculator';
 };
 
 // Function to update continue section visibility and state
