@@ -8,16 +8,50 @@ export class CentersListManager {
   }
 
   updateUI() {
-    // Update stats
-    document.getElementById("center-count").textContent = this.state.getCenterCount();
-    document.getElementById("state-count").textContent = this.state.getUniqueStatesCount();
+    // Update stats with correct selectors and null checks
+    const centerCountEl = document.getElementById("center-count");
+    const stateCountEl = document.getElementById("state-count");
+    
+    if (centerCountEl) {
+      centerCountEl.textContent = this.state.getCenterCount();
+      console.log('✅ Updated center count to:', this.state.getCenterCount());
+    } else {
+      console.log('❌ center-count element not found');
+    }
+    
+    if (stateCountEl) {
+      stateCountEl.textContent = this.state.getUniqueStatesCount();
+      console.log('✅ Updated state count to:', this.state.getUniqueStatesCount());
+    } else {
+      console.log('❌ state-count element not found');
+    }
 
-    // Show/hide sections
+    // Show/hide sections with null checks
+    const centersList = document.getElementById("centers-list");
+    const continueSection = document.getElementById("continue-section");
+    const addCenterSection = document.getElementById("add-center-section"); // Correct ID
+    const finalCountEl = document.getElementById("final-count");
+
     if (this.state.getCenterCount() > 0) {
-      document.getElementById("centers-list").style.display = "block";
-      document.getElementById("continue-section").style.display = "block";
-      document.getElementById("add-center-form").style.display = "none";
-      document.getElementById("final-count").textContent = this.state.getCenterCount();
+      // Show centers list if it exists
+      if (centersList) {
+        centersList.style.display = "block";
+      }
+      
+      // Show continue section if it exists
+      if (continueSection) {
+        continueSection.style.display = "block";
+      }
+      
+      // Hide add center form if it exists
+      if (addCenterSection) {
+        addCenterSection.style.display = "none";
+      }
+      
+      // Update final count if it exists
+      if (finalCountEl) {
+        finalCountEl.textContent = this.state.getCenterCount();
+      }
 
       // Render centers
       this.renderCenters();
@@ -28,21 +62,38 @@ export class CentersListManager {
         if (addAnotherBtn && !addAnotherBtn.hasAttribute('data-listener')) {
           addAnotherBtn.setAttribute('data-listener', 'true');
           addAnotherBtn.addEventListener("click", () => {
-            document.getElementById("facility-form").dispatchEvent(
-              new CustomEvent('showAddForm')
-            );
+            const facilityForm = document.getElementById("facility-form");
+            if (facilityForm) {
+              facilityForm.dispatchEvent(new CustomEvent('showAddForm'));
+            }
           });
         }
       }, 100);
     } else {
-      document.getElementById("centers-list").style.display = "none";
-      document.getElementById("continue-section").style.display = "none";
-      document.getElementById("add-center-form").style.display = "block";
+      // Hide sections when no centers
+      if (centersList) {
+        centersList.style.display = "none";
+      }
+      
+      if (continueSection) {
+        continueSection.style.display = "none";
+      }
+      
+      if (addCenterSection) {
+        addCenterSection.style.display = "block";
+      }
     }
   }
 
   renderCenters() {
     const container = document.getElementById("centers-container");
+    
+    // Add null check for container
+    if (!container) {
+      console.log('❌ centers-container element not found');
+      return;
+    }
+    
     container.innerHTML = "";
 
     this.state.getCenters().forEach((center, index) => {
@@ -87,7 +138,9 @@ export class CentersListManager {
 
     // Show form without resetting
     const formHandler = document.getElementById("facility-form");
-    formHandler.dispatchEvent(new CustomEvent('showEditForm', { detail: { isEditing: true } }));
+    if (formHandler) {
+      formHandler.dispatchEvent(new CustomEvent('showEditForm', { detail: { isEditing: true } }));
+    }
 
     // Hide prepopulate toggle when editing
     const prepopSection = document.getElementById("prepopulate-section");
@@ -102,8 +155,15 @@ export class CentersListManager {
     }
 
     // Set title and button for editing
-    document.querySelector("#add-center-form .section-title").textContent = "Edit Center";
-    document.getElementById("submit-btn").textContent = "Save Changes";
+    const sectionTitle = document.querySelector("#add-center-section .section-title");
+    if (sectionTitle) {
+      sectionTitle.textContent = "Edit Center";
+    }
+    
+    const submitBtn = document.getElementById("submit-btn");
+    if (submitBtn) {
+      submitBtn.textContent = "Save Changes";
+    }
 
     // Fill the form with center data
     this.fillFormWithCenterData(center);
@@ -111,17 +171,23 @@ export class CentersListManager {
 
   fillFormWithCenterData(center) {
     const form = document.getElementById("facility-form");
-    form.centerName.value = center.name;
-    form.address.value = center.address;
-    form.city.value = center.city;
-    form.state.value = center.state;
-    form.zipCode.value = center.zipCode;
-    form.phone.value = center.phone;
-    form.isPrimary.checked = center.isPrimary;
-    form.adminName.value = center.administrator.name;
-    form.adminTitle.value = center.administrator.title;
-    form.adminEmail.value = center.administrator.email;
-    form.adminPhone.value = center.administrator.phone;
+    if (!form) {
+      console.log('❌ facility-form not found');
+      return;
+    }
+
+    // Safely fill form fields
+    if (form.centerName) form.centerName.value = center.name;
+    if (form.address) form.address.value = center.address;
+    if (form.city) form.city.value = center.city;
+    if (form.state) form.state.value = center.state;
+    if (form.zipCode) form.zipCode.value = center.zipCode;
+    if (form.phone) form.phone.value = center.phone;
+    if (form.isPrimary) form.isPrimary.checked = center.isPrimary;
+    if (form.adminName) form.adminName.value = center.administrator.name;
+    if (form.adminTitle) form.adminTitle.value = center.administrator.title;
+    if (form.adminEmail) form.adminEmail.value = center.administrator.email;
+    if (form.adminPhone) form.adminPhone.value = center.administrator.phone;
 
     // Check equipment boxes
     document.querySelectorAll('input[name="equipment"]').forEach((checkbox) => {
