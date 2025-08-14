@@ -136,11 +136,11 @@ async function autoSignForUSRad(payload) {
         completed: true, // This auto-signs immediately
         send_email: false, // Don't send signing request to USRad
         values: {
-          usrad_signature: 'Michael Cabrera',
-          usrad_date: new Date().toLocaleDateString('en-US'),
-          usrad_title: 'President & CEO',
-          usrad_name: 'Michael Cabrera'
-        }
+        usrad_signature: '/signatures/michael-cabrera.png',  // ← NEW: Use your PNG file
+        usrad_date: new Date().toLocaleDateString('en-US'),
+        usrad_title: 'President & CEO',
+        usrad_name: 'Michael Cabrera'
+      }
       })
     });
 
