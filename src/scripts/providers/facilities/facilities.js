@@ -133,26 +133,30 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// Function to update quick stats
+// Function to update quick stats - FIXED VERSION
 function updateQuickStats() {
   const facilities = JSON.parse(localStorage.getItem('facilities') || '[]');
   const states = new Set(facilities.map(f => f.state).filter(Boolean));
   
-  // Update centers count
-  const centersElements = document.querySelectorAll('.stat-number, .stat-value, [data-stat="centers"]');
-  centersElements.forEach((el, index) => {
-    if (index === 0 || el.getAttribute('data-stat') === 'centers') {
-      el.textContent = facilities.length;
-    }
-  });
+  console.log(`🔄 Updating stats: ${facilities.length} centers in ${states.size} states`);
   
-  // Update states count
-  const statesElements = document.querySelectorAll('.stat-number, .stat-value, [data-stat="states"]');
-  statesElements.forEach((el, index) => {
-    if (index === 1 || el.getAttribute('data-stat') === 'states') {
-      el.textContent = states.size;
-    }
-  });
+  // Update centers count - USE SPECIFIC ID SELECTORS
+  const centerCountEl = document.querySelector('#center-count');
+  if (centerCountEl) {
+    centerCountEl.textContent = facilities.length;
+    console.log('✅ Updated center count to:', facilities.length);
+  } else {
+    console.log('❌ Center count element (#center-count) not found');
+  }
+  
+  // Update states count - USE SPECIFIC ID SELECTORS  
+  const stateCountEl = document.querySelector('#state-count');
+  if (stateCountEl) {
+    stateCountEl.textContent = states.size;
+    console.log('✅ Updated state count to:', states.size);
+  } else {
+    console.log('❌ State count element (#state-count) not found');
+  }
   
   console.log(`📊 Stats updated: ${facilities.length} centers in ${states.size} states`);
 }

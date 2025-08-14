@@ -161,7 +161,7 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
 <script>
   // Check user role and show appropriate interface
   document.addEventListener("DOMContentLoaded", function () {
-    const userRole = localStorage.getItem("selectedRole");
+    const userRole = localStorage.getItem("selectedRole") || ""; // Add fallback to empty string
     const facilities = JSON.parse(localStorage.getItem("facilities") || "[]");
 
     // Clear the lastBulkUploadTime if enough time has passed
@@ -181,7 +181,11 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
       // Hide "Your Imaging Centers" section and its continue button
       const yourCentersHeaders = document.querySelectorAll("h2, h3");
       yourCentersHeaders.forEach((header) => {
-        if (header.textContent.includes("Your Imaging Centers")) {
+        // Add null check for textContent
+        if (
+          header.textContent &&
+          header.textContent.includes("Your Imaging Centers")
+        ) {
           // Find the parent section and hide it
           let parentSection = header.parentElement;
           while (
@@ -190,6 +194,7 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
           ) {
             if (
               parentSection.nextElementSibling &&
+              parentSection.nextElementSibling.textContent &&
               parentSection.nextElementSibling.textContent.includes(
                 "Continue to Pricing Strategy"
               )
@@ -206,10 +211,11 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
           let nextElement = header.nextElementSibling;
           while (nextElement) {
             if (
-              nextElement.textContent.includes(
+              nextElement.textContent &&
+              (nextElement.textContent.includes(
                 "Continue to Pricing Strategy"
               ) ||
-              nextElement.textContent.includes("Great! You've added")
+                nextElement.textContent.includes("Great! You've added"))
             ) {
               nextElement.style.display = "none";
             }
@@ -222,6 +228,7 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
       const allSections = document.querySelectorAll("div");
       allSections.forEach((section) => {
         if (
+          section.textContent &&
           section.textContent.includes("Great! You've added") &&
           section.textContent.includes("imaging center(s) to your network")
         ) {
@@ -230,11 +237,13 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
       });
     };
 
+    // Create safe executive role check
+    const isExecutiveRole =
+      userRole &&
+      (userRole === "executive" || userRole === "Executive/Corporate");
+
     // If facilities exist and user is executive
-    if (
-      facilities.length > 0 &&
-      (userRole === "executive" || userRole === "Executive/Corporate")
-    ) {
+    if (facilities.length > 0 && isExecutiveRole) {
       // Check if they just uploaded (within last 10 seconds)
       const lastUploadTime = localStorage.getItem("lastBulkUploadTime");
       const now = Date.now();
@@ -255,16 +264,14 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
     }
 
     // Default to bulk upload for executive/corporate users with no facilities
-    if (
-      (userRole === "executive" || userRole === "Executive/Corporate") &&
-      facilities.length === 0
-    ) {
+    if (isExecutiveRole && facilities.length === 0) {
       // Show bulk upload by default for corporate users
       showBulkUploadInterface();
     } else if (facilities.length > 0) {
       // For other roles with facilities, ensure standard flow
       const addSection = document.getElementById("add-center-section");
-      if (addSection && !userRole.includes("executive")) {
+      // Add safe check for userRole
+      if (addSection && userRole && !userRole.includes("executive")) {
         addSection.style.display = "none";
       }
     } else {
@@ -411,6 +418,7 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
       if (foundSuccessMessage) {
         if (
           (text.includes("Your Imaging Centers") &&
+            element.tagName &&
             element.tagName.match(/^H[1-6]$/)) ||
           (text.includes("Great! You've added") &&
             text.includes("imaging center(s)")) ||
