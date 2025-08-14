@@ -11,10 +11,301 @@ import "../../styles/providers/portal.css";
     <WelcomeHeader />
     <SetupProgress />
     <OrganizationForm />
-    <!-- This should only appear ONCE -->
   </div>
 </ProviderLayout>
 
-<script>
-  import "../../scripts/providers/portal/portal.js";
+<script type="module" src="/src/scripts/providers/portal/portal.js"></script>
+
+<script type="module" is:inline>
+  if (typeof window !== "undefined") {
+    console.log("🔧 Role-aware routing system starting...");
+
+    // Enhanced routing based on role selection
+    const ROUTES = {
+      "center-admin": "/providers/onboarding/facilities", // Changed: go to facilities first
+      "multi-center": "/providers/onboarding/facilities", // Changed: go to facilities first
+      executive: "/providers/onboarding/facilities", // Changed: go to facilities first
+    };
+
+    // Handle the "Save & Continue to Add Centers" button routing
+    function updateContinueButton() {
+      const proceedLink =
+        document.getElementById("proceed-to-pricing") ||
+        document.querySelector('a[href*="add-centers"]') ||
+        document.querySelector(".continue-button") ||
+        document.querySelector('[data-action="continue"]');
+
+      if (proceedLink) {
+        const savedRole = localStorage.getItem("usrad_role") || "center-admin";
+        const targetUrl = ROUTES[savedRole] || ROUTES["center-admin"];
+
+        console.log(
+          `📍 Setting continue button to: ${targetUrl} for role: ${savedRole}`
+        );
+        proceedLink.href = targetUrl;
+
+        // Update button text based on role
+        const buttonTexts = {
+          "center-admin": "Save & Continue to Add Centers",
+          "multi-center": "Save & Continue to Add Centers",
+          executive: "Save & Continue to Add Centers",
+        };
+
+        const textEl = proceedLink.querySelector(".btn-text") || proceedLink;
+        if (textEl && buttonTexts[savedRole]) {
+          textEl.textContent = buttonTexts[savedRole];
+        }
+      }
+    }
+
+    // Initialize routing
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(() => {
+        updateContinueButton();
+        console.log("✅ Continue button routing initialized");
+      }, 100);
+    });
+
+    // Listen for role selection changes
+    document.addEventListener("roleSelected", (e) => {
+      const role = e.detail.role;
+      localStorage.setItem("usrad_role", role);
+      updateContinueButton();
+      console.log(`🎯 Role updated: ${role}`);
+    });
+
+    // Listen for custom role selection from our override script
+    window.addEventListener("roleSelectionUpdated", (e) => {
+      updateContinueButton();
+    });
+  }
 </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    console.log("🔧 Role selection override starting...");
+
+    // Wait for other scripts to load
+    setTimeout(() => {
+      const roleCards = document.querySelectorAll(".role-card");
+      let selectedRole = null;
+
+      console.log("Found role cards:", roleCards.length);
+
+      if (roleCards.length === 0) {
+        console.error("❌ No role cards found");
+        return;
+      }
+
+      // Remove any existing continue role buttons
+      const oldButtons = document.querySelectorAll("#continue-role-btn");
+      oldButtons.forEach((btn) => {
+        if (
+          btn.textContent &&
+          btn.textContent.includes("Continue with Selected Role")
+        ) {
+          console.log("🗑️ Removing old continue button");
+          btn.remove();
+        }
+      });
+
+      // Create confirmation box if it doesn't exist
+      let confirmationBox = document.getElementById("role-confirmation");
+      if (!confirmationBox) {
+        console.log("📦 Creating confirmation box");
+        confirmationBox = document.createElement("div");
+        confirmationBox.id = "role-confirmation";
+        confirmationBox.className = "role-confirmation";
+        confirmationBox.style.cssText = `
+        display: none;
+        margin: 2rem 0;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        border: 2px solid #059669;
+        border-radius: 1rem;
+        text-align: center;
+      `;
+        confirmationBox.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+          <div style="
+            width: 48px; height: 48px; background: #059669; color: white; 
+            border-radius: 50%; display: flex; align-items: center; 
+            justify-content: center; font-size: 1.5rem; font-weight: 700;
+          ">✓</div>
+          <div>
+            <h3 id="confirmation-title" style="color: #065f46; margin: 0; font-size: 1.25rem; font-weight: 700;">Role Selected</h3>
+            <p id="confirmation-message" style="color: #16a34a; margin: 0; font-weight: 600;">We'll customize your experience for this role type.</p>
+          </div>
+        </div>
+      `;
+
+        // Insert after role grid or role section
+        const roleGrid = document.querySelector(".role-grid");
+        const roleSection = document.querySelector(".role-selection-container");
+        const insertTarget = roleGrid || roleSection;
+
+        if (insertTarget) {
+          insertTarget.insertAdjacentElement("afterend", confirmationBox);
+        } else {
+          // Fallback: insert before organization form
+          const orgForm =
+            document.querySelector(".organization-form") ||
+            document.querySelector("form") ||
+            document.querySelector(".portal-container > *:last-child");
+          if (orgForm) {
+            orgForm.insertAdjacentElement("beforebegin", confirmationBox);
+          }
+        }
+      }
+
+      // Load previously selected role
+      try {
+        const savedRole = localStorage.getItem("usrad_role");
+        if (savedRole) {
+          selectedRole = savedRole;
+          updateSelection();
+          showConfirmation(savedRole);
+          console.log("📖 Loaded saved role:", savedRole);
+        }
+      } catch (error) {
+        console.warn("Could not load saved role:", error);
+      }
+
+      // Add click handlers to role cards
+      roleCards.forEach((card) => {
+        // Remove existing listeners by cloning
+        const newCard = card.cloneNode(true);
+        card.parentNode.replaceChild(newCard, card);
+
+        newCard.addEventListener("click", () => {
+          const role = newCard.dataset.role;
+          console.log("🎯 Role selected:", role);
+          selectedRole = role;
+          updateSelection();
+          saveRole(role);
+          showConfirmation(role);
+
+          // Dispatch event for other scripts
+          const event = new CustomEvent("roleSelected", { detail: { role } });
+          document.dispatchEvent(event);
+
+          // Dispatch window event for routing update
+          window.dispatchEvent(new CustomEvent("roleSelectionUpdated"));
+        });
+      });
+
+      function updateSelection() {
+        document.querySelectorAll(".role-card").forEach((card) => {
+          const isSelected = card.dataset.role === selectedRole;
+
+          if (isSelected) {
+            card.classList.add("selected");
+            card.style.cssText = `
+            border-color: #059669 !important;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%) !important;
+            box-shadow: 0 8px 24px rgba(5, 150, 105, 0.2) !important;
+          `;
+
+            const icon = card.querySelector(".role-icon");
+            if (icon) {
+              icon.style.background =
+                "linear-gradient(135deg, #059669 0%, #047857 100%)";
+            }
+          } else {
+            card.classList.remove("selected");
+            card.style.cssText = "";
+
+            const icon = card.querySelector(".role-icon");
+            if (icon) {
+              icon.style.background =
+                "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)";
+            }
+          }
+        });
+      }
+
+      function saveRole(role) {
+        try {
+          localStorage.setItem("usrad_role", role);
+          console.log("💾 Role saved:", role);
+        } catch (error) {
+          console.warn("Could not save role:", error);
+        }
+      }
+
+      function showConfirmation(role) {
+        const roleNames = {
+          "center-admin": "Center Administrator",
+          "multi-center": "Multi-Center",
+          executive: "Executive/Corporate",
+        };
+
+        const messages = {
+          "center-admin":
+            "Perfect for single facility operations with streamlined setup.",
+          "multi-center":
+            "Great choice for managing multiple locations with market-based pricing.",
+          executive:
+            "Ideal for enterprise-level partnerships with advanced configuration options.",
+        };
+
+        const confirmationTitle = document.getElementById("confirmation-title");
+        const confirmationMessage = document.getElementById(
+          "confirmation-message"
+        );
+        const confirmationBox = document.getElementById("role-confirmation");
+
+        if (confirmationTitle)
+          confirmationTitle.textContent = `${roleNames[role]} Selected`;
+        if (confirmationMessage)
+          confirmationMessage.textContent = messages[role];
+        if (confirmationBox) {
+          confirmationBox.style.display = "block";
+
+          // Smooth scroll to confirmation
+          setTimeout(() => {
+            confirmationBox.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }, 100);
+        }
+
+        console.log("✅ Confirmation shown for:", role);
+      }
+
+      // Make available globally for debugging
+      window.roleSelection = {
+        getSelectedRole: () => selectedRole,
+        updateSelection,
+        showConfirmation,
+      };
+
+      console.log("✅ Role selection override complete");
+    }, 500); // Wait 500ms for other scripts to load
+  });
+</script>
+
+<style>
+  /* Enhanced role selection styles */
+  .role-card.selected {
+    border-color: #059669 !important;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%) !important;
+    box-shadow: 0 8px 24px rgba(5, 150, 105, 0.2) !important;
+  }
+
+  .role-confirmation {
+    animation: fadeInSlideUp 0.4s ease-out;
+  }
+
+  @keyframes fadeInSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

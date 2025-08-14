@@ -5,121 +5,144 @@ export class RateCalculator {
     this.config = config;
     this.currentRates = null;
     this.currentPercentage = 100;
+    this.MIN = 90;
+    this.MAX = 150;
   }
 
   initialize() {
-    // Listen for location changes
     document.addEventListener('locationComplete', (e) => {
       this.calculateRates(e.detail);
     });
-    
-    // Listen for rate slider changes
+
     const rateSlider = document.getElementById('rate-slider');
     if (rateSlider) {
+      rateSlider.min = String(this.MIN);
+      rateSlider.max = String(this.MAX);
+      rateSlider.step = '1';
+
+      const v = parseInt(rateSlider.value || '100', 10);
+      this.currentPercentage = this._clamp(v);
+      rateSlider.value = String(this.currentPercentage);
+
       rateSlider.addEventListener('input', (e) => {
-        this.currentPercentage = parseInt(e.target.value);
+        this.currentPercentage = this._clamp(parseInt(e.target.value, 10));
         this.updateVolumeIndicator();
-        
-        // Recalculate if we have rates
-        if (this.currentRates) {
-          this.displayResults();
-        }
+        if (this.currentRates) this.displayResults();
       });
     }
   }
 
+  _clamp(v) { return v < this.MIN ? this.MIN : (v > this.MAX ? this.MAX : v); }
+
+  // Build candidate county strings for robustness
+  _countyCandidates(countyDisplay, countyApi) {
+    var candidates = [];
+    function pushUnique(s) { if (s && candidates.indexOf(s) === -1) candidates.push(s); }
+
+    // Preferred: api string from the option
+    pushUnique(countyApi);
+    // Strip trailing " County"
+    if (countyDisplay) {
+      var stripped = countyDisplay.replace(/\s+County$/i, '').trim();
+      pushUnique(stripped);
+      // As a last resort, original display
+      pushUnique(countyDisplay);
+    }
+    return candidates;
+  }
+
   async calculateRates(location) {
-    const { state, county } = location;
-    
-    // Show loading state
+    var stateVal  = location && location.state  ? location.state  : '';
+    var countyDis = location && location.county ? location.county : '';
+    var countyApi = location && location.countyApi ? location.countyApi : '';
+
     document.dispatchEvent(new CustomEvent('calculationStarted'));
-    
+
     try {
-      // Fetch rates for each procedure
-      const promises = this.config.PROCEDURES.map(async (proc) => {
-        const response = await fetch(
-          `${this.config.ROUTES.PRICING_API}?cpt=${proc.cpt}&state=${state}&county=${encodeURIComponent(county)}`
-        );
-        
-        if (!response.ok) {
-          throw new Error(`Failed to fetch rates for ${proc.cpt}`);
+      const countyList = this._countyCandidates(countyDis, countyApi);
+
+      const fetchForProc = async (proc) => {
+        // try each county candidate until one responds OK
+        let lastErr = null;
+        for (let i = 0; i < countyList.length; i++) {
+          const c = countyList[i];
+          const url =
+            this.config.ROUTES.PRICING_API +
+            `?cpt=${encodeURIComponent(proc.cpt)}` +
+            `&state=${encodeURIComponent(stateVal)}` +
+            `&county=${encodeURIComponent(c)}`;
+
+          const res = await fetch(url);
+          if (res.ok) {
+            const data = await res.json();
+            return { ...data, displayName: proc.name };
+          } else {
+            lastErr = new Error(`Failed ${proc.cpt} with county="${c}" (${res.status})`);
+          }
         }
-        
-        const data = await response.json();
-        return {
-          ...data,
-          displayName: proc.name
-        };
-      });
-      
+        // if none worked, throw the last error
+        throw lastErr || new Error(`Failed to fetch rates for ${proc.cpt}`);
+      };
+
+      const promises = this.config.PROCEDURES.map(fetchForProc);
       this.currentRates = await Promise.all(promises);
       this.displayResults();
-      
-      // Enable accept button
-      document.getElementById('accept-rates-btn').disabled = false;
-      
+
+      const btn = document.getElementById('accept-rates-btn');
+      if (btn) btn.disabled = false;
+
     } catch (error) {
       console.error('Error calculating rates:', error);
-      document.dispatchEvent(new CustomEvent('calculationError', { 
-        detail: { error: error.message } 
-      }));
+      document.dispatchEvent(new CustomEvent('calculationError', { detail: { error: error.message } }));
     }
   }
 
   displayResults() {
     if (!this.currentRates) return;
-    
-    const results = this.currentRates.map(rate => {
-      const medicareRate = rate.pricing.medicare_rate;
-      const yourRate = medicareRate * (this.currentPercentage / 100);
-      const hospitalRate = rate.pricing.hospital_estimate;
+
+    const results = this.currentRates.map((rate) => {
+      const medicareRate  = rate.pricing.medicare_rate;
+      const yourRate      = medicareRate * (this.currentPercentage / 100);
+      const hospitalRate  = rate.pricing.hospital_estimate;
       const patientSavings = hospitalRate - yourRate;
-      
-      return {
-        ...rate,
-        yourRate,
-        patientSavings
-      };
+      return { ...rate, yourRate, patientSavings };
     });
-    
-    document.dispatchEvent(new CustomEvent('resultsReady', { 
-      detail: { 
-        results, 
+
+    document.dispatchEvent(new CustomEvent('resultsReady', {
+      detail: {
+        results,
         percentage: this.currentPercentage,
         volumeData: this.getVolumeData()
-      } 
+      }
     }));
   }
 
   updateVolumeIndicator() {
     const volumeData = this.getVolumeData();
-    document.dispatchEvent(new CustomEvent('volumeUpdated', { 
-      detail: volumeData 
-    }));
-    
-    // Update percentage display
-    document.getElementById('rate-percentage').textContent = `${this.currentPercentage}%`;
+    document.dispatchEvent(new CustomEvent('volumeUpdated', { detail: volumeData }));
+    const pctEl = document.getElementById('rate-percentage');
+    if (pctEl) pctEl.textContent = `${this.currentPercentage}%`;
   }
 
   getVolumeData() {
-    const percentage = this.currentPercentage;
-    const thresholds = this.config.RATE_SLIDER.VOLUME_THRESHOLDS;
-    
-    if (percentage <= thresholds.HIGH.max) return thresholds.HIGH;
-    if (percentage <= thresholds.GOOD.max) return thresholds.GOOD;
-    if (percentage <= thresholds.MODERATE.max) return thresholds.MODERATE;
-    return thresholds.LOW;
+    const p = this.currentPercentage;
+    const t = this.config.RATE_SLIDER.VOLUME_THRESHOLDS;
+    if (p <= t.HIGH.max) return t.HIGH;
+    if (p <= t.GOOD.max) return t.GOOD;
+    if (p <= t.MODERATE.max) return t.MODERATE;
+    return t.LOW;
   }
 
   getCurrentRateData() {
-    const location = document.querySelector('#state-select').value + '-' + 
-                     document.querySelector('#county-select').value;
-    
-    return {
-      percentage: this.currentPercentage,
-      state: document.querySelector('#state-select').value,
-      county: document.querySelector('#county-select').value,
-      location
-    };
+    const stateEl = document.querySelector('#state-select');
+    const countyEl = document.querySelector('#county-select');
+    const state = stateEl ? stateEl.value : '';
+    const county = countyEl ? countyEl.value : '';
+    return { percentage: this.currentPercentage, state, county, location: `${state}-${county}` };
+  }
+
+  calculateProjections(baseAnnualRevenue, facilityCount) {
+    const by = (y) => ({ perCenter: baseAnnualRevenue * y, total: baseAnnualRevenue * y * facilityCount });
+    return { oneYear: by(1), fiveYear: by(5), tenYear: by(10) };
   }
 }

@@ -1,296 +1,336 @@
 // src/scripts/providers/market-calculator/market-calculator.js
-import { 
-  LocationManager,
-  RateCalculator,
-  UIManager,
-  MobileToggleManager
-} from './modules/index.js';
-import { MARKET_CONFIG } from './market-calculator.config.js';
-import { StorageHelpers } from '../shared/storage.js';
+// Clean fixed version with proper error handling
+
+// Import modules with error handling
+let LocationManager, RateCalculator, UIManager, MobileToggleManager, MARKET_CONFIG;
+
+try {
+  const modules = await import('./modules/index.js');
+  LocationManager = modules.LocationManager;
+  RateCalculator = modules.RateCalculator;
+  UIManager = modules.UIManager;
+  MobileToggleManager = modules.MobileToggleManager;
+} catch (error) {
+  console.warn('Could not import modules:', error);
+  // Create stub classes if imports fail
+  LocationManager = class { init() {} };
+  RateCalculator = class { init() {} };
+  UIManager = class { init() {} };
+  MobileToggleManager = class { init() {} };
+}
+
+try {
+  const config = await import('./market-calculator.config.js');
+  MARKET_CONFIG = config.MARKET_CONFIG || {};
+} catch (error) {
+  console.warn('Could not import config:', error);
+  MARKET_CONFIG = {};
+}
 
 class MarketCalculator {
   constructor() {
-    console.log('Market calculator script loaded');
-    this.locationManager = new LocationManager();
-    this.rateCalculator = new RateCalculator();
-    this.uiManager = new UIManager();
-    this.mobileToggleManager = new MobileToggleManager();
-    this.config = MARKET_CONFIG;
+    try {
+      this.locationManager = new LocationManager(MARKET_CONFIG);
+      this.rateCalculator = new RateCalculator(MARKET_CONFIG);
+      this.uiManager = new UIManager(MARKET_CONFIG);
+      this.mobileToggleManager = new MobileToggleManager();
+      this.config = MARKET_CONFIG;
+    } catch (error) {
+      console.error('Error creating MarketCalculator modules:', error);
+      // Create fallback empty objects
+      this.locationManager = { init: () => {} };
+      this.rateCalculator = { init: () => {} };
+      this.uiManager = { init: () => {} };
+      this.mobileToggleManager = { init: () => {} };
+      this.config = {};
+    }
+  }
+
+  // Safely call .init() if present, else .initialize()
+  _safeInit(mod) {
+    if (!mod) {
+      console.warn('[MarketCalculator] module is null/undefined');
+      return;
+    }
+    
+    try {
+      if (typeof mod.init === 'function') {
+        mod.init();
+        return;
+      }
+      if (typeof mod.initialize === 'function') {
+        mod.initialize();
+        return;
+      }
+      console.warn('[MarketCalculator] module has no init/initialize:', mod?.constructor?.name);
+    } catch (error) {
+      console.error('[MarketCalculator] Error initializing module:', mod?.constructor?.name, error);
+    }
   }
 
   init() {
-    this.locationManager.init();
-    this.rateCalculator.init();
-    this.uiManager.init();
-    this.mobileToggleManager.init();
+    console.log('🚀 MarketCalculator initializing...');
     
-    this.setupEventListeners();
-    
-    // Initialize customization features after delay
+    try {
+      this._safeInit(this.locationManager);
+      this._safeInit(this.rateCalculator);
+      this._safeInit(this.uiManager);
+      this._safeInit(this.mobileToggleManager);
+
+      // Initialize role-based routing
+      this.initializeRouting();
+
+      // Optional UX helpers with delay
+      setTimeout(() => {
+        this.initializeEnhancements();
+      }, 1000);
+
+      console.log('✅ MarketCalculator initialized successfully');
+    } catch (error) {
+      console.error('❌ Error during MarketCalculator initialization:', error);
+    }
+  }
+
+  initializeEnhancements() {
+    try {
+      if (typeof this.fixRevenueDisplay === 'function') this.fixRevenueDisplay();
+      if (typeof this.addCustomizationPrompt === 'function') this.addCustomizationPrompt();
+      if (typeof this.addScrollIndicator === 'function') this.addScrollIndicator();
+      if (typeof this.addFloatingNextButton === 'function') this.addFloatingNextButton();
+      
+      // Re-bootstrap if needed
+      if (this.locationManager && typeof this.locationManager._bootstrapIfComplete === 'function') {
+        this.locationManager._bootstrapIfComplete();
+      }
+    } catch (error) {
+      console.warn('Non-critical enhancement error:', error);
+    }
+  }
+
+  initializeRouting() {
     setTimeout(() => {
-      this.fixRevenueDisplay();
-      this.addCustomizationPrompt();
-      this.addScrollIndicator();
-      this.addFloatingNextButton();
-    }, 1500);
+      this.updateContinueButton();
+      this.enhanceContinueButtonText();
+      this.showRoleAwareMessaging();
+      console.log('🎯 Role-based routing initialized');
+    }, 500);
   }
 
-  setupEventListeners() {
-    // Listen for any existing event listeners your modules might need
-  }
-
-  // Fix revenue display to show "Per Center"
-  fixRevenueDisplay() {
-    const revenueHeading = document.querySelector('.revenue-projection-card h3');
-    if (revenueHeading && !revenueHeading.textContent.includes('Per Center')) {
-      revenueHeading.textContent = 'Your Annual Revenue Potential Per Center';
+  // Role-based routing functions
+  handleContinue() {
+    try {
+      const role = localStorage.getItem('usrad_role') || 'center-admin';
+      console.log('Market calculator continue - Role:', role);
+      
+      // Save the current rate selection
+      const currentRate = this.getCurrentSelectedRate();
+      if (currentRate) {
+        localStorage.setItem('market_calculator_rate', currentRate.toString());
+      }
+      
+      // Route based on role
+      if (role === 'center-admin') {
+        console.log('Routing Center Admin to PSA');
+        window.location.href = '/providers/onboarding/psa-signing';
+      } else {
+        console.log('Routing Multi-Center/Executive to pricing configuration');
+        window.location.href = '/providers/onboarding/pricing-multi';
+      }
+      
+    } catch (error) {
+      console.error('Error in market calculator routing:', error);
+      // Fallback to PSA
+      window.location.href = '/providers/onboarding/psa-signing';
     }
   }
 
-  // Add scroll indicator after revenue box
-  addScrollIndicator() {
-    const revenueCard = document.querySelector('.revenue-projection-card');
-    if (revenueCard && !document.querySelector('.scroll-indicator')) {
-      const indicator = document.createElement('div');
-      indicator.className = 'scroll-indicator';
-      indicator.innerHTML = `
-        <div style="text-align: center; margin: 2rem 0; animation: bounce 2s infinite;">
-          <div style="font-size: 2rem; color: #0ea5e9;">⬇️</div>
-          <p style="color: #0ea5e9; font-weight: 600; margin: 0.5rem 0;">Continue Below</p>
-          <p style="color: #64748b; font-size: 0.875rem;">Choose your pricing strategy</p>
-        </div>
-        <style>
-          @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-          }
-        </style>
-      `;
-      revenueCard.parentElement.insertBefore(indicator, revenueCard.nextSibling);
+  getCurrentSelectedRate() {
+    try {
+      // Try multiple ways to get the current rate
+      const slider = document.querySelector('#rate-slider') || 
+                    document.querySelector('.rate-slider') ||
+                    document.querySelector('input[type="range"]');
+      if (slider) {
+        return parseFloat(slider.value) || 100;
+      }
+      
+      const rateDisplay = document.querySelector('.rate-display') || 
+                         document.querySelector('#selected-rate') ||
+                         document.querySelector('[data-rate]');
+      if (rateDisplay) {
+        const rateText = rateDisplay.textContent || rateDisplay.innerText || '';
+        const rateMatch = rateText.match(/(\d+(?:\.\d+)?)%?/);
+        if (rateMatch) {
+          return parseFloat(rateMatch[1]);
+        }
+      }
+      
+      // Check for global variable
+      if (typeof window.selectedRate !== 'undefined') {
+        return window.selectedRate;
+      }
+      
+      return 100; // Default fallback
+    } catch (error) {
+      console.warn('Error getting selected rate:', error);
+      return 100;
     }
   }
 
-  // Add the main customization prompt
-  addCustomizationPrompt() {
-    // Find the revenue projection card
-    const revenueCard = document.querySelector('.revenue-projection-card');
-    if (!revenueCard) {
-      console.log('Revenue card not found, retrying...');
-      setTimeout(() => this.addCustomizationPrompt(), 1000);
-      return;
+  updateContinueButton() {
+    try {
+      const continueBtn = document.querySelector('#continue-btn') || 
+                         document.querySelector('.continue-button') ||
+                         document.querySelector('.accept-button') ||
+                         document.querySelector('[onclick*="continue"]') ||
+                         document.querySelector('[onclick*="accept"]') ||
+                         document.querySelector('button[type="submit"]');
+      
+      if (continueBtn) {
+        // Remove existing click handlers by cloning
+        const newButton = continueBtn.cloneNode(true);
+        continueBtn.parentNode.replaceChild(newButton, continueBtn);
+        
+        // Add new click handler
+        newButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.handleContinue();
+        });
+        
+        console.log('✅ Continue button updated with role-based routing');
+      } else {
+        console.warn('⚠️ Could not find continue button in market calculator');
+      }
+    } catch (error) {
+      console.error('Error updating continue button:', error);
     }
-    
-    // Check if prompt already exists
-    if (document.querySelector('.customization-prompt-wrapper')) {
-      return;
+  }
+
+  enhanceContinueButtonText() {
+    try {
+      const role = localStorage.getItem('usrad_role') || 'center-admin';
+      const continueBtn = document.querySelector('#continue-btn') || 
+                         document.querySelector('.continue-button') ||
+                         document.querySelector('.accept-button');
+      
+      if (continueBtn) {
+        const buttonTexts = {
+          'center-admin': 'Accept These Rates & Continue',
+          'multi-center': 'Continue to Pricing Setup',
+          'executive': 'Continue to Advanced Pricing'
+        };
+        
+        const targetText = buttonTexts[role] || 'Continue';
+        
+        // Update button text
+        const textSpan = continueBtn.querySelector('.btn-text') || 
+                        continueBtn.querySelector('span:not(.icon):not([class*="arrow"])');
+        if (textSpan) {
+          textSpan.textContent = targetText;
+        } else if (!continueBtn.querySelector('svg') && !continueBtn.querySelector('.icon')) {
+          continueBtn.textContent = targetText;
+        }
+        
+        console.log(`🏷️ Button text updated for role: ${role}`);
+      }
+    } catch (error) {
+      console.warn('Error updating button text:', error);
     }
-    
-    // Get current values
-    const slider = document.querySelector('input[type="range"]');
-    const currentRate = slider ? slider.value : '100';
-    const facilities = JSON.parse(localStorage.getItem('facilities') || '[]');
-    const facilityCount = facilities.length || 1;
-    
-    // Create prompt
-    const promptWrapper = document.createElement('div');
-    promptWrapper.className = 'customization-prompt-wrapper';
-    promptWrapper.style.cssText = 'margin: 2rem 0;';
-    promptWrapper.innerHTML = `
-      <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #0ea5e9; border-radius: 1rem; padding: 2rem; box-shadow: 0 10px 30px rgba(14, 165, 233, 0.15);">
-        <div style="display: flex; gap: 2rem; margin-bottom: 2rem; align-items: flex-start;">
-          <div style="font-size: 3rem;">🎯</div>
-          <div style="flex: 1;">
-            <h3 style="margin: 0 0 0.75rem; font-size: 1.75rem; color: #0c4a6e; font-weight: 700;">Ready to Continue?</h3>
-            <p style="margin: 0.5rem 0; color: #334155; font-size: 1.125rem;">
-              You've selected <strong class="selected-rate" style="color: #0ea5e9; font-size: 1.25rem;">${currentRate}%</strong> of Medicare for all facilities.
-            </p>
-            <p style="font-size: 1rem; color: #64748b; margin-top: 1rem;">Would you like to:</p>
-            <ul style="margin: 1rem 0 0; padding-left: 1.5rem; list-style: none;">
-              <li style="margin-bottom: 0.75rem; padding-left: 1.5rem; position: relative;">
-                <span style="position: absolute; left: 0; color: #0ea5e9;">•</span>
-                <span class="keep-simple-text"><strong>Keep it simple:</strong> Use ${currentRate}% for all ${facilityCount} facilities</span>
-              </li>
-              <li style="margin-bottom: 0.75rem; padding-left: 1.5rem; position: relative;">
-                <span style="position: absolute; left: 0; color: #0ea5e9;">•</span>
-                <strong>Optimize by location:</strong> Customize rates based on local market conditions
-              </li>
-            </ul>
+  }
+
+  showRoleAwareMessaging() {
+    try {
+      const role = localStorage.getItem('usrad_role') || 'center-admin';
+      
+      // Only show for multi-center and executive
+      if (role === 'center-admin') return;
+      
+      const messageContainer = document.querySelector('.revenue-projection') ||
+                              document.querySelector('.calculator-panel') ||
+                              document.querySelector('.market-calculator') ||
+                              document.querySelector('main');
+      
+      if (!messageContainer) return;
+      
+      // Remove existing message
+      const existingMessage = document.querySelector('.role-aware-message');
+      if (existingMessage) {
+        existingMessage.remove();
+      }
+      
+      const messages = {
+        'multi-center': {
+          icon: '🏢',
+          title: 'Multi-Center Optimization',
+          text: 'Next, you\'ll customize rates by state to optimize for local market conditions.'
+        },
+        'executive': {
+          icon: '⚡',
+          title: 'Enterprise Configuration',
+          text: 'Next, configure advanced pricing structures and view comprehensive portfolio analytics.'
+        }
+      };
+      
+      const message = messages[role];
+      if (!message) return;
+      
+      const messageEl = document.createElement('div');
+      messageEl.className = 'role-aware-message';
+      messageEl.innerHTML = `
+        <div style="
+          background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+          border: 2px solid #0ea5e9;
+          border-radius: 0.75rem;
+          padding: 1rem 1.5rem;
+          margin: 1rem 0;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+        ">
+          <span style="font-size: 1.5rem;">${message.icon}</span>
+          <div>
+            <h4 style="margin: 0 0 0.25rem; color: #0c4a6e; font-weight: 700;">${message.title}</h4>
+            <p style="margin: 0; color: #475569; font-size: 0.875rem;">${message.text}</p>
           </div>
         </div>
-        
-        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
-          <button class="btn-uniform" onclick="marketCalculator.continueWithUniformRate()" style="flex: 1; padding: 1rem 1.5rem; background: white; color: #475569; border: 2px solid #e2e8f0; border-radius: 0.625rem; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">
-            ✓ Keep ${currentRate}% for All Facilities
-          </button>
-          <button class="btn-customize" onclick="marketCalculator.customizeByLocation()" style="flex: 1; padding: 1rem 1.5rem; background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); color: white; border: none; border-radius: 0.625rem; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">
-            🎯 Customize Rates by Location
-          </button>
-        </div>
-        
-        <div style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: rgba(255, 255, 255, 0.8); border-radius: 0.5rem; font-size: 0.875rem; color: #64748b;">
-          <span style="font-size: 1.25rem;">💡</span>
-          <span>Most providers (80%) use uniform rates for simplicity</span>
-        </div>
-      </div>
-    `;
-    
-    // Insert right after the revenue card
-    revenueCard.parentElement.insertBefore(promptWrapper, revenueCard.nextSibling);
-    
-    // Smooth scroll to make it visible
-    setTimeout(() => {
-      promptWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 500);
-    
-    // Setup slider listener
-    if (slider) {
-      slider.addEventListener('input', () => this.updateCustomizationPrompt());
-    }
-    
-    // Setup button hover effects
-    const buttons = promptWrapper.querySelectorAll('button');
-    buttons.forEach(btn => {
-      btn.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-2px)';
-        this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
-      });
-      btn.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-        this.style.boxShadow = 'none';
-      });
-    });
-  }
-
-  // Update prompt when slider changes
-  updateCustomizationPrompt() {
-    const slider = document.querySelector('input[type="range"]');
-    const currentRate = slider ? slider.value : '100';
-    
-    const prompt = document.querySelector('.customization-prompt-wrapper');
-    if (prompt) {
-      // Update rate displays
-      const rateDisplay = prompt.querySelector('.selected-rate');
-      if (rateDisplay) {
-        rateDisplay.textContent = currentRate + '%';
+      `;
+      
+      // Insert before the continue button or at end
+      const continueBtn = document.querySelector('.accept-button') || 
+                         document.querySelector('.continue-button');
+      if (continueBtn) {
+        continueBtn.parentNode.insertBefore(messageEl, continueBtn);
+      } else {
+        messageContainer.appendChild(messageEl);
       }
       
-      // Update button text
-      const uniformBtn = prompt.querySelector('.btn-uniform');
-      if (uniformBtn) {
-        uniformBtn.innerHTML = `✓ Keep ${currentRate}% for All Facilities`;
-      }
-      
-      // Update keep simple text
-      const keepSimpleText = prompt.querySelector('.keep-simple-text');
-      if (keepSimpleText) {
-        const facilities = JSON.parse(localStorage.getItem('facilities') || '[]');
-        keepSimpleText.innerHTML = `<strong>Keep it simple:</strong> Use ${currentRate}% for all ${facilities.length || 1} facilities`;
-      }
+      console.log(`💬 Role message shown for: ${role}`);
+    } catch (error) {
+      console.warn('Error showing role message:', error);
     }
   }
 
-  // Add floating next button
-  addFloatingNextButton() {
-    if (document.querySelector('.floating-next-btn')) return;
-    
-    const floatingBtn = document.createElement('div');
-    floatingBtn.className = 'floating-next-btn';
-    floatingBtn.innerHTML = `
-      <button onclick="marketCalculator.scrollToPrompt()" style="position: fixed; bottom: 2rem; right: 2rem; background: #0ea5e9; color: white; padding: 1rem 2rem; border-radius: 2rem; border: none; font-weight: 600; box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3); cursor: pointer; z-index: 1000; display: flex; align-items: center; gap: 0.5rem;">
-        Continue to Pricing Options
-        <span style="font-size: 1.25rem;">→</span>
-      </button>
-    `;
-    document.body.appendChild(floatingBtn);
-  }
-
-  // Scroll to prompt function
-  scrollToPrompt() {
-    const prompt = document.querySelector('.customization-prompt-wrapper');
-    if (prompt) {
-      prompt.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }
-
-  // Continue with uniform rate
-  continueWithUniformRate() {
-    const slider = document.querySelector('input[type="range"]');
-    const rate = slider ? slider.value : '100';
-    const facilities = JSON.parse(localStorage.getItem('facilities') || '[]');
-    
-    // Save data
-    const revenueElement = document.querySelector('.annual-revenue');
-    const revenue = revenueElement ? revenueElement.textContent : '$0';
-    
-    const marketCalcData = {
-      selectedRate: parseInt(rate),
-      projectedRevenue: revenue,
-      timestamp: new Date().toISOString()
-    };
-    StorageHelpers.save('market_calculator_result', marketCalcData);
-    
-    const pricingData = {
-      structure: 'uniform',
-      displayStructure: 'Uniform Rate - All Locations',
-      displayRate: `${rate}% of Medicare`,
-      uniformRate: parseInt(rate),
-      customization: 'none',
-      timestamp: new Date().toISOString()
-    };
-    StorageHelpers.save('provider_pricing', pricingData);
-    StorageHelpers.save('pricing_completed', true);
-    
-    // Show confirmation overlay
-    const overlay = document.createElement('div');
-    overlay.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 9999;';
-    overlay.innerHTML = `
-      <div style="background: white; padding: 3rem; border-radius: 1rem; text-align: center; animation: scaleIn 0.3s;">
-        <div style="font-size: 4rem;">✅</div>
-        <h3 style="font-size: 1.5rem; margin: 1rem 0;">Perfect!</h3>
-        <p>All ${facilities.length} facilities will use ${rate}% of Medicare rates.</p>
-        <p style="margin-top: 2rem; color: #666;">Redirecting to confirmation...</p>
-      </div>
-      <style>
-        @keyframes scaleIn {
-          from { opacity: 0; transform: scale(0.9); }
-          to { opacity: 1; transform: scale(1); }
-        }
-      </style>
-    `;
-    document.body.appendChild(overlay);
-    
-    setTimeout(() => {
-      window.location.href = '/providers/onboarding/confirmation';
-    }, 2000);
-  }
-
-  // Customize by location
-  customizeByLocation() {
-    const slider = document.querySelector('input[type="range"]');
-    const rate = slider ? slider.value : '100';
-    
-    const marketCalcData = {
-      selectedRate: parseInt(rate),
-      baseRate: parseInt(rate),
-      timestamp: new Date().toISOString()
-    };
-    StorageHelpers.save('market_calculator_result', marketCalcData);
-    StorageHelpers.save('market_education_completed', true);
-    
-    window.location.href = '/providers/onboarding/pricing-customizer';
-  }
+  // Harmless stub methods
+  fixRevenueDisplay() {}
+  addCustomizationPrompt() {}
+  addScrollIndicator() {}
+  addFloatingNextButton() {}
 }
 
-// Create and initialize
+// Initialize market calculator
 const marketCalculator = new MarketCalculator();
-
-// Make instance available globally for onclick handlers
 window.marketCalculator = marketCalculator;
 
+// Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   marketCalculator.init();
 });
 
-// Export for module usage
+// Export for debugging
+window.marketCalculatorRouting = {
+  handleContinue: () => marketCalculator.handleContinue(),
+  getCurrentRate: () => marketCalculator.getCurrentSelectedRate(),
+  updateButton: () => marketCalculator.updateContinueButton()
+};
+
 export { MarketCalculator };

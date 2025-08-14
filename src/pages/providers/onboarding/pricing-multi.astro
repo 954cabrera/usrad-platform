@@ -1,0 +1,400 @@
+---
+// src/pages/providers/onboarding/pricing-multi.astro
+const pageTitle = "Multi-Center Reimbursement Setup";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle} | USRad</title>
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/providers/pricing-multi.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="page-header">
+        <div class="breadcrumb">
+          <a href="/providers/pre-portal">← Back to Setup</a>
+        </div>
+        <h1 class="page-title">{pageTitle}</h1>
+        <p class="page-subtitle">
+          Configure reimbursement rates by state to optimize your revenue across
+          all locations. Set competitive rates that match local market
+          conditions.
+        </p>
+      </header>
+
+      <!-- State Rate Configuration -->
+      <section class="config-section">
+        <div class="section-card">
+          <div class="card-header">
+            <h2 class="section-title">State-Based Reimbursement Rates</h2>
+            <p class="section-desc">
+              Add your operating states and set Medicare reimbursement
+              percentages (90-150%)
+            </p>
+          </div>
+
+          <!-- Controls -->
+          <div class="controls-row">
+            <!-- Enhanced Bulk Apply with Tooltip (Add State section removed) -->
+            <div class="control-group bulk-apply-only">
+              <label class="control-label">
+                Bulk Apply
+                <span class="tooltip-wrapper">
+                  <span class="info-icon">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <path d="M9,9h0a3,3,0,0,1,6,0c0,2-3,3-3,3"></path>
+                      <path d="M12,17h.01"></path>
+                    </svg>
+                  </span>
+                  <div class="tooltip">
+                    <strong>Bulk Apply Rate</strong><br />
+                    Quickly set the same Medicare percentage for all your states
+                    at once. Useful when you want uniform pricing across your entire
+                    portfolio.
+                    <div class="tooltip-example">
+                      Example: Enter "105" to set all states to 105% Medicare
+                    </div>
+                  </div>
+                </span>
+              </label>
+              <div class="bulk-controls">
+                <input
+                  id="bulk-rate"
+                  type="number"
+                  min="90"
+                  max="150"
+                  placeholder="100"
+                  class="rate-input"
+                />
+                <span class="percentage-sign">%</span>
+                <button id="bulk-apply-btn" class="btn btn-secondary"
+                  >Apply to All</button
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- State List -->
+          <div class="state-list-container">
+            <div class="state-table">
+              <div class="state-row header-row">
+                <div class="col-state">State</div>
+                <div class="col-rate">Medicare %</div>
+                <div class="col-projected">Projected Annual</div>
+              </div>
+              <div id="state-list" class="state-list">
+                <!-- Dynamic state rows will be added here -->
+              </div>
+            </div>
+
+            <div id="empty-state" class="empty-state">
+              <div class="empty-icon">📋</div>
+              <h3>No states configured yet</h3>
+              <p>
+                Add your first operating state to begin setting up reimbursement
+                rates
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Revenue Projections -->
+      <section class="projection-section">
+        <div class="section-card projection-card">
+          <div class="projection-header">
+            <h2 class="section-title">Portfolio Revenue Projections</h2>
+            <div class="period-toggle" id="period-toggle">
+              <button class="toggle-btn" data-period="one">1 Year</button>
+              <button class="toggle-btn active" data-period="five"
+                >5 Years</button
+              >
+              <button class="toggle-btn" data-period="ten">10 Years</button>
+            </div>
+          </div>
+
+          <div class="projection-grid">
+            <!-- Per Center Projection -->
+            <div class="projection-box per-center">
+              <div class="projection-label">
+                <span class="label-text">Average Per Center</span>
+                <span class="label-sub">Weighted by portfolio</span>
+              </div>
+              <div class="projection-featured">
+                <div class="period-label" id="featured-period">
+                  5-Year Total
+                </div>
+                <div class="amount-large" id="featured-amount">$0</div>
+              </div>
+              <div class="projection-metrics">
+                <div class="metric">
+                  <span class="metric-label">Annual</span>
+                  <span class="metric-value" id="annual-amount">$0</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Monthly</span>
+                  <span class="metric-value" id="monthly-amount">$0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Portfolio Total -->
+            <div
+              class="projection-box portfolio-total"
+              id="portfolio-box"
+              style="display:none;"
+            >
+              <div class="projection-label">
+                <span class="label-text">Total Portfolio</span>
+                <span class="label-sub" id="portfolio-sub"
+                  >All centers combined</span
+                >
+              </div>
+              <div class="projection-featured">
+                <div class="period-label" id="portfolio-period">
+                  5-Year Total
+                </div>
+                <div
+                  class="amount-large portfolio-amount"
+                  id="portfolio-amount"
+                >
+                  $0
+                </div>
+              </div>
+              <div class="partnership-value">
+                <span class="partnership-label">Total Partnership Value</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Configuration Inputs -->
+          <div class="config-inputs">
+            <div class="input-group">
+              <label class="input-label">Number of Centers</label>
+              <input
+                id="centers-input"
+                type="number"
+                min="1"
+                value="1"
+                class="config-input readonly-input"
+                readonly
+              />
+              <span class="input-help"
+                >Auto-detected from your uploaded facilities</span
+              >
+            </div>
+            <div class="input-group">
+              <label class="input-label">Baseline Revenue (100% Medicare)</label
+              >
+              <input
+                id="baseline-input"
+                type="number"
+                min="50000"
+                step="10000"
+                value="212000"
+                class="config-input"
+              />
+              <span class="input-help"
+                >Annual revenue per center at 100% Medicare</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Action Buttons -->
+      <section class="actions-section">
+        <div class="actions-container">
+          <button id="save-continue-btn" class="btn btn-primary btn-large">
+            <span class="btn-text">Save Configuration & Continue</span>
+            <span class="btn-arrow">→</span>
+          </button>
+          <div id="status-message" class="status-message" aria-live="polite">
+          </div>
+        </div>
+
+        <div class="next-steps">
+          <h3>Next Steps:</h3>
+          <ul>
+            <li>Review and sign your Provider Service Agreement</li>
+            <li>Begin receiving scan referrals</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <!-- Client-side JavaScript -->
+    <script
+      type="module"
+      src="/src/scripts/providers/portal/multi-pricing.client.js"></script>
+
+    <!-- Tooltip Styles -->
+    <style>
+      /* Tooltip Styles */
+      .tooltip-wrapper {
+        position: relative;
+        display: inline-block;
+        margin-left: 0.5rem;
+        cursor: help;
+      }
+
+      .info-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: help;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        margin-left: 0.5rem;
+      }
+
+      .info-icon:hover {
+        transform: scale(1.15);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+      }
+
+      .info-icon svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      .tooltip {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #1f2937;
+        color: white;
+        padding: 1.5rem 2rem;
+        border-radius: 1rem;
+        font-size: 1rem;
+        line-height: 1.6;
+        width: 480px;
+        max-width: 95vw;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1000;
+        pointer-events: none;
+        border: 2px solid #374151;
+        white-space: normal;
+        word-wrap: break-word;
+      }
+
+      /* Tooltip arrow */
+      .tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 6px solid transparent;
+        border-top-color: #1f2937;
+      }
+
+      .tooltip-wrapper:hover .tooltip {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(-8px);
+      }
+
+      .tooltip-example {
+        margin-top: 1rem;
+        padding: 1rem 1.25rem;
+        background: rgba(59, 130, 246, 0.2);
+        border-radius: 0.5rem;
+        font-style: italic;
+        font-size: 0.95rem;
+        border-left: 4px solid #60a5fa;
+        line-height: 1.5;
+      }
+
+      /* Enhanced bulk controls styling */
+      .bulk-apply-only {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .bulk-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .percentage-sign {
+        color: #64748b;
+        font-weight: 500;
+        font-size: 0.875rem;
+      }
+
+      .bulk-controls .rate-input {
+        width: 80px;
+      }
+
+      /* Mobile responsive adjustments */
+      @media (max-width: 640px) {
+        .tooltip {
+          width: 400px;
+          left: auto;
+          right: 0;
+          transform: none;
+          font-size: 0.95rem;
+          padding: 1.25rem 1.5rem;
+        }
+
+        .tooltip-wrapper:hover .tooltip {
+          transform: translateY(-10px);
+        }
+
+        .tooltip::after {
+          left: auto;
+          right: 2rem;
+          transform: none;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .tooltip {
+          width: 90vw;
+          right: 5vw;
+          font-size: 0.9rem;
+          padding: 1rem 1.25rem;
+        }
+      }
+
+      /* Read-only input styling */
+      .readonly-input {
+        background-color: #e5e7eb !important;
+        color: #6b7280 !important;
+        cursor: not-allowed !important;
+        border-color: #d1d5db !important;
+        opacity: 0.7;
+      }
+
+      .readonly-input:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: #d1d5db !important;
+      }
+    </style>
+  </body>
+</html>

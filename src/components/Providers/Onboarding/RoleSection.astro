@@ -1,6 +1,6 @@
 ---
 // src/components/Providers/Onboarding/RoleSection.astro
-// Enhanced role selection with multi-center routing
+// Fixed role selection - saves role but doesn't redirect immediately
 ---
 
 <section class="role-selection-container">
@@ -128,13 +128,21 @@
     </div>
   </div>
 
-  <div class="role-actions">
-    <button id="continue-role-btn" class="continue-btn" disabled>
-      <span class="btn-text">Continue with Selected Role</span>
-      <span class="btn-arrow">→</span>
-    </button>
-    <p class="role-note">
-      You can change your role settings later in your account preferences.
+  <!-- Role Confirmation Section (appears after selection) -->
+  <div id="role-confirmation" class="role-confirmation" style="display: none;">
+    <div class="confirmation-content">
+      <div class="confirmation-icon">✓</div>
+      <h3 id="confirmation-title">Role Selected</h3>
+      <p id="confirmation-message">
+        We'll customize your experience for this role type.
+      </p>
+    </div>
+  </div>
+
+  <div class="role-note">
+    <p>
+      <strong>Note:</strong> Your role selection helps us customize your onboarding
+      experience. You can change this later in your account preferences.
     </p>
   </div>
 </section>
@@ -146,6 +154,7 @@
     padding: 2rem;
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
     border: 1px solid rgba(14, 165, 233, 0.15);
+    margin-bottom: 2rem;
   }
 
   .role-header {
@@ -194,9 +203,9 @@
   }
 
   .role-card.selected {
-    border-color: #0ea5e9;
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.2);
+    border-color: #059669;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    box-shadow: 0 8px 24px rgba(5, 150, 105, 0.2);
   }
 
   .role-icon {
@@ -209,6 +218,7 @@
     justify-content: center;
     color: white;
     margin-bottom: 1rem;
+    transition: background 0.2s ease;
   }
 
   .role-card.selected .role-icon {
@@ -266,47 +276,69 @@
     color: #92400e;
   }
 
-  .role-actions {
+  .role-confirmation {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 2px solid #059669;
+    border-radius: 1rem;
     text-align: center;
+    animation: fadeInSlideUp 0.4s ease-out;
   }
 
-  .continue-btn {
-    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
-    color: white;
-    border: none;
-    border-radius: 0.625rem;
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    display: inline-flex;
+  @keyframes fadeInSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .confirmation-content {
+    display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    justify-content: center;
+    gap: 1rem;
   }
 
-  .continue-btn:disabled {
-    background: #9ca3af;
-    cursor: not-allowed;
-    transform: none;
+  .confirmation-icon {
+    width: 48px;
+    height: 48px;
+    background: #059669;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
   }
 
-  .continue-btn:not(:disabled):hover {
-    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.25);
+  .confirmation-content h3 {
+    color: #065f46;
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
   }
 
-  .continue-btn:not(:disabled):hover .btn-arrow {
-    transform: translateX(2px);
-  }
-
-  .btn-arrow {
-    transition: transform 0.15s ease;
+  .confirmation-content p {
+    color: #16a34a;
+    margin: 0;
+    font-weight: 600;
   }
 
   .role-note {
+    text-align: center;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
+  }
+
+  .role-note p {
     color: #64748b;
     font-size: 0.875rem;
     margin: 0;
@@ -325,16 +357,23 @@
     .role-title {
       font-size: 1.5rem;
     }
+
+    .confirmation-content {
+      flex-direction: column;
+      text-align: center;
+    }
   }
 </style>
 
 <script>
-  // Role selection logic - runs only in browser
+  // Role selection logic - NO immediate redirect
   document.addEventListener("DOMContentLoaded", () => {
     if (typeof window === "undefined") return;
 
     const roleCards = document.querySelectorAll(".role-card");
-    const continueBtn = document.getElementById("continue-role-btn");
+    const roleConfirmation = document.getElementById("role-confirmation");
+    const confirmationTitle = document.getElementById("confirmation-title");
+    const confirmationMessage = document.getElementById("confirmation-message");
     let selectedRole = null;
 
     // Load previously selected role if any
@@ -343,6 +382,7 @@
       if (savedRole) {
         selectedRole = savedRole;
         updateSelection();
+        showConfirmation(savedRole);
       }
     } catch (error) {
       console.warn("Could not load saved role:", error);
@@ -355,21 +395,8 @@
         selectedRole = role;
         updateSelection();
         saveRole(role);
+        showConfirmation(role);
       });
-    });
-
-    // Handle continue button
-    continueBtn?.addEventListener("click", () => {
-      if (!selectedRole) return;
-
-      // Route based on selected role
-      if (selectedRole === "center-admin") {
-        // Center admins go to simple market calculator
-        window.location.href = "/providers/onboarding/market-calculator";
-      } else {
-        // Multi-center and executives go to advanced pricing
-        window.location.href = "/providers/onboarding/pricing-multi";
-      }
     });
 
     function updateSelection() {
@@ -377,11 +404,6 @@
       roleCards.forEach((card) => {
         card.classList.toggle("selected", card.dataset.role === selectedRole);
       });
-
-      // Enable/disable continue button
-      if (continueBtn) {
-        continueBtn.disabled = !selectedRole;
-      }
     }
 
     function saveRole(role) {
@@ -392,5 +414,36 @@
         console.warn("Could not save role:", error);
       }
     }
+
+    function showConfirmation(role) {
+      const roleNames = {
+        "center-admin": "Center Administrator",
+        "multi-center": "Multi-Center",
+        executive: "Executive/Corporate",
+      };
+
+      const messages = {
+        "center-admin":
+          "Perfect for single facility operations with streamlined setup.",
+        "multi-center":
+          "Great choice for managing multiple locations with market-based pricing.",
+        executive:
+          "Ideal for enterprise-level partnerships with advanced configuration options.",
+      };
+
+      confirmationTitle.textContent = `${roleNames[role]} Selected`;
+      confirmationMessage.textContent = messages[role];
+
+      roleConfirmation.style.display = "block";
+
+      // Scroll to show confirmation
+      roleConfirmation.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+
+    // Make role available globally for other scripts
+    window.getSelectedRole = () => selectedRole;
   });
 </script>

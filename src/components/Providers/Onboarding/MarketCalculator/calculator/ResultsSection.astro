@@ -1,18 +1,7 @@
----
-// src/components/Providers/Onboarding/MarketCalculator/calculator/ResultsSection.astro
-import RevenueProjection from "./RevenueProjection.astro";
----
-
-<div class="results-section" id="results-section">
-  <div class="results-loading" id="loading-state">
-    <div class="spinner"></div>
-    <p>Calculating rates for your area...</p>
-  </div>
-
-  <div class="results-grid" id="results-grid" style="display: none;">
-    <!-- Results will be populated here dynamically -->
-  </div>
-
-  <!-- Revenue Projection -->
-  <RevenueProjection />
+<div id="loading-state"></div>
+<div id="results-grid" style="display:none;"></div>
+<div id="revenue-projection" style="display:none;"></div>
+<div id="volume-indicator">
+  <div class="volume-bar" style="width:0%"></div>
+  <div class="volume-label"></div>
 </div>

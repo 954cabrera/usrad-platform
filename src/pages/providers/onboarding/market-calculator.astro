@@ -30,6 +30,577 @@ import "../../../styles/providers/market-calculator.css";
   </div>
 </ProviderLayout>
 
-<script>
-  import "../../../scripts/providers/market-calculator/market-calculator.js";
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    console.log("🚀 Market Calculator Starting...");
+
+    // County data - restored from working backup
+    const countyData = {
+      FL: [
+        { value: "Miami-Dade", label: "Miami-Dade County" },
+        { value: "Broward", label: "Broward County" },
+        { value: "Palm Beach", label: "Palm Beach County" },
+        { value: "Lee", label: "Lee County" },
+        { value: "Collier", label: "Collier County" },
+        { value: "Other", label: "All Other Florida Counties" },
+      ],
+      GA: [
+        { value: "Fulton", label: "Fulton County (Atlanta)" },
+        { value: "DeKalb", label: "DeKalb County" },
+        { value: "Gwinnett", label: "Gwinnett County" },
+        { value: "Cobb", label: "Cobb County" },
+        { value: "Other", label: "All Other Georgia Counties" },
+      ],
+      TX: [
+        { value: "Harris", label: "Harris County (Houston)" },
+        { value: "Dallas", label: "Dallas County" },
+        { value: "Travis", label: "Travis County (Austin)" },
+        { value: "Other", label: "All Other Texas Counties" },
+      ],
+      CA: [
+        { value: "Los Angeles", label: "Los Angeles County" },
+        { value: "San Diego", label: "San Diego County" },
+        { value: "Orange", label: "Orange County" },
+        { value: "Other", label: "All Other California Counties" },
+      ],
+      NY: [
+        { value: "New York", label: "New York County (Manhattan)" },
+        { value: "Kings", label: "Kings County (Brooklyn)" },
+        { value: "Queens", label: "Queens County" },
+        { value: "Other", label: "All Other New York Counties" },
+      ],
+    };
+
+    // Popular procedures - restored from backup
+    const procedures = [
+      { cpt: "72148", name: "MRI Lumbar Spine" },
+      { cpt: "72158", name: "MRI Lumbar + Contrast" },
+      { cpt: "70551", name: "MRI Brain" },
+      { cpt: "73721", name: "MRI Knee" },
+    ];
+
+    // Wait for elements to load
+    setTimeout(function () {
+      initializeCalculator();
+    }, 1000);
+
+    function initializeCalculator() {
+      // Elements
+      const stateSelect = document.getElementById("state-select");
+      const countySelect = document.getElementById("county-select");
+      const rateSlider = document.getElementById("rate-slider");
+      const ratePercentage = document.getElementById("rate-percentage");
+      const volumeIndicator = document.getElementById("volume-indicator");
+      const loadingState = document.getElementById("loading-state");
+      const resultsGrid = document.getElementById("results-grid");
+      const revenueProjection = document.getElementById("revenue-projection");
+      let acceptButton =
+        document.getElementById("accept-rates-btn") ||
+        document.querySelector(".accept-button") ||
+        document.querySelector('[data-action="accept"]');
+
+      console.log("Elements found:", {
+        stateSelect: !!stateSelect,
+        countySelect: !!countySelect,
+        rateSlider: !!rateSlider,
+        acceptButton: !!acceptButton,
+      });
+
+      if (!stateSelect || !countySelect) {
+        console.error("❌ Required elements not found");
+        return;
+      }
+
+      // Initialize enhanced role-specific experience
+      setTimeout(() => {
+        enhanceMarketCalculatorForRole();
+      }, 500);
+
+      // Update counties when state changes - restored from backup
+      stateSelect.addEventListener("change", function () {
+        const state = this.value;
+        countySelect.innerHTML = '<option value="">Select County</option>';
+
+        if (state && countyData[state]) {
+          countyData[state].forEach((county) => {
+            const option = document.createElement("option");
+            option.value = county.value;
+            option.textContent = county.label;
+            countySelect.appendChild(option);
+          });
+
+          countySelect.disabled = false;
+          console.log("✅ Counties populated for:", state);
+        }
+
+        // Clear results
+        hideResults();
+      });
+
+      // Update volume indicator and recalculate when slider changes
+      if (rateSlider && ratePercentage) {
+        rateSlider.addEventListener("input", function () {
+          const percentage = parseInt(this.value);
+          ratePercentage.textContent = percentage + "%";
+
+          // Update volume indicator
+          if (volumeIndicator) {
+            updateVolumeIndicator(percentage);
+          }
+
+          // Recalculate if we have location selected
+          if (stateSelect.value && countySelect.value) {
+            calculateRates();
+          }
+        });
+      }
+
+      // Calculate rates when county is selected
+      countySelect.addEventListener("change", function () {
+        if (stateSelect.value && this.value) {
+          calculateRates();
+        }
+      });
+
+      // Update volume indicator based on percentage
+      function updateVolumeIndicator(percentage) {
+        const volumeBar = volumeIndicator.querySelector(".volume-bar");
+        const volumeLabel = volumeIndicator.querySelector(".volume-label");
+
+        if (!volumeBar || !volumeLabel) return;
+
+        let width, label, color;
+
+        if (percentage <= 100) {
+          width = 90;
+          label = "Expected Volume: High";
+          color = "linear-gradient(90deg, #34D399 0%, #10B981 100%)";
+        } else if (percentage <= 110) {
+          width = 70;
+          label = "Expected Volume: Good";
+          color = "linear-gradient(90deg, #60A5FA 0%, #3B82F6 100%)";
+        } else if (percentage <= 120) {
+          width = 50;
+          label = "Expected Volume: Moderate";
+          color = "linear-gradient(90deg, #FCD34D 0%, #F59E0B 100%)";
+        } else {
+          width = 30;
+          label = "Expected Volume: Low";
+          color = "linear-gradient(90deg, #F87171 0%, #EF4444 100%)";
+        }
+
+        volumeBar.style.width = width + "%";
+        volumeBar.style.background = color;
+        volumeLabel.textContent = label;
+      }
+
+      // Calculate rates using the API - restored from backup
+      async function calculateRates() {
+        const state = stateSelect.value;
+        const county = countySelect.value;
+        const percentage = parseInt(rateSlider.value);
+
+        if (!state || !county) return;
+
+        console.log(
+          "🧮 Calculating rates for:",
+          state,
+          county,
+          percentage + "%"
+        );
+
+        // Show loading state
+        if (loadingState) loadingState.style.display = "block";
+        if (resultsGrid) resultsGrid.style.display = "none";
+        if (revenueProjection) revenueProjection.style.display = "none";
+
+        try {
+          // Fetch rates for each procedure
+          const promises = procedures.map(async (proc) => {
+            const response = await fetch(
+              `/api/pricing/calculate-db?cpt=${proc.cpt}&state=${state}&county=${encodeURIComponent(county)}`
+            );
+
+            if (!response.ok) {
+              throw new Error(`Failed to fetch rates for ${proc.cpt}`);
+            }
+
+            const data = await response.json();
+            return {
+              ...data,
+              displayName: proc.name,
+            };
+          });
+
+          const results = await Promise.all(promises);
+
+          // Hide loading state
+          if (loadingState) loadingState.style.display = "none";
+
+          // Display results
+          displayResults(results, percentage);
+
+          // Enable accept button
+          if (acceptButton) acceptButton.disabled = false;
+
+          console.log("✅ Rates calculated successfully");
+        } catch (error) {
+          console.error("Error calculating rates:", error);
+          if (loadingState) {
+            loadingState.innerHTML = `
+            <p style="color: #EF4444;">Error loading rates. Please try again.</p>
+          `;
+          }
+        }
+      }
+
+      // Display calculation results - restored from backup
+      function displayResults(results, percentage) {
+        if (!resultsGrid) return;
+
+        resultsGrid.innerHTML = "";
+        resultsGrid.style.display = "grid";
+
+        let totalRate = 0;
+        let count = 0;
+
+        results.forEach((result) => {
+          const medicareRate = result.pricing.medicare_rate;
+          const yourRate = medicareRate * (percentage / 100);
+          const hospitalRate = result.pricing.hospital_estimate;
+          const patientSavings = hospitalRate - yourRate;
+
+          totalRate += yourRate;
+          count++;
+
+          const resultCard = document.createElement("div");
+          resultCard.className = "procedure-result";
+          resultCard.innerHTML = `
+          <div class="procedure-code">CPT ${result.procedure.cpt_code}</div>
+          <div class="procedure-name">${result.displayName}</div>
+          <div class="procedure-price">$${yourRate.toFixed(0)}</div>
+          <div class="savings-label">Patient saves $${patientSavings.toFixed(0)}</div>
+        `;
+
+          resultsGrid.appendChild(resultCard);
+        });
+
+        // Calculate and display revenue projection
+        const avgRate = totalRate / count;
+        displayRevenueProjection(avgRate, percentage);
+      }
+
+      // Display revenue projection - restored from backup
+      function displayRevenueProjection(avgRate, percentage) {
+        if (!revenueProjection) return;
+
+        let weeklyVolume, volumeRange;
+
+        if (percentage <= 100) {
+          weeklyVolume = 17.5; // Average of 15-20
+          volumeRange = "15-20/week";
+        } else if (percentage <= 110) {
+          weeklyVolume = 10;
+          volumeRange = "8-12/week";
+        } else if (percentage <= 120) {
+          weeklyVolume = 5;
+          volumeRange = "4-6/week";
+        } else {
+          weeklyVolume = 2.5;
+          volumeRange = "2-3/week";
+        }
+
+        const annualRevenue = avgRate * weeklyVolume * 52;
+
+        const avgRateEl = document.getElementById("avg-rate");
+        const estVolumeEl = document.getElementById("est-volume");
+        const annualRevenueEl = document.getElementById("annual-revenue");
+
+        if (avgRateEl) avgRateEl.textContent = "$" + avgRate.toFixed(0);
+        if (estVolumeEl) estVolumeEl.textContent = volumeRange;
+        if (annualRevenueEl) {
+          annualRevenueEl.textContent =
+            "$" +
+            annualRevenue.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        revenueProjection.style.display = "block";
+      }
+
+      // Hide results
+      function hideResults() {
+        if (resultsGrid) resultsGrid.style.display = "none";
+        if (revenueProjection) revenueProjection.style.display = "none";
+        if (acceptButton) acceptButton.disabled = true;
+      }
+
+      // Enhanced Market Calculator with Role-Specific UX
+      function enhanceMarketCalculatorForRole() {
+        const role = localStorage.getItem("usrad_role") || "center-admin";
+        const facilities = JSON.parse(
+          localStorage.getItem("facilities") || "[]"
+        );
+
+        console.log("🎯 Enhancing market calculator for role:", role);
+        console.log("📊 Facilities loaded:", facilities.length);
+
+        // Analyze facilities to understand the user's portfolio
+        const portfolioAnalysis = analyzeFacilities(facilities);
+
+        if (role === "center-admin") {
+          setupCenterAdminExperience();
+        } else if (role === "multi-center" || role === "executive") {
+          setupMultiCenterExperience(portfolioAnalysis);
+        }
+      }
+
+      function analyzeFacilities(facilities) {
+        const stateBreakdown = {};
+
+        facilities.forEach((facility) => {
+          const state = facility.state || facility.address_state || "Unknown";
+          if (!stateBreakdown[state]) {
+            stateBreakdown[state] = 0;
+          }
+          stateBreakdown[state]++;
+        });
+
+        return {
+          totalFacilities: facilities.length,
+          states: Object.keys(stateBreakdown),
+          stateBreakdown: stateBreakdown,
+          isMultiState: Object.keys(stateBreakdown).length > 1,
+        };
+      }
+
+      function setupCenterAdminExperience() {
+        // Keep existing experience for center admins
+        if (acceptButton) {
+          acceptButton.innerHTML = `
+            <span>Accept These Rates & Continue</span>
+            <span class="btn-arrow">→</span>
+          `;
+
+          acceptButton.onclick = function () {
+            const selectedRate = getCurrentRate();
+            localStorage.setItem(
+              "market_calculator_rate",
+              selectedRate.toString()
+            );
+            localStorage.setItem("market_education_completed", "true");
+            localStorage.setItem(
+              "selected_rate_strategy",
+              JSON.stringify({
+                percentage: selectedRate,
+                state: stateSelect.value,
+                county: countySelect.value,
+                timestamp: new Date().toISOString(),
+              })
+            );
+            window.location.href = "/providers/onboarding/psa-signing";
+          };
+        }
+      }
+
+      function setupMultiCenterExperience(portfolioAnalysis) {
+        // Remove any existing role messages
+        const existingMessage = document.querySelector(".role-aware-message");
+        if (existingMessage) {
+          existingMessage.remove();
+        }
+
+        // Add portfolio overview section
+        addPortfolioOverview(portfolioAnalysis);
+
+        // Update the accept button for multi-center flow
+        updateAcceptButtonForMultiCenter(portfolioAnalysis);
+
+        // Add educational messaging
+        addEducationalContent();
+      }
+
+      function addPortfolioOverview(portfolioAnalysis) {
+        const calculatorPanel = document.querySelector(".calculator-panel");
+        if (!calculatorPanel) return;
+
+        const portfolioHTML = `
+          <div class="portfolio-overview" style="
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border: 2px solid #cbd5e1;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+          ">
+            <h3 style="margin: 0 0 1rem; color: #1e293b; font-size: 1.1rem;">
+              📊 Your Portfolio Overview
+            </h3>
+            <div class="portfolio-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+              <div class="stat-card" style="background: white; padding: 1rem; border-radius: 0.5rem; border: 1px solid #e2e8f0;">
+                <div style="font-size: 1.5rem; font-weight: bold; color: #3b82f6;">${portfolioAnalysis.totalFacilities}</div>
+                <div style="color: #64748b; font-size: 0.875rem;">Total Facilities</div>
+              </div>
+              <div class="stat-card" style="background: white; padding: 1rem; border-radius: 0.5rem; border: 1px solid #e2e8f0;">
+                <div style="font-size: 1.5rem; font-weight: bold; color: #10b981;">${portfolioAnalysis.states.length}</div>
+                <div style="color: #64748b; font-size: 0.875rem;">${portfolioAnalysis.states.length === 1 ? "State" : "States"}</div>
+              </div>
+            </div>
+            ${generateStateBreakdown(portfolioAnalysis.stateBreakdown)}
+          </div>
+        `;
+
+        // Insert after the calculator header
+        const calculatorHeader =
+          calculatorPanel.querySelector(".calculator-header");
+        if (calculatorHeader) {
+          calculatorHeader.insertAdjacentHTML("afterend", portfolioHTML);
+        }
+      }
+
+      function generateStateBreakdown(stateBreakdown) {
+        const states = Object.entries(stateBreakdown);
+        if (states.length <= 1) return "";
+
+        const breakdownHTML = states
+          .map(
+            ([state, count]) => `
+          <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">
+            <span style="color: #475569;">${state}</span>
+            <span style="font-weight: 600; color: #1e293b;">${count} facilities</span>
+          </div>
+        `
+          )
+          .join("");
+
+        return `
+          <div style="margin-top: 1rem;">
+            <h4 style="margin: 0 0 0.5rem; color: #374151; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">
+              State Distribution
+            </h4>
+            <div style="background: white; border-radius: 0.5rem; padding: 0.5rem;">
+              ${breakdownHTML}
+            </div>
+          </div>
+        `;
+      }
+
+      function updateAcceptButtonForMultiCenter(portfolioAnalysis) {
+        if (!acceptButton) return;
+
+        // Update button text and style
+        acceptButton.innerHTML = `
+          <span>Continue to Portfolio Pricing</span>
+          <span class="btn-arrow">→</span>
+        `;
+
+        acceptButton.style.background =
+          "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)";
+
+        // Update click handler
+        acceptButton.onclick = function () {
+          const selectedRate = getCurrentRate();
+          localStorage.setItem(
+            "market_calculator_rate",
+            selectedRate.toString()
+          );
+          localStorage.setItem("market_education_completed", "true");
+          localStorage.setItem(
+            "selected_rate_strategy",
+            JSON.stringify({
+              percentage: selectedRate,
+              state: stateSelect.value,
+              county: countySelect.value,
+              timestamp: new Date().toISOString(),
+            })
+          );
+
+          // Pre-populate pricing-multi with smart defaults
+          prepareMultiCenterData(portfolioAnalysis, selectedRate);
+
+          window.location.href = "/providers/onboarding/pricing-multi";
+        };
+      }
+
+      function addEducationalContent() {
+        const calculatorSections = document.querySelectorAll(
+          ".calculator-section"
+        );
+        const lastSection = calculatorSections[calculatorSections.length - 1];
+
+        if (lastSection) {
+          const educationalHTML = `
+            <div class="educational-content" style="
+              background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+              border: 2px solid #f59e0b;
+              border-radius: 1rem;
+              padding: 1.5rem;
+              margin: 1rem 0;
+            ">
+              <h4 style="margin: 0 0 1rem; color: #92400e; display: flex; align-items: center; gap: 0.5rem;">
+                💡 Understanding Market Dynamics
+              </h4>
+              <p style="margin: 0 0 1rem; color: #78350f; line-height: 1.5;">
+                This calculator shows how reimbursement rates affect volume and revenue for a single location. 
+                <strong>Higher rates may reduce volume</strong> as USRad becomes less competitive in the market.
+              </p>
+              <div style="background: rgba(255,255,255,0.5); padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
+                <strong style="color: #92400e;">For your portfolio:</strong> You'll set optimized rates by state in the next step, 
+                considering market conditions and competitive positioning for each region.
+              </div>
+            </div>
+          `;
+
+          lastSection.insertAdjacentHTML("afterend", educationalHTML);
+        }
+      }
+
+      function prepareMultiCenterData(portfolioAnalysis, baselineRate) {
+        // Prepare smart defaults for the pricing-multi page
+        const smartDefaults = {
+          portfolioAnalysis: portfolioAnalysis,
+          baselineRate: baselineRate,
+          stateRates: generateSmartStateRates(portfolioAnalysis.states),
+          timestamp: Date.now(),
+        };
+
+        localStorage.setItem(
+          "smart_multi_defaults",
+          JSON.stringify(smartDefaults)
+        );
+        console.log(
+          "💡 Smart defaults prepared for pricing-multi:",
+          smartDefaults
+        );
+      }
+
+      function generateSmartStateRates(states) {
+        // Smart rate suggestions - default 100% baseline for all states
+        // Let companies adjust upward based on their specific market analysis
+        const stateRates = {};
+        states.forEach((state) => {
+          stateRates[state] = 100; // 100% baseline for all states
+        });
+
+        return stateRates;
+      }
+
+      function getCurrentRate() {
+        if (rateSlider) {
+          return parseFloat(rateSlider.value) || 100;
+        }
+
+        // Fallback: look for rate display
+        const rateDisplay = document.querySelector(
+          "[data-rate], .rate-display"
+        );
+        if (rateDisplay) {
+          const rateText = rateDisplay.textContent || "100";
+          return parseInt(rateText.replace(/[^\d]/g, "")) || 100;
+        }
+
+        return 100;
+      }
+
+      console.log("✅ Market Calculator initialized successfully");
+    }
+  });
 </script>
