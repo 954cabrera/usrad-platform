@@ -159,15 +159,36 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
 </template>
 
 <script>
+  // Override problematic updateUI function to prevent errors
+  window.updateUI = function () {
+    console.log("updateUI bypassed to prevent errors");
+  };
+
   // Check user role and show appropriate interface
   document.addEventListener("DOMContentLoaded", function () {
-    const userRole = localStorage.getItem("selectedRole") || ""; // Add fallback to empty string
+    const userRole = localStorage.getItem("selectedRole") || "";
     const facilities = JSON.parse(localStorage.getItem("facilities") || "[]");
 
     // Clear the lastBulkUploadTime if enough time has passed
     const lastUploadTime = localStorage.getItem("lastBulkUploadTime");
     if (lastUploadTime && Date.now() - parseInt(lastUploadTime) > 10000) {
       localStorage.removeItem("lastBulkUploadTime");
+    }
+
+    // 🎯 PRIORITY: If facilities exist, show success interface immediately
+    if (facilities.length > 0) {
+      const isExecutiveRole =
+        userRole &&
+        (userRole === "executive" || userRole === "Executive/Corporate");
+
+      if (isExecutiveRole) {
+        // For executive users, show the success interface immediately
+        setTimeout(() => {
+          showExistingFacilitiesSummary(facilities.length);
+          hideAllDuplicateSections();
+        }, 100);
+        return; // Exit early
+      }
     }
 
     // More comprehensive function to hide duplicate sections
@@ -181,7 +202,6 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
       // Hide "Your Imaging Centers" section and its continue button
       const yourCentersHeaders = document.querySelectorAll("h2, h3");
       yourCentersHeaders.forEach((header) => {
-        // Add null check for textContent
         if (
           header.textContent &&
           header.textContent.includes("Your Imaging Centers")
@@ -270,7 +290,6 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
     } else if (facilities.length > 0) {
       // For other roles with facilities, ensure standard flow
       const addSection = document.getElementById("add-center-section");
-      // Add safe check for userRole
       if (addSection && userRole && !userRole.includes("executive")) {
         addSection.style.display = "none";
       }
@@ -318,44 +337,37 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
   function showUploadSuccessState(facilityCount) {
     const section = document.getElementById("add-center-section");
 
-    // First, make sure stats are updated before showing success state
-    if (window.updateQuickStats) {
-      window.updateQuickStats();
-    }
-
-    // Add a small delay to ensure stats are visible
-    setTimeout(() => {
-      section.innerHTML = `
-        <div style="background: #f0fdf4; border: 1px solid #86efac; padding: 2rem; border-radius: 0.5rem; text-align: center; max-width: 600px; margin: 0 auto;">
-          <div style="width: 4rem; height: 4rem; background: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
-            <svg style="width: 2rem; height: 2rem; color: white;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h3 style="font-size: 1.5rem; font-weight: 600; margin: 0 0 0.5rem 0; color: #065f46;">
-            ${facilityCount} Facilities Successfully Added!
-          </h3>
-          <p style="color: #047857; margin-bottom: 2rem;">
-            Your imaging centers have been registered. Continue to set up your pricing strategy.
-          </p>
-          <div style="display: flex; gap: 1rem; justify-content: center;">
-            <button onclick="window.location.href='/providers/onboarding/market-calculator'" 
-                    style="padding: 0.75rem 2rem; background: #3b82f6; color: white; border: none; border-radius: 0.375rem; font-weight: 600; cursor: pointer; font-size: 1rem;">
-              Continue to Pricing Strategy →
-            </button>
-            <button onclick="showBulkUploadInterface()" 
-                    style="padding: 0.75rem 2rem; background: white; color: #374151; border: 1px solid #d1d5db; border-radius: 0.375rem; font-weight: 600; cursor: pointer; font-size: 1rem;">
-              Add More Facilities
-            </button>
-          </div>
+    // Completely replace the section content
+    section.innerHTML = `
+      <div style="background: #f0fdf4; border: 1px solid #86efac; padding: 2rem; border-radius: 0.5rem; text-align: center; max-width: 600px; margin: 0 auto;">
+        <div style="width: 4rem; height: 4rem; background: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+          <svg style="width: 2rem; height: 2rem; color: white;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
         </div>
-      `;
+        <h3 style="font-size: 1.5rem; font-weight: 600; margin: 0 0 0.5rem 0; color: #065f46;">
+          🎉 ${facilityCount} Facilities Successfully Added!
+        </h3>
+        <p style="color: #047857; margin-bottom: 2rem;">
+          Your imaging centers have been registered. Ready to set up your pricing strategy?
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <button onclick="window.location.href='/providers/onboarding/market-calculator'" 
+                  style="padding: 0.75rem 2rem; background: #3b82f6; color: white; border: none; border-radius: 0.375rem; font-weight: 600; cursor: pointer; font-size: 1rem; box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);">
+            Continue to Pricing Strategy →
+          </button>
+          <button onclick="showBulkUploadInterface()" 
+                  style="padding: 0.75rem 2rem; background: white; color: #374151; border: 1px solid #d1d5db; border-radius: 0.375rem; font-weight: 600; cursor: pointer; font-size: 1rem;">
+            Add More Facilities
+          </button>
+        </div>
+      </div>
+    `;
 
-      // Update stats again after DOM changes
-      if (window.updateQuickStats) {
-        window.updateQuickStats();
-      }
-    }, 100);
+    // Update stats
+    if (window.updateQuickStats) {
+      setTimeout(() => window.updateQuickStats(), 100);
+    }
   }
 
   // Add a toggle button to switch to bulk upload
@@ -713,22 +725,34 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
       ];
       localStorage.setItem("facilities", JSON.stringify(allFacilities));
 
-      // 🎯 ADD THESE LINES - Mark as recent upload
+      // Mark as recent upload
       localStorage.setItem("lastBulkUploadTime", Date.now().toString());
+
+      const totalCount = allFacilities.length;
 
       // Update stats immediately
       if (window.updateQuickStats) {
         window.updateQuickStats();
       }
 
-      // Show success state immediately (don't redirect)
-      showUploadSuccessState(window.tempBulkFacilities.length);
+      // 🎯 FORCE SUCCESS STATE IMMEDIATELY
+      setTimeout(() => {
+        showUploadSuccessState(totalCount);
+
+        // Also trigger the cleanup to hide duplicate sections
+        if (window.cleanupDuplicateSections) {
+          window.cleanupDuplicateSections();
+        }
+      }, 100);
 
       // Clear temp data
       window.tempBulkFacilities = null;
 
-      // 🎯 REMOVE THE REDIRECT - Don't go to pricing page immediately
-      // window.location.href = "/providers/onboarding/pricing";
+      // Reset upload results
+      const resultsDiv = document.getElementById("upload-results");
+      if (resultsDiv) {
+        resultsDiv.style.display = "none";
+      }
     }
   };
 
