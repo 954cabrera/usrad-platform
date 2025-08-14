@@ -713,11 +713,22 @@ import EquipmentDetails from "./form-sections/EquipmentDetails.astro";
       ];
       localStorage.setItem("facilities", JSON.stringify(allFacilities));
 
-      // Show success and redirect
-      alert(
-        `Successfully imported ${window.tempBulkFacilities.length} facilities!`
-      );
-      window.location.href = "/providers/onboarding/pricing";
+      // 🎯 ADD THESE LINES - Mark as recent upload
+      localStorage.setItem("lastBulkUploadTime", Date.now().toString());
+
+      // Update stats immediately
+      if (window.updateQuickStats) {
+        window.updateQuickStats();
+      }
+
+      // Show success state immediately (don't redirect)
+      showUploadSuccessState(window.tempBulkFacilities.length);
+
+      // Clear temp data
+      window.tempBulkFacilities = null;
+
+      // 🎯 REMOVE THE REDIRECT - Don't go to pricing page immediately
+      // window.location.href = "/providers/onboarding/pricing";
     }
   };
 
