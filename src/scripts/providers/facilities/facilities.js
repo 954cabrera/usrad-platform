@@ -26,7 +26,7 @@ const prepopulate = new PrepopulateManager();
 window.editCenter = (index) => centersManager.editCenter(index);
 window.deleteCenter = (index) => centersManager.deleteCenter(index);
 
-// Add the continueToNext function for pricing configurator navigation
+// Add the continueToNext function for market calculator navigation
 window.continueToNext = function() {
   // Get facilities from storage
   const facilities = JSON.parse(localStorage.getItem('facilities') || '[]');
@@ -42,9 +42,9 @@ window.continueToNext = function() {
   
   // Log the transition for debugging
   console.log(`✅ Facilities completed: ${facilities.length} centers added`);
-  console.log('🚀 Navigating to Pricing Configurator...');
+  console.log('🚀 Navigating to Market Calculator...');
   
-  // Navigate to pricing configurator
+  // Navigate to market calculator
   window.location.href = '/providers/onboarding/market-calculator';
 };
 
