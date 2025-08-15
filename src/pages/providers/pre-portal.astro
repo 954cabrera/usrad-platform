@@ -4,6 +4,14 @@ import WelcomeHeader from "../../components/Providers/Portal/WelcomeHeader.astro
 import SetupProgress from "../../components/Providers/Portal/SetupProgress.astro";
 import OrganizationForm from "../../components/Providers/Portal/OrganizationForm.astro";
 import "../../styles/providers/portal.css";
+
+// Add authentication check here
+const isAuthenticated =
+  Astro.cookies.get("sb-access-token") ||
+  Astro.cookies.get("supabase-auth-token");
+if (!isAuthenticated && Astro.request.method === "GET") {
+  return Astro.redirect("/providers/login");
+}
 ---
 
 <ProviderLayout title="Provider Portal - Complete Your Setup">
@@ -66,7 +74,9 @@ import "../../styles/providers/portal.css";
   });
 </script>
 
-<script type="module" src="/src/scripts/providers/portal/portal.js"></script>
+<script type="module">
+  import "/src/scripts/providers/portal/portal.js";
+</script>
 
 <script type="module" is:inline>
   if (typeof window !== "undefined") {
