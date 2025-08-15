@@ -272,18 +272,33 @@ export const prerender = false;
     }
   </style>
 
+  <!-- Pass environment variables to the script FIRST -->
+  <script
+    define:vars={{
+      SUPABASE_URL: import.meta.env.PUBLIC_SUPABASE_URL,
+      SUPABASE_KEY: import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+    }}
+  >
+    window.PUBLIC_SUPABASE_URL = SUPABASE_URL;
+    window.PUBLIC_SUPABASE_ANON_KEY = SUPABASE_KEY;
+  </script>
+
+  <!-- Then your module script (ONLY ONE) -->
   <script type="module">
     import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-    // Initialize Supabase
-    const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-    const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+    // Initialize Supabase using window variables
+    const supabaseUrl = window.PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = window.PUBLIC_SUPABASE_ANON_KEY;
 
     if (!supabaseUrl || !supabaseAnonKey) {
       console.error("Missing Supabase configuration");
       const errorMessage = document.getElementById("error-message");
-      errorMessage.textContent = "Configuration error. Please contact support.";
-      errorMessage.classList.add("show");
+      if (errorMessage) {
+        errorMessage.textContent =
+          "Configuration error. Please contact support.";
+        errorMessage.classList.add("show");
+      }
     } else {
       const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
@@ -305,8 +320,8 @@ export const prerender = false;
       const errorMessage = document.getElementById("error-message");
       const successMessage = document.getElementById("success-message");
       const loginBtn = document.getElementById("loginBtn");
-      const btnText = loginBtn.querySelector(".btn-text");
-      const btnLoading = loginBtn.querySelector(".btn-loading");
+      const btnText = loginBtn?.querySelector(".btn-text");
+      const btnLoading = loginBtn?.querySelector(".btn-loading");
 
       form?.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -317,8 +332,8 @@ export const prerender = false;
 
         // Show loading state
         loginBtn.disabled = true;
-        btnText.style.display = "none";
-        btnLoading.style.display = "inline-flex";
+        if (btnText) btnText.style.display = "none";
+        if (btnLoading) btnLoading.style.display = "inline-flex";
 
         const formData = new FormData(form);
         const email = formData.get("email")?.toString().trim();
@@ -340,7 +355,7 @@ export const prerender = false;
           successMessage.textContent = "Login successful! Redirecting...";
           successMessage.classList.add("show");
 
-          // Redirect to pre-portal (not portal, since portal might not exist)
+          // Redirect to pre-portal
           setTimeout(() => {
             window.location.href = "/providers/pre-portal";
           }, 1000);
@@ -363,21 +378,10 @@ export const prerender = false;
         } finally {
           // Reset button state
           loginBtn.disabled = false;
-          btnText.style.display = "inline";
-          btnLoading.style.display = "none";
+          if (btnText) btnText.style.display = "inline";
+          if (btnLoading) btnLoading.style.display = "none";
         }
       });
     }
-  </script>
-
-  <!-- Pass environment variables to the script -->
-  <script
-    define:vars={{
-      SUPABASE_URL: import.meta.env.PUBLIC_SUPABASE_URL,
-      SUPABASE_KEY: import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
-    }}
-  >
-    window.PUBLIC_SUPABASE_URL = SUPABASE_URL;
-    window.PUBLIC_SUPABASE_ANON_KEY = SUPABASE_KEY;
   </script>
 </ProviderLayout>
