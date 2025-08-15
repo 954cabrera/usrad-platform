@@ -5,13 +5,9 @@ import SetupProgress from "../../components/Providers/Portal/SetupProgress.astro
 import OrganizationForm from "../../components/Providers/Portal/OrganizationForm.astro";
 import "../../styles/providers/portal.css";
 
-// Add authentication check here
-const isAuthenticated =
-  Astro.cookies.get("sb-access-token") ||
-  Astro.cookies.get("supabase-auth-token");
-if (!isAuthenticated && Astro.request.method === "GET") {
-  return Astro.redirect("/providers/login");
-}
+// Remove the server-side auth check - let client-side handle it
+// This prevents redirect loops
+export const prerender = false;
 ---
 
 <ProviderLayout title="Provider Portal - Complete Your Setup">
@@ -23,34 +19,31 @@ if (!isAuthenticated && Astro.request.method === "GET") {
 </ProviderLayout>
 
 <script
-  type="module"
   define:vars={{
     SUPABASE_URL: import.meta.env.PUBLIC_SUPABASE_URL,
     SUPABASE_KEY: import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
   }}
 >
-  // Test Supabase is working
+  // Make env vars available globally
+  window.PUBLIC_SUPABASE_URL = SUPABASE_URL;
+  window.PUBLIC_SUPABASE_ANON_KEY = SUPABASE_KEY;
+</script>
+
+<script type="module">
+  // Test Supabase connection and check authentication
   document.addEventListener("DOMContentLoaded", async () => {
     console.log("🧪 Testing Supabase connection...");
 
-    // Use the variables passed from Astro
-    const url = SUPABASE_URL;
-    const key = SUPABASE_KEY;
+    const url = window.PUBLIC_SUPABASE_URL;
+    const key = window.PUBLIC_SUPABASE_ANON_KEY;
 
     console.log("URL exists:", !!url);
     console.log("Key exists:", !!key);
 
     if (!url || !key) {
       console.error("❌ Missing Supabase credentials in .env");
-      // Try setting them on window for other scripts
-      window.PUBLIC_SUPABASE_URL = url;
-      window.PUBLIC_SUPABASE_ANON_KEY = key;
       return;
     }
-
-    // Make them available globally
-    window.PUBLIC_SUPABASE_URL = url;
-    window.PUBLIC_SUPABASE_ANON_KEY = key;
 
     try {
       const { createClient } = await import(
@@ -58,6 +51,21 @@ if (!isAuthenticated && Astro.request.method === "GET") {
       );
       const supabase = createClient(url, key);
 
+      // Check if user is authenticated
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        console.log("⚠️ No active session, redirecting to login...");
+        window.location.href = "/providers/login";
+        return;
+      }
+
+      console.log("✅ User authenticated:", session.user.email);
+
+      // Test database connection
       const { data, error } = await supabase
         .from("corporate_entities")
         .select("id")
@@ -84,9 +92,9 @@ if (!isAuthenticated && Astro.request.method === "GET") {
 
     // Enhanced routing based on role selection
     const ROUTES = {
-      "center-admin": "/providers/onboarding/facilities", // Changed: go to facilities first
-      "multi-center": "/providers/onboarding/facilities", // Changed: go to facilities first
-      executive: "/providers/onboarding/facilities", // Changed: go to facilities first
+      "center-admin": "/providers/onboarding/facilities",
+      "multi-center": "/providers/onboarding/facilities",
+      executive: "/providers/onboarding/facilities",
     };
 
     // Handle the "Save & Continue to Add Centers" button routing
@@ -193,7 +201,7 @@ if (!isAuthenticated && Astro.request.method === "GET") {
             width: 48px; height: 48px; background: #059669; color: white; 
             border-radius: 50%; display: flex; align-items: center; 
             justify-content: center; font-size: 1.5rem; font-weight: 700;
-          ">✓</div>
+          ">✔</div>
           <div>
             <h3 id="confirmation-title" style="color: #065f46; margin: 0; font-size: 1.25rem; font-weight: 700;">Role Selected</h3>
             <p id="confirmation-message" style="color: #16a34a; margin: 0; font-weight: 600;">We'll customize your experience for this role type.</p>
@@ -344,7 +352,7 @@ if (!isAuthenticated && Astro.request.method === "GET") {
       };
 
       console.log("✅ Role selection override complete");
-    }, 500); // Wait 500ms for other scripts to load
+    }, 500);
   });
 </script>
 
