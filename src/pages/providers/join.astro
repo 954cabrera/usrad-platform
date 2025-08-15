@@ -1188,9 +1188,6 @@ import "../../styles/providers/signup-mobile.css";
           if (data.user) {
             console.log("✅ User created:", data.user.id);
 
-            // Don't try to seed corporate entity here - wait until after email verification
-            // This speeds up the signup process significantly
-
             window.formSubmitted = true;
             clearProgress();
 
@@ -1199,15 +1196,16 @@ import "../../styles/providers/signup-mobile.css";
             sessionStorage.setItem("signup_org", organizationName);
             sessionStorage.setItem("signup_phone", phone);
 
-            // In handleSignup function, after successful signup:
-            if (data.user) {
-              // Store in sessionStorage for pre-portal to use
-              sessionStorage.setItem("signup_data", JSON.stringify({
+            // Store in sessionStorage for pre-portal to use
+            sessionStorage.setItem(
+              "signup_data",
+              JSON.stringify({
                 organizationName: organizationName,
                 email: email,
                 phone: phone,
-                timestamp: Date.now()
-              }));
+                timestamp: Date.now(),
+              })
+            );
 
             // Show success message immediately
             showSuccess(
@@ -1218,7 +1216,7 @@ import "../../styles/providers/signup-mobile.css";
             setTimeout(() => {
               window.location.href = `/providers/check-email?email=${encodeURIComponent(email)}`;
             }, 2000);
-          }
+          } // <-- This closing brace was missing!
         } catch (error) {
           console.error("Signup error:", error);
           showError(
