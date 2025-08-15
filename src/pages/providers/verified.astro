@@ -755,6 +755,18 @@ export const prerender = false;
     </div>
 
     <!-- Supabase Integration Script -->
+    <!-- Add this BEFORE the module script -->
+    <script
+      define:vars={{
+        SUPABASE_URL: import.meta.env.PUBLIC_SUPABASE_URL,
+        SUPABASE_KEY: import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+      }}
+    >
+      // Make env vars available globally
+      window.PUBLIC_SUPABASE_URL = SUPABASE_URL;
+      window.PUBLIC_SUPABASE_ANON_KEY = SUPABASE_KEY;
+    </script>
+
     <script type="module">
       import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
