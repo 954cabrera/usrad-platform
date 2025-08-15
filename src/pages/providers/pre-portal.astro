@@ -14,6 +14,58 @@ import "../../styles/providers/portal.css";
   </div>
 </ProviderLayout>
 
+<script
+  type="module"
+  define:vars={{
+    SUPABASE_URL: import.meta.env.PUBLIC_SUPABASE_URL,
+    SUPABASE_KEY: import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+  }}
+>
+  // Test Supabase is working
+  document.addEventListener("DOMContentLoaded", async () => {
+    console.log("🧪 Testing Supabase connection...");
+
+    // Use the variables passed from Astro
+    const url = SUPABASE_URL;
+    const key = SUPABASE_KEY;
+
+    console.log("URL exists:", !!url);
+    console.log("Key exists:", !!key);
+
+    if (!url || !key) {
+      console.error("❌ Missing Supabase credentials in .env");
+      // Try setting them on window for other scripts
+      window.PUBLIC_SUPABASE_URL = url;
+      window.PUBLIC_SUPABASE_ANON_KEY = key;
+      return;
+    }
+
+    // Make them available globally
+    window.PUBLIC_SUPABASE_URL = url;
+    window.PUBLIC_SUPABASE_ANON_KEY = key;
+
+    try {
+      const { createClient } = await import(
+        "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+      );
+      const supabase = createClient(url, key);
+
+      const { data, error } = await supabase
+        .from("corporate_entities")
+        .select("id")
+        .limit(1);
+
+      if (error) {
+        console.error("❌ Supabase connection failed:", error);
+      } else {
+        console.log("✅ Supabase connected successfully!");
+      }
+    } catch (err) {
+      console.error("❌ Failed to load Supabase:", err);
+    }
+  });
+</script>
+
 <script type="module" src="/src/scripts/providers/portal/portal.js"></script>
 
 <script type="module" is:inline>
