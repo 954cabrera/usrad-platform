@@ -28,41 +28,18 @@ import "../../../styles/providers/confirmation.css";
   </div>
 
   <ExhibitBModal />
+
   
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // More robust timing with multiple attempts
-      fixOrganizationData();
-      setTimeout(fixOrganizationData, 500);
-      setTimeout(fixOrganizationData, 1000);
-      setTimeout(fixOrganizationData, 2000);
-    });
-
-    function fixOrganizationData() {
-      // Exit early if already fixed
-      const orgNameEl = document.getElementById("org-name");
-      if (
-        orgNameEl &&
-        orgNameEl.textContent !== "Loading..." &&
-        !orgNameEl.textContent.includes("centers to be included")
-      ) {
-        return; // Already fixed
-      }
-
-      try {
-        const orgData = JSON.parse(
-          localStorage.getItem("provider_organization") || "null"
-        );
-
-        if (orgData && orgNameEl) {
-          orgNameEl.textContent = orgData.legalName || "N/A";
-          // ... other updates
-          console.log("✅ Organization data loaded");
-        }
-      } catch (error) {
-        console.warn("Organization data load attempt failed:", error);
-      }
-    }
+    import { CONFIRMATION_CONFIG } from "../../../scripts/providers/confirmation/confirmation.config.js";
+    import {
+      OrganizationLoader,
+      CentersLoader,
+      PricingLoader,
+      ChecklistManager,
+      NavigationManager,
+      ExhibitBManager,
+    } from "../../../scripts/providers/confirmation/modules/index.js";
 
     class EnhancedConfirmationPage {
       constructor() {
