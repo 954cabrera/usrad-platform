@@ -702,10 +702,10 @@ import "../../styles/providers/signup-mobile.css";
             data: { session },
           } = await supabase.auth.getSession();
           if (session) {
-            showSuccess("You are already logged in. Redirecting to portal...");
+            showSuccess("You are already logged in. Redirecting...");
             setTimeout(() => {
-              window.location.href = "/providers/portal";
-            }, 1500);
+              window.location.href = "/providers/pre-portal"; // ← CORRECT!
+            }, 2000);
           }
         } catch (error) {
           console.error("Failed to load Supabase:", error);
