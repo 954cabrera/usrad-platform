@@ -1,15 +1,7 @@
 ---
 // src/pages/providers/login.astro
 import ProviderLayout from "../../layouts/ProviderLayout.astro";
-import { supabase } from "../../lib/supabase";
-
-// If already logged in, redirect to portal
-const {
-  data: { user },
-} = await supabase.auth.getUser();
-if (user) {
-  return Astro.redirect("/providers/portal/");
-}
+export const prerender = false;
 ---
 
 <ProviderLayout title="Provider Login">
@@ -43,18 +35,32 @@ if (user) {
           />
         </div>
 
-        <button type="submit" class="login-btn"> Sign In </button>
+        <button type="submit" class="login-btn" id="loginBtn">
+          <span class="btn-text">Sign In</span>
+          <span class="btn-loading" style="display: none;">
+            <svg class="spinner" width="20" height="20" viewBox="0 0 24 24">
+              <circle
+                class="path"
+                cx="12"
+                cy="12"
+                r="10"
+                fill="none"
+                stroke-width="3"></circle>
+            </svg>
+          </span>
+        </button>
 
         <div class="login-footer">
           <p>
-            Don't have an account? <a href="/providers/join"
-              >Join our network</a>
+            Don't have an account? <a href="/providers/join">Join our network</a
+            >
           </p>
           <a href="/providers/forgot-password">Forgot password?</a>
         </div>
       </form>
 
       <div id="error-message" class="error-message"></div>
+      <div id="success-message" class="success-message"></div>
     </div>
   </div>
 
@@ -65,7 +71,7 @@ if (user) {
       align-items: center;
       justify-content: center;
       padding: 2rem;
-      background: #0a0f1b;
+      background: linear-gradient(135deg, #0a0f1b 0%, #1a1f2e 100%);
     }
 
     .login-card {
@@ -76,6 +82,7 @@ if (user) {
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 16px;
       padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
 
     .login-header {
@@ -103,6 +110,7 @@ if (user) {
       color: white;
       font-weight: 500;
       margin-bottom: 0.5rem;
+      font-size: 0.875rem;
     }
 
     .form-group input {
@@ -116,15 +124,20 @@ if (user) {
       transition: all 0.3s;
     }
 
+    .form-group input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
     .form-group input:focus {
       outline: none;
       background: rgba(255, 255, 255, 0.08);
       border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
 
     .login-btn {
       width: 100%;
-      padding: 0.75rem;
+      padding: 0.875rem;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       border: none;
@@ -133,11 +146,52 @@ if (user) {
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
-    .login-btn:hover {
+    .login-btn:hover:not(:disabled) {
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .spinner {
+      animation: rotate 1s linear infinite;
+    }
+
+    .spinner .path {
+      stroke: white;
+      stroke-linecap: round;
+      animation: dash 1.5s ease-in-out infinite;
+    }
+
+    @keyframes rotate {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes dash {
+      0% {
+        stroke-dasharray: 1, 150;
+        stroke-dashoffset: 0;
+      }
+      50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35;
+      }
+      100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124;
+      }
     }
 
     .login-footer {
@@ -154,10 +208,12 @@ if (user) {
       color: #667eea;
       text-decoration: none;
       transition: color 0.3s;
+      font-weight: 500;
     }
 
     .login-footer a:hover {
       color: #764ba2;
+      text-decoration: underline;
     }
 
     .error-message {
@@ -169,40 +225,159 @@ if (user) {
       color: #ef4444;
       text-align: center;
       display: none;
+      font-size: 0.875rem;
     }
 
     .error-message.show {
       display: block;
+      animation: slideIn 0.3s ease;
+    }
+
+    .success-message {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 8px;
+      color: #10b981;
+      text-align: center;
+      display: none;
+      font-size: 0.875rem;
+    }
+
+    .success-message.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .login-card {
+        padding: 1.5rem;
+      }
+
+      .login-header h1 {
+        font-size: 1.75rem;
+      }
     }
   </style>
 
-  <script>
-    import { supabase } from "../../lib/supabase";
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-    const form = document.getElementById("loginForm");
-    const errorMessage = document.getElementById("error-message");
+    // Initialize Supabase
+    const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
-    form?.addEventListener("submit", async (e) => {
-      e.preventDefault();
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.error("Missing Supabase configuration");
+      const errorMessage = document.getElementById("error-message");
+      errorMessage.textContent = "Configuration error. Please contact support.";
+      errorMessage.classList.add("show");
+    } else {
+      const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-      const formData = new FormData(form);
-      const email = formData.get("email");
-      const password = formData.get("password");
+      // Check if already logged in
+      const checkSession = async () => {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (session) {
+          console.log("Already logged in, redirecting...");
+          window.location.href = "/providers/pre-portal";
+        }
+      };
 
-      try {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
+      checkSession();
 
-        if (error) throw error;
+      // Handle form submission
+      const form = document.getElementById("loginForm");
+      const errorMessage = document.getElementById("error-message");
+      const successMessage = document.getElementById("success-message");
+      const loginBtn = document.getElementById("loginBtn");
+      const btnText = loginBtn.querySelector(".btn-text");
+      const btnLoading = loginBtn.querySelector(".btn-loading");
 
-        // Redirect to portal
-        window.location.href = "/providers/portal/";
-      } catch (error) {
-        errorMessage.textContent = error.message;
-        errorMessage.classList.add("show");
-      }
-    });
+      form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Clear messages
+        errorMessage.classList.remove("show");
+        successMessage.classList.remove("show");
+
+        // Show loading state
+        loginBtn.disabled = true;
+        btnText.style.display = "none";
+        btnLoading.style.display = "inline-flex";
+
+        const formData = new FormData(form);
+        const email = formData.get("email")?.toString().trim();
+        const password = formData.get("password")?.toString();
+
+        try {
+          console.log("Attempting login for:", email);
+
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password,
+          });
+
+          if (error) throw error;
+
+          console.log("Login successful!", data.user.email);
+
+          // Show success message
+          successMessage.textContent = "Login successful! Redirecting...";
+          successMessage.classList.add("show");
+
+          // Redirect to pre-portal (not portal, since portal might not exist)
+          setTimeout(() => {
+            window.location.href = "/providers/pre-portal";
+          }, 1000);
+        } catch (error) {
+          console.error("Login error:", error);
+
+          // Show user-friendly error messages
+          if (error.message.includes("Invalid login credentials")) {
+            errorMessage.textContent =
+              "Invalid email or password. Please try again.";
+          } else if (error.message.includes("Email not confirmed")) {
+            errorMessage.textContent =
+              "Please verify your email before logging in.";
+          } else {
+            errorMessage.textContent =
+              error.message || "Login failed. Please try again.";
+          }
+
+          errorMessage.classList.add("show");
+        } finally {
+          // Reset button state
+          loginBtn.disabled = false;
+          btnText.style.display = "inline";
+          btnLoading.style.display = "none";
+        }
+      });
+    }
+  </script>
+
+  <!-- Pass environment variables to the script -->
+  <script
+    define:vars={{
+      SUPABASE_URL: import.meta.env.PUBLIC_SUPABASE_URL,
+      SUPABASE_KEY: import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+    }}
+  >
+    window.PUBLIC_SUPABASE_URL = SUPABASE_URL;
+    window.PUBLIC_SUPABASE_ANON_KEY = SUPABASE_KEY;
   </script>
 </ProviderLayout>
