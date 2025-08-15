@@ -30,64 +30,91 @@ import "../../../styles/providers/confirmation.css";
   <ExhibitBModal />
 
   <script>
-    /************* PROD-SAFE CONFIRMATION SCRIPT (FINAL) *************/
+    /************* PROD-SAFE CONFIRMATION SCRIPT (FINAL + SUPABASE FALLBACK) *************/
+
+    // --- Public env (Astro replaces these at build time) ---
+    const SUPABASE_URL = import.meta.env.PUBLIC_SUPABASE_URL;
+    const SUPABASE_ANON = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
     // --- Helpers ---
-    const getJSON = (key, fallback = null) => {
+    const getJSON = (key, fb = null, store = localStorage) => {
       try {
-        const raw = localStorage.getItem(key);
-        return raw ? JSON.parse(raw) : fallback;
+        const raw = store.getItem(key);
+        return raw ? JSON.parse(raw) : fb;
       } catch {
-        return fallback;
+        return fb;
       }
     };
+    const setJSON = (key, obj, store = localStorage) => {
+      try {
+        store.setItem(key, JSON.stringify(obj));
+      } catch {}
+    };
 
-    // --- Organization Data Resolver ---
-    function getOrgData() {
-      const a = getJSON("provider_organization", {}) || {};
-      const b = getJSON("organization_form_data", {}) || {};
-      const c = getJSON("usrad_org", {}) || {};
+    // --- Resolve org data from multiple sources (local → session → enhanced_psa_data) ---
+    function resolveOrgFromStorage() {
+      // LocalStorage first
+      let a = getJSON("provider_organization", {}) || {};
+      let b = getJSON("organization_form_data", {}) || {};
+      let c = getJSON("usrad_org", {}) || {};
+      // SessionStorage fallbacks
+      let sa = getJSON("provider_organization", {}, sessionStorage) || {};
+      let sb = getJSON("organization_form_data", {}, sessionStorage) || {};
+      // PSA payload fallback (could have been prepared earlier)
+      let psa = getJSON("enhanced_psa_data", {}) || {};
 
       const legalName =
-        a.legalName || b.organization_name || b.name || c.legalName || "";
+        a.legalName ||
+        b.organization_name ||
+        b.name ||
+        c.legalName ||
+        sa.legalName ||
+        sb.organization_name ||
+        sb.name ||
+        psa.provider_name ||
+        "";
+
       const contactName =
         (a.signer && a.signer.fullName) ||
         b.primary_contact_name ||
         c.primary_contact_name ||
+        sb.primary_contact_name ||
+        psa.primary_contact_name ||
         "";
+
       const contactEmail =
         (a.signer && a.signer.email) ||
         b.primary_contact_email ||
         b.email ||
         c.primary_contact_email ||
+        sb.primary_contact_email ||
+        sb.email ||
+        psa.primary_contact_email ||
+        psa.provider_email ||
         "";
+
       const contactPhone =
         (a.signer && a.signer.phone) ||
         b.primary_contact_phone ||
         b.phone ||
         c.primary_contact_phone ||
+        sb.primary_contact_phone ||
+        sb.phone ||
+        psa.primary_contact_phone ||
+        psa.provider_phone ||
         "";
 
       return { legalName, contactName, contactEmail, contactPhone };
     }
 
-    // --- Organization Info Fill (targets exact IDs in OrganizationReview.astro) ---
+    // --- Fill exact IDs present in OrganizationReview.astro ---
     function fillOrganizationInfo(data) {
-      const container = document.getElementById("organization-info");
-      if (!container) {
-        console.warn(
-          "Organization info container (#organization-info) not found"
-        );
-        return;
-      }
-
       const map = {
         "org-name": data.legalName,
         "org-contact": data.contactName,
         "org-email": data.contactEmail,
         "org-phone": data.contactPhone,
       };
-
       let updated = 0;
       for (const [id, value] of Object.entries(map)) {
         const el = document.getElementById(id);
@@ -97,9 +124,117 @@ import "../../../styles/providers/confirmation.css";
         }
       }
       console.log(`✅ Organization fields updated: ${updated}`, data);
+      return updated;
     }
 
-    // --- Minimal globals to satisfy existing onclick handlers ---
+    // --- Dynamically load Supabase if needed and fetch org from DB ---
+    async function ensureSupabaseClient() {
+      if (window.supabase && window.supabase.createClient)
+        return window.supabase;
+      if (!SUPABASE_URL || !SUPABASE_ANON) return null;
+
+      // Load supabase-js v2 from CDN (no bundler imports)
+      await new Promise((res, rej) => {
+        const s = document.createElement("script");
+        s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+        s.async = true;
+        s.onload = () => res();
+        s.onerror = () => rej(new Error("Failed to load supabase-js"));
+        document.head.appendChild(s);
+      });
+      return window.supabase || null;
+    }
+
+    async function fetchOrgFromSupabase() {
+      try {
+        const supa = await ensureSupabaseClient();
+        if (!supa) return null;
+
+        const client = supa.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+        // 1) get current user
+        const { data: authData } = await client.auth.getUser();
+        const user = authData?.user;
+        if (!user) return null;
+
+        // We’ll try a few likely places/columns to be robust against schema drift.
+
+        // 2) Try user_profiles for org info
+        // Expected columns (any subset): organization_name, full_name, email, phone
+        let org = null;
+
+        const tryUserProfiles = async () => {
+          const { data, error } = await client
+            .from("user_profiles")
+            .select("organization_name, full_name, email, phone")
+            .eq("user_id", user.id)
+            .limit(1)
+            .single();
+          if (!error && data)
+            return {
+              legalName: data.organization_name || "",
+              contactName: data.full_name || "",
+              contactEmail: data.email || "",
+              contactPhone: data.phone || "",
+            };
+          return null;
+        };
+
+        // 3) Try corporate_entities for legal name + primary contact fields
+        // Expected columns: legal_name, primary_contact_name, primary_contact_email, primary_contact_phone, owner_user_id
+        const tryCorporateEntities = async () => {
+          const { data, error } = await client
+            .from("corporate_entities")
+            .select(
+              "legal_name, primary_contact_name, primary_contact_email, primary_contact_phone, owner_user_id"
+            )
+            .or(`owner_user_id.eq.${user.id},created_by.eq.${user.id}`)
+            .order("created_at", { ascending: false })
+            .limit(1)
+            .maybeSingle();
+          if (!error && data)
+            return {
+              legalName: data.legal_name || "",
+              contactName: data.primary_contact_name || "",
+              contactEmail: data.primary_contact_email || "",
+              contactPhone: data.primary_contact_phone || "",
+            };
+          return null;
+        };
+
+        // Try profiles first; if empty, try entities
+        org = await tryUserProfiles();
+        if (
+          !org ||
+          !(
+            org.legalName ||
+            org.contactName ||
+            org.contactEmail ||
+            org.contactPhone
+          )
+        ) {
+          org = await tryCorporateEntities();
+        }
+        if (!org) return null;
+
+        // Cache for future loads
+        setJSON("provider_organization", {
+          legalName: org.legalName,
+          signer: {
+            fullName: org.contactName || "",
+            email: org.contactEmail || "",
+            phone: org.contactPhone || "",
+          },
+        });
+
+        return org;
+      } catch (e) {
+        console.warn("Supabase fallback failed:", e);
+        return null;
+      }
+    }
+
+    // --- Minimal globals (existing onclick handlers) ---
     window.editOrganization =
       window.editOrganization ||
       (() => (location.href = "/providers/onboarding/organization"));
@@ -126,7 +261,7 @@ import "../../../styles/providers/confirmation.css";
         if (m) m.style.display = "none";
       });
 
-    /************* DYNAMIC PRICING (unchanged core, no imports) *************/
+    /************* DYNAMIC PRICING (unchanged core) *************/
     class DynamicPricingManager {
       constructor() {
         this.multiSelection = {};
@@ -198,7 +333,6 @@ import "../../../styles/providers/confirmation.css";
         const descEl = sec.querySelector(
           ".rate-description, p, .description, .pricing-description"
         );
-
         let rateHTML = "",
           descText = "";
         if (strategy.type === "multi-state") {
@@ -218,7 +352,6 @@ import "../../../styles/providers/confirmation.css";
           rateHTML = `${strategy.rate}%`;
           descText = `${strategy.rate}% of Medicare Rates`;
         }
-
         if (rateEl) {
           if (strategy.type === "multi-state") rateEl.innerHTML = rateHTML;
           else rateEl.textContent = rateHTML;
@@ -234,7 +367,6 @@ import "../../../styles/providers/confirmation.css";
           '.projected-revenue, [class*="revenue"]'
         );
         const eff = strategy.averageRate || strategy.rate || 100;
-
         let level, range, annual;
         if (eff <= 100) {
           level = "High";
@@ -253,7 +385,6 @@ import "../../../styles/providers/confirmation.css";
           range = "4-8 patients/week";
           annual = 212000 * (eff / 100) * 6;
         }
-
         if (volEl)
           (volEl.querySelector(".volume-text") || volEl).textContent =
             `${level} (${range})`;
@@ -264,7 +395,6 @@ import "../../../styles/providers/confirmation.css";
               currency: "USD",
               maximumFractionDigits: 0,
             }).format(annual);
-
         console.log("✅ Volume/Revenue updated:", eff + "%");
       }
       prepareEnhancedPSAData(strategy) {
@@ -287,11 +417,11 @@ import "../../../styles/providers/confirmation.css";
           agreement_date: new Date().toISOString().split("T")[0],
           role_type: this.role,
           ...(strategy.type === "multi-state" && {
-            state_breakdown: JSON.stringify(strategy.stateRates),
+            state_breakdown: JSON.stringify(this.stateRates),
             multi_state_structure: true,
           }),
         };
-        localStorage.setItem("enhanced_psa_data", JSON.stringify(payload));
+        setJSON("enhanced_psa_data", payload);
         console.log("✅ PSA payload ready");
       }
       generateFacilityBreakdown(facilities) {
@@ -338,11 +468,35 @@ Total Authorized Locations: ${total}`;
     }
 
     // --- Bootstrap ---
-    document.addEventListener("DOMContentLoaded", () => {
-      const data = getOrgData();
-      console.log("Org data resolved from localStorage:", data);
-      fillOrganizationInfo(data); // <- direct to #organization-info + child IDs
-      new DynamicPricingManager().init(); // keep pricing working
+    document.addEventListener("DOMContentLoaded", async () => {
+      // 1) Try any stored data first
+      const resolved = resolveOrgFromStorage();
+      console.log("Org data resolved from storage:", resolved);
+      let updated = fillOrganizationInfo(resolved);
+
+      // 2) If still empty, fetch from Supabase, then cache+fill
+      if (updated === 0) {
+        const fromDb = await fetchOrgFromSupabase();
+        if (fromDb) {
+          // Cache in the canonical shape used across the app
+          setJSON("provider_organization", {
+            legalName: fromDb.legalName || "",
+            signer: {
+              fullName: fromDb.contactName || "",
+              email: fromDb.contactEmail || "",
+              phone: fromDb.contactPhone || "",
+            },
+          });
+          updated = fillOrganizationInfo(fromDb);
+        } else {
+          console.warn(
+            "No organization data available in storage or Supabase."
+          );
+        }
+      }
+
+      // 3) Pricing logic
+      new DynamicPricingManager().init();
     });
   </script>
 
