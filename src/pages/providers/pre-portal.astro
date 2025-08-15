@@ -83,7 +83,481 @@ export const prerender = false;
 </script>
 
 <script type="module">
-  import "/src/scripts/providers/portal/portal.js";
+  // Portal.js content inlined directly
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+  console.log("🚀 Portal initialization starting...");
+
+  // Initialize when DOM is ready
+  async function initialize() {
+    // Wait a bit for window variables to be set
+    setTimeout(async () => {
+      try {
+        console.log("🎬 Starting portal initialization...");
+
+        // Initialize Supabase
+        const supabaseUrl = window.PUBLIC_SUPABASE_URL;
+        const supabaseAnonKey = window.PUBLIC_SUPABASE_ANON_KEY;
+
+        if (!supabaseUrl || !supabaseAnonKey) {
+          console.warn(
+            "⚠️ Supabase credentials not available, running in offline mode"
+          );
+          initializeOfflineMode();
+          return;
+        }
+
+        const supabase = createClient(supabaseUrl, supabaseAnonKey);
+        console.log("✅ Supabase initialized");
+
+        // Load organization data and prefill form
+        await loadOrganizationData(supabase);
+
+        // Setup form submission
+        setupFormSubmission(supabase);
+
+        // Setup formatters
+        setupBasicFormatters();
+      } catch (error) {
+        console.error("❌ Portal initialization error:", error);
+        initializeOfflineMode();
+      }
+    }, 500);
+  }
+
+  // Load organization data from database
+  async function loadOrganizationData(supabase) {
+    try {
+      if (!supabase) {
+        console.log("📦 Loading from cache (Supabase unavailable)");
+        return loadFromCache();
+      }
+
+      const {
+        data: { user },
+        error: authError,
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        console.log("⚠️ No authenticated user");
+        return loadFromCache();
+      }
+
+      console.log("📥 Loading organization from database...");
+
+      // Try to load from database first
+      const { data: orgData, error: orgError } = await supabase
+        .from("corporate_entities")
+        .select("*")
+        .eq("user_id", user.id)
+        .single();
+
+      if (orgData && !orgError) {
+        console.log("✅ Organization loaded from database");
+        prefillOrganizationForm(orgData);
+        return;
+      }
+
+      // If no org data, check for signup data in metadata
+      if (user.user_metadata?.organization_name) {
+        console.log("📋 Found signup data in metadata, prefilling form...");
+        const signupData = {
+          legal_name: user.user_metadata.organization_name,
+          email: user.email,
+          phone: user.user_metadata.phone,
+          primary_contact_email: user.email,
+          primary_contact_phone: user.user_metadata.phone,
+          signer_name: user.user_metadata.full_name || "",
+        };
+        prefillOrganizationForm(signupData);
+
+        // Flash fields green to show they were prefilled
+        flashPrefilledFields();
+        return;
+      }
+
+      // Last resort: check localStorage
+      loadFromCache();
+    } catch (error) {
+      console.error("❌ Error loading organization:", error);
+      loadFromCache();
+    }
+  }
+
+  // Prefill the form with data
+  function prefillOrganizationForm(data) {
+    if (!data) return;
+
+    console.log("📝 Prefilling form with:", data);
+
+    // Helper to safely set field value
+    const setFieldValue = (name, value) => {
+      const field = document.querySelector(`[name="${name}"]`);
+      if (field && value) {
+        field.value = value;
+        // Trigger input event for any listeners
+        field.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+    };
+
+    // Map database fields to form fields
+    setFieldValue("legalName", data.legal_name || data.organization_name);
+    setFieldValue(
+      "organizationName",
+      data.legal_name || data.organization_name
+    );
+    setFieldValue("taxId", formatTaxId(data.tax_id));
+    setFieldValue("organizationType", data.organization_type);
+    setFieldValue("businessType", data.organization_type);
+
+    // Address fields
+    setFieldValue("address.street", data.corporate_address);
+    setFieldValue("street", data.corporate_address);
+    setFieldValue("address.city", data.corporate_city);
+    setFieldValue("city", data.corporate_city);
+    setFieldValue("address.state", data.corporate_state);
+    setFieldValue("state", data.corporate_state);
+    setFieldValue("address.zip", data.corporate_zip);
+    setFieldValue("zip", data.corporate_zip);
+
+    // Contact/Signer fields
+    setFieldValue("signer.fullName", data.signer_name);
+    setFieldValue("signerName", data.signer_name);
+    setFieldValue("signer.title", data.signer_title);
+    setFieldValue("signerTitle", data.signer_title);
+    setFieldValue("signer.email", data.email || data.primary_contact_email);
+    setFieldValue("signerEmail", data.email || data.primary_contact_email);
+    setFieldValue(
+      "signer.phone",
+      formatPhone(data.phone || data.primary_contact_phone)
+    );
+    setFieldValue(
+      "signerPhone",
+      formatPhone(data.phone || data.primary_contact_phone)
+    );
+    setFieldValue(
+      "phone",
+      formatPhone(data.phone || data.primary_contact_phone)
+    );
+    setFieldValue("email", data.email || data.primary_contact_email);
+
+    // Website
+    setFieldValue("website", data.website);
+
+    console.log("📝 Form prefilled with values");
+  }
+
+  // Flash prefilled fields green
+  function flashPrefilledFields() {
+    const filledFields = document.querySelectorAll(
+      'input[value]:not([value=""])'
+    );
+    filledFields.forEach((field) => {
+      field.style.transition = "border-color 0.3s, background-color 0.3s";
+      field.style.borderColor = "#10b981";
+      field.style.backgroundColor = "#f0fdf4";
+
+      setTimeout(() => {
+        field.style.borderColor = "";
+        field.style.backgroundColor = "";
+      }, 2000);
+    });
+  }
+
+  // Format phone for display
+  function formatPhone(phone) {
+    if (!phone) return "";
+    const cleaned = phone.replace(/\D/g, "");
+    if (cleaned.length === 10) {
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6)}`;
+    }
+    return phone;
+  }
+
+  // Format tax ID for display
+  function formatTaxId(taxId) {
+    if (!taxId) return "";
+    const cleaned = taxId.replace(/\D/g, "");
+    if (cleaned.length === 9) {
+      return `${cleaned.slice(0, 2)}-${cleaned.slice(2)}`;
+    }
+    return taxId;
+  }
+
+  // Load from cache
+  function loadFromCache() {
+    try {
+      const cached = localStorage.getItem("organization_form_data_v1");
+      if (cached) {
+        const data = JSON.parse(cached);
+        console.log("📦 Loaded from cache");
+        prefillOrganizationForm(data);
+      }
+    } catch (error) {
+      console.warn("Could not load from cache:", error);
+    }
+  }
+
+  // Setup form submission
+  function setupFormSubmission(supabase) {
+    const form =
+      document.getElementById("organization-form") ||
+      document.querySelector("form");
+    if (!form) {
+      console.warn("Form not found");
+      return;
+    }
+
+    const continueBtn =
+      document.querySelector('[data-action="continue"]') ||
+      document.querySelector(".continue-button") ||
+      document.querySelector('button[type="submit"]');
+
+    if (continueBtn) {
+      continueBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        await handleFormSubmit(supabase);
+      });
+    }
+
+    // Auto-save on field changes
+    let saveTimeout;
+    form.addEventListener("input", () => {
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(async () => {
+        await saveOrganization(supabase, collectFormData());
+        showSaveIndicator();
+      }, 2000);
+    });
+  }
+
+  // Handle form submit
+  async function handleFormSubmit(supabase) {
+    const formData = collectFormData();
+
+    // Show saving state
+    showSavingState();
+
+    // Save to database
+    const result = await saveOrganization(supabase, formData);
+
+    if (result.success) {
+      showSuccessState();
+      // Navigate to next step
+      setTimeout(() => {
+        window.location.href = "/providers/onboarding/facilities";
+      }, 500);
+    } else {
+      showErrorState();
+    }
+  }
+
+  // Collect form data
+  function collectFormData() {
+    const form =
+      document.getElementById("organization-form") ||
+      document.querySelector("form");
+    if (!form) return {};
+
+    const formData = new FormData(form);
+    const data = {};
+
+    for (let [key, value] of formData.entries()) {
+      data[key] = value;
+    }
+
+    return {
+      legalName: data.legalName || data.organizationName,
+      taxId: data.taxId,
+      organizationType: data.organizationType || data.businessType,
+      address: {
+        street: data.street || data["address.street"],
+        city: data.city || data["address.city"],
+        state: data.state || data["address.state"],
+        zip: data.zip || data["address.zip"],
+      },
+      signer: {
+        fullName: data.signerName || data["signer.fullName"],
+        title: data.signerTitle || data["signer.title"],
+        email: data.signerEmail || data["signer.email"] || data.email,
+        phone: data.signerPhone || data["signer.phone"] || data.phone,
+      },
+      website: data.website,
+    };
+  }
+
+  // Save organization to database
+  async function saveOrganization(supabase, formData) {
+    try {
+      if (!supabase) {
+        saveToCache(formData);
+        return { success: true, offline: true };
+      }
+
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) {
+        saveToCache(formData);
+        return { success: true, offline: true };
+      }
+
+      // Clean phone and tax ID
+      const cleanPhone = (phone) => (phone ? phone.replace(/\D/g, "") : "");
+      const cleanTaxId = (taxId) => (taxId ? taxId.replace(/\D/g, "") : "");
+
+      const dbRecord = {
+        user_id: user.id,
+        owner_user_id: user.id,
+        legal_name: formData.legalName,
+        tax_id: cleanTaxId(formData.taxId),
+        organization_type: formData.organizationType,
+        corporate_address: formData.address?.street,
+        corporate_city: formData.address?.city,
+        corporate_state: formData.address?.state,
+        corporate_zip: formData.address?.zip,
+        phone: cleanPhone(formData.signer?.phone),
+        email: formData.signer?.email,
+        signer_name: formData.signer?.fullName,
+        signer_title: formData.signer?.title,
+        website: formData.website,
+        is_active: true,
+        schema_version: 1,
+      };
+
+      const { data, error } = await supabase
+        .from("corporate_entities")
+        .upsert(dbRecord, {
+          onConflict: "user_id",
+          returning: "minimal",
+        });
+
+      if (error) throw error;
+
+      // Also save to cache
+      saveToCache(formData);
+
+      console.log("✅ Organization saved to database");
+      return { success: true };
+    } catch (error) {
+      console.error("Failed to save:", error);
+      saveToCache(formData);
+      return { success: false, error };
+    }
+  }
+
+  // Save to cache
+  function saveToCache(formData) {
+    try {
+      localStorage.setItem(
+        "organization_form_data_v1",
+        JSON.stringify(formData)
+      );
+      console.log("💾 Saved to cache");
+    } catch (error) {
+      console.warn("Could not save to cache:", error);
+    }
+  }
+
+  // Setup basic formatters
+  function setupBasicFormatters() {
+    // Phone formatters
+    document
+      .querySelectorAll('input[type="tel"], input[name*="phone"]')
+      .forEach((input) => {
+        input.addEventListener("input", (e) => {
+          let value = e.target.value.replace(/\D/g, "");
+          if (value.length > 10) value = value.slice(0, 10);
+          if (value.length >= 6) {
+            value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6)}`;
+          } else if (value.length >= 3) {
+            value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+          }
+          e.target.value = value;
+        });
+      });
+
+    // Tax ID formatter
+    document
+      .querySelectorAll('input[name*="taxId"], input[name*="tax"]')
+      .forEach((input) => {
+        input.addEventListener("input", (e) => {
+          let value = e.target.value.replace(/\D/g, "");
+          if (value.length > 9) value = value.slice(0, 9);
+          if (value.length >= 2) {
+            value = `${value.slice(0, 2)}-${value.slice(2)}`;
+          }
+          e.target.value = value;
+        });
+      });
+  }
+
+  // UI State functions
+  function showSavingState() {
+    const btn = document.querySelector(".continue-button");
+    if (btn) {
+      btn.textContent = "Saving...";
+      btn.disabled = true;
+    }
+  }
+
+  function showSuccessState() {
+    const btn = document.querySelector(".continue-button");
+    if (btn) {
+      btn.textContent = "✓ Saved";
+      btn.style.backgroundColor = "#10b981";
+    }
+  }
+
+  function showErrorState() {
+    const btn = document.querySelector(".continue-button");
+    if (btn) {
+      btn.textContent = "Error - Try Again";
+      btn.style.backgroundColor = "#ef4444";
+      btn.disabled = false;
+    }
+  }
+
+  function showSaveIndicator() {
+    let indicator = document.getElementById("save-indicator");
+    if (!indicator) {
+      indicator = document.createElement("div");
+      indicator.id = "save-indicator";
+      indicator.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #10b981;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        z-index: 1000;
+        animation: fadeIn 0.3s;
+      `;
+      document.body.appendChild(indicator);
+    }
+
+    indicator.textContent = "✓ Saved";
+    indicator.style.display = "block";
+
+    setTimeout(() => {
+      indicator.style.display = "none";
+    }, 2000);
+  }
+
+  function initializeOfflineMode() {
+    console.log("📴 Running in offline mode");
+    loadFromCache();
+    setupBasicFormatters();
+  }
+
+  // Start initialization when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initialize);
+  } else {
+    initialize();
+  }
 </script>
 
 <script type="module" is:inline>
