@@ -1139,6 +1139,99 @@ import "../../styles/providers/signup-mobile.css";
           }
         }
       };
+
+      // Updated handleSignup function for join.astro
+      // Add this to your existing join.astro script section
+
+      async function handleSignup(e) {
+        e.preventDefault();
+        hideMessages();
+
+        const submitButton = document.getElementById("signup-submit");
+        const buttonText = submitButton.querySelector(".btn-text");
+        const buttonLoading = submitButton.querySelector(".btn-loading");
+
+        // Disable button and show loading
+        submitButton.disabled = true;
+        buttonText.style.display = "none";
+        buttonLoading.style.display = "inline-block";
+
+        // Get form values
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const organizationName = document
+          .getElementById("organizationName")
+          .value.trim();
+        const phone = document.getElementById("phone").value.trim();
+
+        try {
+          console.log("🚀 Starting signup process...");
+
+          // Create user account
+          const { data, error } = await supabase.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+              emailRedirectTo: `${window.location.origin}/providers/verified`, // Fixed: correct redirect
+              data: {
+                organization_name: organizationName,
+                phone: phone,
+                user_type: "provider",
+                onboarding_step: "account_created",
+                source: "enhanced_join",
+              },
+            },
+          });
+
+          if (error) throw error;
+
+          if (data.user) {
+            console.log("✅ User created:", data.user.id);
+
+            // Don't try to seed corporate entity here - wait until after email verification
+            // This speeds up the signup process significantly
+
+            window.formSubmitted = true;
+            clearProgress();
+
+            // Store signup data for use after verification
+            sessionStorage.setItem("signup_email", email);
+            sessionStorage.setItem("signup_org", organizationName);
+            sessionStorage.setItem("signup_phone", phone);
+
+            // In handleSignup function, after successful signup:
+            if (data.user) {
+              // Store in sessionStorage for pre-portal to use
+              sessionStorage.setItem("signup_data", JSON.stringify({
+                organizationName: organizationName,
+                email: email,
+                phone: phone,
+                timestamp: Date.now()
+              }));
+
+            // Show success message immediately
+            showSuccess(
+              "Account created! Check your email for the verification link."
+            );
+
+            // Redirect to check-email page after short delay
+            setTimeout(() => {
+              window.location.href = `/providers/check-email?email=${encodeURIComponent(email)}`;
+            }, 2000);
+          }
+        } catch (error) {
+          console.error("Signup error:", error);
+          showError(
+            error.message ||
+              "An error occurred during signup. Please try again."
+          );
+        } finally {
+          // Re-enable button
+          submitButton.disabled = false;
+          buttonText.style.display = "inline";
+          buttonLoading.style.display = "none";
+        }
+      }
     </script>
   </body>
 </html>

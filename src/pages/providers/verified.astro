@@ -276,6 +276,46 @@ export const prerender = false;
         animation: fadeInUp 0.8s ease-out 0.2s both;
       }
 
+      /* Account Setup Status */
+      .setup-status {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        border-radius: 12px;
+        padding: 1rem;
+        margin: 1.5rem 0;
+        display: none;
+        animation: fadeInUp 0.5s ease-out;
+      }
+
+      .setup-status.visible {
+        display: block;
+      }
+
+      .setup-status.loading {
+        background: rgba(59, 130, 246, 0.1);
+        border-color: rgba(59, 130, 246, 0.2);
+      }
+
+      .setup-status.error {
+        background: rgba(245, 158, 11, 0.1);
+        border-color: rgba(245, 158, 11, 0.2);
+      }
+
+      .setup-status p {
+        margin: 0;
+        font-size: 0.875rem;
+        color: #047857;
+        font-weight: 500;
+      }
+
+      .setup-status.loading p {
+        color: #1e40af;
+      }
+
+      .setup-status.error p {
+        color: #92400e;
+      }
+
       /* Revenue Banner - matching join.astro style */
       .revenue-banner {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -635,6 +675,11 @@ export const prerender = false;
             start receiving guaranteed-payment patients.
           </p>
 
+          <!-- Account setup status indicator -->
+          <div id="setup-status" class="setup-status">
+            <p>Setting up your account...</p>
+          </div>
+
           <!-- Revenue reminder -->
           <div class="revenue-banner">
             <div class="revenue-amount">$180+ Million</div>
@@ -709,6 +754,162 @@ export const prerender = false;
       </div>
     </div>
 
+    <!-- Supabase Integration Script -->
+    <script type="module">
+      import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+      // Initialize Supabase and seed corporate entity after verification
+      async function initializeVerifiedUser() {
+        console.log("🎉 Email verified, initializing...");
+
+        // Get Supabase credentials
+        const supabaseUrl =
+          import.meta.env?.PUBLIC_SUPABASE_URL || window.PUBLIC_SUPABASE_URL;
+        const supabaseAnonKey =
+          import.meta.env?.PUBLIC_SUPABASE_ANON_KEY ||
+          window.PUBLIC_SUPABASE_ANON_KEY;
+
+        const statusDiv = document.getElementById("setup-status");
+
+        if (!supabaseUrl || !supabaseAnonKey) {
+          console.error("Missing Supabase configuration");
+          statusDiv.classList.add("visible", "error");
+          statusDiv.innerHTML =
+            "<p>⚠️ Configuration issue - you can complete setup in the next step</p>";
+          return;
+        }
+
+        try {
+          const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+          // Check if we have a token to verify
+          const params = new URLSearchParams(window.location.search);
+          const token_hash = params.get("token_hash");
+          const type = params.get("type");
+
+          if (token_hash && type) {
+            // Verify the token first
+            const { data, error } = await supabase.auth.verifyOtp({
+              token_hash,
+              type: type,
+            });
+
+            if (error) {
+              console.error("Token verification failed:", error);
+              // Handle error - maybe redirect to login
+            } else {
+              console.log("✅ Email verified via token");
+              // Continue with seeding organization
+            }
+          }
+
+          // Get the current user
+          const {
+            data: { user },
+            error,
+          } = await supabase.auth.getUser();
+
+          if (error || !user) {
+            console.warn("⚠️ User not authenticated");
+            // Don't show error, just proceed - user might be authenticated differently
+            return;
+          }
+
+          console.log("✅ User authenticated:", user.email);
+
+          // Show setup status
+          statusDiv.classList.add("visible", "loading");
+          statusDiv.innerHTML =
+            "<p>🔄 Setting up your organization profile...</p>";
+
+          // Get signup data from session storage or user metadata
+          const orgName =
+            sessionStorage.getItem("signup_org") ||
+            user.user_metadata?.organization_name;
+          const phone =
+            sessionStorage.getItem("signup_phone") || user.user_metadata?.phone;
+          const email = user.email;
+
+          if (orgName) {
+            try {
+              // Check if organization already exists
+              const { data: existingOrg } = await supabase
+                .from("corporate_entities")
+                .select("id, legal_name")
+                .eq("user_id", user.id)
+                .single();
+
+              if (existingOrg) {
+                console.log(
+                  "✅ Organization already exists:",
+                  existingOrg.legal_name
+                );
+                statusDiv.classList.remove("loading");
+                statusDiv.classList.add("visible");
+                statusDiv.innerHTML = "<p>✅ Account setup complete!</p>";
+              } else {
+                // Create the corporate entity
+                const { data, error: seedError } = await supabase
+                  .from("corporate_entities")
+                  .insert({
+                    user_id: user.id,
+                    owner_user_id: user.id,
+                    legal_name: orgName,
+                    email: email,
+                    phone: phone?.replace(/\D/g, ""), // Clean phone number
+                    is_active: true,
+                    schema_version: 1,
+                  })
+                  .select()
+                  .single();
+
+                if (seedError) {
+                  console.error("Failed to seed organization:", seedError);
+                  statusDiv.classList.remove("loading");
+                  statusDiv.classList.add("visible", "error");
+                  statusDiv.innerHTML =
+                    "<p>⚠️ Organization setup pending - you can complete it in the next step</p>";
+                } else {
+                  console.log("✅ Organization created:", data);
+                  statusDiv.classList.remove("loading");
+                  statusDiv.classList.add("visible");
+                  statusDiv.innerHTML = "<p>✅ Account setup complete!</p>";
+                }
+              }
+            } catch (err) {
+              console.error("Setup error:", err);
+              statusDiv.classList.remove("loading");
+              statusDiv.classList.add("visible", "error");
+              statusDiv.innerHTML =
+                "<p>⚠️ Setup will be completed in the next step</p>";
+            }
+          } else {
+            // No org name in session, user will complete in pre-portal
+            console.log("ℹ️ Organization info will be collected in next step");
+            statusDiv.style.display = "none";
+          }
+
+          // Clear session storage
+          sessionStorage.removeItem("signup_org");
+          sessionStorage.removeItem("signup_phone");
+          sessionStorage.removeItem("signup_email");
+        } catch (err) {
+          console.error("Initialization error:", err);
+          statusDiv.classList.add("visible", "error");
+          statusDiv.innerHTML =
+            "<p>⚠️ Setup will be completed in the next step</p>";
+        }
+      }
+
+      // Run initialization when DOM is ready
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initializeVerifiedUser);
+      } else {
+        initializeVerifiedUser();
+      }
+    </script>
+
+    <!-- Original Interactive Scripts -->
     <script>
       // Add loading state to portal button
       document

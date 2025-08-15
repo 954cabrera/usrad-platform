@@ -49,6 +49,35 @@ async function loadOrganizationData(supabase) {
     if (error) {
       if (error.code === 'PGRST116') {
         console.log('📝 No organization found for user');
+        
+        // Check for signup data from join.astro
+        const signupData = sessionStorage.getItem('signup_data');
+        if (signupData) {
+          const parsed = JSON.parse(signupData);
+          console.log('📋 Found signup data, prefilling form...');
+          
+          // Prefill with signup data
+          prefillOrganizationForm({
+            legal_name: parsed.organizationName,
+            email: parsed.email || user.email,
+            phone: parsed.phone,
+            // User can edit/complete the rest
+          });
+          
+          // Clear signup data after use
+          sessionStorage.removeItem('signup_data');
+        } else {
+          // Also check user metadata as fallback
+          const metadata = user.user_metadata;
+          if (metadata?.organization_name) {
+            console.log('📋 Found metadata, prefilling form...');
+            prefillOrganizationForm({
+              legal_name: metadata.organization_name,
+              email: user.email,
+              phone: metadata.phone,
+            });
+          }
+        }
       } else {
         console.error('❌ Error loading organization:', error);
       }
@@ -165,24 +194,39 @@ function prefillOrganizationForm(data) {
     setFieldValue('corpZip', data.corporate_zip);
   }
   
-  // Signer fields with formatted phone
+  // Signer fields - Use email and phone from signup if not in signer
   if (data.signer) {
     setFieldValue('signerFirstName', data.signer.firstName);
     setFieldValue('signerLastName', data.signer.lastName);
     setFieldValue('signerTitle', data.signer.title);
-    setFieldValue('signerEmail', data.signer.email);
-    setFieldValue('signerPhone', formatPhoneForDisplay(data.signer.phone));
+    setFieldValue('signerEmail', data.signer.email || data.email);
+    setFieldValue('signerPhone', formatPhoneForDisplay(data.signer.phone || data.phone));
   } else {
+    // This handles data from join.astro signup
     setFieldValue('signerEmail', data.email);
     setFieldValue('signerPhone', formatPhoneForDisplay(data.phone));
     setFieldValue('signerTitle', data.signer_title);
     
+    // Try to parse name if we have it
     const nameParts = (data.signer_name || '').split(' ');
-    setFieldValue('signerFirstName', nameParts[0]);
-    setFieldValue('signerLastName', nameParts.slice(1).join(' '));
+    if (nameParts.length > 0) {
+      setFieldValue('signerFirstName', nameParts[0]);
+      setFieldValue('signerLastName', nameParts.slice(1).join(' '));
+    }
   }
   
-  console.log('📝 Form prefilled with formatted values');
+  console.log('📝 Form prefilled with values');
+  
+  // Visual indicator that fields were prefilled
+  const prefilledFields = document.querySelectorAll('input[value]:not([value=""])');
+  prefilledFields.forEach(field => {
+    if (field.value) {
+      field.style.backgroundColor = '#f0fdf4'; // Light green background
+      setTimeout(() => {
+        field.style.backgroundColor = ''; // Reset after 2 seconds
+      }, 2000);
+    }
+  });
 }
 
 // Save organization to database
