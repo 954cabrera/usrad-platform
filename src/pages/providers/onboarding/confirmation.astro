@@ -30,228 +30,176 @@ import "../../../styles/providers/confirmation.css";
   <ExhibitBModal />
 
   <script>
-    // ============================================
-    // INLINE SOLUTION - NO MODULE IMPORTS
-    // This works in both development and production
-    // ============================================
-
-    class OrganizationLoader {
-      load() {
-        console.log("📊 Loading organization data...");
-
-        try {
-          // Get organization data from localStorage
-          const orgData = localStorage.getItem("provider_organization");
-
-          if (!orgData) {
-            console.warn("No organization data found in localStorage");
-            this.showNoDataMessage();
-            return;
-          }
-
-          const organization = JSON.parse(orgData);
-          console.log("Organization data loaded:", organization);
-
-          // Update DOM elements with organization data
-          this.updateDisplay(organization);
-        } catch (error) {
-          console.error("Error loading organization data:", error);
-          this.showErrorMessage();
-        }
-      }
-
-      updateDisplay(organization) {
-        // Update organization name
-        const orgNameEl = document.querySelector("#org-name");
-        if (orgNameEl) {
-          orgNameEl.textContent =
-            organization.legalName || organization.name || "Organization Name";
-        }
-
-        // Update primary contact name
-        const orgContactEl = document.querySelector("#org-contact");
-        if (orgContactEl) {
-          orgContactEl.textContent =
-            organization.signer?.fullName ||
-            organization.primary_contact_name ||
-            "Primary Contact";
-        }
-
-        // Update email
-        const orgEmailEl = document.querySelector("#org-email");
-        if (orgEmailEl) {
-          orgEmailEl.textContent =
-            organization.signer?.email ||
-            organization.email ||
-            "email@example.com";
-        }
-
-        // Update phone
-        const orgPhoneEl = document.querySelector("#org-phone");
-        if (orgPhoneEl) {
-          orgPhoneEl.textContent =
-            organization.signer?.phone ||
-            organization.phone ||
-            "(000) 000-0000";
-        }
-
-        console.log("✅ Organization display updated");
-      }
-
-      showNoDataMessage() {
-        const elements = [
-          "#org-name",
-          "#org-contact",
-          "#org-email",
-          "#org-phone",
-        ];
-        elements.forEach((selector) => {
-          const el = document.querySelector(selector);
-          if (el) {
-            el.textContent = "No data available";
-            el.style.color = "#ef4444";
-          }
-        });
-      }
-
-      showErrorMessage() {
-        const elements = [
-          "#org-name",
-          "#org-contact",
-          "#org-email",
-          "#org-phone",
-        ];
-        elements.forEach((selector) => {
-          const el = document.querySelector(selector);
-          if (el) {
-            el.textContent = "Error loading data";
-            el.style.color = "#ef4444";
-          }
-        });
-      }
-    }
-
-    class CentersLoader {
-      load() {
-        console.log("🏥 Loading centers data...");
-
-        try {
-          const facilitiesData = localStorage.getItem("facilities");
-
-          if (!facilitiesData) {
-            console.warn("No facilities data found");
-            return;
-          }
-
-          const facilities = JSON.parse(facilitiesData);
-          console.log(`Loaded ${facilities.length} facilities`);
-
-          // Update centers display if needed
-          // This section seems to be working already
-        } catch (error) {
-          console.error("Error loading centers:", error);
-        }
-      }
-    }
-
-    class PricingLoader {
-      load() {
-        console.log("💰 Loading pricing data...");
-
-        try {
-          const multiSelection = localStorage.getItem("usrad_multi_selection");
-          const stateRates = localStorage.getItem("usrad_state_rates");
-
-          if (multiSelection) {
-            console.log("Multi-selection data loaded");
-          }
-
-          if (stateRates) {
-            console.log("State rates data loaded");
-          }
-
-          // Pricing display seems to be working already
-        } catch (error) {
-          console.error("Error loading pricing:", error);
-        }
-      }
-    }
-
-    class ChecklistManager {
-      init() {
-        const checkboxes = document.querySelectorAll(
-          '.checklist-item input[type="checkbox"]'
+    /************* PROD-SAFE CONFIRMATION SCRIPT (ROBUST) *************/
+    // Helpers
+    const getJSON = (k, fb = null) => {
+      try {
+        return JSON.parse(
+          localStorage.getItem(k) || (fb === null ? "null" : JSON.stringify(fb))
         );
-        const proceedButton = document.querySelector("#proceed-button");
-
-        if (checkboxes.length === 0) return;
-
-        const checkAllChecked = () => {
-          const allChecked = Array.from(checkboxes).every((cb) => cb.checked);
-          if (proceedButton) {
-            proceedButton.disabled = !allChecked;
-            if (allChecked) {
-              proceedButton.classList.remove(
-                "opacity-50",
-                "cursor-not-allowed"
-              );
-              proceedButton.classList.add("hover:bg-blue-700");
-            } else {
-              proceedButton.classList.add("opacity-50", "cursor-not-allowed");
-              proceedButton.classList.remove("hover:bg-blue-700");
-            }
-          }
-        };
-
-        checkboxes.forEach((checkbox) => {
-          checkbox.addEventListener("change", checkAllChecked);
-        });
-
-        // Initial check
-        checkAllChecked();
+      } catch {
+        return fb;
       }
+    };
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+    // Gather org data from all known shapes/keys
+    function getOrgData() {
+      const a = getJSON("provider_organization", {}) || {};
+      const b = getJSON("organization_form_data", {}) || {};
+      const c = getJSON("usrad_org", {}) || {};
+
+      const legalName =
+        a.legalName || b.organization_name || b.name || c.legalName || "";
+      const contactName =
+        (a.signer && a.signer.fullName) ||
+        b.primary_contact_name ||
+        c.primary_contact_name ||
+        "";
+      const contactEmail =
+        (a.signer && a.signer.email) ||
+        b.primary_contact_email ||
+        b.email ||
+        c.primary_contact_email ||
+        "";
+      const contactPhone =
+        (a.signer && a.signer.phone) ||
+        b.primary_contact_phone ||
+        b.phone ||
+        c.primary_contact_phone ||
+        "";
+
+      return { legalName, contactName, contactEmail, contactPhone };
     }
 
-    class NavigationManager {
-      editOrganization() {
-        window.location.href = "/providers/onboarding/organization";
+    // Try to find the Organization card root by its heading text
+    function findOrgCardRoot() {
+      // look for the card that contains a heading with "Organization Information"
+      const headings = $$("h2, h3, .card-title, .section-title");
+      for (const h of headings) {
+        const txt = (h.textContent || "").trim().toLowerCase();
+        if (txt.includes("organization information")) {
+          // assume the card/container is the closest section/article/div ancestor
+          return h.closest("section, article, div") || h.parentElement;
+        }
       }
-
-      editCenters() {
-        window.location.href = "/providers/onboarding/facilities";
-      }
-
-      editPricing() {
-        window.location.href = "/providers/onboarding/pricing";
-      }
-
-      goBack() {
-        window.location.href = "/providers/onboarding/pricing";
-      }
-
-      proceedToSign() {
-        // Store confirmation timestamp
-        localStorage.setItem("psa_confirmation_time", new Date().toISOString());
-        window.location.href = "/providers/dashboard";
-      }
+      // fallback: a component with a predictable class (update if you have one)
+      return (
+        document.querySelector('[data-section="organization-review"]') || null
+      );
     }
 
-    class ExhibitBManager {
-      preview() {
-        const modal = document.getElementById("exhibit-b-modal");
-        if (modal) {
-          modal.classList.remove("hidden");
+    // Fill by strong selectors first (IDs / data attrs), then fallback by label proximity
+    function fillOrganizationCard(root, data) {
+      let filled = 0;
+
+      // 1) Direct IDs
+      const idMap = {
+        "#org-name": data.legalName,
+        "#org-contact": data.contactName,
+        "#org-email": data.contactEmail,
+        "#org-phone": data.contactPhone,
+      };
+      for (const [sel, val] of Object.entries(idMap)) {
+        const el = $(sel, root);
+        if (el && val) {
+          el.textContent = val;
+          filled++;
         }
       }
 
-      close() {
-        const modal = document.getElementById("exhibit-b-modal");
-        if (modal) {
-          modal.classList.add("hidden");
+      // 2) data attributes
+      const attrMap = {
+        '[data-org="name"]': data.legalName,
+        '[data-org="contact"]': data.contactName,
+        '[data-org="email"]': data.contactEmail,
+        '[data-org="phone"]': data.contactPhone,
+      };
+      for (const [sel, val] of Object.entries(attrMap)) {
+        const el = $(sel, root);
+        if (el && val) {
+          el.textContent = val;
+          filled++;
         }
       }
+
+      // 3) Label proximity fallback (find rows where a label precedes value)
+      const rows = $$("div, li, p, .row, .info-row", root);
+      rows.forEach((r) => {
+        const t = (r.textContent || "").toLowerCase();
+        // only replace if the element has a distinct value span (common in review rows)
+        const valueNode =
+          r.querySelector(".value, .detail, span, strong, b, em") || r;
+        if (t.includes("organization name") && data.legalName) {
+          valueNode.textContent = data.legalName;
+          filled++;
+        } else if (t.includes("primary contact") && data.contactName) {
+          valueNode.textContent = data.contactName;
+          filled++;
+        } else if (t.includes("email") && data.contactEmail) {
+          valueNode.textContent = data.contactEmail;
+          filled++;
+        } else if (t.includes("phone") && data.contactPhone) {
+          valueNode.textContent = data.contactPhone;
+          filled++;
+        }
+      });
+
+      console.log("Org card fill complete. Fields updated:", filled, data);
     }
 
+    // MutationObserver: wait for the Organization card to be in the DOM
+    function waitForOrgCardAndFill() {
+      const data = getOrgData();
+      console.log("Org data resolved from localStorage:", data);
+
+      const tryFill = () => {
+        const root = findOrgCardRoot();
+        if (root) {
+          console.log("Organization card root found:", root);
+          fillOrganizationCard(root, data);
+          return true;
+        }
+        return false;
+      };
+
+      if (tryFill()) return; // already present
+
+      const obs = new MutationObserver(() => {
+        if (tryFill()) obs.disconnect();
+      });
+      obs.observe(document.documentElement, { childList: true, subtree: true });
+    }
+
+    // Minimal globals to avoid errors from existing onclick handlers
+    window.editOrganization =
+      window.editOrganization ||
+      (() => (location.href = "/providers/onboarding/organization"));
+    window.editCenters =
+      window.editCenters ||
+      (() => (location.href = "/providers/onboarding/facilities"));
+    window.editPricing =
+      window.editPricing ||
+      (() => (location.href = "/providers/onboarding/pricing"));
+    window.goBack = window.goBack || (() => history.back());
+    window.proceedToSign =
+      window.proceedToSign ||
+      (() => (location.href = "/providers/onboarding/sign"));
+    window.previewExhibitB =
+      window.previewExhibitB ||
+      (() => {
+        const m = $("#exhibitBModal");
+        if (m) m.style.display = "block";
+      });
+    window.closeModal =
+      window.closeModal ||
+      (() => {
+        const m = $("#exhibitBModal");
+        if (m) m.style.display = "none";
+      });
+
+    /************* DYNAMIC PRICING (unchanged core, no imports) *************/
     class DynamicPricingManager {
       constructor() {
         this.multiSelection = {};
@@ -259,438 +207,195 @@ import "../../../styles/providers/confirmation.css";
         this.role = "";
         this.marketRate = "";
       }
-
       init() {
         console.log("🎯 Loading dynamic pricing strategy...");
-
-        // Load pricing data from localStorage
-        this.loadPricingData();
-
-        // Determine pricing strategy
-        const pricingStrategy = this.determinePricingStrategy();
-
-        // Update displays
-        this.updatePricingStrategyDisplay(pricingStrategy);
-        this.updateExpectedVolumeAndRevenue(pricingStrategy);
-
-        // Prepare enhanced PSA data
-        this.prepareEnhancedPSAData(pricingStrategy);
-      }
-
-      loadPricingData() {
-        this.multiSelection = JSON.parse(
-          localStorage.getItem("usrad_multi_selection") || "{}"
-        );
-        this.stateRates = JSON.parse(
-          localStorage.getItem("usrad_state_rates") || "{}"
-        );
+        this.multiSelection = getJSON("usrad_multi_selection", {});
+        this.stateRates = getJSON("usrad_state_rates", {});
         this.role = localStorage.getItem("usrad_role") || "center-admin";
         this.marketRate = localStorage.getItem("market_calculator_rate");
 
-        console.log("Pricing data loaded:", {
-          multiSelection: this.multiSelection,
-          stateRates: this.stateRates,
-          role: this.role,
-          marketRate: this.marketRate,
-        });
+        const strategy = this.determinePricingStrategy();
+        this.updatePricingStrategyDisplay(strategy);
+        this.updateExpectedVolumeAndRevenue(strategy);
+        this.prepareEnhancedPSAData(strategy);
       }
-
       determinePricingStrategy() {
-        const hasMultiState = Object.keys(this.stateRates).length > 1;
         const states = Object.keys(this.stateRates);
-
-        if (hasMultiState) {
-          // Multi-state pricing strategy
+        if (states.length > 1) {
           return {
             type: "multi-state",
-            states: states,
+            states,
             stateRates: this.stateRates,
             averageRate: this.calculateAverageRate(),
             displayType: "state-based",
             facilities: this.multiSelection.projections?.totalFacilities || 21,
           };
         } else if (states.length === 1) {
-          // Single state, potentially multiple facilities
-          const singleState = states[0];
-          const rate = this.stateRates[singleState];
+          const s = states[0],
+            r = this.stateRates[s];
           return {
             type: "single-state",
-            state: singleState,
-            rate: rate,
-            displayType: rate === 100 ? "uniform" : "custom",
+            state: s,
+            rate: r,
+            displayType: r === 100 ? "uniform" : "custom",
             facilities: this.multiSelection.projections?.totalFacilities || 1,
           };
-        } else {
-          // Fallback to market calculator rate
-          const rate = parseInt(this.marketRate) || 100;
-          return {
-            type: "uniform",
-            rate: rate,
-            displayType: "uniform",
-            facilities: 1,
-          };
         }
+        const r = parseInt(this.marketRate) || 100;
+        return {
+          type: "uniform",
+          rate: r,
+          displayType: "uniform",
+          facilities: 1,
+        };
       }
-
       calculateAverageRate() {
-        const rates = Object.values(this.stateRates);
-        const centerCounts = this.multiSelection.centerCounts || {};
-
-        // Weighted average based on facility counts per state
-        let totalWeightedRate = 0;
-        let totalFacilities = 0;
-
-        Object.entries(this.stateRates).forEach(([state, rate]) => {
-          const facilityCount = centerCounts[state] || 1;
-          totalWeightedRate += rate * facilityCount;
-          totalFacilities += facilityCount;
+        const counts = this.multiSelection.centerCounts || {};
+        let tw = 0,
+          tf = 0;
+        Object.entries(this.stateRates).forEach(([s, r]) => {
+          const n = counts[s] || 1;
+          tw += r * n;
+          tf += n;
         });
-
-        return totalFacilities > 0
-          ? Math.round(totalWeightedRate / totalFacilities)
-          : 100;
+        return tf > 0 ? Math.round(tw / tf) : 100;
       }
-
       updatePricingStrategyDisplay(strategy) {
-        const pricingSection = document.querySelector(
+        const sec = document.querySelector(
           '.pricing-strategy, [class*="pricing"]'
         );
-        if (!pricingSection) {
-          console.warn("Pricing strategy section not found");
-          return;
-        }
-
-        // Find the rate display element (look for common patterns)
-        const rateDisplay = pricingSection.querySelector(
+        if (!sec) return;
+        const rateEl = sec.querySelector(
           '.rate-percentage, [class*="rate"], h2, .display-rate, .pricing-rate'
         );
-        const descriptionElement = pricingSection.querySelector(
+        const descEl = sec.querySelector(
           ".rate-description, p, .description, .pricing-description"
         );
-
-        let displayHTML = "";
-        let descriptionHTML = "";
-
-        switch (strategy.type) {
-          case "multi-state":
-            displayHTML = this.generateMultiStateDisplay(strategy);
-            descriptionHTML = `State-based Medicare rates across ${strategy.states.length} states`;
-            break;
-
-          case "single-state":
-            displayHTML = `${strategy.rate}%`;
-            descriptionHTML = `${strategy.rate}% of Medicare Rates in ${strategy.state}`;
-            break;
-
-          case "uniform":
-          default:
-            displayHTML = `${strategy.rate}%`;
-            descriptionHTML = `${strategy.rate}% of Medicare Rates`;
-            break;
-        }
-
-        // Update the display
-        if (rateDisplay) {
-          if (strategy.type === "multi-state") {
-            rateDisplay.innerHTML = displayHTML;
-          } else {
-            rateDisplay.textContent = displayHTML;
-          }
-        }
-
-        if (descriptionElement) {
-          descriptionElement.textContent = descriptionHTML;
-        }
-
-        console.log("✅ Updated pricing strategy display:", strategy.type);
-      }
-
-      generateMultiStateDisplay(strategy) {
-        const stateRatesList = Object.entries(strategy.stateRates)
-          .map(([state, rate]) => `${state}: ${rate}%`)
-          .join(", ");
-
-        if (Object.entries(strategy.stateRates).length <= 3) {
-          // Show all states if 3 or fewer
-          return `
-            <div class="multi-state-rates">
-              <div class="average-rate">${strategy.averageRate}% avg</div>
-              <div class="state-breakdown">${stateRatesList}</div>
-            </div>
-          `;
+        let rateHTML = "",
+          descText = "";
+        if (strategy.type === "multi-state") {
+          const list = Object.entries(strategy.stateRates)
+            .map(([s, r]) => `${s}: ${r}%`)
+            .join(", ");
+          rateHTML = `
+          <div class="multi-state-rates">
+            <div class="average-rate">${strategy.averageRate}% avg</div>
+            <div class="state-breakdown">${list}</div>
+          </div>`;
+          descText = `State-based Medicare rates across ${strategy.states.length} states`;
+        } else if (strategy.type === "single-state") {
+          rateHTML = `${strategy.rate}%`;
+          descText = `${strategy.rate}% of Medicare Rates in ${strategy.state}`;
         } else {
-          // Show average with expandable details if more than 3 states
-          return `
-            <div class="multi-state-rates">
-              <div class="average-rate">${strategy.averageRate}% avg</div>
-              <div class="state-summary">${strategy.states.length} states configured</div>
-            </div>
-          `;
+          rateHTML = `${strategy.rate}%`;
+          descText = `${strategy.rate}% of Medicare Rates`;
         }
+        if (rateEl)
+          strategy.type === "multi-state"
+            ? (rateEl.innerHTML = rateHTML)
+            : (rateEl.textContent = rateHTML);
+        if (descEl) descText && (descEl.textContent = descText);
+        console.log("✅ Pricing display:", strategy.type);
       }
-
       updateExpectedVolumeAndRevenue(strategy) {
-        // Update expected volume based on average rate
-        const volumeElement = document.querySelector(
+        const volEl = document.querySelector(
           '.expected-volume, [class*="volume"]'
         );
-        const revenueElement = document.querySelector(
+        const revEl = document.querySelector(
           '.projected-revenue, [class*="revenue"]'
         );
-
-        const effectiveRate = strategy.averageRate || strategy.rate || 100;
-
-        // Volume calculation (inverse relationship with rate)
-        let volumeLevel, volumeRange, annualRevenue;
-
-        if (effectiveRate <= 100) {
-          volumeLevel = "High";
-          volumeRange = "15-20 patients/week";
-          annualRevenue = (212000 * (effectiveRate / 100) * 17.5 * 52) / 52;
-        } else if (effectiveRate <= 110) {
-          volumeLevel = "Good";
-          volumeRange = "10-15 patients/week";
-          annualRevenue = (212000 * (effectiveRate / 100) * 12.5 * 52) / 52;
-        } else if (effectiveRate <= 120) {
-          volumeLevel = "Moderate";
-          volumeRange = "6-10 patients/week";
-          annualRevenue = (212000 * (effectiveRate / 100) * 8 * 52) / 52;
+        const eff = strategy.averageRate || strategy.rate || 100;
+        let level, range, annual;
+        if (eff <= 100) {
+          level = "High";
+          range = "15-20 patients/week";
+          annual = 212000 * (eff / 100) * 17.5;
+        } else if (eff <= 110) {
+          level = "Good";
+          range = "10-15 patients/week";
+          annual = 212000 * (eff / 100) * 12.5;
+        } else if (eff <= 120) {
+          level = "Moderate";
+          range = "6-10 patients/week";
+          annual = 212000 * (eff / 100) * 8;
         } else {
-          volumeLevel = "Lower";
-          volumeRange = "4-8 patients/week";
-          annualRevenue = (212000 * (effectiveRate / 100) * 6 * 52) / 52;
+          level = "Lower";
+          range = "4-8 patients/week";
+          annual = 212000 * (eff / 100) * 6;
         }
-
-        // Update volume display
-        if (volumeElement) {
-          const volumeText =
-            volumeElement.querySelector(".volume-text") || volumeElement;
-          volumeText.textContent = `${volumeLevel} (${volumeRange})`;
-        }
-
-        // Update revenue display
-        if (revenueElement) {
-          const revenueText =
-            revenueElement.querySelector(".revenue-amount") || revenueElement;
-          const formattedRevenue = new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "USD",
-            maximumFractionDigits: 0,
-          }).format(annualRevenue);
-
-          revenueText.textContent = formattedRevenue;
-        }
-
-        console.log(
-          "✅ Updated volume and revenue projections for",
-          effectiveRate + "%"
-        );
+        if (volEl)
+          (volEl.querySelector(".volume-text") || volEl).textContent =
+            `${level} (${range})`;
+        if (revEl)
+          (revEl.querySelector(".revenue-amount") || revEl).textContent =
+            new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+              maximumFractionDigits: 0,
+            }).format(annual);
+        console.log("✅ Volume/Revenue updated:", eff + "%");
       }
-
       prepareEnhancedPSAData(strategy) {
-        const facilities = JSON.parse(
-          localStorage.getItem("facilities") || "[]"
-        );
-        const orgData = JSON.parse(
-          localStorage.getItem("provider_organization") || "{}"
-        );
-
-        // Generate appropriate Exhibit B content
-        const exhibitBContent = this.generateExhibitB(strategy, facilities);
-
-        // Create comprehensive PSA payload
-        const psaPayload = {
-          // Organization information
-          provider_name:
-            orgData.legalName ||
-            orgData.organization_name ||
-            orgData.name ||
-            "Provider",
-          provider_email: orgData.signer?.email || orgData.email || "",
-          provider_phone: orgData.signer?.phone || orgData.phone || "",
-          tax_id: orgData.tax_id || "",
-          primary_contact_name:
-            orgData.signer?.fullName || orgData.primary_contact_name || "",
-          primary_contact_email:
-            orgData.signer?.email || orgData.primary_contact_email || "",
-          primary_contact_phone:
-            orgData.signer?.phone || orgData.primary_contact_phone || "",
-
-          // Facility information
+        const facilities = getJSON("facilities", []);
+        const org = getJSON("organization_form_data", {});
+        const payload = {
+          provider_name: org.organization_name || org.name || "Provider",
+          provider_email: org.email || "",
+          provider_phone: org.phone || "",
+          tax_id: org.tax_id || "",
+          primary_contact_name: org.primary_contact_name || "",
+          primary_contact_email: org.primary_contact_email || "",
+          primary_contact_phone: org.primary_contact_phone || "",
           total_facilities: facilities.length,
           facility_count_breakdown: this.generateFacilityBreakdown(facilities),
-
-          // Pricing information
           pricing_structure: strategy.type,
           reimbursement_rates: JSON.stringify(this.stateRates),
           average_reimbursement_rate: strategy.averageRate || strategy.rate,
-          exhibit_b_content: exhibitBContent,
-
-          // Agreement metadata
+          exhibit_b_content: this.generateExhibitB(strategy, facilities),
           agreement_date: new Date().toISOString().split("T")[0],
           role_type: this.role,
-
-          // State-specific data (if applicable)
           ...(strategy.type === "multi-state" && {
             state_breakdown: JSON.stringify(strategy.stateRates),
             multi_state_structure: true,
           }),
         };
-
-        // Store for PSA generation
-        localStorage.setItem("enhanced_psa_data", JSON.stringify(psaPayload));
-        console.log("✅ Enhanced PSA data prepared:", psaPayload);
+        localStorage.setItem("enhanced_psa_data", JSON.stringify(payload));
+        console.log("✅ PSA payload ready");
       }
-
-      generateExhibitB(strategy, facilities) {
-        const facilityBreakdown = this.generateFacilityBreakdown(facilities);
-        const totalFacilities = facilities.length;
-
-        switch (strategy.type) {
-          case "multi-state":
-            return this.generateMultiStateExhibitB(
-              strategy,
-              facilityBreakdown,
-              totalFacilities
-            );
-
-          case "single-state":
-            return this.generateSingleStateExhibitB(
-              strategy,
-              facilityBreakdown,
-              totalFacilities
-            );
-
-          case "uniform":
-          default:
-            return this.generateUniformExhibitB(strategy, totalFacilities);
-        }
-      }
-
       generateFacilityBreakdown(facilities) {
-        const breakdown = {};
-
-        facilities.forEach((facility) => {
-          const state = facility.state || facility.address_state || "Unknown";
-          if (!breakdown[state]) {
-            breakdown[state] = 0;
-          }
-          breakdown[state]++;
+        const b = {};
+        facilities.forEach((f) => {
+          const s = f.state || f.address_state || "Unknown";
+          b[s] = (b[s] || 0) + 1;
         });
-
-        return breakdown;
+        return b;
       }
-
-      generateMultiStateExhibitB(strategy, facilityBreakdown, totalFacilities) {
-        const stateLines = Object.entries(strategy.stateRates)
-          .map(([state, rate]) => {
-            const facilityCount = facilityBreakdown[state] || 1;
-            const plural = facilityCount === 1 ? "facility" : "facilities";
-            return `${state}: ${rate}% of Medicare Allowable (${facilityCount} ${plural})`;
-          })
-          .join("\n");
-
-        return `EXHIBIT B: REIMBURSEMENT RATES
-
-State-Based Reimbursement Structure:
-${stateLines}
-
-Total Authorized Locations: ${totalFacilities}
-Portfolio Average Rate: ${strategy.averageRate}% of Medicare Allowable
-
-This rate structure reflects market-based pricing optimized for competitive positioning in each state.`;
-      }
-
-      generateSingleStateExhibitB(
-        strategy,
-        facilityBreakdown,
-        totalFacilities
-      ) {
-        const facilityCount =
-          facilityBreakdown[strategy.state] || totalFacilities;
-        const plural = facilityCount === 1 ? "facility" : "facilities";
-
-        return `EXHIBIT B: REIMBURSEMENT RATES
-
-Reimbursement Rate: ${strategy.rate}% of Medicare Allowable
-State: ${strategy.state} (${facilityCount} ${plural})
-Total Authorized Locations: ${totalFacilities}
-
-All Provider facilities will receive ${strategy.rate}% of Medicare Allowable rates.`;
-      }
-
-      generateUniformExhibitB(strategy, totalFacilities) {
-        return `EXHIBIT B: REIMBURSEMENT RATES
-
-Standard reimbursement at ${strategy.rate}% of Medicare Allowable rates.
-
-Total Authorized Locations: ${totalFacilities}
-
-All Provider facilities will receive ${strategy.rate}% of Medicare Allowable rates.`;
+      generateExhibitB(strategy, facilities) {
+        const b = this.generateFacilityBreakdown(facilities),
+          total = facilities.length;
+        if (strategy.type === "multi-state") {
+          const lines = Object.entries(strategy.stateRates)
+            .map(([s, r]) => {
+              const n = b[s] || 1,
+                p = n === 1 ? "facility" : "facilities";
+              return `${s}: ${r}% of Medicare Allowable (${n} ${p})`;
+            })
+            .join("\n");
+          return `EXHIBIT B: REIMBURSEMENT RATES\n\nState-Based Reimbursement Structure:\n${lines}\n\nTotal Authorized Locations: ${total}\nPortfolio Average Rate: ${strategy.averageRate}% of Medicare Allowable`;
+        }
+        if (strategy.type === "single-state") {
+          const n = b[strategy.state] || total,
+            p = n === 1 ? "facility" : "facilities";
+          return `EXHIBIT B: REIMBURSEMENT RATES\n\nReimbursement Rate: ${strategy.rate}% of Medicare Allowable\nState: ${strategy.state} (${n} ${p})\nTotal Authorized Locations: ${total}`;
+        }
+        return `EXHIBIT B: REIMBURSEMENT RATES\n\nStandard reimbursement at ${strategy.rate}% of Medicare Allowable rates.\nTotal Authorized Locations: ${total}`;
       }
     }
 
-    // ============================================
-    // MAIN INITIALIZATION
-    // ============================================
-
-    class EnhancedConfirmationPage {
-      constructor() {
-        // Initialize all managers inline - no imports needed
-        this.organizationLoader = new OrganizationLoader();
-        this.centersLoader = new CentersLoader();
-        this.pricingLoader = new PricingLoader();
-        this.checklistManager = new ChecklistManager();
-        this.navigationManager = new NavigationManager();
-        this.exhibitBManager = new ExhibitBManager();
-        this.dynamicPricingManager = new DynamicPricingManager();
-      }
-
-      init() {
-        console.log("🚀 Initializing confirmation page...");
-        this.loadAllData();
-        this.setupEventListeners();
-        this.initializeDynamicPricing();
-        this.exposeGlobalFunctions();
-      }
-
-      async loadAllData() {
-        // Load organization data first (this was failing in production)
-        await this.organizationLoader.load();
-
-        // Load other data
-        this.centersLoader.load();
-        this.pricingLoader.load();
-      }
-
-      initializeDynamicPricing() {
-        this.dynamicPricingManager.init();
-      }
-
-      setupEventListeners() {
-        this.checklistManager.init();
-      }
-
-      exposeGlobalFunctions() {
-        // Expose navigation functions globally
-        window.editOrganization = () =>
-          this.navigationManager.editOrganization();
-        window.editCenters = () => this.navigationManager.editCenters();
-        window.editPricing = () => this.navigationManager.editPricing();
-        window.goBack = () => this.navigationManager.goBack();
-        window.proceedToSign = () => this.navigationManager.proceedToSign();
-
-        // Expose modal functions
-        window.previewExhibitB = () => this.exhibitBManager.preview();
-        window.closeModal = () => this.exhibitBManager.close();
-      }
-    }
-
-    // Initialize on DOM load
+    // Bootstrap
     document.addEventListener("DOMContentLoaded", () => {
-      console.log("DOM loaded, initializing confirmation page...");
-      const confirmationPage = new EnhancedConfirmationPage();
-      confirmationPage.init();
+      waitForOrgCardAndFill(); // <- critical fix
+      new DynamicPricingManager().init(); // keep pricing working
     });
   </script>
 
