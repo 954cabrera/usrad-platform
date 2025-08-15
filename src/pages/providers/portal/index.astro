@@ -5,91 +5,309 @@ import DashboardHome from "../../../components/Providers/Dashboard/DashboardHome
 import PortalLayout from "../../../components/Providers/Dashboard/PortalLayout";
 import MedicalStatus from "../../../components/Providers/Dashboard/MedicalStatus.jsx";
 import "../../../styles/providers/portal-medical.css";
-import { supabase } from "../../../lib/supabase";
 
-// TEMPORARY: Comment out authentication for testing
-/*
-const {
-  data: { user },
-  error: authError,
-} = await supabase.auth.getUser();
+export const prerender = false;
 
-if (!user) {
-  return Astro.redirect('/providers/login');
-}
-
-// Get provider data
-const { data: provider } = await supabase
-  .from("providers")
-  .select("*")
-  .eq("user_id", user.id)
-  .single();
-
-if (!provider) {
-  return Astro.redirect("/providers/onboarding");
-}
-*/
-
-// TEMPORARY: Use test data instead
-const provider = {
-  id: "test-123",
-  user_id: "test-user-123",
-  organization_name: "Test Medical Center",
-  email: "test@example.com",
-  legalName: "Test Medical Center LLC",
-  created_at: new Date().toISOString(),
-};
-
-// TEMPORARY: Use empty arrays for test data
-const recentDocs = [
-  {
-    id: "doc-1",
-    provider_id: "test-123",
-    document_type: "PSA",
-    signed_date: new Date().toISOString(),
-    created_at: new Date().toISOString(),
-  },
-];
-
-const recentActivity = [
-  {
-    id: "activity-1",
-    provider_id: "test-123",
-    action: "PSA_SIGNED",
-    created_at: new Date().toISOString(),
-  },
-];
-
-// Store provider info in localStorage for the layout
-if (typeof window !== "undefined") {
-  localStorage.setItem("provider_organization", JSON.stringify(provider));
+// Check if user is authenticated
+const authCookie =
+  Astro.cookies.get("sb-access-token") ||
+  Astro.cookies.get("supabase-auth-token");
+if (!authCookie) {
+  return Astro.redirect("/providers/login");
 }
 ---
 
 <ProviderLayout title="Provider Portal">
-  <PortalLayout currentPage="dashboard" client:load>
-    <DashboardHome
-      provider={provider}
-      recentDocuments={recentDocs}
-      recentActivity={recentActivity}
-      client:load
-    />
-  </PortalLayout>
+  <div id="portal-loading" class="portal-loading">
+    <div class="loading-spinner"></div>
+    <p>Loading your dashboard...</p>
+  </div>
+
+  <div id="portal-content" style="display: none;">
+    <PortalLayout currentPage="dashboard" client:load>
+      <DashboardHome
+        provider={{}}
+        recentDocuments={[]}
+        recentActivity={[]}
+        client:load
+      />
+    </PortalLayout>
+  </div>
+
+  <div
+    id="onboarding-incomplete"
+    class="onboarding-message"
+    style="display: none;"
+  >
+    <div class="message-card">
+      <h2>Complete Your Onboarding</h2>
+      <p>Please complete the following steps to access your dashboard:</p>
+      <ul id="incomplete-steps"></ul>
+      <a href="/providers/pre-portal" class="btn-primary">Continue Onboarding</a
+      >
+    </div>
+  </div>
 </ProviderLayout>
 
-<script>
-  // Simulate loading state
-  const dashboard = document.querySelector(".dashboard-home");
-  if (dashboard) {
-    // Show skeleton for 1 second on page load
-    dashboard.classList.add("loading");
-    setTimeout(() => {
-      dashboard.classList.remove("loading");
-    }, 1000);
+<script type="module">
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+  // Initialize Supabase
+  const supabaseUrl = window.PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = window.PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error("Missing Supabase configuration");
+    window.location.href = "/providers/login";
+  } else {
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+    async function checkOnboardingStatus() {
+      try {
+        // Get current user
+        const {
+          data: { user },
+          error: authError,
+        } = await supabase.auth.getUser();
+
+        if (!user) {
+          console.log("No authenticated user, redirecting to login...");
+          window.location.href = "/providers/login";
+          return;
+        }
+
+        console.log("Checking onboarding status for:", user.email);
+
+        // Check onboarding completion
+        const onboardingChecks = {
+          organization: false,
+          facilities: false,
+          agreement: false,
+        };
+
+        // 1. Check for organization
+        const { data: org } = await supabase
+          .from("corporate_entities")
+          .select("id, legal_name, tax_id")
+          .eq("user_id", user.id)
+          .eq("is_active", true)
+          .single();
+
+        if (org && org.legal_name && org.tax_id) {
+          onboardingChecks.organization = true;
+          console.log("✅ Organization complete");
+        } else {
+          console.log("❌ Organization incomplete");
+        }
+
+        // 2. Check for facilities
+        const { data: facilities } = await supabase
+          .from("user_facilities")
+          .select("id")
+          .eq("user_id", user.id)
+          .limit(1);
+
+        if (facilities && facilities.length > 0) {
+          onboardingChecks.facilities = true;
+          console.log("✅ Facilities complete");
+        } else {
+          console.log("❌ No facilities found");
+        }
+
+        // 3. Check for signed agreement (you'll need to create this table)
+        // For now, check localStorage or a flag in corporate_entities
+        const agreementSigned = localStorage.getItem("psa_signed") === "true";
+        if (agreementSigned) {
+          onboardingChecks.agreement = true;
+          console.log("✅ Agreement signed");
+        } else {
+          console.log("❌ Agreement not signed");
+        }
+
+        // Determine if onboarding is complete
+        const isComplete = Object.values(onboardingChecks).every(
+          (check) => check === true
+        );
+
+        if (isComplete) {
+          // Show dashboard
+          console.log("🎉 Onboarding complete! Loading dashboard...");
+          document.getElementById("portal-loading").style.display = "none";
+          document.getElementById("portal-content").style.display = "block";
+
+          // Load provider data for dashboard
+          loadDashboardData(user, org);
+        } else {
+          // Show incomplete steps
+          console.log("⚠️ Onboarding incomplete");
+          showIncompleteSteps(onboardingChecks);
+        }
+      } catch (error) {
+        console.error("Error checking onboarding:", error);
+        window.location.href = "/providers/login";
+      }
+    }
+
+    function showIncompleteSteps(checks) {
+      const steps = [];
+
+      if (!checks.organization) {
+        steps.push("Complete organization information");
+      }
+      if (!checks.facilities) {
+        steps.push("Add at least one imaging center");
+      }
+      if (!checks.agreement) {
+        steps.push("Review and sign Provider Service Agreement");
+      }
+
+      const stepsList = document.getElementById("incomplete-steps");
+      stepsList.innerHTML = steps.map((step) => `<li>${step}</li>`).join("");
+
+      document.getElementById("portal-loading").style.display = "none";
+      document.getElementById("onboarding-incomplete").style.display = "block";
+    }
+
+    async function loadDashboardData(user, org) {
+      // Load actual data for the dashboard
+      try {
+        // Get recent activity, documents, etc.
+        const { data: recentActivity } = await supabase
+          .from("provider_activity_logs")
+          .select("*")
+          .eq("provider_id", user.id)
+          .order("created_at", { ascending: false })
+          .limit(5);
+
+        // Update dashboard components with real data
+        const provider = {
+          id: user.id,
+          organization_name: org.legal_name,
+          email: user.email,
+          ...org,
+        };
+
+        // Store for components to use
+        localStorage.setItem("provider_organization", JSON.stringify(provider));
+
+        // You could dispatch a custom event here to update React components
+        window.dispatchEvent(
+          new CustomEvent("dashboard-data-loaded", {
+            detail: { provider, recentActivity },
+          })
+        );
+      } catch (error) {
+        console.error("Error loading dashboard data:", error);
+      }
+    }
+
+    // Check onboarding status on load
+    checkOnboardingStatus();
   }
 </script>
 
+<script
+  define:vars={{
+    SUPABASE_URL: import.meta.env.PUBLIC_SUPABASE_URL,
+    SUPABASE_KEY: import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+  }}
+>
+  window.PUBLIC_SUPABASE_URL = SUPABASE_URL;
+  window.PUBLIC_SUPABASE_ANON_KEY = SUPABASE_KEY;
+</script>
+
 <style>
+  .portal-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 1rem;
+  }
+
+  .loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid #f3f4f6;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .portal-loading p {
+    color: #6b7280;
+    font-size: 1.125rem;
+  }
+
+  .onboarding-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 2rem;
+  }
+
+  .message-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .message-card h2 {
+    color: #1f2937;
+    margin-bottom: 1rem;
+    font-size: 1.875rem;
+  }
+
+  .message-card p {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+  }
+
+  .message-card ul {
+    text-align: left;
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+    color: #4b5563;
+  }
+
+  .message-card ul li {
+    margin: 0.5rem 0;
+    list-style-type: disc;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    margin-top: 1rem;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+  }
+
   .dashboard-wrapper {
     display: flex;
     flex-direction: column;
