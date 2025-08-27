@@ -146,76 +146,46 @@ function mapDbToForm(dbRecord) {
 function prefillOrganizationForm(data) {
   if (!data) return;
   
+  console.log('📝 Prefilling form with:', data);
+  
   // Helper to safely set field value
   const setFieldValue = (name, value) => {
     const field = document.querySelector(`[name="${name}"]`);
-    if (field && value !== undefined && value !== null) {
+    if (field && value) {
       field.value = value;
-      
-      // Trigger input event to format the value
       field.dispatchEvent(new Event('input', { bubbles: true }));
     }
   };
   
-  // Helper to format phone for display
-  const formatPhoneForDisplay = (phone) => {
-    if (!phone) return '';
-    const cleaned = phone.toString().replace(/\D/g, '');
-    if (cleaned.length !== 10) return phone; // Return as-is if not 10 digits
-    return `(${cleaned.slice(0,3)}) ${cleaned.slice(3,6)}-${cleaned.slice(6,10)}`;
-  };
+  // Map database fields to form fields
+  setFieldValue('legalName', data.legal_name);
+  setFieldValue('taxId', formatTaxId(data.tax_id));
+  setFieldValue('businessType', data.organization_type);
   
-  // Helper to format Tax ID for display
-  const formatTaxIdForDisplay = (taxId) => {
-    if (!taxId) return '';
-    const cleaned = taxId.toString().replace(/\D/g, '');
-    if (cleaned.length !== 9) return taxId; // Return as-is if not 9 digits
-    return `${cleaned.slice(0,2)}-${cleaned.slice(2,9)}`;
-  };
+  // Address fields - database uses corporate_*, form uses corp*
+  setFieldValue('corpAddress', data.corporate_address);
+  setFieldValue('corpCity', data.corporate_city);
+  setFieldValue('corpState', data.corporate_state);
+  setFieldValue('corpZip', data.corporate_zip);
   
-  // Map your form field names here
-  setFieldValue('legalName', data.legalName || data.legal_name);
-  setFieldValue('taxId', formatTaxIdForDisplay(data.taxId || data.tax_id));
-  setFieldValue('dba', data.dba);
-  setFieldValue('businessType', data.businessType || data.organization_type);
-  setFieldValue('yearEstablished', data.yearEstablished || data.year_established);
+  // Signer fields - split the name if it's combined
+  if (data.signer_name) {
+    const nameParts = data.signer_name.split(' ');
+    setFieldValue('signerFirstName', nameParts[0] || '');
+    setFieldValue('signerLastName', nameParts.slice(1).join(' ') || '');
+  }
+  
+  setFieldValue('signerTitle', data.signer_title);
+  setFieldValue('signerEmail', data.email);
+  setFieldValue('signerPhone', formatPhone(data.phone));
+  
+  // Additional fields
   setFieldValue('website', data.website);
-  
-  // Address fields
-  if (data.address) {
-    setFieldValue('corpAddress', data.address.street);
-    setFieldValue('corpCity', data.address.city);
-    setFieldValue('corpState', data.address.state);
-    setFieldValue('corpZip', data.address.zip);
-  } else {
-    setFieldValue('corpAddress', data.corporate_address);
-    setFieldValue('corpCity', data.corporate_city);
-    setFieldValue('corpState', data.corporate_state);
-    setFieldValue('corpZip', data.corporate_zip);
-  }
-  
-  // Signer fields - Use email and phone from signup if not in signer
-  if (data.signer) {
-    setFieldValue('signerFirstName', data.signer.firstName);
-    setFieldValue('signerLastName', data.signer.lastName);
-    setFieldValue('signerTitle', data.signer.title);
-    setFieldValue('signerEmail', data.signer.email || data.email);
-    setFieldValue('signerPhone', formatPhoneForDisplay(data.signer.phone || data.phone));
-  } else {
-    // This handles data from join.astro signup
-    setFieldValue('signerEmail', data.email);
-    setFieldValue('signerPhone', formatPhoneForDisplay(data.phone));
-    setFieldValue('signerTitle', data.signer_title);
-    
-    // Try to parse name if we have it
-    const nameParts = (data.signer_name || '').split(' ');
-    if (nameParts.length > 0) {
-      setFieldValue('signerFirstName', nameParts[0]);
-      setFieldValue('signerLastName', nameParts.slice(1).join(' '));
-    }
-  }
+  setFieldValue('yearEstablished', data.year_established);
+  setFieldValue('dba', data.dba);
   
   console.log('📝 Form prefilled with values');
+}
   
   // Visual indicator that fields were prefilled
   const prefilledFields = document.querySelectorAll('input[value]:not([value=""])');
@@ -233,68 +203,61 @@ function prefillOrganizationForm(data) {
 async function saveOrganization(supabase, formData) {
   try {
     if (!supabase) {
-      console.log('📦 Saving to cache only (offline mode)');
       saveToCache(formData);
       return { success: true, offline: true };
     }
     
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
-      throw new Error('User not authenticated');
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      saveToCache(formData);
+      return { success: true, offline: true };
     }
     
-    // Clean phone numbers and tax ID before saving (remove formatting)
-    const cleanPhone = (phone) => phone ? phone.replace(/\D/g, '') : null;
-    const cleanTaxId = (taxId) => taxId ? taxId.replace(/\D/g, '') : null;
+    // Clean phone and tax ID
+    const cleanPhone = (phone) => phone ? phone.replace(/\D/g, '') : '';
+    const cleanTaxId = (taxId) => taxId ? taxId.replace(/\D/g, '') : '';
     
-    // Prepare database record
+    // Get form values directly
+    const form = document.getElementById('organization-form');
+    const formData = new FormData(form);
+    
+    // Map form fields to database columns
     const dbRecord = {
       user_id: user.id,
-      owner_user_id: user.id,  // Also populate this field
-      legal_name: formData.legalName,
-      tax_id: cleanTaxId(formData.taxId), // Store only digits
-      organization_type: formData.businessType,
-      corporate_address: formData.address?.street,
-      corporate_city: formData.address?.city,
-      corporate_state: formData.address?.state,
-      corporate_zip: formData.address?.zip,
-      phone: cleanPhone(formData.signer?.phone), // Store only digits
-      email: formData.signer?.email,
-      signer_name: formData.signer?.fullName,
-      signer_title: formData.signer?.title,
-      website: formData.website,
+      owner_user_id: user.id,
+      legal_name: formData.get('legalName'),
+      tax_id: cleanTaxId(formData.get('taxId')),
+      organization_type: formData.get('businessType'),
+      corporate_address: formData.get('corpAddress'),  // corpAddress → corporate_address
+      corporate_city: formData.get('corpCity'),        // corpCity → corporate_city
+      corporate_state: formData.get('corpState'),      // corpState → corporate_state
+      corporate_zip: formData.get('corpZip'),          // corpZip → corporate_zip
+      phone: cleanPhone(formData.get('signerPhone')),
+      email: formData.get('signerEmail'),
+      signer_name: `${formData.get('signerFirstName') || ''} ${formData.get('signerLastName') || ''}`.trim(),
+      signer_title: formData.get('signerTitle'),
+      website: formData.get('website'),
       is_active: true,
       schema_version: 1
     };
     
-    console.log('💾 Saving to database...');
+    console.log('💾 Saving to database:', dbRecord);
     
     const { data, error } = await supabase
       .from('corporate_entities')
       .upsert(dbRecord, {
         onConflict: 'user_id',
-        ignoreDuplicates: false
-      })
-      .select()
-      .single();
+        returning: 'minimal'
+      });
     
-    if (error) {
-      console.error('❌ Database save failed:', error);
-      throw error;
-    }
+    if (error) throw error;
     
-    console.log('✅ Saved to database');
-    
-    // Also save to cache
-    saveToCache(formData);
-    
-    return { success: true, data };
+    console.log('✅ Organization saved to database');
+    return { success: true };
     
   } catch (error) {
-    console.error('❌ Save error:', error);
-    // Save to cache as fallback
-    saveToCache(formData);
-    return { success: false, error: error.message };
+    console.error('Failed to save:', error);
+    return { success: false, error };
   }
 }
 
