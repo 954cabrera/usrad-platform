@@ -117,26 +117,37 @@ export const prerender = true;
           }
         </style>
 
-        <!-- Availability badge - Moved down for better spacing -->
         <div
           class="flex justify-center mt-10 mb-10"
           data-aos="fade-up"
           data-aos-delay="300"
         >
           <div
-            class="inline-flex items-center gap-2 bg-white/90 backdrop-blur-md border border-green-200 rounded-full px-6 py-3 animate-float shadow-xl"
+            class="inline-flex items-center gap-3 bg-white/95 backdrop-blur-md border-2 border-green-400/50 rounded-full px-6 py-3.5 animate-float shadow-2xl hover:shadow-green-200/50 hover:scale-105 transition-all duration-300"
           >
-            <span class="flex h-3 w-3">
+            <span class="flex h-3.5 w-3.5">
               <span
-                class="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-green-400 opacity-75"
+                class="animate-ping absolute inline-flex h-3.5 w-3.5 rounded-full bg-green-400 opacity-75"
               ></span>
               <span
-                class="relative inline-flex rounded-full h-3 w-3 bg-green-500"
+                class="relative inline-flex rounded-full h-3.5 w-3.5 bg-green-500 shadow-lg shadow-green-500/50"
               ></span>
             </span>
-            <span class="text-base text-green-800 font-medium"
+            <span class="text-base text-green-800 font-bold tracking-tight"
               >Appointments available tomorrow</span
             >
+            <svg
+              class="w-5 h-5 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
           </div>
         </div>
 
@@ -155,47 +166,205 @@ export const prerender = true;
           }
         </style>
 
-        <!-- Search Form -->
+        <!-- Enhanced Search Form with Optimized Glassmorphism -->
         <div
-          class="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-3 max-w-2xl mx-auto mb-8"
+          class="relative bg-white/30 backdrop-blur-xl border border-white/40 rounded-3xl shadow-2xl p-6 max-w-3xl mx-auto mb-8"
           data-aos="fade-up"
           data-aos-delay="400"
         >
           <form
-            class="flex flex-col sm:flex-row gap-3"
+            class="space-y-5"
             action="https://usrad-portal.vercel.app/pbs/search"
             method="GET"
+            id="hero-search-form"
           >
-            <input
-              type="text"
-              name="zip"
-              placeholder="Enter your ZIP code"
-              pattern="[0-9]{5}"
-              maxlength="5"
-              required
-              class="flex-1 px-6 py-4 rounded-xl text-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#003087] focus:border-transparent bg-white"
-            />
-            <input type="hidden" name="procedure" value="70551" />
-            <input type="hidden" name="autoSearch" value="true" />
-            <input type="hidden" name="radius" value="25" />
-            <button
-              type="submit"
-              class="bg-[#003087] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[#002266] transition whitespace-nowrap shadow-lg hover:scale-105 transform"
-            >
-              Check prices →
-            </button>
           </form>
+
+          <!-- Stronger background for better contrast -->
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-white/20 to-white/10 rounded-3xl pointer-events-none"
+          >
+          </div>
+
+          <div class="relative z-10">
+            <form
+              class="space-y-5"
+              action="https://usrad-portal.vercel.app/pbs/search"
+              method="GET"
+              id="hero-search-form"
+            >
+              <!-- Procedure Search -->
+              <div class="relative">
+                <label
+                  for="hero-procedure-search"
+                  class="block text-sm font-bold text-white mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                >
+                  What scan do you need?
+                </label>
+                <div class="relative">
+                  <input
+                    type="text"
+                    id="hero-procedure-search"
+                    name="procedureSearch"
+                    placeholder="Type: MRI, CT, Ultrasound, X-Ray..."
+                    class="w-full px-5 py-4 pr-12 text-lg bg-white border border-white/60 rounded-2xl focus:ring-2 focus:ring-white focus:border-white transition-all duration-200 placeholder-gray-500 shadow-lg"
+                    autocomplete="off"
+                  />
+                  <div
+                    class="absolute inset-y-0 right-0 flex items-center pr-4"
+                  >
+                    <svg
+                      class="w-5 h-5 text-gray-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                  </div>
+
+                  <!-- Enhanced Autocomplete dropdown -->
+                  <div
+                    id="hero-procedure-dropdown"
+                    class="absolute z-20 w-full bg-white/95 backdrop-blur-xl border border-white/40 rounded-2xl shadow-2xl mt-2 hidden overflow-hidden"
+                  >
+                    <div class="py-2" id="hero-dropdown-content">
+                      <!-- Content populated by JavaScript -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Location with Enhanced Design -->
+              <div class="flex flex-col sm:flex-row gap-4">
+                <div class="flex-1">
+                  <label
+                    for="hero-location"
+                    class="block text-sm font-semibold text-white/90 mb-3"
+                  >
+                    Your location
+                  </label>
+                  <div class="relative">
+                    <input
+                      type="text"
+                      id="hero-location"
+                      name="zip"
+                      placeholder="ZIP code or city"
+                      class="w-full px-5 py-4 pr-12 text-lg bg-white/90 backdrop-blur-sm border border-white/40 rounded-2xl focus:ring-2 focus:ring-white focus:border-white transition-all duration-200 placeholder-gray-600"
+                    />
+                    <button
+                      type="button"
+                      id="hero-detect-location"
+                      class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600 hover:text-blue-700 transition-colors"
+                      title="Use my current location"
+                    >
+                      <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                        ></path>
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="flex items-end">
+                  <button
+                    type="submit"
+                    id="hero-search-button"
+                    class="w-full sm:w-auto bg-white text-[#003087] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-50 transition-all duration-200 shadow-xl hover:shadow-2xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                  >
+                    <span class="flex items-center justify-center">
+                      Find Centers
+                      <svg
+                        class="ml-2 w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Hidden fields -->
+              <input
+                type="hidden"
+                name="procedure"
+                id="hero-selected-procedure"
+                value=""
+              />
+              <input type="hidden" name="autoSearch" value="true" />
+              <input type="hidden" name="radius" value="25" />
+            </form>
+
+            <!-- Quick Options -->
+            <div class="mt-6 pt-5 border-t border-white/30">
+              <p class="text-sm font-bold text-white mb-3 drop-shadow-lg">
+                Popular searches:
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <button
+                  class="hero-quick-search px-4 py-2 bg-white/90 hover:bg-white text-gray-800 font-medium text-sm rounded-full border border-white/80 hover:border-white hover:shadow-lg transition-all duration-200"
+                  data-procedure="70551"
+                >
+                  MRI Brain
+                </button>
+                <button
+                  class="hero-quick-search px-4 py-2 bg-white/90 hover:bg-white text-gray-800 font-medium text-sm rounded-full border border-white/80 hover:border-white hover:shadow-lg transition-all duration-200"
+                  data-procedure="72148"
+                >
+                  MRI Spine
+                </button>
+                <button
+                  class="hero-quick-search px-4 py-2 bg-white/90 hover:bg-white text-gray-800 font-medium text-sm rounded-full border border-white/80 hover:border-white hover:shadow-lg transition-all duration-200"
+                  data-procedure="74177"
+                >
+                  CT Scan
+                </button>
+                <button
+                  class="hero-quick-search px-4 py-2 bg-white/90 hover:bg-white text-gray-800 font-medium text-sm rounded-full border border-white/80 hover:border-white hover:shadow-lg transition-all duration-200"
+                  data-procedure="76700"
+                >
+                  Ultrasound
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Trust Indicators -->
+        <!-- Trust Indicators - Now outside the form container -->
         <div
-          class="flex flex-wrap justify-center gap-8 text-base text-white drop-shadow-md"
+          class="flex flex-wrap justify-center gap-8 text-base text-white font-semibold mt-8 drop-shadow-lg"
           data-aos="fade-up"
           data-aos-delay="500"
         >
           <div class="flex items-center gap-2">
             <svg
-              class="w-5 h-5 text-green-400 drop-shadow"
+              class="w-5 h-5 text-green-600"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -208,7 +377,7 @@ export const prerender = true;
           </div>
           <div class="flex items-center gap-2">
             <svg
-              class="w-5 h-5 text-green-400 drop-shadow"
+              class="w-5 h-5 text-green-600"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -221,7 +390,7 @@ export const prerender = true;
           </div>
           <div class="flex items-center gap-2">
             <svg
-              class="w-5 h-5 text-green-400 drop-shadow"
+              class="w-5 h-5 text-green-600"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -658,28 +827,141 @@ export const prerender = true;
         data-aos-delay="200"
       >
         <form
-          class="flex flex-col sm:flex-row gap-3"
+          class="space-y-4"
           action="https://usrad-portal.vercel.app/pbs/search"
           method="GET"
+          id="cta-search-form"
         >
+          <!-- Procedure Search -->
+          <div class="relative">
+            <div class="relative">
+              <input
+                type="text"
+                id="cta-procedure-search"
+                name="procedureSearch"
+                placeholder="What scan do you need? (MRI, CT, Ultrasound...)"
+                class="w-full px-6 py-4 pr-12 text-lg text-gray-900 placeholder-gray-500 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent bg-white"
+                autocomplete="off"
+              />
+              <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                <svg
+                  class="w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </div>
+
+              <!-- Autocomplete dropdown -->
+              <div
+                id="cta-procedure-dropdown"
+                class="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg mt-1 hidden"
+              >
+                <div class="py-2">
+                  <div
+                    class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-sm procedure-option"
+                    data-procedure="70551"
+                  >
+                    <span class="font-medium">MRI Brain</span> without contrast
+                    <span class="text-gray-500 block text-xs"
+                      >Most common • $260-400</span
+                    >
+                  </div>
+                  <div
+                    class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-sm procedure-option"
+                    data-procedure="70552"
+                  >
+                    <span class="font-medium">MRI Brain</span> with contrast
+                    <span class="text-gray-500 block text-xs"
+                      >Enhanced imaging • $350-500</span
+                    >
+                  </div>
+                  <div
+                    class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-sm procedure-option"
+                    data-procedure="72148"
+                  >
+                    <span class="font-medium">MRI Spine</span> (Lumbar)
+                    <span class="text-gray-500 block text-xs"
+                      >Lower back • $280-450</span
+                    >
+                  </div>
+                  <div
+                    class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-sm procedure-option"
+                    data-procedure="74177"
+                  >
+                    <span class="font-medium">CT Scan</span> Abdomen/Pelvis
+                    <span class="text-gray-500 block text-xs"
+                      >With contrast • $200-350</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Location and Submit -->
+          <div class="flex flex-col sm:flex-row gap-3">
+            <div class="flex-1 relative">
+              <input
+                type="text"
+                id="cta-location"
+                name="zip"
+                placeholder="Enter your ZIP code"
+                pattern="[0-9]{5}"
+                maxlength="5"
+                class="w-full px-6 py-4 pr-12 text-lg text-gray-900 placeholder-gray-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent bg-white"
+              />
+              <button
+                type="button"
+                id="cta-detect-location"
+                class="absolute inset-y-0 right-0 flex items-center pr-3 text-[#003087] hover:text-[#002266]"
+                title="Use my current location"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  ></path>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </button>
+            </div>
+            <button
+              type="submit"
+              id="cta-search-button"
+              class="bg-white text-[#003087] px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition whitespace-nowrap disabled:opacity-50"
+              disabled
+            >
+              Get started →
+            </button>
+          </div>
+
+          <!-- Hidden fields -->
           <input
-            type="text"
-            name="zip"
-            placeholder="Enter your ZIP code"
-            pattern="[0-9]{5}"
-            maxlength="5"
-            required
-            class="flex-1 px-6 py-4 rounded-xl text-lg text-gray-900 placeholder-gray-500 focus:outline-none"
+            type="hidden"
+            name="procedure"
+            id="cta-selected-procedure"
+            value=""
           />
-          <input type="hidden" name="procedure" value="70551" />
           <input type="hidden" name="autoSearch" value="true" />
           <input type="hidden" name="radius" value="25" />
-          <button
-            type="submit"
-            class="bg-white text-[#003087] px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition whitespace-nowrap"
-          >
-            Get started →
-          </button>
         </form>
       </div>
     </div>
@@ -701,4 +983,298 @@ export const prerender = true;
       animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
   </style>
+
+  <script>
+    // Complete search functionality with contextual autocomplete
+    document.addEventListener("DOMContentLoaded", function () {
+      // Enhanced procedure database
+      const procedures = [
+        {
+          code: "70551",
+          name: "MRI Brain",
+          detail: "without contrast",
+          description: "Most common",
+          price: "$260-400",
+          keywords: ["mri", "brain", "head", "without"],
+        },
+        {
+          code: "70552",
+          name: "MRI Brain",
+          detail: "with contrast",
+          description: "Enhanced imaging",
+          price: "$350-500",
+          keywords: ["mri", "brain", "head", "with", "contrast"],
+        },
+        {
+          code: "72148",
+          name: "MRI Spine",
+          detail: "Lumbar (Lower back)",
+          description: "Back pain",
+          price: "$280-450",
+          keywords: ["mri", "spine", "back", "lumbar", "lower"],
+        },
+        {
+          code: "72149",
+          name: "MRI Spine",
+          detail: "with contrast",
+          description: "Enhanced spine",
+          price: "$380-550",
+          keywords: ["mri", "spine", "back", "contrast"],
+        },
+        {
+          code: "74177",
+          name: "CT Scan",
+          detail: "Abdomen/Pelvis",
+          description: "Body imaging",
+          price: "$200-350",
+          keywords: ["ct", "scan", "abdomen", "pelvis", "body"],
+        },
+        {
+          code: "76700",
+          name: "Ultrasound",
+          detail: "Abdomen",
+          description: "Sound waves",
+          price: "$150-250",
+          keywords: ["ultrasound", "abdomen", "sound"],
+        },
+        {
+          code: "70450",
+          name: "CT Head",
+          detail: "without contrast",
+          description: "Brain imaging",
+          price: "$180-300",
+          keywords: ["ct", "head", "brain", "without"],
+        },
+        {
+          code: "73221",
+          name: "MRI Knee",
+          detail: "without contrast",
+          description: "Joint imaging",
+          price: "$250-400",
+          keywords: ["mri", "knee", "joint", "leg"],
+        },
+      ];
+
+      // Smart search function
+      function searchProcedures(query) {
+        if (!query || query.length < 2) return [];
+
+        const searchTerms = query
+          .toLowerCase()
+          .split(" ")
+          .filter((term) => term.length > 1);
+
+        return procedures
+          .map((proc) => {
+            let score = 0;
+            const allText =
+              `${proc.name} ${proc.detail} ${proc.description} ${proc.keywords.join(" ")}`.toLowerCase();
+
+            // Exact name match gets highest priority
+            if (proc.name.toLowerCase().includes(query.toLowerCase()))
+              score += 100;
+
+            // Keyword matches
+            searchTerms.forEach((term) => {
+              if (proc.keywords.some((keyword) => keyword.includes(term)))
+                score += 50;
+              if (allText.includes(term)) score += 25;
+            });
+
+            return { ...proc, score };
+          })
+          .filter((proc) => proc.score > 0)
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 6);
+      }
+
+      // Display search results
+      function displayProcedureResults(results, dropdownId) {
+        const dropdown = document.getElementById(dropdownId);
+        if (!dropdown) return;
+
+        if (results.length === 0) {
+          dropdown.classList.add("hidden");
+          return;
+        }
+
+        dropdown.innerHTML = `
+      <div class="py-2">
+        ${results
+          .map(
+            (proc) => `
+          <div class="px-4 py-3 hover:bg-blue-50 cursor-pointer text-sm procedure-option border-b border-gray-100 last:border-b-0" data-procedure="${proc.code}">
+            <div class="flex justify-between items-start">
+              <div class="flex-1">
+                <div class="font-semibold text-gray-900">${proc.name}</div>
+                <div class="text-gray-600 text-xs mt-1">${proc.detail}</div>
+              </div>
+              <div class="text-right ml-4">
+                <div class="text-sm font-medium text-blue-600">${proc.price}</div>
+                <div class="text-xs text-gray-500">${proc.description}</div>
+              </div>
+            </div>
+          </div>
+        `
+          )
+          .join("")}
+      </div>
+    `;
+
+        dropdown.classList.remove("hidden");
+      }
+
+      // Initialize both forms
+      initializeSearchForm("hero");
+      initializeSearchForm("cta");
+
+      function initializeSearchForm(formType) {
+        const procedureInput = document.getElementById(
+          `${formType}-procedure-search`
+        );
+        const dropdown = document.getElementById(
+          `${formType}-procedure-dropdown`
+        );
+        const searchButton = document.getElementById(
+          `${formType}-search-button`
+        );
+        const selectedProcedure = document.getElementById(
+          `${formType}-selected-procedure`
+        );
+        const locationInput = document.getElementById(`${formType}-location`);
+        const detectLocationBtn = document.getElementById(
+          `${formType}-detect-location`
+        );
+
+        if (
+          !procedureInput ||
+          !dropdown ||
+          !searchButton ||
+          !selectedProcedure ||
+          !locationInput
+        ) {
+          return;
+        }
+
+        // Enable search when both fields have values
+        function updateSearchButton() {
+          const hasLocation = locationInput.value.trim().length > 0;
+          const hasProcedure = selectedProcedure.value.length > 0;
+          searchButton.disabled = !(hasLocation && hasProcedure);
+        }
+
+        // Smart procedure autocomplete
+        procedureInput.addEventListener("input", function () {
+          const query = this.value.trim();
+
+          if (query.length > 1) {
+            const results = searchProcedures(query);
+            displayProcedureResults(results, `${formType}-procedure-dropdown`);
+          } else {
+            dropdown.classList.add("hidden");
+          }
+
+          // Clear selection if user is typing new text
+          if (selectedProcedure.value) {
+            const currentSelection = procedures.find(
+              (p) => p.code === selectedProcedure.value
+            );
+            if (
+              currentSelection &&
+              !query.toLowerCase().includes(currentSelection.name.toLowerCase())
+            ) {
+              selectedProcedure.value = "";
+              updateSearchButton();
+            }
+          }
+        });
+
+        // Select procedure from dropdown
+        dropdown.addEventListener("click", function (e) {
+          const option = e.target.closest(".procedure-option");
+          if (option) {
+            const procedureCode = option.dataset.procedure;
+            const procedure = procedures.find((p) => p.code === procedureCode);
+
+            if (procedure) {
+              procedureInput.value = `${procedure.name} ${procedure.detail}`;
+              selectedProcedure.value = procedureCode;
+              dropdown.classList.add("hidden");
+              updateSearchButton();
+            }
+          }
+        });
+
+        // Quick search buttons (only for hero form)
+        if (formType === "hero") {
+          document.querySelectorAll(".hero-quick-search").forEach((button) => {
+            button.addEventListener("click", function () {
+              const procedureCode = this.dataset.procedure;
+              const procedure = procedures.find(
+                (p) => p.code === procedureCode
+              );
+
+              if (procedure) {
+                procedureInput.value = `${procedure.name} ${procedure.detail}`;
+                selectedProcedure.value = procedureCode;
+                updateSearchButton();
+              }
+            });
+          });
+        }
+
+        // Location detection
+        if (detectLocationBtn) {
+          detectLocationBtn.addEventListener("click", function () {
+            if (navigator.geolocation) {
+              this.innerHTML =
+                '<svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" class="opacity-25"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+
+              navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                  try {
+                    const response = await fetch(
+                      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&localityLanguage=en`
+                    );
+                    const data = await response.json();
+                    locationInput.value =
+                      data.postcode ||
+                      data.city + ", " + data.principalSubdivision;
+                    updateSearchButton();
+                  } catch (error) {
+                    console.error("Location detection failed:", error);
+                    locationInput.placeholder =
+                      "Location detection failed - enter ZIP manually";
+                  }
+
+                  this.innerHTML =
+                    '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>';
+                },
+                (error) => {
+                  console.error("Geolocation error:", error);
+                  locationInput.placeholder =
+                    "Location access denied - enter ZIP manually";
+                  this.innerHTML =
+                    '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>';
+                }
+              );
+            }
+          });
+        }
+
+        // Update search button when location changes
+        locationInput.addEventListener("input", updateSearchButton);
+
+        // Hide dropdown when clicking outside
+        document.addEventListener("click", function (e) {
+          if (
+            !procedureInput.contains(e.target) &&
+            !dropdown.contains(e.target)
+          ) {
+            dropdown.classList.add("hidden");
+          }
+        });
+      }
+    });
+  </script>
 </CarbonLayout>
