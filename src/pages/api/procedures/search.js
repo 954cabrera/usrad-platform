@@ -17,16 +17,15 @@ export async function GET({ request }) {
       import.meta.env.PUBLIC_SUPABASE_ANON_KEY
     );
 
-    // Search using the new index
     const { data: procedures, error } = await supabase
-      .from('procedure_search_index')
-      .select(`
-        *,
-        options:procedure_options(*)
-      `)
-      .or(`display_name.ilike.%${query}%,modality.ilike.%${query}%,region.ilike.%${query}%,common_terms.cs.{${query}}`)
-      .order('sort_order')
-      .limit(6);
+    .from('procedure_search_index')
+    .select(`
+      *,
+      options:procedure_options(*)
+    `)
+    .or(`display_name.ilike.%${query}%,modality.ilike.%${query}%,region.ilike.%${query}%`)
+    .order('sort_order')
+    .limit(6);
 
     if (error) {
       console.error('Search error:', error);
@@ -36,7 +35,6 @@ export async function GET({ request }) {
       });
     }
 
-    // Transform to match your frontend format
     const formatted = (procedures || []).map(proc => ({
       id: proc.search_key,
       modality: proc.modality,
@@ -54,6 +52,15 @@ export async function GET({ request }) {
           price: opt.price_range
         }))
     }));
+
+    // Track zero-result searches (fire and forget - don't wait)
+    if (formatted.length === 0) {
+      supabase.from('search_analytics').insert({
+        query: query,
+        results_count: 0,
+        user_agent: request.headers.get('user-agent')
+      }).then(() => {}).catch(() => {}); // Ignore errors
+    }
 
     return new Response(JSON.stringify({ procedures: formatted }), {
       status: 200,
