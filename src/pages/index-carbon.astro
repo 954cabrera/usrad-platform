@@ -12,13 +12,13 @@ export const prerender = true;
 <CarbonLayout title="USRad - MRI Scans in 48 Hours, 70% Less" isHeroPage={true}>
   <AOSInit />
 
-  <!-- Hero Section with Video Background -->
-  <!-- Current -->
+  <!-- ENHANCED PREMIUM HERO SECTION - Replace your current hero section with this -->
+
   <section
-    class="py-24 px-4 sm:px-6 bg-[#003087] text-white"
+    class="relative py-24 px-4 sm:px-6 bg-[#003087] text-white overflow-hidden"
     data-aos="fade-up"
   >
-    <!-- Video Background -->
+    <!-- Video Background (Keep as-is) -->
     <div class="absolute inset-0 z-0">
       <video
         autoplay
@@ -38,7 +38,7 @@ export const prerender = true;
         <source src="/videos/home-hero-mri.webm" type="video/webm" />
       </video>
 
-      <!-- Enhanced Video Overlay for transparent header compatibility -->
+      <!-- Enhanced Video Overlay -->
       <div
         class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40"
       >
@@ -49,7 +49,7 @@ export const prerender = true;
       </div>
     </div>
 
-    <!-- Gradient blobs (subtle over video) -->
+    <!-- Gradient blobs -->
     <div
       class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl opacity-30 z-10"
     >
@@ -61,7 +61,7 @@ export const prerender = true;
 
     <div class="max-w-7xl mx-auto relative z-20">
       <div class="max-w-5xl mx-auto text-center">
-        <!-- Main Headline - Properly Formatted -->
+        <!-- Main Headline (Keep as-is) -->
         <h1
           class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 text-white leading-tight tracking-tight"
           data-aos="fade-up"
@@ -90,7 +90,7 @@ export const prerender = true;
           <span class="text-white">.</span>
         </h1>
 
-        <!-- Subheadline - Perfect Visual Balance -->
+        <!-- Subheadline (Keep as-is) -->
         <p
           class="text-xl sm:text-2xl md:text-3xl text-white/90 max-w-3xl mx-auto leading-relaxed drop-shadow-lg"
           data-aos="fade-up"
@@ -100,45 +100,29 @@ export const prerender = true;
           <span class="block">Pay hundreds, not thousands.</span>
         </p>
 
-        <style>
-          @keyframes draw-line {
-            from {
-              stroke-dashoffset: 200;
-              opacity: 0;
-            }
-            to {
-              stroke-dashoffset: 0;
-              opacity: 0.8;
-            }
-          }
-          .animate-draw-line {
-            stroke-dasharray: 200;
-            stroke-dashoffset: 200;
-            animation: draw-line 1.5s ease-out 0.8s forwards;
-          }
-        </style>
-
+        <!-- ✨ ENHANCED PREMIUM AVAILABILITY BADGE -->
         <div
           class="flex justify-center mt-10 mb-10"
           data-aos="fade-up"
           data-aos-delay="300"
         >
           <div
-            class="inline-flex items-center gap-3 bg-white/95 backdrop-blur-md border-2 border-green-400/50 rounded-full px-6 py-3.5 animate-float shadow-2xl hover:shadow-green-200/50 hover:scale-105 transition-all duration-300"
+            class="inline-flex items-center gap-3 bg-gradient-to-r from-green-50/95 to-emerald-50/95 backdrop-blur-xl border-2 border-green-400/60 rounded-full px-7 py-4 animate-float shadow-[0_8px_32px_rgba(34,197,94,0.25),0_0_60px_rgba(34,197,94,0.15)] hover:shadow-[0_12px_40px_rgba(34,197,94,0.35),0_0_80px_rgba(34,197,94,0.2)] hover:scale-105 transition-all duration-300"
           >
-            <span class="flex h-3.5 w-3.5">
+            <span class="flex h-4 w-4">
               <span
-                class="animate-ping absolute inline-flex h-3.5 w-3.5 rounded-full bg-green-400 opacity-75"
+                class="animate-ping absolute inline-flex h-4 w-4 rounded-full bg-green-400 opacity-75"
               ></span>
               <span
-                class="relative inline-flex rounded-full h-3.5 w-3.5 bg-green-500 shadow-lg shadow-green-500/50"
+                class="relative inline-flex rounded-full h-4 w-4 bg-gradient-to-br from-green-400 to-green-500 shadow-lg shadow-green-500/60"
               ></span>
             </span>
-            <span class="text-base text-green-800 font-bold tracking-tight"
+            <span
+              class="text-base font-bold bg-gradient-to-r from-green-700 to-emerald-700 bg-clip-text text-transparent tracking-tight"
               >Appointments available tomorrow</span
             >
             <svg
-              class="w-5 h-5 text-green-600"
+              class="w-6 h-6 text-green-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -152,44 +136,22 @@ export const prerender = true;
           </div>
         </div>
 
-        <style>
-          @keyframes float {
-            0%,
-            100% {
-              transform: translateY(0px);
-            }
-            50% {
-              transform: translateY(-10px);
-            }
-          }
-          .animate-float {
-            animation: float 3s ease-in-out infinite;
-          }
-        </style>
-
-        <!-- Enhanced Search Form with Optimized Glassmorphism -->
+        <!-- ✨ PREMIUM COMPACT SEARCH FORM (MDsave Size, Premium Styling) -->
+        <!-- ELEVATED Z-INDEX to sit above trust indicators -->
         <div
-          class="relative bg-white/30 backdrop-blur-xl border border-white/40 rounded-3xl shadow-2xl p-6 max-w-3xl mx-auto mb-24"
+          class="relative z-50 bg-white/40 backdrop-blur-2xl border-2 border-white/60 rounded-3xl shadow-[0_8px_32px_rgba(255,255,255,0.25),0_0_60px_rgba(255,255,255,0.15)] p-5 max-w-3xl mx-auto mb-24 transition-all duration-300 hover:shadow-[0_12px_48px_rgba(255,255,255,0.35),0_0_80px_rgba(255,255,255,0.2)]"
           data-aos="fade-up"
           data-aos-delay="400"
         >
-          <form
-            class="space-y-5"
-            action="https://usrad-portal.vercel.app/pbs/search"
-            method="GET"
-            id="hero-search-form"
-          >
-          </form>
-
-          <!-- Stronger background for better contrast -->
+          <!-- Stronger inner glow -->
           <div
-            class="absolute inset-0 bg-gradient-to-br from-white/20 to-white/10 rounded-3xl pointer-events-none"
+            class="absolute inset-0 bg-gradient-to-br from-white/25 to-white/10 rounded-3xl pointer-events-none"
           >
           </div>
 
           <div class="relative z-10">
             <form
-              class="space-y-5"
+              class="space-y-4"
               action="https://usrad-portal.vercel.app/pbs/search"
               method="GET"
               id="hero-search-form"
@@ -198,24 +160,24 @@ export const prerender = true;
               <div class="relative">
                 <label
                   for="hero-procedure-search"
-                  class="block text-sm font-bold text-white mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                  class="block text-sm font-bold text-white mb-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]"
                 >
                   What scan do you need?
                 </label>
-                <div class="relative">
+                <div class="relative group">
                   <input
                     type="text"
                     id="hero-procedure-search"
                     name="procedureSearch"
                     placeholder="Type: MRI, CT, Ultrasound, X-Ray..."
-                    class="w-full px-5 py-4 pr-12 text-lg text-gray-900 bg-white border border-white/60 rounded-2xl focus:ring-2 focus:ring-white focus:border-white transition-all duration-200 placeholder-gray-500 shadow-lg"
+                    class="w-full px-4 py-3 pr-11 text-base text-gray-900 placeholder-gray-500 bg-white/95 backdrop-blur-sm border-2 border-white/70 rounded-xl focus:ring-4 focus:ring-white/50 focus:border-white focus:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-300 shadow-lg group-hover:border-white/90"
                     autocomplete="off"
                   />
                   <div
-                    class="absolute inset-y-0 right-0 flex items-center pr-4"
+                    class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
                   >
                     <svg
-                      class="w-5 h-5 text-gray-500"
+                      class="w-5 h-5 text-gray-400 group-focus-within:text-blue-600 transition-colors"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -228,10 +190,10 @@ export const prerender = true;
                     </svg>
                   </div>
 
-                  <!-- Enhanced Autocomplete dropdown -->
+                  <!-- ✨ SOLID OPAQUE DROPDOWN (No Bleed-Through) -->
                   <div
                     id="hero-procedure-dropdown"
-                    class="absolute z-50 w-full bg-white/95 backdrop-blur-xl border border-white/40 rounded-2xl shadow-2xl mt-2 hidden overflow-hidden"
+                    class="absolute z-[100] w-full bg-white border-2 border-gray-200 rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.3)] mt-2 hidden overflow-hidden"
                   >
                     <div class="py-2" id="hero-dropdown-content">
                       <!-- Content populated by JavaScript -->
@@ -241,26 +203,26 @@ export const prerender = true;
               </div>
 
               <!-- Location with Enhanced Design -->
-              <div class="flex flex-col sm:flex-row gap-4">
+              <div class="flex flex-col sm:flex-row gap-3">
                 <div class="flex-1">
                   <label
                     for="hero-location"
-                    class="block text-sm font-semibold text-white/90 mb-3"
+                    class="block text-sm font-semibold text-white/95 mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
                   >
                     Your location
                   </label>
-                  <div class="relative">
+                  <div class="relative group">
                     <input
                       type="text"
                       id="hero-location"
                       name="zip"
                       placeholder="ZIP code or city"
-                      class="w-full px-5 py-4 pr-12 text-lg bg-white/90 backdrop-blur-sm border border-white/40 rounded-2xl focus:ring-2 focus:ring-white focus:border-white transition-all duration-200 placeholder-gray-600"
+                      class="w-full px-4 py-3 pr-11 text-base text-gray-900 placeholder-gray-500 bg-white/95 backdrop-blur-sm border-2 border-white/70 rounded-xl focus:ring-4 focus:ring-white/50 focus:border-white focus:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-300 shadow-lg group-hover:border-white/90"
                     />
                     <button
                       type="button"
                       id="hero-detect-location"
-                      class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600 hover:text-blue-700 transition-colors"
+                      class="absolute inset-y-0 right-0 flex items-center pr-3 text-blue-600 hover:text-blue-700 transition-all hover:scale-110"
                       title="Use my current location"
                     >
                       <svg
@@ -289,13 +251,13 @@ export const prerender = true;
                   <button
                     type="submit"
                     id="hero-search-button"
-                    class="w-full sm:w-auto bg-white text-[#003087] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-50 transition-all duration-200 shadow-xl hover:shadow-2xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                    class="w-full sm:w-auto bg-white text-[#003087] px-7 py-3 rounded-xl font-bold text-base shadow-[0_4px_20px_rgba(255,255,255,0.4)] hover:shadow-[0_6px_30px_rgba(255,255,255,0.6)] transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 hover:bg-gray-50"
                     disabled
                   >
                     <span class="flex items-center justify-center">
                       Find Centers
                       <svg
-                        class="ml-2 w-5 h-5"
+                        class="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -323,31 +285,31 @@ export const prerender = true;
             </form>
 
             <!-- Quick Options -->
-            <div class="mt-6 pt-5 border-t border-white/30">
-              <p class="text-sm font-bold text-white mb-3 drop-shadow-lg">
+            <div class="mt-5 pt-4 border-t border-white/30">
+              <p class="text-sm font-bold text-white mb-2.5 drop-shadow-lg">
                 Popular searches:
               </p>
               <div class="flex flex-wrap gap-2">
                 <button
-                  class="hero-quick-search px-4 py-2 bg-white/90 hover:bg-white text-gray-800 font-medium text-sm rounded-full border border-white/80 hover:border-white hover:shadow-lg transition-all duration-200"
+                  class="hero-quick-search px-3.5 py-1.5 bg-white/95 hover:bg-white text-gray-800 font-medium text-sm rounded-full border-2 border-white/70 hover:border-white shadow-md hover:shadow-xl transition-all duration-200 hover:scale-105"
                   data-procedure="70551"
                 >
                   MRI Brain
                 </button>
                 <button
-                  class="hero-quick-search px-4 py-2 bg-white/90 hover:bg-white text-gray-800 font-medium text-sm rounded-full border border-white/80 hover:border-white hover:shadow-lg transition-all duration-200"
+                  class="hero-quick-search px-3.5 py-1.5 bg-white/95 hover:bg-white text-gray-800 font-medium text-sm rounded-full border-2 border-white/70 hover:border-white shadow-md hover:shadow-xl transition-all duration-200 hover:scale-105"
                   data-procedure="72148"
                 >
                   MRI Spine
                 </button>
                 <button
-                  class="hero-quick-search px-4 py-2 bg-white/90 hover:bg-white text-gray-800 font-medium text-sm rounded-full border border-white/80 hover:border-white hover:shadow-lg transition-all duration-200"
+                  class="hero-quick-search px-3.5 py-1.5 bg-white/95 hover:bg-white text-gray-800 font-medium text-sm rounded-full border-2 border-white/70 hover:border-white shadow-md hover:shadow-xl transition-all duration-200 hover:scale-105"
                   data-procedure="74177"
                 >
                   CT Scan
                 </button>
                 <button
-                  class="hero-quick-search px-4 py-2 bg-white/90 hover:bg-white text-gray-800 font-medium text-sm rounded-full border border-white/80 hover:border-white hover:shadow-lg transition-all duration-200"
+                  class="hero-quick-search px-3.5 py-1.5 bg-white/95 hover:bg-white text-gray-800 font-medium text-sm rounded-full border-2 border-white/70 hover:border-white shadow-md hover:shadow-xl transition-all duration-200 hover:scale-105"
                   data-procedure="76700"
                 >
                   Ultrasound
@@ -357,8 +319,7 @@ export const prerender = true;
           </div>
         </div>
 
-        <!-- Trust Indicators - Now outside the form container -->
-        <!-- Change mt-8 to mt-16 -->
+        <!-- Trust Indicators -->
         <div
           class="flex flex-wrap justify-center gap-8 text-base text-white font-semibold mt-16 drop-shadow-lg"
           data-aos="fade-up"
@@ -366,7 +327,7 @@ export const prerender = true;
         >
           <div class="flex items-center gap-2">
             <svg
-              class="w-5 h-5 text-green-600"
+              class="w-5 h-5 text-green-400"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -379,7 +340,7 @@ export const prerender = true;
           </div>
           <div class="flex items-center gap-2">
             <svg
-              class="w-5 h-5 text-green-600"
+              class="w-5 h-5 text-green-400"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -392,7 +353,7 @@ export const prerender = true;
           </div>
           <div class="flex items-center gap-2">
             <svg
-              class="w-5 h-5 text-green-600"
+              class="w-5 h-5 text-green-400"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -407,6 +368,56 @@ export const prerender = true;
       </div>
     </div>
   </section>
+
+  <style>
+    /* Animations */
+    @keyframes draw-line {
+      from {
+        stroke-dashoffset: 200;
+        opacity: 0;
+      }
+      to {
+        stroke-dashoffset: 0;
+        opacity: 0.8;
+      }
+    }
+
+    .animate-draw-line {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: draw-line 1.5s ease-out 0.8s forwards;
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Enhanced input focus states */
+    #hero-procedure-search:focus,
+    #hero-location:focus {
+      outline: none;
+    }
+
+    /* Smooth transitions for all interactive elements */
+    .hero-quick-search {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Button group effect */
+    #hero-search-button:not(:disabled):active {
+      transform: scale(0.98);
+    }
+  </style>
 
   <!-- Rest of your existing sections... -->
   <!-- I'm keeping the rest exactly as you had it -->
@@ -1014,69 +1025,91 @@ export const prerender = true;
         const dropdown = document.getElementById(dropdownId);
         if (!dropdown) return;
 
+        // Show fallback message for zero results
         if (results.length === 0) {
-          dropdown.classList.add("hidden");
+          dropdown.innerHTML = `
+            <div class="p-6 text-center">
+              <div class="mb-4">
+                <svg class="w-16 h-16 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">No matches found</h3>
+              <p class="text-sm text-gray-600 mb-4">We couldn't find that procedure in our search.</p>
+              <div class="space-y-3">
+                <a href="tel:18008772324" class="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                  </svg>
+                  Call 1-800-877-2324
+                </a>
+                <p class="text-xs text-gray-500">Our team can help you find the right scan</p>
+              </div>
+            </div>
+          `;
+          dropdown.classList.remove("hidden");
           return;
         }
 
+        // Show results as cards
         dropdown.innerHTML = `
-  <div class="p-3 bg-gray-50 border-b border-gray-200">
-    <p class="text-sm text-gray-600">${results.length} ${results.length === 1 ? "match" : "matches"} found</p>
-  </div>
-  <div class="max-h-80 overflow-y-auto">
-    ${results
-      .map(
-        (proc) => `
-      <div class="border-b border-gray-100 last:border-b-0" data-procedure-id="${proc.id}">
-        <button type="button" class="w-full px-4 py-4 hover:bg-blue-50 transition text-left procedure-card-header">
-          <div class="flex items-start gap-3">
-            <div class="text-3xl">${proc.icon || "📋"}</div>
-            <div class="flex-1">
-              <div class="flex items-center justify-between">
-                <h3 class="text-lg font-semibold text-gray-900">${proc.displayName}</h3>
-                <svg class="w-5 h-5 text-gray-400 expand-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </div>
-              <p class="text-sm text-gray-600 mt-1">${proc.description || ""}</p>
-              <div class="flex items-center gap-3 mt-2">
-                ${proc.badge ? `<span class="text-xs font-medium text-blue-600">${proc.badge}</span>` : ""}
-                <span class="text-xs text-gray-500">${proc.options?.length || 0} options</span>
-              </div>
-            </div>
+          <div class="p-3 bg-gray-50 border-b border-gray-200">
+            <p class="text-sm text-gray-600">${results.length} ${results.length === 1 ? "match" : "matches"} found</p>
           </div>
-        </button>
-        <div class="procedure-options hidden px-4 pb-4 bg-gray-50 space-y-2">
-          ${(proc.options || [])
-            .map(
-              (opt) => `
-            <button type="button" class="w-full text-left px-4 py-3 bg-white rounded-lg border-2 border-gray-200 hover:border-blue-500 hover:shadow-md transition procedure-option" 
-                    data-cpt="${opt.cpt}" 
-                    data-label="${proc.displayName} - ${opt.label}">
-              <div class="flex justify-between items-start">
-                <div class="flex-1">
-                  <div class="font-semibold text-gray-900">${opt.label}</div>
-                  <div class="text-sm text-gray-600 mt-1">${opt.detail || ""}</div>
-                </div>
-                <div class="text-right ml-4">
-                  <div class="text-sm font-semibold text-blue-600">See pricing →</div>
-                  <div class="text-xs text-gray-500 mt-1">${opt.cpt}</div>
+          <div class="max-h-80 overflow-y-auto">
+            ${results
+              .map(
+                (proc) => `
+              <div class="border-b border-gray-100 last:border-b-0" data-procedure-id="${proc.id}">
+                <button type="button" class="w-full px-4 py-4 hover:bg-blue-50 transition text-left procedure-card-header">
+                  <div class="flex items-start gap-3">
+                    <div class="text-3xl">${proc.icon || "📋"}</div>
+                    <div class="flex-1">
+                      <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-semibold text-gray-900">${proc.displayName}</h3>
+                        <svg class="w-5 h-5 text-gray-400 expand-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                      </div>
+                      <p class="text-sm text-gray-600 mt-1">${proc.description || ""}</p>
+                      <div class="flex items-center gap-3 mt-2">
+                        ${proc.badge ? `<span class="text-xs font-medium text-blue-600">${proc.badge}</span>` : ""}
+                        <span class="text-xs text-gray-500">${proc.options?.length || 0} options</span>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+                <div class="procedure-options hidden px-4 pb-4 bg-gray-50 space-y-2">
+                  ${(proc.options || [])
+                    .map(
+                      (opt) => `
+                    <button type="button" class="w-full text-left px-4 py-3 bg-white rounded-lg border-2 border-gray-200 hover:border-blue-500 hover:shadow-md transition procedure-option" 
+                            data-cpt="${opt.cpt}" 
+                            data-label="${proc.displayName} - ${opt.label}">
+                      <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                          <div class="font-semibold text-gray-900">${opt.label}</div>
+                          <div class="text-sm text-gray-600 mt-1">${opt.detail || ""}</div>
+                        </div>
+                        <div class="text-right ml-4">
+                          <div class="text-sm font-semibold text-blue-600">See pricing →</div>
+                          <div class="text-xs text-gray-500 mt-1">${opt.cpt}</div>
+                        </div>
+                      </div>
+                    </button>
+                  `
+                    )
+                    .join("")}
                 </div>
               </div>
-            </button>
-          `
-            )
-            .join("")}
-        </div>
-      </div>
-    `
-      )
-      .join("")}
-  </div>
-  <div class="p-3 bg-blue-50 border-t border-blue-100">
-    <p class="text-xs text-blue-800">💡 Click any card to see pricing and options</p>
-  </div>
-`;
+            `
+              )
+              .join("")}
+          </div>
+          <div class="p-3 bg-blue-50 border-t border-blue-100">
+            <p class="text-xs text-blue-800">💡 Click any card to see pricing and options</p>
+          </div>
+        `;
 
         dropdown.classList.remove("hidden");
 
@@ -1194,7 +1227,9 @@ export const prerender = true;
             dropdown.classList.remove("hidden");
 
             searchTimeout = setTimeout(async () => {
+              console.log("Calling searchProcedures with query:", query); // ADD THIS
               const results = await searchProcedures(query);
+              console.log("Got results:", results); // ADD THIS
               displayProcedureResults(
                 results,
                 `${formType}-procedure-dropdown`
