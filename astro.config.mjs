@@ -5,14 +5,19 @@ import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   integrations: [tailwind(), react()],
-  
-  // Server mode for API routes (perfect for Medicare pricing APIs)
+
+  // Enable SSR for API routes and dynamic features
   output: 'server',
-  
-  // Vercel adapter (great for deployment)
+
+  // Use Vercel adapter for deployment
   adapter: vercel(),
-  
+
+  // Local development server configuration
   server: {
-    port: 3000
+    port: 3000,
+    proxy: {
+      // Proxy Remix search routes during local development
+      '/pbs': 'http://localhost:5173'
+    }
   }
 });
