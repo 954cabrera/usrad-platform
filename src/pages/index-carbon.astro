@@ -852,17 +852,31 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
             if (locationHelper) locationHelper.style.opacity = "1";
           }, 400);
 
-          // Focus location input AND scroll into view on mobile (faster)
+          // ENHANCED: Focus and scroll on mobile
           setTimeout(function () {
             var locationInput = document.getElementById("hero-location");
             if (locationInput) {
               locationInput.focus();
-              // Smooth scroll into view on mobile
+
+              // Mobile-specific scroll handling
               if (window.innerWidth < 768) {
-                locationInput.scrollIntoView({
-                  behavior: "smooth",
-                  block: "center",
-                });
+                // Scroll to show Step 2 above keyboard
+                var step2 = document.getElementById("step-2-container");
+                if (step2) {
+                  step2.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                    inline: "nearest",
+                  });
+
+                  // Fine-tune position after scroll
+                  setTimeout(function () {
+                    window.scrollBy({
+                      top: -100,
+                      behavior: "smooth",
+                    });
+                  }, 300);
+                }
               }
             }
           }, 500);
@@ -1493,7 +1507,6 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
             }
           }
 
-          // Track form completion
           trackFormEvent("form_submitted", {
             procedure: selectedProcedure ? selectedProcedure.value : "",
             location: zipField ? zipField.value : "",
@@ -1501,7 +1514,109 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
           });
         });
       }
-    });
+
+      // ==========================================
+      // STEP 2: MOBILE KEYBOARD HANDLER FUNCTION
+      // ==========================================
+
+      function handleMobileKeyboardOpen(inputElement) {
+        // Only apply on mobile devices
+        if (window.innerWidth >= 768) return;
+
+        // Detect iOS
+        var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+        if (isIOS) {
+          // iOS-specific handling
+          setTimeout(function () {
+            // Scroll the form container into view
+            var formContainer = inputElement.closest(".max-w-3xl");
+            if (formContainer) {
+              formContainer.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+                inline: "nearest",
+              });
+            }
+
+            // Additional scroll to account for iOS keyboard height
+            setTimeout(function () {
+              window.scrollBy({
+                top: -80,
+                behavior: "smooth",
+              });
+            }, 300);
+          }, 300);
+        } else {
+          // Android handling
+          setTimeout(function () {
+            var progressIndicators = document.querySelector(
+              '[role="progressbar"]'
+            );
+            if (progressIndicators && progressIndicators.parentElement) {
+              progressIndicators.parentElement.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+                inline: "nearest",
+              });
+            }
+
+            // Fine-tune scroll position
+            setTimeout(function () {
+              window.scrollBy({
+                top: -60,
+                behavior: "smooth",
+              });
+            }, 300);
+          }, 100);
+        }
+      }
+
+      // ==========================================
+      // STEP 3: MOBILE KEYBOARD EVENT LISTENERS
+      // ==========================================
+
+      // Apply mobile scroll to procedure input
+      if (procedureInput) {
+        procedureInput.addEventListener("focus", function () {
+          handleMobileKeyboardOpen(this);
+
+          // Show helper text after scroll
+          setTimeout(function () {
+            var helper = document.getElementById("search-helper");
+            if (helper) helper.style.opacity = "1";
+          }, 500);
+        });
+
+        // Keep form visible while typing
+        procedureInput.addEventListener("input", function () {
+          if (window.innerWidth < 768) {
+            // Ensure dropdown stays visible
+            var dropdown = document.getElementById("hero-procedure-dropdown");
+            if (dropdown && !dropdown.classList.contains("hidden")) {
+              setTimeout(function () {
+                dropdown.scrollIntoView({
+                  behavior: "smooth",
+                  block: "nearest",
+                });
+              }, 100);
+            }
+          }
+        });
+      }
+
+      // Apply mobile scroll to location input (Step 2)
+      if (locationInput) {
+        locationInput.addEventListener("focus", function () {
+          handleMobileKeyboardOpen(this);
+
+          setTimeout(function () {
+            var helper = document.getElementById("location-helper");
+            if (helper) helper.style.opacity = "1";
+          }, 500);
+        });
+      }
+    }); // ← Closes DOMContentLoaded
   </script>
 
   <!-- Social Proof Bar -->
