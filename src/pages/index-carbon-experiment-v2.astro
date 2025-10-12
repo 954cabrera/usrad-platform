@@ -694,7 +694,6 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
       const searchLoading = document.getElementById("search-loading");
       const locationIcon = document.getElementById("location-icon");
       const locationLoading = document.getElementById("location-loading");
-      const searchHelper = document.getElementById("search-helper");
       const locationHelper = document.getElementById("location-helper");
 
       const step1Container = document.getElementById("step-1-container");
@@ -708,11 +707,6 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
         "selected-procedure-display"
       );
       const backToStep1Btn = document.getElementById("back-to-step-1");
-
-      // Show helper text after delay
-      setTimeout(function () {
-        if (searchHelper) searchHelper.style.opacity = "1";
-      }, 2000);
 
       // Keyboard navigation state
       let selectedDropdownIndex = -1;
@@ -1183,8 +1177,20 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
                 if (i !== icon) i.classList.remove("rotate-90");
               });
 
+              var wasHidden = options.classList.contains("hidden");
               options.classList.toggle("hidden");
               icon.classList.toggle("rotate-90");
+
+              // Scroll expanded options into view after animation
+              if (wasHidden) {
+                setTimeout(function () {
+                  options.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "nearest",
+                  });
+                }, 50);
+              }
             });
           });
 
