@@ -1,0 +1,691 @@
+---
+// HeroSection.astro - Progressive Disclosure Hero with Search Form
+interface Props {
+  remixUrl: string;
+}
+
+const { remixUrl } = Astro.props;
+---
+
+<!-- PROGRESSIVE DISCLOSURE HERO SECTION -->
+<section
+  class="relative py-24 px-4 sm:px-6 bg-[#003087] text-white overflow-hidden"
+  data-aos="fade-up"
+>
+  <!-- Video Background -->
+  <div class="absolute inset-0 z-0">
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      class="absolute inset-0 w-full h-full object-cover"
+      poster="/images/home-hero-mri.webp?v=2.1"
+    >
+      <source
+        src="/videos/home-hero-mri-mobile.mp4"
+        type="video/mp4"
+        media="(max-width: 768px)"
+      />
+      <source src="/videos/home-hero-mri.mp4" type="video/mp4" />
+      <source src="/videos/home-hero-mri.webm" type="video/webm" />
+    </video>
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40"
+    >
+    </div>
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/40"
+    >
+    </div>
+  </div>
+
+  <!-- Gradient blobs -->
+  <div
+    class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl opacity-30 z-10"
+  >
+  </div>
+  <div
+    class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-[#cc9933]/20 to-orange-500/20 rounded-full blur-3xl opacity-20 z-10"
+  >
+  </div>
+
+  <div class="max-w-7xl mx-auto relative z-20">
+    <div class="max-w-5xl mx-auto text-center">
+      <!-- Main Headline -->
+      <h1
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 text-white leading-tight tracking-tight"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <span class="block">Same Radiologists.</span>
+        <span class="block">Same Scanners.</span>
+        <span class="text-[#cc9933] relative inline-block">
+          70% Less
+          <svg
+            class="absolute -bottom-2 sm:-bottom-3 left-0 w-full"
+            height="20"
+            viewBox="0 0 200 20"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M 2 14 Q 50 4 100 14 Q 150 24 198 14"
+              stroke="#cc9933"
+              stroke-width="5"
+              fill="none"
+              class="animate-draw-line drop-shadow-md"
+              stroke-linecap="round"
+              opacity="0.8"></path>
+          </svg>
+        </span>
+        <span class="text-white">.</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p
+        class="text-xl sm:text-2xl md:text-3xl text-white/90 max-w-3xl mx-auto leading-relaxed drop-shadow-lg mb-12"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <span class="block">Book in minutes. Get scanned this week.</span>
+        <span class="block">Pay hundreds, not thousands.</span>
+      </p>
+
+      <!-- PROGRESSIVE DISCLOSURE FORM -->
+      <div
+        class="relative z-50 max-w-3xl mx-auto mb-16 sm:mb-24"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <!-- Progress Indicators -->
+        <div
+          class="flex items-center justify-center gap-2 mb-6"
+          role="progressbar"
+          aria-valuenow="1"
+          aria-valuemin="1"
+          aria-valuemax="2"
+          aria-label="Form progress: Step 1 of 2"
+        >
+          <!-- Step 1 -->
+          <div class="flex items-center gap-2">
+            <div
+              id="step-1-indicator"
+              class="w-10 h-10 rounded-full bg-[#003087] text-white flex items-center justify-center text-sm font-bold transition-all duration-500 shadow-lg"
+              aria-label="Step 1: Select procedure"
+            >
+              1
+            </div>
+            <span
+              id="step-1-label"
+              class="text-sm font-semibold text-white transition-all duration-500"
+              >Procedure</span
+            >
+          </div>
+
+          <!-- Animated Progress Line -->
+          <div
+            class="relative w-16 sm:w-24 h-1 bg-white/20 rounded-full overflow-hidden"
+            aria-hidden="true"
+          >
+            <div
+              id="progress-fill"
+              class="absolute left-0 top-0 h-full bg-gradient-to-r from-[#003087] to-[#cc9933] rounded-full transition-all duration-700 ease-out w-0"
+            >
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="flex items-center gap-2">
+            <div
+              id="step-2-indicator"
+              class="w-10 h-10 rounded-full bg-white/20 text-white/50 flex items-center justify-center text-sm font-bold transition-all duration-500"
+              aria-label="Step 2: Enter location"
+            >
+              2
+            </div>
+            <span
+              id="step-2-label"
+              class="text-sm font-medium text-white/50 transition-all duration-500"
+              >Location</span
+            >
+          </div>
+        </div>
+
+        <!-- Form Container - ENHANCED BRIGHTNESS & CONTRAST -->
+        <div
+          class="bg-white/95 backdrop-blur-xl border-2 border-white/80 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.3),0_0_100px_rgba(255,255,255,0.1)] transition-all duration-300 hover:shadow-[0_24px_70px_rgba(0,0,0,0.35),0_0_120px_rgba(255,255,255,0.15)]"
+        >
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-3xl pointer-events-none"
+          >
+          </div>
+
+          <form
+            action={`${remixUrl}/pbs/search`}
+            method="GET"
+            id="hero-search-form"
+            class="relative z-10"
+          >
+            <!-- STEP 1: Procedure Search -->
+            <div
+              id="step-1-container"
+              class="p-6 sm:p-8 transition-all duration-500"
+            >
+              <div class="text-center mb-6">
+                <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                  What scan do you need?
+                </h3>
+                <p class="text-gray-700">Start typing to see options</p>
+              </div>
+
+              <div class="relative">
+                <!-- Search Icon with Loading Spinner -->
+                <div
+                  class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10"
+                >
+                  <svg
+                    id="search-icon"
+                    class="w-6 h-6 text-gray-400 transition-colors duration-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                  </svg>
+                  <svg
+                    id="search-loading"
+                    class="w-6 h-6 text-[#003087] animate-spin hidden"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"></circle>
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                </div>
+
+                <input
+                  type="text"
+                  id="hero-procedure-search"
+                  placeholder="Type: MRI, CT, Ultrasound, X-Ray..."
+                  class="w-full pl-14 pr-14 py-4 sm:py-5 text-base sm:text-lg text-gray-900 placeholder-gray-500 bg-white border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#003087] focus:border-transparent transition-all min-h-[56px] shadow-sm"
+                  autocomplete="off"
+                  aria-label="Search for medical procedure"
+                  aria-describedby="search-helper"
+                  aria-controls="hero-procedure-dropdown"
+                  aria-autocomplete="list"
+                  role="combobox"
+                  aria-expanded="false"
+                />
+
+                <!-- Voice Search Button -->
+                <button
+                  type="button"
+                  id="voice-search-btn"
+                  class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-[#003087] transition-all hover:scale-110 min-h-[44px] min-w-[44px] justify-center hidden"
+                  title="Voice search"
+                >
+                  <svg
+                    id="voice-icon"
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                    ></path>
+                  </svg>
+                  <svg
+                    id="voice-listening"
+                    class="w-5 h-5 hidden text-red-500 animate-pulse"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle cx="12" cy="12" r="4"></circle>
+                  </svg>
+                </button>
+
+                <!-- Autocomplete Dropdown -->
+                <div
+                  id="hero-procedure-dropdown"
+                  class="absolute z-[9999] w-full bg-white border-2 border-gray-200 rounded-xl shadow-2xl mt-2 hidden max-h-[500px] overflow-visible"
+                  role="listbox"
+                  aria-label="Procedure search results"
+                >
+                </div>
+              </div>
+
+              <!-- Helper Text -->
+              <div
+                id="search-helper"
+                class="mt-4 px-4 py-2.5 bg-blue-50 border border-blue-200 rounded-lg opacity-0 transition-opacity duration-300"
+              >
+                <p class="text-sm font-medium text-blue-800 text-center">
+                  💡 Try searching for <span class="font-semibold">"MRI"</span>, <span
+                    class="font-semibold">"CT Scan"</span
+                  >, or <span class="font-semibold">"Ultrasound"</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- STEP 2: Location (Initially Hidden) -->
+            <div
+              id="step-2-container"
+              class="hidden p-6 sm:p-8 transition-all duration-500"
+            >
+              <div class="text-center mb-6">
+                <!-- Selected Procedure Display with Change Button -->
+                <div class="mb-8">
+                  <div
+                    class="inline-flex items-center justify-between w-full max-w-2xl mx-auto bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-all duration-200"
+                  >
+                    <!-- Left: Checkmark Icon -->
+                    <div class="flex items-center gap-4 flex-1 min-w-0">
+                      <div
+                        class="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 flex items-center justify-center"
+                      >
+                        <svg
+                          class="w-4 h-4 text-green-600"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                      </div>
+
+                      <!-- Center: Two-line text layout -->
+                      <div class="flex-1 text-left min-w-0">
+                        <p
+                          class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-0.5"
+                        >
+                          Selected Procedure
+                        </p>
+                        <p
+                          id="selected-procedure-display"
+                          class="text-sm font-semibold text-gray-900 truncate"
+                        >
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Right: Change Button -->
+                    <button
+                      type="button"
+                      id="back-to-step-1"
+                      class="rotate-on-hover flex-shrink-0 ml-4 flex items-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 px-4 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 min-h-[44px] border border-gray-200"
+                    >
+                      <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                        ></path>
+                      </svg>
+                      Change
+                    </button>
+                  </div>
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                  Where are you located?
+                </h3>
+                <p class="text-gray-700">We'll find centers near you</p>
+              </div>
+
+              <div class="space-y-4">
+                <div class="relative group">
+                  <div
+                    class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+                  >
+                    <svg
+                      class="w-5 h-5 text-gray-400 group-focus-within:text-[#003087] transition-colors"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      ></path>
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    id="hero-location"
+                    placeholder="ZIP code (5 digits)"
+                    inputmode="numeric"
+                    pattern="[0-9]{5}"
+                    maxlength="5"
+                    class="w-full pl-12 pr-14 py-4 sm:py-5 text-base sm:text-lg text-gray-900 placeholder-gray-400 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#003087]/20 focus:border-transparent hover:border-gray-300 transition-all min-h-[56px] shadow-sm"
+                  />
+                  <button
+                    type="button"
+                    id="hero-detect-location"
+                    class="absolute inset-y-0 right-0 pr-4 flex items-center text-[#003087] hover:text-[#cc9933] transition-all hover:scale-110 min-h-[44px] min-w-[44px] justify-center"
+                    title="Use my current location"
+                  >
+                    <svg
+                      id="location-icon"
+                      class="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                      ></path>
+                    </svg>
+                    <svg
+                      id="location-loading"
+                      class="w-5 h-5 animate-spin hidden"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        class="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        stroke-width="4"></circle>
+                      <path
+                        class="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Location Helper Text -->
+                <div
+                  id="location-helper"
+                  class="opacity-0 transition-opacity duration-300"
+                >
+                  <p class="text-sm text-gray-500 text-center">
+                    <span class="inline-flex items-center gap-1.5">
+                      <svg
+                        class="w-4 h-4 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                      Enter your 5-digit ZIP code or click the location icon to auto-detect
+                    </span>
+                  </p>
+                </div>
+
+                <!-- Enhanced Search Button -->
+                <button
+                  type="submit"
+                  id="hero-search-button"
+                  class="w-full bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-8 py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 mt-6 min-h-[56px] relative overflow-hidden group"
+                  disabled
+                >
+                  <span
+                    class="flex items-center justify-center gap-2 relative z-10"
+                  >
+                    <span id="button-text">Find Centers</span>
+                    <svg
+                      class="w-5 h-5 transition-transform group-hover:translate-x-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                  </span>
+                  <div
+                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"
+                  >
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Hidden Form Fields -->
+            <input
+              type="hidden"
+              name="procedure"
+              id="hero-selected-procedure"
+              value=""
+            />
+            <input type="hidden" name="zip" id="hero-zip" value="" />
+            <input type="hidden" name="state" value="" />
+            <input type="hidden" name="radius" value="10" />
+          </form>
+        </div>
+      </div>
+
+      <!-- Trust Indicators -->
+      <div
+        class="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 text-sm sm:text-base text-white font-semibold drop-shadow-lg"
+        data-aos="fade-up"
+        data-aos-delay="500"
+      >
+        <div class="flex items-center gap-2">
+          <svg
+            class="flex-shrink-0 w-5 h-5 text-green-400"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span>No insurance required</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg
+            class="flex-shrink-0 w-5 h-5 text-green-400"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span>Upfront pricing</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg
+            class="flex-shrink-0 w-5 h-5 text-green-400"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span>1,500+ locations</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes draw-line {
+    from {
+      stroke-dashoffset: 200;
+      opacity: 0;
+    }
+    to {
+      stroke-dashoffset: 0;
+      opacity: 0.8;
+    }
+  }
+  .animate-draw-line {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: draw-line 1.5s ease-out 0.8s forwards;
+  }
+
+  /* Step transition animations - FASTER */
+  .step-fade-out {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.25s ease;
+  }
+
+  .step-fade-in {
+    animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Celebration animation */
+  @keyframes celebration {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.15);
+    }
+  }
+
+  .celebrate {
+    animation: celebration 0.5s ease-in-out;
+  }
+
+  /* Button pulse when enabled */
+  @keyframes buttonPulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(204, 153, 51, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(204, 153, 51, 0);
+    }
+  }
+
+  #hero-search-button:not(:disabled) {
+    animation: buttonPulse 2s ease-in-out 1;
+  }
+
+  /* Subtle rotate animation for Change button icon */
+  @keyframes rotateIcon {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-180deg);
+    }
+  }
+
+  .rotate-on-hover:hover svg {
+    animation: rotateIcon 0.5s ease-in-out;
+  }
+
+  /* Keyboard navigation highlight */
+  .keyboard-nav-item.bg-blue-100 {
+    background-color: #dbeafe !important;
+    outline: 2px solid #3b82f6;
+    outline-offset: -2px;
+  }
+
+  /* Loading skeleton */
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  /* Mobile touch improvements */
+  @media (hover: none) and (pointer: coarse) {
+    input,
+    button,
+    select {
+      font-size: 16px !important;
+    }
+  }
+
+  #hero-procedure-search:focus,
+  #hero-location:focus {
+    outline: none;
+  }
+
+  #hero-search-button:not(:disabled):active {
+    transform: scale(0.98);
+  }
+
+  #hero-procedure-dropdown {
+    animation: fadeInDown 0.3s ease-out;
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

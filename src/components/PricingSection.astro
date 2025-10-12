@@ -1,0 +1,111 @@
+---
+// PricingSection.astro - Pricing display and benefits
+---
+
+<!-- Pricing Section -->
+<section
+  class="py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-br from-gray-50 via-white to-gray-50"
+  data-aos="fade-up"
+>
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12 sm:mb-20">
+      <h2
+        class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-gray-900"
+        data-aos="fade-up"
+      >
+        Clear, upfront pricing
+      </h2>
+      <p class="text-2xl text-gray-600" data-aos="fade-up" data-aos-delay="100">
+        No insurance? No problem. Save up to 70% vs hospital prices.
+      </p>
+    </div>
+
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="mb-12 sm:mb-16" data-aos="zoom-in" data-aos-delay="200">
+        <p
+          class="text-base font-medium text-[#cc9933] uppercase tracking-wide mb-4"
+        >
+          MRI Starting At
+        </p>
+        <p
+          class="text-7xl md:text-8xl lg:text-9xl font-bold text-[#003087] mb-6"
+        >
+          $260
+        </p>
+        <p class="text-xl md:text-2xl text-gray-600">
+          vs $3,200 average hospital price
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 sm:gap-12 mb-12 sm:mb-16">
+        <div data-aos="fade-up" data-aos-delay="300" class="group">
+          <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+            <img
+              src="/images/icons/flash.svg"
+              alt="Fast booking"
+              class="flex-shrink-0 w-16 h-16 filter-brand-blue group-hover:scale-110 transition-transform duration-300"
+            />
+          </div>
+          <h3 class="font-semibold text-xl text-gray-900 mb-3">
+            48-hour booking
+          </h3>
+          <p class="text-base text-gray-600">
+            Get scanned this week, not next month
+          </p>
+        </div>
+
+        <div data-aos="fade-up" data-aos-delay="400" class="group">
+          <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+            <img
+              src="/images/icons/protection2.svg"
+              alt="Upfront pricing"
+              class="flex-shrink-0 w-16 h-16 filter-brand-blue group-hover:scale-110 transition-transform duration-300"
+            />
+          </div>
+          <h3 class="font-semibold text-xl text-gray-900 mb-3">
+            Upfront pricing
+          </h3>
+          <p class="text-base text-gray-600">No surprises, no hidden fees</p>
+        </div>
+
+        <div data-aos="fade-up" data-aos-delay="500" class="group">
+          <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+            <img
+              src="/images/icons/no-insurance.svg"
+              alt="No insurance needed"
+              class="flex-shrink-0 w-16 h-16 filter-brand-blue group-hover:scale-110 transition-transform duration-300"
+            />
+          </div>
+          <h3 class="font-semibold text-xl text-gray-900 mb-3">
+            No insurance needed
+          </h3>
+          <p class="text-base text-gray-600">
+            Same quality care, direct pricing
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-gray-50 px-8 py-6 text-center rounded-2xl">
+        <button
+          type="button"
+          onclick="document.getElementById('hero-procedure-search').scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(function() { document.getElementById('hero-procedure-search').focus(); }, 800);"
+          class="inline-block bg-[#003087] text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-medium hover:bg-[#002266] transition cursor-pointer"
+        >
+          See prices in your area →
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .filter-brand-blue {
+    filter: brightness(0) saturate(100%) invert(13%) sepia(94%) saturate(4107%)
+      hue-rotate(216deg) brightness(94%) contrast(101%);
+  }
+  .group:hover .filter-brand-blue {
+    filter: brightness(0) saturate(100%) invert(13%) sepia(94%) saturate(4107%)
+      hue-rotate(216deg) brightness(94%) contrast(101%)
+      drop-shadow(0 4px 6px rgba(0, 48, 135, 0.1));
+  }
+</style>

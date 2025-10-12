@@ -1,0 +1,144 @@
+---
+// HowItWorksSection.astro - Three-step process explanation
+---
+
+<!-- How It Works Section -->
+<section
+  class="py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-br from-white via-blue-50/20 to-white"
+  data-aos="fade-up"
+>
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12 sm:mb-20">
+      <h2
+        class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-gray-900"
+        data-aos="fade-up"
+      >
+        Getting your MRI is this easy
+      </h2>
+      <p class="text-2xl text-gray-600" data-aos="fade-up" data-aos-delay="100">
+        From booking to results in 3 simple steps
+      </p>
+    </div>
+
+    <div
+      class="grid md:grid-cols-3 gap-8 sm:gap-12 max-w-6xl mx-auto how-it-works-steps"
+    >
+      <!-- Step 1 -->
+      <div
+        class="text-center flex flex-col"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <div
+          class="relative h-48 sm:h-56 flex items-center justify-center mb-6 sm:mb-8"
+        >
+          <div class="absolute top-0 left-1/2 transform -translate-x-1/2">
+            <span
+              class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-200 text-gray-600 text-sm font-semibold"
+              >1</span
+            >
+          </div>
+          <div
+            class="w-40 h-40 bg-gray-50 rounded-2xl flex items-center justify-center"
+          >
+            <img
+              src="/images/icons/expenses.svg"
+              alt="Compare prices"
+              class="flex-shrink-0 w-24 h-24"
+            />
+          </div>
+        </div>
+        <h3 class="text-2xl font-semibold mb-4">Compare prices</h3>
+        <p class="text-lg text-gray-600">
+          See upfront costs from quality imaging centers near you. No hidden
+          fees.
+        </p>
+      </div>
+
+      <!-- Step 2 -->
+      <div
+        class="text-center flex flex-col"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <div
+          class="relative h-48 sm:h-56 flex items-center justify-center mb-6 sm:mb-8"
+        >
+          <div class="absolute top-0 left-1/2 transform -translate-x-1/2">
+            <span
+              class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#003087] text-white text-sm font-semibold"
+              >2</span
+            >
+          </div>
+          <div
+            class="w-40 h-40 bg-[#fefbf5] rounded-2xl flex items-center justify-center"
+          >
+            <img
+              src="/images/icons/appointment1.svg"
+              alt="Book instantly"
+              class="flex-shrink-0 w-24 h-24"
+            />
+          </div>
+        </div>
+        <h3 class="text-2xl font-semibold mb-4">Book instantly</h3>
+        <p class="text-lg text-gray-600">
+          Choose your time and location. Most appointments within 2-3 days.
+        </p>
+      </div>
+
+      <!-- Step 3 -->
+      <div
+        class="text-center flex flex-col"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        <div
+          class="relative h-48 sm:h-56 flex items-center justify-center mb-6 sm:mb-8"
+        >
+          <div class="absolute top-0 left-1/2 transform -translate-x-1/2">
+            <span
+              class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#cc9933] text-white text-sm font-semibold"
+              >3</span
+            >
+          </div>
+          <div
+            class="w-40 h-40 bg-gray-50 rounded-2xl flex items-center justify-center"
+          >
+            <img
+              src="/images/icons/fast.svg"
+              alt="Get results fast"
+              class="flex-shrink-0 w-24 h-24"
+            />
+          </div>
+        </div>
+        <h3 class="text-2xl font-semibold mb-4">Get results fast</h3>
+        <p class="text-lg text-gray-600">
+          Board-certified radiologists review your scan. Results in 24-48 hours.
+        </p>
+      </div>
+    </div>
+
+    <style>
+      @media (min-width: 768px) {
+        .how-it-works-steps > div:not(:last-child)::after {
+          content: "";
+          position: absolute;
+          top: 128px;
+          right: -48px;
+          width: 96px;
+          height: 2px;
+          background: linear-gradient(
+            to right,
+            #e5e7eb 0%,
+            #e5e7eb 45%,
+            transparent 45%,
+            transparent 55%,
+            #e5e7eb 55%,
+            #e5e7eb 100%
+          );
+          background-size: 8px 2px;
+        }
+      }
+    </style>
+  </div>
+</section>

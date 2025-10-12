@@ -105,66 +105,82 @@ export default function CarbonHeader({ isHeroPage = false }) {
     <>
       {/* Inject animation styles */}
       <style dangerouslySetInnerHTML={{ __html: dropdownStyles }} />
-      
+
       {/* Header */}
-      <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isVisible ? 'translate-y-0' : '-translate-y-full'
-      } ${styles.background}`}>
+      <header
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          isVisible ? "translate-y-0" : "-translate-y-full"
+        } ${styles.background}`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
               <a href="/index-carbon" className="flex items-center">
-                <img 
-                  src="/logo/USRad-Logo-final-rev.png" 
-                  alt="USRad Logo" 
+                <img
+                  src="/logo/USRad-Logo-final-rev.png"
+                  alt="USRad Logo"
                   className={`h-10 w-auto transition-all duration-300 ${styles.logoFilter}`}
                 />
-                <span className={`ml-2 text-xs px-2 py-1 rounded-full font-medium transition-all duration-300 ${styles.betaBg} ${styles.betaText}`}>
+                <span
+                  className={`ml-2 text-xs px-2 py-1 rounded-full font-medium transition-all duration-300 ${styles.betaBg} ${styles.betaText}`}
+                >
                   BETA
                 </span>
               </a>
             </div>
-            
+
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="/how-it-works-carbon" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
+              <a
+                href="/how-it-works-carbon"
+                className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}
+              >
                 How it works
               </a>
               {/* <a href="/pricing" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
                 Pricing
               </a> */}
-              <a href="/education/what-is-an-mri-carbon" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
+              <a
+                href="/education/what-is-an-mri-carbon"
+                className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}
+              >
                 What is an MRI?
               </a>
-              <a href="/about-carbon" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
+              <a
+                href="/about-carbon"
+                className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}
+              >
                 About
               </a>
-              <a href="/contact-carbon" className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}>
+              <a
+                href="/contact-carbon"
+                className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}
+              >
                 Contact
               </a>
             </nav>
-            
+
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center space-x-4">
               {/* Subtle B2B Links - Desktop Only */}
               <div className="flex items-center text-xs">
-                <a 
-                  href="/employer-carbon4" 
+                <a
+                  href="/employer-carbon4"
                   className={`transition-all duration-300 ${styles.b2bText} ${styles.b2bHover}`}
                 >
                   For Employers
                 </a>
                 <span className={`mx-2 ${styles.b2bDivider}`}>|</span>
-                <a 
-                  href="/provider" 
+                <a
+                  href="/provider"
                   className={`transition-all duration-300 ${styles.b2bText} ${styles.b2bHover}`}
                 >
                   For Imaging Centers
                 </a>
                 <span className={`mx-3 ${styles.b2bDivider}`}>|</span>
               </div>
-              
+
               <LoginDropdown isHeroPage={isHeroPage} isScrolled={isScrolled} />
               <a
                 href="/search-results"
@@ -181,12 +197,32 @@ export default function CarbonHeader({ isHeroPage = false }) {
               aria-label="Toggle menu"
             >
               {!mobileMenuOpen ? (
-                <svg className={`w-6 h-6 transition-colors duration-300 ${styles.textColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <svg
+                  className={`w-6 h-6 transition-colors duration-300 ${styles.textColor}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M 4 6 h 16 M 4 12 h 16 M 4 18 h 16"
+                  />
                 </svg>
               ) : (
-                <svg className={`w-6 h-6 transition-colors duration-300 ${styles.textColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className={`w-6 h-6 transition-colors duration-300 ${styles.textColor}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M 6 18 L 18 6 M 6 6 l 12 12"
+                  />
                 </svg>
               )}
             </button>
@@ -195,28 +231,41 @@ export default function CarbonHeader({ isHeroPage = false }) {
       </header>
 
       {/* Mobile Menu */}
-      <div className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
-        mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
-      }`}>
+      <div
+        className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
+          mobileMenuOpen
+            ? "opacity-100 visible"
+            : "opacity-0 invisible pointer-events-none"
+        }`}
+      >
         {/* Backdrop */}
-        <div 
+        <div
           className="absolute inset-0 bg-black/20 backdrop-blur-sm"
           onClick={() => setMobileMenuOpen(false)}
         />
-        
+
         {/* Menu Panel */}
-        <div className={`absolute right-0 top-0 h-full w-72 bg-white shadow-xl transform transition-transform duration-300 ${
-          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}>
+        <div
+          className={`absolute right-0 top-0 h-full w-72 bg-white shadow-xl transform transition-transform duration-300 ${
+            mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
           {/* Mobile Menu Header */}
           <div className="flex items-center justify-between p-4 border-b">
             <span className="text-lg font-semibold text-[#003087]">Menu</span>
-            <button
-              onClick={() => setMobileMenuOpen(false)}
-              className="p-1"
-            >
-              <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <button onClick={() => setMobileMenuOpen(false)} className="p-1">
+              <svg
+                className="w-6 h-6 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M 6 18 L 18 6 M 6 6 l 12 12"
+                />
               </svg>
             </button>
           </div>
@@ -224,19 +273,31 @@ export default function CarbonHeader({ isHeroPage = false }) {
           {/* Mobile Nav Links */}
           <nav className="p-4">
             <div className="space-y-1">
-              <MobileNavLink href="/how-it-works-carbon" onClick={() => setMobileMenuOpen(false)}>
+              <MobileNavLink
+                href="/how-it-works-carbon"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 How it works
               </MobileNavLink>
               {/*<MobileNavLink href="/pricing" onClick={() => setMobileMenuOpen(false)}>
                 Pricing
               </MobileNavLink> */}
-              <MobileNavLink href="/education/what-is-an-mri-carbon" onClick={() => setMobileMenuOpen(false)}>
+              <MobileNavLink
+                href="/education/what-is-an-mri-carbon"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 What is an MRI?
               </MobileNavLink>
-              <MobileNavLink href="/about-carbon" onClick={() => setMobileMenuOpen(false)}>
+              <MobileNavLink
+                href="/about-carbon"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 About
               </MobileNavLink>
-              <MobileNavLink href="/contact-carbon" onClick={() => setMobileMenuOpen(false)}>
+              <MobileNavLink
+                href="/contact-carbon"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 Contact
               </MobileNavLink>
             </div>
@@ -261,8 +322,18 @@ export default function CarbonHeader({ isHeroPage = false }) {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span>For Employers</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M 9 5 l 7 7 l -7 7"
+                  />
                 </svg>
               </a>
               <a
@@ -271,8 +342,18 @@ export default function CarbonHeader({ isHeroPage = false }) {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span>For Imaging Centers</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M 9 5 l 7 7 l -7 7"
+                  />
                 </svg>
               </a>
             </div>
@@ -367,30 +448,38 @@ function LoginDropdown({ isHeroPage, isScrolled }) {
         onClick={() => setIsOpen(!isOpen)}
         className={`text-sm font-medium transition-all duration-300 flex items-center gap-2 group ${textColor}`}
       >
-        <img 
-          src="/images/icons/lock.svg" 
-          alt="Sign in" 
+        <img
+          src="/images/icons/lock.svg"
+          alt="Sign in"
           className={`w-4 h-4 transition-all duration-300 ${iconColor}`}
           style={{
-            filter: (isHeroPage && !isScrolled) ? 'brightness(0) invert(1)' : 'none'
+            filter:
+              isHeroPage && !isScrolled ? "brightness(0) invert(1)" : "none",
           }}
         />
         Sign in
-        <svg 
-          className={`w-3 h-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-          fill="none" 
-          stroke="currentColor" 
+        <svg
+          className={`w-3 h-3 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+          fill="none"
+          stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M 19 9 l -7 7 l -7 -7"
+          />
         </svg>
       </button>
-      
+
       {isOpen && (
         <div className="absolute right-0 top-full mt-3 w-72 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden animate-fadeIn">
           <div className="p-2">
             <div className="px-3 py-2 border-b border-gray-100">
-              <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Choose Portal</p>
+              <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">
+                Choose Portal
+              </p>
             </div>
             {loginOptions.map((option, index) => (
               <a
@@ -399,19 +488,29 @@ function LoginDropdown({ isHeroPage, isScrolled }) {
                 className="flex items-center gap-3 px-3 py-3 mt-1 rounded-lg hover:bg-gray-50 transition-all duration-200 group"
                 onClick={() => setIsOpen(false)}
               >
-                <div className={`w-10 h-10 rounded-lg ${option.bgColor} flex items-center justify-center transition-transform duration-200 group-hover:scale-110`}>
+                <div
+                  className={`w-10 h-10 rounded-lg ${option.bgColor} flex items-center justify-center transition-transform duration-200 group-hover:scale-110`}
+                >
                   <span className={option.color}>{option.icon}</span>
                 </div>
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
                     {option.title}
                   </p>
-                  <p className="text-xs text-gray-500">
-                    {option.subtitle}
-                  </p>
+                  <p className="text-xs text-gray-500">{option.subtitle}</p>
                 </div>
-                <svg className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-all duration-200 transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <svg
+                  className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-all duration-200 transform group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M 9 5 l 7 7 l -7 7"
+                  />
                 </svg>
               </a>
             ))}
@@ -483,23 +582,24 @@ function MobileLoginSection({ onClose }) {
         className="w-full flex items-center justify-between p-3 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
       >
         <div className="flex items-center gap-2">
-          <img 
-            src="/images/icons/lock.svg" 
-            alt="Sign in" 
-            className="w-4 h-4"
-          />
+          <img src="/images/icons/lock.svg" alt="Sign in" className="w-4 h-4" />
           <span>Sign in</span>
         </div>
-        <svg 
-          className={`w-4 h-4 transition-transform duration-200 text-gray-400 ${isExpanded ? 'rotate-180' : ''}`}
-          fill="none" 
-          stroke="currentColor" 
+        <svg
+          className={`w-4 h-4 transition-transform duration-200 text-gray-400 ${isExpanded ? "rotate-180" : ""}`}
+          fill="none"
+          stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M 9 5 l 7 7 l -7 7"
+          />
         </svg>
       </button>
-      
+
       {isExpanded && (
         <div className="px-2 pb-2 space-y-1">
           {loginOptions.map((option) => (
@@ -509,19 +609,29 @@ function MobileLoginSection({ onClose }) {
               className="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-white transition-all group"
               onClick={onClose}
             >
-              <div className={`w-10 h-10 rounded-lg ${option.bgColor} flex items-center justify-center transition-transform duration-200 group-hover:scale-105`}>
+              <div
+                className={`w-10 h-10 rounded-lg ${option.bgColor} flex items-center justify-center transition-transform duration-200 group-hover:scale-105`}
+              >
                 <span className={option.color}>{option.icon}</span>
               </div>
               <div className="flex-1">
                 <p className="text-sm font-semibold text-gray-900">
                   {option.title}
                 </p>
-                <p className="text-xs text-gray-500">
-                  {option.subtitle}
-                </p>
+                <p className="text-xs text-gray-500">{option.subtitle}</p>
               </div>
-              <svg className="w-4 h-4 text-gray-300 group-hover:text-gray-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <svg
+                className="w-4 h-4 text-gray-300 group-hover:text-gray-400 transition-colors"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M 9 5 l 7 7 l -7 7"
+                />
               </svg>
             </a>
           ))}

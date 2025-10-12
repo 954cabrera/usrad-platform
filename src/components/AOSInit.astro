@@ -1,34 +1,42 @@
 ---
-// components/AOSInit.astro
+// components/AOSInit.astro - Fixed version
 ---
 
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/aos@2.3.4/dist/aos.css"
-  media="print"
-  onload="this.media='all'"
-/>
-<noscript>
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-</noscript>
+<!-- AOS CSS -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
-<script>
-  import AOS from "aos";
+<!-- AOS JavaScript -->
+<script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-  const startAOS = () => {
-    AOS.init({
-      once: true,
-      duration: 500,
-      easing: "ease-out-cubic",
-      offset: 60,
-      delay: 0,
-      disable: false,
+<!-- AOS Initialization -->
+<script is:inline>
+  (function () {
+    function initAOS() {
+      if (typeof AOS !== "undefined") {
+        AOS.init({
+          duration: 800,
+          once: true,
+          easing: "ease-out",
+          offset: 100,
+          disable: false,
+        });
+      } else {
+        console.warn("AOS library not loaded");
+      }
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initAOS);
+    } else {
+      initAOS();
+    }
+
+    // Backup: refresh on window load
+    window.addEventListener("load", function () {
+      if (typeof AOS !== "undefined" && typeof AOS.refresh === "function") {
+        AOS.refresh();
+      }
     });
-  };
-
-  if ("requestIdleCallback" in window) {
-    requestIdleCallback(startAOS);
-  } else {
-    window.addEventListener("DOMContentLoaded", startAOS);
-  }
+  })();
 </script>

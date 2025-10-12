@@ -90,17 +90,20 @@ const {
       </button>
     </div>
 
-    <!-- AOS Animation Script -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- AOS Animation Script - FIXED VERSION -->
+    <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script is:inline>
-      // Wait for AOS to load before initializing
-      window.addEventListener("load", function () {
+      document.addEventListener("DOMContentLoaded", function () {
         if (typeof AOS !== "undefined") {
           AOS.init({
             duration: 800,
             once: true,
             easing: "ease-out",
+            offset: 100,
           });
+          console.log("✅ AOS initialized successfully");
+        } else {
+          console.error("❌ AOS library not loaded");
         }
       });
     </script>
