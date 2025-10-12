@@ -298,41 +298,65 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
               >
                 <div class="text-center mb-6">
                   <!-- Selected Procedure Display with Change Button -->
-                  <div
-                    class="inline-flex items-center gap-3 mb-4 bg-green-50 border-2 border-green-300 rounded-lg px-4 py-2.5 shadow-sm"
-                  >
-                    <svg
-                      class="w-5 h-5 text-green-600 flex-shrink-0"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
+                  <div class="mb-8">
+                    <div
+                      class="inline-flex items-center justify-between w-full max-w-2xl mx-auto bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-all duration-200"
                     >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clip-rule="evenodd"></path>
-                    </svg>
-                    <span
-                      id="selected-procedure-display"
-                      class="text-sm font-semibold text-gray-800"></span>
-                    <button
-                      type="button"
-                      id="back-to-step-1"
-                      class="text-[#003087] hover:text-[#002266] font-semibold text-sm flex items-center gap-1 transition-colors min-h-[44px] px-2"
-                    >
-                      <svg
-                        class="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                      <!-- Left: Checkmark Icon -->
+                      <div
+                        class="flex items-center gap-4 flex-1 min-w-0"
                       >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M15 19l-7-7 7-7"></path>
-                      </svg>
-                      Change
-                    </button>
+                        <div
+                          class="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 flex items-center justify-center"
+                        >
+                          <svg
+                            class="w-4 h-4 text-green-600"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clip-rule="evenodd"></path>
+                          </svg>
+                        </div>
+
+                        <!-- Center: Two-line text layout -->
+                        <div class="flex-1 text-left min-w-0">
+                          <p
+                            class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-0.5"
+                          >
+                            Selected Procedure
+                          </p>
+                          <p
+                            id="selected-procedure-display"
+                            class="text-sm font-semibold text-gray-900 truncate"
+                          ></p>
+                        </div>
+                      </div>
+
+                      <!-- Right: Change Button -->
+                      <button
+                        type="button"
+                        id="back-to-step-1"
+                        class="flex-shrink-0 ml-4 flex items-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 px-4 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 min-h-[44px] border border-gray-200"
+                      >
+                        <svg
+                          class="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                          ></path>
+                        </svg>
+                        Change
+                      </button>
+                    </div>
                   </div>
                   <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                     Where are you located?
