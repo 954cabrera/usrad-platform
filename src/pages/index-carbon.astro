@@ -303,9 +303,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
                       class="inline-flex items-center justify-between w-full max-w-2xl mx-auto bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-all duration-200"
                     >
                       <!-- Left: Checkmark Icon -->
-                      <div
-                        class="flex items-center gap-4 flex-1 min-w-0"
-                      >
+                      <div class="flex items-center gap-4 flex-1 min-w-0">
                         <div
                           class="flex-shrink-0 w-7 h-7 rounded-full bg-green-500/10 flex items-center justify-center"
                         >
@@ -331,7 +329,8 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
                           <p
                             id="selected-procedure-display"
                             class="text-sm font-semibold text-gray-900 truncate"
-                          ></p>
+                          >
+                          </p>
                         </div>
                       </div>
 
@@ -442,10 +441,21 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
                   >
                     <p class="text-sm text-gray-500 text-center">
                       <span class="inline-flex items-center gap-1.5">
-                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        <svg
+                          class="w-4 h-4 text-gray-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          ></path>
                         </svg>
-                        Enter your 5-digit ZIP code or click the location icon to auto-detect
+                        Enter your 5-digit ZIP code or click the location icon to
+                        auto-detect
                       </span>
                     </p>
                   </div>
@@ -1955,11 +1965,13 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
         </div>
 
         <div class="bg-gray-50 px-8 py-6 text-center rounded-2xl">
-          <a
-            href="/pricing"
-            class="inline-block bg-[#003087] text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-medium hover:bg-[#002266] transition"
-            >See prices in your area →</a
+          <button
+            type="button"
+            onclick="document.getElementById('hero-procedure-search').scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(function() { document.getElementById('hero-procedure-search').focus(); }, 800);"
+            class="inline-block bg-[#003087] text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-medium hover:bg-[#002266] transition cursor-pointer"
           >
+            See prices in your area →
+          </button>
         </div>
       </div>
     </div>
