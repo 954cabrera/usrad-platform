@@ -691,45 +691,6 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
         transform: translateY(0);
       }
     }
-
-    /* ============================================
-       MOBILE KEYBOARD FIX - Solution 3
-       ============================================ */
-
-    /* Mobile dropdown positioning fix */
-    @media (max-width: 768px) {
-      #hero-procedure-dropdown {
-        /* Show dropdown ABOVE input on mobile */
-        bottom: calc(100% + 0.5rem) !important;
-        top: auto !important;
-        margin-top: 0 !important;
-        max-height: 200px;
-        /* Add safe area for iPhone notch */
-        max-height: min(200px, 30vh);
-      }
-
-      /* Reduce form padding on mobile when keyboard is open */
-      body.keyboard-open #step-1-container {
-        padding-top: 1rem !important;
-        padding-bottom: 1rem !important;
-      }
-
-      /* Ensure input stays visible */
-      body.keyboard-open #hero-procedure-search {
-        position: relative;
-        z-index: 10000;
-      }
-    }
-
-    /* Desktop keeps dropdown below */
-    @media (min-width: 769px) {
-      #hero-procedure-dropdown {
-        top: 100% !important;
-        bottom: auto !important;
-        margin-top: 0.5rem !important;
-        margin-bottom: 0 !important;
-      }
-    }
   </style>
 
   <script is:inline>
@@ -1422,40 +1383,6 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
       }
 
       if (procedureInput && dropdown) {
-        // ============================================
-        // MOBILE FIX: Handle keyboard appearance
-        // ============================================
-        procedureInput.addEventListener("focus", function () {
-          // Add class to body for CSS targeting
-          document.body.classList.add("keyboard-open");
-
-          // On mobile, scroll input near top of viewport
-          if (window.innerWidth < 768) {
-            setTimeout(function () {
-              // Use visualViewport for better mobile support
-              var vh = window.visualViewport
-                ? window.visualViewport.height
-                : window.innerHeight;
-              var inputRect = procedureInput.getBoundingClientRect();
-              var scrollY = inputRect.top + window.scrollY - vh * 0.15;
-
-              window.scrollTo({
-                top: Math.max(0, scrollY),
-                behavior: "smooth",
-              });
-            }, 350); // Wait for keyboard animation (iOS ~300ms)
-          }
-        });
-
-        procedureInput.addEventListener("blur", function () {
-          // Remove keyboard class when input loses focus
-          setTimeout(function () {
-            if (dropdown && !dropdown.contains(document.activeElement)) {
-              document.body.classList.remove("keyboard-open");
-            }
-          }, 100);
-        });
-
         procedureInput.addEventListener("input", function () {
           var query = this.value.trim();
           clearTimeout(searchTimeout);
