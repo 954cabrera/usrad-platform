@@ -204,8 +204,10 @@ const serviceAreas = [
           </a>
 
           <a
-            href="/search-results"
-            class="inline-flex items-center gap-2 bg-[#cc9933] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#b38829] transition-all transform hover:scale-105"
+            <button
+            type="button"
+            onclick="document.getElementById('hero-procedure-search').scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(function() { document.getElementById('hero-procedure-search').focus(); }, 800);"
+            class="inline-flex items-center gap-2 bg-[#cc9933] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#b38829] transition-all transform hover:scale-105 cursor-pointer"
           >
             Book Your Scan
             <svg

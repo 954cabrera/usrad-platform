@@ -339,7 +339,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
                       <button
                         type="button"
                         id="back-to-step-1"
-                        class="flex-shrink-0 ml-4 flex items-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 px-4 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 min-h-[44px] border border-gray-200"
+                        class="rotate-on-hover flex-shrink-0 ml-4 flex items-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 px-4 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 min-h-[44px] border border-gray-200"
                       >
                         <svg
                           class="w-4 h-4"
@@ -365,12 +365,12 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
                 </div>
 
                 <div class="space-y-4">
-                  <div class="relative">
+                  <div class="relative group">
                     <div
                       class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
                     >
                       <svg
-                        class="w-5 h-5 text-gray-400"
+                        class="w-5 h-5 text-gray-400 group-focus-within:text-[#003087] transition-colors"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -395,12 +395,12 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
                       inputmode="numeric"
                       pattern="[0-9]{5}"
                       maxlength="5"
-                      class="w-full pl-12 pr-14 py-4 sm:py-5 text-base sm:text-lg text-gray-900 placeholder-gray-400 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#003087] focus:border-transparent transition-all min-h-[56px]"
+                      class="w-full pl-12 pr-14 py-4 sm:py-5 text-base sm:text-lg text-gray-900 placeholder-gray-400 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#003087]/20 focus:border-transparent hover:border-gray-300 transition-all min-h-[56px] shadow-sm"
                     />
                     <button
                       type="button"
                       id="hero-detect-location"
-                      class="absolute inset-y-0 right-0 pr-4 flex items-center text-[#003087] hover:text-[#002266] transition-all hover:scale-110 min-h-[44px] min-w-[44px] justify-center"
+                      class="absolute inset-y-0 right-0 pr-4 flex items-center text-[#003087] hover:text-[#cc9933] transition-all hover:scale-110 min-h-[44px] min-w-[44px] justify-center"
                       title="Use my current location"
                     >
                       <svg
@@ -438,11 +438,15 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
                   <!-- Location Helper Text -->
                   <div
                     id="location-helper"
-                    class="px-4 py-2.5 bg-blue-50 border border-blue-200 rounded-lg opacity-0 transition-opacity duration-300"
+                    class="opacity-0 transition-opacity duration-300"
                   >
-                    <p class="text-sm font-medium text-blue-800 text-center">
-                      📍 Enter 5-digit ZIP code or click the location icon to
-                      auto-detect
+                    <p class="text-sm text-gray-500 text-center">
+                      <span class="inline-flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Enter your 5-digit ZIP code or click the location icon to auto-detect
+                      </span>
                     </p>
                   </div>
 
@@ -609,6 +613,20 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
 
     #hero-search-button:not(:disabled) {
       animation: buttonPulse 2s ease-in-out 1;
+    }
+
+    /* Subtle rotate animation for Change button icon */
+    @keyframes rotateIcon {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(-180deg);
+      }
+    }
+
+    .rotate-on-hover:hover svg {
+      animation: rotateIcon 0.5s ease-in-out;
     }
 
     /* Keyboard navigation highlight */

@@ -344,7 +344,11 @@ const { className = "" } = Astro.props;
 
     <!-- Enhanced CTA Section -->
     <div class="text-center mt-8 sm:mt-12">
-      <a href="/search-results" class="cta-button group">
+      <button
+        type="button"
+        onclick="document.getElementById('hero-procedure-search').scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(function() { document.getElementById('hero-procedure-search').focus(); }, 800);"
+        class="cta-button group cursor-pointer"
+      >
         <div class="cta-bg"></div>
         <span class="cta-text relative z-10">Find Centers Near You</span>
         <svg
@@ -358,7 +362,7 @@ const { className = "" } = Astro.props;
             stroke-width="2"
             stroke-linecap="round"></path>
         </svg>
-      </a>
+      </button>
       <p
         class="text-gray-400 mt-4 animate-fade-in text-sm sm:text-base"
         style="animation-delay: 2s"
