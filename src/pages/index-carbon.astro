@@ -367,9 +367,10 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
                     <input
                       type="text"
                       id="hero-location"
-                      placeholder="ZIP code or city"
+                      placeholder="ZIP code (5 digits)"
                       inputmode="numeric"
-                      pattern="[0-9]*"
+                      pattern="[0-9]{5}"
+                      maxlength="5"
                       class="w-full pl-12 pr-14 py-4 sm:py-5 text-base sm:text-lg text-gray-900 placeholder-gray-400 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#003087] focus:border-transparent transition-all min-h-[56px]"
                     />
                     <button
@@ -416,7 +417,8 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
                     class="px-4 py-2.5 bg-blue-50 border border-blue-200 rounded-lg opacity-0 transition-opacity duration-300"
                   >
                     <p class="text-sm font-medium text-blue-800 text-center">
-                      📍 Or click the location icon to auto-detect
+                      📍 Enter 5-digit ZIP code or click the location icon to
+                      auto-detect
                     </p>
                   </div>
 
@@ -921,6 +923,19 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
           // Clear location
           document.getElementById("hero-location").value = "";
           if (locationHelper) locationHelper.style.opacity = "0";
+
+          // ✅ ADD THIS: Clear procedure input and hidden field
+          var procedureInput = document.getElementById("hero-procedure-search");
+          var selectedProcedure = document.getElementById(
+            "hero-selected-procedure"
+          );
+          if (procedureInput) procedureInput.value = "";
+          if (selectedProcedure) selectedProcedure.value = "";
+
+          // Hide search helper text
+          var searchHelper = document.getElementById("search-helper");
+          if (searchHelper) searchHelper.style.opacity = "0";
+
           updateSearchButton("hero");
 
           // Focus procedure input
@@ -1459,6 +1474,14 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
 
       if (locationInput) {
         locationInput.addEventListener("input", function () {
+          // Only allow numeric input and limit to 5 digits
+          var value = this.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+
+          if (value.length > 5) {
+            value = value.slice(0, 5); // Limit to 5 digits
+          }
+
+          this.value = value;
           updateSearchButton("hero");
         });
       }
