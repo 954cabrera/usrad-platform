@@ -793,44 +793,37 @@ document.addEventListener("DOMContentLoaded", function () {
     var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
     if (isIOS) {
-      // iOS-specific handling
+      // iOS-specific handling - MORE AGGRESSIVE SCROLL
       setTimeout(function () {
-        // Scroll the form container into view
-        var formContainer = inputElement.closest(".max-w-3xl");
-        if (formContainer) {
-          formContainer.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-            inline: "nearest",
-          });
-        }
+        // Scroll the input itself into view
+        inputElement.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "nearest",
+        });
 
-        // Additional scroll to account for iOS keyboard height
+        // Additional upward scroll to lift above keyboard
         setTimeout(function () {
           window.scrollBy({
-            top: -80,
+            top: -120, // Increased from -80
             behavior: "smooth",
           });
         }, 300);
       }, 300);
     } else {
-      // Android handling
+      // Android handling - MORE AGGRESSIVE SCROLL
       setTimeout(function () {
-        var progressIndicators = document.querySelector(
-          '[role="progressbar"]'
-        );
-        if (progressIndicators && progressIndicators.parentElement) {
-          progressIndicators.parentElement.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-            inline: "nearest",
-          });
-        }
+        // Scroll input to center of viewport
+        inputElement.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "nearest",
+        });
 
-        // Fine-tune scroll position
+        // Fine-tune scroll position higher
         setTimeout(function () {
           window.scrollBy({
-            top: -60,
+            top: -100, // Increased from -60
             behavior: "smooth",
           });
         }, 300);
