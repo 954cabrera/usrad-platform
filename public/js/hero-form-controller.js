@@ -18,9 +18,7 @@
  *    - Auto-scroll on mobile
  *
  * ✅ Advanced Polish
- *    - 🎊 Confetti animation on selection
  *    - 📳 Haptic feedback (mobile vibration)
- *    - 🎤 Voice search (Web Speech API)
  *    - 💡 Smart suggestions ("People also searched for...")
  *    - ⏳ Loading skeleton states
  *    - ♿ WCAG 2.1 AA accessibility (ARIA labels, keyboard nav)
@@ -66,60 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let selectedDropdownIndex = -1;
   let dropdownItems = [];
 
-  // Confetti function
-  function createConfetti() {
-    var colors = ["#cc9933", "#003087", "#22c55e", "#3b82f6", "#f59e0b"];
-    var confettiCount = 40;
-
-    for (var i = 0; i < confettiCount; i++) {
-      (function (index) {
-        setTimeout(function () {
-          var confetti = document.createElement("div");
-          confetti.style.position = "fixed";
-          confetti.style.width = Math.random() * 12 + 6 + "px";
-          confetti.style.height = confetti.style.width;
-          confetti.style.backgroundColor =
-            colors[Math.floor(Math.random() * colors.length)];
-          confetti.style.left = Math.random() * 100 + "%";
-          confetti.style.top = "-20px";
-          confetti.style.zIndex = "9999";
-          confetti.style.pointerEvents = "none";
-          confetti.style.borderRadius = Math.random() > 0.5 ? "50%" : "0";
-          confetti.style.opacity = "1";
-
-          document.body.appendChild(confetti);
-
-          // Animate
-          var duration = 2500 + Math.random() * 1000;
-          var startTime = Date.now();
-          var startLeft = parseFloat(confetti.style.left);
-
-          function animate() {
-            var elapsed = Date.now() - startTime;
-            var progress = elapsed / duration;
-
-            if (progress < 1) {
-              var top = progress * (window.innerHeight + 100);
-              var rotation = progress * 720;
-              var drift = Math.sin(progress * 6) * 30;
-              var opacity = 1 - progress * 0.3;
-
-              confetti.style.top = top + "px";
-              confetti.style.left = startLeft + drift + "%";
-              confetti.style.transform = "rotate(" + rotation + "deg)";
-              confetti.style.opacity = opacity;
-
-              requestAnimationFrame(animate);
-            } else {
-              confetti.remove();
-            }
-          }
-
-          requestAnimationFrame(animate);
-        }, index * 50);
-      })(i);
-    }
-  }
+  
 
   // Haptic feedback (mobile)
   function triggerHaptic(type) {
@@ -134,20 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Voice search setup
-  let recognition = null;
-  if (
-    "webkitSpeechRecognition" in window ||
-    "SpeechRecognition" in window
-  ) {
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-    recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = "en-US";
-  }
-
+  
   // Progressive disclosure functions
   function advanceToStep2(procedureLabel) {
     currentStep = 2;
@@ -155,9 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Haptic feedback on mobile
     triggerHaptic("success");
 
-    // Confetti celebration!
-    createConfetti();
-
+    
     // Track analytics event
     trackFormEvent("step_2_reached", {
       procedure: procedureLabel,
@@ -672,48 +602,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var dropdown = document.getElementById("hero-procedure-dropdown");
   var locationInput = document.getElementById("hero-location");
   var detectLocationBtn = document.getElementById("hero-detect-location");
-  var voiceSearchBtn = document.getElementById("voice-search-btn");
-  var voiceIcon = document.getElementById("voice-icon");
-  var voiceListening = document.getElementById("voice-listening");
-
-  // Show voice button if supported
-  if (recognition && voiceSearchBtn) {
-    voiceSearchBtn.classList.remove("hidden");
-
-    // Voice search functionality
-    voiceSearchBtn.addEventListener("click", function () {
-      if (!recognition) return;
-
-      triggerHaptic("light");
-
-      voiceIcon.classList.add("hidden");
-      voiceListening.classList.remove("hidden");
-
-      recognition.start();
-
-      recognition.onresult = function (event) {
-        var transcript = event.results[0][0].transcript;
-        if (procedureInput) {
-          procedureInput.value = transcript;
-          procedureInput.dispatchEvent(new Event("input"));
-        }
-
-        voiceListening.classList.add("hidden");
-        voiceIcon.classList.remove("hidden");
-      };
-
-      recognition.onerror = function () {
-        voiceListening.classList.add("hidden");
-        voiceIcon.classList.remove("hidden");
-      };
-
-      recognition.onend = function () {
-        voiceListening.classList.add("hidden");
-        voiceIcon.classList.remove("hidden");
-      };
-    });
-  }
-
+  
   if (procedureInput && dropdown) {
     procedureInput.addEventListener("input", function () {
       var query = this.value.trim();
