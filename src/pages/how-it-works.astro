@@ -1,1389 +1,1478 @@
 ---
-// pages/how-it-works.astro
-import MainPatientLayout from "../layouts/MainPatientLayout.astro";
-import HowItWorksMetricsBar from "../components/HowItWorksMetricsBar.astro";
+import CarbonLayout from "../layouts/CarbonLayout.astro";
 import AOSInit from "../components/AOSInit.astro";
 
-const showPatientHeader = true;
+export const prerender = true;
 ---
 
-<MainPatientLayout showPatientHeader={true}>
+<CarbonLayout
+  title="How USRad Works - Your Journey to Affordable Medical Imaging"
+  isHeroPage={false}
+>
   <AOSInit />
 
-  <!-- HERO SECTION - EVOLUTION FOCUSED -->
-  <section class="relative w-full h-[600px] md:h-[700px] overflow-hidden">
-    <!-- Background Image -->
-    <img
-      src="/images/how-it-works-hero-blank.webp"
-      alt="Patient confidently using tablet to book scan"
-      class="absolute inset-0 w-full h-full object-cover z-0"
-      loading="eager"
-    />
+  <!-- Interactive Hero with Journey Path -->
+  <section
+    class="relative pt-32 pb-20 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-slate-900 via-[#003087] to-teal-900"
+  >
+    <!-- Animated Journey Path Background -->
+    <div class="absolute inset-0 opacity-20">
+      <svg
+        class="w-full h-full"
+        viewBox="0 0 1200 600"
+        preserveAspectRatio="none"
+      >
+        <path
+          id="journey-path"
+          d="M 0,300 Q 300,100 600,300 T 1200,300"
+          stroke="#00CED1"
+          stroke-width="3"
+          fill="none"
+          stroke-dasharray="5,5"
+          class="animate-dash"></path>
+        <!-- Animated dots along path -->
+        <circle r="8" fill="#00CED1" class="journey-dot-1">
+          <animateMotion dur="10s" repeatCount="indefinite">
+            <mpath href="#journey-path"></mpath>
+          </animateMotion>
+        </circle>
+        <circle r="6" fill="#40E0D0" class="journey-dot-2">
+          <animateMotion dur="10s" begin="2s" repeatCount="indefinite">
+            <mpath href="#journey-path"></mpath>
+          </animateMotion>
+        </circle>
+        <circle r="7" fill="#00CED1" class="journey-dot-3">
+          <animateMotion dur="10s" begin="4s" repeatCount="indefinite">
+            <mpath href="#journey-path"></mpath>
+          </animateMotion>
+        </circle>
+      </svg>
+    </div>
 
-    <!-- Enhanced Gradient Overlay -->
+    <!-- Floating Elements -->
     <div
-      class="absolute inset-0 z-10 bg-gradient-to-r from-[#003087]/90 via-[#003087]/60 to-transparent"
+      class="absolute top-20 right-10 w-64 h-64 bg-teal-500/20 rounded-full blur-3xl animate-float"
+    >
+    </div>
+    <div
+      class="absolute bottom-10 left-20 w-96 h-96 bg-[#003087]/30 rounded-full blur-3xl animate-float-delayed"
     >
     </div>
 
-    <!-- Text Content -->
-    <div
-      class="relative z-20 flex items-center justify-start h-full px-6 sm:px-12 text-white"
-    >
-      <div class="max-w-2xl space-y-6" data-aos="fade-up" data-aos-delay="100">
-        <!-- Evolution Badge -->
+    <div class="relative z-10 max-w-7xl mx-auto">
+      <div class="text-center">
+        <!-- Interactive Badge -->
         <div
-          class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20 mb-4"
+          class="inline-flex items-center gap-2 bg-teal-500/20 backdrop-blur-sm rounded-full px-6 py-3 mb-8 cursor-pointer hover:bg-teal-500/30 transition-all"
+          data-aos="fade-down"
         >
+          <span class="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></span>
+          <span class="text-teal-100 text-sm font-medium"
+            >Interactive Journey Guide</span
+          >
           <svg
-            class="w-4 h-4 text-[#cc9933]"
-            fill="currentColor"
-            viewBox="0 0 20 20"
+            class="w-4 h-4 text-teal-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
             <path
-              fill-rule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-              clip-rule="evenodd"></path>
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
           </svg>
-          <span class="text-sm font-medium"
-            >FOUNDATION: 400K Patients → EVOLUTION: Digital Platform → MISSION:
-            90M Americans</span
+        </div>
+
+        <h1
+          class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 text-white leading-tight tracking-tight"
+          data-aos="fade-up"
+        >
+          Your Journey to
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300 drop-shadow-lg"
+          >
+            Affordable Imaging
+          </span>
+        </h1>
+
+        <p
+          class="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-12 leading-relaxed"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          Four simple steps. Zero confusion. Total transparency. Let's walk
+          through your path to answers.
+        </p>
+
+        <!-- Journey Preview -->
+        <div
+          class="flex justify-center items-center gap-4 flex-wrap"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          <div class="journey-step-preview active" data-step="1">
+            <span class="step-number">1</span>
+            <span class="step-label">Search</span>
+          </div>
+          <div class="journey-connector"></div>
+          <div class="journey-step-preview" data-step="2">
+            <span class="step-number">2</span>
+            <span class="step-label">Compare</span>
+          </div>
+          <div class="journey-connector"></div>
+          <div class="journey-step-preview" data-step="3">
+            <span class="step-number">3</span>
+            <span class="step-label">Book</span>
+          </div>
+          <div class="journey-connector"></div>
+          <div class="journey-step-preview" data-step="4">
+            <span class="step-number">✓</span>
+            <span class="step-label">Done</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fixed Progress Sidebar (Desktop) -->
+  <div
+    class="fixed left-8 top-1/2 transform -translate-y-1/2 z-50 hidden lg:block"
+  >
+    <div class="bg-white/10 backdrop-blur-md rounded-full p-4">
+      <div class="space-y-6">
+        <div class="progress-node active" data-section="search">
+          <span class="node-icon">🔍</span>
+          <span class="node-tooltip">Search</span>
+        </div>
+        <div class="progress-connector"></div>
+        <div class="progress-node" data-section="compare">
+          <span class="node-icon">⚖️</span>
+          <span class="node-tooltip">Compare</span>
+        </div>
+        <div class="progress-connector"></div>
+        <div class="progress-node" data-section="book">
+          <span class="node-icon">📅</span>
+          <span class="node-tooltip">Book</span>
+        </div>
+        <div class="progress-connector"></div>
+        <div class="progress-node" data-section="complete">
+          <span class="node-icon">✅</span>
+          <span class="node-tooltip">Complete</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 1: Search - Interactive Demo -->
+  <section
+    id="search-section"
+    class="py-24 px-4 sm:px-6 bg-gradient-to-br from-white to-teal-50/30 relative overflow-hidden"
+  >
+    <div class="absolute inset-0 opacity-5">
+      <div
+        class="absolute inset-0"
+        style="background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(0,206,209,.1) 35px, rgba(0,206,209,.1) 70px);"
+      >
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div data-aos="fade-right">
+          <div
+            class="inline-flex items-center gap-2 bg-teal-100 text-teal-800 rounded-full px-4 py-2 mb-6"
+          >
+            <span class="text-lg font-bold">Step 1</span>
+            <span class="w-1 h-1 bg-teal-600 rounded-full"></span>
+            <span class="text-sm font-medium">15 seconds</span>
+          </div>
+
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Start with Your ZIP Code
+          </h2>
+
+          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+            No phone calls. No waiting on hold. Just enter your location and
+            instantly see every quality imaging center near you.
+          </p>
+
+          <!-- Interactive ZIP Demo -->
+          <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
+            <div class="flex items-center justify-between mb-4">
+              <label class="block text-sm font-semibold text-gray-700"
+                >Try it yourself:</label
+              >
+              <span
+                class="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full"
+                >MRI Lumbar Spine</span
+              >
+            </div>
+            <form action="/search-results" method="GET" class="flex gap-3">
+              <input
+                type="text"
+                name="zipCode"
+                id="demo-zip"
+                placeholder="Enter your ZIP code"
+                pattern="[0-9]{5}"
+                maxlength="5"
+                required
+                class="flex-1 px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-teal-500 focus:outline-none transition-colors"
+              />
+              <input type="hidden" name="procedure" value="72148" />
+              <input type="hidden" name="autoSearch" value="true" />
+              <button
+                type="submit"
+                class="bg-teal-500 hover:bg-teal-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+              >
+                Search
+              </button>
+            </form>
+            <p class="text-xs text-gray-500 mt-3">
+              💡 This is a real search - enter your ZIP code to see actual
+              prices near you
+            </p>
+          </div>
+
+          <!-- What happens -->
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div
+                class="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1"
+              >
+                <span class="text-teal-600 text-xs">✓</span>
+              </div>
+              <p class="text-gray-700">Instantly see all available centers</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div
+                class="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1"
+              >
+                <span class="text-teal-600 text-xs">✓</span>
+              </div>
+              <p class="text-gray-700">Real prices displayed upfront</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div
+                class="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1"
+              >
+                <span class="text-teal-600 text-xs">✓</span>
+              </div>
+              <p class="text-gray-700">Filter by distance, price, or rating</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative" data-aos="fade-left">
+          <!-- Interactive Map Visualization -->
+          <div
+            class="bg-white rounded-2xl shadow-2xl p-8 relative overflow-hidden"
+          >
+            <div class="absolute top-4 right-4">
+              <span
+                class="bg-green-100 text-green-700 text-xs font-medium px-3 py-1 rounded-full"
+                >Live Demo</span
+              >
+            </div>
+
+            <!-- Simulated search interface -->
+            <div class="mb-6">
+              <div class="text-xs text-gray-500 mb-2">
+                Showing results for: MRI Lumbar Spine • ZIP: 33025
+              </div>
+              <div
+                class="h-56 bg-gradient-to-br from-blue-50 to-teal-50 rounded-lg relative overflow-hidden"
+              >
+                <!-- Map styling -->
+                <div class="absolute inset-0 opacity-10">
+                  <div
+                    class="absolute top-10 left-10 w-32 h-32 border-2 border-gray-300 rounded-full"
+                  >
+                  </div>
+                  <div
+                    class="absolute bottom-10 right-10 w-24 h-24 border-2 border-gray-300 rounded-full"
+                  >
+                  </div>
+                </div>
+
+                <!-- Your location -->
+                <div
+                  class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                >
+                  <div class="w-4 h-4 bg-blue-500 rounded-full animate-pulse">
+                  </div>
+                  <div
+                    class="text-xs bg-blue-500 text-white rounded px-2 py-1 mt-1 font-medium"
+                  >
+                    You
+                  </div>
+                </div>
+
+                <!-- Animated pins with center names -->
+                <div
+                  class="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2"
+                >
+                  <div class="map-pin animate-bounce-slow">📍</div>
+                  <div class="text-xs bg-white rounded px-2 py-1 shadow mt-1">
+                    <span class="font-semibold text-teal-600">$260</span>
+                    <span class="block text-gray-500">2.3 mi</span>
+                  </div>
+                </div>
+                <div
+                  class="absolute top-1/2 left-3/4 transform -translate-x-1/2 -translate-y-1/2"
+                >
+                  <div class="map-pin animate-bounce-slow animation-delay-200">
+                    📍
+                  </div>
+                  <div class="text-xs bg-white rounded px-2 py-1 shadow mt-1">
+                    <span class="font-semibold text-gray-700">$310</span>
+                    <span class="block text-gray-500">3.7 mi</span>
+                  </div>
+                </div>
+                <div
+                  class="absolute bottom-1/4 right-1/4 transform translate-x-1/2 -translate-y-1/2"
+                >
+                  <div class="map-pin animate-bounce-slow animation-delay-400">
+                    📍
+                  </div>
+                  <div class="text-xs bg-white rounded px-2 py-1 shadow mt-1">
+                    <span class="font-semibold text-gray-700">$295</span>
+                    <span class="block text-gray-500">4.1 mi</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Map legend -->
+              <div
+                class="flex items-center justify-between mt-3 text-xs text-gray-600"
+              >
+                <span>📍 Imaging Centers</span>
+                <span class="text-green-600 font-medium"
+                  >✓ All centers MRI-ready</span
+                >
+              </div>
+            </div>
+
+            <!-- Results preview -->
+            <div class="space-y-3">
+              <div
+                class="bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors cursor-pointer"
+              >
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="font-medium text-gray-900">
+                      Imaging Center of Miami
+                    </p>
+                    <p class="text-sm text-gray-600">
+                      2.3 miles • 4.9★ • Next appt: Tomorrow 10am
+                    </p>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-xl font-bold text-teal-600">$260</span>
+                    <span class="text-xs text-gray-500 block">MRI Lumbar</span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors cursor-pointer"
+              >
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="font-medium text-gray-900">
+                      Advanced Diagnostics
+                    </p>
+                    <p class="text-sm text-gray-600">
+                      3.7 miles • 4.8★ • Next appt: Today 3pm
+                    </p>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-xl font-bold text-gray-700">$295</span>
+                    <span class="text-xs text-gray-500 block">MRI Lumbar</span>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-gray-50 rounded-lg p-3 opacity-60">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="font-medium text-gray-900">
+                      Premium Medical Imaging
+                    </p>
+                    <p class="text-sm text-gray-600">
+                      4.1 miles • 4.7★ • Next appt: Thursday
+                    </p>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-xl font-bold text-gray-700">$310</span>
+                    <span class="text-xs text-gray-500 block">MRI Lumbar</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating feature cards -->
+          <div
+            class="absolute -top-4 -right-4 bg-white rounded-lg shadow-lg p-3 transform rotate-3 hover:rotate-0 transition-transform"
+          >
+            <p class="text-sm font-medium text-gray-900">No Login Required</p>
+          </div>
+          <div
+            class="absolute -bottom-4 -left-4 bg-white rounded-lg shadow-lg p-3 transform -rotate-3 hover:rotate-0 transition-transform"
+          >
+            <p class="text-sm font-medium text-gray-900">100% Free Search</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 2: Compare - Interactive Comparison Tool -->
+  <section
+    id="compare-section"
+    class="py-24 px-4 sm:px-6 bg-white relative overflow-hidden"
+  >
+    <div class="absolute inset-0 opacity-5">
+      <div
+        class="absolute inset-0"
+        style="background-image: radial-gradient(circle at 2px 2px, #00CED1 1px, transparent 1px); background-size: 24px 24px;"
+      >
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1" data-aos="fade-right">
+          <!-- Interactive Comparison Tool -->
+          <div
+            class="bg-gradient-to-br from-teal-50 to-white rounded-2xl shadow-xl p-6"
+          >
+            <h3 class="font-semibold text-gray-900 mb-4">
+              Compare Your Options
+            </h3>
+
+            <!-- Comparison Cards -->
+            <div class="space-y-4">
+              <!-- Option 1 -->
+              <div
+                class="comparison-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-teal-500 transition-all"
+                onclick="selectOption(this)"
+              >
+                <div class="flex items-start justify-between mb-3">
+                  <div>
+                    <h4 class="font-medium text-gray-900">
+                      Miami Medical Imaging
+                    </h4>
+                    <p class="text-xs text-gray-500 mt-1">
+                      MRI Lumbar Spine (CPT: 72148)
+                    </p>
+                  </div>
+                  <span class="text-2xl font-bold text-teal-600">$260</span>
+                </div>
+                <div class="grid grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <p class="text-gray-500">Distance</p>
+                    <p class="font-medium">2.3 mi</p>
+                  </div>
+                  <div>
+                    <p class="text-gray-500">Wait Time</p>
+                    <p class="font-medium text-green-600">Tomorrow</p>
+                  </div>
+                  <div>
+                    <p class="text-gray-500">Rating</p>
+                    <p class="font-medium">4.9★</p>
+                  </div>
+                </div>
+                <div class="mt-3 flex gap-2">
+                  <span class="tag bg-green-100 text-green-700">Best Price</span
+                  >
+                  <span class="tag bg-blue-100 text-blue-700">Closest</span>
+                </div>
+              </div>
+
+              <!-- Option 2 -->
+              <div
+                class="comparison-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-teal-500 transition-all"
+                onclick="selectOption(this)"
+              >
+                <div class="flex items-start justify-between mb-3">
+                  <div>
+                    <h4 class="font-medium text-gray-900">
+                      Diagnostic Partners
+                    </h4>
+                    <p class="text-xs text-gray-500 mt-1">
+                      MRI Lumbar Spine (CPT: 72148)
+                    </p>
+                  </div>
+                  <span class="text-2xl font-bold text-gray-700">$340</span>
+                </div>
+                <div class="grid grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <p class="text-gray-500">Distance</p>
+                    <p class="font-medium">5.1 mi</p>
+                  </div>
+                  <div>
+                    <p class="text-gray-500">Wait Time</p>
+                    <p class="font-medium">3 days</p>
+                  </div>
+                  <div>
+                    <p class="text-gray-500">Rating</p>
+                    <p class="font-medium">4.7★</p>
+                  </div>
+                </div>
+                <div class="mt-3 flex gap-2">
+                  <span class="tag bg-purple-100 text-purple-700"
+                    >Premium Service</span
+                  >
+                </div>
+              </div>
+
+              <!-- Hospital Comparison -->
+              <div class="border-2 border-red-200 rounded-lg p-4 opacity-75">
+                <div class="flex items-start justify-between mb-3">
+                  <div>
+                    <h4 class="font-medium text-gray-600">Hospital of Miami</h4>
+                    <p class="text-xs text-gray-500 mt-1">MRI Lumbar Spine</p>
+                  </div>
+                  <span class="text-2xl font-bold text-red-600 line-through"
+                    >$3,200</span
+                  >
+                </div>
+                <div class="grid grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <p class="text-gray-500">Distance</p>
+                    <p class="font-medium text-gray-600">8.2 mi</p>
+                  </div>
+                  <div>
+                    <p class="text-gray-500">Wait Time</p>
+                    <p class="font-medium text-red-600">2 weeks</p>
+                  </div>
+                  <div>
+                    <p class="text-gray-500">Rating</p>
+                    <p class="font-medium text-gray-600">3.2★</p>
+                  </div>
+                </div>
+                <div class="mt-3">
+                  <span class="tag bg-red-100 text-red-700"
+                    >Traditional Route</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 bg-teal-50 rounded-lg p-4">
+              <p class="text-sm text-teal-800">
+                <span class="font-semibold">You save $2,940</span> by choosing USRad
+                network
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-1 lg:order-2" data-aos="fade-left">
+          <div
+            class="inline-flex items-center gap-2 bg-teal-100 text-teal-800 rounded-full px-4 py-2 mb-6"
+          >
+            <span class="text-lg font-bold">Step 2</span>
+            <span class="w-1 h-1 bg-teal-600 rounded-full"></span>
+            <span class="text-sm font-medium">45 seconds</span>
+          </div>
+
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Compare with Complete Transparency
+          </h2>
+
+          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+            See everything upfront: prices, wait times, ratings, and reviews. No
+            hidden fees. No surprises. Just facts.
+          </p>
+
+          <!-- Comparison Features -->
+          <div class="grid grid-cols-2 gap-6 mb-8">
+            <div
+              class="text-center p-4 bg-gray-50 rounded-xl hover:shadow-md transition-shadow"
+            >
+              <div class="text-3xl mb-2">💰</div>
+              <h3 class="font-semibold text-gray-900">Real Prices</h3>
+              <p class="text-sm text-gray-600 mt-1">
+                Exact costs, no estimates
+              </p>
+            </div>
+            <div
+              class="text-center p-4 bg-gray-50 rounded-xl hover:shadow-md transition-shadow"
+            >
+              <div class="text-3xl mb-2">⏱️</div>
+              <h3 class="font-semibold text-gray-900">Live Availability</h3>
+              <p class="text-sm text-gray-600 mt-1">
+                Real-time appointment slots
+              </p>
+            </div>
+            <div
+              class="text-center p-4 bg-gray-50 rounded-xl hover:shadow-md transition-shadow"
+            >
+              <div class="text-3xl mb-2">⭐</div>
+              <h3 class="font-semibold text-gray-900">Patient Reviews</h3>
+              <p class="text-sm text-gray-600 mt-1">From real patients</p>
+            </div>
+            <div
+              class="text-center p-4 bg-gray-50 rounded-xl hover:shadow-md transition-shadow"
+            >
+              <div class="text-3xl mb-2">🏆</div>
+              <h3 class="font-semibold text-gray-900">Quality Scores</h3>
+              <p class="text-sm text-gray-600 mt-1">ACR accreditation status</p>
+            </div>
+          </div>
+
+          <!-- Pro tip -->
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <p class="text-sm text-blue-800">
+              <span class="font-semibold">💡 Pro tip:</span> Sort by "Best Value"
+              to find the perfect balance of price, distance, and quality.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 3: Book - Interactive Booking Flow -->
+  <section
+    id="book-section"
+    class="py-24 px-4 sm:px-6 bg-gradient-to-br from-teal-50/50 to-white relative overflow-hidden"
+  >
+    <div
+      class="absolute top-0 right-0 w-96 h-96 bg-teal-100/30 rounded-full blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 left-0 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div data-aos="fade-right">
+          <div
+            class="inline-flex items-center gap-2 bg-teal-100 text-teal-800 rounded-full px-4 py-2 mb-6"
+          >
+            <span class="text-lg font-bold">Step 3</span>
+            <span class="w-1 h-1 bg-teal-600 rounded-full"></span>
+            <span class="text-sm font-medium">60 seconds</span>
+          </div>
+
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Book in Under a Minute
+          </h2>
+
+          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+            Select your appointment time, enter basic information, and you're
+            done. Instant confirmation sent to your email and phone.
+          </p>
+
+          <!-- Booking Steps -->
+          <div class="space-y-6">
+            <div class="flex gap-4">
+              <div
+                class="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-teal-600 font-bold">1</span>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-900 mb-1">Pick Your Time</h3>
+                <p class="text-gray-600">
+                  See all available slots, choose what works for you
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <div
+                class="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-teal-600 font-bold">2</span>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-900 mb-1">
+                  Enter Basic Info
+                </h3>
+                <p class="text-gray-600">
+                  Name, contact, and doctor information
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <div
+                class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-green-600 font-bold">✓</span>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-900 mb-1">
+                  Instant Confirmation
+                </h3>
+                <p class="text-gray-600">
+                  Get your appointment details immediately
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Security Badge -->
+          <div
+            class="mt-8 inline-flex items-center gap-3 bg-gray-100 rounded-lg px-4 py-3"
+          >
+            <svg
+              class="w-5 h-5 text-gray-600"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm text-gray-700"
+              >Your information is secure and HIPAA compliant</span
+            >
+          </div>
+        </div>
+
+        <div data-aos="fade-left">
+          <!-- Interactive Calendar Demo -->
+          <div class="bg-white rounded-2xl shadow-2xl p-6">
+            <h3 class="font-semibold text-gray-900 mb-4">
+              Select Your Appointment
+            </h3>
+
+            <!-- Calendar Grid -->
+            <div class="mb-6">
+              <div class="flex items-center justify-between mb-4">
+                <h4 class="font-medium text-gray-700">December 2024</h4>
+                <span
+                  class="text-xs bg-teal-100 text-teal-700 px-3 py-1 rounded-full"
+                  >MRI Lumbar Spine</span
+                >
+              </div>
+              <div class="grid grid-cols-7 gap-1 text-center text-sm mb-2">
+                <div class="text-gray-500">Sun</div>
+                <div class="text-gray-500">Mon</div>
+                <div class="text-gray-500">Tue</div>
+                <div class="text-gray-500">Wed</div>
+                <div class="text-gray-500">Thu</div>
+                <div class="text-gray-500">Fri</div>
+                <div class="text-gray-500">Sat</div>
+              </div>
+              <div class="grid grid-cols-7 gap-1">
+                <!-- Calendar days -->
+                <div class="calendar-day text-gray-400">28</div>
+                <div class="calendar-day text-gray-400">29</div>
+                <div class="calendar-day text-gray-400">30</div>
+                <div class="calendar-day">1</div>
+                <div class="calendar-day available">2</div>
+                <div class="calendar-day available selected">3</div>
+                <div class="calendar-day">4</div>
+                <div class="calendar-day">5</div>
+                <div class="calendar-day available">6</div>
+                <div class="calendar-day available">7</div>
+                <div class="calendar-day available">8</div>
+                <div class="calendar-day available">9</div>
+                <div class="calendar-day">10</div>
+                <div class="calendar-day">11</div>
+              </div>
+            </div>
+
+            <!-- Time Slots -->
+            <div class="mb-6">
+              <p class="text-sm font-medium text-gray-700 mb-3">
+                Available times for Dec 3:
+              </p>
+              <div class="grid grid-cols-3 gap-2">
+                <button class="time-slot">9:00 AM</button>
+                <button class="time-slot selected">10:30 AM</button>
+                <button class="time-slot">11:00 AM</button>
+                <button class="time-slot">2:00 PM</button>
+                <button class="time-slot">3:30 PM</button>
+                <button class="time-slot">4:00 PM</button>
+              </div>
+            </div>
+
+            <!-- Confirmation Preview -->
+            <div class="bg-teal-50 rounded-lg p-4">
+              <p class="text-sm font-medium text-teal-900 mb-2">
+                Your appointment:
+              </p>
+              <p class="text-lg font-semibold text-teal-700">
+                December 3, 2024 at 10:30 AM
+              </p>
+              <p class="text-sm text-teal-600 mt-1">Miami Medical Imaging</p>
+              <div
+                class="flex items-center justify-between mt-3 pt-3 border-t border-teal-200"
+              >
+                <div>
+                  <p class="text-xs text-teal-700">MRI Lumbar Spine</p>
+                  <p class="text-lg font-bold text-teal-800">$260</p>
+                </div>
+                <div class="text-right">
+                  <p class="text-xs text-teal-700">You save</p>
+                  <p class="text-lg font-bold text-green-700">$2,940</p>
+                </div>
+              </div>
+            </div>
+
+            <button
+              class="w-full mt-4 bg-teal-500 hover:bg-teal-600 text-white py-3 rounded-lg font-semibold transition-colors"
+            >
+              Confirm Appointment →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 4: Complete - What Happens Next -->
+  <section
+    id="complete-section"
+    class="py-24 px-4 sm:px-6 bg-gradient-to-br from-gray-900 via-gray-800 to-[#003087] text-white relative overflow-hidden"
+  >
+    <div class="absolute inset-0 opacity-10">
+      <div
+        class="absolute inset-0"
+        style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 1px); background-size: 40px 40px;"
+      >
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="text-center mb-16">
+        <div
+          class="inline-flex items-center gap-2 bg-green-500/20 backdrop-blur-sm rounded-full px-6 py-3 mb-8"
+          data-aos="fade-down"
+        >
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          <span class="text-green-100 text-sm font-medium">You're all set!</span
           >
         </div>
 
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-          The Evolution of
-          <span class="text-[#cc9933]">Simple Healthcare</span>
-        </h1>
-
-        <p class="text-lg sm:text-xl leading-relaxed opacity-95">
-          The same streamlined process we perfected while building a company
-          that delivered <strong>$400 Million+ in savings</strong> and earned acquisition
-          by a NYSE-listed corporation—now evolved with digital capabilities to serve
-          millions.
-        </p>
-
-        <!-- Evolution Indicators -->
-        <div class="flex flex-wrap gap-6 text-sm opacity-90 mt-6">
-          <div class="flex items-center gap-2">
-            <div class="w-2 h-2 bg-[#cc9933] rounded-full"></div>
-            <span>Foundation: 8 years perfecting</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <div class="w-2 h-2 bg-[#cc9933] rounded-full"></div>
-            <span>Evolution: Digital efficiency</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <div class="w-2 h-2 bg-[#cc9933] rounded-full"></div>
-            <span>Mission: Serve everyone</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- EVOLUTION BANNER -->
-  <section
-    class="relative bg-gradient-to-r from-[#003087] to-blue-700 text-white py-6 px-6"
-  >
-    <div
-      class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-4 text-center md:text-left"
-    >
-      <div class="flex items-center gap-2">
-        <svg
-          class="w-5 h-5 text-[#cc9933]"
-          fill="currentColor"
-          viewBox="0 0 20 20"
+        <h2
+          class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+          data-aos="fade-up"
         >
-          <path
-            fill-rule="evenodd"
-            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-            clip-rule="evenodd"></path>
-        </svg>
-        <span class="text-sm sm:text-base font-semibold tracking-wide uppercase"
-          >Process Evolution</span
-        >
-      </div>
-      <span class="text-sm sm:text-base font-medium opacity-90">
-        Foundation (10–14 days) → Enhanced (2–3 days) → Digital (Same-day
-        possible)
-      </span>
-    </div>
-  </section>
-
-  <!-- PROCESS EVOLUTION OVERVIEW -->
-  <section class="bg-gradient-to-br from-[#fefbf5] to-[#f8f5e8] py-24 px-6">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-[#003087] mb-4" data-aos="fade-up">
-          How We Evolved Healthcare's Most Broken Process
+          What Happens Next?
         </h2>
         <p
-          class="text-lg text-[#003087]/80 max-w-3xl mx-auto"
+          class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto"
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          We didn’t just improve medical imaging—we revolutionized it. Built
-          over 8 years, validated through a successful exit, now enhanced with
-          digital capabilities.
+          From confirmation to results, we've got you covered every step of the
+          way
         </p>
       </div>
 
-      <!-- PROCESS TIMELINE ENHANCED -->
-      <div
-        class="space-y-12 mb-20"
-        data-aos="fade-up"
-        data-aos-anchor-placement="top-bottom"
-      >
-        <!-- Foundation Era -->
-        <div class="flex items-start">
-          <div
-            class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center text-white text-2xl font-bold flex-shrink-0 shadow-lg transition-all duration-700 ease-in-out hover:scale-105 animate-fade-in"
-            data-aos="zoom-in"
-          >
-            F
-          </div>
-          <div class="ml-6 flex-1">
-            <h4 class="font-bold text-[#003087] text-xl mb-3">
-              Foundation Era (1994-2002)
-            </h4>
-            <p class="text-[#003087]/80 mb-4 text-lg">
-              Built the first streamlined imaging process
-            </p>
-            <div class="grid md:grid-cols-3 gap-4">
-              <div
-                class="bg-gradient-to-br from-[#f0f4f9] to-[#e8f1fa] rounded-xl p-4 border border-[#003087]/10"
-              >
-                <strong class="text-[#003087] block mb-2"
-                  >Problem Solved:</strong
-                >
-                <p class="text-sm">10–14 day wait times</p>
-              </div>
-              <div
-                class="bg-gradient-to-br from-[#f0f4f9] to-[#e8f1fa] rounded-xl p-4 border border-[#003087]/10"
-              >
-                <strong class="text-[#003087] block mb-2">Innovation:</strong>
-                <p class="text-sm">Direct center access</p>
-              </div>
-              <div
-                class="bg-gradient-to-br from-[#f0f4f9] to-[#e8f1fa] rounded-xl p-4 border border-[#003087]/10"
-              >
-                <strong class="text-[#003087] block mb-2">Result:</strong>
-                <p class="text-sm">2–3 day appointments</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Connecting Line -->
-        <div
-          class="ml-8 h-8 w-0.5 bg-gradient-to-b from-[#003087] to-[#cc9933]"
-        >
-        </div>
-
-        <!-- Validation Era -->
-        <div class="flex items-start">
-          <div
-            class="w-16 h-16 bg-[#cc9933] rounded-full flex items-center justify-center text-white text-2xl font-bold flex-shrink-0 shadow-lg transition-all duration-700 ease-in-out hover:scale-105 animate-fade-in"
-            data-aos="zoom-in"
-          >
-            ✓
-          </div>
-          <div class="ml-6 flex-1">
-            <h4 class="font-bold text-[#cc9933] text-xl mb-3">
-              Validation Era (2002)
-            </h4>
-            <p class="text-[#003087]/80 mb-4 text-lg">
-              Successful exit proved the model works
-            </p>
-            <div class="mt-6 flex items-center gap-4" data-aos="fade-in">
-              <div class="relative group">
-                <img
-                  src="/images/inc500-badge.png"
-                  alt="Inc 500 Honoree"
-                  class="h-12 sm:h-16 object-contain border-2 border-[#cc9933] rounded-md shadow-md group-hover:scale-105 transition-transform duration-300"
-                />
-                <div
-                  class="absolute left-0 bottom-full mb-2 w-64 p-2 rounded bg-[#003087] text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 shadow-lg"
-                >
-                  The Inc. 500 list recognizes the fastest-growing private
-                  companies in the U.S. We earned our spot by delivering
-                  innovation, scale, and measurable savings.
-                </div>
-              </div>
-              <span class="text-sm text-[#003087]/70 tracking-wide uppercase"
-                >Inc. 500 Honoree · National Recognition</span
-              >
-            </div>
-            <div class="grid md:grid-cols-3 gap-4">
-              <div
-                class="bg-gradient-to-br from-[#fefbf5] to-[#fef7ea] rounded-xl p-4 border border-[#cc9933]/20"
-              >
-                <strong class="text-[#cc9933] block mb-2">Proven:</strong>
-                <p class="text-sm">400,000+ patients served</p>
-              </div>
-              <div
-                class="bg-gradient-to-br from-[#fefbf5] to-[#fef7ea] rounded-xl p-4 border border-[#cc9933]/20"
-              >
-                <strong class="text-[#cc9933] block mb-2">Delivered:</strong>
-                <p class="text-sm">$400M+ in savings</p>
-              </div>
-              <div
-                class="bg-gradient-to-br from-[#fefbf5] to-[#fef7ea] rounded-xl p-4 border border-[#cc9933]/20"
-              >
-                <strong class="text-[#cc9933] block mb-2">Exit:</strong>
-                <p class="text-sm">NYSE company acquisition</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Connecting Line -->
-        <div
-          class="ml-8 h-8 w-0.5 bg-gradient-to-b from-[#cc9933] to-[#003087]"
-        >
-        </div>
-
-        <!-- Evolution Era -->
-        <div class="flex items-start">
-          <div
-            class="w-16 h-16 bg-gradient-to-r from-[#003087] to-[#cc9933] rounded-full flex items-center justify-center text-white text-2xl font-bold flex-shrink-0 shadow-lg transition-all duration-700 ease-in-out hover:scale-105 animate-fade-in"
-            data-aos="zoom-in"
-          >
-            E
-          </div>
-          <div class="ml-6 flex-1">
-            <h4
-              class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#003087] to-[#cc9933] text-xl mb-3"
-            >
-              Evolution Era (Now)
-            </h4>
-            <p class="text-[#003087]/80 mb-4 text-lg">
-              Digital platform enhances proven process
-            </p>
-            <div class="grid md:grid-cols-3 gap-4">
-              <div
-                class="bg-gradient-to-br from-[#f0f4f9] via-[#f8f5ef] to-[#fefbf5] rounded-xl p-4 border border-transparent bg-clip-padding"
-                style="background-image: linear-gradient(white, white), linear-gradient(to right, #003087, #cc9933); background-origin: border-box; background-clip: padding-box, border-box; border: 1px solid transparent;"
-              >
-                <strong class="text-[#003087] block mb-2">Enhanced:</strong>
-                <p class="text-sm">Real-time booking</p>
-              </div>
-              <div
-                class="bg-gradient-to-br from-[#f0f4f9] via-[#f8f5ef] to-[#fefbf5] rounded-xl p-4 border border-transparent bg-clip-padding"
-                style="background-image: linear-gradient(white, white), linear-gradient(to right, #003087, #cc9933); background-origin: border-box; background-clip: padding-box, border-box; border: 1px solid transparent;"
-              >
-                <strong class="text-[#003087] block mb-2">Scaled:</strong>
-                <p class="text-sm">1,500+ centers</p>
-              </div>
-              <div
-                class="bg-gradient-to-br from-[#f0f4f9] via-[#f8f5ef] to-[#fefbf5] rounded-xl p-4 border border-transparent bg-clip-padding"
-                style="background-image: linear-gradient(white, white), linear-gradient(to right, #003087, #cc9933); background-origin: border-box; background-clip: padding-box, border-box; border: 1px solid transparent;"
-              >
-                <strong class="text-[#003087] block mb-2">Mission:</strong>
-                <p class="text-sm">Serve 90M Americans</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- COMPARISON GRID ENHANCED -->
-      <div class="grid md:grid-cols-2 gap-8 mb-16">
-        <div
-          class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-red-500 transition-transform duration-700 hover:scale-[1.02]"
-          data-aos="fade-right"
-        >
-          <div class="flex items-center gap-3 mb-6">
-            <div
-              class="w-10 h-10 bg-red-100 flex items-center justify-center rounded-full"
-            >
-              ❌
-            </div>
-            <h3 class="text-xl font-bold text-red-600">The Broken System</h3>
-          </div>
-          <ul class="space-y-3 text-[#003087]/80 text-sm">
-            <li>
-              ❌ <strong>10–14 day wait times</strong> (industry standard)
-            </li>
-            <li>
-              ❌ <strong>Complex referral maze</strong> wastes everyone's time
-            </li>
-            <li>
-              ❌ <strong>Hidden costs multiply</strong> with separate bills
-            </li>
-            <li>
-              ❌ <strong>Insurance complexity</strong> adds weeks of delay
-            </li>
-            <li>
-              ❌ <strong>Quality lottery</strong> across different providers
-            </li>
-            <li>❌ <strong>Results bottlenecks</strong> leave you waiting</li>
-          </ul>
-        </div>
-
-        <div
-          class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-[#cc9933] transition-transform duration-700 hover:scale-[1.02]"
-          data-aos="fade-left"
-        >
-          <div class="flex items-center gap-3 mb-6">
-            <div
-              class="w-10 h-10 bg-[#cc9933]/20 flex items-center justify-center rounded-full"
-            >
-              ✅
-            </div>
-            <h3 class="text-xl font-bold text-[#cc9933]">
-              Our Evolved Process
-            </h3>
-          </div>
-          <ul class="space-y-3 text-[#003087]/80 text-sm">
-            <li>
-              ✅ <strong>2–3 days standard</strong> (same-day often available)
-            </li>
-            <li>
-              ✅ <strong>Book direct online</strong> – no middleman needed
-            </li>
-            <li>
-              ✅ <strong>One transparent price</strong> – everything included
-            </li>
-            <li>✅ <strong>Skip insurance hassles</strong> – direct payment</li>
-            <li>
-              ✅ <strong>Guaranteed quality</strong> – vetted network only
-            </li>
-            <li>✅ <strong>24–48 hour results</strong> – digital delivery</li>
-          </ul>
-          <div class="mt-4 text-sm bg-[#fefbf5] p-3 rounded-lg text-[#cc9933]">
-            <strong>Evolution Advantage:</strong> Same proven process + digital efficiency
-            = exponential impact
-          </div>
-        </div>
-      </div>
-
-      <!-- Success Metrics Bar -->
-      <div data-aos="fade-up" data-aos-delay="200">
-        <HowItWorksMetricsBar
-          metrics={[
-            { value: "400,000+", label: "Foundation: Patients Served" },
-            { value: "$400M+", label: "Foundation: Savings Delivered" },
-            { value: "1,500+", label: "Evolution: Centers Network" },
-            { value: "90M", label: "Mission: Americans to Serve" },
-          ]}
-          animated={true}
-        />
-      </div>
-    </div>
-
-    <!-- DETAILED 4-STEP PROCESS - EVOLUTION ENHANCED -->
-    <section class="bg-white py-20 px-6">
-      <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-          <h2
-            class="text-3xl md:text-4xl font-bold text-[#003087] mb-4"
-            data-aos="fade-up"
-          >
-            The Evolved 4-Step Journey
-          </h2>
-          <p
-            class="text-lg text-[#003087]/80"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            Foundation proven by 400,000+ patients • Evolution powered by
-            technology • Mission to transform healthcare
-          </p>
-        </div>
-
-        <div class="space-y-16">
-          <!-- Step 1: Choose Your Scan - EVOLUTION ENHANCED -->
-          <div
-            class="grid md:grid-cols-2 gap-12 items-center"
-            data-aos="fade-up"
-          >
-            <div class="order-2 md:order-1">
-              <div class="flex items-center mb-6">
-                <div
-                  class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center text-white text-2xl font-bold mr-6"
-                >
-                  1
-                </div>
-                <div>
-                  <h3 class="text-2xl font-bold text-[#003087]">
-                    Choose Your Scan
-                  </h3>
-                  <p class="text-[#cc9933] font-medium">
-                    Foundation → Evolution → Your Choice
-                  </p>
-                </div>
-              </div>
-              <div class="space-y-4 text-[#003087]/90">
-                <p class="text-lg">
-                  Browse MRI, CT, and ultrasound options with the <strong
-                    >transparent pricing we pioneered</strong
-                  >. No hidden fees—the same innovation that revolutionized
-                  imaging for Fortune 500 companies, now digitally enhanced for
-                  everyone.
-                </p>
-                <div class="bg-[#f0f4f9] rounded-xl p-4">
-                  <h4 class="font-bold text-[#003087] mb-2">
-                    Evolution Benefits:
-                  </h4>
-                  <ul class="space-y-1 text-sm">
-                    <li>✓ Real-time pricing (our foundation innovation)</li>
-                    <li>✓ Instant availability (digital evolution)</li>
-                    <li>✓ 1,500+ centers competing (market dynamics)</li>
-                    <li>✓ Quality scores visible (transparency enhanced)</li>
-                    <li>✓ One-click booking (friction eliminated)</li>
-                  </ul>
-                </div>
-                <div
-                  class="p-3 bg-[#fefbf5] rounded-lg border-l-4 border-[#cc9933]"
-                >
-                  <p class="text-sm font-medium text-[#003087]">
-                    <strong>Foundation:</strong> Created transparent pricing<br
-                    />
-                    <strong>Evolution:</strong> Made it real-time and digital
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="order-1 md:order-2">
-              <img
-                src="/images/website/search-interface-mockup.webp"
-                alt="USRad search interface showing transparent pricing"
-                class="w-full h-auto rounded-2xl shadow-xl"
-              />
-            </div>
-          </div>
-
-          <!-- Step 2: Get Matched - EVOLUTION ENHANCED -->
-          <div
-            class="grid md:grid-cols-2 gap-12 items-center"
-            data-aos="fade-up"
-          >
-            <div>
-              <img
-                src="/images/website/facility-matching.webp"
-                alt="High-quality imaging center facilities"
-                class="w-full h-auto rounded-2xl shadow-xl"
-              />
-            </div>
-            <div>
-              <div class="flex items-center mb-6">
-                <div
-                  class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center text-white text-2xl font-bold mr-6"
-                >
-                  2
-                </div>
-                <div>
-                  <h3 class="text-2xl font-bold text-[#003087]">
-                    Get Matched to Excellence
-                  </h3>
-                  <p class="text-[#cc9933] font-medium">
-                    Same proven standards • Enhanced matching
-                  </p>
-                </div>
-              </div>
-              <div class="space-y-4 text-[#003087]/90">
-                <p class="text-lg">
-                  We connect you to <strong>top-rated imaging centers</strong> using
-                  the same quality standards that served 400,000+ patients and earned
-                  our successful exit—now with AI-powered matching for perfect fit.
-                </p>
-                <div class="bg-[#f0f4f9] rounded-xl p-4">
-                  <h4 class="font-bold text-[#003087] mb-2">
-                    Evolution in Quality:
-                  </h4>
-                  <ul class="space-y-1 text-sm">
-                    <li>✓ Foundation: Manual quality vetting</li>
-                    <li>✓ Evolution: Real-time quality monitoring</li>
-                    <li>✓ AI matches your specific needs</li>
-                    <li>✓ Patient feedback integrated instantly</li>
-                    <li>✓ Continuous improvement loop</li>
-                  </ul>
-                </div>
-                <div
-                  class="p-3 bg-[#fefbf5] rounded-lg border-l-4 border-[#cc9933]"
-                >
-                  <p class="text-sm font-medium text-[#003087]">
-                    <strong>Proven:</strong> 98% patient satisfaction over 8 years
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 3: Confirm & Pay - EVOLUTION ENHANCED -->
-          <div
-            class="grid md:grid-cols-2 gap-12 items-center"
-            data-aos="fade-up"
-          >
-            <div class="order-2 md:order-1">
-              <div class="flex items-center mb-6">
-                <div
-                  class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center text-white text-2xl font-bold mr-6"
-                >
-                  3
-                </div>
-                <div>
-                  <h3 class="text-2xl font-bold text-[#003087]">
-                    Confirm & Pay
-                  </h3>
-                  <p class="text-[#cc9933] font-medium">
-                    Proven transparency • Digital simplicity
-                  </p>
-                </div>
-              </div>
-              <div class="space-y-4 text-[#003087]/90">
-                <p class="text-lg">
-                  <strong>All-inclusive cash pricing</strong>—no insurance
-                  needed, no hidden fees, no surprise bills. The same proven
-                  model that made our previous venture worth acquiring, now with instant
-                  digital payments and automated confirmations.
-                </p>
-                <div class="bg-[#f0f4f9] rounded-xl p-4">
-                  <h4 class="font-bold text-[#003087] mb-2">
-                    Payment Evolution:
-                  </h4>
-                  <ul class="space-y-1 text-sm">
-                    <li>✓ Foundation: Phone/paper payments</li>
-                    <li>✓ Evolution: One-click digital checkout</li>
-                    <li>✓ Apple Pay, Google Pay, HSA/FSA</li>
-                    <li>✓ Instant payment plans available</li>
-                    <li>✓ Automated receipt delivery</li>
-                  </ul>
-                </div>
-                <div
-                  class="p-3 bg-[#fefbf5] rounded-lg border-l-4 border-[#cc9933]"
-                >
-                  <p class="text-sm font-medium text-[#003087]">
-                    <strong>Same guarantee:</strong> No surprise bills, ever.<br
-                    />
-                    <strong>New efficiency:</strong> 30-second checkout
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="order-1 md:order-2">
-              <img
-                src="/images/website/payment-confirmation.webp"
-                alt="Transparent pricing and payment confirmation"
-                class="w-full h-auto rounded-2xl shadow-xl"
-              />
-            </div>
-          </div>
-
-          <!-- Step 4: Get Expert Care - EVOLUTION ENHANCED -->
-          <div
-            class="grid md:grid-cols-2 gap-12 items-center"
-            data-aos="fade-up"
-          >
-            <div>
-              <img
-                src="/images/radiologist-virtual-consult.webp"
-                alt="Board-certified radiologist reviewing scans"
-                class="w-full h-auto rounded-2xl shadow-xl"
-              />
-            </div>
-            <div>
-              <div class="flex items-center mb-6">
-                <div
-                  class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center text-white text-2xl font-bold mr-6"
-                >
-                  4
-                </div>
-                <div>
-                  <h3 class="text-2xl font-bold text-[#003087]">
-                    Get Expert Results
-                  </h3>
-                  <p class="text-[#cc9933] font-medium">
-                    Proven expertise • Digital delivery
-                  </p>
-                </div>
-              </div>
-              <div class="space-y-4 text-[#003087]/90">
-                <p class="text-lg">
-                  Every scan reviewed by <strong
-                    >board-certified radiologists</strong
-                  >—the same expert standards from our foundation, now with
-                  AI-assisted accuracy and digital delivery in 24-48 hours.
-                </p>
-                <div class="bg-[#f0f4f9] rounded-xl p-4">
-                  <h4 class="font-bold text-[#003087] mb-2">
-                    Results Evolution:
-                  </h4>
-                  <ul class="space-y-1 text-sm">
-                    <li>✓ Foundation: Mailed/faxed results (3-5 days)</li>
-                    <li>✓ Evolution: Digital portal (24-48 hours)</li>
-                    <li>✓ AI-assisted accuracy checking</li>
-                    <li>✓ Plain-language summaries included</li>
-                    <li>✓ Direct integration with your doctor</li>
-                  </ul>
-                </div>
-                <div
-                  class="p-3 bg-[#fefbf5] rounded-lg border-l-4 border-[#cc9933]"
-                >
-                  <p class="text-sm font-medium text-[#003087]">
-                    <strong>400,000+ scans:</strong> Zero quality compromises<br
-                    />
-                    <strong>Digital evolution:</strong> Results 2x faster
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- NO INSURANCE NEEDED SECTION -->
-          <section
-            class="bg-gradient-to-br from-[#fefbf5] to-[#f8f5e8] py-20 px-6"
-          >
-            <div class="max-w-7xl mx-auto">
-              <div class="text-center mb-16">
-                <h2
-                  class="text-3xl md:text-4xl font-bold text-[#003087] mb-4"
-                  data-aos="fade-up"
-                >
-                  No Insurance Needed — By Design
-                </h2>
-                <p
-                  class="text-lg text-[#003087]/80 max-w-3xl mx-auto"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  Our proven model bypasses insurance complexity to deliver
-                  faster appointments, lower prices, and zero hassle
-                </p>
-              </div>
-
-              <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- Left Column: Content -->
-                <div data-aos="fade-right">
-                  <div class="bg-white rounded-2xl p-8 shadow-xl">
-                    <div class="flex items-center gap-3 mb-6">
-                      <div
-                        class="w-12 h-12 bg-[#cc9933] rounded-full flex items-center justify-center text-white font-bold text-xl"
-                      >
-                        💸
-                      </div>
-                      <h3 class="text-2xl font-bold text-[#003087]">
-                        Cash-Pay Advantage
-                      </h3>
-                    </div>
-
-                    <div class="space-y-6">
-                      <p class="text-[#003087]/90">
-                        <strong>Our Foundation Era discovery:</strong> Insurance
-                        approval delays imaging by 10-14 days, increases costs by
-                        30-70%, and creates frustrating complexity for patients.
-                      </p>
-
-                      <div class="bg-[#f0f4f9] rounded-xl p-5">
-                        <h4 class="font-bold text-[#003087] mb-3">
-                          The Evolved Solution:
-                        </h4>
-                        <ul class="space-y-3">
-                          <li class="flex items-start gap-2">
-                            <svg
-                              class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                            </svg>
-                            <span
-                              ><strong>Direct payment</strong> means no insurance
-                              approvals or referrals needed</span
-                            >
-                          </li>
-                          <li class="flex items-start gap-2">
-                            <svg
-                              class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                            </svg>
-                            <span
-                              ><strong>Transparent pricing</strong> with no hidden
-                              fees or surprise bills</span
-                            >
-                          </li>
-                          <li class="flex items-start gap-2">
-                            <svg
-                              class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                            </svg>
-                            <span
-                              ><strong>30-70% less</strong> than typical hospital
-                              imaging costs</span
-                            >
-                          </li>
-                          <li class="flex items-start gap-2">
-                            <svg
-                              class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                            </svg>
-                            <span
-                              ><strong>Appointment in 2-3 days</strong> instead of
-                              10-14 day insurance delays</span
-                            >
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div
-                        class="p-4 bg-[#fefbf5] rounded-lg border-l-4 border-[#cc9933]"
-                      >
-                        <p class="text-sm font-medium text-[#003087]">
-                          <strong>Foundation Validation:</strong> $400M+ saved through
-                          direct payment model<br />
-                          <strong>Evolution Enhancement:</strong> Digital payments
-                          make it even simpler
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Right Column: Visual -->
-                <div data-aos="fade-left">
-                  <div class="space-y-6">
-                    <!-- Process Comparison -->
-                    <div class="bg-white rounded-2xl p-6 shadow-lg">
-                      <h4
-                        class="text-xl font-bold text-[#003087] mb-4 text-center"
-                      >
-                        Insurance vs. Our Direct Model
-                      </h4>
-
-                      <div class="space-y-6">
-                        <!-- Insurance Timeline -->
-                        <div class="relative">
-                          <div
-                            class="absolute left-4 top-0 bottom-0 w-0.5 bg-red-100"
-                          >
-                          </div>
-                          <div class="space-y-6">
-                            <div class="flex items-start">
-                              <div
-                                class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-500 font-bold mr-4"
-                              >
-                                1
-                              </div>
-                              <div>
-                                <h5 class="font-bold text-red-500">
-                                  Doctor referral required
-                                </h5>
-                                <p class="text-sm text-[#003087]/70">
-                                  Often requires office visit + copay
-                                </p>
-                              </div>
-                            </div>
-                            <div class="flex items-start">
-                              <div
-                                class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-500 font-bold mr-4"
-                              >
-                                2
-                              </div>
-                              <div>
-                                <h5 class="font-bold text-red-500">
-                                  Insurance approval
-                                </h5>
-                                <p class="text-sm text-[#003087]/70">
-                                  5-10 business days for authorization
-                                </p>
-                              </div>
-                            </div>
-                            <div class="flex items-start">
-                              <div
-                                class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-500 font-bold mr-4"
-                              >
-                                3
-                              </div>
-                              <div>
-                                <h5 class="font-bold text-red-500">
-                                  Multiple bills later
-                                </h5>
-                                <p class="text-sm text-[#003087]/70">
-                                  Facility, radiologist, & surprise charges
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- Divider -->
-                        <div class="flex items-center gap-4">
-                          <div class="h-0.5 bg-gray-200 flex-grow"></div>
-                          <div class="text-[#003087] font-bold">VS</div>
-                          <div class="h-0.5 bg-gray-200 flex-grow"></div>
-                        </div>
-
-                        <!-- Our Model Timeline -->
-                        <div class="relative">
-                          <div
-                            class="absolute left-4 top-0 bottom-0 w-0.5 bg-green-100"
-                          >
-                          </div>
-                          <div class="space-y-6">
-                            <div class="flex items-start">
-                              <div
-                                class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-500 font-bold mr-4"
-                              >
-                                1
-                              </div>
-                              <div>
-                                <h5 class="font-bold text-green-500">
-                                  Book directly online
-                                </h5>
-                                <p class="text-sm text-[#003087]/70">
-                                  No referral needed
-                                </p>
-                              </div>
-                            </div>
-                            <div class="flex items-start">
-                              <div
-                                class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-500 font-bold mr-4"
-                              >
-                                2
-                              </div>
-                              <div>
-                                <h5 class="font-bold text-green-500">
-                                  See upfront price
-                                </h5>
-                                <p class="text-sm text-[#003087]/70">
-                                  One transparent all-inclusive fee
-                                </p>
-                              </div>
-                            </div>
-                            <div class="flex items-start">
-                              <div
-                                class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-500 font-bold mr-4"
-                              >
-                                3
-                              </div>
-                              <div>
-                                <h5 class="font-bold text-green-500">
-                                  Get scan in 2-3 days
-                                </h5>
-                                <p class="text-sm text-[#003087]/70">
-                                  No waiting for approvals
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Quote/Testimonial -->
-                    <div
-                      class="bg-gradient-to-br from-[#003087] to-[#1a4fa0] text-white rounded-2xl p-6 shadow-lg"
-                    >
-                      <div class="flex items-start gap-4">
-                        <div class="text-4xl opacity-50">❝</div>
-                        <div>
-                          <p class="italic mb-4">
-                            "I saved over $900 on my MRI and got it scheduled 2
-                            weeks faster than my insurance would allow. The
-                            process was incredibly simple."
-                          </p>
-                          <p class="font-medium">— Sarah T., Chicago</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- CTA Row -->
-              <div class="mt-12 text-center" data-aos="fade-up">
-                <a
-                  href="/pricing"
-                  class="bg-[#cc9933] hover:bg-[#b8862e] text-[#003087] font-bold px-8 py-4 rounded-xl shadow-lg transition-all duration-300 inline-flex items-center justify-center gap-2 transform hover:scale-105"
-                >
-                  See Our Transparent Cash Pricing
-                  <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                  </svg>
-                </a>
-                <p class="text-sm text-[#003087]/70 mt-4">
-                  FSA/HSA cards accepted • Payment plans available • No
-                  insurance paperwork
-                </p>
-              </div>
-            </div>
-          </section>
-
-          <!-- EVOLUTION IMPACT SECTION - NEW -->
-          <section
-            class="bg-gradient-to-br from-[#003087] to-[#002266] text-white py-20 px-6"
-          >
-            <div class="max-w-7xl mx-auto">
-              <div class="text-center mb-16">
-                <h2
-                  class="text-3xl md:text-4xl font-bold mb-4"
-                  data-aos="fade-up"
-                >
-                  The Evolution Impact: By The Numbers
-                </h2>
-                <p
-                  class="text-lg opacity-90 max-w-3xl mx-auto"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  How our proven foundation + digital evolution = exponential
-                  patient benefit
-                </p>
-              </div>
-
-              <div class="grid md:grid-cols-3 gap-8">
-                <div
-                  class="text-center"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  <div
-                    class="bg-white/10 backdrop-blur-md rounded-2xl p-8 h-full"
-                  >
-                    <h3 class="text-6xl font-bold text-[#cc9933] mb-2">75%</h3>
-                    <h4 class="text-xl font-bold mb-4">Faster Appointments</h4>
-                    <div class="space-y-2 text-sm opacity-90">
-                      <p><strong>Foundation:</strong> 10-14 days → 2-3 days</p>
-                      <p>
-                        <strong>Evolution:</strong> Often same-day available
-                      </p>
-                      <p>
-                        <strong>Impact:</strong> Get answers when you need them
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  class="text-center"
-                  data-aos="fade-up"
-                  data-aos-delay="200"
-                >
-                  <div
-                    class="bg-white/10 backdrop-blur-md rounded-2xl p-8 h-full"
-                  >
-                    <h3 class="text-6xl font-bold text-[#cc9933] mb-2">50%</h3>
-                    <h4 class="text-xl font-bold mb-4">Less Time Required</h4>
-                    <div class="space-y-2 text-sm opacity-90">
-                      <p><strong>Foundation:</strong> 2 hours total time</p>
-                      <p><strong>Evolution:</strong> Under 1 hour end-to-end</p>
-                      <p><strong>Impact:</strong> Back to your life faster</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  class="text-center"
-                  data-aos="fade-up"
-                  data-aos-delay="300"
-                >
-                  <div
-                    class="bg-white/10 backdrop-blur-md rounded-2xl p-8 h-full"
-                  >
-                    <h3 class="text-6xl font-bold text-[#cc9933] mb-2">100%</h3>
-                    <h4 class="text-xl font-bold mb-4">Digital Efficiency</h4>
-                    <div class="space-y-2 text-sm opacity-90">
-                      <p><strong>Foundation:</strong> Phone/paper process</p>
-                      <p><strong>Evolution:</strong> Fully digital journey</p>
-                      <p><strong>Impact:</strong> Book anytime, anywhere</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- COMFORT & ANXIETY REDUCTION SECTION - ENHANCED -->
-          <section class="bg-[#f0f4f9] py-20 px-6">
-            <div class="max-w-7xl mx-auto">
-              <div class="text-center mb-16">
-                <h2
-                  class="text-3xl md:text-4xl font-bold text-[#003087] mb-4"
-                  data-aos="fade-up"
-                >
-                  Comfort Evolved: Your Peace of Mind Matters
-                </h2>
-                <p
-                  class="text-lg text-[#003087]/80"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  8 years of patient feedback taught us what truly reduces
-                  anxiety
-                </p>
-              </div>
-
-              <div class="grid md:grid-cols-3 gap-8">
-                <!-- Anxiety Support - ENHANCED -->
-                <div
-                  class="bg-white rounded-2xl p-8 shadow-lg text-center"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  <div
-                    class="w-16 h-16 bg-[#cc9933]/10 rounded-full flex items-center justify-center mx-auto mb-6"
-                  >
-                    <svg
-                      class="w-8 h-8 text-[#cc9933]"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <h3 class="text-xl font-bold text-[#003087] mb-4">
-                    Anxiety Support
-                  </h3>
-                  <div class="text-left space-y-2 text-[#003087]/80">
-                    <p><strong>Proven:</strong> Open MRI options available</p>
-                    <p><strong>Proven:</strong> Experienced, caring staff</p>
-                    <p>• Music and comfort items provided</p>
-                    <p>• Pre-scan consultation offered</p>
-                    <p>• Clear explanation of process</p>
-                  </div>
-                  <div class="mt-4 p-3 bg-[#fefbf5] rounded-lg">
-                    <p class="text-xs font-medium text-[#cc9933]">
-                      95% of anxious patients complete successfully
-                    </p>
-                  </div>
-                </div>
-
-                <!-- Time Commitment - ENHANCED -->
-                <div
-                  class="bg-white rounded-2xl p-8 shadow-lg text-center"
-                  data-aos="fade-up"
-                  data-aos-delay="200"
-                >
-                  <div
-                    class="w-16 h-16 bg-[#cc9933]/10 rounded-full flex items-center justify-center mx-auto mb-6"
-                  >
-                    <svg
-                      class="w-8 h-8 text-[#cc9933]"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                  </div>
-                  <h3 class="text-xl font-bold text-[#003087] mb-4">
-                    Quick & Efficient
-                  </h3>
-                  <div class="text-left space-y-2 text-[#003087]/80">
-                    <p><strong>Scan times:</strong> 15-45 minutes</p>
-                    <p><strong>Check-in:</strong> Under 10 minutes</p>
-                    <p>• Minimal paperwork</p>
-                    <p>• Free parking available</p>
-                    <p>• Streamlined process</p>
-                  </div>
-                  <div class="mt-4 p-3 bg-[#fefbf5] rounded-lg">
-                    <p class="text-xs font-medium text-[#cc9933]">
-                      Average total time: Under 1 hour
-                    </p>
-                  </div>
-                </div>
-
-                <!-- Results & Follow-up - ENHANCED -->
-                <div
-                  class="bg-white rounded-2xl p-8 shadow-lg text-center"
-                  data-aos="fade-up"
-                  data-aos-delay="300"
-                >
-                  <div
-                    class="w-16 h-16 bg-[#cc9933]/10 rounded-full flex items-center justify-center mx-auto mb-6"
-                  >
-                    <svg
-                      class="w-8 h-8 text-[#cc9933]"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <h3 class="text-xl font-bold text-[#003087] mb-4">
-                    Clear Results
-                  </h3>
-                  <div class="text-left space-y-2 text-[#003087]/80">
-                    <p><strong>Delivery:</strong> 24-48 hours</p>
-                    <p><strong>Format:</strong> Easy to understand</p>
-                    <p>• Sent to you and your doctor</p>
-                    <p>• Board-certified radiologist review</p>
-                    <p>• Secure online portal access</p>
-                  </div>
-                  <div class="mt-4 p-3 bg-[#fefbf5] rounded-lg">
-                    <p class="text-xs font-medium text-[#cc9933]">
-                      98% understand their results clearly
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- PROOF SECTION - EVOLUTION STORY -->
-          <section class="bg-white py-20 px-6">
-            <div class="max-w-4xl mx-auto text-center">
-              <h2
-                class="text-3xl md:text-4xl font-bold text-[#003087] mb-8"
-                data-aos="fade-up"
-              >
-                The Evolution Story: From Foundation to Future
-              </h2>
-
-              <div
-                class="bg-gradient-to-br from-[#f8f2e1] to-[#fcf9f0] rounded-3xl p-8 md:p-12 shadow-xl"
-                data-aos="fade-up"
-                data-aos-delay="100"
-              >
-                <div class="text-6xl text-[#cc9933] opacity-30 mb-4">"</div>
-                <blockquote
-                  class="text-xl md:text-2xl italic text-[#003087] leading-relaxed mb-8"
-                >
-                  We didn't just build a better process—we built the future of
-                  medical imaging. Starting with AnciCare in 1994, we eliminated
-                  the friction that made healthcare painful. Our <strong
-                    >$400 Million+ in savings</strong
-                  > and successful acquisition proved the model. Now, with digital
-                  capabilities and 1,500+ centers, we're evolving that proven foundation
-                  to serve 90 million Americans who deserve better than the broken
-                  status quo.
-                </blockquote>
-                <div class="grid md:grid-cols-3 gap-6 text-center mb-6">
-                  <div>
-                    <div class="text-3xl font-bold text-[#cc9933]">
-                      Foundation
-                    </div>
-                    <div class="text-sm text-[#003087]">
-                      8 Years Building<br />400K Patients Served
-                    </div>
-                  </div>
-                  <div>
-                    <div class="text-3xl font-bold text-[#cc9933]">
-                      Evolution
-                    </div>
-                    <div class="text-sm text-[#003087]">
-                      Digital Platform<br />1,500+ Centers
-                    </div>
-                  </div>
-                  <div>
-                    <div class="text-3xl font-bold text-[#cc9933]">Mission</div>
-                    <div class="text-sm text-[#003087]">
-                      90M Americans<br />To Transform
-                    </div>
-                  </div>
-                </div>
-                <div class="mt-6 text-sm text-[#003087]/70">
-                  — Victor and The USRad Evolution Team
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- FAQ SECTION - EVOLUTION ENHANCED -->
-          <section class="bg-[#f0f4f9] py-20 px-6">
-            <div class="max-w-4xl mx-auto">
-              <h2
-                class="text-3xl md:text-4xl font-bold text-[#003087] text-center mb-12"
-                data-aos="fade-up"
-              >
-                Common Questions About Our Evolved Process
-              </h2>
-
-              <div class="space-y-6">
-                <div
-                  class="bg-white rounded-xl p-6 shadow-md"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
-                >
-                  <h3 class="text-lg font-bold text-[#003087] mb-3">
-                    How is your process different from what I'm used to?
-                  </h3>
-                  <p class="text-[#003087]/80">
-                    We eliminated every pain point over 8 years of refinement.
-                    No referrals needed, transparent pricing upfront, 2-3 day
-                    appointments instead of 10-14 days, and results in 24-48
-                    hours. It's the same proven process that delivered $400M+ in
-                    savings, now enhanced with digital capabilities for even
-                    better experience.
-                  </p>
-                </div>
-
-                <div
-                  class="bg-white rounded-xl p-6 shadow-md"
-                  data-aos="fade-up"
-                  data-aos-delay="200"
-                >
-                  <h3 class="text-lg font-bold text-[#003087] mb-3">
-                    Why did you evolve from your successful AnciCare model?
-                  </h3>
-                  <p class="text-[#003087]/80">
-                    Our foundation was proven—$400M+ saved, successful exit to
-                    NYSE company. But technology now allows us to serve millions
-                    instead of thousands. Same proven economics, enhanced with
-                    real-time booking, digital payments, and AI-assisted
-                    quality. Evolution means more people get access to what
-                    works.
-                  </p>
-                </div>
-
-                <div
-                  class="bg-white rounded-xl p-6 shadow-md"
-                  data-aos="fade-up"
-                  data-aos-delay="300"
-                >
-                  <h3 class="text-lg font-bold text-[#003087] mb-3">
-                    How do I know this evolved process maintains quality?
-                  </h3>
-                  <p class="text-[#003087]/80">
-                    We use the exact same quality standards that served 400,000+
-                    patients successfully. Every center is vetted, every
-                    radiologist board-certified. The evolution adds real-time
-                    quality monitoring and AI-assisted accuracy checks. Better
-                    technology, same uncompromising standards.
-                  </p>
-                </div>
-
-                <div
-                  class="bg-white rounded-xl p-6 shadow-md"
-                  data-aos="fade-up"
-                  data-aos-delay="400"
-                >
-                  <h3 class="text-lg font-bold text-[#003087] mb-3">
-                    What if I'm not tech-savvy? Is this process for me?
-                  </h3>
-                  <p class="text-[#003087]/80">
-                    Absolutely! We designed the digital evolution to be easier
-                    than the old way, not harder. If you can use a smartphone,
-                    you can use our platform. Plus, we offer phone support for
-                    anyone who prefers human assistance. The technology serves
-                    you—you don't serve it.
-                  </p>
-                </div>
-
-                <div
-                  class="bg-white rounded-xl p-6 shadow-md"
-                  data-aos="fade-up"
-                  data-aos-delay="500"
-                >
-                  <h3 class="text-lg font-bold text-[#003087] mb-3">
-                    Why should I trust this evolved model?
-                  </h3>
-                  <p class="text-[#003087]/80">
-                    Because it's not new—it's proven. We built AnciCare from
-                    1994-2002, delivered $400M+ in savings, achieved a
-                    successful exit to CorVel Corporation (NYSE: CVL), and they
-                    still operate the model today. The evolution adds digital
-                    efficiency to a foundation that's been working for 20+
-                    years. That's not a startup promise—that's proven history.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- ENHANCED CTA - EVOLUTION FOCUSED -->
-          <section
-            class="bg-gradient-to-br from-[#003087] to-[#002266] py-20 px-6 text-white text-center"
-          >
-            <div class="max-w-4xl mx-auto" data-aos="fade-up">
-              <!-- Evolution Banner -->
-              <div
-                class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-6 py-2 border border-white/20 mb-6"
-              >
+      <!-- Timeline -->
+      <div class="max-w-4xl mx-auto">
+        <div class="space-y-12">
+          <!-- Immediately -->
+          <div class="timeline-item" data-aos="fade-up">
+            <div class="flex gap-6">
+              <div class="timeline-marker bg-green-500">
                 <svg
-                  class="w-4 h-4 text-[#cc9933]"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
                   <path
-                    fill-rule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clip-rule="evenodd"></path>
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"></path>
                 </svg>
-                <span class="text-sm font-medium"
-                  >FOUNDATION → EVOLUTION → YOUR TRANSFORMATION</span
-                >
               </div>
-
-              <h2 class="text-3xl md:text-4xl font-bold mb-6">
-                Ready to Experience Healthcare Evolution?
-              </h2>
-              <p class="text-lg md:text-xl mb-8 opacity-95">
-                Join the healthcare revolution that started with 400,000
-                patients, delivered $400M+ in savings, and is now evolving to
-                serve millions.
-              </p>
-
-              <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="/search-test"
-                  class="bg-[#cc9933] hover:bg-[#b8851f] text-white font-bold px-8 py-4 rounded-xl shadow-lg transition-all duration-300 hover:scale-105"
-                >
-                  Start Your Evolution Journey →
-                </a>
-                <a
-                  href="/pricing"
-                  class="border-2 border-white text-white hover:bg-white hover:text-[#003087] font-bold px-8 py-4 rounded-xl transition-all duration-300"
-                >
-                  See Evolution Pricing
-                </a>
-              </div>
-
-              <div class="mt-8 text-sm opacity-80">
-                ⭐ Foundation proven by exit • Evolution powered by digital •
-                Mission to serve millions
+              <div class="flex-1">
+                <h3 class="text-2xl font-bold mb-2">Immediately</h3>
+                <p class="text-white/80 mb-4">
+                  Confirmation sent to your email and phone with all details
+                </p>
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                  <p class="text-sm">✉️ Email confirmation with directions</p>
+                  <p class="text-sm mt-2">📱 Text reminder 24 hours before</p>
+                  <p class="text-sm mt-2">📄 Pre-visit instructions</p>
+                </div>
               </div>
             </div>
-          </section>
+          </div>
+
+          <!-- Day of Scan -->
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="flex gap-6">
+              <div class="timeline-marker bg-teal-500">
+                <span class="text-xl">🏥</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-2xl font-bold mb-2">Day of Your Scan</h3>
+                <p class="text-white/80 mb-4">
+                  Simple check-in, comfortable experience, professional care
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div class="text-center p-4 bg-white/10 rounded-lg">
+                    <p class="text-3xl mb-2">5 min</p>
+                    <p class="text-sm text-white/70">Check-in time</p>
+                  </div>
+                  <div class="text-center p-4 bg-white/10 rounded-lg">
+                    <p class="text-3xl mb-2">20-45 min</p>
+                    <p class="text-sm text-white/70">Scan duration</p>
+                  </div>
+                  <div class="text-center p-4 bg-white/10 rounded-lg">
+                    <p class="text-3xl mb-2">0 min</p>
+                    <p class="text-sm text-white/70">Wait for results</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 24-48 Hours -->
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="flex gap-6">
+              <div class="timeline-marker bg-[#cc9933]">
+                <span class="text-xl">📊</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-2xl font-bold mb-2">24-48 Hours Later</h3>
+                <p class="text-white/80 mb-4">
+                  Board-certified radiologist reviews and results delivered
+                </p>
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+                  <div class="flex items-center gap-4 mb-4">
+                    <div
+                      class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center"
+                    >
+                      <span class="text-2xl">👨‍⚕️</span>
+                    </div>
+                    <div>
+                      <p class="font-semibold">
+                        Dr. Board-Certified Radiologist
+                      </p>
+                      <p class="text-sm text-white/70">
+                        Reviews every scan personally
+                      </p>
+                    </div>
+                  </div>
+                  <p class="text-sm text-white/80">
+                    Results sent directly to you and your doctor
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
-  </section></MainPatientLayout
->
+
+      <!-- Support CTA -->
+      <div class="text-center mt-16" data-aos="fade-up" data-aos-delay="300">
+        <p class="text-lg text-white/70 mb-6">
+          Questions at any point? We're here to help.
+        </p>
+        <div class="inline-flex gap-4">
+          <a
+            href="/contact"
+            class="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+          >
+            Contact Support
+          </a>
+          <a
+            href="tel:1-800-USRAD-24"
+            class="bg-teal-500 hover:bg-teal-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+          >
+            Call (800) USRad-24
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive CTA Section -->
+  <section
+    class="py-24 px-4 sm:px-6 bg-gradient-to-br from-white to-teal-50 relative overflow-hidden"
+  >
+    <div
+      class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-teal-100/20 rounded-full blur-3xl"
+    >
+    </div>
+
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+      <h2
+        class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-8"
+        data-aos="fade-up"
+      >
+        Ready to Start Your Journey?
+      </h2>
+
+      <p
+        class="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Join thousands who've discovered how simple medical imaging should be.
+        No insurance hassles. No surprise bills. Just answers.
+      </p>
+
+      <!-- Interactive Journey Starter -->
+      <div
+        class="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl mx-auto"
+        data-aos="zoom-in"
+        data-aos-delay="200"
+      >
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-lg font-semibold text-gray-900">
+            Begin Your Journey
+          </h3>
+          <div class="flex gap-2">
+            <span class="w-2 h-2 bg-teal-500 rounded-full animate-pulse"></span>
+            <span
+              class="w-2 h-2 bg-teal-500 rounded-full animate-pulse animation-delay-200"
+            ></span>
+            <span
+              class="w-2 h-2 bg-teal-500 rounded-full animate-pulse animation-delay-400"
+            ></span>
+          </div>
+        </div>
+
+        <form
+          class="flex flex-col sm:flex-row gap-3"
+          action="/search-results"
+          method="GET"
+        >
+          <input
+            type="text"
+            name="zipCode"
+            placeholder="Enter your ZIP code to begin"
+            pattern="[0-9]{5}"
+            maxlength="5"
+            required
+            class="flex-1 px-6 py-4 rounded-xl text-lg border-2 border-gray-200 focus:border-teal-500 focus:outline-none transition-colors"
+          />
+          <input type="hidden" name="procedure" value="70551" />
+          <input type="hidden" name="autoSearch" value="true" />
+          <button
+            type="submit"
+            class="bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg"
+          >
+            Start Now →
+          </button>
+        </form>
+
+        <p class="text-sm text-gray-500 mt-4">
+          🎉 Special pricing available today
+        </p>
+      </div>
+
+      <!-- Journey Stats -->
+      <div
+        class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-4xl mx-auto"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <div class="text-center">
+          <div class="text-3xl font-bold text-teal-600 mb-1">15 sec</div>
+          <p class="text-sm text-gray-600">to find centers</p>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-teal-600 mb-1">70%</div>
+          <p class="text-sm text-gray-600">average savings</p>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-teal-600 mb-1">48 hrs</div>
+          <p class="text-sm text-gray-600">typical wait</p>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-teal-600 mb-1">4.9★</div>
+          <p class="text-sm text-gray-600">patient rating</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* Journey Path Animation */
+    @keyframes dash {
+      to {
+        stroke-dashoffset: -10;
+      }
+    }
+
+    .animate-dash {
+      animation: dash 20s linear infinite;
+    }
+
+    /* Float Animations */
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes float-delayed {
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .animate-float-delayed {
+      animation: float-delayed 6s ease-in-out infinite;
+      animation-delay: 3s;
+    }
+
+    /* Journey Step Preview */
+    .journey-step-preview {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 50px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .journey-step-preview.active {
+      background: rgba(20, 184, 166, 0.2);
+      border-color: rgba(20, 184, 166, 0.5);
+    }
+
+    .journey-step-preview:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .step-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .journey-connector {
+      width: 30px;
+      height: 2px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+    }
+
+    /* Progress Sidebar */
+    .progress-node {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .progress-node.active {
+      background: #14b8a6;
+      transform: scale(1.2);
+    }
+
+    .progress-node:hover {
+      background: rgba(20, 184, 166, 0.3);
+    }
+
+    .node-icon {
+      font-size: 18px;
+    }
+
+    .node-tooltip {
+      position: absolute;
+      left: 60px;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .progress-node:hover .node-tooltip {
+      opacity: 1;
+    }
+
+    .progress-connector {
+      width: 2px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: -8px auto;
+    }
+
+    /* Map Pins Animation */
+    @keyframes bounce-slow {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .animate-bounce-slow {
+      animation: bounce-slow 3s ease-in-out infinite;
+    }
+
+    .animation-delay-200 {
+      animation-delay: 200ms;
+    }
+
+    .animation-delay-400 {
+      animation-delay: 400ms;
+    }
+
+    /* Comparison Cards */
+    .comparison-card {
+      transition: all 0.3s ease;
+    }
+
+    .comparison-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .comparison-card.selected {
+      border-color: #14b8a6;
+      background: linear-gradient(to br, #f0fdfa, #ffffff);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Calendar Styles */
+    .calendar-day {
+      padding: 8px;
+      text-align: center;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .calendar-day.available {
+      background: #e6fffa;
+      color: #0d9488;
+      font-weight: 500;
+    }
+
+    .calendar-day.available:hover {
+      background: #14b8a6;
+      color: white;
+    }
+
+    .calendar-day.selected {
+      background: #14b8a6;
+      color: white;
+      font-weight: 600;
+    }
+
+    /* Time Slots */
+    .time-slot {
+      padding: 8px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      background: white;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .time-slot:hover {
+      border-color: #14b8a6;
+      background: #f0fdfa;
+    }
+
+    .time-slot.selected {
+      background: #14b8a6;
+      border-color: #14b8a6;
+      color: white;
+    }
+
+    /* Timeline Markers */
+    .timeline-marker {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    /* Fade In Animation */
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fade-in 0.5s ease-out;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .journey-step-preview {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+
+      .journey-connector {
+        width: 20px;
+      }
+
+      .progress-sidebar {
+        display: none;
+      }
+    }
+  </style>
+
+  <script>
+    // No longer needed - using real form submission
+
+    // Option Selection
+    function selectOption(element) {
+      // Remove selected from all
+      document.querySelectorAll(".comparison-card").forEach((card) => {
+        card.classList.remove("selected");
+      });
+      // Add selected to clicked
+      element.classList.add("selected");
+    }
+
+    // Progress Tracking
+    const sections = ["search", "compare", "book", "complete"];
+    const sectionElements = sections.map((id) =>
+      document.getElementById(`${id}-section`)
+    );
+    const progressNodes = document.querySelectorAll(".progress-node");
+
+    // Intersection Observer for Progress
+    const observerOptions = {
+      threshold: 0.5,
+      rootMargin: "-100px 0px",
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id.replace("-section", "");
+          updateProgress(sectionId);
+        }
+      });
+    }, observerOptions);
+
+    // Observe sections
+    sectionElements.forEach((section) => {
+      if (section) sectionObserver.observe(section);
+    });
+
+    // Update Progress
+    function updateProgress(currentSection) {
+      progressNodes.forEach((node) => {
+        node.classList.remove("active");
+        if (node.dataset.section === currentSection) {
+          node.classList.add("active");
+        }
+      });
+
+      // Update journey preview
+      document.querySelectorAll(".journey-step-preview").forEach((step) => {
+        step.classList.remove("active");
+        const stepMap = { search: "1", compare: "2", book: "3", complete: "4" };
+        if (step.dataset.step === stepMap[currentSection]) {
+          step.classList.add("active");
+        }
+      });
+    }
+
+    // Progress Node Clicks
+    progressNodes.forEach((node) => {
+      node.addEventListener("click", () => {
+        const targetSection = document.getElementById(
+          `${node.dataset.section}-section`
+        );
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+    });
+
+    // Journey Step Preview Clicks
+    document.querySelectorAll(".journey-step-preview").forEach((step) => {
+      step.addEventListener("click", () => {
+        const stepMap = {
+          "1": "search",
+          "2": "compare",
+          "3": "book",
+          "4": "complete",
+        };
+        const targetSection = document.getElementById(
+          `${stepMap[step.dataset.step]}-section`
+        );
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+
+    // Add smooth scrolling to all sections
+    document.addEventListener("DOMContentLoaded", () => {
+      // Set initial progress
+      updateProgress("search");
+    });
+  </script>
+</CarbonLayout>

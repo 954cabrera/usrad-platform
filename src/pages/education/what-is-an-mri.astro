@@ -1,1074 +1,1065 @@
 ---
-// src/pages/education/what-is-mri.astro
+// src/pages/education/what-is-mri-carbon.astro
+import CarbonLayout from "../../layouts/CarbonLayout.astro";
 import MultiModalViewer from "../../components/education/MultiModalViewer.jsx";
-import MainPatientLayout from "../../layouts/MainPatientLayout.astro";
+import AOSInit from "../../components/AOSInit.astro";
 
-const title = "What is an MRI? | USRad Medical Imaging Education";
-const description =
-  "Experience professional-grade medical imaging education with interactive viewers. Founded by proven leaders who built AnciCare, served 400K+ patients, and achieved a successful healthcare exit.";
+export const prerender = true;
 ---
 
-<MainPatientLayout showPatientHeader={true}>
-  <!-- Hero Section with Enhanced Track Record -->
+<CarbonLayout title="What is an MRI? | USRad Medical Imaging" isHeroPage={true}>
+  <AOSInit />
+
+  <!-- Meta tags for social sharing -->
+  <meta
+    property="og:image"
+    content="/images/education-mri-hero.webp"
+    slot="head"
+  />
+  <meta name="twitter:card" content="summary_large_image" slot="head" />
+
+  <!-- Hero Section with Optimized Video and Mobile Fallback -->
   <section
-    class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 py-20 sm:py-32"
+    class="relative pt-32 pb-20 px-4 sm:px-6 min-h-[700px] flex items-center overflow-hidden"
   >
-    <!-- Animated Background Elements -->
-    <div class="absolute inset-0 opacity-10">
+    <!-- Media Background -->
+    <div class="absolute inset-0 z-0">
+      <!-- Fallback Image -->
+      <img
+        src="/images/education-mri-hero-blur.webp"
+        alt="MRI Background"
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+
+      <!-- Lazy Loaded Video -->
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster="/images/education-mri-hero-blur.webp"
+        class="absolute inset-0 w-full h-full object-cover"
+        data-src-desktop="/videos/education-mri-desktop.webm"
+        data-src-mobile="/videos/education-mri-mobile.webm"
+        loading="lazy"></video>
+
+      <!-- Enhanced Overlay Gradients for transparent header compatibility -->
       <div
-        class="absolute top-20 left-10 w-32 h-32 bg-blue-500 rounded-full blur-xl animate-pulse"
+        class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50"
       >
       </div>
       <div
-        class="absolute bottom-20 right-10 w-48 h-48 bg-purple-500 rounded-full blur-xl animate-pulse delay-1000"
-      >
-      </div>
-      <div
-        class="absolute top-1/2 left-1/2 w-24 h-24 bg-green-500 rounded-full blur-xl animate-pulse delay-500"
+        class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70"
       >
       </div>
     </div>
 
-    <!-- Enhanced Proven Track Record Banner -->
+    <!-- Floating Effects -->
     <div
-      class="absolute top-0 left-0 right-0 bg-gradient-to-r from-[#cc9933] to-[#003087] text-white py-2 px-4 text-center"
+      class="absolute top-20 right-10 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl animate-pulse"
     >
-      <p class="text-sm font-medium">
-        🏆 <strong>PROVEN HEALTHCARE PIONEERS:</strong> Built America's first managed
-        care imaging network • Served 400,000+ patients • $400 Million+ savings delivered
-        • Successful healthcare exit
-      </p>
+    </div>
+    <div
+      class="absolute bottom-20 left-10 w-96 h-96 bg-[#cc9933]/10 rounded-full blur-3xl animate-pulse delay-1000"
+    >
     </div>
 
-    <div class="relative max-w-7xl mx-auto px-6 text-center mt-8">
-      <!-- Credibility Badge -->
-      <div class="mb-6">
-        <span
-          class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#003087] to-[#0052cc] text-white text-sm font-bold rounded-full shadow-lg"
-        >
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-              clip-rule="evenodd"></path>
-          </svg>
-          🧠 Advanced Medical Imaging Education • From Proven Healthcare Leaders
-        </span>
-      </div>
-
-      <h1
-        class="text-4xl sm:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent mb-6"
-      >
-        What Is an MRI?
-      </h1>
-
-      <p
-        class="text-xl sm:text-2xl text-gray-600 mb-4 max-w-4xl mx-auto leading-relaxed"
-      >
-        Magnetic Resonance Imaging lets us see inside the human body—without a
-        single incision or any radiation.
-      </p>
-
-      <p class="text-lg text-blue-700 mb-8 max-w-3xl mx-auto font-medium">
-        Educational experience brought to you by the team that built and
-        successfully exited a healthcare company serving 400,000+ patients
-      </p>
-
-      <!-- Enhanced Stats Counter with Track Record -->
-      <div
-        class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12"
-      >
+    <!-- Hero Content -->
+    <div class="relative z-10 max-w-7xl mx-auto">
+      <div class="max-w-5xl">
         <div
-          class="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-green-200 hover:shadow-xl transition-shadow"
+          class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-8"
+          data-aos="fade-down"
         >
-          <div class="text-2xl font-bold text-green-600" data-counter="400000">
-            0
-          </div>
-          <div class="text-sm text-gray-600 font-medium">Patients Served</div>
-          <div class="text-xs text-green-600 font-semibold">
-            Through AnciCare
-          </div>
-        </div>
-        <div
-          class="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-blue-200 hover:shadow-xl transition-shadow"
-        >
-          <div class="text-2xl font-bold text-blue-600" data-counter="1200">
-            0
-          </div>
-          <div class="text-sm text-gray-600 font-medium">Centers Built</div>
-          <div class="text-xs text-blue-600 font-semibold">Proven Network</div>
-        </div>
-        <div
-          class="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-purple-200 hover:shadow-xl transition-shadow"
-        >
-          <div class="text-2xl font-bold text-purple-600" data-counter="400">
-            0
-          </div>
-          <div class="text-sm text-gray-600 font-medium">Million+ Saved</div>
-          <div class="text-xs text-purple-600 font-semibold">
-            Verified Results
-          </div>
-        </div>
-        <div
-          class="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-orange-200 hover:shadow-xl transition-shadow"
-        >
-          <div class="text-2xl font-bold text-orange-600" data-counter="8">
-            0
-          </div>
-          <div class="text-sm text-gray-600 font-medium">Years Building</div>
-          <div class="text-xs text-orange-600 font-semibold">1994-2002</div>
-        </div>
-      </div>
-
-      <!-- Enhanced Mission Statement -->
-      <div
-        class="bg-gradient-to-r from-[#003087] to-[#0052cc] rounded-2xl p-8 mb-8 text-white shadow-xl"
-      >
-        <h2 class="text-2xl font-bold mb-4">
-          Our Mission: Affordable Imaging for 90 Million Americans
-        </h2>
-        <p class="text-lg opacity-90 max-w-4xl mx-auto mb-4">
-          After pioneering the managed care imaging model and achieving a
-          successful healthcare exit, we're now focused on serving the 90
-          million uninsured and underinsured Americans who deserve access to
-          high-quality, affordable medical imaging.
-        </p>
-        <div class="grid md:grid-cols-3 gap-4 mt-6">
-          <div class="bg-white/10 rounded-lg p-4">
-            <div class="text-[#cc9933] font-bold text-sm">
-              ⚡ PROVEN INNOVATION
-            </div>
-            <div class="text-blue-100 text-sm">
-              Created first-ever medical imaging carve-out model
-            </div>
-          </div>
-          <div class="bg-white/10 rounded-lg p-4">
-            <div class="text-[#cc9933] font-bold text-sm">
-              💰 PROVEN SAVINGS
-            </div>
-            <div class="text-blue-100 text-sm">
-              $400M+ delivered, 50%+ cost reductions achieved
-            </div>
-          </div>
-          <div class="bg-white/10 rounded-lg p-4">
-            <div class="text-[#cc9933] font-bold text-sm">
-              🏆 PROVEN SUCCESS
-            </div>
-            <div class="text-blue-100 text-sm">
-              Successful exit validates our model excellence
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick Actions -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <button
-          onclick="document.getElementById('viewer-section').scrollIntoView({behavior: 'smooth'})"
-          class="px-8 py-3 bg-[#003087] hover:bg-[#002266] text-white font-semibold rounded-xl shadow-lg transition-all transform hover:scale-105 hover:shadow-xl"
-        >
-          Explore Interactive Viewer
-        </button>
-        <button
-          onclick="document.getElementById('scheduling-widget').style.display = 'block'"
-          class="px-8 py-3 bg-[#cc9933] hover:bg-[#b8851f] text-[#003087] font-semibold rounded-xl shadow-lg transition-all transform hover:scale-105 hover:shadow-xl"
-        >
-          Schedule Your Scan
-        </button>
-      </div>
-
-      <div class="mt-6 text-sm text-gray-600">
-        Join 400,000+ patients who've trusted our proven approach to medical
-        imaging
-      </div>
-    </div>
-  </section>
-
-  <!-- Enhanced Proven Track Record Section -->
-  <section
-    class="bg-gradient-to-r from-gray-900 to-blue-900 text-white py-20 px-6"
-  >
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-bold mb-4">
-          Built by Healthcare Revolution Pioneers
-        </h2>
-        <p class="text-xl text-blue-100 max-w-4xl mx-auto">
-          USRad is led by the visionary team that created the first-ever managed
-          care imaging model, revolutionizing healthcare efficiency and
-          affordability before achieving a successful exit to a NYSE-listed
-          company.
-        </p>
-        <div class="mt-4">
-          <span
-            class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3"
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          <span class="text-white/80 text-sm font-medium"
+            >From the team that revolutionized medical imaging</span
           >
-            <svg
-              class="w-5 h-5 text-[#cc9933]"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clip-rule="evenodd"></path>
-            </svg>
-            <span class="text-sm font-semibold"
-              >Model proven so effective it's still operating 20+ years later</span
-            >
-          </span>
         </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-        <div
-          class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-white/15 transition-all"
+        <h1
+          class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 text-white leading-tight tracking-tight"
+          data-aos="fade-up"
         >
-          <div class="text-4xl font-bold text-green-400 mb-2">1,200</div>
-          <div class="text-lg font-semibold mb-2">Imaging Centers</div>
-          <p class="text-blue-100 text-sm">
-            Built nationwide network from scratch
-          </p>
-        </div>
-
-        <div
-          class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-white/15 transition-all"
+          See Inside.<br />
+          Without Surgery.<br />
+          Without Radiation.<br />
+          <span class="text-[#cc9933] countdown-glow"
+            >In <span
+              id="countdown"
+              aria-label="Time until appointment available">48:00:00</span
+            ></span
+          >
+        </h1>
+        <p
+          class="text-xl md:text-2xl text-gray-100 leading-relaxed max-w-3xl"
+          data-aos="fade-up"
+          data-aos-delay="200"
         >
-          <div class="text-4xl font-bold text-blue-400 mb-2">400,000+</div>
-          <div class="text-lg font-semibold mb-2">Patients Served</div>
-          <p class="text-blue-100 text-sm">
-            Proven track record of quality care
-          </p>
-        </div>
-
+          MRI technology lets doctors see what's happening inside your
+          body—safely, clearly, and without a single incision. Here's how it
+          works.
+        </p>
         <div
-          class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-white/15 transition-all"
+          class="mt-12 flex flex-col sm:flex-row gap-4"
+          data-aos="fade-up"
+          data-aos-delay="300"
         >
-          <div class="text-4xl font-bold text-purple-400 mb-2">
-            $400 Million+
-          </div>
-          <div class="text-lg font-semibold mb-2">Savings Delivered</div>
-          <p class="text-blue-100 text-sm">
-            Total cost reduction achieved for clients
-          </p>
-        </div>
-      </div>
-
-      <div
-        class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10"
-      >
-        <h3 class="text-2xl font-bold mb-6 text-center">
-          The Innovation Success Story
-        </h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div class="space-y-4">
-            <div class="flex items-start gap-3">
-              <div
-                class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold"
-              >
-                1
-              </div>
-              <div>
-                <h4 class="font-semibold text-green-300">
-                  Pioneered New Model (1994)
-                </h4>
-                <p class="text-blue-100 text-sm">
-                  Created first-ever managed care imaging carve-out
-                  revolutionizing healthcare efficiency
-                </p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3">
-              <div
-                class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold"
-              >
-                2
-              </div>
-              <div>
-                <h4 class="font-semibold text-blue-300">
-                  Revolutionary Results
-                </h4>
-                <p class="text-blue-100 text-sm">
-                  $400 M+ total savings with 50%+ cost reductions and 2-3 day
-                  appointment access
-                </p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3">
-              <div
-                class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold"
-              >
-                3
-              </div>
-              <div>
-                <h4 class="font-semibold text-purple-300">
-                  Quality Guarantee Innovation
-                </h4>
-                <p class="text-blue-100 text-sm">
-                  First-ever service guarantee with peer-to-peer resolution or
-                  free re-imaging
-                </p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3">
-              <div
-                class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold"
-              >
-                4
-              </div>
-              <div>
-                <h4 class="font-semibold text-orange-300">
-                  Successful Exit (2002)
-                </h4>
-                <p class="text-blue-100 text-sm">
-                  NYSE-listed company validated our model with acquisition •
-                  Still operating successfully today
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="text-center">
-            <div
-              class="bg-gradient-to-br from-[#cc9933] to-[#003087] rounded-2xl p-6 text-white"
-            >
-              <h4 class="text-xl font-bold mb-2">Now Innovating For</h4>
-              <div class="text-3xl font-bold mb-2">90 Million</div>
-              <p class="text-sm opacity-90 mb-3">
-                Uninsured & Underinsured Americans
-              </p>
-              <div class="bg-white/20 rounded-lg p-3 text-xs">
-                <strong>Same Proven Innovation:</strong> Fast access + Quality care
-                + Affordable pricing
-              </div>
-              <div class="mt-3 text-xs text-blue-200">
-                ✅ Validated by successful healthcare exit
-              </div>
-            </div>
-          </div>
+          <button
+            onclick="document.getElementById('viewer-section').scrollIntoView({behavior: 'smooth'})"
+            class="bg-white text-[#003087] px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 hover:shadow-lg transition-all transform hover:scale-105"
+          >
+            Explore Interactive MRI
+          </button>
+          <a
+            href="/search-test"
+            class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 transition-all"
+          >
+            Find a Center Near You
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Enhanced How It Works with Experience Context -->
-  <section class="bg-white py-20 px-6 relative overflow-hidden">
+  <!-- The Science - Visual Storytelling -->
+  <section class="py-24 px-4 sm:px-6 bg-white">
     <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-          How MRI Works
-        </h2>
-        <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-4">
-          Understanding the technology behind the most advanced medical imaging
-          available today
-        </p>
-        <div
-          class="inline-flex items-center gap-2 bg-blue-50 rounded-full px-6 py-3"
+      <div class="text-center mb-20" data-aos="fade-up">
+        <h2
+          class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
         >
-          <svg
-            class="w-5 h-5 text-blue-600"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-              clip-rule="evenodd"></path>
-          </svg>
-          <span class="text-blue-700 font-semibold text-sm"
-            >Explained by the team that's overseen 400,000+ MRI scans</span
-          >
+          The Invisible Made Visible
+        </h2>
+        <p
+          class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+        >
+          Using magnetic fields 30,000 times stronger than Earth's, MRI creates
+          detailed images without any radiation exposure.
+        </p>
+      </div>
+
+      <!-- Photo Grid Explanation -->
+      <div class="grid md:grid-cols-3 gap-8 mb-20">
+        <div class="relative group" data-aos="fade-up">
+          <div class="relative rounded-2xl overflow-hidden shadow-xl">
+            <img
+              src="/images/education/mri-alignment.webp"
+              alt="MRI magnetic field visualization showing hydrogen atoms aligning in the body"
+              class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6"
+            >
+              <div class="text-white">
+                <h3 class="text-2xl font-bold mb-2">Magnetic Alignment</h3>
+                <p class="text-sm opacity-90">
+                  Hydrogen atoms in your body align with the magnetic field
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative group" data-aos="fade-up" data-aos-delay="100">
+          <div class="relative rounded-2xl overflow-hidden shadow-xl">
+            <img
+              src="/images/education/radiowave.webp"
+              alt="Radio waves creating detailed tissue images in MRI scanner"
+              class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6"
+            >
+              <div class="text-white">
+                <h3 class="text-2xl font-bold mb-2">Radio Wave Signals</h3>
+                <p class="text-sm opacity-90">
+                  Safe radio waves create detailed tissue images
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative group" data-aos="fade-up" data-aos-delay="200">
+          <div class="relative rounded-2xl overflow-hidden shadow-xl">
+            <img
+              src="/images/education/crystalclear.webp"
+              alt="Crystal clear MRI brain scan results on medical monitor"
+              class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6"
+            >
+              <div class="text-white">
+                <h3 class="text-2xl font-bold mb-2">Crystal Clear Images</h3>
+                <p class="text-sm opacity-90">
+                  Detailed views help doctors make accurate diagnoses
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div class="space-y-6">
-          <div class="flex items-start gap-4">
-            <div
-              class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0"
+      <!-- Interactive Viewer Section -->
+      <section
+        id="viewer-section"
+        class="bg-gradient-to-br from-gray-50 to-white py-32 px-4 sm:px-6"
+      >
+        <div class="max-w-7xl mx-auto">
+          <div class="text-center mb-12" data-aos="fade-up">
+            <h2
+              class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight"
             >
-              <span class="text-2xl">🧲</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-semibold text-gray-900 mb-2">
-                Powerful Magnetic Field
-              </h3>
-              <p class="text-gray-600">
-                Our MRI machines use magnetic fields 30,000 times stronger than
-                Earth's magnetic field to align your body's hydrogen atoms. No
-                radiation exposure—completely safe.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-4">
-            <div
-              class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0"
-            >
-              <span class="text-2xl">📡</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-semibold text-gray-900 mb-2">
-                Radio Wave Signals
-              </h3>
-              <p class="text-gray-600">
-                Safe radio waves create detailed images of your organs and
-                tissues without any radiation exposure. The same technology our
-                network used successfully for years.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-4">
-            <div
-              class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0"
-            >
-              <span class="text-2xl">🖥️</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-semibold text-gray-900 mb-2">
-                Expert Interpretation
-              </h3>
-              <p class="text-gray-600">
-                Our board-certified radiologists—with proven experience from
-                400,000+ scans—provide accurate diagnoses you can trust. The
-                same quality standards that earned our successful exit.
-              </p>
-            </div>
-          </div>
-
-          <!-- Enhanced Experience Highlight -->
-          <div
-            class="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-lg p-6"
-          >
-            <h4
-              class="font-semibold text-[#003087] mb-3 flex items-center gap-2"
-            >
-              <span class="text-[#cc9933]">⭐</span> Proven Excellence
-            </h4>
-            <p class="text-gray-700 mb-3">
-              Our leadership team personally oversaw the quality and accuracy of
-              hundreds of thousands of MRI scans, ensuring every patient
-              receives the highest standard of care.
+              Explore MRI Technology
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Interactive viewers showing real MRI, CT, and other medical
+              imaging. See what your doctor sees.
             </p>
-            <div class="grid md:grid-cols-2 gap-4 text-sm">
-              <div class="bg-white rounded p-3">
-                <div class="text-blue-600 font-semibold">400,000+ Scans</div>
-                <div class="text-gray-600">Successfully completed</div>
-              </div>
-              <div class="bg-white rounded p-3">
-                <div class="text-green-600 font-semibold">Proven Quality</div>
-                <div class="text-gray-600">Validated by exit</div>
-              </div>
-            </div>
           </div>
-        </div>
 
-        <!-- Interactive MRI Machine Visualization -->
-        <div class="relative">
-          <div
-            class="bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl p-8 shadow-xl"
-          >
-            <div class="relative">
-              <!-- Simplified MRI Machine SVG -->
-              <svg viewBox="0 0 400 300" class="w-full h-auto">
-                <!-- MRI Machine Body -->
-                <rect
-                  x="50"
-                  y="100"
-                  width="300"
-                  height="120"
-                  rx="15"
-                  fill="#4F46E5"
-                  stroke="#3730A3"
-                  stroke-width="2"></rect>
-                <!-- Patient Table -->
-                <rect
-                  x="20"
-                  y="140"
-                  width="360"
-                  height="40"
-                  rx="5"
-                  fill="#E5E7EB"
-                  stroke="#9CA3AF"
-                  stroke-width="1"></rect>
-                <!-- Magnetic Field Lines -->
-                <g class="animate-pulse">
-                  <ellipse
-                    cx="200"
-                    cy="160"
-                    rx="180"
-                    ry="80"
-                    fill="none"
-                    stroke="#60A5FA"
-                    stroke-width="2"
-                    opacity="0.6"></ellipse>
-                  <ellipse
-                    cx="200"
-                    cy="160"
-                    rx="150"
-                    ry="60"
-                    fill="none"
-                    stroke="#60A5FA"
-                    stroke-width="2"
-                    opacity="0.4"></ellipse>
-                  <ellipse
-                    cx="200"
-                    cy="160"
-                    rx="120"
-                    ry="40"
-                    fill="none"
-                    stroke="#60A5FA"
-                    stroke-width="2"
-                    opacity="0.2"></ellipse>
-                </g>
-                <!-- Control Panel -->
-                <rect
-                  x="320"
-                  y="80"
-                  width="60"
-                  height="80"
-                  rx="8"
-                  fill="#1F2937"></rect>
-                <circle cx="340" cy="100" r="5" fill="#10B981"></circle>
-                <circle cx="360" cy="100" r="5" fill="#F59E0B"></circle>
-                <rect
-                  x="330"
-                  y="120"
-                  width="40"
-                  height="20"
-                  rx="2"
-                  fill="#374151"></rect>
-              </svg>
-            </div>
-            <div class="text-center mt-4 text-sm text-gray-600">
-              <strong>Professional-grade equipment</strong> - Same technology used
-              in our proven network
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Enhanced Multi-Modal Interactive Viewer Section -->
-  <section
-    id="viewer-section"
-    class="bg-gradient-to-br from-gray-50 to-blue-50 py-20 px-6"
-  >
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-          Interactive Medical Imaging Hub
-        </h2>
-        <p class="text-lg text-gray-600 max-w-4xl mx-auto mb-4">
-          Experience professional-grade medical imaging viewers for MRI, CT,
-          Ultrasound, and PET scans. Explore real anatomical structures with
-          advanced controls used by radiologists.
-        </p>
-        <div
-          class="inline-flex items-center gap-2 bg-gradient-to-r from-[#003087] to-[#0052cc] text-white rounded-full px-6 py-3"
-        >
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-              clip-rule="evenodd"></path>
-          </svg>
-          <span class="font-semibold text-sm"
-            >Educational tools from proven healthcare innovators</span
-          >
-        </div>
-
-        <div class="mt-6 flex flex-wrap justify-center gap-3">
-          <span
-            class="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
-            >No Radiation</span
-          >
-          <span
-            class="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium"
-            >400,000+ Scans Experience</span
-          >
-          <span
-            class="px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium"
-            >Successful Exit Validated</span
-          >
-          <span
-            class="px-4 py-2 bg-orange-100 text-orange-800 rounded-full text-sm font-medium"
-            >From $260</span
-          >
-        </div>
-      </div>
-
-      <!-- The Enhanced Multi-Modal Viewer -->
-      <MultiModalViewer client:load />
-
-      <!-- Enhanced Educational Benefits -->
-      <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div
-          class="text-center bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow"
-        >
-          <div
-            class="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center mx-auto mb-4"
-          >
-            <span class="text-2xl">🏆</span>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">
-            Proven Track Record
-          </h3>
-          <p class="text-gray-600 mb-3">
-            400,000+ successful scans completed through our proven network model
-          </p>
-          <div class="text-xs text-blue-600 bg-blue-50 rounded px-3 py-1">
-            Validated by successful healthcare exit
-          </div>
-        </div>
-
-        <div
-          class="text-center bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow"
-        >
-          <div
-            class="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center mx-auto mb-4"
-          >
-            <span class="text-2xl">⚡</span>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">
-            Rapid Results
-          </h3>
-          <p class="text-gray-600 mb-3">
-            2-3 day appointments - efficiency model perfected
-          </p>
-          <div class="text-xs text-green-600 bg-green-50 rounded px-3 py-1">
-            Same model still operating 20+ years later
-          </div>
-        </div>
-
-        <div
-          class="text-center bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow"
-        >
-          <div
-            class="w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full flex items-center justify-center mx-auto mb-4"
-          >
-            <span class="text-2xl">💰</span>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">
-            Proven Affordable Access
-          </h3>
-          <p class="text-gray-600 mb-3">
-            $400 M+ in savings delivered - now expanding to serve 90 million
-            uninsured Americans
-          </p>
-          <div class="text-xs text-purple-600 bg-purple-50 rounded px-3 py-1">
-            Mission-driven pricing backed by results
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Enhanced Smart Scheduling Widget -->
-  <div
-    id="scheduling-widget"
-    style="display: none;"
-    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-  >
-    <div class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
-      <div class="text-center mb-6">
-        <h3 class="text-2xl font-bold text-gray-900 mb-2">Schedule Your MRI</h3>
-        <p class="text-gray-600 mb-2">
-          Join 400,000+ patients who've trusted our proven network
-        </p>
-        <div
-          class="text-xs text-blue-600 bg-blue-50 rounded px-3 py-1 inline-block"
-        >
-          Same quality standards validated by successful exit
-        </div>
-      </div>
-
-      <div class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >ZIP Code</label
-          >
-          <input
-            type="text"
-            placeholder="Enter your ZIP code"
-            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Scan Type</label
-          >
-          <select
-            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option>MRI Brain</option>
-            <option>MRI Spine</option>
-            <option>MRI Joint</option>
-            <option>MRI Abdomen</option>
-            <option>Other</option>
-          </select>
-        </div>
-
-        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-green-600">✓</span>
-            <span class="text-green-800 font-medium"
-              >Proven network quality</span
+          <!-- The Viewer with Loading State -->
+          <div data-aos="zoom-in" class="min-h-[600px] relative">
+            <!-- Loading skeleton -->
+            <div
+              class="animate-pulse bg-gray-200 rounded-lg h-[600px] absolute inset-0"
+              id="viewer-skeleton"
             >
-          </div>
-          <p class="text-green-600 text-sm mb-1">
-            400,000+ successful scans completed
-          </p>
-          <p class="text-green-600 text-xs">
-            Quality standards validated by successful healthcare exit
-          </p>
-        </div>
-
-        <div class="flex gap-3">
-          <button
-            onclick="document.getElementById('scheduling-widget').style.display = 'none'"
-            class="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-          >
-            Cancel
-          </button>
-          <button
-            class="flex-1 px-6 py-3 bg-[#003087] text-white rounded-lg hover:bg-[#002266] transition-colors"
-          >
-            Book Now
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Enhanced USRad vs Others Comparison -->
-  <section class="bg-white py-20 px-6">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-          Why USRad Is Different
-        </h2>
-        <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-4">
-          We're not just another imaging company—we're the proven team with a
-          successful track record, now focused on serving everyday Americans.
-        </p>
-        <div
-          class="inline-flex items-center gap-2 bg-blue-50 rounded-full px-6 py-3"
-        >
-          <svg
-            class="w-5 h-5 text-blue-600"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-              clip-rule="evenodd"></path>
-          </svg>
-          <span class="text-blue-700 font-semibold text-sm"
-            >The only imaging company with a proven successful exit</span
-          >
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div
-          class="text-center group bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 hover:shadow-lg transition-all"
-        >
-          <div
-            class="w-20 h-20 bg-gradient-to-br from-blue-200 to-blue-300 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"
-          >
-            <span class="text-3xl">🏆</span>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">
-            Proven Leadership
-          </h3>
-          <p class="text-gray-600 mb-3">
-            Built and successfully exited AnciCare after serving 400,000+
-            patients
-          </p>
-          <div class="text-xs text-blue-600 bg-white rounded px-3 py-1">
-            Model still operating today
+              <div class="flex items-center justify-center h-full">
+                <div class="text-center">
+                  <div
+                    class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#003087]"
+                  >
+                  </div>
+                  <p class="text-gray-600 mt-4">
+                    Loading interactive viewer...
+                  </p>
+                </div>
+              </div>
+            </div>
+            <MultiModalViewer client:load />
+            <!-- Attribution -->
+            <p class="text-center text-xs text-gray-500 mt-6">
+              MRI imaging data provided by OASIS-1 (Open Access Series of
+              Imaging Studies)
+              <a
+                href="https://www.oasis-brains.org"
+                class="text-blue-600 hover:underline"
+                target="_blank"
+              >
+                Learn more
+              </a>
+            </p>
           </div>
         </div>
+      </section>
 
-        <div
-          class="text-center group bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 hover:shadow-lg transition-all"
-        >
-          <div
-            class="w-20 h-20 bg-gradient-to-br from-green-200 to-green-300 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"
-          >
-            <span class="text-3xl">💰</span>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">
-            Proven Cost Reduction
-          </h3>
-          <p class="text-gray-600 mb-3">
-            $400 Million+ in verified savings delivered - now expanding access
-          </p>
-          <div class="text-xs text-green-600 bg-white rounded px-3 py-1">
-            From $260 - mission-driven pricing
-          </div>
-        </div>
-
-        <div
-          class="text-center group bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 hover:shadow-lg transition-all"
-        >
-          <div
-            class="w-20 h-20 bg-gradient-to-br from-purple-200 to-purple-300 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"
-          >
-            <span class="text-3xl">👨‍⚕️</span>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">
-            Expert Network Proven
-          </h3>
-          <p class="text-gray-600 mb-3">
-            3,000+ board-certified radiologists with 400,000+ scan experience
-          </p>
-          <div class="text-xs text-purple-600 bg-white rounded px-3 py-1">
-            Board-certified excellence
-          </div>
-        </div>
-
-        <div
-          class="text-center group bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 hover:shadow-lg transition-all"
-        >
-          <div
-            class="w-20 h-20 bg-gradient-to-br from-orange-200 to-orange-300 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"
-          >
-            <span class="text-3xl">🎯</span>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">
-            Proven Market Focus
-          </h3>
-          <p class="text-gray-600 mb-3">
-            Dedicated to serving 90 million underserved Americans
-          </p>
-          <div class="text-xs text-orange-600 bg-white rounded px-3 py-1">
-            Same mission, expanded access
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Enhanced Final CTA with Track Record -->
-  <section
-    class="bg-gradient-to-r from-[#003087] via-[#0052cc] to-[#003087] text-white py-20 px-6"
-  >
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl sm:text-4xl font-bold mb-4">
-        Ready to Experience Proven Excellence?
-      </h2>
-      <p class="text-xl mb-4 opacity-90">
-        Join the 400,000+ patients who've trusted our network for high-quality,
-        affordable imaging through our proven model
-      </p>
-      <p class="text-lg mb-8 text-blue-200">
-        The same approach that earned a successful healthcare exit, now serving
-        the 90 million uninsured and underinsured Americans who deserve better
-        healthcare access
-      </p>
-
-      <div
-        class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8"
+      <!-- Human Impact Section -->
+      <section
+        class="py-32 px-4 sm:px-6 bg-gradient-to-br from-white via-blue-50 to-white"
       >
-        <button
-          onclick="document.getElementById('scheduling-widget').style.display = 'block'"
-          class="px-8 py-4 bg-[#cc9933] hover:bg-[#b8851f] text-[#003087] font-semibold rounded-xl shadow-lg transition-all transform hover:scale-105"
-        >
-          Schedule Your Scan Today
-        </button>
-        <a
-          href="/pricing"
-          class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 transition-all"
-        >
-          View Transparent Pricing
-        </a>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-        <div class="bg-white/10 rounded-lg p-4">
-          <div class="text-[#cc9933] font-bold text-sm">400,000+ PATIENTS</div>
-          <div class="text-white text-xs">Successfully served</div>
-        </div>
-        <div class="bg-white/10 rounded-lg p-4">
-          <div class="text-[#cc9933] font-bold text-sm">
-            $400 Million+ SAVINGS
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-16" data-aos="fade-up">
+            <h2
+              class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
+            >
+              Why Every Day Matters
+            </h2>
+            <p
+              class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            >
+              For serious conditions, early detection can mean the difference
+              between simple treatment and life-threatening complications.
+            </p>
           </div>
-          <div class="text-white text-xs">Delivered and verified</div>
+
+          <!-- Impact Stories Grid -->
+          <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8" data-aos="fade-right">
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0"
+                >
+                  <img
+                    src="/images/icons/calendar_with_x.svg"
+                    alt="Long wait times"
+                    class="w-8 h-8"
+                    style="filter: invert(27%) sepia(51%) saturate(7063%) hue-rotate(347deg) brightness(94%) contrast(97%);"
+                  />
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                    14 Days Average Wait
+                  </h3>
+                  <p class="text-gray-600 leading-relaxed">
+                    At hospitals. Pain without answers. Anxiety building.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-12 h-12 bg-red-200 rounded-xl flex items-center justify-center flex-shrink-0"
+                >
+                  <img
+                    src="/images/icons/medicalcost.svg"
+                    alt="High medical costs"
+                    class="w-8 h-8"
+                    style="filter: invert(10%) sepia(100%) saturate(7063%) hue-rotate(347deg) brightness(70%) contrast(97%);"
+                  />
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                    $3,200 Average Cost
+                  </h3>
+                  <p class="text-gray-600 leading-relaxed">
+                    Hospital pricing. Forcing people to delay or skip care
+                    entirely.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 relative">
+                <div
+                  class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 relative z-10"
+                >
+                  <img
+                    src="/images/icons/speed.svg"
+                    alt="Fast service"
+                    class="w-8 h-8"
+                    style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
+                  />
+                </div>
+                <div class="relative z-10">
+                  <h3 class="text-xl font-semibold text-gray-900 mb-2 relative">
+                    <span class="highlight-text">48 Hours with USRad</span>
+                  </h3>
+                  <p class="text-gray-600 relative leading-relaxed">
+                    <span class="highlight-text-2 inline-block">
+                      Fast appointments. Clear pricing. Peace of mind.
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="relative rounded-3xl overflow-hidden shadow-2xl"
+              data-aos="fade-left"
+            >
+              <img
+                src="/images/education/goodnews.webp"
+                alt="Patient receiving good news from doctor about MRI results"
+                class="w-full h-96 object-cover"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8"
+              >
+                <div class="text-white">
+                  <p class="text-3xl font-bold mb-2">$260 vs $3,200</p>
+                  <p class="text-lg opacity-90">
+                    Same scan. Same quality. Life-changing difference.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="bg-white/10 rounded-lg p-4">
-          <div class="text-[#cc9933] font-bold text-sm">PROVEN SUCCESS</div>
-          <div class="text-white text-xs">Validated by exit</div>
+      </section>
+
+      <!-- The USRad Difference -->
+      <section
+        class="py-24 px-4 sm:px-6 bg-gradient-to-br from-[#003087] to-[#002266] text-white"
+      >
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-16" data-aos="fade-up">
+            <h2
+              class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+            >
+              MRI Expertise You Can Trust.<br />
+              <span class="text-[#cc9933]">From Day One.</span>
+            </h2>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div class="text-center" data-aos="zoom-in">
+              <img
+                src="/images/icons/market.png"
+                alt="Performance Growth"
+                class="w-20 h-20 mx-auto mb-4 filter brightness-0 invert"
+              />
+              <h3 class="text-2xl font-bold mb-3">168,224 MRIs Performed</h3>
+              <p class="text-white/80 leading-relaxed">
+                Our leadership team has overseen hundreds of thousands of MRI
+                scans. We know what quality looks like.
+              </p>
+            </div>
+
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
+              <img
+                src="/images/icons/license.png"
+                alt="Board Certified"
+                class="w-20 h-20 mx-auto mb-4 filter brightness-0 invert"
+              />
+              <h3 class="text-2xl font-bold mb-3">
+                Board-Certified Radiologists
+              </h3>
+              <p class="text-white/80 leading-relaxed">
+                Every scan reviewed by qualified specialists. Same radiologists
+                hospitals use, without the hospital markup.
+              </p>
+            </div>
+
+            <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
+              <img
+                src="/images/icons/shield.png"
+                alt="Peace of Mind"
+                class="w-20 h-20 mx-auto mb-4 filter brightness-0 invert"
+              />
+              <h3 class="text-2xl font-bold mb-3 whitespace-nowrap">
+                Your Peace of Mind
+              </h3>
+              <p class="text-white/80 leading-relaxed">
+                Clear explanations. Comfortable experience. Results in 24-48
+                hours. Healthcare how it should be.
+              </p>
+            </div>
+          </div>
+
+          <div class="text-center mt-16" data-aos="fade-up">
+            <p class="text-lg text-white/70">
+              ACR accredited facilities • Same-day appointments • Proven
+              expertise
+            </p>
+            <p class="text-sm text-white/50 mt-4">
+              <span class="font-semibold">4.9★</span> average rating from our imaging
+              centers
+            </p>
+          </div>
         </div>
+      </section>
+
+      <!-- Timeline Section -->
+      <section class="py-32 px-4 sm:px-6">
+        <div class="max-w-6xl mx-auto">
+          <h2
+            class="text-4xl md:text-5xl font-bold text-center mb-4 leading-tight"
+          >
+            What to Expect During Your MRI
+          </h2>
+          <p
+            class="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto leading-relaxed"
+          >
+            Understanding the process helps reduce anxiety and ensures a smooth
+            experience
+          </p>
+
+          <!-- Simple Process Timeline -->
+          <div class="relative">
+            <div
+              class="absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 transform -translate-x-1/2 hidden md:block"
+            >
+            </div>
+
+            <div class="space-y-16 md:space-y-24">
+              <!-- You Arrive -->
+              <div
+                class="relative flex items-center timeline-step"
+                data-aos="fade-right"
+              >
+                <!-- Mobile icon -->
+                <div class="md:hidden mb-4">
+                  <div
+                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center mx-auto"
+                  >
+                    <img
+                      src="/images/icons/reception2.svg"
+                      alt="Check In"
+                      class="w-8 h-8"
+                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
+                    />
+                  </div>
+                </div>
+
+                <div class="w-full md:w-1/2 text-center md:text-right md:pr-16">
+                  <h3 class="text-3xl font-bold text-gray-900 mb-3">
+                    You Arrive
+                  </h3>
+                  <p
+                    class="text-lg text-gray-600 max-w-md mx-auto md:ml-auto leading-relaxed"
+                  >
+                    Quick check-in. Change into comfortable clothing. Remove any
+                    metal objects. The technician explains everything.
+                  </p>
+                </div>
+
+                <!-- Desktop icon -->
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 z-10 hidden md:block"
+                >
+                  <div
+                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center"
+                  >
+                    <img
+                      src="/images/icons/reception2.svg"
+                      alt="Check In"
+                      class="w-8 h-8"
+                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
+                    />
+                  </div>
+                </div>
+                <div class="hidden md:block w-1/2"></div>
+              </div>
+
+              <!-- The Scan -->
+              <div
+                class="relative flex items-center timeline-step"
+                data-aos="fade-left"
+              >
+                <!-- Mobile icon -->
+                <div class="md:hidden mb-4">
+                  <div
+                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center mx-auto"
+                  >
+                    <img
+                      src="/images/icons/mri2.svg"
+                      alt="MRI Scan"
+                      class="w-8 h-8"
+                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
+                    />
+                  </div>
+                </div>
+
+                <div class="hidden md:block w-1/2"></div>
+
+                <!-- Desktop icon -->
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 z-10 hidden md:block"
+                >
+                  <div
+                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center"
+                  >
+                    <img
+                      src="/images/icons/mri2.svg"
+                      alt="MRI Scan"
+                      class="w-8 h-8"
+                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="w-full md:w-1/2 pl-0 md:pl-16 text-center md:text-left"
+                >
+                  <h3 class="text-3xl font-bold text-gray-900 mb-3">
+                    20-45 Minutes
+                  </h3>
+                  <p
+                    class="text-lg text-gray-600 max-w-md mx-auto md:ml-0 leading-relaxed"
+                  >
+                    Lie still while the machine creates images. You'll hear
+                    clicking sounds—that's normal. Headphones provided.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Results -->
+              <div
+                class="relative flex items-center timeline-step"
+                data-aos="fade-right"
+              >
+                <!-- Mobile icon -->
+                <div class="md:hidden mb-4">
+                  <div
+                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center mx-auto"
+                  >
+                    <img
+                      src="/images/icons/medical.svg"
+                      alt="Results Ready"
+                      class="w-8 h-8"
+                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
+                    />
+                  </div>
+                </div>
+
+                <div class="w-full md:w-1/2 text-center md:text-right md:pr-16">
+                  <h3 class="text-3xl font-bold text-gray-900 mb-3">
+                    24-48 Hours
+                  </h3>
+                  <p
+                    class="text-lg text-gray-600 max-w-md mx-auto md:ml-auto leading-relaxed"
+                  >
+                    Board-certified radiologists review your images. Results
+                    sent directly to you and your doctor.
+                  </p>
+                </div>
+
+                <!-- Desktop icon -->
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 z-10 hidden md:block"
+                >
+                  <div
+                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center"
+                  >
+                    <img
+                      src="/images/icons/medical.svg"
+                      alt="Results Ready"
+                      class="w-8 h-8"
+                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
+                    />
+                  </div>
+                </div>
+                <div class="hidden md:block w-1/2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="py-8">
+        <hr class="max-w-xs mx-auto border-gray-300" />
       </div>
+
+      <!-- Final CTA -->
+      <section class="py-32 px-4 sm:px-6 bg-white">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2
+            class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8 leading-tight"
+            data-aos="fade-up"
+          >
+            Ready to Get Answers?
+          </h2>
+
+          <p
+            class="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            Quality MRI scans from $260. No insurance required. Book your
+            appointment in under 60 seconds.
+          </p>
+
+          <div
+            class="bg-gray-50 rounded-2xl p-3 max-w-2xl mx-auto"
+            data-aos="zoom-in"
+            data-aos-delay="200"
+          >
+            <form
+              class="flex flex-col sm:flex-row gap-3"
+              action="/search-results"
+              method="GET"
+            >
+              <input
+                type="text"
+                name="zipCode"
+                placeholder="Enter your ZIP code"
+                pattern="[0-9]{5}"
+                maxlength="5"
+                required
+                class="flex-1 px-6 py-4 rounded-xl text-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#003087]"
+              />
+              <input type="hidden" name="procedure" value="70551" />
+              <input type="hidden" name="state" value="FL" />
+              <input type="hidden" name="autoSearch" value="true" />
+              <button
+                type="submit"
+                class="bg-[#003087] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[#002266] hover:shadow-lg transition-all transform hover:scale-105"
+              >
+                Find Centers Near You →
+              </button>
+            </form>
+          </div>
+
+          <p
+            class="text-sm text-gray-500 mt-8"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            Join thousands who've already saved on medical imaging
+          </p>
+        </div>
+      </section>
+
+      <style>
+        /* Smooth animations */
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+
+        /* Countdown styling with glow */
+        #countdown {
+          font-variant-numeric: tabular-nums;
+          letter-spacing: 0.05em;
+        }
+
+        .countdown-glow:hover {
+          text-shadow: 0 0 20px rgba(204, 153, 51, 0.5);
+          transition: text-shadow 0.3s ease;
+        }
+
+        /* Mobile timeline adjustments */
+        @media (max-width: 768px) {
+          .timeline-step {
+            counter-increment: step;
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 2rem;
+          }
+
+          .timeline-step::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 60px;
+            width: 40px;
+            height: 40px;
+            background: #003087;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+          }
+
+          /* Reset counter at section start */
+          .space-y-16 {
+            counter-reset: step;
+          }
+        }
+
+        /* USRad highlight styling */
+        .highlight-text,
+        .highlight-text-2 {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Bright yellow highlighter for the title */
+        .highlight-text::before {
+          content: "";
+          position: absolute;
+          left: -8px;
+          right: -8px;
+          top: -3px;
+          bottom: -1px;
+          background: linear-gradient(
+            to right,
+            transparent 2%,
+            #ffeb3b 5%,
+            #ffd700 50%,
+            #ffeb3b 95%,
+            transparent 98%
+          );
+          opacity: 0.5;
+          transform: rotate(-1deg) skew(-2deg);
+          z-index: -1;
+          filter: blur(1px);
+          border-radius: 3px 8px 4px 6px;
+        }
+
+        /* Slightly different angle for the subtitle */
+        .highlight-text-2::before {
+          content: "";
+          position: absolute;
+          left: -6px;
+          right: -6px;
+          top: -2px;
+          bottom: -2px;
+          background: linear-gradient(
+            to right,
+            transparent 1%,
+            #ffd700 4%,
+            #ffeb3b 50%,
+            #ffd700 96%,
+            transparent 99%
+          );
+          opacity: 0.45;
+          transform: rotate(0.5deg) skew(1deg);
+          z-index: -1;
+          filter: blur(0.8px);
+          border-radius: 5px 3px 7px 4px;
+        }
+
+        /* Marker texture overlay for realism */
+        .highlight-text::after,
+        .highlight-text-2::after {
+          content: "";
+          position: absolute;
+          left: -8px;
+          right: -8px;
+          top: -3px;
+          bottom: -1px;
+          background-image: repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 235, 59, 0.3) 2px,
+            rgba(255, 235, 59, 0.3) 3px
+          );
+          z-index: -1;
+          mix-blend-mode: multiply;
+        }
+
+        /* Animation */
+        @keyframes highlight-draw {
+          from {
+            transform: scaleX(0) rotate(-1deg) skew(-2deg);
+            transform-origin: left center;
+          }
+          to {
+            transform: scaleX(1) rotate(-1deg) skew(-2deg);
+            transform-origin: left center;
+          }
+        }
+
+        .highlight-text::before {
+          animation: highlight-draw 0.6s ease-out forwards;
+          animation-delay: 1.5s;
+          transform: scaleX(0) rotate(-1deg) skew(-2deg);
+        }
+
+        .highlight-text-2::before {
+          animation: highlight-draw 0.6s ease-out forwards;
+          animation-delay: 1.7s;
+          transform: scaleX(0) rotate(0.5deg) skew(1deg);
+        }
+
+        /* Hover effect */
+        .flex:hover .highlight-text::before,
+        .flex:hover .highlight-text-2::before {
+          opacity: 0.7;
+          filter: blur(0.5px) brightness(1.1);
+        }
+
+        @media (max-width: 640px) {
+          .highlight-text-2 {
+            display: inline-block;
+            min-width: 100%;
+          }
+
+          .highlight-text-2::before {
+            left: -20px;
+            right: -20px;
+          }
+        }
+
+        /* Subtle pattern for white sections */
+        .bg-pattern {
+          background-color: #ffffff;
+          background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+      </style>
+
+      <script>
+        // Countdown from 48 hours
+        function updateCountdown() {
+          const element = document.getElementById("countdown");
+          if (!element) return;
+
+          let totalSeconds = 48 * 3600; // 48 hours in seconds
+
+          const interval = setInterval(() => {
+            totalSeconds--;
+
+            if (totalSeconds <= 0) {
+              // Reset to 48 hours when it reaches 0
+              totalSeconds = 48 * 3600;
+            }
+
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+
+            element.textContent = `${hours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+          }, 1000);
+        }
+
+        // Start countdown when page loads
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", updateCountdown);
+        } else {
+          updateCountdown();
+        }
+
+        // Hide viewer skeleton when loaded
+        document.addEventListener("DOMContentLoaded", function () {
+          const viewer = document.querySelector("#viewer-skeleton");
+          if (viewer) {
+            // Give the viewer component time to mount
+            setTimeout(() => {
+              viewer.style.opacity = "0";
+              viewer.style.transition = "opacity 0.3s ease";
+              setTimeout(() => {
+                viewer.remove();
+              }, 300);
+            }, 1000);
+          }
+        });
+      </script>
+
+      <!-- Schema Markup for SEO -->
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "MedicalWebPage",
+          "name": "What is an MRI? - USRad Medical Imaging",
+          "description": "Learn how MRI technology works - magnetic resonance imaging lets doctors see inside your body without surgery or radiation. Book affordable MRI scans starting at $260.",
+          "url": "https://usrad.com/education/what-is-mri",
+          "medicalPageType": "Educational",
+          "author": {
+            "@type": "MedicalOrganization",
+            "@id": "https://usrad.com/#organization",
+            "name": "USRad",
+            "description": "Affordable medical imaging from the team that revolutionized healthcare with 168,224 MRIs performed."
+          },
+          "about": {
+            "@type": "MedicalProcedure",
+            "name": "Magnetic Resonance Imaging (MRI)",
+            "alternateName": "MRI Scan",
+            "description": "Non-invasive medical imaging using magnetic fields and radio waves",
+            "procedureType": "Diagnostic imaging"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "260",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "priceValidUntil": "2025-12-31"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "1200"
+          },
+          "mainEntity": {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How long does an MRI take?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Most MRI scans take between 20-45 minutes, depending on the area being scanned."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is MRI safe?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, MRI uses magnetic fields and radio waves with no radiation exposure, making it very safe for most patients."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How much does an MRI cost at USRad?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "MRI scans at USRad start at $260, compared to $3,200 average hospital pricing. No insurance required."
+                }
+              }
+            ]
+          }
+        }
+      </script>
+
+      <!-- Back to Top Button for Mobile -->
+      <button
+        id="back-to-top"
+        aria-label="Back to top"
+        class="fixed bottom-6 right-6 bg-[#003087] text-white p-3 rounded-full shadow-lg hover:bg-[#002266] transition-all transform hover:scale-110 opacity-0 pointer-events-none z-50"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+      </button>
+
+      <script>
+        // Back to Top Button
+        const backToTopButton = document.getElementById("back-to-top");
+
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 500) {
+            backToTopButton.classList.remove(
+              "opacity-0",
+              "pointer-events-none"
+            );
+            backToTopButton.classList.add("opacity-100");
+          } else {
+            backToTopButton.classList.add("opacity-0", "pointer-events-none");
+            backToTopButton.classList.remove("opacity-100");
+          }
+        });
+
+        backToTopButton.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+      </script>
+
+      <script>
+        const videoEl = document.querySelector("video[data-src-desktop]");
+        if (videoEl) {
+          const loadVideo = () => {
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
+            const src = isMobile
+              ? videoEl.dataset.srcMobile
+              : videoEl.dataset.srcDesktop;
+            if (!videoEl.src) {
+              videoEl.src = src;
+              videoEl.load();
+            }
+          };
+          const observer = new IntersectionObserver(
+            (entries, obs) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  loadVideo();
+                  obs.unobserve(videoEl);
+                }
+              });
+            },
+            { threshold: 0.25 }
+          );
+          observer.observe(videoEl);
+        }
+
+        document.addEventListener("visibilitychange", () => {
+          if (!videoEl) return;
+          if (document.hidden) {
+            videoEl.pause();
+          } else {
+            videoEl.play();
+          }
+        });
+      </script>
     </div>
   </section>
-
-  <!-- Enhanced Footer with Credibility -->
-  <section class="bg-gray-50 py-12 text-center">
-    <div class="max-w-4xl mx-auto px-6">
-      <p class="text-gray-600 mb-4">
-        Educational content provided for informational purposes only. Always
-        consult with your healthcare provider for medical advice.
-      </p>
-      <div class="flex justify-center gap-6 text-sm text-gray-500 mb-4">
-        <span>© 2025 USRad</span>
-        <span>•</span>
-        <span>HIPAA Compliant</span>
-        <span>•</span>
-        <span>ACR Accredited</span>
-        <span>•</span>
-        <span>Proven Track Record</span>
-      </div>
-      <p class="text-xs text-gray-400">
-        Founded by the proven team behind the successful healthcare exit •
-        Pioneers in managed care imaging • Expanding access to 90 million
-        Americans
-      </p>
-    </div>
-  </section>
-</MainPatientLayout>
-
-<script>
-  // Enhanced Animated Counter
-  document.addEventListener("DOMContentLoaded", function () {
-    const counters = document.querySelectorAll("[data-counter]");
-
-    const observerOptions = {
-      threshold: 0.5,
-      rootMargin: "0px 0px -50px 0px",
-    };
-
-    const observer = new IntersectionObserver(function (entries) {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateCounter(entry.target);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    counters.forEach((counter) => observer.observe(counter));
-
-    function animateCounter(element) {
-      const target = parseInt(element.dataset.counter);
-      const duration = 2500; // Slightly longer for impact
-      const start = performance.now();
-
-      function update(currentTime) {
-        const elapsed = currentTime - start;
-        const progress = Math.min(elapsed / duration, 1);
-
-        const current = Math.floor(progress * target);
-        element.textContent = current.toLocaleString();
-
-        if (progress < 1) {
-          requestAnimationFrame(update);
-        }
-      }
-
-      requestAnimationFrame(update);
-    }
-  });
-
-  // Enhanced modal functionality
-  document
-    .getElementById("scheduling-widget")
-    .addEventListener("click", function (e) {
-      if (e.target === this) {
-        this.style.display = "none";
-      }
-    });
-
-  // Smooth scrolling
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute("href")).scrollIntoView({
-        behavior: "smooth",
-      });
-    });
-  });
-</script>
-
-<style>
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: linear-gradient(45deg, #3b82f6, #1d4ed8);
-    cursor: pointer;
-    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
-    transition: all 0.3s ease;
-  }
-
-  .slider::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5);
-  }
-
-  .slider::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: linear-gradient(45deg, #3b82f6, #1d4ed8);
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
-  }
-
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-
-  /* Enhanced animations for credibility elements */
-  @keyframes slideInFromLeft {
-    from {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideInFromRight {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-
-  .animate-slide-in-left {
-    animation: slideInFromLeft 0.8s ease-out;
-  }
-
-  .animate-slide-in-right {
-    animation: slideInFromRight 0.8s ease-out;
-  }
-</style>
+</CarbonLayout>

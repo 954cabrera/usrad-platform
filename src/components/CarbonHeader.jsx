@@ -183,7 +183,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
 
               <LoginDropdown isHeroPage={isHeroPage} isScrolled={isScrolled} />
               <a
-                href="/index-carbon"
+                href="/"
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${styles.buttonBg} ${styles.buttonText} ${styles.buttonHover}`}
               >
                 Book scan
@@ -306,7 +306,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
             <div className="mt-6 pt-6 border-t space-y-3">
               <MobileLoginSection onClose={() => setMobileMenuOpen(false)} />
               <a
-                href="/search-results"
+                href="/"
                 className="block w-full bg-[#003087] text-white px-4 py-3 rounded-lg text-center font-medium hover:bg-[#002266] transition"
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -395,7 +395,7 @@ function LoginDropdown({ isHeroPage, isScrolled }) {
 
   const loginOptions = [
     {
-      href: "/login/patientlogin-carbon",
+      href: "/login/patientlogin",
       title: "Patient Portal",
       subtitle: "View results & book scans",
       icon: (
@@ -532,7 +532,7 @@ function MobileLoginSection({ onClose }) {
 
   const loginOptions = [
     {
-      href: "/login/patientlogin-carbon",
+      href: "/login/patientlogin",
       title: "Patient Portal",
       subtitle: "View results & book scans",
       icon: (

@@ -1,0 +1,997 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import HeroEmployer from "../components/employer/HeroEmployer.astro";
+---
+
+<MainLayout>
+  <!-- Enhanced Hero Section with Strategic Context -->
+  <section
+    class="relative w-full min-h-[700px] overflow-hidden bg-[#fcf9f0] text-[#003087]"
+  >
+    <!-- Background Video -->
+    <video
+      id="partnerHeroVideo"
+      autoplay
+      muted
+      loop
+      playsinline
+      class="absolute inset-0 w-full h-full object-cover z-0"
+      poster="/images/partner-hero-fallback-enhanced.webp"
+    >
+      <source
+        src="/videos/partner-hero-softblur-mobile.mp4"
+        type="video/mp4"
+        media="(max-width: 768px)"
+      />
+      <source src="/videos/partner-hero-softblur.mp4" type="video/mp4" />
+      <source src="/videos/partner-hero-softblur.webm" type="video/webm" />
+      <img
+        src="/images/partner-hero-fallback-enhanced-mobile.webp"
+        alt="Trade show networking - Building relationships that transformed healthcare"
+        class="w-full h-full object-cover"
+      />
+    </video>
+
+    <!-- Enhanced Overlay Gradient -->
+    <div
+      class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.90)_0%,rgba(255,255,255,0.7)_45%,rgba(0,48,135,0.1)_90%)] z-0"
+    >
+    </div>
+
+    <!-- Credibility Banner -->
+    <div
+      class="absolute top-0 left-0 right-0 bg-gradient-to-r from-[#cc9933] to-[#003087] text-white py-2 px-4 text-center z-20"
+    >
+      <p class="text-sm font-medium">
+        🏆 <strong>WELCOME BACK:</strong> From the team that revolutionized workers'
+        comp imaging (1994-2002) • $400 Million+ savings delivered • Successful healthcare
+        exit
+      </p>
+    </div>
+
+    <!-- Enhanced Hero Content -->
+    <div
+      class="relative z-10 max-w-6xl mx-auto text-center py-24 px-6 sm:px-12 mt-8"
+    >
+      <!-- Credibility Badge -->
+      <div class="mb-6" data-aos="fade-up" data-aos-delay="50">
+        <span
+          class="inline-flex items-center gap-2 px-6 py-3 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-[#cc9933]/20"
+        >
+          <svg
+            class="w-5 h-5 text-[#cc9933]"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-[#003087] font-bold text-sm"
+            >PROVEN IMAGING CARVE-OUT PIONEERS</span
+          >
+        </span>
+      </div>
+
+      <h1
+        class="text-4xl sm:text-5xl lg:text-6xl font-bold font-manrope text-[#003087] drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)] mb-6"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Welcome Back to the <br />
+        <span class="text-[#cc9933]">Proven Innovation</span>
+      </h1>
+
+      <p
+        class="text-xl sm:text-2xl text-[#003087] font-manrope max-w-4xl mx-auto leading-relaxed mb-4"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        Remember us from those conference floors? We're the same team that built
+        the first managed care imaging carve-out (1994-2002), delivered $400 Milion+
+        in proven savings, and earned a successful healthcare exit. Now we're
+        bringing that same revolutionary approach to <strong
+          >all employers</strong
+        >.
+      </p>
+
+      <p
+        class="text-lg text-[#003087]/80 max-w-3xl mx-auto mb-8"
+        data-aos="fade-up"
+        data-aos-delay="250"
+      >
+        From those trade show relationships to Fortune 500 partnerships, we've
+        built this network alongside you. Let's elevate imaging access for your
+        members—together, again.
+      </p>
+
+      <!-- Enhanced Success Metrics -->
+      <div
+        class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <div class="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
+          <div class="text-2xl font-bold text-[#cc9933]">400,000+</div>
+          <div class="text-sm text-[#003087] font-medium">Claims Served</div>
+          <div class="text-xs text-blue-600">Proven Legacy</div>
+        </div>
+        <div class="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
+          <div class="text-2xl font-bold text-[#cc9933]">$400 Million+</div>
+          <div class="text-sm text-[#003087] font-medium">
+            Savings Delivered
+          </div>
+          <div class="text-xs text-green-600">Verified Results</div>
+        </div>
+        <div class="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
+          <div class="text-2xl font-bold text-[#cc9933]">1,200+</div>
+          <div class="text-sm text-[#003087] font-medium">Centers Built</div>
+          <div class="text-xs text-purple-600">Network Expertise</div>
+        </div>
+        <div class="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
+          <div class="text-2xl font-bold text-[#cc9933]">2002</div>
+          <div class="text-sm text-[#003087] font-medium">Successful Exit</div>
+          <div class="text-xs text-orange-600">NYSE-Listed</div>
+        </div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div
+        class="mt-10 flex flex-col sm:flex-row justify-center gap-4"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        <a
+          href="/employer/schedule"
+          class="inline-block bg-[#003087] hover:bg-[#002070] text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-lg transform hover:scale-105"
+        >
+          🤝 Let's Reconnect - Schedule a Call
+        </a>
+        <a
+          href="#proven-story"
+          class="inline-block bg-[#cc9933] hover:bg-[#b8851f] text-[#003087] font-semibold px-8 py-4 rounded-xl transition-all shadow-lg"
+        >
+          📊 See Our Proven Results
+        </a>
+      </div>
+
+      <div
+        class="mt-6 text-sm text-[#003087]/70"
+        data-aos="fade-up"
+        data-aos-delay="450"
+      >
+        The same team, the same proven approach, now serving all self-insured
+        employers
+      </div>
+    </div>
+  </section>
+
+  <!-- NEW: Proven Success Story Section -->
+  <section
+    id="proven-story"
+    class="py-20 bg-gradient-to-br from-[#003087] to-[#0052cc] text-white px-6 sm:px-12"
+  >
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">
+          The Track Record You Remember
+        </h2>
+        <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+          Those conference relationships built something revolutionary. Here's
+          what we accomplished together through AnciCare (1994-2002):
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <!-- Success Timeline -->
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div
+              class="w-12 h-12 bg-[#cc9933] rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold"
+            >
+              1
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-[#cc9933] mb-2">
+                Revolutionized Workers' Comp Imaging (1994)
+              </h3>
+              <p class="text-blue-100">
+                Created the first-ever managed care imaging carve-out model,
+                transforming how Fortune 500 companies and TPAs managed
+                diagnostic costs.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div
+              class="w-12 h-12 bg-[#cc9933] rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold"
+            >
+              2
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-[#cc9933] mb-2">
+                Delivered Massive Savings (1994-2002)
+              </h3>
+              <p class="text-blue-100">
+                $200M+ in direct medical cost savings + $200M+ in indemnity cost
+                reductions = $400M+ total value delivered to clients like yours.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div
+              class="w-12 h-12 bg-[#cc9933] rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold"
+            >
+              3
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-[#cc9933] mb-2">
+                Built Nationwide Excellence (1994-2002)
+              </h3>
+              <p class="text-blue-100">
+                1,200+ imaging centers, 400,000+ patients served, 2-3 day
+                appointment access vs. industry standard 10-14 days.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div
+              class="w-12 h-12 bg-[#cc9933] rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold"
+            >
+              4
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-[#cc9933] mb-2">
+                Successful Healthcare Exit (2002)
+              </h3>
+              <p class="text-blue-100">
+                Our model was acquired by CorVel Corporation (NYSE: CVL),
+                validating our approach. They're still operating our model 20+
+                years later—the ultimate proof of success.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Metrics Box -->
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
+          <h3 class="text-2xl font-bold text-center mb-6">
+            Proven Results by the Numbers
+          </h3>
+          <div class="grid grid-cols-2 gap-6">
+            <div class="text-center">
+              <div class="text-3xl font-bold text-[#cc9933]">400,000+</div>
+              <div class="text-sm text-blue-100">Workers' Comp Claims</div>
+              <div class="text-xs text-blue-200">Successfully Processed</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-[#cc9933]">$400 Million+</div>
+              <div class="text-sm text-blue-100">Total Savings</div>
+              <div class="text-xs text-blue-200">Medical + Indemnity</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-[#cc9933]">50%+</div>
+              <div class="text-sm text-blue-100">Cost Reduction</div>
+              <div class="text-xs text-blue-200">vs Hospital Pricing</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-[#cc9933]">2-3</div>
+              <div class="text-sm text-blue-100">Days Average</div>
+              <div class="text-xs text-blue-200">vs 10-14 Industry</div>
+            </div>
+          </div>
+
+          <div class="mt-6 p-4 bg-[#cc9933]/20 rounded-lg text-center">
+            <div class="text-lg font-bold text-[#cc9933]">
+              The Ultimate Validation
+            </div>
+            <div class="text-sm text-blue-100">
+              NYSE-listed acquisition validates our model's effectiveness
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial Style Quote -->
+      <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
+        <div class="text-6xl text-[#cc9933] opacity-30 mb-4">"</div>
+        <blockquote class="text-xl italic mb-6">
+          We didn't just reduce imaging costs—we transformed the entire claims
+          experience. Faster appointments meant faster return-to-work.
+          Predictable pricing meant budget certainty. Quality guarantees meant
+          peace of mind. That's why our model achieved a successful exit and
+          still works 20+ years later.
+        </blockquote>
+        <div class="text-sm text-blue-200">
+          — The USRad Founding Team, Reflecting on Our Proven Success
+          (1994-2002)
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced Who We Support -->
+  <section class="py-20 bg-white text-[#003087] px-6 sm:px-12">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold mb-4">Who We Support Today</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          The same partners we served through our previous venture, plus new
+          opportunities in the evolving healthcare landscape.
+        </p>
+        <div
+          class="mt-4 inline-flex items-center gap-2 bg-blue-50 rounded-full px-6 py-3"
+        >
+          <svg
+            class="w-5 h-5 text-blue-600"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-blue-700 font-semibold text-sm"
+            >Same proven approach, expanded to serve all employee populations</span
+          >
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div
+          class="text-center bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 hover:shadow-lg transition-shadow"
+        >
+          <div
+            class="w-16 h-16 bg-[#003087] rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-6m-2-5h6m-6 0v5m-2-5h2m-4 0V9a2 2 0 012-2h2a2 2 0 012 2v10"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Self-Funded Employers</h3>
+          <p class="text-gray-700 mb-4">
+            Lower diagnostic costs and deliver a better employee experience with
+            no billing friction— the same approach that saved Fortune 500
+            companies millions.
+          </p>
+          <div
+            class="text-xs text-blue-600 bg-white rounded px-3 py-1 inline-block"
+          >
+            Proven with 400,000+ claims processed
+          </div>
+        </div>
+
+        <div
+          class="text-center bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-8 hover:shadow-lg transition-shadow"
+        >
+          <div
+            class="w-16 h-16 bg-[#cc9933] rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Third-Party Administrators</h3>
+          <p class="text-gray-700 mb-4">
+            Access a credentialed national imaging network with flat-rate,
+            all-in pricing— the same model TPAs trusted through our 1,200+
+            center network.
+          </p>
+          <div
+            class="text-xs text-green-600 bg-white rounded px-3 py-1 inline-block"
+          >
+            $400 Million+ in proven savings delivered
+          </div>
+        </div>
+
+        <div
+          class="text-center bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-8 hover:shadow-lg transition-shadow"
+        >
+          <div
+            class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">
+            Care Navigation & Digital Health
+          </h3>
+          <p class="text-gray-700 mb-4">
+            Embed MRI/CT scheduling seamlessly into your member experience or
+            app platform— leveraging the operational expertise gained from our
+            proven success.
+          </p>
+          <div
+            class="text-xs text-purple-600 bg-white rounded px-3 py-1 inline-block"
+          >
+            Successful exit validates our approach
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced How USRad Helps -->
+  <section class="py-20 bg-[#fcf9f0] text-[#003087] px-6 sm:px-12">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold mb-4">
+          How USRad Helps Employers—The Proven Way
+        </h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          The same proven benefits that saved Fortune 500 companies millions,
+          now available for all employer groups.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div
+          class="text-center bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-br from-red-100 to-red-200 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-red-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Control Imaging Costs</h3>
+          <p class="text-gray-700 mb-4">
+            Replace high hospital charges with predictable, flat-rate pricing—
+            the same approach that delivered $200M+ in direct medical savings.
+          </p>
+          <div class="bg-red-50 rounded-lg p-3">
+            <div class="text-sm text-red-700 font-semibold">
+              Proven Results:
+            </div>
+            <div class="text-xs text-red-600">
+              50%+ cost reduction vs hospital rates
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="text-center bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-blue-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Improve Member Access</h3>
+          <p class="text-gray-700 mb-4">
+            Use our digital scheduling and fast report turnaround to improve
+            satisfaction— proven through 400,000+ positive patient experiences.
+          </p>
+          <div class="bg-blue-50 rounded-lg p-3">
+            <div class="text-sm text-blue-700 font-semibold">
+              Proven Innovation:
+            </div>
+            <div class="text-xs text-blue-600">
+              2-3 days vs 10-14 day industry standard
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="text-center bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Streamline Operations</h3>
+          <p class="text-gray-700 mb-4">
+            No billing disputes. No denials. Just efficient referrals with
+            clarity and speed— operational excellence valued by Fortune 500
+            companies.
+          </p>
+          <div class="bg-green-50 rounded-lg p-3">
+            <div class="text-sm text-green-700 font-semibold">
+              Proven Excellence:
+            </div>
+            <div class="text-xs text-green-600">
+              Model still operating 20+ years later
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="text-center bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow"
+        >
+          <div
+            class="w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-purple-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 00-2-2z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Show ROI Quickly</h3>
+          <p class="text-gray-700 mb-4">
+            Measurable savings on every scan without new overhead or contracts
+            to manage— the same transparent ROI tracking that made our approach
+            indispensable to Fortune 500 companies.
+          </p>
+          <div class="bg-purple-50 rounded-lg p-3">
+            <div class="text-sm text-purple-700 font-semibold">
+              Proven Track Record:
+            </div>
+            <div class="text-xs text-purple-600">
+              $400 Million+ total value delivered
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced Quality Section -->
+  <section class="py-20 bg-[#f5f9ff] text-[#003087] px-6 sm:px-12">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold mb-6">
+          Built on Trust, Backed by Quality—Validated by Success
+        </h2>
+        <p class="text-lg max-w-4xl mx-auto mb-6">
+          Our network is designed from the ground up with the same quality
+          standards and transparency that partners and patients trusted through
+          our previous venture. The proof? A successful exit and a model still
+          operating 20+ years later.
+        </p>
+        <div
+          class="inline-flex items-center gap-2 bg-blue-50 rounded-full px-6 py-3"
+        >
+          <svg
+            class="w-5 h-5 text-blue-600"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-blue-700 font-semibold text-sm"
+            >Same quality standards that earned NYSE-listed company acquisition</span
+          >
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Enhanced Quality Pillar 1 -->
+        <div
+          class="bg-white rounded-xl shadow-lg p-8 border-t-4 border-[#cc9933] hover:shadow-xl transition-shadow"
+        >
+          <div
+            class="rounded-full bg-[#fcf9f0] p-4 w-20 h-20 mx-auto mb-6 flex items-center justify-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-10 w-10 text-[#cc9933]"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-4 text-center">
+            Proven Quality Standards
+          </h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start">
+              <svg
+                class="h-5 w-5 text-[#cc9933] mr-2 flex-shrink-0 mt-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>100% board-certified radiologists</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="h-5 w-5 text-[#cc9933] mr-2 flex-shrink-0 mt-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>ACR accredited facilities only</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="h-5 w-5 text-[#cc9933] mr-2 flex-shrink-0 mt-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Specialty interpretations for complex cases</span>
+            </li>
+          </ul>
+          <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+            <div class="text-xs text-blue-700 font-semibold">
+              Proven Excellence:
+            </div>
+            <div class="text-xs text-blue-600">
+              Same standards that served 400K+ patients
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Quality Pillar 2 -->
+        <div
+          class="bg-white rounded-xl shadow-lg p-8 border-t-4 border-[#cc9933] hover:shadow-xl transition-shadow"
+        >
+          <div
+            class="rounded-full bg-[#fcf9f0] p-4 w-20 h-20 mx-auto mb-6 flex items-center justify-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-10 w-10 text-[#cc9933]"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-4 text-center">
+            Validated Leadership
+          </h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start">
+              <svg
+                class="h-5 w-5 text-[#cc9933] mr-2 flex-shrink-0 mt-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Founded by imaging network pioneers</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="h-5 w-5 text-[#cc9933] mr-2 flex-shrink-0 mt-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Previously built 1,200+ center network (1994-2002)</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="h-5 w-5 text-[#cc9933] mr-2 flex-shrink-0 mt-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Delivered $400M+ in verified savings</span>
+            </li>
+          </ul>
+          <div class="mt-4 p-3 bg-green-50 rounded-lg">
+            <div class="text-xs text-green-700 font-semibold">
+              Successful Exit:
+            </div>
+            <div class="text-xs text-green-600">
+              NYSE-listed acquisition validates leadership
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Quality Pillar 3 -->
+        <div
+          class="bg-white rounded-xl shadow-lg p-8 border-t-4 border-[#cc9933] hover:shadow-xl transition-shadow"
+        >
+          <div
+            class="rounded-full bg-[#fcf9f0] p-4 w-20 h-20 mx-auto mb-6 flex items-center justify-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-10 w-10 text-[#cc9933]"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-4 text-center">
+            Proven Transparency
+          </h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start">
+              <svg
+                class="h-5 w-5 text-[#cc9933] mr-2 flex-shrink-0 mt-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Upfront pricing with no surprises</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="h-5 w-5 text-[#cc9933] mr-2 flex-shrink-0 mt-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Clear reporting on utilization & savings</span>
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="h-5 w-5 text-[#cc9933] mr-2 flex-shrink-0 mt-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Open API access for seamless integration</span>
+            </li>
+          </ul>
+          <div class="mt-4 p-3 bg-purple-50 rounded-lg">
+            <div class="text-xs text-purple-700 font-semibold">
+              Transparency Pioneer:
+            </div>
+            <div class="text-xs text-purple-600">
+              First managed care imaging carve-out model
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enhanced Future Vision -->
+      <div
+        class="mt-16 bg-gradient-to-r from-[#003087] to-[#0052cc] text-white rounded-xl p-8 text-center"
+      >
+        <h3 class="text-2xl font-semibold mb-4">
+          Our Vision: The Proven Legacy, Expanded
+        </h3>
+        <p class="max-w-4xl mx-auto mb-6">
+          We're building a nationwide network where quality diagnostic imaging
+          is accessible to all employee populations without the hospital markups
+          or insurance complexity. The same revolutionary approach that earned a
+          successful exit, now serving beyond workers' compensation.
+        </p>
+        <div class="grid md:grid-cols-3 gap-4 max-w-2xl mx-auto">
+          <div class="bg-white/10 rounded-lg p-3">
+            <div class="text-[#cc9933] font-bold text-sm">PROVEN MODEL</div>
+            <div class="text-white text-xs">Successful approach replicated</div>
+          </div>
+          <div class="bg-white/10 rounded-lg p-3">
+            <div class="text-[#cc9933] font-bold text-sm">VALIDATED</div>
+            <div class="text-white text-xs">
+              Still operating 20+ years later
+            </div>
+          </div>
+          <div class="bg-white/10 rounded-lg p-3">
+            <div class="text-[#cc9933] font-bold text-sm">EXPANDED ACCESS</div>
+            <div class="text-white text-xs">Now serving all employers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced Final CTA -->
+  <section class="py-20 bg-[#003087] text-white px-6 sm:px-12 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold mb-4">
+        Let's Reconnect and Innovate Together
+      </h2>
+      <p class="text-xl mb-6 opacity-90">
+        Remember those conference conversations about transforming healthcare?
+        We're still at it—schedule a call and let's discuss how USRad can work
+        with your population or platform.
+      </p>
+      <p class="text-lg mb-8 text-blue-200">
+        The same team, the same proven approach, expanded beyond workers'
+        compensation to serve all employee groups. Let's make history again.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+        <a
+          href="/employers/schedule"
+          class="bg-[#cc9933] hover:bg-[#b8851f] text-[#003087] px-8 py-4 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg"
+        >
+          🤝 Schedule Our Reunion Call
+        </a>
+        <a
+          href="mailto:partnerships@usrad.com"
+          class="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-semibold border border-white/20 transition-all"
+        >
+          📧 Email Our Partnership Team
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 max-w-2xl mx-auto mb-6">
+        <div class="bg-white/10 rounded-lg p-3">
+          <div class="text-[#cc9933] font-bold text-sm">SAME TEAM</div>
+          <div class="text-white text-xs">Industry pioneers & experts</div>
+        </div>
+        <div class="bg-white/10 rounded-lg p-3">
+          <div class="text-[#cc9933] font-bold text-sm">PROVEN RESULTS</div>
+          <div class="text-white text-xs">$400 Million+ savings delivered</div>
+        </div>
+        <div class="bg-white/10 rounded-lg p-3">
+          <div class="text-[#cc9933] font-bold text-sm">SUCCESSFUL EXIT</div>
+          <div class="text-white text-xs">NYSE-listed validation</div>
+        </div>
+      </div>
+
+      <p class="text-sm opacity-80">
+        Are you an imaging center? <a
+          href="/managed-care"
+          class="underline text-white hover:text-[#cc9933] transition-colors"
+          >See our Managed Care Platform →</a
+        >
+      </p>
+    </div>
+  </section>
+</MainLayout>
+
+<script>
+  // Add smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute("href")).scrollIntoView({
+        behavior: "smooth",
+      });
+    });
+  });
+
+  // Add AOS (Animate On Scroll) initialization if you're using it
+  if (typeof AOS !== "undefined") {
+    AOS.init({
+      duration: 800,
+      easing: "ease-in-out",
+      once: true,
+    });
+  }
+</script>
