@@ -160,7 +160,7 @@ export default function AddCenterModal({ onClose, onAdd }) {
         </form>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .modal-overlay {
           position: fixed;
           inset: 0;

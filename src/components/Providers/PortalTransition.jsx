@@ -58,7 +58,7 @@ export default function PortalTransition() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .transition-container {
           min-height: 100vh;
           display: flex;

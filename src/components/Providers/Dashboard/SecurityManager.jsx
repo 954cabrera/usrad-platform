@@ -96,7 +96,7 @@ export default function SecurityManager({ providerId }) {
       {/* Tab Content */}
       <div className="tab-content">{renderTabContent()}</div>
 
-      <style jsx>{`
+      <style>{`
         .security-manager {
           max-width: 1200px;
           margin: 0 auto;

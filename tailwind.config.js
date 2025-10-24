@@ -1,6 +1,7 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/**/*.{astro,html,js,ts,jsx,tsx}",
+    "./src/**/*.{astro,html,js,jsx,ts,tsx,md,mdx}",
   ],
   theme: {
     extend: {
@@ -8,11 +9,10 @@ module.exports = {
         manrope: ['Manrope', 'sans-serif'],
       },
       colors: {
-        primary: '#003087',
-        accent: '#cc9933',
+        primary: '#003087',       // USRad deep blue
+        accent: '#cc9933',        // USRad gold
         background: '#fcf9f0',
         backgroundAlt: '#f5e7c5',
-        // ADD THESE shadcn CSS variables:
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -34,4 +34,3 @@ module.exports = {
   },
   plugins: [],
 };
-

@@ -167,7 +167,7 @@ export default function SecurityScore({ twoFactorEnabled = false }) {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .glass-card {
           background: linear-gradient(
             135deg,

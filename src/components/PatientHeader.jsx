@@ -580,7 +580,7 @@ export default function PatientHeader({ showStickyBar = true }) {
   />
 )}
 
-      <style jsx>{`
+      <style>{`
         .hover-underline-animation {
           position: relative;
         }

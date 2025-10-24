@@ -103,7 +103,7 @@ export default function DocumentCard({
         )}
 
         {/* STEP 4: Define styles - some using shared, some component-specific */}
-        <style jsx>{`
+        <style>{`
           .document-list-item {
             display: flex;
             align-items: center;
@@ -356,7 +356,7 @@ export default function DocumentCard({
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         /* STEP 5: Use the shared glass card style */
         .glass-card {
           ${documentStyles.glassCard}

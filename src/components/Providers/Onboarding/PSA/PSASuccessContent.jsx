@@ -169,7 +169,7 @@ export default function PSASuccessContent() {
         </a>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes float {
           from {
             transform: translate(0, 0) rotate(0deg);

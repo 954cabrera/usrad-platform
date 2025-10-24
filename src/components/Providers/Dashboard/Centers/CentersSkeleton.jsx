@@ -163,7 +163,7 @@ export default function CentersSkeleton() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .centers-header {
           display: flex;
           align-items: center;

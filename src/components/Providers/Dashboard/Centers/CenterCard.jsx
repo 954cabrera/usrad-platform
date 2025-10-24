@@ -212,7 +212,7 @@ export default function CenterCard({
         <ChevronRight size={16} />
       </button>
 
-      <style jsx>{`
+      <style>{`
         .center-card {
           ${centerStyles.glassCard}
           position: relative;

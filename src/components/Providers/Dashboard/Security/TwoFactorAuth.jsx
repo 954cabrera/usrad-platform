@@ -102,7 +102,7 @@ export default function TwoFactorAuth() {
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         /* Component-specific styles */
         .glass-card {
           background: rgba(255, 255, 255, 0.05);

@@ -123,7 +123,7 @@ export default function ApiKeysManager() {
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         /* Component-specific styles */
         .create-key-btn {
           display: flex;

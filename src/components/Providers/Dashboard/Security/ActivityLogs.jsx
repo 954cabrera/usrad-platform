@@ -167,7 +167,7 @@ export default function ActivityLogs() {
         Download Full Activity Log
       </button>
 
-      <style jsx>{`
+      <style>{`
         /* Filters */
         .filters-bar {
           display: flex;

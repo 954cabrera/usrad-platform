@@ -71,7 +71,7 @@ export default function CenterFilters({
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         /* Desktop Filters */
         .desktop-filters {
           ${centerStyles.desktopOnly}

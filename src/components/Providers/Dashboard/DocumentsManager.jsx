@@ -204,7 +204,7 @@ export default function DocumentsManager({ providerId }) {
         <UploadModal onClose={() => setShowUploadModal(false)} />
       )}
 
-      <style jsx>{`
+      <style>{`
         .documents-manager {
           max-width: 1400px;
           margin: 0 auto;

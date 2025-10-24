@@ -56,7 +56,7 @@ const SkeletonLoader = () => (
       ))}
     </div>
 
-    <style jsx>{`
+    <style>{`
       @keyframes shimmer {
         0% { background-position: -200px 0; }
         100% { background-position: calc(200px + 100%) 0; }
@@ -124,7 +124,7 @@ const SkeletonEducationSystem = () => {
 
   return (
     <div className="space-y-8">
-      <style jsx>{`
+      <style>{`
         .usrad-card {
           background: white;
           border-radius: 16px;

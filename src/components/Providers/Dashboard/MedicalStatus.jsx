@@ -27,7 +27,7 @@ export default function MedicalStatus() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .medical-status-card {
           margin-bottom: 1.5rem;
           padding: 1.5rem;

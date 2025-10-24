@@ -202,7 +202,7 @@ export default function UploadModal({ onClose, onUpload }) {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .modal-overlay {
           position: fixed;
           inset: 0;

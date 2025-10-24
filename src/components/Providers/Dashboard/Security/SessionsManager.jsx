@@ -128,7 +128,7 @@ export default function SessionsManager() {
         </button>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .sessions-list {
           display: flex;
           flex-direction: column;

@@ -188,7 +188,7 @@ export default function PasswordManager() {
         </button>
       </form>
 
-      <style jsx>{`
+      <style>{`
         /* Component-specific styles */
         .password-form {
           max-width: 400px;

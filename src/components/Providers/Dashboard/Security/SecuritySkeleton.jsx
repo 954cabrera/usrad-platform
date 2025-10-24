@@ -123,7 +123,7 @@ export default function SecuritySkeleton() {
         />
       </div>
 
-      <style jsx>{`
+      <style>{`
         .security-header {
           margin-bottom: 2rem;
         }

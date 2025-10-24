@@ -71,7 +71,7 @@ export default function DocumentStats({ documents }) {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .document-stats {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));

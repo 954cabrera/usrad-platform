@@ -45,7 +45,7 @@ export default function CenterStats({ centers }) {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .stats-row {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));

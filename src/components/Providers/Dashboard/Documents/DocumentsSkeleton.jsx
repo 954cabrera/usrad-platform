@@ -110,7 +110,7 @@ export default function DocumentsSkeleton() {
         ))}
       </div>
 
-      <style jsx>{`
+      <style>{`
         .documents-header {
           display: flex;
           align-items: center;

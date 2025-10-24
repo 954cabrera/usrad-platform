@@ -139,7 +139,7 @@ export default function DocumentFilters({
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         /* Desktop Filters - visible only on desktop */
         .desktop-filters {
           display: flex;

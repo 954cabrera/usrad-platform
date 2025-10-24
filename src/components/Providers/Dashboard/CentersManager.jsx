@@ -160,7 +160,7 @@ export default function CentersManager({
         />
       )}
 
-      <style jsx>{`
+      <style>{`
         .centers-manager {
           max-width: 1400px;
           margin: 0 auto;
