@@ -114,7 +114,7 @@ export const prerender = true;
             Explore Interactive MRI
           </button>
           <a
-            href="/search-test"
+            href="/"
             class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 transition-all"
           >
             Find a Center Near You
@@ -643,423 +643,390 @@ export const prerender = true;
             appointment in under 60 seconds.
           </p>
 
-          <div
-            class="bg-gray-50 rounded-2xl p-3 max-w-2xl mx-auto"
-            data-aos="zoom-in"
-            data-aos-delay="200"
-          >
-            <form
-              class="flex flex-col sm:flex-row gap-3"
-              action="/search-results"
-              method="GET"
-            >
-              <input
-                type="text"
-                name="zipCode"
-                placeholder="Enter your ZIP code"
-                pattern="[0-9]{5}"
-                maxlength="5"
-                required
-                class="flex-1 px-6 py-4 rounded-xl text-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#003087]"
-              />
-              <input type="hidden" name="procedure" value="70551" />
-              <input type="hidden" name="state" value="FL" />
-              <input type="hidden" name="autoSearch" value="true" />
-              <button
-                type="submit"
-                class="bg-[#003087] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[#002266] hover:shadow-lg transition-all transform hover:scale-105"
-              >
-                Find Centers Near You →
-              </button>
-            </form>
-          </div>
-
-          <p
-            class="text-sm text-gray-500 mt-8"
-            data-aos="fade-up"
-            data-aos-delay="300"
-          >
-            Join thousands who've already saved on medical imaging
-          </p>
+          <a href="/" class="bg-[#003087] text-white px-8 py-4 rounded-xl
+          font-semibold text-lg hover:bg-[#002266] hover:shadow-lg
+          transition-all transform hover:scale-105 inline-block" > Find Centers
+          Near You →
+          </a>
         </div>
-      </section>
 
-      <style>
-        /* Smooth animations */
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-
-        /* Countdown styling with glow */
-        #countdown {
-          font-variant-numeric: tabular-nums;
-          letter-spacing: 0.05em;
-        }
-
-        .countdown-glow:hover {
-          text-shadow: 0 0 20px rgba(204, 153, 51, 0.5);
-          transition: text-shadow 0.3s ease;
-        }
-
-        /* Mobile timeline adjustments */
-        @media (max-width: 768px) {
-          .timeline-step {
-            counter-increment: step;
-            position: relative;
-            padding-left: 60px;
-            margin-bottom: 2rem;
-          }
-
-          .timeline-step::before {
-            content: counter(step);
-            position: absolute;
-            left: 0;
-            top: 60px;
-            width: 40px;
-            height: 40px;
-            background: #003087;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.25rem;
-          }
-
-          /* Reset counter at section start */
-          .space-y-16 {
-            counter-reset: step;
-          }
-        }
-
-        /* USRad highlight styling */
-        .highlight-text,
-        .highlight-text-2 {
-          position: relative;
-          z-index: 1;
-        }
-
-        /* Bright yellow highlighter for the title */
-        .highlight-text::before {
-          content: "";
-          position: absolute;
-          left: -8px;
-          right: -8px;
-          top: -3px;
-          bottom: -1px;
-          background: linear-gradient(
-            to right,
-            transparent 2%,
-            #ffeb3b 5%,
-            #ffd700 50%,
-            #ffeb3b 95%,
-            transparent 98%
-          );
-          opacity: 0.5;
-          transform: rotate(-1deg) skew(-2deg);
-          z-index: -1;
-          filter: blur(1px);
-          border-radius: 3px 8px 4px 6px;
-        }
-
-        /* Slightly different angle for the subtitle */
-        .highlight-text-2::before {
-          content: "";
-          position: absolute;
-          left: -6px;
-          right: -6px;
-          top: -2px;
-          bottom: -2px;
-          background: linear-gradient(
-            to right,
-            transparent 1%,
-            #ffd700 4%,
-            #ffeb3b 50%,
-            #ffd700 96%,
-            transparent 99%
-          );
-          opacity: 0.45;
-          transform: rotate(0.5deg) skew(1deg);
-          z-index: -1;
-          filter: blur(0.8px);
-          border-radius: 5px 3px 7px 4px;
-        }
-
-        /* Marker texture overlay for realism */
-        .highlight-text::after,
-        .highlight-text-2::after {
-          content: "";
-          position: absolute;
-          left: -8px;
-          right: -8px;
-          top: -3px;
-          bottom: -1px;
-          background-image: repeating-linear-gradient(
-            -45deg,
-            transparent,
-            transparent 2px,
-            rgba(255, 235, 59, 0.3) 2px,
-            rgba(255, 235, 59, 0.3) 3px
-          );
-          z-index: -1;
-          mix-blend-mode: multiply;
-        }
-
-        /* Animation */
-        @keyframes highlight-draw {
-          from {
-            transform: scaleX(0) rotate(-1deg) skew(-2deg);
-            transform-origin: left center;
-          }
-          to {
-            transform: scaleX(1) rotate(-1deg) skew(-2deg);
-            transform-origin: left center;
-          }
-        }
-
-        .highlight-text::before {
-          animation: highlight-draw 0.6s ease-out forwards;
-          animation-delay: 1.5s;
-          transform: scaleX(0) rotate(-1deg) skew(-2deg);
-        }
-
-        .highlight-text-2::before {
-          animation: highlight-draw 0.6s ease-out forwards;
-          animation-delay: 1.7s;
-          transform: scaleX(0) rotate(0.5deg) skew(1deg);
-        }
-
-        /* Hover effect */
-        .flex:hover .highlight-text::before,
-        .flex:hover .highlight-text-2::before {
-          opacity: 0.7;
-          filter: blur(0.5px) brightness(1.1);
-        }
-
-        @media (max-width: 640px) {
-          .highlight-text-2 {
-            display: inline-block;
-            min-width: 100%;
-          }
-
-          .highlight-text-2::before {
-            left: -20px;
-            right: -20px;
-          }
-        }
-
-        /* Subtle pattern for white sections */
-        .bg-pattern {
-          background-color: #ffffff;
-          background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-      </style>
-
-      <script>
-        // Countdown from 48 hours
-        function updateCountdown() {
-          const element = document.getElementById("countdown");
-          if (!element) return;
-
-          let totalSeconds = 48 * 3600; // 48 hours in seconds
-
-          const interval = setInterval(() => {
-            totalSeconds--;
-
-            if (totalSeconds <= 0) {
-              // Reset to 48 hours when it reaches 0
-              totalSeconds = 48 * 3600;
-            }
-
-            const hours = Math.floor(totalSeconds / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
-
-            element.textContent = `${hours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-          }, 1000);
-        }
-
-        // Start countdown when page loads
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", updateCountdown);
-        } else {
-          updateCountdown();
-        }
-
-        // Hide viewer skeleton when loaded
-        document.addEventListener("DOMContentLoaded", function () {
-          const viewer = document.querySelector("#viewer-skeleton");
-          if (viewer) {
-            // Give the viewer component time to mount
-            setTimeout(() => {
-              viewer.style.opacity = "0";
-              viewer.style.transition = "opacity 0.3s ease";
-              setTimeout(() => {
-                viewer.remove();
-              }, 300);
-            }, 1000);
-          }
-        });
-      </script>
-
-      <!-- Schema Markup for SEO -->
-      <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "MedicalWebPage",
-          "name": "What is an MRI? - USRad Medical Imaging",
-          "description": "Learn how MRI technology works - magnetic resonance imaging lets doctors see inside your body without surgery or radiation. Book affordable MRI scans starting at $260.",
-          "url": "https://usrad.com/education/what-is-mri",
-          "medicalPageType": "Educational",
-          "author": {
-            "@type": "MedicalOrganization",
-            "@id": "https://usrad.com/#organization",
-            "name": "USRad",
-            "description": "Affordable medical imaging from the team that revolutionized healthcare with 168,224 MRIs performed."
-          },
-          "about": {
-            "@type": "MedicalProcedure",
-            "name": "Magnetic Resonance Imaging (MRI)",
-            "alternateName": "MRI Scan",
-            "description": "Non-invasive medical imaging using magnetic fields and radio waves",
-            "procedureType": "Diagnostic imaging"
-          },
-          "offers": {
-            "@type": "Offer",
-            "price": "260",
-            "priceCurrency": "USD",
-            "availability": "https://schema.org/InStock",
-            "priceValidUntil": "2025-12-31"
-          },
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "reviewCount": "1200"
-          },
-          "mainEntity": {
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "How long does an MRI take?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Most MRI scans take between 20-45 minutes, depending on the area being scanned."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Is MRI safe?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes, MRI uses magnetic fields and radio waves with no radiation exposure, making it very safe for most patients."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "How much does an MRI cost at USRad?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "MRI scans at USRad start at $260, compared to $3,200 average hospital pricing. No insurance required."
-                }
-              }
-            ]
-          }
-        }
-      </script>
-
-      <!-- Back to Top Button for Mobile -->
-      <button
-        id="back-to-top"
-        aria-label="Back to top"
-        class="fixed bottom-6 right-6 bg-[#003087] text-white p-3 rounded-full shadow-lg hover:bg-[#002266] transition-all transform hover:scale-110 opacity-0 pointer-events-none z-50"
-      >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+        <p
+          class="text-sm text-gray-500 mt-6 text-center"
+          data-aos="fade-up"
+          data-aos-delay="300"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-        </svg>
-      </button>
-
-      <script>
-        // Back to Top Button
-        const backToTopButton = document.getElementById("back-to-top");
-
-        window.addEventListener("scroll", () => {
-          if (window.scrollY > 500) {
-            backToTopButton.classList.remove(
-              "opacity-0",
-              "pointer-events-none"
-            );
-            backToTopButton.classList.add("opacity-100");
-          } else {
-            backToTopButton.classList.add("opacity-0", "pointer-events-none");
-            backToTopButton.classList.remove("opacity-100");
-          }
-        });
-
-        backToTopButton.addEventListener("click", () => {
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-          });
-        });
-      </script>
-
-      <script>
-        const videoEl = document.querySelector("video[data-src-desktop]");
-        if (videoEl) {
-          const loadVideo = () => {
-            const isMobile = window.matchMedia("(max-width: 768px)").matches;
-            const src = isMobile
-              ? videoEl.dataset.srcMobile
-              : videoEl.dataset.srcDesktop;
-            if (!videoEl.src) {
-              videoEl.src = src;
-              videoEl.load();
-            }
-          };
-          const observer = new IntersectionObserver(
-            (entries, obs) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  loadVideo();
-                  obs.unobserve(videoEl);
-                }
-              });
-            },
-            { threshold: 0.25 }
-          );
-          observer.observe(videoEl);
-        }
-
-        document.addEventListener("visibilitychange", () => {
-          if (!videoEl) return;
-          if (document.hidden) {
-            videoEl.pause();
-          } else {
-            videoEl.play();
-          }
-        });
-      </script>
+          Join thousands who've already saved on medical imaging
+        </p>
+      </section>
     </div>
   </section>
 </CarbonLayout>
+
+<style>
+  /* Smooth animations */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Countdown styling with glow */
+  #countdown {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.05em;
+  }
+
+  .countdown-glow:hover {
+    text-shadow: 0 0 20px rgba(204, 153, 51, 0.5);
+    transition: text-shadow 0.3s ease;
+  }
+
+  /* Mobile timeline adjustments */
+  @media (max-width: 768px) {
+    .timeline-step {
+      counter-increment: step;
+      position: relative;
+      padding-left: 60px;
+      margin-bottom: 2rem;
+    }
+
+    .timeline-step::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 60px;
+      width: 40px;
+      height: 40px;
+      background: #003087;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+
+    /* Reset counter at section start */
+    .space-y-16 {
+      counter-reset: step;
+    }
+  }
+
+  /* USRad highlight styling */
+  .highlight-text,
+  .highlight-text-2 {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Bright yellow highlighter for the title */
+  .highlight-text::before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    right: -8px;
+    top: -3px;
+    bottom: -1px;
+    background: linear-gradient(
+      to right,
+      transparent 2%,
+      #ffeb3b 5%,
+      #ffd700 50%,
+      #ffeb3b 95%,
+      transparent 98%
+    );
+    opacity: 0.5;
+    transform: rotate(-1deg) skew(-2deg);
+    z-index: -1;
+    filter: blur(1px);
+    border-radius: 3px 8px 4px 6px;
+  }
+
+  /* Slightly different angle for the subtitle */
+  .highlight-text-2::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    right: -6px;
+    top: -2px;
+    bottom: -2px;
+    background: linear-gradient(
+      to right,
+      transparent 1%,
+      #ffd700 4%,
+      #ffeb3b 50%,
+      #ffd700 96%,
+      transparent 99%
+    );
+    opacity: 0.45;
+    transform: rotate(0.5deg) skew(1deg);
+    z-index: -1;
+    filter: blur(0.8px);
+    border-radius: 5px 3px 7px 4px;
+  }
+
+  /* Marker texture overlay for realism */
+  .highlight-text::after,
+  .highlight-text-2::after {
+    content: "";
+    position: absolute;
+    left: -8px;
+    right: -8px;
+    top: -3px;
+    bottom: -1px;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 235, 59, 0.3) 2px,
+      rgba(255, 235, 59, 0.3) 3px
+    );
+    z-index: -1;
+    mix-blend-mode: multiply;
+  }
+
+  /* Animation */
+  @keyframes highlight-draw {
+    from {
+      transform: scaleX(0) rotate(-1deg) skew(-2deg);
+      transform-origin: left center;
+    }
+    to {
+      transform: scaleX(1) rotate(-1deg) skew(-2deg);
+      transform-origin: left center;
+    }
+  }
+
+  .highlight-text::before {
+    animation: highlight-draw 0.6s ease-out forwards;
+    animation-delay: 1.5s;
+    transform: scaleX(0) rotate(-1deg) skew(-2deg);
+  }
+
+  .highlight-text-2::before {
+    animation: highlight-draw 0.6s ease-out forwards;
+    animation-delay: 1.7s;
+    transform: scaleX(0) rotate(0.5deg) skew(1deg);
+  }
+
+  /* Hover effect */
+  .flex:hover .highlight-text::before,
+  .flex:hover .highlight-text-2::before {
+    opacity: 0.7;
+    filter: blur(0.5px) brightness(1.1);
+  }
+
+  @media (max-width: 640px) {
+    .highlight-text-2 {
+      display: inline-block;
+      min-width: 100%;
+    }
+
+    .highlight-text-2::before {
+      left: -20px;
+      right: -20px;
+    }
+  }
+
+  /* Subtle pattern for white sections */
+  .bg-pattern {
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+</style>
+
+<script>
+  // Countdown from 48 hours
+  function updateCountdown() {
+    const element = document.getElementById("countdown");
+    if (!element) return;
+
+    let totalSeconds = 48 * 3600; // 48 hours in seconds
+
+    const interval = setInterval(() => {
+      totalSeconds--;
+
+      if (totalSeconds <= 0) {
+        // Reset to 48 hours when it reaches 0
+        totalSeconds = 48 * 3600;
+      }
+
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      element.textContent = `${hours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    }, 1000);
+  }
+
+  // Start countdown when page loads
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", updateCountdown);
+  } else {
+    updateCountdown();
+  }
+
+  // Hide viewer skeleton when loaded
+  document.addEventListener("DOMContentLoaded", function () {
+    const viewer = document.querySelector("#viewer-skeleton");
+    if (viewer) {
+      // Give the viewer component time to mount
+      setTimeout(() => {
+        viewer.style.opacity = "0";
+        viewer.style.transition = "opacity 0.3s ease";
+        setTimeout(() => {
+          viewer.remove();
+        }, 300);
+      }, 1000);
+    }
+  });
+</script>
+
+<!-- Schema Markup for SEO -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "What is an MRI? - USRad Medical Imaging",
+    "description": "Learn how MRI technology works - magnetic resonance imaging lets doctors see inside your body without surgery or radiation. Book affordable MRI scans starting at $260.",
+    "url": "https://usrad.com/education/what-is-mri",
+    "medicalPageType": "Educational",
+    "author": {
+      "@type": "MedicalOrganization",
+      "@id": "https://usrad.com/#organization",
+      "name": "USRad",
+      "description": "Affordable medical imaging from the team that revolutionized healthcare with 168,224 MRIs performed."
+    },
+    "about": {
+      "@type": "MedicalProcedure",
+      "name": "Magnetic Resonance Imaging (MRI)",
+      "alternateName": "MRI Scan",
+      "description": "Non-invasive medical imaging using magnetic fields and radio waves",
+      "procedureType": "Diagnostic imaging"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "260",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": "2025-12-31"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "1200"
+    },
+    "mainEntity": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long does an MRI take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most MRI scans take between 20-45 minutes, depending on the area being scanned."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is MRI safe?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, MRI uses magnetic fields and radio waves with no radiation exposure, making it very safe for most patients."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does an MRI cost at USRad?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MRI scans at USRad start at $260, compared to $3,200 average hospital pricing. No insurance required."
+          }
+        }
+      ]
+    }
+  }
+</script>
+
+<!-- Back to Top Button for Mobile -->
+<button
+  id="back-to-top"
+  aria-label="Back to top"
+  class="fixed bottom-6 right-6 bg-[#003087] text-white p-3 rounded-full shadow-lg hover:bg-[#002266] transition-all transform hover:scale-110 opacity-0 pointer-events-none z-50"
+>
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+  </svg>
+</button>
+
+<script>
+  // Back to Top Button
+  const backToTopButton = document.getElementById("back-to-top");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 500) {
+      backToTopButton.classList.remove("opacity-0", "pointer-events-none");
+      backToTopButton.classList.add("opacity-100");
+    } else {
+      backToTopButton.classList.add("opacity-0", "pointer-events-none");
+      backToTopButton.classList.remove("opacity-100");
+    }
+  });
+
+  backToTopButton.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+</script>
+
+<script>
+  const videoEl = document.querySelector("video[data-src-desktop]");
+  if (videoEl) {
+    const loadVideo = () => {
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      const src = isMobile
+        ? videoEl.dataset.srcMobile
+        : videoEl.dataset.srcDesktop;
+      if (!videoEl.src) {
+        videoEl.src = src;
+        videoEl.load();
+      }
+    };
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            loadVideo();
+            obs.unobserve(videoEl);
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(videoEl);
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (!videoEl) return;
+    if (document.hidden) {
+      videoEl.pause();
+    } else {
+      videoEl.play();
+    }
+  });
+</script>

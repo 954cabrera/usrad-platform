@@ -116,24 +116,19 @@ export default function CarbonHeader({ isHeroPage = false }) {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
-              <a href="/index-carbon" className="flex items-center">
+              <a href="/" className="flex items-center">
                 <img
                   src="/logo/USRad-Logo-final-rev.png"
                   alt="USRad Logo"
                   className={`h-10 w-auto transition-all duration-300 ${styles.logoFilter}`}
                 />
-                <span
-                  className={`ml-2 text-xs px-2 py-1 rounded-full font-medium transition-all duration-300 ${styles.betaBg} ${styles.betaText}`}
-                >
-                  BETA
-                </span>
               </a>
             </div>
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-8">
               <a
-                href="/how-it-works-carbon"
+                href="/how-it-works"
                 className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}
               >
                 How it works
@@ -142,19 +137,19 @@ export default function CarbonHeader({ isHeroPage = false }) {
                 Pricing
               </a> */}
               <a
-                href="/education/what-is-an-mri-carbon"
+                href="/education/what-is-an-mri"
                 className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}
               >
                 What is an MRI?
               </a>
               <a
-                href="/about-carbon"
+                href="/about"
                 className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}
               >
-                About
+                About us
               </a>
               <a
-                href="/contact-carbon"
+                href="/contact"
                 className={`text-sm font-medium transition-all duration-300 ${styles.textColor} ${styles.hoverColor}`}
               >
                 Contact
@@ -166,7 +161,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
               {/* Subtle B2B Links - Desktop Only */}
               <div className="flex items-center text-xs">
                 <a
-                  href="/employer-carbon4"
+                  href="/employer"
                   className={`transition-all duration-300 ${styles.b2bText} ${styles.b2bHover}`}
                 >
                   For Employers
@@ -274,7 +269,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
           <nav className="p-4">
             <div className="space-y-1">
               <MobileNavLink
-                href="/how-it-works-carbon"
+                href="/how-it-works"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 How it works
@@ -283,19 +278,19 @@ export default function CarbonHeader({ isHeroPage = false }) {
                 Pricing
               </MobileNavLink> */}
               <MobileNavLink
-                href="/education/what-is-an-mri-carbon"
+                href="/education/what-is-an-mri"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 What is an MRI?
               </MobileNavLink>
               <MobileNavLink
-                href="/about-carbon"
+                href="/about"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                About
+                About us
               </MobileNavLink>
               <MobileNavLink
-                href="/contact-carbon"
+                href="/contact"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact
@@ -317,7 +312,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
             {/* Bottom Links */}
             <div className="mt-8 pt-6 border-t">
               <a
-                href="/employer-carbon4"
+                href="/employer"
                 className="flex items-center justify-between py-2 text-sm text-gray-600 hover:text-[#003087]"
                 onClick={() => setMobileMenuOpen(false)}
               >
