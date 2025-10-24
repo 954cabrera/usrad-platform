@@ -183,7 +183,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
 
               <LoginDropdown isHeroPage={isHeroPage} isScrolled={isScrolled} />
               <a
-                href="/search-results"
+                href="/index-carbon"
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${styles.buttonBg} ${styles.buttonText} ${styles.buttonHover}`}
               >
                 Book scan
@@ -399,43 +399,43 @@ function LoginDropdown({ isHeroPage, isScrolled }) {
       title: "Patient Portal",
       subtitle: "View results & book scans",
       icon: (
-        <img 
-          src="/images/icons/patient.svg" 
-          alt="Patient Portal" 
+        <img
+          src="/images/icons/patient.svg"
+          alt="Patient Portal"
           className="w-5 h-5"
         />
       ),
       color: "text-[#003087]",
-      bgColor: "bg-[#003087]/10"
+      bgColor: "bg-[#003087]/10",
     },
     {
-      href: "/login/imaginglogin", 
+      href: "https://usrad-portal.vercel.app/login",
       title: "Imaging Center",
       subtitle: "Manage facility & reports",
       icon: (
-        <img 
-          src="/images/icons/mri-machine.svg" 
-          alt="Imaging Center" 
+        <img
+          src="/images/icons/mri-machine.svg"
+          alt="Imaging Center"
           className="w-5 h-5"
         />
       ),
       color: "text-[#cc9933]",
-      bgColor: "bg-[#cc9933]/10"
+      bgColor: "bg-[#cc9933]/10",
     },
     {
       href: "/login/referrallogin",
       title: "Physician Portal",
       subtitle: "Refer patients & view reports",
       icon: (
-        <img 
-          src="/images/icons/analytic.svg" 
-          alt="Physician Portal" 
+        <img
+          src="/images/icons/analytic.svg"
+          alt="Physician Portal"
           className="w-5 h-5"
         />
       ),
       color: "text-emerald-600",
-      bgColor: "bg-emerald-600/10"
-    }
+      bgColor: "bg-emerald-600/10",
+    },
   ];
 
   // Determine text color based on hero page and scroll state
@@ -536,43 +536,43 @@ function MobileLoginSection({ onClose }) {
       title: "Patient Portal",
       subtitle: "View results & book scans",
       icon: (
-        <img 
-          src="/images/icons/patient.svg" 
-          alt="Patient Portal" 
+        <img
+          src="/images/icons/patient.svg"
+          alt="Patient Portal"
           className="w-5 h-5"
         />
       ),
       color: "text-[#003087]",
-      bgColor: "bg-[#003087]/10"
+      bgColor: "bg-[#003087]/10",
     },
     {
-      href: "/login/imaginglogin", 
+      href: "https://usrad-portal.vercel.app/login",
       title: "Imaging Center",
       subtitle: "Manage facility & reports",
       icon: (
-        <img 
-          src="/images/icons/mri-machine.svg" 
-          alt="Imaging Center" 
+        <img
+          src="/images/icons/mri-machine.svg"
+          alt="Imaging Center"
           className="w-5 h-5"
         />
       ),
       color: "text-[#cc9933]",
-      bgColor: "bg-[#cc9933]/10"
+      bgColor: "bg-[#cc9933]/10",
     },
     {
       href: "/login/referrallogin",
       title: "Physician Portal",
       subtitle: "Refer patients & view reports",
       icon: (
-        <img 
-          src="/images/icons/analytic.svg" 
-          alt="Physician Portal" 
+        <img
+          src="/images/icons/analytic.svg"
+          alt="Physician Portal"
           className="w-5 h-5"
         />
       ),
       color: "text-emerald-600",
-      bgColor: "bg-emerald-600/10"
-    }
+      bgColor: "bg-emerald-600/10",
+    },
   ];
 
   return (
