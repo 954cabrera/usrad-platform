@@ -1,0 +1,967 @@
+---
+// src/pages/admin/contacts.astro
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.SUPABASE_SERVICE_ROLE_KEY
+);
+
+// Fetch all contact submissions with notes
+const { data: contacts, error } = await supabase
+  .from("contact_submissions")
+  .select(
+    `
+    *,
+    notes:contact_notes(*)
+  `
+  )
+  .order("submitted_at", { ascending: false });
+
+if (error) {
+  console.error("Error fetching contacts:", error);
+}
+
+// Calculate stats
+const now = new Date();
+const stats = {
+  total: contacts?.length || 0,
+  new: contacts?.filter((c) => c.status === "new").length || 0,
+  replied: contacts?.filter((c) => c.status === "replied").length || 0,
+  resolved: contacts?.filter((c) => c.status === "resolved").length || 0,
+  followUp:
+    contacts?.filter((c) => c.status === "follow_up_needed").length || 0,
+  overdue:
+    contacts?.filter(
+      (c) =>
+        c.follow_up_due &&
+        new Date(c.follow_up_due) < now &&
+        c.status === "follow_up_needed"
+    ).length || 0,
+  today:
+    contacts?.filter((c) => {
+      const today = new Date().toDateString();
+      return new Date(c.submitted_at).toDateString() === today;
+    }).length || 0,
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Submissions - Admin</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #f5f5f5;
+        padding: 20px;
+      }
+      .container {
+        max-width: 1600px;
+        margin: 0 auto;
+      }
+      h1 {
+        color: #003087;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+        margin-bottom: 30px;
+      }
+      .stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .stat-number {
+        font-size: 32px;
+        font-weight: bold;
+        color: #003087;
+      }
+      .stat-label {
+        color: #6b7280;
+        font-size: 14px;
+        margin-top: 4px;
+      }
+      .stat-card.overdue .stat-number {
+        color: #ef4444;
+      }
+
+      .filters {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .filters input,
+      .filters select {
+        padding: 10px 16px;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        font-size: 14px;
+      }
+      .filters input {
+        flex: 1;
+        min-width: 200px;
+      }
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.2s;
+      }
+      .btn-primary {
+        background: #003087;
+        color: white;
+      }
+      .btn-primary:hover {
+        background: #002266;
+      }
+      .btn-success {
+        background: #10b981;
+        color: white;
+      }
+      .btn-success:hover {
+        background: #059669;
+      }
+      .btn-export {
+        margin-left: auto;
+      }
+
+      table {
+        width: 100%;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      th {
+        background: #f9fafb;
+        font-weight: 600;
+        color: #374151;
+        font-size: 14px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      td {
+        font-size: 14px;
+        color: #6b7280;
+      }
+
+      .status-badge {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .status-new {
+        color: #f59e0b;
+        background: #fef3c7;
+      }
+      .status-replied {
+        color: #10b981;
+        background: #f0fdf4;
+      }
+      .status-resolved {
+        color: #6b7280;
+        background: #f3f4f6;
+      }
+      .status-follow_up_needed {
+        color: #ef4444;
+        background: #fef2f2;
+      }
+
+      .priority-badge {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .priority-low {
+        color: #6b7280;
+        background: #f3f4f6;
+      }
+      .priority-normal {
+        color: #3b82f6;
+        background: #eff6ff;
+      }
+      .priority-high {
+        color: #f59e0b;
+        background: #fef3c7;
+      }
+      .priority-urgent {
+        color: #ef4444;
+        background: #fef2f2;
+      }
+
+      .message-preview {
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .actions {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+      }
+      .actions button {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .btn-view {
+        background: #eff6ff;
+        color: #1e40af;
+      }
+      .btn-view:hover {
+        background: #dbeafe;
+      }
+      .btn-reply {
+        background: #f0fdf4;
+        color: #10b981;
+      }
+      .btn-reply:hover {
+        background: #dcfce7;
+      }
+      .btn-resolve {
+        background: #f3f4f6;
+        color: #6b7280;
+      }
+      .btn-resolve:hover {
+        background: #e5e7eb;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal.active {
+        display: flex;
+      }
+      .modal-content {
+        background: white;
+        border-radius: 12px;
+        max-width: 800px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+      .modal-header {
+        background: linear-gradient(135deg, #003087 0%, #004299 100%);
+        color: white;
+        padding: 24px;
+        border-radius: 12px 12px 0 0;
+      }
+      .modal-body {
+        padding: 24px;
+      }
+      .modal-footer {
+        padding: 16px 24px;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+      }
+
+      .detail-section {
+        margin-bottom: 24px;
+      }
+      .detail-section h3 {
+        color: #374151;
+        font-size: 16px;
+        margin-bottom: 12px;
+      }
+      .detail-grid {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 12px;
+        background: #f9fafb;
+        padding: 16px;
+        border-radius: 8px;
+      }
+      .detail-label {
+        color: #6b7280;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .detail-value {
+        color: #374151;
+        font-size: 14px;
+      }
+
+      .note-item {
+        background: #fffbeb;
+        border-left: 4px solid #f59e0b;
+        padding: 12px;
+        margin-bottom: 8px;
+        border-radius: 4px;
+      }
+      .note-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 12px;
+        color: #6b7280;
+      }
+      .note-text {
+        color: #374151;
+        font-size: 14px;
+        white-space: pre-wrap;
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+      .form-group label {
+        display: block;
+        color: #374151;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        font-size: 14px;
+      }
+      .form-group textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+
+      .overdue-indicator {
+        color: #ef4444;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .note-count {
+        background: #f59e0b;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>
+        📧 Contact Form Submissions
+        <button
+          class="btn btn-success"
+          onclick="checkFollowUps()"
+          style="margin-left: auto; font-size: 14px;"
+        >
+          Check Follow-ups
+        </button>
+      </h1>
+
+      <!-- Stats -->
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number">{stats.total}</div>
+          <div class="stat-label">Total Submissions</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{stats.new}</div>
+          <div class="stat-label">New</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{stats.replied}</div>
+          <div class="stat-label">Replied</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{stats.resolved}</div>
+          <div class="stat-label">Resolved</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{stats.followUp}</div>
+          <div class="stat-label">Follow-up Needed</div>
+        </div>
+        <div class="stat-card overdue">
+          <div class="stat-number">{stats.overdue}</div>
+          <div class="stat-label">⚠️ Overdue</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{stats.today}</div>
+          <div class="stat-label">Today</div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search by name or email..."
+        />
+        <select id="statusFilter">
+          <option value="all">All Statuses</option>
+          <option value="new" selected>New Only</option>
+          <option value="replied">Replied</option>
+          <option value="resolved">Resolved</option>
+          <option value="follow_up_needed">Follow-up Needed</option>
+        </select>
+        <select id="priorityFilter">
+          <option value="all">All Priorities</option>
+          <option value="urgent">Urgent</option>
+          <option value="high">High</option>
+          <option value="normal">Normal</option>
+          <option value="low">Low</option>
+        </select>
+        <select id="topicFilter">
+          <option value="all">All Topics</option>
+          <option value="scheduling">Scheduling</option>
+          <option value="pricing">Pricing</option>
+          <option value="results">Results</option>
+          <option value="insurance">Insurance</option>
+          <option value="locations">Locations</option>
+          <option value="network">Provider Network</option>
+          <option value="other">Other</option>
+        </select>
+        <button class="btn btn-primary" onclick="applyFilters()">Apply</button>
+        <button class="btn btn-success btn-export" onclick="exportToCSV()"
+          >Export CSV</button
+        >
+      </div>
+
+      <!-- Table -->
+      <table id="contactsTable">
+        <thead>
+          <tr>
+            <th>Priority</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Topic</th>
+            <th>Message</th>
+            <th>Submitted</th>
+            <th>Status</th>
+            <th>Notes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            contacts?.map((contact) => {
+              const isOverdue =
+                contact.follow_up_due &&
+                new Date(contact.follow_up_due) < now &&
+                contact.status === "follow_up_needed";
+              return (
+                <tr
+                  data-id={contact.id}
+                  data-email={contact.email}
+                  data-status={contact.status}
+                  data-topic={contact.topic}
+                  data-priority={contact.priority || "normal"}
+                  style={isOverdue ? "background-color: #fef2f2;" : ""}
+                >
+                  <td>
+                    <span
+                      class={`priority-badge priority-${contact.priority || "normal"}`}
+                    >
+                      {contact.priority || "normal"}
+                    </span>
+                  </td>
+                  <td>
+                    {contact.first_name} {contact.last_name}
+                    {isOverdue && (
+                      <div class="overdue-indicator">⚠️ Overdue</div>
+                    )}
+                  </td>
+                  <td>
+                    <a
+                      href={`mailto:${contact.email}`}
+                      style="color: #003087; text-decoration: none;"
+                    >
+                      {contact.email}
+                    </a>
+                  </td>
+                  <td>{contact.topic}</td>
+                  <td class="message-preview" title={contact.message}>
+                    {contact.message}
+                  </td>
+                  <td>{new Date(contact.submitted_at).toLocaleString()}</td>
+                  <td>
+                    <span class={`status-badge status-${contact.status}`}>
+                      {contact.status === "new" && "⏳ New"}
+                      {contact.status === "replied" && "✓ Replied"}
+                      {contact.status === "resolved" && "✅ Resolved"}
+                      {contact.status === "follow_up_needed" && "⏰ Follow-up"}
+                    </span>
+                  </td>
+                  <td>
+                    {contact.notes && contact.notes.length > 0 && (
+                      <span class="note-count">{contact.notes.length}</span>
+                    )}
+                  </td>
+                  <td class="actions">
+                    <button
+                      class="btn-view"
+                      onclick=`viewDetails('${contact.id}')`
+                    >
+                      View
+                    </button>
+                    <button
+                      class="btn-reply"
+                      onclick=`replyTo('${contact.email}', '${contact.topic}')`
+                    >
+                      Reply
+                    </button>
+                    {contact.status !== "resolved" && (
+                      <button
+                        class="btn-resolve"
+                        onclick=`markResolved('${contact.id}')`
+                      >
+                        Resolve
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detailModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitle">Contact Details</h2>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Content loaded dynamically -->
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" onclick="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden data for JavaScript -->
+    <script is:inline define:vars={{ contactsJson: JSON.stringify(contacts) }}>
+      // Store all contacts data for filtering
+      const contactsData = JSON.parse(contactsJson);
+      const allRows = Array.from(
+        document.querySelectorAll("#contactsTable tbody tr")
+      );
+
+      window.applyFilters = function() {
+        const search = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const status = document.getElementById("statusFilter").value;
+        const priority = document.getElementById("priorityFilter").value;
+        const topic = document.getElementById("topicFilter").value;
+
+        allRows.forEach((row) => {
+          const email = row.dataset.email?.toLowerCase() || "";
+          const name = row.cells[1].textContent.toLowerCase();
+          const rowStatus = row.dataset.status;
+          const rowPriority = row.dataset.priority;
+          const rowTopic = row.dataset.topic;
+
+          const matchesSearch = email.includes(search) || name.includes(search);
+          const matchesStatus = status === "all" || rowStatus === status;
+          const matchesPriority =
+            priority === "all" || rowPriority === priority;
+          const matchesTopic = topic === "all" || rowTopic === topic;
+
+          if (
+            matchesSearch &&
+            matchesStatus &&
+            matchesPriority &&
+            matchesTopic
+          ) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      window.exportToCSV = function() {
+        const rows = Array.from(
+          document.querySelectorAll("#contactsTable tbody tr")
+        ).filter((row) => row.style.display !== "none");
+
+        let csv =
+          "Priority,Name,Email,Phone,Topic,Message,Submitted,Status,Notes Count\n";
+
+        rows.forEach((row) => {
+          const cells = row.querySelectorAll("td");
+          const priority = cells[0].textContent.trim();
+          const name = cells[1].textContent.replace("⚠️ Overdue", "").trim();
+          const email = cells[2].textContent;
+          const topic = cells[3].textContent;
+          const message = cells[4].getAttribute("title");
+          const submitted = cells[5].textContent;
+          const status = cells[6].textContent.trim();
+          const notes = cells[7].textContent.trim() || "0";
+          csv += `"${priority}","${fullName}","${email}","","${topic}","${message}","${submitted}","${status}","${notes}"\n`;
+        });
+
+        const blob = new Blob([csv], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `contact-submissions-${new Date().toISOString().split("T")[0]}.csv`;
+        a.click();
+      }
+
+      window.viewDetails = function(contactId) {
+        const contact = contactsData.find((c) => c.id === contactId);
+        if (!contact) return;
+
+        const modalBody = document.getElementById("modalBody");
+        modalBody.innerHTML = `
+        <div class="detail-section">
+          <h3>Contact Information</h3>
+          <div class="detail-grid">
+            <div class="detail-label">Name:</div>
+            <div class="detail-value">${contact.first_name} ${contact.last_name}</div>
+            
+            <div class="detail-label">Email:</div>
+            <div class="detail-value"><a href="mailto:${contact.email}">${contact.email}</a></div>
+            
+            <div class="detail-label">Phone:</div>
+            <div class="detail-value">${contact.phone || "Not provided"}</div>
+            
+            <div class="detail-label">Topic:</div>
+            <div class="detail-value">${contact.topic}</div>
+            
+            <div class="detail-label">Status:</div>
+            <div class="detail-value">
+              <select id="statusSelect" class="status-badge status-${contact.status}">
+                <option value="new" ${contact.status === "new" ? "selected" : ""}>New</option>
+                <option value="replied" ${contact.status === "replied" ? "selected" : ""}>Replied</option>
+                <option value="follow_up_needed" ${contact.status === "follow_up_needed" ? "selected" : ""}>Follow-up Needed</option>
+                <option value="resolved" ${contact.status === "resolved" ? "selected" : ""}>Resolved</option>
+              </select>
+              <button class="btn btn-primary" style="margin-left: 8px; padding: 4px 12px; font-size: 12px;" onclick="updateStatus('${contact.id}')">Update</button>
+            </div>
+            
+            <div class="detail-label">Priority:</div>
+            <div class="detail-value">
+              <select id="prioritySelect" class="priority-badge priority-${contact.priority || "normal"}">
+                <option value="low" ${contact.priority === "low" ? "selected" : ""}>Low</option>
+                <option value="normal" ${!contact.priority || contact.priority === "normal" ? "selected" : ""}>Normal</option>
+                <option value="high" ${contact.priority === "high" ? "selected" : ""}>High</option>
+                <option value="urgent" ${contact.priority === "urgent" ? "selected" : ""}>Urgent</option>
+              </select>
+              <button class="btn btn-primary" style="margin-left: 8px; padding: 4px 12px; font-size: 12px;" onclick="updatePriority('${contact.id}')">Update</button>
+            </div>
+            
+            <div class="detail-label">Submitted:</div>
+            <div class="detail-value">${new Date(contact.submitted_at).toLocaleString()}</div>
+            
+            ${
+              contact.follow_up_due
+                ? `
+              <div class="detail-label">Follow-up Due:</div>
+              <div class="detail-value">${new Date(contact.follow_up_due).toLocaleString()}</div>
+            `
+                : ""
+            }
+          </div>
+        </div>
+        
+        <div class="detail-section">
+          <h3>Message</h3>
+          <div style="background: #f9fafb; padding: 16px; border-radius: 8px; white-space: pre-wrap;">
+            ${contact.message}
+          </div>
+        </div>
+        
+        <div class="detail-section">
+          <h3>Set Follow-up</h3>
+          <div class="form-group">
+            <input type="datetime-local" id="followUpDate" style="display: inline-block; width: auto;">
+            <button class="btn btn-primary" style="margin-left: 8px;" onclick="setFollowUp('${contact.id}')">Set Follow-up</button>
+          </div>
+        </div>
+        
+        <div class="detail-section">
+          <h3>Internal Notes (${contact.notes?.length || 0})</h3>
+          <div id="notesList">
+            ${
+              contact.notes && contact.notes.length > 0
+                ? contact.notes
+                    .map(
+                      (note) => `
+              <div class="note-item">
+                <div class="note-header">
+                  <span><strong>${note.created_by}</strong></span>
+                  <span>${new Date(note.created_at).toLocaleString()}</span>
+                </div>
+                <div class="note-text">${note.note}</div>
+              </div>
+            `
+                    )
+                    .join("")
+                : '<p style="color: #6b7280; font-style: italic;">No notes yet</p>'
+            }
+          </div>
+          
+          <div class="form-group" style="margin-top: 16px;">
+            <label>Add Note</label>
+            <textarea id="newNote" placeholder="Add an internal note..."></textarea>
+            <button class="btn btn-primary" style="margin-top: 8px;" onclick="addNote('${contact.id}')">Add Note</button>
+          </div>
+        </div>
+        
+        <div class="detail-section">
+          <h3>Quick Actions</h3>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="replyTo('${contact.email}', '${contact.topic}')">Reply via Email</button>
+            <button class="btn btn-success" onclick="markResolved('${contact.id}')">Mark as Resolved</button>
+            <button class="btn btn-primary" onclick="window.open('tel:${contact.phone || ""}')">Call Customer</button>
+          </div>
+        </div>
+      `;
+
+        document.getElementById("detailModal").classList.add("active");
+      }
+
+      window.closeModal = function() {
+        document.getElementById("detailModal").classList.remove("active");
+      }
+
+      window.markResolved = async function(contactId) {
+        if (!confirm("Mark this contact as resolved?")) return;
+
+        try {
+          const response = await fetch("/api/contact-manage", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "mark_resolved",
+              contactId: contactId,
+            }),
+          });
+
+          if (response.ok) {
+            alert("Contact marked as resolved!");
+            location.reload();
+          } else {
+            alert("Failed to update status");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Error updating status");
+        }
+      }
+
+      window.updateStatus = async function(contactId) {
+        const status = document.getElementById("statusSelect").value;
+
+        try {
+          const response = await fetch("/api/contact-manage", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "update_status",
+              contactId: contactId,
+              data: { status },
+            }),
+          });
+
+          if (response.ok) {
+            alert("Status updated!");
+            location.reload();
+          } else {
+            alert("Failed to update status");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Error updating status");
+        }
+      }
+
+      window.updatePriority = async function(contactId) {
+        const priority = document.getElementById("prioritySelect").value;
+
+        try {
+          const response = await fetch("/api/contact-manage", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "update_priority",
+              contactId: contactId,
+              data: { priority },
+            }),
+          });
+
+          if (response.ok) {
+            alert("Priority updated!");
+            location.reload();
+          } else {
+            alert("Failed to update priority");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Error updating priority");
+        }
+      }
+
+      window.addNote = async function(contactId) {
+        const note = document.getElementById("newNote").value;
+        if (!note.trim()) {
+          alert("Please enter a note");
+          return;
+        }
+
+        const createdBy = prompt("Your name/email:", "Admin");
+        if (!createdBy) return;
+
+        try {
+          const response = await fetch("/api/contact-manage", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "add_note",
+              contactId: contactId,
+              data: {
+                note: note,
+                createdBy: createdBy,
+              },
+            }),
+          });
+
+          if (response.ok) {
+            alert("Note added!");
+            location.reload();
+          } else {
+            alert("Failed to add note");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Error adding note");
+        }
+      }
+
+      window.setFollowUp = async function(contactId) {
+        const followUpDate = document.getElementById("followUpDate").value;
+        if (!followUpDate) {
+          alert("Please select a follow-up date");
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/contact-manage", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "set_follow_up",
+              contactId: contactId,
+              data: { followUpDate: new Date(followUpDate).toISOString() },
+            }),
+          });
+
+          if (response.ok) {
+            alert("Follow-up scheduled!");
+            location.reload();
+          } else {
+            alert("Failed to schedule follow-up");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Error scheduling follow-up");
+        }
+      }
+
+      window.checkFollowUps = async function() {
+        try {
+          const response = await fetch(
+            "/api/contact-manage?action=check_follow_ups"
+          );
+          const result = await response.json();
+
+          if (result.overdueCount > 0) {
+            alert(
+              `${result.overdueCount} contact(s) need follow-up! Check your email for details.`
+            );
+            location.reload();
+          } else {
+            alert("No overdue follow-ups!");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Error checking follow-ups");
+        }
+      }
+
+      window.replyTo = function(email, topic) {
+        window.location.href = `mailto:${email}?subject=Re: ${encodeURIComponent(topic)}`;
+      }
+
+      // Real-time search
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", applyFilters);
+
+      // Apply filters on load
+      applyFilters();
+
+      // Close modal on background click
+      document.getElementById("detailModal").addEventListener("click", (e) => {
+        if (e.target.id === "detailModal") {
+          closeModal();
+        }
+      });
+    </script>
+  </body>
+</html>

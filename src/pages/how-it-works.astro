@@ -197,40 +197,21 @@ export const prerender = true;
             instantly see every quality imaging center near you.
           </p>
 
-          <!-- Interactive ZIP Demo -->
-          <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
-            <div class="flex items-center justify-between mb-4">
-              <label class="block text-sm font-semibold text-gray-700"
-                >Try it yourself:</label
-              >
-              <span
-                class="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full"
-                >MRI Lumbar Spine</span
-              >
-            </div>
-            <form action="/search-results" method="GET" class="flex gap-3">
-              <input
-                type="text"
-                name="zipCode"
-                id="demo-zip"
-                placeholder="Enter your ZIP code"
-                pattern="[0-9]{5}"
-                maxlength="5"
-                required
-                class="flex-1 px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-teal-500 focus:outline-none transition-colors"
-              />
-              <input type="hidden" name="procedure" value="72148" />
-              <input type="hidden" name="autoSearch" value="true" />
-              <button
-                type="submit"
-                class="bg-teal-500 hover:bg-teal-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
-              >
-                Search
-              </button>
-            </form>
-            <p class="text-xs text-gray-500 mt-3">
-              💡 This is a real search - enter your ZIP code to see actual
-              prices near you
+          <!-- Interactive CTA -->
+          <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <p class="text-lg text-gray-700 mb-6 text-center">
+              Ready to see real prices in your area?
+            </p>
+
+            <a
+              href="/#hero-search"
+              class="block w-full bg-teal-500 hover:bg-teal-600 text-white px-6 py-4 rounded-lg font-semibold text-lg text-center transition-all transform hover:scale-105 shadow-lg"
+            >
+              Find Centers Near You →
+            </a>
+
+            <p class="text-xs text-gray-500 mt-4 text-center">
+              💡 Search by your location to see actual prices instantly
             </p>
           </div>
 
@@ -1029,42 +1010,21 @@ export const prerender = true;
           <h3 class="text-lg font-semibold text-gray-900">
             Begin Your Journey
           </h3>
-          <div class="flex gap-2">
-            <span class="w-2 h-2 bg-teal-500 rounded-full animate-pulse"></span>
-            <span
-              class="w-2 h-2 bg-teal-500 rounded-full animate-pulse animation-delay-200"
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
             ></span>
-            <span
-              class="w-2 h-2 bg-teal-500 rounded-full animate-pulse animation-delay-400"
-            ></span>
+            <span class="text-xs text-gray-600">Available Now</span>
           </div>
         </div>
 
-        <form
-          class="flex flex-col sm:flex-row gap-3"
-          action="/search-results"
-          method="GET"
+        <a
+          href="/#hero-search"
+          class="block w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-8 py-4 rounded-xl font-semibold text-lg text-center transition-all transform hover:scale-105 shadow-lg"
         >
-          <input
-            type="text"
-            name="zipCode"
-            placeholder="Enter your ZIP code to begin"
-            pattern="[0-9]{5}"
-            maxlength="5"
-            required
-            class="flex-1 px-6 py-4 rounded-xl text-lg border-2 border-gray-200 focus:border-teal-500 focus:outline-none transition-colors"
-          />
-          <input type="hidden" name="procedure" value="70551" />
-          <input type="hidden" name="autoSearch" value="true" />
-          <button
-            type="submit"
-            class="bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg"
-          >
-            Start Now →
-          </button>
-        </form>
+          Start Now →
+        </a>
 
-        <p class="text-sm text-gray-500 mt-4">
+        <p class="text-sm text-gray-500 mt-4 text-center">
           🎉 Special pricing available today
         </p>
       </div>
