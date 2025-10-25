@@ -1,6 +1,42 @@
 ---
 // src/pages/admin/newsletter.astro
-// Access at: http://localhost:4321/admin/newsletter
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.SUPABASE_SERVICE_ROLE_KEY
+);
+
+// Fetch all subscribers from Supabase
+const { data: subscribers, error } = await supabase
+  .from("newsletter_subscribers")
+  .select("*")
+  .order("subscribed_at", { ascending: false });
+
+if (error) {
+  console.error("Error fetching subscribers:", error);
+}
+
+// Calculate stats
+const now = new Date();
+const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+const stats = {
+  total: subscribers?.length || 0,
+  active: subscribers?.filter((s) => s.is_active).length || 0,
+  inactive: subscribers?.filter((s) => !s.is_active).length || 0,
+  today:
+    subscribers?.filter((s) => new Date(s.subscribed_at) >= todayStart)
+      .length || 0,
+  week:
+    subscribers?.filter((s) => new Date(s.subscribed_at) >= weekAgo).length ||
+    0,
+  month:
+    subscribers?.filter((s) => new Date(s.subscribed_at) >= monthAgo).length ||
+    0,
+};
 ---
 
 <html lang="en">
@@ -9,297 +45,447 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Newsletter Admin - USRad</title>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
       body {
         font-family:
           system-ui,
           -apple-system,
           sans-serif;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem;
         background: #f5f5f5;
+        padding: 2rem;
       }
       .container {
-        background: white;
-        padding: 2rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      h1 {
+        color: #003087;
+        margin-bottom: 2rem;
+        font-size: 2rem;
       }
       .stats {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         gap: 1rem;
         margin-bottom: 2rem;
       }
       .stat-card {
-        background: #f8f9fa;
+        background: white;
         padding: 1.5rem;
         border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         text-align: center;
       }
       .stat-number {
-        font-size: 2rem;
+        font-size: 2.5rem;
         font-weight: bold;
         color: #003087;
       }
       .stat-label {
         color: #666;
         margin-top: 0.5rem;
+        font-size: 0.9rem;
+      }
+      .controls {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .controls input,
+      .controls select {
+        padding: 0.6rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      .controls input[type="text"] {
+        flex: 1;
+        min-width: 200px;
+      }
+      .btn {
+        padding: 0.6rem 1.2rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.2s;
+      }
+      .btn-primary {
+        background: #003087;
+        color: white;
+      }
+      .btn-primary:hover {
+        background: #002266;
+      }
+      .btn-success {
+        background: #10b981;
+        color: white;
+      }
+      .btn-success:hover {
+        background: #059669;
+      }
+      .btn-danger {
+        background: #ef4444;
+        color: white;
+      }
+      .btn-danger:hover {
+        background: #dc2626;
+      }
+      .btn-small {
+        padding: 0.4rem 0.8rem;
+        font-size: 12px;
       }
       table {
         width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
       th,
       td {
-        padding: 0.75rem;
+        padding: 1rem;
         text-align: left;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid #e5e7eb;
       }
       th {
-        background: #f8f9fa;
+        background: #f9fafb;
+        font-weight: 600;
+        color: #374151;
+        font-size: 14px;
+      }
+      td {
+        font-size: 14px;
+        color: #6b7280;
+      }
+      .status-badge {
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        font-size: 12px;
         font-weight: 600;
       }
-      .export-btn {
-        background: #003087;
-        color: white;
-        padding: 0.75rem 1.5rem;
-        border: none;
+      .status-active {
+        background: #f0fdf4;
+        color: #10b981;
+      }
+      .status-inactive {
+        background: #fef2f2;
+        color: #ef4444;
+      }
+      .actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .refresh-notice {
+        background: #eff6ff;
+        color: #1e40af;
+        padding: 0.8rem;
         border-radius: 4px;
-        cursor: pointer;
-        margin-right: 1rem;
-      }
-      .export-btn:hover {
-        background: #002266;
-      }
-      .clear-btn {
-        background: #dc3545;
-        color: white;
-        padding: 0.75rem 1.5rem;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      .clear-btn:hover {
-        background: #c82333;
-      }
-      .filter-section {
         margin-bottom: 1rem;
-        padding: 1rem;
-        background: #f8f9fa;
-        border-radius: 4px;
-      }
-      .filter-section input {
-        padding: 0.5rem;
-        margin-right: 1rem;
-        border: 1px solid #ddd;
-        border-radius: 4px;
+        text-align: center;
+        font-size: 14px;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Newsletter Subscribers</h1>
+      <h1>📧 Newsletter Subscribers</h1>
 
-      <div class="stats" id="stats">
+      <div class="refresh-notice">
+        📊 Data refreshes automatically. Last updated: {
+          new Date().toLocaleTimeString()
+        }
+      </div>
+
+      <!-- Stats -->
+      <div class="stats">
         <div class="stat-card">
-          <div class="stat-number" id="total-count">0</div>
+          <div class="stat-number">{stats.total}</div>
           <div class="stat-label">Total Subscribers</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number" id="week-count">0</div>
+          <div class="stat-number">{stats.active}</div>
+          <div class="stat-label">Active</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{stats.inactive}</div>
+          <div class="stat-label">Unsubscribed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{stats.today}</div>
+          <div class="stat-label">Today</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{stats.week}</div>
           <div class="stat-label">This Week</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number" id="month-count">0</div>
+          <div class="stat-number">{stats.month}</div>
           <div class="stat-label">This Month</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-number" id="today-count">0</div>
-          <div class="stat-label">Today</div>
-        </div>
       </div>
 
-      <div class="filter-section">
-        <label>
-          Filter by date:
-          <input type="date" id="start-date" />
-          to
-          <input type="date" id="end-date" />
-        </label>
-        <button class="export-btn" onclick="filterByDate()">Filter</button>
-        <button class="export-btn" onclick="resetFilter()">Reset</button>
-      </div>
-
-      <div style="margin-bottom: 1rem;">
-        <button class="export-btn" onclick="exportToCSV()">Export to CSV</button
+      <!-- Controls -->
+      <div class="controls">
+        <input type="text" id="searchInput" placeholder="Search by email..." />
+        <select id="statusFilter">
+          <option value="all">All Statuses</option>
+          <option value="active" selected>Active Only</option>
+          <option value="inactive">Unsubscribed Only</option>
+        </select>
+        <select id="sourceFilter">
+          <option value="all">All Sources</option>
+          <option value="footer_newsletter">Footer Newsletter</option>
+          <option value="homepage">Homepage</option>
+        </select>
+        <button class="btn btn-primary" onclick="applyFilters()"
+          >Apply Filters</button
         >
-        <button class="export-btn" onclick="copyEmails()"
-          >Copy All Emails</button
+        <button class="btn btn-success" onclick="exportToCSV()"
+          >📥 Export CSV</button
         >
-        <button class="clear-btn" onclick="clearAll()">Clear All Data</button>
+        <button class="btn btn-success" onclick="copyEmails()"
+          >📋 Copy Emails</button
+        >
       </div>
 
-      <table id="subscribers-table">
+      <!-- Table -->
+      <table id="subscribersTable">
         <thead>
           <tr>
             <th>#</th>
             <th>Email</th>
-            <th>Date Subscribed</th>
-            <th>Source Page</th>
+            <th>Status</th>
+            <th>Source</th>
+            <th>Subscribed</th>
             <th>Days Ago</th>
+            <th>Actions</th>
           </tr>
         </thead>
-        <tbody id="subscribers-body">
-          <!-- Data will be inserted here -->
+        <tbody>
+          {
+            subscribers?.map((sub, index) => {
+              const subDate = new Date(sub.subscribed_at);
+              const daysAgo = Math.floor(
+                (now - subDate) / (1000 * 60 * 60 * 24)
+              );
+
+              return (
+                <tr
+                  data-email={sub.email}
+                  data-status={sub.is_active ? "active" : "inactive"}
+                  data-source={sub.source || "unknown"}
+                >
+                  <td>{index + 1}</td>
+                  <td>{sub.email}</td>
+                  <td>
+                    <span
+                      class={`status-badge ${sub.is_active ? "status-active" : "status-inactive"}`}
+                    >
+                      {sub.is_active ? "✓ Active" : "✗ Unsubscribed"}
+                    </span>
+                  </td>
+                  <td>{sub.source || "N/A"}</td>
+                  <td>
+                    {subDate.toLocaleDateString()}{" "}
+                    {subDate.toLocaleTimeString()}
+                  </td>
+                  <td>
+                    {daysAgo} {daysAgo === 1 ? "day" : "days"} ago
+                  </td>
+                  <td class="actions">
+                    {sub.is_active ? (
+                      <button
+                        class="btn btn-danger btn-small"
+                        onclick={`unsubscribe('${sub.email}')`}
+                      >
+                        Unsubscribe
+                      </button>
+                    ) : (
+                      <button
+                        class="btn btn-success btn-small"
+                        onclick={`reactivate('${sub.email}')`}
+                      >
+                        Reactivate
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              );
+            })
+          }
         </tbody>
       </table>
+
+      {
+        (!subscribers || subscribers.length === 0) && (
+          <div style="text-align: center; padding: 3rem; color: #9ca3af;">
+            <p style="font-size: 1.2rem;">No subscribers yet</p>
+            <p style="margin-top: 0.5rem;">
+              Subscribers will appear here when people sign up through your
+              website.
+            </p>
+          </div>
+        )
+      }
     </div>
 
     <script>
-      let allSubscribers = [];
-      let filteredSubscribers = [];
+      const allRows = Array.from(
+        document.querySelectorAll("#subscribersTable tbody tr")
+      );
 
-      function loadSubscribers() {
-        const stored = localStorage.getItem("newsletter-subscribers");
-        allSubscribers = stored ? JSON.parse(stored) : [];
-        filteredSubscribers = [...allSubscribers];
-        updateDisplay();
-      }
+      // Apply filters
+      function applyFilters() {
+        const search = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const status = document.getElementById("statusFilter").value;
+        const source = document.getElementById("sourceFilter").value;
 
-      function updateDisplay() {
-        // Update stats
-        const now = new Date();
-        const todayStart = new Date(
-          now.getFullYear(),
-          now.getMonth(),
-          now.getDate()
-        );
-        const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-        const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+        allRows.forEach((row) => {
+          const email = row.dataset.email?.toLowerCase() || "";
+          const rowStatus = row.dataset.status;
+          const rowSource = row.dataset.source;
 
-        document.getElementById("total-count").textContent =
-          allSubscribers.length;
-        document.getElementById("today-count").textContent =
-          allSubscribers.filter((s) => new Date(s.date) >= todayStart).length;
-        document.getElementById("week-count").textContent =
-          allSubscribers.filter((s) => new Date(s.date) >= weekAgo).length;
-        document.getElementById("month-count").textContent =
-          allSubscribers.filter((s) => new Date(s.date) >= monthAgo).length;
+          const matchesSearch = email.includes(search);
+          const matchesStatus = status === "all" || rowStatus === status;
+          const matchesSource = source === "all" || rowSource === source;
 
-        // Update table
-        const tbody = document.getElementById("subscribers-body");
-        tbody.innerHTML = "";
-
-        filteredSubscribers.forEach((sub, index) => {
-          const row = tbody.insertRow();
-          const subDate = new Date(sub.date);
-          const daysAgo = Math.floor((now - subDate) / (1000 * 60 * 60 * 24));
-
-          row.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${sub.email}</td>
-          <td>${subDate.toLocaleDateString()} ${subDate.toLocaleTimeString()}</td>
-          <td>${sub.source || "/"}</td>
-          <td>${daysAgo} ${daysAgo === 1 ? "day" : "days"} ago</td>
-        `;
+          if (matchesSearch && matchesStatus && matchesSource) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
         });
       }
 
-      function filterByDate() {
-        const startDate = document.getElementById("start-date").value;
-        const endDate = document.getElementById("end-date").value;
+      // Real-time search
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", applyFilters);
+      document
+        .getElementById("statusFilter")
+        .addEventListener("change", applyFilters);
+      document
+        .getElementById("sourceFilter")
+        .addEventListener("change", applyFilters);
 
-        if (!startDate || !endDate) {
-          alert("Please select both start and end dates");
-          return;
-        }
-
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-        end.setHours(23, 59, 59, 999); // Include entire end day
-
-        filteredSubscribers = allSubscribers.filter((sub) => {
-          const subDate = new Date(sub.date);
-          return subDate >= start && subDate <= end;
-        });
-
-        updateDisplay();
-      }
-
-      function resetFilter() {
-        filteredSubscribers = [...allSubscribers];
-        document.getElementById("start-date").value = "";
-        document.getElementById("end-date").value = "";
-        updateDisplay();
-      }
-
+      // Export to CSV
       function exportToCSV() {
-        if (filteredSubscribers.length === 0) {
+        const visibleRows = Array.from(
+          document.querySelectorAll("#subscribersTable tbody tr")
+        ).filter((row) => row.style.display !== "none");
+
+        if (visibleRows.length === 0) {
           alert("No subscribers to export");
           return;
         }
 
-        const csv = [
-          ["Email", "Date Subscribed", "Source Page"],
-          ...filteredSubscribers.map((sub) => [
-            sub.email,
-            new Date(sub.date).toISOString(),
-            sub.source || "/",
-          ]),
-        ]
-          .map((row) => row.join(","))
-          .join("\n");
+        let csv = "Email,Status,Source,Subscribed Date\n";
+
+        visibleRows.forEach((row) => {
+          const cells = row.querySelectorAll("td");
+          const email = cells[1].textContent;
+          const status = cells[2].textContent.trim();
+          const source = cells[3].textContent;
+          const date = cells[4].textContent;
+          csv += `${email},"${status}",${source},"${date}"\n`;
+        });
 
         const blob = new Blob([csv], { type: "text/csv" });
-        const url = URL.createObjectURL(blob);
+        const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
         a.download = `newsletter-subscribers-${new Date().toISOString().split("T")[0]}.csv`;
         a.click();
-        URL.revokeObjectURL(url);
+        window.URL.revokeObjectURL(url);
+
+        alert(`Exported ${visibleRows.length} subscribers to CSV`);
       }
 
+      // Copy emails
       function copyEmails() {
-        const emails = filteredSubscribers.map((s) => s.email).join("\n");
+        const visibleRows = Array.from(
+          document.querySelectorAll("#subscribersTable tbody tr")
+        ).filter((row) => row.style.display !== "none");
+
+        if (visibleRows.length === 0) {
+          alert("No subscribers to copy");
+          return;
+        }
+
+        const emails = visibleRows
+          .map((row) => row.querySelectorAll("td")[1].textContent)
+          .join("\n");
+
         navigator.clipboard.writeText(emails).then(() => {
-          alert(
-            `Copied ${filteredSubscribers.length} email addresses to clipboard`
-          );
+          alert(`Copied ${visibleRows.length} email addresses to clipboard`);
         });
       }
 
-      function clearAll() {
-        if (
-          confirm(
-            "Are you sure you want to delete all subscriber data? This cannot be undone."
-          )
-        ) {
-          localStorage.removeItem("newsletter-subscribers");
-          loadSubscribers();
-          alert("All subscriber data has been cleared");
+      // Unsubscribe
+      async function unsubscribe(email) {
+        if (!confirm(`Unsubscribe ${email}?`)) return;
+
+        try {
+          const response = await fetch("/api/manage-subscriber", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, action: "unsubscribe" }),
+          });
+
+          if (response.ok) {
+            alert("Subscriber unsubscribed successfully");
+            location.reload();
+          } else {
+            alert("Failed to unsubscribe");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Error unsubscribing");
         }
       }
 
-      // Set date inputs to reasonable defaults
-      window.addEventListener("DOMContentLoaded", () => {
-        const endDate = document.getElementById("end-date");
-        const startDate = document.getElementById("start-date");
+      // Reactivate
+      async function reactivate(email) {
+        if (!confirm(`Reactivate ${email}?`)) return;
 
-        // Set end date to today
-        endDate.value = new Date().toISOString().split("T")[0];
+        try {
+          const response = await fetch("/api/manage-subscriber", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, action: "reactivate" }),
+          });
 
-        // Set start date to 7 days ago
-        const weekAgo = new Date();
-        weekAgo.setDate(weekAgo.getDate() - 7);
-        startDate.value = weekAgo.toISOString().split("T")[0];
+          if (response.ok) {
+            alert("Subscriber reactivated successfully");
+            location.reload();
+          } else {
+            alert("Failed to reactivate");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Error reactivating");
+        }
+      }
 
-        loadSubscribers();
-      });
+      // Apply filters on page load (shows only active by default)
+      applyFilters();
 
-      // Auto-refresh every 30 seconds
-      setInterval(loadSubscribers, 30000);
+      // Auto-refresh every 60 seconds
+      setTimeout(() => location.reload(), 60000);
     </script>
   </body>
 </html>
