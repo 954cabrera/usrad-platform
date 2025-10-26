@@ -1,7 +1,7 @@
 // src/pages/api/provider-consultation.js
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export const POST = async ({ request }) => {
   console.log('🏥 === Provider Consultation Request ===');
@@ -38,9 +38,9 @@ export const POST = async ({ request }) => {
     // Save to Supabase
     const { createClient } = await import('@supabase/supabase-js');
     const supabase = createClient(
-      process.env.PUBLIC_SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_ROLE_KEY
-    );
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
     console.log('💾 Saving to database...');
     const { error: dbError } = await supabase
@@ -80,7 +80,7 @@ export const POST = async ({ request }) => {
       console.log('Admin email:', process.env.MCABRERA_EMAIL || 'NOT SET');
       await resend.emails.send({
         from: 'USRad Provider Network <providers@send.usrad.com>',
-        to: process.env.MCABRERA_EMAIL || 'mcabrera@usrad.com',
+        to: import.meta.env.MCABRERA_EMAIL || 'mcabrera@usrad.com',
         subject: isVIP 
           ? `🎯 HIGH VALUE LEAD - ${data.centerCount} Centers - ${data.organizationName}`
           : `📋 New Provider Inquiry - ${data.centerCount} Centers - ${data.organizationName}`,
@@ -451,7 +451,7 @@ export const POST = async ({ request }) => {
                       <div style="display: flex; align-items: flex-start;">
                         <div style="width: 32px; height: 32px; background-color: #003087; color: white; border-radius: 50%; text-align: center; line-height: 32px; font-weight: 700; margin-right: 12px; flex-shrink: 0;">2</div>
                         <p style="margin: 4px 0; color: #333; font-size: 15px; line-height: 1.5;">
-                          <strong>Go Live in 48 Hours</strong><br>
+                          <strong>Start your onboarding today — activation happens quickly.</strong><br>
                           Start receiving patient appointments
                         </p>
                       </div>
