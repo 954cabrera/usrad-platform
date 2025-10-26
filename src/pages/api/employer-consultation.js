@@ -5,6 +5,12 @@ const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export const POST = async ({ request }) => {
   try {
+    // Check environment variables
+    console.log('🔧 Environment check:');
+    console.log('RESEND_API_KEY exists:', !!import.meta.env.RESEND_API_KEY);
+    console.log('PUBLIC_SUPABASE_URL exists:', !!import.meta.env.PUBLIC_SUPABASE_URL);
+    console.log('SUPABASE_SERVICE_ROLE_KEY exists:', !!import.meta.env.SUPABASE_SERVICE_ROLE_KEY);
+
     const data = await request.json();
     console.log('📋 === Employer Consultation Request ===');
     console.log('Executive Name:', data.firstName, data.lastName);
@@ -38,8 +44,8 @@ export const POST = async ({ request }) => {
     // Save to Supabase
     const { createClient } = await import('@supabase/supabase-js');
     const supabase = createClient(
-      import.meta.env.SUPABASE_URL,
-      import.meta.env.SUPABASE_ANON_KEY
+      import.meta.env.PUBLIC_SUPABASE_URL,
+      import.meta.env.SUPABASE_SERVICE_ROLE_KEY
     );
 
     const { error: dbError } = await supabase
@@ -502,8 +508,16 @@ export const POST = async ({ request }) => {
 
   } catch (error) {
     console.error('❌ Error processing employer consultation:', error);
+    console.error('Error details:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
     return new Response(
-      JSON.stringify({ error: 'Failed to process consultation request' }),
+      JSON.stringify({ 
+        error: 'Failed to process consultation request',
+        details: error.message // Include error message in production for debugging
+      }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
