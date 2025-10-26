@@ -24,6 +24,7 @@ export async function POST({ request }) {
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
+      console.log('❌ Invalid email format');
       return new Response(
         JSON.stringify({ error: 'Invalid email address' }), 
         { 
@@ -33,15 +34,22 @@ export async function POST({ request }) {
       );
     }
 
+    console.log('✅ Email validation passed');
+
     // Check if email already exists in database
-    const { data: existingSubscriber } = await supabase
+    console.log('🔍 Checking for existing subscriber...');
+    const { data: existingSubscriber, error: selectError } = await supabase
       .from('newsletter_subscribers')
       .select('email, is_active')
       .eq('email', email)
       .single();
 
+    console.log('Database check result:', { existingSubscriber, selectError });
+
     if (existingSubscriber) {
+      console.log('📌 Subscriber already exists');
       if (existingSubscriber.is_active) {
+        console.log('✓ Subscriber is already active');
         return new Response(
           JSON.stringify({ 
             success: true, 
@@ -54,7 +62,8 @@ export async function POST({ request }) {
         );
       } else {
         // Reactivate if previously unsubscribed
-        await supabase
+        console.log('🔄 Reactivating previously unsubscribed user...');
+        const { error: updateError } = await supabase
           .from('newsletter_subscribers')
           .update({ 
             is_active: true, 
@@ -62,9 +71,16 @@ export async function POST({ request }) {
             unsubscribed_at: null 
           })
           .eq('email', email);
+        
+        if (updateError) {
+          console.error('❌ Error reactivating subscriber:', updateError);
+        } else {
+          console.log('✅ Subscriber reactivated');
+        }
       }
     } else {
       // Add new subscriber to database
+      console.log('➕ Adding new subscriber to database...');
       const { error: insertError } = await supabase
         .from('newsletter_subscribers')
         .insert([
@@ -77,9 +93,17 @@ export async function POST({ request }) {
         ]);
 
       if (insertError) {
-        console.error('Database insert error:', insertError);
+        console.error('❌ Database insert error:', insertError);
+        console.error('Insert error details:', {
+          message: insertError.message,
+          details: insertError.details,
+          hint: insertError.hint,
+          code: insertError.code
+        });
         throw new Error('Failed to add subscriber');
       }
+      
+      console.log('✅ New subscriber added to database');
     }
 
     // Send notification to YOU (the admin)
