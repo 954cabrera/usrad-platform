@@ -14,10 +14,10 @@ export const POST = async ({ request }) => {
     console.log('Email:', data.email);
 
     // Validation
-    if (!data.firstName || !data.lastName || !data.email || !data.organizationName || !data.centerCount) {
+    if (!data.firstName || !data.lastName || !data.email || !data.position || !data.organizationName || !data.centerCount) {
       return new Response(
         JSON.stringify({ 
-          error: 'Name, email, organization, and center count are required'
+          error: 'Name, email, position, organization, and center count are required'
         }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
@@ -50,6 +50,7 @@ export const POST = async ({ request }) => {
         last_name: data.lastName,
         email: data.email,
         phone: data.phone || null,
+        position: data.position || null,
         organization_name: data.organizationName,
         center_count: data.centerCount,
         monthly_volume: data.monthlyVolume || null,
@@ -132,6 +133,11 @@ export const POST = async ({ request }) => {
                     <p style="margin: 8px 0; color: #333; font-size: 16px;">
                       <strong>Name:</strong> ${data.firstName} ${data.lastName}
                     </p>
+                    ${data.position ? `
+                    <p style="margin: 8px 0; color: #333; font-size: 16px;">
+                      <strong>Position:</strong> ${data.position}
+                    </p>
+                    ` : ''}
                     <p style="margin: 8px 0; color: #333; font-size: 16px;">
                       <strong>Email:</strong> <a href="mailto:${data.email}" style="color: #003087; text-decoration: none;">${data.email}</a>
                     </p>
