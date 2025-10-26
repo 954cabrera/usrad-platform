@@ -1,0 +1,658 @@
+---
+// src/components/ProviderConsultationForm.astro
+---
+
+<div class="provider-consultation-form">
+  <form id="providerConsultationForm" class="form">
+    <!-- Contact Information -->
+    <div class="form-section">
+      <h3 class="section-title">Your Information</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName" class="form-label">First Name *</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            class="form-input"
+            required
+            placeholder="John"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="lastName" class="form-label">Last Name *</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            class="form-input"
+            required
+            placeholder="Smith"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">Work Email *</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-input"
+          required
+          placeholder="john.smith@imagingcenter.com"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="phone" class="form-label">Phone Number *</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          class="form-input"
+          required
+          placeholder="(555) 123-4567"
+          title="Please enter a 10-digit phone number"
+        />
+        <small class="form-help-text">Format: (555) 123-4567</small>
+      </div>
+    </div>
+
+    <!-- Organization Information -->
+    <div class="form-section">
+      <h3 class="section-title">Organization Details</h3>
+
+      <div class="form-group">
+        <label for="organizationName" class="form-label"
+          >Organization Name *</label
+        >
+        <input
+          type="text"
+          id="organizationName"
+          name="organizationName"
+          class="form-input"
+          required
+          placeholder="Advanced Imaging Centers, LLC"
+        />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="centerCount" class="form-label"
+            >Number of Imaging Centers *</label
+          >
+          <select
+            id="centerCount"
+            name="centerCount"
+            class="form-select"
+            required
+          >
+            <option value="">Select number of centers</option>
+            <option value="1">1 center</option>
+            <option value="2">2 centers</option>
+            <option value="3-5">3-5 centers</option>
+            <option value="6-9">6-9 centers</option>
+            <option value="10-20">10-20 centers</option>
+            <option value="21-50">21-50 centers</option>
+            <option value="50+">50+ centers</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="monthlyVolume" class="form-label"
+            >Approximate Monthly Scan Volume</label
+          >
+          <select id="monthlyVolume" name="monthlyVolume" class="form-select">
+            <option value="">Select volume (optional)</option>
+            <option value="under-100">Under 100 scans/month</option>
+            <option value="100-500">100-500 scans/month</option>
+            <option value="500-1000">500-1,000 scans/month</option>
+            <option value="1000-2500">1,000-2,500 scans/month</option>
+            <option value="2500+">2,500+ scans/month</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="centerLocations" class="form-label"
+          >Primary Markets/Locations</label
+        >
+        <input
+          type="text"
+          id="centerLocations"
+          name="centerLocations"
+          class="form-input"
+          placeholder="e.g., South Florida, Atlanta metro, etc."
+        />
+        <small class="form-help-text"
+          >Help us understand your geographic coverage</small
+        >
+      </div>
+    </div>
+
+    <!-- Questions/Interests -->
+    <div class="form-section">
+      <h3 class="section-title">How Can We Help?</h3>
+
+      <div class="form-group">
+        <label for="primaryInterest" class="form-label">Primary Interest</label>
+        <div class="checkbox-group">
+          <label class="checkbox-option">
+            <input
+              type="checkbox"
+              name="primaryInterest"
+              value="increase-volume"
+            />
+            <span class="checkbox-custom"></span>
+            <span>Increase patient volume</span>
+          </label>
+          <label class="checkbox-option">
+            <input
+              type="checkbox"
+              name="primaryInterest"
+              value="faster-payment"
+            />
+            <span class="checkbox-custom"></span>
+            <span>Faster payment (10 days)</span>
+          </label>
+          <label class="checkbox-option">
+            <input
+              type="checkbox"
+              name="primaryInterest"
+              value="reduce-no-shows"
+            />
+            <span class="checkbox-custom"></span>
+            <span>Reduce no-shows and cancellations</span>
+          </label>
+          <label class="checkbox-option">
+            <input
+              type="checkbox"
+              name="primaryInterest"
+              value="expand-markets"
+            />
+            <span class="checkbox-custom"></span>
+            <span>Expand into new markets</span>
+          </label>
+          <label class="checkbox-option">
+            <input
+              type="checkbox"
+              name="primaryInterest"
+              value="pricing-info"
+            />
+            <span class="checkbox-custom"></span>
+            <span>Understand pricing and terms</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="additionalQuestions" class="form-label"
+          >Additional Questions or Information</label
+        >
+        <textarea
+          id="additionalQuestions"
+          name="additionalQuestions"
+          class="form-textarea"
+          rows="4"
+          placeholder="Let us know what specific topics you'd like to discuss or any questions you have about joining the USRad network..."
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="timeline" class="form-label"
+          >When are you looking to join?</label
+        >
+        <select id="timeline" name="timeline" class="form-select">
+          <option value="">Select timeline (optional)</option>
+          <option value="immediate">Ready to start immediately</option>
+          <option value="1-month">Within 1 month</option>
+          <option value="1-3-months">1-3 months</option>
+          <option value="3-6-months">3-6 months</option>
+          <option value="exploring">Just exploring options</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-submit">
+      <button type="submit" class="submit-btn">
+        <span class="btn-text">Submit Request</span>
+        <span class="btn-icon">🚀</span>
+      </button>
+      <p class="submit-note">We'll get back to you within 24 hours</p>
+    </div>
+  </form>
+
+  <!-- Success Message (hidden by default) -->
+  <div id="successMessage" class="success-message" style="display: none;">
+    <div class="success-content">
+      <div class="success-icon">✅</div>
+      <h3>Request Received!</h3>
+      <p id="successMessageText">
+        Thank you for your interest in joining the USRad network.
+      </p>
+      <div class="next-steps" id="nextSteps">
+        <!-- Dynamically populated based on center count -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Form submission handler
+  document
+    .getElementById("providerConsultationForm")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      // Validate phone number has exactly 10 digits
+      const phoneInput = document.getElementById("phone");
+      const phoneDigits = phoneInput.value.replace(/\D/g, "");
+
+      if (phoneDigits.length !== 10) {
+        alert("Please enter a valid 10-digit phone number");
+        phoneInput.focus();
+        return;
+      }
+
+      // Show loading state
+      const submitBtn = document.querySelector(".submit-btn");
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML =
+        '<span class="btn-text">Submitting...</span><span class="btn-icon">⏳</span>';
+      submitBtn.disabled = true;
+
+      try {
+        // Gather form data
+        const formData = new FormData(this);
+        const data = {};
+
+        // Convert FormData to object, handling checkboxes specially
+        formData.forEach((value, key) => {
+          if (key === "primaryInterest") {
+            if (!data[key]) data[key] = [];
+            data[key].push(value);
+          } else {
+            data[key] = value;
+          }
+        });
+
+        console.log("📋 Submitting provider consultation:", data);
+
+        // Send to API
+        const response = await fetch("/api/provider-consultation", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        console.log("📊 Response status:", response.status);
+
+        const result = await response.json();
+        console.log("✅ Response result:", result);
+
+        if (!response.ok) {
+          throw new Error(result.error || "Submission failed");
+        }
+
+        // Hide form and show success message
+        document.querySelector(
+          ".provider-consultation-form .form"
+        ).style.display = "none";
+        const successMessage = document.getElementById("successMessage");
+        successMessage.style.display = "block";
+
+        // Update success message based on response
+        if (result.isVIP) {
+          document.getElementById("successMessageText").innerHTML =
+            `Thank you for your interest in joining the USRad network. Given your organization's scale, President Michael Cabrera would like to personally discuss your partnership.`;
+
+          document.getElementById("nextSteps").innerHTML = `
+            <h4>What happens next:</h4>
+            <ul>
+              <li>Check your email for a personal message from Michael</li>
+              <li>Use the calendar link to schedule your consultation</li>
+              <li>We'll prepare custom pricing for your organization</li>
+            </ul>
+            <div style="margin-top: 20px; text-align: center;">
+              <a href="${result.calendarLink || "https://cal.com/mcabrera-usrad/provider-consultation"}" 
+                 target="_blank"
+                 style="display: inline-block; background: linear-gradient(135deg, #cc9933 0%, #b8861f 100%); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                📅 Schedule Time with Michael Now
+              </a>
+            </div>
+          `;
+        } else {
+          document.getElementById("successMessageText").innerHTML =
+            `Thank you for your interest in joining the USRad network. Check your email for next steps and resources to get started.`;
+
+          document.getElementById("nextSteps").innerHTML = `
+            <h4>What happens next:</h4>
+            <ul>
+              <li>Check your email for onboarding resources</li>
+              <li>Complete your account setup (takes 5 minutes)</li>
+              <li>Go live and start receiving patients in 48 hours</li>
+            </ul>
+            <p style="margin-top: 16px; color: #666; font-size: 14px;">
+              Questions? Call us at <strong>1-800-USRAD-24</strong> (Mon-Fri 8am-8pm EST)
+            </p>
+          `;
+        }
+
+        // Scroll to success message
+        successMessage.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      } catch (error) {
+        console.error("❌ Detailed submission error:", error);
+        console.error("Error message:", error.message);
+
+        alert(
+          "There was an error submitting your request. Please try again or contact us directly at providers@usrad.com"
+        );
+
+        // Re-enable button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
+    });
+
+  // Phone number formatting - only accept exactly 10 digits
+  document.getElementById("phone").addEventListener("input", function (e) {
+    // Remove all non-digits
+    let value = e.target.value.replace(/\D/g, "");
+
+    // Limit to 10 digits
+    if (value.length > 10) {
+      value = value.slice(0, 10);
+    }
+
+    // Format as (XXX) XXX-XXXX
+    if (value.length >= 6) {
+      value = value.replace(/(\d{3})(\d{3})(\d{0,4})/, "($1) $2-$3");
+    } else if (value.length >= 3) {
+      value = value.replace(/(\d{3})(\d{0,3})/, "($1) $2");
+    }
+
+    e.target.value = value;
+  });
+</script>
+
+<style>
+  .provider-consultation-form {
+    width: 100%;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .form-section {
+    background: #fafbfc;
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid #e1e8ed;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #003087;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #cc9933;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .form-label {
+    display: block;
+    font-weight: 500;
+    color: #003087;
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
+  .form-help-text {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+    transition: all 0.3s ease;
+    font-family: inherit;
+  }
+
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: #cc9933;
+    box-shadow: 0 0 0 3px rgba(204, 153, 51, 0.1);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .checkbox-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+  }
+
+  .checkbox-option:hover {
+    background-color: #f8f9fa;
+  }
+
+  .checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cc9933;
+    border-radius: 4px;
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .checkbox-option input[type="checkbox"] {
+    display: none;
+  }
+
+  .checkbox-option input[type="checkbox"]:checked + .checkbox-custom::after {
+    content: "✓";
+    color: white;
+    background-color: #cc9933;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .form-submit {
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .submit-btn {
+    background: linear-gradient(135deg, #cc9933 0%, #b8861f 100%);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(204, 153, 51, 0.3);
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(204, 153, 51, 0.4);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .submit-note {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #666;
+  }
+
+  /* Success Message */
+  .success-message {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 48, 135, 0.1);
+    border: 2px solid #22c55e;
+  }
+
+  .success-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  .success-content h3 {
+    color: #003087;
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .success-content > p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .next-steps {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .next-steps h4 {
+    color: #003087;
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+
+  .next-steps ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .next-steps li {
+    padding: 4px 0;
+    color: #666;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .next-steps li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #cc9933;
+    font-weight: bold;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .form-section {
+      padding: 20px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+    }
+
+    .success-message {
+      padding: 30px 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .provider-consultation-form {
+      margin: 0 -5px;
+    }
+
+    .form-section {
+      padding: 16px;
+    }
+  }
+</style>

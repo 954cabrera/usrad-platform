@@ -1,0 +1,223 @@
+---
+import CarbonLayout from "../../layouts/CarbonLayout.astro";
+import AOSInit from "../../components/AOSInit.astro";
+import ProviderConsultationForm from "../../components/ProviderConsultationForm.astro";
+
+export const prerender = true;
+---
+
+<CarbonLayout
+  title="Schedule Provider Consultation | Join USRad Network"
+  isHeroPage={true}
+>
+  <AOSInit />
+
+  <!-- Hero Section -->
+  <section
+    class="relative pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
+  >
+    <!-- Subtle pattern background -->
+    <div class="absolute inset-0 opacity-10">
+      <div
+        class="absolute inset-0"
+        style="background-image: url('data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"
+      >
+      </div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+        <div>
+          <!-- Badge -->
+          <div
+            class="inline-flex items-center gap-2 bg-green-500/20 text-green-300 backdrop-blur-sm rounded-full px-3 sm:px-4 py-1.5 sm:py-2 mb-4 sm:mb-6"
+            data-aos="fade-down"
+          >
+            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
+            ></span>
+            <span class="text-xs sm:text-sm font-medium"
+              >Joining is Simple & Fast</span
+            >
+          </div>
+
+          <h1
+            class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
+            data-aos="fade-up"
+          >
+            Let's Discuss Your Partnership
+            <span class="text-green-400 block">With USRad</span>
+          </h1>
+
+          <p
+            class="text-lg sm:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            Questions about joining? We're here to help. Fill out the form and
+            we'll get back to you within 24 hours.
+          </p>
+
+          <!-- Benefits Preview -->
+          <div
+            class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center"
+              >
+                <span class="text-xl">💰</span>
+              </div>
+              <span class="text-gray-200 text-sm sm:text-base"
+                >Get paid in 10 days</span
+              >
+            </div>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center"
+              >
+                <span class="text-xl">📈</span>
+              </div>
+              <span class="text-gray-200 text-sm sm:text-base"
+                >Increase volume</span
+              >
+            </div>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center"
+              >
+                <span class="text-xl">⚡</span>
+              </div>
+              <span class="text-gray-200 text-sm sm:text-base"
+                >Go live in 48 hours</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Card -->
+        <div data-aos="zoom-in" data-aos-delay="300">
+          <div
+            class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/20"
+          >
+            <h2 class="text-xl sm:text-2xl font-bold text-white mb-4">
+              What Happens Next?
+            </h2>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <svg
+                  class="w-5 h-5 text-green-400 mt-1 flex-shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-200 text-sm sm:text-base"
+                  >We'll review your information and reach out within 24 hours</span
+                >
+              </div>
+              <div class="flex items-start gap-3">
+                <svg
+                  class="w-5 h-5 text-green-400 mt-1 flex-shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-200 text-sm sm:text-base"
+                  >Multi-center organizations may receive a personal
+                  consultation</span
+                >
+              </div>
+              <div class="flex items-start gap-3">
+                <svg
+                  class="w-5 h-5 text-green-400 mt-1 flex-shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-200 text-sm sm:text-base"
+                  >You'll receive all the resources you need to get started</span
+                >
+              </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-[#cc9933]/20 rounded-lg">
+              <p class="text-sm text-[#cc9933]">
+                <strong>From the proven team:</strong> We delivered $180M+ to imaging
+                centers through AnciCare
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form Section -->
+  <section id="consultation-form" class="py-16 sm:py-24 px-4 sm:px-6 bg-white">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <h2
+          class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
+          data-aos="fade-up"
+        >
+          Tell Us About Your Organization
+        </h2>
+        <p
+          class="text-lg text-gray-600"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          We'll tailor our response based on your specific needs and situation
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-100"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <ProviderConsultationForm />
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Section -->
+  <section
+    class="py-16 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-gray-50 to-white"
+  >
+    <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+      <div class="bg-white rounded-2xl shadow-lg p-8 sm:p-12">
+        <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
+          Trusted by Imaging Centers Nationwide
+        </h3>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div>
+            <div class="text-4xl font-bold text-[#cc9933] mb-2">$180M+</div>
+            <div class="text-sm text-gray-600">Delivered to Providers</div>
+          </div>
+          <div>
+            <div class="text-4xl font-bold text-[#cc9933] mb-2">10 Days</div>
+            <div class="text-sm text-gray-600">Payment Turnaround</div>
+          </div>
+          <div>
+            <div class="text-4xl font-bold text-[#cc9933] mb-2">48 Hours</div>
+            <div class="text-sm text-gray-600">To Go Live</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</CarbonLayout>
