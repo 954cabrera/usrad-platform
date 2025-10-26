@@ -229,7 +229,7 @@ export async function POST({ request }) {
                                   <td style="vertical-align: top;">
                                     <h3 style="color: #065f46; font-size: 18px; font-weight: 700; margin: 0 0 8px;">Expert Guidance</h3>
                                     <p style="color: #4b5563; font-size: 15px; line-height: 1.6; margin: 0;">
-                                      Founded by radiologists – get insider knowledge about medical imaging
+                                      Founded by healthcare innovators – expert guidance focused on patient affordability
                                     </p>
                                   </td>
                                 </tr>
