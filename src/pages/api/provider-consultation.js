@@ -1,7 +1,7 @@
 // src/pages/api/provider-consultation.js
 import { Resend } from 'resend';
 
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const POST = async ({ request }) => {
   console.log('🏥 === Provider Consultation Request ===');
@@ -38,8 +38,8 @@ export const POST = async ({ request }) => {
     // Save to Supabase
     const { createClient } = await import('@supabase/supabase-js');
     const supabase = createClient(
-      import.meta.env.PUBLIC_SUPABASE_URL,
-      import.meta.env.SUPABASE_SERVICE_ROLE_KEY
+      process.env.PUBLIC_SUPABASE_URL,
+      process.env.SUPABASE_SERVICE_ROLE_KEY
     );
 
     console.log('💾 Saving to database...');
@@ -76,9 +76,10 @@ export const POST = async ({ request }) => {
     // Send notification email to admin
     try {
       console.log('📧 Sending admin notification...');
+      console.log('Admin email:', process.env.MCABRERA_EMAIL || 'NOT SET');
       await resend.emails.send({
         from: 'USRad Provider Network <providers@send.usrad.com>',
-        to: import.meta.env.MCABRERA_EMAIL,
+        to: process.env.MCABRERA_EMAIL || 'mcabrera@usrad.com',
         subject: isVIP 
           ? `🎯 HIGH VALUE LEAD - ${data.centerCount} Centers - ${data.organizationName}`
           : `📋 New Provider Inquiry - ${data.centerCount} Centers - ${data.organizationName}`,
