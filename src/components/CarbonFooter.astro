@@ -673,6 +673,7 @@ const serviceAreas = [
 
         // Reset message
         message.classList.add("hidden");
+        message.style.display = "none"; // Force hide
         message.classList.remove("text-green-400", "text-red-400");
 
         // Validate email
@@ -698,6 +699,8 @@ const serviceAreas = [
         button.textContent = "Joining...";
 
         try {
+          console.log("📧 Subscribing email:", email);
+
           // Send to API
           const response = await fetch("/api/subscribe-waitlist", {
             method: "POST",
@@ -707,14 +710,20 @@ const serviceAreas = [
             body: JSON.stringify({ email }),
           });
 
+          console.log("📊 Response status:", response.status);
+
           const data = await response.json();
+          console.log("✅ Response data:", data);
 
           if (response.ok) {
+            console.log("🎉 Success! Showing message...");
             message.textContent =
               "Welcome! You're on the list. We'll notify you when we launch in your area.";
             message.classList.remove("hidden");
             message.classList.add("text-green-400");
+            message.style.display = "block"; // Force display
             emailInput.value = "";
+            console.log("✓ Message should now be visible");
 
             // Also save to localStorage as backup
             try {
@@ -745,6 +754,7 @@ const serviceAreas = [
           message.textContent = "Something went wrong. Please try again.";
           message.classList.remove("hidden");
           message.classList.add("text-red-400");
+          message.style.display = "block"; // Force display
         } finally {
           button.disabled = false;
           button.textContent = originalText;
