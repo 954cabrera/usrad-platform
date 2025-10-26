@@ -123,9 +123,7 @@
             class="form-input"
             required
             placeholder="(555) 123-4567"
-            pattern="\(\d{3}\) \d{3}-\d{4}"
             title="Please enter a 10-digit phone number"
-            maxlength="14"
           />
           <small class="form-help-text">Format: (555) 123-4567</small>
         </div>
@@ -288,6 +286,16 @@
     .addEventListener("submit", async function (e) {
       e.preventDefault();
 
+      // Validate phone number has exactly 10 digits
+      const phoneInput = document.getElementById("phone");
+      const phoneDigits = phoneInput.value.replace(/\D/g, "");
+
+      if (phoneDigits.length !== 10) {
+        alert("Please enter a valid 10-digit phone number");
+        phoneInput.focus();
+        return;
+      }
+
       // Show loading state
       const submitBtn = document.querySelector(".submit-btn");
       const originalText = submitBtn.innerHTML;
@@ -310,6 +318,8 @@
           }
         });
 
+        console.log("📋 Submitting form data:", data);
+
         // Send to API
         const response = await fetch("/api/employer-consultation", {
           method: "POST",
@@ -319,7 +329,10 @@
           body: JSON.stringify(data),
         });
 
+        console.log("📊 Response status:", response.status);
+
         const result = await response.json();
+        console.log("✅ Response result:", result);
 
         if (!response.ok) {
           throw new Error(result.error || "Submission failed");
@@ -336,9 +349,12 @@
           block: "center",
         });
       } catch (error) {
-        console.error("Submission error:", error);
+        console.error("❌ Detailed submission error:", error);
+        console.error("Error message:", error.message);
+        console.error("Error stack:", error.stack);
+
         alert(
-          "There was an error submitting your consultation request. Please try again or contact us directly at mcabrera@usrad.com"
+          "There was an error submitting your consultation request. Please check the browser console for details or contact us directly at mcabrera@usrad.com"
         );
 
         // Re-enable button
