@@ -132,6 +132,14 @@ export const POST = async ({ request }) => {
                       <strong>Name:</strong> ${data.firstName} ${data.lastName}
                     </p>
                     <p style="margin: 8px 0; color: #333; font-size: 16px;">
+                      <strong>Email:</strong> <a href="mailto:${data.email}" style="color: #003087; text-decoration: none;">${data.email}</a>
+                    </p>
+                    ${data.phone ? `
+                    <p style="margin: 8px 0; color: #333; font-size: 16px;">
+                      <strong>Phone:</strong> <a href="tel:${data.phone}" style="color: #003087; text-decoration: none;">${data.phone}</a>
+                    </p>
+                    ` : ''}
+                    <p style="margin: 8px 0; color: #333; font-size: 16px;">
                       <strong>Organization:</strong> ${data.organizationName}
                     </p>
                     <p style="margin: 8px 0; color: #333; font-size: 16px;">
@@ -265,7 +273,7 @@ export const POST = async ({ request }) => {
     try {
       console.log('📧 Sending provider confirmation email...');
       
-      const calendarLink = 'https://cal.com/mcabrera-usrad/provider-consultation';
+      const calendarLink = 'https://cal.com/usrad/15min';
       
       await resend.emails.send({
         from: 'USRad Provider Network <providers@send.usrad.com>',
@@ -510,7 +518,7 @@ export const POST = async ({ request }) => {
         success: true, 
         referenceId,
         isVIP,
-        calendarLink: isVIP ? 'https://cal.com/mcabrera-usrad/provider-consultation' : null,
+        calendarLink: isVIP ? 'https://cal.com/usrad/15min' : null,
         message: 'Consultation request received successfully' 
       }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }

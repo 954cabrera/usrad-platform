@@ -1,329 +1,503 @@
 ---
-// ExitModal.astro - Glassmorphic exit intent modal
+// src/components/provider/ExitModal.astro
+// Exit intent modal that appears when user is about to leave the page
 ---
 
-<!-- Glassmorphic Exit Intent Modal -->
-<div
-  id="exit-modal"
-  class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"
->
-  <div class="flex items-center justify-center min-h-screen p-4">
-    <div
-      class="relative max-w-md w-full transform scale-95 opacity-0 transition-all duration-300"
-      id="exit-modal-content"
-    >
-      <!-- Glassmorphic Container -->
-      <div
-        class="relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-2xl"
-      >
-        <!-- Gradient Orbs for Glass Effect -->
-        <div
-          class="absolute -top-20 -left-20 w-40 h-40 bg-[#cc9933] rounded-full blur-3xl opacity-20"
+<div id="exitModal" class="exit-modal" style="display: none;">
+  <div class="modal-overlay"></div>
+  <div class="modal-content">
+    <button class="modal-close" aria-label="Close modal">×</button>
+
+    <div class="modal-body">
+      <!-- Icon -->
+      <div class="modal-icon">
+        <svg
+          width="64"
+          height="64"
+          viewBox="0 0 64 64"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
+          <circle
+            cx="32"
+            cy="32"
+            r="30"
+            fill="#FEF3C7"
+            stroke="#F59E0B"
+            stroke-width="2"></circle>
+          <path
+            d="M32 20v16M32 44h.01"
+            stroke="#F59E0B"
+            stroke-width="4"
+            stroke-linecap="round"></path>
+        </svg>
+      </div>
+
+      <!-- Heading -->
+      <h2 class="modal-title">Wait! You're About to Miss Out</h2>
+      <p class="modal-subtitle">Just like centers did with AnciCare</p>
+
+      <!-- Content -->
+      <p class="modal-description">
+        When we launched AnciCare, early adopters captured <strong
+          class="highlight">3x more market share</strong
+        > than those who waited.
+      </p>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">3-5</div>
+          <div class="stat-label">Centers per market</div>
         </div>
-        <div
-          class="absolute -bottom-20 -right-20 w-40 h-40 bg-[#003087] rounded-full blur-3xl opacity-20"
-        >
-        </div>
-
-        <!-- Close Button -->
-        <button
-          id="exit-modal-close-x"
-          class="absolute top-4 right-4 w-10 h-10 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/20 transition-all group"
-          aria-label="Close modal"
-        >
-          <svg
-            class="w-5 h-5 text-white/70 group-hover:text-white transition-colors"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-
-        <!-- Content -->
-        <div class="relative z-10">
-          <!-- Icon -->
-          <div class="text-center mb-6">
-            <div
-              class="w-20 h-20 mx-auto bg-gradient-to-br from-[#cc9933]/30 to-[#FFA500]/30 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4 border border-white/20"
-            >
-              <svg
-                class="w-10 h-10 text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                  clip-rule="evenodd"></path>
-              </svg>
-            </div>
-            <h3 class="text-3xl font-bold text-white mb-2">
-              Wait! You're About to Miss Out
-            </h3>
-            <p class="text-white/80 text-lg">
-              Just like centers did with AnciCare
-            </p>
-          </div>
-
-          <!-- Main Content -->
-          <div class="space-y-6">
-            <p class="text-white/90 leading-relaxed text-center">
-              When we launched AnciCare, early adopters captured
-              <span class="font-bold text-[#cc9933]">3x more market share</span>
-              than those who waited.
-            </p>
-
-            <!-- Stat Cards -->
-            <div class="grid grid-cols-2 gap-4">
-              <div
-                class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/10 text-center"
-              >
-                <div class="text-2xl font-bold text-[#cc9933]">3-5</div>
-                <div class="text-sm text-white/70">Centers per market</div>
-              </div>
-              <div
-                class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/10 text-center"
-              >
-                <div class="text-2xl font-bold text-white">35%</div>
-                <div class="text-sm text-white/70">
-                  Higher volume for early joiners
-                </div>
-              </div>
-            </div>
-
-            <!-- Historical Fact -->
-            <div
-              class="bg-gradient-to-r from-[#cc9933]/20 to-[#FFA500]/20 backdrop-blur-sm rounded-2xl p-5 border border-[#cc9933]/30"
-            >
-              <div class="flex items-start gap-3">
-                <div
-                  class="w-8 h-8 bg-[#cc9933]/30 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
-                >
-                  <svg
-                    class="w-5 h-5 text-[#cc9933]"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M10 2a8 8 0 100-16 8 8 0 000 16zm0 2a10 10 0 100-20 10 10 0 000 20z"
-                      clip-rule="evenodd"></path>
-                    <path d="M10 4a6 6 0 100 12 6 6 0 000-12z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-sm font-bold text-[#cc9933] mb-1">
-                    Proven History:
-                  </p>
-                  <p class="text-sm text-white/80">
-                    Our first 100 AnciCare centers averaged <strong
-                      class="text-[#cc9933]">$475K more revenue</strong
-                    >
-                    over 8 years than later joiners.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- CTAs -->
-          <div class="space-y-3 mt-8">
-            <a href="/dashboard/onboarding" class="block w-full bg-gradient-to-r
-            from-[#cc9933] to-[#FFA500] text-[#003087] py-4 rounded-2xl
-            font-bold text-center transition-all transform hover:scale-105
-            hover:shadow-2xl hover:shadow-[#cc9933]/30" > Secure Your Market Now
-            →
-          </a>
-          </div>
-
-          <button
-            id="exit-modal-close-bottom"
-            class="block w-full bg-white/10 backdrop-blur-sm text-white/70 py-3 rounded-2xl text-sm hover:bg-white/20 hover:text-white transition-all border border-white/10"
-          >
-            I'll risk waiting
-          </button>
+        <div class="stat-card">
+          <div class="stat-value">35%</div>
+          <div class="stat-label">Higher volume for early joiners</div>
         </div>
       </div>
+
+      <!-- Proven History -->
+      <div class="proven-box">
+        <div class="proven-icon">👑</div>
+        <div class="proven-text">
+          <strong>Proven History:</strong> Our first 100 AnciCare centers averaged
+          <strong class="highlight-gold">$476K more revenue</strong> over 8 years
+          than later joiners.
+        </div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="cta-buttons">
+        <a
+          href="https://cal.com/usrad/15min"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary"
+        >
+          Schedule a Call First
+          <svg
+            class="btn-icon"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </a>
+        <button class="btn-secondary" id="riskWaitingBtn">
+          I'll risk waiting
+        </button>
+      </div>
+
+      <!-- Fine print -->
+      <p class="modal-footer">
+        ⏱️ Takes less than 5 minutes · 📞 Early access benefits · ❌ Cancel
+        anytime
+      </p>
     </div>
   </div>
 </div>
 
-<!-- Exit Intent Script -->
-<script>
-  // Using regular script tag without is:inline to avoid TypeScript issues
-  if (typeof window !== "undefined") {
-    // Wrap everything in an IIFE to avoid global scope pollution
-    (function () {
-      "use strict";
-
-      let exitIntentShown = false;
-      let modalTimeout = null;
-
-      console.log("Exit intent script loaded");
-
-      function showExitModal() {
-        const modal = document.getElementById("exit-modal");
-        const modalContent = document.getElementById("exit-modal-content");
-
-        if (modal && modalContent) {
-          modal.classList.remove("hidden");
-
-          // Fade in the backdrop
-          setTimeout(() => {
-            modal.classList.remove("opacity-0");
-            modal.classList.add("opacity-100");
-          }, 10);
-
-          // Scale and fade in the modal
-          setTimeout(() => {
-            modalContent.classList.remove("scale-95", "opacity-0");
-            modalContent.classList.add("scale-100", "opacity-100");
-          }, 100);
-        }
-      }
-
-      function closeExitModal() {
-        const modal = document.getElementById("exit-modal");
-        const modalContent = document.getElementById("exit-modal-content");
-
-        if (modal && modalContent) {
-          // Scale and fade out the modal
-          modalContent.classList.add("scale-95", "opacity-0");
-          modalContent.classList.remove("scale-100", "opacity-100");
-
-          // Fade out the backdrop
-          modal.classList.add("opacity-0");
-          modal.classList.remove("opacity-100");
-
-          // Hide completely after animation
-          setTimeout(() => {
-            modal.classList.add("hidden");
-          }, 300);
-
-          // Clear any pending timeout
-          if (modalTimeout) {
-            clearTimeout(modalTimeout);
-            modalTimeout = null;
-          }
-        }
-      }
-
-      // Make functions globally available
-      window.showExitModal = showExitModal;
-      window.closeExitModal = closeExitModal;
-
-      // Track mouse leave
-      document.addEventListener("mouseleave", (e) => {
-        console.log("Mouse left window at Y:", e.clientY);
-        if (e.clientY <= 50 && !exitIntentShown) {
-          console.log("Exit intent triggered!");
-          exitIntentShown = true;
-          showExitModal();
-
-          // Auto-dismiss after 30 seconds
-          modalTimeout = setTimeout(() => {
-            closeExitModal();
-          }, 30000);
-        }
-      });
-
-      // Add event listeners for close buttons using IDs
-      document.addEventListener("DOMContentLoaded", () => {
-        // Close button (X)
-        const closeX = document.getElementById("exit-modal-close-x");
-        if (closeX) {
-          closeX.addEventListener("click", () => {
-            console.log("Close X clicked");
-            closeExitModal();
-          });
-        }
-
-        // "I'll risk waiting" button
-        const closeBottom = document.getElementById("exit-modal-close-bottom");
-        if (closeBottom) {
-          closeBottom.addEventListener("click", () => {
-            console.log("Risk waiting clicked");
-            closeExitModal();
-          });
-        }
-
-        // Close modal on backdrop click
-        const modal = document.getElementById("exit-modal");
-        if (modal) {
-          modal.addEventListener("click", (e) => {
-            if (e.target === e.currentTarget) {
-              console.log("Backdrop clicked");
-              closeExitModal();
-            }
-          });
-        }
-
-        // Close modal on Escape key
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape") {
-            console.log("Escape key pressed");
-            closeExitModal();
-          }
-        });
-
-        // Add test button
-        setTimeout(() => {
-          console.log("Adding test button");
-          const testButton = document.createElement("button");
-          testButton.textContent = "Test Exit Modal";
-          testButton.style.cssText =
-            "position: fixed; bottom: 20px; right: 20px; z-index: 9999; padding: 10px 20px; background: #cc9933; color: white; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); cursor: pointer;";
-          testButton.onmouseover = () => {
-            testButton.style.background = "#FFA500";
-          };
-          testButton.onmouseout = () => {
-            testButton.style.background = "#cc9933";
-          };
-          testButton.onclick = () => {
-            console.log("Test button clicked");
-            exitIntentShown = false; // Reset the flag
-            showExitModal();
-          };
-          document.body.appendChild(testButton);
-        }, 1000);
-      });
-
-      // Reset exitIntentShown when user navigates back
-      window.addEventListener("pageshow", (e) => {
-        if (e.persisted) {
-          exitIntentShown = false;
-        }
-      });
-
-      // Reset after 5 minutes
-      setTimeout(() => {
-        exitIntentShown = false;
-      }, 300000);
-    })();
-  }
-</script>
-
 <style>
-  /* Glassmorphism enhancements */
-  @supports (backdrop-filter: blur(20px)) {
-    #exit-modal-content > div {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+  .exit-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s ease;
+  }
+
+  .modal-content {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    animation: slideUp 0.4s ease;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.2s ease;
+    z-index: 10;
+  }
+
+  .modal-close:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
+  }
+
+  .modal-body {
+    padding: 40px 30px;
+    text-align: center;
+  }
+
+  .modal-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    animation: bounce 1s ease infinite;
+  }
+
+  .modal-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .modal-subtitle {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 20px 0;
+    font-style: italic;
+  }
+
+  .modal-description {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.6;
+    margin: 0 0 24px 0;
+  }
+
+  .highlight {
+    color: #cc9933;
+    font-weight: 700;
+  }
+
+  .highlight-gold {
+    color: #b8861f;
+    font-weight: 700;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #cc9933;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.3;
+  }
+
+  .proven-box {
+    background: rgba(254, 243, 199, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid rgba(245, 158, 11, 0.5);
+    margin-bottom: 28px;
+    display: flex;
+    gap: 12px;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .proven-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  }
+
+  .proven-text {
+    font-size: 15px;
+    color: #fef3c7;
+    line-height: 1.5;
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #cc9933 0%, #b8861f 100%);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(204, 153, 51, 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(204, 153, 51, 0.4);
+  }
+
+  .btn-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .btn-primary:hover .btn-icon {
+    transform: translateX(4px);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: rgba(255, 255, 255, 0.75);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .modal-footer {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
     }
   }
 
-  /* Fallback for browsers without backdrop-filter support */
-  @supports not (backdrop-filter: blur(20px)) {
-    #exit-modal-content > div {
-      background: rgba(0, 48, 135, 0.95);
+  @keyframes slideUp {
+    from {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 640px) {
+    .modal-body {
+      padding: 30px 20px;
+    }
+
+    .modal-title {
+      font-size: 24px;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stat-value {
+      font-size: 28px;
+    }
+
+    .proven-box {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .btn-primary {
+      font-size: 16px;
+      padding: 14px 20px;
     }
   }
 </style>
+
+<script>
+  // Exit intent detection
+  let modalShown = false;
+
+  function showExitModal() {
+    if (modalShown) return;
+
+    const modal = document.getElementById("exitModal");
+    if (modal) {
+      modal.style.display = "flex";
+      modalShown = true;
+      console.log("🚪 Exit modal shown - exit intent detected");
+
+      // Track modal view (optional - add analytics here)
+      if (typeof window.gtag !== "undefined") {
+        window.gtag("event", "exit_modal_shown", {
+          event_category: "Provider",
+          event_label: "Exit Intent",
+        });
+      }
+    }
+  }
+
+  function closeModal() {
+    const modal = document.getElementById("exitModal");
+    if (modal) {
+      modal.style.display = "none";
+      console.log("🚪 Exit modal closed");
+    }
+  }
+
+  // ONLY trigger on true exit intent - mouse leaving from top of viewport
+  document.addEventListener("mouseleave", (e) => {
+    // Only trigger if mouse is leaving from the top (going to browser chrome/tabs)
+    // AND user has scrolled at least 25% of the page (they've engaged with content)
+    const scrollPercent =
+      (window.scrollY /
+        (document.documentElement.scrollHeight - window.innerHeight)) *
+      100;
+
+    if (e.clientY <= 0 && scrollPercent > 25 && !modalShown) {
+      console.log("🎯 Exit intent detected - showing modal");
+      setTimeout(() => {
+        showExitModal();
+      }, 100);
+    }
+  });
+
+  // Mobile-specific: detect when user goes back to top aggressively (potential leave)
+  // Only on mobile and only if they've been on page for at least 10 seconds
+  let pageLoadTime = Date.now();
+  let lastScrollY = 0;
+  let rapidScrollToTopCount = 0;
+
+  if (window.innerWidth <= 768) {
+    window.addEventListener("scroll", () => {
+      const currentScrollY = window.scrollY;
+      const timeOnPage = (Date.now() - pageLoadTime) / 1000; // seconds
+
+      // If they rapidly scroll to very top AND have been on page for 10+ seconds
+      if (currentScrollY < 10 && lastScrollY > 100 && timeOnPage > 10) {
+        rapidScrollToTopCount++;
+
+        // If they do this twice in quick succession, they might be leaving
+        if (rapidScrollToTopCount >= 2 && !modalShown) {
+          console.log("🎯 Mobile exit intent detected - showing modal");
+          showExitModal();
+        }
+
+        // Reset counter after 3 seconds
+        setTimeout(() => {
+          rapidScrollToTopCount = 0;
+        }, 3000);
+      }
+
+      lastScrollY = currentScrollY;
+    });
+  }
+
+  // Close modal handlers
+  document.addEventListener("DOMContentLoaded", () => {
+    // Close button
+    const closeBtn = document.querySelector(".modal-close");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeModal);
+    }
+
+    // "I'll risk waiting" button
+    const riskBtn = document.getElementById("riskWaitingBtn");
+    if (riskBtn) {
+      riskBtn.addEventListener("click", closeModal);
+    }
+
+    // Click overlay to close
+    const overlay = document.querySelector(".modal-overlay");
+    if (overlay) {
+      overlay.addEventListener("click", closeModal);
+    }
+
+    // Escape key to close
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    });
+  });
+</script>
