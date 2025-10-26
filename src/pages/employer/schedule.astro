@@ -1,348 +1,368 @@
 ---
-// src/pages/employers/schedule.astro
+import CarbonLayout from "../../layouts/CarbonLayout.astro";
+import AOSInit from "../../components/AOSInit.astro";
 import EmployerConsultationForm from "../../components/EmployerConsultationForm.astro";
-import MainLayout from "../../layouts/MainLayout.astro";
+
+export const prerender = true;
 ---
 
-<MainLayout>
-  <Fragment slot="head">
-    <title>Schedule Consultation | USRad for Employers</title>
-    <meta
-      name="description"
-      content="Schedule a consultation to learn how USRad can provide cost-effective imaging benefits for your employees."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-  </Fragment>
+<CarbonLayout
+  title="Schedule Executive Briefing | USRad for Self-Insured Employers"
+  isHeroPage={true}
+>
+  <AOSInit />
 
   <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-container">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <span>✓ Free Consultation</span>
-        </div>
-        <h1>Transform Your Employee Benefits</h1>
-        <p class="hero-subtitle">
-          Discover how USRad can reduce your imaging costs by up to 70% while
-          providing better access to care for your employees
-        </p>
-
-        <!-- Benefits Preview -->
-        <div class="benefits-preview">
-          <div class="benefit-item">
-            <div class="benefit-icon">💰</div>
-            <span>Significant cost savings</span>
-          </div>
-          <div class="benefit-item">
-            <div class="benefit-icon">🏥</div>
-            <span>Nationwide network</span>
-          </div>
-          <div class="benefit-item">
-            <div class="benefit-icon">⚡</div>
-            <span>Fast implementation</span>
-          </div>
-        </div>
+  <section
+    class="relative pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
+  >
+    <!-- Subtle pattern background -->
+    <div class="absolute inset-0 opacity-10">
+      <div
+        class="absolute inset-0"
+        style="background-image: url('data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"
+      >
       </div>
+    </div>
 
-      <div class="hero-image">
-        <img
-          src="/images/employer-consultation-hero.jpg"
-          alt="Professional consultation meeting"
-        />
+    <div class="relative z-10 max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+        <div>
+          <!-- Badge -->
+          <div
+            class="inline-flex items-center gap-2 bg-green-500/20 text-green-300 backdrop-blur-sm rounded-full px-3 sm:px-4 py-1.5 sm:py-2 mb-4 sm:mb-6"
+            data-aos="fade-down"
+          >
+            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"
+            ></span>
+            <span class="text-xs sm:text-sm font-medium"
+              >Free Executive Briefing</span
+            >
+          </div>
+
+          <h1
+            class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
+            data-aos="fade-up"
+          >
+            Meet Directly With Our President
+            <span class="text-green-400 block">In a 30-Minute Briefing</span>
+          </h1>
+
+          <p
+            class="text-lg sm:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            No sales team. No middlemen. Just a direct conversation with Michael
+            Cabrera about reducing your imaging costs by 50-70%
+          </p>
+
+          <!-- Benefits Preview -->
+          <div
+            class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center"
+              >
+                <span class="text-xl">💰</span>
+              </div>
+              <span class="text-gray-200 text-sm sm:text-base"
+                >50-70% cost savings</span
+              >
+            </div>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center"
+              >
+                <span class="text-xl">🏥</span>
+              </div>
+              <span class="text-gray-200 text-sm sm:text-base"
+                >Nationwide network</span
+              >
+            </div>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center"
+              >
+                <span class="text-xl">⚡</span>
+              </div>
+              <span class="text-gray-200 text-sm sm:text-base"
+                >30-day implementation</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Meeting Preview Card -->
+        <div data-aos="zoom-in" data-aos-delay="300">
+          <div
+            class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/20"
+          >
+            <h2 class="text-xl sm:text-2xl font-bold text-white mb-4">
+              White-Glove Service From Leadership
+            </h2>
+            <p class="text-gray-300 mb-6">
+              You'll speak directly with
+              <a
+                href="/founder"
+                class="text-[#cc9933] underline font-semibold hover:text-[#b08829]"
+                >Michael Cabrera</a
+              >, President of USRad, who founded the managed imaging category
+              with AnciCare. No sales team—just direct access to the decision
+              maker who will personally guide your implementation.
+            </p>
+
+            <div class="space-y-4">
+              <div class="flex items-center gap-3">
+                <svg
+                  class="w-5 h-5 text-green-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-200"
+                  >Receive calendar link immediately to book your time with
+                  Michael</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <svg
+                  class="w-5 h-5 text-green-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-200"
+                  >Custom ROI analysis prepared for your company</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <svg
+                  class="w-5 h-5 text-green-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-gray-200"
+                  >Direct line to leadership—no sales pressure</span
+                >
+              </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-[#cc9933]/20 rounded-lg">
+              <p class="text-sm text-[#cc9933]">
+                <strong>30 years of expertise:</strong> Michael personally managed
+                168,000+ imaging cases and built the category from the ground up
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Form Section -->
-  <section class="form-section">
-    <div class="form-container">
-      <div class="form-intro">
-        <h2>Schedule Your Consultation</h2>
-        <p>
-          Speak directly with our President,
-          <a
-            href="/founder"
-            style="color: #cc9933; text-decoration: underline; font-weight: 700;"
-            >Michael Cabrera</a
-          >
-          to learn how USRad can enhance your employee benefits package while reducing
-          costs.
-        </p>
+  <section class="py-16 sm:py-24 px-4 sm:px-6 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-8 sm:gap-12 items-start">
+        <!-- Left Column - Info -->
+        <div data-aos="fade-right">
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
+            Schedule Your Personal Briefing
+          </h2>
+          <p class="text-lg text-gray-600 mb-8">
+            Get a one-on-one consultation with Michael Cabrera to understand
+            exactly how USRad can enhance your employee benefits while cutting
+            imaging costs by 50-70%.
+          </p>
 
-        <div class="consultation-details">
-          <div class="detail-item">
-            <strong>Duration:</strong> 30 minutes
+          <!-- What to Expect -->
+          <div
+            class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 sm:p-8 mb-8 border border-gray-200"
+          >
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">
+              What I'll Cover With You
+            </h3>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="text-blue-600 mt-1">→</span>
+                <span class="text-gray-700"
+                  >Analysis of your current imaging spend and utilization</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-blue-600 mt-1">→</span>
+                <span class="text-gray-700"
+                  >Detailed savings projection (typically 50-70% reduction)</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-blue-600 mt-1">→</span>
+                <span class="text-gray-700"
+                  >Realistic implementation timeline tailored to your needs</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-blue-600 mt-1">→</span>
+                <span class="text-gray-700"
+                  >Seamless integration with your existing TPA and benefits
+                  platform</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-blue-600 mt-1">→</span>
+                <span class="text-gray-700"
+                  >Real success stories from companies similar to yours</span
+                >
+              </li>
+            </ul>
           </div>
-          <div class="detail-item">
-            <strong>Format:</strong> Video call or phone
-          </div>
-          <div class="detail-item">
-            <strong>Cost:</strong> Completely free
+
+          <!-- Trust Indicators -->
+          <div class="grid grid-cols-3 gap-4 text-center">
+            <div>
+              <div class="text-2xl sm:text-3xl font-bold text-[#cc9933]">
+                30+
+              </div>
+              <div class="text-xs sm:text-sm text-gray-600">
+                Years Experience
+              </div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-bold text-[#cc9933]">
+                168K+
+              </div>
+              <div class="text-xs sm:text-sm text-gray-600">Cases Managed</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-bold text-[#cc9933]">
+                50-70%
+              </div>
+              <div class="text-xs sm:text-sm text-gray-600">Avg. Savings</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="form-wrapper">
-        <EmployerConsultationForm />
+        <!-- Right Column - Form -->
+        <div data-aos="fade-left" data-aos-delay="100">
+          <div
+            class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-100"
+          >
+            <EmployerConsultationForm />
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <div class="testimonial" style="padding-top: 40px;">
-    <blockquote>
-      "Our mission is simple: make high-quality medical imaging accessible and
-      affordable for every employee, while helping companies save significantly
-      on healthcare costs."
-    </blockquote>
-    <cite>— Michael Cabrera, President & Founder, USRad</cite>
-  </div>
-</MainLayout>
+  <!-- Testimonial Section -->
+  <section
+    class="py-16 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-gray-50 to-white"
+  >
+    <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+      <div class="bg-white rounded-2xl shadow-lg p-8 sm:p-12">
+        <div class="mb-6">
+          <span
+            class="inline-block bg-[#cc9933]/10 text-[#cc9933] px-4 py-2 rounded-full text-sm font-semibold mb-4"
+          >
+            A Message From Our President
+          </span>
+        </div>
+        <blockquote
+          class="text-xl sm:text-2xl text-gray-700 italic mb-6 leading-relaxed"
+        >
+          "I built this business on relationships, not transactions. When you
+          schedule a consultation, you're getting me directly—not a sales team.
+          I'll personally analyze your situation, show you the real savings
+          potential, and guide you through implementation. That's how I've
+          always done business."
+        </blockquote>
+        <cite class="text-gray-900 font-semibold not-italic">
+          — Michael Cabrera, President & Founder, USRad
+        </cite>
+        <p class="text-sm text-gray-600 mt-2">
+          Founded the managed imaging category with AnciCare (acquired by
+          CorVel, NYSE: CVL)
+        </p>
+      </div>
+    </div>
+  </section>
 
-<style>
-  /* Reset and Base Styles */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body {
-    font-family: "Manrope", sans-serif;
-    background: linear-gradient(135deg, #fcf9f0 0%, #f5f8fc 100%);
-    color: #003087;
-    line-height: 1.6;
-  }
-
-  /* Hero Section */
-  .hero {
-    padding: 80px 0;
-    background: linear-gradient(135deg, #fcf9f0 0%, #fff 100%);
-  }
-
-  .hero-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-
-  .hero-badge {
-    display: inline-block;
-    background: #e6f7ff;
-    color: #003087;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-
-  .hero h1 {
-    font-size: 48px;
-    font-weight: 800;
-    color: #003087;
-    margin-bottom: 20px;
-    line-height: 1.2;
-  }
-
-  .hero-subtitle {
-    font-size: 20px;
-    color: #666;
-    margin-bottom: 30px;
-    line-height: 1.5;
-  }
-
-  .benefits-preview {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .benefit-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-weight: 500;
-  }
-
-  .benefit-icon {
-    font-size: 20px;
-  }
-
-  .hero-image {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 48, 135, 0.1);
-  }
-
-  .hero-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  /* Form Section */
-  .form-section {
-    padding: 80px 0;
-    background: white;
-  }
-
-  .form-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: start;
-  }
-
-  .form-intro h2 {
-    font-size: 36px;
-    font-weight: 700;
-    color: #003087;
-    margin-bottom: 16px;
-  }
-
-  .form-intro p {
-    font-size: 18px;
-    color: #666;
-    margin-bottom: 30px;
-  }
-
-  .consultation-details {
-    background: #f8f9fa;
-    padding: 24px;
-    border-radius: 12px;
-    border-left: 4px solid #cc9933;
-  }
-
-  .detail-item {
-    margin-bottom: 12px;
-    font-size: 16px;
-  }
-
-  .detail-item:last-child {
-    margin-bottom: 0;
-  }
-
-  .form-wrapper {
-    background: white;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 48, 135, 0.1);
-    border: 1px solid rgba(0, 48, 135, 0.05);
-  }
-
-  /* Trust Section */
-  .trust-section {
-    padding: 60px 0;
-    background: #f8f9fa;
-  }
-
-  .trust-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-
-  .trust-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    margin-bottom: 50px;
-    text-align: center;
-  }
-
-  .stat-number {
-    font-size: 36px;
-    font-weight: 800;
-    color: #cc9933;
-    margin-bottom: 8px;
-  }
-
-  .stat-label {
-    font-size: 16px;
-    color: #666;
-    font-weight: 500;
-  }
-
-  .testimonial {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .testimonial blockquote {
-    font-size: 20px;
-    font-style: italic;
-    color: #003087;
-    margin-bottom: 16px;
-    line-height: 1.5;
-  }
-
-  .testimonial cite {
-    font-size: 16px;
-    color: #666;
-    font-weight: 500;
-  }
-
-  /* Mobile Responsive */
-  @media (max-width: 768px) {
-    .hero-container,
-    .form-container {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-
-    .hero {
-      padding: 60px 0;
-    }
-
-    .hero h1 {
-      font-size: 36px;
-    }
-
-    .form-section {
-      padding: 60px 0;
-    }
-
-    .form-intro h2 {
-      font-size: 28px;
-    }
-
-    .form-wrapper {
-      padding: 30px 20px;
-    }
-
-    .trust-stats {
-      grid-template-columns: 1fr;
-      gap: 30px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .hero-container,
-    .form-container,
-    .trust-container {
-      padding: 0 15px;
-    }
-
-    .hero h1 {
-      font-size: 32px;
-    }
-
-    .hero-subtitle {
-      font-size: 18px;
-    }
-  }
-</style>
+  <!-- Bottom CTA -->
+  <section
+    class="py-16 px-4 sm:px-6 bg-gradient-to-br from-gray-900 to-gray-800 text-white"
+  >
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4" data-aos="fade-up">
+        Ready to Transform Your Benefits?
+      </h2>
+      <p
+        class="text-lg sm:text-xl text-gray-300 mb-8"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Join progressive employers who are saving millions while improving
+        employee satisfaction
+      </p>
+      <div
+        class="flex flex-col sm:flex-row gap-4 justify-center"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <a
+          href="#consultation-form"
+          class="bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all inline-flex items-center justify-center gap-2"
+        >
+          Schedule Now
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="/employer/roi-calculator"
+          class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-gray-900 transition-all inline-flex items-center justify-center gap-2"
+        >
+          Calculate Your Savings First
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</CarbonLayout>

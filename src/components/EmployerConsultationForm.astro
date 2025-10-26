@@ -128,77 +128,6 @@
       </div>
     </div>
 
-    <!-- Consultation Preferences -->
-    <div class="form-section">
-      <h3 class="section-title">Consultation Preferences</h3>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="preferredDate" class="form-label">Preferred Date *</label>
-          <input
-            type="date"
-            id="preferredDate"
-            name="preferredDate"
-            class="form-input"
-            required
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="preferredTime" class="form-label">Preferred Time *</label>
-          <select
-            id="preferredTime"
-            name="preferredTime"
-            class="form-select"
-            required
-          >
-            <option value="">Select time</option>
-            <option value="9:00 AM">9:00 AM</option>
-            <option value="10:00 AM">10:00 AM</option>
-            <option value="11:00 AM">11:00 AM</option>
-            <option value="1:00 PM">1:00 PM</option>
-            <option value="2:00 PM">2:00 PM</option>
-            <option value="3:00 PM">3:00 PM</option>
-            <option value="4:00 PM">4:00 PM</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="consultationType" class="form-label"
-          >Consultation Format *</label
-        >
-        <div class="radio-group">
-          <label class="radio-option">
-            <input
-              type="radio"
-              name="consultationType"
-              value="video"
-              required
-            />
-            <span class="radio-custom"></span>
-            <span class="radio-text">
-              <strong>Video Call</strong>
-              <small>Zoom or Microsoft Teams</small>
-            </span>
-          </label>
-          <label class="radio-option">
-            <input
-              type="radio"
-              name="consultationType"
-              value="phone"
-              required
-            />
-            <span class="radio-custom"></span>
-            <span class="radio-text">
-              <strong>Phone Call</strong>
-              <small>Traditional phone consultation</small>
-            </span>
-          </label>
-        </div>
-      </div>
-    </div>
-
     <!-- Current Benefits Information -->
     <div class="form-section">
       <h3 class="section-title">Current Benefits Information</h3>
@@ -318,11 +247,11 @@
     <!-- Submit Button -->
     <div class="form-submit">
       <button type="submit" class="submit-btn">
-        <span class="btn-text">Schedule My Consultation</span>
-        <span class="btn-icon">📅</span>
+        <span class="btn-text">Request Consultation</span>
+        <span class="btn-icon">🚀</span>
       </button>
       <p class="submit-note">
-        We'll confirm your appointment within 2 business hours
+        You'll receive a calendar link to schedule your time with Michael
       </p>
     </div>
   </form>
@@ -331,17 +260,17 @@
   <div id="successMessage" class="success-message" style="display: none;">
     <div class="success-content">
       <div class="success-icon">✅</div>
-      <h3>Consultation Scheduled!</h3>
+      <h3>Request Received!</h3>
       <p>
-        Thank you for your interest in USRad. We'll contact you within 2
-        business hours to confirm your consultation details.
+        Thank you for your interest in USRad. Check your email for a calendar
+        link to schedule your consultation with Michael Cabrera.
       </p>
       <div class="next-steps">
         <h4>What happens next:</h4>
         <ul>
-          <li>You'll receive a confirmation email shortly</li>
-          <li>Our team will send you a calendar invite</li>
-          <li>We'll prepare a customized presentation for your company</li>
+          <li>Check your email for the calendar link</li>
+          <li>Choose a time that works best for you</li>
+          <li>Michael will prepare a custom ROI analysis for your company</li>
         </ul>
       </div>
     </div>
@@ -349,36 +278,49 @@
 </div>
 
 <script>
-  // Set minimum date to today
-  document.addEventListener("DOMContentLoaded", function () {
-    const dateInput = document.getElementById("preferredDate");
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-
-    dateInput.min = tomorrow.toISOString().split("T")[0];
-
-    // Set max date to 3 months from now
-    const maxDate = new Date(today);
-    maxDate.setMonth(maxDate.getMonth() + 3);
-    dateInput.max = maxDate.toISOString().split("T")[0];
-  });
-
   // Form submission handler
   document
     .getElementById("employerConsultationForm")
-    .addEventListener("submit", function (e) {
+    .addEventListener("submit", async function (e) {
       e.preventDefault();
 
       // Show loading state
       const submitBtn = document.querySelector(".submit-btn");
       const originalText = submitBtn.innerHTML;
       submitBtn.innerHTML =
-        '<span class="btn-text">Scheduling...</span><span class="btn-icon">⏳</span>';
+        '<span class="btn-text">Submitting...</span><span class="btn-icon">⏳</span>';
       submitBtn.disabled = true;
 
-      // Simulate form submission (replace with actual submission logic)
-      setTimeout(() => {
+      try {
+        // Gather form data
+        const formData = new FormData(this);
+        const data = {};
+
+        // Convert FormData to object, handling checkboxes specially
+        formData.forEach((value, key) => {
+          if (key === "imagingChallenges") {
+            if (!data[key]) data[key] = [];
+            data[key].push(value);
+          } else {
+            data[key] = value;
+          }
+        });
+
+        // Send to API
+        const response = await fetch("/api/employer-consultation", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || "Submission failed");
+        }
+
         // Hide form and show success message
         document.querySelector(".consultation-form .form").style.display =
           "none";
@@ -389,11 +331,16 @@
           behavior: "smooth",
           block: "center",
         });
-      }, 2000);
+      } catch (error) {
+        console.error("Submission error:", error);
+        alert(
+          "There was an error submitting your consultation request. Please try again or contact us directly at mcabrera@usrad.com"
+        );
 
-      // Here you would typically send the form data to your backend
-      // const formData = new FormData(this);
-      // fetch('/api/schedule-consultation', { method: 'POST', body: formData })
+        // Re-enable button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
     });
 
   // Phone number formatting
