@@ -10,8 +10,16 @@ const supabase = createClient(
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export async function POST({ request }) {
+  console.log('🚨🚨🚨 NEWSLETTER API CALLED! 🚨🚨🚨');
+  console.log('Environment variables check:');
+  console.log('- RESEND_API_KEY exists:', !!import.meta.env.RESEND_API_KEY);
+  console.log('- NOTIFICATION_EMAIL:', import.meta.env.NOTIFICATION_EMAIL);
+  console.log('- PUBLIC_SUPABASE_URL exists:', !!import.meta.env.PUBLIC_SUPABASE_URL);
+  
   try {
+    console.log('🔍 Starting newsletter subscription process...');
     const { email, source = 'footer_newsletter' } = await request.json();
+    console.log('📥 Received email:', email, 'source:', source);
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -76,10 +84,7 @@ export async function POST({ request }) {
 
     // Send notification to YOU (the admin)
     try {
-      console.log('📧 Attempting to send admin notification...');
-      console.log('Admin email address:', import.meta.env.NOTIFICATION_EMAIL);
-      
-      const adminEmailResult = await resend.emails.send({
+      await resend.emails.send({
         from: 'Newsletter <newsletter@send.usrad.com>',
         to: import.meta.env.NOTIFICATION_EMAIL,
         subject: '🎉 New Newsletter Signup - USRad Waitlist',
@@ -94,22 +99,14 @@ export async function POST({ request }) {
           </div>
         `
       });
-      console.log('✅ Admin notification sent:', adminEmailResult);
     } catch (adminEmailError) {
-      console.error('❌ Admin notification error:', adminEmailError);
-      console.error('Admin email error details:', {
-        message: adminEmailError.message,
-        statusCode: adminEmailError.statusCode,
-        name: adminEmailError.name
-      });
+      console.error('Admin notification error:', adminEmailError);
       // Continue even if admin notification fails
     }
 
     // Send welcome email to the subscriber (enhanced version)
     try {
-      console.log('📧 Attempting to send welcome email to:', email);
-      
-      const welcomeEmailResult = await resend.emails.send({
+      await resend.emails.send({
         from: 'USRad <hello@send.usrad.com>',
         to: email,
         subject: 'Welcome to USRad! 🎉',
@@ -226,14 +223,8 @@ export async function POST({ request }) {
           </html>
         `
       });
-      console.log('✅ Welcome email sent:', welcomeEmailResult);
     } catch (emailError) {
-      console.error('❌ Welcome email error:', emailError);
-      console.error('Welcome email error details:', {
-        message: emailError.message,
-        statusCode: emailError.statusCode,
-        name: emailError.name
-      });
+      console.error('Welcome email error:', emailError);
       // Continue even if welcome email fails - subscriber is saved
     }
 
