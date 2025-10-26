@@ -76,7 +76,10 @@ export async function POST({ request }) {
 
     // Send notification to YOU (the admin)
     try {
-      await resend.emails.send({
+      console.log('📧 Attempting to send admin notification...');
+      console.log('Admin email address:', import.meta.env.NOTIFICATION_EMAIL);
+      
+      const adminEmailResult = await resend.emails.send({
         from: 'Newsletter <newsletter@send.usrad.com>',
         to: import.meta.env.NOTIFICATION_EMAIL,
         subject: '🎉 New Newsletter Signup - USRad Waitlist',
@@ -91,14 +94,22 @@ export async function POST({ request }) {
           </div>
         `
       });
+      console.log('✅ Admin notification sent:', adminEmailResult);
     } catch (adminEmailError) {
-      console.error('Admin notification error:', adminEmailError);
+      console.error('❌ Admin notification error:', adminEmailError);
+      console.error('Admin email error details:', {
+        message: adminEmailError.message,
+        statusCode: adminEmailError.statusCode,
+        name: adminEmailError.name
+      });
       // Continue even if admin notification fails
     }
 
     // Send welcome email to the subscriber (enhanced version)
     try {
-      await resend.emails.send({
+      console.log('📧 Attempting to send welcome email to:', email);
+      
+      const welcomeEmailResult = await resend.emails.send({
         from: 'USRad <hello@send.usrad.com>',
         to: email,
         subject: 'Welcome to USRad! 🎉',
@@ -215,8 +226,14 @@ export async function POST({ request }) {
           </html>
         `
       });
+      console.log('✅ Welcome email sent:', welcomeEmailResult);
     } catch (emailError) {
-      console.error('Welcome email error:', emailError);
+      console.error('❌ Welcome email error:', emailError);
+      console.error('Welcome email error details:', {
+        message: emailError.message,
+        statusCode: emailError.statusCode,
+        name: emailError.name
+      });
       // Continue even if welcome email fails - subscriber is saved
     }
 
