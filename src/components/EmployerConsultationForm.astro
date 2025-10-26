@@ -123,7 +123,11 @@
             class="form-input"
             required
             placeholder="(555) 123-4567"
+            pattern="\(\d{3}\) \d{3}-\d{4}"
+            title="Please enter a 10-digit phone number"
+            maxlength="14"
           />
+          <small class="form-help-text">Format: (555) 123-4567</small>
         </div>
       </div>
     </div>
@@ -343,14 +347,23 @@
       }
     });
 
-  // Phone number formatting
+  // Phone number formatting - only accept exactly 10 digits
   document.getElementById("phone").addEventListener("input", function (e) {
+    // Remove all non-digits
     let value = e.target.value.replace(/\D/g, "");
-    if (value.length >= 6) {
-      value = value.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
-    } else if (value.length >= 3) {
-      value = value.replace(/(\d{3})(\d{3})/, "($1) $2-");
+
+    // Limit to 10 digits
+    if (value.length > 10) {
+      value = value.slice(0, 10);
     }
+
+    // Format as (XXX) XXX-XXXX
+    if (value.length >= 6) {
+      value = value.replace(/(\d{3})(\d{3})(\d{0,4})/, "($1) $2-$3");
+    } else if (value.length >= 3) {
+      value = value.replace(/(\d{3})(\d{0,3})/, "($1) $2");
+    }
+
     e.target.value = value;
   });
 </script>
@@ -402,6 +415,14 @@
     color: #003087;
     margin-bottom: 6px;
     font-size: 14px;
+  }
+
+  .form-help-text {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
   }
 
   .form-input,

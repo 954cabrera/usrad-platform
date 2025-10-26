@@ -107,7 +107,7 @@ export const prerender = true;
             <p class="text-gray-300 mb-6">
               You'll speak directly with
               <a
-                href="/founder"
+                href="/co-founder-m"
                 class="text-[#cc9933] underline font-semibold hover:text-[#b08829]"
                 >Michael Cabrera</a
               >, President of USRad, who founded the managed imaging category
@@ -177,7 +177,7 @@ export const prerender = true;
   </section>
 
   <!-- Form Section -->
-  <section class="py-16 sm:py-24 px-4 sm:px-6 bg-white">
+  <section id="consultation-form" class="py-16 sm:py-24 px-4 sm:px-6 bg-white">
     <div class="max-w-6xl mx-auto">
       <div class="grid lg:grid-cols-2 gap-8 sm:gap-12 items-start">
         <!-- Left Column - Info -->
@@ -365,4 +365,25 @@ export const prerender = true;
       </div>
     </div>
   </section>
+
+  <!-- Smooth Scroll Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Add smooth scroll behavior to all anchor links pointing to #consultation-form
+      document
+        .querySelectorAll('a[href="#consultation-form"]')
+        .forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector("#consultation-form");
+            if (target) {
+              target.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          });
+        });
+    });
+  </script>
 </CarbonLayout>
