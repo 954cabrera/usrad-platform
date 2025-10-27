@@ -1,8 +1,19 @@
 ---
 import CarbonLayout from "../../layouts/CarbonLayout.astro";
 import AOSInit from "../../components/AOSInit.astro";
+import { getRelatedPosts } from "../../data/blogPosts.js";
 
 export const prerender = true;
+
+// For the featured cost post, link to other Cost & Savings articles
+const relatedPostSlugs = [
+  "cost-saving-tips",
+  "uninsured-imaging-guide",
+  "price-transparency-healthcare",
+];
+
+// Get the full post data automatically from blogPosts.js
+const relatedArticles = getRelatedPosts("real-cost-of-mri", relatedPostSlugs);
 ---
 
 <CarbonLayout
@@ -38,7 +49,8 @@ export const prerender = true;
           <li>
             <a
               href="/blog/topic/cost-transparency"
-              class="hover:text-[#003087] transition">Cost Transparency</a>
+              class="hover:text-[#003087] transition">Cost Transparency</a
+            >
           </li>
           <li><span class="text-gray-400">/</span></li>
           <li class="text-gray-900 font-medium">The Real Cost of an MRI</li>
@@ -118,10 +130,10 @@ export const prerender = true;
       <!-- Featured Image Section -->
       <div class="mb-12" data-aos="fade-up">
         <div
-          class="relative rounded-2xl overflow-hidden bg-gray-100 aspect-video"
+          class="relative rounded-2xl overflow-hidden bg-gray-100 aspect-[3/4] md:aspect-[4/5] lg:aspect-[5/6]"
         >
           <img
-            src="/images/blog/mri-cost-comparison-hero.webp"
+            src="/images/blog/cost-comparison.webp"
             alt="MRI cost comparison - hospital vs independent imaging center"
             class="w-full h-full object-cover"
           />
@@ -238,8 +250,8 @@ export const prerender = true;
                 <li>• Contrast dye: $400</li>
                 <li>• Radiologist read: $300</li>
                 <li>
-                  • <strong class="text-lg"
-                    >Total surprise bill: $2,700+</strong>
+                  • <strong class="text-lg">Total surprise bill: $2,700+</strong
+                  >
                 </li>
               </ul>
               <div class="bg-green-50 rounded-lg p-4 mt-3">
@@ -382,7 +394,8 @@ export const prerender = true;
               >
                 <p class="font-semibold text-gray-900">
                   Ashley's Savings: <span class="text-[#cc9933] text-xl"
-                    >$2,373</span>
+                    >$2,373</span
+                  >
                 </p>
                 <p class="text-sm text-gray-700 mt-1">
                   Same scan. Same image quality. Scheduled within 48 hours.
@@ -990,7 +1003,7 @@ export const prerender = true;
     </div>
   </article>
 
-  <!-- Related Articles -->
+  <!-- Related Articles - NOW USES REAL IMAGES! -->
   <section class="py-16 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl font-bold text-gray-900 mb-8" data-aos="fade-up">
@@ -998,78 +1011,52 @@ export const prerender = true;
       </h2>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-        >
-          <a href="/blog/cost-saving-tips">
-            <div class="h-48 bg-gradient-to-br from-yellow-100 to-orange-100">
-            </div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-[#cc9933] uppercase tracking-wide"
-                >Cost Saving Tips</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                How to Reduce Your Medical Imaging Expenses
-              </h3>
-              <p class="text-gray-600 text-sm">
-                Proven strategies to save hundreds or thousands on your next
-                scan.
-              </p>
-            </div>
-          </a>
-        </article>
-
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          <a href="/blog/mri-basics">
-            <div class="h-48 bg-gradient-to-br from-blue-100 to-blue-50"></div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
-                >MRI Basics</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                Everything You Need to Know About MRI Scans
-              </h3>
-              <p class="text-gray-600 text-sm">
-                Complete guide to MRI technology and what to expect.
-              </p>
-            </div>
-          </a>
-        </article>
-
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          <a href="/blog/uninsured-imaging-guide">
-            <div class="h-48 bg-gradient-to-br from-green-100 to-green-50">
-            </div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
-                >Savings Guide</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                Medical Imaging for the Uninsured
-              </h3>
-              <p class="text-gray-600 text-sm">
-                How to get quality imaging for 70% less without insurance.
-              </p>
-            </div>
-          </a>
-        </article>
+        {
+          relatedArticles.map((post, index) => (
+            <article
+              class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300 group"
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <a href={`/blog/${post.slug}`}>
+                {/* REAL IMAGE - automatically pulled from blogPosts.js! */}
+                <div class="h-48 overflow-hidden">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div class="p-6">
+                  <span class="text-xs font-semibold text-[#003087] uppercase tracking-wide">
+                    {post.category}
+                  </span>
+                  <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3 group-hover:text-[#003087] transition-colors">
+                    {post.title}
+                  </h3>
+                  <p class="text-gray-600 text-sm line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                  <div class="flex items-center gap-2 mt-4 text-sm text-gray-500">
+                    <span>{post.readTime}</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
   <style>
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
     @keyframes blob {
       0%,
       100% {

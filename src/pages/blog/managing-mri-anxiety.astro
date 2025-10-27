@@ -1,8 +1,22 @@
 ---
 import CarbonLayout from "../../layouts/CarbonLayout.astro";
 import AOSInit from "../../components/AOSInit.astro";
+import { getRelatedPosts } from "../../data/blogPosts.js";
 
 export const prerender = true;
+
+// For MRI anxiety, link to other helpful Patient Guide posts
+const relatedPostSlugs = [
+  "first-mri-preparation-guide",
+  "mri-basics",
+  "health-tips",
+];
+
+// Get the full post data automatically from blogPosts.js
+const relatedArticles = getRelatedPosts(
+  "managing-mri-anxiety",
+  relatedPostSlugs
+);
 ---
 
 <CarbonLayout
@@ -1232,7 +1246,7 @@ export const prerender = true;
     </div>
   </article>
 
-  <!-- Related Articles -->
+  <!-- Related Articles - NOW USES REAL IMAGES! -->
   <section class="py-16 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl font-bold text-gray-900 mb-8" data-aos="fade-up">
@@ -1240,77 +1254,52 @@ export const prerender = true;
       </h2>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-        >
-          <a href="/blog/first-mri-preparation-guide">
-            <div class="h-48 bg-gradient-to-br from-indigo-100 to-blue-100">
-            </div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-indigo-600 uppercase tracking-wide"
-                >Patient Guide</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                How to Prepare for Your First MRI
-              </h3>
-              <p class="text-gray-600 text-sm">
-                Complete preparation guide for first-time MRI patients.
-              </p>
-            </div>
-          </a>
-        </article>
-
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          <a href="/blog/mri-basics">
-            <div class="h-48 bg-gradient-to-br from-blue-100 to-blue-50"></div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
-                >MRI Basics</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                Everything You Need to Know About MRI Scans
-              </h3>
-              <p class="text-gray-600 text-sm">
-                Comprehensive guide to MRI technology and what to expect.
-              </p>
-            </div>
-          </a>
-        </article>
-
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          <a href="/blog/health-tips">
-            <div class="h-48 bg-gradient-to-br from-purple-100 to-pink-100">
-            </div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-purple-600 uppercase tracking-wide"
-                >Health Tips</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                Essential Health Tips for Better Living
-              </h3>
-              <p class="text-gray-600 text-sm">
-                Evidence-based wellness advice for overall health.
-              </p>
-            </div>
-          </a>
-        </article>
+        {
+          relatedArticles.map((post, index) => (
+            <article
+              class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300 group"
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <a href={`/blog/${post.slug}`}>
+                {/* REAL IMAGE - automatically pulled from blogPosts.js! */}
+                <div class="h-48 overflow-hidden">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div class="p-6">
+                  <span class="text-xs font-semibold text-[#003087] uppercase tracking-wide">
+                    {post.category}
+                  </span>
+                  <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3 group-hover:text-[#003087] transition-colors">
+                    {post.title}
+                  </h3>
+                  <p class="text-gray-600 text-sm line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                  <div class="flex items-center gap-2 mt-4 text-sm text-gray-500">
+                    <span>{post.readTime}</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
   <style>
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
     @keyframes blob {
       0%,
       100% {

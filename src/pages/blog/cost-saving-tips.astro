@@ -1,8 +1,19 @@
 ---
 import CarbonLayout from "../../layouts/CarbonLayout.astro";
 import AOSInit from "../../components/AOSInit.astro";
+import { getRelatedPosts } from "../../data/blogPosts.js";
 
 export const prerender = true;
+
+// Specify which related posts to show (just the slugs!)
+const relatedPostSlugs = [
+  "real-cost-of-mri",
+  "uninsured-imaging-guide",
+  "price-transparency-healthcare",
+];
+
+// Get the full post data automatically from blogPosts.js
+const relatedArticles = getRelatedPosts("cost-saving-tips", relatedPostSlugs);
 ---
 
 <CarbonLayout
@@ -38,7 +49,8 @@ export const prerender = true;
           <li>
             <a
               href="/blog/topic/cost-saving-tips"
-              class="hover:text-[#003087] transition">Cost Saving Tips</a>
+              class="hover:text-[#003087] transition">Cost Saving Tips</a
+            >
           </li>
           <li><span class="text-gray-400">/</span></li>
           <li class="text-gray-900 font-medium">Complete Guide</li>
@@ -154,37 +166,45 @@ export const prerender = true;
         <ul class="space-y-2 text-gray-700">
           <li>
             <a href="#shop-around" class="hover:text-[#cc9933] transition"
-              >Shop Around for the Best Price</a>
+              >Shop Around for the Best Price</a
+            >
           </li>
           <li>
             <a
               href="#independent-centers"
               class="hover:text-[#cc9933] transition"
-              >Use Independent Imaging Centers</a>
+              >Use Independent Imaging Centers</a
+            >
           </li>
           <li>
             <a href="#cash-pay" class="hover:text-[#cc9933] transition"
-              >Ask About Cash/Self-Pay Rates</a>
+              >Ask About Cash/Self-Pay Rates</a
+            >
           </li>
           <li>
             <a href="#negotiate" class="hover:text-[#cc9933] transition"
-              >Negotiate Before You Schedule</a>
+              >Negotiate Before You Schedule</a
+            >
           </li>
           <li>
             <a href="#insurance-tricks" class="hover:text-[#cc9933] transition"
-              >Understand Your Insurance</a>
+              >Understand Your Insurance</a
+            >
           </li>
           <li>
             <a href="#timing" class="hover:text-[#cc9933] transition"
-              >Time Your Scan Strategically</a>
+              >Time Your Scan Strategically</a
+            >
           </li>
           <li>
             <a href="#bundling" class="hover:text-[#cc9933] transition"
-              >Bundle Multiple Scans</a>
+              >Bundle Multiple Scans</a
+            >
           </li>
           <li>
             <a href="#payment-plans" class="hover:text-[#cc9933] transition"
-              >Use Payment Plans & Financial Assistance</a>
+              >Use Payment Plans & Financial Assistance</a
+            >
           </li>
         </ul>
       </div>
@@ -860,7 +880,8 @@ export const prerender = true;
                   <li>• Complete Spine Package: $875</li>
                   <li>
                     • <strong class="text-purple-700"
-                      >Savings: $275 (24% off)</strong>
+                      >Savings: $275 (24% off)</strong
+                    >
                   </li>
                 </ul>
               </div>
@@ -1174,7 +1195,7 @@ export const prerender = true;
     </div>
   </article>
 
-  <!-- Related Articles -->
+  <!-- Related Articles - NOW USES REAL IMAGES FROM CENTRAL DATA! -->
   <section class="py-16 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl font-bold text-gray-900 mb-8" data-aos="fade-up">
@@ -1182,79 +1203,52 @@ export const prerender = true;
       </h2>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-        >
-          <a href="/blog/mri-basics">
-            <div class="h-48 bg-gradient-to-br from-blue-100 to-blue-50"></div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
-                >MRI Basics</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                Everything You Need to Know About MRI Scans
-              </h3>
-              <p class="text-gray-600 text-sm">
-                Complete guide to MRI technology, preparation, and what to
-                expect.
-              </p>
-            </div>
-          </a>
-        </article>
-
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          <a href="/blog/medical-imaging-costs">
-            <div class="h-48 bg-gradient-to-br from-green-100 to-green-50">
-            </div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
-                >Cost Transparency</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                Hospital vs. Independent: Cost Comparison
-              </h3>
-              <p class="text-gray-600 text-sm">
-                Why imaging costs vary dramatically and how to find the best
-                value.
-              </p>
-            </div>
-          </a>
-        </article>
-
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          <a href="/blog/uninsured-imaging-guide">
-            <div class="h-48 bg-gradient-to-br from-purple-100 to-purple-50">
-            </div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
-                >Savings Guide</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                Medical Imaging for the Uninsured
-              </h3>
-              <p class="text-gray-600 text-sm">
-                How to get quality imaging for 70% less without insurance.
-              </p>
-            </div>
-          </a>
-        </article>
+        {
+          relatedArticles.map((post, index) => (
+            <article
+              class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300 group"
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <a href={`/blog/${post.slug}`}>
+                {/* REAL IMAGE - automatically pulled from blogPosts.js! */}
+                <div class="h-48 overflow-hidden">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div class="p-6">
+                  <span class="text-xs font-semibold text-[#003087] uppercase tracking-wide">
+                    {post.category}
+                  </span>
+                  <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3 group-hover:text-[#003087] transition-colors">
+                    {post.title}
+                  </h3>
+                  <p class="text-gray-600 text-sm line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                  <div class="flex items-center gap-2 mt-4 text-sm text-gray-500">
+                    <span>{post.readTime}</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
   <style>
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
     @keyframes blob {
       0%,
       100% {

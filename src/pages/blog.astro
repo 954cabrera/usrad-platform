@@ -18,8 +18,8 @@ const featuredPost = {
   authorRole: "Co-Founder, USRad",
   date: "August 5, 2025",
   readTime: "6 min read",
-  category: "Cost Transparency",
-  image: "/images/blog/mri-cost-comparison-hero.webp",
+  category: "Cost & Savings",
+  image: "/images/blog/cost-comparison.webp",
   slug: "real-cost-of-mri",
 };
 
@@ -32,7 +32,7 @@ const blogPosts = [
     author: "Donna Cabrera, Co-Founder",
     date: "August 3, 2025",
     readTime: "5 min read",
-    category: "Savings Guide",
+    category: "Cost & Savings",
     image: "/images/blog/trust-duo.webp",
     slug: "uninsured-imaging-guide",
   },
@@ -74,7 +74,7 @@ const blogPosts = [
     excerpt:
       "Demystifying medical terminology and helping you understand what your imaging results mean.",
     author: "USRad Healthcare Team",
-    date: "January 3, 2025",
+    date: "July 3, 2025",
     readTime: "8 min read",
     category: "Patient Guide",
     image: "/images/blog/understanding-mri-results.png",
@@ -91,16 +91,60 @@ const blogPosts = [
     image: "/images/blog/power-in-the-hands.webp",
     slug: "price-transparency-healthcare",
   },
+  {
+    title: "How to Reduce Your Medical Imaging Expenses",
+    excerpt:
+      "Discover proven strategies to save hundreds—even thousands—on MRIs, CT scans, ultrasounds, and X-rays without sacrificing quality.",
+    author: "USRad Healthcare Team",
+    date: "July 2025",
+    readTime: "10 min read",
+    category: "Cost & Savings",
+    image: "/images/blog/patient-reviewing-cost.webp",
+    slug: "cost-saving-tips",
+  },
+  {
+    title: "Essential Health Tips for Better Living",
+    excerpt:
+      "Science-backed wellness advice from medical experts to help you stay healthy, prevent illness, and make informed healthcare decisions.",
+    author: "USRad Healthcare Team",
+    date: "May 2025",
+    readTime: "8 min read",
+    category: "Health & Wellness",
+    image: "/images/blog/healthy-lifestyle.webp",
+    slug: "health-tips",
+  },
+  {
+    title: "Everything You Need to Know About MRI Scans",
+    excerpt:
+      "A comprehensive guide to understanding MRI technology, what to expect during your scan, and how to prepare for the best results.",
+    author: "USRad Healthcare Team",
+    date: "June 2025",
+    readTime: "12 min read",
+    category: "Patient Guide",
+    image: "/images/blog/modern-mri.webp",
+    slug: "mri-basics",
+  },
+  {
+    title: "The Ultimate Preventive Care Checklist",
+    excerpt:
+      "Stay healthy with regular screenings and check-ups. This comprehensive guide tells you exactly which tests you need at every age.",
+    author: "USRad Healthcare Team",
+    date: "August 2025",
+    readTime: "15 min read",
+    category: "Health & Wellness",
+    image: "/images/blog/checklist.webp",
+    slug: "preventive-care-checklist",
+  },
 ];
 
 // Categories with post counts
 const categories = [
-  { name: "All Posts", count: 24, active: true },
-  { name: "Patient Guide", count: 8 },
-  { name: "Cost Transparency", count: 6 },
-  { name: "Savings Guide", count: 4 },
-  { name: "Innovation", count: 3 },
-  { name: "Healthcare Policy", count: 3 },
+  { name: "All Posts", count: 11, active: true },
+  { name: "Patient Guide", count: 4 },
+  { name: "Cost & Savings", count: 3 },
+  { name: "Health & Wellness", count: 2 },
+  { name: "Innovation", count: 1 },
+  { name: "Healthcare Policy", count: 1 },
 ];
 ---
 
@@ -196,7 +240,7 @@ const categories = [
                 d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
               ></path>
             </svg>
-            <span class="font-medium">24 Articles</span>
+            <span class="font-medium">11 Articles</span>
           </div>
         </div>
       </div>
@@ -216,6 +260,7 @@ const categories = [
           {
             categories.map((category) => (
               <button
+                data-category-btn={category.name}
                 class={`px-5 py-2.5 text-sm font-medium rounded-full transition-all ${
                   category.active
                     ? "bg-[#003087] text-white shadow-md"
@@ -343,6 +388,7 @@ const categories = [
         {
           blogPosts.map((post, index) => (
             <article
+              data-article-category={post.category}
               class="bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col border border-gray-100"
               data-aos="fade-up"
               data-aos-delay={index * 50}
@@ -884,4 +930,87 @@ const categories = [
       animation-delay: 4s;
     }
   </style>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const categoryButtons = document.querySelectorAll("[data-category-btn]");
+      const articles = document.querySelectorAll("[data-article-category]");
+      const loadMoreBtn = document.getElementById("load-more-btn");
+
+      let articlesPerPage = 6;
+      let currentlyVisible = articlesPerPage;
+
+      // Function to show/hide articles based on current count
+      function updateArticleVisibility() {
+        const visibleArticles = Array.from(articles).filter(
+          (article) => article.style.display !== "none"
+        );
+
+        visibleArticles.forEach((article, index) => {
+          if (index < currentlyVisible) {
+            article.classList.remove("hidden");
+          } else {
+            article.classList.add("hidden");
+          }
+        });
+
+        // Hide load more button if all visible articles are shown
+        if (currentlyVisible >= visibleArticles.length) {
+          loadMoreBtn?.classList.add("hidden");
+        } else {
+          loadMoreBtn?.classList.remove("hidden");
+        }
+      }
+
+      // Initial setup - hide articles beyond the first 6
+      updateArticleVisibility();
+
+      // Load More button functionality
+      loadMoreBtn?.addEventListener("click", () => {
+        currentlyVisible += articlesPerPage;
+        updateArticleVisibility();
+      });
+
+      // Category filter functionality
+      categoryButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const selectedCategory = button.dataset.categoryBtn;
+
+          categoryButtons.forEach((btn) => {
+            btn.classList.remove("bg-[#003087]", "text-white", "shadow-md");
+            btn.classList.add(
+              "bg-gray-50",
+              "text-gray-700",
+              "border",
+              "border-gray-200"
+            );
+          });
+          button.classList.remove(
+            "bg-gray-50",
+            "text-gray-700",
+            "border",
+            "border-gray-200"
+          );
+          button.classList.add("bg-[#003087]", "text-white", "shadow-md");
+
+          // Filter articles by category
+          articles.forEach((article) => {
+            const articleCategory = article.dataset.articleCategory;
+            if (
+              selectedCategory === "All Posts" ||
+              articleCategory === selectedCategory
+            ) {
+              article.style.display = "block";
+            } else {
+              article.style.display = "none";
+            }
+          });
+
+          // Reset pagination when category changes
+          currentlyVisible = articlesPerPage;
+          updateArticleVisibility();
+        });
+      });
+    });
+  </script>
 </CarbonLayout>

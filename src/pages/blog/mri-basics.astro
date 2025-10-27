@@ -1,8 +1,19 @@
 ---
 import CarbonLayout from "../../layouts/CarbonLayout.astro";
 import AOSInit from "../../components/AOSInit.astro";
+import { getRelatedPosts } from "../../data/blogPosts.js";
 
 export const prerender = true;
+
+// For MRI Basics, link to other helpful Patient Guide posts
+const relatedPostSlugs = [
+  "first-mri-preparation-guide",
+  "managing-mri-anxiety",
+  "understanding-mri-results",
+];
+
+// Get the full post data automatically from blogPosts.js
+const relatedArticles = getRelatedPosts("mri-basics", relatedPostSlugs);
 ---
 
 <CarbonLayout
@@ -38,7 +49,8 @@ export const prerender = true;
           <li>
             <a
               href="/blog/topic/mri-basics"
-              class="hover:text-[#003087] transition">MRI Basics</a>
+              class="hover:text-[#003087] transition">MRI Basics</a
+            >
           </li>
           <li><span class="text-gray-400">/</span></li>
           <li class="text-gray-900 font-medium">Everything You Need to Know</li>
@@ -138,35 +150,43 @@ export const prerender = true;
         <ul class="space-y-2 text-gray-700">
           <li>
             <a href="#what-is-mri" class="hover:text-[#003087] transition"
-              >What is an MRI?</a>
+              >What is an MRI?</a
+            >
           </li>
           <li>
             <a href="#how-it-works" class="hover:text-[#003087] transition"
-              >How MRI Technology Works</a>
+              >How MRI Technology Works</a
+            >
           </li>
           <li>
             <a href="#types-of-mri" class="hover:text-[#003087] transition"
-              >Types of MRI Scans</a>
+              >Types of MRI Scans</a
+            >
           </li>
           <li>
             <a href="#what-to-expect" class="hover:text-[#003087] transition"
-              >What to Expect During Your MRI</a>
+              >What to Expect During Your MRI</a
+            >
           </li>
           <li>
             <a href="#preparation" class="hover:text-[#003087] transition"
-              >How to Prepare for Your MRI</a>
+              >How to Prepare for Your MRI</a
+            >
           </li>
           <li>
             <a href="#risks-safety" class="hover:text-[#003087] transition"
-              >Safety and Risks</a>
+              >Safety and Risks</a
+            >
           </li>
           <li>
             <a href="#costs" class="hover:text-[#003087] transition"
-              >Understanding MRI Costs</a>
+              >Understanding MRI Costs</a
+            >
           </li>
           <li>
             <a href="#results" class="hover:text-[#003087] transition"
-              >Understanding Your Results</a>
+              >Understanding Your Results</a
+            >
           </li>
         </ul>
       </div>
@@ -1260,7 +1280,7 @@ export const prerender = true;
     </div>
   </article>
 
-  <!-- Related Articles -->
+  <!-- Related Articles - NOW USES REAL IMAGES! -->
   <section class="py-16 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl font-bold text-gray-900 mb-8" data-aos="fade-up">
@@ -1268,79 +1288,52 @@ export const prerender = true;
       </h2>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-        >
-          <a href="/blog/prepare-for-first-mri">
-            <div class="h-48 bg-gradient-to-br from-blue-100 to-blue-50"></div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
-                >Patient Guide</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                How to Prepare for Your First MRI
-              </h3>
-              <p class="text-gray-600 text-sm">
-                Step-by-step preparation guide to ensure a smooth MRI
-                experience.
-              </p>
-            </div>
-          </a>
-        </article>
-
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          <a href="/blog/understanding-mri-results">
-            <div class="h-48 bg-gradient-to-br from-purple-100 to-purple-50">
-            </div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
-                >Patient Guide</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                Understanding Your MRI Results
-              </h3>
-              <p class="text-gray-600 text-sm">
-                Learn how to read and interpret your MRI report with confidence.
-              </p>
-            </div>
-          </a>
-        </article>
-
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          <a href="/blog/medical-imaging-costs">
-            <div class="h-48 bg-gradient-to-br from-green-100 to-green-50">
-            </div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
-                >Cost Transparency</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                MRI Cost Comparison Guide
-              </h3>
-              <p class="text-gray-600 text-sm">
-                Why MRI prices vary and how to find the best value for your
-                scan.
-              </p>
-            </div>
-          </a>
-        </article>
+        {
+          relatedArticles.map((post, index) => (
+            <article
+              class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300 group"
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <a href={`/blog/${post.slug}`}>
+                {/* REAL IMAGE - automatically pulled from blogPosts.js! */}
+                <div class="h-48 overflow-hidden">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div class="p-6">
+                  <span class="text-xs font-semibold text-[#003087] uppercase tracking-wide">
+                    {post.category}
+                  </span>
+                  <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3 group-hover:text-[#003087] transition-colors">
+                    {post.title}
+                  </h3>
+                  <p class="text-gray-600 text-sm line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                  <div class="flex items-center gap-2 mt-4 text-sm text-gray-500">
+                    <span>{post.readTime}</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
   <style>
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
     @keyframes blob {
       0%,
       100% {

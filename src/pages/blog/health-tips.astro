@@ -1,8 +1,19 @@
 ---
 import CarbonLayout from "../../layouts/CarbonLayout.astro";
 import AOSInit from "../../components/AOSInit.astro";
+import { getRelatedPosts } from "../../data/blogPosts.js";
 
 export const prerender = true;
+
+// For Health & Wellness, link to the other wellness post and relevant patient guides
+const relatedPostSlugs = [
+  "preventive-care-checklist",
+  "managing-mri-anxiety",
+  "first-mri-preparation-guide",
+];
+
+// Get the full post data automatically from blogPosts.js
+const relatedArticles = getRelatedPosts("health-tips", relatedPostSlugs);
 ---
 
 <CarbonLayout
@@ -38,7 +49,8 @@ export const prerender = true;
           <li>
             <a
               href="/blog/topic/health-tips"
-              class="hover:text-[#003087] transition">Health Tips</a>
+              class="hover:text-[#003087] transition">Health Tips</a
+            >
           </li>
           <li><span class="text-gray-400">/</span></li>
           <li class="text-gray-900 font-medium">Wellness Guide</li>
@@ -151,33 +163,40 @@ export const prerender = true;
         <ul class="space-y-2 text-gray-700">
           <li>
             <a href="#preventive-care" class="hover:text-purple-600 transition"
-              >The Power of Preventive Care</a>
+              >The Power of Preventive Care</a
+            >
           </li>
           <li>
             <a href="#nutrition" class="hover:text-purple-600 transition"
-              >Nutrition & Healthy Eating</a>
+              >Nutrition & Healthy Eating</a
+            >
           </li>
           <li>
             <a href="#exercise" class="hover:text-purple-600 transition"
-              >Exercise & Movement</a>
+              >Exercise & Movement</a
+            >
           </li>
           <li>
             <a href="#sleep" class="hover:text-purple-600 transition"
-              >Quality Sleep</a>
+              >Quality Sleep</a
+            >
           </li>
           <li>
             <a href="#mental-health" class="hover:text-purple-600 transition"
-              >Mental Health & Stress Management</a>
+              >Mental Health & Stress Management</a
+            >
           </li>
           <li>
             <a href="#screening" class="hover:text-purple-600 transition"
-              >Medical Screenings You Need</a>
+              >Medical Screenings You Need</a
+            >
           </li>
           <li>
             <a
               href="#chronic-conditions"
               class="hover:text-purple-600 transition"
-              >Managing Chronic Conditions</a>
+              >Managing Chronic Conditions</a
+            >
           </li>
         </ul>
       </div>
@@ -1159,7 +1178,7 @@ export const prerender = true;
     </div>
   </article>
 
-  <!-- Related Articles -->
+  <!-- Related Articles - NOW USES REAL IMAGES! -->
   <section class="py-16 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl font-bold text-gray-900 mb-8" data-aos="fade-up">
@@ -1167,77 +1186,52 @@ export const prerender = true;
       </h2>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-        >
-          <a href="/blog/mri-basics">
-            <div class="h-48 bg-gradient-to-br from-blue-100 to-blue-50"></div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
-                >MRI Basics</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                Everything You Need to Know About MRI Scans
-              </h3>
-              <p class="text-gray-600 text-sm">
-                Complete guide to MRI technology and preparation.
-              </p>
-            </div>
-          </a>
-        </article>
-
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          <a href="/blog/cost-saving-tips">
-            <div class="h-48 bg-gradient-to-br from-yellow-100 to-orange-100">
-            </div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-[#cc9933] uppercase tracking-wide"
-                >Cost Saving Tips</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                How to Reduce Medical Imaging Expenses
-              </h3>
-              <p class="text-gray-600 text-sm">
-                Save thousands with these proven strategies.
-              </p>
-            </div>
-          </a>
-        </article>
-
-        <article
-          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          <a href="/blog/preventive-care-checklist">
-            <div class="h-48 bg-gradient-to-br from-green-100 to-green-50">
-            </div>
-            <div class="p-6">
-              <span
-                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
-                >Preventive Care</span
-              >
-              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
-                The Ultimate Preventive Care Checklist
-              </h3>
-              <p class="text-gray-600 text-sm">
-                Stay healthy with regular screenings and check-ups.
-              </p>
-            </div>
-          </a>
-        </article>
+        {
+          relatedArticles.map((post, index) => (
+            <article
+              class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300 group"
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <a href={`/blog/${post.slug}`}>
+                {/* REAL IMAGE - automatically pulled from blogPosts.js! */}
+                <div class="h-48 overflow-hidden">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div class="p-6">
+                  <span class="text-xs font-semibold text-[#003087] uppercase tracking-wide">
+                    {post.category}
+                  </span>
+                  <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3 group-hover:text-[#003087] transition-colors">
+                    {post.title}
+                  </h3>
+                  <p class="text-gray-600 text-sm line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                  <div class="flex items-center gap-2 mt-4 text-sm text-gray-500">
+                    <span>{post.readTime}</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
   <style>
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
     @keyframes blob {
       0%,
       100% {
