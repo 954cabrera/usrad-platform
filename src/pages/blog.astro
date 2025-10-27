@@ -4,17 +4,22 @@ import AOSInit from "../components/AOSInit.astro";
 
 export const prerender = true;
 
+// Pass hideNewsletter to CarbonLayout to disable footer newsletter
+const layoutProps = {
+  hideNewsletter: true,
+};
+
 // Featured post
 const featuredPost = {
-  title: "The Real Cost of an MRI: What Hospitals Don’t Want You to Know",
+  title: "The Real Cost of an MRI: What Hospitals Don't Want You to Know",
   excerpt:
-    "A $3,000 hospital MRI or a $260 USRad scan—what’s the difference? Everything, and nothing. Discover how to avoid overpriced imaging without sacrificing quality.",
+    "A $3,000 hospital MRI or a $260 USRad scan—what's the difference? Everything, and nothing. Discover how to avoid overpriced imaging without sacrificing quality.",
   author: "Michael Cabrera",
   authorRole: "Co-Founder, USRad",
   date: "August 5, 2025",
   readTime: "6 min read",
   category: "Cost Transparency",
-  image: "/images/blog/mri-cost-comparison-hero.webp", // replace with a real image path
+  image: "/images/blog/mri-cost-comparison-hero.webp",
   slug: "real-cost-of-mri",
 };
 
@@ -23,7 +28,7 @@ const blogPosts = [
   {
     title: "Uninsured? Here's How to Get Quality Medical Imaging for 70% Less",
     excerpt:
-      "If you’re uninsured or have a high deductible, here’s how to save hundreds—sometimes thousands—on your next MRI, CT scan, or ultrasound.",
+      "If you're uninsured or have a high deductible, here's how to save hundreds—sometimes thousands—on your next MRI, CT scan, or ultrasound.",
     author: "Donna Cabrera, Co-Founder",
     date: "August 3, 2025",
     readTime: "5 min read",
@@ -31,7 +36,6 @@ const blogPosts = [
     image: "/images/blog/affordable-medical-imaging-uninsured-patient.webp",
     slug: "uninsured-imaging-guide",
   },
-
   {
     title: "How to Prepare for Your First MRI: A Complete Guide",
     excerpt:
@@ -94,111 +98,220 @@ const blogPosts = [
 const categories = [
   { name: "All Posts", count: 24, active: true },
   { name: "Patient Guide", count: 8 },
-  { name: "Education", count: 6 },
-  { name: "Cost Transparency", count: 4 },
+  { name: "Cost Transparency", count: 6 },
+  { name: "Savings Guide", count: 4 },
   { name: "Innovation", count: 3 },
-  { name: "Healthcare Access", count: 3 },
+  { name: "Healthcare Policy", count: 3 },
 ];
 ---
 
 <CarbonLayout
   title="Blog - Healthcare Insights & Medical Imaging News | USRad"
   description="Expert insights on medical imaging, healthcare accessibility, and patient guides. Stay informed with USRad's blog."
+  hideNewsletter={true}
 >
   <AOSInit />
 
-  <!-- Hero Section -->
+  <!-- Enhanced Hero Section with Color & Visual Interest -->
   <section
-    class="relative bg-gradient-to-b from-blue-50 to-white overflow-hidden"
+    class="relative bg-gradient-to-br from-blue-50 via-white to-blue-50/30 pt-24 pb-20 overflow-hidden"
   >
-    <div
-      class="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10"
-    >
+    <!-- Subtle background pattern -->
+    <div class="absolute inset-0 opacity-40">
+      <div
+        class="absolute top-20 right-20 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob"
+      >
+      </div>
+      <div
+        class="absolute top-40 left-20 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"
+      >
+      </div>
+      <div
+        class="absolute bottom-20 left-1/2 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"
+      >
+      </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
-      <div class="text-center" data-aos="fade-up">
-        <h1
-          class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center max-w-3xl mx-auto" data-aos="fade-up">
+        <!-- Small badge above title -->
+        <div
+          class="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-6"
         >
-          Insights & Updates
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+            <path
+              fill-rule="evenodd"
+              d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
+              clip-rule="evenodd"></path>
+          </svg>
+          Healthcare Insights & Patient Resources
+        </div>
+
+        <h1
+          class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 tracking-tight"
+        >
+          <span
+            class="bg-clip-text text-transparent bg-gradient-to-r from-[#003087] to-blue-600"
+          >
+            Healthcare Insights
+          </span>
         </h1>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-          Expert perspectives on medical imaging, healthcare accessibility, and
-          practical guides for patients
+        <p class="text-xl text-gray-600 leading-relaxed mb-8">
+          Expert perspectives on medical imaging, cost transparency, and
+          practical guides for navigating healthcare
         </p>
 
-        <!-- Newsletter Signup -->
-        <div class="max-w-md mx-auto">
-          <div class="flex gap-2">
-            <input
-              type="email"
-              placeholder="Enter your email for weekly insights"
-              class="flex-1 px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:border-[#003087]"
-            />
-            <button
-              class="px-6 py-3 bg-[#003087] text-white font-medium rounded-full hover:bg-[#002266] transition"
+        <!-- Quick stats or badges -->
+        <div class="flex flex-wrap items-center justify-center gap-6 text-sm">
+          <div class="flex items-center gap-2 text-gray-600">
+            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span class="font-medium">Updated Weekly</span>
+          </div>
+          <div class="flex items-center gap-2 text-gray-600">
+            <svg
+              class="w-5 h-5 text-[#003087]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              Subscribe
-            </button>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="font-medium">Expert Verified</span>
+          </div>
+          <div class="flex items-center gap-2 text-gray-600">
+            <svg
+              class="w-5 h-5 text-[#003087]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              ></path>
+            </svg>
+            <span class="font-medium">24 Articles</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Featured Post -->
-  <section class="py-12 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div
-        class="bg-gradient-to-r from-[#003087] to-blue-700 rounded-3xl overflow-hidden shadow-xl"
-        data-aos="fade-up"
-      >
-        <div class="grid lg:grid-cols-2 gap-0">
-          <div class="p-8 lg:p-12 text-white">
-            <div class="flex items-center gap-2 mb-4">
-              <span
-                class="px-3 py-1 bg-white/20 backdrop-blur-sm text-sm font-medium rounded-full"
+  <!-- Category Filter - Clean & Prominent -->
+  <section
+    class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm"
+  >
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="py-4">
+        <div
+          class="flex flex-wrap items-center justify-center gap-3"
+          data-aos="fade-up"
+        >
+          {
+            categories.map((category) => (
+              <button
+                class={`px-5 py-2.5 text-sm font-medium rounded-full transition-all ${
+                  category.active
+                    ? "bg-[#003087] text-white shadow-md"
+                    : "bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200"
+                }`}
               >
-                Featured Article
-              </span>
+                {category.name}
+                <span class="ml-2 text-xs opacity-75">({category.count})</span>
+              </button>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Article - Large, Clean Layout with Color Accent -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-6" data-aos="fade-up">
+        <div class="flex items-center gap-3">
+          <span
+            class="inline-block px-4 py-1.5 bg-gradient-to-r from-[#003087] to-blue-600 text-white text-xs font-semibold uppercase tracking-wider rounded-full"
+          >
+            Featured
+          </span>
+          <div
+            class="h-px flex-1 bg-gradient-to-r from-gray-300 to-transparent"
+          >
+          </div>
+        </div>
+      </div>
+
+      <a
+        href={`/blog/${featuredPost.slug}`}
+        class="block group"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div
+          class="grid lg:grid-cols-2 gap-12 items-center bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-3xl p-8 lg:p-12 hover:shadow-xl transition-shadow duration-300"
+        >
+          <!-- Image -->
+          <div
+            class="relative overflow-hidden rounded-2xl aspect-[4/3] shadow-lg"
+          >
+            <div
+              class="absolute inset-0 bg-gradient-to-tr from-[#003087]/20 to-transparent z-10"
+            >
+            </div>
+            <img
+              src={featuredPost.image}
+              alt={featuredPost.title}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+
+          <!-- Content -->
+          <div class="space-y-6">
+            <div>
               <span
-                class="px-3 py-1 bg-white/20 backdrop-blur-sm text-sm font-medium rounded-full"
+                class="inline-block px-3 py-1 bg-blue-100 text-[#003087] text-sm font-semibold rounded-full mb-4"
               >
                 {featuredPost.category}
               </span>
+              <h2
+                class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight group-hover:text-[#003087] transition-colors"
+              >
+                {featuredPost.title}
+              </h2>
+              <p class="text-lg text-gray-600 leading-relaxed">
+                {featuredPost.excerpt}
+              </p>
             </div>
 
-            <h2 class="text-3xl lg:text-4xl font-bold mb-4">
-              {featuredPost.title}
-            </h2>
-
-            <p class="text-lg text-blue-100 mb-6">
-              {featuredPost.excerpt}
-            </p>
-
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-4">
-                <img
-                  src="/images/michael.webp"
-                  alt={featuredPost.author}
-                  class="w-12 h-12 rounded-full border-2 border-white/30"
-                />
-                <div>
-                  <p class="font-medium">{featuredPost.author}</p>
-                  <p class="text-sm text-blue-200">{featuredPost.authorRole}</p>
+            <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
+              <img
+                src="/images/michael.webp"
+                alt={featuredPost.author}
+                class="w-14 h-14 rounded-full ring-2 ring-blue-100"
+              />
+              <div>
+                <p class="font-semibold text-gray-900">{featuredPost.author}</p>
+                <div class="flex items-center gap-3 text-sm text-gray-500 mt-1">
+                  <span>{featuredPost.date}</span>
+                  <span>•</span>
+                  <span>{featuredPost.readTime}</span>
                 </div>
               </div>
-              <div class="text-sm text-blue-200">
-                {featuredPost.readTime}
-              </div>
             </div>
 
-            <a
-              href={`/blog/${featuredPost.slug}`}
-              class="inline-flex items-center mt-6 text-white font-medium hover:gap-3 transition-all gap-2"
+            <div
+              class="flex items-center gap-2 text-[#003087] font-semibold group-hover:gap-4 transition-all"
             >
-              Read Full Article
+              Read Article
               <svg
                 class="w-5 h-5"
                 fill="none"
@@ -209,125 +322,84 @@ const categories = [
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
               </svg>
-            </a>
-          </div>
-
-          <div class="relative h-64 lg:h-auto">
-            <img
-              src={featuredPost.image}
-              alt={featuredPost.title}
-              class="absolute inset-0 w-full h-full object-cover"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-[#003087]/20 to-transparent"
-            >
             </div>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   </section>
 
-  <!-- Categories & Posts -->
-  <section class="py-12 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Category Pills -->
-      <div class="flex flex-wrap gap-3 mb-12 justify-center" data-aos="fade-up">
-        {
-          categories.map((category) => (
-            <button
-              class={`px-6 py-2 rounded-full font-medium transition-all ${
-                category.active
-                  ? "bg-[#003087] text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
-              }`}
-            >
-              {category.name}
-              <span
-                class={`ml-2 text-sm ${category.active ? "text-blue-200" : "text-gray-500"}`}
-              >
-                ({category.count})
-              </span>
-            </button>
-          ))
-        }
+  <!-- Latest Articles - Clean Grid -->
+  <section class="py-16 bg-gradient-to-b from-white to-gray-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 flex items-center gap-4" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-gray-900">Latest Articles</h2>
+        <div class="h-px flex-1 bg-gradient-to-r from-gray-300 to-transparent">
+        </div>
       </div>
 
-      <!-- Blog Grid -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {
           blogPosts.map((post, index) => (
             <article
-              class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group"
+              class="bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col border border-gray-100"
               data-aos="fade-up"
               data-aos-delay={index * 50}
             >
-              <div class="relative h-48 overflow-hidden">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <div class="absolute top-4 left-4">
-                  <span class="px-3 py-1 bg-white/90 backdrop-blur-sm text-sm font-medium text-gray-700 rounded-full">
-                    {post.category}
-                  </span>
+              <a href={`/blog/${post.slug}`} class="block">
+                <div class="relative h-52 overflow-hidden">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10" />
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div class="absolute top-4 left-4 z-20">
+                    <span class="px-3 py-1 bg-white/95 backdrop-blur-sm text-xs font-semibold text-[#003087] rounded-full">
+                      {post.category}
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              <div class="p-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-3 group-hover:text-[#003087] transition-colors">
-                  {post.title}
-                </h3>
+                <div class="p-6 flex-1 flex flex-col">
+                  <h3 class="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-[#003087] transition-colors">
+                    {post.title}
+                  </h3>
 
-                <p class="text-gray-600 mb-4 line-clamp-2">{post.excerpt}</p>
+                  <p class="text-gray-600 mb-4 leading-relaxed flex-1 line-clamp-3">
+                    {post.excerpt}
+                  </p>
 
-                <div class="flex items-center justify-between text-sm">
-                  <div class="flex items-center gap-2">
+                  <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
                     <img
                       src="/api/placeholder/32/32"
                       alt={post.author}
-                      class="w-8 h-8 rounded-full"
+                      class="w-10 h-10 rounded-full ring-2 ring-gray-100"
                     />
-                    <div>
-                      <p class="font-medium text-gray-900">{post.author}</p>
-                      <p class="text-gray-500">{post.date}</p>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sm font-medium text-gray-900 truncate">
+                        {post.author}
+                      </p>
+                      <div class="flex items-center gap-2 text-xs text-gray-500">
+                        <span>{post.date}</span>
+                        <span>•</span>
+                        <span>{post.readTime}</span>
+                      </div>
                     </div>
                   </div>
-                  <span class="text-gray-500">{post.readTime}</span>
                 </div>
-
-                <a
-                  href={`/blog/${post.slug}`}
-                  class="inline-flex items-center mt-4 text-[#003087] font-medium hover:gap-3 transition-all gap-2"
-                >
-                  Read more
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M13 7l5 5m0 0l-5 5m5-5H6"
-                    />
-                  </svg>
-                </a>
-              </div>
+              </a>
             </article>
           ))
         }
       </div>
 
-      <!-- Load More -->
+      <!-- Load More - Simple & Clean -->
       <div class="text-center mt-12" data-aos="fade-up">
         <button
-          class="px-8 py-3 bg-white border-2 border-[#003087] text-[#003087] font-semibold rounded-full hover:bg-[#003087] hover:text-white transition-all"
+          class="px-8 py-3 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-[#003087] hover:text-[#003087] hover:shadow-md transition-all"
         >
           Load More Articles
         </button>
@@ -335,15 +407,214 @@ const categories = [
     </div>
   </section>
 
-  <!-- Popular Topics -->
+  <!-- Newsletter CTA - Functional version matching CarbonFooter -->
   <section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2
-        class="text-3xl font-bold text-gray-900 text-center mb-12"
-        data-aos="fade-up"
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        class="bg-gradient-to-r from-[#003087] to-[#004299] rounded-2xl p-8 md:p-12 text-white relative overflow-hidden"
       >
-        Popular Topics
-      </h2>
+        <!-- Background decoration -->
+        <div
+          class="absolute right-0 top-0 w-64 h-64 bg-white/5 rounded-full blur-3xl"
+        >
+        </div>
+        <div
+          class="absolute left-0 bottom-0 w-48 h-48 bg-[#cc9933]/10 rounded-full blur-3xl"
+        >
+        </div>
+
+        <div class="relative z-10 max-w-2xl mx-auto text-center">
+          <div
+            class="inline-block px-4 py-1.5 bg-white/20 backdrop-blur-sm text-white text-sm font-medium rounded-full mb-6"
+          >
+            Join 10,000+ Subscribers
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Stay Informed on Healthcare Costs
+          </h2>
+          <p class="text-lg text-blue-100 mb-8">
+            Get weekly insights on medical imaging costs, patient guides, and
+            healthcare transparency delivered to your inbox.
+          </p>
+
+          <!-- Newsletter form -->
+          <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <input
+              type="email"
+              id="blog-newsletter-email"
+              placeholder="Enter your email"
+              class="flex-1 px-5 py-3 rounded-full text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50"
+              aria-label="Email address"
+              autocomplete="email"
+            />
+            <button
+              id="blog-newsletter-button"
+              type="button"
+              class="bg-white text-[#003087] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 whitespace-nowrap"
+              aria-label="Subscribe to newsletter"
+            >
+              Subscribe
+            </button>
+          </div>
+
+          <div
+            id="blog-newsletter-message"
+            class="hidden mt-4 text-sm"
+            role="status"
+            aria-live="polite"
+          >
+          </div>
+
+          <p class="text-sm text-blue-200 mt-4">
+            We respect your privacy. Unsubscribe at any time.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Script -->
+  <script>
+    if (typeof window !== "undefined") {
+      const initNewsletter = () => {
+        const button = document.getElementById(
+          "blog-newsletter-button"
+        ) as HTMLButtonElement | null;
+        const emailInput = document.getElementById(
+          "blog-newsletter-email"
+        ) as HTMLInputElement | null;
+        const message = document.getElementById(
+          "blog-newsletter-message"
+        ) as HTMLElement | null;
+
+        if (!button || !emailInput || !message) return;
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        const handleSubscribe = async (e: Event) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const email = emailInput.value.trim();
+
+          // Reset message
+          message.classList.add("hidden");
+          message.style.display = "none";
+          message.classList.remove("text-green-300", "text-red-300");
+
+          // Validate email
+          if (!email) {
+            message.textContent = "Please enter your email address";
+            message.classList.remove("hidden");
+            message.classList.add("text-red-300");
+            message.style.display = "block";
+            emailInput.focus();
+            return;
+          }
+
+          if (!emailRegex.test(email)) {
+            message.textContent = "Please enter a valid email address";
+            message.classList.remove("hidden");
+            message.classList.add("text-red-300");
+            message.style.display = "block";
+            emailInput.focus();
+            return;
+          }
+
+          // Disable button during submission
+          const originalText = button.textContent || "Subscribe";
+          button.disabled = true;
+          button.textContent = "Subscribing...";
+
+          try {
+            console.log("📧 Subscribing email:", email);
+
+            // Send to API - using the existing /api/subscribe-waitlist endpoint
+            const response = await fetch("/api/subscribe-waitlist", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ email }),
+            });
+
+            console.log("📊 Response status:", response.status);
+
+            const data = await response.json();
+            console.log("✅ Response data:", data);
+
+            if (response.ok) {
+              console.log("🎉 Success! Showing message...");
+              message.textContent =
+                "Welcome! You're subscribed. Check your inbox for healthcare tips and savings.";
+              message.classList.remove("hidden");
+              message.classList.add("text-green-300");
+              message.style.display = "block";
+              emailInput.value = "";
+              console.log("✓ Message should now be visible");
+
+              // Also save to localStorage as backup
+              try {
+                const subscribers = JSON.parse(
+                  localStorage.getItem("newsletter-subscribers") || "[]"
+                );
+                subscribers.push({
+                  email,
+                  date: new Date().toISOString(),
+                  source: window.location.pathname,
+                });
+                localStorage.setItem(
+                  "newsletter-subscribers",
+                  JSON.stringify(subscribers)
+                );
+              } catch (storageError) {
+                console.warn("localStorage not available:", storageError);
+              }
+
+              setTimeout(() => {
+                message.classList.add("hidden");
+              }, 5000);
+            } else {
+              throw new Error(data.error || "Subscription failed");
+            }
+          } catch (error) {
+            console.error("Newsletter subscription error:", error);
+            message.textContent = "Something went wrong. Please try again.";
+            message.classList.remove("hidden");
+            message.classList.add("text-red-300");
+            message.style.display = "block";
+          } finally {
+            button.disabled = false;
+            button.textContent = originalText;
+          }
+        };
+
+        button.addEventListener("click", handleSubscribe);
+
+        emailInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            e.stopPropagation();
+            handleSubscribe(e);
+          }
+        });
+      };
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initNewsletter);
+      } else {
+        initNewsletter();
+      }
+    }
+  </script>
+
+  <!-- Topics Section - Enhanced with Color -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-gray-900 mb-3">Explore Topics</h2>
+        <p class="text-gray-600">Browse articles by category</p>
+      </div>
 
       <div
         class="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
@@ -351,14 +622,14 @@ const categories = [
         data-aos-delay="100"
       >
         <a
-          href="/blog/topic/mri-basics"
-          class="group p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100 hover:shadow-lg transition-all"
+          href="/blog/mri-basics"
+          class="group p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl hover:shadow-xl transition-all border border-blue-100"
         >
           <div
-            class="w-12 h-12 bg-[#003087] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+            class="w-14 h-14 bg-gradient-to-br from-[#003087] to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg"
           >
             <svg
-              class="w-6 h-6 text-white"
+              class="w-7 h-7 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -371,21 +642,42 @@ const categories = [
               ></path>
             </svg>
           </div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">MRI Basics</h3>
-          <p class="text-gray-600 text-sm">
+          <h3
+            class="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#003087] transition-colors"
+          >
+            MRI Basics
+          </h3>
+          <p class="text-sm text-gray-600 mb-3">
             Everything you need to know about MRI scans
           </p>
+          <div
+            class="flex items-center text-[#003087] text-sm font-medium group-hover:gap-2 transition-all"
+          >
+            Explore
+            <svg
+              class="w-4 h-4 ml-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
         </a>
 
         <a
-          href="/blog/topic/cost-saving-tips"
-          class="group p-6 bg-gradient-to-br from-yellow-50 to-white rounded-2xl border border-yellow-100 hover:shadow-lg transition-all"
+          href="/blog/cost-saving-tips"
+          class="group p-6 bg-gradient-to-br from-yellow-50 to-white rounded-2xl hover:shadow-xl transition-all border border-yellow-100"
         >
           <div
-            class="w-12 h-12 bg-[#cc9933] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+            class="w-14 h-14 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg"
           >
             <svg
-              class="w-6 h-6 text-white"
+              class="w-7 h-7 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -398,23 +690,42 @@ const categories = [
               ></path>
             </svg>
           </div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          <h3
+            class="text-lg font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition-colors"
+          >
             Cost Saving Tips
           </h3>
-          <p class="text-gray-600 text-sm">
+          <p class="text-sm text-gray-600 mb-3">
             How to reduce your medical imaging expenses
           </p>
+          <div
+            class="flex items-center text-yellow-600 text-sm font-medium group-hover:gap-2 transition-all"
+          >
+            Explore
+            <svg
+              class="w-4 h-4 ml-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
         </a>
 
         <a
           href="/blog/topic/patient-stories"
-          class="group p-6 bg-gradient-to-br from-green-50 to-white rounded-2xl border border-green-100 hover:shadow-lg transition-all"
+          class="group p-6 bg-gradient-to-br from-green-50 to-white rounded-2xl hover:shadow-xl transition-all border border-green-100"
         >
           <div
-            class="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+            class="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg"
           >
             <svg
-              class="w-6 h-6 text-white"
+              class="w-7 h-7 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -427,23 +738,42 @@ const categories = [
               ></path>
             </svg>
           </div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          <h3
+            class="text-lg font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors"
+          >
             Patient Stories
           </h3>
-          <p class="text-gray-600 text-sm">
+          <p class="text-sm text-gray-600 mb-3">
             Real experiences from our community
           </p>
+          <div
+            class="flex items-center text-green-600 text-sm font-medium group-hover:gap-2 transition-all"
+          >
+            Explore
+            <svg
+              class="w-4 h-4 ml-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
         </a>
 
         <a
-          href="/blog/topic/health-tips"
-          class="group p-6 bg-gradient-to-br from-purple-50 to-white rounded-2xl border border-purple-100 hover:shadow-lg transition-all"
+          href="/blog/health-tips"
+          class="group p-6 bg-gradient-to-br from-purple-50 to-white rounded-2xl hover:shadow-xl transition-all border border-purple-100"
         >
           <div
-            class="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+            class="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg"
           >
             <svg
-              class="w-6 h-6 text-white"
+              class="w-7 h-7 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -456,27 +786,67 @@ const categories = [
               ></path>
             </svg>
           </div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">Health Tips</h3>
-          <p class="text-gray-600 text-sm">
+          <h3
+            class="text-lg font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors"
+          >
+            Health Tips
+          </h3>
+          <p class="text-sm text-gray-600 mb-3">
             Wellness advice from medical experts
           </p>
+          <div
+            class="flex items-center text-purple-600 text-sm font-medium group-hover:gap-2 transition-all"
+          >
+            Explore
+            <svg
+              class="w-4 h-4 ml-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
         </a>
       </div>
     </div>
   </section>
 
-  
-
   <style>
-    .bg-grid-slate-100 {
-      background-image: url("data:image/svg+xml,%3csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3e%3cg fill='none' fill-rule='evenodd'%3e%3cg fill='%23e2e8f0' fill-opacity='0.4'%3e%3cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e");
-    }
-
-    .line-clamp-2 {
+    .line-clamp-3 {
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+    }
+
+    @keyframes blob {
+      0%,
+      100% {
+        transform: translate(0px, 0px) scale(1);
+      }
+      33% {
+        transform: translate(30px, -50px) scale(1.1);
+      }
+      66% {
+        transform: translate(-20px, 20px) scale(0.9);
+      }
+    }
+
+    .animate-blob {
+      animation: blob 7s infinite;
+    }
+
+    .animation-delay-2000 {
+      animation-delay: 2s;
+    }
+
+    .animation-delay-4000 {
+      animation-delay: 4s;
     }
   </style>
 </CarbonLayout>

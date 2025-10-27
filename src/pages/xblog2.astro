@@ -1,0 +1,482 @@
+---
+import CarbonLayout from "../layouts/CarbonLayout.astro";
+import AOSInit from "../components/AOSInit.astro";
+
+export const prerender = true;
+
+// Featured post
+const featuredPost = {
+  title: "The Real Cost of an MRI: What Hospitals Don’t Want You to Know",
+  excerpt:
+    "A $3,000 hospital MRI or a $260 USRad scan—what’s the difference? Everything, and nothing. Discover how to avoid overpriced imaging without sacrificing quality.",
+  author: "Michael Cabrera",
+  authorRole: "Co-Founder, USRad",
+  date: "August 5, 2025",
+  readTime: "6 min read",
+  category: "Cost Transparency",
+  image: "/images/blog/mri-cost-comparison-hero.webp", // replace with a real image path
+  slug: "real-cost-of-mri",
+};
+
+// Blog posts
+const blogPosts = [
+  {
+    title: "Uninsured? Here's How to Get Quality Medical Imaging for 70% Less",
+    excerpt:
+      "If you’re uninsured or have a high deductible, here’s how to save hundreds—sometimes thousands—on your next MRI, CT scan, or ultrasound.",
+    author: "Donna Cabrera, Co-Founder",
+    date: "August 3, 2025",
+    readTime: "5 min read",
+    category: "Savings Guide",
+    image: "/images/blog/affordable-medical-imaging-uninsured-patient.webp",
+    slug: "uninsured-imaging-guide",
+  },
+
+  {
+    title: "How to Prepare for Your First MRI: A Complete Guide",
+    excerpt:
+      "Everything you need to know before your MRI appointment, from what to wear to managing anxiety.",
+    author: "Jennifer Walsh, RT",
+    date: "January 10, 2025",
+    readTime: "6 min read",
+    category: "Patient Guide",
+    image: "/api/placeholder/400/300",
+    slug: "prepare-for-first-mri",
+  },
+  {
+    title:
+      "Breaking Down Medical Imaging Costs: Hospital vs. Independent Centers",
+    excerpt:
+      "A transparent look at why imaging costs vary so dramatically and how to find affordable options.",
+    author: "Mark Thompson",
+    date: "January 8, 2025",
+    readTime: "7 min read",
+    category: "Cost Transparency",
+    image: "/api/placeholder/400/300",
+    slug: "medical-imaging-costs",
+  },
+  {
+    title: "The Future of AI in Medical Imaging",
+    excerpt:
+      "How artificial intelligence is improving diagnostic accuracy while reducing costs for patients.",
+    author: "Dr. Emily Park",
+    date: "January 5, 2025",
+    readTime: "5 min read",
+    category: "Innovation",
+    image: "/api/placeholder/400/300",
+    slug: "ai-medical-imaging",
+  },
+  {
+    title: "Understanding Your MRI Results: A Patient's Guide",
+    excerpt:
+      "Demystifying medical terminology and helping you understand what your imaging results mean.",
+    author: "Dr. Sarah Chen",
+    date: "January 3, 2025",
+    readTime: "8 min read",
+    category: "Patient Guide",
+    image: "/api/placeholder/400/300",
+    slug: "understanding-mri-results",
+  },
+  {
+    title: "Why Price Transparency Matters in Healthcare",
+    excerpt:
+      "The movement toward upfront pricing and how it's revolutionizing patient care decisions.",
+    author: "David Kim",
+    date: "December 28, 2024",
+    readTime: "6 min read",
+    category: "Healthcare Policy",
+    image: "/api/placeholder/400/300",
+    slug: "price-transparency-healthcare",
+  },
+];
+
+// Categories with post counts
+const categories = [
+  { name: "All Posts", count: 24, active: true },
+  { name: "Patient Guide", count: 8 },
+  { name: "Education", count: 6 },
+  { name: "Cost Transparency", count: 4 },
+  { name: "Innovation", count: 3 },
+  { name: "Healthcare Access", count: 3 },
+];
+---
+
+<CarbonLayout
+  title="Blog - Healthcare Insights & Medical Imaging News | USRad"
+  description="Expert insights on medical imaging, healthcare accessibility, and patient guides. Stay informed with USRad's blog."
+>
+  <AOSInit />
+
+  <!-- Hero Section -->
+  <section
+    class="relative bg-gradient-to-b from-blue-50 to-white overflow-hidden"
+  >
+    <div
+      class="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10"
+    >
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+      <div class="text-center" data-aos="fade-up">
+        <h1
+          class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
+        >
+          Insights & Updates
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          Expert perspectives on medical imaging, healthcare accessibility, and
+          practical guides for patients
+        </p>
+
+        <!-- Newsletter Signup -->
+        <div class="max-w-md mx-auto">
+          <div class="flex gap-2">
+            <input
+              type="email"
+              placeholder="Enter your email for weekly insights"
+              class="flex-1 px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:border-[#003087]"
+            />
+            <button
+              class="px-6 py-3 bg-[#003087] text-white font-medium rounded-full hover:bg-[#002266] transition"
+            >
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Post -->
+  <section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        class="bg-gradient-to-r from-[#003087] to-blue-700 rounded-3xl overflow-hidden shadow-xl"
+        data-aos="fade-up"
+      >
+        <div class="grid lg:grid-cols-2 gap-0">
+          <div class="p-8 lg:p-12 text-white">
+            <div class="flex items-center gap-2 mb-4">
+              <span
+                class="px-3 py-1 bg-white/20 backdrop-blur-sm text-sm font-medium rounded-full"
+              >
+                Featured Article
+              </span>
+              <span
+                class="px-3 py-1 bg-white/20 backdrop-blur-sm text-sm font-medium rounded-full"
+              >
+                {featuredPost.category}
+              </span>
+            </div>
+
+            <h2 class="text-3xl lg:text-4xl font-bold mb-4">
+              {featuredPost.title}
+            </h2>
+
+            <p class="text-lg text-blue-100 mb-6">
+              {featuredPost.excerpt}
+            </p>
+
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-4">
+                <img
+                  src="/images/michael.webp"
+                  alt={featuredPost.author}
+                  class="w-12 h-12 rounded-full border-2 border-white/30"
+                />
+                <div>
+                  <p class="font-medium">{featuredPost.author}</p>
+                  <p class="text-sm text-blue-200">{featuredPost.authorRole}</p>
+                </div>
+              </div>
+              <div class="text-sm text-blue-200">
+                {featuredPost.readTime}
+              </div>
+            </div>
+
+            <a
+              href={`/blog/${featuredPost.slug}`}
+              class="inline-flex items-center mt-6 text-white font-medium hover:gap-3 transition-all gap-2"
+            >
+              Read Full Article
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </a>
+          </div>
+
+          <div class="relative h-64 lg:h-auto">
+            <img
+              src={featuredPost.image}
+              alt={featuredPost.title}
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-[#003087]/20 to-transparent"
+            >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories & Posts -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Category Pills -->
+      <div class="flex flex-wrap gap-3 mb-12 justify-center" data-aos="fade-up">
+        {
+          categories.map((category) => (
+            <button
+              class={`px-6 py-2 rounded-full font-medium transition-all ${
+                category.active
+                  ? "bg-[#003087] text-white"
+                  : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
+              }`}
+            >
+              {category.name}
+              <span
+                class={`ml-2 text-sm ${category.active ? "text-blue-200" : "text-gray-500"}`}
+              >
+                ({category.count})
+              </span>
+            </button>
+          ))
+        }
+      </div>
+
+      <!-- Blog Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          blogPosts.map((post, index) => (
+            <article
+              class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group"
+              data-aos="fade-up"
+              data-aos-delay={index * 50}
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div class="absolute top-4 left-4">
+                  <span class="px-3 py-1 bg-white/90 backdrop-blur-sm text-sm font-medium text-gray-700 rounded-full">
+                    {post.category}
+                  </span>
+                </div>
+              </div>
+
+              <div class="p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3 group-hover:text-[#003087] transition-colors">
+                  {post.title}
+                </h3>
+
+                <p class="text-gray-600 mb-4 line-clamp-2">{post.excerpt}</p>
+
+                <div class="flex items-center justify-between text-sm">
+                  <div class="flex items-center gap-2">
+                    <img
+                      src="/api/placeholder/32/32"
+                      alt={post.author}
+                      class="w-8 h-8 rounded-full"
+                    />
+                    <div>
+                      <p class="font-medium text-gray-900">{post.author}</p>
+                      <p class="text-gray-500">{post.date}</p>
+                    </div>
+                  </div>
+                  <span class="text-gray-500">{post.readTime}</span>
+                </div>
+
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="inline-flex items-center mt-4 text-[#003087] font-medium hover:gap-3 transition-all gap-2"
+                >
+                  Read more
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <!-- Load More -->
+      <div class="text-center mt-12" data-aos="fade-up">
+        <button
+          class="px-8 py-3 bg-white border-2 border-[#003087] text-[#003087] font-semibold rounded-full hover:bg-[#003087] hover:text-white transition-all"
+        >
+          Load More Articles
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Topics -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2
+        class="text-3xl font-bold text-gray-900 text-center mb-12"
+        data-aos="fade-up"
+      >
+        Popular Topics
+      </h2>
+
+      <div
+        class="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <a
+          href="/blog/topic/mri-basics"
+          class="group p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100 hover:shadow-lg transition-all"
+        >
+          <div
+            class="w-12 h-12 bg-[#003087] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+          >
+            <svg
+              class="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">MRI Basics</h3>
+          <p class="text-gray-600 text-sm">
+            Everything you need to know about MRI scans
+          </p>
+        </a>
+
+        <a
+          href="/blog/topic/cost-saving-tips"
+          class="group p-6 bg-gradient-to-br from-yellow-50 to-white rounded-2xl border border-yellow-100 hover:shadow-lg transition-all"
+        >
+          <div
+            class="w-12 h-12 bg-[#cc9933] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+          >
+            <svg
+              class="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            Cost Saving Tips
+          </h3>
+          <p class="text-gray-600 text-sm">
+            How to reduce your medical imaging expenses
+          </p>
+        </a>
+
+        <a
+          href="/blog/topic/patient-stories"
+          class="group p-6 bg-gradient-to-br from-green-50 to-white rounded-2xl border border-green-100 hover:shadow-lg transition-all"
+        >
+          <div
+            class="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+          >
+            <svg
+              class="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            Patient Stories
+          </h3>
+          <p class="text-gray-600 text-sm">
+            Real experiences from our community
+          </p>
+        </a>
+
+        <a
+          href="/blog/topic/health-tips"
+          class="group p-6 bg-gradient-to-br from-purple-50 to-white rounded-2xl border border-purple-100 hover:shadow-lg transition-all"
+        >
+          <div
+            class="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+          >
+            <svg
+              class="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">Health Tips</h3>
+          <p class="text-gray-600 text-sm">
+            Wellness advice from medical experts
+          </p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <style>
+    .bg-grid-slate-100 {
+      background-image: url("data:image/svg+xml,%3csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3e%3cg fill='none' fill-rule='evenodd'%3e%3cg fill='%23e2e8f0' fill-opacity='0.4'%3e%3cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e");
+    }
+
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
+</CarbonLayout>

@@ -1,0 +1,1383 @@
+---
+import CarbonLayout from "../../layouts/CarbonLayout.astro";
+import AOSInit from "../../components/AOSInit.astro";
+
+export const prerender = true;
+---
+
+<CarbonLayout
+  title="MRI Basics: Everything You Need to Know | USRad"
+  description="Complete guide to MRI scans - learn how MRIs work, what to expect, preparation tips, and costs. Expert insights from the USRad Healthcare Team."
+>
+  <AOSInit />
+
+  <!-- Hero Section -->
+  <section
+    class="relative bg-gradient-to-br from-blue-50 via-white to-blue-50/30 pt-24 pb-16 overflow-hidden"
+  >
+    <!-- Subtle background pattern -->
+    <div class="absolute inset-0 opacity-40">
+      <div
+        class="absolute top-20 right-20 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob"
+      >
+      </div>
+      <div
+        class="absolute top-40 left-20 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"
+      >
+      </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <!-- Breadcrumb -->
+      <nav class="mb-8" data-aos="fade-up">
+        <ol class="flex items-center gap-2 text-sm text-gray-600">
+          <li>
+            <a href="/blog" class="hover:text-[#003087] transition">Blog</a>
+          </li>
+          <li><span class="text-gray-400">/</span></li>
+          <li>
+            <a
+              href="/blog/topic/mri-basics"
+              class="hover:text-[#003087] transition">MRI Basics</a>
+          </li>
+          <li><span class="text-gray-400">/</span></li>
+          <li class="text-gray-900 font-medium">Everything You Need to Know</li>
+        </ol>
+      </nav>
+
+      <!-- Title Section -->
+      <div class="max-w-3xl" data-aos="fade-up" data-aos-delay="100">
+        <div
+          class="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-6"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+            <path
+              fill-rule="evenodd"
+              d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
+              clip-rule="evenodd"></path>
+          </svg>
+          MRI Basics • Patient Guide
+        </div>
+
+        <h1
+          class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
+        >
+          Everything You Need to Know About MRI Scans
+        </h1>
+
+        <p class="text-xl text-gray-600 leading-relaxed mb-8">
+          A comprehensive guide to understanding MRI technology, what to expect
+          during your scan, and how to prepare for the best results.
+        </p>
+
+        <!-- Author & Date -->
+        <div
+          class="flex flex-wrap items-center gap-6 pb-8 border-b border-gray-200"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-12 h-12 bg-gradient-to-br from-[#003087] to-blue-600 rounded-full flex items-center justify-center"
+            >
+              <svg
+                class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                ></path>
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-gray-900">USRad Healthcare Team</p>
+              <p class="text-sm text-gray-600">
+                Board-Certified Radiologists & Imaging Specialists
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4 text-sm text-gray-600">
+            <span>Updated June 2025</span>
+            <span>•</span>
+            <span>12 min read</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <article class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Table of Contents -->
+      <div
+        class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 mb-12 border border-blue-100"
+        data-aos="fade-up"
+      >
+        <h2
+          class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2"
+        >
+          <svg
+            class="w-5 h-5 text-[#003087]"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          Table of Contents
+        </h2>
+        <ul class="space-y-2 text-gray-700">
+          <li>
+            <a href="#what-is-mri" class="hover:text-[#003087] transition"
+              >What is an MRI?</a>
+          </li>
+          <li>
+            <a href="#how-it-works" class="hover:text-[#003087] transition"
+              >How MRI Technology Works</a>
+          </li>
+          <li>
+            <a href="#types-of-mri" class="hover:text-[#003087] transition"
+              >Types of MRI Scans</a>
+          </li>
+          <li>
+            <a href="#what-to-expect" class="hover:text-[#003087] transition"
+              >What to Expect During Your MRI</a>
+          </li>
+          <li>
+            <a href="#preparation" class="hover:text-[#003087] transition"
+              >How to Prepare for Your MRI</a>
+          </li>
+          <li>
+            <a href="#risks-safety" class="hover:text-[#003087] transition"
+              >Safety and Risks</a>
+          </li>
+          <li>
+            <a href="#costs" class="hover:text-[#003087] transition"
+              >Understanding MRI Costs</a>
+          </li>
+          <li>
+            <a href="#results" class="hover:text-[#003087] transition"
+              >Understanding Your Results</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Featured Image Section -->
+      <div class="mb-12" data-aos="fade-up">
+        <div
+          class="relative rounded-2xl overflow-hidden bg-gray-100 aspect-video"
+        >
+          <!-- Placeholder for image - replace src with actual image path -->
+          <img
+            src="/images/blog/mri-machine-guide.jpg"
+            alt="Modern MRI machine in medical imaging center"
+            class="w-full h-full object-cover"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+          >
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 text-center mt-3 italic">
+          Modern MRI technology provides detailed images to help diagnose a wide
+          range of conditions
+        </p>
+      </div>
+
+      <!-- Content Section: What is an MRI? -->
+      <section
+        id="what-is-mri"
+        class="prose prose-lg max-w-none mb-16"
+        data-aos="fade-up"
+      >
+        <h2
+          class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3"
+        >
+          <span
+            class="w-10 h-10 bg-gradient-to-br from-[#003087] to-blue-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shrink-0"
+            >1</span
+          >
+          What is an MRI?
+        </h2>
+
+        <div class="space-y-4 text-gray-700 leading-relaxed">
+          <p class="text-lg">
+            <strong>MRI (Magnetic Resonance Imaging)</strong> is a non-invasive medical
+            imaging technique that uses powerful magnets, radio waves, and a computer
+            to create detailed pictures of the organs, tissues, and structures inside
+            your body.
+          </p>
+
+          <p>
+            Unlike X-rays or CT scans, MRI doesn't use radiation, making it a
+            safer option for many patients. Instead, it relies on the body's
+            natural magnetic properties to generate incredibly detailed images
+            that help doctors diagnose and monitor a wide range of conditions.
+          </p>
+
+          <div
+            class="bg-blue-50 border-l-4 border-[#003087] p-6 rounded-r-lg my-6"
+          >
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              Key Benefits of MRI
+            </h3>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start gap-2">
+                <svg
+                  class="w-5 h-5 text-green-600 mt-0.5 shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span>No radiation exposure</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <svg
+                  class="w-5 h-5 text-green-600 mt-0.5 shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span>Exceptional soft tissue detail</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <svg
+                  class="w-5 h-5 text-green-600 mt-0.5 shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span>Can image from any angle</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <svg
+                  class="w-5 h-5 text-green-600 mt-0.5 shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span>Painless and non-invasive</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Section: How It Works -->
+      <section
+        id="how-it-works"
+        class="prose prose-lg max-w-none mb-16"
+        data-aos="fade-up"
+      >
+        <h2
+          class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3"
+        >
+          <span
+            class="w-10 h-10 bg-gradient-to-br from-[#003087] to-blue-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shrink-0"
+            >2</span
+          >
+          How MRI Technology Works
+        </h2>
+
+        <div class="space-y-4 text-gray-700 leading-relaxed">
+          <p>
+            The science behind MRI might sound complex, but the basic principle
+            is fascinating. Your body is made up of millions of hydrogen atoms
+            (mostly in water molecules). When you lie inside an MRI scanner,
+            here's what happens:
+          </p>
+
+          <div class="grid md:grid-cols-3 gap-6 my-8">
+            <div
+              class="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition"
+            >
+              <div
+                class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4"
+              >
+                <span class="text-2xl font-bold text-[#003087]">1</span>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                Magnetic Field
+              </h3>
+              <p class="text-sm text-gray-600">
+                A powerful magnet aligns hydrogen atoms in your body in one
+                direction.
+              </p>
+            </div>
+
+            <div
+              class="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition"
+            >
+              <div
+                class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4"
+              >
+                <span class="text-2xl font-bold text-[#003087]">2</span>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                Radio Waves
+              </h3>
+              <p class="text-sm text-gray-600">
+                Radio waves are pulsed through your body, disrupting the
+                alignment.
+              </p>
+            </div>
+
+            <div
+              class="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition"
+            >
+              <div
+                class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4"
+              >
+                <span class="text-2xl font-bold text-[#003087]">3</span>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                Signal Detection
+              </h3>
+              <p class="text-sm text-gray-600">
+                As atoms return to alignment, they emit signals that create
+                detailed images.
+              </p>
+            </div>
+          </div>
+
+          <p>
+            Different tissues in your body contain varying amounts of hydrogen
+            and respond differently to the magnetic field. This creates contrast
+            in the images, allowing radiologists to distinguish between normal
+            and abnormal tissue, identify tumors, see inflammation, and detect
+            other medical issues.
+          </p>
+        </div>
+      </section>
+
+      <!-- Content Section: Types of MRI -->
+      <section
+        id="types-of-mri"
+        class="prose prose-lg max-w-none mb-16"
+        data-aos="fade-up"
+      >
+        <h2
+          class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3"
+        >
+          <span
+            class="w-10 h-10 bg-gradient-to-br from-[#003087] to-blue-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shrink-0"
+            >3</span
+          >
+          Types of MRI Scans
+        </h2>
+
+        <div class="space-y-6 text-gray-700 leading-relaxed">
+          <p>
+            MRI technology can be used to image virtually any part of your body.
+            Here are the most common types:
+          </p>
+
+          <div class="space-y-4">
+            <div
+              class="bg-white border border-gray-200 rounded-xl p-6 hover:border-[#003087] transition"
+            >
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                Brain & Head MRI
+              </h3>
+              <p class="text-gray-600 mb-3">
+                Used to diagnose strokes, brain tumors, aneurysms, multiple
+                sclerosis, and other neurological conditions.
+              </p>
+              <span class="text-sm text-[#003087] font-medium"
+                >Common for: Headaches, seizures, memory loss, dizziness</span
+              >
+            </div>
+
+            <div
+              class="bg-white border border-gray-200 rounded-xl p-6 hover:border-[#003087] transition"
+            >
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                Spine MRI
+              </h3>
+              <p class="text-gray-600 mb-3">
+                Examines the vertebrae, spinal cord, and surrounding tissues to
+                detect herniated discs, spinal stenosis, and tumors.
+              </p>
+              <span class="text-sm text-[#003087] font-medium"
+                >Common for: Back pain, neck pain, numbness in extremities</span
+              >
+            </div>
+
+            <div
+              class="bg-white border border-gray-200 rounded-xl p-6 hover:border-[#003087] transition"
+            >
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                Joint MRI (Knee, Shoulder, Hip)
+              </h3>
+              <p class="text-gray-600 mb-3">
+                Provides detailed images of cartilage, ligaments, tendons, and
+                bones to diagnose sports injuries and arthritis.
+              </p>
+              <span class="text-sm text-[#003087] font-medium"
+                >Common for: Sports injuries, joint pain, suspected tears</span
+              >
+            </div>
+
+            <div
+              class="bg-white border border-gray-200 rounded-xl p-6 hover:border-[#003087] transition"
+            >
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                Abdominal & Pelvic MRI
+              </h3>
+              <p class="text-gray-600 mb-3">
+                Images organs including the liver, kidneys, pancreas, and
+                reproductive organs to detect diseases and abnormalities.
+              </p>
+              <span class="text-sm text-[#003087] font-medium"
+                >Common for: Abdominal pain, kidney issues, pelvic concerns</span
+              >
+            </div>
+
+            <div
+              class="bg-white border border-gray-200 rounded-xl p-6 hover:border-[#003087] transition"
+            >
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                Cardiac MRI
+              </h3>
+              <p class="text-gray-600 mb-3">
+                Evaluates the structure and function of the heart, blood
+                vessels, and can detect heart disease.
+              </p>
+              <span class="text-sm text-[#003087] font-medium"
+                >Common for: Heart conditions, valve problems, blood flow issues</span
+              >
+            </div>
+
+            <div
+              class="bg-white border border-gray-200 rounded-xl p-6 hover:border-[#003087] transition"
+            >
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                Breast MRI
+              </h3>
+              <p class="text-gray-600 mb-3">
+                Often used as a supplemental screening tool for high-risk
+                patients or to evaluate known breast cancer.
+              </p>
+              <span class="text-sm text-[#003087] font-medium"
+                >Common for: High-risk screening, cancer staging, dense breast
+                tissue</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Section: What to Expect -->
+      <section
+        id="what-to-expect"
+        class="prose prose-lg max-w-none mb-16"
+        data-aos="fade-up"
+      >
+        <h2
+          class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3"
+        >
+          <span
+            class="w-10 h-10 bg-gradient-to-br from-[#003087] to-blue-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shrink-0"
+            >4</span
+          >
+          What to Expect During Your MRI
+        </h2>
+
+        <div class="space-y-4 text-gray-700 leading-relaxed">
+          <p>
+            Understanding what happens during an MRI can help reduce anxiety and
+            ensure the best possible images. Here's a step-by-step walkthrough:
+          </p>
+
+          <div
+            class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 my-6 border border-blue-100"
+          >
+            <h3 class="text-xl font-semibold text-gray-900 mb-6">
+              The MRI Process
+            </h3>
+
+            <div class="space-y-6">
+              <div class="flex gap-4">
+                <div
+                  class="w-10 h-10 bg-[#003087] rounded-full flex items-center justify-center text-white font-bold shrink-0"
+                >
+                  1
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900 mb-1">
+                    Check-In & Screening
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    You'll complete a safety questionnaire about metal implants,
+                    medical devices, and any health conditions.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-4">
+                <div
+                  class="w-10 h-10 bg-[#003087] rounded-full flex items-center justify-center text-white font-bold shrink-0"
+                >
+                  2
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900 mb-1">Preparation</h4>
+                  <p class="text-sm text-gray-600">
+                    You'll change into a gown and remove all metal objects
+                    (jewelry, watches, hairpins, glasses).
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-4">
+                <div
+                  class="w-10 h-10 bg-[#003087] rounded-full flex items-center justify-center text-white font-bold shrink-0"
+                >
+                  3
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900 mb-1">Positioning</h4>
+                  <p class="text-sm text-gray-600">
+                    You'll lie down on a padded table that slides into the MRI
+                    machine. Pillows and straps help you stay comfortable and
+                    still.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-4">
+                <div
+                  class="w-10 h-10 bg-[#003087] rounded-full flex items-center justify-center text-white font-bold shrink-0"
+                >
+                  4
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900 mb-1">
+                    During the Scan
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    The machine makes loud knocking and buzzing sounds. You'll
+                    receive earplugs or headphones. The scan typically takes
+                    30-60 minutes.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-4">
+                <div
+                  class="w-10 h-10 bg-[#003087] rounded-full flex items-center justify-center text-white font-bold shrink-0"
+                >
+                  5
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900 mb-1">
+                    Communication
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    You can communicate with the technologist through an
+                    intercom. They can see and hear you at all times.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-4">
+                <div
+                  class="w-10 h-10 bg-[#003087] rounded-full flex items-center justify-center text-white font-bold shrink-0"
+                >
+                  6
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900 mb-1">Completion</h4>
+                  <p class="text-sm text-gray-600">
+                    After the scan, you can immediately return to normal
+                    activities. Results are typically available within 24-48
+                    hours.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg my-6"
+          >
+            <h3
+              class="text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2"
+            >
+              <svg
+                class="w-5 h-5 text-yellow-600"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              Tips for a Successful MRI
+            </h3>
+            <ul class="space-y-2 text-gray-700 text-sm">
+              <li>• Arrive 15 minutes early to complete paperwork</li>
+              <li>• Wear comfortable, loose-fitting clothing without metal</li>
+              <li>• Practice relaxation techniques if you feel anxious</li>
+              <li>• Ask about open MRI options if you're claustrophobic</li>
+              <li>
+                • Stay as still as possible during imaging for clear results
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Section: Preparation -->
+      <section
+        id="preparation"
+        class="prose prose-lg max-w-none mb-16"
+        data-aos="fade-up"
+      >
+        <h2
+          class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3"
+        >
+          <span
+            class="w-10 h-10 bg-gradient-to-br from-[#003087] to-blue-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shrink-0"
+            >5</span
+          >
+          How to Prepare for Your MRI
+        </h2>
+
+        <div class="space-y-4 text-gray-700 leading-relaxed">
+          <p>
+            Proper preparation ensures the best possible images and a smooth
+            experience:
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-6 my-6">
+            <div class="bg-green-50 rounded-xl p-6 border border-green-200">
+              <h3
+                class="text-lg font-semibold text-green-900 mb-4 flex items-center gap-2"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                What to DO
+              </h3>
+              <ul class="space-y-2 text-sm text-gray-700">
+                <li>✓ Bring your referral or prescription</li>
+                <li>✓ Bring ID and if applicable, insurance cards</li>
+                <li>✓ Arrive 15 minutes early</li>
+                <li>✓ Take regular medications unless told otherwise</li>
+                <li>✓ Inform staff if you're pregnant</li>
+                <li>✓ Ask for sedation if anxious (schedule in advance)</li>
+                <li>✓ Bring headphones if allowed</li>
+              </ul>
+            </div>
+
+            <div class="bg-red-50 rounded-xl p-6 border border-red-200">
+              <h3
+                class="text-lg font-semibold text-red-900 mb-4 flex items-center gap-2"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                What NOT to Do
+              </h3>
+              <ul class="space-y-2 text-sm text-gray-700">
+                <li>✗ Don't wear jewelry or watches</li>
+                <li>✗ Don't wear clothing with metal zippers/buttons</li>
+                <li>✗ Don't bring credit cards or phones into scan room</li>
+                <li>✗ Don't wear makeup (some contain metal particles)</li>
+                <li>✗ Don't apply lotion or deodorant on scan day</li>
+                <li>✗ Don't eat 4-6 hours before (for abdominal scans)</li>
+                <li>✗ Don't move during the scan</li>
+              </ul>
+            </div>
+          </div>
+
+          <div
+            class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg my-6"
+          >
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              Contrast Dye Information
+            </h3>
+            <p class="text-gray-700 mb-3">
+              Some MRIs require a contrast agent (usually gadolinium) injected
+              through an IV to enhance image quality. This helps visualize blood
+              vessels, tumors, and inflammation more clearly.
+            </p>
+            <p class="text-sm text-gray-600">
+              <strong>Important:</strong> Inform your doctor if you have kidney problems,
+              as contrast may not be safe for patients with severe kidney disease.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Section: Safety & Risks -->
+      <section
+        id="risks-safety"
+        class="prose prose-lg max-w-none mb-16"
+        data-aos="fade-up"
+      >
+        <h2
+          class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3"
+        >
+          <span
+            class="w-10 h-10 bg-gradient-to-br from-[#003087] to-blue-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shrink-0"
+            >6</span
+          >
+          Safety and Risks
+        </h2>
+
+        <div class="space-y-4 text-gray-700 leading-relaxed">
+          <p>
+            MRI is one of the safest medical imaging procedures available.
+            However, there are important safety considerations:
+          </p>
+
+          <div class="space-y-6 my-6">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                Who Cannot Have an MRI?
+              </h3>
+              <div class="bg-red-50 rounded-xl p-6 border border-red-200">
+                <ul class="space-y-2 text-gray-700">
+                  <li class="flex items-start gap-2">
+                    <svg
+                      class="w-5 h-5 text-red-600 mt-0.5 shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                    <span
+                      ><strong>Pacemakers or defibrillators</strong> - Magnetic field
+                      can interfere with these devices</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <svg
+                      class="w-5 h-5 text-red-600 mt-0.5 shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                    <span
+                      ><strong>Cochlear implants</strong> - Can be damaged by the
+                      magnetic field</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <svg
+                      class="w-5 h-5 text-red-600 mt-0.5 shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                    <span
+                      ><strong>Metal fragments in eyes</strong> - Can move and cause
+                      injury</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <svg
+                      class="w-5 h-5 text-red-600 mt-0.5 shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                    <span
+                      ><strong>Certain aneurysm clips</strong> - Some older clips
+                      are not MRI-safe</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                Usually Safe (Inform Your Doctor)
+              </h3>
+              <div class="bg-yellow-50 rounded-xl p-6 border border-yellow-200">
+                <ul class="space-y-2 text-gray-700">
+                  <li>• Joint replacements (hip, knee)</li>
+                  <li>• Dental implants and fillings</li>
+                  <li>• IUD (intrauterine device)</li>
+                  <li>• Surgical clips or staples (after healing)</li>
+                  <li>• Most stents</li>
+                  <li>• Tattoos (rarely cause warming or irritation)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-blue-50 border-l-4 border-[#003087] p-6 rounded-r-lg my-6"
+          >
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              Claustrophobia Solutions
+            </h3>
+            <p class="text-gray-700 mb-3">
+              If you experience anxiety in enclosed spaces, several options are
+              available:
+            </p>
+            <ul class="space-y-2 text-gray-700 text-sm">
+              <li>
+                • <strong>Open MRI machines</strong> - Less confining than traditional
+                tunnels
+              </li>
+              <li>
+                • <strong>Mild sedation</strong> - Anti-anxiety medication before
+                the scan
+              </li>
+              <li>
+                • <strong>Music or guided imagery</strong> - Distraction techniques
+              </li>
+              <li>
+                • <strong>Support person</strong> - Have someone in the room with
+                you
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Section: Costs -->
+      <section
+        id="costs"
+        class="prose prose-lg max-w-none mb-16"
+        data-aos="fade-up"
+      >
+        <h2
+          class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3"
+        >
+          <span
+            class="w-10 h-10 bg-gradient-to-br from-[#003087] to-blue-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shrink-0"
+            >7</span
+          >
+          Understanding MRI Costs
+        </h2>
+
+        <div class="space-y-4 text-gray-700 leading-relaxed">
+          <p>
+            MRI costs vary dramatically depending on where you get your scan.
+            Understanding pricing can help you make informed decisions and save
+            significantly.
+          </p>
+
+          <div
+            class="bg-gradient-to-br from-[#003087] to-blue-700 rounded-2xl p-8 text-white my-8"
+          >
+            <h3 class="text-2xl font-bold mb-6">
+              Average MRI Costs by Location
+            </h3>
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5">
+                <div class="text-2xl md:text-3xl font-bold mb-2">
+                  $2,500-$5,000
+                </div>
+                <div class="text-blue-100 mb-2 font-semibold">
+                  Hospital Facility
+                </div>
+                <div class="text-sm text-blue-200">
+                  Includes facility fees and overhead costs
+                </div>
+              </div>
+              <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5">
+                <div class="text-2xl md:text-3xl font-bold mb-2">
+                  $1,000-$2,000
+                </div>
+                <div class="text-blue-100 mb-2 font-semibold">
+                  Imaging Center
+                </div>
+                <div class="text-sm text-blue-200">
+                  Lower overhead, same quality equipment
+                </div>
+              </div>
+              <div
+                class="bg-white/20 backdrop-blur-sm rounded-xl p-5 border-2 border-white/40"
+              >
+                <div class="text-2xl md:text-3xl font-bold mb-2">$250-$600</div>
+                <div class="text-white mb-2 font-semibold">USRad Centers</div>
+                <div class="text-sm text-blue-100">
+                  Transparent, upfront pricing
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-yellow-50 border-l-4 border-[#cc9933] p-6 rounded-r-lg my-6"
+          >
+            <h3
+              class="text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2"
+            >
+              <svg
+                class="w-5 h-5 text-[#cc9933]"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"
+                ></path>
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              Money-Saving Tips
+            </h3>
+            <ul class="space-y-2 text-gray-700 text-sm">
+              <li>
+                • <strong>Shop around</strong> - Prices vary by 300-400% for the
+                same scan
+              </li>
+              <li>
+                • <strong>Ask for cash/self-pay rates</strong> - Often lower than
+                insurance rates
+              </li>
+              <li>
+                • <strong>Use independent imaging centers</strong> - Significantly
+                cheaper than hospitals
+              </li>
+              <li>
+                • <strong>Check if pre-authorization is required</strong> - Avoid
+                surprise denials
+              </li>
+              <li>
+                • <strong>Request an itemized bill</strong> - Look for duplicate
+                charges or errors
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-blue-50 rounded-xl p-6 border border-blue-200 my-6">
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-[#003087] rounded-full flex items-center justify-center shrink-0"
+              >
+                <svg
+                  class="w-6 h-6 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                  USRad's Transparent Pricing Promise
+                </h3>
+                <p class="text-gray-700 mb-3">
+                  At USRad, we believe healthcare costs should be transparent.
+                  Our MRI prices range from $250-$600 depending on the body
+                  part, with no hidden fees or surprise bills.
+                </p>
+                <a
+                  href="/"
+                  class="inline-flex items-center gap-2 text-[#003087] font-semibold hover:gap-3 transition-all"
+                >
+                  Get Your Price Quote
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Section: Results -->
+      <section
+        id="results"
+        class="prose prose-lg max-w-none mb-16"
+        data-aos="fade-up"
+      >
+        <h2
+          class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3"
+        >
+          <span
+            class="w-10 h-10 bg-gradient-to-br from-[#003087] to-blue-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shrink-0"
+            >8</span
+          >
+          Understanding Your Results
+        </h2>
+
+        <div class="space-y-4 text-gray-700 leading-relaxed">
+          <p>
+            After your MRI, a board-certified radiologist will analyze the
+            images and create a detailed report for your referring physician.
+          </p>
+
+          <div
+            class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 my-6 border border-gray-200"
+          >
+            <h3 class="text-xl font-semibold text-gray-900 mb-6">
+              What Happens Next
+            </h3>
+
+            <div class="space-y-4">
+              <div class="flex gap-4">
+                <div class="text-2xl font-bold text-[#003087]">24-48hrs</div>
+                <div>
+                  <h4 class="font-semibold text-gray-900 mb-1">
+                    Radiologist Review
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    A specialized doctor examines your images and writes a
+                    comprehensive report
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-4">
+                <div class="text-2xl font-bold text-[#003087]">3-5 days</div>
+                <div>
+                  <h4 class="font-semibold text-gray-900 mb-1">
+                    Results to Your Doctor
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    Your referring physician receives the report and reviews it
+                    in context of your symptoms
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-4">
+                <div class="text-2xl font-bold text-[#003087]">Follow-up</div>
+                <div>
+                  <h4 class="font-semibold text-gray-900 mb-1">
+                    Treatment Plan
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    Your doctor discusses findings with you and recommends next
+                    steps
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg my-6"
+          >
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              USRad Fast Results
+            </h3>
+            <p class="text-gray-700">
+              At USRad, our board-certified radiologists provide preliminary
+              results within 24 hours, with complete reports delivered within 48
+              hours. You'll receive your images on a CD or secure digital link.
+            </p>
+          </div>
+
+          <p>
+            Remember, only your doctor can provide a complete interpretation of
+            your MRI results in the context of your medical history, physical
+            examination, and other tests. Don't hesitate to ask questions about
+            anything you don't understand.
+          </p>
+        </div>
+      </section>
+
+      <!-- Author Bio Section -->
+      <div
+        class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border border-blue-100"
+        data-aos="fade-up"
+      >
+        <div class="flex items-start gap-6">
+          <div
+            class="w-20 h-20 bg-gradient-to-br from-[#003087] to-blue-600 rounded-full flex items-center justify-center shrink-0"
+          >
+            <svg
+              class="w-10 h-10 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">
+              About the USRad Healthcare Team
+            </h3>
+            <p class="text-gray-700 mb-4">
+              This guide was created by USRad's team of board-certified
+              radiologists, medical imaging technologists, and patient care
+              specialists. Our mission is to make medical imaging accessible,
+              affordable, and understandable for everyone.
+            </p>
+            <div class="flex flex-wrap gap-4 text-sm text-gray-600">
+              <div class="flex items-center gap-2">
+                <svg
+                  class="w-5 h-5 text-green-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span>Board-Certified Radiologists</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg
+                  class="w-5 h-5 text-green-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span>Evidence-Based Information</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg
+                  class="w-5 h-5 text-green-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                <span>Medically Reviewed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div
+        class="mt-12 bg-gradient-to-r from-[#003087] to-blue-700 rounded-2xl p-8 md:p-12 text-white text-center"
+        data-aos="fade-up"
+      >
+        <h2 class="text-3xl font-bold mb-4">Ready to Schedule Your MRI?</h2>
+        <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          Get transparent pricing and fast results at USRad. No insurance
+          required.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#003087] font-semibold rounded-lg hover:bg-blue-50 transition-all transform hover:scale-105"
+          >
+            Book Your MRI Scan
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </a>
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-lg border-2 border-white/30 hover:bg-white/20 transition-all"
+          >
+            Ask a Question
+          </a>
+        </div>
+        <p class="text-sm text-blue-200 mt-6">
+          Call us: <strong>1-800-USRad-24</strong> • Mon-Fri 8am-8pm EST
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Related Articles -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8" data-aos="fade-up">
+        Related Articles
+      </h2>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <article
+          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
+          data-aos="fade-up"
+        >
+          <a href="/blog/prepare-for-first-mri">
+            <div class="h-48 bg-gradient-to-br from-blue-100 to-blue-50"></div>
+            <div class="p-6">
+              <span
+                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
+                >Patient Guide</span
+              >
+              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
+                How to Prepare for Your First MRI
+              </h3>
+              <p class="text-gray-600 text-sm">
+                Step-by-step preparation guide to ensure a smooth MRI
+                experience.
+              </p>
+            </div>
+          </a>
+        </article>
+
+        <article
+          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <a href="/blog/understanding-mri-results">
+            <div class="h-48 bg-gradient-to-br from-purple-100 to-purple-50">
+            </div>
+            <div class="p-6">
+              <span
+                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
+                >Patient Guide</span
+              >
+              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
+                Understanding Your MRI Results
+              </h3>
+              <p class="text-gray-600 text-sm">
+                Learn how to read and interpret your MRI report with confidence.
+              </p>
+            </div>
+          </a>
+        </article>
+
+        <article
+          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <a href="/blog/medical-imaging-costs">
+            <div class="h-48 bg-gradient-to-br from-green-100 to-green-50">
+            </div>
+            <div class="p-6">
+              <span
+                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
+                >Cost Transparency</span
+              >
+              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
+                MRI Cost Comparison Guide
+              </h3>
+              <p class="text-gray-600 text-sm">
+                Why MRI prices vary and how to find the best value for your
+                scan.
+              </p>
+            </div>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @keyframes blob {
+      0%,
+      100% {
+        transform: translate(0px, 0px) scale(1);
+      }
+      33% {
+        transform: translate(30px, -50px) scale(1.1);
+      }
+      66% {
+        transform: translate(-20px, 20px) scale(0.9);
+      }
+    }
+
+    .animate-blob {
+      animation: blob 7s infinite;
+    }
+
+    .animation-delay-2000 {
+      animation-delay: 2s;
+    }
+
+    /* Smooth scroll for anchor links */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Prose styling for better readability */
+    .prose {
+      color: #374151;
+    }
+
+    .prose h2 {
+      scroll-margin-top: 100px;
+    }
+
+    .prose p {
+      margin-bottom: 1rem;
+    }
+  </style>
+</CarbonLayout>
