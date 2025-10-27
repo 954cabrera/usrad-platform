@@ -1,0 +1,1350 @@
+---
+import CarbonLayout from "../../layouts/CarbonLayout.astro";
+import AOSInit from "../../components/AOSInit.astro";
+
+export const prerender = true;
+---
+
+<CarbonLayout
+  title="Understanding Your MRI Results: A Patient's Guide | USRad"
+  description="Demystifying medical terminology and helping you understand what your MRI results mean. A clear, patient-friendly guide to reading your imaging report."
+>
+  <AOSInit />
+
+  <!-- Hero Section -->
+  <section
+    class="relative bg-gradient-to-br from-indigo-50 via-white to-purple-50/30 pt-24 pb-16 overflow-hidden"
+  >
+    <!-- Subtle background pattern -->
+    <div class="absolute inset-0 opacity-40">
+      <div
+        class="absolute top-20 right-20 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob"
+      >
+      </div>
+      <div
+        class="absolute top-40 left-20 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"
+      >
+      </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <!-- Breadcrumb -->
+      <nav class="mb-8" data-aos="fade-up">
+        <ol class="flex items-center gap-2 text-sm text-gray-600">
+          <li>
+            <a href="/blog" class="hover:text-[#003087] transition">Blog</a>
+          </li>
+          <li><span class="text-gray-400">/</span></li>
+          <li>
+            <a
+              href="/blog/topic/patient-guide"
+              class="hover:text-[#003087] transition">Patient Guide</a>
+          </li>
+          <li><span class="text-gray-400">/</span></li>
+          <li class="text-gray-900 font-medium">Understanding MRI Results</li>
+        </ol>
+      </nav>
+
+      <!-- Title Section -->
+      <div class="max-w-3xl" data-aos="fade-up" data-aos-delay="100">
+        <div
+          class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium mb-6"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+              clip-rule="evenodd"></path>
+          </svg>
+          Patient Guide • Medical Literacy
+        </div>
+
+        <h1
+          class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
+        >
+          Understanding Your MRI Results: A Patient's Guide
+        </h1>
+
+        <p class="text-xl text-gray-600 leading-relaxed mb-8">
+          Demystifying medical terminology and helping you understand what your
+          imaging report means. While your doctor will explain your results,
+          this guide helps you know what to expect and what questions to ask.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <article class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Key Takeaway Banner -->
+      <div
+        class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 mb-12 text-white"
+        data-aos="fade-up"
+      >
+        <h2 class="text-2xl font-bold mb-3">📋 Important Reminder</h2>
+        <p class="text-lg text-indigo-50">
+          Your MRI report is written <strong
+            >by a radiologist for your referring doctor</strong
+          >—not directly for patients. That's why it contains medical
+          terminology that can sound confusing or alarming. This guide will help
+          you understand the basics, but always discuss your results with your
+          physician, who knows your full medical history and can put findings in
+          proper context.
+        </p>
+      </div>
+
+      <!-- Quick Navigation -->
+      <div
+        class="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 border border-gray-200 mb-12"
+        data-aos="fade-up"
+      >
+        <h2 class="text-xl font-bold text-gray-900 mb-4">
+          📑 Quick Navigation
+        </h2>
+        <div class="grid md:grid-cols-2 gap-3 text-sm">
+          <a
+            href="#report-structure"
+            class="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 transition"
+          >
+            <span>→</span>
+            <span>How to Read Your MRI Report</span>
+          </a>
+          <a
+            href="#common-terms"
+            class="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 transition"
+          >
+            <span>→</span>
+            <span>Common Medical Terms Explained</span>
+          </a>
+          <a
+            href="#findings-meaning"
+            class="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 transition"
+          >
+            <span>→</span>
+            <span>What Common Findings Mean</span>
+          </a>
+          <a
+            href="#questions-to-ask"
+            class="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 transition"
+          >
+            <span>→</span>
+            <span>Questions to Ask Your Doctor</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Featured Image Section -->
+      <div class="mb-12" data-aos="fade-up">
+        <div
+          class="relative rounded-2xl overflow-hidden bg-gradient-to-br from-indigo-100 to-purple-100 aspect-video flex items-center justify-center"
+        >
+          <img
+            src="/images/blog/understanding-mri-results.png"
+            alt="Doctor reviewing MRI results with patient"
+            class="w-full h-full object-cover"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
+          >
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 text-center mt-3 italic">
+          Your doctor will review your MRI results and explain what they mean
+          for your specific situation
+        </p>
+      </div>
+
+      <!-- Introduction -->
+      <section class="prose prose-lg max-w-none mb-16" data-aos="fade-up">
+        <p class="text-xl text-gray-700 leading-relaxed">
+          You've had your MRI, and now you have a report full of medical jargon
+          like "hyperintense signal" and "mild degenerative changes." It can
+          feel overwhelming—and sometimes scary. But here's the truth: <strong
+            >many common findings sound worse than they actually are</strong
+          >. Let's break down what radiologists are really saying in plain
+          English.
+        </p>
+      </section>
+
+      <!-- Content Section 1: Report Structure -->
+      <section
+        id="report-structure"
+        class="prose prose-lg max-w-none mb-16"
+        data-aos="fade-up"
+      >
+        <h2
+          class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3"
+        >
+          <span
+            class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shrink-0"
+            >1</span
+          >
+          How to Read Your MRI Report
+        </h2>
+
+        <div class="space-y-6 text-gray-700 leading-relaxed">
+          <p class="text-lg">
+            Every MRI report follows a standard format. Here's what each section
+            means:
+          </p>
+
+          <!-- Clinical History -->
+          <div class="bg-white border-2 border-blue-200 rounded-xl p-6">
+            <div class="flex items-start gap-4 mb-4">
+              <div
+                class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold shrink-0"
+              >
+                1
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">
+                  Clinical History / Indication
+                </h3>
+                <p class="text-sm text-blue-700 font-semibold mb-3">
+                  Why you got the MRI
+                </p>
+                <div class="bg-blue-50 rounded-lg p-4">
+                  <p class="text-sm text-gray-700 mb-2">
+                    <strong>Example:</strong>
+                  </p>
+                  <p class="text-sm text-gray-600 italic">
+                    "45-year-old female with chronic lower back pain radiating
+                    down left leg. Rule out disc herniation."
+                  </p>
+                </div>
+                <p class="text-sm text-gray-700 mt-3">
+                  <strong>What this means:</strong> This section tells the radiologist
+                  what your doctor is concerned about so they know what to look for.
+                  It's based on your symptoms and your doctor's examination.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Technique -->
+          <div class="bg-white border-2 border-green-200 rounded-xl p-6">
+            <div class="flex items-start gap-4 mb-4">
+              <div
+                class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold shrink-0"
+              >
+                2
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Technique</h3>
+                <p class="text-sm text-green-700 font-semibold mb-3">
+                  Technical details of how the scan was done
+                </p>
+                <div class="bg-green-50 rounded-lg p-4">
+                  <p class="text-sm text-gray-700 mb-2">
+                    <strong>Example:</strong>
+                  </p>
+                  <p class="text-sm text-gray-600 italic">
+                    "MRI of the lumbar spine was performed without contrast on a
+                    1.5 Tesla magnet using standard protocols including T1, T2,
+                    and STIR sequences."
+                  </p>
+                </div>
+                <p class="text-sm text-gray-700 mt-3">
+                  <strong>What this means:</strong> This is for medical documentation—you
+                  can skip this section! It just describes the MRI machine strength
+                  and the types of images taken.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparison -->
+          <div class="bg-white border-2 border-purple-200 rounded-xl p-6">
+            <div class="flex items-start gap-4 mb-4">
+              <div
+                class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold shrink-0"
+              >
+                3
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Comparison</h3>
+                <p class="text-sm text-purple-700 font-semibold mb-3">
+                  Previous imaging (if any)
+                </p>
+                <div class="bg-purple-50 rounded-lg p-4">
+                  <p class="text-sm text-gray-700 mb-2">
+                    <strong>Example:</strong>
+                  </p>
+                  <p class="text-sm text-gray-600 italic">
+                    "Comparison made with lumbar spine MRI dated 06/15/2023."
+                  </p>
+                </div>
+                <p class="text-sm text-gray-700 mt-3">
+                  <strong>What this means:</strong> If you've had MRIs before, the
+                  radiologist compares them to see if anything has changed. This
+                  is actually very helpful—it shows whether findings are new, worse,
+                  better, or stable.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Findings -->
+          <div class="bg-white border-2 border-orange-200 rounded-xl p-6">
+            <div class="flex items-start gap-4 mb-4">
+              <div
+                class="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center text-white font-bold shrink-0"
+              >
+                4
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Findings</h3>
+                <p class="text-sm text-orange-700 font-semibold mb-3">
+                  THE MOST IMPORTANT SECTION—What the radiologist sees
+                </p>
+                <div class="bg-orange-50 rounded-lg p-4">
+                  <p class="text-sm text-gray-700 mb-2">
+                    <strong>Example:</strong>
+                  </p>
+                  <p class="text-sm text-gray-600 italic">
+                    "There is a left paracentral disc herniation at L4-L5 with
+                    mild central canal stenosis and left foraminal narrowing.
+                    Mild degenerative disc disease is noted at L5-S1. No acute
+                    fracture or marrow abnormality."
+                  </p>
+                </div>
+                <p class="text-sm text-gray-700 mt-3">
+                  <strong>What this means:</strong> This is where the radiologist
+                  describes everything they see—both normal and abnormal. It's written
+                  in medical terminology, but we'll translate the common terms below!
+                  This section goes body part by body part.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Impression -->
+          <div class="bg-white border-2 border-red-200 rounded-xl p-6">
+            <div class="flex items-start gap-4 mb-4">
+              <div
+                class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold shrink-0"
+              >
+                5
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">
+                  Impression / Conclusion
+                </h3>
+                <p class="text-sm text-red-700 font-semibold mb-3">
+                  THE SUMMARY—Start here!
+                </p>
+                <div class="bg-red-50 rounded-lg p-4">
+                  <p class="text-sm text-gray-700 mb-2">
+                    <strong>Example:</strong>
+                  </p>
+                  <p class="text-sm text-gray-600 italic">
+                    "1. L4-L5 left paracentral disc herniation with mild canal
+                    stenosis and left neural foraminal narrowing, likely
+                    contributing to patient's symptoms.<br />
+                    2. Mild degenerative changes at L5-S1.<br />
+                    3. No acute fracture."
+                  </p>
+                </div>
+                <p class="text-sm text-gray-700 mt-3">
+                  <strong>What this means:</strong> This is the <strong
+                    >TL;DR (summary)</strong
+                  > of the findings. It's numbered by importance, with the most significant
+                  findings listed first. Your doctor focuses mainly on this section.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg"
+          >
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              💡 Pro Tip: Start at the Bottom
+            </h3>
+            <p class="text-gray-700">
+              Most patients find it easier to read the <strong
+                >Impression/Conclusion first</strong
+              > (the summary at the bottom), then go back and read the detailed Findings
+              section if they want more information. The Impression tells you what
+              matters most.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Section 2: Common Terms -->
+      <section
+        id="common-terms"
+        class="prose prose-lg max-w-none mb-16"
+        data-aos="fade-up"
+      >
+        <h2
+          class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3"
+        >
+          <span
+            class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shrink-0"
+            >2</span
+          >
+          Medical Term Translator: What It Really Means
+        </h2>
+
+        <div class="space-y-6 text-gray-700 leading-relaxed">
+          <p class="text-lg">
+            Here's a plain-English translation of the most common terms you'll
+            see in MRI reports:
+          </p>
+
+          <!-- Severity Terms -->
+          <div
+            class="bg-gradient-to-br from-blue-50 to-white rounded-xl p-6 border border-blue-200"
+          >
+            <h3 class="text-xl font-bold text-gray-900 mb-4">
+              📊 Words Describing Severity
+            </h3>
+            <div class="space-y-3">
+              <div class="bg-white rounded-lg p-4 border border-gray-200">
+                <div class="flex items-start gap-3">
+                  <div
+                    class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-bold shrink-0"
+                  >
+                    MILD
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-gray-700">
+                      <strong>Translation:</strong> Minor, small, slight. Usually
+                      not a big concern. Often age-related wear and tear.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-white rounded-lg p-4 border border-gray-200">
+                <div class="flex items-start gap-3">
+                  <div
+                    class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-bold shrink-0"
+                  >
+                    MODERATE
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-gray-700">
+                      <strong>Translation:</strong> Medium level. More significant
+                      than mild but not severe. May or may not cause symptoms.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-white rounded-lg p-4 border border-gray-200">
+                <div class="flex items-start gap-3">
+                  <div
+                    class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-xs font-bold shrink-0"
+                  >
+                    SEVERE
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-gray-700">
+                      <strong>Translation:</strong> Marked, pronounced. The most
+                      significant level. More likely to cause symptoms or require
+                      treatment.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-white rounded-lg p-4 border border-gray-200">
+                <div class="flex items-start gap-3">
+                  <div
+                    class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-bold shrink-0"
+                  >
+                    MINIMAL
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-gray-700">
+                      <strong>Translation:</strong> Very small, barely there. Usually
+                      insignificant.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Common Spine Terms -->
+          <div
+            class="bg-gradient-to-br from-green-50 to-white rounded-xl p-6 border border-green-200"
+          >
+            <h3 class="text-xl font-bold text-gray-900 mb-4">
+              🦴 Common Spine Terms
+            </h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead class="bg-green-100">
+                  <tr>
+                    <th class="px-4 py-3 text-left font-semibold"
+                      >Medical Term</th
+                    >
+                    <th class="px-4 py-3 text-left font-semibold"
+                      >Plain English</th
+                    >
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr class="bg-white">
+                    <td class="px-4 py-3 font-medium"
+                      >Disc herniation / bulge</td
+                    >
+                    <td class="px-4 py-3"
+                      >The cushion between spine bones is pushing out.
+                      "Herniation" is more severe than "bulge."</td
+                    >
+                  </tr>
+                  <tr class="bg-green-50">
+                    <td class="px-4 py-3 font-medium"
+                      >Degenerative disc disease</td
+                    >
+                    <td class="px-4 py-3"
+                      >Normal wear-and-tear aging of the spine. Like getting
+                      wrinkles—happens to everyone over time.</td
+                    >
+                  </tr>
+                  <tr class="bg-white">
+                    <td class="px-4 py-3 font-medium">Stenosis</td>
+                    <td class="px-4 py-3"
+                      >Narrowing of a space. "Spinal stenosis" = the spinal
+                      canal is narrower than normal.</td
+                    >
+                  </tr>
+                  <tr class="bg-green-50">
+                    <td class="px-4 py-3 font-medium">Foraminal narrowing</td>
+                    <td class="px-4 py-3"
+                      >The holes where nerves exit the spine are smaller than
+                      they should be. Can pinch nerves.</td
+                    >
+                  </tr>
+                  <tr class="bg-white">
+                    <td class="px-4 py-3 font-medium">Spondylosis</td>
+                    <td class="px-4 py-3"
+                      >General term for age-related spine arthritis and
+                      degeneration.</td
+                    >
+                  </tr>
+                  <tr class="bg-green-50">
+                    <td class="px-4 py-3 font-medium">Facet arthropathy</td>
+                    <td class="px-4 py-3"
+                      >Arthritis in the small joints of the spine. Very common
+                      with aging.</td
+                    >
+                  </tr>
+                  <tr class="bg-white">
+                    <td class="px-4 py-3 font-medium">Spondylolisthesis</td>
+                    <td class="px-4 py-3"
+                      >One vertebra has slipped forward on the one below it. Can
+                      be mild (grade 1) to severe (grade 4).</td
+                    >
+                  </tr>
+                  <tr class="bg-green-50">
+                    <td class="px-4 py-3 font-medium">Neural impingement</td>
+                    <td class="px-4 py-3"
+                      >A nerve is being touched or compressed. This can cause
+                      pain, numbness, or tingling.</td
+                    >
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Common Joint Terms -->
+          <div
+            class="bg-gradient-to-br from-purple-50 to-white rounded-xl p-6 border border-purple-200"
+          >
+            <h3 class="text-xl font-bold text-gray-900 mb-4">
+              🦵 Common Joint Terms (Knee, Shoulder, etc.)
+            </h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead class="bg-purple-100">
+                  <tr>
+                    <th class="px-4 py-3 text-left font-semibold"
+                      >Medical Term</th
+                    >
+                    <th class="px-4 py-3 text-left font-semibold"
+                      >Plain English</th
+                    >
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr class="bg-white">
+                    <td class="px-4 py-3 font-medium">Meniscal tear</td>
+                    <td class="px-4 py-3"
+                      >The cartilage cushion in your knee is torn. Very common,
+                      especially with aging or sports.</td
+                    >
+                  </tr>
+                  <tr class="bg-purple-50">
+                    <td class="px-4 py-3 font-medium">Rotator cuff tear</td>
+                    <td class="px-4 py-3"
+                      >One or more of the shoulder muscles/tendons is torn. Can
+                      be partial or complete (full-thickness).</td
+                    >
+                  </tr>
+                  <tr class="bg-white">
+                    <td class="px-4 py-3 font-medium"
+                      >Tendinosis / tendinopathy</td
+                    >
+                    <td class="px-4 py-3"
+                      >The tendon is worn down or irritated. Chronic overuse
+                      injury (not acute inflammation).</td
+                    >
+                  </tr>
+                  <tr class="bg-purple-50">
+                    <td class="px-4 py-3 font-medium">Effusion</td>
+                    <td class="px-4 py-3"
+                      >Fluid buildup in the joint. "Joint swelling."</td
+                    >
+                  </tr>
+                  <tr class="bg-white">
+                    <td class="px-4 py-3 font-medium">Chondromalacia</td>
+                    <td class="px-4 py-3"
+                      >Softening or damage to the cartilage. Common behind the
+                      kneecap (patella).</td
+                    >
+                  </tr>
+                  <tr class="bg-purple-50">
+                    <td class="px-4 py-3 font-medium">Labral tear</td>
+                    <td class="px-4 py-3"
+                      >The ring of cartilage around the shoulder or hip socket
+                      is torn.</td
+                    >
+                  </tr>
+                  <tr class="bg-white">
+                    <td class="px-4 py-3 font-medium">Osteoarthritis</td>
+                    <td class="px-4 py-3"
+                      >Wear-and-tear arthritis. Cartilage breakdown and bone
+                      changes. Very common with aging.</td
+                    >
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Common Brain Terms -->
+          <div
+            class="bg-gradient-to-br from-pink-50 to-white rounded-xl p-6 border border-pink-200"
+          >
+            <h3 class="text-xl font-bold text-gray-900 mb-4">
+              🧠 Common Brain Terms
+            </h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead class="bg-pink-100">
+                  <tr>
+                    <th class="px-4 py-3 text-left font-semibold"
+                      >Medical Term</th
+                    >
+                    <th class="px-4 py-3 text-left font-semibold"
+                      >Plain English</th
+                    >
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr class="bg-white">
+                    <td class="px-4 py-3 font-medium">White matter changes</td>
+                    <td class="px-4 py-3"
+                      >Small areas of different signal in the brain's "wiring."
+                      Very common with aging and often benign.</td
+                    >
+                  </tr>
+                  <tr class="bg-pink-50">
+                    <td class="px-4 py-3 font-medium"
+                      >Nonspecific T2/FLAIR hyperintensities</td
+                    >
+                    <td class="px-4 py-3"
+                      >Bright spots on certain MRI sequences. Usually
+                      age-related or from migraines. Often not significant.</td
+                    >
+                  </tr>
+                  <tr class="bg-white">
+                    <td class="px-4 py-3 font-medium"
+                      >Microvascular ischemic changes</td
+                    >
+                    <td class="px-4 py-3"
+                      >Tiny areas of reduced blood flow, typically from aging or
+                      high blood pressure. Very common in older adults.</td
+                    >
+                  </tr>
+                  <tr class="bg-pink-50">
+                    <td class="px-4 py-3 font-medium">Cerebral atrophy</td>
+                    <td class="px-4 py-3"
+                      >Brain shrinkage. Normal part of aging, though can be
+                      accelerated in some conditions.</td
+                    >
+                  </tr>
+                  <tr class="bg-white">
+                    <td class="px-4 py-3 font-medium">Sinusitis</td>
+                    <td class="px-4 py-3"
+                      >Inflammation or fluid in the sinus cavities. Often an
+                      incidental finding.</td
+                    >
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Signal Terms -->
+          <div
+            class="bg-gradient-to-br from-orange-50 to-white rounded-xl p-6 border border-orange-200"
+          >
+            <h3 class="text-xl font-bold text-gray-900 mb-4">
+              📡 MRI Signal Terms
+            </h3>
+            <div class="space-y-3">
+              <div class="bg-white rounded-lg p-4 border border-gray-200">
+                <p class="font-semibold text-gray-900 mb-2">
+                  Hyperintense (or "increased signal")
+                </p>
+                <p class="text-sm text-gray-700">
+                  Appears <strong>bright/white</strong> on the MRI image. What this
+                  means depends on the sequence and body part.
+                </p>
+              </div>
+              <div class="bg-white rounded-lg p-4 border border-gray-200">
+                <p class="font-semibold text-gray-900 mb-2">
+                  Hypointense (or "decreased signal")
+                </p>
+                <p class="text-sm text-gray-700">
+                  Appears <strong>dark/black</strong> on the MRI image. Again, meaning
+                  varies by context.
+                </p>
+              </div>
+              <div class="bg-white rounded-lg p-4 border border-gray-200">
+                <p class="font-semibold text-gray-900 mb-2">Enhancement</p>
+                <p class="text-sm text-gray-700">
+                  An area that lights up after contrast dye is given. Can
+                  indicate inflammation, infection, or tumor (radiologist will
+                  specify).
+                </p>
+              </div>
+            </div>
+            <div class="bg-orange-100 rounded-lg p-3 mt-3">
+              <p class="text-xs text-gray-700">
+                <strong>Don't worry too much about signal terms.</strong> Radiologists
+                use these to describe what they see, but your doctor will explain
+                if the finding is actually concerning.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Section 3: Common Findings -->
+      <section
+        id="findings-meaning"
+        class="prose prose-lg max-w-none mb-16"
+        data-aos="fade-up"
+      >
+        <h2
+          class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3"
+        >
+          <span
+            class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shrink-0"
+            >3</span
+          >
+          What Common Findings Actually Mean
+        </h2>
+
+        <div class="space-y-6 text-gray-700 leading-relaxed">
+          <p class="text-lg">
+            Some findings sound scary but are actually very common and often not
+            serious. Here's context:
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Age-Related Changes -->
+            <div
+              class="bg-gradient-to-br from-green-50 to-white rounded-xl p-6 border-2 border-green-300"
+            >
+              <h3
+                class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2"
+              >
+                <span class="text-2xl">👴</span>
+                "Degenerative Changes"
+              </h3>
+              <p class="text-sm text-gray-700 mb-3">
+                <strong>What it means:</strong> Normal wear-and-tear from aging.
+                Like getting gray hair or wrinkles—it's expected!
+              </p>
+              <div class="bg-green-100 rounded-lg p-3">
+                <p class="text-xs text-gray-700">
+                  <strong>The truth:</strong> By age 40, over 80% of people have
+                  some "degenerative disc disease" on MRI—even without pain. Having
+                  these changes does NOT mean you need surgery or that things will
+                  get worse.
+                </p>
+              </div>
+            </div>
+
+            <!-- Disc Bulge -->
+            <div
+              class="bg-gradient-to-br from-blue-50 to-white rounded-xl p-6 border-2 border-blue-300"
+            >
+              <h3
+                class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2"
+              >
+                <span class="text-2xl">💿</span>
+                "Disc Bulge" or "Herniation"
+              </h3>
+              <p class="text-sm text-gray-700 mb-3">
+                <strong>What it means:</strong> The cushion between vertebrae is
+                pushing outward. May or may not cause symptoms.
+              </p>
+              <div class="bg-blue-100 rounded-lg p-3">
+                <p class="text-xs text-gray-700">
+                  <strong>The truth:</strong> Studies show 30-40% of people with
+                  NO back pain have disc herniations on MRI. Many heal on their own.
+                  Only a small percentage need surgery.
+                </p>
+              </div>
+            </div>
+
+            <!-- Meniscal Tear -->
+            <div
+              class="bg-gradient-to-br from-purple-50 to-white rounded-xl p-6 border-2 border-purple-300"
+            >
+              <h3
+                class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2"
+              >
+                <span class="text-2xl">🦵</span>
+                "Meniscal Tear"
+              </h3>
+              <p class="text-sm text-gray-700 mb-3">
+                <strong>What it means:</strong> The cartilage in your knee has a
+                tear. Can be from injury or degenerative (aging).
+              </p>
+              <div class="bg-purple-100 rounded-lg p-3">
+                <p class="text-xs text-gray-700">
+                  <strong>The truth:</strong> Nearly 60% of people over 50 without
+                  knee pain have meniscal tears. Many don't require surgery and can
+                  be managed with PT.
+                </p>
+              </div>
+            </div>
+
+            <!-- White Matter Changes -->
+            <div
+              class="bg-gradient-to-br from-pink-50 to-white rounded-xl p-6 border-2 border-pink-300"
+            >
+              <h3
+                class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2"
+              >
+                <span class="text-2xl">🧠</span>
+                "White Matter Changes"
+              </h3>
+              <p class="text-sm text-gray-700 mb-3">
+                <strong>What it means:</strong> Small bright spots in the brain.
+                Can be from aging, migraines, or vascular changes.
+              </p>
+              <div class="bg-pink-100 rounded-lg p-3">
+                <p class="text-xs text-gray-700">
+                  <strong>The truth:</strong> Extremely common in people over 60.
+                  Most are benign and don't indicate serious disease like MS or stroke.
+                  Your doctor will correlate with your symptoms.
+                </p>
+              </div>
+            </div>
+
+            <!-- Cyst -->
+            <div
+              class="bg-gradient-to-br from-yellow-50 to-white rounded-xl p-6 border-2 border-yellow-300"
+            >
+              <h3
+                class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2"
+              >
+                <span class="text-2xl">🫧</span>
+                "Cyst"
+              </h3>
+              <p class="text-sm text-gray-700 mb-3">
+                <strong>What it means:</strong> A fluid-filled sac. Most cysts (e.g.,
+                Baker's cyst, ganglion cyst, simple renal cyst) are benign.
+              </p>
+              <div class="bg-yellow-100 rounded-lg p-3">
+                <p class="text-xs text-gray-700">
+                  <strong>The truth:</strong> The vast majority of cysts found on
+                  MRI are harmless and require no treatment. Simple cysts are incredibly
+                  common, especially in kidneys and liver.
+                </p>
+              </div>
+            </div>
+
+            <!-- Arthritis -->
+            <div
+              class="bg-gradient-to-br from-orange-50 to-white rounded-xl p-6 border-2 border-orange-300"
+            >
+              <h3
+                class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2"
+              >
+                <span class="text-2xl">🦴</span>
+                "Osteoarthritis" / "Arthropathy"
+              </h3>
+              <p class="text-sm text-gray-700 mb-3">
+                <strong>What it means:</strong> Wear-and-tear arthritis. Cartilage
+                loss and bone changes in joints.
+              </p>
+              <div class="bg-orange-100 rounded-lg p-3">
+                <p class="text-xs text-gray-700">
+                  <strong>The truth:</strong> Affects almost everyone to some degree
+                  as they age. Severity on MRI doesn't always match pain levels.
+                  Many people with severe arthritis on imaging have minimal pain,
+                  and vice versa.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl p-6 text-white"
+          >
+            <h3 class="text-lg font-bold mb-3">
+              🎯 Key Principle: Correlation is Everything
+            </h3>
+            <p class="text-sm text-indigo-50">
+              A finding is only meaningful if it <strong
+                >correlates with your symptoms</strong
+              >. For example, if you have left leg pain and the MRI shows a disc
+              herniation on the left side at the right level, that's likely the
+              cause. But if you have no symptoms and the MRI shows a herniation,
+              it may be an <strong>incidental finding</strong> (found by chance)
+              that doesn't need treatment.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Section 4: Red Flags -->
+      <section class="prose prose-lg max-w-none mb-16" data-aos="fade-up">
+        <h2
+          class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3"
+        >
+          <span
+            class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shrink-0"
+            >4</span
+          >
+          When to Be Concerned: Red Flag Terms
+        </h2>
+
+        <div class="space-y-6 text-gray-700 leading-relaxed">
+          <p class="text-lg">
+            While most findings are benign, some terms warrant immediate
+            follow-up with your doctor:
+          </p>
+
+          <div class="bg-red-50 border-2 border-red-300 rounded-xl p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-4">
+              ⚠️ Terms That Need Prompt Attention
+            </h3>
+            <div class="space-y-3">
+              <div class="bg-white rounded-lg p-4 border-l-4 border-red-500">
+                <p class="font-semibold text-gray-900 mb-1">
+                  • "Mass" or "Tumor"
+                </p>
+                <p class="text-sm text-gray-700">
+                  Requires further evaluation. Note: "tumor" just means
+                  "growth"—it can be benign or malignant. Your doctor will
+                  recommend next steps (biopsy, follow-up imaging, etc.)
+                </p>
+              </div>
+              <div class="bg-white rounded-lg p-4 border-l-4 border-red-500">
+                <p class="font-semibold text-gray-900 mb-1">
+                  • "Suspicious" or "Concerning"
+                </p>
+                <p class="text-sm text-gray-700">
+                  Radiologist is flagging something that looks abnormal and
+                  needs investigation
+                </p>
+              </div>
+              <div class="bg-white rounded-lg p-4 border-l-4 border-red-500">
+                <p class="font-semibold text-gray-900 mb-1">
+                  • "Acute fracture"
+                </p>
+                <p class="text-sm text-gray-700">
+                  New, recent broken bone—requires immediate treatment
+                </p>
+              </div>
+              <div class="bg-white rounded-lg p-4 border-l-4 border-red-500">
+                <p class="font-semibold text-gray-900 mb-1">
+                  • "Severe stenosis with cord compression"
+                </p>
+                <p class="text-sm text-gray-700">
+                  Spinal cord is being squeezed—can be serious and may need
+                  urgent intervention
+                </p>
+              </div>
+              <div class="bg-white rounded-lg p-4 border-l-4 border-red-500">
+                <p class="font-semibold text-gray-900 mb-1">
+                  • "Recommend correlation with" or "Consider further
+                  evaluation"
+                </p>
+                <p class="text-sm text-gray-700">
+                  Radiologist is recommending additional testing or specialist
+                  consultation
+                </p>
+              </div>
+            </div>
+            <div class="bg-red-100 rounded-lg p-4 mt-4">
+              <p class="text-sm text-gray-700">
+                <strong>Important:</strong> If your report contains any of these
+                terms, contact your doctor promptly—but don't panic. Many of these
+                findings are treatable, especially when caught early.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Section 5: Questions to Ask -->
+      <section
+        id="questions-to-ask"
+        class="prose prose-lg max-w-none mb-16"
+        data-aos="fade-up"
+      >
+        <h2
+          class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3"
+        >
+          <span
+            class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center text-white text-xl font-bold shrink-0"
+            >5</span
+          >
+          Questions to Ask Your Doctor
+        </h2>
+
+        <div class="space-y-6 text-gray-700 leading-relaxed">
+          <p class="text-lg">
+            When you meet with your doctor to discuss your MRI results, here are
+            the most important questions to ask:
+          </p>
+
+          <div
+            class="bg-gradient-to-br from-indigo-50 to-white rounded-xl p-8 border border-indigo-200"
+          >
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <span class="text-indigo-600 text-xl font-bold shrink-0"
+                  >1.</span
+                >
+                <div>
+                  <p class="font-semibold text-gray-900 mb-1">
+                    "What is the most important finding on my MRI?"
+                  </p>
+                  <p class="text-sm text-gray-600">
+                    Get them to prioritize—what matters most?
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-indigo-600 text-xl font-bold shrink-0"
+                  >2.</span
+                >
+                <div>
+                  <p class="font-semibold text-gray-900 mb-1">
+                    "Is this finding related to my symptoms?"
+                  </p>
+                  <p class="text-sm text-gray-600">
+                    Correlation is key. Does the MRI explain why you're having
+                    pain or other issues?
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-indigo-600 text-xl font-bold shrink-0"
+                  >3.</span
+                >
+                <div>
+                  <p class="font-semibold text-gray-900 mb-1">
+                    "What are my treatment options?"
+                  </p>
+                  <p class="text-sm text-gray-600">
+                    Conservative (PT, medication) vs. invasive (injections,
+                    surgery). Ask about pros and cons of each.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-indigo-600 text-xl font-bold shrink-0"
+                  >4.</span
+                >
+                <div>
+                  <p class="font-semibold text-gray-900 mb-1">
+                    "What happens if we don't treat this?"
+                  </p>
+                  <p class="text-sm text-gray-600">
+                    Will it get worse? Stay the same? Some findings don't
+                    require treatment at all.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-indigo-600 text-xl font-bold shrink-0"
+                  >5.</span
+                >
+                <div>
+                  <p class="font-semibold text-gray-900 mb-1">
+                    "Do I need any follow-up imaging?"
+                  </p>
+                  <p class="text-sm text-gray-600">
+                    Some findings require monitoring with repeat MRIs in 3-6
+                    months.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-indigo-600 text-xl font-bold shrink-0"
+                  >6.</span
+                >
+                <div>
+                  <p class="font-semibold text-gray-900 mb-1">
+                    "Should I see a specialist?"
+                  </p>
+                  <p class="text-sm text-gray-600">
+                    Orthopedic surgeon, neurosurgeon, rheumatologist, etc.
+                    depending on the finding.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-indigo-600 text-xl font-bold shrink-0"
+                  >7.</span
+                >
+                <div>
+                  <p class="font-semibold text-gray-900 mb-1">
+                    "Are there any activity restrictions?"
+                  </p>
+                  <p class="text-sm text-gray-600">
+                    Can you exercise? Lift heavy things? Return to sports?
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-indigo-600 text-xl font-bold shrink-0"
+                  >8.</span
+                >
+                <div>
+                  <p class="font-semibold text-gray-900 mb-1">
+                    "How does this compare to my previous imaging?" (if
+                    applicable)
+                  </p>
+                  <p class="text-sm text-gray-600">
+                    Is it new? Worse? Better? Stable? Progression matters.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              💚 Don't Be Afraid to Ask for Clarification
+            </h3>
+            <p class="text-gray-700">
+              If your doctor uses medical jargon you don't understand, <strong
+                >ask them to explain it in simpler terms</strong
+              >. A good doctor will take the time to make sure you truly
+              understand your results. You have every right to be an informed
+              patient.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Bottom Line -->
+      <div
+        class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 md:p-12 text-white text-center mb-12"
+        data-aos="fade-up"
+      >
+        <h2 class="text-3xl font-bold mb-4">The Bottom Line</h2>
+        <p class="text-xl text-indigo-100 mb-6 max-w-3xl mx-auto">
+          MRI reports can look scary, but remember: <strong
+            >many common findings are normal parts of aging</strong
+          > and don't require treatment. The most important thing is <strong
+            >correlation with your symptoms</strong
+          >. Always discuss your results with your doctor, who can put
+          everything in context and create a personalized treatment plan.
+        </p>
+        <div class="grid md:grid-cols-3 gap-4 text-sm max-w-3xl mx-auto">
+          <div class="bg-white/20 backdrop-blur-sm rounded-lg p-4">
+            <p class="text-3xl font-bold mb-1">📋</p>
+            <p class="text-xs text-indigo-200">Read the Impression first</p>
+          </div>
+          <div class="bg-white/20 backdrop-blur-sm rounded-lg p-4">
+            <p class="text-3xl font-bold mb-1">🤝</p>
+            <p class="text-xs text-indigo-200">Talk to your doctor</p>
+          </div>
+          <div class="bg-white/20 backdrop-blur-sm rounded-lg p-4">
+            <p class="text-3xl font-bold mb-1">💪</p>
+            <p class="text-xs text-indigo-200">
+              Don't panic—most findings are manageable
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div
+        class="mt-12 bg-gradient-to-r from-[#003087] to-blue-700 rounded-2xl p-8 md:p-12 text-white text-center"
+        data-aos="fade-up"
+      >
+        <h2 class="text-3xl font-bold mb-4">
+          Need an MRI? Get Clear Results at USRad
+        </h2>
+        <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          At USRad, we believe in transparent pricing and clear communication.
+          Our radiologists provide detailed reports, and our staff is always
+          available to answer your questions.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#cc9933] text-white font-semibold rounded-lg hover:bg-[#b38829] transition-all transform hover:scale-105"
+          >
+            Book Your MRI Today
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </a>
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-lg border-2 border-white/30 hover:bg-white/20 transition-all"
+          >
+            Questions About Your Results?
+          </a>
+        </div>
+        <p class="text-sm text-blue-200 mt-6">
+          Call us: <strong>1-800-USRad-24</strong> • Mon-Fri 8am-8pm EST
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Related Articles -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-gray-900 mb-8" data-aos="fade-up">
+        Related Articles
+      </h2>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <article
+          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
+          data-aos="fade-up"
+        >
+          <a href="/blog/first-mri-preparation-guide">
+            <div class="h-48 bg-gradient-to-br from-indigo-100 to-blue-100">
+            </div>
+            <div class="p-6">
+              <span
+                class="text-xs font-semibold text-indigo-600 uppercase tracking-wide"
+                >Patient Guide</span
+              >
+              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
+                How to Prepare for Your First MRI
+              </h3>
+              <p class="text-gray-600 text-sm">
+                Everything you need to know before your appointment.
+              </p>
+            </div>
+          </a>
+        </article>
+
+        <article
+          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <a href="/blog/mri-basics">
+            <div class="h-48 bg-gradient-to-br from-blue-100 to-blue-50"></div>
+            <div class="p-6">
+              <span
+                class="text-xs font-semibold text-[#003087] uppercase tracking-wide"
+                >MRI Basics</span
+              >
+              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
+                What is an MRI? Complete Guide
+              </h3>
+              <p class="text-gray-600 text-sm">
+                Understanding MRI technology and what to expect.
+              </p>
+            </div>
+          </a>
+        </article>
+
+        <article
+          class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <a href="/blog/managing-mri-anxiety">
+            <div class="h-48 bg-gradient-to-br from-purple-100 to-pink-100">
+            </div>
+            <div class="p-6">
+              <span
+                class="text-xs font-semibold text-purple-600 uppercase tracking-wide"
+                >Patient Guide</span
+              >
+              <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3">
+                Overcoming MRI Anxiety
+              </h3>
+              <p class="text-gray-600 text-sm">
+                Tips for staying calm during your scan.
+              </p>
+            </div>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @keyframes blob {
+      0%,
+      100% {
+        transform: translate(0px, 0px) scale(1);
+      }
+      33% {
+        transform: translate(30px, -50px) scale(1.1);
+      }
+      66% {
+        transform: translate(-20px, 20px) scale(0.9);
+      }
+    }
+
+    .animate-blob {
+      animation: blob 7s infinite;
+    }
+
+    .animation-delay-2000 {
+      animation-delay: 2s;
+    }
+
+    /* Smooth scroll for anchor links */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Prose styling for better readability */
+    .prose {
+      color: #374151;
+    }
+
+    .prose p {
+      margin-bottom: 1rem;
+    }
+  </style>
+</CarbonLayout>
