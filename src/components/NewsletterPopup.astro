@@ -1,0 +1,753 @@
+---
+// NewsletterPopup.astro
+// Slide-in newsletter popup for blog posts
+// Shows once per 30 days using localStorage
+// Email-only for maximum conversions
+
+const {
+  title = "Healthcare Insights You Can Use",
+  subtitle = "Get weekly tips on saving money on medical imaging and understanding your healthcare options",
+  placeholder = "Enter your email",
+  buttonText = "Get Free Tips",
+  showDelay = 15000, // 15 seconds
+  scrollTrigger = 25, // 25% scroll depth
+  cookieDays = 30, // Show once per 30 days
+} = Astro.props;
+---
+
+<!-- Newsletter Popup Container -->
+<div
+  id="newsletter-popup"
+  class="newsletter-popup"
+  data-show-delay={showDelay}
+  data-scroll-trigger={scrollTrigger}
+  data-cookie-days={cookieDays}
+>
+  <div class="newsletter-popup-content">
+    <!-- Close Button -->
+    <button
+      id="newsletter-popup-close"
+      class="newsletter-popup-close"
+      aria-label="Close newsletter popup"
+    >
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- Icon/Badge -->
+    <div class="newsletter-popup-badge">
+      <svg
+        class="newsletter-icon"
+        width="32"
+        height="32"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+        ></path>
+        <polyline points="22,6 12,13 2,6"></polyline>
+      </svg>
+    </div>
+
+    <!-- Content -->
+    <div class="newsletter-popup-header">
+      <h3 class="newsletter-popup-title">{title}</h3>
+      <p class="newsletter-popup-subtitle">{subtitle}</p>
+    </div>
+
+    <!-- Benefits List -->
+    <ul class="newsletter-popup-benefits">
+      <li>
+        <svg
+          class="check-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>Save up to 70% on medical imaging</span>
+      </li>
+      <li>
+        <svg
+          class="check-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>Understand your scan results</span>
+      </li>
+      <li>
+        <svg
+          class="check-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>Navigate healthcare without insurance</span>
+      </li>
+    </ul>
+
+    <!-- Form -->
+    <form id="newsletter-popup-form" class="newsletter-popup-form">
+      <div class="newsletter-popup-input-wrapper">
+        <input
+          type="email"
+          id="newsletter-popup-email"
+          name="email"
+          placeholder={placeholder}
+          required
+          autocomplete="email"
+          class="newsletter-popup-input"
+        />
+        <button
+          type="submit"
+          id="newsletter-popup-submit"
+          class="newsletter-popup-button"
+        >
+          {buttonText}
+        </button>
+      </div>
+
+      <!-- Status Message -->
+      <div
+        id="newsletter-popup-message"
+        class="newsletter-popup-message"
+        role="status"
+        aria-live="polite"
+      >
+      </div>
+    </form>
+
+    <!-- Social Proof -->
+    <p class="newsletter-popup-footer">
+      <svg
+        class="users-icon"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+      Join 10,000+ subscribers • Unsubscribe anytime
+    </p>
+  </div>
+
+  <!-- Overlay -->
+  <div id="newsletter-popup-overlay" class="newsletter-popup-overlay"></div>
+</div>
+
+<style>
+  /* Newsletter Popup Styles */
+  .newsletter-popup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    display: none;
+    pointer-events: none;
+  }
+
+  .newsletter-popup.active {
+    display: block;
+    pointer-events: auto;
+  }
+
+  /* Overlay - Subtle without blurring the popup */
+  .newsletter-popup-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+  }
+
+  .newsletter-popup.active .newsletter-popup-overlay {
+    opacity: 1;
+  }
+
+  /* Content Container - Optimized size and smooth animation */
+  .newsletter-popup-content {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateX(120%) translateY(-50%);
+    width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
+    background: white;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    padding: 36px 28px;
+    overflow-y: auto;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 10;
+  }
+
+  .newsletter-popup.active .newsletter-popup-content {
+    transform: translateX(0) translateY(-50%);
+  }
+
+  /* Close Button - More attractive */
+  .newsletter-popup-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    background: #f3f4f6;
+    border: none;
+    cursor: pointer;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    z-index: 20;
+  }
+
+  .newsletter-popup-close:hover {
+    background: #003087;
+    color: white;
+    transform: rotate(90deg);
+  }
+
+  .newsletter-popup-close:active {
+    transform: rotate(90deg) scale(0.95);
+  }
+
+  /* Badge - More attractive with subtle animation */
+  .newsletter-popup-badge {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #003087, #0066cc);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(0, 48, 135, 0.25);
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  .newsletter-icon {
+    color: white;
+  }
+
+  /* Header - More compact and attractive */
+  .newsletter-popup-header {
+    margin-bottom: 20px;
+  }
+
+  .newsletter-popup-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 10px 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .newsletter-popup-subtitle {
+    font-size: 15px;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Benefits List - More compact */
+  .newsletter-popup-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+  }
+
+  .newsletter-popup-benefits li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.4;
+  }
+
+  .newsletter-popup-benefits li:last-child {
+    margin-bottom: 0;
+  }
+
+  .check-icon {
+    color: #10b981;
+    flex-shrink: 0;
+    margin-top: 1px;
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Form - More compact */
+  .newsletter-popup-form {
+    margin-bottom: 16px;
+  }
+
+  .newsletter-popup-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .newsletter-popup-input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 15px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+
+  .newsletter-popup-input:focus {
+    outline: none;
+    border-color: #003087;
+    box-shadow: 0 0 0 4px rgba(0, 48, 135, 0.1);
+  }
+
+  .newsletter-popup-input::placeholder {
+    color: #9ca3af;
+  }
+
+  .newsletter-popup-button {
+    width: 100%;
+    padding: 13px 24px;
+    background: linear-gradient(135deg, #003087, #0066cc);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    box-shadow: 0 4px 14px rgba(0, 48, 135, 0.3);
+  }
+
+  .newsletter-popup-button:hover {
+    background: linear-gradient(135deg, #002066, #0052a3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 48, 135, 0.4);
+  }
+
+  .newsletter-popup-button:active {
+    transform: translateY(0);
+  }
+
+  .newsletter-popup-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 4px 14px rgba(0, 48, 135, 0.2);
+  }
+
+  /* Message */
+  .newsletter-popup-message {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    display: none;
+    text-align: center;
+  }
+
+  .newsletter-popup-message.success {
+    display: block;
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+  }
+
+  .newsletter-popup-message.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+  }
+
+  /* Footer */
+  .newsletter-popup-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0;
+  }
+
+  .users-icon {
+    color: #9ca3af;
+    flex-shrink: 0;
+  }
+
+  /* Mobile Responsive - Optimized */
+  @media (max-width: 640px) {
+    .newsletter-popup-content {
+      top: auto;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      max-width: 100%;
+      max-height: 85vh;
+      padding: 28px 24px;
+      border-radius: 20px 20px 0 0;
+      transform: translateY(100%);
+    }
+
+    .newsletter-popup.active .newsletter-popup-content {
+      transform: translateY(0);
+    }
+
+    .newsletter-popup-title {
+      font-size: 22px;
+    }
+
+    .newsletter-popup-subtitle {
+      font-size: 14px;
+    }
+
+    .newsletter-popup-badge {
+      width: 52px;
+      height: 52px;
+    }
+
+    .newsletter-icon {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  /* Animation for slide-in */
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  /* Smooth scrollbar */
+  .newsletter-popup-content::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .newsletter-popup-content::-webkit-scrollbar-track {
+    background: #f3f4f6;
+  }
+
+  .newsletter-popup-content::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 4px;
+  }
+
+  .newsletter-popup-content::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
+</style>
+
+<script>
+  // Newsletter Popup Logic
+  // This runs on every page load for blog posts
+
+  (function () {
+    if (typeof window === "undefined") return;
+
+    // Configuration
+    const STORAGE_KEY = "usrad-newsletter-popup";
+    const COOKIE_DAYS = 30;
+
+    // Get popup element
+    const popup = document.getElementById("newsletter-popup");
+    if (!popup) return; // Exit if popup doesn't exist
+
+    const overlay = document.getElementById("newsletter-popup-overlay");
+    const closeBtn = document.getElementById("newsletter-popup-close");
+    const form = document.getElementById("newsletter-popup-form");
+    const emailInput = document.getElementById(
+      "newsletter-popup-email"
+    ) as HTMLInputElement;
+    const submitBtn = document.getElementById(
+      "newsletter-popup-submit"
+    ) as HTMLButtonElement;
+    const message = document.getElementById("newsletter-popup-message");
+
+    // Get configuration from data attributes
+    const showDelay = parseInt(popup.dataset.showDelay || "15000");
+    const scrollTrigger = parseInt(popup.dataset.scrollTrigger || "25");
+    const cookieDays = parseInt(popup.dataset.cookieDays || "30");
+
+    // State
+    let popupShown = false;
+    let formSubmitted = false;
+
+    // Check if popup should be shown
+    function shouldShowPopup(): boolean {
+      const data = localStorage.getItem(STORAGE_KEY);
+      if (!data) return true;
+
+      try {
+        const { shown, date, subscribed } = JSON.parse(data);
+
+        // Never show again if already subscribed
+        if (subscribed) return false;
+
+        // Check if enough time has passed
+        const daysPassed = (Date.now() - date) / (1000 * 60 * 60 * 24);
+        return daysPassed >= cookieDays;
+      } catch (e) {
+        return true;
+      }
+    }
+
+    // Show popup
+    function showPopup() {
+      if (popupShown || !shouldShowPopup()) return;
+
+      popup?.classList.add("active");
+      document.body.style.overflow = "hidden"; // Prevent background scrolling
+      popupShown = true;
+
+      // Track that popup was shown
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          shown: true,
+          date: Date.now(),
+          subscribed: false,
+        })
+      );
+
+      // Analytics tracking
+      if (typeof gtag !== "undefined") {
+        gtag("event", "newsletter_popup_shown", {
+          event_category: "engagement",
+          event_label: "blog_popup",
+        });
+      }
+    }
+
+    // Hide popup
+    function hidePopup() {
+      popup?.classList.remove("active");
+      document.body.style.overflow = ""; // Restore scrolling
+
+      // Analytics tracking
+      if (typeof gtag !== "undefined") {
+        gtag("event", "newsletter_popup_closed", {
+          event_category: "engagement",
+          event_label: "blog_popup",
+        });
+      }
+    }
+
+    // Close button handler
+    closeBtn?.addEventListener("click", hidePopup);
+
+    // Overlay click handler (close on outside click)
+    overlay?.addEventListener("click", hidePopup);
+
+    // Escape key handler
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && popup?.classList.contains("active")) {
+        hidePopup();
+      }
+    });
+
+    // Form submission handler
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      if (formSubmitted) return;
+
+      const email = emailInput?.value.trim();
+
+      if (!email) {
+        showMessage("Please enter your email address", "error");
+        return;
+      }
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showMessage("Please enter a valid email address", "error");
+        return;
+      }
+
+      // Disable form
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Subscribing...";
+
+      try {
+        // Send to your API endpoint
+        const response = await fetch("/api/subscribe-waitlist", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        if (response.ok) {
+          // Success!
+          showMessage(
+            "Success! Check your inbox for healthcare tips.",
+            "success"
+          );
+          formSubmitted = true;
+
+          // Mark as subscribed in localStorage
+          localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({
+              shown: true,
+              date: Date.now(),
+              subscribed: true,
+            })
+          );
+
+          // Analytics tracking
+          if (typeof gtag !== "undefined") {
+            gtag("event", "newsletter_popup_subscribed", {
+              event_category: "conversion",
+              event_label: "blog_popup",
+            });
+          }
+
+          // Close popup after 3 seconds
+          setTimeout(hidePopup, 3000);
+        } else {
+          const data = await response.json();
+          showMessage(
+            data.error || "Something went wrong. Please try again.",
+            "error"
+          );
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Get Free Tips";
+        }
+      } catch (error) {
+        console.error("Newsletter subscription error:", error);
+        showMessage("Something went wrong. Please try again.", "error");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Get Free Tips";
+      }
+    });
+
+    // Show message helper
+    function showMessage(text: string, type: "success" | "error") {
+      if (!message) return;
+
+      message.textContent = text;
+      message.className = `newsletter-popup-message ${type}`;
+    }
+
+    // Scroll depth tracking
+    let maxScroll = 0;
+    function trackScrollDepth() {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+      const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+
+      if (scrollPercent > maxScroll) {
+        maxScroll = scrollPercent;
+
+        // Show popup when scroll trigger is reached
+        if (scrollPercent >= scrollTrigger && !popupShown) {
+          showPopup();
+        }
+      }
+    }
+
+    // Exit intent detection (desktop only)
+    function handleExitIntent(e: MouseEvent) {
+      if (e.clientY <= 0 && !popupShown && window.innerWidth > 768) {
+        showPopup();
+        // Remove listener after showing
+        document.removeEventListener("mouseout", handleExitIntent);
+      }
+    }
+
+    // Initialize triggers
+    function initTriggers() {
+      // Time-based trigger
+      setTimeout(() => {
+        if (!popupShown) {
+          showPopup();
+        }
+      }, showDelay);
+
+      // Scroll-based trigger
+      window.addEventListener("scroll", trackScrollDepth, { passive: true });
+
+      // Exit intent trigger (desktop only)
+      if (window.innerWidth > 768) {
+        document.addEventListener("mouseout", handleExitIntent);
+      }
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initTriggers);
+    } else {
+      initTriggers();
+    }
+  })(); // Close IIFE
+</script>

@@ -2,6 +2,7 @@
 import CarbonLayout from "../../layouts/CarbonLayout.astro";
 import AOSInit from "../../components/AOSInit.astro";
 import { getRelatedPosts } from "../../data/blogPosts.js";
+import NewsletterPopup from "../../components/NewsletterPopup.astro";
 
 export const prerender = true;
 
@@ -1286,4 +1287,6 @@ const relatedArticles = getRelatedPosts(
       margin-bottom: 1rem;
     }
   </style>
+  
+  <NewsletterPopup animationSpeed="slow" />
 </CarbonLayout>
