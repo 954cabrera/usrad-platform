@@ -10,7 +10,7 @@ export const featuredPost = {
   date: "August 5, 2025",
   readTime: "6 min read",
   category: "Cost & Savings",
-  image: "/images/blog/mri-cost-comparison-hero.webp",
+  image: "/images/blog/cost-comparison.webp",
   slug: "real-cost-of-mri",
 };
 
@@ -34,7 +34,7 @@ export const blogPosts = [
     date: "April 10, 2025",
     readTime: "6 min read",
     category: "Patient Guide",
-    image: "/images/blog/patient-preparing.webp",
+    image: "/images/blog/tech-patient.webp",
     slug: "first-mri-preparation-guide",
   },
   {
