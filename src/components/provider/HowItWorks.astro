@@ -1,122 +1,463 @@
 ---
-// HowItWorks.astro - Three steps timeline section
+// src/components/provider/HowItWorks.astro
+// Comprehensive "How It Works" section with timeline tooltip
 ---
 
-<!-- How It Works - Gold accents -->
-<section
-  id="how-it-works"
-  class="py-24 px-4 sm:px-6 bg-gradient-to-br from-gray-50 to-white"
->
-  <div class="max-w-5xl mx-auto">
+<section id="how-it-works" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Section Header -->
     <div class="text-center mb-16" data-aos="fade-up">
-      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+      <div class="inline-block mb-4">
+        <span
+          class="bg-[#cc9933]/10 text-[#cc9933] px-4 py-2 rounded-full text-sm font-semibold"
+        >
+          Simple Process
+        </span>
+      </div>
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
         Three Steps to More Revenue
       </h2>
-      <p class="text-xl text-gray-600">Most centers are live within 72 hours</p>
+      <p class="section-subtitle">
+        Most centers are live within 2-3 weeks
+        <span class="tooltip-wrapper">
+          <svg class="info-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fill-rule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span class="tooltip-text"
+            >Timeline includes standard credentialing process</span
+          >
+        </span>
+      </p>
     </div>
 
-    <!-- Simple Timeline -->
-    <div class="relative">
-      <!-- Connection Line -->
+    <!-- Steps Grid -->
+    <div class="grid md:grid-cols-3 gap-12 relative">
+      <!-- Connecting Lines (Desktop) -->
       <div
-        class="absolute left-8 top-20 bottom-20 w-0.5 bg-gray-200 hidden md:block"
+        class="hidden md:block absolute top-20 left-0 right-0 h-1 bg-gradient-to-r from-[#003087] via-[#cc9933] to-[#003087] opacity-20"
+        style="width: 80%; margin-left: 10%;"
       >
       </div>
 
-      <!-- Step 1 -->
-      <div class="relative flex items-start mb-16" data-aos="fade-right">
+      <!-- Step 1: Join Online -->
+      <div
+        class="step-card relative bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <!-- Step Number Badge -->
         <div
-          class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-[#cc9933] to-[#FFA500] rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg"
+          class="step-number absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-[#003087] to-[#004299] text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg z-10"
         >
           1
         </div>
-        <div class="ml-8">
-          <h3 class="text-2xl font-bold text-gray-900 mb-2">
-            Review our simple agreement
-          </h3>
-          <p class="text-lg text-gray-600 mb-4">
-            No lawyers needed. Plain English. 5 minute read.
-          </p>
-          <div
-            class="inline-flex items-center gap-2 text-[#cc9933] font-medium"
+
+        <!-- Icon -->
+        <div
+          class="w-20 h-20 bg-gradient-to-br from-[#003087]/10 to-[#cc9933]/10 rounded-2xl flex items-center justify-center mb-6 mx-auto mt-8"
+        >
+          <svg
+            class="w-10 h-10 text-[#003087]"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            ></path>
+          </svg>
+        </div>
+
+        <!-- Content -->
+        <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">
+          Join Online
+        </h3>
+        <p class="text-gray-600 text-center mb-6 leading-relaxed">
+          Complete our streamlined digital application in about 20 minutes. No
+          paperwork, no meetings required.
+        </p>
+
+        <!-- Features List -->
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <svg
+              class="w-5 h-5 text-[#22c55e] flex-shrink-0 mt-0.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path
                 fill-rule="evenodd"
                 d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                 clip-rule="evenodd"></path>
             </svg>
-            <span>Digital signature</span>
-          </div>
+            <span class="text-sm text-gray-700"
+              >Review & sign agreement digitally</span
+            >
+          </li>
+          <li class="flex items-start gap-3">
+            <svg
+              class="w-5 h-5 text-[#22c55e] flex-shrink-0 mt-0.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm text-gray-700"
+              >Submit center documentation</span
+            >
+          </li>
+          <li class="flex items-start gap-3">
+            <svg
+              class="w-5 h-5 text-[#22c55e] flex-shrink-0 mt-0.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm text-gray-700"
+              >Set your pricing & schedule</span
+            >
+          </li>
+        </ul>
+
+        <!-- Time Badge -->
+        <div class="mt-6 text-center">
+          <span
+            class="inline-block bg-[#cc9933]/10 text-[#cc9933] px-4 py-2 rounded-full text-sm font-semibold"
+          >
+            ⚡ Takes ~20 minutes
+          </span>
         </div>
       </div>
 
-      <!-- Step 2 -->
+      <!-- Step 2: We Credential -->
       <div
-        class="relative flex items-start mb-16"
-        data-aos="fade-right"
-        data-aos-delay="100"
+        class="step-card relative bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+        data-aos="fade-up"
+        data-aos-delay="200"
       >
+        <!-- Step Number Badge -->
         <div
-          class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-[#003087] to-[#0052cc] rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg"
+          class="step-number absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-[#cc9933] to-[#b8861f] text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg z-10"
         >
           2
         </div>
-        <div class="ml-8">
-          <h3 class="text-2xl font-bold text-gray-900 mb-2">
-            Connect your schedule
-          </h3>
-          <p class="text-lg text-gray-600 mb-4">
-            Show us your availability. We'll fill the gaps.
-          </p>
-          <div
-            class="inline-flex items-center gap-2 text-[#003087] font-medium"
+
+        <!-- Icon -->
+        <div
+          class="w-20 h-20 bg-gradient-to-br from-[#003087]/10 to-[#cc9933]/10 rounded-2xl flex items-center justify-center mb-6 mx-auto mt-8"
+        >
+          <svg
+            class="w-10 h-10 text-[#cc9933]"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+            ></path>
+          </svg>
+        </div>
+
+        <!-- Content -->
+        <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">
+          We Credential
+        </h3>
+        <p class="text-gray-600 text-center mb-6 leading-relaxed">
+          Our team handles all credentialing requirements while you focus on
+          patient care. We keep you updated every step.
+        </p>
+
+        <!-- Features List -->
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <svg
+              class="w-5 h-5 text-[#22c55e] flex-shrink-0 mt-0.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path
                 fill-rule="evenodd"
-                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zM4 8h12v8H4V8z"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                 clip-rule="evenodd"></path>
             </svg>
-            <span>Any scheduling system works</span>
-          </div>
+            <span class="text-sm text-gray-700">Verify ACR accreditation</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg
+              class="w-5 h-5 text-[#22c55e] flex-shrink-0 mt-0.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm text-gray-700"
+              >Confirm radiologist credentials</span
+            >
+          </li>
+          <li class="flex items-start gap-3">
+            <svg
+              class="w-5 h-5 text-[#22c55e] flex-shrink-0 mt-0.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm text-gray-700"
+              >Process all required paperwork</span
+            >
+          </li>
+        </ul>
+
+        <!-- Time Badge -->
+        <div class="mt-6 text-center">
+          <span
+            class="inline-block bg-[#cc9933]/10 text-[#cc9933] px-4 py-2 rounded-full text-sm font-semibold"
+          >
+            🏥 Standard credentialing: 2-3 weeks
+          </span>
         </div>
       </div>
 
-      <!-- Step 3 -->
+      <!-- Step 3: Start Receiving Patients -->
       <div
-        class="relative flex items-start"
-        data-aos="fade-right"
-        data-aos-delay="200"
+        class="step-card relative bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+        data-aos="fade-up"
+        data-aos-delay="300"
       >
+        <!-- Step Number Badge -->
         <div
-          class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-[#cc9933] to-[#FFA500] rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg"
+          class="step-number absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-[#22c55e] to-[#16a34a] text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg z-10"
         >
           3
         </div>
-        <div class="ml-8">
-          <h3 class="text-2xl font-bold text-gray-900 mb-2">
-            Start receiving patients
-          </h3>
-          <p class="text-lg text-gray-600 mb-4">
-            Pre-paid, pre-qualified, ready to scan.
-          </p>
-          <div
-            class="inline-flex items-center gap-2 text-[#cc9933] font-medium"
+
+        <!-- Icon -->
+        <div
+          class="w-20 h-20 bg-gradient-to-br from-[#003087]/10 to-[#cc9933]/10 rounded-2xl flex items-center justify-center mb-6 mx-auto mt-8"
+        >
+          <svg
+            class="w-10 h-10 text-[#22c55e]"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"
-              ></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+            ></path>
+          </svg>
+        </div>
+
+        <!-- Content -->
+        <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">
+          Receive Patients
+        </h3>
+        <p class="text-gray-600 text-center mb-6 leading-relaxed">
+          Once approved, patients start booking appointments. You receive
+          notifications and can track everything in your dashboard.
+        </p>
+
+        <!-- Features List -->
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <svg
+              class="w-5 h-5 text-[#22c55e] flex-shrink-0 mt-0.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path
                 fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                 clip-rule="evenodd"></path>
             </svg>
-            <span>Payment in 10 days</span>
-          </div>
+            <span class="text-sm text-gray-700"
+              >Instant patient notifications</span
+            >
+          </li>
+          <li class="flex items-start gap-3">
+            <svg
+              class="w-5 h-5 text-[#22c55e] flex-shrink-0 mt-0.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm text-gray-700"
+              >Pre-verified patient information</span
+            >
+          </li>
+          <li class="flex items-start gap-3">
+            <svg
+              class="w-5 h-5 text-[#22c55e] flex-shrink-0 mt-0.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm text-gray-700"
+              >Guaranteed payment in 10 days</span
+            >
+          </li>
+        </ul>
+
+        <!-- Time Badge -->
+        <div class="mt-6 text-center">
+          <span
+            class="inline-block bg-[#22c55e]/10 text-[#22c55e] px-4 py-2 rounded-full text-sm font-semibold"
+          >
+            🚀 Revenue starts flowing
+          </span>
         </div>
       </div>
     </div>
+
+    <!-- Bottom CTA -->
+    <div class="mt-16 text-center" data-aos="fade-up" data-aos-delay="400">
+      <a
+        href="https://usrad-portal.vercel.app/signup"
+        class="inline-flex items-center gap-3 bg-gradient-to-r from-[#003087] to-[#004299] hover:from-[#002266] hover:to-[#003087] text-white font-bold px-10 py-5 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group"
+      >
+        <span class="text-lg">Get Started Now</span>
+        <svg
+          class="w-6 h-6 transform group-hover:translate-x-1 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </a>
+      <p class="mt-4 text-sm text-gray-500">
+        Join the network in minutes • No credit card required
+      </p>
+    </div>
   </div>
 </section>
+
+<style>
+  .section-subtitle {
+    @apply text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Tooltip Styles */
+  .tooltip-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: help;
+  }
+
+  .info-icon {
+    width: 18px;
+    height: 18px;
+    color: #cc9933;
+    transition: transform 0.2s ease;
+  }
+
+  .tooltip-wrapper:hover .info-icon {
+    transform: scale(1.1);
+  }
+
+  .tooltip-text {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    background: linear-gradient(135deg, #003087 0%, #004299 100%);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 48, 135, 0.3);
+    z-index: 1000;
+  }
+
+  /* Tooltip arrow */
+  .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #003087;
+  }
+
+  .tooltip-wrapper:hover .tooltip-text {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-12px);
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 640px) {
+    .tooltip-text {
+      white-space: normal;
+      max-width: 200px;
+      text-align: center;
+      font-size: 12px;
+      padding: 8px 12px;
+    }
+  }
+
+  /* Step Cards */
+  .step-card {
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .step-card:hover {
+    border-color: #cc9933;
+  }
+
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .section-subtitle {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+</style>

@@ -3,6 +3,7 @@
 import CarbonLayout from "../../layouts/CarbonLayout.astro";
 import MultiModalViewer from "../../components/education/MultiModalViewer.jsx";
 import AOSInit from "../../components/AOSInit.astro";
+import WhatToExpectSplitScreen from "../../components/education/WhatToExpect_SplitScreen.astro";
 
 export const prerender = true;
 ---
@@ -443,181 +444,8 @@ export const prerender = true;
         </div>
       </section>
 
-      <!-- Timeline Section -->
-      <section class="py-32 px-4 sm:px-6">
-        <div class="max-w-6xl mx-auto">
-          <h2
-            class="text-4xl md:text-5xl font-bold text-center mb-4 leading-tight"
-          >
-            What to Expect During Your MRI
-          </h2>
-          <p
-            class="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto leading-relaxed"
-          >
-            Understanding the process helps reduce anxiety and ensures a smooth
-            experience
-          </p>
-
-          <!-- Simple Process Timeline -->
-          <div class="relative">
-            <div
-              class="absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 transform -translate-x-1/2 hidden md:block"
-            >
-            </div>
-
-            <div class="space-y-16 md:space-y-24">
-              <!-- You Arrive -->
-              <div
-                class="relative flex items-center timeline-step"
-                data-aos="fade-right"
-              >
-                <!-- Mobile icon -->
-                <div class="md:hidden mb-4">
-                  <div
-                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center mx-auto"
-                  >
-                    <img
-                      src="/images/icons/reception2.svg"
-                      alt="Check In"
-                      class="w-8 h-8"
-                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
-                    />
-                  </div>
-                </div>
-
-                <div class="w-full md:w-1/2 text-center md:text-right md:pr-16">
-                  <h3 class="text-3xl font-bold text-gray-900 mb-3">
-                    You Arrive
-                  </h3>
-                  <p
-                    class="text-lg text-gray-600 max-w-md mx-auto md:ml-auto leading-relaxed"
-                  >
-                    Quick check-in. Change into comfortable clothing. Remove any
-                    metal objects. The technician explains everything.
-                  </p>
-                </div>
-
-                <!-- Desktop icon -->
-                <div
-                  class="absolute left-1/2 transform -translate-x-1/2 z-10 hidden md:block"
-                >
-                  <div
-                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center"
-                  >
-                    <img
-                      src="/images/icons/reception2.svg"
-                      alt="Check In"
-                      class="w-8 h-8"
-                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
-                    />
-                  </div>
-                </div>
-                <div class="hidden md:block w-1/2"></div>
-              </div>
-
-              <!-- The Scan -->
-              <div
-                class="relative flex items-center timeline-step"
-                data-aos="fade-left"
-              >
-                <!-- Mobile icon -->
-                <div class="md:hidden mb-4">
-                  <div
-                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center mx-auto"
-                  >
-                    <img
-                      src="/images/icons/mri2.svg"
-                      alt="MRI Scan"
-                      class="w-8 h-8"
-                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
-                    />
-                  </div>
-                </div>
-
-                <div class="hidden md:block w-1/2"></div>
-
-                <!-- Desktop icon -->
-                <div
-                  class="absolute left-1/2 transform -translate-x-1/2 z-10 hidden md:block"
-                >
-                  <div
-                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center"
-                  >
-                    <img
-                      src="/images/icons/mri2.svg"
-                      alt="MRI Scan"
-                      class="w-8 h-8"
-                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
-                    />
-                  </div>
-                </div>
-                <div
-                  class="w-full md:w-1/2 pl-0 md:pl-16 text-center md:text-left"
-                >
-                  <h3 class="text-3xl font-bold text-gray-900 mb-3">
-                    20-45 Minutes
-                  </h3>
-                  <p
-                    class="text-lg text-gray-600 max-w-md mx-auto md:ml-0 leading-relaxed"
-                  >
-                    Lie still while the machine creates images. You'll hear
-                    clicking sounds—that's normal. Headphones provided.
-                  </p>
-                </div>
-              </div>
-
-              <!-- Results -->
-              <div
-                class="relative flex items-center timeline-step"
-                data-aos="fade-right"
-              >
-                <!-- Mobile icon -->
-                <div class="md:hidden mb-4">
-                  <div
-                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center mx-auto"
-                  >
-                    <img
-                      src="/images/icons/medical.svg"
-                      alt="Results Ready"
-                      class="w-8 h-8"
-                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
-                    />
-                  </div>
-                </div>
-
-                <div class="w-full md:w-1/2 text-center md:text-right md:pr-16">
-                  <h3 class="text-3xl font-bold text-gray-900 mb-3">
-                    24-48 Hours
-                  </h3>
-                  <p
-                    class="text-lg text-gray-600 max-w-md mx-auto md:ml-auto leading-relaxed"
-                  >
-                    Board-certified radiologists review your images. Results
-                    sent directly to you and your doctor.
-                  </p>
-                </div>
-
-                <!-- Desktop icon -->
-                <div
-                  class="absolute left-1/2 transform -translate-x-1/2 z-10 hidden md:block"
-                >
-                  <div
-                    class="w-16 h-16 bg-white rounded-full border-4 border-[#003087] flex items-center justify-center"
-                  >
-                    <img
-                      src="/images/icons/medical.svg"
-                      alt="Results Ready"
-                      class="w-8 h-8"
-                      style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
-                    />
-                  </div>
-                </div>
-                <div class="hidden md:block w-1/2"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <!-- What to Expect During Your MRI -->
+      <WhatToExpectSplitScreen />
 
       <!-- Divider -->
       <div class="py-8">
@@ -643,10 +471,13 @@ export const prerender = true;
             appointment in under 60 seconds.
           </p>
 
-          <a href="/" class="bg-[#003087] text-white px-8 py-4 rounded-xl
+          <a
+            href="/"
+            class="bg-[#003087] text-white px-8 py-4 rounded-xl
           font-semibold text-lg hover:bg-[#002266] hover:shadow-lg
-          transition-all transform hover:scale-105 inline-block" > Find Centers
-          Near You →
+          transition-all transform hover:scale-105 inline-block"
+          >
+            Find Centers Near You →
           </a>
         </div>
 

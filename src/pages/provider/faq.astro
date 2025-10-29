@@ -125,10 +125,30 @@ import AOSInit from "../../components/AOSInit.astro";
   </section>
 
   <!-- Search & Filter Section - Enhanced -->
-  <section class="py-12 bg-gradient-to-b from-[#f8f9fa] to-white">
+  <section
+    class="py-12 bg-gradient-to-b from-[#f8f9fa] to-white"
+    data-section="faq-section"
+    id="faq-section"
+  >
     <div class="max-w-6xl mx-auto px-6">
       <!-- Search Bar with Enhanced Styling -->
       <div class="max-w-3xl mx-auto mb-12" data-aos="fade-up">
+        <!-- ADD THIS NEW SECTION -->
+        <div class="text-center mb-8">
+          <div
+            class="inline-flex items-center gap-2 bg-[#cc9933]/10 px-5 py-2.5 rounded-full mb-3 animate-pulse"
+          >
+            <span class="text-2xl">👇</span>
+            <span class="text-sm font-semibold text-[#cc9933]"
+              >Answers you're looking for are here</span
+            >
+          </div>
+          <p class="text-gray-600 text-base">
+            Review the questions below or use search to find specific topics
+          </p>
+        </div>
+        <!-- END NEW SECTION -->
+
         <div class="relative group">
           <div
             class="absolute inset-0 bg-gradient-to-r from-[#cc9933] to-[#b8861f] rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-300"
@@ -306,6 +326,7 @@ import AOSInit from "../../components/AOSInit.astro";
 
         <!-- FAQ 1 -->
         <div
+          id="joining-process"
           class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
           data-aos="fade-up"
           data-aos-delay="50"
@@ -429,6 +450,7 @@ import AOSInit from "../../components/AOSInit.astro";
 
         <!-- FAQ 2 -->
         <div
+          id="joining-requirements"
           class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
           data-aos="fade-up"
           data-aos-delay="100"
@@ -623,6 +645,7 @@ import AOSInit from "../../components/AOSInit.astro";
 
         <!-- FAQ 3 -->
         <div
+          id="costs"
           class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
           data-aos="fade-up"
           data-aos-delay="150"
@@ -785,6 +808,7 @@ import AOSInit from "../../components/AOSInit.astro";
 
         <!-- FAQ 4 -->
         <div
+          id="reimbursement-rates"
           class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
           data-aos="fade-up"
         >
@@ -910,6 +934,7 @@ import AOSInit from "../../components/AOSInit.astro";
 
         <!-- FAQ 5 -->
         <div
+          id="payment-timing"
           class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
           data-aos="fade-up"
           data-aos-delay="50"
@@ -1041,6 +1066,7 @@ import AOSInit from "../../components/AOSInit.astro";
           class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
           data-aos="fade-up"
           data-aos-delay="100"
+          id="minimum-volume"
         >
           <div class="faq-accordion">
             <button
@@ -1201,6 +1227,7 @@ import AOSInit from "../../components/AOSInit.astro";
 
         <!-- FAQ 7 -->
         <div
+          id="scheduling-process"
           class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
           data-aos="fade-up"
         >
@@ -1383,6 +1410,7 @@ import AOSInit from "../../components/AOSInit.astro";
           class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
           data-aos="fade-up"
           data-aos-delay="50"
+          id="schedule-control"
         >
           <div class="faq-accordion">
             <button
@@ -1560,6 +1588,7 @@ import AOSInit from "../../components/AOSInit.astro";
           class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
           data-aos="fade-up"
           data-aos-delay="100"
+          id="no-shows"
         >
           <div class="faq-accordion">
             <button
@@ -1721,6 +1750,7 @@ import AOSInit from "../../components/AOSInit.astro";
         <div
           class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
           data-aos="fade-up"
+          id="software-requirements"
         >
           <div class="faq-accordion">
             <button
@@ -1897,6 +1927,7 @@ import AOSInit from "../../components/AOSInit.astro";
           class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
           data-aos="fade-up"
           data-aos-delay="50"
+          id="patient-security"
         >
           <div class="faq-accordion">
             <button
@@ -2081,6 +2112,7 @@ import AOSInit from "../../components/AOSInit.astro";
           class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
           data-aos="fade-up"
           data-aos-delay="100"
+          id="technical-support"
         >
           <div class="faq-accordion">
             <button
@@ -2569,6 +2601,106 @@ import AOSInit from "../../components/AOSInit.astro";
       if (e.key === "/" && e.target !== searchInput) {
         e.preventDefault();
         searchInput?.focus();
+      }
+    });
+  });
+</script>
+
+<!-- NEW: Deep Linking Script -->
+<script>
+  // Handle deep linking to specific FAQs with smooth scroll and highlight
+  document.addEventListener("DOMContentLoaded", () => {
+    // Check if there's a hash in the URL (e.g., #costs)
+    const hash = window.location.hash;
+
+    if (hash) {
+      // Small delay to let page load and AOS animations start
+      setTimeout(() => {
+        const targetElement = document.querySelector(hash);
+
+        if (targetElement) {
+          // Smooth scroll to element
+          targetElement.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+
+          // Add highlight effect
+          targetElement.style.transition = "all 0.5s ease";
+          targetElement.style.backgroundColor = "#fffbeb";
+          targetElement.style.borderColor = "#cc9933";
+          targetElement.style.transform = "scale(1.02)";
+          targetElement.style.boxShadow = "0 10px 40px rgba(204, 153, 51, 0.3)";
+
+          // Auto-open the accordion if it's closed
+          const accordionButton = targetElement.querySelector(
+            ".faq-accordion-button"
+          );
+          if (accordionButton) {
+            // Check if not already open
+            const content = accordionButton.nextElementSibling as HTMLElement;
+            if (!content.style.maxHeight || content.style.maxHeight === "0px") {
+              accordionButton.click();
+            }
+          }
+
+          // Remove highlight after 3 seconds
+          setTimeout(() => {
+            targetElement.style.backgroundColor = "";
+            targetElement.style.borderColor = "";
+            targetElement.style.transform = "";
+            targetElement.style.boxShadow = "";
+          }, 3000);
+        }
+      }, 800);
+    }
+  });
+
+  // Also handle clicks from internal links (like from ConsultationCTA)
+  document.querySelectorAll('a[href*="#"]').forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href");
+      if (href && href.includes("#")) {
+        const hashPart = href.split("#")[1];
+        const targetElement = document.getElementById(hashPart);
+
+        if (targetElement && window.location.pathname === href.split("#")[0]) {
+          e.preventDefault();
+
+          // Update URL without page jump
+          history.pushState(null, "", `#${hashPart}`);
+
+          // Smooth scroll
+          targetElement.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+
+          // Highlight effect
+          targetElement.style.transition = "all 0.5s ease";
+          targetElement.style.backgroundColor = "#fffbeb";
+          targetElement.style.borderColor = "#cc9933";
+          targetElement.style.transform = "scale(1.02)";
+          targetElement.style.boxShadow = "0 10px 40px rgba(204, 153, 51, 0.3)";
+
+          // Auto-open accordion
+          const accordionButton = targetElement.querySelector(
+            ".faq-accordion-button"
+          );
+          if (accordionButton) {
+            const content = accordionButton.nextElementSibling as HTMLElement;
+            if (!content.style.maxHeight || content.style.maxHeight === "0px") {
+              accordionButton.click();
+            }
+          }
+
+          setTimeout(() => {
+            targetElement.style.backgroundColor = "";
+            targetElement.style.borderColor = "";
+            targetElement.style.transform = "";
+            targetElement.style.boxShadow = "";
+          }, 3000);
+        }
       }
     });
   });
