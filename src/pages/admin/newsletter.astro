@@ -17,6 +17,37 @@ if (error) {
   console.error("Error fetching subscribers:", error);
 }
 
+// Fetch popup analytics data
+const { data: popupAnalytics, error: popupError } = await supabase
+  .from("popup_analytics")
+  .select("*")
+  .order("timestamp", { ascending: false });
+
+if (popupError) {
+  console.error("Error fetching popup analytics:", popupError);
+}
+
+// Calculate popup stats
+const popupStats = {
+  shown: popupAnalytics?.filter((e) => e.event_type === "shown").length || 0,
+  closed: popupAnalytics?.filter((e) => e.event_type === "closed").length || 0,
+  subscribed:
+    popupAnalytics?.filter((e) => e.event_type === "subscribed").length || 0,
+};
+
+// Calculate conversion rates
+const engagementRate =
+  popupStats.shown > 0
+    ? (
+        ((popupStats.shown - popupStats.closed) / popupStats.shown) *
+        100
+      ).toFixed(1)
+    : 0;
+const conversionRate =
+  popupStats.shown > 0
+    ? ((popupStats.subscribed / popupStats.shown) * 100).toFixed(1)
+    : 0;
+
 // Calculate stats
 const now = new Date();
 const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -55,17 +86,23 @@ const stats = {
           system-ui,
           -apple-system,
           sans-serif;
-        background: #f5f5f5;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
         padding: 2rem;
+        min-height: 100vh;
       }
       .container {
         max-width: 1400px;
         margin: 0 auto;
       }
       h1 {
-        color: #003087;
+        background: linear-gradient(135deg, #003087 0%, #0052cc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         margin-bottom: 2rem;
-        font-size: 2rem;
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
       }
       .stats {
         display: grid;
@@ -75,72 +112,97 @@ const stats = {
       }
       .stat-card {
         background: white;
-        padding: 1.5rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 2rem 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         text-align: center;
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+      }
+      .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
       }
       .stat-number {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #003087;
+        font-size: 2.75rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #003087 0%, #0052cc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
       }
       .stat-label {
-        color: #666;
+        color: #6b7280;
         margin-top: 0.5rem;
-        font-size: 0.9rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
       .controls {
         background: white;
         padding: 1.5rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         display: flex;
         gap: 1rem;
         flex-wrap: wrap;
         align-items: center;
+        border: 1px solid #f0f0f0;
       }
       .controls input,
       .controls select {
-        padding: 0.6rem;
-        border: 1px solid #ddd;
-        border-radius: 4px;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
         font-size: 14px;
+        transition: all 0.2s;
+      }
+      .controls input:focus,
+      .controls select:focus {
+        outline: none;
+        border-color: #003087;
+        box-shadow: 0 0 0 3px rgba(0, 48, 135, 0.1);
       }
       .controls input[type="text"] {
         flex: 1;
         min-width: 200px;
       }
       .btn {
-        padding: 0.6rem 1.2rem;
+        padding: 0.75rem 1.5rem;
         border: none;
-        border-radius: 4px;
+        border-radius: 8px;
         cursor: pointer;
         font-size: 14px;
         font-weight: 600;
-        transition: all 0.2s;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       }
       .btn-primary {
-        background: #003087;
+        background: linear-gradient(135deg, #003087 0%, #0052cc 100%);
         color: white;
       }
       .btn-primary:hover {
-        background: #002266;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 48, 135, 0.3);
       }
       .btn-success {
-        background: #10b981;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         color: white;
       }
       .btn-success:hover {
-        background: #059669;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
       }
       .btn-danger {
-        background: #ef4444;
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
         color: white;
       }
       .btn-danger:hover {
-        background: #dc2626;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
       }
       .btn-small {
         padding: 0.4rem 0.8rem;
@@ -149,39 +211,53 @@ const stats = {
       table {
         width: 100%;
         background: white;
-        border-radius: 8px;
+        border-radius: 12px;
         overflow: hidden;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f0f0f0;
       }
       th,
       td {
-        padding: 1rem;
+        padding: 1.25rem 1rem;
         text-align: left;
-        border-bottom: 1px solid #e5e7eb;
+        border-bottom: 1px solid #f0f0f0;
       }
       th {
-        background: #f9fafb;
-        font-weight: 600;
-        color: #374151;
-        font-size: 14px;
+        background: linear-gradient(135deg, #003087 0%, #0052cc 100%);
+        font-weight: 700;
+        color: white;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
       }
       td {
         font-size: 14px;
-        color: #6b7280;
+        color: #374151;
+      }
+      tbody tr {
+        transition: all 0.2s ease;
+      }
+      tbody tr:hover {
+        background: #f9fafb;
+      }
+      tbody tr:last-child td {
+        border-bottom: none;
       }
       .status-badge {
-        padding: 0.3rem 0.6rem;
-        border-radius: 4px;
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
       .status-active {
-        background: #f0fdf4;
-        color: #10b981;
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        color: #065f46;
       }
       .status-inactive {
-        background: #fef2f2;
-        color: #ef4444;
+        background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+        color: #991b1b;
       }
       .actions {
         display: flex;
@@ -196,11 +272,129 @@ const stats = {
         text-align: center;
         font-size: 14px;
       }
+      .tabs {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        background: white;
+        border-radius: 12px;
+        padding: 0.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .tab-btn {
+        padding: 0.875rem 1.75rem;
+        background: transparent;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        color: #6b7280;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .tab-btn:hover {
+        color: #003087;
+        background: #f0f4ff;
+      }
+      .tab-btn.active {
+        color: white;
+        background: linear-gradient(135deg, #003087 0%, #0052cc 100%);
+        box-shadow: 0 4px 12px rgba(0, 48, 135, 0.3);
+      }
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
+      .popup-metric {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f0f0f0;
+      }
+      .metric-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+      .metric-label {
+        width: 160px;
+        font-weight: 700;
+        color: #374151;
+        font-size: 15px;
+      }
+      .metric-bar {
+        flex: 1;
+        background: #f3f4f6;
+        height: 36px;
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      .metric-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #003087, #0052cc);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1.25rem;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+        box-shadow: 0 2px 8px rgba(0, 48, 135, 0.3);
+      }
+      .benchmark {
+        background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+        padding: 2rem;
+        border-radius: 12px;
+        border-left: 4px solid #003087;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+      .benchmark h3 {
+        background: linear-gradient(135deg, #003087 0%, #0052cc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1.25rem;
+        font-size: 1.25rem;
+        font-weight: 800;
+      }
+      .benchmark-list {
+        display: grid;
+        gap: 0.75rem;
+      }
+      .benchmark-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem;
+        background: white;
+        border-radius: 8px;
+        font-size: 14px;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <h1>📧 Newsletter Subscribers</h1>
+
+      <!-- Tab Navigation -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('overview')"
+          >📈 Overview</button
+        >
+        <button class="tab-btn" onclick="switchTab('popup')"
+          >🎯 Popup Analytics</button
+        >
+        <button class="tab-btn" onclick="switchTab('subscribers')"
+          >📧 Subscribers</button
+        >
+      </div>
 
       <div class="refresh-notice">
         📊 Data refreshes automatically. Last updated: {
@@ -208,138 +402,245 @@ const stats = {
         }
       </div>
 
-      <!-- Stats -->
-      <div class="stats">
-        <div class="stat-card">
-          <div class="stat-number">{stats.total}</div>
-          <div class="stat-label">Total Subscribers</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">{stats.active}</div>
-          <div class="stat-label">Active</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">{stats.inactive}</div>
-          <div class="stat-label">Unsubscribed</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">{stats.today}</div>
-          <div class="stat-label">Today</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">{stats.week}</div>
-          <div class="stat-label">This Week</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">{stats.month}</div>
-          <div class="stat-label">This Month</div>
-        </div>
-      </div>
-
-      <!-- Controls -->
-      <div class="controls">
-        <input type="text" id="searchInput" placeholder="Search by email..." />
-        <select id="statusFilter">
-          <option value="all">All Statuses</option>
-          <option value="active" selected>Active Only</option>
-          <option value="inactive">Unsubscribed Only</option>
-        </select>
-        <select id="sourceFilter">
-          <option value="all">All Sources</option>
-          <option value="footer_newsletter">Footer Newsletter</option>
-          <option value="homepage">Homepage</option>
-        </select>
-        <button class="btn btn-primary" onclick="applyFilters()"
-          >Apply Filters</button
-        >
-        <button class="btn btn-success" onclick="exportToCSV()"
-          >📥 Export CSV</button
-        >
-        <button class="btn btn-success" onclick="copyEmails()"
-          >📋 Copy Emails</button
-        >
-      </div>
-
-      <!-- Table -->
-      <table id="subscribersTable">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Source</th>
-            <th>Subscribed</th>
-            <th>Days Ago</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            subscribers?.map((sub, index) => {
-              const subDate = new Date(sub.subscribed_at);
-              const daysAgo = Math.floor(
-                (now - subDate) / (1000 * 60 * 60 * 24)
-              );
-
-              return (
-                <tr
-                  data-email={sub.email}
-                  data-status={sub.is_active ? "active" : "inactive"}
-                  data-source={sub.source || "unknown"}
-                >
-                  <td>{index + 1}</td>
-                  <td>{sub.email}</td>
-                  <td>
-                    <span
-                      class={`status-badge ${sub.is_active ? "status-active" : "status-inactive"}`}
-                    >
-                      {sub.is_active ? "✓ Active" : "✗ Unsubscribed"}
-                    </span>
-                  </td>
-                  <td>{sub.source || "N/A"}</td>
-                  <td>
-                    {subDate.toLocaleDateString()}{" "}
-                    {subDate.toLocaleTimeString()}
-                  </td>
-                  <td>
-                    {daysAgo} {daysAgo === 1 ? "day" : "days"} ago
-                  </td>
-                  <td class="actions">
-                    {sub.is_active ? (
-                      <button
-                        class="btn btn-danger btn-small"
-                        onclick={`unsubscribe('${sub.email}')`}
-                      >
-                        Unsubscribe
-                      </button>
-                    ) : (
-                      <button
-                        class="btn btn-success btn-small"
-                        onclick={`reactivate('${sub.email}')`}
-                      >
-                        Reactivate
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              );
-            })
-          }
-        </tbody>
-      </table>
-
-      {
-        (!subscribers || subscribers.length === 0) && (
-          <div style="text-align: center; padding: 3rem; color: #9ca3af;">
-            <p style="font-size: 1.2rem;">No subscribers yet</p>
-            <p style="margin-top: 0.5rem;">
-              Subscribers will appear here when people sign up through your
-              website.
-            </p>
+      <!-- Overview Tab -->
+      <div id="overview-tab" class="tab-content active">
+        <!-- Stats -->
+        <div class="stats">
+          <div class="stat-card">
+            <div class="stat-number">{stats.total}</div>
+            <div class="stat-label">Total Subscribers</div>
           </div>
-        )
-      }
+          <div class="stat-card">
+            <div class="stat-number">{stats.active}</div>
+            <div class="stat-label">Active</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{stats.inactive}</div>
+            <div class="stat-label">Unsubscribed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{stats.today}</div>
+            <div class="stat-label">Today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{stats.week}</div>
+            <div class="stat-label">This Week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{stats.month}</div>
+            <div class="stat-label">This Month</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Popup Analytics Tab -->
+      <div id="popup-tab" class="tab-content">
+        {
+          popupStats.shown === 0 ? (
+            <div class="popup-metric">
+              <h2 style="color: #6b7280; margin-bottom: 1rem;">
+                📊 No Popup Data Yet
+              </h2>
+              <p style="color: #9ca3af;">
+                Popup analytics will appear here once you implement the tracking
+                system.
+              </p>
+            </div>
+          ) : (
+            <>
+              <div class="popup-metric">
+                <h2 style="color: #003087; margin-bottom: 1.5rem;">
+                  🎯 Conversion Funnel
+                </h2>
+
+                <div class="metric-row">
+                  <div class="metric-label">👁️ Popup Shown:</div>
+                  <div class="metric-bar">
+                    <div class="metric-fill" style="width: 100%">
+                      <span>{popupStats.shown}</span>
+                      <span>100%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="metric-row">
+                  <div class="metric-label">🎯 Engaged:</div>
+                  <div class="metric-bar">
+                    <div
+                      class="metric-fill"
+                      style={`width: ${engagementRate}%`}
+                    >
+                      <span>{popupStats.shown - popupStats.closed}</span>
+                      <span>{engagementRate}%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="metric-row">
+                  <div class="metric-label">✅ Subscribed:</div>
+                  <div class="metric-bar">
+                    <div
+                      class="metric-fill"
+                      style={`width: ${conversionRate}%`}
+                    >
+                      <span>{popupStats.subscribed}</span>
+                      <span>{conversionRate}%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="benchmark">
+                <h3>📈 Your Conversion Rate: {conversionRate}%</h3>
+                <div class="benchmark-list">
+                  <div class="benchmark-item">
+                    🎉 <strong>Excellent:</strong> 15%+
+                  </div>
+                  <div class="benchmark-item">
+                    👍 <strong>Good:</strong> 10-15%
+                  </div>
+                  <div class="benchmark-item">
+                    ⚡ <strong>Average:</strong> 5-10%
+                  </div>
+                  <div class="benchmark-item">
+                    ⚠️ <strong>Needs Work:</strong> &lt;5%
+                  </div>
+                </div>
+              </div>
+            </>
+          )
+        }
+      </div>
+
+      <!-- Subscribers Tab -->
+      <div id="subscribers-tab" class="tab-content">
+        <!-- Controls -->
+        <div class="controls">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by email..."
+          />
+          <select id="statusFilter">
+            <option value="all">All Statuses</option>
+            <option value="active" selected>Active Only</option>
+            <option value="inactive">Unsubscribed Only</option>
+          </select>
+          <select id="sourceFilter">
+            <option value="all">All Sources</option>
+            <option value="footer_newsletter">Footer Newsletter</option>
+            <option value="homepage">Homepage</option>
+          </select>
+          <button class="btn btn-primary" onclick="applyFilters()"
+            >Apply Filters</button
+          >
+          <button class="btn btn-success" onclick="exportToCSV()"
+            >📥 Export CSV</button
+          >
+          <button class="btn btn-success" onclick="copyEmails()"
+            >📋 Copy Emails</button
+          >
+        </div>
+
+        <!-- Table -->
+        <table id="subscribersTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Source</th>
+              <th>Subscribed</th>
+              <th>Days Ago</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              subscribers?.map((sub, index) => {
+                const subDate = new Date(sub.subscribed_at);
+                const daysAgo = Math.floor(
+                  (now - subDate) / (1000 * 60 * 60 * 24)
+                );
+
+                return (
+                  <tr
+                    data-email={sub.email}
+                    data-status={sub.is_active ? "active" : "inactive"}
+                    data-source={sub.source || "unknown"}
+                  >
+                    <td>{index + 1}</td>
+                    <td>{sub.email}</td>
+                    <td>
+                      <span
+                        class={`status-badge ${sub.is_active ? "status-active" : "status-inactive"}`}
+                      >
+                        {sub.is_active ? "✓ Active" : "✗ Unsubscribed"}
+                      </span>
+                    </td>
+                    <td>{sub.source || "N/A"}</td>
+                    <td>
+                      {subDate.toLocaleDateString()}{" "}
+                      {subDate.toLocaleTimeString()}
+                    </td>
+                    <td>
+                      {daysAgo} {daysAgo === 1 ? "day" : "days"} ago
+                    </td>
+                    <td class="actions">
+                      {sub.is_active ? (
+                        <button
+                          class="btn btn-danger btn-small"
+                          onclick={`unsubscribe('${sub.email}')`}
+                        >
+                          Unsubscribe
+                        </button>
+                      ) : (
+                        <button
+                          class="btn btn-success btn-small"
+                          onclick={`reactivate('${sub.email}')`}
+                        >
+                          Reactivate
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+
+        {
+          (!subscribers || subscribers.length === 0) && (
+            <div style="text-align: center; padding: 3rem; color: #9ca3af;">
+              <p style="font-size: 1.2rem;">No subscribers yet</p>
+              <p style="margin-top: 0.5rem;">
+                Subscribers will appear here when people sign up through your
+                website.
+              </p>
+            </div>
+          )
+        }
+      </div>
+      <!-- End Subscribers Tab -->
     </div>
+
+    <script is:inline>
+      // Tab switching - must be accessible globally
+      window.switchTab = function (tabName) {
+        // Hide all tabs
+        document.querySelectorAll(".tab-content").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+        document.querySelectorAll(".tab-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+
+        // Show selected tab
+        document.getElementById(tabName + "-tab").classList.add("active");
+        event.target.classList.add("active");
+      };
+    </script>
 
     <script>
       const allRows = Array.from(

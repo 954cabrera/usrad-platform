@@ -575,6 +575,13 @@ const {
         })
       );
 
+      // 📊 TRACKING: Popup shown event
+      fetch("/api/track-popup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event: "shown" }),
+      }).catch((err) => console.error("Popup tracking error:", err));
+
       // Analytics tracking
       if (typeof gtag !== "undefined") {
         gtag("event", "newsletter_popup_shown", {
@@ -588,6 +595,13 @@ const {
     function hidePopup() {
       popup?.classList.remove("active");
       document.body.style.overflow = ""; // Restore scrolling
+
+      // 📊 TRACKING: Popup closed event
+      fetch("/api/track-popup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event: "closed" }),
+      }).catch((err) => console.error("Popup tracking error:", err));
 
       // Analytics tracking
       if (typeof gtag !== "undefined") {
@@ -637,12 +651,15 @@ const {
 
       try {
         // Send to your API endpoint
-        const response = await fetch("/api/subscribe-waitlist", {
+        const response = await fetch("/api/subscribe-newsletter", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({
+            email,
+            source: "blog_popup",
+          }),
         });
 
         if (response.ok) {
@@ -652,6 +669,13 @@ const {
             "success"
           );
           formSubmitted = true;
+
+          // 📊 TRACKING: User subscribed event
+          fetch("/api/track-popup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ event: "subscribed" }),
+          }).catch((err) => console.error("Popup tracking error:", err));
 
           // Mark as subscribed in localStorage
           localStorage.setItem(
