@@ -29,11 +29,11 @@ const featuredArticles = [
 ];
 ---
 
-<section class="py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-b from-gray-50 to-white">
+<section class="py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-b from-gray-50 to-white" data-aos="fade-up">
   <div class="max-w-7xl mx-auto">
     
     <!-- Section Header -->
-    <div class="text-center mb-12" data-aos="fade-up">
+    <div class="text-center mb-12" data-aos="fade-up" data-aos-delay="100">
       <span class="inline-block px-4 py-2 bg-[#003087]/10 text-[#003087] rounded-full text-sm font-semibold mb-4">
         📚 Patient Education
       </span>
@@ -51,7 +51,7 @@ const featuredArticles = [
         <article 
           class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
           data-aos="fade-up"
-          data-aos-delay={index * 100}
+          data-aos-delay={200 + (index * 100)}
         >
           <!-- Image -->
           <a href={article.slug} class="block relative overflow-hidden h-48">
@@ -95,7 +95,7 @@ const featuredArticles = [
     </div>
 
     <!-- View All CTA -->
-    <div class="text-center" data-aos="fade-up">
+    <div class="text-center" data-aos="fade-up" data-aos-delay="500">
       <a 
         href="/blog"
         class="inline-flex items-center gap-3 bg-[#003087] text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#002066] transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"

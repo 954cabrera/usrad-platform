@@ -9,8 +9,8 @@ const {
   subtitle = "Get weekly tips on saving money on medical imaging and understanding your healthcare options",
   placeholder = "Enter your email",
   buttonText = "Get Free Tips",
-  showDelay = 15000, // 15 seconds
-  scrollTrigger = 25, // 25% scroll depth
+  showDelay = 30000, // 15 seconds
+  scrollTrigger = 35, // 25% scroll depth
   cookieDays = 30, // Show once per 30 days
 } = Astro.props;
 ---
@@ -530,8 +530,8 @@ const {
     const message = document.getElementById("newsletter-popup-message");
 
     // Get configuration from data attributes
-    const showDelay = parseInt(popup.dataset.showDelay || "15000");
-    const scrollTrigger = parseInt(popup.dataset.scrollTrigger || "25");
+    const showDelay = parseInt(popup.dataset.showDelay || "30000");
+    const scrollTrigger = parseInt(popup.dataset.scrollTrigger || "35");
     const cookieDays = parseInt(popup.dataset.cookieDays || "30");
 
     // State
