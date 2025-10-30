@@ -544,9 +544,33 @@ const { remixUrl } = Astro.props;
         class="sticky top-0 z-10 bg-white border-b border-gray-200 rounded-t-2xl px-6 py-5"
       >
         <div class="flex items-center justify-between">
-          <h2 id="modal-title" class="text-2xl font-bold text-gray-900">
-            Select your procedure
-          </h2>
+          <div class="flex items-center gap-2">
+            <!-- Back to Search (hidden by default) -->
+            <button
+              type="button"
+              id="modal-back-to-search"
+              class="hidden mr-1 p-2 text-gray-500 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition"
+              aria-label="Back to search"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+
+            <h2 id="modal-title" class="text-2xl font-bold text-gray-900">
+              Select your procedure
+            </h2>
+          </div>
+
           <button
             type="button"
             id="modal-close-button"
@@ -568,8 +592,8 @@ const { remixUrl } = Astro.props;
           </button>
         </div>
 
-        <!-- Search Input (in modal) -->
-        <div class="mt-4 relative">
+        <!-- Search bar (visible in Search view only) -->
+        <div id="modal-searchbar" class="mt-4 relative">
           <div
             class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
           >
@@ -596,208 +620,300 @@ const { remixUrl } = Astro.props;
         </div>
       </div>
 
-      <!-- Modal Body (scrollable results) -->
+      <!-- Modal Body -->
       <div
-        id="modal-results"
-        class="px-6 py-6 max-h-[60vh] overflow-y-auto"
+        id="modal-body"
+        class="px-6 py-6 max-h=[60vh] overflow-y-auto"
         style="scrollbar-width: thin; scrollbar-color: #003087 #f1f5f9;"
       >
-        <!-- Results will be populated here by JavaScript -->
-        <div class="text-center py-12 text-gray-500">
-          <svg
-            class="w-16 h-16 mx-auto mb-4 text-gray-300"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+        <!-- SEARCH VIEW results -->
+        <div id="modal-results">
+          <!-- JS populates (existing behavior) -->
+          <div class="text-center py-12 text-gray-500">
+            <svg
+              class="w-16 h-16 mx-auto mb-4 text-gray-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <p class="text-lg font-medium">Start typing to search procedures</p>
+            <p class="text-sm mt-1">Try "MRI", "CT Scan", or "Ultrasound"</p>
+          </div>
+        </div>
+
+        <!-- BROWSE MODE view (shown when “Browse all procedures” is clicked) -->
+        <div id="modal-browse-view" class="hidden space-y-6">
+          <!-- Category Grid (populated dynamically by hero-form-controller-modal.js) -->
+          <div
+            id="browse-category-grid"
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-          </svg>
-          <p class="text-lg font-medium">Start typing to search procedures</p>
-          <p class="text-sm mt-1">Try "MRI", "CT Scan", or "Ultrasound"</p>
+            <!-- JS dynamically inserts modality buttons here (MRI, CT, PET, etc.) -->
+          </div>
+
+          <!-- Category Results List -->
+          <div
+            id="browse-category-results"
+            class="mt-6 space-y-2 border-t border-gray-200 pt-4 max-h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"
+          >
+            <!-- JS dynamically inserts procedures here -->
+          </div>
+
+          <!-- Back to Search -->
+          <div class="flex justify-center mt-6">
+            <button
+              id="modal-back-to-search"
+              class="text-[#003087] hover:text-[#cc9933] font-semibold transition-colors duration-200"
+            >
+              ← Back to Search
+            </button>
+          </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div
+          class="sticky bottom-0 bg-gray-50 border-t border-gray-200 rounded-b-2xl px-6 py-4"
+        >
+          <p class="text-sm text-gray-600 text-center">
+            Can’t find your procedure?
+            <button
+              type="button"
+              id="browse-all-procedures"
+              class="text-[#003087] font-semibold hover:text-[#cc9933] transition-colors"
+            >
+              Browse all procedures
+            </button>
+          </p>
         </div>
       </div>
-
-      <!-- Modal Footer -->
-      <div
-        class="sticky bottom-0 bg-gray-50 border-t border-gray-200 rounded-b-2xl px-6 py-4"
-      >
-        <p class="text-sm text-gray-600 text-center">
-          Can't find your procedure? <a href={`${remixUrl}/procedures`}
-          id="browse-all-procedures" class="text-[#003087] font-semibold hover:text-[#cc9933]
-          transition-colors" > Browse all procedures
-        </p>
-      </div>
     </div>
+
+    <!-- Load the MODAL version of the form controller -->
+    <script is:inline src="/js/hero-form-controller-modal.js?v=2.1"></script>
+
+    <style>
+      @keyframes draw-line {
+        from {
+          stroke-dashoffset: 200;
+          opacity: 0;
+        }
+        to {
+          stroke-dashoffset: 0;
+          opacity: 0.8;
+        }
+      }
+      .animate-draw-line {
+        stroke-dasharray: 200;
+        stroke-dashoffset: 200;
+        animation: draw-line 1.5s ease-out 0.8s forwards;
+      }
+
+      /* Step transition animations */
+      .step-fade-out {
+        opacity: 0;
+        transform: translateX(-30px);
+        transition: all 0.25s ease;
+      }
+
+      .step-fade-in {
+        animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Celebration animation */
+      @keyframes celebration {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.15);
+        }
+      }
+
+      .celebrate {
+        animation: celebration 0.5s ease-in-out;
+      }
+
+      /* Button pulse when enabled */
+      @keyframes buttonPulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(204, 153, 51, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 0 8px rgba(204, 153, 51, 0);
+        }
+      }
+
+      #hero-search-button:not(:disabled) {
+        animation: buttonPulse 2s ease-in-out 1;
+      }
+
+      /* Rotate animation for Change button */
+      @keyframes rotateIcon {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(-180deg);
+        }
+      }
+
+      .rotate-on-hover:hover svg {
+        animation: rotateIcon 0.5s ease-in-out;
+      }
+
+      /* Keyboard navigation highlight */
+      .keyboard-nav-item.bg-blue-100 {
+        background-color: #dbeafe !important;
+        outline: 2px solid #3b82f6;
+        outline-offset: -2px;
+      }
+
+      /* Loading skeleton */
+      @keyframes shimmer {
+        0% {
+          background-position: -1000px 0;
+        }
+        100% {
+          background-position: 1000px 0;
+        }
+      }
+
+      .skeleton {
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 1000px 100%;
+        animation: shimmer 2s infinite;
+      }
+
+      /* Mobile touch improvements */
+      @media (hover: none) and (pointer: coarse) {
+        input,
+        button,
+        select {
+          font-size: 16px !important;
+        }
+      }
+
+      #hero-procedure-search:focus,
+      #hero-location:focus,
+      #modal-search-input:focus {
+        outline: none;
+      }
+
+      #hero-search-button:not(:disabled):active {
+        transform: scale(0.98);
+      }
+
+      /* Modal animations */
+      #modal-search-overlay.modal-opening #modal-backdrop {
+        opacity: 1;
+      }
+
+      #modal-search-overlay.modal-opening #modal-content {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      #modal-search-overlay.modal-closing #modal-backdrop {
+        opacity: 0;
+      }
+
+      #modal-search-overlay.modal-closing #modal-content {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+
+      /* Custom scrollbar for modal */
+      #modal-results::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      #modal-results::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 4px;
+      }
+
+      #modal-results::-webkit-scrollbar-thumb {
+        background: #003087;
+        border-radius: 4px;
+      }
+
+      #modal-results::-webkit-scrollbar-thumb:hover {
+        background: #002060;
+      }
+
+      /* === Gold Pulse + Magnetic Hover Enhancements === */
+      @keyframes goldPulse {
+        0% {
+          box-shadow: 0 0 0 rgba(204, 153, 51, 0);
+        }
+        50% {
+          box-shadow:
+            0 0 20px rgba(204, 153, 51, 0.7),
+            0 0 35px rgba(204, 153, 51, 0.4);
+        }
+        100% {
+          box-shadow: 0 0 0 rgba(204, 153, 51, 0);
+        }
+      }
+
+      .modality-selected {
+        border-color: #cc9933 !important;
+        background: linear-gradient(
+          to bottom right,
+          #fff9e6,
+          #fffbe8
+        ) !important;
+        animation: goldPulse 0.8s ease;
+        transform: scale(0.97);
+      }
+
+      .procedure-selected {
+        border-color: #cc9933 !important;
+        background: linear-gradient(
+          to bottom right,
+          #fff9e6,
+          #fffbe8
+        ) !important;
+        animation: goldPulse 0.9s ease;
+        transform: scale(0.98);
+        transition: all 0.25s ease;
+      }
+
+      .magnetic-hover {
+        perspective: 800px;
+        transform-style: preserve-3d;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .magnetic-hover:hover {
+        box-shadow: 0 8px 16px rgba(0, 48, 135, 0.15);
+      }
+    </style>
   </div>
 </div>
-
-<!-- Load the MODAL version of the form controller -->
-<script is:inline src="/js/hero-form-controller-modal.js"></script>
-
-<style>
-  @keyframes draw-line {
-    from {
-      stroke-dashoffset: 200;
-      opacity: 0;
-    }
-    to {
-      stroke-dashoffset: 0;
-      opacity: 0.8;
-    }
-  }
-  .animate-draw-line {
-    stroke-dasharray: 200;
-    stroke-dashoffset: 200;
-    animation: draw-line 1.5s ease-out 0.8s forwards;
-  }
-
-  /* Step transition animations */
-  .step-fade-out {
-    opacity: 0;
-    transform: translateX(-30px);
-    transition: all 0.25s ease;
-  }
-
-  .step-fade-in {
-    animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  /* Celebration animation */
-  @keyframes celebration {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.15);
-    }
-  }
-
-  .celebrate {
-    animation: celebration 0.5s ease-in-out;
-  }
-
-  /* Button pulse when enabled */
-  @keyframes buttonPulse {
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 rgba(204, 153, 51, 0.4);
-    }
-    50% {
-      box-shadow: 0 0 0 8px rgba(204, 153, 51, 0);
-    }
-  }
-
-  #hero-search-button:not(:disabled) {
-    animation: buttonPulse 2s ease-in-out 1;
-  }
-
-  /* Rotate animation for Change button */
-  @keyframes rotateIcon {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(-180deg);
-    }
-  }
-
-  .rotate-on-hover:hover svg {
-    animation: rotateIcon 0.5s ease-in-out;
-  }
-
-  /* Keyboard navigation highlight */
-  .keyboard-nav-item.bg-blue-100 {
-    background-color: #dbeafe !important;
-    outline: 2px solid #3b82f6;
-    outline-offset: -2px;
-  }
-
-  /* Loading skeleton */
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
-
-  .skeleton {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 1000px 100%;
-    animation: shimmer 2s infinite;
-  }
-
-  /* Mobile touch improvements */
-  @media (hover: none) and (pointer: coarse) {
-    input,
-    button,
-    select {
-      font-size: 16px !important;
-    }
-  }
-
-  #hero-procedure-search:focus,
-  #hero-location:focus,
-  #modal-search-input:focus {
-    outline: none;
-  }
-
-  #hero-search-button:not(:disabled):active {
-    transform: scale(0.98);
-  }
-
-  /* Modal animations */
-  #modal-search-overlay.modal-opening #modal-backdrop {
-    opacity: 1;
-  }
-
-  #modal-search-overlay.modal-opening #modal-content {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  #modal-search-overlay.modal-closing #modal-backdrop {
-    opacity: 0;
-  }
-
-  #modal-search-overlay.modal-closing #modal-content {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-
-  /* Custom scrollbar for modal */
-  #modal-results::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  #modal-results::-webkit-scrollbar-track {
-    background: #f1f5f9;
-    border-radius: 4px;
-  }
-
-  #modal-results::-webkit-scrollbar-thumb {
-    background: #003087;
-    border-radius: 4px;
-  }
-
-  #modal-results::-webkit-scrollbar-thumb:hover {
-    background: #002060;
-  }
-</style>
