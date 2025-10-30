@@ -9,6 +9,7 @@ import PricingSection from "../components/PricingSection.astro";
 import AboutSection from "../components/AboutSection.astro";
 import BlogPreviewSection from "../components/BlogPreviewSection.astro";
 import HeroSection from "../components/HeroSection.astro";
+import BrowseAllModal from "../components/BrowseAllModal.astro";
 
 const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
 ---
@@ -21,6 +22,8 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
   <HeroSection remixUrl={REMIX_URL} />
 
   <script is:inline src="/js/hero-form-controller.js"></script>
+
+  <BrowseAllModal />
 
   <!-- Social Proof Bar -->
   <SocialProofBar />

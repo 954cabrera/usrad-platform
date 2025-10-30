@@ -15,6 +15,7 @@ export default defineConfig({
   // Local development server configuration
   server: {
     port: 3000,
+    host: true,
     proxy: {
       // Proxy Remix search routes during local development
       '/pbs': 'http://localhost:5173'

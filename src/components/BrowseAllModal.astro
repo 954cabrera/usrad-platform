@@ -1,0 +1,543 @@
+---
+// BrowseAllModal.astro
+// Modal for browsing all procedures by category when autocomplete doesn't find what user needs
+---
+
+<div
+  id="browse-all-modal"
+  class="fixed inset-0 z-[9999] hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+>
+  <!-- Backdrop -->
+  <div
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+    id="modal-backdrop"
+  >
+  </div>
+
+  <!-- Modal Container -->
+  <div class="fixed inset-0 overflow-y-auto">
+    <div class="flex min-h-full items-center justify-center p-4">
+      <!-- Modal Content -->
+      <div
+        class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl transform transition-all"
+        id="modal-content"
+      >
+        <!-- Header -->
+        <div
+          class="sticky top-0 z-10 bg-gradient-to-r from-[#003087] to-[#0040a0] px-6 py-4 rounded-t-2xl"
+        >
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <svg
+                class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                ></path>
+              </svg>
+              <h2 id="modal-title" class="text-xl font-bold text-white">
+                Browse All Procedures
+              </h2>
+            </div>
+            <button
+              type="button"
+              id="close-modal-button"
+              class="text-white/80 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg"
+              aria-label="Close modal"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <p class="text-sm text-white/80 mt-2">
+            Select a category to view all available procedures
+          </p>
+        </div>
+
+        <!-- Category Grid -->
+        <div class="p-6 max-h-[60vh] overflow-y-auto">
+          <!-- MRI Category -->
+          <button
+            type="button"
+            class="category-button w-full text-left mb-3 group"
+            data-modality="MRI"
+          >
+            <div
+              class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 rounded-xl transition-all duration-200 border-2 border-blue-200 hover:border-blue-400"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-14 h-14 bg-blue-500 rounded-xl flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform"
+                >
+                  🧲
+                </div>
+                <div>
+                  <div class="font-bold text-gray-900 text-lg">MRI Scans</div>
+                  <div class="text-sm text-gray-600">
+                    Magnetic Resonance Imaging • 7 procedures
+                  </div>
+                </div>
+              </div>
+              <svg
+                class="w-6 h-6 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </button>
+
+          <!-- CT Category -->
+          <button
+            type="button"
+            class="category-button w-full text-left mb-3 group"
+            data-modality="CT"
+          >
+            <div
+              class="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 rounded-xl transition-all duration-200 border-2 border-green-200 hover:border-green-400"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-14 h-14 bg-green-500 rounded-xl flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform"
+                >
+                  🏥
+                </div>
+                <div>
+                  <div class="font-bold text-gray-900 text-lg">CT Scans</div>
+                  <div class="text-sm text-gray-600">
+                    Computed Tomography • 4 procedures
+                  </div>
+                </div>
+              </div>
+              <svg
+                class="w-6 h-6 text-gray-400 group-hover:text-green-600 group-hover:translate-x-1 transition-all"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </button>
+
+          <!-- Ultrasound Category -->
+          <button
+            type="button"
+            class="category-button w-full text-left mb-3 group"
+            data-modality="Ultrasound"
+          >
+            <div
+              class="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 rounded-xl transition-all duration-200 border-2 border-purple-200 hover:border-purple-400"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-14 h-14 bg-purple-500 rounded-xl flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform"
+                >
+                  〰️
+                </div>
+                <div>
+                  <div class="font-bold text-gray-900 text-lg">Ultrasound</div>
+                  <div class="text-sm text-gray-600">
+                    Sound Wave Imaging • 5 procedures
+                  </div>
+                </div>
+              </div>
+              <svg
+                class="w-6 h-6 text-gray-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </button>
+
+          <!-- X-Ray Category -->
+          <button
+            type="button"
+            class="category-button w-full text-left mb-3 group"
+            data-modality="X-Ray"
+          >
+            <div
+              class="flex items-center justify-between p-4 bg-gradient-to-r from-yellow-50 to-yellow-100 hover:from-yellow-100 hover:to-yellow-200 rounded-xl transition-all duration-200 border-2 border-yellow-200 hover:border-yellow-400"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-14 h-14 bg-yellow-500 rounded-xl flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform"
+                >
+                  📷
+                </div>
+                <div>
+                  <div class="font-bold text-gray-900 text-lg">X-Ray</div>
+                  <div class="text-sm text-gray-600">
+                    Radiography • 3 procedures
+                  </div>
+                </div>
+              </div>
+              <svg
+                class="w-6 h-6 text-gray-400 group-hover:text-yellow-600 group-hover:translate-x-1 transition-all"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </button>
+
+          <!-- Mammography Category -->
+          <button
+            type="button"
+            class="category-button w-full text-left mb-3 group"
+            data-modality="Mammography"
+          >
+            <div
+              class="flex items-center justify-between p-4 bg-gradient-to-r from-pink-50 to-pink-100 hover:from-pink-100 hover:to-pink-200 rounded-xl transition-all duration-200 border-2 border-pink-200 hover:border-pink-400"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-14 h-14 bg-pink-500 rounded-xl flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform"
+                >
+                  🎗️
+                </div>
+                <div>
+                  <div class="font-bold text-gray-900 text-lg">Mammography</div>
+                  <div class="text-sm text-gray-600">
+                    Breast Cancer Screening • 1 procedure
+                  </div>
+                </div>
+              </div>
+              <svg
+                class="w-6 h-6 text-gray-400 group-hover:text-pink-600 group-hover:translate-x-1 transition-all"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </button>
+        </div>
+
+        <!-- Footer -->
+        <div
+          class="border-t border-gray-200 px-6 py-4 bg-gray-50 rounded-b-2xl"
+        >
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-gray-600">
+              <span class="font-semibold">20 procedures</span> available nationwide
+            </div>
+            <button
+              type="button"
+              id="close-modal-footer-button"
+              class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Browse All Modal Logic
+  (function () {
+    const modal = document.getElementById("browse-all-modal");
+    const backdrop = document.getElementById("modal-backdrop");
+    const closeButton = document.getElementById("close-modal-button");
+    const closeFooterButton = document.getElementById(
+      "close-modal-footer-button"
+    );
+    const categoryButtons = document.querySelectorAll(".category-button");
+    const procedureInput = document.getElementById("hero-procedure-search");
+    const REMIX_URL =
+      document.querySelector('meta[name="remix-url"]')?.content ||
+      "http://localhost:5173";
+
+    function showModal() {
+      modal?.classList.remove("hidden");
+      document.body.style.overflow = "hidden"; // Prevent background scroll
+
+      // Animate in
+      setTimeout(() => {
+        backdrop?.classList.add("opacity-100");
+      }, 10);
+    }
+
+    function hideModal() {
+      backdrop?.classList.remove("opacity-100");
+
+      setTimeout(() => {
+        modal?.classList.add("hidden");
+        document.body.style.overflow = ""; // Restore scroll
+      }, 200);
+    }
+
+    async function fetchProceduresByModality(modality) {
+      try {
+        const response = await fetch(
+          `${REMIX_URL}/api/procedures/search?q=${encodeURIComponent(modality)}`
+        );
+        if (!response.ok) throw new Error("Failed to fetch procedures");
+        const data = await response.json();
+        return data.procedures || [];
+      } catch (error) {
+        console.error("Error fetching procedures:", error);
+        return [];
+      }
+    }
+
+    function populateDropdownWithProcedures(procedures, modality) {
+      const dropdown = document.getElementById("hero-procedure-dropdown");
+      if (!dropdown) return;
+
+      // Build HTML for procedures
+      let html = `
+        <div class="px-4 py-3 bg-gradient-to-r from-[#003087] to-[#0040a0] text-white sticky top-0 z-10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <button
+                type="button"
+                id="back-to-categories"
+                class="p-1 hover:bg-white/20 rounded transition-colors"
+                aria-label="Back to categories"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+              </button>
+              <h3 class="font-bold text-lg">${modality} Procedures</h3>
+            </div>
+            <span class="text-sm text-white/80">${procedures.length} available</span>
+          </div>
+        </div>
+      `;
+
+      procedures.forEach((proc) => {
+        html += `
+          <div class="procedure-card border-b border-gray-100 hover:bg-blue-50 transition-colors" data-procedure-id="${proc.id}">
+            <button
+              type="button"
+              class="procedure-header w-full px-4 py-3 flex items-center justify-between text-left focus:outline-none focus:bg-blue-50"
+              data-procedure-id="${proc.id}"
+            >
+              <div class="flex items-center gap-3 flex-1">
+                <span class="text-2xl">${proc.icon || "📋"}</span>
+                <div class="flex-1">
+                  <div class="font-semibold text-gray-900">${proc.displayName}</div>
+                  <div class="text-xs text-gray-600 mt-1">${proc.options?.length || 0} options</div>
+                </div>
+              </div>
+              <svg class="w-5 h-5 text-gray-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="procedure-options hidden" data-procedure-id="${proc.id}">
+              ${
+                proc.options
+                  ?.map(
+                    (opt, idx) => `
+                <button
+                  type="button"
+                  class="option-button w-full px-4 py-3 pl-12 text-left hover:bg-blue-100 border-t border-gray-100"
+                  data-procedure-id="${proc.id}"
+                  data-cpt="${opt.cpt}"
+                  data-label="${opt.label}"
+                >
+                  <div class="flex justify-between items-start gap-3">
+                    <div>
+                      <div class="font-medium text-gray-900">${opt.label}</div>
+                      ${opt.detail ? `<div class="text-xs text-gray-600 mt-1">${opt.detail}</div>` : ""}
+                    </div>
+                    <div class="text-sm font-semibold text-[#003087] whitespace-nowrap">${opt.price || ""}</div>
+                  </div>
+                </button>
+              `
+                  )
+                  .join("") || ""
+              }
+            </div>
+          </div>
+        `;
+      });
+
+      dropdown.innerHTML = html;
+      dropdown.classList.remove("hidden");
+
+      // Attach event listeners
+      const backButton = document.getElementById("back-to-categories");
+      backButton?.addEventListener("click", () => {
+        dropdown.classList.add("hidden");
+        showModal();
+      });
+
+      // Procedure expansion
+      const headers = dropdown.querySelectorAll(".procedure-header");
+      headers.forEach((header) => {
+        header.addEventListener("click", (e) => {
+          const id = e.currentTarget.dataset.procedureId;
+          const options = dropdown.querySelector(
+            `.procedure-options[data-procedure-id="${id}"]`
+          );
+          const arrow = e.currentTarget.querySelector("svg");
+
+          if (options?.classList.contains("hidden")) {
+            // Close all
+            dropdown
+              .querySelectorAll(".procedure-options")
+              .forEach((opt) => opt.classList.add("hidden"));
+            dropdown
+              .querySelectorAll(".procedure-header svg")
+              .forEach((svg) => svg.classList.remove("rotate-180"));
+
+            // Open this one
+            options.classList.remove("hidden");
+            arrow?.classList.add("rotate-180");
+          } else {
+            options?.classList.add("hidden");
+            arrow?.classList.remove("rotate-180");
+          }
+        });
+      });
+
+      // Option selection
+      const optionButtons = dropdown.querySelectorAll(".option-button");
+      optionButtons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+          const cpt = e.currentTarget.dataset.cpt;
+          const label = e.currentTarget.dataset.label;
+          const procedureCard = e.currentTarget.closest(".procedure-card");
+          const procedureName = procedureCard?.querySelector(
+            ".procedure-header .font-semibold"
+          )?.textContent;
+
+          // Update inputs
+          const selectedInput = document.getElementById(
+            "hero-selected-procedure"
+          );
+          if (selectedInput) selectedInput.value = cpt;
+          if (procedureInput)
+            procedureInput.value = `${procedureName} - ${label}`;
+
+          // Hide dropdown and modal
+          dropdown.classList.add("hidden");
+          hideModal();
+
+          // Trigger step 2
+          const step2Event = new CustomEvent("proceed-to-step-2");
+          window.dispatchEvent(step2Event);
+        });
+      });
+    }
+
+    // Event listeners
+    window.addEventListener("show-browse-all-modal", showModal);
+
+    closeButton?.addEventListener("click", hideModal);
+    closeFooterButton?.addEventListener("click", hideModal);
+    backdrop?.addEventListener("click", hideModal);
+
+    // Category button clicks
+    categoryButtons.forEach((button) => {
+      button.addEventListener("click", async (e) => {
+        const modality = e.currentTarget.dataset.modality;
+
+        // Hide modal
+        hideModal();
+
+        // Fetch and show procedures
+        const procedures = await fetchProceduresByModality(modality);
+        populateDropdownWithProcedures(procedures, modality);
+
+        // Focus search input
+        setTimeout(() => {
+          procedureInput?.focus();
+        }, 300);
+      });
+    });
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !modal?.classList.contains("hidden")) {
+        hideModal();
+      }
+    });
+  })();
+</script>
+
+<style>
+  /* Modal animations */
+  #modal-backdrop {
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+  }
+
+  #modal-content {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Smooth scrolling */
+  #browse-all-modal {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Category button active state */
+  .category-button:active {
+    transform: scale(0.98);
+  }
+</style>
