@@ -204,300 +204,6 @@ function closeModal() {
 let searchTimeout;
 const SEARCH_DELAY = 300;
 
-// =============================================================================
-// PHASE 2 FUNCTIONS - UPDATED to use /api/procedures/search
-// Replace your existing Phase 2 functions with these
-// =============================================================================
-
-/**
- * Display Mammography type selection (Screening vs Diagnostic vs 3D)
- */
-function displayMammographyType() {
-  console.log('📋 Displaying Mammography type selection');
-  
-  const modalResults = document.getElementById('modal-results');
-  if (!modalResults) return;
-  
-  modalResults.innerHTML = `
-    <div class="space-y-4 p-6">
-      <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">
-        Select Mammography Type
-      </h3>
-      
-      <button
-        type="button"
-        data-mamm-cpt="77067"
-        data-mamm-name="Screening Mammogram"
-        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
-      >
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-            <span class="text-2xl">🎗️</span>
-          </div>
-          <div class="flex-1">
-            <div class="font-bold text-lg text-gray-900 mb-1">Screening Mammogram</div>
-            <div class="text-sm text-gray-600">Routine annual screening for early detection</div>
-            <div class="text-xs text-gray-500 mt-2">CPT: 77067</div>
-          </div>
-        </div>
-      </button>
-      
-      <button
-        type="button"
-        data-mamm-cpt="77066"
-        data-mamm-name="Diagnostic Mammogram"
-        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
-      >
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center group-hover:bg-purple-200 transition-colors">
-            <span class="text-2xl">🔍</span>
-          </div>
-          <div class="flex-1">
-            <div class="font-bold text-lg text-gray-900 mb-1">Diagnostic Mammogram</div>
-            <div class="text-sm text-gray-600">Follow-up for symptoms or abnormal findings</div>
-            <div class="text-xs text-gray-500 mt-2">CPT: 77066</div>
-          </div>
-        </div>
-      </button>
-      
-      <button
-        type="button"
-        data-mamm-cpt="77063"
-        data-mamm-name="3D Mammogram"
-        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
-      >
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-green-100 flex items-center justify-center group-hover:bg-green-200 transition-colors">
-            <span class="text-2xl">📊</span>
-          </div>
-          <div class="flex-1">
-            <div class="font-bold text-lg text-gray-900 mb-1">3D Mammogram (Tomosynthesis)</div>
-            <div class="text-sm text-gray-600">Advanced 3D imaging technology</div>
-            <div class="text-xs text-gray-500 mt-2">CPT: 77063</div>
-          </div>
-        </div>
-      </button>
-    </div>
-  `;
-  
-  // Add click handlers
-  modalResults.querySelectorAll('[data-mamm-cpt]').forEach(button => {
-    button.addEventListener('click', function() {
-      const cptCode = this.dataset.mammCpt;
-      const displayName = this.dataset.mammName;
-      console.log(`✅ Selected Mammography: ${displayName} [${cptCode}]`);
-      handleDirectProcedureSelection(cptCode, displayName);
-    });
-  });
-}
-
-/**
- * Display Nuclear Medicine scan type selection
- */
-function displayNuclearMedicineType() {
-  console.log('📋 Displaying Nuclear Medicine scan type selection');
-  
-  const modalResults = document.getElementById('modal-results');
-  if (!modalResults) return;
-  
-  modalResults.innerHTML = `
-    <div class="space-y-4 p-6">
-      <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">
-        Select Nuclear Medicine Scan Type
-      </h3>
-      
-      <button
-        type="button"
-        data-nm-cpt="78306"
-        data-nm-name="Bone Scan"
-        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
-      >
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-gray-200 transition-colors">
-            <span class="text-2xl">🦴</span>
-          </div>
-          <div class="flex-1">
-            <div class="font-bold text-lg text-gray-900 mb-1">Bone Scan (Whole Body)</div>
-            <div class="text-sm text-gray-600">Detect bone abnormalities, fractures, or cancer</div>
-            <div class="text-xs text-gray-500 mt-2">CPT: 78306</div>
-          </div>
-        </div>
-      </button>
-      
-      <button
-        type="button"
-        data-nm-cpt="78452"
-        data-nm-name="Cardiac Stress Test"
-        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
-      >
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-red-100 flex items-center justify-center group-hover:bg-red-200 transition-colors">
-            <span class="text-2xl">❤️</span>
-          </div>
-          <div class="flex-1">
-            <div class="font-bold text-lg text-gray-900 mb-1">Cardiac Stress Test</div>
-            <div class="text-sm text-gray-600">Evaluate heart blood flow and function</div>
-            <div class="text-xs text-gray-500 mt-2">CPT: 78452</div>
-          </div>
-        </div>
-      </button>
-      
-      <button
-        type="button"
-        data-nm-cpt="78012"
-        data-nm-name="Thyroid Scan"
-        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
-      >
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-            <span class="text-2xl">🦋</span>
-          </div>
-          <div class="flex-1">
-            <div class="font-bold text-lg text-gray-900 mb-1">Thyroid Scan</div>
-            <div class="text-sm text-gray-600">Evaluate thyroid function and nodules</div>
-            <div class="text-xs text-gray-500 mt-2">CPT: 78012</div>
-          </div>
-        </div>
-      </button>
-      
-      <button
-        type="button"
-        data-nm-cpt="78072"
-        data-nm-name="Parathyroid Scan"
-        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
-      >
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-green-100 flex items-center justify-center group-hover:bg-green-200 transition-colors">
-            <span class="text-2xl">🟢</span>
-          </div>
-          <div class="flex-1">
-            <div class="font-bold text-lg text-gray-900 mb-1">Parathyroid Scan</div>
-            <div class="text-sm text-gray-600">Locate overactive parathyroid glands</div>
-            <div class="text-xs text-gray-500 mt-2">CPT: 78072</div>
-          </div>
-        </div>
-      </button>
-    </div>
-  `;
-  
-  // Add click handlers
-  modalResults.querySelectorAll('[data-nm-cpt]').forEach(button => {
-    button.addEventListener('click', function() {
-      const cptCode = this.dataset.nmCpt;
-      const displayName = this.dataset.nmName;
-      console.log(`✅ Selected Nuclear Medicine: ${displayName} [${cptCode}]`);
-      handleDirectProcedureSelection(cptCode, displayName);
-    });
-  });
-}
-
-/**
- * Display PET scan type selection
- */
-function displayPETType() {
-  console.log('📋 Displaying PET scan type selection');
-  
-  const modalResults = document.getElementById('modal-results');
-  if (!modalResults) return;
-  
-  modalResults.innerHTML = `
-    <div class="space-y-4 p-6">
-      <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">
-        Select PET Scan Type
-      </h3>
-      
-      <button
-        type="button"
-        data-pet-cpt="78815"
-        data-pet-name="PET Scan Whole Body"
-        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
-      >
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center group-hover:bg-purple-200 transition-colors">
-            <span class="text-2xl">⚛️</span>
-          </div>
-          <div class="flex-1">
-            <div class="font-bold text-lg text-gray-900 mb-1">PET Scan (Whole Body)</div>
-            <div class="text-sm text-gray-600">Most common - full body cancer screening</div>
-            <div class="text-xs text-gray-500 mt-2">CPT: 78815</div>
-          </div>
-        </div>
-      </button>
-      
-      <button
-        type="button"
-        data-pet-cpt="78608"
-        data-pet-name="PET Brain Scan"
-        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
-      >
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-            <span class="text-2xl">🧠</span>
-          </div>
-          <div class="flex-1">
-            <div class="font-bold text-lg text-gray-900 mb-1">PET Brain Scan</div>
-            <div class="text-sm text-gray-600">Brain-specific PET imaging</div>
-            <div class="text-xs text-gray-500 mt-2">CPT: 78608</div>
-          </div>
-        </div>
-      </button>
-      
-      <button
-        type="button"
-        data-pet-cpt="78459"
-        data-pet-name="PET Cardiac Scan"
-        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
-      >
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-red-100 flex items-center justify-center group-hover:bg-red-200 transition-colors">
-            <span class="text-2xl">❤️</span>
-          </div>
-          <div class="flex-1">
-            <div class="font-bold text-lg text-gray-900 mb-1">PET Cardiac Scan</div>
-            <div class="text-sm text-gray-600">Heart-specific PET imaging</div>
-            <div class="text-xs text-gray-500 mt-2">CPT: 78459</div>
-          </div>
-        </div>
-      </button>
-    </div>
-  `;
-  
-  // Add click handlers
-  modalResults.querySelectorAll('[data-pet-cpt]').forEach(button => {
-    button.addEventListener('click', function() {
-      const cptCode = this.dataset.petCpt;
-      const displayName = this.dataset.petName;
-      console.log(`✅ Selected PET: ${displayName} [${cptCode}]`);
-      handleDirectProcedureSelection(cptCode, displayName);
-    });
-  });
-}
-
-/**
- * Handle direct procedure selection (bypasses API lookup)
- * This is used when we know the CPT code and don't need to fetch from API
- */
-function handleDirectProcedureSelection(cptCode, displayName) {
-  console.log(`🎯 Direct selection: ${displayName} [${cptCode}]`);
-  
-  // Format the display name to include CPT code
-  const fullDisplayName = `${displayName} [${cptCode}]`;
-  
-  // Call your existing selectProcedure function
-  selectProcedure(cptCode, fullDisplayName);
-  
-  // Close modal and transition to Step 2
-  closeModal();
-  transitionToStep2();
-  
-  console.log('✅ Procedure selected and transitioned to Step 2');
-}
-
-// =============================================================================
-// END OF UPDATED PHASE 2 FUNCTIONS
-// =============================================================================
-  
-
 async function handleModalSearch(query) {
   const resultsContainer = document.getElementById('modal-results');
   
@@ -1246,7 +952,299 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+// =============================================================================
+// PHASE 2 FUNCTIONS - UPDATED to use /api/procedures/search
+// Replace your existing Phase 2 functions with these
+// =============================================================================
 
+/**
+ * Display Mammography type selection (Screening vs Diagnostic vs 3D)
+ */
+function displayMammographyType() {
+  console.log('📋 Displaying Mammography type selection');
+  
+  const modalResults = document.getElementById('modal-results');
+  if (!modalResults) return;
+  
+  modalResults.innerHTML = `
+    <div class="space-y-4 p-6">
+      <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+        Select Mammography Type
+      </h3>
+      
+      <button
+        type="button"
+        data-mamm-cpt="77067"
+        data-mamm-name="Screening Mammogram"
+        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
+      >
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+            <span class="text-2xl">🎗️</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-lg text-gray-900 mb-1">Screening Mammogram</div>
+            <div class="text-sm text-gray-600">Routine annual screening for early detection</div>
+            <div class="text-xs text-gray-500 mt-2">CPT: 77067</div>
+          </div>
+        </div>
+      </button>
+      
+      <button
+        type="button"
+        data-mamm-cpt="77066"
+        data-mamm-name="Diagnostic Mammogram"
+        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
+      >
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+            <span class="text-2xl">🔍</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-lg text-gray-900 mb-1">Diagnostic Mammogram</div>
+            <div class="text-sm text-gray-600">Follow-up for symptoms or abnormal findings</div>
+            <div class="text-xs text-gray-500 mt-2">CPT: 77066</div>
+          </div>
+        </div>
+      </button>
+      
+      <button
+        type="button"
+        data-mamm-cpt="77063"
+        data-mamm-name="3D Mammogram"
+        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
+      >
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-green-100 flex items-center justify-center group-hover:bg-green-200 transition-colors">
+            <span class="text-2xl">📊</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-lg text-gray-900 mb-1">3D Mammogram (Tomosynthesis)</div>
+            <div class="text-sm text-gray-600">Advanced 3D imaging technology</div>
+            <div class="text-xs text-gray-500 mt-2">CPT: 77063</div>
+          </div>
+        </div>
+      </button>
+    </div>
+  `;
+  
+  // Add click handlers
+  modalResults.querySelectorAll('[data-mamm-cpt]').forEach(button => {
+    button.addEventListener('click', function() {
+      const cptCode = this.dataset.mammCpt;
+      const displayName = this.dataset.mammName;
+      console.log(`✅ Selected Mammography: ${displayName} [${cptCode}]`);
+      handleDirectProcedureSelection(cptCode, displayName);
+    });
+  });
+}
+
+/**
+ * Display Nuclear Medicine scan type selection
+ */
+function displayNuclearMedicineType() {
+  console.log('📋 Displaying Nuclear Medicine scan type selection');
+  
+  const modalResults = document.getElementById('modal-results');
+  if (!modalResults) return;
+  
+  modalResults.innerHTML = `
+    <div class="space-y-4 p-6">
+      <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+        Select Nuclear Medicine Scan Type
+      </h3>
+      
+      <button
+        type="button"
+        data-nm-cpt="78306"
+        data-nm-name="Bone Scan"
+        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
+      >
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-gray-200 transition-colors">
+            <span class="text-2xl">🦴</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-lg text-gray-900 mb-1">Bone Scan (Whole Body)</div>
+            <div class="text-sm text-gray-600">Detect bone abnormalities, fractures, or cancer</div>
+            <div class="text-xs text-gray-500 mt-2">CPT: 78306</div>
+          </div>
+        </div>
+      </button>
+      
+      <button
+        type="button"
+        data-nm-cpt="78452"
+        data-nm-name="Cardiac Stress Test"
+        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
+      >
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-red-100 flex items-center justify-center group-hover:bg-red-200 transition-colors">
+            <span class="text-2xl">❤️</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-lg text-gray-900 mb-1">Cardiac Stress Test</div>
+            <div class="text-sm text-gray-600">Evaluate heart blood flow and function</div>
+            <div class="text-xs text-gray-500 mt-2">CPT: 78452</div>
+          </div>
+        </div>
+      </button>
+      
+      <button
+        type="button"
+        data-nm-cpt="78012"
+        data-nm-name="Thyroid Scan"
+        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
+      >
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+            <span class="text-2xl">🦋</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-lg text-gray-900 mb-1">Thyroid Scan</div>
+            <div class="text-sm text-gray-600">Evaluate thyroid function and nodules</div>
+            <div class="text-xs text-gray-500 mt-2">CPT: 78012</div>
+          </div>
+        </div>
+      </button>
+      
+      <button
+        type="button"
+        data-nm-cpt="78072"
+        data-nm-name="Parathyroid Scan"
+        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
+      >
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-green-100 flex items-center justify-center group-hover:bg-green-200 transition-colors">
+            <span class="text-2xl">🟢</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-lg text-gray-900 mb-1">Parathyroid Scan</div>
+            <div class="text-sm text-gray-600">Locate overactive parathyroid glands</div>
+            <div class="text-xs text-gray-500 mt-2">CPT: 78072</div>
+          </div>
+        </div>
+      </button>
+    </div>
+  `;
+  
+  // Add click handlers
+  modalResults.querySelectorAll('[data-nm-cpt]').forEach(button => {
+    button.addEventListener('click', function() {
+      const cptCode = this.dataset.nmCpt;
+      const displayName = this.dataset.nmName;
+      console.log(`✅ Selected Nuclear Medicine: ${displayName} [${cptCode}]`);
+      handleDirectProcedureSelection(cptCode, displayName);
+    });
+  });
+}
+
+/**
+ * Display PET scan type selection
+ */
+function displayPETType() {
+  console.log('📋 Displaying PET scan type selection');
+  
+  const modalResults = document.getElementById('modal-results');
+  if (!modalResults) return;
+  
+  modalResults.innerHTML = `
+    <div class="space-y-4 p-6">
+      <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+        Select PET Scan Type
+      </h3>
+      
+      <button
+        type="button"
+        data-pet-cpt="78815"
+        data-pet-name="PET Scan Whole Body"
+        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
+      >
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+            <span class="text-2xl">⚛️</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-lg text-gray-900 mb-1">PET Scan (Whole Body)</div>
+            <div class="text-sm text-gray-600">Most common - full body cancer screening</div>
+            <div class="text-xs text-gray-500 mt-2">CPT: 78815</div>
+          </div>
+        </div>
+      </button>
+      
+      <button
+        type="button"
+        data-pet-cpt="78608"
+        data-pet-name="PET Brain Scan"
+        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
+      >
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+            <span class="text-2xl">🧠</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-lg text-gray-900 mb-1">PET Brain Scan</div>
+            <div class="text-sm text-gray-600">Brain-specific PET imaging</div>
+            <div class="text-xs text-gray-500 mt-2">CPT: 78608</div>
+          </div>
+        </div>
+      </button>
+      
+      <button
+        type="button"
+        data-pet-cpt="78459"
+        data-pet-name="PET Cardiac Scan"
+        class="w-full p-6 text-left border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 group"
+      >
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-red-100 flex items-center justify-center group-hover:bg-red-200 transition-colors">
+            <span class="text-2xl">❤️</span>
+          </div>
+          <div class="flex-1">
+            <div class="font-bold text-lg text-gray-900 mb-1">PET Cardiac Scan</div>
+            <div class="text-sm text-gray-600">Heart-specific PET imaging</div>
+            <div class="text-xs text-gray-500 mt-2">CPT: 78459</div>
+          </div>
+        </div>
+      </button>
+    </div>
+  `;
+  
+  // Add click handlers
+  modalResults.querySelectorAll('[data-pet-cpt]').forEach(button => {
+    button.addEventListener('click', function() {
+      const cptCode = this.dataset.petCpt;
+      const displayName = this.dataset.petName;
+      console.log(`✅ Selected PET: ${displayName} [${cptCode}]`);
+      handleDirectProcedureSelection(cptCode, displayName);
+    });
+  });
+}
+
+/**
+ * Handle direct procedure selection (bypasses API lookup)
+ * This is used when we know the CPT code and don't need to fetch from API
+ */
+function handleDirectProcedureSelection(cptCode, displayName) {
+  console.log(`🎯 Direct selection: ${displayName} [${cptCode}]`);
+  
+  // Format the display name to include CPT code
+  const fullDisplayName = `${displayName} [${cptCode}]`;
+  
+  // Call your existing selectProcedure function
+  selectProcedure(cptCode, fullDisplayName);
+  
+  // Close modal and transition to Step 2
+  closeModal();
+  transitionToStep2();
+  
+  console.log('✅ Procedure selected and transitioned to Step 2');
+}
+
+// =============================================================================
+// END OF UPDATED PHASE 2 FUNCTIONS
+// =============================================================================
+  
   // ═══════════════════════════════════════════════════════
 // DEBUG: Test modality detection
 // ═══════════════════════════════════════════════════════
