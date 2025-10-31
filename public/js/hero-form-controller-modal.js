@@ -6,6 +6,147 @@ console.log('✅ Hero form controller MODAL version initialized (with expandable
 
 // Track expanded procedures
 let expandedProcedures = new Set();
+let selectedModality = null;
+let selectedContrast = null;
+let selectedRegion = null;
+
+// ═══════════════════════════════════════════════════════
+// MODALITY DETECTION & CONTRAST CONFIGURATION
+// ═══════════════════════════════════════════════════════
+
+const MODALITY_ALIASES = {
+  // MRI
+  'mri': 'MRI',
+  'mr': 'MRI', 
+  'magnetic': 'MRI',
+  'magnetic resonance': 'MRI',
+  
+  // CT
+  'ct': 'CT',
+  'cat': 'CT',
+  'cat scan': 'CT',
+  'computed tomography': 'CT',
+  
+  // X-Ray
+  'xray': 'X-Ray',
+  'x-ray': 'X-Ray',
+  'xra': 'X-Ray',
+  'x-ra': 'X-Ray',
+  'radiograph': 'X-Ray',
+  
+  // Ultrasound
+  'ultrasound': 'Ultrasound',
+  'us': 'Ultrasound',
+  'ultra': 'Ultrasound',
+  'sono': 'Ultrasound',
+  'sonogram': 'Ultrasound',
+  
+  // Mammography
+  'mammo': 'Mammography',
+  'mammogram': 'Mammography',
+  'mammography': 'Mammography',
+  
+  // PET
+  'pet': 'PET',
+  'pet scan': 'PET',
+  
+  // Nuclear Medicine
+  'nuclear': 'Nuclear Medicine',
+  'nm': 'Nuclear Medicine',
+  'nuclear medicine': 'Nuclear Medicine'
+};
+
+const CONTRAST_CONFIG = {
+  'MRI': {
+    hasContrast: true,
+    options: [
+      { id: 'without', label: 'Without Contrast', cptSuffix: '1' },
+      { id: 'with', label: 'With Contrast', cptSuffix: '2' },
+      { id: 'both', label: 'With & Without Contrast', cptSuffix: '3' }
+    ]
+  },
+  'CT': {
+    hasContrast: true,
+    options: [
+      { id: 'without', label: 'Without Contrast', cptSuffix: '0' },
+      { id: 'with', label: 'With Contrast', cptSuffix: '0' },
+      { id: 'both', label: 'With & Without Contrast', cptSuffix: '0' }
+    ]
+  },
+  'X-Ray': { hasContrast: false },
+  'Ultrasound': { hasContrast: false },
+  'Mammography': { hasContrast: false },
+  'PET': { hasContrast: false },
+  'Nuclear Medicine': { hasContrast: false }
+};
+
+const REGION_BY_MODALITY = {
+  'MRI': [
+    { id: 'brain', label: 'Brain', icon: '🧠' },
+    { id: 'cervical-spine', label: 'Cervical Spine', icon: '🦴' },
+    { id: 'thoracic-spine', label: 'Thoracic Spine', icon: '🦴' },
+    { id: 'lumbar-spine', label: 'Lumbar Spine', icon: '🦴' },
+    { id: 'shoulder', label: 'Shoulder', icon: '💪' },
+    { id: 'knee', label: 'Knee', icon: '🦵' },
+    { id: 'upper-extremity', label: 'Upper Extremity', icon: '💪' },
+    { id: 'lower-extremity', label: 'Lower Extremity', icon: '🦵' },
+    { id: 'abdomen', label: 'Abdomen', icon: '🫁' },
+    { id: 'pelvis', label: 'Pelvis', icon: '🦴' },
+    { id: 'abdomen-pelvis', label: 'Abdomen & Pelvis', icon: '🫁' },
+    { id: 'cardiac', label: 'Cardiac/Heart', icon: '❤️' },
+    { id: 'breast', label: 'Breast', icon: '🎗️' }
+  ],
+  'CT': [
+    { id: 'head', label: 'Head/Brain', icon: '🧠' },
+    { id: 'chest', label: 'Chest', icon: '🫁' },
+    { id: 'abdomen', label: 'Abdomen', icon: '🫁' },
+    { id: 'pelvis', label: 'Pelvis', icon: '🦴' },
+    { id: 'abdomen-pelvis', label: 'Abdomen & Pelvis', icon: '🫁' },
+    { id: 'spine', label: 'Spine', icon: '🦴' },
+    { id: 'sinuses', label: 'Sinuses', icon: '👃' },
+    { id: 'neck', label: 'Neck', icon: '🦴' },
+    { id: 'extremity', label: 'Extremity', icon: '💪' }
+  ],
+  'X-Ray': [
+    { id: 'chest', label: 'Chest', icon: '🫁' },
+    { id: 'spine', label: 'Spine', icon: '🦴' },
+    { id: 'shoulder', label: 'Shoulder', icon: '💪' },
+    { id: 'hand', label: 'Hand', icon: '✋' },
+    { id: 'foot', label: 'Foot', icon: '🦶' },
+    { id: 'knee', label: 'Knee', icon: '🦵' },
+    { id: 'pelvis', label: 'Pelvis', icon: '🦴' },
+    { id: 'abdomen', label: 'Abdomen', icon: '🫁' }
+  ],
+  'Ultrasound': [
+    { id: 'abdomen', label: 'Abdomen', icon: '🫁' },
+    { id: 'pelvis', label: 'Pelvis', icon: '🦴' },
+    { id: 'ob', label: 'OB (Pregnancy)', icon: '👶' },
+    { id: 'cardiac', label: 'Cardiac Echo', icon: '❤️' },
+    { id: 'thyroid', label: 'Thyroid', icon: '🦴' },
+    { id: 'carotid', label: 'Carotid', icon: '🫀' },
+    { id: 'venous', label: 'Venous Doppler', icon: '🫀' },
+    { id: 'renal', label: 'Renal/Kidney', icon: '🫁' }
+  ],
+  'Mammography': [
+    { id: 'screening', label: 'Screening Mammogram', icon: '🎗️' },
+    { id: 'diagnostic', label: 'Diagnostic Mammogram', icon: '🎗️' }
+  ],
+  'PET': [
+    { id: 'whole-body', label: 'Whole Body PET', icon: '⚛️' },
+    { id: 'brain', label: 'Brain PET', icon: '🧠' }
+  ],
+  'Nuclear Medicine': [
+    { id: 'bone-scan', label: 'Bone Scan', icon: '🦴' },
+    { id: 'cardiac', label: 'Cardiac Nuclear', icon: '❤️' },
+    { id: 'thyroid', label: 'Thyroid Scan', icon: '🦴' }
+  ]
+};
+
+function detectModality(userInput) {
+  if (!userInput) return null;
+  const normalized = userInput.toLowerCase().trim();
+  return MODALITY_ALIASES[normalized] || null;
+}
 
 // ═══════════════════════════════════════════════════════
 // MODAL CONTROL FUNCTIONS
@@ -79,6 +220,29 @@ async function handleModalSearch(query) {
     return;
   }
   
+  // 🎯 NEW: Check if user typed a modality
+  const detectedModality = detectModality(query.trim());
+  
+  if (detectedModality) {
+    console.log('✨ Detected modality:', detectedModality);
+    selectedModality = detectedModality;
+    
+    // Check if this modality has contrast options
+    const contrastConfig = CONTRAST_CONFIG[detectedModality];
+    
+    if (contrastConfig && contrastConfig.hasContrast) {
+      console.log('💉 Showing contrast options for', detectedModality);
+      displayContrastSelection(detectedModality);
+      return;
+    } else {
+      console.log('➡️ No contrast needed for', detectedModality, '- showing region selection');
+      // TODO: Phase 3 - show region selection
+      displayRegionSelection(detectedModality, null);
+      return;
+    }
+  }
+  
+  // 🔍 Not a modality - do regular search
   resultsContainer.innerHTML = `
     <div class="text-center py-12">
       <svg class="w-12 h-12 mx-auto mb-4 text-[#003087] animate-spin" fill="none" viewBox="0 0 24 24">
@@ -100,8 +264,8 @@ async function handleModalSearch(query) {
     const data = await response.json();
     console.log('✅ API Response:', data);
     
-    if (data.procedures && data.procedures.length > 0) {
-      displayModalResults(data.procedures);
+    if (data.results && data.results.length > 0) {
+      displayModalResults(data.results);
     } else {
       resultsContainer.innerHTML = `
         <div class="text-center py-12">
@@ -128,9 +292,331 @@ async function handleModalSearch(query) {
 }
 
 // ═══════════════════════════════════════════════════════
-// DISPLAY RESULTS WITH EXPANDABLE OPTIONS
+// CONTRAST SELECTION UI
 // ═══════════════════════════════════════════════════════
 
+function displayContrastSelection(modality) {
+  const resultsContainer = document.getElementById('modal-results');
+  const contrastOptions = CONTRAST_CONFIG[modality].options;
+  
+  const html = `
+    <div class="space-y-6">
+      <!-- Header -->
+      <div class="text-center">
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+          Select contrast type for ${modality}
+        </h3>
+        <p class="text-gray-600">Choose how you need the scan performed</p>
+      </div>
+      
+      <!-- Contrast Buttons -->
+      <div class="grid gap-4">
+        ${contrastOptions.map(option => `
+          <button
+            type="button"
+            class="contrast-option-button group p-6 rounded-xl border-2 border-gray-200 hover:border-[#003087] hover:bg-blue-50 transition-all duration-200 text-left"
+            data-contrast-id="${option.id}"
+            data-contrast-label="${option.label}"
+          >
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-lg font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
+                  ${option.label}
+                </p>
+                <p class="text-sm text-gray-600 mt-1">
+                  ${option.id === 'without' ? 'Standard MRI scan without injection' : 
+                    option.id === 'with' ? 'Enhanced imaging with IV contrast injection' :
+                    'Complete imaging with and without contrast'}
+                </p>
+              </div>
+              <svg class="w-6 h-6 text-gray-400 group-hover:text-[#003087] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </button>
+        `).join('')}
+      </div>
+      
+      <!-- Back Button -->
+      <div class="text-center pt-4">
+        <button
+          type="button"
+          id="back-to-search"
+          class="text-gray-600 hover:text-[#003087] font-medium transition-colors"
+        >
+          ← Back to search
+        </button>
+      </div>
+    </div>
+  `;
+  
+  resultsContainer.innerHTML = html;
+  
+  // Attach click handlers
+  resultsContainer.querySelectorAll('.contrast-option-button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const contrastId = btn.getAttribute('data-contrast-id');
+      const contrastLabel = btn.getAttribute('data-contrast-label');
+      
+      console.log('✅ Selected contrast:', contrastLabel);
+      selectedContrast = contrastId;
+      
+      // Add visual feedback
+      btn.classList.add('border-[#cc9933]', 'bg-yellow-50');
+      
+      // TODO: Phase 3 - Show region selection
+      setTimeout(() => {
+        displayRegionSelection(selectedModality, selectedContrast);
+      }, 300);
+    });
+  });
+  
+  // Back button
+  const backBtn = resultsContainer.querySelector('#back-to-search');
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      selectedModality = null;
+      selectedContrast = null;
+      const modalInput = document.getElementById('modal-search-input');
+      if (modalInput) {
+        modalInput.value = '';
+        modalInput.focus();
+      }
+      resultsContainer.innerHTML = `
+        <div class="text-center py-12 text-gray-500">
+          <p class="text-lg font-medium">Start typing to search procedures</p>
+        </div>
+      `;
+    });
+  }
+}
+
+function displayRegionSelection(modality, contrast) {
+  const resultsContainer = document.getElementById('modal-results');
+  const regions = REGION_BY_MODALITY[modality] || [];
+  
+  if (regions.length === 0) {
+    resultsContainer.innerHTML = `
+      <div class="text-center py-12">
+        <p class="text-red-600">No regions configured for ${modality}</p>
+      </div>
+    `;
+    return;
+  }
+  
+  const html = `
+    <div class="space-y-6">
+      <!-- Progress Breadcrumb -->
+      <div class="flex items-center gap-2 text-sm">
+        <span class="text-gray-600">${modality}</span>
+        ${contrast ? `
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+          <span class="text-gray-600">${CONTRAST_CONFIG[modality].options.find(o => o.id === contrast)?.label || contrast}</span>
+        ` : ''}
+        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+        <span class="font-semibold text-[#003087]">Select Region</span>
+      </div>
+      
+      <!-- Header -->
+      <div class="text-center">
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+          Which body part needs imaging?
+        </h3>
+        <p class="text-gray-600">Select the area to be scanned</p>
+      </div>
+      
+      <!-- Region Grid -->
+      <div class="grid grid-cols-2 gap-3">
+        ${regions.map(region => `
+          <button
+            type="button"
+            class="region-option-button group p-4 rounded-xl border-2 border-gray-200 hover:border-[#003087] hover:bg-blue-50 transition-all duration-200"
+            data-region-id="${region.id}"
+            data-region-label="${region.label}"
+          >
+            <div class="text-center">
+              <div class="text-3xl mb-2">${region.icon}</div>
+              <p class="text-sm font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
+                ${region.label}
+              </p>
+            </div>
+          </button>
+        `).join('')}
+      </div>
+      
+      <!-- Back Button -->
+      <div class="text-center pt-4">
+        <button
+          type="button"
+          id="back-to-contrast"
+          class="text-gray-600 hover:text-[#003087] font-medium transition-colors"
+        >
+          ← Back to contrast selection
+        </button>
+      </div>
+    </div>
+  `;
+  
+  resultsContainer.innerHTML = html;
+  
+  // Attach click handlers to region buttons
+  resultsContainer.querySelectorAll('.region-option-button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const regionId = btn.getAttribute('data-region-id');
+      const regionLabel = btn.getAttribute('data-region-label');
+      
+      console.log('✅ Selected region:', regionLabel);
+      selectedRegion = regionId;
+      
+      // Add visual feedback
+      btn.classList.add('border-[#cc9933]', 'bg-yellow-50');
+      
+      // TODO: Phase 4 - Resolve to CPT code and show results
+      setTimeout(() => {
+        resolveProcedure(selectedModality, selectedContrast, selectedRegion);
+      }, 300);
+    });
+  });
+  
+  // Back button
+  const backBtn = resultsContainer.querySelector('#back-to-contrast');
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      selectedRegion = null;
+      if (CONTRAST_CONFIG[selectedModality]?.hasContrast) {
+        displayContrastSelection(selectedModality);
+      } else {
+        // Reset to search
+        selectedModality = null;
+        const modalInput = document.getElementById('modal-search-input');
+        if (modalInput) {
+          modalInput.value = '';
+          modalInput.focus();
+        }
+        resultsContainer.innerHTML = `
+          <div class="text-center py-12 text-gray-500">
+            <p class="text-lg font-medium">Start typing to search procedures</p>
+          </div>
+        `;
+      }
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// PROCEDURE RESOLUTION (Phase 4 - Coming Next)
+// ═══════════════════════════════════════════════════════
+
+async function resolveProcedure(modality, contrast, region) {
+  const resultsContainer = document.getElementById('modal-results');
+  
+  console.log('🎯 Resolving procedure:', { modality, contrast, region });
+  
+  // Show loading state
+  resultsContainer.innerHTML = `
+    <div class="text-center py-12">
+      <svg class="w-12 h-12 mx-auto mb-4 text-[#003087] animate-spin" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <p class="text-gray-600">Finding your exact procedure...</p>
+    </div>
+  `;
+  
+  try {
+    // Call the resolution API
+    const url = new URL('/api/procedures/resolve', window.location.origin);
+    url.searchParams.set('modality', modality);
+    url.searchParams.set('region', region);
+    if (contrast) url.searchParams.set('contrast', contrast);
+    
+    const response = await fetch(url.toString());
+    const data = await response.json();
+    
+    console.log('✅ Resolution result:', data);
+    
+    if (!data.found) {
+      // No procedure found
+      resultsContainer.innerHTML = `
+        <div class="text-center py-12">
+          <svg class="w-16 h-16 mx-auto mb-4 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+          <p class="text-xl font-bold text-gray-900 mb-4">Procedure Not Found</p>
+          <p class="text-gray-600 mb-6">We couldn't find an exact match for this combination.</p>
+          
+          <button
+            type="button"
+            id="back-to-search-notfound"
+            class="px-6 py-3 bg-[#003087] text-white rounded-lg hover:bg-[#002060] transition-colors"
+          >
+            Try Different Search
+          </button>
+        </div>
+      `;
+      
+      document.getElementById('back-to-search-notfound')?.addEventListener('click', () => {
+        selectedModality = null;
+        selectedContrast = null;
+        selectedRegion = null;
+        const modalInput = document.getElementById('modal-search-input');
+        if (modalInput) {
+          modalInput.value = '';
+          modalInput.focus();
+        }
+        resultsContainer.innerHTML = `
+          <div class="text-center py-12 text-gray-500">
+            <p class="text-lg font-medium">Start typing to search procedures</p>
+          </div>
+        `;
+      });
+      
+      return;
+    }
+    
+    // Success! Found the procedure
+    const procedure = data.procedure;
+    const cptCode = procedure.cpt_code;
+    const procedureName = procedure.friendly_name;
+    
+    console.log('🎉 Found CPT code:', cptCode);
+    
+    // Close modal and populate the hero form
+    selectProcedure(cptCode, procedureName, cptCode);
+    
+  } catch (error) {
+    console.error('❌ Resolution error:', error);
+    resultsContainer.innerHTML = `
+      <div class="text-center py-12">
+        <svg class="w-16 h-16 mx-auto mb-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <p class="text-xl font-bold text-gray-900 mb-4">Something Went Wrong</p>
+        <p class="text-gray-600 mb-6">Please try again or use the regular search.</p>
+        
+        <button
+          type="button"
+          id="back-to-search-error"
+          class="px-6 py-3 bg-[#003087] text-white rounded-lg hover:bg-[#002060] transition-colors"
+        >
+          Back to Search
+        </button>
+      </div>
+    `;
+    
+    document.getElementById('back-to-search-error')?.addEventListener('click', () => {
+      closeModal();
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// DISPLAY RESULTS WITH EXPANDABLE OPTIONS
+// ═══════════════════════════════════════════════════════
 function displayModalResults(procedures) {
   const resultsContainer = document.getElementById('modal-results');
   
@@ -445,6 +931,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // ═══════════════════════════════════════════════════════
+// DEBUG: Test modality detection
+// ═══════════════════════════════════════════════════════
+console.log('🧪 Testing modality detection:');
+console.log('  "mri" →', detectModality('mri'));
+console.log('  "ct" →', detectModality('ct'));
+console.log('  "cat scan" →', detectModality('cat scan'));
+console.log('  "xray" →', detectModality('xray'));
   
   const modalInput = document.getElementById('modal-search-input');
   if (modalInput) {
