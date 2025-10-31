@@ -4,6 +4,9 @@
 // Complete rebuild: Primary Search + Browse Grid + Expandable Options
 // =============================================================================
 
+import { fetchAllProcedures } from '/src/lib/procedures.ts';
+
+
 console.log('✅ Hero form controller MODAL version initialized (with expandable options) - VERSION 2.0 DIAGNOSTIC');
 
 // =============================================================================
@@ -31,6 +34,19 @@ const CATEGORY_ICONS = {
   All: '🔎'
 };
 
+// 🧠 Modality-based emoji fallback (used when no icon field is available)
+const MODALITY_EMOJI = {
+  MRI: '🧠',
+  CT: '🖼️',
+  Ultrasound: '🩺',
+  'X-Ray': '🦴',
+  Mammography: '🎗️',
+  PET: '⚛️',
+  'Nuclear Medicine': '☢️',
+  Other: '🧩'
+};
+
+
 const CATEGORY_ORDER = [
   'MRI',
   'CT',
@@ -42,6 +58,55 @@ const CATEGORY_ORDER = [
   'Other',
   'All'
 ];
+
+// =============================================================================
+// MODALITY ROUTER (prefix-safe, synonym-aware)
+// =============================================================================
+const MODALITY_LABEL_BY_KEY = {
+  MRI: 'MRI',
+  CT: 'CT',
+  US: 'Ultrasound',
+  XR: 'X-Ray',
+  MAM: 'Mammography',
+  PET: 'PET',
+  NM: 'Nuclear Medicine',
+  OTHER: 'Other',
+  ALL: 'All',
+};
+
+const normalizeMod = (s='') =>
+  s.toLowerCase().normalize('NFKD').replace(/[^\w]|_/g, '');
+
+const SYNONYMS = {
+  MRI: ['mri','magneticresonance'],
+  CT: ['ct','cat','catscan','computedtomography'],
+  US: ['us','ultrasound','sonogram','sonography'],
+  XR: ['xr','xray','radiograph','plainfilm','xrayfilm'],
+  MAM: ['mam','mamm','mammogram','mammography'],
+  PET: ['pet','petscan','positronemissiontomography'],
+  NM: ['nm','nuclear','nuclearmedicine','scintigraphy','nuclearscan'],
+  OTHER: ['other','dexa','dexascan','bonedensity','fluoroscopy','arthrogram'],
+  ALL: ['all','any'],
+};
+
+const ROUTE_PRIORITY = ['MRI','CT','US','XR','MAM','PET','NM','OTHER'];
+
+function detectModalityKey(raw) {
+  if (!raw) return null;
+  const q = normalizeMod(raw);
+
+  // exact token match
+  for (const k of ROUTE_PRIORITY) if (SYNONYMS[k].includes(q)) return k;
+
+  // short-prefix match (prevents “xra” → random)
+  if (q.length <= 4) {
+    for (const k of ROUTE_PRIORITY) {
+      if (SYNONYMS[k].some(t => t.startsWith(q) || q.startsWith(t))) return k;
+    }
+  }
+  return null;
+}
+
 
 // =============================================================================
 // BROWSE MODE FUNCTIONS
@@ -85,172 +150,126 @@ function renderCategoryGrid() {
   const grid = document.getElementById('browse-category-grid');
   if (!grid) return;
 
+  // Build category buttons with canonical modality keys
   const html = CATEGORY_ORDER.map(name => `
     <button
       type="button"
       class="magnetic-hover p-6 rounded-2xl border-2 border-gray-200 bg-white hover:border-[#003087] hover:shadow-lg transition-all duration-300 flex flex-col items-center gap-3 group"
-      data-modality="${name}"
+      data-modality-key="${
+        Object.entries(MODALITY_LABEL_BY_KEY)
+          .find(([, label]) => label === name)?.[0] || 'ALL'
+      }"
     >
-      <span class="text-4xl group-hover:scale-110 transition-transform">${CATEGORY_ICONS[name]}</span>
-      <span class="font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">${name}</span>
+      <span class="text-4xl group-hover:scale-110 transition-transform">
+        ${CATEGORY_ICONS[name]}
+      </span>
+      <span class="font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
+        ${name}
+      </span>
     </button>
   `).join('');
 
   grid.innerHTML = html;
 
-  // Attach magnetic hover and click handlers
+  // Attach hover + click handlers
   grid.querySelectorAll('button').forEach(card => {
-    // Magnetic hover effect
-    card.addEventListener('mousemove', function(e) {
+    // Magnetic hover
+    card.addEventListener('mousemove', e => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * 5;
-      const rotateY = ((x - centerX) / centerX) * -5;
+      const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * 5;
+      const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * -5;
       card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
       card.style.transition = 'transform 0.1s ease-out';
     });
 
-    card.addEventListener('mouseleave', function() {
+    card.addEventListener('mouseleave', () => {
       card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)';
       card.style.transition = 'transform 0.4s ease';
     });
 
     // Click handler
-    card.addEventListener('click', function() {
+    card.addEventListener('click', () => {
       // Visual feedback
       card.classList.add('modality-selected');
-      setTimeout(function() {
-        card.classList.remove('modality-selected');
-      }, 800);
+      setTimeout(() => card.classList.remove('modality-selected'), 800);
 
-      const modality = card.getAttribute('data-modality');
-      loadCategory(modality);
+      const modalityKey = card.getAttribute('data-modality-key');
+      loadCategoryByKey(modalityKey);
     });
   });
 
   console.log('✅ Category grid rendered');
 }
 
-async function loadCategory(modality) {
+
+async function loadCategoryByKey(modalityKey) {
   const list = document.getElementById('browse-category-results');
   if (!list) return;
+
+  const label = MODALITY_LABEL_BY_KEY[modalityKey] || 'All';
 
   // Loading state
   list.innerHTML = `
     <div class="text-center py-8">
       <svg class="w-12 h-12 mx-auto mb-4 text-[#003087] animate-spin" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        <path class="opacity-75" fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0
+                 c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
       </svg>
-      <p class="text-gray-600">Loading ${modality === 'All' ? 'all' : modality} procedures…</p>
+      <p class="text-gray-600">Loading ${label === 'All' ? 'all' : label} procedures…</p>
     </div>
   `;
 
   try {
-    // Build API request
-    const params = new URLSearchParams();
-    params.set('limit', '100');
-    if (modality !== 'All') {
-      params.set('modality', modality);
-    }
+    const url = new URL('/api/procedures/search', window.location.origin);
+    url.searchParams.set('modality', modalityKey);
 
-    const response = await fetch(`/api/medicare/procedures?${params.toString()}`);
-    
-    if (!response.ok) {
-      throw new Error(`API returned ${response.status}`);
-    }
+    const resp = await fetch(url.toString());
+    if (!resp.ok) throw new Error(`API ${resp.status}`);
 
-    const data = await response.json();
-    const items = (data.procedures || []).map(function(p) {
-      return {
-        id: p.cpt_code || p.id,
-        displayName: (p.description || '').replace(/\s+/g, ' ').trim(),
-        cpt: p.cpt_code || null
-      };
-    });
+    const json = await resp.json();
+    const items = Array.isArray(json?.results) ? json.results : [];
 
-    if (items.length === 0) {
+    if (!items.length) {
       list.innerHTML = `
         <div class="text-center py-8 text-gray-600">
-          <p>No procedures found for ${modality}.</p>
-        </div>
-      `;
+          <p>No procedures found for ${label}.</p>
+        </div>`;
       return;
     }
 
-    // Render results
-    list.innerHTML = items.map(function(item) {
-      return `
-        <button
-          type="button"
-          class="w-full text-left p-4 rounded-xl border border-gray-200 bg-white hover:border-[#003087] hover:bg-gradient-to-br hover:from-blue-50 hover:to-white hover:-translate-y-[2px] hover:shadow-md transform transition-all duration-300 flex items-center justify-between active:scale-[0.98] active:shadow-inner"
-          data-procedure-id="${item.id}"
-          data-cpt-code="${item.cpt || ''}"
-          data-display-name="${item.displayName}"
-        >
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#003087] to-[#0052cc] text-white flex items-center justify-center">🔎</div>
-            <div>
-              <p class="font-semibold text-gray-900">${item.displayName}</p>
-              ${item.cpt ? `<p class="text-xs text-gray-600 font-mono">CPT: ${item.cpt}</p>` : ''}
-            </div>
-          </div>
-          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </button>
-      `;
-    }).join('');
+    // Map to the UI shape used by displayModalResults
+    const normalized = items.map(item => ({
+      id: item.id,
+      displayName: item.displayName || item.official_name || 'Unnamed',
+      modality: item.description || item.modality || '',
+      badge: item.badge || (item.cpt_code ? `CPT ${item.cpt_code}` : null),
+      icon: null,
+      options: [],
+    }));
 
-    // Attach enhanced interactivity
-    list.querySelectorAll('button').forEach(function(card) {
-      // Magnetic hover effect
-      card.addEventListener('mousemove', function(e) {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * 3;
-        const rotateY = ((x - centerX) / centerX) * -3;
-        card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-        card.style.transition = 'transform 0.08s ease-out';
-      });
+    // Reuse the same renderer the search uses
+    const resultsContainer = document.getElementById('modal-results');
+    if (resultsContainer) {
+      // switch to Results view to reuse the list renderer
+      toggleBrowseMode(false);
+      displayModalResults(normalized);
+    } else {
+      // or render directly into the browse list if you prefer:
+      list.innerHTML = normalized.map(proc => `
+        <div class="border-b border-gray-100 pb-3 mb-3" data-procedure-id="${proc.id}">
+          <p class="font-semibold text-gray-900">${proc.displayName}</p>
+          <p class="text-sm text-gray-600">${proc.modality || ''}</p>
+        </div>
+      `).join('');
+    }
 
-      card.addEventListener('mouseleave', function() {
-        card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)';
-        card.style.transition = 'transform 0.4s ease';
-      });
-
-      // Click handler
-      card.addEventListener('click', function() {
-        // Visual feedback - compression
-        card.style.transform += ' scale(0.97)';
-        setTimeout(function() {
-          card.style.transform = card.style.transform.replace(' scale(0.97)', '');
-        }, 120);
-
-        // Gold glow pulse
-        card.classList.add('procedure-selected');
-        setTimeout(function() {
-          card.classList.remove('procedure-selected');
-        }, 900);
-
-        // Execute selection
-        const id = card.getAttribute('data-procedure-id');
-        const cpt = card.getAttribute('data-cpt-code');
-        const name = card.getAttribute('data-display-name');
-        selectProcedure(id, name, cpt);
-      });
-    });
-
-    console.log(`✅ Loaded ${items.length} procedures for ${modality}`);
-
-  } catch (error) {
-    console.error('❌ Error loading category:', error);
+    console.log(`✅ Loaded ${normalized.length} ${label} procedures from API`);
+  } catch (err) {
+    console.error('❌ Error loading category:', err);
     list.innerHTML = `
       <div class="text-center py-8 text-red-600">
         <p class="font-semibold mb-2">Failed to load procedures</p>
@@ -259,6 +278,7 @@ async function loadCategory(modality) {
     `;
   }
 }
+
 
 // =============================================================================
 // MODAL CONTROL FUNCTIONS
@@ -349,18 +369,42 @@ async function handleModalSearch(query) {
   `;
 
   try {
-    console.log('🔍 Calling API: /api/procedures/search?q=' + query);
-    const response = await fetch(`/api/procedures/search?q=${encodeURIComponent(query)}`);
+  // Determine which endpoint to use
+  const trimmed = (query || '').trim();
+  const url = trimmed
+    ? `/api/procedures/search?q=${encodeURIComponent(trimmed)}`
+    : `/api/procedures/featured`;
 
-    if (!response.ok) {
-      throw new Error(`API returned ${response.status}`);
-    }
+  console.log('🔍 Calling API:', url);
+  const response = await fetch(url);
 
-    const data = await response.json();
-    console.log('✅ API Response:', data);
+  if (!response.ok) {
+    throw new Error(`API returned ${response.status}`);
+  }
 
-    if (data.procedures && data.procedures.length > 0) {
-      displayModalResults(data.procedures);
+  const data = await response.json();
+  console.log('✅ API Response:', data);
+
+  // 🧠 Normalize API response to UI format (new API shape)
+const rawItems = Array.isArray(data?.results)
+  ? data.results
+  : (Array.isArray(data) ? data : []);
+
+const normalized = rawItems.map(item => ({
+  id: item.id,
+  displayName: item.displayName || item.official_name || 'Unnamed',
+  modality: item.description || item.modality || '',
+  badge: item.badge || (item.cpt_code ? `CPT ${item.cpt_code}` : null),
+  icon: null,
+  // accept either `options` (already normalized) or raw `procedure_options`
+  options: item.options || item.procedure_options || [],
+}));
+
+
+
+
+    if (normalized.length > 0) {
+      displayModalResults(normalized);
       return;
     }
 
@@ -386,12 +430,15 @@ async function handleModalSearch(query) {
 
     // Wire suggestion buttons
     resultsContainer.querySelectorAll('[data-suggestion]').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        const modality = btn.getAttribute('data-suggestion');
-        toggleBrowseMode(true);
-        if (modality) loadCategory(modality);
-      });
-    });
+  btn.addEventListener('click', function() {
+    const suggestion = btn.getAttribute('data-suggestion'); // e.g., "MRI" or "All"
+    const key = Object.entries(MODALITY_LABEL_BY_KEY)
+      .find(([k, v]) => v === suggestion)?.[0] || 'ALL';
+    toggleBrowseMode(true);
+    loadCategoryByKey(key);
+  });
+});
+
 
   } catch (error) {
     console.error('❌ Search error:', error);
@@ -410,97 +457,77 @@ async function handleModalSearch(query) {
 function displayModalResults(procedures) {
   const resultsContainer = document.getElementById('modal-results');
   if (!resultsContainer) return;
-  
-  const html = procedures.map(function(proc) {
-    const isExpanded = expandedProcedures.has(proc.id);
-    const hasMultipleOptions = proc.options && proc.options.length > 1;
-    
+
+  const html = procedures.map(proc => {
+    // Build variant rows (buttons)
+    const variantRows = (proc.options && proc.options.length)
+      ? proc.options.map(v => {
+          const label = v.option_name || v.label || 'Standard';
+          const price = (v.typical_price != null)
+            ? `<span class="text-sm text-gray-500">$${Number(v.typical_price).toFixed(0)}</span>`
+            : '';
+          // Prefer v.cpt_code, then v.cpt, otherwise blank
+          const cpt = v.cpt_code || v.cpt || '';
+          return `
+            <button
+              type="button"
+              class="option-button flex w-full justify-between items-center px-3 py-2 border border-gray-100 rounded-lg mb-1 hover:bg-blue-50 transition"
+              data-procedure-id="${proc.id}"
+              data-display-name="${proc.displayName}"
+              data-cpt-code="${cpt}"
+            >
+              <span class="text-sm text-gray-700">${label}</span>
+              ${price}
+            </button>
+          `;
+        }).join('')
+      : (() => {
+          // Fallback: allow immediate selection if no variants
+          // Try to parse CPT from the badge "CPT 70551"
+          const cptFromBadge = (proc.badge && proc.badge.startsWith('CPT '))
+            ? proc.badge.slice(4)
+            : '';
+          return `
+            <button
+              type="button"
+              class="select-procedure px-3 py-2 border border-gray-200 rounded-lg hover:bg-blue-50 transition"
+              data-procedure-id="${proc.id}"
+              data-display-name="${proc.displayName}"
+              data-cpt-code="${cptFromBadge}"
+            >
+              Select
+            </button>
+          `;
+        })();
+
     return `
-      <div class="mb-3" data-procedure-id="${proc.id}">
-        <!-- Main procedure card -->
-        <button
-          type="button"
-          class="procedure-header w-full text-left p-4 rounded-xl border-2 border-gray-200 hover:border-[#003087] hover:bg-blue-50 transition-all duration-200 group ${isExpanded ? 'border-[#003087] bg-blue-50' : ''}"
-          data-procedure-id="${proc.id}"
-          data-has-options="${hasMultipleOptions}"
-        >
-          <div class="flex items-start gap-4">
-            <!-- Icon -->
-            <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-[#003087] to-[#0052cc] flex items-center justify-center text-white text-2xl group-hover:scale-110 transition-transform">
-              ${proc.icon || '🔬'}
-            </div>
-            
-            <!-- Content -->
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2 mb-1">
-                <h4 class="font-bold text-gray-900 group-hover:text-[#003087] transition-colors">
-                  ${proc.displayName}
-                </h4>
-                ${proc.badge ? `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-gradient-to-r from-orange-400 to-red-500 text-white">${proc.badge}</span>` : ''}
-              </div>
-              ${proc.description ? `<p class="text-sm text-gray-600">${proc.description}</p>` : ''}
-              
-              ${!hasMultipleOptions && proc.options && proc.options.length === 1 ? `
-                <p class="text-sm font-medium text-gray-700 mt-2">
-                  ${proc.options[0].price || 'Price available upon request'}
-                </p>
-              ` : ''}
-            </div>
-            
-            <!-- Arrow -->
-            <div class="flex-shrink-0">
-              ${hasMultipleOptions ? `
-                <svg class="w-5 h-5 text-gray-400 group-hover:text-[#003087] transition-all ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              ` : `
-                <svg class="w-5 h-5 text-gray-400 group-hover:text-[#003087] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              `}
-            </div>
+      <div class="border-b border-gray-100 pb-3 mb-3" data-procedure-id="${proc.id}">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-semibold text-gray-900">${proc.displayName}</p>
+            <p class="text-sm text-gray-600">${proc.modality || ''}</p>
           </div>
-        </button>
-        
-        <!-- Expandable options -->
-        ${hasMultipleOptions ? `
-          <div class="procedure-options mt-2 ml-4 space-y-2 ${isExpanded ? '' : 'hidden'}">
-            ${proc.options.map(function(opt) {
-              return `
-                <button
-                  type="button"
-                  class="option-button w-full text-left p-3 pl-16 rounded-lg border border-gray-200 hover:border-[#003087] hover:bg-blue-50 transition-all duration-200 group"
-                  data-procedure-id="${proc.id}"
-                  data-cpt-code="${opt.cpt || ''}"
-                  data-option-label="${opt.label || opt.detail}"
-                  data-display-name="${proc.displayName} - ${opt.label || opt.detail}"
-                >
-                  <div class="flex items-center justify-between">
-                    <div class="flex-1">
-                      <p class="font-semibold text-gray-900 group-hover:text-[#003087] mb-0.5">
-                        ${(opt.label || opt.detail).replace('With & without', 'With & without contrast')}
-                      </p>
-                      <div class="flex items-center gap-3 text-xs text-gray-600">
-                        ${opt.cpt ? `<span class="font-mono bg-gray-100 px-2 py-0.5 rounded">CPT: ${opt.cpt}</span>` : ''}
-                        ${opt.price ? `<span class="font-semibold text-[#003087]">${opt.price}</span>` : ''}
-                      </div>
-                    </div>
-                    <svg class="w-4 h-4 text-gray-400 group-hover:text-[#003087] group-hover:translate-x-1 transition-all flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </div>
-                </button>
-              `;
-            }).join('')}
-          </div>
-        ` : ''}
+          ${proc.badge ? `<span class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded">${proc.badge}</span>` : ''}
+        </div>
+        <div class="mt-2">${variantRows}</div>
       </div>
     `;
   }).join('');
-  
+
   resultsContainer.innerHTML = html;
-  attachEventListeners();
+
+  // Bind selection for variants and single-select fallback
+  resultsContainer.querySelectorAll('.option-button, .select-procedure').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const procId = btn.getAttribute('data-procedure-id');
+      const name = btn.getAttribute('data-display-name');
+      const cpt = btn.getAttribute('data-cpt-code') || '';
+      selectProcedure(procId, name, cpt);
+    });
+  });
 }
+
 
 function attachEventListeners() {
   // Main procedure headers
