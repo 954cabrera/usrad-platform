@@ -629,7 +629,7 @@ function displayContrastSelection(modality) {
       <!-- Header -->
       <div class="text-center">
         <h3 class="text-2xl font-bold text-gray-900 mb-2">
-          Select contrast type for <span class="text-[#003087] font-extrabold">${modality}</span>
+          Select contrast type for <span class="text-amber-600 font-extrabold">${modality}</span>
         </h3>
         <p class="text-gray-600">Choose how you need the scan performed</p>
       </div>
@@ -639,22 +639,22 @@ function displayContrastSelection(modality) {
         ${contrastOptions.map(option => `
           <button
             type="button"
-            class="contrast-option-button group p-6 rounded-xl border-2 border-gray-200 hover:border-[#003087] hover:bg-blue-50 transition-all duration-200 text-left"
+            class="contrast-option-button group p-6 rounded-xl border-2 border-gray-200 hover:border-[#CC9933] hover:bg-amber-50 transition-all duration-200 text-left"
             data-contrast-id="${option.id}"
             data-contrast-label="${option.label}"
           >
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-lg font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
+                <p class="text-lg font-semibold text-gray-900 group-hover:text-[#CC9933] transition-colors">
                   ${option.label}
                 </p>
                 <p class="text-sm text-gray-600 mt-1">
-                  ${option.id === 'without' ? 'Standard MRI scan without injection' : 
-                    option.id === 'with' ? 'Enhanced imaging with IV contrast injection' :
-                    'Complete imaging with and without contrast'}
+                  ${option.id === 'without' ? `Standard ${modality} scan without injection` : 
+                    option.id === 'with' ? `Enhanced ${modality} imaging with IV contrast injection` :
+                    `Complete ${modality} imaging with and without contrast`}
                 </p>
               </div>
-              <svg class="w-6 h-6 text-gray-400 group-hover:text-[#003087] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-6 h-6 text-gray-400 group-hover:text-[#CC9933] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
             </div>
@@ -667,7 +667,10 @@ function displayContrastSelection(modality) {
         <button
           type="button"
           id="back-to-search"
-          class="text-gray-600 hover:text-[#003087] font-medium transition-colors"
+          class="font-medium transition-colors"
+          style="color: #6B7280;"
+          onmouseover="this.style.color='#CC9933'"
+          onmouseout="this.style.color='#6B7280'"
         >
           ← Back to search
         </button>
@@ -733,7 +736,7 @@ function displayRegionSelection(modality, contrast) {
     <div class="space-y-6">
       <!-- Progress Breadcrumb -->
       <div class="flex items-center gap-2 text-sm">
-        <span class="text-[#003087] font-semibold">${modality}</span>
+        <span class="text-[#CC9933] font-semibold">${modality}</span>
         ${contrast ? `
           <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -743,7 +746,7 @@ function displayRegionSelection(modality, contrast) {
         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
-        <span class="font-semibold text-[#003087]">Select Region</span>
+        <span class="font-semibold text-[#CC9933]">Select Region</span>
       </div>
       
       <!-- Header -->
