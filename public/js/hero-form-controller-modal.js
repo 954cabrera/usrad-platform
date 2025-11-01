@@ -81,66 +81,144 @@ const CONTRAST_CONFIG = {
 };
 
 const REGION_BY_MODALITY = {
-  'MRI': [
-    { id: 'brain', label: 'Brain', icon: '🧠' },
-    { id: 'cervical-spine', label: 'Cervical Spine', icon: '🦴' },
-    { id: 'thoracic-spine', label: 'Thoracic Spine', icon: '🦴' },
-    { id: 'lumbar-spine', label: 'Lumbar Spine', icon: '🦴' },
-    { id: 'shoulder', label: 'Shoulder', icon: '💪' },
-    { id: 'knee', label: 'Knee', icon: '🦵' },
-    { id: 'upper-extremity', label: 'Upper Extremity', icon: '💪' },
-    { id: 'lower-extremity', label: 'Lower Extremity', icon: '🦵' },
-    { id: 'abdomen', label: 'Abdomen', icon: '🫁' },
-    { id: 'pelvis', label: 'Pelvis', icon: '🦴' },
-    { id: 'abdomen-pelvis', label: 'Abdomen & Pelvis', icon: '🫁' },
-    { id: 'cardiac', label: 'Cardiac/Heart', icon: '❤️' },
-    { id: 'breast', label: 'Breast', icon: '🎗️' }
+  MRI: [
+    "Brain",
+    "Cervical Spine (Neck)",
+    "Thoracic Spine (Mid Back)",
+    "Lumbar Spine (Low Back)",
+    "Shoulder",
+    "Elbow",
+    "Wrist / Hand",
+    "Hip",
+    "Knee",
+    "Ankle / Foot",
+    "Abdomen",
+    "Pelvis",
+    "Chest",
+    "Breast",
+    "Orbit / Face / Neck",
+    "TMJ"
   ],
-  'CT': [
-    { id: 'head', label: 'Head/Brain', icon: '🧠' },
-    { id: 'chest', label: 'Chest', icon: '🫁' },
-    { id: 'abdomen', label: 'Abdomen', icon: '🫁' },
-    { id: 'pelvis', label: 'Pelvis', icon: '🦴' },
-    { id: 'abdomen-pelvis', label: 'Abdomen & Pelvis', icon: '🫁' },
-    { id: 'spine', label: 'Spine', icon: '🦴' },
-    { id: 'sinuses', label: 'Sinuses', icon: '👃' },
-    { id: 'neck', label: 'Neck', icon: '🦴' },
-    { id: 'extremity', label: 'Extremity', icon: '💪' }
-  ],
-  'X-Ray': [
-    { id: 'chest', label: 'Chest', icon: '🫁' },
-    { id: 'spine', label: 'Spine', icon: '🦴' },
-    { id: 'shoulder', label: 'Shoulder', icon: '💪' },
-    { id: 'hand', label: 'Hand', icon: '✋' },
-    { id: 'foot', label: 'Foot', icon: '🦶' },
-    { id: 'knee', label: 'Knee', icon: '🦵' },
-    { id: 'pelvis', label: 'Pelvis', icon: '🦴' },
-    { id: 'abdomen', label: 'Abdomen', icon: '🫁' }
-  ],
-  'Ultrasound': [
-    { id: 'abdomen', label: 'Abdomen', icon: '🫁' },
-    { id: 'pelvis', label: 'Pelvis', icon: '🦴' },
-    { id: 'ob', label: 'OB (Pregnancy)', icon: '👶' },
-    { id: 'cardiac', label: 'Cardiac Echo', icon: '❤️' },
-    { id: 'thyroid', label: 'Thyroid', icon: '🦴' },
-    { id: 'carotid', label: 'Carotid', icon: '🫀' },
-    { id: 'venous', label: 'Venous Doppler', icon: '🫀' },
-    { id: 'renal', label: 'Renal/Kidney', icon: '🫁' }
-  ],
-  'Mammography': [
-    { id: 'screening', label: 'Screening Mammogram', icon: '🎗️' },
-    { id: 'diagnostic', label: 'Diagnostic Mammogram', icon: '🎗️' }
-  ],
-  'PET': [
-    { id: 'whole-body', label: 'Whole Body PET', icon: '⚛️' },
-    { id: 'brain', label: 'Brain PET', icon: '🧠' }
-  ],
-  'Nuclear Medicine': [
-    { id: 'bone-scan', label: 'Bone Scan', icon: '🦴' },
-    { id: 'cardiac', label: 'Cardiac Nuclear', icon: '❤️' },
-    { id: 'thyroid', label: 'Thyroid Scan', icon: '🦴' }
+  CT: [
+    "Head / Brain",
+    "Chest",
+    "Abdomen",
+    "Abdomen & Pelvis",
+    "Pelvis",
+    "Cervical Spine (Neck)",
+    "Thoracic Spine (Mid Back)",
+    "Lumbar Spine (Low Back)",
+    "Sinuses",
+    "Neck (Soft Tissue)",
+    "Extremity"
   ]
 };
+
+function normalizeRegionList(list) {
+  return (list || []).map(region => {
+    if (typeof region === 'string') {
+      return {
+        label: region,
+        icon: '🩺'
+      };
+    }
+    return {
+      label: region.label || region.id || 'Region',
+      icon: region.icon || '🩺'
+    };
+  });
+}
+
+
+// Optional grouping for nicer sectioned UI (use or ignore):
+const REGION_BY_MODALITY_GROUPED = {
+  MRI: {
+    "Head & Neck": [
+      { label: "Brain" },
+      { label: "Orbit / Face / Neck" },
+      { label: "TMJ" }
+    ],
+    "Spine": [
+      { label: "Cervical Spine (Neck)" },
+      { label: "Thoracic Spine (Mid Back)" },
+      { label: "Lumbar Spine (Low Back)" }
+    ],
+    "Extremities": [
+      { label: "Shoulder" },
+      { label: "Elbow" },
+      { label: "Wrist / Hand" },
+      { label: "Hip" },
+      { label: "Knee" },
+      { label: "Ankle / Foot" }
+    ],
+    "Torso": [
+      { label: "Chest" },
+      { label: "Abdomen" },
+      { label: "Pelvis" },
+      { label: "Breast" }
+    ]
+  },
+  CT: {
+    "Head & Neck": [
+      { label: "Head / Brain" },
+      { label: "Sinuses" },
+      { label: "Neck (Soft Tissue)" }
+    ],
+    "Spine": [
+      { label: "Cervical Spine (Neck)" },
+      { label: "Thoracic Spine (Mid Back)" },
+      { label: "Lumbar Spine (Low Back)" }
+    ],
+    "Torso": [
+      { label: "Chest" },
+      { label: "Abdomen" },
+      { label: "Abdomen & Pelvis" },
+      { label: "Pelvis" }
+    ],
+    "Extremities": [
+      { label: "Extremity" }
+    ]
+  }
+};
+
+// Search synonyms → auto-map free-text into your tiles.
+const REGION_SYNONYMS = {
+  MRI: {
+    "knee": "Knee",
+    "ankle": "Ankle / Foot", "foot": "Ankle / Foot",
+    "wrist": "Wrist / Hand", "hand": "Wrist / Hand",
+    "shoulder": "Shoulder", "elbow": "Elbow", "hip": "Hip",
+    "neck": "Cervical Spine (Neck)",
+    "mid back": "Thoracic Spine (Mid Back)",
+    "low back": "Lumbar Spine (Low Back)",
+    "tmj": "TMJ",
+    "breast": "Breast",
+    "orbit": "Orbit / Face / Neck", "face": "Orbit / Face / Neck"
+  },
+  CT: {
+    "head": "Head / Brain", "brain": "Head / Brain",
+    "sinus": "Sinuses", "sinuses": "Sinuses",
+    "neck": "Neck (Soft Tissue)",
+    "abdomen pelvis": "Abdomen & Pelvis", "a/p": "Abdomen & Pelvis",
+    "lumbar": "Lumbar Spine (Low Back)",
+    "thoracic": "Thoracic Spine (Mid Back)",
+    "cervical": "Cervical Spine (Neck)",
+    "arm": "Extremity", "leg": "Extremity"
+  }
+};
+
+// Fallback helper
+function suggestRegions(input, regions) {
+  const q = (input || "").toLowerCase().trim();
+  if (!q) return [];
+  return regions.filter(r => {
+    const t = r.toLowerCase();
+    return t.includes(q) || t.split(/[^\w]+/).some(w => q.includes(w));
+  });
+}
+
+
+
 
 function detectModality(userInput) {
   if (!userInput) return null;
@@ -720,9 +798,9 @@ function displayContrastSelection(modality) {
 }
 
 function displayRegionSelection(modality, contrast) {
+  const regions = normalizeRegionList(REGION_BY_MODALITY[modality]) || [];
   const resultsContainer = document.getElementById('modal-results');
-  const regions = REGION_BY_MODALITY[modality] || [];
-  
+
   if (regions.length === 0) {
     resultsContainer.innerHTML = `
       <div class="text-center py-12">
@@ -763,7 +841,6 @@ function displayRegionSelection(modality, contrast) {
           <button
             type="button"
             class="region-option-button group p-4 rounded-xl border-2 border-gray-200 hover:border-[#003087] hover:bg-blue-50 transition-all duration-200"
-            data-region-id="${region.id}"
             data-region-label="${region.label}"
           >
             <div class="text-center">
@@ -773,6 +850,7 @@ function displayRegionSelection(modality, contrast) {
               </p>
             </div>
           </button>
+
         `).join('')}
       </div>
       
@@ -792,23 +870,23 @@ function displayRegionSelection(modality, contrast) {
   resultsContainer.innerHTML = html;
   
   // Attach click handlers to region buttons
-  resultsContainer.querySelectorAll('.region-option-button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const regionId = btn.getAttribute('data-region-id');
-      const regionLabel = btn.getAttribute('data-region-label');
-      
-      console.log('✅ Selected region:', regionLabel);
-      selectedRegion = regionId;
-      
-      // Add visual feedback
-      btn.classList.add('border-[#cc9933]', 'bg-yellow-50');
-      
-      // TODO: Phase 4 - Resolve to CPT code and show results
-      setTimeout(() => {
-        resolveProcedure(selectedModality, selectedContrast, selectedRegion);
-      }, 300);
-    });
+resultsContainer.querySelectorAll('.region-option-button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const regionLabel = btn.getAttribute('data-region-label');
+
+    console.log('✅ Selected region:', regionLabel);
+    selectedRegion = regionLabel;
+
+    // Visual feedback
+    btn.classList.add('border-[#cc9933]', 'bg-yellow-50');
+
+    // Call resolver with selected values
+    setTimeout(() => {
+      resolveProcedure(selectedModality, selectedContrast, selectedRegion);
+    }, 300);
   });
+});
+
   
   // Back button
   const backBtn = resultsContainer.querySelector('#back-to-contrast');
@@ -838,15 +916,15 @@ function displayRegionSelection(modality, contrast) {
 
 
 // ═══════════════════════════════════════════════════════
-// PROCEDURE RESOLUTION (Phase 4 - Coming Next)
+// PROCEDURE RESOLUTION (MRI + CT Supported)
 // ═══════════════════════════════════════════════════════
 
 async function resolveProcedure(modality, contrast, region) {
   const resultsContainer = document.getElementById('modal-results');
   
   console.log('🎯 Resolving procedure:', { modality, contrast, region });
-  
-  // Show loading state
+
+  // Show loading UI
   resultsContainer.innerHTML = `
     <div class="text-center py-12">
       <svg class="w-12 h-12 mx-auto mb-4 text-[#003087] animate-spin" fill="none" viewBox="0 0 24 24">
@@ -858,8 +936,8 @@ async function resolveProcedure(modality, contrast, region) {
   `;
   
   try {
-    // Call the resolution API
-    const url = new URL('/api/procedures/resolve', window.location.origin);
+    // Prepare URL
+    const url = new URL('/api/resolve', window.location.origin);
     url.searchParams.set('modality', modality);
     url.searchParams.set('region', region);
     if (contrast) url.searchParams.set('contrast', contrast);
@@ -869,8 +947,29 @@ async function resolveProcedure(modality, contrast, region) {
     
     console.log('✅ Resolution result:', data);
     
+    // === ⛔ No Case: Not Found ===
     if (!data.found) {
-      // No procedure found
+      const suggestions = suggestRegions(region, REGION_BY_MODALITY[modality] || []).slice(0, 5);
+
+      let suggestHtml = '';
+      if (suggestions.length > 0) {
+        suggestHtml = `
+          <div class="mt-6">
+            <p class="text-sm text-gray-700 mb-2">Did you mean:</p>
+            <div class="flex flex-wrap gap-2 justify-center">
+              ${suggestions.map(s => `
+                <button
+                  type="button"
+                  class="px-3 py-1.5 rounded-full border border-gray-300 hover:border-[#003087] hover:bg-blue-50 text-sm"
+                  data-suggest-region="${s}"
+                >${s}</button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // Main "not found" UI
       resultsContainer.innerHTML = `
         <div class="text-center py-12">
           <svg class="w-16 h-16 mx-auto mb-4 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -878,46 +977,49 @@ async function resolveProcedure(modality, contrast, region) {
           </svg>
           <p class="text-xl font-bold text-gray-900 mb-4">Procedure Not Found</p>
           <p class="text-gray-600 mb-6">We couldn't find an exact match for this combination.</p>
-          
+
+          ${suggestHtml}
+
           <button
             type="button"
             id="back-to-search-notfound"
-            class="px-6 py-3 bg-[#003087] text-white rounded-lg hover:bg-[#002060] transition-colors"
+            class="mt-6 px-6 py-3 bg-[#003087] text-white rounded-lg hover:bg-[#002060] transition-colors"
           >
             Try Different Search
           </button>
         </div>
       `;
-      
-      document.getElementById('back-to-search-notfound')?.addEventListener('click', () => {
-        selectedModality = null;
-        selectedContrast = null;
-        selectedRegion = null;
-        const modalInput = document.getElementById('modal-search-input');
-        if (modalInput) {
-          modalInput.value = '';
-          modalInput.focus();
-        }
-        resultsContainer.innerHTML = `
-          <div class="text-center py-12 text-gray-500">
-            <p class="text-lg font-medium">Start typing to search procedures</p>
-          </div>
-        `;
+
+      // Attach suggestion buttons + back button
+      resultsContainer.querySelectorAll('[data-suggest-region]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const suggested = btn.getAttribute('data-suggest-region');
+          resolveProcedure(modality, contrast, suggested);
+        });
       });
-      
+
+      document.getElementById('back-to-search-notfound')?.addEventListener('click', () => {
+        resetSearchFlow();
+      });
+
       return;
     }
-    
-    // Success! Found the procedure
-    const procedure = data.procedure;
-    const cptCode = procedure.cpt_code;
-    const procedureName = procedure.friendly_name;
-    
-    console.log('🎉 Found CPT code:', cptCode);
-    
-    // Close modal and populate the hero form
-    selectProcedure(cptCode, procedureName, cptCode);
-    
+
+   // ✅ Success: we got a procedure
+    const { cpt_code, patient_label, badge_label } = data.procedure;
+
+    console.log('🎉 Found CPT code:', cpt_code);
+
+    // Close modal and feed hero form
+    selectProcedure(
+      cpt_code,
+      `${patient_label}\n${badge_label}`,
+      cpt_code
+    );
+
+    // Optional: Log UI preview
+    console.log(`🧠 Selected UI:\n${patient_label}\n🔷 ${badge_label}`);
+
   } catch (error) {
     console.error('❌ Resolution error:', error);
     resultsContainer.innerHTML = `
@@ -943,6 +1045,26 @@ async function resolveProcedure(modality, contrast, region) {
     });
   }
 }
+
+
+// Helper for resetting modal state
+function resetSearchFlow() {
+  selectedModality = null;
+  selectedContrast = null;
+  selectedRegion = null;
+  const modalInput = document.getElementById('modal-search-input');
+  if (modalInput) {
+    modalInput.value = '';
+    modalInput.focus();
+  }
+  const resultsContainer = document.getElementById('modal-results');
+  resultsContainer.innerHTML = `
+    <div class="text-center py-12 text-gray-500">
+      <p class="text-lg font-medium">Start typing to search procedures</p>
+    </div>
+  `;
+}
+
 
 // ═══════════════════════════════════════════════════════
 // DISPLAY RESULTS WITH EXPANDABLE OPTIONS
@@ -1109,40 +1231,68 @@ function toggleProcedure(procedureId) {
   
   console.log('✅ Toggled procedure:', procedureId, expandedProcedures.has(procedureId) ? 'expanded' : 'collapsed');
 }
+// Renders the 2-line Selected Procedure UI (Blue diamond badge)
+function renderSelectedProcedure(label, badgeText) {
+  const el = document.getElementById('selected-procedure-display');
+  if (!el) return;
+
+  el.dataset.label = label;
+  el.dataset.badge = badgeText;
+  el.dataset.locked = '1';
+
+  el.innerHTML = `
+    <div class="font-semibold text-gray-900 leading-tight">
+      ${label}
+    </div>
+    <div class="text-xs font-semibold text-[#003087] flex items-center gap-1.5 mt-0.5 cpt-badge">
+      <span class="text-sm leading-none opacity-90" style="transform: translateY(1px);">🔷</span>
+      <span class="tracking-wide">${badgeText}</span>
+    </div>
+  `;
+}
+
+
+
+
 
 function selectProcedure(procedureId, displayName, cptCode) {
   console.log('✅ Procedure selected:', { procedureId, displayName, cptCode });
-  
-  // Set hidden form fields
+
   const hiddenProcedure = document.getElementById('hero-selected-procedure');
   const hiddenCpt = document.getElementById('hero-selected-cpt');
-  
-  if (hiddenProcedure) {
-    hiddenProcedure.value = procedureId;
-  }
-  
-  if (hiddenCpt && cptCode) {
-    hiddenCpt.value = cptCode;
-  }
-  
+
+  // Hidden form fields used by your ZIP search
+  if (hiddenProcedure) hiddenProcedure.value = procedureId;
+  if (hiddenCpt && cptCode) hiddenCpt.value = cptCode;
+
+  // Expect "Line1\nLine2" from resolver
+  const [label, badge] = displayName.split('\n');  // e.g., "MRI Brain – With & Without Contrast", "CPT 70553"
+
+  // 🔒 Render and lock the 2-line UI
+  renderSelectedProcedure(label, badge);
+
+  // Continue your existing flow
   closeModal();
-  transitionToStep2(displayName);
+  transitionToStep2(label);
 }
+
+
+
 
 // ═══════════════════════════════════════════════════════
 // STEP TRANSITIONS
 // ═══════════════════════════════════════════════════════
 
-function transitionToStep2(procedureDisplayName) {
+function transitionToStep2() {
   const step1Container = document.getElementById('step-1-container');
   const step2Container = document.getElementById('step-2-container');
   const selectedDisplay = document.getElementById('selected-procedure-display');
   const progressFill = document.getElementById('progress-fill');
-  
-  if (selectedDisplay) {
-    selectedDisplay.textContent = procedureDisplayName;
-  }
-  
+
+  // Keep the selected procedure UI as-is (2-line locked)
+  // If you need to re-render, always call:
+  // renderSelectedProcedure(el.dataset.label, el.dataset.badge)
+
   step1Container.classList.add('step-fade-out');
   
   setTimeout(() => {
@@ -1174,6 +1324,7 @@ function transitionToStep2(procedureDisplayName) {
   
   console.log('✅ Transitioned to Step 2');
 }
+
 
 function transitionToStep1() {
   const step1Container = document.getElementById('step-1-container');
@@ -1268,6 +1419,34 @@ document.addEventListener('DOMContentLoaded', () => {
       if (heroInput.value.trim().length >= 1) {
         openModal();
       }
+
+  // 🔒 UI Guard: Keep selected-procedure-display in 2-line locked format
+  (function initSelectedProcedureGuard() {
+    const el = document.getElementById('selected-procedure-display');
+    if (!el) return;
+
+    let guarding = false;
+
+    const mo = new MutationObserver(() => {
+      if (guarding) return;
+      if (el.dataset.locked === '1') {
+        const label = el.dataset.label;
+        const badge = el.dataset.badge;
+        if (!label || !badge) return;
+
+        // If the DOM no longer matches our template, restore it
+        const hasBadge = el.textContent?.includes(badge);
+        if (!hasBadge) {
+          guarding = true;
+          renderSelectedProcedure(label, badge);
+          guarding = false;
+        }
+      }
+    });
+
+    mo.observe(el, { childList: true, subtree: true, characterData: true });
+  })();
+
     });
   }
 
