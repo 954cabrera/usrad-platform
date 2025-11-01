@@ -1,5 +1,5 @@
 // src/pages/api/procedures/search.js
-// FINAL FIX - Handles null CPT codes and matches actual database structure
+// ENHANCED - Uses procedure_aliases (562 procedures) with CPT code search
 
 export async function GET({ url, locals }) {
   try {
@@ -13,8 +13,11 @@ export async function GET({ url, locals }) {
       import.meta.env.PUBLIC_SUPABASE_ANON_KEY
     );
 
+    // 🔢 Detect if query is a CPT code (5 digits)
+    const isCPTCode = /^\d{5}$/.test(query);
+
     let queryBuilder = supabase
-      .from('procedure_search_index')
+      .from('procedure_aliases')  // ← Changed from procedure_search_index
       .select('*')
       .eq('is_active', true);
 
@@ -36,18 +39,24 @@ export async function GET({ url, locals }) {
 
     // Filter by search query if provided
     if (query) {
-      queryBuilder = queryBuilder.or(
-        `search_key.ilike.%${query}%,` +
-        `display_name.ilike.%${query}%,` +
-        `description.ilike.%${query}%,` +
-        `modality.ilike.%${query}%,` +
-        `region.ilike.%${query}%`
-      );
+      if (isCPTCode) {
+        // 🎯 Exact CPT code search
+        queryBuilder = queryBuilder.eq('cpt_code', query);
+        console.log(`🔢 Searching by CPT code: ${query}`);
+      } else {
+        // 📝 Text search across multiple fields
+        queryBuilder = queryBuilder.or(
+          `friendly_name.ilike.%${query}%,` +
+          `modality.ilike.%${query}%,` +
+          `body_region.ilike.%${query}%,` +
+          `cpt_code.ilike.%${query}%`
+        );
+      }
     }
 
     // Execute query
     const { data, error } = await queryBuilder
-      .order('sort_order', { ascending: true })
+      .order('cpt_code', { ascending: true })
       .limit(20);
 
     if (error) {
@@ -66,45 +75,62 @@ export async function GET({ url, locals }) {
 
     // ✅ Transform data to match frontend expectations
     const results = (data || []).map(item => {
-      // Create badge from available info
-      let badge = null;
-      if (item.cpt_code) {
-        badge = `CPT ${item.cpt_code}`;
-      } else if (item.popularity_badge) {
-        badge = item.popularity_badge;
+      // 🧹 Extract clean display name from friendly_name
+      // "MRI Brain - With & Without Contrast [70553]" → "MRI Brain - With & Without Contrast"
+      let displayName = item.friendly_name || 'Unnamed Procedure';
+      let extractedCPT = item.cpt_code;
+      
+      // Remove CPT code from friendly_name if present
+      const cptMatch = displayName.match(/\[(\d{5})\]$/);
+      if (cptMatch) {
+        extractedCPT = cptMatch[1];
+        displayName = displayName.replace(/\s*\[\d{5}\]$/, '').trim();
       }
+
+      // Create badge
+      let badge = null;
+      if (extractedCPT) {
+        badge = `CPT ${extractedCPT}`;
+      }
+
+      // Create description from modality and region
+      const description = item.body_region 
+        ? `${item.modality} - ${item.body_region}`
+        : item.modality || '';
 
       return {
         id: item.id,
-        // Frontend expects camelCase displayName
-        displayName: item.display_name || 'Unnamed Procedure',
-        // Use description as the subtitle/modality text
-        modality: item.description || item.modality || '',
+        // Clean display name without CPT code
+        displayName: displayName,
+        // Subtitle showing modality and region
+        modality: description,
         badge: badge,
-        icon: item.icon || null,
+        icon: null, // procedure_aliases doesn't have icons
         // Include raw data for debugging and future use
-        cpt_code: item.cpt_code,
-        region: item.region,
-        search_key: item.search_key,
+        cpt_code: extractedCPT,
+        region: item.body_region,
+        contrast: item.contrast_type,
         // Frontend expects options array (empty for now)
         options: [],
-        // Add these for your 2-step flow later
+        // Add these for your 2-step flow
         _raw_modality: item.modality,
-        _raw_region: item.region
+        _raw_region: item.body_region,
+        _raw_contrast: item.contrast_type
       };
     });
 
-    console.log(`✅ Search API: Returning ${results.length} procedures for query: "${query}"`);
+    console.log(`✅ Search API: Returning ${results.length} procedures for query: "${query}"${isCPTCode ? ' (CPT code search)' : ''}`);
     
     // Log first result for debugging
     if (results.length > 0) {
       console.log('First result:', JSON.stringify(results[0], null, 2));
     }
 
-    // Return results
+    // Return results with BOTH formats for backwards compatibility
     return new Response(
       JSON.stringify({ 
-        results: results,
+        results: results,           // ← For hero-form-controller-modal.js
+        procedures: results,        // ← For BrowseAllModal.astro
         count: results.length
       }), 
       { 

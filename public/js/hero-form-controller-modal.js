@@ -955,13 +955,14 @@ function displayModalResults(procedures) {
     const hasMultipleOptions = proc.options && proc.options.length > 1;
     
     return `
-      <div class="mb-3" data-procedure-id="${proc.id}">
+      <div class="mb-3" data-procedure-id="${proc.id}" data-cpt-code="${proc.cpt_code || ''}">
         <!-- Main procedure card -->
         <button
           type="button"
           class="procedure-header w-full text-left p-4 rounded-xl border-2 border-gray-200 hover:border-[#003087] hover:bg-blue-50 transition-all duration-200 group ${isExpanded ? 'border-[#003087] bg-blue-50' : ''}"
           data-procedure-id="${proc.id}"
           data-has-options="${hasMultipleOptions}"
+          data-cpt-code="${proc.cpt_code || ''}"
         >
           <div class="flex items-start gap-4">
             <!-- Icon -->
@@ -1053,15 +1054,25 @@ function attachEventListeners() {
       } else {
         // Single option - select immediately
         const proc = header.closest('[data-procedure-id]');
-        const displayName = header.querySelector('h4').textContent.trim();
-        const optionButtons = proc.querySelectorAll('.option-button');
+        let displayName = header.querySelector('h4').textContent.trim();
         
-        if (optionButtons.length === 1) {
-          const cptCode = optionButtons[0].getAttribute('data-cpt-code');
-          selectProcedure(procedureId, displayName, cptCode);
-        } else {
-          selectProcedure(procedureId, displayName, null);
+        // Try to get CPT code from data attribute first
+        let cptCode = header.getAttribute('data-cpt-code') || proc.getAttribute('data-cpt-code');
+        
+        // Fallback to option buttons if available
+        if (!cptCode) {
+          const optionButtons = proc.querySelectorAll('.option-button');
+          if (optionButtons.length === 1) {
+            cptCode = optionButtons[0].getAttribute('data-cpt-code');
+          }
         }
+        
+        // Format display name with CPT code if available
+        if (cptCode && !displayName.includes(cptCode)) {
+          displayName = `${displayName} (${cptCode})`;
+        }
+        
+        selectProcedure(procedureId, displayName, cptCode);
       }
     });
   });
