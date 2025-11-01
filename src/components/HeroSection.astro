@@ -293,7 +293,7 @@ const { remixUrl } = Astro.props;
                     <!-- Right: Change Button -->
                     <button
                       type="button"
-                      id="back-to-step-1"
+                      id="change-procedure-button"
                       class="rotate-on-hover flex-shrink-0 ml-4 flex items-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 px-4 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 min-h-[44px] border border-gray-200"
                     >
                       <svg
@@ -626,178 +626,183 @@ const { remixUrl } = Astro.props;
         class="sticky bottom-0 bg-gray-50 border-t border-gray-200 rounded-b-2xl px-6 py-4"
       >
         <p class="text-sm text-gray-600 text-center">
-          Can't find your procedure? <a href={`${remixUrl}/procedures`}
-          id="browse-all-procedures" class="text-[#003087] font-semibold hover:text-[#cc9933]
-          transition-colors" > Browse all procedures
+          Can't find your procedure? <a
+            href={`${remixUrl}/procedures`}
+            id="browse-all-procedures"
+            class="text-[#003087] font-semibold hover:text-[#cc9933]
+          transition-colors"
+          >
+            Browse all procedures
+          </a>
         </p>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Load the MODAL version of the form controller -->
-<script is:inline src="/js/hero-form-controller-modal.js"></script>
+  <!-- Load the MODAL version of the form controller -->
+  <script is:inline src="/js/hero-form-controller-modal.js"></script>
 
-<style>
-  @keyframes draw-line {
-    from {
+  <style>
+    @keyframes draw-line {
+      from {
+        stroke-dashoffset: 200;
+        opacity: 0;
+      }
+      to {
+        stroke-dashoffset: 0;
+        opacity: 0.8;
+      }
+    }
+    .animate-draw-line {
+      stroke-dasharray: 200;
       stroke-dashoffset: 200;
+      animation: draw-line 1.5s ease-out 0.8s forwards;
+    }
+
+    /* Step transition animations */
+    .step-fade-out {
       opacity: 0;
+      transform: translateX(-30px);
+      transition: all 0.25s ease;
     }
-    to {
-      stroke-dashoffset: 0;
-      opacity: 0.8;
+
+    .step-fade-in {
+      animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-  }
-  .animate-draw-line {
-    stroke-dasharray: 200;
-    stroke-dashoffset: 200;
-    animation: draw-line 1.5s ease-out 0.8s forwards;
-  }
 
-  /* Step transition animations */
-  .step-fade-out {
-    opacity: 0;
-    transform: translateX(-30px);
-    transition: all 0.25s ease;
-  }
-
-  .step-fade-in {
-    animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
-    to {
+
+    /* Celebration animation */
+    @keyframes celebration {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    .celebrate {
+      animation: celebration 0.5s ease-in-out;
+    }
+
+    /* Button pulse when enabled */
+    @keyframes buttonPulse {
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(204, 153, 51, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 0 8px rgba(204, 153, 51, 0);
+      }
+    }
+
+    #hero-search-button:not(:disabled) {
+      animation: buttonPulse 2s ease-in-out 1;
+    }
+
+    /* Rotate animation for Change button */
+    @keyframes rotateIcon {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(-180deg);
+      }
+    }
+
+    .rotate-on-hover:hover svg {
+      animation: rotateIcon 0.5s ease-in-out;
+    }
+
+    /* Keyboard navigation highlight */
+    .keyboard-nav-item.bg-blue-100 {
+      background-color: #dbeafe !important;
+      outline: 2px solid #3b82f6;
+      outline-offset: -2px;
+    }
+
+    /* Loading skeleton */
+    @keyframes shimmer {
+      0% {
+        background-position: -1000px 0;
+      }
+      100% {
+        background-position: 1000px 0;
+      }
+    }
+
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 1000px 100%;
+      animation: shimmer 2s infinite;
+    }
+
+    /* Mobile touch improvements */
+    @media (hover: none) and (pointer: coarse) {
+      input,
+      button,
+      select {
+        font-size: 16px !important;
+      }
+    }
+
+    #hero-procedure-search:focus,
+    #hero-location:focus,
+    #modal-search-input:focus {
+      outline: none;
+    }
+
+    #hero-search-button:not(:disabled):active {
+      transform: scale(0.98);
+    }
+
+    /* Modal animations */
+    #modal-search-overlay.modal-opening #modal-backdrop {
       opacity: 1;
-      transform: translateX(0);
     }
-  }
 
-  /* Celebration animation */
-  @keyframes celebration {
-    0%,
-    100% {
+    #modal-search-overlay.modal-opening #modal-content {
+      opacity: 1;
       transform: scale(1);
     }
-    50% {
-      transform: scale(1.15);
+
+    #modal-search-overlay.modal-closing #modal-backdrop {
+      opacity: 0;
     }
-  }
 
-  .celebrate {
-    animation: celebration 0.5s ease-in-out;
-  }
-
-  /* Button pulse when enabled */
-  @keyframes buttonPulse {
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 rgba(204, 153, 51, 0.4);
+    #modal-search-overlay.modal-closing #modal-content {
+      opacity: 0;
+      transform: scale(0.95);
     }
-    50% {
-      box-shadow: 0 0 0 8px rgba(204, 153, 51, 0);
+
+    /* Custom scrollbar for modal */
+    #modal-results::-webkit-scrollbar {
+      width: 8px;
     }
-  }
 
-  #hero-search-button:not(:disabled) {
-    animation: buttonPulse 2s ease-in-out 1;
-  }
-
-  /* Rotate animation for Change button */
-  @keyframes rotateIcon {
-    0% {
-      transform: rotate(0deg);
+    #modal-results::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 4px;
     }
-    100% {
-      transform: rotate(-180deg);
+
+    #modal-results::-webkit-scrollbar-thumb {
+      background: #003087;
+      border-radius: 4px;
     }
-  }
 
-  .rotate-on-hover:hover svg {
-    animation: rotateIcon 0.5s ease-in-out;
-  }
-
-  /* Keyboard navigation highlight */
-  .keyboard-nav-item.bg-blue-100 {
-    background-color: #dbeafe !important;
-    outline: 2px solid #3b82f6;
-    outline-offset: -2px;
-  }
-
-  /* Loading skeleton */
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
+    #modal-results::-webkit-scrollbar-thumb:hover {
+      background: #002060;
     }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
-
-  .skeleton {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 1000px 100%;
-    animation: shimmer 2s infinite;
-  }
-
-  /* Mobile touch improvements */
-  @media (hover: none) and (pointer: coarse) {
-    input,
-    button,
-    select {
-      font-size: 16px !important;
-    }
-  }
-
-  #hero-procedure-search:focus,
-  #hero-location:focus,
-  #modal-search-input:focus {
-    outline: none;
-  }
-
-  #hero-search-button:not(:disabled):active {
-    transform: scale(0.98);
-  }
-
-  /* Modal animations */
-  #modal-search-overlay.modal-opening #modal-backdrop {
-    opacity: 1;
-  }
-
-  #modal-search-overlay.modal-opening #modal-content {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  #modal-search-overlay.modal-closing #modal-backdrop {
-    opacity: 0;
-  }
-
-  #modal-search-overlay.modal-closing #modal-content {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-
-  /* Custom scrollbar for modal */
-  #modal-results::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  #modal-results::-webkit-scrollbar-track {
-    background: #f1f5f9;
-    border-radius: 4px;
-  }
-
-  #modal-results::-webkit-scrollbar-thumb {
-    background: #003087;
-    border-radius: 4px;
-  }
-
-  #modal-results::-webkit-scrollbar-thumb:hover {
-    background: #002060;
-  }
-</style>
+  </style>
+</div>

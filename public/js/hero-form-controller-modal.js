@@ -192,9 +192,20 @@ function closeModal() {
     
     // Reset expanded procedures
     expandedProcedures.clear();
+    
+    // 🔥 ADD THESE LINES:
+    selectedModality = null;
+    selectedContrast = null;
+    selectedRegion = null;
+    
+    // Clear the search input
+    const modalInput = document.getElementById('modal-search-input');
+    if (modalInput) {
+      modalInput.value = '';
+    }
   }, 300);
   
-  console.log('✅ Modal closed');
+  console.log('✅ Modal closed and reset');
 }
 
 // ═══════════════════════════════════════════════════════
@@ -618,7 +629,7 @@ function displayContrastSelection(modality) {
       <!-- Header -->
       <div class="text-center">
         <h3 class="text-2xl font-bold text-gray-900 mb-2">
-          Select contrast type for ${modality}
+          Select contrast type for <span class="text-[#003087] font-extrabold">${modality}</span>
         </h3>
         <p class="text-gray-600">Choose how you need the scan performed</p>
       </div>
@@ -722,7 +733,7 @@ function displayRegionSelection(modality, contrast) {
     <div class="space-y-6">
       <!-- Progress Breadcrumb -->
       <div class="flex items-center gap-2 text-sm">
-        <span class="text-gray-600">${modality}</span>
+        <span class="text-[#003087] font-semibold">${modality}</span>
         ${contrast ? `
           <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -1285,9 +1296,38 @@ console.log('  "xray" →', detectModality('xray'));
     }
   });
   
-  const backButton = document.getElementById('back-to-step-1');
-  if (backButton) {
-    backButton.addEventListener('click', transitionToStep1);
+  // Handle "Change" button - reopen modal with clean state
+  const changeButton = document.getElementById('change-procedure-button');
+  if (changeButton) {
+    changeButton.addEventListener('click', () => {
+      console.log('🔄 Change button clicked - reopening modal');
+      openModal();
+      
+      // Clear the modal input
+      const modalInput = document.getElementById('modal-search-input');
+      if (modalInput) {
+        modalInput.value = '';
+      }
+      
+      // Show initial "Start typing" state
+      const modalResults = document.getElementById('modal-results');
+      if (modalResults) {
+        modalResults.innerHTML = `
+          <div class="text-center py-12 text-gray-500">
+            <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <p class="text-lg font-medium">Start typing to search procedures</p>
+            <p class="text-sm mt-1">Try "MRI", "CT Scan", or "Ultrasound"</p>
+          </div>
+        `;
+      }
+      
+      // Focus the input
+      setTimeout(() => {
+        modalInput?.focus();
+      }, 100);
+    });
   }
   
   const locationInput = document.getElementById('hero-location');
