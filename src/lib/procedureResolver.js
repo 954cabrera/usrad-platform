@@ -81,6 +81,11 @@ function normalizeRegion(input, modality) {
   if (!input) return null;
   const cleaned = input.toLowerCase().replace(/\s+/g, ' ').trim();
 
+  // 🧠 Fallback: map common head synonyms to Brain
+  if (cleaned.match(/\b(head|cranium|skull)\b/)) {
+    return 'Brain';
+  }
+
   // 1️⃣  Try full alias match
   for (const [canonical, aliases] of Object.entries(REGION_ALIASES)) {
     for (const alias of aliases) {
@@ -91,20 +96,20 @@ function normalizeRegion(input, modality) {
           if (canonical === 'Cervical Spine (Neck)') return 'Neck';
           if (canonical === 'Lumbar Spine (Low Back)') return 'Lumbar Spine (Low Back)';
           if (canonical === 'Thoracic Spine (Mid Back)') return 'Thoracic Spine (Mid Back)';
-          if (canonical === 'Brain') return 'Head';
+          if (canonical === 'Brain') return 'Brain'; // ✅ use Brain not Head
         }
         return canonical;
       }
     }
   }
 
-  // 3️⃣  Fallback: region alias not found — warn once in console
+  // 3️⃣  Fallback to input if no match
   console.warn(`⚠️ [Resolver] Region alias not found for "${input}" (modality ${modality})`);
   logUnknownRegion(input, modality, null, false)
     .catch(err => console.error("❌ [Resolver] Audit log error:", err.message));
   return input;
-
 }
+
 
 
 
