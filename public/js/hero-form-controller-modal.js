@@ -920,34 +920,32 @@ resultsContainer.querySelectorAll('.region-option-button').forEach(btn => {
 // ═══════════════════════════════════════════════════════
 
 async function resolveProcedure(modality, contrast, region) {
+
   const resultsContainer = document.getElementById('modal-results');
-  
   console.log('🎯 Resolving procedure:', { modality, contrast, region });
 
-  // Show loading UI
+  // Loading UI
   resultsContainer.innerHTML = `
     <div class="text-center py-12">
       <svg class="w-12 h-12 mx-auto mb-4 text-[#003087] animate-spin" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
       </svg>
-      <p class="text-gray-600">Finding your exact procedure...</p>
+      <p class="text-gray-600">Finding your exact procedure.</p>
     </div>
   `;
-  
+
   try {
-    // Prepare URL
     const url = new URL('/api/resolve', window.location.origin);
     url.searchParams.set('modality', modality);
     url.searchParams.set('region', region);
     if (contrast) url.searchParams.set('contrast', contrast);
-    
+
     const response = await fetch(url.toString());
     const data = await response.json();
-    
+
     console.log('✅ Resolution result:', data);
-    
-    // === ⛔ No Case: Not Found ===
+
     if (!data.found) {
       const suggestions = suggestRegions(region, REGION_BY_MODALITY[modality] || []).slice(0, 5);
 
@@ -969,7 +967,6 @@ async function resolveProcedure(modality, contrast, region) {
         `;
       }
 
-      // Main "not found" UI
       resultsContainer.innerHTML = `
         <div class="text-center py-12">
           <svg class="w-16 h-16 mx-auto mb-4 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -977,9 +974,7 @@ async function resolveProcedure(modality, contrast, region) {
           </svg>
           <p class="text-xl font-bold text-gray-900 mb-4">Procedure Not Found</p>
           <p class="text-gray-600 mb-6">We couldn't find an exact match for this combination.</p>
-
           ${suggestHtml}
-
           <button
             type="button"
             id="back-to-search-notfound"
@@ -990,7 +985,6 @@ async function resolveProcedure(modality, contrast, region) {
         </div>
       `;
 
-      // Attach suggestion buttons + back button
       resultsContainer.querySelectorAll('[data-suggest-region]').forEach(btn => {
         btn.addEventListener('click', () => {
           const suggested = btn.getAttribute('data-suggest-region');
@@ -1005,20 +999,9 @@ async function resolveProcedure(modality, contrast, region) {
       return;
     }
 
-   // ✅ Success: we got a procedure
+    // ✅ Success path
     const { cpt_code, patient_label, badge_label } = data.procedure;
-
-    console.log('🎉 Found CPT code:', cpt_code);
-
-    // Close modal and feed hero form
-    selectProcedure(
-      cpt_code,
-      `${patient_label}\n${badge_label}`,
-      cpt_code
-    );
-
-    // Optional: Log UI preview
-    console.log(`🧠 Selected UI:\n${patient_label}\n🔷 ${badge_label}`);
+    selectProcedure(cpt_code, `${patient_label}\n${badge_label}`, cpt_code);
 
   } catch (error) {
     console.error('❌ Resolution error:', error);
@@ -1029,7 +1012,6 @@ async function resolveProcedure(modality, contrast, region) {
         </svg>
         <p class="text-xl font-bold text-gray-900 mb-4">Something Went Wrong</p>
         <p class="text-gray-600 mb-6">Please try again or use the regular search.</p>
-        
         <button
           type="button"
           id="back-to-search-error"
@@ -1039,7 +1021,6 @@ async function resolveProcedure(modality, contrast, region) {
         </button>
       </div>
     `;
-    
     document.getElementById('back-to-search-error')?.addEventListener('click', () => {
       closeModal();
     });
