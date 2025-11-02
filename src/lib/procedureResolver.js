@@ -1,59 +1,88 @@
-// /lib/procedureResolver.js
+// src/pages/api/resolve.js
+import { supabase } from '../../lib/supabase.js';
+import {
+  resolveProcedure,
+  formatPatientLabel,
+} from '../../lib/procedureResolver.js';
 
-// Contrast labels to match your friendly_name patterns.
-// Adjust if your naming differs.
-const CONTRAST_FILTERS = {
-  "Without Contrast": ["Without Contrast", "W/O Contrast"],
-  "With Contrast": ["With Contrast"],
-  "With & Without Contrast": ["With & Without", "W & W/O"]
-};
-
-/**
- * MRI resolver using v_mri_patient_regions (already created earlier).
- */
-export async function resolveMriCpt({ supabase, contrast, patientRegion }) {
-  const contrastKeys = CONTRAST_FILTERS[contrast] ?? [];
-  if (!contrastKeys.length) return { rows: [], error: `Unsupported contrast type: ${contrast}` };
-
-  const { data, error } = await supabase
-    .from("v_mri_patient_regions")
-    .select("cpt_code, friendly_name, body_region, patient_region")
-    .ilike("patient_region", patientRegion)
-    .or(contrastKeys.map(k => `friendly_name.ilike.%${k}%`).join(","));
-
-  if (error) return { rows: [], error: error.message };
-  if (!data?.length) return { rows: [], error: "Procedure not found." };
-  return { rows: data, error: null };
-}
+export const prerender = false;
 
 /**
- * CT resolver using v_ct_patient_regions (this message includes the SQL for it).
+ * GET /api/resolve?modality=MRI&contrast=With+Contrast&region=Knee
  */
-export async function resolveCtCpt({ supabase, contrast, patientRegion }) {
-  const contrastKeys = CONTRAST_FILTERS[contrast] ?? [];
-  if (!contrastKeys.length) return { rows: [], error: `Unsupported contrast type: ${contrast}` };
+export async function GET({ request }) {
+  try {
+    const url = new URL(request.url);
 
-  const { data, error } = await supabase
-    .from("v_ct_patient_regions")
-    .select("cpt_code, friendly_name, body_region, patient_region")
-    .ilike("patient_region", patientRegion)
-    .or(contrastKeys.map(k => `friendly_name.ilike.%${k}%`).join(","));
+    const modality = url.searchParams.get('modality')?.toUpperCase();
+    const contrast = url.searchParams.get('contrast')?.trim();
+    const region = url.searchParams.get('region')?.trim();
 
-  if (error) return { rows: [], error: error.message };
-  if (!data?.length) return { rows: [], error: "Procedure not found." };
-  return { rows: data, error: null };
-}
+    // --- Basic validation ---
+    if (!modality || !region) {
+      return new Response(
+        JSON.stringify({ found: false, error: 'Missing required parameters' }),
+        { status: 400 }
+      );
+    }
 
-/**
- * Unified resolver: extend as we add CTA, X-Ray, etc.
- */
-export async function resolveProcedure({ supabase, modality, contrast, patientRegion }) {
-  switch (modality) {
-    case "MRI":
-      return resolveMriCpt({ supabase, contrast, patientRegion });
-    case "CT":
-      return resolveCtCpt({ supabase, contrast, patientRegion });
-    default:
-      return { rows: [], error: `Unsupported modality: ${modality}` };
+    // --- Supported modalities ---
+    if (!['MRI', 'CT'].includes(modality)) {
+      return new Response(
+        JSON.stringify({ found: false, error: 'Unsupported modality' }),
+        { status: 400 }
+      );
+    }
+
+    // --- Call shared resolver ---
+    const { rows, error } = await resolveProcedure({
+      supabase,
+      modality,
+      contrast,
+      patientRegion: region,
+    });
+
+    if (error) {
+      return new Response(
+        JSON.stringify({ found: false, error }),
+        { status: 404 }
+      );
+    }
+
+    if (!rows?.length) {
+      return new Response(
+        JSON.stringify({ found: false, error: 'Procedure not found' }),
+        { status: 404 }
+      );
+    }
+
+    // --- Use first match (standard behavior) ---
+    const match = rows[0];
+    const patient_label = formatPatientLabel(
+      match.friendly_name,
+      match.cpt_code
+    );
+
+    return new Response(
+      JSON.stringify({
+        found: true,
+        procedure: {
+          cpt_code: match.cpt_code,
+          patient_label,
+          badge_label: `CPT ${match.cpt_code}`,
+        },
+      }),
+      { status: 200 }
+    );
+  } catch (e) {
+    console.error('❌ Resolver Error', e);
+    return new Response(
+      JSON.stringify({
+        found: false,
+        error: 'Server error',
+        details: e.message,
+      }),
+      { status: 500 }
+    );
   }
 }
