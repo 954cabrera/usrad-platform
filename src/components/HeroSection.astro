@@ -650,6 +650,10 @@ const { remixUrl } = Astro.props;
     </div>
   </div>
 
+  <!-- Load Procedure Library FIRST -->
+  <script is:inline src="/js/procedures-global.js"></script>
+  console.log(window.ProcedureLibrary);
+
   <!-- Load the MODAL version of the form controller -->
   <script is:inline src="/js/hero-form-controller-modal.js"></script>
 

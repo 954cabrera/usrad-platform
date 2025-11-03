@@ -920,33 +920,29 @@ resultsContainer.querySelectorAll('.region-option-button').forEach(btn => {
 // ═══════════════════════════════════════════════════════
 
 async function resolveProcedure(modality, contrast, region) {
-
   const resultsContainer = document.getElementById('modal-results');
   console.log('🎯 Resolving procedure:', { modality, contrast, region });
 
-  // Loading UI
+  // Loading UI (keep existing - it's good!)
   resultsContainer.innerHTML = `
     <div class="text-center py-12">
       <svg class="w-12 h-12 mx-auto mb-4 text-[#003087] animate-spin" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
       </svg>
-      <p class="text-gray-600">Finding your exact procedure.</p>
+      <p class="text-gray-600">Finding your exact procedure...</p>
     </div>
   `;
 
   try {
-    const url = new URL('/api/resolve', window.location.origin);
-    url.searchParams.set('modality', modality);
-    url.searchParams.set('region', region);
-    if (contrast) url.searchParams.set('contrast', contrast);
+    // ✨ NEW: Use simple library instead of API call
+    const procedure = window.ProcedureHelpers.resolveProcedure(modality, contrast, region);
+    
+    // Simulate a tiny delay so users see the loading (optional - feels more natural)
+    await new Promise(resolve => setTimeout(resolve, 300));
 
-    const response = await fetch(url.toString());
-    const data = await response.json();
-
-    console.log('✅ Resolution result:', data);
-
-    if (!data.found) {
+    if (!procedure) {
+      // Handle not found - keep your existing "not found" UI
       const suggestions = suggestRegions(region, REGION_BY_MODALITY[modality] || []).slice(0, 5);
 
       let suggestHtml = '';
@@ -999,6 +995,18 @@ async function resolveProcedure(modality, contrast, region) {
       return;
     }
 
+    // ✨ Format as data object matching old API structure
+    const data = {
+      found: true,
+      procedure: {
+        cpt_code: procedure.cpt_code,
+        patient_label: procedure.patient_label,
+        badge_label: procedure.badge_label
+      }
+    };
+
+    console.log('✅ Resolution result:', data);
+
     // ✅ Success path
     const { cpt_code, patient_label, badge_label } = data.procedure;
     selectProcedure(cpt_code, `${patient_label}\n${badge_label}`, cpt_code);
@@ -1025,25 +1033,6 @@ async function resolveProcedure(modality, contrast, region) {
       closeModal();
     });
   }
-}
-
-
-// Helper for resetting modal state
-function resetSearchFlow() {
-  selectedModality = null;
-  selectedContrast = null;
-  selectedRegion = null;
-  const modalInput = document.getElementById('modal-search-input');
-  if (modalInput) {
-    modalInput.value = '';
-    modalInput.focus();
-  }
-  const resultsContainer = document.getElementById('modal-results');
-  resultsContainer.innerHTML = `
-    <div class="text-center py-12 text-gray-500">
-      <p class="text-lg font-medium">Start typing to search procedures</p>
-    </div>
-  `;
 }
 
 
@@ -1400,6 +1389,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (heroInput.value.trim().length >= 1) {
         openModal();
       }
+    });
+  }
 
   // 🔒 UI Guard: Keep selected-procedure-display in 2-line locked format
   (function initSelectedProcedureGuard() {
@@ -1428,18 +1419,14 @@ document.addEventListener('DOMContentLoaded', () => {
     mo.observe(el, { childList: true, subtree: true, characterData: true });
   })();
 
-    });
-  }
-
-
   // ═══════════════════════════════════════════════════════
-// DEBUG: Test modality detection
-// ═══════════════════════════════════════════════════════
-console.log('🧪 Testing modality detection:');
-console.log('  "mri" →', detectModality('mri'));
-console.log('  "ct" →', detectModality('ct'));
-console.log('  "cat scan" →', detectModality('cat scan'));
-console.log('  "xray" →', detectModality('xray'));
+  // DEBUG: Test modality detection
+  // ═══════════════════════════════════════════════════════
+  console.log('🧪 Testing modality detection:');
+  console.log('  "mri" →', detectModality('mri'));
+  console.log('  "ct" →', detectModality('ct'));
+  console.log('  "cat scan" →', detectModality('cat scan'));
+  console.log('  "xray" →', detectModality('xray'));
   
   const modalInput = document.getElementById('modal-search-input');
   if (modalInput) {
