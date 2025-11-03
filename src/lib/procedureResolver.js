@@ -4,6 +4,12 @@
 // ==========================================================
 
 import { logUnknownRegion } from "./resolverAudit.js";
+import { supabase } from './supabase.js';   // ✅ use the server client
+
+
+
+
+
 
 
 // Map modalities to their view/table names
@@ -86,12 +92,12 @@ function normalizeRegion(input, modality) {
     return 'Brain';
   }
 
-  // 1️⃣  Try full alias match
+  // 1️⃣ Try full alias match
   for (const [canonical, aliases] of Object.entries(REGION_ALIASES)) {
     for (const alias of aliases) {
       const aliasClean = alias.toLowerCase().replace(/\s+/g, ' ').trim();
       if (cleaned === aliasClean) {
-        // 2️⃣  Simplify if CT prefers shorter region names
+        // 2️⃣ Simplify if CT prefers shorter region names
         if (modality && modality.toUpperCase() === 'CT') {
           if (canonical === 'Cervical Spine (Neck)') return 'Neck';
           if (canonical === 'Lumbar Spine (Low Back)') return 'Lumbar Spine (Low Back)';
@@ -103,11 +109,41 @@ function normalizeRegion(input, modality) {
     }
   }
 
-  // 3️⃣  Fallback to input if no match
+  // 3️⃣ Fallback to input if no match
   console.warn(`⚠️ [Resolver] Region alias not found for "${input}" (modality ${modality})`);
   logUnknownRegion(input, modality, null, false)
     .catch(err => console.error("❌ [Resolver] Audit log error:", err.message));
   return input;
+}
+
+/**
+ * Normalize contrast input to match CONTRAST_FILTERS keys
+ * Handles: "without", "with", "both", "none", etc.
+ */
+function normalizeContrast(input) {
+  if (!input) return 'WITHOUT CONTRAST'; // default
+  
+  const cleaned = input.toUpperCase().trim();
+  
+  // Direct matches for common frontend values
+  if (cleaned === 'WITHOUT' || cleaned === 'NO' || cleaned === 'NONE' || cleaned === 'W/O') {
+    return 'WITHOUT CONTRAST';
+  }
+  if (cleaned === 'WITH' || cleaned === 'YES' || cleaned === 'W/') {
+    return 'WITH CONTRAST';
+  }
+  if (cleaned === 'BOTH' || cleaned === 'WITH & WITHOUT' || cleaned === 'WITH AND WITHOUT') {
+    return 'WITH & WITHOUT CONTRAST';
+  }
+  
+  // Already normalized (check if it's a valid key)
+  if (CONTRAST_FILTERS[cleaned]) {
+    return cleaned;
+  }
+  
+  // Fallback to without contrast
+  console.warn(`⚠️ [Resolver] Unknown contrast: "${input}", defaulting to WITHOUT CONTRAST`);
+  return 'WITHOUT CONTRAST';
 }
 
 
@@ -151,7 +187,6 @@ const CONTRAST_FILTERS = {
  * Automatically maps to the proper view and applies contrast filters.
  */
 export async function resolveProcedureUniversal({
-  supabase,
   modality,
   contrast,
   patientRegion,
@@ -180,28 +215,35 @@ if (!table) {
 console.log(`🧠 [Resolver] Normalized modality: "${modality}" → "${normalizedModality}"`);
 
 
-  const contrastKey = (contrast || '').toUpperCase().trim();
-  const contrastKeys = CONTRAST_FILTERS[contrastKey] ?? [];
+  // ✅ Normalize contrast using the new function
+  const normalizedContrast = normalizeContrast(contrast);
+  const contrastKeys = CONTRAST_FILTERS[normalizedContrast] ?? [];
+  
+  console.log(`🎨 [Resolver] Contrast normalized: "${contrast}" → "${normalizedContrast}"`);
 
-  if (!contrastKeys.length && !contrastKey) {
-    // Treat missing or unspecified contrast as "Without Contrast" for fallback
-    contrastKeys.push('WITHOUT CONTRAST');
+  if (!contrastKeys.length) {
+    console.warn(`⚠️ [Resolver] No contrast keys found for "${normalizedContrast}"`);
   }
 
 
   const contrastClause =
-    contrastKeys.length > 0
-      ? contrastKeys.map((k) => `friendly_name.ilike.%${k}%`).join(',')
-      : null;
+  contrastKeys.length > 0
+    ? contrastKeys.map((k) => `friendly_name.ilike.%${k}%`).join(',')
+    : null;
 
-  try {
-    const filters = [`patient_region.ilike.%${normalizedRegion}%`];
-    if (contrastClause) filters.push(contrastClause);
+try {
+  const filters = [`patient_region.ilike.%${normalizedRegion}%`];
+  if (contrastClause) filters.push(contrastClause);
 
-    const { data, error } = await supabase
-      .from(table)
-      .select('cpt_code, friendly_name, body_region, patient_region')
-      .or(filters.join(','));
+// ✅ Using server-side Supabase client (imported above)
+
+
+
+  const { data, error } = await supabase
+    .from(table)
+    .select('cpt_code, friendly_name, body_region, patient_region')
+    .or(filters.join(','));
+
 
     if (error) return { rows: [], error: error.message };
     if (!data?.length) return { rows: [], error: 'Procedure not found.' };
@@ -229,11 +271,21 @@ export async function resolveProcedure(params) {
 
 /**
  * Consistent two-line patient label for UI
+ * Now accepts patientRegion to replace generic body regions with patient-friendly names
  */
-export function formatPatientLabel(friendlyName, cptCode) {
+export function formatPatientLabel(friendlyName, cptCode, patientRegion = null) {
   let label = friendlyName.replace(/\s*\[\d+\]$/, '').trim();
+  
+  // Replace generic body region with patient-friendly region
+  if (patientRegion) {
+    label = label.replace(/Upper Extremity/gi, patientRegion);
+    label = label.replace(/Lower Extremity/gi, patientRegion);
+  }
+  
+  // Normalize contrast wording
   if (label.endsWith('With & Without')) label += ' Contrast';
   if (label.endsWith('With')) label += ' Contrast';
   if (label.endsWith('Without')) label += ' Contrast';
+  
   return `${label}\nCPT ${cptCode}`;
 }

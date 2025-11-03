@@ -1,5 +1,5 @@
 // src/pages/api/resolve.js
-import { supabase } from '../../lib/supabase.js';
+
 import {
   resolveProcedureUniversal,
   formatPatientLabel,
@@ -24,11 +24,11 @@ export async function GET({ request }) {
 
     // --- Call the universal resolver ---
 const { rows: dataRows, error: resolverError } = await resolveProcedureUniversal({
-  supabase,
   modality,
   contrast,
   patientRegion: region,
 });
+
 
 // --- Handle resolver errors or no matches ---
 if (resolverError || !dataRows?.length) {
@@ -40,7 +40,12 @@ if (resolverError || !dataRows?.length) {
 
 // --- Format first result for UI ---
 const match = dataRows[0];
-const patient_label = formatPatientLabel(match.friendly_name, match.cpt_code);
+// ✅ Pass patient_region to formatPatientLabel to fix "Upper Extremity" display issue
+const patient_label = formatPatientLabel(
+  match.friendly_name, 
+  match.cpt_code,
+  match.patient_region
+);
 
 return new Response(
   JSON.stringify({
