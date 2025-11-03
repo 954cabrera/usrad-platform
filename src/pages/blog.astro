@@ -376,7 +376,10 @@ const categories = [
   </section>
 
   <!-- Latest Articles - Clean Grid -->
-  <section class="py-16 bg-gradient-to-b from-white to-gray-50">
+  <section
+    id="articles-section"
+    class="py-16 bg-gradient-to-b from-white to-gray-50"
+  >
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="mb-12 flex items-center gap-4" data-aos="fade-up">
         <h2 class="text-3xl font-bold text-gray-900">Latest Articles</h2>
@@ -1010,6 +1013,20 @@ const categories = [
           // Reset pagination when category changes
           currentlyVisible = articlesPerPage;
           updateArticleVisibility();
+
+          // Smooth scroll to articles section
+          const articlesSection = document.getElementById("articles-section");
+          if (articlesSection) {
+            const offset = 100; // Adjust this value to control how much space above the section
+            const elementPosition = articlesSection.getBoundingClientRect().top;
+            const offsetPosition =
+              elementPosition + window.pageYOffset - offset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          }
         });
       });
     });
