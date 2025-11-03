@@ -114,17 +114,77 @@ const REGION_BY_MODALITY = {
   ]
 };
 
-function normalizeRegionList(list) {
+/**
+ * Get medical icon for a body region
+ * Uses Unicode escape sequences to avoid encoding issues
+ * 
+ * @param {string} regionLabel - e.g. "Knee", "Brain", "Lumbar Spine (Low Back)"
+ * @param {string} modality - "MRI" or "CT"
+ * @returns {string} - Emoji icon for the region
+ */
+function getIconForRegion(regionLabel, modality) {
+  // Try to find icon from ProcedureLibrary
+  if (window.ProcedureLibrary && window.ProcedureLibrary[modality]) {
+    const library = window.ProcedureLibrary[modality];
+    const normalizedKey = window.ProcedureHelpers?.normalizeRegionKey(regionLabel);
+    
+    if (normalizedKey && library[normalizedKey]) {
+      return library[normalizedKey].icon || String.fromCodePoint(0x1FA7A);
+    }
+  }
+  
+  // Fallback icon mapping using Unicode code points
+  const iconMap = {
+    'Brain': String.fromCodePoint(0x1F9E0),                     // Brain
+    'Head / Brain': String.fromCodePoint(0x1F9E0),              // Brain
+    'Cervical Spine': String.fromCodePoint(0x1F9B4),            // Bone
+    'Cervical Spine (Neck)': String.fromCodePoint(0x1F9B4),     // Bone
+    'Thoracic Spine': String.fromCodePoint(0x1F9B4),            // Bone
+    'Thoracic Spine (Mid Back)': String.fromCodePoint(0x1F9B4), // Bone
+    'Lumbar Spine': String.fromCodePoint(0x1F9B4),              // Bone
+    'Lumbar Spine (Low Back)': String.fromCodePoint(0x1F9B4),   // Bone
+    'Shoulder': String.fromCodePoint(0x1F4AA),                   // Flexed Biceps
+    'Elbow': String.fromCodePoint(0x1F4AA),                      // Flexed Biceps
+    'Wrist / Hand': String.fromCodePoint(0x270B),                // Raised Hand
+    'Hip': String.fromCodePoint(0x1F9B4),                        // Bone
+    'Knee': String.fromCodePoint(0x1F9B5),                       // Leg
+    'Ankle / Foot': String.fromCodePoint(0x1F9B6),               // Foot
+    'Abdomen': String.fromCodePoint(0x1FAC1),                    // Lungs
+    'Pelvis': String.fromCodePoint(0x1FAC1),                     // Lungs
+    'Chest': String.fromCodePoint(0x1FAC1),                      // Lungs
+    'Breast': String.fromCodePoint(0x1F380),                     // Ribbon
+    'Cardiac': String.fromCodePoint(0x2764, 0xFE0F),             // Red Heart
+    'Heart': String.fromCodePoint(0x2764, 0xFE0F),               // Red Heart
+    'Orbit / Face / Neck': String.fromCodePoint(0x1F441, 0xFE0F), // Eye
+    'TMJ': String.fromCodePoint(0x1F441, 0xFE0F),                // Eye
+    'Sinuses': String.fromCodePoint(0x1F443),                    // Nose
+    'Neck (Soft Tissue)': String.fromCodePoint(0x1FAC1),         // Lungs
+    'Extremity': String.fromCodePoint(0x1F9B4),                  // Bone
+    'Abdomen & Pelvis': String.fromCodePoint(0x1FAC1)            // Lungs
+  };
+  
+  return iconMap[regionLabel] || String.fromCodePoint(0x1FA7A); // Stethoscope
+}
+
+/**
+ * Convert region strings to objects with icons
+ * Ensures every region has both a label and icon for UI display
+ * 
+ * @param {Array<string|object>} list - Region list from REGION_BY_MODALITY
+ * @param {string} modality - "MRI" or "CT" 
+ * @returns {Array<{label: string, icon: string}>}
+ */
+function normalizeRegionList(list, modality) {
   return (list || []).map(region => {
     if (typeof region === 'string') {
       return {
         label: region,
-        icon: '🩺'
+        icon: getIconForRegion(region, modality)
       };
     }
     return {
       label: region.label || region.id || 'Region',
-      icon: region.icon || '🩺'
+      icon: region.icon || getIconForRegion(region.label, modality)
     };
   });
 }
@@ -798,7 +858,7 @@ function displayContrastSelection(modality) {
 }
 
 function displayRegionSelection(modality, contrast) {
-  const regions = normalizeRegionList(REGION_BY_MODALITY[modality]) || [];
+  const regions = normalizeRegionList(REGION_BY_MODALITY[modality], modality) || [];
   const resultsContainer = document.getElementById('modal-results');
 
   if (regions.length === 0) {
