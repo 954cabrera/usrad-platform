@@ -424,7 +424,23 @@
           description: "Eye socket, facial structures",
           duration: "30-45 min",
           prep: "Remove metal, especially eye makeup",
-          useCase: "Orbital mass, facial pain, TMJ"
+          useCase: "Orbital mass, facial pain"
+        }
+      ]
+    },
+
+    tmj: {
+      category: "TMJ",
+      icon: "🦴",
+      procedures: [
+        {
+          cpt: "70336",
+          label: "MRI TMJ - Without Contrast",
+          shortLabel: "TMJ - Without",
+          description: "Jaw joint imaging",
+          duration: "30-45 min",
+          prep: "Remove metal from head area",
+          useCase: "TMJ pain, jaw clicking"
         }
       ]
     },
@@ -810,6 +826,7 @@
       'heart': 'cardiac',
       'orbit / face / neck': 'orbitFaceNeck',
       'orbit/face/neck': 'orbitFaceNeck',
+      'tmj': 'tmj',
       'sinuses': 'sinuses',
       'neck (soft tissue)': 'neckSoftTissue'
     };
