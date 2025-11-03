@@ -645,6 +645,124 @@ function handleDirectProcedureSelection(cptCode, displayName) {
 }
 
 /**
+ * Search for a procedure by exact CPT code
+ * @param {string} cptCode - 5-digit CPT code
+ * @returns {Array} - Array of matching procedures
+ */
+function searchByCPT(cptCode) {
+  console.log('🔢 Searching for CPT code:', cptCode);
+  const results = [];
+  
+  // Search MRI library
+  Object.keys(window.ProcedureLibrary.MRI).forEach(regionKey => {
+    const region = window.ProcedureLibrary.MRI[regionKey];
+    region.procedures.forEach(proc => {
+      if (proc.cpt === cptCode) {
+        results.push({
+          cpt: proc.cpt,
+          label: proc.label,
+          modality: 'MRI',
+          icon: region.icon || '🧲',
+          category: region.category,
+          description: proc.description,
+          duration: proc.duration,
+          prep: proc.prep,
+          useCase: proc.useCase
+        });
+      }
+    });
+  });
+  
+  // Search CT library
+  Object.keys(window.ProcedureLibrary.CT).forEach(regionKey => {
+    const region = window.ProcedureLibrary.CT[regionKey];
+    region.procedures.forEach(proc => {
+      if (proc.cpt === cptCode) {
+        results.push({
+          cpt: proc.cpt,
+          label: proc.label,
+          modality: 'CT',
+          icon: region.icon || '⚡',
+          category: region.category,
+          description: proc.description,
+          duration: proc.duration,
+          prep: proc.prep,
+          useCase: proc.useCase
+        });
+      }
+    });
+  });
+  
+  // Special cases: Mammography
+  const mammoMap = {
+    '77067': { label: 'Screening Mammogram', desc: 'Routine annual screening for early detection' },
+    '77066': { label: 'Diagnostic Mammogram', desc: 'Follow-up for symptoms or abnormal findings' },
+    '77063': { label: '3D Mammogram (Tomosynthesis)', desc: 'Advanced 3D imaging technology' }
+  };
+  
+  if (mammoMap[cptCode]) {
+    results.push({
+      cpt: cptCode,
+      label: mammoMap[cptCode].label,
+      modality: 'Mammography',
+      icon: '🎀',
+      category: 'Breast',
+      description: mammoMap[cptCode].desc,
+      duration: '15-30 min',
+      prep: 'None',
+      useCase: 'Breast cancer screening'
+    });
+  }
+  
+  // Special cases: Nuclear Medicine
+  const nuclearMap = {
+    '78306': { label: 'Bone Scan (Whole Body)', desc: 'Detect bone abnormalities, fractures, or cancer' },
+    '78452': { label: 'Cardiac Stress Test', desc: 'Evaluate heart blood flow and function' },
+    '78012': { label: 'Thyroid Scan', desc: 'Evaluate thyroid function and nodules' },
+    '78072': { label: 'Parathyroid Scan', desc: 'Locate overactive parathyroid glands' }
+  };
+  
+  if (nuclearMap[cptCode]) {
+    results.push({
+      cpt: cptCode,
+      label: nuclearMap[cptCode].label,
+      modality: 'Nuclear Medicine',
+      icon: '☢️',
+      category: 'Nuclear Medicine',
+      description: nuclearMap[cptCode].desc,
+      duration: '30-60 min',
+      prep: 'Fasting may be required',
+      useCase: 'Specialized imaging'
+    });
+  }
+  
+  // Special cases: PET
+  const petMap = {
+    '78815': { label: 'PET Scan (Whole Body)', desc: 'Full body cancer screening' },
+    '78608': { label: 'PET Brain Scan', desc: 'Brain-specific PET imaging' },
+    '78459': { label: 'PET Cardiac Scan', desc: 'Heart-specific PET imaging' }
+  };
+  
+  if (petMap[cptCode]) {
+    results.push({
+      cpt: cptCode,
+      label: petMap[cptCode].label,
+      modality: 'PET',
+      icon: '⚛️',
+      category: 'PET Scan',
+      description: petMap[cptCode].desc,
+      duration: '45-90 min',
+      prep: 'Fasting required',
+      useCase: 'Cancer detection and staging'
+    });
+  }
+  
+  console.log('🔍 CPT search results:', results);
+  return results;
+}
+
+
+/**
  * COMPREHENSIVE SEARCH SYSTEM
  * ============================
  * Allows users to search by body part and see ALL available procedures
@@ -665,6 +783,12 @@ function searchAllProcedures(searchTerm) {
   const results = [];
   const term = searchTerm.toLowerCase().trim();
   
+// 🔢 NEW: Check if it's a CPT code search (5-digit number)
+  if (/^\d{5}$/.test(term)) {
+    console.log('🔢 CPT code detected:', term);
+    return searchByCPT(term);
+  }
+
   console.log('🔍 Searching all procedures for:', term);
   
   // Search through MRI library
