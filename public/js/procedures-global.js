@@ -409,6 +409,24 @@
           duration: "45-60 min",
           prep: "Scheduled 7-14 days after period starts",
           useCase: "BRCA positive, dense breasts, cancer staging"
+        },
+        {
+          cpt: "77048",
+          label: "MRI Breast - Unilateral With & Without Contrast",
+          shortLabel: "Breast - One Side Enhanced",
+          description: "Single breast with contrast comparison",
+          duration: "45-60 min",
+          prep: "IV contrast, scheduled 7-14 days after period",
+          useCase: "Cancer staging, suspicious lesion workup"
+        },
+        {
+          cpt: "77049",
+          label: "MRI Breast - Bilateral With & Without Contrast",
+          shortLabel: "Breast - Both Sides Enhanced",
+          description: "Both breasts with complete contrast protocol",
+          duration: "60-75 min",
+          prep: "IV contrast, scheduled 7-14 days after period",
+          useCase: "Comprehensive cancer screening, bilateral workup"
         }
       ]
     },

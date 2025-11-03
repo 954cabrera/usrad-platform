@@ -629,11 +629,13 @@ function displayPETType() {
 function handleDirectProcedureSelection(cptCode, displayName) {
   console.log(`🎯 Direct selection: ${displayName} [${cptCode}]`);
   
-  // Format the display name to include CPT code
-  const fullDisplayName = `${displayName} [${cptCode}]`;
+  // Format the display name with newline for 2-line display
+  // Line 1: Procedure name
+  // Line 2: CPT badge
+  const formattedDisplayName = `${displayName}\nCPT ${cptCode}`;
   
-  // Call your existing selectProcedure function
-  selectProcedure(cptCode, fullDisplayName);
+  // Call selectProcedure with formatted name
+  selectProcedure(cptCode, formattedDisplayName, cptCode);
   
   // Close modal and transition to Step 2
   closeModal();
@@ -642,12 +644,329 @@ function handleDirectProcedureSelection(cptCode, displayName) {
   console.log('✅ Procedure selected and transitioned to Step 2');
 }
 
+/**
+ * COMPREHENSIVE SEARCH SYSTEM
+ * ============================
+ * Allows users to search by body part and see ALL available procedures
+ * across all modalities (MRI, CT, Mammography, etc.)
+ * 
+ * Example: User types "breast" → sees MRI, Mammography, Ultrasound options
+ * Example: User types "spine" → sees all MRI/CT spine options
+ */
+
+/**
+ * Search all procedures by keyword (body part, modality, etc)
+ * Returns flat list of ALL matching procedures across all modalities
+ * 
+ * @param {string} searchTerm - User's search query
+ * @returns {Array} - Array of matching procedure objects
+ */
+function searchAllProcedures(searchTerm) {
+  const results = [];
+  const term = searchTerm.toLowerCase().trim();
+  
+  console.log('🔍 Searching all procedures for:', term);
+  
+  // Search through MRI library
+  const mriLibrary = window.ProcedureLibrary?.MRI;
+  if (mriLibrary) {
+    Object.keys(mriLibrary).forEach(regionKey => {
+      const region = mriLibrary[regionKey];
+      
+      // Check if search term matches category
+      const categoryLower = region.category.toLowerCase();
+      const matchesCategory = categoryLower.includes(term);
+      
+      // Also check if search term is in the regionKey itself
+      const matchesKey = regionKey.toLowerCase().includes(term);
+      
+      if (matchesCategory || matchesKey) {
+        // Add ALL procedures from this region
+        region.procedures.forEach(proc => {
+          results.push({
+            modality: 'MRI',
+            category: region.category,
+            icon: region.icon,
+            cpt: proc.cpt,
+            label: proc.label,
+            shortLabel: proc.shortLabel,
+            description: proc.description,
+            duration: proc.duration,
+            prep: proc.prep,
+            useCase: proc.useCase
+          });
+        });
+      }
+    });
+  }
+  
+  // Search through CT library
+  const ctLibrary = window.ProcedureLibrary?.CT;
+  if (ctLibrary) {
+    Object.keys(ctLibrary).forEach(regionKey => {
+      const region = ctLibrary[regionKey];
+      
+      const categoryLower = region.category.toLowerCase();
+      const matchesCategory = categoryLower.includes(term);
+      const matchesKey = regionKey.toLowerCase().includes(term);
+      
+      if (matchesCategory || matchesKey) {
+        region.procedures.forEach(proc => {
+          results.push({
+            modality: 'CT',
+            category: region.category,
+            icon: region.icon,
+            cpt: proc.cpt,
+            label: proc.label,
+            shortLabel: proc.shortLabel,
+            description: proc.description,
+            duration: proc.duration,
+            prep: proc.prep,
+            useCase: proc.useCase
+          });
+        });
+      }
+    });
+  }
+  
+  // Special case: Add Mammography if searching for "breast"
+  if (term.includes('breast') || term === 'mammo' || term === 'mammogram') {
+    results.push(
+      {
+        modality: 'Mammography',
+        category: 'Breast',
+        icon: String.fromCodePoint(0x1F397), // Medal ribbon
+        cpt: '77067',
+        label: 'Screening Mammogram',
+        shortLabel: 'Screening',
+        description: 'Routine annual screening for early detection',
+        duration: '15-20 min',
+        prep: 'No deodorant or powder',
+        useCase: 'Annual screening, preventive care'
+      },
+      {
+        modality: 'Mammography',
+        category: 'Breast',
+        icon: String.fromCodePoint(0x1F397),
+        cpt: '77066',
+        label: 'Diagnostic Mammogram',
+        shortLabel: 'Diagnostic',
+        description: 'Follow-up for symptoms or abnormal findings',
+        duration: '20-30 min',
+        prep: 'No deodorant or powder',
+        useCase: 'Lump, pain, or callback from screening'
+      },
+      {
+        modality: 'Mammography',
+        category: 'Breast',
+        icon: String.fromCodePoint(0x1F397),
+        cpt: '77063',
+        label: '3D Mammogram (Tomosynthesis)',
+        shortLabel: '3D',
+        description: 'Advanced 3D imaging technology',
+        duration: '20-30 min',
+        prep: 'No deodorant or powder',
+        useCase: 'Dense breasts, detailed imaging'
+      }
+    );
+  }
+  
+  console.log(`✅ Found ${results.length} procedures matching "${term}"`);
+  return results;
+}
+
+/**
+ * Display comprehensive search results grouped by modality
+ * 
+ * @param {string} query - User's search query
+ */
+function displayComprehensiveSearch(query) {
+  const results = searchAllProcedures(query);
+  const modalResults = document.getElementById('modal-results');
+  
+  if (!modalResults) {
+    console.error('❌ modal-results element not found');
+    return;
+  }
+  
+  if (results.length === 0) {
+    modalResults.innerHTML = `
+      <div class="text-center py-12">
+        <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <p class="text-lg font-medium text-gray-900 mb-2">No procedures found for "${query}"</p>
+        <p class="text-sm text-gray-600">Try searching by body part</p>
+        <div class="mt-4 flex flex-wrap justify-center gap-2">
+          <button class="suggestion-chip" data-suggest="knee">Knee</button>
+          <button class="suggestion-chip" data-suggest="spine">Spine</button>
+          <button class="suggestion-chip" data-suggest="brain">Brain</button>
+          <button class="suggestion-chip" data-suggest="breast">Breast</button>
+        </div>
+      </div>
+    `;
+    
+    // Add suggestion click handlers
+    modalResults.querySelectorAll('.suggestion-chip').forEach(chip => {
+      chip.addEventListener('click', function() {
+        const suggestion = this.dataset.suggest;
+        const modalInput = document.getElementById('modal-search-input');
+        if (modalInput) {
+          modalInput.value = suggestion;
+          displayComprehensiveSearch(suggestion);
+        }
+      });
+    });
+    return;
+  }
+  
+  // Group results by modality
+  const grouped = {};
+  results.forEach(proc => {
+    if (!grouped[proc.modality]) grouped[proc.modality] = [];
+    grouped[proc.modality].push(proc);
+  });
+  
+  // Build HTML
+  let html = `
+    <div class="space-y-6 p-6">
+      <div class="text-center mb-6">
+        <h3 class="text-2xl font-bold text-gray-900">
+          ${results.length} ${results.length === 1 ? 'procedure' : 'procedures'} found for "${query}"
+        </h3>
+        <p class="text-gray-600 mt-2">Select the procedure you need</p>
+      </div>
+  `;
+  
+  // Display grouped by modality
+  Object.keys(grouped).sort().forEach(modality => {
+    const procedures = grouped[modality];
+    
+    // Determine modality color
+    let modalityColor = '#003087'; // Default blue
+    if (modality === 'CT') modalityColor = '#0052cc';
+    if (modality === 'Mammography') modalityColor = '#ec4899'; // Pink
+    
+    html += `
+      <div class="mb-6">
+        <h4 class="text-lg font-bold mb-3 pb-2 border-b-2 flex items-center gap-2" style="color: ${modalityColor}; border-color: ${modalityColor};">
+          <span class="text-2xl">${getModalityIcon(modality)}</span>
+          <span>${modality}</span>
+          <span class="text-sm font-normal text-gray-500">(${procedures.length})</span>
+        </h4>
+        <div class="space-y-2">
+    `;
+    
+    procedures.forEach(proc => {
+      const iconDisplay = typeof proc.icon === 'string' && proc.icon.includes('fromCodePoint') 
+        ? eval(proc.icon) 
+        : proc.icon || '🩺';
+      
+      html += `
+        <button
+          type="button"
+          class="comprehensive-result-button w-full p-4 text-left border-2 border-gray-200 rounded-xl hover:border-[#003087] hover:bg-blue-50 transition-all duration-200 group"
+          data-comprehensive-cpt="${proc.cpt}"
+          data-comprehensive-label="${proc.label}"
+        >
+          <div class="flex items-start gap-3">
+            <span class="text-2xl flex-shrink-0">${iconDisplay}</span>
+            <div class="flex-1 min-w-0">
+              <div class="font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
+                ${proc.label}
+              </div>
+              <div class="text-sm text-gray-600 mt-1 line-clamp-2">${proc.description}</div>
+              <div class="flex items-center gap-4 mt-2 text-xs text-gray-500 flex-wrap">
+                <span class="font-mono bg-gray-100 px-2 py-0.5 rounded">CPT: ${proc.cpt}</span>
+                <span>⏱️ ${proc.duration}</span>
+              </div>
+            </div>
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#003087] group-hover:translate-x-1 transition-all flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </button>
+      `;
+    });
+    
+    html += `
+        </div>
+      </div>
+    `;
+  });
+  
+  // Add back button
+  html += `
+      <div class="text-center pt-4 border-t border-gray-200">
+        <button
+          type="button"
+          id="back-to-empty-search"
+          class="text-gray-600 hover:text-[#003087] font-medium transition-colors"
+        >
+          ← Clear search and start over
+        </button>
+      </div>
+    </div>
+  `;
+  
+  modalResults.innerHTML = html;
+  
+  // Add click handlers for results
+  modalResults.querySelectorAll('.comprehensive-result-button').forEach(button => {
+    button.addEventListener('click', function() {
+      const cpt = this.dataset.comprehensiveCpt;
+      const label = this.dataset.comprehensiveLabel;
+      console.log(`✅ Selected via comprehensive search: ${label} [${cpt}]`);
+      handleDirectProcedureSelection(cpt, label);
+    });
+  });
+  
+  // Add back button handler
+  const backBtn = modalResults.querySelector('#back-to-empty-search');
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      const modalInput = document.getElementById('modal-search-input');
+      if (modalInput) {
+        modalInput.value = '';
+        modalInput.focus();
+      }
+      
+      modalResults.innerHTML = `
+        <div class="text-center py-12 text-gray-500">
+          <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <p class="text-lg font-medium">Start typing to search procedures</p>
+          <p class="text-sm mt-1">Try "MRI", "CT Scan", or a body part like "knee"</p>
+        </div>
+      `;
+    });
+  }
+}
+
+/**
+ * Get icon for modality
+ */
+function getModalityIcon(modality) {
+  const icons = {
+    'MRI': '🧲',
+    'CT': '⚡',
+    'Mammography': '🎀',
+    'Ultrasound': '🔊',
+    'X-Ray': '📸',
+    'PET': '☢️',
+    'Nuclear Medicine': '⚛️'
+  };
+  return icons[modality] || '🩺';
+}
+
+console.log('✅ Comprehensive search system loaded');
+
 // =============================================================================
 // END OF UPDATED PHASE 2 FUNCTIONS
 // =============================================================================
   
-
-async function handleModalSearch(query) {
+  async function handleModalSearch(query) {
   const resultsContainer = document.getElementById('modal-results');
   
   if (!query || query.trim().length < 2) {
@@ -705,53 +1024,9 @@ async function handleModalSearch(query) {
     }
   }
   
-  // 🔍 Not a modality - do regular search
-  resultsContainer.innerHTML = `
-    <div class="text-center py-12">
-      <svg class="w-12 h-12 mx-auto mb-4 text-[#003087] animate-spin" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-      </svg>
-      <p class="text-gray-600">Searching...</p>
-    </div>
-  `;
-  
-  try {
-    console.log('🔍 Calling API: /api/procedures/search?q=' + query);
-    const response = await fetch(`/api/procedures/search?q=${encodeURIComponent(query)}`);
-    
-    if (!response.ok) {
-      throw new Error(`API returned ${response.status}`);
-    }
-    
-    const data = await response.json();
-    console.log('✅ API Response:', data);
-    
-    if (data.results && data.results.length > 0) {
-      displayModalResults(data.results);
-    } else {
-      resultsContainer.innerHTML = `
-        <div class="text-center py-12">
-          <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          <p class="text-lg font-medium text-gray-900 mb-2">No procedures found</p>
-          <p class="text-sm text-gray-600">Try a different search term or browse all procedures</p>
-        </div>
-      `;
-    }
-  } catch (error) {
-    console.error('❌ Search error:', error);
-    resultsContainer.innerHTML = `
-      <div class="text-center py-12">
-        <svg class="w-16 h-16 mx-auto mb-4 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-        <p class="text-lg font-medium text-gray-900 mb-2">Something went wrong</p>
-        <p class="text-sm text-gray-600">Please try again</p>
-      </div>
-    `;
-  }
+  // 🔍 NOT a modality - Use comprehensive search!
+  console.log('🔍 Not a modality - triggering comprehensive search');
+  displayComprehensiveSearch(query);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1219,9 +1494,9 @@ function attachEventListeners() {
           }
         }
         
-        // Format display name with CPT code if available
-        if (cptCode && !displayName.includes(cptCode)) {
-          displayName = `${displayName} (${cptCode})`;
+        // Format display name with CPT code on newline for 2-line display
+        if (cptCode) {
+          displayName = `${displayName}\nCPT ${cptCode}`;
         }
         
         selectProcedure(procedureId, displayName, cptCode);
@@ -1237,7 +1512,10 @@ function attachEventListeners() {
       const cptCode = button.getAttribute('data-cpt-code');
       const displayName = button.getAttribute('data-display-name');
       
-      selectProcedure(procedureId, displayName, cptCode);
+      // Format displayName with CPT code on newline for 2-line display
+      const formattedDisplayName = `${displayName}\nCPT ${cptCode}`;
+      
+      selectProcedure(procedureId, formattedDisplayName, cptCode);
     });
   });
 }

@@ -819,5 +819,15 @@ const { remixUrl } = Astro.props;
     #modal-results::-webkit-scrollbar-thumb:hover {
       background: #002060;
     }
+    .suggestion-chip {
+      @apply px-3 py-1.5 bg-white border border-gray-300 rounded-full text-sm text-gray-700 hover:border-[#003087] hover:bg-blue-50 transition-all duration-200;
+    }
+
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
   </style>
 </div>
