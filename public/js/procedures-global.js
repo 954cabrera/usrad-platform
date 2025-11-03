@@ -779,14 +779,246 @@
           useCase: "Lymphadenopathy, abscess, cancer staging"
         }
       ]
+    },
+
+    // ====================================================
+    // CT EXTREMITIES - ADDED FOR CONSISTENCY WITH MRI
+    // ====================================================
+
+    shoulder: {
+      category: "Shoulder",
+      icon: String.fromCodePoint(0x1F4AA), // 💪 Flexed Biceps
+      procedures: [
+        {
+          cpt: "73200",
+          label: "CT Upper Extremity - Without Contrast",
+          shortLabel: "Shoulder - Without",
+          description: "Bone detail, fractures, arthritis",
+          duration: "10-15 min",
+          prep: "Remove metal objects",
+          useCase: "Shoulder fractures, bone detail, arthritis"
+        },
+        {
+          cpt: "73201",
+          label: "CT Upper Extremity - With Contrast",
+          shortLabel: "Shoulder - With",
+          description: "Soft tissue evaluation, tumors",
+          duration: "15-20 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Soft tissue masses, infection, tumor staging"
+        },
+        {
+          cpt: "73202",
+          label: "CT Upper Extremity - With & Without Contrast",
+          shortLabel: "Shoulder - Both",
+          description: "Complete shoulder evaluation",
+          duration: "20-25 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Complex masses, tumor characterization"
+        }
+      ]
+    },
+
+    elbow: {
+      category: "Elbow",
+      icon: String.fromCodePoint(0x1F4AA), // 💪 Flexed Biceps
+      procedures: [
+        {
+          cpt: "73200",
+          label: "CT Upper Extremity - Without Contrast",
+          shortLabel: "Elbow - Without",
+          description: "Bone detail, fractures, loose bodies",
+          duration: "10-15 min",
+          prep: "Remove metal objects",
+          useCase: "Elbow fractures, loose bodies, arthritis"
+        },
+        {
+          cpt: "73201",
+          label: "CT Upper Extremity - With Contrast",
+          shortLabel: "Elbow - With",
+          description: "Soft tissue evaluation, masses",
+          duration: "15-20 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Soft tissue masses, infection evaluation"
+        },
+        {
+          cpt: "73202",
+          label: "CT Upper Extremity - With & Without Contrast",
+          shortLabel: "Elbow - Both",
+          description: "Complete elbow evaluation",
+          duration: "20-25 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Complex pathology, tumor staging"
+        }
+      ]
+    },
+
+    wristCT: {
+      category: "Wrist / Hand",
+      icon: String.fromCodePoint(0x270B), // ✋ Raised Hand
+      procedures: [
+        {
+          cpt: "73200",
+          label: "CT Upper Extremity - Without Contrast",
+          shortLabel: "Wrist - Without",
+          description: "Bone detail, fractures, arthritis",
+          duration: "10-15 min",
+          prep: "Remove metal objects, jewelry",
+          useCase: "Wrist fractures, scaphoid fracture, arthritis"
+        },
+        {
+          cpt: "73201",
+          label: "CT Upper Extremity - With Contrast",
+          shortLabel: "Wrist - With",
+          description: "Soft tissue evaluation, infection",
+          duration: "15-20 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Soft tissue infection, masses"
+        },
+        {
+          cpt: "73202",
+          label: "CT Upper Extremity - With & Without Contrast",
+          shortLabel: "Wrist - Both",
+          description: "Complete wrist evaluation",
+          duration: "20-25 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Complex bone/soft tissue pathology"
+        }
+      ]
+    },
+
+    hipCT: {
+      category: "Hip",
+      icon: String.fromCodePoint(0x1F9B4), // 🦴 Bone
+      procedures: [
+        {
+          cpt: "73700",
+          label: "CT Lower Extremity - Without Contrast",
+          shortLabel: "Hip - Without",
+          description: "Bone detail, fractures, arthritis",
+          duration: "10-15 min",
+          prep: "Remove metal objects",
+          useCase: "Hip fractures, bone detail, prosthesis evaluation"
+        },
+        {
+          cpt: "73701",
+          label: "CT Lower Extremity - With Contrast",
+          shortLabel: "Hip - With",
+          description: "Soft tissue evaluation, infection",
+          duration: "15-20 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Soft tissue masses, infection, tumor staging"
+        },
+        {
+          cpt: "73702",
+          label: "CT Lower Extremity - With & Without Contrast",
+          shortLabel: "Hip - Both",
+          description: "Complete hip evaluation",
+          duration: "20-25 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Complex masses, tumor characterization"
+        }
+      ]
+    },
+
+    kneeCT: {
+      category: "Knee",
+      icon: String.fromCodePoint(0x1F9B5), // 🦵 Leg
+      procedures: [
+        {
+          cpt: "73700",
+          label: "CT Lower Extremity - Without Contrast",
+          shortLabel: "Knee - Without",
+          description: "Bone detail, fractures, loose bodies",
+          duration: "10-15 min",
+          prep: "Remove metal objects",
+          useCase: "Knee fractures, tibial plateau, loose bodies"
+        },
+        {
+          cpt: "73701",
+          label: "CT Lower Extremity - With Contrast",
+          shortLabel: "Knee - With",
+          description: "Soft tissue evaluation, masses",
+          duration: "15-20 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Soft tissue masses, infection evaluation"
+        },
+        {
+          cpt: "73702",
+          label: "CT Lower Extremity - With & Without Contrast",
+          shortLabel: "Knee - Both",
+          description: "Complete knee evaluation",
+          duration: "20-25 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Complex pathology, tumor staging"
+        }
+      ]
+    },
+
+    ankleCT: {
+      category: "Ankle / Foot",
+      icon: String.fromCodePoint(0x1F9B6), // 🦶 Foot
+      procedures: [
+        {
+          cpt: "73700",
+          label: "CT Lower Extremity - Without Contrast",
+          shortLabel: "Ankle - Without",
+          description: "Bone detail, fractures, arthritis",
+          duration: "10-15 min",
+          prep: "Remove metal objects",
+          useCase: "Ankle fractures, calcaneus fracture, arthritis"
+        },
+        {
+          cpt: "73701",
+          label: "CT Lower Extremity - With Contrast",
+          shortLabel: "Ankle - With",
+          description: "Soft tissue evaluation, infection",
+          duration: "15-20 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Soft tissue infection, masses"
+        },
+        {
+          cpt: "73702",
+          label: "CT Lower Extremity - With & Without Contrast",
+          shortLabel: "Ankle - Both",
+          description: "Complete ankle evaluation",
+          duration: "20-25 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Complex bone/soft tissue pathology"
+        }
+      ]
     }
   };
+
+// ====================================================
+// ICON REFERENCE (for easy copying)
+// ====================================================
+// 
+// Upper Extremity Icons:
+// Shoulder/Elbow: String.fromCodePoint(0x1F4AA) // 💪 Flexed Biceps
+// Wrist/Hand:     String.fromCodePoint(0x270B)  // ✋ Raised Hand
+//
+// Lower Extremity Icons:
+// Hip:            String.fromCodePoint(0x1F9B4) // 🦴 Bone
+// Knee:           String.fromCodePoint(0x1F9B5) // 🦵 Leg
+// Ankle/Foot:     String.fromCodePoint(0x1F9B6) // 🦶 Foot
+//
+// Other Common Icons (for reference):
+// Brain:          String.fromCodePoint(0x1F9E0) // 🧠 Brain
+// Lungs:          String.fromCodePoint(0x1FAC1) // 🫁 Lungs
+// Heart:          String.fromCodePoint(0x2764, 0xFE0F) // ❤️ Heart
+// Bone:           String.fromCodePoint(0x1F9B4) // 🦴 Bone
+// Nose:           String.fromCodePoint(0x1F443) // 👃 Nose
+// Eye:            String.fromCodePoint(0x1F441, 0xFE0F) // 👁️ Eye
+// Ribbon:         String.fromCodePoint(0x1F380) // 🎀 Ribbon
+
+  
 
   // ============================================
   // HELPER FUNCTIONS
   // ============================================
 
-  function normalizeRegionKey(region) {
+  function normalizeRegionKey(region, modality) {  // ⭐ UPDATED: Added modality parameter
     if (!region) return null;
     
     const normalized = region.toLowerCase().trim();
@@ -849,7 +1081,17 @@
       'neck (soft tissue)': 'neckSoftTissue'
     };
     
-    return regionMap[normalized] || null;
+    const baseKey = regionMap[normalized] || null;
+    
+    // ⭐ NEW: For CT extremities that need special keys to avoid MRI conflicts
+    if (modality === 'CT' && baseKey) {
+      if (baseKey === 'wrist') return 'wristCT';
+      if (baseKey === 'hip') return 'hipCT';
+      if (baseKey === 'knee') return 'kneeCT';
+      if (baseKey === 'ankle') return 'ankleCT';
+    }
+    
+    return baseKey;
   }
 
   function resolveProcedure(modality, contrast, region) {
@@ -868,8 +1110,8 @@
       return null;
     }
     
-    // Find region
-    const regionKey = normalizeRegionKey(region);
+    // Find region (⭐ UPDATED: Now passes modality to normalizeRegionKey)
+    const regionKey = normalizeRegionKey(region, modality);
     if (!regionKey) {
       console.warn('❌ Region not found:', region);
       return null;
