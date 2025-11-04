@@ -657,6 +657,11 @@ const { remixUrl } = Astro.props;
   <!-- Load the MODAL version of the form controller -->
   <script is:inline src="/js/hero-form-controller-modal.js"></script>
 
+  <!-- 🆕 ADD THIS: Test Phase 1 modules -->
+  <script>
+    import "@/lib/procedures/__tests__/browser-test.ts";
+  </script>
+
   <style>
     @keyframes draw-line {
       from {
