@@ -1,3 +1,6 @@
+
+DEPRECATED!
+
 # Medical Imaging Search Interface - Development Summary
 ## November 3, 2025
 
