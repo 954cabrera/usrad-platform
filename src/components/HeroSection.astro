@@ -654,18 +654,13 @@ const { remixUrl } = Astro.props;
   <script is:inline src="/js/procedures-global.js"></script>
   console.log(window.ProcedureLibrary);
 
-  <!-- Load the MODAL version of the form controller -->
-  <script is:inline src="/js/hero-form-controller-modal.js"></script>
-
-  <!-- Phase 1 Tests -->
   <script>
-    import "@/lib/procedures/__tests__/browser-test.ts";
+    import "@/lib/procedures/controllers/modal-controller.ts";
   </script>
 
-  <!-- Phase 2 Tests - ADD THIS -->
-  <!-- Phase 2 Simple Visual Test - ADD THIS -->
+  <!-- 🆕 ADD: Real-World Test -->
   <script>
-    import "@/lib/procedures/__tests__/simple-phase2-test.ts";
+    import "@/lib/procedures/__tests__/real-world-test.ts";
   </script>
 
   <style>
