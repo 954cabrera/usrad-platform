@@ -547,6 +547,12 @@ function searchByCPT(cptCode) {
   // Search MRI library
   Object.keys(window.ProcedureLibrary.MRI).forEach(regionKey => {
     const region = window.ProcedureLibrary.MRI[regionKey];
+    
+    // Skip entries that use redirects (no procedures array)
+    if (!region.procedures) {
+      return;
+    }
+    
     region.procedures.forEach(proc => {
       if (proc.cpt === cptCode) {
         results.push({
@@ -567,6 +573,12 @@ function searchByCPT(cptCode) {
   // Search CT library
   Object.keys(window.ProcedureLibrary.CT).forEach(regionKey => {
     const region = window.ProcedureLibrary.CT[regionKey];
+    
+    // Skip entries that use redirects (no procedures array)
+    if (!region.procedures) {
+      return;
+    }
+    
     region.procedures.forEach(proc => {
       if (proc.cpt === cptCode) {
         results.push({
@@ -674,7 +686,7 @@ function searchAllProcedures(searchTerm) {
   const results = [];
   const term = searchTerm.toLowerCase().trim();
   
-// 🔢 NEW: Check if it's a CPT code search (5-digit number)
+  // 🔢 Check if it's a CPT code search (5-digit number)
   if (/^\d{5}$/.test(term)) {
     console.log('🔢 CPT code detected:', term);
     return searchByCPT(term);
@@ -682,11 +694,50 @@ function searchAllProcedures(searchTerm) {
 
   console.log('🔍 Searching all procedures for:', term);
   
+  // ============================================
   // Search through MRI library
+  // ============================================
   const mriLibrary = window.ProcedureLibrary?.MRI;
   if (mriLibrary) {
     Object.keys(mriLibrary).forEach(regionKey => {
       const region = mriLibrary[regionKey];
+      
+      // 🔥 FIX: Handle redirects (for shoulder, elbow, hip)
+      if (region.redirectTo) {
+        const targetRegion = mriLibrary[region.redirectTo];
+        if (targetRegion && targetRegion.procedures) {
+          // Check if search term matches original category
+          const categoryLower = region.category.toLowerCase();
+          const matchesCategory = categoryLower.includes(term);
+          const matchesKey = regionKey.toLowerCase().includes(term);
+          
+          if (matchesCategory || matchesKey) {
+            console.log(`✅ Found redirect: ${region.category} → ${region.redirectTo}`);
+            // Add procedures from target region
+            targetRegion.procedures.forEach(proc => {
+              results.push({
+                modality: 'MRI',
+                category: region.category, // Use original name (e.g., "Shoulder")
+                icon: region.icon || targetRegion.icon,
+                cpt: proc.cpt,
+                label: proc.label,
+                shortLabel: proc.shortLabel,
+                description: proc.description,
+                duration: proc.duration,
+                prep: proc.prep,
+                useCase: proc.useCase
+              });
+            });
+          }
+        }
+        // Don't process this region further - it's just a redirect
+        return; // ✅ This is OK - inside forEach, acts like "continue"
+      }
+      
+      // Skip if no procedures
+      if (!region.procedures || region.procedures.length === 0) {
+        return; // ✅ This is OK - inside forEach
+      }
       
       // Check if search term matches category
       const categoryLower = region.category.toLowerCase();
@@ -715,11 +766,47 @@ function searchAllProcedures(searchTerm) {
     });
   }
   
+  // ============================================
   // Search through CT library
+  // ============================================
   const ctLibrary = window.ProcedureLibrary?.CT;
   if (ctLibrary) {
     Object.keys(ctLibrary).forEach(regionKey => {
       const region = ctLibrary[regionKey];
+      
+      // 🔥 FIX: Handle redirects for CT too
+      if (region.redirectTo) {
+        const targetRegion = ctLibrary[region.redirectTo];
+        if (targetRegion && targetRegion.procedures) {
+          const categoryLower = region.category.toLowerCase();
+          const matchesCategory = categoryLower.includes(term);
+          const matchesKey = regionKey.toLowerCase().includes(term);
+          
+          if (matchesCategory || matchesKey) {
+            console.log(`✅ Found CT redirect: ${region.category} → ${region.redirectTo}`);
+            targetRegion.procedures.forEach(proc => {
+              results.push({
+                modality: 'CT',
+                category: region.category,
+                icon: region.icon || targetRegion.icon,
+                cpt: proc.cpt,
+                label: proc.label,
+                shortLabel: proc.shortLabel,
+                description: proc.description,
+                duration: proc.duration,
+                prep: proc.prep,
+                useCase: proc.useCase
+              });
+            });
+          }
+        }
+        return; // ✅ This is OK - inside forEach
+      }
+      
+      // Skip if no procedures
+      if (!region.procedures || region.procedures.length === 0) {
+        return; // ✅ This is OK - inside forEach
+      }
       
       const categoryLower = region.category.toLowerCase();
       const matchesCategory = categoryLower.includes(term);
@@ -744,13 +831,15 @@ function searchAllProcedures(searchTerm) {
     });
   }
   
+  // ============================================
   // Special case: Add Mammography if searching for "breast"
+  // ============================================
   if (term.includes('breast') || term === 'mammo' || term === 'mammogram') {
     results.push(
       {
         modality: 'Mammography',
         category: 'Breast',
-        icon: String.fromCodePoint(0x1F397), // Medal ribbon
+        icon: String.fromCodePoint(0x1F397), // 🎗️
         cpt: '77067',
         label: 'Screening Mammogram',
         shortLabel: 'Screening',
@@ -790,12 +879,158 @@ function searchAllProcedures(searchTerm) {
   return results;
 }
 
+console.log('✅ Fixed searchAllProcedures function ready!');
+
+
+
+// ============================================================================
+// FIX 3: Ensure displayGroupedResults exists and handles the fallback
+// ============================================================================
+
+/**
+ * ADD this function if it doesn't exist, or UPDATE if it does
+ */
+function displayGroupedResults(modalResults, results, query, preSelectedContrast) {
+  if (!modalResults) return;
+  
+  // If no results, show no results message
+  if (results.length === 0) {
+    displayNoResults(modalResults, query, preSelectedContrast);
+    return;
+  }
+  
+  // Group results by modality
+  const grouped = {};
+  results.forEach(proc => {
+    if (!grouped[proc.modality]) grouped[proc.modality] = [];
+    grouped[proc.modality].push(proc);
+  });
+  
+  // Build HTML
+  let html = `
+    <div class="space-y-6 p-6">
+      <div class="text-center mb-6">
+        <h3 class="text-2xl font-bold text-gray-900">
+          ${results.length} ${results.length === 1 ? 'procedure' : 'procedures'} found for "${query}"
+        </h3>
+        ${preSelectedContrast ? `
+          <p class="text-sm text-gray-600 mt-2">
+            Filtered by: <span class="font-semibold">${getContrastLabel(preSelectedContrast)}</span>
+          </p>
+        ` : ''}
+      </div>
+  `;
+  
+  // Display grouped by modality
+  Object.keys(grouped).sort().forEach(modality => {
+    const procedures = grouped[modality];
+    
+    let modalityColor = '#003087';
+    if (modality === 'CT') modalityColor = '#0052cc';
+    if (modality === 'Mammography') modalityColor = '#ec4899';
+    
+    html += `
+      <div class="mb-6">
+        <h4 class="text-lg font-bold mb-3 pb-2 border-b-2 flex items-center gap-2" style="color: ${modalityColor}; border-color: ${modalityColor};">
+          <span class="text-2xl">${getModalityIcon(modality)}</span>
+          <span>${modality}</span>
+          <span class="text-sm font-normal text-gray-500">(${procedures.length})</span>
+        </h4>
+        <div class="space-y-2">
+    `;
+    
+    procedures.forEach(proc => {
+      const iconDisplay = typeof proc.icon === 'string' && proc.icon.includes('fromCodePoint') 
+        ? eval(proc.icon) 
+        : proc.icon || '🩺';
+      
+      html += `
+        <button
+          type="button"
+          class="comprehensive-result-button w-full p-4 text-left border-2 border-gray-200 rounded-xl hover:border-[#003087] hover:bg-blue-50 transition-all duration-200 group"
+          data-comprehensive-cpt="${proc.cpt}"
+          data-comprehensive-label="${proc.label}"
+        >
+          <div class="flex items-start gap-3">
+            <span class="text-2xl flex-shrink-0">${iconDisplay}</span>
+            <div class="flex-1 min-w-0">
+              <div class="font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
+                ${proc.label}
+              </div>
+              <div class="text-sm text-gray-600 mt-1 line-clamp-2">${proc.description}</div>
+              <div class="flex items-center gap-4 mt-2 text-xs text-gray-500 flex-wrap">
+                <span class="font-mono bg-gray-100 px-2 py-0.5 rounded">CPT: ${proc.cpt}</span>
+                <span>⏱️ ${proc.duration}</span>
+              </div>
+            </div>
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#003087] group-hover:translate-x-1 transition-all flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </button>
+      `;
+    });
+    
+    html += `
+        </div>
+      </div>
+    `;
+  });
+  
+  html += `
+    </div>
+  `;
+  
+  modalResults.innerHTML = html;
+  
+  // Add click handlers for results
+  modalResults.querySelectorAll('.comprehensive-result-button').forEach(button => {
+    button.addEventListener('click', function() {
+      const cpt = this.dataset.comprehensiveCpt;
+      const label = this.dataset.comprehensiveLabel;
+      console.log(`✅ Selected via comprehensive search: ${label} [${cpt}]`);
+      handleDirectProcedureSelection(cpt, label);
+    });
+  });
+}
+
+console.log('✅ Bug fixes applied for Scenarios 3, 4, and 6!');
+
+
+
 /**
  * Display comprehensive search results grouped by modality
  * 
  * @param {string} query - User's search query
  */
-function displayComprehensiveSearch(query) {
+/**
+ * SMART SEARCH DISPLAY SYSTEM
+ * ============================
+ * Handles ambiguous body parts and contrast availability
+ * 
+ * Add this to hero-form-controller-modal.js
+ * 
+ * Features:
+ * - Detects ambiguous body parts (knee, wrist, ankle)
+ * - Shows category selection UI when needed
+ * - Filters by pre-selected contrast
+ * - Displays clear availability warnings
+ */
+
+/**
+ * Main comprehensive search function - UPDATED
+ * Now handles ambiguity detection and contrast filtering
+ */
+/**
+ * FIXED displayComprehensiveSearch Function
+ * ==========================================
+ * Fix: Accepts selectedContrast parameter to handle Scenario 3 & 4
+ * 
+ * REPLACE the displayComprehensiveSearch function in hero-form-controller-modal.js
+ * (approximately line 793)
+ */
+
+function displayComprehensiveSearch(query, selectedContrast) {
   const results = searchAllProcedures(query);
   const modalResults = document.getElementById('modal-results');
   
@@ -828,7 +1063,7 @@ function displayComprehensiveSearch(query) {
         const modalInput = document.getElementById('modal-search-input');
         if (modalInput) {
           modalInput.value = suggestion;
-          displayComprehensiveSearch(suggestion);
+          displayComprehensiveSearch(suggestion, selectedContrast);
         }
       });
     });
@@ -850,6 +1085,14 @@ function displayComprehensiveSearch(query) {
           ${results.length} ${results.length === 1 ? 'procedure' : 'procedures'} found for "${query}"
         </h3>
         <p class="text-gray-600 mt-2">Select the procedure you need</p>
+        ${selectedContrast ? `
+          <div class="mt-3 inline-flex items-center px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800">
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+            </svg>
+            Filtered for: <strong class="ml-1">${CONTRAST_CONFIG[selectedModality]?.options.find(o => o.id === selectedContrast)?.label || selectedContrast}</strong>
+          </div>
+        ` : ''}
       </div>
   `;
   
@@ -940,6 +1183,11 @@ function displayComprehensiveSearch(query) {
   const backBtn = modalResults.querySelector('#back-to-empty-search');
   if (backBtn) {
     backBtn.addEventListener('click', () => {
+      // Reset ALL state
+      selectedModality = null;
+      selectedContrast = null;
+      selectedRegion = null;
+      
       const modalInput = document.getElementById('modal-search-input');
       if (modalInput) {
         modalInput.value = '';
@@ -958,6 +1206,433 @@ function displayComprehensiveSearch(query) {
     });
   }
 }
+
+console.log('✅ Fixed displayComprehensiveSearch function ready!');
+
+/**
+ * Display category selection UI for ambiguous body parts
+ * e.g., Knee could be Joint OR Bone
+ */
+function displayAmbiguousCategorySelection(bodyPart, preSelectedContrast) {
+  const modalResults = document.getElementById('modal-results');
+  
+  // Get categories for this body part
+  const mriCategories = window.ProcedureHelpers?.getCategoriesForBodyPart(bodyPart, 'MRI') || [];
+  const ctCategories = window.ProcedureHelpers?.getCategoriesForBodyPart(bodyPart, 'CT') || [];
+  
+  const allCategories = [];
+  
+  // Add MRI categories
+  mriCategories.forEach(cat => {
+    allCategories.push({
+      modality: 'MRI',
+      ...cat
+    });
+  });
+  
+  // Add CT categories
+  ctCategories.forEach(cat => {
+    allCategories.push({
+      modality: 'CT',
+      ...cat
+    });
+  });
+  
+  // Filter by contrast if pre-selected
+  const filteredCategories = allCategories.filter(cat => {
+    if (!preSelectedContrast) return true;
+    
+    const available = cat.data?.contrastAvailability || [];
+    return available.includes(preSelectedContrast);
+  });
+  
+  if (filteredCategories.length === 0) {
+    // No categories support this contrast - show error
+    modalResults.innerHTML = `
+      <div class="text-center py-12">
+        <svg class="w-16 h-16 mx-auto mb-4 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+        </svg>
+        <p class="text-xl font-bold text-gray-900 mb-4">Limited Availability</p>
+        <p class="text-gray-600 mb-6">
+          "${bodyPart}" imaging with "${getContrastLabel(preSelectedContrast)}" is not available.
+        </p>
+        <p class="text-sm text-gray-600 mb-4">
+          This body part requires different contrast options. Available options:
+        </p>
+        <button
+          type="button"
+          id="clear-contrast-filter"
+          class="px-6 py-3 bg-[#003087] text-white rounded-lg hover:bg-[#002060] transition-colors"
+        >
+          Show All Available Options
+        </button>
+      </div>
+    `;
+    
+    // Add click handler to clear filter
+    document.getElementById('clear-contrast-filter')?.addEventListener('click', () => {
+      displayAmbiguousCategorySelection(bodyPart, null);
+    });
+    
+    return;
+  }
+  
+  // Build HTML for category selection
+  let html = `
+    <div class="space-y-6 p-6">
+      <!-- Header -->
+      <div class="text-center">
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+          Which type of ${bodyPart} imaging do you need?
+        </h3>
+        <p class="text-gray-600">Select the category that matches your prescription</p>
+        ${preSelectedContrast ? `
+          <div class="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Showing only "${getContrastLabel(preSelectedContrast)}" options
+            <button type="button" class="text-blue-600 hover:text-blue-800 underline" onclick="displayAmbiguousCategorySelection('${bodyPart}', null)">
+              Show all
+            </button>
+          </div>
+        ` : ''}
+      </div>
+      
+      <!-- Category Cards -->
+      <div class="space-y-4">
+  `;
+  
+  filteredCategories.forEach((cat, index) => {
+    const isFirst = index === 0;
+    const modalityColor = cat.modality === 'MRI' ? '#003087' : '#0052cc';
+    const available = cat.data?.contrastAvailability || [];
+    
+    // Get procedures for this category
+    let procedures = cat.data?.procedures || [];
+    if (preSelectedContrast) {
+      procedures = window.ProcedureHelpers?.filterByContrast(cat.data, preSelectedContrast) || [];
+    }
+    
+    html += `
+      <button
+        type="button"
+        class="category-selection-card w-full p-6 text-left border-2 ${isFirst ? 'border-[#003087] bg-blue-50' : 'border-gray-200'} rounded-xl hover:border-[#003087] hover:bg-blue-50 transition-all duration-200 group"
+        data-category-key="${cat.key}"
+        data-modality="${cat.modality}"
+      >
+        <div class="flex items-start gap-4">
+          <!-- Icon -->
+          <div class="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center text-3xl" style="background: ${modalityColor}20;">
+            ${typeof cat.icon === 'string' && cat.icon.includes('fromCodePoint') ? eval(cat.icon) : cat.icon}
+          </div>
+          
+          <!-- Content -->
+          <div class="flex-1 min-w-0">
+            <!-- Title -->
+            <div class="flex items-center gap-2 mb-2">
+              <h4 class="font-bold text-lg text-gray-900 group-hover:text-[#003087] transition-colors">
+                ${cat.label}
+              </h4>
+              ${isFirst ? `
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                  Most Common
+                </span>
+              ` : ''}
+            </div>
+            
+            <!-- Description -->
+            <p class="text-sm text-gray-700 mb-3">
+              ${cat.description}
+            </p>
+            
+            <!-- Modality Badge -->
+            <div class="flex items-center gap-3 mb-3">
+              <span class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold text-white" style="background: ${modalityColor};">
+                ${cat.modality}
+              </span>
+              <span class="text-xs text-gray-600">
+                ${cat.data?.includes || ''}
+              </span>
+            </div>
+            
+            <!-- Available Contrasts -->
+            <div class="text-sm text-gray-600">
+              <span class="font-semibold">Available contrasts:</span>
+              <div class="flex flex-wrap gap-2 mt-1">
+                ${available.map(contrast => {
+                  const label = getContrastLabel(contrast);
+                  const isSelected = contrast === preSelectedContrast;
+                  return `
+                    <span class="inline-flex items-center px-2 py-1 rounded ${isSelected ? 'bg-[#003087] text-white' : 'bg-gray-100 text-gray-700'}">
+                      ${isSelected ? '✓ ' : ''}${label}
+                    </span>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+            
+            <!-- Procedure count -->
+            <p class="text-xs text-gray-500 mt-2">
+              ${procedures.length} procedure${procedures.length !== 1 ? 's' : ''} available
+            </p>
+          </div>
+          
+          <!-- Arrow -->
+          <div class="flex-shrink-0">
+            <svg class="w-6 h-6 text-gray-400 group-hover:text-[#003087] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </div>
+      </button>
+    `;
+  });
+  
+  html += `
+      </div>
+      
+      <!-- Help Text -->
+      <div class="text-center pt-4 border-t border-gray-200">
+        <p class="text-sm text-gray-600 mb-2">
+          💡 Not sure which one? Check your doctor's prescription or imaging order.
+        </p>
+        <button
+          type="button"
+          id="back-to-search-ambiguous"
+          class="text-gray-600 hover:text-[#003087] font-medium transition-colors text-sm"
+        >
+          ← Search for different body part
+        </button>
+      </div>
+    </div>
+  `;
+  
+  modalResults.innerHTML = html;
+  
+  // Add click handlers for category cards
+  modalResults.querySelectorAll('.category-selection-card').forEach(card => {
+    card.addEventListener('click', function() {
+      const categoryKey = this.dataset.categoryKey;
+      const modality = this.dataset.modality;
+      
+      console.log('✅ Category selected:', categoryKey, modality);
+      
+      // Show procedures for this category
+      displayCategoryProcedures(categoryKey, modality, preSelectedContrast, bodyPart);
+    });
+  });
+  
+  // Back button handler
+  document.getElementById('back-to-search-ambiguous')?.addEventListener('click', () => {
+    const modalInput = document.getElementById('modal-search-input');
+    if (modalInput) {
+      modalInput.value = '';
+      modalInput.focus();
+    }
+    showEmptySearchState(modalResults);
+  });
+}
+
+/**
+ * Display procedures for a selected category
+ */
+function displayCategoryProcedures(categoryKey, modality, preSelectedContrast, bodyPart) {
+  const modalResults = document.getElementById('modal-results');
+  const library = modality === 'MRI' ? window.ProcedureLibrary.MRI : window.ProcedureLibrary.CT;
+  const category = library[categoryKey];
+  
+  if (!category) {
+    console.error('❌ Category not found:', categoryKey);
+    return;
+  }
+  
+  // Get procedures
+  let procedures = category.procedures;
+  if (preSelectedContrast) {
+    procedures = window.ProcedureHelpers?.filterByContrast(category, preSelectedContrast) || [];
+  }
+  
+  // Build HTML
+  let html = `
+    <div class="space-y-6 p-6">
+      <!-- Breadcrumb -->
+      <div class="flex items-center gap-2 text-sm text-gray-600">
+        <button type="button" onclick="displayAmbiguousCategorySelection('${bodyPart}', ${preSelectedContrast ? `'${preSelectedContrast}'` : 'null'})" class="hover:text-[#003087] transition-colors">
+          ${bodyPart}
+        </button>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+        <span class="font-semibold text-gray-900">${category.category}</span>
+      </div>
+      
+      <!-- Header -->
+      <div class="text-center">
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+          Select your procedure
+        </h3>
+        <p class="text-gray-600">${category.includes}</p>
+      </div>
+      
+      <!-- Procedures -->
+      <div class="space-y-3">
+  `;
+  
+  procedures.forEach(proc => {
+    html += `
+      <button
+        type="button"
+        class="procedure-select-button w-full p-5 text-left border-2 border-gray-200 rounded-xl hover:border-[#003087] hover:bg-blue-50 transition-all duration-200 group"
+        data-cpt="${proc.cpt}"
+        data-label="${proc.label}"
+      >
+        <div class="flex items-start gap-4">
+          <!-- Icon -->
+          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-[#003087] to-[#0052cc] flex items-center justify-center text-white text-xl group-hover:scale-110 transition-transform">
+            ${typeof category.icon === 'string' && category.icon.includes('fromCodePoint') ? eval(category.icon) : category.icon}
+          </div>
+          
+          <!-- Content -->
+          <div class="flex-1 min-w-0">
+            <div class="font-semibold text-gray-900 group-hover:text-[#003087] mb-1 transition-colors">
+              ${proc.shortLabel}
+            </div>
+            <div class="text-sm text-gray-600 mb-2">
+              ${proc.description}
+            </div>
+            <div class="flex items-center gap-4 text-xs text-gray-500">
+              <span class="font-mono bg-gray-100 px-2 py-0.5 rounded">CPT: ${proc.cpt}</span>
+              <span>⏱️ ${proc.duration}</span>
+            </div>
+          </div>
+          
+          <!-- Arrow -->
+          <div class="flex-shrink-0">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#003087] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </div>
+      </button>
+    `;
+  });
+  
+  html += `
+      </div>
+      
+      <!-- Back Button -->
+      <div class="text-center pt-4 border-t border-gray-200">
+        <button
+          type="button"
+          onclick="displayAmbiguousCategorySelection('${bodyPart}', ${preSelectedContrast ? `'${preSelectedContrast}'` : 'null'})"
+          class="text-gray-600 hover:text-[#003087] font-medium transition-colors"
+        >
+          ← Back to category selection
+        </button>
+      </div>
+    </div>
+  `;
+  
+  modalResults.innerHTML = html;
+  
+  // Add click handlers
+  modalResults.querySelectorAll('.procedure-select-button').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const cpt = this.dataset.cpt;
+      const label = this.dataset.label;
+      console.log('✅ Procedure selected:', label, cpt);
+      handleDirectProcedureSelection(cpt, label);
+    });
+  });
+}
+
+/**
+ * Filter comprehensive search results by contrast
+ */
+function filterResultsByContrast(results, contrast) {
+  return results.filter(proc => {
+    // Check if this procedure's category supports this contrast
+    const modality = proc.modality;
+    const library = modality === 'MRI' ? window.ProcedureLibrary.MRI : window.ProcedureLibrary.CT;
+    
+    // Find the category this procedure belongs to
+    for (const categoryKey in library) {
+      const category = library[categoryKey];
+      if (category.procedures && category.procedures.some(p => p.cpt === proc.cpt)) {
+        const available = category.contrastAvailability || [];
+        return available.includes(contrast);
+      }
+    }
+    
+    return false;
+  });
+}
+
+/**
+ * Helper: Get user-friendly contrast label
+ */
+function getContrastLabel(contrast) {
+  const labels = {
+    'without': 'Without Contrast',
+    'with': 'With Contrast',
+    'both': 'With & Without Contrast'
+  };
+  return labels[contrast] || contrast;
+}
+
+/**
+ * Helper: Show empty search state
+ */
+function showEmptySearchState(container) {
+  container.innerHTML = `
+    <div class="text-center py-12 text-gray-500">
+      <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+      <p class="text-lg font-medium">Start typing to search procedures</p>
+      <p class="text-sm mt-1">Try "MRI", "CT Scan", or a body part like "knee"</p>
+    </div>
+  `;
+}
+
+/**
+ * Helper: Display no results
+ */
+function displayNoResults(container, query, contrast) {
+  container.innerHTML = `
+    <div class="text-center py-12">
+      <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <p class="text-lg font-medium text-gray-900 mb-2">No procedures found</p>
+      <p class="text-sm text-gray-600">
+        ${contrast 
+          ? `No "${query}" procedures available with "${getContrastLabel(contrast)}"`
+          : `No procedures found for "${query}"`
+        }
+      </p>
+      ${contrast ? `
+        <button
+          type="button"
+          onclick="displayComprehensiveSearch('${query}', null)"
+          class="mt-4 px-4 py-2 bg-[#003087] text-white rounded-lg hover:bg-[#002060] transition-colors"
+        >
+          Show All Contrast Options
+        </button>
+      ` : `
+        <div class="mt-4 flex flex-wrap justify-center gap-2 text-xs">
+          <button class="suggestion-chip" onclick="displayComprehensiveSearch('knee', null)">Knee</button>
+          <button class="suggestion-chip" onclick="displayComprehensiveSearch('spine', null)">Spine</button>
+          <button class="suggestion-chip" onclick="displayComprehensiveSearch('brain', null)">Brain</button>
+        </div>
+      `}
+    </div>
+  `;
+}
+
+console.log('✅ Smart search display system loaded!');
 
 /**
  * Get icon for modality
@@ -997,6 +1672,9 @@ console.log('✅ Comprehensive search system loaded');
     return;
   }
   
+  // 🔥 FIX: Check if user has pre-selected modality and contrast
+  const preSelectedContrast = selectedContrast; // This comes from global state
+  
   // 🎯 Check if user typed a modality
   const detectedModality = detectModality(query.trim());
   
@@ -1025,8 +1703,10 @@ console.log('✅ Comprehensive search system loaded');
   }
   
   // 🔍 NOT a modality - Use comprehensive search!
-  console.log('🔍 Not a modality - triggering comprehensive search');
-  displayComprehensiveSearch(query);
+  console.log('🔍 Not a modality - triggering comprehensive search with contrast:', preSelectedContrast);
+  
+  // 🔥 FIX: Pass pre-selected contrast to comprehensive search
+  displayComprehensiveSearch(query, preSelectedContrast);
 }
 
 // ═══════════════════════════════════════════════════════
