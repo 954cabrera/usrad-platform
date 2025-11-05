@@ -401,17 +401,20 @@ function attachRegionListeners(): void {
     btn.addEventListener('click', (e) => {
       const target = e.currentTarget as HTMLElement;
       const regionLabel = target.dataset.regionLabel;
+      const regionKey = target.dataset.regionKey; // NEW: Get the actual key
       
       if (!regionLabel) return;
       
-      console.log('✅ Region selected:', regionLabel);
+      console.log('✅ Region selected:', regionLabel, 'Key:', regionKey);
       selectionFlow.setRegion(regionLabel);
       
       // X-RAY PATH: Show view selection instead of resolving
       const state = selectionFlow.getState();
       if (state.modality === 'X-Ray') {
         console.log('🔬 X-Ray path - showing view selection');
-        showXRayViewSelection(regionLabel);
+        // Use regionKey if available, otherwise try to derive it from label
+        const keyToUse = regionKey || deriveRegionKey(regionLabel);
+        showXRayViewSelection(keyToUse);
         return;
       }
       
@@ -445,6 +448,28 @@ function attachRegionListeners(): void {
 // ============================================
 // X-RAY VIEW LISTENERS (NEW!)
 // ============================================
+
+/**
+ * Derive region key from display label
+ * Handles cases like "Lumbar Spine (Low Back)" → "lumbarSpine"
+ */
+function deriveRegionKey(label: string): string {
+  // Remove parentheses content
+  let clean = label.replace(/\([^)]*\)/g, '').trim();
+  
+  // Split into words
+  const words = clean.split(/\s+/);
+  
+  // Convert to camelCase
+  let camelCase = words[0].toLowerCase(); // First word lowercase
+  for (let i = 1; i < words.length; i++) {
+    // Capitalize first letter of each subsequent word
+    camelCase += words[i].charAt(0).toUpperCase() + words[i].slice(1).toLowerCase();
+  }
+  
+  console.log('🔑 Derived key from "' + label + '" → "' + camelCase + '"');
+  return camelCase;
+}
 
 /**
  * Attach event listeners to X-Ray view selection buttons

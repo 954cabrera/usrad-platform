@@ -264,21 +264,31 @@ function parseSearchQuery(searchTerm: string): {
   }
   
   // Detect region using synonyms (check both exact match and contains)
-  for (const [regionKey, synonyms] of Object.entries(XRAY_REGION_SYNONYMS)) {
-    for (const token of tokens) {
-      // Check if any synonym matches the token exactly, or if the token contains the synonym
-      const matches = synonyms.some(syn => {
-        const synLower = syn.toLowerCase();
-        const tokenLower = token.toLowerCase();
-        return tokenLower === synLower || tokenLower.includes(synLower) || synLower.includes(tokenLower);
-      });
-      
-      if (matches) {
-        region = regionKey;
-        break;
+  // BUT: Skip if the entire query is just modality keywords
+  const isOnlyModalityQuery = tokens.every(t => modalityTokens.includes(t) || t === 'x' || t === 'ray');
+  
+  if (!isOnlyModalityQuery) {
+    for (const [regionKey, synonyms] of Object.entries(XRAY_REGION_SYNONYMS)) {
+      for (const token of tokens) {
+        // Skip modality tokens
+        if (modalityTokens.includes(token) || token === 'x' || token === 'ray') {
+          continue;
+        }
+        
+        // Check if any synonym matches the token exactly, or if the token contains the synonym
+        const matches = synonyms.some(syn => {
+          const synLower = syn.toLowerCase();
+          const tokenLower = token.toLowerCase();
+          return tokenLower === synLower || tokenLower.includes(synLower) || synLower.includes(tokenLower);
+        });
+        
+        if (matches) {
+          region = regionKey;
+          break;
+        }
       }
+      if (region) break;
     }
-    if (region) break;
   }
   
   // If we detected a region but no modality, infer X-Ray modality
@@ -506,7 +516,7 @@ function searchInXRayLibrary(
     }
     
     // For generic "xray" search, match ALL regions
-    const isGenericXraySearch = (term === 'xray' || term === 'x-ray');
+    const isGenericXraySearch = (term === 'xray' || term === 'x-ray' || term === 'x ray');
     
     if (matchesCategory || matchesKey || matchesSynonym || isCPTSearch || isGenericXraySearch) {
       // Add ALL view options from this region

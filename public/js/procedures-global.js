@@ -1719,15 +1719,22 @@
       const library = window.ProcedureLibrary['X-Ray'];
       if (!library) return [];
       
-      // Normalize region key to lowercase for lookup
-      const normalizedKey = regionKey.toLowerCase().replace(/\s+/g, '');
+      // Try direct lookup first with original key (handles camelCase properly)
+      let region = library[regionKey];
       
-      // Try direct lookup first
-      let region = library[normalizedKey];
-      
-      // If not found, try common variations
+      // If not found, try lowercase normalization
       if (!region) {
+        const normalizedKey = regionKey.toLowerCase().replace(/\s+/g, '');
+        region = library[normalizedKey];
+      }
+      
+      // If still not found, try common variations
+      if (!region) {
+        const normalizedKey = regionKey.toLowerCase().replace(/\s+/g, '');
         const regionMap = {
+          'lumbarspine': 'lumbarSpine',
+          'cervicalspine': 'cervicalSpine',
+          'thoracicspine': 'thoracicSpine',
           'cspine': 'cervicalSpine',
           'tspine': 'thoracicSpine',
           'lspine': 'lumbarSpine',

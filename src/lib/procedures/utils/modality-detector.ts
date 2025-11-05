@@ -36,7 +36,7 @@ export interface ContrastConfiguration {
 }
 
 // ============================================
-// MODALITY ALIASES (User Input → Standard Name)
+// MODALITY ALIASES (User Input â†’ Standard Name)
 // ============================================
 
 const MODALITY_ALIASES: Record<string, Modality> = {
@@ -55,6 +55,7 @@ const MODALITY_ALIASES: Record<string, Modality> = {
   // X-Ray
   'xray': 'X-Ray',
   'x-ray': 'X-Ray',
+  'x ray': 'X-Ray',
   'xra': 'X-Ray',
   'x-ra': 'X-Ray',
   'radiograph': 'X-Ray',
@@ -221,15 +222,15 @@ export function isValidModality(value: string): value is Modality {
  */
 export function getModalityIcon(modality: Modality): string {
   const icons: Record<Modality, string> = {
-    'MRI': '🧲',
-    'CT': '⚡',
-    'X-Ray': '📸',
-    'Ultrasound': '📊',
-    'Mammography': '🎀',
-    'PET': '☢️',
-    'Nuclear Medicine': '⚛️'
+    'MRI': 'ðŸ§²',
+    'CT': 'âš¡',
+    'X-Ray': 'ðŸ“¸',
+    'Ultrasound': 'ðŸ“Š',
+    'Mammography': 'ðŸŽ€',
+    'PET': 'â˜¢ï¸',
+    'Nuclear Medicine': 'âš›ï¸'
   };
-  return icons[modality] || '🩺';
+  return icons[modality] || 'ðŸ©º';
 }
 
 /**
@@ -251,4 +252,4 @@ export function getModalityColor(modality: Modality): string {
   return colors[modality] || '#003087';
 }
 
-console.log('✅ Modality Detector loaded');
+console.log('âœ… Modality Detector loaded');
