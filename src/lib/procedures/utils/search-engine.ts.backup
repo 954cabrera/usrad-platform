@@ -1,12 +1,12 @@
 /**
  * COMPREHENSIVE PROCEDURE SEARCH ENGINE
  * ======================================
- * Searches across all modalities (MRI, CT, X-Ray, Mammography, etc.)
- * NOW WITH: X-Ray view token detection and intelligent search
+ * Searches across all modalities (MRI, CT, Mammography, etc.)
+ * Extracted from hero-form-controller-modal.js lines 650-850
  * 
  * Usage:
  *   import { searchAllProcedures, searchByCPT } from './search-engine';
- *   const results = searchAllProcedures('chest xray 2 view');
+ *   const results = searchAllProcedures('knee');
  */
 
 // ============================================
@@ -37,80 +37,6 @@ export interface SpecialProcedure {
   prep: string;
   useCase: string;
 }
-
-// ============================================
-// X-RAY VIEW TOKEN CONFIGURATION
-// ============================================
-
-/**
- * View tokens for X-Ray search intelligence
- * Maps user input to view identifiers in the data
- */
-const XRAY_VIEW_TOKENS = {
-  // Numeric views
-  '1v': '1',
-  '1view': '1',
-  '1-view': '1',
-  '2v': '2',
-  '2view': '2',
-  '2-view': '2',
-  '3v': '3',
-  '3view': '3',
-  '3-view': '3',
-  '4v': '4',
-  '4view': '4',
-  '4-view': '4',
-  '5v': '5',
-  '5view': '5',
-  '5-view': '5',
-  '6v': '6',
-  '6view': '6',
-  '6-view': '6',
-  
-  // Special view types
-  'lordotic': 'lordotic',
-  'apical': 'lordotic',
-  'oblique': 'oblique',
-  'flexion': 'flexion',
-  'flex': 'flexion',
-  'extension': 'extension',
-  'ext': 'extension',
-  'standing': 'standing',
-  'weightbearing': 'standing',
-  'weight-bearing': 'standing',
-  'complete': 'complete',
-  'comprehensive': 'complete',
-  
-  // Medical terminology
-  'pa': 'PA',
-  'ap': 'AP',
-  'lateral': 'lateral',
-  'lat': 'lateral'
-};
-
-/**
- * Region synonyms for better X-Ray search
- */
-const XRAY_REGION_SYNONYMS: Record<string, string[]> = {
-  'chest': ['chest', 'cxr', 'thorax', 'lungs', 'ribs'],
-  'cervicalSpine': ['cervical', 'c-spine', 'cspine', 'neck', 'cervical spine'],
-  'thoracicSpine': ['thoracic', 't-spine', 'tspine', 'thoracic spine', 'mid back'],
-  'lumbarSpine': ['lumbar', 'l-spine', 'lspine', 'lumbar spine', 'lower back', 'low back'],
-  'knee': ['knee', 'knees'],
-  'shoulder': ['shoulder', 'shoulders'],
-  'ankle': ['ankle', 'ankles'],
-  'foot': ['foot', 'feet'],
-  'hand': ['hand', 'hands'],
-  'wrist': ['wrist', 'wrists'],
-  'hip': ['hip', 'hips'],
-  'elbow': ['elbow', 'elbows'],
-  'pelvis': ['pelvis', 'pelvic'],
-  'abdomen': ['abdomen', 'kub', 'belly'],
-  'clavicle': ['clavicle', 'collar bone', 'collarbone'],
-  'femur': ['femur', 'thigh bone', 'thigh'],
-  'tibia': ['tibia', 'shin', 'shin bone'],
-  'ribs': ['ribs', 'rib']
-};
 
 // ============================================
 // SPECIAL PROCEDURES (Non-MRI/CT)
@@ -236,102 +162,6 @@ const PET_PROCEDURES: Record<string, SpecialProcedure> = {
 };
 
 // ============================================
-// SEARCH INTELLIGENCE FUNCTIONS
-// ============================================
-
-/**
- * Parse search query to extract modality, region, and view tokens
- * Example: "chest xray 2 view" → { modality: 'X-Ray', region: 'chest', viewToken: '2' }
- */
-function parseSearchQuery(searchTerm: string): {
-  modality: string | null;
-  region: string | null;
-  viewToken: string | null;
-  originalQuery: string;
-} {
-  const term = searchTerm.toLowerCase().trim();
-  const tokens = term.split(/\s+/);
-  
-  let modality: string | null = null;
-  let region: string | null = null;
-  let viewToken: string | null = null;
-  
-  // Detect modality
-  const modalityTokens = ['xray', 'x-ray', 'mri', 'ct', 'mammo', 'mammogram'];
-  const modalityMatch = tokens.find(t => modalityTokens.includes(t));
-  if (modalityMatch === 'xray' || modalityMatch === 'x-ray') {
-    modality = 'X-Ray';
-  }
-  
-  // Detect region using synonyms (check both exact match and contains)
-  for (const [regionKey, synonyms] of Object.entries(XRAY_REGION_SYNONYMS)) {
-    for (const token of tokens) {
-      // Check if any synonym matches the token exactly, or if the token contains the synonym
-      const matches = synonyms.some(syn => {
-        const synLower = syn.toLowerCase();
-        const tokenLower = token.toLowerCase();
-        return tokenLower === synLower || tokenLower.includes(synLower) || synLower.includes(tokenLower);
-      });
-      
-      if (matches) {
-        region = regionKey;
-        break;
-      }
-    }
-    if (region) break;
-  }
-  
-  // If we detected a region but no modality, infer X-Ray modality
-  if (region && !modality) {
-    modality = 'X-Ray';
-    console.log('🧠 Inferred X-Ray modality from region detection');
-  }
-  
-  // Detect view token - check ALL tokens, not just when modality is X-Ray
-  // This allows "c-spine 4v" to work even before we know it's X-Ray
-  for (const token of tokens) {
-    // Check direct match in XRAY_VIEW_TOKENS
-    if (XRAY_VIEW_TOKENS[token]) {
-      viewToken = XRAY_VIEW_TOKENS[token];
-      if (!modality) modality = 'X-Ray'; // Infer X-Ray from view token
-      break;
-    }
-    
-    // Handle "2 view", "3 view" format (separate tokens)
-    if (/^\d+$/.test(token) && tokens.includes('view')) {
-      viewToken = token;
-      if (!modality) modality = 'X-Ray'; // Infer X-Ray from numeric view
-      break;
-    }
-  }
-  
-  return { modality, region, viewToken, originalQuery: term };
-}
-
-/**
- * Filter X-Ray results by view token
- * Example: Filter "Chest" results to only show "2 Views"
- */
-function filterXRayByView(results: SearchResult[], viewToken: string): SearchResult[] {
-  return results.filter(result => {
-    const labelLower = result.label.toLowerCase();
-    
-    // Match numeric views (1, 2, 3, etc.)
-    if (/^\d+$/.test(viewToken)) {
-      const patterns = [
-        `${viewToken} view`,
-        `${viewToken}-view`,
-        `${viewToken}v`
-      ];
-      return patterns.some(pattern => labelLower.includes(pattern));
-    }
-    
-    // Match special views (lordotic, oblique, etc.)
-    return labelLower.includes(viewToken.toLowerCase());
-  });
-}
-
-// ============================================
 // SEARCH FUNCTIONS
 // ============================================
 
@@ -343,7 +173,6 @@ function filterXRayByView(results: SearchResult[], viewToken: string): SearchRes
  * 
  * @example
  * searchByCPT('70551') // Returns MRI Brain - Without Contrast
- * searchByCPT('71046') // Returns X-Ray Chest - 2 Views
  */
 export function searchByCPT(cptCode: string): SearchResult[] {
   console.log('🔢 Searching for CPT code:', cptCode);
@@ -380,26 +209,19 @@ export function searchByCPT(cptCode: string): SearchResult[] {
     searchInLibrary(window.ProcedureLibrary.CT, 'CT', cptCode, results, true);
   }
   
-  // Search X-Ray library (NEW!)
-  if (typeof window !== 'undefined' && window.ProcedureLibrary?.['X-Ray']) {
-    searchInXRayLibrary(window.ProcedureLibrary['X-Ray'], cptCode, results, true);
-  }
-  
   console.log(`🔍 CPT search results: ${results.length} found`);
   return results;
 }
 
 /**
  * Search all procedures by keyword (body part, modality, etc)
- * NOW WITH: Intelligent X-Ray view token detection
  * 
  * @param searchTerm - User's search query
  * @returns Array of matching procedure objects
  * 
  * @example
- * searchAllProcedures('knee') // Returns MRI/CT/X-Ray knee procedures
- * searchAllProcedures('chest xray 2 view') // Returns ONLY Chest X-Ray 2 Views
- * searchAllProcedures('c-spine 4v') // Returns Cervical Spine 4-5 Views
+ * searchAllProcedures('knee') // Returns MRI/CT knee procedures
+ * searchAllProcedures('breast') // Returns MRI + Mammography breast procedures
  */
 export function searchAllProcedures(searchTerm: string): SearchResult[] {
   const results: SearchResult[] = [];
@@ -413,10 +235,6 @@ export function searchAllProcedures(searchTerm: string): SearchResult[] {
 
   console.log('🔍 Searching all procedures for:', term);
   
-  // 🧠 Parse query for intelligent routing
-  const parsed = parseSearchQuery(term);
-  console.log('🧠 Parsed query:', parsed);
-  
   // Search MRI library
   if (typeof window !== 'undefined' && window.ProcedureLibrary?.MRI) {
     searchInLibrary(window.ProcedureLibrary.MRI, 'MRI', term, results);
@@ -425,23 +243,6 @@ export function searchAllProcedures(searchTerm: string): SearchResult[] {
   // Search CT library
   if (typeof window !== 'undefined' && window.ProcedureLibrary?.CT) {
     searchInLibrary(window.ProcedureLibrary.CT, 'CT', term, results);
-  }
-  
-  // Search X-Ray library (NEW!)
-  if (typeof window !== 'undefined' && window.ProcedureLibrary?.['X-Ray']) {
-    searchInXRayLibrary(window.ProcedureLibrary['X-Ray'], term, results, false);
-  }
-  
-  // 🎯 Apply intelligent filtering for X-Ray + view token queries
-  if (parsed.modality === 'X-Ray' && parsed.viewToken) {
-    console.log(`🎯 Applying view filter: ${parsed.viewToken}`);
-    const filteredResults = filterXRayByView(results, parsed.viewToken);
-    
-    if (filteredResults.length > 0) {
-      console.log(`✨ Smart filter: ${results.length} → ${filteredResults.length} results`);
-      results.length = 0; // Clear original results
-      results.push(...filteredResults);
-    }
   }
   
   // Special case: Add Mammography if searching for "breast"
@@ -469,67 +270,6 @@ export function searchAllProcedures(searchTerm: string): SearchResult[] {
   
   console.log(`✅ Found ${results.length} procedures matching "${term}"`);
   return results;
-}
-
-/**
- * Search within X-Ray library with view options
- * Handles flat structure where each region has viewOptions array
- */
-function searchInXRayLibrary(
-  library: any,
-  term: string,
-  results: SearchResult[],
-  isCPTSearch: boolean = false
-): void {
-  Object.keys(library).forEach(regionKey => {
-    const region = library[regionKey];
-    
-    // Skip if no view options
-    if (!region.viewOptions || region.viewOptions.length === 0) {
-      return;
-    }
-    
-    // Check if search term matches category or region key
-    const categoryLower = region.category.toLowerCase();
-    const matchesCategory = categoryLower.includes(term);
-    const matchesKey = regionKey.toLowerCase().includes(term);
-    
-    // Also check synonyms for better matching (bidirectional)
-    let matchesSynonym = false;
-    const synonyms = XRAY_REGION_SYNONYMS[regionKey] || [];
-    for (const syn of synonyms) {
-      const synLower = syn.toLowerCase();
-      if (term.includes(synLower) || synLower.includes(term) || term === synLower) {
-        matchesSynonym = true;
-        break;
-      }
-    }
-    
-    // For generic "xray" search, match ALL regions
-    const isGenericXraySearch = (term === 'xray' || term === 'x-ray');
-    
-    if (matchesCategory || matchesKey || matchesSynonym || isCPTSearch || isGenericXraySearch) {
-      // Add ALL view options from this region
-      region.viewOptions.forEach((viewOpt: any) => {
-        if (isCPTSearch && viewOpt.cpt !== term) {
-          return; // Skip if CPT doesn't match
-        }
-        
-        results.push({
-          modality: 'X-Ray',
-          category: region.category,
-          icon: region.icon,
-          cpt: viewOpt.cpt,
-          label: viewOpt.label,
-          shortLabel: viewOpt.shortLabel,
-          description: viewOpt.description,
-          duration: viewOpt.duration,
-          prep: viewOpt.prep,
-          useCase: viewOpt.useCase
-        });
-      });
-    }
-  });
 }
 
 /**
@@ -656,7 +396,7 @@ function convertToSearchResult(proc: SpecialProcedure): SearchResult {
  * 
  * @example
  * const grouped = groupByModality(results);
- * // { MRI: [...], CT: [...], 'X-Ray': [...], Mammography: [...] }
+ * // { MRI: [...], CT: [...], Mammography: [...] }
  */
 export function groupByModality(results: SearchResult[]): Record<string, SearchResult[]> {
   const grouped: Record<string, SearchResult[]> = {};
@@ -696,14 +436,4 @@ export function filterByContrast(results: SearchResult[], contrast: string): Sea
   });
 }
 
-console.log('✅ Search Engine loaded (with X-Ray intelligence)');
-
-// ============================================
-// EXPOSE TO WINDOW FOR TESTING
-// ============================================
-
-if (typeof window !== 'undefined') {
-  window.searchAllProcedures = searchAllProcedures;
-  window.searchByCPT = searchByCPT;
-  console.log('🧪 Search functions exposed: window.searchAllProcedures(), window.searchByCPT()');
-}
+console.log('✅ Search Engine loaded');
