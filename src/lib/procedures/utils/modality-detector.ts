@@ -222,15 +222,15 @@ export function isValidModality(value: string): value is Modality {
  */
 export function getModalityIcon(modality: Modality): string {
   const icons: Record<Modality, string> = {
-    'MRI': 'ðŸ§²',
-    'CT': 'âš¡',
-    'X-Ray': 'ðŸ“¸',
-    'Ultrasound': 'ðŸ“Š',
-    'Mammography': 'ðŸŽ€',
-    'PET': 'â˜¢ï¸',
-    'Nuclear Medicine': 'âš›ï¸'
+    'MRI': '🧲',
+    'CT': '⚡',
+    'X-Ray': '📸',
+    'Ultrasound': '🔊',
+    'Mammography': '🎗️',
+    'PET': '☢️',
+    'Nuclear Medicine': '⚛️'
   };
-  return icons[modality] || 'ðŸ©º';
+  return icons[modality] || '🩺';
 }
 
 /**
