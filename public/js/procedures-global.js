@@ -844,6 +844,529 @@
           duration: "15-20 min",
           prep: "IV contrast",
           useCase: "Lymphadenopathy, abscess, cancer staging"
+        },
+        {
+          cpt: "70492",
+          label: "CT Neck - With & Without Contrast",
+          shortLabel: "Neck - Both",
+          description: "Complete neck soft tissue evaluation",
+          duration: "20-30 min",
+          prep: "IV contrast",
+          useCase: "Complex neck masses, thyroid nodules"
+        }
+      ]
+    },
+
+    facialBones: {
+      category: "Facial Bones / Maxillofacial",
+      icon: "skull",
+      procedures: [
+        {
+          cpt: "70486",
+          label: "CT Facial Bones - Without Contrast",
+          shortLabel: "Facial - Without",
+          description: "Facial fractures, sinuses, bone detail",
+          duration: "10-15 min",
+          prep: "Remove facial metal jewelry",
+          useCase: "Facial trauma, sinus disease, dental implant planning"
+        },
+        {
+          cpt: "70487",
+          label: "CT Facial Bones - With Contrast",
+          shortLabel: "Facial - With",
+          description: "Soft tissue masses, infections",
+          duration: "15-20 min",
+          prep: "IV contrast",
+          useCase: "Facial tumors, abscesses"
+        },
+        {
+          cpt: "70488",
+          label: "CT Facial Bones - With & Without Contrast",
+          shortLabel: "Facial - Both",
+          description: "Complete facial evaluation",
+          duration: "20-30 min",
+          prep: "IV contrast",
+          useCase: "Complex facial pathology"
+        }
+      ]
+    },
+
+    orbit: {
+      category: "Orbit / Skull / Temporal Bones",
+      icon: "skull",
+      procedures: [
+        {
+          cpt: "70480",
+          label: "CT Orbit/Skull - Without Contrast",
+          shortLabel: "Orbit - Without",
+          description: "Eye socket, skull base, temporal bones",
+          duration: "10-15 min",
+          prep: "Remove eye glasses, metal jewelry",
+          useCase: "Orbital fractures, hearing loss, skull base evaluation"
+        },
+        {
+          cpt: "70481",
+          label: "CT Orbit/Skull - With Contrast",
+          shortLabel: "Orbit - With",
+          description: "Orbital masses, infections",
+          duration: "15-20 min",
+          prep: "IV contrast",
+          useCase: "Orbital tumors, cellulitis"
+        },
+        {
+          cpt: "70482",
+          label: "CT Orbit/Skull - With & Without Contrast",
+          shortLabel: "Orbit - Both",
+          description: "Complete orbital/skull evaluation",
+          duration: "20-30 min",
+          prep: "IV contrast",
+          useCase: "Complex orbital lesions"
+        }
+      ]
+    },
+
+    shoulder: {
+      category: "Shoulder",
+      icon: "shoulder",
+      procedures: [
+        {
+          cpt: "73200",
+          label: "CT Shoulder - Without Contrast",
+          shortLabel: "Shoulder - Without",
+          description: "Fractures, bone detail, rotator cuff calcification",
+          duration: "10-15 min",
+          prep: "Remove jewelry, metal objects",
+          useCase: "Complex fractures, bone tumors, pre-surgical planning"
+        },
+        {
+          cpt: "73201",
+          label: "CT Shoulder - With Contrast",
+          shortLabel: "Shoulder - With",
+          description: "Soft tissue masses, infections",
+          duration: "15-20 min",
+          prep: "IV contrast",
+          useCase: "Soft tissue tumors, abscess, infection"
+        },
+        {
+          cpt: "73202",
+          label: "CT Shoulder - With & Without Contrast",
+          shortLabel: "Shoulder - Both",
+          description: "Complete shoulder evaluation",
+          duration: "20-30 min",
+          prep: "IV contrast",
+          useCase: "Complex masses, tumor staging"
+        }
+      ]
+    },
+
+    elbow: {
+      category: "Elbow",
+      icon: "elbow",
+      procedures: [
+        {
+          cpt: "73200",
+          label: "CT Elbow - Without Contrast",
+          shortLabel: "Elbow - Without",
+          description: "Fractures, bone detail, joint evaluation",
+          duration: "10-15 min",
+          prep: "Remove jewelry, metal objects",
+          useCase: "Complex fractures, bone chips, pre-surgical planning"
+        },
+        {
+          cpt: "73201",
+          label: "CT Elbow - With Contrast",
+          shortLabel: "Elbow - With",
+          description: "Soft tissue masses, infections",
+          duration: "15-20 min",
+          prep: "IV contrast",
+          useCase: "Soft tissue tumors, abscess, osteomyelitis"
+        },
+        {
+          cpt: "73202",
+          label: "CT Elbow - With & Without Contrast",
+          shortLabel: "Elbow - Both",
+          description: "Complete elbow evaluation",
+          duration: "20-30 min",
+          prep: "IV contrast",
+          useCase: "Complex masses, tumor staging"
+        }
+      ]
+    },
+
+    wrist: {
+      category: "Wrist / Hand",
+      icon: "hand",
+      procedures: [
+        {
+          cpt: "73200",
+          label: "CT Wrist/Hand - Without Contrast",
+          shortLabel: "Wrist - Without",
+          description: "Fractures, bone detail, scaphoid fractures",
+          duration: "10-15 min",
+          prep: "Remove jewelry, metal objects",
+          useCase: "Scaphoid fractures, complex hand fractures, pre-surgical planning"
+        },
+        {
+          cpt: "73201",
+          label: "CT Wrist/Hand - With Contrast",
+          shortLabel: "Wrist - With",
+          description: "Soft tissue masses, infections",
+          duration: "15-20 min",
+          prep: "IV contrast",
+          useCase: "Soft tissue tumors, abscess, infection"
+        },
+        {
+          cpt: "73202",
+          label: "CT Wrist/Hand - With & Without Contrast",
+          shortLabel: "Wrist - Both",
+          description: "Complete wrist/hand evaluation",
+          duration: "20-30 min",
+          prep: "IV contrast",
+          useCase: "Complex masses, tumor staging"
+        }
+      ]
+    },
+
+    hand: {
+      category: "Wrist / Hand",
+      icon: "hand",
+      procedures: [
+        {
+          cpt: "73200",
+          label: "CT Wrist/Hand - Without Contrast",
+          shortLabel: "Hand - Without",
+          description: "Fractures, bone detail, scaphoid fractures",
+          duration: "10-15 min",
+          prep: "Remove jewelry, metal objects",
+          useCase: "Scaphoid fractures, complex hand fractures, pre-surgical planning"
+        },
+        {
+          cpt: "73201",
+          label: "CT Wrist/Hand - With Contrast",
+          shortLabel: "Hand - With",
+          description: "Soft tissue masses, infections",
+          duration: "15-20 min",
+          prep: "IV contrast",
+          useCase: "Soft tissue tumors, abscess, infection"
+        },
+        {
+          cpt: "73202",
+          label: "CT Wrist/Hand - With & Without Contrast",
+          shortLabel: "Hand - Both",
+          description: "Complete wrist/hand evaluation",
+          duration: "20-30 min",
+          prep: "IV contrast",
+          useCase: "Complex masses, tumor staging"
+        }
+      ]
+    },
+
+    hip: {
+      category: "Hip",
+      icon: "hip",
+      procedures: [
+        {
+          cpt: "73700",
+          label: "CT Hip - Without Contrast",
+          shortLabel: "Hip - Without",
+          description: "Fractures, joint evaluation, bone detail",
+          duration: "10-15 min",
+          prep: "Remove jewelry, metal objects",
+          useCase: "Hip fractures, avascular necrosis, pre-surgical planning"
+        },
+        {
+          cpt: "73701",
+          label: "CT Hip - With Contrast",
+          shortLabel: "Hip - With",
+          description: "Soft tissue masses, infections",
+          duration: "15-20 min",
+          prep: "IV contrast",
+          useCase: "Soft tissue tumors, abscess, osteomyelitis"
+        },
+        {
+          cpt: "73702",
+          label: "CT Hip - With & Without Contrast",
+          shortLabel: "Hip - Both",
+          description: "Complete hip evaluation",
+          duration: "20-30 min",
+          prep: "IV contrast",
+          useCase: "Complex masses, tumor staging"
+        }
+      ]
+    },
+
+    knee: {
+      category: "Knee",
+      icon: "knee",
+      procedures: [
+        {
+          cpt: "73700",
+          label: "CT Knee - Without Contrast",
+          shortLabel: "Knee - Without",
+          description: "Fractures, bone detail, joint evaluation",
+          duration: "10-15 min",
+          prep: "Remove jewelry, metal objects",
+          useCase: "Tibial plateau fractures, bone tumors, pre-surgical planning"
+        },
+        {
+          cpt: "73701",
+          label: "CT Knee - With Contrast",
+          shortLabel: "Knee - With",
+          description: "Soft tissue masses, infections",
+          duration: "15-20 min",
+          prep: "IV contrast",
+          useCase: "Soft tissue tumors, abscess, osteomyelitis"
+        },
+        {
+          cpt: "73702",
+          label: "CT Knee - With & Without Contrast",
+          shortLabel: "Knee - Both",
+          description: "Complete knee evaluation",
+          duration: "20-30 min",
+          prep: "IV contrast",
+          useCase: "Complex masses, tumor staging"
+        }
+      ]
+    },
+
+    ankle: {
+      category: "Ankle / Foot",
+      icon: "ankle",
+      procedures: [
+        {
+          cpt: "73700",
+          label: "CT Ankle/Foot - Without Contrast",
+          shortLabel: "Ankle - Without",
+          description: "Fractures, bone detail, joint evaluation",
+          duration: "10-15 min",
+          prep: "Remove jewelry, metal objects",
+          useCase: "Complex ankle fractures, calcaneus fractures, pre-surgical planning"
+        },
+        {
+          cpt: "73701",
+          label: "CT Ankle/Foot - With Contrast",
+          shortLabel: "Ankle - With",
+          description: "Soft tissue masses, infections",
+          duration: "15-20 min",
+          prep: "IV contrast",
+          useCase: "Soft tissue tumors, abscess, osteomyelitis"
+        },
+        {
+          cpt: "73702",
+          label: "CT Ankle/Foot - With & Without Contrast",
+          shortLabel: "Ankle - Both",
+          description: "Complete ankle/foot evaluation",
+          duration: "20-30 min",
+          prep: "IV contrast",
+          useCase: "Complex masses, tumor staging"
+        }
+      ]
+    },
+
+    foot: {
+      category: "Ankle / Foot",
+      icon: "ankle",
+      procedures: [
+        {
+          cpt: "73700",
+          label: "CT Ankle/Foot - Without Contrast",
+          shortLabel: "Foot - Without",
+          description: "Fractures, bone detail, joint evaluation",
+          duration: "10-15 min",
+          prep: "Remove jewelry, metal objects",
+          useCase: "Complex foot fractures, calcaneus fractures, pre-surgical planning"
+        },
+        {
+          cpt: "73701",
+          label: "CT Ankle/Foot - With Contrast",
+          shortLabel: "Foot - With",
+          description: "Soft tissue masses, infections",
+          duration: "15-20 min",
+          prep: "IV contrast",
+          useCase: "Soft tissue tumors, abscess, osteomyelitis"
+        },
+        {
+          cpt: "73702",
+          label: "CT Ankle/Foot - With & Without Contrast",
+          shortLabel: "Foot - Both",
+          description: "Complete ankle/foot evaluation",
+          duration: "20-30 min",
+          prep: "IV contrast",
+          useCase: "Complex masses, tumor staging"
+        }
+      ]
+    },
+
+    sacrum: {
+      category: "Sacrum / Coccyx",
+      icon: "pelvis",
+      procedures: [
+        {
+          cpt: "72192",
+          label: "CT Sacrum/Coccyx - Without Contrast",
+          shortLabel: "Sacrum - Without",
+          description: "Sacral fractures, coccyx pain",
+          duration: "10-15 min",
+          prep: "None required",
+          useCase: "Sacral fractures, tailbone injury, bone lesions"
+        },
+        {
+          cpt: "72193",
+          label: "CT Sacrum/Coccyx - With Contrast",
+          shortLabel: "Sacrum - With",
+          description: "Sacral tumors, infections",
+          duration: "15-20 min",
+          prep: "IV contrast",
+          useCase: "Sacral mass, infection"
+        },
+        {
+          cpt: "72194",
+          label: "CT Sacrum/Coccyx - With & Without Contrast",
+          shortLabel: "Sacrum - Both",
+          description: "Complete sacral evaluation",
+          duration: "20-30 min",
+          prep: "IV contrast",
+          useCase: "Complex sacral pathology"
+        }
+      ]
+    },
+
+    ctAngiography: {
+      category: "CT Angiography (CTA)",
+      icon: "heart",
+      procedures: [
+        {
+          cpt: "70496",
+          label: "CTA Head - With Contrast",
+          shortLabel: "CTA Head",
+          description: "Brain blood vessels, aneurysm evaluation",
+          duration: "15-20 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Stroke, aneurysm, vascular malformation"
+        },
+        {
+          cpt: "70498",
+          label: "CTA Neck (Carotid) - With Contrast",
+          shortLabel: "CTA Neck",
+          description: "Carotid arteries, neck vessels",
+          duration: "15-20 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Carotid stenosis, stroke workup"
+        },
+        {
+          cpt: "71275",
+          label: "CTA Chest (Noncoronary) - With Contrast",
+          shortLabel: "CTA Chest",
+          description: "Pulmonary arteries, aorta, chest vessels",
+          duration: "15-20 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Pulmonary embolism, aortic dissection"
+        },
+        {
+          cpt: "75574",
+          label: "CTA Heart (Coronary Arteries) - With Contrast",
+          shortLabel: "CTA Heart",
+          description: "Coronary arteries, calcium scoring",
+          duration: "30-45 min",
+          prep: "IV contrast, heart rate control medication",
+          useCase: "Coronary artery disease, chest pain"
+        },
+        {
+          cpt: "74174",
+          label: "CTA Abdomen & Pelvis - With Contrast",
+          shortLabel: "CTA Abd/Pelvis",
+          description: "Abdominal aorta, mesenteric vessels",
+          duration: "20-25 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Aortic aneurysm, mesenteric ischemia"
+        },
+        {
+          cpt: "74175",
+          label: "CTA Abdomen - With Contrast",
+          shortLabel: "CTA Abdomen",
+          description: "Abdominal vessels, liver vasculature",
+          duration: "15-20 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Abdominal aortic aneurysm, renal artery stenosis"
+        },
+        {
+          cpt: "72191",
+          label: "CTA Pelvis - With Contrast",
+          shortLabel: "CTA Pelvis",
+          description: "Pelvic vessels, iliac arteries",
+          duration: "15-20 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Pelvic vascular disease"
+        },
+        {
+          cpt: "73706",
+          label: "CTA Lower Extremity - With Contrast",
+          shortLabel: "CTA Lower Extremity",
+          description: "Leg arteries, peripheral vascular disease",
+          duration: "20-25 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Peripheral arterial disease, claudication"
+        },
+        {
+          cpt: "73206",
+          label: "CTA Upper Extremity - With Contrast",
+          shortLabel: "CTA Upper Extremity",
+          description: "Arm arteries, hand circulation",
+          duration: "20-25 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Upper extremity ischemia, vascular malformation"
+        },
+        {
+          cpt: "75635",
+          label: "CTA Run-Off Study (Abdomen to Lower Extremities)",
+          shortLabel: "CTA Run-Off",
+          description: "Complete arterial evaluation from abdomen to feet",
+          duration: "30-40 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Severe peripheral arterial disease, pre-bypass surgery"
+        }
+      ]
+    },
+
+    specializedCT: {
+      category: "Specialized CT Scans",
+      icon: "scan",
+      procedures: [
+        {
+          cpt: "71271",
+          label: "CT Lung Cancer Screening - Without Contrast",
+          shortLabel: "Lung Screening",
+          description: "Low-dose CT for lung cancer detection",
+          duration: "5-10 min",
+          prep: "None required",
+          useCase: "Annual lung cancer screening for high-risk patients"
+        },
+        {
+          cpt: "75571",
+          label: "CT Cardiac Calcium Scoring - Without Contrast",
+          shortLabel: "Calcium Score",
+          description: "Heart disease risk assessment",
+          duration: "10-15 min",
+          prep: "None required",
+          useCase: "Cardiovascular risk evaluation"
+        },
+        {
+          cpt: "74261",
+          label: "CT Colonography (Virtual Colonoscopy) - Diagnostic",
+          shortLabel: "Virtual Colonoscopy - Diagnostic",
+          description: "Colon imaging for polyps and masses",
+          duration: "20-30 min",
+          prep: "Bowel preparation, colon insufflation",
+          useCase: "Colon cancer screening, incomplete optical colonoscopy"
+        },
+        {
+          cpt: "74263",
+          label: "CT Colonography - Screening",
+          shortLabel: "Virtual Colonoscopy - Screening",
+          description: "Screening for colon polyps",
+          duration: "20-30 min",
+          prep: "Bowel preparation, colon insufflation",
+          useCase: "Colon cancer screening (alternative to colonoscopy)"
         }
       ]
     }
@@ -1479,16 +2002,16 @@
       'shoulder': 'shoulder',
       'elbow': 'elbow',
       'wrist': 'wrist',
-      'wrist / hand': 'wrist',
+      'wrist / hand': 'wrist',  // UI sends "Wrist / Hand", map to wrist
       'wrist/hand': 'wrist',
-      'hand': 'wrist',
+      'hand': 'hand',
       
       'hip': 'hip',
       'knee': 'knee',
       'ankle': 'ankle',
-      'ankle / foot': 'ankle',
+      'ankle / foot': 'ankle',  // UI sends "Ankle / Foot", map to ankle
       'ankle/foot': 'ankle',
-      'foot': 'ankle',
+      'foot': 'foot',
       
       // Torso
       'abdomen': 'abdomen',
@@ -1510,14 +2033,6 @@
     };
     
     const baseKey = regionMap[normalized] || null;
-    
-    // For CT extremities that need special keys to avoid MRI conflicts
-    if (modality === 'CT' && baseKey) {
-      if (baseKey === 'wrist') return 'wristCT';
-      if (baseKey === 'hip') return 'hipCT';
-      if (baseKey === 'knee') return 'kneeCT';
-      if (baseKey === 'ankle') return 'ankleCT';
-    }
     
     return baseKey;
   }
@@ -1584,7 +2099,7 @@
   }
 
   function resolveProcedure(modality, contrast, region) {
-    console.log('🔍 [Procedure Library] Resolving:', { modality, contrast, region });
+    console.log('ðŸ” [Procedure Library] Resolving:', { modality, contrast, region });
     
     // Normalize modality
     const modalityKey = modality.toUpperCase();
@@ -1595,43 +2110,43 @@
     } else if (modalityKey === 'CT') {
       modalityData = CT_PROCEDURES;
     } else {
-      console.warn('❌ Unsupported modality:', modality);
+      console.warn('âŒ Unsupported modality:', modality);
       return null;
     }
     
     // Find region
     const regionKey = normalizeRegionKey(region, modality);
     if (!regionKey) {
-      console.warn('❌ Region not found:', region);
+      console.warn('âŒ Region not found:', region);
       return null;
     }
     
     const categoryData = modalityData[regionKey];
     if (!categoryData) {
-      console.warn('❌ No data for region:', region);
+      console.warn('âŒ No data for region:', region);
       return null;
     }
     
     // Handle redirects
     if (categoryData.redirectTo) {
-      console.log('🔄 Following redirect:', categoryData.redirectTo);
+      console.log('ðŸ”„ Following redirect:', categoryData.redirectTo);
       const targetData = modalityData[categoryData.redirectTo];
       if (!targetData || !targetData.procedures) {
-        console.warn('❌ Redirect target not found:', categoryData.redirectTo);
+        console.warn('âŒ Redirect target not found:', categoryData.redirectTo);
         return null;
       }
       
       // Use procedures from target, but keep original category name
       const procedure = findProcedureByContrast(targetData.procedures, contrast);
       if (!procedure) {
-        console.warn('❌ No matching contrast in redirected target');
+        console.warn('âŒ No matching contrast in redirected target');
         return null;
       }
       
       return {
         cpt_code: procedure.cpt,
         label: procedure.label,
-        patient_label: procedure.label + '\nCPT ' + procedure.cpt,
+        patient_label: procedure.label,
         badge_label: 'CPT ' + procedure.cpt,
         description: procedure.description,
         duration: procedure.duration,
@@ -1644,23 +2159,23 @@
     
     // No redirect - use procedures directly
     if (!categoryData.procedures) {
-      console.warn('❌ No procedures for region:', region);
+      console.warn('âŒ No procedures for region:', region);
       return null;
     }
     
     // Find matching contrast
     const procedure = findProcedureByContrast(categoryData.procedures, contrast);
     if (!procedure) {
-      console.warn('❌ No matching contrast:', { region: region, contrast: contrast });
+      console.warn('âŒ No matching contrast:', { region: region, contrast: contrast });
       return null;
     }
     
-    console.log('✅ [Procedure Library] Found:', procedure);
+    console.log('âœ… [Procedure Library] Found:', procedure);
     
     return {
       cpt_code: procedure.cpt,
       label: procedure.label,
-      patient_label: procedure.label + '\nCPT ' + procedure.cpt,
+      patient_label: procedure.label,
       badge_label: 'CPT ' + procedure.cpt,
       description: procedure.description,
       duration: procedure.duration,
@@ -1759,7 +2274,7 @@
     }
   };
 
-  console.log('✅ Procedure Library loaded successfully!');
-  console.log('📦 Available:', Object.keys(window.ProcedureLibrary).join(', '));
+  console.log('âœ… Procedure Library loaded successfully!');
+  console.log('ðŸ“¦ Available:', Object.keys(window.ProcedureLibrary).join(', '));
 
 })();
