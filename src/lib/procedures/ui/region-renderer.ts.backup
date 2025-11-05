@@ -1,9 +1,8 @@
 /**
- * REGION SELECTION RENDERER - X-RAY ENHANCED
- * ============================================
+ * REGION SELECTION RENDERER
+ * ==========================
  * Renders body region/part selection UI
  * Supports both flat lists and grouped layouts
- * Now includes X-Ray regions
  * 
  * Usage:
  *   import { renderRegionSelection } from './region-renderer';
@@ -59,26 +58,6 @@ const REGION_BY_MODALITY: Record<string, Region[]> = {
     { label: 'Hip', icon: '🦴' },
     { label: 'Knee', icon: '🦵' },
     { label: 'Ankle / Foot', icon: '🦶' }
-  ],
-  'X-Ray': [
-    { label: 'Chest', icon: '🫁' },
-    { label: 'Cervical Spine (Neck)', icon: '🦴' },
-    { label: 'Thoracic Spine (Mid Back)', icon: '🦴' },
-    { label: 'Lumbar Spine (Low Back)', icon: '🦴' },
-    { label: 'Knee', icon: '🦵' },
-    { label: 'Shoulder', icon: '💪' },
-    { label: 'Clavicle', icon: '🦴' },
-    { label: 'Abdomen (KUB)', icon: '🫁' },
-    { label: 'Pelvis', icon: '🦴' },
-    { label: 'Ribs', icon: '🦴' },
-    { label: 'Ankle', icon: '🦶' },
-    { label: 'Foot', icon: '🦶' },
-    { label: 'Hand', icon: '✋' },
-    { label: 'Wrist', icon: '✋' },
-    { label: 'Hip', icon: '🦴' },
-    { label: 'Elbow', icon: '💪' },
-    { label: 'Femur (Thigh)', icon: '🦴' },
-    { label: 'Tibia/Fibula (Lower Leg)', icon: '🦵' }
   ]
 };
 
@@ -164,46 +143,6 @@ const GROUPED_REGIONS: Record<string, { groupName: string; regions: Region[] }[]
         { label: 'Ankle / Foot', icon: '🦶' }
       ]
     }
-  ],
-  'X-Ray': [
-    {
-      groupName: 'Spine & Chest',
-      regions: [
-        { label: 'Chest', icon: '🫁' },
-        { label: 'Cervical Spine (Neck)', icon: '🦴' },
-        { label: 'Thoracic Spine (Mid Back)', icon: '🦴' },
-        { label: 'Lumbar Spine (Low Back)', icon: '🦴' },
-        { label: 'Ribs', icon: '🦴' },
-        { label: 'Clavicle', icon: '🦴' }
-      ]
-    },
-    {
-      groupName: 'Upper Extremities',
-      regions: [
-        { label: 'Shoulder', icon: '💪' },
-        { label: 'Elbow', icon: '💪' },
-        { label: 'Wrist', icon: '✋' },
-        { label: 'Hand', icon: '✋' }
-      ]
-    },
-    {
-      groupName: 'Lower Extremities',
-      regions: [
-        { label: 'Hip', icon: '🦴' },
-        { label: 'Knee', icon: '🦵' },
-        { label: 'Ankle', icon: '🦶' },
-        { label: 'Foot', icon: '🦶' },
-        { label: 'Femur (Thigh)', icon: '🦴' },
-        { label: 'Tibia/Fibula (Lower Leg)', icon: '🦵' }
-      ]
-    },
-    {
-      groupName: 'Abdomen & Pelvis',
-      regions: [
-        { label: 'Abdomen (KUB)', icon: '🫁' },
-        { label: 'Pelvis', icon: '🦴' }
-      ]
-    }
   ]
 };
 
@@ -254,7 +193,7 @@ export function renderRegionSelection(
 
   const backButton = renderBackButton(
     contrast ? '← Back to contrast selection' : '← Back to search',
-    contrast ? 'back-to-contrast' : 'back-to-search-xray'
+    'back-to-contrast'
   );
 
   return wrapInContainer(`
@@ -304,7 +243,7 @@ export function renderGroupedRegionSelection(
 
   const backButton = renderBackButton(
     contrast ? '← Back to contrast selection' : '← Back to search',
-    contrast ? 'back-to-contrast-grouped' : 'back-to-search-xray'
+    'back-to-contrast-grouped'
   );
 
   return wrapInContainer(`
@@ -433,4 +372,4 @@ export function searchRegions(modality: string, keyword: string): Region[] {
   );
 }
 
-console.log('✅ Region Selection Renderer loaded (X-Ray Enhanced)');
+console.log('✅ Region Selection Renderer loaded');

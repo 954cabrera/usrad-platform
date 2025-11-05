@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-Ray Flow Integration - Visual Diagram</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .flow-box {
+            min-height: 80px;
+            transition: all 0.3s;
+        }
+
+        .flow-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-arrow {
+            font-size: 24px;
+            color: #003087;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50 p-8">
+    <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Modal Controller Flow Comparison</h1>
+            <p class="text-xl text-gray-600">MRI/CT vs X-Ray Integration</p>
+        </div>
+
+        <!-- MRI/CT Flow -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">🧲</span>
+                <h2 class="text-2xl font-bold text-gray-900">MRI/CT Flow (Unchanged)</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Step 1 -->
+                <div class="flow-box bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6">
+                    <div class="font-bold text-lg mb-2">1️⃣ User types "MRI" or "CT"</div>
+                    <div class="text-sm opacity-90">Modality detected by detectModality()</div>
+                </div>
+
+                <div class="flow-arrow text-center">↓</div>
+
+                <!-- Step 2 -->
+                <div class="flow-box bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl p-6">
+                    <div class="font-bold text-lg mb-2">2️⃣ Contrast Selection</div>
+                    <div class="text-sm opacity-90">showContrastSelection() → User picks Without/With/Both</div>
+                </div>
+
+                <div class="flow-arrow text-center">↓</div>
+
+                <!-- Step 3 -->
+                <div class="flow-box bg-gradient-to-r from-indigo-500 to-indigo-600 text-white rounded-xl p-6">
+                    <div class="font-bold text-lg mb-2">3️⃣ Region Selection</div>
+                    <div class="text-sm opacity-90">showRegionSelection() → User picks Body Part</div>
+                </div>
+
+                <div class="flow-arrow text-center">↓</div>
+
+                <!-- Step 4 -->
+                <div class="flow-box bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-6">
+                    <div class="font-bold text-lg mb-2">✅ Immediate Resolution</div>
+                    <div class="text-sm opacity-90">selectionFlow.resolve() → handleProcedureSelection()</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- X-Ray Flow -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">📸</span>
+                <h2 class="text-2xl font-bold text-gray-900">X-Ray Flow (NEW!)</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Step 1 -->
+                <div class="flow-box bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6">
+                    <div class="font-bold text-lg mb-2">1️⃣ User types "X-Ray"</div>
+                    <div class="text-sm opacity-90">Modality detected by detectModality()</div>
+                </div>
+
+                <div class="flow-arrow text-center">↓</div>
+
+                <!-- Step 2 - SKIPPED -->
+                <div class="flow-box bg-gray-200 text-gray-500 rounded-xl p-6 relative">
+                    <div class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                        SKIPPED
+                    </div>
+                    <div class="font-bold text-lg mb-2 line-through">2️⃣ Contrast Selection</div>
+                    <div class="text-sm">⚡ X-Ray doesn't use contrast - skip this step!</div>
+                </div>
+
+                <div class="flow-arrow text-center">↓</div>
+
+                <!-- Step 3 -->
+                <div class="flow-box bg-gradient-to-r from-indigo-500 to-indigo-600 text-white rounded-xl p-6">
+                    <div class="font-bold text-lg mb-2">2️⃣ Region Selection</div>
+                    <div class="text-sm opacity-90">showRegionSelection('X-Ray') → User picks Body Part</div>
+                </div>
+
+                <div class="flow-arrow text-center">↓</div>
+
+                <!-- Step 4 - NEW -->
+                <div class="flow-box bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl p-6 relative">
+                    <div
+                        class="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                        NEW!
+                    </div>
+                    <div class="font-bold text-lg mb-2">3️⃣ View Selection</div>
+                    <div class="text-sm opacity-90">showXRayViewSelection() → User picks # of Views</div>
+                </div>
+
+                <div class="flow-arrow text-center">↓</div>
+
+                <!-- Step 5 -->
+                <div class="flow-box bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-6">
+                    <div class="font-bold text-lg mb-2">✅ Resolution</div>
+                    <div class="text-sm opacity-90">handleXRayViewSelection() → handleProcedureSelection()</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auto-Resolve Flow -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="text-3xl">⚡</span>
+                <h2 class="text-2xl font-bold text-gray-900">X-Ray Auto-Resolve (Single View)</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Step 1 -->
+                <div class="flow-box bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6">
+                    <div class="font-bold text-lg mb-2">1️⃣ User types "X-Ray"</div>
+                    <div class="text-sm opacity-90">Region selection shown</div>
+                </div>
+
+                <div class="flow-arrow text-center">↓</div>
+
+                <!-- Step 2 -->
+                <div class="flow-box bg-gradient-to-r from-indigo-500 to-indigo-600 text-white rounded-xl p-6">
+                    <div class="font-bold text-lg mb-2">2️⃣ User clicks "Clavicle"</div>
+                    <div class="text-sm opacity-90">viewOptions.length === 1 detected</div>
+                </div>
+
+                <div class="flow-arrow text-center">↓</div>
+
+                <!-- Step 3 - AUTO -->
+                <div class="flow-box bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl p-6 relative">
+                    <div
+                        class="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                        AUTO
+                    </div>
+                    <div class="font-bold text-lg mb-2">⚡ Auto-Resolve</div>
+                    <div class="text-sm opacity-90">Skip view selection → Immediate resolution to CPT 73000</div>
+                </div>
+
+                <div class="flow-arrow text-center">↓</div>
+
+                <!-- Step 4 -->
+                <div class="flow-box bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-6">
+                    <div class="font-bold text-lg mb-2">✅ Done!</div>
+                    <div class="text-sm opacity-90">Form filled, modal closed</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span>🎯</span>
+                    <span>Key Integration Points</span>
+                </h3>
+                <div class="space-y-3 text-sm">
+                    <div class="flex items-start gap-2">
+                        <span class="text-green-600 font-bold">✅</span>
+                        <div>
+                            <div class="font-semibold">performSearch()</div>
+                            <div class="text-gray-600">Detects X-Ray and skips contrast</div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-green-600 font-bold">✅</span>
+                        <div>
+                            <div class="font-semibold">attachRegionListeners()</div>
+                            <div class="text-gray-600">Routes X-Ray to view selection</div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-green-600 font-bold">✅</span>
+                        <div>
+                            <div class="font-semibold">showXRayViewSelection()</div>
+                            <div class="text-gray-600">New function for view UI</div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-green-600 font-bold">✅</span>
+                        <div>
+                            <div class="font-semibold">attachXRayViewListeners()</div>
+                            <div class="text-gray-600">Handles view button clicks</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span>⚡</span>
+                    <span>Auto-Resolve Regions</span>
+                </h3>
+                <div class="space-y-3 text-sm">
+                    <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                        <div class="flex items-center gap-2">
+                            <span>🦴</span>
+                            <span class="font-semibold">Clavicle</span>
+                        </div>
+                        <div class="text-xs font-mono font-bold text-gray-700">CPT 73000</div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                        <div class="flex items-center gap-2">
+                            <span>🦴</span>
+                            <span class="font-semibold">Femur</span>
+                        </div>
+                        <div class="text-xs font-mono font-bold text-gray-700">CPT 73552</div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                        <div class="flex items-center gap-2">
+                            <span>🦵</span>
+                            <span class="font-semibold">Tibia/Fibula</span>
+                        </div>
+                        <div class="text-xs font-mono font-bold text-gray-700">CPT 73590</div>
+                    </div>
+                    <div class="text-xs text-gray-600 italic mt-2">
+                        These regions skip view selection for faster UX
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Changes Summary -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-4">📝 Code Changes Summary</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <div class="p-4 bg-blue-50 rounded-lg">
+                    <div class="font-bold text-blue-900 mb-2">New Functions</div>
+                    <ul class="space-y-1 text-blue-800">
+                        <li>• showXRayViewSelection()</li>
+                        <li>• handleXRayViewSelection()</li>
+                        <li>• attachXRayViewListeners()</li>
+                    </ul>
+                </div>
+                <div class="p-4 bg-green-50 rounded-lg">
+                    <div class="font-bold text-green-900 mb-2">Modified Functions</div>
+                    <ul class="space-y-1 text-green-800">
+                        <li>• performSearch()</li>
+                        <li>• attachRegionListeners()</li>
+                    </ul>
+                </div>
+                <div class="p-4 bg-purple-50 rounded-lg">
+                    <div class="font-bold text-purple-900 mb-2">New Import</div>
+                    <ul class="space-y-1 text-purple-800">
+                        <li>• xray-view-renderer</li>
+                        <li>• ViewOption type</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

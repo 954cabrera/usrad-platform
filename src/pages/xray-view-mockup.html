@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-Ray View Selection - Visual Mockup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .xray-view-button {
+            transition: all 0.2s;
+        }
+
+        .xray-view-button:hover {
+            border-color: #003087;
+            background-color: #eff6ff;
+        }
+
+        .xray-view-button:hover .arrow-icon {
+            color: #003087;
+        }
+
+        .xray-view-button:hover .title {
+            color: #003087;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">X-Ray View Selection Mockup</h1>
+                <p class="text-gray-600">Visual preview of the xray-view-renderer.ts component</p>
+            </div>
+
+            <!-- Breadcrumb -->
+            <nav class="flex items-center space-x-2 text-sm text-gray-600 mb-6">
+                <span class="font-medium text-[#003087]">X-Ray</span>
+                <span>→</span>
+                <span class="font-medium text-[#003087]">Chest</span>
+                <span>→</span>
+                <span class="font-medium text-[#003087]">Select Views</span>
+                <span>→</span>
+                <span class="text-gray-400">Complete</span>
+            </nav>
+
+            <!-- Section Header -->
+            <div class="text-center mb-6">
+                <div class="flex items-center justify-center gap-3 mb-2">
+                    <span class="text-4xl">📸</span>
+                    <h2 class="text-2xl font-bold text-gray-900">Select views for Chest X-Ray</h2>
+                </div>
+                <p class="text-gray-600">Choose the number of X-ray views or specialized projections</p>
+            </div>
+        </div>
+
+        <!-- Standard Views Group -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <h3 class="text-sm font-semibold text-gray-700 mb-4 flex items-center gap-2">
+                <span>📋</span>
+                <span>Standard Views</span>
+            </h3>
+
+            <div class="space-y-3">
+                <!-- View Option 1: Single View -->
+                <button type="button" class="xray-view-button w-full p-5 text-left border-2 border-gray-200 rounded-xl">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <p class="title text-lg font-semibold text-gray-900">Chest - 1 View</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">Single frontal chest X-ray</p>
+                            <div
+                                class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#003087] text-white rounded-full text-xs font-mono font-bold">
+                                <span>💎</span>
+                                <span>CPT 71045</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3 text-xs text-gray-500">
+                                <div class="flex items-center gap-1.5">⏱️ 5 min</div>
+                                <div class="flex items-center gap-1.5">📋 Remove jewelry, metal objects</div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2 italic">💡 Basic chest screening, follow-up</p>
+                        </div>
+                        <svg class="arrow-icon w-6 h-6 text-gray-400 flex-shrink-0 ml-4" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </div>
+                </button>
+
+                <!-- View Option 2: Two Views (Most Common) -->
+                <button type="button" class="xray-view-button w-full p-5 text-left border-2 border-gray-200 rounded-xl">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2 flex-wrap">
+                                <p class="title text-lg font-semibold text-gray-900">Chest - 2 Views</p>
+                                <span
+                                    class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                                    Most Common
+                                </span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">Standard two-view chest X-ray</p>
+                            <div
+                                class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#003087] text-white rounded-full text-xs font-mono font-bold">
+                                <span>💎</span>
+                                <span>CPT 71046</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3 text-xs text-gray-500">
+                                <div class="flex items-center gap-1.5">⏱️ 5-10 min</div>
+                                <div class="flex items-center gap-1.5">📋 Remove jewelry, metal objects</div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2 italic">💡 Standard chest X-ray, pneumonia, COVID,
+                                heart size</p>
+                        </div>
+                        <svg class="arrow-icon w-6 h-6 text-gray-400 flex-shrink-0 ml-4" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Specialized Views Group -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <h3 class="text-sm font-semibold text-gray-700 mb-4 flex items-center gap-2">
+                <span>🔬</span>
+                <span>Specialized Views</span>
+            </h3>
+
+            <div class="space-y-3">
+                <!-- Specialized View 1: Apical Lordotic -->
+                <button type="button" class="xray-view-button w-full p-5 text-left border-2 border-gray-200 rounded-xl">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <p class="title text-lg font-semibold text-gray-900">Chest - Apical Lordotic</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">Specialized angled view of lung apex</p>
+                            <div
+                                class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#003087] text-white rounded-full text-xs font-mono font-bold">
+                                <span>💎</span>
+                                <span>CPT 71042</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3 text-xs text-gray-500">
+                                <div class="flex items-center gap-1.5">⏱️ 10 min</div>
+                                <div class="flex items-center gap-1.5">📋 Remove jewelry, metal objects</div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2 italic">💡 Lung apex evaluation, apical masses</p>
+                        </div>
+                        <svg class="arrow-icon w-6 h-6 text-gray-400 flex-shrink-0 ml-4" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </div>
+                </button>
+
+                <!-- Specialized View 2: Oblique -->
+                <button type="button" class="xray-view-button w-full p-5 text-left border-2 border-gray-200 rounded-xl">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <p class="title text-lg font-semibold text-gray-900">Chest - Special Views</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">Multiple angled chest views</p>
+                            <div
+                                class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#003087] text-white rounded-full text-xs font-mono font-bold">
+                                <span>💎</span>
+                                <span>CPT 71047-71048</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3 text-xs text-gray-500">
+                                <div class="flex items-center gap-1.5">⏱️ 10-15 min</div>
+                                <div class="flex items-center gap-1.5">📋 Remove jewelry, metal objects</div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2 italic">💡 Rib fractures, comprehensive chest
+                                evaluation</p>
+                        </div>
+                        <svg class="arrow-icon w-6 h-6 text-gray-400 flex-shrink-0 ml-4" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Help Text -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm">
+                <p class="text-blue-900 font-medium mb-2 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    Not sure which view to choose?
+                </p>
+                <p class="text-blue-800 text-xs">
+                    Check your physician's imaging order or prescription. The "Most Common" option is typically ordered
+                    for routine evaluations. Specialized views are used for specific diagnostic needs.
+                </p>
+            </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="bg-white rounded-xl shadow-sm p-6">
+            <button type="button" class="text-[#003087] hover:text-[#002060] font-medium transition-colors">
+                ← Back to regions
+            </button>
+        </div>
+
+        <!-- Feature Highlights -->
+        <div class="mt-8 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">✨ Component Features</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="flex items-start gap-3">
+                    <span class="text-green-600 text-xl">✅</span>
+                    <div>
+                        <div class="font-semibold text-gray-900">Intelligent Grouping</div>
+                        <div class="text-gray-600">Standard vs Specialized views</div>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="text-green-600 text-xl">✅</span>
+                    <div>
+                        <div class="font-semibold text-gray-900">Visual Hierarchy</div>
+                        <div class="text-gray-600">Most common views highlighted</div>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="text-green-600 text-xl">✅</span>
+                    <div>
+                        <div class="font-semibold text-gray-900">CPT Prominence</div>
+                        <div class="text-gray-600">Codes clearly displayed</div>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="text-green-600 text-xl">✅</span>
+                    <div>
+                        <div class="font-semibold text-gray-900">Hover States</div>
+                        <div class="text-gray-600">Interactive feedback</div>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="text-green-600 text-xl">✅</span>
+                    <div>
+                        <div class="font-semibold text-gray-900">Help Context</div>
+                        <div class="text-gray-600">User guidance included</div>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="text-green-600 text-xl">✅</span>
+                    <div>
+                        <div class="font-semibold text-gray-900">Mobile Responsive</div>
+                        <div class="text-gray-600">Works on all devices</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add click handlers for demo
+        document.querySelectorAll('.xray-view-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const cpt = btn.querySelector('.font-mono').textContent;
+                alert(`Selected: ${cpt}\n\nIn production, this would:\n1. Resolve the procedure\n2. Close the modal\n3. Fill the form with CPT code\n4. Transition to Step 2`);
+            });
+        });
+    </script>
+</body>
+
+</html>

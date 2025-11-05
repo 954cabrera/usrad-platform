@@ -1,12 +1,12 @@
 /**
- * SLIM MODAL CONTROLLER - X-RAY ENHANCED
- * ========================================
+ * SLIM MODAL CONTROLLER
+ * ======================
  * Final orchestrator that coordinates all modules
- * Now includes X-Ray view selection support
+ * Replaces the 2,553-line hero-form-controller-modal.js
  * 
  * Phase 1: Business Logic (imported)
  * Phase 2: UI Rendering (imported)
- * Phase 3: Orchestration (this file)
+ * Phase 3: Orchestration (this file - ~250 lines)
  * 
  * Usage: Automatically initializes on DOMContentLoaded
  */
@@ -54,14 +54,6 @@ import {
 } from '@/lib/procedures/ui/search-results-renderer';
 
 // ============================================
-// X-RAY VIEW SELECTION IMPORT (NEW!)
-// ============================================
-import { 
-  renderXRayViewSelection,
-  type ViewOption
-} from '@/lib/procedures/ui/xray-view-renderer';
-
-// ============================================
 // CONTROLLER STATE
 // ============================================
 
@@ -88,7 +80,7 @@ let selectedCptInput: HTMLInputElement | null = null;
 // ============================================
 
 export function initializeSlimController() {
-  console.log('🎯 Initializing Slim Modal Controller (X-Ray Enhanced)...');
+  console.log('🎯 Initializing Slim Modal Controller...');
   
   // Wait for ProcedureLibrary to load
   if (!window.ProcedureLibrary) {
@@ -107,7 +99,7 @@ export function initializeSlimController() {
   attachSearchListeners();
   attachFormListeners();
   
-  console.log('✅ Slim Modal Controller ready (with X-Ray support)!');
+  console.log('✅ Slim Modal Controller ready!');
 }
 
 /**
@@ -225,14 +217,7 @@ function performSearch(query: string): void {
     console.log('✅ Detected modality:', modality);
     selectionFlow.setModality(modality);
     
-    // X-RAY PATH: Skip contrast, go straight to region
-    if (modality === 'X-Ray') {
-      console.log('🔬 X-Ray detected - skipping contrast selection');
-      showRegionSelection(modality);
-      return;
-    }
-    
-    // MRI/CT PATH: Show contrast selection or skip to region
+    // Show contrast selection or skip to region
     if (hasContrastOptions(modality)) {
       showContrastSelection(modality);
     } else {
@@ -274,65 +259,6 @@ function showRegionSelection(modality: Modality, contrast?: ContrastType): void 
   const html = renderGroupedRegionSelection(modality, contrast, true);
   modalResults.innerHTML = html;
   attachRegionListeners();
-}
-
-// ============================================
-// X-RAY VIEW SELECTION (NEW!)
-// ============================================
-
-/**
- * Show X-Ray view selection screen
- * @param region - Selected body region (e.g., "Chest", "Knee")
- */
-function showXRayViewSelection(region: string): void {
-  if (!modalResults) return;
-  
-  console.log('📸 Showing X-Ray view selection for:', region);
-  
-  // Get view options from ProcedureHelpers
-  const viewOptions = window.ProcedureHelpers?.getViewOptions('X-Ray', region);
-  
-  if (!viewOptions || viewOptions.length === 0) {
-    console.error('❌ No view options found for region:', region);
-    modalResults.innerHTML = renderNoResults(region, ['chest', 'knee', 'spine']);
-    return;
-  }
-  
-  // CRITICAL: Check for single-view auto-resolve
-  if (viewOptions.length === 1) {
-    console.log('⚡ Single view detected - auto-resolving:', viewOptions[0].cpt);
-    handleXRayViewSelection(viewOptions[0]);
-    return;
-  }
-  
-  // Render view selection screen
-  const html = renderXRayViewSelection(region, viewOptions, true);
-  modalResults.innerHTML = html;
-  attachXRayViewListeners();
-}
-
-/**
- * Handle X-Ray view selection and resolve to final procedure
- * @param viewOption - Selected view option
- */
-function handleXRayViewSelection(viewOption: ViewOption): void {
-  console.log('✅ X-Ray view selected:', viewOption.label);
-  
-  // Create resolved procedure object
-  const procedure = {
-    cpt_code: viewOption.cpt,
-    label: viewOption.label,
-    patient_label: `${viewOption.label}\nCPT ${viewOption.cpt}`,
-    badge_label: `CPT ${viewOption.cpt}`,
-    description: viewOption.description,
-    duration: viewOption.duration,
-    prep: viewOption.prep,
-    useCase: viewOption.useCase,
-    category: selectionFlow.getState().region || 'X-Ray',
-    icon: '📸'
-  };
-  
-  handleProcedureSelection(procedure);
 }
 
 // ============================================
@@ -407,15 +333,7 @@ function attachRegionListeners(): void {
       console.log('✅ Region selected:', regionLabel);
       selectionFlow.setRegion(regionLabel);
       
-      // X-RAY PATH: Show view selection instead of resolving
-      const state = selectionFlow.getState();
-      if (state.modality === 'X-Ray') {
-        console.log('🔬 X-Ray path - showing view selection');
-        showXRayViewSelection(regionLabel);
-        return;
-      }
-      
-      // MRI/CT PATH: Resolve procedure directly
+      // Resolve procedure
       const procedure = selectionFlow.resolve();
       if (procedure) {
         handleProcedureSelection(procedure);
@@ -432,63 +350,6 @@ function attachRegionListeners(): void {
   document.getElementById('back-to-contrast-grouped')?.addEventListener('click', () => {
     selectionFlow.clearRegion();
     showContrastSelection(selectionFlow.getState().modality!);
-  });
-  
-  // X-RAY: Back to search (no contrast to go back to)
-  document.getElementById('back-to-search-xray')?.addEventListener('click', () => {
-    selectionFlow.reset();
-    if (modalSearchInput) modalSearchInput.value = '';
-    if (modalResults) modalResults.innerHTML = renderEmptySearchState();
-  });
-}
-
-// ============================================
-// X-RAY VIEW LISTENERS (NEW!)
-// ============================================
-
-/**
- * Attach event listeners to X-Ray view selection buttons
- */
-function attachXRayViewListeners(): void {
-  document.querySelectorAll('.xray-view-button').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const target = e.currentTarget as HTMLElement;
-      const cpt = target.dataset.viewCpt;
-      const label = target.dataset.viewLabel;
-      
-      if (!cpt || !label) {
-        console.error('❌ Missing CPT or label on view button');
-        return;
-      }
-      
-      // Find the full view option from the library
-      const region = selectionFlow.getState().region;
-      if (!region) {
-        console.error('❌ No region in state');
-        return;
-      }
-      
-      const viewOptions = window.ProcedureHelpers?.getViewOptions('X-Ray', region);
-      const selectedView = viewOptions?.find(opt => opt.cpt === cpt);
-      
-      if (!selectedView) {
-        console.error('❌ Could not find view option for CPT:', cpt);
-        return;
-      }
-      
-      handleXRayViewSelection(selectedView);
-    });
-  });
-  
-  // Back button (back to regions)
-  document.getElementById('back-to-region')?.addEventListener('click', () => {
-    selectionFlow.clearRegion();
-    showRegionSelection('X-Ray');
-  });
-  
-  document.getElementById('back-to-region-single')?.addEventListener('click', () => {
-    selectionFlow.clearRegion();
-    showRegionSelection('X-Ray');
   });
 }
 
@@ -641,4 +502,4 @@ if (typeof window !== 'undefined') {
   });
 }
 
-console.log('✅ Slim Modal Controller loaded (X-Ray Enhanced)');
+console.log('✅ Slim Modal Controller loaded');

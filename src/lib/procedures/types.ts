@@ -68,6 +68,19 @@ export interface SearchResult {
   useCase: string;
 }
 
+export interface ViewOption {
+  views: string;
+  cpt: string;
+  label: string;
+  shortLabel: string;
+  description: string;
+  duration: string;
+  prep: string;
+  useCase: string;
+  isCommon?: boolean;
+  bilateral?: boolean;
+}
+
 export interface GroupedSearchResults {
   [modality: string]: SearchResult[];
 }
