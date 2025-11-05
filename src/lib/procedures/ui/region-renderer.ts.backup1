@@ -11,7 +11,6 @@
 
 import type { Modality, Region } from '../types';
 import { getModalityIcon, getModalityColor } from '../utils/modality-detector';
-import { getIcon } from '../utils/icon-map';
 import {
   renderSectionHeader,
   renderBreadcrumb,
@@ -26,60 +25,60 @@ import {
 
 const REGION_BY_MODALITY: Record<string, Region[]> = {
   MRI: [
-    { label: 'Brain', icon: 'brain' },
-    { label: 'Cervical Spine (Neck)', icon: 'spine' },
-    { label: 'Thoracic Spine (Mid Back)', icon: 'spine' },
-    { label: 'Lumbar Spine (Low Back)', icon: 'spine' },
-    { label: 'Shoulder', icon: 'shoulder' },
-    { label: 'Elbow', icon: 'elbow' },
-    { label: 'Wrist / Hand', icon: 'hand' },
-    { label: 'Hip', icon: 'hip' },
-    { label: 'Knee', icon: 'knee' },
-    { label: 'Ankle / Foot', icon: 'foot' },
-    { label: 'Abdomen', icon: 'abdomen' },
-    { label: 'Pelvis', icon: 'pelvis' },
-    { label: 'Chest', icon: 'chest' },
-    { label: 'Breast', icon: 'breast' },
-    { label: 'Orbit / Face / Neck', icon: 'eye' },
-    { label: 'TMJ', icon: 'tmj' }
+    { label: 'Brain', icon: '🧠' },
+    { label: 'Cervical Spine (Neck)', icon: '🦴' },
+    { label: 'Thoracic Spine (Mid Back)', icon: '🦴' },
+    { label: 'Lumbar Spine (Low Back)', icon: '🦴' },
+    { label: 'Shoulder', icon: '💪' },
+    { label: 'Elbow', icon: '💪' },
+    { label: 'Wrist / Hand', icon: '✋' },
+    { label: 'Hip', icon: '🦴' },
+    { label: 'Knee', icon: '🦵' },
+    { label: 'Ankle / Foot', icon: '🦶' },
+    { label: 'Abdomen', icon: '🫁' },
+    { label: 'Pelvis', icon: '🫁' },
+    { label: 'Chest', icon: '🫁' },
+    { label: 'Breast', icon: '🎀' },
+    { label: 'Orbit / Face / Neck', icon: '👁️' },
+    { label: 'TMJ', icon: '🦴' }
   ],
   CT: [
-    { label: 'Head / Brain', icon: 'brain' },
-    { label: 'Chest', icon: 'chest' },
-    { label: 'Abdomen', icon: 'abdomen' },
-    { label: 'Abdomen & Pelvis', icon: 'abdomen' },
-    { label: 'Pelvis', icon: 'pelvis' },
-    { label: 'Cervical Spine (Neck)', icon: 'spine' },
-    { label: 'Thoracic Spine (Mid Back)', icon: 'spine' },
-    { label: 'Lumbar Spine (Low Back)', icon: 'spine' },
-    { label: 'Sinuses', icon: 'sinuses' },
-    { label: 'Neck (Soft Tissue)', icon: 'neck' },
-    { label: 'Shoulder', icon: 'shoulder' },
-    { label: 'Elbow', icon: 'elbow' },
-    { label: 'Wrist / Hand', icon: 'hand' },
-    { label: 'Hip', icon: 'hip' },
-    { label: 'Knee', icon: 'knee' },
-    { label: 'Ankle / Foot', icon: 'foot' }
+    { label: 'Head / Brain', icon: '🧠' },
+    { label: 'Chest', icon: '🫁' },
+    { label: 'Abdomen', icon: '🫁' },
+    { label: 'Abdomen & Pelvis', icon: '🫁' },
+    { label: 'Pelvis', icon: '🫁' },
+    { label: 'Cervical Spine (Neck)', icon: '🦴' },
+    { label: 'Thoracic Spine (Mid Back)', icon: '🦴' },
+    { label: 'Lumbar Spine (Low Back)', icon: '🦴' },
+    { label: 'Sinuses', icon: '👃' },
+    { label: 'Neck (Soft Tissue)', icon: '🫁' },
+    { label: 'Shoulder', icon: '💪' },
+    { label: 'Elbow', icon: '💪' },
+    { label: 'Wrist / Hand', icon: '✋' },
+    { label: 'Hip', icon: '🦴' },
+    { label: 'Knee', icon: '🦵' },
+    { label: 'Ankle / Foot', icon: '🦶' }
   ],
   'X-Ray': [
-    { label: 'Chest', icon: 'chest' },
-    { label: 'Cervical Spine (Neck)', icon: 'spine' },
-    { label: 'Thoracic Spine (Mid Back)', icon: 'spine' },
-    { label: 'Lumbar Spine (Low Back)', icon: 'spine' },
-    { label: 'Knee', icon: 'knee' },
-    { label: 'Shoulder', icon: 'shoulder' },
-    { label: 'Clavicle', icon: 'clavicle' },
-    { label: 'Abdomen (KUB)', icon: 'abdomen' },
-    { label: 'Pelvis', icon: 'pelvis' },
-    { label: 'Ribs', icon: 'ribs' },
-    { label: 'Ankle', icon: 'ankle' },
-    { label: 'Foot', icon: 'foot' },
-    { label: 'Hand', icon: 'hand' },
-    { label: 'Wrist', icon: 'wrist' },
-    { label: 'Hip', icon: 'hip' },
-    { label: 'Elbow', icon: 'elbow' },
-    { label: 'Femur (Thigh)', icon: 'femur' },
-    { label: 'Tibia/Fibula (Lower Leg)', icon: 'tibia' }
+    { label: 'Chest', icon: '🫁' },
+    { label: 'Cervical Spine (Neck)', icon: '🦴' },
+    { label: 'Thoracic Spine (Mid Back)', icon: '🦴' },
+    { label: 'Lumbar Spine (Low Back)', icon: '🦴' },
+    { label: 'Knee', icon: '🦵' },
+    { label: 'Shoulder', icon: '💪' },
+    { label: 'Clavicle', icon: '🦴' },
+    { label: 'Abdomen (KUB)', icon: '🫁' },
+    { label: 'Pelvis', icon: '🦴' },
+    { label: 'Ribs', icon: '🦴' },
+    { label: 'Ankle', icon: '🦶' },
+    { label: 'Foot', icon: '🦶' },
+    { label: 'Hand', icon: '✋' },
+    { label: 'Wrist', icon: '✋' },
+    { label: 'Hip', icon: '🦴' },
+    { label: 'Elbow', icon: '💪' },
+    { label: 'Femur (Thigh)', icon: '🦴' },
+    { label: 'Tibia/Fibula (Lower Leg)', icon: '🦵' }
   ]
 };
 
@@ -89,42 +88,42 @@ const GROUPED_REGIONS: Record<string, { groupName: string; regions: Region[] }[]
     {
       groupName: 'Head & Neck',
       regions: [
-        { label: 'Brain', icon: 'brain' },
-        { label: 'Orbit / Face / Neck', icon: 'eye' },
-        { label: 'TMJ', icon: 'tmj' }
+        { label: 'Brain', icon: '🧠' },
+        { label: 'Orbit / Face / Neck', icon: '👁️' },
+        { label: 'TMJ', icon: '🦴' }
       ]
     },
     {
       groupName: 'Spine',
       regions: [
-        { label: 'Cervical Spine (Neck)', icon: 'spine' },
-        { label: 'Thoracic Spine (Mid Back)', icon: 'spine' },
-        { label: 'Lumbar Spine (Low Back)', icon: 'spine' }
+        { label: 'Cervical Spine (Neck)', icon: '🦴' },
+        { label: 'Thoracic Spine (Mid Back)', icon: '🦴' },
+        { label: 'Lumbar Spine (Low Back)', icon: '🦴' }
       ]
     },
     {
       groupName: 'Upper Extremities',
       regions: [
-        { label: 'Shoulder', icon: 'shoulder' },
-        { label: 'Elbow', icon: 'elbow' },
-        { label: 'Wrist / Hand', icon: 'hand' }
+        { label: 'Shoulder', icon: '💪' },
+        { label: 'Elbow', icon: '💪' },
+        { label: 'Wrist / Hand', icon: '✋' }
       ]
     },
     {
       groupName: 'Lower Extremities',
       regions: [
-        { label: 'Hip', icon: 'hip' },
-        { label: 'Knee', icon: 'knee' },
-        { label: 'Ankle / Foot', icon: 'foot' }
+        { label: 'Hip', icon: '🦴' },
+        { label: 'Knee', icon: '🦵' },
+        { label: 'Ankle / Foot', icon: '🦶' }
       ]
     },
     {
       groupName: 'Torso',
       regions: [
-        { label: 'Chest', icon: 'chest' },
-        { label: 'Abdomen', icon: 'abdomen' },
-        { label: 'Pelvis', icon: 'pelvis' },
-        { label: 'Breast', icon: 'breast' }
+        { label: 'Chest', icon: '🫁' },
+        { label: 'Abdomen', icon: '🫁' },
+        { label: 'Pelvis', icon: '🫁' },
+        { label: 'Breast', icon: '🎀' }
       ]
     }
   ],
@@ -132,37 +131,37 @@ const GROUPED_REGIONS: Record<string, { groupName: string; regions: Region[] }[]
     {
       groupName: 'Head & Neck',
       regions: [
-        { label: 'Head / Brain', icon: 'brain' },
-        { label: 'Sinuses', icon: 'sinuses' },
-        { label: 'Neck (Soft Tissue)', icon: 'neck' }
+        { label: 'Head / Brain', icon: '🧠' },
+        { label: 'Sinuses', icon: '👃' },
+        { label: 'Neck (Soft Tissue)', icon: '🫁' }
       ]
     },
     {
       groupName: 'Spine',
       regions: [
-        { label: 'Cervical Spine (Neck)', icon: 'spine' },
-        { label: 'Thoracic Spine (Mid Back)', icon: 'spine' },
-        { label: 'Lumbar Spine (Low Back)', icon: 'spine' }
+        { label: 'Cervical Spine (Neck)', icon: '🦴' },
+        { label: 'Thoracic Spine (Mid Back)', icon: '🦴' },
+        { label: 'Lumbar Spine (Low Back)', icon: '🦴' }
       ]
     },
     {
       groupName: 'Torso',
       regions: [
-        { label: 'Chest', icon: 'chest' },
-        { label: 'Abdomen', icon: 'abdomen' },
-        { label: 'Abdomen & Pelvis', icon: 'abdomen' },
-        { label: 'Pelvis', icon: 'pelvis' }
+        { label: 'Chest', icon: '🫁' },
+        { label: 'Abdomen', icon: '🫁' },
+        { label: 'Abdomen & Pelvis', icon: '🫁' },
+        { label: 'Pelvis', icon: '🫁' }
       ]
     },
     {
       groupName: 'Extremities',
       regions: [
-        { label: 'Shoulder', icon: 'shoulder' },
-        { label: 'Elbow', icon: 'elbow' },
-        { label: 'Wrist / Hand', icon: 'hand' },
-        { label: 'Hip', icon: 'hip' },
-        { label: 'Knee', icon: 'knee' },
-        { label: 'Ankle / Foot', icon: 'foot' }
+        { label: 'Shoulder', icon: '💪' },
+        { label: 'Elbow', icon: '💪' },
+        { label: 'Wrist / Hand', icon: '✋' },
+        { label: 'Hip', icon: '🦴' },
+        { label: 'Knee', icon: '🦵' },
+        { label: 'Ankle / Foot', icon: '🦶' }
       ]
     }
   ],
@@ -170,39 +169,39 @@ const GROUPED_REGIONS: Record<string, { groupName: string; regions: Region[] }[]
     {
       groupName: 'Spine & Chest',
       regions: [
-        { label: 'Chest', icon: 'chest' },
-        { label: 'Cervical Spine (Neck)', icon: 'spine' },
-        { label: 'Thoracic Spine (Mid Back)', icon: 'spine' },
-        { label: 'Lumbar Spine (Low Back)', icon: 'spine' },
-        { label: 'Ribs', icon: 'ribs' },
-        { label: 'Clavicle', icon: 'clavicle' }
+        { label: 'Chest', icon: '🫁' },
+        { label: 'Cervical Spine (Neck)', icon: '🦴' },
+        { label: 'Thoracic Spine (Mid Back)', icon: '🦴' },
+        { label: 'Lumbar Spine (Low Back)', icon: '🦴' },
+        { label: 'Ribs', icon: '🦴' },
+        { label: 'Clavicle', icon: '🦴' }
       ]
     },
     {
       groupName: 'Upper Extremities',
       regions: [
-        { label: 'Shoulder', icon: 'shoulder' },
-        { label: 'Elbow', icon: 'elbow' },
-        { label: 'Wrist', icon: 'wrist' },
-        { label: 'Hand', icon: 'hand' }
+        { label: 'Shoulder', icon: '💪' },
+        { label: 'Elbow', icon: '💪' },
+        { label: 'Wrist', icon: '✋' },
+        { label: 'Hand', icon: '✋' }
       ]
     },
     {
       groupName: 'Lower Extremities',
       regions: [
-        { label: 'Hip', icon: 'hip' },
-        { label: 'Knee', icon: 'knee' },
-        { label: 'Ankle', icon: 'ankle' },
-        { label: 'Foot', icon: 'foot' },
-        { label: 'Femur (Thigh)', icon: 'femur' },
-        { label: 'Tibia/Fibula (Lower Leg)', icon: 'tibia' }
+        { label: 'Hip', icon: '🦴' },
+        { label: 'Knee', icon: '🦵' },
+        { label: 'Ankle', icon: '🦶' },
+        { label: 'Foot', icon: '🦶' },
+        { label: 'Femur (Thigh)', icon: '🦴' },
+        { label: 'Tibia/Fibula (Lower Leg)', icon: '🦵' }
       ]
     },
     {
       groupName: 'Abdomen & Pelvis',
       regions: [
-        { label: 'Abdomen (KUB)', icon: 'abdomen' },
-        { label: 'Pelvis', icon: 'pelvis' }
+        { label: 'Abdomen (KUB)', icon: '🫁' },
+        { label: 'Pelvis', icon: '🦴' }
       ]
     }
   ]
@@ -335,7 +334,7 @@ function renderRegionButton(region: Region, modality: Modality): string {
       data-region-label="${region.label}"
     >
       <div class="text-center">
-        <div class="text-3xl mb-2">${getIcon(region.icon)}</div>
+        <div class="text-3xl mb-2">${region.icon}</div>
         <p class="text-sm font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
           ${region.label}
         </p>

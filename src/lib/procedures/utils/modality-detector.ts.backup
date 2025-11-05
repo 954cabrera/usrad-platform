@@ -9,8 +9,6 @@
  *   const modality = detectModality('mri'); // Returns 'MRI'
  */
 
-import { getIcon } from './icon-map';
-
 // ============================================
 // TYPE DEFINITIONS
 // ============================================
@@ -223,16 +221,16 @@ export function isValidModality(value: string): value is Modality {
  * @returns Emoji icon for the modality
  */
 export function getModalityIcon(modality: Modality): string {
-  const iconKeys: Record<Modality, string> = {
-    'MRI': 'mri',
-    'CT': 'ct',
-    'X-Ray': 'xray',
-    'Ultrasound': 'ultrasound',
-    'Mammography': 'mammography',
-    'PET': 'pet',
-    'Nuclear Medicine': 'nuclear-medicine'
+  const icons: Record<Modality, string> = {
+    'MRI': '🧲',
+    'CT': '⚡',
+    'X-Ray': '📸',
+    'Ultrasound': '🔊',
+    'Mammography': '🎗️',
+    'PET': '☢️',
+    'Nuclear Medicine': '⚛️'
   };
-  return getIcon(iconKeys[modality] || 'medical');
+  return icons[modality] || '🩺';
 }
 
 /**

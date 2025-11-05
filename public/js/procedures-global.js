@@ -23,7 +23,7 @@
     
     brain: {
       category: "Brain",
-      icon: "🧠",
+      icon: "brain",
       procedures: [
         {
           cpt: "70551",
@@ -57,7 +57,7 @@
 
     cervicalSpine: {
       category: "Cervical Spine (Neck)",
-      icon: "🦴",
+      icon: "spine",
       procedures: [
         {
           cpt: "72141",
@@ -91,7 +91,7 @@
 
     thoracicSpine: {
       category: "Thoracic Spine (Mid Back)",
-      icon: "🦴",
+      icon: "spine",
       procedures: [
         {
           cpt: "72146",
@@ -125,7 +125,7 @@
 
     lumbarSpine: {
       category: "Lumbar Spine (Low Back)",
-      icon: "🦴",
+      icon: "spine",
       procedures: [
         {
           cpt: "72148",
@@ -165,7 +165,7 @@
       category: "Upper Extremity - Any Joint",
       includes: "Shoulder, Elbow, or Wrist joint",
       clinicalUse: "Rotator cuff tears, labral tears, ligament injuries, joint effusions",
-      icon: String.fromCodePoint(0x1F4AA), // 💪
+      icon: "shoulder",
       contrastAvailability: ["without", "with", "both"],
       matchKeywords: ["shoulder", "elbow", "wrist"],
       procedures: [
@@ -203,7 +203,7 @@
       category: "Upper Extremity - Other Than Joint",
       includes: "Hand, Forearm, or Arm bones/soft tissue (radius, ulna, humerus)",
       clinicalUse: "Fractures, bone tumors, soft tissue masses, osteomyelitis",
-      icon: String.fromCodePoint(0x270B), // ✋
+      icon: "hand",
       contrastAvailability: ["without", "both"],
       matchKeywords: ["hand", "forearm", "arm", "radius", "ulna", "humerus", "finger"],
       procedures: [
@@ -236,7 +236,7 @@
       category: "Lower Extremity - Any Joint",
       includes: "Hip, Knee, or Ankle joint",
       clinicalUse: "Meniscus tears, ACL/MCL injuries, labral tears, cartilage damage",
-      icon: String.fromCodePoint(0x1F9B5), // 🦵
+      icon: "knee",
       contrastAvailability: ["without", "with", "both"],
       matchKeywords: ["hip", "knee", "ankle"],
       procedures: [
@@ -274,7 +274,7 @@
       category: "Lower Extremity - Other Than Joint",
       includes: "Foot, Leg, or Thigh bones/soft tissue (tibia, fibula, femur)",
       clinicalUse: "Stress fractures, bone tumors, soft tissue masses, shin splints",
-      icon: String.fromCodePoint(0x1F9B6), // 🦶
+      icon: "foot",
       contrastAvailability: ["without", "both"],
       matchKeywords: ["foot", "leg", "thigh", "tibia", "fibula", "femur", "shin", "calf", "toe"],
       procedures: [
@@ -305,37 +305,37 @@
     
     shoulder: {
       category: "Shoulder",
-      icon: String.fromCodePoint(0x1F4AA), // 💪
+      icon: "shoulder",
       redirectTo: "upperExtremityJoint"
     },
 
     elbow: {
       category: "Elbow",
-      icon: String.fromCodePoint(0x1F4AA), // 💪
+      icon: "elbow",
       redirectTo: "upperExtremityJoint"
     },
 
     wrist: {
       category: "Wrist / Hand",
-      icon: String.fromCodePoint(0x270B), // ✋
+      icon: "wrist",
       redirectTo: "upperExtremityJoint"
     },
 
     hip: {
       category: "Hip",
-      icon: String.fromCodePoint(0x1F9B4), // 🦴
+      icon: "hip",
       redirectTo: "lowerExtremityJoint"
     },
 
     knee: {
       category: "Knee",
-      icon: String.fromCodePoint(0x1F9B5), // 🦵
+      icon: "knee",
       redirectTo: "lowerExtremityJoint"
     },
 
     ankle: {
       category: "Ankle / Foot",
-      icon: String.fromCodePoint(0x1F9B6), // 🦶
+      icon: "ankle",
       procedures: [
         {
           cpt: "73718",
@@ -355,7 +355,7 @@
 
     abdomen: {
       category: "Abdomen",
-      icon: "🫁",
+      icon: "abdomen",
       procedures: [
         {
           cpt: "74181",
@@ -389,7 +389,7 @@
 
     pelvis: {
       category: "Pelvis",
-      icon: "🫁",
+      icon: "pelvis",
       procedures: [
         {
           cpt: "72195",
@@ -423,7 +423,7 @@
 
     chest: {
       category: "Chest",
-      icon: "🫁",
+      icon: "chest",
       procedures: [
         {
           cpt: "71550",
@@ -457,7 +457,7 @@
 
     breast: {
       category: "Breast",
-      icon: "🎀",
+      icon: "breast",
       procedures: [
         {
           cpt: "77046",
@@ -500,7 +500,7 @@
 
     orbitFaceNeck: {
       category: "Orbit / Face / Neck",
-      icon: "👁️",
+      icon: "eye",
       procedures: [
         {
           cpt: "70540",
@@ -516,7 +516,7 @@
 
     tmj: {
       category: "TMJ",
-      icon: "🦴",
+      icon: "tmj",
       procedures: [
         {
           cpt: "70336",
@@ -532,7 +532,7 @@
 
     cardiac: {
       category: "Cardiac",
-      icon: "❤️",
+      icon: "heart",
       procedures: [
         {
           cpt: "75557",
@@ -564,7 +564,7 @@
     
     head: {
       category: "Head / Brain",
-      icon: "🧠",
+      icon: "brain",
       procedures: [
         {
           cpt: "70450",
@@ -598,7 +598,7 @@
 
     chest: {
       category: "Chest",
-      icon: "🫁",
+      icon: "chest",
       procedures: [
         {
           cpt: "71250",
@@ -632,7 +632,7 @@
 
     abdomen: {
       category: "Abdomen",
-      icon: "🫁",
+      icon: "abdomen",
       procedures: [
         {
           cpt: "74150",
@@ -666,7 +666,7 @@
 
     pelvis: {
       category: "Pelvis",
-      icon: "🫁",
+      icon: "pelvis",
       procedures: [
         {
           cpt: "72192",
@@ -700,7 +700,7 @@
 
     abdomenPelvis: {
       category: "Abdomen & Pelvis",
-      icon: "🫁",
+      icon: "abdomen",
       procedures: [
         {
           cpt: "74176",
@@ -734,7 +734,7 @@
 
     cervicalSpine: {
       category: "Cervical Spine (Neck)",
-      icon: "🦴",
+      icon: "spine",
       procedures: [
         {
           cpt: "72125",
@@ -759,7 +759,7 @@
 
     thoracicSpine: {
       category: "Thoracic Spine (Mid Back)",
-      icon: "🦴",
+      icon: "spine",
       procedures: [
         {
           cpt: "72128",
@@ -784,7 +784,7 @@
 
     lumbarSpine: {
       category: "Lumbar Spine (Low Back)",
-      icon: "🦴",
+      icon: "spine",
       procedures: [
         {
           cpt: "72131",
@@ -809,7 +809,7 @@
 
     sinuses: {
       category: "Sinuses",
-      icon: "👃",
+      icon: "sinuses",
       procedures: [
         {
           cpt: "70486",
@@ -825,7 +825,7 @@
 
     neckSoftTissue: {
       category: "Neck (Soft Tissue)",
-      icon: "🫁",
+      icon: "neck",
       procedures: [
         {
           cpt: "70490",
@@ -857,7 +857,7 @@
     
     chest: {
       category: "Chest",
-      icon: "🫁",
+      icon: "chest",
       viewOptions: [
         {
           views: "1",
@@ -908,7 +908,7 @@
 
     cervicalSpine: {
       category: "Cervical Spine (Neck)",
-      icon: "🦴",
+      icon: "spine",
       viewOptions: [
         {
           views: "<4",
@@ -948,7 +948,7 @@
 
     thoracicSpine: {
       category: "Thoracic Spine (Mid Back)",
-      icon: "🦴",
+      icon: "spine",
       viewOptions: [
         {
           views: "2",
@@ -977,7 +977,7 @@
 
     lumbarSpine: {
       category: "Lumbar Spine (Low Back)",
-      icon: "🦴",
+      icon: "spine",
       viewOptions: [
         {
           views: "<4",
@@ -1017,7 +1017,7 @@
 
     knee: {
       category: "Knee",
-      icon: "🦵",
+      icon: "knee",
       viewOptions: [
         {
           views: "2",
@@ -1060,7 +1060,7 @@
 
     shoulder: {
       category: "Shoulder",
-      icon: "💪",
+      icon: "shoulder",
       viewOptions: [
         {
           views: "2",
@@ -1091,7 +1091,7 @@
 
     clavicle: {
       category: "Clavicle",
-      icon: "🦴",
+      icon: "clavicle",
       viewOptions: [
         {
           views: "2",
@@ -1109,7 +1109,7 @@
 
     abdomen: {
       category: "Abdomen (KUB)",
-      icon: "🫁",
+      icon: "abdomen",
       viewOptions: [
         {
           views: "1",
@@ -1149,7 +1149,7 @@
 
     pelvis: {
       category: "Pelvis",
-      icon: "🦴",
+      icon: "pelvis",
       viewOptions: [
         {
           views: "1-2",
@@ -1178,7 +1178,7 @@
 
     ribs: {
       category: "Ribs",
-      icon: "🦴",
+      icon: "ribs",
       viewOptions: [
         {
           views: "2",
@@ -1218,7 +1218,7 @@
 
     ankle: {
       category: "Ankle",
-      icon: "🦶",
+      icon: "ankle",
       viewOptions: [
         {
           views: "2",
@@ -1249,7 +1249,7 @@
 
     foot: {
       category: "Foot",
-      icon: "🦶",
+      icon: "foot",
       viewOptions: [
         {
           views: "2",
@@ -1280,7 +1280,7 @@
 
     hand: {
       category: "Hand",
-      icon: "✋",
+      icon: "hand",
       viewOptions: [
         {
           views: "2",
@@ -1311,7 +1311,7 @@
 
     wrist: {
       category: "Wrist",
-      icon: "✋",
+      icon: "wrist",
       viewOptions: [
         {
           views: "2",
@@ -1342,7 +1342,7 @@
 
     hip: {
       category: "Hip",
-      icon: "🦴",
+      icon: "hip",
       viewOptions: [
         {
           views: "2-3",
@@ -1373,7 +1373,7 @@
 
     elbow: {
       category: "Elbow",
-      icon: "💪",
+      icon: "elbow",
       viewOptions: [
         {
           views: "2",
@@ -1404,7 +1404,7 @@
 
     femur: {
       category: "Femur (Thigh)",
-      icon: "🦴",
+      icon: "femur",
       viewOptions: [
         {
           views: "2",
@@ -1422,7 +1422,7 @@
 
     tibia: {
       category: "Tibia/Fibula (Lower Leg)",
-      icon: "🦵",
+      icon: "tibia",
       viewOptions: [
         {
           views: "2",
