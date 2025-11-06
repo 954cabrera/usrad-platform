@@ -1151,29 +1151,31 @@ const CT_PROCEDURES = {
     ]
   },
 
-  screeningCoronaryCalcium: {
-    category: "Coronary Artery Evaluation",
-    icon: "heart",
-    categoryGroup: "screening",
-    displayIn: ["screening", "torso"],
-    isScreening: true,
-    badge: "⭐ Screening",
-    procedures: [
-      {
-        cpt: "75572",
-        label: "CT Heart - Without Contrast (Cardiac Screening)",
-        shortLabel: "Heart Screening",
-        description: "Cardiac structure and calcium assessment",
-        duration: "15-20 min",
-        prep: "None required - no contrast",
-        useCase: "Cardiac screening, structural heart evaluation",
-        clinicalIndication: "Comprehensive cardiac structure assessment without radiation-intensive tests",
-        isScreening: true,
-        helperText: "Non-invasive heart evaluation for structural assessment",
-        tags: ["screening", "heart", "cardiac", "structural", "calcium"]
-      }
-    ]
-  }
+  screeningCoronary: {        // ✅ Correct name
+  category: "Coronary CTA Screening",
+  icon: "heart",
+  categoryGroup: "screening",
+  displayIn: ["screening", "vascular"],  // ✅ Added "vascular"
+  isVascular: true,         // ✅ NEW - marks as CTA
+  isScreening: true,
+  badge: "💓 CTA",           // ✅ Matches other CTA procedures
+  procedures: [
+    {
+      cpt: "75574",         // ✅ Correct CTA coronary code
+      label: "CTA Coronary Arteries - Screening",
+      shortLabel: "Heart CTA",
+      description: "Non-invasive coronary artery evaluation",
+      duration: "20-30 min",
+      prep: "IV contrast required, heart rate control, beta blockers",  // ✅ Correct for CTA
+      useCase: "Chest pain evaluation, family history of heart disease",
+      clinicalIndication: "Coronary CTA for non-invasive cardiac assessment",
+      isVascular: true,     // ✅ NEW
+      isScreening: true,
+      helperText: "Non-invasive heart evaluation",
+      tags: ["coronary", "heart screening", "cta", "cardiac"]
+    }
+  ]
+}
 };
 
 // Export for use

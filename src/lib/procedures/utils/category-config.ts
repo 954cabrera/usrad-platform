@@ -130,7 +130,7 @@ export const CT_SCREENING_ITEMS = [
   'screeningLung',
   'screeningCardiac',
   'screeningColon',
-  'screeningCoronaryCalcium'
+  'screeningCoronary'
 ];
 
 // ============================================

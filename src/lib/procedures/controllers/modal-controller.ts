@@ -527,6 +527,33 @@ function attachRegionListeners(): void {
         return;
       }
       
+// SCREENING PATH: Auto-resolve with pre-defined protocols
+      if (state.modality === 'CT') {
+        // Check if this is a screening procedure by explicit label/key matching
+        const screeningLabels = [
+          'Lung Cancer Screening',
+          'Cardiac Calcium Score',
+          'Virtual Colonoscopy',
+          'Coronary CTA Screening',
+          'Heart Screening',
+          'screeningCoronary'  // ADD THIS - handle the key as well
+        ];
+        
+        const isScreening = screeningLabels.some(label => regionLabel === label);
+        
+        if (isScreening) {
+          console.log('Screening detected - resolving as direct procedure');
+          const screeningProcedure = resolveScreeningProcedure(regionLabel);
+          console.log('Screening Procedure Object:', screeningProcedure);
+          if (screeningProcedure) {
+            handleProcedureSelection(screeningProcedure);
+          } else {
+            console.error('Failed to resolve screening procedure:', regionLabel);
+          }
+          return;
+        }
+      }
+
       // CT (NON-CTA) PATH
       if (state.modality === 'CT') {
         console.log('🩺 CT (non-CTA) - setting region and showing contrast');
@@ -598,6 +625,66 @@ function resolveCTAProcedure(label: string): any {
     modality: 'CT',
     category: ctaRegion.category,
     icon: ctaRegion.icon,
+    description: procedure.description || '',
+    duration: procedure.duration || '',
+    prep: procedure.prep || '',
+    useCase: procedure.useCase || ''
+  };
+}
+
+/**
+ * Resolve CT Screening procedures directly by label
+ * Screening procedures have pre-defined protocols, no contrast selection needed
+ */
+function resolveScreeningProcedure(label: string): any {
+  console.log('Resolving screening procedure:', label);
+  
+  // Map screening labels to their procedure keys and CPT codes
+  const screeningMap: Record<string, { key: string; cpt: string }> = {
+    'Lung Cancer Screening': { key: 'screeningLung', cpt: '71271' },
+    'Cardiac Calcium Score': { key: 'screeningCardiac', cpt: '75571' },
+    'Virtual Colonoscopy': { key: 'screeningColon', cpt: '74263' },
+    'Coronary CTA Screening': { key: 'screeningCoronary', cpt: '75574' },
+    'Heart Screening': { key: 'screeningCoronary', cpt: '75574' },
+    'screeningCoronary': { key: 'screeningCoronary', cpt: '75574' }
+  };
+  
+  const screeningInfo = screeningMap[label];
+  if (!screeningInfo) {
+    console.error('Unknown screening procedure:', label);
+    return null;
+  }
+  
+  // Get the procedure from the library
+  const ctProcedures = window.ProcedureLibrary?.CT;
+  if (!ctProcedures) {
+    console.error('CT procedures not found in library');
+    return null;
+  }
+  
+  const screeningRegion = ctProcedures[screeningInfo.key];
+  if (!screeningRegion || !screeningRegion.procedures) {
+    console.error('Screening region not found:', screeningInfo.key);
+    return null;
+  }
+  
+  // Find the specific procedure by CPT
+  const procedure = screeningRegion.procedures.find((p: any) => p.cpt === screeningInfo.cpt);
+  if (!procedure) {
+    console.error('Screening procedure not found with CPT:', screeningInfo.cpt);
+    return null;
+  }
+  
+  console.log('Resolved screening procedure:', procedure.label, procedure.cpt);
+  
+  // Return object matching handleProcedureSelection's expected format
+  return {
+    cpt_code: procedure.cpt,
+    patient_label: procedure.label,
+    badge_label: `CPT ${procedure.cpt}`,
+    modality: 'CT',
+    category: screeningRegion.category,
+    icon: screeningRegion.icon,
     description: procedure.description || '',
     duration: procedure.duration || '',
     prep: procedure.prep || '',

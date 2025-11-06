@@ -683,11 +683,11 @@ function getRegionFromKey(regionKey: string): { label: string; icon: string; hel
       icon: 'intestine',
       helperText: 'Colon cancer screening ages 45+ - no sedation'
     },
-    'screeningCoronaryCalcium': { 
-      label: 'Heart Screening', 
-      icon: 'heart',
-      helperText: 'Non-invasive heart evaluation'
-    }
+    'screeningCoronary': {   // ✅ NEW NAME (matches procedures-global.js)
+  label: 'Heart Screening', 
+  icon: 'heart',
+  helperText: 'Non-invasive heart evaluation'
+}
   };
 
   return regionMap[regionKey] || { label: regionKey, icon: 'medical' };
