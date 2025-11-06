@@ -263,4 +263,170 @@ export function shouldAlwaysShowAll(groupId: string): boolean {
   return CT_CATEGORY_GROUPS[groupId]?.alwaysShowAll || false;
 }
 
+// ============================================
+// MRI CATEGORY CONFIGURATION
+// ============================================
+
+/**
+ * MRI three-tier configuration structure
+ * Tier 1: Standard MRI (requires contrast selection UI)
+ * Tier 2: Vascular Imaging - MRA (auto with-contrast) and MRV (2 options)
+ * Tier 3: Specialized MRI (auto or skip contrast)
+ */
+
+export const MRI_CATEGORY_CONFIG = {
+  label: "MRI",
+  description: "Magnetic Resonance Imaging - soft tissue, brain, spine, joints, and vascular studies.",
+  tiers: [
+    {
+      id: "standard",
+      name: "Standard MRI",
+      icon: "mri",
+      description: "General MRI scans for brain, spine, joints, and internal organs.",
+      defaultExpanded: true,
+      contrastOptions: [
+        "Without Contrast",
+        "With Contrast",
+        "With and Without Contrast"
+      ],
+      regions: [
+        {
+          id: "brain",
+          label: "Brain / Head",
+          cptRange: ["70551", "70553"],
+          notes: "Commonly used for headaches, dizziness, tumors, or stroke follow-up."
+        },
+        {
+          id: "spine",
+          label: "Spine (Cervical / Thoracic / Lumbar)",
+          cptRange: ["72141", "72158"],
+          notes: "Detects herniated discs, nerve compression, and spinal abnormalities."
+        },
+        {
+          id: "abdomenPelvis",
+          label: "Abdomen / Pelvis",
+          cptRange: ["74181", "72197"],
+          notes: "Evaluates liver, kidneys, uterus, prostate, and pelvic organs."
+        },
+        {
+          id: "upperExtremity",
+          label: "Upper Extremity (Shoulder, Elbow, Wrist)",
+          cptRange: ["73218", "73223"],
+          notes: "Assesses soft tissue injuries, tendons, or post-surgical changes."
+        },
+        {
+          id: "lowerExtremity",
+          label: "Lower Extremity (Hip, Knee, Ankle, Foot)",
+          cptRange: ["73718", "73723"],
+          notes: "Detects ligament tears, arthritis, or sports-related injuries."
+        }
+      ]
+    },
+    {
+      id: "vascular",
+      name: "Vascular Imaging (MRA / MRV)",
+      icon: "vascular",
+      description: "MRI studies focused on arteries (MRA) and veins (MRV).",
+      categoryGroup: "vascular",
+      regions: [
+        {
+          id: "mraBrain",
+          label: "MRA Brain (Arterial)",
+          cptRange: ["70544", "70546"],
+          contrastMode: "auto",
+          notes: "Evaluates cerebral arteries for aneurysm, stenosis, or stroke."
+        },
+        {
+          id: "mraNeck",
+          label: "MRA Neck (Carotid Arteries)",
+          cptRange: ["70547", "70549"],
+          contrastMode: "auto",
+          notes: "Assesses carotid or vertebral arteries for narrowing or blockage."
+        },
+        {
+          id: "mraChest",
+          label: "MRA Chest / Aorta",
+          cptRange: ["71555"],
+          contrastMode: "auto",
+          notes: "Examines thoracic aorta for aneurysm, dissection, or congenital defects."
+        },
+        {
+          id: "mraAbdomen",
+          label: "MRA Abdomen / Renal",
+          cptRange: ["74185"],
+          contrastMode: "auto",
+          notes: "Visualizes abdominal and renal arteries for stenosis or aneurysm."
+        },
+        {
+          id: "mraPelvis",
+          label: "MRA Pelvis / Iliac Vessels",
+          cptRange: ["72198"],
+          contrastMode: "auto",
+          notes: "Evaluates iliac or pelvic arterial flow and vascular abnormalities."
+        },
+        {
+          id: "mraRunoff",
+          label: "MRA Runoff (Lower Extremities)",
+          cptRange: ["74185", "73725"],
+          contrastMode: "auto",
+          notes: "Abdominal aorta and bilateral leg arteries for peripheral vascular disease."
+        },
+        {
+          id: "mraSpine",
+          label: "MRA Spine",
+          cptRange: ["72159"],
+          contrastMode: "auto",
+          notes: "Assesses spinal canal vasculature for arteriovenous malformations."
+        },
+        {
+          id: "mrvHead",
+          label: "MRV Head (Venous)",
+          cptRange: ["70544", "70546"],
+          contrastMode: "optional",
+          notes: "Evaluates cerebral venous drainage or thrombosis. Contrast may be used depending on indication."
+        }
+      ]
+    },
+    {
+      id: "specialized",
+      name: "Specialized MRI",
+      icon: "specialized",
+      description: "Advanced MRI exams requiring specialized protocols or injections.",
+      defaultExpanded: false,
+      regions: [
+        {
+          id: "arthrograms",
+          label: "Joint Arthrograms (Fluoro-guided)",
+          badge: "arthrogram",
+          cptRange: ["73222", "73723"],
+          contrastMode: "auto",
+          notes: "Performed with contrast injection under fluoroscopy. Common for shoulder, hip, and knee."
+        },
+        {
+          id: "breastMRI",
+          label: "Breast MRI (CAD)",
+          cptRange: ["77046", "77049"],
+          contrastMode: "auto",
+          notes: "High-resolution MRI for breast cancer screening or surgical follow-up."
+        },
+        {
+          id: "spectroscopy",
+          label: "MR Spectroscopy (MRS)",
+          cptRange: ["76390"],
+          contrastMode: "none",
+          notes: "Analyzes metabolic activity in brain or other tissues (no contrast)."
+        },
+        {
+          id: "elastography",
+          label: "MR Elastography (MRE)",
+          cptRange: ["76391"],
+          contrastMode: "none",
+          notes: "Assesses tissue stiffness, often used to evaluate liver fibrosis."
+        }
+      ]
+    }
+  ]
+} as const;
+
 console.log('✅ CT Category Configuration loaded');
+

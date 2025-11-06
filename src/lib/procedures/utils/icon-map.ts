@@ -29,6 +29,29 @@ export const ICON_MAP: Record<string, string> = {
   'pet': '☢️',
   'nuclear-medicine': '⚛️',
   
+// MRI-Specific Icons
+  'vascular': 'Activity',
+  'specialized': 'Star',
+  'arthrogram': 'Droplet',
+  'spectroscopy': 'FlaskRound',
+  'elastography': 'Waves',
+  'breastMRI': 'Heart',
+  
+  // Contrast Icons
+  'contrast': 'Droplet',
+  'withoutContrast': 'CircleSlash',
+  'withContrast': 'Droplet',
+  'withAndWithoutContrast': 'Droplets',
+  
+  // Additional Utility Icons
+  'bodyPart': 'ScanLine',
+  'procedure': 'ClipboardList',
+  'search': 'Search',
+  'success': 'CheckCircle',
+  'error': 'XCircle',
+  'expand': 'ChevronDown',
+  'collapse': 'ChevronUp',
+
   // Head & Brain
   'brain': '🧠',
   'head': '🧠',

@@ -345,4 +345,106 @@ export function highlightSearchTerms(text: string, query: string): string {
   return result;
 }
 
+// ============================================
+// PROCEDURE SELECTION TO ZIP ENTRY TRANSITION
+// ============================================
+
+/**
+ * Show procedure cards and transition to ZIP entry step
+ * Handles the progression from procedure selection to location entry
+ * This is the final step before ZIP code entry (not pricing)
+ * 
+ * @param params - Procedure configuration
+ * @param params.modality - Imaging modality (MRI, CT, etc.)
+ * @param params.region - Selected body region
+ * @param params.cptRange - CPT code range for the procedure
+ * @param params.contrast - Contrast selection (optional)
+ */
+export function showProcedureCards({
+  modality,
+  region,
+  cptRange,
+  contrast
+}: {
+  modality: string;
+  region: string;
+  cptRange?: string[];
+  contrast?: string;
+}): void {
+  // Step 1: Hide procedure selection step with fade-out animation
+  const procedureStep = document.getElementById("step-1-container");
+  const locationStep = document.getElementById("step-2-container");
+  
+  if (procedureStep && locationStep) {
+    procedureStep.classList.add("step-fade-out");
+    setTimeout(() => {
+      procedureStep.classList.add("hidden");
+      locationStep.classList.remove("hidden");
+      locationStep.classList.add("step-fade-in");
+    }, 250);
+  }
+
+  // Step 2: Update progress bar to 100% (procedure selection complete)
+  const progressFill = document.getElementById("progress-fill");
+  if (progressFill) {
+    progressFill.style.width = "100%";
+  }
+
+  // Step 3: Update step indicators (checkmark for step 1, active for step 2)
+  const indicator1 = document.getElementById("step-1-indicator");
+  const indicator2 = document.getElementById("step-2-indicator");
+  const label1 = document.getElementById("step-1-label");
+  const label2 = document.getElementById("step-2-label");
+
+  if (indicator1) {
+    indicator1.className = "w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-bold";
+  }
+  if (label1) {
+    label1.className = "text-sm font-medium text-green-600";
+  }
+  if (indicator2) {
+    indicator2.className = "w-10 h-10 rounded-full bg-[#003087] text-white flex items-center justify-center text-sm font-bold";
+  }
+  if (label2) {
+    label2.className = "text-sm font-semibold text-[#003087]";
+  }
+
+  // Step 4: Format procedure label for display
+  let procedureLabel = `${modality} ${region}`;
+  if (contrast && contrast !== "None") {
+    procedureLabel += ` - ${contrast}`;
+  }
+
+  // Step 5: Update selected procedure display
+  const display = document.getElementById("selected-procedure-display");
+  const hiddenProcedure = document.getElementById("hero-selected-procedure") as HTMLInputElement | null;
+  const hiddenCpt = document.getElementById("hero-selected-cpt") as HTMLInputElement | null;
+
+  if (display) {
+    display.innerHTML = `
+      <p class="font-semibold text-gray-900">${procedureLabel}</p>
+      <p class="text-xs text-gray-600 mt-0.5">${cptRange && cptRange.length ? cptRange.join(", ") : ""}</p>
+    `;
+  }
+
+  // Step 6: Update hidden form fields
+  if (hiddenProcedure) {
+    hiddenProcedure.value = procedureLabel;
+  }
+  if (hiddenCpt && cptRange && cptRange.length) {
+    hiddenCpt.value = cptRange[0];
+  }
+
+  // Step 7: Focus ZIP input field and scroll into view
+  const zipInput = document.getElementById("hero-location");
+  if (zipInput) {
+    setTimeout(() => {
+      zipInput.scrollIntoView({ behavior: "smooth", block: "center" });
+      (zipInput as HTMLInputElement).focus();
+    }, 500);
+  }
+
+  console.log('Procedure selected:', { modality, region, cptRange, contrast });
+}
+
 console.log('✅ Search Results Renderer loaded');

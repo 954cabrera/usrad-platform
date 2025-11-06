@@ -9,6 +9,7 @@
  */
 
 import type { Modality, ContrastOption } from '../types';
+import { showProcedureCards } from './search-results-renderer';
 import { getModalityIcon, getModalityColor, getContrastConfig } from '../utils/modality-detector';
 import { 
   renderSectionHeader, 
@@ -304,5 +305,150 @@ export function renderContrastInfoCard(): string {
     </div>
   `;
 }
+
+// ============================================
+// MRI-AWARE CONTRAST HANDLER
+// ============================================
+
+/**
+ * Show contrast options UI with MRI-aware logic
+ * Routes to appropriate UI or auto-advances based on MRI tier configuration
+ * 
+ * @param params - Configuration object
+ * @param params.modality - Imaging modality (MRI, CT, etc.)
+ * @param params.region - Selected body region label
+ * @param params.cptRange - CPT code range for the procedure
+ * @param params.contrastOptions - Available contrast options (optional)
+ */
+export function showContrastOptions({
+  modality,
+  region,
+  cptRange,
+  contrastOptions
+}: {
+  modality: string;
+  region: string;
+  cptRange: string[];
+  contrastOptions?: string[];
+}): void {
+  // MRI-specific logic
+  if (modality === 'MRI') {
+    const regionMeta = findMRIRegionMeta(region);
+    const contrastMode = regionMeta?.contrastMode || 'manual';
+
+    // Auto mode: Skip UI, proceed directly to procedure cards
+    if (contrastMode === 'auto') {
+      showProcedureCards({
+        modality: 'MRI',
+        region,
+        cptRange,
+        contrast: 'With Contrast'
+      });
+      return;
+    }
+
+    // Optional mode: Show 2 options (Without, With)
+    if (contrastMode === 'optional') {
+      renderContrastUI(region, ['Without Contrast', 'With Contrast'], cptRange);
+      return;
+    }
+
+    // Manual/default mode: Show all 3 options
+    renderContrastUI(
+      region,
+      contrastOptions || ['Without Contrast', 'With Contrast', 'With and Without Contrast'],
+      cptRange
+    );
+    return;
+  }
+
+  // CT and other modalities: Standard contrast UI
+  renderContrastUI(region, contrastOptions || ['Without Contrast', 'With Contrast', 'With and Without Contrast'], cptRange);
+}
+
+/**
+ * Find MRI region metadata from category config
+ * 
+ * @param regionLabel - Region label to search for
+ * @returns Region metadata or null
+ */
+function findMRIRegionMeta(regionLabel: string): any {
+  // Dynamic import to avoid circular dependency
+  try {
+    const categoryConfig = require('../utils/category-config');
+    const MRI_CONFIG = categoryConfig.MRI_CATEGORY_CONFIG;
+    
+    for (const tier of MRI_CONFIG.tiers) {
+      for (const r of tier.regions) {
+        if (r.label === regionLabel) return r;
+      }
+    }
+  } catch (error) {
+    console.warn('Could not load MRI config:', error);
+  }
+  
+  return null;
+}
+
+/**
+ * Render contrast selection UI in the DOM
+ * 
+ * @param region - Body region label
+ * @param options - Array of contrast option labels
+ * @param cptRange - CPT code range
+ */
+function renderContrastUI(region: string, options: string[], cptRange: string[]): void {
+  const container = document.getElementById('contrast-options-container');
+  if (!container) {
+    console.warn('Contrast options container not found in DOM');
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="space-y-4">
+      <div class="text-center mb-6">
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Select Contrast Option</h3>
+        <p class="text-gray-600">${region}</p>
+      </div>
+      <div class="grid grid-cols-1 gap-3">
+        ${options.map(option => `
+          <button
+            type="button"
+            class="contrast-option-btn bg-white border-2 border-gray-300 rounded-lg px-6 py-4 text-gray-900 hover:bg-blue-50 hover:border-[#003087] transition-all w-full text-left font-medium"
+            data-contrast="${option}"
+            data-region="${region}"
+            data-cpt-range="${cptRange.join(',')}"
+          >
+            <div class="flex items-center justify-between">
+              <span>${option}</span>
+              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  // Attach click handlers
+  container.querySelectorAll('.contrast-option-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const contrast = target.dataset.contrast || '';
+      const regionLabel = target.dataset.region || '';
+      const cptRangeStr = target.dataset.cptRange || '';
+      const cptRangeArray = cptRangeStr.split(',').filter(Boolean);
+
+      showProcedureCards({
+        modality: 'MRI',
+        region: regionLabel,
+        cptRange: cptRangeArray,
+        contrast
+      });
+    });
+  });
+}
+
 
 console.log('✅ Contrast Selection Renderer loaded');

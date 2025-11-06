@@ -28,7 +28,8 @@ import {
 } from '@/lib/procedures/utils/search-engine';
 
 import { 
-  SelectionFlow 
+  SelectionFlow,
+  handleMRISelection
 } from '@/lib/procedures/controllers/selection-flow';
 
 // ============================================

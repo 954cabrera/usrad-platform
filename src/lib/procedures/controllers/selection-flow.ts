@@ -398,4 +398,94 @@ export function createSelectionFlowWithState(initialState: Partial<SelectionStat
   return flow;
 }
 
+// ============================================
+// MRI SELECTION HANDLER
+// ============================================
+
+/**
+ * Handle MRI tier and region selection
+ * Routes to appropriate contrast UI or procedure cards based on tier type
+ * 
+ * @param regionId - The selected region ID (e.g., 'brain', 'mraBrain')
+ * @param tierId - The MRI tier ID ('standard', 'vascular', 'specialized')
+ */
+export async function handleMRISelection(regionId: string, tierId: string): Promise<void> {
+  // Dynamic import to avoid circular dependency
+  const { MRI_CATEGORY_CONFIG } = await import('../utils/category-config');
+  
+  const tier = MRI_CATEGORY_CONFIG.tiers.find((t: any) => t.id === tierId);
+  if (!tier) {
+    throw new Error(`MRI tier not found: ${tierId}`);
+  }
+
+  const region = tier.regions.find((r: any) => r.id === regionId);
+  if (!region) {
+    throw new Error(`MRI region not found: ${regionId} in tier ${tierId}`);
+  }
+
+  // Dynamic imports for UI functions
+  const contrastRenderer = await import('../ui/contrast-renderer');
+  const resultsRenderer = await import('../ui/search-results-renderer');
+
+  switch (tier.id) {
+    case 'standard':
+      // Standard MRI: Show 3 contrast options
+      if (contrastRenderer.showContrastOptions) {
+        contrastRenderer.showContrastOptions({
+          modality: 'MRI',
+          region: region.label,
+          cptRange: region.cptRange,
+          contrastOptions: tier.contrastOptions
+        });
+      }
+      break;
+
+    case 'vascular':
+      // MRA: Auto with-contrast, skip UI
+      // MRV: Show 2 contrast options
+      if (region.contrastMode === 'auto') {
+        if (resultsRenderer.showProcedureCards) {
+          resultsRenderer.showProcedureCards({
+            modality: 'MRI',
+            region: region.label,
+            cptRange: region.cptRange,
+            contrast: 'With Contrast'
+          });
+        }
+      } else if (region.contrastMode === 'optional') {
+        // MRV with optional contrast
+        if (contrastRenderer.showContrastOptions) {
+          contrastRenderer.showContrastOptions({
+            modality: 'MRI',
+            region: region.label,
+            cptRange: region.cptRange,
+            contrastOptions: ['Without Contrast', 'With Contrast']
+          });
+        }
+      }
+      break;
+
+    case 'specialized':
+      // Specialized MRI: Auto-advance based on contrastMode
+      const contrastLabel = region.contrastMode === 'auto' 
+        ? 'With Contrast'
+        : region.contrastMode === 'none'
+        ? 'Without Contrast'
+        : 'None';
+      
+      if (resultsRenderer.showProcedureCards) {
+        resultsRenderer.showProcedureCards({
+          modality: 'MRI',
+          region: region.label,
+          cptRange: region.cptRange,
+          contrast: contrastLabel
+        });
+      }
+      break;
+
+    default:
+      console.warn(`Unknown MRI tier: ${tierId}`);
+  }
+}
+
 console.log('✅ Selection Flow Manager loaded');
