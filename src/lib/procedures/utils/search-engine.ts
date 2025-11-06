@@ -3,11 +3,30 @@
  * ======================================
  * Searches across all modalities (MRI, CT, X-Ray, Mammography, etc.)
  * NOW WITH: X-Ray view token detection and intelligent search
+ * ENHANCED WITH: CT intent-based search (CTA, Screening)  // <-- ADD THIS
  * 
  * Usage:
  *   import { searchAllProcedures, searchByCPT } from './search-engine';
  *   const results = searchAllProcedures('chest xray 2 view');
+ *   const results = searchAllProcedures('heart angiogram');  // <-- ADD THIS
  */
+
+// ============================================
+// IMPORTS - ADD THESE AT THE TOP
+// ============================================
+
+// Import CT search configuration
+import {
+  detectSearchIntent,
+  searchCategories,
+  CT_ALL_KEYWORDS,
+  CT_VASCULAR_KEYWORDS,
+  CT_SCREENING_KEYWORDS,
+  INTENT_TRIGGERS,
+  expandQueryWithSynonyms
+} from './ct-search-config';
+
+import type { SearchIntent, SearchMatch } from './ct-search-config';
 
 // ============================================
 // TYPE DEFINITIONS
@@ -111,6 +130,49 @@ const XRAY_REGION_SYNONYMS: Record<string, string[]> = {
   'tibia': ['tibia', 'shin', 'shin bone'],
   'ribs': ['ribs', 'rib']
 };
+
+// ============================================
+// CT SEARCH KEYWORDS (NEW!)
+// ============================================
+
+/**
+ * CT-specific keyword mappings
+ * Imported from ct-search-config.ts for consistency
+ */
+const CT_KEYWORDS = CT_ALL_KEYWORDS;
+
+/**
+ * Quick lookup for CT vascular (CTA) keywords
+ */
+const CT_VASCULAR_TERMS = [
+  'angiogram', 'angio', 'cta', 'vessels', 'arteries', 'aneurysm',
+  'blood vessels', 'vascular', 'circulation', 'blockage', 'stenosis',
+  'carotid', 'coronary', 'cardiac ct', 'run-off', 'runoff'
+];
+
+/**
+ * Quick lookup for CT screening keywords
+ */
+const CT_SCREENING_TERMS = [
+  'screening', 'preventive', 'wellness', 'early detection',
+  'cancer screening', 'calcium score', 'lung screening', 'ldct',
+  'virtual colonoscopy', 'colonography'
+];
+
+/**
+ * Enhanced region synonyms including CT-specific terms
+ */
+const CT_REGION_SYNONYMS: Record<string, string[]> = {
+  'head': ['head', 'brain', 'skull', 'cranial', 'cerebral'],
+  'chest': ['chest', 'thorax', 'lungs', 'lung', 'pulmonary'],
+  'heart': ['heart', 'cardiac', 'coronary', 'cardiovascular'],
+  'abdomen': ['abdomen', 'belly', 'stomach', 'abdominal', 'liver', 'kidney'],
+  'pelvis': ['pelvis', 'pelvic', 'hip'],
+  'neck': ['neck', 'cervical', 'carotid', 'throat'],
+  'spine': ['spine', 'back', 'vertebrae', 'spinal'],
+  'vessels': ['vessels', 'arteries', 'veins', 'vascular', 'blood vessels']
+};
+
 
 // ============================================
 // SPECIAL PROCEDURES (Non-MRI/CT)
@@ -319,6 +381,65 @@ function parseSearchQuery(searchTerm: string): {
 }
 
 /**
+ * Detect CT-specific search intent
+ * Determines if user is looking for Standard CT, CTA, or Screening
+ * 
+ * @param searchTerm - User's search query
+ * @returns Intent type and confidence
+ * 
+ * @example
+ * detectCTIntent('angiogram') → { intent: 'vascular', confidence: 1.0 }
+ * detectCTIntent('lung screening') → { intent: 'screening', confidence: 1.0 }
+ * detectCTIntent('brain ct') → { intent: 'standard', confidence: 0.8 }
+ */
+function detectCTIntent(searchTerm: string): {
+  intent: SearchIntent;
+  confidence: number;
+} {
+  const term = searchTerm.toLowerCase().trim();
+  
+  // Check for vascular/CTA intent
+  for (const vascularTerm of CT_VASCULAR_TERMS) {
+    if (term.includes(vascularTerm)) {
+      return { intent: 'vascular', confidence: 1.0 };
+    }
+  }
+  
+  // Check for screening intent
+  for (const screeningTerm of CT_SCREENING_TERMS) {
+    if (term.includes(screeningTerm)) {
+      return { intent: 'screening', confidence: 1.0 };
+    }
+  }
+  
+  // Default to standard CT with lower confidence
+  return { intent: 'standard', confidence: 0.8 };
+}
+
+/**
+ * Expand search term with CT synonyms
+ * 
+ * @param searchTerm - Original search term
+ * @returns Array of expanded terms
+ * 
+ * @example
+ * expandCTSearchTerm('heart') → ['heart', 'cardiac', 'coronary']
+ */
+function expandCTSearchTerm(searchTerm: string): string[] {
+  const terms = [searchTerm];
+  const term = searchTerm.toLowerCase().trim();
+  
+  // Check each synonym group
+  for (const [key, synonyms] of Object.entries(CT_REGION_SYNONYMS)) {
+    if (term.includes(key)) {
+      terms.push(...synonyms);
+    }
+  }
+  
+  return [...new Set(terms)]; // Remove duplicates
+}
+
+/**
  * Filter X-Ray results by view token
  * Example: Filter "Chest" results to only show "2 Views"
  */
@@ -427,17 +548,39 @@ export function searchAllProcedures(searchTerm: string): SearchResult[] {
   const parsed = parseSearchQuery(term);
   console.log('🧠 Parsed query:', parsed);
   
+  // 🆕 Detect CT-specific intent
+  const ctIntent = detectCTIntent(term);
+  console.log('💓 CT Intent detected:', ctIntent);
+  
+  // 🆕 Expand search with synonyms for CT
+  const expandedTerms = expandCTSearchTerm(term);
+  console.log('📚 Expanded search terms:', expandedTerms);
+  
   // Search MRI library
   if (typeof window !== 'undefined' && window.ProcedureLibrary?.MRI) {
     searchInLibrary(window.ProcedureLibrary.MRI, 'MRI', term, results);
   }
   
-  // Search CT library
+  // Search CT library with enhanced matching
   if (typeof window !== 'undefined' && window.ProcedureLibrary?.CT) {
+    const ctResultsBefore = results.length;
+    
+    // Search with original term
     searchInLibrary(window.ProcedureLibrary.CT, 'CT', term, results);
+    
+    // 🆕 If few results, try expanded terms
+    if (results.length - ctResultsBefore < 3 && expandedTerms.length > 1) {
+      for (const expandedTerm of expandedTerms) {
+        if (expandedTerm !== term) {
+          searchInLibrary(window.ProcedureLibrary.CT, 'CT', expandedTerm, results);
+        }
+      }
+    }
+    
+    console.log(`🔍 CT search: ${results.length - ctResultsBefore} results found`);
   }
   
-  // Search X-Ray library (NEW!)
+  // Search X-Ray library
   if (typeof window !== 'undefined' && window.ProcedureLibrary?.['X-Ray']) {
     searchInXRayLibrary(window.ProcedureLibrary['X-Ray'], term, results, false);
   }
@@ -449,7 +592,7 @@ export function searchAllProcedures(searchTerm: string): SearchResult[] {
     
     if (filteredResults.length > 0) {
       console.log(`✨ Smart filter: ${results.length} → ${filteredResults.length} results`);
-      results.length = 0; // Clear original results
+      results.length = 0;
       results.push(...filteredResults);
     }
   }
@@ -474,6 +617,41 @@ export function searchAllProcedures(searchTerm: string): SearchResult[] {
   if (term.includes('pet')) {
     Object.values(PET_PROCEDURES).forEach(proc => {
       results.push(convertToSearchResult(proc));
+    });
+  }
+  
+  // 🆕 Sort CT results by intent match
+  if (ctIntent.intent !== 'standard' && results.some(r => r.modality === 'CT')) {
+    console.log(`🎯 Prioritizing ${ctIntent.intent} CT procedures`);
+    
+    results.sort((a, b) => {
+      // Keep non-CT results in original order
+      if (a.modality !== 'CT' && b.modality !== 'CT') return 0;
+      
+      // Prioritize CT results that match intent
+      const aIsVascular = a.label.toLowerCase().includes('cta') || 
+                         a.description.toLowerCase().includes('angiogram');
+      const bIsVascular = b.label.toLowerCase().includes('cta') || 
+                         b.description.toLowerCase().includes('angiogram');
+      
+      const aIsScreening = a.label.toLowerCase().includes('screening') ||
+                          a.description.toLowerCase().includes('screening');
+      const bIsScreening = b.label.toLowerCase().includes('screening') ||
+                          b.description.toLowerCase().includes('screening');
+      
+      // Vascular intent: prioritize CTA
+      if (ctIntent.intent === 'vascular') {
+        if (aIsVascular && !bIsVascular) return -1;
+        if (!aIsVascular && bIsVascular) return 1;
+      }
+      
+      // Screening intent: prioritize screening
+      if (ctIntent.intent === 'screening') {
+        if (aIsScreening && !bIsScreening) return -1;
+        if (!aIsScreening && bIsScreening) return 1;
+      }
+      
+      return 0;
     });
   }
   
@@ -616,7 +794,41 @@ function searchInLibrary(
     // Also check if search term is in the regionKey itself
     const matchesKey = regionKey.toLowerCase().includes(term);
     
-    if (matchesCategory || matchesKey || isCPTSearch) {
+    // 🆕 CT ENHANCEMENT: Check additional metadata fields
+    let matchesMetadata = false;
+    if (modality === 'CT' && region) {
+      // Check tags
+      if (region.tags && Array.isArray(region.tags)) {
+        matchesMetadata = region.tags.some((tag: string) => 
+          tag.toLowerCase().includes(term) || term.includes(tag.toLowerCase())
+        );
+      }
+      
+      // Check clinical indication
+      if (!matchesMetadata && region.clinicalIndication) {
+        matchesMetadata = region.clinicalIndication.toLowerCase().includes(term);
+      }
+      
+      // Check if it's a vascular/screening procedure
+      if (!matchesMetadata) {
+        if (region.isVascular && CT_VASCULAR_TERMS.some(t => term.includes(t))) {
+          matchesMetadata = true;
+        }
+        if (region.isScreening && CT_SCREENING_TERMS.some(t => term.includes(t))) {
+          matchesMetadata = true;
+        }
+      }
+      
+      // Check displayIn array
+      if (!matchesMetadata && region.displayIn && Array.isArray(region.displayIn)) {
+        matchesMetadata = region.displayIn.some((display: string) =>
+          display.toLowerCase().includes(term) || term.includes(display.toLowerCase())
+        );
+      }
+    }
+    
+    // Use ALL matching criteria (FIXED: was duplicate if statement)
+    if (matchesCategory || matchesKey || matchesMetadata || isCPTSearch) {
       // Add ALL procedures from this region
       region.procedures.forEach((proc: any) => {
         if (isCPTSearch && proc.cpt !== term) {
