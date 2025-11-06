@@ -20,9 +20,43 @@ import {
   wrapInContainer
 } from './renderer-core';
 
+// 🆕 ADD THESE IMPORTS
+import {
+  CT_CATEGORY_GROUPS,
+  CT_REGION_GROUPS,
+  CT_VASCULAR_GROUPS,
+  CT_SCREENING_ITEMS,
+  CT_DISPLAY_SETTINGS
+} from '../utils/category-config';
+
 // ============================================
 // REGION CONFIGURATIONS
 // ============================================
+
+// ============================================
+// CT-SPECIFIC STATE INTERFACE
+// ============================================
+
+/**
+ * State for CT category groups and expansion
+ */
+interface CTRenderState {
+  expandedGroups: Set<string>;
+  expandedRegionGroups: Set<string>;
+  showAllInGroup: Set<string>;
+}
+
+/**
+ * Initialize default CT state
+ * Head & Neck expanded by default per spec
+ */
+function getDefaultCTState(): CTRenderState {
+  return {
+    expandedGroups: new Set(), // ✅ All collapsed - user chooses
+    expandedRegionGroups: new Set(), // ✅ All collapsed
+    showAllInGroup: new Set()
+  };
+}
 
 const REGION_BY_MODALITY: Record<string, Region[]> = {
   MRI: [
@@ -129,43 +163,51 @@ const GROUPED_REGIONS: Record<string, { groupName: string; regions: Region[] }[]
     }
   ],
   CT: [
-    {
-      groupName: 'Head & Neck',
-      regions: [
-        { label: 'Head / Brain', icon: 'brain' },
-        { label: 'Sinuses', icon: 'sinuses' },
-        { label: 'Neck (Soft Tissue)', icon: 'neck' }
-      ]
-    },
-    {
-      groupName: 'Spine',
-      regions: [
-        { label: 'Cervical Spine (Neck)', icon: 'spine' },
-        { label: 'Thoracic Spine (Mid Back)', icon: 'spine' },
-        { label: 'Lumbar Spine (Low Back)', icon: 'spine' }
-      ]
-    },
-    {
-      groupName: 'Torso',
-      regions: [
-        { label: 'Chest', icon: 'chest' },
-        { label: 'Abdomen', icon: 'abdomen' },
-        { label: 'Abdomen & Pelvis', icon: 'abdomen' },
-        { label: 'Pelvis', icon: 'pelvis' }
-      ]
-    },
-    {
-      groupName: 'Extremities',
-      regions: [
-        { label: 'Shoulder', icon: 'shoulder' },
-        { label: 'Elbow', icon: 'elbow' },
-        { label: 'Wrist / Hand', icon: 'hand' },
-        { label: 'Hip', icon: 'hip' },
-        { label: 'Knee', icon: 'knee' },
-        { label: 'Ankle / Foot', icon: 'foot' }
-      ]
-    }
-  ],
+  {
+    groupName: 'Head & Neck',
+    regions: [
+      { label: 'Head / Brain', icon: 'brain' },
+      { label: 'Sinuses', icon: 'sinuses' },
+      { label: 'Neck (Soft Tissue)', icon: 'neck' }
+    ]
+  },
+  {
+    groupName: 'Torso',
+    regions: [
+      { label: 'Chest', icon: 'chest' },
+      { label: 'Abdomen', icon: 'abdomen' },
+      { label: 'Abdomen & Pelvis', icon: 'abdomen' },
+      { label: 'Pelvis', icon: 'pelvis' }
+    ]
+  },
+  {
+    groupName: 'Spine',
+    regions: [
+      { label: 'Cervical Spine (Neck)', icon: 'spine' },
+      { label: 'Thoracic Spine (Mid Back)', icon: 'spine' },
+      { label: 'Lumbar Spine (Low Back)', icon: 'spine' }
+    ]
+  },
+  {
+    groupName: 'Vascular Imaging (CTA)',
+    regions: [
+      { label: 'CTA Head & Neck', icon: 'brain' },
+      { label: 'CTA Chest', icon: 'heart' },
+      { label: 'CTA Coronary (Heart)', icon: 'heart' },
+      { label: 'CTA Abdomen', icon: 'abdomen' },
+      { label: 'CTA Extremities', icon: 'leg' }
+    ]
+  },
+  {
+    groupName: 'Specialized Screening',
+    regions: [
+      { label: 'Lung Cancer Screening', icon: 'lungs' },
+      { label: 'Cardiac Calcium Score', icon: 'heart' },
+      { label: 'Virtual Colonoscopy', icon: 'intestine' },
+      { label: 'Heart Screening', icon: 'heart' }
+    ]
+  }
+],
   'X-Ray': [
     {
       groupName: 'Spine & Chest',
@@ -279,6 +321,12 @@ export function renderGroupedRegionSelection(
   contrast?: string,
   showBreadcrumb: boolean = true
 ): string {
+  // 🆕 Use CT-specific renderer for CT modality
+  if (modality === 'CT') {
+    return renderCTGroupedSelection(modality, contrast, showBreadcrumb);
+  }
+
+  // Original code for other modalities
   const groups = GROUPED_REGIONS[modality] || [];
   const icon = getModalityIcon(modality);
 
@@ -317,6 +365,334 @@ export function renderGroupedRegionSelection(
     ${backButton}
   `);
 }
+
+/**
+ * Render CT-specific grouped selection with category groups
+ * Supports Standard CT, Vascular (CTA), and Screening
+ * 
+ * @param modality - Should be 'CT'
+ * @param contrast - Selected contrast (optional)
+ * @param showBreadcrumb - Whether to show breadcrumb
+ * @param state - CT render state (optional)
+ * @returns HTML string
+ */
+export function renderCTGroupedSelection(
+  modality: Modality,
+  contrast?: string,
+  showBreadcrumb: boolean = true,
+  state?: CTRenderState
+): string {
+  const renderState = state || getDefaultCTState();
+  const icon = getModalityIcon(modality);
+
+  const breadcrumb = showBreadcrumb
+    ? renderBreadcrumb([
+        modality,
+        contrast || 'Contrast',
+        'Select Region',
+        'Complete'
+      ], 2)
+    : '';
+
+  const header = renderSectionHeader(
+    'Select CT Scan Type',
+    'Choose your scan category below',
+    icon
+  );
+
+  // Render the three main category groups
+  const categoryGroupsHTML = renderCTCategoryGroups(renderState);
+
+  const backButton = renderBackButton(
+    contrast ? '← Back to contrast selection' : '← Back to search',
+    contrast ? 'back-to-contrast-ct' : 'back-to-search-ct'
+  );
+
+  return wrapInContainer(`
+    ${breadcrumb}
+    ${header}
+    <div class="ct-categories-container space-y-4">
+      ${categoryGroupsHTML}
+    </div>
+    ${backButton}
+  `);
+}
+
+/**
+ * Render CT category groups (Standard, Vascular, Screening)
+ */
+/**
+ * Render CT category groups (Standard, Vascular, Screening)
+ * Enhanced with visual cues for better UX
+ */
+function renderCTCategoryGroups(state: CTRenderState): string {
+  const html: string[] = [];
+  const groupOrder = ['standard', 'vascular', 'screening'];
+
+  for (const groupId of groupOrder) {
+    const groupConfig = CT_CATEGORY_GROUPS[groupId];
+    if (!groupConfig) continue;
+
+    const isExpanded = state.expandedGroups.has(groupId);
+
+    html.push(`
+      <div class="ct-category-group border-2 ${isExpanded ? 'border-blue-400 bg-blue-50' : 'border-gray-200'} rounded-xl overflow-hidden transition-all duration-200 hover:border-blue-300 hover:shadow-md">
+        <button
+          type="button"
+          class="ct-group-header w-full p-4 ${isExpanded ? 'bg-blue-50' : 'bg-gray-50 hover:bg-gray-100'} transition-colors flex items-center justify-between group"
+          data-group-id="${groupId}"
+          onclick="window.toggleCTGroup('${groupId}')"
+          aria-expanded="${isExpanded}"
+          aria-controls="ct-group-${groupId}-content"
+        >
+          <div class="flex items-center gap-3 flex-1">
+            <span class="text-2xl">${groupConfig.icon}</span>
+            <div class="text-left flex-1">
+              <h4 class="text-base font-semibold text-gray-900">${groupConfig.label}</h4>
+              <p class="text-xs text-gray-500">${groupConfig.description}</p>
+            </div>
+          </div>
+          
+          <!-- 🆕 VISUAL CUES -->
+          <div class="flex items-center gap-2">
+            ${!isExpanded ? `
+              <span class="hidden sm:inline text-xs text-gray-400 group-hover:text-blue-600 transition-colors">
+                Tap to expand
+              </span>
+            ` : ''}
+            <span class="text-gray-400 group-hover:text-blue-600 transition-all duration-200 ${isExpanded ? 'rotate-90' : ''}">
+              ▶
+            </span>
+          </div>
+        </button>
+        
+        ${isExpanded ? `
+          <div id="ct-group-${groupId}-content" class="ct-group-content animate-fade-in">
+            ${renderCTGroupContent(groupId, state)}
+          </div>
+        ` : ''}
+      </div>
+    `);
+  }
+
+  return html.join('\n');
+}
+
+/**
+ * Render content for a specific CT category group
+ */
+function renderCTGroupContent(groupId: string, state: CTRenderState): string {
+  if (groupId === 'standard') {
+    return renderStandardCTContent(state);
+  } else if (groupId === 'vascular') {
+    return renderVascularCTAContent(state);
+  } else if (groupId === 'screening') {
+    return renderScreeningContent(state);
+  }
+  return '';
+}
+
+/**
+ * Render Standard CT content with region groups
+ */
+function renderStandardCTContent(state: CTRenderState): string {
+  const html: string[] = [];
+
+  html.push('<div class="p-4 space-y-4">');
+
+  for (const regionGroup of CT_REGION_GROUPS) {
+    const isExpanded = state.expandedRegionGroups.has(regionGroup.groupName) || 
+                       regionGroup.defaultExpanded;
+    const showAll = state.showAllInGroup.has(regionGroup.groupName);
+
+    html.push(`
+      <div class="ct-region-group">
+        <button
+          type="button"
+          class="w-full flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          onclick="window.toggleCTRegionGroup('${regionGroup.groupName}')"
+        >
+          <div class="flex items-center gap-2">
+            <span class="text-xl">${regionGroup.groupIcon}</span>
+            <span class="font-medium text-gray-900">${regionGroup.groupName}</span>
+          </div>
+          <span class="text-gray-400 transition-transform ${isExpanded ? 'rotate-90' : ''}">
+            ▶
+          </span>
+        </button>
+        ${isExpanded ? renderCTRegionGroupItems(regionGroup, showAll) : ''}
+      </div>
+    `);
+  }
+
+  html.push('</div>');
+  return html.join('\n');
+}
+
+/**
+ * Render items within a region group with progressive disclosure
+ */
+function renderCTRegionGroupItems(
+  regionGroup: { groupName: string; groupIcon: string; regions: string[] },
+  showAll: boolean
+): string {
+  const regions = regionGroup.regions;
+  const showFirst = 3;
+  const visibleRegions = showAll ? regions : regions.slice(0, showFirst);
+  const hasMore = regions.length > showFirst;
+
+  const regionButtons = visibleRegions.map(regionKey => {
+    // Get region label from procedures-global.js
+    const region = getRegionFromKey(regionKey);
+    return renderCTRegionCard(region);
+  });
+
+  const grid = `
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-3">
+      ${regionButtons.join('\n')}
+    </div>
+  `;
+
+  let showMoreButton = '';
+  if (hasMore && !showAll) {
+    const remainingCount = regions.length - showFirst;
+    showMoreButton = `
+      <div class="text-center mt-3">
+        <button
+          type="button"
+          class="text-sm text-blue-600 hover:text-blue-700 font-medium"
+          onclick="window.showMoreCTRegions('${regionGroup.groupName}')"
+        >
+          [+${remainingCount} more ▼]
+        </button>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="mt-2">
+      ${grid}
+      ${showMoreButton}
+    </div>
+  `;
+}
+
+/**
+ * Render Vascular/CTA content
+ */
+function renderVascularCTAContent(state: CTRenderState): string {
+  const html: string[] = [];
+
+  html.push('<div class="p-4">');
+  html.push('<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">');
+
+  for (const vascularGroup of CT_VASCULAR_GROUPS) {
+    for (const regionKey of vascularGroup.regions) {
+      const region = getRegionFromKey(regionKey);
+      html.push(renderCTRegionCard(region, true)); // true = show CTA badge
+    }
+  }
+
+  html.push('</div>');
+  html.push('</div>');
+  return html.join('\n');
+}
+
+/**
+ * Render Screening content (always show all 4 items)
+ */
+function renderScreeningContent(state: CTRenderState): string {
+  const html: string[] = [];
+
+  html.push('<div class="p-4">');
+  html.push('<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">');
+
+  for (const screeningKey of CT_SCREENING_ITEMS) {
+    const region = getRegionFromKey(screeningKey);
+    html.push(renderCTRegionCard(region, false, true)); // true = is screening
+  }
+
+  html.push('</div>');
+  html.push('</div>');
+  return html.join('\n');
+}
+
+/**
+ * Render a CT region card
+ */
+function renderCTRegionCard(
+  region: { label: string; icon: string; helperText?: string },
+  isVascular: boolean = false,
+  isScreening: boolean = false
+): string {
+  const badge = isVascular ? '💓 CTA' : isScreening ? '⭐ Screening' : '';
+  const helperText = isScreening && region.helperText ? region.helperText : '';
+
+  return `
+    <button
+      type="button"
+      class="region-option-button relative p-4 rounded-xl border-2 border-gray-200 hover:border-[#003087] hover:bg-blue-50 transition-all duration-200 group min-h-[48px]"
+      data-region-label="${region.label}"
+    >
+      ${badge ? `<div class="absolute top-2 right-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-semibold">${badge}</div>` : ''}
+      <div class="text-center">
+        <div class="text-3xl mb-2">${getIcon(region.icon)}</div>
+        <p class="text-sm font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
+          ${region.label}
+        </p>
+        ${helperText ? `<p class="text-xs text-gray-500 mt-1">${helperText}</p>` : ''}
+      </div>
+    </button>
+  `;
+}
+
+/**
+ * Helper to get region details from region key
+ * This would ideally pull from procedures-global.js
+ */
+function getRegionFromKey(regionKey: string): { label: string; icon: string; helperText?: string } {
+  // Map of region keys to display info
+  const regionMap: Record<string, { label: string; icon: string; helperText?: string }> = {
+    'head': { label: 'Head / Brain', icon: 'brain' },
+    'sinuses': { label: 'Sinuses', icon: 'sinuses' },
+    'neckSoftTissue': { label: 'Neck (Soft Tissue)', icon: 'neck' },
+    'chest': { label: 'Chest', icon: 'chest' },
+    'abdomen': { label: 'Abdomen', icon: 'abdomen' },
+    'pelvis': { label: 'Pelvis', icon: 'pelvis' },
+    'abdomenPelvis': { label: 'Abdomen & Pelvis', icon: 'abdomen' },
+    'cervicalSpine': { label: 'Cervical Spine (Neck)', icon: 'spine' },
+    'thoracicSpine': { label: 'Thoracic Spine (Mid Back)', icon: 'spine' },
+    'lumbarSpine': { label: 'Lumbar Spine (Low Back)', icon: 'spine' },
+    'ctaHeadNeck': { label: 'CTA Head & Neck', icon: 'brain' },
+    'ctaChest': { label: 'CTA Chest', icon: 'heart' },
+    'ctaCoronary': { label: 'CTA Coronary (Heart)', icon: 'heart' },
+    'ctaAbdomen': { label: 'CTA Abdomen', icon: 'abdomen' },
+    'ctaExtremities': { label: 'CTA Extremities', icon: 'leg' },
+    'screeningLung': { 
+      label: 'Lung Cancer Screening', 
+      icon: 'lungs',
+      helperText: 'Annual screening ages 50-80 with smoking history'
+    },
+    'screeningCardiac': { 
+      label: 'Cardiac Calcium Score', 
+      icon: 'heart',
+      helperText: 'Risk assessment for heart disease - no contrast'
+    },
+    'screeningColon': { 
+      label: 'Virtual Colonoscopy', 
+      icon: 'intestine',
+      helperText: 'Colon cancer screening ages 45+ - no sedation'
+    },
+    'screeningCoronaryCalcium': { 
+      label: 'Heart Screening', 
+      icon: 'heart',
+      helperText: 'Non-invasive heart evaluation'
+    }
+  };
+
+  return regionMap[regionKey] || { label: regionKey, icon: 'medical' };
+}
+
 
 /**
  * Render a single region button
@@ -434,4 +810,30 @@ export function searchRegions(modality: string, keyword: string): Region[] {
   );
 }
 
-console.log('✅ Region Selection Renderer loaded (X-Ray Enhanced)');
+// ============================================
+// WINDOW FUNCTIONS FOR CT INTERACTIVITY
+// ============================================
+
+/**
+ * Make CT toggle functions available globally
+ * These are called from onclick handlers in the rendered HTML
+ */
+if (typeof window !== 'undefined') {
+  (window as any).toggleCTGroup = (groupId: string) => {
+    console.log('[CT] Toggle group:', groupId);
+    // Emit custom event that modal-controller can listen to
+    window.dispatchEvent(new CustomEvent('ct-toggle-group', { detail: { groupId } }));
+  };
+
+  (window as any).toggleCTRegionGroup = (groupName: string) => {
+    console.log('[CT] Toggle region group:', groupName);
+    window.dispatchEvent(new CustomEvent('ct-toggle-region-group', { detail: { groupName } }));
+  };
+
+  (window as any).showMoreCTRegions = (groupName: string) => {
+    console.log('[CT] Show more regions:', groupName);
+    window.dispatchEvent(new CustomEvent('ct-show-more', { detail: { groupName } }));
+  };
+}
+
+console.log('✅ Region Selection Renderer loaded (X-Ray Enhanced + CT Enhanced)');

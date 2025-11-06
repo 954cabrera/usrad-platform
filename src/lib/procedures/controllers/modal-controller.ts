@@ -46,7 +46,8 @@ import {
 
 import { 
   renderRegionSelection,
-  renderGroupedRegionSelection 
+  renderGroupedRegionSelection,
+  renderCTGroupedSelection // 🆕 ADD THIS
 } from '@/lib/procedures/ui/region-renderer';
 
 import { 
@@ -69,6 +70,41 @@ let selectionFlow: SelectionFlow;
 let searchTimeout: NodeJS.Timeout;
 
 const SEARCH_DEBOUNCE_MS = 300;
+
+// ============================================
+// CT STATE MANAGEMENT (NEW!)
+// ============================================
+
+/**
+ * CT-specific state for category groups and progressive disclosure
+ */
+interface CTModalState {
+  expandedGroups: Set<string>;           // 'standard', 'vascular', 'screening'
+  expandedRegionGroups: Set<string>;     // 'Head & Neck', 'Torso', 'Spine'
+  showAllInGroup: Set<string>;           // Track which groups show all items
+}
+
+/**
+ * Initialize CT state with defaults
+ * Standard CT and Head & Neck expanded by default per spec
+ */
+let ctState: CTModalState = {
+  expandedGroups: new Set(), // ✅ Start collapsed
+  expandedRegionGroups: new Set(),
+  showAllInGroup: new Set()
+};
+
+/**
+ * Reset CT state to defaults
+ */
+function resetCTState(): void {
+  ctState = {
+    expandedGroups: new Set(), // ✅ Reset to collapsed
+    expandedRegionGroups: new Set(),
+    showAllInGroup: new Set()
+  };
+  console.log('🔄 CT state reset');
+}
 
 // DOM Elements (cached for performance)
 let modalOverlay: HTMLElement | null = null;
@@ -106,6 +142,7 @@ export function initializeSlimController() {
   attachModalListeners();
   attachSearchListeners();
   attachFormListeners();
+  attachCTEventListeners();
   
   console.log('✅ Slim Modal Controller ready (with X-Ray support)!');
 }
@@ -179,6 +216,9 @@ function closeModal(): void {
     // Reset selection flow
     selectionFlow.reset();
     
+    // 🆕 Reset CT state
+    resetCTState();
+    
     // Clear search input
     if (modalSearchInput) {
       modalSearchInput.value = '';
@@ -222,24 +262,31 @@ function performSearch(query: string): void {
   const modality = detectModality(query);
   
   if (modality) {
-    console.log('✅ Detected modality:', modality);
-    selectionFlow.setModality(modality);
-    
-    // X-RAY PATH: Skip contrast, go straight to region
-    if (modality === 'X-Ray') {
-      console.log('🔬 X-Ray detected - skipping contrast selection');
-      showRegionSelection(modality);
-      return;
-    }
-    
-    // MRI/CT PATH: Show contrast selection or skip to region
-    if (hasContrastOptions(modality)) {
-      showContrastSelection(modality);
-    } else {
-      showRegionSelection(modality);
-    }
+  console.log('✅ Detected modality:', modality);
+  selectionFlow.setModality(modality);
+  
+  // X-RAY PATH: Skip contrast, go straight to region
+  if (modality === 'X-Ray') {
+    console.log('🔬 X-Ray detected - skipping contrast selection');
+    showRegionSelection(modality);
     return;
   }
+  
+  // 🆕 CT PATH: Skip contrast, show category groups (Standard/Vascular/Screening)
+  if (modality === 'CT') {
+    console.log('🩺 CT detected - showing category groups');
+    showRegionSelection(modality);  // This now shows the 3-tier CT UI
+    return;
+  }
+  
+  // MRI PATH: Show contrast selection first
+  if (hasContrastOptions(modality)) {
+    showContrastSelection(modality);
+  } else {
+    showRegionSelection(modality);
+  }
+  return;
+}
   
   // Step 2: Comprehensive search
   const results = searchAllProcedures(query);
@@ -270,7 +317,16 @@ function showContrastSelection(modality: Modality): void {
 function showRegionSelection(modality: Modality, contrast?: ContrastType): void {
   if (!modalResults) return;
   
-  // Use grouped layout for better UX
+  // 🆕 For CT, use the CT-specific renderer with state
+  if (modality === 'CT') {
+    const html = renderCTGroupedSelection(modality, contrast, true, ctState);
+    modalResults.innerHTML = html;
+    attachRegionListeners();
+    // CT events are handled by global listeners
+    return;
+  }
+  
+  // Use grouped layout for other modalities
   const html = renderGroupedRegionSelection(modality, contrast, true);
   modalResults.innerHTML = html;
   attachRegionListeners();
@@ -383,42 +439,104 @@ function attachContrastListeners(): void {
       console.log('✅ Contrast selected:', contrastId);
       selectionFlow.setContrast(contrastId);
       
-      // Show region selection
-      showRegionSelection(selectionFlow.getState().modality!, contrastId);
+      const state = selectionFlow.getState();
+      
+      // 🆕 CT PATH: Region already selected, so resolve immediately
+      if (state.modality === 'CT' && state.region) {
+        console.log('🩺 CT: Region + Contrast selected - resolving procedure');
+        const procedure = selectionFlow.resolve();
+        if (procedure) {
+          handleProcedureSelection(procedure);
+        } else {
+          console.error('❌ Failed to resolve CT procedure:', state);
+        }
+        return;
+      }
+      
+      // MRI PATH: Contrast selected first, now show regions
+      if (state.modality === 'MRI') {
+        console.log('🧲 MRI: Contrast selected - showing region selection');
+        showRegionSelection(state.modality, contrastId);
+        return;
+      }
+      
+      // Fallback: Try to resolve or show region selection
+      console.log('📋 Attempting to resolve procedure for', state.modality);
+      const procedure = selectionFlow.resolve();
+      if (procedure) {
+        handleProcedureSelection(procedure);
+      } else {
+        console.warn('⚠️ Could not resolve procedure - showing region selection');
+        showRegionSelection(state.modality!, contrastId);
+      }
     });
   });
   
   // Back button
   document.getElementById('back-to-search')?.addEventListener('click', () => {
     selectionFlow.reset();
+    resetCTState(); // 🆕 Also reset CT state
     if (modalSearchInput) modalSearchInput.value = '';
     if (modalResults) modalResults.innerHTML = renderEmptySearchState();
   });
+  
+  // 🆕 Back button for CT: Return to region selection
+  document.getElementById('back-to-regions-ct')?.addEventListener('click', () => {
+    selectionFlow.clearContrast();
+    showRegionSelection('CT');
+  });
 }
 
+/**
+ * Attach event listeners to region selection buttons
+ */
 function attachRegionListeners(): void {
   document.querySelectorAll('.region-option-button').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const target = e.currentTarget as HTMLElement;
       const regionLabel = target.dataset.regionLabel;
-      const regionKey = target.dataset.regionKey; // NEW: Get the actual key
+      const regionKey = target.dataset.regionKey;
       
       if (!regionLabel) return;
       
       console.log('✅ Region selected:', regionLabel, 'Key:', regionKey);
-      selectionFlow.setRegion(regionLabel);
       
-      // X-RAY PATH: Show view selection instead of resolving
       const state = selectionFlow.getState();
+      
+      // X-RAY PATH
       if (state.modality === 'X-Ray') {
         console.log('🔬 X-Ray path - showing view selection');
-        // Use regionKey if available, otherwise try to derive it from label
         const keyToUse = regionKey || deriveRegionKey(regionLabel);
         showXRayViewSelection(keyToUse);
         return;
       }
       
-      // MRI/CT PATH: Resolve procedure directly
+      // CTA PATH
+      if (state.modality === 'CT' && regionLabel.toUpperCase().includes('CTA')) {
+        console.log('💓 CTA detected - resolving as direct procedure');
+        
+        const ctaProcedure = resolveCTAProcedure(regionLabel);
+        
+        console.log('🔍 CTA Procedure Object:', ctaProcedure);
+        
+        if (ctaProcedure) {
+          handleProcedureSelection(ctaProcedure);
+        } else {
+          console.error('❌ Failed to resolve CTA procedure:', regionLabel);
+        }
+        return;
+      }
+      
+      // CT (NON-CTA) PATH
+      if (state.modality === 'CT') {
+        console.log('🩺 CT (non-CTA) - setting region and showing contrast');
+        selectionFlow.setRegion(regionLabel);
+        showContrastSelection('CT');
+        return;
+      }
+      
+      // MRI PATH
+      selectionFlow.setRegion(regionLabel);
       const procedure = selectionFlow.resolve();
       if (procedure) {
         handleProcedureSelection(procedure);
@@ -426,23 +544,136 @@ function attachRegionListeners(): void {
     });
   });
   
-  // Back buttons
-  document.getElementById('back-to-contrast')?.addEventListener('click', () => {
-    selectionFlow.clearRegion();
-    showContrastSelection(selectionFlow.getState().modality!);
+  // ... rest of function
+}
+
+/**
+ * Resolve CTA procedures directly by label
+ */
+function resolveCTAProcedure(label: string): any {
+  console.log('🔍 Resolving CTA procedure:', label);
+  
+  const ctaMap: Record<string, { key: string; cpt: string }> = {
+    'CTA Head & Neck': { key: 'ctaHeadNeck', cpt: '70496' },
+    'CTA Chest': { key: 'ctaChest', cpt: '71275' },
+    'CTA Coronary (Heart)': { key: 'ctaCoronary', cpt: '75574' },
+    'CTA Abdomen': { key: 'ctaAbdomen', cpt: '74175' },
+    'CTA Abdomen & Pelvis': { key: 'ctaAbdomen', cpt: '74175' },
+    'CTA Extremities': { key: 'ctaExtremities', cpt: '73706' },
+    'CTA Lower Extremity': { key: 'ctaExtremities', cpt: '73706' },
+    'CTA Upper Extremity': { key: 'ctaExtremities', cpt: '73206' }
+  };
+  
+  const ctaInfo = ctaMap[label];
+  if (!ctaInfo) {
+    console.error('❌ Unknown CTA procedure:', label);
+    return null;
+  }
+  
+  const ctProcedures = window.ProcedureLibrary?.CT;
+  if (!ctProcedures) {
+    console.error('❌ CT procedures not found in library');
+    return null;
+  }
+  
+  const ctaRegion = ctProcedures[ctaInfo.key];
+  if (!ctaRegion || !ctaRegion.procedures) {
+    console.error('❌ CTA region not found:', ctaInfo.key);
+    return null;
+  }
+  
+  const procedure = ctaRegion.procedures.find((p: any) => p.cpt === ctaInfo.cpt);
+  if (!procedure) {
+    console.error('❌ CTA procedure not found with CPT:', ctaInfo.cpt);
+    return null;
+  }
+  
+  console.log('✅ Resolved CTA procedure:', procedure.label, procedure.cpt);
+  
+  // 🆕 Return object matching handleProcedureSelection's expected format
+  return {
+    cpt_code: procedure.cpt,              // ✅ cpt_code (not cpt)
+    patient_label: procedure.label,        // ✅ patient_label (not label)
+    badge_label: `CPT ${procedure.cpt}`,   // ✅ badge_label (new)
+    modality: 'CT',
+    category: ctaRegion.category,
+    icon: ctaRegion.icon,
+    description: procedure.description || '',
+    duration: procedure.duration || '',
+    prep: procedure.prep || '',
+    useCase: procedure.useCase || ''
+  };
+}
+
+// ============================================
+// CT EVENT LISTENERS (NEW!)
+// ============================================
+
+/**
+ * Attach CT-specific event listeners
+ * These listen for custom events emitted by the CT UI components
+ */
+function attachCTEventListeners(): void {
+  // Listen for category group toggle (Standard/Vascular/Screening)
+  window.addEventListener('ct-toggle-group', (e: Event) => {
+    const customEvent = e as CustomEvent;
+    const { groupId } = customEvent.detail;
+    
+    console.log('[CT] Toggle group event:', groupId);
+    
+    // Toggle the group in state
+    if (ctState.expandedGroups.has(groupId)) {
+      ctState.expandedGroups.delete(groupId);
+    } else {
+      ctState.expandedGroups.add(groupId);
+    }
+    
+    // Re-render with updated state
+    const state = selectionFlow.getState();
+    if (state.modality === 'CT') {
+      showRegionSelection('CT', state.contrast || undefined);
+    }
   });
   
-  document.getElementById('back-to-contrast-grouped')?.addEventListener('click', () => {
-    selectionFlow.clearRegion();
-    showContrastSelection(selectionFlow.getState().modality!);
+  // Listen for region group toggle (Head & Neck, Torso, Spine)
+  window.addEventListener('ct-toggle-region-group', (e: Event) => {
+    const customEvent = e as CustomEvent;
+    const { groupName } = customEvent.detail;
+    
+    console.log('[CT] Toggle region group event:', groupName);
+    
+    // Toggle the region group in state
+    if (ctState.expandedRegionGroups.has(groupName)) {
+      ctState.expandedRegionGroups.delete(groupName);
+    } else {
+      ctState.expandedRegionGroups.add(groupName);
+    }
+    
+    // Re-render with updated state
+    const state = selectionFlow.getState();
+    if (state.modality === 'CT') {
+      showRegionSelection('CT', state.contrast || undefined);
+    }
   });
   
-  // X-RAY: Back to search (no contrast to go back to)
-  document.getElementById('back-to-search-xray')?.addEventListener('click', () => {
-    selectionFlow.reset();
-    if (modalSearchInput) modalSearchInput.value = '';
-    if (modalResults) modalResults.innerHTML = renderEmptySearchState();
+  // Listen for "show more" button clicks (progressive disclosure)
+  window.addEventListener('ct-show-more', (e: Event) => {
+    const customEvent = e as CustomEvent;
+    const { groupName } = customEvent.detail;
+    
+    console.log('[CT] Show more event:', groupName);
+    
+    // Add to showAll set
+    ctState.showAllInGroup.add(groupName);
+    
+    // Re-render with updated state
+    const state = selectionFlow.getState();
+    if (state.modality === 'CT') {
+      showRegionSelection('CT', state.contrast || undefined);
+    }
   });
+  
+  console.log('✅ CT event listeners attached');
 }
 
 // ============================================
@@ -552,6 +783,8 @@ function attachSuggestionListeners(): void {
     });
   });
 }
+
+
 
 // ============================================
 // PROCEDURE SELECTION

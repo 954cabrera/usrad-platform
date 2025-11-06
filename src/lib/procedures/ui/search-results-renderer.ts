@@ -11,6 +11,7 @@
 import type { SearchResult } from '../types';
 import { getModalityIcon, getModalityColor } from '../utils/modality-detector';
 import { groupByModality } from '../utils/search-engine';
+import { getIcon } from '../utils/icon-map'; // 🆕 ADD THIS LINE
 import {
   renderSectionHeader,
   renderBackButton,
@@ -117,7 +118,7 @@ function renderProcedureCard(procedure: SearchResult): string {
     >
       <div class="flex items-start gap-3">
         <!-- Icon -->
-        <span class="text-2xl flex-shrink-0">${procedure.icon}</span>
+        <span class="text-2xl flex-shrink-0">${getIcon(procedure.icon)}</span>  <!-- 🔧 FIXED -->
         
         <!-- Content -->
         <div class="flex-1 min-w-0">
@@ -234,7 +235,7 @@ export function renderCompactSearchResults(
       data-label="${proc.label}"
     >
       <div class="flex items-center gap-2">
-        <span class="text-xl">${proc.icon}</span>
+        <span class="text-xl">${getIcon(proc.icon)}</span>  <!-- 🔧 FIXED -->
         <div class="flex-1 min-w-0">
           <div class="text-sm font-medium text-gray-900 group-hover:text-[#003087] truncate">
             ${proc.label}
