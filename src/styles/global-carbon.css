@@ -68,6 +68,11 @@
 /* === Carbon Health Components === */
 @layer components {
 
+    /* PPE Modal Container - Carbon Design */
+    .ppe-modal-container {
+        @apply bg-white/80 backdrop-blur-md rounded-2xl shadow-soft border border-gray-100 p-6 space-y-6 animate-fade-in;
+    }
+
     /* Primary button */
     .btn-primary {
         @apply bg-[#003087] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#002266] transition-all duration-200 inline-block text-center;
@@ -116,6 +121,20 @@
     .shadow-soft {
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     }
+
+    /* Carbon UI - Accent hover effect */
+    .accent-hover {
+        @apply hover:bg-[#003087]/10 hover:border-[#003087]/30;
+    }
+
+    /* Carbon UI - Text colors */
+    .text-accent {
+        color: #003087;
+    }
+
+    .bg-accent {
+        background-color: #003087;
+    }
 }
 
 /* === Animations === */
@@ -149,6 +168,26 @@
 
 .animate-slide-in-right {
     animation: slideInRight 0.3s ease-out forwards;
+}
+
+/* === Expand Arrow Pulse Animation === */
+@keyframes pulse-expand-arrow {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: scale(1.15);
+    }
+}
+
+/* Apply only to collapsed sections */
+.animate-expand-hint {
+    animation: pulse-expand-arrow 2s ease-in-out infinite;
 }
 
 /* === Responsive utilities === */
@@ -322,74 +361,73 @@
         }
     }
 
-        /* Pulse animation for "Tap to expand" hint on collapsed groups */
-        .ct-group-header:not(:has(span.rotate-90)) .text-xs {
-            animation: subtle-pulse 2s ease-in-out infinite;
-        }
+    /* Pulse animation for "Tap to expand" hint on collapsed groups */
+    .ct-group-header:not(:has(span.rotate-90)) .text-xs {
+        animation: subtle-pulse 2s ease-in-out infinite;
+    }
 
-/* ============================================ */
-/* MRI VASCULAR IMAGING - PROCEDURE CARD STYLES */
-/* ============================================ */
+    /* ============================================ */
+    /* MRI VASCULAR IMAGING - PROCEDURE CARD STYLES */
+    /* ============================================ */
 
-/* Anatomical Subgroup Headers (Brain Vessels, Neck & Chest, etc.) */
-/* Keep the light blue background for headers */
-.mri-region-header {
-    background-color: #EFF6FF;
-    /* Light blue background */
-    transition: background-color 0.2s ease;
+    /* Anatomical Subgroup Headers (Brain Vessels, Neck & Chest, etc.) */
+    /* Keep the light blue background for headers */
+    .mri-region-header {
+        background-color: #EFF6FF;
+        /* Light blue background */
+        transition: background-color 0.2s ease;
+    }
+
+    .mri-region-header:hover {
+        background-color: #DBEAFE;
+        /* Slightly darker blue on hover */
+    }
+
+    /* Procedure Cards (MRA Abdomen, MRA Pelvis, etc.) */
+    /* White background to make them stand out */
+    .mri-region-btn {
+        background-color: #FFFFFF !important;
+        /* White background - override any defaults */
+        border: 2px solid #E5E7EB;
+        /* Light gray border */
+        margin: 0.5rem 1rem;
+        /* Add horizontal margin for slight indentation */
+        border-radius: 0.5rem;
+        /* Rounded corners */
+        transition: all 0.2s ease;
+        /* Smooth transitions */
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        /* Subtle shadow */
+    }
+
+    /* Hover state - makes it clear the card is clickable */
+    .mri-region-btn:hover {
+        border-color: #3B82F6 !important;
+        /* Blue border on hover */
+        background-color: #F9FAFB !important;
+        /* Very light gray tint */
+        transform: translateY(-1px);
+        /* Subtle lift effect */
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        /* Blue-tinted shadow */
+    }
+
+    /* Active/clicked state */
+    .mri-region-btn:active {
+        transform: translateY(0);
+        /* Remove lift on click */
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        /* Return to normal shadow */
+    }
+
+    /* Badge styling for MRA/MRV labels */
+    .mri-region-btn .text-xs.bg-purple-100 {
+        background-color: #F3E8FF;
+        /* Light purple background */
+        color: #7C3AED;
+        /* Purple text */
+        font-weight: 600;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+    }
 }
-
-.mri-region-header:hover {
-    background-color: #DBEAFE;
-    /* Slightly darker blue on hover */
-}
-
-/* Procedure Cards (MRA Abdomen, MRA Pelvis, etc.) */
-/* White background to make them stand out */
-.mri-region-btn {
-    background-color: #FFFFFF !important;
-    /* White background - override any defaults */
-    border: 2px solid #E5E7EB;
-    /* Light gray border */
-    margin: 0.5rem 1rem;
-    /* Add horizontal margin for slight indentation */
-    border-radius: 0.5rem;
-    /* Rounded corners */
-    transition: all 0.2s ease;
-    /* Smooth transitions */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    /* Subtle shadow */
-}
-
-/* Hover state - makes it clear the card is clickable */
-.mri-region-btn:hover {
-    border-color: #3B82F6 !important;
-    /* Blue border on hover */
-    background-color: #F9FAFB !important;
-    /* Very light gray tint */
-    transform: translateY(-1px);
-    /* Subtle lift effect */
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
-    /* Blue-tinted shadow */
-}
-
-/* Active/clicked state */
-.mri-region-btn:active {
-    transform: translateY(0);
-    /* Remove lift on click */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    /* Return to normal shadow */
-}
-
-/* Badge styling for MRA/MRV labels */
-.mri-region-btn .text-xs.bg-purple-100 {
-    background-color: #F3E8FF;
-    /* Light purple background */
-    color: #7C3AED;
-    /* Purple text */
-    font-weight: 600;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-}
-}
-

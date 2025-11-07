@@ -11,7 +11,7 @@
 import type { SearchResult } from '../types';
 import { getModalityIcon, getModalityColor } from '../utils/modality-detector';
 import { groupByModality } from '../utils/search-engine';
-import { getIcon } from '../utils/icon-map'; // 🆕 ADD THIS LINE
+import { getIcon } from '../utils/icon-map'; // ADD THIS LINE
 import {
   renderSectionHeader,
   renderBackButton,
@@ -112,30 +112,32 @@ function renderProcedureCard(procedure: SearchResult): string {
   return `
     <button
       type="button"
-      class="comprehensive-result-button w-full p-4 text-left border-2 border-gray-200 rounded-xl hover:border-[#003087] hover:bg-blue-50 transition-all duration-200 group"
+      class="comprehensive-result-button card hover-lift transition-all duration-200 border border-gray-100 bg-white/90 hover:bg-white rounded-xl shadow-soft p-4 accent-hover w-full text-left"
       data-comprehensive-cpt="${procedure.cpt}"
       data-comprehensive-label="${procedure.label}"
     >
-      <div class="flex items-start gap-3">
+      <div class="flex items-start gap-4">
         <!-- Icon -->
-        <span class="text-2xl flex-shrink-0">${getIcon(procedure.icon)}</span>  <!-- 🔧 FIXED -->
+        <div class="icon-container bg-[#003087]/10 p-3 rounded-lg flex-shrink-0">
+          <span class="text-2xl">${getIcon(procedure.icon)}</span>
+        </div>
         
         <!-- Content -->
         <div class="flex-1 min-w-0">
           <!-- Title -->
-          <div class="font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
+          <h4 class="font-semibold text-gray-900 tracking-tight text-base sm:text-lg group-hover:text-[#003087] transition-colors">
             ${procedure.label}
-          </div>
+          </h4>
           
           <!-- Description -->
-          <div class="text-sm text-gray-600 mt-1 line-clamp-2">
+          <p class="text-gray-500 text-sm leading-snug mt-1">
             ${procedure.description}
-          </div>
+          </p>
           
           <!-- Metadata -->
           <div class="flex items-center gap-4 mt-2 text-xs text-gray-500 flex-wrap">
             <span class="font-mono bg-gray-100 px-2 py-0.5 rounded">CPT: ${procedure.cpt}</span>
-            <span>⏱️ ${procedure.duration}</span>
+            <span>${procedure.duration}</span>
           </div>
         </div>
         
@@ -230,12 +232,12 @@ export function renderCompactSearchResults(
   const cards = limitedResults.map(proc => `
     <button
       type="button"
-      class="compact-result-btn w-full p-3 text-left border border-gray-200 rounded-lg hover:border-[#003087] hover:bg-blue-50 transition-all group"
+      class="compact-result-btn card transition-all duration-200 border border-gray-100 bg-white/90 hover:bg-white rounded-lg shadow-soft p-3 accent-hover w-full text-left"
       data-cpt="${proc.cpt}"
       data-label="${proc.label}"
     >
       <div class="flex items-center gap-2">
-        <span class="text-xl">${getIcon(proc.icon)}</span>  <!-- 🔧 FIXED -->
+        <span class="text-xl">${getIcon(proc.icon)}</span>
         <div class="flex-1 min-w-0">
           <div class="text-sm font-medium text-gray-900 group-hover:text-[#003087] truncate">
             ${proc.label}

@@ -148,8 +148,8 @@ function renderMRICategoryGroups(state: MRIRenderState): string {
                 Tap to expand
               </span>
             ` : ''}
-            <span class="text-gray-400 group-hover:text-blue-600 transition-all duration-200 ${isExpanded ? 'rotate-90' : ''}">
-              â–¶
+            <span class="text-gray-400 group-hover:text-blue-600 transition-all duration-200 ${isExpanded ? 'rotate-90' : 'animate-expand-hint'}">
+              ▶
             </span>
           </div>
         </button>
@@ -216,7 +216,9 @@ function renderStandardMRIContent(state: MRIRenderState): string {
             <span class="text-xl">${groupIcon}</span>
             <span class="font-medium text-gray-900">${regionGroup.groupName}</span>
           </div>
-          <span class="text-gray-400 transition-all duration-200 ${isExpanded ? 'rotate-90' : ''}">â–¶</span>
+          <span class="text-gray-400 transition-all duration-200 ${isExpanded ? 'rotate-90' : 'animate-expand-hint'}">
+          ▶
+        </span>
         </button>
 
         ${isExpanded ? `
@@ -272,7 +274,9 @@ function renderVascularMRAContent(state: MRIRenderState): string {
             <span class="text-xl">${groupIcon}</span>
             <span class="font-medium text-gray-900">${vascularGroup.groupName}</span>
           </div>
-          <span class="text-gray-400 transition-all duration-200 ${isExpanded ? 'rotate-90' : ''}">â–¶</span>
+          <span class="text-gray-400 transition-all duration-200 ${isExpanded ? 'rotate-90' : 'animate-expand-hint'}">
+          ▶
+        </span>
         </button>
 
         ${isExpanded ? `

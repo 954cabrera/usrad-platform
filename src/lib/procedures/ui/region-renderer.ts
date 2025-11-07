@@ -20,7 +20,7 @@ import {
   wrapInContainer
 } from './renderer-core';
 
-// 🆕 ADD THESE IMPORTS
+// ADD THESE IMPORTS
 import {
   CT_CATEGORY_GROUPS,
   CT_REGION_GROUPS,
@@ -54,8 +54,8 @@ interface CTRenderState {
  */
 function getDefaultCTState(): CTRenderState {
   return {
-    expandedGroups: new Set(), // ✅ All collapsed - user chooses
-    expandedRegionGroups: new Set(), // ✅ All collapsed
+    expandedGroups: new Set(), // âœ… All collapsed - user chooses
+    expandedRegionGroups: new Set(), // âœ… All collapsed
     showAllInGroup: new Set()
   };
 }
@@ -298,7 +298,7 @@ export function renderRegionSelection(
   const grid = renderGrid(regionButtons, 2);
 
   const backButton = renderBackButton(
-    contrast ? '← Back to contrast selection' : '← Back to search',
+    contrast ? 'â† Back to contrast selection' : 'â† Back to search',
     contrast ? 'back-to-contrast' : 'back-to-search-xray'
   );
 
@@ -323,12 +323,12 @@ export function renderGroupedRegionSelection(
   contrast?: string,
   showBreadcrumb: boolean = true
 ): string {
-  // 🆕 Use CT-specific renderer for CT modality
+  // Use CT-specific renderer for CT modality
   if (modality === 'CT') {
     return renderCTGroupedSelection(modality, contrast, showBreadcrumb);
   }
 
-  // 🆕 Use MRI-specific renderer for MRI modality
+  // Use MRI-specific renderer for MRI modality
   if (modality === 'MRI') {
     return renderMRIGroupedSelection(modality, contrast, showBreadcrumb);
   }
@@ -359,7 +359,7 @@ export function renderGroupedRegionSelection(
   const groupSections = groups.map(group => renderRegionGroup(group, modality)).join('');
 
   const backButton = renderBackButton(
-    contrast ? '← Back to contrast selection' : '← Back to search',
+    contrast ? 'â† Back to contrast selection' : 'â† Back to search',
     contrast ? 'back-to-contrast-grouped' : 'back-to-search-xray'
   );
 
@@ -411,7 +411,7 @@ export function renderCTGroupedSelection(
   const categoryGroupsHTML = renderCTCategoryGroups(renderState);
 
   const backButton = renderBackButton(
-    contrast ? '← Back to contrast selection' : '← Back to search',
+    contrast ? 'â† Back to contrast selection' : 'â† Back to search',
     contrast ? 'back-to-contrast-ct' : 'back-to-search-ct'
   );
 
@@ -460,16 +460,16 @@ function renderCTCategoryGroups(state: CTRenderState): string {
             </div>
           </div>
           
-          <!-- 🆕 VISUAL CUES -->
+          <!-- VISUAL CUES -->
           <div class="flex items-center gap-2">
             ${!isExpanded ? `
               <span class="hidden sm:inline text-xs text-gray-400 group-hover:text-blue-600 transition-colors">
                 Tap to expand
               </span>
             ` : ''}
-            <span class="text-gray-400 group-hover:text-blue-600 transition-all duration-200 ${isExpanded ? 'rotate-90' : ''}">
-              ▶
-            </span>
+            <span class="text-gray-400 group-hover:text-blue-600 transition-all duration-200 ${isExpanded ? 'rotate-90' : 'animate-expand-hint'}">
+  ▶
+</span>
           </div>
         </button>
         
@@ -523,9 +523,9 @@ function renderStandardCTContent(state: CTRenderState): string {
             <span class="text-xl">${regionGroup.groupIcon}</span>
             <span class="font-medium text-gray-900">${regionGroup.groupName}</span>
           </div>
-          <span class="text-gray-400 transition-transform ${isExpanded ? 'rotate-90' : ''}">
-            ▶
-          </span>
+          <span class="text-gray-400 group-hover:text-blue-600 transition-all duration-200 ${isExpanded ? 'rotate-90' : 'animate-expand-hint'}">
+  ▶
+</span>
         </button>
         ${isExpanded ? renderCTRegionGroupItems(regionGroup, showAll) : ''}
       </div>
@@ -570,7 +570,7 @@ function renderCTRegionGroupItems(
           class="text-sm text-blue-600 hover:text-blue-700 font-medium"
           onclick="window.showMoreCTRegions('${regionGroup.groupName}')"
         >
-          [+${remainingCount} more ▼]
+          [+${remainingCount} more â–¼]
         </button>
       </div>
     `;
@@ -632,22 +632,24 @@ function renderCTRegionCard(
   isVascular: boolean = false,
   isScreening: boolean = false
 ): string {
-  const badge = isVascular ? '💓 CTA' : isScreening ? '⭐ Screening' : '';
+  const badge = isVascular ? 'CTA' : isScreening ? 'Screening' : '';
   const helperText = isScreening && region.helperText ? region.helperText : '';
 
   return `
     <button
       type="button"
-      class="region-option-button relative p-4 rounded-xl border-2 border-gray-200 hover:border-[#003087] hover:bg-blue-50 transition-all duration-200 group min-h-[48px]"
+      class="region-option-button card hover-lift transition-all duration-200 border border-gray-100 bg-white/90 hover:bg-white rounded-xl shadow-soft p-4 accent-hover relative min-h-[48px]"
       data-region-label="${region.label}"
     >
-      ${badge ? `<div class="absolute top-2 right-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-semibold">${badge}</div>` : ''}
+      ${badge ? `<div class="absolute top-2 right-2 text-xs bg-[#003087]/10 text-[#003087] px-2 py-1 rounded-full font-semibold">${badge}</div>` : ''}
       <div class="text-center">
-        <div class="text-3xl mb-2">${getIcon(region.icon)}</div>
+        <div class="icon-container bg-[#003087]/10 p-3 rounded-lg inline-flex items-center justify-center mb-2">
+          <span class="text-2xl">${getIcon(region.icon)}</span>
+        </div>
         <p class="text-sm font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
           ${region.label}
         </p>
-        ${helperText ? `<p class="text-xs text-gray-500 mt-1">${helperText}</p>` : ''}
+        ${helperText ? `<p class="text-xs text-gray-500 mt-1 leading-snug">${helperText}</p>` : ''}
       </div>
     </button>
   `;
@@ -690,7 +692,7 @@ function getRegionFromKey(regionKey: string): { label: string; icon: string; hel
       icon: 'intestine',
       helperText: 'Colon cancer screening ages 45+ - no sedation'
     },
-    'screeningCoronary': {   // ✅ NEW NAME (matches procedures-global.js)
+    'screeningCoronary': {   // âœ… NEW NAME (matches procedures-global.js)
   label: 'Heart Screening', 
   icon: 'heart',
   helperText: 'Non-invasive heart evaluation'
@@ -714,11 +716,13 @@ function renderRegionButton(region: Region, modality: Modality): string {
   return `
     <button
       type="button"
-      class="region-option-button p-4 rounded-xl border-2 border-gray-200 hover:border-[#003087] hover:bg-blue-50 transition-all duration-200 group"
+      class="region-option-button card hover-lift transition-all duration-200 border border-gray-100 bg-white/90 hover:bg-white rounded-xl shadow-soft p-4 accent-hover"
       data-region-label="${region.label}"
     >
       <div class="text-center">
-        <div class="text-3xl mb-2">${getIcon(region.icon)}</div>
+        <div class="icon-container bg-[#003087]/10 p-3 rounded-lg inline-flex items-center justify-center mb-2">
+          <span class="text-2xl">${getIcon(region.icon)}</span>
+        </div>
         <p class="text-sm font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
           ${region.label}
         </p>
@@ -768,7 +772,7 @@ function renderNoRegionsAvailable(modality: Modality): string {
     `No body regions configured for ${modality}`
   );
 
-  const backButton = renderBackButton('← Back to search', 'back-to-search-no-regions');
+  const backButton = renderBackButton('â† Back to search', 'back-to-search-no-regions');
 
   return wrapInContainer(`
     ${header}
@@ -843,4 +847,4 @@ if (typeof window !== 'undefined') {
   };
 }
 
-console.log('✅ Region Selection Renderer loaded (X-Ray Enhanced + CT Enhanced)');
+console.log('âœ… Region Selection Renderer loaded (X-Ray Enhanced + CT Enhanced)');
