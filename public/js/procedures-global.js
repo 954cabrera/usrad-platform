@@ -718,6 +718,131 @@
           useCase: "Spinal vascular malformations, AVMs, dural fistulas"
         }
       ]
+    },
+
+    // ============================================
+    // SPECIALIZED MRI - ARTHROGRAMS
+    // ============================================
+
+    arthrogramShoulder: {
+      category: "MRI Shoulder Arthrogram",
+      icon: "shoulder",
+      categoryGroup: "specialized",
+      badge: "Arthrogram",
+      contrastMode: "auto",
+      procedures: [
+        {
+          cpt: "73222",
+          label: "MRI Shoulder Arthrogram - With Contrast",
+          shortLabel: "Shoulder Arthrogram",
+          description: "Fluoro-guided contrast injection into shoulder joint",
+          duration: "45-60 min",
+          prep: "Fluoroscopy-guided injection, then immediate MRI",
+          useCase: "Labral tears, rotator cuff evaluation, capsular injury"
+        }
+      ]
+    },
+
+    arthrogramKnee: {
+      category: "MRI Knee Arthrogram",
+      icon: "knee",
+      categoryGroup: "specialized",
+      badge: "Arthrogram",
+      contrastMode: "auto",
+      procedures: [
+        {
+          cpt: "73722",
+          label: "MRI Knee Arthrogram - With Contrast",
+          shortLabel: "Knee Arthrogram",
+          description: "Fluoro-guided contrast injection into knee joint",
+          duration: "45-60 min",
+          prep: "Fluoroscopy-guided injection, then immediate MRI",
+          useCase: "Meniscal tears, ligament evaluation, cartilage assessment"
+        }
+      ]
+    },
+
+    // ============================================
+    // SPECIALIZED MRI - BREAST
+    // ============================================
+
+    mriBreast: {
+      category: "MRI Breast (CAD)",
+      icon: "breast",
+      categoryGroup: "specialized",
+      badge: "Specialized",
+      contrastMode: "manual",
+      procedures: [
+        {
+          cpt: "77046",
+          label: "MRI Breast - Without Contrast",
+          shortLabel: "Breast - Without",
+          description: "High-risk screening without contrast",
+          duration: "30-45 min",
+          prep: "No metal bra, avoid week before period",
+          useCase: "Initial screening, contrast allergy"
+        },
+        {
+          cpt: "77047",
+          label: "MRI Breast - With Contrast",
+          shortLabel: "Breast - With",
+          description: "High-risk screening and cancer staging",
+          duration: "45-60 min",
+          prep: "IV contrast, no metal bra",
+          useCase: "High-risk screening, cancer staging, implant evaluation"
+        },
+        {
+          cpt: "77048",
+          label: "MRI Breast - With & Without Contrast",
+          shortLabel: "Breast - Both",
+          description: "Comprehensive breast evaluation",
+          duration: "60-75 min",
+          prep: "IV contrast, no metal bra",
+          useCase: "Complex cases, cancer staging, post-treatment surveillance"
+        }
+      ]
+    },
+
+    // ============================================
+    // SPECIALIZED MRI - FUNCTIONAL / METABOLIC
+    // ============================================
+
+    spectroscopy: {
+      category: "MR Spectroscopy (MRS)",
+      icon: "brain",
+      categoryGroup: "specialized",
+      badge: "MRS",
+      contrastMode: "none",
+      procedures: [
+        {
+          cpt: "76390",
+          label: "MR Spectroscopy - Without Contrast",
+          shortLabel: "MR Spectroscopy",
+          description: "Metabolic brain analysis (non-contrast)",
+          duration: "45-60 min",
+          prep: "Standard MRI prep, remove metal",
+          useCase: "Brain tumor characterization, metabolic disorders, dementia evaluation"
+        }
+      ]
+    },
+
+    elastography: {
+      category: "MR Elastography (MRE)",
+      icon: "liver",
+      categoryGroup: "specialized",
+      badge: "MRE",
+      contrastMode: "none",
+      procedures: [
+        {
+          cpt: "76391",
+          label: "MR Elastography - Without Contrast",
+          shortLabel: "MR Elastography",
+          description: "Liver fibrosis evaluation (non-contrast)",
+          duration: "45-60 min",
+          prep: "Fasting 4 hours, passive driver placed on abdomen",
+          useCase: "Liver fibrosis staging, chronic liver disease, cirrhosis evaluation"
+        }
+      ]
     }
   };
 
@@ -2009,7 +2134,7 @@ if (typeof module !== 'undefined' && module.exports) {
       'tmj': 'tmj',
       'sinuses': 'sinuses',
       'neck (soft tissue)': 'neckSoftTissue',
-
+      
       // MRA/MRV - Vascular Imaging
       'mrabrain': 'mraBrain',
       'mrvhead': 'mrvHead',
@@ -2018,10 +2143,15 @@ if (typeof module !== 'undefined' && module.exports) {
       'mraabdomen': 'mraAbdomen',
       'mrapelvis': 'mraPelvis',
       'mrarunoff': 'mraRunoff',
-      'mraspine': 'mraSpine'
+      'mraspine': 'mraSpine',
+      
+      // Specialized MRI
+      'arthrogramshoulder': 'arthrogramShoulder',
+      'arthrogramknee': 'arthrogramKnee',
+      'mribreast': 'mriBreast',
+      'spectroscopy': 'spectroscopy',
+      'elastography': 'elastography'
     };
-
-
     
     const baseKey = regionMap[normalized] || null;
     

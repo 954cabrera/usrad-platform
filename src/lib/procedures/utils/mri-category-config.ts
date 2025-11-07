@@ -129,12 +129,42 @@ export const MRI_VASCULAR_GROUPS: RegionGroup[] = [
 ];
 
 // ============================================
-// SPECIALIZED ITEMS (ALWAYS VISIBLE)
+// SPECIALIZED GROUPING (FOR SPECIALIZED MRI)
 // ============================================
 
+export interface SpecializedGroup {
+  groupName: string;
+  groupIcon: string;
+  regions: string[];
+  defaultExpanded: boolean;
+}
+
+export const MRI_SPECIALIZED_GROUPS: SpecializedGroup[] = [
+  {
+    groupName: 'Joint Arthrograms',
+    groupIcon: 'shoulder',
+    regions: ['arthrogramShoulder', 'arthrogramKnee'],
+    defaultExpanded: true
+  },
+  {
+    groupName: 'Breast MRI (CAD)',
+    groupIcon: 'breast',
+    regions: ['mriBreast'],
+    defaultExpanded: false
+  },
+  {
+    groupName: 'Functional MRI / Metabolic',
+    groupIcon: 'brain',
+    regions: ['spectroscopy', 'elastography'],
+    defaultExpanded: false
+  }
+];
+
+// Legacy array for backward compatibility
 export const MRI_SPECIALIZED_ITEMS = [
-  'arthrograms',
-  'breastMRI',
+  'arthrogramShoulder',
+  'arthrogramKnee',
+  'mriBreast',
   'spectroscopy',
   'elastography'
 ];
@@ -195,7 +225,7 @@ export function getCategoriesForGroup(groupId: string): string[] {
     case 'vascular':
       return MRI_VASCULAR_GROUPS.flatMap(group => group.regions);
     case 'specialized':
-      return MRI_SPECIALIZED_ITEMS;
+      return MRI_SPECIALIZED_GROUPS.flatMap(group => group.regions);
     default:
       return [];
   }

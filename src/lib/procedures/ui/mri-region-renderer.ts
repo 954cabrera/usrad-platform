@@ -25,6 +25,7 @@ import {
   MRI_CATEGORY_GROUPS,
   MRI_REGION_GROUPS,
   MRI_VASCULAR_GROUPS,
+  MRI_SPECIALIZED_GROUPS,
   MRI_SPECIALIZED_ITEMS,
   MRI_DISPLAY_SETTINGS,
   requiresContrastSelection,
@@ -148,7 +149,7 @@ function renderMRICategoryGroups(state: MRIRenderState): string {
               </span>
             ` : ''}
             <span class="text-gray-400 group-hover:text-blue-600 transition-all duration-200 ${isExpanded ? 'rotate-90' : ''}">
-              ▶
+              â–¶
             </span>
           </div>
         </button>
@@ -215,7 +216,7 @@ function renderStandardMRIContent(state: MRIRenderState): string {
             <span class="text-xl">${groupIcon}</span>
             <span class="font-medium text-gray-900">${regionGroup.groupName}</span>
           </div>
-          <span class="text-gray-400 transition-all duration-200 ${isExpanded ? 'rotate-90' : ''}">▶</span>
+          <span class="text-gray-400 transition-all duration-200 ${isExpanded ? 'rotate-90' : ''}">â–¶</span>
         </button>
 
         ${isExpanded ? `
@@ -271,7 +272,7 @@ function renderVascularMRAContent(state: MRIRenderState): string {
             <span class="text-xl">${groupIcon}</span>
             <span class="font-medium text-gray-900">${vascularGroup.groupName}</span>
           </div>
-          <span class="text-gray-400 transition-all duration-200 ${isExpanded ? 'rotate-90' : ''}">▶</span>
+          <span class="text-gray-400 transition-all duration-200 ${isExpanded ? 'rotate-90' : ''}">â–¶</span>
         </button>
 
         ${isExpanded ? `
@@ -383,10 +384,11 @@ function getRegionData(regionKey: string): { label: string; icon: string; badge?
     mrvHead: { label: 'MRV Head (Venous)', icon: 'brain', badge: 'MRV', helperText: 'Venous thrombosis evaluation' },
 
     // Specialized regions
-    arthrograms: { label: 'Joint Arthrograms', icon: 'shoulder', badge: 'Arthrogram', helperText: 'Fluoro-guided injection' },
-    breastMRI: { label: 'Breast MRI (CAD)', icon: 'breast', badge: 'Specialized', helperText: 'High-risk screening' },
-    spectroscopy: { label: 'MR Spectroscopy', icon: 'brain', badge: 'MRS', helperText: 'Metabolic analysis' },
-    elastography: { label: 'MR Elastography', icon: 'liver', badge: 'MRE', helperText: 'Liver fibrosis evaluation' }
+    arthrogramShoulder: { label: 'MRI Shoulder Arthrogram', icon: 'shoulder', badge: 'Arthrogram', helperText: 'Fluoro-guided injection' },
+    arthrogramKnee: { label: 'MRI Knee Arthrogram', icon: 'knee', badge: 'Arthrogram', helperText: 'Fluoro-guided injection' },
+    mriBreast: { label: 'MRI Breast (CAD)', icon: 'breast', badge: 'Specialized', helperText: 'High-risk screening' },
+    spectroscopy: { label: 'MR Spectroscopy (MRS)', icon: 'brain', badge: 'MRS', helperText: 'Metabolic brain analysis' },
+    elastography: { label: 'MR Elastography (MRE)', icon: 'liver', badge: 'MRE', helperText: 'Liver fibrosis evaluation' }
   };
 
   return regionMap[regionKey] || { label: regionKey, icon: 'medical' };
@@ -427,14 +429,23 @@ if (typeof window !== 'undefined') {
     let autoContrast = undefined;
     
     if (contrastMode === 'auto') {
-      // MRA: Skip contrast selection, auto-set "with contrast"
+      // MRA & Arthrograms: Skip contrast selection, auto-set "with contrast"
       needsContrast = false;
       autoContrast = 'with';
-      console.log('[MRI] Auto-contrast mode detected, skipping contrast selection');
+      console.log('[MRI] Auto-contrast mode detected (with), skipping contrast selection');
+    } else if (contrastMode === 'none') {
+      // MRS & MRE: Skip contrast selection, auto-set "without contrast"
+      needsContrast = false;
+      autoContrast = 'without';
+      console.log('[MRI] No-contrast mode detected (without), skipping contrast selection');
     } else if (contrastMode === 'optional') {
       // MRV: Show contrast selection (2 options)
       needsContrast = true;
       console.log('[MRI] Optional contrast mode detected, showing contrast selection');
+    } else if (contrastMode === 'manual') {
+      // Breast MRI: Show standard contrast selection (3 options)
+      needsContrast = true;
+      console.log('[MRI] Manual contrast mode detected, showing 3-option contrast selection');
     } else {
       // Standard MRI: Show contrast selection (3 options)
       needsContrast = true;
@@ -451,5 +462,5 @@ if (typeof window !== 'undefined') {
   };
 }
 
-console.log('✅ MRI window functions attached');
+console.log('âœ… MRI window functions attached');
 console.log('MRI Region Renderer loaded');
