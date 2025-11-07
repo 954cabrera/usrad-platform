@@ -351,32 +351,64 @@ function performSearch(query: string): void {
 // ============================================
 
 function showContrastSelection(modality: Modality): void {
-  if (!modalResults) return;
   
-  // Get current region from selection flow
+  if (!modalResults) {
+    console.log('🔴 modalResults is null! Exiting.');
+    return;
+  }
+  
+  // Clear search input
+  if (modalSearchInput) {
+    modalSearchInput.value = '';
+  }
+  
+  // Get the current region from selection flow
   const state = selectionFlow.getState();
   const regionKey = state.region;
   
-  // Get display label for the region
-  let regionLabel = regionKey;
-  if (regionKey && modality === 'MRI') {
-    // Look up the region label from MRI config
-    const mriConfig = (window as any).ProcedureLibrary?.MRI_CATEGORY_CONFIG;
-    if (mriConfig) {
-      // Search through all tiers to find the region
-      for (const tier of mriConfig.tiers) {
-        const region = tier.regions.find((r: any) => r.id === regionKey);
-        if (region) {
-          regionLabel = region.label;
-          break;
-        }
-      }
-    }
+  let regionLabel = regionKey || 'Region';
+  
+  // For MRI, format camelCase keys to human-readable labels
+  if (modality === 'MRI' && regionKey) {
+    const labels: Record<string, string> = {
+      'thoracicSpine': 'Thoracic Spine (Mid Back)',
+      'cervicalSpine': 'Cervical Spine (Neck)',
+      'lumbarSpine': 'Lumbar Spine (Low Back)',
+      'brain': 'Brain',
+      'orbitFaceNeck': 'Orbit, Face & Neck',
+      'tmj': 'TMJ',
+      'chest': 'Chest',
+      'abdomen': 'Abdomen',
+      'pelvis': 'Pelvis',
+      'abdomenPelvis': 'Abdomen & Pelvis',
+      'shoulder': 'Shoulder',
+      'elbow': 'Elbow',
+      'wrist': 'Wrist',
+      'hip': 'Hip',
+      'knee': 'Knee',
+      'ankle': 'Ankle',
+      'breast': 'Breast',
+      'mraBrain': 'MRA Brain',
+      'mrvHead': 'MRV Head',
+      'mraNeck': 'MRA Neck',
+      'mraChest': 'MRA Chest',
+      'mraAbdomen': 'MRA Abdomen',
+      'mraPelvis': 'MRA Pelvis',
+      'mraRunoff': 'MRA Runoff',
+      'mraSpine': 'MRA Spine'
+    };
+    regionLabel = labels[regionKey] || regionKey;
   }
   
+  
   const html = renderContrastSelection(modality, true, regionLabel);
+  
+  
   modalResults.innerHTML = html;
+  
+  
   attachContrastListeners();
+  
 }
 
 function showRegionSelection(modality: Modality, contrast?: ContrastType): void {

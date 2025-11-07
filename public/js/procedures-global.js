@@ -1793,21 +1793,24 @@ if (typeof module !== 'undefined' && module.exports) {
       'head/brain': 'head',
       
       // Spine
-      'cervical spine': 'cervicalSpine',
-      'cervical spine (neck)': 'cervicalSpine',
-      'c-spine': 'cervicalSpine',
-      'neck': 'cervicalSpine',
-      
-      'thoracic spine': 'thoracicSpine',
-      'thoracic spine (mid back)': 'thoracicSpine',
-      't-spine': 'thoracicSpine',
-      'mid back': 'thoracicSpine',
-      
-      'lumbar spine': 'lumbarSpine',
-      'lumbar spine (low back)': 'lumbarSpine',
-      'l-spine': 'lumbarSpine',
-      'low back': 'lumbarSpine',
-      'back': 'lumbarSpine',
+'cervical spine': 'cervicalSpine',
+'cervical spine (neck)': 'cervicalSpine',
+'cervicalspine': 'cervicalSpine',     // ✅ ADD: Support camelCase from UI
+'c-spine': 'cervicalSpine',
+'neck': 'cervicalSpine',
+
+'thoracic spine': 'thoracicSpine',
+'thoracic spine (mid back)': 'thoracicSpine',
+'thoracicspine': 'thoracicSpine',     // ✅ ADD: Support camelCase from UI
+'t-spine': 'thoracicSpine',
+'mid back': 'thoracicSpine',
+
+'lumbar spine': 'lumbarSpine',
+'lumbar spine (low back)': 'lumbarSpine',
+'lumbarspine': 'lumbarSpine',         // ✅ ADD: Support camelCase from UI
+'l-spine': 'lumbarSpine',
+'low back': 'lumbarSpine',
+'back': 'lumbarSpine',
       
       // Extremities
       'shoulder': 'shoulder',
@@ -2017,10 +2020,11 @@ if (typeof module !== 'undefined' && module.exports) {
   // ============================================
 
   window.ProcedureLibrary = {
-    MRI: MRI_PROCEDURES,
-    CT: CT_PROCEDURES,
-    'X-Ray': XRAY_PROCEDURES
-  };
+     MRI: MRI_PROCEDURES,
+     CT: CT_PROCEDURES,
+     'X-Ray': XRAY_PROCEDURES,
+     MRI_CATEGORY_CONFIG: window.MRI_CATEGORY_CONFIG  // Reference the global
+   };
 
   window.ProcedureHelpers = {
     resolveProcedure: resolveProcedure,

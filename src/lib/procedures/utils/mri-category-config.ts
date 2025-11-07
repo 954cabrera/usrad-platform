@@ -333,4 +333,22 @@ export function getAutoContrast(regionKey: string): string | null {
   return null;
 }
 
+// Export complete MRI configuration to window
+if (typeof window !== 'undefined') {
+  (window as any).MRI_CATEGORY_CONFIG = {
+    standard: {
+      ...MRI_CATEGORY_GROUPS.standard,
+      regionGroups: MRI_REGION_GROUPS
+    },
+    vascular: {
+      ...MRI_CATEGORY_GROUPS.vascular,
+      regionGroups: MRI_VASCULAR_GROUPS
+    },
+    specialized: {
+      ...MRI_CATEGORY_GROUPS.specialized,
+      items: MRI_SPECIALIZED_ITEMS
+    }
+  };
+}
+
 console.log('MRI Category Configuration loaded');
