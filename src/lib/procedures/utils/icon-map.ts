@@ -29,35 +29,38 @@ export const ICON_MAP: Record<string, string> = {
   'pet': '☢️',
   'nuclear-medicine': '⚛️',
   
-// MRI-Specific Icons
-  'vascular': 'Activity',
-  'specialized': 'Star',
-  'arthrogram': 'Droplet',
-  'spectroscopy': 'FlaskRound',
-  'elastography': 'Waves',
-  'breastMRI': 'Heart',
+  // MRI-Specific Icons
+  'vascular': '❤️',
+  'specialized': '💎',
+  'arthrogram': '💧',
+  'spectroscopy': '🧪',
+  'elastography': '🌊',
+  'breastMRI': '🎀',
+  'liver': '🫀',
+  'tmj': '🦴',
+  'neck': '🫀',
   
   // Contrast Icons
-  'contrast': 'Droplet',
-  'withoutContrast': 'CircleSlash',
-  'withContrast': 'Droplet',
-  'withAndWithoutContrast': 'Droplets',
+  'contrast': '💧',
+  'withoutContrast': '🚫',
+  'withContrast': '💧',
+  'withAndWithoutContrast': '💧💧',
   
   // Additional Utility Icons
-  'bodyPart': 'ScanLine',
-  'procedure': 'ClipboardList',
-  'search': 'Search',
-  'success': 'CheckCircle',
-  'error': 'XCircle',
-  'expand': 'ChevronDown',
-  'collapse': 'ChevronUp',
+  'bodyPart': '🔍',
+  'procedure': '📋',
+  'search': '🔍',
+  'success': '✅',
+  'error': '❌',
+  'expand': '▼',
+  'collapse': '▲',
 
   // Head & Brain
   'brain': '🧠',
   'head': '🧠',
   'eye': '👁️',
   'orbit': '👁️',
-  'face': '👁️',
+  'face': '😊',
   'nose': '👃',
   'sinuses': '👃',
   
@@ -67,7 +70,7 @@ export const ICON_MAP: Record<string, string> = {
   'cervical-spine': '🦴',
   'thoracic-spine': '🦴',
   'lumbar-spine': '🦴',
-  'tmj': '🦴',
+  'tmj': '🦴',          // ADD THIS if missing
   'clavicle': '🦴',
   'ribs': '🦴',
   'pelvis': '🦴',
@@ -96,11 +99,11 @@ export const ICON_MAP: Record<string, string> = {
   'lungs': '🫁',
   'heart': '❤️',
   'abdomen': '🫀',
-  'liver': '🫀',
+  'liver': '🫀',       // ADD THIS if missing
   'kidney': '🫀',
   'stomach': '🫀',
   'intestine': '🫀',
-  'neck': '🫀',
+  'neck': '🫀',        // ADD THIS if missing
   
   // Breast
   'breast': '🎀',
@@ -114,8 +117,8 @@ export const ICON_MAP: Record<string, string> = {
   'clipboard': '📋',
   'camera': '📸',
   'magnify': '🔍',
-  'check': '✓',
-  'x': '✗'
+  'check': '✅',
+  'x': '❌'
 };
 
 // ============================================

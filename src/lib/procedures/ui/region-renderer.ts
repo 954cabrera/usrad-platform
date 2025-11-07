@@ -29,6 +29,8 @@ import {
   CT_DISPLAY_SETTINGS
 } from '../utils/category-config';
 
+import { renderMRIGroupedSelection } from './mri-region-renderer';
+
 // ============================================
 // REGION CONFIGURATIONS
 // ============================================
@@ -324,6 +326,11 @@ export function renderGroupedRegionSelection(
   // 🆕 Use CT-specific renderer for CT modality
   if (modality === 'CT') {
     return renderCTGroupedSelection(modality, contrast, showBreadcrumb);
+  }
+
+  // 🆕 Use MRI-specific renderer for MRI modality
+  if (modality === 'MRI') {
+    return renderMRIGroupedSelection(modality, contrast, showBreadcrumb);
   }
 
   // Original code for other modalities
@@ -768,106 +775,6 @@ function renderNoRegionsAvailable(modality: Modality): string {
     <div class="text-center py-8">
       <p class="text-red-600 font-medium">Configuration Error</p>
       <p class="text-gray-600 text-sm mt-2">Please contact support</p>
-    </div>
-    ${backButton}
-  `);
-}
-
-// ============================================
-// MRI GROUPED SELECTION RENDERER
-// ============================================
-
-/**
- * Render MRI grouped selection with 3-tier structure
- * Displays: Standard MRI, Vascular Imaging (MRA/MRV), Specialized MRI
- * 
- * @returns HTML string for MRI tier and region selection
- */
-export function renderMRIGroupedSelection(): string {
-  // Dynamic import to avoid circular dependency
-  let MRI_CONFIG;
-  try {
-    const categoryConfig = require('../utils/category-config');
-    MRI_CONFIG = categoryConfig.MRI_CATEGORY_CONFIG;
-  } catch (error) {
-    console.error('Failed to load MRI_CATEGORY_CONFIG:', error);
-    return '<div class="text-red-600">Error loading MRI configuration</div>';
-  }
-
-  const header = renderSectionHeader(
-    'Select MRI Type and Body Region',
-    'Choose the type of MRI scan you need'
-  );
-
-  const tierGroups = MRI_CONFIG.tiers.map((tier: any) => {
-    const tierHeader = `
-      <div class="flex items-center justify-between mb-4 pb-3 border-b-2 border-[#003087]">
-        <div class="flex items-center gap-3">
-          <span class="text-2xl">${getIcon(tier.icon)}</span>
-          <div>
-            <h3 class="text-xl font-bold text-gray-900">${tier.name}</h3>
-            <p class="text-sm text-gray-600">${tier.description}</p>
-          </div>
-        </div>
-      </div>
-    `;
-
-    const regionCards = tier.regions.map((region: any) => {
-      const contrastBadge = region.contrastMode ? `
-        <div class="mt-3 inline-flex items-center gap-1 text-xs font-medium text-[#003087] bg-[#003087]/10 px-2 py-0.5 rounded-full">
-          <span>
-            ${region.contrastMode === 'auto' 
-              ? 'Contrast Required' 
-              : region.contrastMode === 'optional'
-              ? 'Contrast Optional'
-              : 'No Contrast'}
-          </span>
-        </div>
-      ` : '';
-
-      return `
-        <button
-          type="button"
-          class="mri-region-button bg-gray-50 border-2 border-gray-200 rounded-lg p-4 hover:bg-blue-50 hover:border-[#003087] transition-all text-left group"
-          data-region-id="${region.id}"
-          data-tier-id="${tier.id}"
-          data-region-label="${region.label}"
-        >
-          <div class="flex items-start gap-2 mb-2">
-            <span class="text-xl flex-shrink-0">${getIcon(region.icon || tier.icon)}</span>
-            <span class="font-semibold text-gray-900 group-hover:text-[#003087] transition-colors flex-1">
-              ${region.label}
-            </span>
-          </div>
-          <p class="text-xs text-gray-600 line-clamp-2 mb-1">
-            ${region.notes || ''}
-          </p>
-          ${contrastBadge}
-          ${region.badge ? `
-            <div class="mt-2 inline-flex items-center gap-1 text-xs font-medium text-blue-700 bg-blue-100 px-2 py-0.5 rounded">
-              ${region.badge}
-            </div>
-          ` : ''}
-        </button>
-      `;
-    }).join('');
-
-    return `
-      <div class="mri-tier-group mb-8">
-        ${tierHeader}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
-          ${regionCards}
-        </div>
-      </div>
-    `;
-  }).join('');
-
-  const backButton = renderBackButton('Back to Modality Selection', 'back-to-modality');
-
-  return wrapInContainer(`
-    ${header}
-    <div class="mri-categories-container">
-      ${tierGroups}
     </div>
     ${backButton}
   `);

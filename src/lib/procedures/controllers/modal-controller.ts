@@ -48,12 +48,21 @@ import {
 import { 
   renderRegionSelection,
   renderGroupedRegionSelection,
-  renderCTGroupedSelection // 🆕 ADD THIS
+  renderCTGroupedSelection
 } from '@/lib/procedures/ui/region-renderer';
 
 import { 
   renderSearchResults 
 } from '@/lib/procedures/ui/search-results-renderer';
+
+import { 
+  renderMRIGroupedSelection 
+} from '@/lib/procedures/ui/mri-region-renderer';
+
+import {
+  resetMRIState,
+  showMRIGroupedSelection
+} from './mri-modal-integration';
 
 // ============================================
 // X-RAY VIEW SELECTION IMPORT (NEW!)
@@ -107,6 +116,23 @@ function resetCTState(): void {
   console.log('🔄 CT state reset');
 }
 
+// ============================================
+// MRI STATE MANAGEMENT (ADD THIS)
+// ============================================
+
+interface MRIModalState {
+  expandedGroups: Set<string>;
+  expandedRegionGroups: Set<string>;
+  showAllInGroup: Set<string>;
+}
+
+let mriState: MRIModalState = {
+  expandedGroups: new Set(),
+  expandedRegionGroups: new Set(),
+  showAllInGroup: new Set()
+};
+
+
 // DOM Elements (cached for performance)
 let modalOverlay: HTMLElement | null = null;
 let modalBackdrop: HTMLElement | null = null;
@@ -144,6 +170,7 @@ export function initializeSlimController() {
   attachSearchListeners();
   attachFormListeners();
   attachCTEventListeners();
+  attachMRIEventListeners();
   
   console.log('✅ Slim Modal Controller ready (with X-Ray support)!');
 }
@@ -217,8 +244,8 @@ function closeModal(): void {
     // Reset selection flow
     selectionFlow.reset();
     
-    // 🆕 Reset CT state
-    resetCTState();
+    // 🆕 Reset all modal state (CT + MRI)
+    resetAllModalState();
     
     // Clear search input
     if (modalSearchInput) {
@@ -227,6 +254,15 @@ function closeModal(): void {
     
     console.log('✅ Modal closed');
   }, 300);
+}
+
+/**
+ * Reset all modality-specific state
+ * 🆕 ADDED FOR MRI SUPPORT
+ */
+function resetAllModalState(): void {
+  resetCTState();
+  resetMRIState();
 }
 
 // ============================================
@@ -280,7 +316,14 @@ function performSearch(query: string): void {
     return;
   }
   
-  // MRI PATH: Show contrast selection first
+  // 🆕 MRI PATH: Skip contrast, show three-tier selection (Standard/Vascular/Specialized)
+  if (modality === 'MRI') {
+    console.log('🧲 MRI detected - showing three-tier selection');
+    showRegionSelection(modality);  // This now shows the 3-tier MRI UI
+    return;
+  }
+  
+  // OTHER MODALITIES: Show contrast selection first
   if (hasContrastOptions(modality)) {
     showContrastSelection(modality);
   } else {
@@ -310,7 +353,28 @@ function performSearch(query: string): void {
 function showContrastSelection(modality: Modality): void {
   if (!modalResults) return;
   
-  const html = renderContrastSelection(modality, true);
+  // Get current region from selection flow
+  const state = selectionFlow.getState();
+  const regionKey = state.region;
+  
+  // Get display label for the region
+  let regionLabel = regionKey;
+  if (regionKey && modality === 'MRI') {
+    // Look up the region label from MRI config
+    const mriConfig = (window as any).ProcedureLibrary?.MRI_CATEGORY_CONFIG;
+    if (mriConfig) {
+      // Search through all tiers to find the region
+      for (const tier of mriConfig.tiers) {
+        const region = tier.regions.find((r: any) => r.id === regionKey);
+        if (region) {
+          regionLabel = region.label;
+          break;
+        }
+      }
+    }
+  }
+  
+  const html = renderContrastSelection(modality, true, regionLabel);
   modalResults.innerHTML = html;
   attachContrastListeners();
 }
@@ -324,6 +388,14 @@ function showRegionSelection(modality: Modality, contrast?: ContrastType): void 
     modalResults.innerHTML = html;
     attachRegionListeners();
     // CT events are handled by global listeners
+    return;
+  }
+
+  // ADD MRI-specific rendering HERE:
+  if (modality === 'MRI') {
+    const html = renderMRIGroupedSelection(modality, contrast, true, mriState);
+    modalResults.innerHTML = html;
+    attachRegionListeners();
     return;
   }
   
@@ -454,10 +526,22 @@ function attachContrastListeners(): void {
         return;
       }
       
-      // MRI PATH: Contrast selected first, now show regions
+      // 🆕 MRI PATH: Handle both scenarios
       if (state.modality === 'MRI') {
-        console.log('🧲 MRI: Contrast selected - showing region selection');
-        showRegionSelection(state.modality, contrastId);
+        if (state.region) {
+          // MRI: Region already selected, resolve with contrast
+          console.log('🧲 MRI: Region + Contrast selected - resolving procedure');
+          const procedure = selectionFlow.resolve();
+          if (procedure) {
+            handleProcedureSelection(procedure);
+          } else {
+            console.error('❌ Failed to resolve MRI procedure:', state);
+          }
+        } else {
+          // MRI: Contrast selected first, now show regions
+          console.log('🧲 MRI: Contrast selected - showing region selection');
+          showRegionSelection(state.modality, contrastId);
+        }
         return;
       }
       
@@ -709,11 +793,16 @@ function attachCTEventListeners(): void {
     
     console.log('[CT] Toggle group event:', groupId);
     
-    // Toggle the group in state
+    // ✅ ACCORDION BEHAVIOR: Only one tier open at a time
     if (ctState.expandedGroups.has(groupId)) {
+      // If clicking the currently open group, close it
       ctState.expandedGroups.delete(groupId);
+      console.log('[CT] Collapsed:', groupId);
     } else {
+      // Close all other groups first, then open this one
+      ctState.expandedGroups.clear();
       ctState.expandedGroups.add(groupId);
+      console.log('[CT] Accordion - Closed all, Expanded:', groupId);
     }
     
     // Re-render with updated state
@@ -763,6 +852,101 @@ function attachCTEventListeners(): void {
   
   console.log('✅ CT event listeners attached');
 }
+
+// ============================================
+// MRI EVENT LISTENERS (NEW!)
+// ============================================
+
+function attachMRIEventListeners(): void {
+  // Listener 1: Toggle group
+  window.addEventListener('mri-toggle-group', (e: Event) => {
+    const customEvent = e as CustomEvent;
+    const { groupId } = customEvent.detail;
+    
+    console.log('🎯 [MRI] Toggle group event received:', groupId);
+    console.log('🎯 [MRI] Current state before toggle:', mriState);
+    
+    // ✅ ACCORDION BEHAVIOR: Only one tier open at a time
+    if (mriState.expandedGroups.has(groupId)) {
+      // If clicking the currently open group, close it
+      mriState.expandedGroups.delete(groupId);
+      console.log('🎯 [MRI] Collapsed:', groupId);
+    } else {
+      // Close all other groups first, then open this one
+      mriState.expandedGroups.clear();
+      mriState.expandedGroups.add(groupId);
+      console.log('🎯 [MRI] Accordion - Closed all, Expanded:', groupId);
+    }
+    
+    console.log('🎯 [MRI] Current state after toggle:', mriState);
+    
+    const state = selectionFlow.getState();
+    if (state.modality === 'MRI') {
+      console.log('🎯 [MRI] Re-rendering with modality:', state.modality);
+      showRegionSelection('MRI', state.contrast || undefined);
+    }
+  });
+  
+  // Listener 2: Toggle region group
+  window.addEventListener('mri-toggle-region-group', (e: Event) => {
+    const customEvent = e as CustomEvent;
+    const { groupKey } = customEvent.detail;
+    
+    console.log('[MRI] Toggle region group event:', groupKey);
+    
+    if (mriState.expandedRegionGroups.has(groupKey)) {
+      mriState.expandedRegionGroups.delete(groupKey);
+    } else {
+      mriState.expandedRegionGroups.add(groupKey);
+    }
+    
+    const state = selectionFlow.getState();
+    if (state.modality === 'MRI') {
+      showRegionSelection('MRI', state.contrast || undefined);
+    }
+  });
+  
+  // Listener 3: Show all regions
+  window.addEventListener('mri-show-all-regions', (e: Event) => {
+    const customEvent = e as CustomEvent;
+    const { groupKey } = customEvent.detail;
+    
+    console.log('[MRI] Show all regions event:', groupKey);
+    
+    mriState.showAllInGroup.add(groupKey);
+    
+    const state = selectionFlow.getState();
+    if (state.modality === 'MRI') {
+      showRegionSelection('MRI', state.contrast || undefined);
+    }
+  });
+  
+  // Listener 4: Region selected
+  window.addEventListener('mri-region-selected', (e: Event) => {
+    const customEvent = e as CustomEvent;
+    const { regionKey, needsContrast, autoContrast } = customEvent.detail;
+    
+    console.log('[MRI] Region selected:', regionKey, 'needsContrast:', needsContrast);
+    
+    if (needsContrast) {
+      selectionFlow.setModality('MRI');
+      selectionFlow.setRegion(regionKey);
+      showContrastSelection('MRI');
+    } else {
+      selectionFlow.setModality('MRI');
+      selectionFlow.setRegion(regionKey);
+      if (autoContrast) {
+        selectionFlow.setContrast(autoContrast);
+      }
+      const result = selectionFlow.resolve();
+      if (result) {
+        handleProcedureSelection(result);
+      }
+    }
+  });
+  
+  console.log('✅ MRI event listeners attached');  // ← ONLY ONE, AT THE VERY END
+}  // ← ONLY ONE CLOSING BRACE
 
 // ============================================
 // X-RAY VIEW LISTENERS (NEW!)

@@ -60,7 +60,8 @@ const CONTRAST_DETAILS: Record<string, { prep: string; duration: string; notes: 
  */
 export function renderContrastSelection(
   modality: Modality,
-  showBreadcrumb: boolean = true
+  showBreadcrumb: boolean = true,
+  region?: string
 ): string {
   const config = getContrastConfig(modality);
   const icon = getModalityIcon(modality);
@@ -70,8 +71,14 @@ export function renderContrastSelection(
     return renderNoContrastNeeded(modality);
   }
 
+  // Build breadcrumb based on whether we have a region
   const breadcrumb = showBreadcrumb
-    ? renderBreadcrumb([modality, 'Select Contrast', 'Region', 'Complete'], 1)
+    ? renderBreadcrumb([
+        modality,
+        region || 'Region',
+        'Select Contrast',
+        'Complete'
+      ], 2)
     : '';
 
   const header = renderSectionHeader(
@@ -84,7 +91,7 @@ export function renderContrastSelection(
     renderContrastOption(option, color)
   ).join('');
 
-  const backButton = renderBackButton('← Back to search', 'back-to-search');
+  const backButton = renderBackButton('â† Back to search', 'back-to-search');
 
   return wrapInContainer(`
     ${breadcrumb}
@@ -139,7 +146,7 @@ function renderContrastOption(option: ContrastOption, accentColor: string): stri
               <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
-              <span>⏱️ ${details.duration}</span>
+              <span>â±ï¸ ${details.duration}</span>
             </div>
             <div class="flex items-center gap-1.5">
               <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -152,7 +159,7 @@ function renderContrastOption(option: ContrastOption, accentColor: string): stri
           <!-- Additional Notes -->
           ${details.notes ? `
             <p class="text-xs text-gray-500 mt-2 italic">
-              💡 ${details.notes}
+              ðŸ’¡ ${details.notes}
             </p>
           ` : ''}
         </div>
@@ -187,7 +194,7 @@ function renderNoContrastNeeded(modality: Modality): string {
     message: `${modality} procedures do not use contrast injection. Proceeding to region selection.`
   });
 
-  const backButton = renderBackButton('← Back to search', 'back-to-search-no-contrast');
+  const backButton = renderBackButton('â† Back to search', 'back-to-search-no-contrast');
 
   return wrapInContainer(`
     ${header}
@@ -300,7 +307,7 @@ export function renderContrastInfoCard(): string {
         <li><strong>Both:</strong> Combines both methods for comprehensive evaluation</li>
       </ul>
       <p class="text-blue-800 mt-3 text-xs">
-        💡 Not sure which to choose? Check your doctor's prescription or imaging order.
+        ðŸ’¡ Not sure which to choose? Check your doctor's prescription or imaging order.
       </p>
     </div>
   `;
@@ -451,4 +458,4 @@ function renderContrastUI(region: string, options: string[], cptRange: string[])
 }
 
 
-console.log('✅ Contrast Selection Renderer loaded');
+console.log('âœ… Contrast Selection Renderer loaded');
