@@ -91,7 +91,7 @@ export function renderContrastSelection(
     renderContrastOption(option, color)
   ).join('');
 
-  const backButton = renderBackButton('â† Back to search', 'back-to-search');
+  const backButton = renderBackButton('← Back to search', 'back-to-search');
 
   return wrapInContainer(`
     ${breadcrumb}
@@ -146,7 +146,7 @@ function renderContrastOption(option: ContrastOption, accentColor: string): stri
               <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
-              <span>â±ï¸ ${details.duration}</span>
+              <span>⏱️ ${details.duration}</span>
             </div>
             <div class="flex items-center gap-1.5">
               <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -159,7 +159,7 @@ function renderContrastOption(option: ContrastOption, accentColor: string): stri
           <!-- Additional Notes -->
           ${details.notes ? `
             <p class="text-xs text-gray-500 mt-2 italic">
-              ðŸ’¡ ${details.notes}
+              💡 ${details.notes}
             </p>
           ` : ''}
         </div>
@@ -194,7 +194,7 @@ function renderNoContrastNeeded(modality: Modality): string {
     message: `${modality} procedures do not use contrast injection. Proceeding to region selection.`
   });
 
-  const backButton = renderBackButton('â† Back to search', 'back-to-search-no-contrast');
+  const backButton = renderBackButton('← Back to search', 'back-to-search-no-contrast');
 
   return wrapInContainer(`
     ${header}
@@ -307,7 +307,7 @@ export function renderContrastInfoCard(): string {
         <li><strong>Both:</strong> Combines both methods for comprehensive evaluation</li>
       </ul>
       <p class="text-blue-800 mt-3 text-xs">
-        ðŸ’¡ Not sure which to choose? Check your doctor's prescription or imaging order.
+        💡 Not sure which to choose? Check your doctor's prescription or imaging order.
       </p>
     </div>
   `;
