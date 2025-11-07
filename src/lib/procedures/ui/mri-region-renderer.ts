@@ -377,7 +377,7 @@ function getRegionData(regionKey: string): { label: string; icon: string; badge?
     mraNeck: { label: 'MRA Neck (Carotid)', icon: 'neck', badge: 'MRA', helperText: 'Carotid artery evaluation' },
     mraChest: { label: 'MRA Chest / Aorta', icon: 'heart', badge: 'MRA', helperText: 'Thoracic aorta evaluation' },
     mraAbdomen: { label: 'MRA Abdomen / Renal', icon: 'abdomen', badge: 'MRA', helperText: 'Renal artery stenosis' },
-    mraPelvis: { label: 'MRA Pelvis', icon: 'pelvis', badge: 'MRA', helperText: 'Iliac vessel evaluation' },
+    mraPelvis: { label: 'MRA Pelvis', icon: 'bone', badge: 'MRA', helperText: 'Iliac vessel evaluation' },
     mraRunoff: { label: 'MRA Runoff (Legs)', icon: 'leg', badge: 'MRA', helperText: 'Peripheral vascular disease' },
     mraSpine: { label: 'MRA Spine', icon: 'spine', badge: 'MRA', helperText: 'Spinal vascular malformations' },
     mrvHead: { label: 'MRV Head (Venous)', icon: 'brain', badge: 'MRV', helperText: 'Venous thrombosis evaluation' },
@@ -418,10 +418,34 @@ if (typeof window !== 'undefined') {
 
   (window as any).selectMRIRegion = (regionKey: string) => {
     console.log('[MRI] Region selected:', regionKey);
+    
+    // Check if this region has auto-contrast mode (MRA procedures)
+    const procedureData = (window as any).ProcedureLibrary?.MRI?.[regionKey];
+    const contrastMode = procedureData?.contrastMode;
+    
+    let needsContrast = true;
+    let autoContrast = undefined;
+    
+    if (contrastMode === 'auto') {
+      // MRA: Skip contrast selection, auto-set "with contrast"
+      needsContrast = false;
+      autoContrast = 'with';
+      console.log('[MRI] Auto-contrast mode detected, skipping contrast selection');
+    } else if (contrastMode === 'optional') {
+      // MRV: Show contrast selection (2 options)
+      needsContrast = true;
+      console.log('[MRI] Optional contrast mode detected, showing contrast selection');
+    } else {
+      // Standard MRI: Show contrast selection (3 options)
+      needsContrast = true;
+    }
+    
     window.dispatchEvent(new CustomEvent('mri-region-selected', { 
       detail: { 
         regionKey,
-        needsContrast: true
+        needsContrast,
+        autoContrast,
+        contrastMode
       } 
     }));
   };

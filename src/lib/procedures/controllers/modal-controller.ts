@@ -919,17 +919,23 @@ function attachMRIEventListeners(): void {
     }
   });
   
-  // Listener 2: Toggle region group
+  // Listener 2: Toggle region group (with accordion behavior)
   window.addEventListener('mri-toggle-region-group', (e: Event) => {
     const customEvent = e as CustomEvent;
     const { groupKey } = customEvent.detail;
     
     console.log('[MRI] Toggle region group event:', groupKey);
     
+    // Accordion behavior: Close all other region groups, open only this one
     if (mriState.expandedRegionGroups.has(groupKey)) {
+      // If clicking the already-open group, close it
       mriState.expandedRegionGroups.delete(groupKey);
+      console.log('[MRI] Collapsed region group:', groupKey);
     } else {
+      // Close all other region groups and open this one
+      mriState.expandedRegionGroups.clear();
       mriState.expandedRegionGroups.add(groupKey);
+      console.log('[MRI] Accordion - Closed all region groups, Expanded:', groupKey);
     }
     
     const state = selectionFlow.getState();

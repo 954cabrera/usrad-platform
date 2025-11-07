@@ -553,6 +553,171 @@
           useCase: "Heart attack evaluation, myocarditis, tumors"
         }
       ]
+    },
+
+    // ============================================
+    // VASCULAR IMAGING - MRA/MRV
+    // ============================================
+
+    mraBrain: {
+      category: "MRA Brain",
+      icon: "brain",
+      categoryGroup: "vascular",
+      badge: "MRA",
+      contrastMode: "auto",
+      procedures: [
+        {
+          cpt: "70544",
+          label: "MRA Brain - With Contrast",
+          shortLabel: "MRA Brain",
+          description: "Aneurysm or stenosis screening",
+          duration: "30-45 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Aneurysm detection, stroke evaluation, vascular malformations"
+        }
+      ]
+    },
+
+    mrvHead: {
+      category: "MRV Head (Venous)",
+      icon: "brain",
+      categoryGroup: "vascular",
+      badge: "MRV",
+      contrastMode: "optional",
+      procedures: [
+        {
+          cpt: "70545",
+          label: "MRV Head - Without Contrast",
+          shortLabel: "MRV Head - Without",
+          description: "Venous thrombosis evaluation",
+          duration: "30-45 min",
+          prep: "Remove metal objects",
+          useCase: "Venous sinus thrombosis, venous malformations"
+        },
+        {
+          cpt: "70546",
+          label: "MRV Head - With Contrast",
+          shortLabel: "MRV Head - With",
+          description: "Enhanced venous evaluation",
+          duration: "45-60 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Detailed venous thrombosis assessment"
+        }
+      ]
+    },
+
+    mraNeck: {
+      category: "MRA Neck (Carotid)",
+      icon: "heart",
+      categoryGroup: "vascular",
+      badge: "MRA",
+      contrastMode: "auto",
+      procedures: [
+        {
+          cpt: "70547",
+          label: "MRA Neck - With Contrast",
+          shortLabel: "MRA Neck",
+          description: "Carotid artery evaluation",
+          duration: "30-45 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Carotid stenosis, dissection, stroke prevention"
+        }
+      ]
+    },
+
+    mraChest: {
+      category: "MRA Chest / Aorta",
+      icon: "heart",
+      categoryGroup: "vascular",
+      badge: "MRA",
+      contrastMode: "auto",
+      procedures: [
+        {
+          cpt: "71555",
+          label: "MRA Chest - With Contrast",
+          shortLabel: "MRA Chest",
+          description: "Thoracic aorta evaluation",
+          duration: "45-60 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Aortic aneurysm, dissection, coarctation"
+        }
+      ]
+    },
+
+    mraAbdomen: {
+      category: "MRA Abdomen / Renal",
+      icon: "abdomen",
+      categoryGroup: "vascular",
+      badge: "MRA",
+      contrastMode: "auto",
+      procedures: [
+        {
+          cpt: "74185",
+          label: "MRA Abdomen - With Contrast",
+          shortLabel: "MRA Abdomen",
+          description: "Renal artery stenosis evaluation",
+          duration: "45-60 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Renal artery stenosis, mesenteric ischemia, abdominal aneurysm"
+        }
+      ]
+    },
+
+    mraPelvis: {
+      category: "MRA Pelvis",
+      icon: "bone",
+      categoryGroup: "vascular",
+      badge: "MRA",
+      contrastMode: "auto",
+      procedures: [
+        {
+          cpt: "72198",
+          label: "MRA Pelvis - With Contrast",
+          shortLabel: "MRA Pelvis",
+          description: "Iliac vessel evaluation",
+          duration: "45-60 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Iliac artery stenosis, pelvic vascular malformations"
+        }
+      ]
+    },
+
+    mraRunoff: {
+      category: "MRA Runoff (Legs)",
+      icon: "leg",
+      categoryGroup: "vascular",
+      badge: "MRA",
+      contrastMode: "auto",
+      procedures: [
+        {
+          cpt: "73725",
+          label: "MRA Lower Extremities - With Contrast",
+          shortLabel: "MRA Runoff",
+          description: "Peripheral vascular disease evaluation",
+          duration: "60-75 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Peripheral artery disease, claudication, limb ischemia"
+        }
+      ]
+    },
+
+    mraSpine: {
+      category: "MRA Spine",
+      icon: "spine",
+      categoryGroup: "vascular",
+      badge: "MRA",
+      contrastMode: "auto",
+      procedures: [
+        {
+          cpt: "72159",
+          label: "MRA Spine - With Contrast",
+          shortLabel: "MRA Spine",
+          description: "Spinal cord vascular evaluation",
+          duration: "45-60 min",
+          prep: "IV contrast, kidney function check",
+          useCase: "Spinal vascular malformations, AVMs, dural fistulas"
+        }
+      ]
     }
   };
 
@@ -930,7 +1095,7 @@ const CT_PROCEDURES = {
     categoryGroup: "vascular",
     displayIn: ["head", "vascular"],
     isVascular: true,
-    badge: "💓 CTA",
+    badge: "ðŸ’“ CTA",
     procedures: [
       {
         cpt: "70496",
@@ -969,7 +1134,7 @@ const CT_PROCEDURES = {
     categoryGroup: "vascular",
     displayIn: ["torso", "vascular"],
     isVascular: true,
-    badge: "💓 CTA",
+    badge: "ðŸ’“ CTA",
     procedures: [
       {
         cpt: "71275",
@@ -992,7 +1157,7 @@ const CT_PROCEDURES = {
     categoryGroup: "vascular",
     displayIn: ["torso", "vascular"],
     isVascular: true,
-    badge: "💓 CTA",
+    badge: "ðŸ’“ CTA",
     procedures: [
       {
         cpt: "75574",
@@ -1019,7 +1184,7 @@ const CT_PROCEDURES = {
     categoryGroup: "vascular",
     displayIn: ["torso", "vascular"],
     isVascular: true,
-    badge: "💓 CTA",
+    badge: "ðŸ’“ CTA",
     procedures: [
       {
         cpt: "74175",
@@ -1046,7 +1211,7 @@ const CT_PROCEDURES = {
     categoryGroup: "vascular",
     displayIn: ["extremities", "vascular"],
     isVascular: true,
-    badge: "💓 CTA",
+    badge: "ðŸ’“ CTA",
     procedures: [
       {
         cpt: "73706",
@@ -1085,7 +1250,7 @@ const CT_PROCEDURES = {
     categoryGroup: "screening",
     displayIn: ["screening", "torso"],
     isScreening: true,
-    badge: "⭐ Screening",
+    badge: "â­ Screening",
     procedures: [
       {
         cpt: "71271",
@@ -1109,7 +1274,7 @@ const CT_PROCEDURES = {
     categoryGroup: "screening",
     displayIn: ["screening", "torso"],
     isScreening: true,
-    badge: "⭐ Screening",
+    badge: "â­ Screening",
     procedures: [
       {
         cpt: "75571",
@@ -1133,7 +1298,7 @@ const CT_PROCEDURES = {
     categoryGroup: "screening",
     displayIn: ["screening", "torso"],
     isScreening: true,
-    badge: "⭐ Screening",
+    badge: "â­ Screening",
     procedures: [
       {
         cpt: "74263",
@@ -1151,25 +1316,25 @@ const CT_PROCEDURES = {
     ]
   },
 
-  screeningCoronary: {        // ✅ Correct name
+  screeningCoronary: {        // âœ… Correct name
   category: "Coronary CTA Screening",
   icon: "heart",
   categoryGroup: "screening",
-  displayIn: ["screening", "vascular"],  // ✅ Added "vascular"
-  isVascular: true,         // ✅ NEW - marks as CTA
+  displayIn: ["screening", "vascular"],  // âœ… Added "vascular"
+  isVascular: true,         // âœ… NEW - marks as CTA
   isScreening: true,
-  badge: "💓 CTA",           // ✅ Matches other CTA procedures
+  badge: "ðŸ’“ CTA",           // âœ… Matches other CTA procedures
   procedures: [
     {
-      cpt: "75574",         // ✅ Correct CTA coronary code
+      cpt: "75574",         // âœ… Correct CTA coronary code
       label: "CTA Coronary Arteries - Screening",
       shortLabel: "Heart CTA",
       description: "Non-invasive coronary artery evaluation",
       duration: "20-30 min",
-      prep: "IV contrast required, heart rate control, beta blockers",  // ✅ Correct for CTA
+      prep: "IV contrast required, heart rate control, beta blockers",  // âœ… Correct for CTA
       useCase: "Chest pain evaluation, family history of heart disease",
       clinicalIndication: "Coronary CTA for non-invasive cardiac assessment",
-      isVascular: true,     // ✅ NEW
+      isVascular: true,     // âœ… NEW
       isScreening: true,
       helperText: "Non-invasive heart evaluation",
       tags: ["coronary", "heart screening", "cta", "cardiac"]
@@ -1795,19 +1960,19 @@ if (typeof module !== 'undefined' && module.exports) {
       // Spine
 'cervical spine': 'cervicalSpine',
 'cervical spine (neck)': 'cervicalSpine',
-'cervicalspine': 'cervicalSpine',     // ✅ ADD: Support camelCase from UI
+'cervicalspine': 'cervicalSpine',     // âœ… ADD: Support camelCase from UI
 'c-spine': 'cervicalSpine',
 'neck': 'cervicalSpine',
 
 'thoracic spine': 'thoracicSpine',
 'thoracic spine (mid back)': 'thoracicSpine',
-'thoracicspine': 'thoracicSpine',     // ✅ ADD: Support camelCase from UI
+'thoracicspine': 'thoracicSpine',     // âœ… ADD: Support camelCase from UI
 't-spine': 'thoracicSpine',
 'mid back': 'thoracicSpine',
 
 'lumbar spine': 'lumbarSpine',
 'lumbar spine (low back)': 'lumbarSpine',
-'lumbarspine': 'lumbarSpine',         // ✅ ADD: Support camelCase from UI
+'lumbarspine': 'lumbarSpine',         // âœ… ADD: Support camelCase from UI
 'l-spine': 'lumbarSpine',
 'low back': 'lumbarSpine',
 'back': 'lumbarSpine',
@@ -1843,8 +2008,20 @@ if (typeof module !== 'undefined' && module.exports) {
       'orbit/face/neck': 'orbitFaceNeck',
       'tmj': 'tmj',
       'sinuses': 'sinuses',
-      'neck (soft tissue)': 'neckSoftTissue'
+      'neck (soft tissue)': 'neckSoftTissue',
+
+      // MRA/MRV - Vascular Imaging
+      'mrabrain': 'mraBrain',
+      'mrvhead': 'mrvHead',
+      'mraneck': 'mraNeck',
+      'mrachest': 'mraChest',
+      'mraabdomen': 'mraAbdomen',
+      'mrapelvis': 'mraPelvis',
+      'mrarunoff': 'mraRunoff',
+      'mraspine': 'mraSpine'
     };
+
+
     
     const baseKey = regionMap[normalized] || null;
     
@@ -1913,7 +2090,7 @@ if (typeof module !== 'undefined' && module.exports) {
   }
 
   function resolveProcedure(modality, contrast, region) {
-    console.log('ðŸ” [Procedure Library] Resolving:', { modality, contrast, region });
+    console.log('Ã°Å¸â€Â [Procedure Library] Resolving:', { modality, contrast, region });
     
     // Normalize modality
     const modalityKey = modality.toUpperCase();
@@ -1924,36 +2101,36 @@ if (typeof module !== 'undefined' && module.exports) {
     } else if (modalityKey === 'CT') {
       modalityData = CT_PROCEDURES;
     } else {
-      console.warn('âŒ Unsupported modality:', modality);
+      console.warn('Ã¢ÂÅ’ Unsupported modality:', modality);
       return null;
     }
     
     // Find region
     const regionKey = normalizeRegionKey(region, modality);
     if (!regionKey) {
-      console.warn('âŒ Region not found:', region);
+      console.warn('Ã¢ÂÅ’ Region not found:', region);
       return null;
     }
     
     const categoryData = modalityData[regionKey];
     if (!categoryData) {
-      console.warn('âŒ No data for region:', region);
+      console.warn('Ã¢ÂÅ’ No data for region:', region);
       return null;
     }
     
     // Handle redirects
     if (categoryData.redirectTo) {
-      console.log('ðŸ”„ Following redirect:', categoryData.redirectTo);
+      console.log('Ã°Å¸â€â€ž Following redirect:', categoryData.redirectTo);
       const targetData = modalityData[categoryData.redirectTo];
       if (!targetData || !targetData.procedures) {
-        console.warn('âŒ Redirect target not found:', categoryData.redirectTo);
+        console.warn('Ã¢ÂÅ’ Redirect target not found:', categoryData.redirectTo);
         return null;
       }
       
       // Use procedures from target, but keep original category name
       const procedure = findProcedureByContrast(targetData.procedures, contrast);
       if (!procedure) {
-        console.warn('âŒ No matching contrast in redirected target');
+        console.warn('Ã¢ÂÅ’ No matching contrast in redirected target');
         return null;
       }
       
@@ -1973,18 +2150,18 @@ if (typeof module !== 'undefined' && module.exports) {
     
     // No redirect - use procedures directly
     if (!categoryData.procedures) {
-      console.warn('âŒ No procedures for region:', region);
+      console.warn('Ã¢ÂÅ’ No procedures for region:', region);
       return null;
     }
     
     // Find matching contrast
     const procedure = findProcedureByContrast(categoryData.procedures, contrast);
     if (!procedure) {
-      console.warn('âŒ No matching contrast:', { region: region, contrast: contrast });
+      console.warn('Ã¢ÂÅ’ No matching contrast:', { region: region, contrast: contrast });
       return null;
     }
     
-    console.log('âœ… [Procedure Library] Found:', procedure);
+    console.log('Ã¢Å“â€¦ [Procedure Library] Found:', procedure);
     
     return {
       cpt_code: procedure.cpt,
@@ -2089,7 +2266,7 @@ if (typeof module !== 'undefined' && module.exports) {
     }
   };
 
-  console.log('âœ… Procedure Library loaded successfully!');
-  console.log('ðŸ“¦ Available:', Object.keys(window.ProcedureLibrary).join(', '));
+  console.log('Ã¢Å“â€¦ Procedure Library loaded successfully!');
+  console.log('Ã°Å¸â€œÂ¦ Available:', Object.keys(window.ProcedureLibrary).join(', '));
 
 })();
