@@ -54,8 +54,8 @@ interface CTRenderState {
  */
 function getDefaultCTState(): CTRenderState {
   return {
-    expandedGroups: new Set(), // âœ… All collapsed - user chooses
-    expandedRegionGroups: new Set(), // âœ… All collapsed
+    expandedGroups: new Set(), // Ã¢Å“â€¦ All collapsed - user chooses
+    expandedRegionGroups: new Set(), // Ã¢Å“â€¦ All collapsed
     showAllInGroup: new Set()
   };
 }
@@ -116,6 +116,14 @@ const REGION_BY_MODALITY: Record<string, Region[]> = {
     { label: 'Elbow', icon: 'elbow' },
     { label: 'Femur (Thigh)', icon: 'femur' },
     { label: 'Tibia/Fibula (Lower Leg)', icon: 'tibia' }
+  ],
+  'Ultrasound': [
+    { label: 'Abdomen', icon: 'abdomen' },
+    { label: 'Pelvis', icon: 'pelvis' },
+    { label: 'Obstetric / Pregnancy', icon: 'pregnancy' },
+    { label: 'Vascular / Doppler', icon: 'heart' },
+    { label: 'Small Parts', icon: 'thyroid' },
+    { label: 'Musculoskeletal', icon: 'shoulder' }
   ]
 };
 
@@ -249,6 +257,29 @@ const GROUPED_REGIONS: Record<string, { groupName: string; regions: Region[] }[]
         { label: 'Pelvis', icon: 'pelvis' }
       ]
     }
+  ],
+  'Ultrasound': [
+    {
+      groupName: 'Abdomen & Pelvis',
+      regions: [
+        { label: 'Abdomen', icon: 'abdomen' },
+        { label: 'Pelvis', icon: 'pelvis' }
+      ]
+    },
+    {
+      groupName: 'Pregnancy & Vascular',
+      regions: [
+        { label: 'Obstetric / Pregnancy', icon: 'pregnancy' },
+        { label: 'Vascular / Doppler', icon: 'heart' }
+      ]
+    },
+    {
+      groupName: 'Specialized Imaging',
+      regions: [
+        { label: 'Small Parts', icon: 'thyroid' },
+        { label: 'Musculoskeletal', icon: 'shoulder' }
+      ]
+    }
   ]
 };
 
@@ -298,7 +329,7 @@ export function renderRegionSelection(
   const grid = renderGrid(regionButtons, 2);
 
   const backButton = renderBackButton(
-    contrast ? 'â† Back to contrast selection' : 'â† Back to search',
+    contrast ? 'Ã¢â€ Â Back to contrast selection' : 'Ã¢â€ Â Back to search',
     contrast ? 'back-to-contrast' : 'back-to-search-xray'
   );
 
@@ -359,7 +390,7 @@ export function renderGroupedRegionSelection(
   const groupSections = groups.map(group => renderRegionGroup(group, modality)).join('');
 
   const backButton = renderBackButton(
-    contrast ? 'â† Back to contrast selection' : 'â† Back to search',
+    contrast ? 'Ã¢â€ Â Back to contrast selection' : 'Ã¢â€ Â Back to search',
     contrast ? 'back-to-contrast-grouped' : 'back-to-search-xray'
   );
 
@@ -411,7 +442,7 @@ export function renderCTGroupedSelection(
   const categoryGroupsHTML = renderCTCategoryGroups(renderState);
 
   const backButton = renderBackButton(
-    contrast ? 'â† Back to contrast selection' : 'â† Back to search',
+    contrast ? 'Ã¢â€ Â Back to contrast selection' : 'Ã¢â€ Â Back to search',
     contrast ? 'back-to-contrast-ct' : 'back-to-search-ct'
   );
 
@@ -468,7 +499,7 @@ function renderCTCategoryGroups(state: CTRenderState): string {
               </span>
             ` : ''}
             <span class="text-gray-400 group-hover:text-blue-600 transition-all duration-200 ${isExpanded ? 'rotate-90' : 'animate-expand-hint'}">
-  ▶
+  â–¶
 </span>
           </div>
         </button>
@@ -524,7 +555,7 @@ function renderStandardCTContent(state: CTRenderState): string {
             <span class="font-medium text-gray-900">${regionGroup.groupName}</span>
           </div>
           <span class="text-gray-400 group-hover:text-blue-600 transition-all duration-200 ${isExpanded ? 'rotate-90' : 'animate-expand-hint'}">
-  ▶
+  â–¶
 </span>
         </button>
         ${isExpanded ? renderCTRegionGroupItems(regionGroup, showAll) : ''}
@@ -570,7 +601,7 @@ function renderCTRegionGroupItems(
           class="text-sm text-blue-600 hover:text-blue-700 font-medium"
           onclick="window.showMoreCTRegions('${regionGroup.groupName}')"
         >
-          [+${remainingCount} more â–¼]
+          [+${remainingCount} more Ã¢â€“Â¼]
         </button>
       </div>
     `;
@@ -638,12 +669,12 @@ function renderCTRegionCard(
   return `
     <button
       type="button"
-      class="region-option-button card hover-lift transition-all duration-200 border border-gray-100 bg-white/90 hover:bg-white rounded-xl shadow-soft p-4 accent-hover relative min-h-[48px]"
+      class="region-option-button card hover-lift active-scale transition-all duration-200 border border-gray-100 bg-white/90 hover:bg-white rounded-xl shadow-soft p-4 accent-hover focus-accent relative min-h-[48px]"
       data-region-label="${region.label}"
     >
       ${badge ? `<div class="absolute top-2 right-2 text-xs bg-[#003087]/10 text-[#003087] px-2 py-1 rounded-full font-semibold">${badge}</div>` : ''}
       <div class="text-center">
-        <div class="icon-container bg-[#003087]/10 p-3 rounded-lg inline-flex items-center justify-center mb-2">
+        <div class="icon-container bg-[#003087]/10 p-3 rounded-lg inline-flex items-center justify-center mb-2 transition-colors duration-200">
           <span class="text-2xl">${getIcon(region.icon)}</span>
         </div>
         <p class="text-sm font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
@@ -692,7 +723,7 @@ function getRegionFromKey(regionKey: string): { label: string; icon: string; hel
       icon: 'intestine',
       helperText: 'Colon cancer screening ages 45+ - no sedation'
     },
-    'screeningCoronary': {   // âœ… NEW NAME (matches procedures-global.js)
+    'screeningCoronary': {   // Ã¢Å“â€¦ NEW NAME (matches procedures-global.js)
   label: 'Heart Screening', 
   icon: 'heart',
   helperText: 'Non-invasive heart evaluation'
@@ -716,11 +747,11 @@ function renderRegionButton(region: Region, modality: Modality): string {
   return `
     <button
       type="button"
-      class="region-option-button card hover-lift transition-all duration-200 border border-gray-100 bg-white/90 hover:bg-white rounded-xl shadow-soft p-4 accent-hover"
+      class="region-option-button card hover-lift active-scale transition-all duration-200 border border-gray-100 bg-white/90 hover:bg-white rounded-xl shadow-soft p-4 accent-hover focus-accent"
       data-region-label="${region.label}"
     >
       <div class="text-center">
-        <div class="icon-container bg-[#003087]/10 p-3 rounded-lg inline-flex items-center justify-center mb-2">
+        <div class="icon-container bg-[#003087]/10 p-3 rounded-lg inline-flex items-center justify-center mb-2 transition-colors duration-200">
           <span class="text-2xl">${getIcon(region.icon)}</span>
         </div>
         <p class="text-sm font-semibold text-gray-900 group-hover:text-[#003087] transition-colors">
@@ -772,7 +803,7 @@ function renderNoRegionsAvailable(modality: Modality): string {
     `No body regions configured for ${modality}`
   );
 
-  const backButton = renderBackButton('â† Back to search', 'back-to-search-no-regions');
+  const backButton = renderBackButton('Back to search', 'back-to-search-no-regions');
 
   return wrapInContainer(`
     ${header}
@@ -847,4 +878,4 @@ if (typeof window !== 'undefined') {
   };
 }
 
-console.log('âœ… Region Selection Renderer loaded (X-Ray Enhanced + CT Enhanced)');
+console.log('Ã¢Å“â€¦ Region Selection Renderer loaded (X-Ray Enhanced + CT Enhanced)');

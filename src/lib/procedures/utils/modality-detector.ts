@@ -68,6 +68,14 @@ const MODALITY_ALIASES: Record<string, Modality> = {
   'ultra': 'Ultrasound',
   'sono': 'Ultrasound',
   'sonogram': 'Ultrasound',
+  'echo': 'Ultrasound',
+  'doppler': 'Ultrasound',
+  'obstetric': 'Ultrasound',
+  'obstetric ultrasound': 'Ultrasound',
+  'vascular ultrasound': 'Ultrasound',
+  'carotid ultrasound': 'Ultrasound',
+  'pelvic ultrasound': 'Ultrasound',
+  'abdomen ultrasound': 'Ultrasound',
   
   // Mammography
   'mammo': 'Mammography',
@@ -254,4 +262,10 @@ export function getModalityColor(modality: Modality): string {
   return colors[modality] || '#003087';
 }
 
-console.log('âœ… Modality Detector loaded');
+console.log('✅ Modality Detector loaded');
+
+// Expose to window for diagnostics
+if (typeof window !== 'undefined') {
+  (window as any).detectModality = detectModality;
+  console.log('🧪 detectModality exposed to window for testing');
+}

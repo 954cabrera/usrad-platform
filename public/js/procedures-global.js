@@ -2065,6 +2065,211 @@ if (typeof module !== 'undefined' && module.exports) {
 
   };
 
+  // ============================================
+  // ULTRASOUND PROCEDURES - COMPLETE REFERENCE
+  // ============================================
+
+  const ULTRASOUND_PROCEDURES = {
+    abdomen: {
+      category: "Abdomen",
+      icon: "abdomen",
+      procedures: [
+        {
+          cpt: "76700",
+          label: "Ultrasound Abdomen – Complete",
+          shortLabel: "Abdomen – Complete",
+          description: "Evaluates liver, gallbladder, kidneys, pancreas, spleen, and abdominal aorta",
+          duration: "20–30 min",
+          prep: "Fast 6 hours prior to exam",
+          useCase: "Abdominal pain, gallstones, liver disease, kidney stones"
+        },
+        {
+          cpt: "76705",
+          label: "Ultrasound Abdomen – Limited",
+          shortLabel: "Abdomen – Limited",
+          description: "Focused evaluation of specific abdominal organ or region",
+          duration: "15–20 min",
+          prep: "Fast 6 hours prior to exam",
+          useCase: "Follow-up imaging, targeted evaluation of known abnormality"
+        },
+        {
+          cpt: "76706",
+          label: "Ultrasound Aorta – Abdominal",
+          shortLabel: "Aorta – Abdominal",
+          description: "Evaluates abdominal aorta for aneurysm or other abnormalities",
+          duration: "15–20 min",
+          prep: "Fast 6 hours prior to exam",
+          useCase: "Screening for aortic aneurysm, vascular disease"
+        }
+      ]
+    },
+    pelvis: {
+      category: "Pelvis",
+      icon: "pelvis",
+      procedures: [
+        {
+          cpt: "76856",
+          label: "Ultrasound Pelvis – Complete",
+          shortLabel: "Pelvis – Complete",
+          description: "Evaluates uterus, ovaries, and surrounding pelvic structures",
+          duration: "20–30 min",
+          prep: "Full bladder required – drink 32 oz water 1 hour before",
+          useCase: "Pelvic pain, abnormal bleeding, ovarian cysts, fibroids"
+        },
+        {
+          cpt: "76857",
+          label: "Ultrasound Pelvis – Limited",
+          shortLabel: "Pelvis – Limited",
+          description: "Focused evaluation of specific pelvic structure or region",
+          duration: "15–20 min",
+          prep: "Full bladder required – drink 32 oz water 1 hour before",
+          useCase: "Follow-up of known findings, targeted pelvic evaluation"
+        },
+        {
+          cpt: "76830",
+          label: "Ultrasound Transvaginal",
+          shortLabel: "Transvaginal",
+          description: "Detailed internal evaluation of uterus and ovaries via vaginal probe",
+          duration: "20–30 min",
+          prep: "Empty bladder before exam",
+          useCase: "Pelvic pain, infertility, early pregnancy evaluation, ovarian masses"
+        }
+      ]
+    },
+    obstetric: {
+      category: "Obstetric / Pregnancy",
+      icon: "pregnancy",
+      procedures: [
+        {
+          cpt: "76801",
+          label: "Ultrasound OB – First Trimester",
+          shortLabel: "OB – First Trimester",
+          description: "Evaluates early pregnancy, confirms viability, estimates gestational age",
+          duration: "15–20 min",
+          prep: "Full bladder may be helpful in early pregnancy",
+          useCase: "Confirm pregnancy, evaluate bleeding, date pregnancy"
+        },
+        {
+          cpt: "76805",
+          label: "Ultrasound OB – Second/Third Trimester",
+          shortLabel: "OB – Complete",
+          description: "Comprehensive evaluation of fetal anatomy, growth, and placental position",
+          duration: "30–45 min",
+          prep: "No special preparation required",
+          useCase: "Routine prenatal care, anatomy survey at 18–20 weeks"
+        },
+        {
+          cpt: "76815",
+          label: "Ultrasound OB – Limited",
+          shortLabel: "OB – Limited",
+          description: "Focused assessment of fetal position, heart rate, or amniotic fluid",
+          duration: "15–20 min",
+          prep: "No special preparation required",
+          useCase: "Follow-up exam, check fetal presentation, biophysical profile"
+        }
+      ]
+    },
+    vascular: {
+      category: "Vascular / Doppler",
+      icon: "heart",
+      procedures: [
+        {
+          cpt: "93880",
+          label: "Duplex Scan Carotid – Bilateral",
+          shortLabel: "Carotid Duplex",
+          description: "Evaluates blood flow through carotid arteries in the neck",
+          duration: "30–45 min",
+          prep: "No special preparation required",
+          useCase: "Stroke risk assessment, carotid stenosis, vascular disease"
+        },
+        {
+          cpt: "93970",
+          label: "Duplex Scan Lower Extremity – Venous",
+          shortLabel: "LE Venous Duplex",
+          description: "Evaluates leg veins for blood clots or venous insufficiency",
+          duration: "30–45 min",
+          prep: "No special preparation required",
+          useCase: "Leg swelling, suspected DVT, varicose veins"
+        },
+        {
+          cpt: "93925",
+          label: "Duplex Scan Lower Extremity – Arterial",
+          shortLabel: "LE Arterial Duplex",
+          description: "Evaluates arterial blood flow to the legs",
+          duration: "30–45 min",
+          prep: "No special preparation required",
+          useCase: "Leg pain with walking, peripheral artery disease, poor circulation"
+        }
+      ]
+    },
+    smallParts: {
+      category: "Small Parts",
+      icon: "thyroid",
+      procedures: [
+        {
+          cpt: "76536",
+          label: "Ultrasound Soft Tissue – Head and Neck",
+          shortLabel: "Soft Tissue – Head/Neck",
+          description: "Evaluates superficial masses, lymph nodes, or soft tissue abnormalities",
+          duration: "15–20 min",
+          prep: "No special preparation required",
+          useCase: "Neck mass, enlarged lymph nodes, salivary gland evaluation"
+        },
+        {
+          cpt: "76642",
+          label: "Ultrasound Breast – Unilateral",
+          shortLabel: "Breast – Unilateral",
+          description: "Evaluates breast tissue for masses, cysts, or abnormalities",
+          duration: "15–20 min",
+          prep: "No special preparation required",
+          useCase: "Palpable lump, breast pain, follow-up of mammogram findings"
+        },
+        {
+          cpt: "76870",
+          label: "Ultrasound Scrotum",
+          shortLabel: "Scrotum",
+          description: "Evaluates testicles, epididymis, and surrounding scrotal structures",
+          duration: "20–30 min",
+          prep: "No special preparation required",
+          useCase: "Testicular pain, swelling, mass, trauma, infertility evaluation"
+        }
+      ]
+    },
+    musculoskeletal: {
+      category: "Musculoskeletal",
+      icon: "shoulder",
+      procedures: [
+        {
+          cpt: "76881",
+          label: "Ultrasound Extremity – Complete",
+          shortLabel: "Extremity – Complete",
+          description: "Comprehensive evaluation of muscles, tendons, ligaments, and joints",
+          duration: "20–30 min",
+          prep: "No special preparation required",
+          useCase: "Tendon tears, ligament injury, soft tissue masses, joint effusion"
+        },
+        {
+          cpt: "76882",
+          label: "Ultrasound Extremity – Limited",
+          shortLabel: "Extremity – Limited",
+          description: "Focused evaluation of specific tendon, muscle, or joint region",
+          duration: "15–20 min",
+          prep: "No special preparation required",
+          useCase: "Targeted assessment of rotator cuff, Achilles tendon, or specific joint"
+        },
+        {
+          cpt: "76942",
+          label: "Ultrasound Guidance for Needle Placement",
+          shortLabel: "US-Guided Procedure",
+          description: "Real-time ultrasound guidance for injections, biopsies, or aspirations",
+          duration: "10–20 min",
+          prep: "Varies based on specific procedure",
+          useCase: "Joint injections, fluid aspiration, biopsy guidance"
+        }
+      ]
+    }
+  };
+
   
   // ============================================
   // HELPER FUNCTIONS (ALL PRESERVED!)
@@ -2083,24 +2288,24 @@ if (typeof module !== 'undefined' && module.exports) {
       'head/brain': 'head',
       
       // Spine
-'cervical spine': 'cervicalSpine',
-'cervical spine (neck)': 'cervicalSpine',
-'cervicalspine': 'cervicalSpine',     // âœ… ADD: Support camelCase from UI
-'c-spine': 'cervicalSpine',
-'neck': 'cervicalSpine',
+      'cervical spine': 'cervicalSpine',
+      'cervical spine (neck)': 'cervicalSpine',
+      'cervicalspine': 'cervicalSpine',     // âœ… ADD: Support camelCase from UI
+      'c-spine': 'cervicalSpine',
+      'neck': 'cervicalSpine',
 
-'thoracic spine': 'thoracicSpine',
-'thoracic spine (mid back)': 'thoracicSpine',
-'thoracicspine': 'thoracicSpine',     // âœ… ADD: Support camelCase from UI
-'t-spine': 'thoracicSpine',
-'mid back': 'thoracicSpine',
+      'thoracic spine': 'thoracicSpine',
+      'thoracic spine (mid back)': 'thoracicSpine',
+      'thoracicspine': 'thoracicSpine',     // âœ… ADD: Support camelCase from UI
+      't-spine': 'thoracicSpine',
+      'mid back': 'thoracicSpine',
 
-'lumbar spine': 'lumbarSpine',
-'lumbar spine (low back)': 'lumbarSpine',
-'lumbarspine': 'lumbarSpine',         // âœ… ADD: Support camelCase from UI
-'l-spine': 'lumbarSpine',
-'low back': 'lumbarSpine',
-'back': 'lumbarSpine',
+      'lumbar spine': 'lumbarSpine',
+      'lumbar spine (low back)': 'lumbarSpine',
+      'lumbarspine': 'lumbarSpine',         // âœ… ADD: Support camelCase from UI
+      'l-spine': 'lumbarSpine',
+      'low back': 'lumbarSpine',
+      'back': 'lumbarSpine',
       
       // Extremities
       'shoulder': 'shoulder',
@@ -2330,6 +2535,7 @@ if (typeof module !== 'undefined' && module.exports) {
      MRI: MRI_PROCEDURES,
      CT: CT_PROCEDURES,
      'X-Ray': XRAY_PROCEDURES,
+     Ultrasound: ULTRASOUND_PROCEDURES,
      MRI_CATEGORY_CONFIG: window.MRI_CATEGORY_CONFIG  // Reference the global
    };
 

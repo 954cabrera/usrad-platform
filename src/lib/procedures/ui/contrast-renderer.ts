@@ -172,7 +172,7 @@ function renderContrastOption(option: ContrastOption, accentColor: string): stri
       </div>
       
       <!-- Arrow -->
-      <svg class="w-5 h-5 text-gray-400 group-hover:text-[#003087] transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-5 h-5 text-gray-400 group-hover:text-[#003087] group-hover:translate-x-0.5 transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
       </svg>
     </button>
@@ -428,14 +428,14 @@ function renderContrastUI(region: string, options: string[], cptRange: string[])
         ${options.map(option => `
           <button
             type="button"
-            class="contrast-option-btn bg-white border-2 border-gray-300 rounded-lg px-6 py-4 text-gray-900 hover:bg-blue-50 hover:border-[#003087] transition-all w-full text-left font-medium"
+            class="contrast-option-btn bg-white border-2 border-gray-300 rounded-lg px-6 py-4 text-gray-900 hover:bg-blue-50 hover:border-[#003087] transition-transform duration-200 w-full text-left font-medium"
             data-contrast="${option}"
             data-region="${region}"
             data-cpt-range="${cptRange.join(',')}"
           >
             <div class="flex items-center justify-between">
               <span>${option}</span>
-              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 text-gray-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
             </div>

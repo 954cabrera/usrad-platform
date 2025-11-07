@@ -16,6 +16,12 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
 
 <CarbonLayout title="USRad - MRI Scans in 48 Hours, 70% Less" isHeroPage={true}>
   <meta name="remix-url" content={REMIX_URL} />
+
+  <!-- Preload blog images for faster rendering -->
+  <link rel="preload" as="image" href="/images/blog/trust-duo.webp" />
+  <link rel="preload" as="image" href="/images/blog/tech-patient.webp" />
+  <link rel="preload" as="image" href="/images/blog/cost-comparison.webp" />
+
   <!-- <AOSInit /> -->
 
   <!-- PROGRESSIVE DISCLOSURE HERO SECTION -->

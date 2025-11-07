@@ -319,10 +319,12 @@ function parseSearchQuery(searchTerm: string): {
   let viewToken: string | null = null;
   
   // Detect modality
-  const modalityTokens = ['xray', 'x-ray', 'mri', 'ct', 'mammo', 'mammogram'];
+  const modalityTokens = ['xray', 'x-ray', 'mri', 'ct', 'mammo', 'mammogram', 'ultrasound', 'sonogram', 'doppler', 'echo'];
   const modalityMatch = tokens.find(t => modalityTokens.includes(t));
   if (modalityMatch === 'xray' || modalityMatch === 'x-ray') {
     modality = 'X-Ray';
+  } else if (modalityMatch === 'ultrasound' || modalityMatch === 'sonogram' || modalityMatch === 'doppler' || modalityMatch === 'echo') {
+    modality = 'Ultrasound';
   }
   
   // Detect region using synonyms (check both exact match and contains)
@@ -357,6 +359,13 @@ function parseSearchQuery(searchTerm: string): {
   if (region && !modality) {
     modality = 'X-Ray';
     console.log('🧠 Inferred X-Ray modality from region detection');
+  }
+  
+  // Detect Ultrasound from context
+  if (!modality && /ultrasound|sonogram|doppler|obstetric|echo/i.test(term)) {
+    modality = 'Ultrasound';
+    if (!region) region = 'abdomen';
+    console.log('🩺 Inferred Ultrasound modality from keywords');
   }
   
   // Detect view token - check ALL tokens, not just when modality is X-Ray
@@ -516,6 +525,14 @@ export function searchByCPT(cptCode: string): SearchResult[] {
     searchInXRayLibrary(window.ProcedureLibrary['X-Ray'], cptCode, results, true);
   }
   
+  // Search Ultrasound library
+  if (typeof window !== 'undefined' && window.ProcedureLibrary?.Ultrasound) {
+    console.log('🩺 Searching Ultrasound library for:', term);
+    const ultrasoundBefore = results.length;
+    searchInLibrary(window.ProcedureLibrary.Ultrasound, 'Ultrasound', term, results, false);
+    console.log('🩺 Ultrasound search: ' + (results.length - ultrasoundBefore) + ' results found');
+  }
+  
   console.log(`🔍 CPT search results: ${results.length} found`);
   return results;
 }
@@ -534,7 +551,25 @@ export function searchByCPT(cptCode: string): SearchResult[] {
  */
 export function searchAllProcedures(searchTerm: string): SearchResult[] {
   const results: SearchResult[] = [];
-  const term = searchTerm.toLowerCase().trim();
+  const normalizedTerm = searchTerm.toLowerCase().trim()
+    .replace(/\bbaby ultrasound\b/g, 'obstetric ultrasound')
+    .replace(/\bob ultrasound\b/g, 'obstetric ultrasound')
+    .replace(/\bob sonogram\b/g, 'obstetric ultrasound')
+    .replace(/\bsonogram\b/g, 'ultrasound')
+    .replace(/\bdoppler\b/g, 'vascular ultrasound')
+    .replace(/\becho\b/g, 'ultrasound')
+    .replace(/\becg\b/g, 'ultrasound')
+    .replace(/\bcarotid scan\b/g, 'carotid ultrasound')
+    .replace(/\bvein study\b/g, 'vascular ultrasound')
+    .replace(/\bvein doppler\b/g, 'vascular ultrasound')
+    .replace(/\bvenous\b/g, 'vascular ultrasound')
+    .replace(/\barterial\b/g, 'vascular ultrasound')
+    .replace(/\bob\b/g, 'obstetric')
+    .replace(/\bpregnancy\b/g, 'obstetric')
+    .replace(/\bcarotid ultrasound\b/g, 'vascular ultrasound')
+    .replace(/\bpelvic\b/g, 'pelvis');
+  
+  const term = normalizedTerm;
   
   // 🔢 Check if it's a CPT code search (5-digit number)
   if (/^\d{5}$/.test(term)) {
@@ -585,6 +620,70 @@ export function searchAllProcedures(searchTerm: string): SearchResult[] {
     searchInXRayLibrary(window.ProcedureLibrary['X-Ray'], term, results, false);
   }
   
+  // Search Ultrasound library
+  if (typeof window !== 'undefined' && window.ProcedureLibrary?.Ultrasound) {
+    const isGenericUltrasoundSearch = (term === 'ultrasound' || term === 'sonogram' || term === 'echo' || term === 'doppler');
+    const isObstetricSearch = term.includes('obstetric');
+    const isVascularSearch = term.includes('vascular');
+    
+    if (isGenericUltrasoundSearch) {
+      Object.keys(window.ProcedureLibrary.Ultrasound).forEach(regionKey => {
+        const region = window.ProcedureLibrary.Ultrasound[regionKey];
+        if (region.procedures && Array.isArray(region.procedures)) {
+          region.procedures.forEach((proc: any) => {
+            results.push({
+              modality: 'Ultrasound',
+              category: region.category,
+              icon: region.icon,
+              cpt: proc.cpt,
+              label: proc.label,
+              shortLabel: proc.shortLabel,
+              description: proc.description,
+              duration: proc.duration,
+              prep: proc.prep,
+              useCase: proc.useCase
+            });
+          });
+        }
+      });
+    } else if (isObstetricSearch && window.ProcedureLibrary.Ultrasound.obstetric) {
+      const region = window.ProcedureLibrary.Ultrasound.obstetric;
+      region.procedures.forEach((proc: any) => {
+        results.push({
+          modality: 'Ultrasound',
+          category: region.category,
+          icon: region.icon,
+          cpt: proc.cpt,
+          label: proc.label,
+          shortLabel: proc.shortLabel,
+          description: proc.description,
+          duration: proc.duration,
+          prep: proc.prep,
+          useCase: proc.useCase
+        });
+      });
+    } else if (isVascularSearch && window.ProcedureLibrary.Ultrasound.vascular) {
+      const region = window.ProcedureLibrary.Ultrasound.vascular;
+      region.procedures.forEach((proc: any) => {
+        results.push({
+          modality: 'Ultrasound',
+          category: region.category,
+          icon: region.icon,
+          cpt: proc.cpt,
+          label: proc.label,
+          shortLabel: proc.shortLabel,
+          description: proc.description,
+          duration: proc.duration,
+          prep: proc.prep,
+          useCase: proc.useCase
+        });
+      });
+    } else {
+      searchInLibrary(window.ProcedureLibrary.Ultrasound, 'Ultrasound', term, results, false);
+    }
+  }
+  
+  
   // 🎯 Apply intelligent filtering for X-Ray + view token queries
   if (parsed.modality === 'X-Ray' && parsed.viewToken) {
     console.log(`🎯 Applying view filter: ${parsed.viewToken}`);
@@ -595,6 +694,11 @@ export function searchAllProcedures(searchTerm: string): SearchResult[] {
       results.length = 0;
       results.push(...filteredResults);
     }
+  }
+  
+  // 🩺 Prioritize Ultrasound results when Ultrasound keywords detected
+  if (term.includes('ultrasound') || term.includes('sonogram') || term.includes('doppler') || term.includes('obstetric')) {
+    console.log('🩺 Ultrasound keyword detected - prioritizing Ultrasound procedures');
   }
   
   // Special case: Add Mammography if searching for "breast"

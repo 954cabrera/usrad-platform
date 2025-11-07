@@ -356,14 +356,17 @@ export function renderInfoBox(options: {
  * @param id - Element ID
  * @returns HTML string
  */
-export function renderBackButton(text: string = '← Back', id?: string): string {
+export function renderBackButton(text: string = 'Back', id?: string): string {
   return `
     <div class="text-center pt-4 border-t border-gray-200">
       <button
         type="button"
         ${id ? `id="${id}"` : ''}
-        class="text-gray-600 hover:text-[#003087] font-medium transition-colors"
+        class="region-back-button"
       >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 6px;">
+          <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/>
+        </svg>
         ${escapeHtml(text)}
       </button>
     </div>

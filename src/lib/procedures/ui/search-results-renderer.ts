@@ -85,7 +85,10 @@ function renderModalityGroup(modality: string, procedures: SearchResult[]): stri
   const color = getModalityColor(modality as any);
 
   const procedureCards = procedures
-    .map(proc => renderProcedureCard(proc))
+    .map((proc, index) => {
+      const delay = index * 0.05; // 50ms delay per card
+      return `<div class="animate-fade-in" style="animation-delay: ${delay}s">${renderProcedureCard(proc)}</div>`;
+    })
     .join('');
 
   return `
@@ -142,7 +145,7 @@ function renderProcedureCard(procedure: SearchResult): string {
         </div>
         
         <!-- Arrow -->
-        <svg class="w-5 h-5 text-gray-400 group-hover:text-[#003087] group-hover:translate-x-1 transition-all flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 text-gray-400 group-hover:text-[#003087] group-hover:translate-x-0.5 transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
       </div>
@@ -244,7 +247,7 @@ export function renderCompactSearchResults(
           </div>
           <div class="text-xs text-gray-500">CPT: ${proc.cpt}</div>
         </div>
-        <svg class="w-4 h-4 text-gray-400 group-hover:text-[#003087] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-4 h-4 text-gray-400 group-hover:text-[#003087] group-hover:translate-x-0.5 transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
       </div>

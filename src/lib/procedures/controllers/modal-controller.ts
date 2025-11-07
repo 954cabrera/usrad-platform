@@ -169,6 +169,7 @@ export function initializeSlimController() {
   attachModalListeners();
   attachSearchListeners();
   attachFormListeners();
+  attachBackButtonListener();
   attachCTEventListeners();
   attachMRIEventListeners();
   
@@ -302,6 +303,13 @@ function performSearch(query: string): void {
   console.log('✅ Detected modality:', modality);
   selectionFlow.setModality(modality);
   
+  // ULTRASOUND PATH: Skip contrast, go straight to region
+  if (modality === 'Ultrasound') {
+    console.log('🔊 Ultrasound detected - skipping contrast selection');
+    showRegionSelection(modality);
+    return;
+  }
+  
   // X-RAY PATH: Skip contrast, go straight to region
   if (modality === 'X-Ray') {
     console.log('🔬 X-Ray detected - skipping contrast selection');
@@ -431,10 +439,69 @@ function showRegionSelection(modality: Modality, contrast?: ContrastType): void 
     return;
   }
   
+  // Ultrasound goes straight to regions (no contrast)
+  if (modality === 'Ultrasound') {
+    const html = renderGroupedRegionSelection(modality, undefined, true);
+    modalResults.innerHTML = html;
+    attachRegionListeners();
+    return;
+  }
+  
   // Use grouped layout for other modalities
   const html = renderGroupedRegionSelection(modality, contrast, true);
   modalResults.innerHTML = html;
   attachRegionListeners();
+}
+
+// ============================================
+// ULTRASOUND REGION SELECTION
+// ============================================
+
+function showUltrasoundRegionSelection(): void {
+  if (!modalResults) return;
+  
+  const ultrasoundData = window.ProcedureLibrary?.Ultrasound;
+  if (!ultrasoundData) {
+    console.error('❌ Ultrasound procedures not loaded');
+    return;
+  }
+  
+  const categories = Object.entries(ultrasoundData).map(([key, data]: [string, any]) => ({
+    key,
+    label: data.category,
+    icon: data.icon,
+    count: data.procedures?.length || 0
+  }));
+  
+  modalResults.innerHTML = renderRegionSelection('Ultrasound', categories);
+  attachUltrasoundRegionListeners();
+  
+  console.log('✅ Ultrasound regions displayed');
+}
+
+function attachUltrasoundRegionListeners(): void {
+  document.querySelectorAll('.region-button').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const regionKey = target.dataset.regionKey;
+      
+      if (!regionKey) return;
+      
+      selectionFlow.setModality('Ultrasound');
+      selectionFlow.setRegion(regionKey);
+      
+      const result = selectionFlow.resolve();
+      if (result) {
+        handleProcedureSelection(result);
+      }
+    });
+  });
+  
+  document.getElementById('back-to-empty-search')?.addEventListener('click', () => {
+    selectionFlow.reset();
+    if (modalSearchInput) modalSearchInput.value = '';
+    if (modalResults) modalResults.innerHTML = renderEmptySearchState();
+  });
 }
 
 // ============================================
@@ -535,6 +602,36 @@ function attachFormListeners(): void {
   });
 }
 
+function attachBackButtonListener(): void {
+  if (!modalResults) return;
+  
+  modalResults.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    
+    // Check if clicked element is a back button (or inside one)
+    const button = target.closest('button[id^="back-to-search"], button[id="back-to-empty-search"]');
+    
+    if (button) {
+      console.log('✅ Back to search clicked:', button.id);
+      
+      // Reset all state
+      selectionFlow.reset();
+      resetCTState();
+      resetMRIState();
+      
+      // Clear search input
+      if (modalSearchInput) {
+        modalSearchInput.value = '';
+      }
+      
+      // Show empty search state
+      if (modalResults) {
+        modalResults.innerHTML = renderEmptySearchState();
+      }
+    }
+  });
+}
+
 function attachContrastListeners(): void {
   document.querySelectorAll('.contrast-option-button').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -589,15 +686,16 @@ function attachContrastListeners(): void {
     });
   });
   
-  // Back button
+  
+  // Legacy - keep for backwards compatibility
   document.getElementById('back-to-search')?.addEventListener('click', () => {
     selectionFlow.reset();
-    resetCTState(); // 🆕 Also reset CT state
+    resetCTState(); // ðŸ†• Also reset CT state
     if (modalSearchInput) modalSearchInput.value = '';
     if (modalResults) modalResults.innerHTML = renderEmptySearchState();
   });
   
-  // 🆕 Back button for CT: Return to region selection
+  // ðŸ†• Back button for CT: Return to region selection
   document.getElementById('back-to-regions-ct')?.addEventListener('click', () => {
     selectionFlow.clearContrast();
     showRegionSelection('CT');
