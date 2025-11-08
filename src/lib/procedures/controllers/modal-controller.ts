@@ -113,7 +113,7 @@ function resetCTState(): void {
     expandedRegionGroups: new Set(),
     showAllInGroup: new Set()
   };
-  console.log('ðŸ”„ CT state reset');
+  console.log('[OK]”„ CT state reset');
 }
 
 // ============================================
@@ -151,11 +151,11 @@ let selectedCptInput: HTMLInputElement | null = null;
 // ============================================
 
 export function initializeSlimController() {
-  console.log('ðŸŽ¯ Initializing Slim Modal Controller (X-Ray Enhanced)...');
+  console.log('[OK] Initializing Slim Modal Controller (X-Ray Enhanced)...');
   
   // Wait for ProcedureLibrary to load
   if (!window.ProcedureLibrary) {
-    console.error('âŒ ProcedureLibrary not loaded!');
+    console.error('[X] ProcedureLibrary not loaded!');
     return;
   }
   
@@ -173,7 +173,7 @@ export function initializeSlimController() {
   attachCTEventListeners();
   attachMRIEventListeners();
   
-  console.log('âœ… Slim Modal Controller ready (with X-Ray support)!');
+  console.log('[OK] Slim Modal Controller ready (with X-Ray support)!');
 }
 
 /**
@@ -193,7 +193,7 @@ function cacheElements(): void {
   selectedProcedureInput = document.getElementById('hero-selected-procedure') as HTMLInputElement;
   selectedCptInput = document.getElementById('hero-selected-cpt') as HTMLInputElement;
   
-  console.log('âœ… DOM elements cached');
+  console.log('[OK] DOM elements cached');
 }
 
 // ============================================
@@ -227,7 +227,7 @@ function openModal(): void {
     }
   }, 300);
   
-  console.log('âœ… Modal opened');
+  console.log('[OK] Modal opened');
 }
 
 function closeModal(): void {
@@ -253,7 +253,7 @@ function closeModal(): void {
       modalSearchInput.value = '';
     }
     
-    console.log('âœ… Modal closed');
+    console.log('[OK] Modal closed');
   }, 300);
 }
 
@@ -294,39 +294,39 @@ function handleSearch(query: string): void {
 function performSearch(query: string): void {
   if (!modalResults) return;
   
-  console.log('ðŸ” Searching for:', query);
+  console.log('[OK]” Searching for:', query);
   
   // Step 1: Check if it's a modality
   const modality = detectModality(query);
   
   if (modality) {
-  console.log('âœ… Detected modality:', modality);
+  console.log('[OK] Detected modality:', modality);
   selectionFlow.setModality(modality);
   
   // ULTRASOUND PATH: Skip contrast, go straight to region
   if (modality === 'Ultrasound') {
-    console.log('ðŸ”Š Ultrasound detected - skipping contrast selection');
+    console.log('[OK]”Š Ultrasound detected - skipping contrast selection');
     showRegionSelection(modality);
     return;
   }
   
   // X-RAY PATH: Skip contrast, go straight to region
   if (modality === 'X-Ray') {
-    console.log('ðŸ”¬ X-Ray detected - skipping contrast selection');
+    console.log('[OK]”¬ X-Ray detected - skipping contrast selection');
     showRegionSelection(modality);
     return;
   }
   
   // ðŸ†• CT PATH: Skip contrast, show category groups (Standard/Vascular/Screening)
   if (modality === 'CT') {
-    console.log('ðŸ©º CT detected - showing category groups');
+    console.log('[OK] CT detected - showing category groups');
     showRegionSelection(modality);  // This now shows the 3-tier CT UI
     return;
   }
   
   // ðŸ†• MRI PATH: Skip contrast, show three-tier selection (Standard/Vascular/Specialized)
   if (modality === 'MRI') {
-    console.log('ðŸ§² MRI detected - showing three-tier selection');
+    console.log('[OK] MRI detected - showing three-tier selection');
     showRegionSelection(modality);  // This now shows the 3-tier MRI UI
     return;
   }
@@ -363,7 +363,7 @@ function performSearch(query: string): void {
 function showContrastSelection(modality: Modality): void {
   
   if (!modalResults) {
-    console.log('ðŸ”´ modalResults is null! Exiting.');
+    console.log('[OK]”´ modalResults is null! Exiting.');
     return;
   }
   
@@ -464,7 +464,7 @@ function showUltrasoundRegionSelection(): void {
   
   const ultrasoundData = window.ProcedureLibrary?.Ultrasound;
   if (!ultrasoundData) {
-    console.error('âŒ Ultrasound procedures not loaded');
+    console.error('[X] Ultrasound procedures not loaded');
     return;
   }
   
@@ -478,7 +478,7 @@ function showUltrasoundRegionSelection(): void {
   modalResults.innerHTML = renderRegionSelection('Ultrasound', categories);
   attachUltrasoundRegionListeners();
   
-  console.log('âœ… Ultrasound regions displayed');
+  console.log('[OK] Ultrasound regions displayed');
 }
 
 function attachUltrasoundRegionListeners(): void {
@@ -517,20 +517,20 @@ function attachUltrasoundRegionListeners(): void {
 function showXRayViewSelection(region: string): void {
   if (!modalResults) return;
   
-  console.log('ðŸ“¸ Showing X-Ray view selection for:', region);
+  console.log('[OK]“¸ Showing X-Ray view selection for:', region);
   
   // Get view options from ProcedureHelpers
   const viewOptions = window.ProcedureHelpers?.getViewOptions('X-Ray', region);
   
   if (!viewOptions || viewOptions.length === 0) {
-    console.error('âŒ No view options found for region:', region);
+    console.error('[X] No view options found for region:', region);
     modalResults.innerHTML = renderNoResults(region, ['chest', 'knee', 'spine']);
     return;
   }
   
   // CRITICAL: Check for single-view auto-resolve
   if (viewOptions.length === 1) {
-    console.log('âš¡ Single view detected - auto-resolving:', viewOptions[0].cpt);
+    console.log('[OK] Single view detected - auto-resolving:', viewOptions[0].cpt);
     handleXRayViewSelection(viewOptions[0]);
     return;
   }
@@ -546,7 +546,7 @@ function showXRayViewSelection(region: string): void {
  * @param viewOption - Selected view option
  */
 function handleXRayViewSelection(viewOption: ViewOption): void {
-  console.log('âœ… X-Ray view selected:', viewOption.label);
+  console.log('[OK] X-Ray view selected:', viewOption.label);
   
   // Create resolved procedure object
   const procedure = {
@@ -614,7 +614,7 @@ function attachBackButtonListener(): void {
     const button = target.closest('button[id^="back-to-search"], button[id="back-to-empty-search"]');
     
     if (button) {
-      console.log('âœ… Back to search clicked:', button.id);
+      console.log('[OK] Back to search clicked:', button.id);
       
       // Reset all state
       selectionFlow.reset();
@@ -640,19 +640,19 @@ function attachContrastListeners(): void {
       const target = e.currentTarget as HTMLElement;
       const contrastId = target.dataset.contrastId as ContrastType;
       
-      console.log('âœ… Contrast selected:', contrastId);
+      console.log('[OK] Contrast selected:', contrastId);
       selectionFlow.setContrast(contrastId);
       
       const state = selectionFlow.getState();
       
       // ðŸ†• CT PATH: Region already selected, so resolve immediately
       if (state.modality === 'CT' && state.region) {
-        console.log('ðŸ©º CT: Region + Contrast selected - resolving procedure');
+        console.log('[OK] CT: Region + Contrast selected - resolving procedure');
         const procedure = selectionFlow.resolve();
         if (procedure) {
           handleProcedureSelection(procedure);
         } else {
-          console.error('âŒ Failed to resolve CT procedure:', state);
+          console.error('[X] Failed to resolve CT procedure:', state);
         }
         return;
       }
@@ -661,23 +661,23 @@ function attachContrastListeners(): void {
       if (state.modality === 'MRI') {
         if (state.region) {
           // MRI: Region already selected, resolve with contrast
-          console.log('ðŸ§² MRI: Region + Contrast selected - resolving procedure');
+          console.log('[OK] MRI: Region + Contrast selected - resolving procedure');
           const procedure = selectionFlow.resolve();
           if (procedure) {
             handleProcedureSelection(procedure);
           } else {
-            console.error('âŒ Failed to resolve MRI procedure:', state);
+            console.error('[X] Failed to resolve MRI procedure:', state);
           }
         } else {
           // MRI: Contrast selected first, now show regions
-          console.log('ðŸ§² MRI: Contrast selected - showing region selection');
+          console.log('[OK] MRI: Contrast selected - showing region selection');
           showRegionSelection(state.modality, contrastId);
         }
         return;
       }
       
       // Fallback: Try to resolve or show region selection
-      console.log('ðŸ“‹ Attempting to resolve procedure for', state.modality);
+      console.log('[OK]“‹ Attempting to resolve procedure for', state.modality);
       const procedure = selectionFlow.resolve();
       if (procedure) {
         handleProcedureSelection(procedure);
@@ -716,13 +716,13 @@ function attachRegionListeners(): void {
       
       if (!regionLabel) return;
       
-      console.log('âœ… Region selected:', regionLabel, 'Key:', regionKey);
+      console.log('[OK] Region selected:', regionLabel, 'Key:', regionKey);
       
       const state = selectionFlow.getState();
       
       // X-RAY PATH
       if (state.modality === 'X-Ray') {
-        console.log('ðŸ”¬ X-Ray path - showing view selection');
+        console.log('[OK]”¬ X-Ray path - showing view selection');
         const keyToUse = regionKey || deriveRegionKey(regionLabel);
         showXRayViewSelection(keyToUse);
         return;
@@ -730,16 +730,16 @@ function attachRegionListeners(): void {
       
       // CTA PATH
       if (state.modality === 'CT' && regionLabel.toUpperCase().includes('CTA')) {
-        console.log('ðŸ’“ CTA detected - resolving as direct procedure');
+        console.log('[OK]’“ CTA detected - resolving as direct procedure');
         
         const ctaProcedure = resolveCTAProcedure(regionLabel);
         
-        console.log('ðŸ” CTA Procedure Object:', ctaProcedure);
+        console.log('[OK]” CTA Procedure Object:', ctaProcedure);
         
         if (ctaProcedure) {
           handleProcedureSelection(ctaProcedure);
         } else {
-          console.error('âŒ Failed to resolve CTA procedure:', regionLabel);
+          console.error('[X] Failed to resolve CTA procedure:', regionLabel);
         }
         return;
       }
@@ -773,7 +773,7 @@ function attachRegionListeners(): void {
 
       // CT (NON-CTA) PATH
       if (state.modality === 'CT') {
-        console.log('ðŸ©º CT (non-CTA) - setting region and showing contrast');
+        console.log('[OK] CT (non-CTA) - setting region and showing contrast');
         selectionFlow.setRegion(regionLabel);
         showContrastSelection('CT');
         return;
@@ -795,7 +795,7 @@ function attachRegionListeners(): void {
  * Resolve CTA procedures directly by label
  */
 function resolveCTAProcedure(label: string): any {
-  console.log('ðŸ” Resolving CTA procedure:', label);
+  console.log('[OK]” Resolving CTA procedure:', label);
   
   const ctaMap: Record<string, { key: string; cpt: string }> = {
     'CTA Head & Neck': { key: 'ctaHeadNeck', cpt: '70496' },
@@ -810,29 +810,29 @@ function resolveCTAProcedure(label: string): any {
   
   const ctaInfo = ctaMap[label];
   if (!ctaInfo) {
-    console.error('âŒ Unknown CTA procedure:', label);
+    console.error('[X] Unknown CTA procedure:', label);
     return null;
   }
   
   const ctProcedures = window.ProcedureLibrary?.CT;
   if (!ctProcedures) {
-    console.error('âŒ CT procedures not found in library');
+    console.error('[X] CT procedures not found in library');
     return null;
   }
   
   const ctaRegion = ctProcedures[ctaInfo.key];
   if (!ctaRegion || !ctaRegion.procedures) {
-    console.error('âŒ CTA region not found:', ctaInfo.key);
+    console.error('[X] CTA region not found:', ctaInfo.key);
     return null;
   }
   
   const procedure = ctaRegion.procedures.find((p: any) => p.cpt === ctaInfo.cpt);
   if (!procedure) {
-    console.error('âŒ CTA procedure not found with CPT:', ctaInfo.cpt);
+    console.error('[X] CTA procedure not found with CPT:', ctaInfo.cpt);
     return null;
   }
   
-  console.log('âœ… Resolved CTA procedure:', procedure.label, procedure.cpt);
+  console.log('[OK] Resolved CTA procedure:', procedure.label, procedure.cpt);
   
   // ðŸ†• Return object matching handleProcedureSelection's expected format
   return {
@@ -982,7 +982,7 @@ function attachCTEventListeners(): void {
     }
   });
   
-  console.log('âœ… CT event listeners attached');
+  console.log('[OK] CT event listeners attached');
 }
 
 // ============================================
@@ -995,26 +995,26 @@ function attachMRIEventListeners(): void {
     const customEvent = e as CustomEvent;
     const { groupId } = customEvent.detail;
     
-    console.log('ðŸŽ¯ [MRI] Toggle group event received:', groupId);
-    console.log('ðŸŽ¯ [MRI] Current state before toggle:', mriState);
+    console.log('[OK] [MRI] Toggle group event received:', groupId);
+    console.log('[OK] [MRI] Current state before toggle:', mriState);
     
     // âœ… ACCORDION BEHAVIOR: Only one tier open at a time
     if (mriState.expandedGroups.has(groupId)) {
       // If clicking the currently open group, close it
       mriState.expandedGroups.delete(groupId);
-      console.log('ðŸŽ¯ [MRI] Collapsed:', groupId);
+      console.log('[OK] [MRI] Collapsed:', groupId);
     } else {
       // Close all other groups first, then open this one
       mriState.expandedGroups.clear();
       mriState.expandedGroups.add(groupId);
-      console.log('ðŸŽ¯ [MRI] Accordion - Closed all, Expanded:', groupId);
+      console.log('[OK] [MRI] Accordion - Closed all, Expanded:', groupId);
     }
     
-    console.log('ðŸŽ¯ [MRI] Current state after toggle:', mriState);
+    console.log('[OK] [MRI] Current state after toggle:', mriState);
     
     const state = selectionFlow.getState();
     if (state.modality === 'MRI') {
-      console.log('ðŸŽ¯ [MRI] Re-rendering with modality:', state.modality);
+      console.log('[OK] [MRI] Re-rendering with modality:', state.modality);
       showRegionSelection('MRI', state.contrast || undefined);
     }
   });
@@ -1083,7 +1083,7 @@ function attachMRIEventListeners(): void {
     }
   });
   
-  console.log('âœ… MRI event listeners attached');  // â† ONLY ONE, AT THE VERY END
+  console.log('[OK] MRI event listeners attached');  // â† ONLY ONE, AT THE VERY END
 }  // â† ONLY ONE CLOSING BRACE
 
 // ============================================
@@ -1108,7 +1108,7 @@ function deriveRegionKey(label: string): string {
     camelCase += words[i].charAt(0).toUpperCase() + words[i].slice(1).toLowerCase();
   }
   
-  console.log('ðŸ”‘ Derived key from "' + label + '" â†’ "' + camelCase + '"');
+  console.log('[OK]”‘ Derived key from "' + label + '" â†’ "' + camelCase + '"');
   return camelCase;
 }
 
@@ -1123,14 +1123,14 @@ function attachXRayViewListeners(): void {
       const label = target.dataset.viewLabel;
       
       if (!cpt || !label) {
-        console.error('âŒ Missing CPT or label on view button');
+        console.error('[X] Missing CPT or label on view button');
         return;
       }
       
       // Find the full view option from the library
       const region = selectionFlow.getState().region;
       if (!region) {
-        console.error('âŒ No region in state');
+        console.error('[X] No region in state');
         return;
       }
       
@@ -1138,7 +1138,7 @@ function attachXRayViewListeners(): void {
       const selectedView = viewOptions?.find(opt => opt.cpt === cpt);
       
       if (!selectedView) {
-        console.error('âŒ Could not find view option for CPT:', cpt);
+        console.error('[X] Could not find view option for CPT:', cpt);
         return;
       }
       
@@ -1167,7 +1167,7 @@ function attachResultListeners(): void {
       
       if (!cpt || !label) return;
       
-      console.log('âœ… Procedure selected from search:', label);
+      console.log('[OK] Procedure selected from search:', label);
       handleDirectProcedureSelection(cpt, label);
     });
   });
@@ -1219,7 +1219,7 @@ function handleProcedureSelection(procedure: any): void {
   closeModal();
   transitionToStep2();
   
-  console.log('âœ… Procedure selected:', patient_label);
+  console.log('[OK] Procedure selected:', patient_label);
 }
 
 function handleDirectProcedureSelection(cptCode: string, label: string): void {
@@ -1250,7 +1250,7 @@ function handleDirectProcedureSelection(cptCode: string, label: string): void {
   closeModal();
   transitionToStep2();
   
-  console.log('âœ… Direct selection:', label);
+  console.log('[OK] Direct selection:', label);
 }
 
 function renderSelectedProcedure(label: string, badgeText: string): void {
@@ -1266,7 +1266,6 @@ function renderSelectedProcedure(label: string, badgeText: string): void {
       ${label}
     </div>
     <div class="text-xs font-semibold text-[#003087] flex items-center gap-1.5 mt-0.5 cpt-badge">
-      <span class="text-sm leading-none opacity-90" style="transform: translateY(1px);">ðŸ’Ž</span>
       <span class="tracking-wide">${badgeText}</span>
     </div>
   `;
@@ -1309,7 +1308,7 @@ function transitionToStep2(): void {
     }, 100);
   }, 250);
   
-  console.log('âœ… Transitioned to Step 2');
+  console.log('[OK] Transitioned to Step 2');
 }
 
 // ============================================
@@ -1325,4 +1324,4 @@ if (typeof window !== 'undefined') {
   });
 }
 
-console.log('âœ… Slim Modal Controller loaded (X-Ray Enhanced)');
+console.log('[OK] Slim Modal Controller loaded (X-Ray Enhanced)');
