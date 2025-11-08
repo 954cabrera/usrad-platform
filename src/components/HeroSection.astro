@@ -344,7 +344,7 @@ const { remixUrl } = Astro.props;
                   </div>
                   <input
                     type="text"
-                    id="hero-location"
+                    id="hero-zip-input"
                     placeholder="ZIP code (5 digits)"
                     inputmode="numeric"
                     pattern="[0-9]{5}"
@@ -419,7 +419,6 @@ const { remixUrl } = Astro.props;
                   type="submit"
                   id="hero-search-button"
                   class="w-full bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-8 py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 mt-6 min-h-[56px] relative overflow-hidden group"
-                  disabled
                 >
                   <span
                     class="flex items-center justify-center gap-2 relative z-10"
@@ -651,6 +650,90 @@ const { remixUrl } = Astro.props;
 
   <script>
     import "@/lib/procedures/controllers/modal-controller.ts";
+
+    // Listen for procedure selection from the modal
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchButton = document.getElementById(
+        "hero-search-button"
+      ) as HTMLButtonElement;
+      const cptInput = document.getElementById(
+        "hero-selected-cpt"
+      ) as HTMLInputElement;
+      const zipDisplayInput = document.getElementById(
+        "hero-zip-input"
+      ) as HTMLInputElement;
+      const hiddenZipInput = document.getElementById(
+        "hero-zip"
+      ) as HTMLInputElement;
+
+      // Initially disable the button
+      if (searchButton) {
+        searchButton.disabled = true;
+      }
+
+      // Listen for the custom event dispatched when a procedure is selected
+      document.addEventListener("procedureSelected", (event: any) => {
+        const { procedure } = event.detail;
+
+        if (procedure && procedure.cpt_code) {
+          // Populate the hidden CPT input
+          if (cptInput) {
+            cptInput.value = procedure.cpt_code;
+            console.log("✅ CPT code set:", procedure.cpt_code);
+          }
+
+          // Check if both procedure and ZIP are filled
+          checkFormReady();
+        }
+      });
+
+      // Listen for ZIP input changes
+      if (zipDisplayInput) {
+        zipDisplayInput.addEventListener("input", () => {
+          if (hiddenZipInput) {
+            hiddenZipInput.value = zipDisplayInput.value;
+          }
+          checkFormReady();
+        });
+      }
+
+      // Function to check if form is ready to submit
+      function checkFormReady() {
+        const hasCpt = cptInput && cptInput.value.length > 0;
+        const hasZip = zipDisplayInput && zipDisplayInput.value.length === 5;
+
+        if (searchButton) {
+          searchButton.disabled = !(hasCpt && hasZip);
+
+          if (hasCpt && hasZip) {
+            console.log("✅ Form ready to submit:", {
+              cpt: cptInput.value,
+              zip: zipDisplayInput.value,
+            });
+          }
+        }
+      }
+
+      // Before form submission, ensure hidden ZIP is populated
+      const form = document.getElementById(
+        "hero-search-form"
+      ) as HTMLFormElement;
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          // Copy ZIP to hidden input
+          if (zipDisplayInput && hiddenZipInput) {
+            hiddenZipInput.value = zipDisplayInput.value;
+          }
+
+          // Log submission for debugging
+          console.log("📤 Submitting form with:", {
+            cpt: cptInput?.value,
+            zip: hiddenZipInput?.value,
+            action: form.action,
+          });
+        });
+      }
+    });
   </script>
 
   <style>

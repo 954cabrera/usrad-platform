@@ -1208,6 +1208,11 @@ function handleProcedureSelection(procedure: any): void {
   // Update display
   renderSelectedProcedure(patient_label, badge_label);
   
+  // Dispatch custom event for HeroSection to listen to
+  document.dispatchEvent(new CustomEvent('procedureSelected', {
+    detail: { procedure }
+  }));
+  
   // Close modal and transition to Step 2
   closeModal();
   transitionToStep2();
@@ -1227,6 +1232,17 @@ function handleDirectProcedureSelection(cptCode: string, label: string): void {
   
   // Update display
   renderSelectedProcedure(procedureName, cptBadge);
+  
+  // Dispatch custom event for HeroSection to listen to
+  document.dispatchEvent(new CustomEvent('procedureSelected', {
+    detail: { 
+      procedure: {
+        cpt_code: cptCode,
+        patient_label: procedureName,
+        badge_label: cptBadge
+      }
+    }
+  }));
   
   // Close modal and transition to Step 2
   closeModal();
