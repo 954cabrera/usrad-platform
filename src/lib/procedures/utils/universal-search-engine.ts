@@ -4,7 +4,19 @@
 // Smart search logic for MRI, CT, X-Ray, and Ultrasound
 // ======================================================
 
-import { buildUniversalIndex, type ProcedureIndexEntry } from "./universal-search-index";
+import { buildUniversalIndex, type ProcedureIndexEntry, BODY_PART_ALIASES } from "./universal-search-index";
+
+// ======================================================
+// QUERY ALIAS EXPANSION
+// ======================================================
+// Converts "elbow" → "elbow upper extremity arm" before matching
+function expandQueryWithAliases(query: string): string {
+  const q = query.toLowerCase();
+  for (const [key, aliases] of Object.entries(BODY_PART_ALIASES)) {
+    if (q.includes(key)) return [q, ...aliases].join(" ");
+  }
+  return q;
+}
 
 function normalizeInput(input: string): string {
   return (input || "")
@@ -64,14 +76,14 @@ function getMatchScore(entry: ProcedureIndexEntry, query: string): number {
 }
 
 export function searchUniversalProcedures(query: string, limit = 8): ProcedureIndexEntry[] {
-  const q = normalizeInput(query);
+  const q = normalizeInput(expandQueryWithAliases(query));
   if (q.length < 2) return [];
 
   // Build index fresh each time to ensure it has latest data
   const index = buildUniversalIndex();
   
   if (index.length === 0) {
-    console.warn('⚠️ Universal index is empty');
+    console.warn('âš ï¸ Universal index is empty');
     return [];
   }
 
@@ -108,5 +120,5 @@ declare global {
 
 if (typeof window !== 'undefined') {
   window.searchUniversalProcedures = searchUniversalProcedures;
-  console.log("🔍 Universal Search Engine initialized.");
+  console.log("ðŸ” Universal Search Engine initialized.");
 }
