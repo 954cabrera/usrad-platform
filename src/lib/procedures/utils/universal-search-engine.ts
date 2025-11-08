@@ -4,7 +4,7 @@
 // Smart search logic for MRI, CT, X-Ray, and Ultrasound
 // ======================================================
 
-import { UniversalProcedureIndex, ProcedureIndexEntry } from "./universal-search-index";
+import { buildUniversalIndex, type ProcedureIndexEntry } from "./universal-search-index";
 
 function normalizeInput(input: string): string {
   return (input || "")
@@ -67,9 +67,17 @@ export function searchUniversalProcedures(query: string, limit = 8): ProcedureIn
   const q = normalizeInput(query);
   if (q.length < 2) return [];
 
+  // Build index fresh each time to ensure it has latest data
+  const index = buildUniversalIndex();
+  
+  if (index.length === 0) {
+    console.warn('⚠️ Universal index is empty');
+    return [];
+  }
+
   const intent = detectIntent(q);
 
-  const results = UniversalProcedureIndex
+  const results = index
     .map(entry => ({
       ...entry,
       score: getMatchScore(entry, q)

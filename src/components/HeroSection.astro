@@ -239,9 +239,10 @@ const { remixUrl } = Astro.props;
                 class="mt-4 px-4 py-2.5 bg-blue-50 border border-blue-200 rounded-lg opacity-0 transition-opacity duration-300"
               >
                 <p class="text-sm font-medium text-blue-800 text-center">
-                  💡 Try searching for <span class="font-semibold">"MRI"</span>, <span
-                    class="font-semibold">"CT Scan"</span
-                  >, or <span class="font-semibold">"Ultrasound"</span>
+                  ðŸ’¡ Try searching for <span class="font-semibold">"MRI"</span
+                  >, <span class="font-semibold">"CT Scan"</span>, or <span
+                    class="font-semibold">"Ultrasound"</span
+                  >
                 </p>
               </div>
             </div>
@@ -510,9 +511,9 @@ const { remixUrl } = Astro.props;
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <!-- WORLD-CLASS MODAL OVERLAY (Amazon/Airbnb Style) -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div
   id="modal-search-overlay"
   class="fixed inset-0 z-[99999] hidden"
@@ -648,6 +649,84 @@ const { remixUrl } = Astro.props;
   <script is:inline src="/js/procedures-global.js"></script>
   console.log(window.ProcedureLibrary);
 
+  <!-- Load new Universal Search modules -->
+  <script type="module">
+    import { searchUniversalProcedures } from "/src/lib/procedures/utils/universal-search-engine.ts";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const input = document.getElementById("modal-search-input");
+      const resultsContainer = document.getElementById("modal-results");
+
+      if (!input || !resultsContainer) return;
+
+      input.addEventListener("input", (e) => {
+        const value = e.target.value.trim();
+
+        if (value.length < 2) {
+          resultsContainer.innerHTML = `<div class="text-center py-12 text-gray-500">
+              <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              <p class="text-lg font-medium">Start typing to search procedures</p>
+              <p class="text-sm mt-1">Try "MRI", "CT Scan", or "Ultrasound"</p>
+            </div>`;
+          return;
+        }
+
+        const results = searchUniversalProcedures(value, 8);
+
+        if (!results.length) {
+          resultsContainer.innerHTML = `<div class="text-center py-12 text-gray-500">
+              <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              <p class="text-lg font-medium">No results found for "${value}"</p>
+              <p class="text-sm mt-1">Try a different search term</p>
+            </div>`;
+          return;
+        }
+
+        // Render results list
+        resultsContainer.innerHTML = results
+          .map(
+            (r) => `
+          <button class="w-full text-left border-b border-gray-200 px-4 py-3 hover:bg-blue-50 transition-all focus:outline-none focus:ring-2 focus:ring-[#003087] focus:bg-blue-50"
+            data-cpt="${r.cpt}"
+            data-modality="${r.modality}"
+            data-label="${r.label.replace(/"/g, "&quot;")}">
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-10 h-10 bg-[#003087] text-white rounded-lg flex items-center justify-center text-sm font-bold">
+                ${r.modality.substring(0, 2).toUpperCase()}
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-gray-900">${r.label}</div>
+                <div class="text-sm text-gray-500 mt-0.5">${r.modality} • ${r.bodyPart} • CPT ${r.cpt}</div>
+              </div>
+            </div>
+          </button>`
+          )
+          .join("");
+
+        // Handle selection
+        resultsContainer.querySelectorAll("button").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const procedure = {
+              cpt_code: btn.dataset.cpt,
+              label: btn.dataset.label,
+              modality: btn.dataset.modality,
+            };
+
+            document.dispatchEvent(
+              new CustomEvent("procedureSelected", { detail: { procedure } })
+            );
+
+            console.log("✅ Universal search selection:", procedure);
+          });
+        });
+      });
+    });
+  </script>
+
   <script>
     import "@/lib/procedures/controllers/modal-controller.ts";
 
@@ -679,7 +758,7 @@ const { remixUrl } = Astro.props;
           // Populate the hidden CPT input
           if (cptInput) {
             cptInput.value = procedure.cpt_code;
-            console.log("✅ CPT code set:", procedure.cpt_code);
+            console.log("âœ… CPT code set:", procedure.cpt_code);
           }
 
           // Check if both procedure and ZIP are filled
@@ -706,7 +785,7 @@ const { remixUrl } = Astro.props;
           searchButton.disabled = !(hasCpt && hasZip);
 
           if (hasCpt && hasZip) {
-            console.log("✅ Form ready to submit:", {
+            console.log("âœ… Form ready to submit:", {
               cpt: cptInput.value,
               zip: zipDisplayInput.value,
             });
@@ -726,7 +805,7 @@ const { remixUrl } = Astro.props;
           }
 
           // Log submission for debugging
-          console.log("📤 Submitting form with:", {
+          console.log("ðŸ“¤ Submitting form with:", {
             cpt: cptInput?.value,
             zip: hiddenZipInput?.value,
             action: form.action,

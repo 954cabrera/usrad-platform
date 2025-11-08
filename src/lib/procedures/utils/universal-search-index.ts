@@ -41,11 +41,15 @@ function normalizeText(str: string): string {
     .trim();
 }
 
-// Base array
-export const UniversalProcedureIndex: ProcedureIndexEntry[] = [];
+// Function to build the index (called after procedures-global.js loads)
+export function buildUniversalIndex(): ProcedureIndexEntry[] {
+  const index: ProcedureIndexEntry[] = [];
+  
+  if (typeof window === 'undefined' || !window.ProcedureLibrary) {
+    console.warn('⚠️ ProcedureLibrary not loaded yet');
+    return index;
+  }
 
-// Wait for procedures-global.js to load
-if (typeof window !== 'undefined' && window.ProcedureLibrary) {
   const MRI_PROCEDURES = window.ProcedureLibrary.MRI;
   const CT_PROCEDURES = window.ProcedureLibrary.CT;
   const XRAY_PROCEDURES = window.ProcedureLibrary['X-Ray'];
@@ -59,7 +63,7 @@ if (typeof window !== 'undefined' && window.ProcedureLibrary) {
     if (!item?.procedures) continue;
 
     item.procedures.forEach((proc: any) => {
-      UniversalProcedureIndex.push({
+      index.push({
         modality: "MRI",
         bodyPart: item.category,
         cpt: proc.cpt,
@@ -88,7 +92,7 @@ if (typeof window !== 'undefined' && window.ProcedureLibrary) {
     if (!item?.procedures) continue;
 
     item.procedures.forEach((proc: any) => {
-      UniversalProcedureIndex.push({
+      index.push({
         modality: "CT",
         bodyPart: item.category,
         cpt: proc.cpt,
@@ -118,7 +122,7 @@ if (typeof window !== 'undefined' && window.ProcedureLibrary) {
     if (!item?.viewOptions) continue;
 
     item.viewOptions.forEach((view: any) => {
-      UniversalProcedureIndex.push({
+      index.push({
         modality: "X-Ray",
         bodyPart: item.category,
         cpt: view.cpt,
@@ -146,7 +150,7 @@ if (typeof window !== 'undefined' && window.ProcedureLibrary) {
     if (!item?.procedures) continue;
 
     item.procedures.forEach((proc: any) => {
-      UniversalProcedureIndex.push({
+      index.push({
         modality: "Ultrasound",
         bodyPart: item.category,
         cpt: proc.cpt,
@@ -165,5 +169,9 @@ if (typeof window !== 'undefined' && window.ProcedureLibrary) {
     });
   }
 
-  console.log(`✅ Universal Procedure Index built: ${UniversalProcedureIndex.length} items`);
+  console.log(`✅ Universal Procedure Index built: ${index.length} items`);
+  return index;
 }
+
+// Build immediately if window is available
+export const UniversalProcedureIndex = buildUniversalIndex();
