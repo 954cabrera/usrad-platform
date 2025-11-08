@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Search System - Test Suite</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #1e40af;
+            margin-top: 30px;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .results {
+            margin-top: 20px;
+        }
+
+        .result-item {
+            background: #f9fafb;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #2563eb;
+        }
+
+        .result-modality {
+            font-weight: bold;
+            color: #2563eb;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .result-label {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+
+        .result-meta {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .status {
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .status.warning {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fcd34d;
+        }
+
+        .test-query {
+            background: #eff6ff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-family: monospace;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <h1>🔍 Universal Search System - Test Suite</h1>
+        <p>Testing the unified search index across MRI, CT, X-Ray, and Ultrasound procedures</p>
+
+        <div id="initialization-status"></div>
+
+        <div class="stats" id="stats"></div>
+
+        <h2>Interactive Search Test</h2>
+        <input type="text" class="search-box" id="searchInput"
+            placeholder="Try: 'mri brain', 'ultrasound', '70551', 'chest ct', etc." />
+        <div class="results" id="results"></div>
+
+        <h2>Automated Test Cases</h2>
+        <div id="test-results"></div>
+
+        <h2>Console Testing Examples</h2>
+        <p>Open your browser console and try these commands:</p>
+        <div class="code-block">
+            // Test basic MRI search<br>
+            window.searchUniversalProcedures("mri brain")<br>
+            <br>
+            // Test CPT code lookup<br>
+            window.searchUniversalProcedures("70551")<br>
+            <br>
+            // Test partial matching<br>
+            window.searchUniversalProcedures("ul")<br>
+            <br>
+            // Test cross-modality<br>
+            window.searchUniversalProcedures("spine")
+        </div>
+    </div>
+
+    <!-- Load procedures-global.js first -->
+    <script src="/js/procedures-global.js"></script>
+
+    <!-- Main test script -->
+    <script>
+        // Wait for procedures-global.js to load
+        if (typeof window.ProcedureLibrary === 'undefined') {
+            document.getElementById('initialization-status').innerHTML = `
+        <div class="status error">
+          ❌ Error: procedures-global.js not loaded<br>
+          Please ensure /js/procedures-global.js is accessible.
+        </div>
+      `;
+        } else {
+            // Build the index manually since we can't use ES6 imports in plain HTML
+            console.log('📦 Building Universal Procedure Index...');
+
+            const MRI_PROCEDURES = window.ProcedureLibrary.MRI;
+            const CT_PROCEDURES = window.ProcedureLibrary.CT;
+            const XRAY_PROCEDURES = window.ProcedureLibrary['X-Ray'];
+            const ULTRASOUND_PROCEDURES = window.ProcedureLibrary.Ultrasound;
+
+            // Utility function
+            function normalizeText(str) {
+                return (str || "")
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, "")
+                    .replace(/\s+/g, " ")
+                    .trim();
+            }
+
+            // Build index
+            const UniversalProcedureIndex = [];
+
+            // MRI
+            for (const key in MRI_PROCEDURES) {
+                const item = MRI_PROCEDURES[key];
+                if (!item?.procedures) continue;
+
+                item.procedures.forEach(proc => {
+                    UniversalProcedureIndex.push({
+                        modality: "MRI",
+                        bodyPart: item.category,
+                        cpt: proc.cpt,
+                        label: proc.label,
+                        shortLabel: proc.shortLabel,
+                        tags: [
+                            "mri",
+                            item.category.toLowerCase(),
+                            ...(proc.useCase?.toLowerCase().split(" ") || [])
+                        ],
+                        searchable: normalizeText(
+                            `mri ${item.category} ${proc.label} ${proc.cpt} ${proc.useCase || ""}`
+                        ),
+                        icon: item.icon,
+                        categoryGroup: item.categoryGroup,
+                        contrastMode: item.contrastMode,
+                    });
+                });
+            }
+
+            // CT
+            for (const key in CT_PROCEDURES) {
+                const item = CT_PROCEDURES[key];
+                if (!item?.procedures) continue;
+
+                item.procedures.forEach(proc => {
+                    UniversalProcedureIndex.push({
+                        modality: "CT",
+                        bodyPart: item.category,
+                        cpt: proc.cpt,
+                        label: proc.label,
+                        shortLabel: proc.shortLabel,
+                        tags: [
+                            "ct",
+                            ...(item.displayIn || []),
+                            ...(proc.tags || [])
+                        ].map(t => t.toLowerCase()),
+                        searchable: normalizeText(
+                            `ct ${item.category} ${proc.label} ${proc.cpt} ${proc.useCase || ""}`
+                        ),
+                        icon: item.icon,
+                        categoryGroup: item.categoryGroup,
+                        isVascular: item.isVascular,
+                        isScreening: item.isScreening,
+                    });
+                });
+            }
+
+            // X-Ray
+            for (const key in XRAY_PROCEDURES) {
+                const item = XRAY_PROCEDURES[key];
+                if (!item?.viewOptions) continue;
+
+                item.viewOptions.forEach(view => {
+                    UniversalProcedureIndex.push({
+                        modality: "X-Ray",
+                        bodyPart: item.category,
+                        cpt: view.cpt,
+                        label: view.label,
+                        shortLabel: view.shortLabel,
+                        tags: [
+                            "xray",
+                            "x-ray",
+                            item.category.toLowerCase(),
+                            `${view.views} view`
+                        ],
+                        searchable: normalizeText(
+                            `xray x-ray ${item.category} ${view.label} ${view.cpt}`
+                        ),
+                        icon: item.icon,
+                    });
+                });
+            }
+
+            // Ultrasound
+            for (const key in ULTRASOUND_PROCEDURES) {
+                const item = ULTRASOUND_PROCEDURES[key];
+                if (!item?.procedures) continue;
+
+                item.procedures.forEach(proc => {
+                    UniversalProcedureIndex.push({
+                        modality: "Ultrasound",
+                        bodyPart: item.category,
+                        cpt: proc.cpt,
+                        label: proc.label,
+                        shortLabel: proc.shortLabel,
+                        tags: [
+                            "ultrasound",
+                            "us",
+                            item.category.toLowerCase()
+                        ],
+                        searchable: normalizeText(
+                            `ultrasound us ${item.category} ${proc.label} ${proc.cpt}`
+                        ),
+                        icon: item.icon,
+                    });
+                });
+            }
+
+            console.log(`✅ Universal Procedure Index built: ${UniversalProcedureIndex.length} items`);
+
+            // Search engine
+            function normalizeInput(input) {
+                return (input || "")
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, "")
+                    .replace(/\s+/g, " ")
+                    .trim();
+            }
+
+            function getMatchScore(entry, query) {
+                const q = normalizeInput(query);
+                const s = entry.searchable;
+
+                if (entry.cpt === q) return 120;
+                if (s.includes(q)) return 100;
+                if (entry.tags.some(t => t.includes(q))) return 90;
+                if (entry.bodyPart.toLowerCase().includes(q)) return 80;
+                if (entry.modality.toLowerCase().includes(q)) return 70;
+
+                const queryWords = q.split(/\s+/);
+                let partialScore = 0;
+                for (const word of queryWords) {
+                    if (word.length < 2) continue;
+                    if (s.includes(word)) partialScore += 30;
+                }
+                if (partialScore > 0) return partialScore;
+
+                return 0;
+            }
+
+            function searchUniversalProcedures(query, limit = 8) {
+                const q = normalizeInput(query);
+                if (q.length < 2) return [];
+
+                const results = UniversalProcedureIndex
+                    .map(entry => ({
+                        ...entry,
+                        score: getMatchScore(entry, q)
+                    }))
+                    .filter(e => e.score > 0)
+                    .sort((a, b) => b.score - a.score)
+                    .slice(0, limit);
+
+                return results;
+            }
+
+            // Expose globally
+            window.searchUniversalProcedures = searchUniversalProcedures;
+            window.UniversalProcedureIndex = UniversalProcedureIndex;
+
+            // Display initialization status
+            const statusDiv = document.getElementById('initialization-status');
+            if (UniversalProcedureIndex.length > 0) {
+                statusDiv.innerHTML = `
+          <div class="status success">
+            ✅ System Initialized Successfully<br>
+            📊 Index contains ${UniversalProcedureIndex.length} procedures
+          </div>
+        `;
+
+                // Display statistics
+                const modalityCounts = {};
+                UniversalProcedureIndex.forEach(item => {
+                    modalityCounts[item.modality] = (modalityCounts[item.modality] || 0) + 1;
+                });
+
+                const statsDiv = document.getElementById('stats');
+                statsDiv.innerHTML = Object.entries(modalityCounts).map(([modality, count]) => `
+          <div class="stat-card">
+            <div class="stat-number">${count}</div>
+            <div class="stat-label">${modality} Procedures</div>
+          </div>
+        `).join('');
+            } else {
+                statusDiv.innerHTML = `
+          <div class="status error">
+            ❌ Initialization Failed<br>
+            The Universal Procedure Index is empty. Check console for errors.
+          </div>
+        `;
+            }
+
+            // Interactive search
+            const searchInput = document.getElementById('searchInput');
+            const resultsDiv = document.getElementById('results');
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value;
+                if (query.length < 2) {
+                    resultsDiv.innerHTML = '<p style="color: #9ca3af;">Enter at least 2 characters to search...</p>';
+                    return;
+                }
+
+                const results = searchUniversalProcedures(query, 10);
+
+                if (results.length === 0) {
+                    resultsDiv.innerHTML = '<p style="color: #9ca3af;">No results found</p>';
+                    return;
+                }
+
+                resultsDiv.innerHTML = results.map(item => `
+          <div class="result-item">
+            <div class="result-modality">${item.modality}</div>
+            <div class="result-label">${item.label}</div>
+            <div class="result-meta">
+              ${item.bodyPart} | CPT: ${item.cpt}
+              ${item.icon ? ` | Icon: ${item.icon}` : ''}
+            </div>
+          </div>
+        `).join('');
+            });
+
+            // Automated test cases
+            const testCases = [
+                { query: 'mri brain', expectedModality: 'MRI', description: 'MRI-specific search' },
+                { query: 'ultrasound', expectedModality: 'Ultrasound', description: 'Modality-only search' },
+                { query: '70551', expectedCPT: '70551', description: 'CPT code search' },
+                { query: 'ct chest', expectedModality: 'CT', description: 'CT with body part' },
+                { query: 'xray knee', expectedModality: 'X-Ray', description: 'X-Ray search' },
+                { query: 'ul', expectedModality: 'Ultrasound', description: 'Partial ultrasound match' },
+                { query: 'spine', description: 'Body part across modalities' },
+                { query: 'contrast', description: 'Procedure detail search' }
+            ];
+
+            const testResultsDiv = document.getElementById('test-results');
+            let testHTML = '';
+
+            testCases.forEach(test => {
+                const results = searchUniversalProcedures(test.query, 5);
+                const passed = results.length > 0 &&
+                    (!test.expectedModality || results[0].modality === test.expectedModality) &&
+                    (!test.expectedCPT || results[0].cpt === test.expectedCPT);
+
+                testHTML += `
+          <div class="test-query">
+            <strong>Test:</strong> ${test.description}<br>
+            <strong>Query:</strong> "${test.query}"<br>
+            <strong>Results:</strong> ${results.length} found<br>
+            <strong>Status:</strong> ${passed ? '✅ PASS' : '⚠️ CHECK'}
+            ${results.length > 0 ? `<br><strong>Top Result:</strong> ${results[0].modality} - ${results[0].label}` : ''}
+          </div>
+        `;
+            });
+
+            testResultsDiv.innerHTML = testHTML;
+
+            console.log('🔍 Universal Search Engine initialized.');
+            console.log('🧪 Test Suite Running');
+            console.log('📦 Index Size:', UniversalProcedureIndex.length);
+            console.log('🔍 Sample Entry:', UniversalProcedureIndex[0]);
+        }
+    </script>
+</body>
+
+</html>
