@@ -120,10 +120,10 @@ const REGION_BY_MODALITY: Record<string, Region[]> = {
   'Ultrasound': [
     { label: 'Abdomen', icon: 'abdomen' },
     { label: 'Pelvis', icon: 'pelvis' },
-    { label: 'Obstetric / Pregnancy', icon: 'pregnancy' },
-    { label: 'Vascular / Doppler', icon: 'heart' },
-    { label: 'Small Parts', icon: 'thyroid' },
-    { label: 'Musculoskeletal', icon: 'shoulder' }
+    { label: 'Pregnancy Ultrasound (OB)', icon: 'pregnancy' },
+    { label: 'Vascular / Blood Flow (Doppler)', icon: 'heart' },
+    { label: 'Soft Tissue / Thyroid', icon: 'thyroid' },
+    { label: 'Joint / Tendon / Muscle', icon: 'shoulder' }
   ]
 };
 
@@ -269,15 +269,15 @@ const GROUPED_REGIONS: Record<string, { groupName: string; regions: Region[] }[]
     {
       groupName: 'Pregnancy & Vascular',
       regions: [
-        { label: 'Obstetric / Pregnancy', icon: 'pregnancy' },
-        { label: 'Vascular / Doppler', icon: 'heart' }
+        { label: 'Pregnancy Ultrasound (OB)', icon: 'pregnancy' },
+        { label: 'Vascular / Blood Flow (Doppler)', icon: 'heart' }
       ]
     },
     {
       groupName: 'Specialized Imaging',
       regions: [
-        { label: 'Small Parts', icon: 'thyroid' },
-        { label: 'Musculoskeletal', icon: 'shoulder' }
+        { label: 'Soft Tissue / Thyroid', icon: 'thyroid' },
+        { label: 'Joint / Tendon / Muscle', icon: 'shoulder' }
       ]
     }
   ]
@@ -307,13 +307,16 @@ export function renderRegionSelection(
     return renderNoRegionsAvailable(modality);
   }
 
+  const breadcrumbSteps = [modality];
+  
+  if (modality !== 'X-Ray' && modality !== 'Ultrasound') {
+    breadcrumbSteps.push(contrast || 'Contrast');
+  }
+  
+  breadcrumbSteps.push('Select Region', 'Complete');
+  
   const breadcrumb = showBreadcrumb
-    ? renderBreadcrumb([
-        modality,
-        contrast || 'Contrast',
-        'Select Region',
-        'Complete'
-      ], 2)
+    ? renderBreadcrumb(breadcrumbSteps, modality === 'X-Ray' || modality === 'Ultrasound' ? 1 : 2)
     : '';
 
   const header = renderSectionHeader(
@@ -329,7 +332,7 @@ export function renderRegionSelection(
   const grid = renderGrid(regionButtons, 2);
 
   const backButton = renderBackButton(
-    contrast ? 'Ã¢â€ Â Back to contrast selection' : 'Ã¢â€ Â Back to search',
+    contrast ? 'Back to contrast selection' : 'Back to search',
     contrast ? 'back-to-contrast' : 'back-to-search-xray'
   );
 
@@ -372,13 +375,14 @@ export function renderGroupedRegionSelection(
     return renderRegionSelection(modality, contrast, showBreadcrumb);
   }
 
+  const breadcrumbSteps = [modality];
+  if (modality !== 'X-Ray' && modality !== 'Ultrasound') {
+    breadcrumbSteps.push(contrast || 'Contrast');
+  }
+  breadcrumbSteps.push('Select Region', 'Complete');
+  
   const breadcrumb = showBreadcrumb
-    ? renderBreadcrumb([
-        modality,
-        contrast || 'Contrast',
-        'Select Region',
-        'Complete'
-      ], 2)
+    ? renderBreadcrumb(breadcrumbSteps, modality === 'X-Ray' || modality === 'Ultrasound' ? 1 : 2)
     : '';
 
   const header = renderSectionHeader(
@@ -390,7 +394,7 @@ export function renderGroupedRegionSelection(
   const groupSections = groups.map(group => renderRegionGroup(group, modality)).join('');
 
   const backButton = renderBackButton(
-    contrast ? 'Ã¢â€ Â Back to contrast selection' : 'Ã¢â€ Â Back to search',
+    contrast ? 'Back to contrast selection' : 'Back to search',
     contrast ? 'back-to-contrast-grouped' : 'back-to-search-xray'
   );
 
@@ -442,7 +446,7 @@ export function renderCTGroupedSelection(
   const categoryGroupsHTML = renderCTCategoryGroups(renderState);
 
   const backButton = renderBackButton(
-    contrast ? 'Ã¢â€ Â Back to contrast selection' : 'Ã¢â€ Â Back to search',
+    contrast ? 'Back to contrast selection' : 'Back to search',
     contrast ? 'back-to-contrast-ct' : 'back-to-search-ct'
   );
 

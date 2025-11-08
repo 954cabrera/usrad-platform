@@ -362,10 +362,10 @@ export function renderBackButton(text: string = 'Back', id?: string): string {
       <button
         type="button"
         ${id ? `id="${id}"` : ''}
-        class="region-back-button"
+        class="text-gray-600 hover:text-[#003087] font-medium transition-colors inline-flex items-center gap-2"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 6px;">
-          <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
         ${escapeHtml(text)}
       </button>

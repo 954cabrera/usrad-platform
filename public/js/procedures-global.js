@@ -2137,7 +2137,7 @@ if (typeof module !== 'undefined' && module.exports) {
       ]
     },
     obstetric: {
-      category: "Obstetric / Pregnancy",
+      category: "Pregnancy Ultrasound (OB)",
       icon: "pregnancy",
       procedures: [
         {
@@ -2170,7 +2170,7 @@ if (typeof module !== 'undefined' && module.exports) {
       ]
     },
     vascular: {
-      category: "Vascular / Doppler",
+      category: "Vascular / Blood Flow (Doppler)",
       icon: "heart",
       procedures: [
         {
@@ -2203,7 +2203,7 @@ if (typeof module !== 'undefined' && module.exports) {
       ]
     },
     smallParts: {
-      category: "Small Parts",
+      category: "Soft Tissue / Thyroid",
       icon: "thyroid",
       procedures: [
         {
@@ -2236,7 +2236,7 @@ if (typeof module !== 'undefined' && module.exports) {
       ]
     },
     musculoskeletal: {
-      category: "Musculoskeletal",
+      category: "Joint / Tendon / Muscle",
       icon: "shoulder",
       procedures: [
         {
@@ -2355,7 +2355,49 @@ if (typeof module !== 'undefined' && module.exports) {
       'arthrogramknee': 'arthrogramKnee',
       'mribreast': 'mriBreast',
       'spectroscopy': 'spectroscopy',
-      'elastography': 'elastography'
+      'elastography': 'elastography',
+      
+      // Ultrasound
+      'obstetric / pregnancy': 'obstetric',
+      'obstetric/pregnancy': 'obstetric',
+      'obstetric': 'obstetric',
+      'pregnancy': 'obstetric',
+      'pregnancy ultrasound (ob)': 'obstetric',
+      'ob': 'obstetric',
+      'baby': 'obstetric',
+      'fetal': 'obstetric',
+      'prenatal': 'obstetric',
+      
+      'vascular / doppler': 'vascular',
+      'vascular/doppler': 'vascular',
+      'vascular': 'vascular',
+      'doppler': 'vascular',
+      'vascular / blood flow (doppler)': 'vascular',
+      'blood flow': 'vascular',
+      'vein': 'vascular',
+      'arterial': 'vascular',
+      'carotid': 'vascular',
+      
+      'small parts': 'smallParts',
+      'smallparts': 'smallParts',
+      'thyroid': 'smallParts',
+      'soft tissue / thyroid': 'smallParts',
+      'soft tissue': 'smallParts',
+      'neck': 'smallParts',
+      'lump': 'smallParts',
+      'mass': 'smallParts',
+      'scrotum': 'smallParts',
+      'testicular': 'smallParts',
+      'breast': 'smallParts',
+      
+      'musculoskeletal': 'musculoskeletal',
+      'msk': 'musculoskeletal',
+      'joint': 'musculoskeletal',
+      'joint / tendon / muscle': 'musculoskeletal',
+      'tendon': 'musculoskeletal',
+      'ligament': 'musculoskeletal',
+      'muscle': 'musculoskeletal',
+      'extremity': 'musculoskeletal'
     };
     
     const baseKey = regionMap[normalized] || null;
@@ -2425,8 +2467,7 @@ if (typeof module !== 'undefined' && module.exports) {
   }
 
   function resolveProcedure(modality, contrast, region) {
-    console.log('Ã°Å¸â€Â [Procedure Library] Resolving:', { modality, contrast, region });
-    
+    console.log('🔍 [Procedure Library] Resolving:', { modality, contrast, region });
     // Normalize modality
     const modalityKey = modality.toUpperCase();
     let modalityData;
@@ -2435,15 +2476,19 @@ if (typeof module !== 'undefined' && module.exports) {
       modalityData = MRI_PROCEDURES;
     } else if (modalityKey === 'CT') {
       modalityData = CT_PROCEDURES;
+    } else if (modalityKey === 'X-RAY') {
+      modalityData = XRAY_PROCEDURES;
+    } else if (modalityKey === 'ULTRASOUND') {
+      modalityData = ULTRASOUND_PROCEDURES;
     } else {
-      console.warn('Ã¢ÂÅ’ Unsupported modality:', modality);
+      console.warn('⚠️ Unsupported modality:', modality);
       return null;
     }
     
     // Find region
     const regionKey = normalizeRegionKey(region, modality);
     if (!regionKey) {
-      console.warn('Ã¢ÂÅ’ Region not found:', region);
+      console.warn('⚠️ Region not found:', region);
       return null;
     }
     
@@ -2462,12 +2507,21 @@ if (typeof module !== 'undefined' && module.exports) {
         return null;
       }
       
-      // Use procedures from target, but keep original category name
-      const procedure = findProcedureByContrast(targetData.procedures, contrast);
-      if (!procedure) {
-        console.warn('Ã¢ÂÅ’ No matching contrast in redirected target');
-        return null;
-      }
+      // Find matching procedure
+    let procedure;
+    
+    // For modalities without contrast (X-Ray, Ultrasound), just return first procedure
+    if (!contrast || modalityKey === 'X-RAY' || modalityKey === 'ULTRASOUND') {
+      procedure = categoryData.procedures[0];
+    } else {
+      // For MRI/CT, find by contrast type
+      procedure = findProcedureByContrast(categoryData.procedures, contrast);
+    }
+    
+    if (!procedure) {
+      console.warn('⚠️ No matching procedure:', { region: region, contrast: contrast });
+      return null;
+    }
       
       return {
         cpt_code: procedure.cpt,
@@ -2485,18 +2539,27 @@ if (typeof module !== 'undefined' && module.exports) {
     
     // No redirect - use procedures directly
     if (!categoryData.procedures) {
-      console.warn('Ã¢ÂÅ’ No procedures for region:', region);
+      console.warn('⚠️ No procedures for region:', region);
       return null;
     }
     
-    // Find matching contrast
-    const procedure = findProcedureByContrast(categoryData.procedures, contrast);
+    // Find matching procedure
+    let procedure;
+    
+    // For modalities without contrast (X-Ray, Ultrasound), just return first procedure
+    if (!contrast || modalityKey === 'X-RAY' || modalityKey === 'ULTRASOUND') {
+      procedure = categoryData.procedures[0];
+    } else {
+      // For MRI/CT, find by contrast type
+      procedure = findProcedureByContrast(categoryData.procedures, contrast);
+    }
+    
     if (!procedure) {
-      console.warn('Ã¢ÂÅ’ No matching contrast:', { region: region, contrast: contrast });
+      console.warn('⚠️ No matching procedure:', { region: region, contrast: contrast });
       return null;
     }
     
-    console.log('Ã¢Å“â€¦ [Procedure Library] Found:', procedure);
+    console.log('✅ [Procedure Library] Found:', procedure);
     
     return {
       cpt_code: procedure.cpt,

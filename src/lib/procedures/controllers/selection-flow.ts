@@ -133,10 +133,13 @@ export class SelectionFlow {
    * @returns True if all required fields are set
    */
   isComplete(): boolean {
+    const contrastRequired = this.state.modality !== 'X-Ray' && 
+                            this.state.modality !== 'Ultrasound';
+    
     return !!(
       this.state.modality &&
-      this.state.contrast &&
-      this.state.region
+      this.state.region &&
+      (!contrastRequired || this.state.contrast)
     );
   }
   
@@ -146,11 +149,16 @@ export class SelectionFlow {
    * @returns Percentage of completion
    */
   getCompletionPercentage(): number {
+    const contrastRequired = this.state.modality !== 'X-Ray' && 
+                            this.state.modality !== 'Ultrasound';
+    const totalSteps = contrastRequired ? 3 : 2;
+    
     let completed = 0;
     if (this.state.modality) completed++;
-    if (this.state.contrast) completed++;
+    if (contrastRequired && this.state.contrast) completed++;
     if (this.state.region) completed++;
-    return Math.round((completed / 3) * 100);
+    
+    return Math.round((completed / totalSteps) * 100);
   }
   
   // ============================================
@@ -242,7 +250,11 @@ export class SelectionFlow {
   private getMissingFields(): string[] {
     const missing: string[] = [];
     if (!this.state.modality) missing.push('modality');
-    if (!this.state.contrast) missing.push('contrast');
+    
+    const contrastRequired = this.state.modality !== 'X-Ray' && 
+                            this.state.modality !== 'Ultrasound';
+    if (contrastRequired && !this.state.contrast) missing.push('contrast');
+    
     if (!this.state.region) missing.push('region');
     return missing;
   }
