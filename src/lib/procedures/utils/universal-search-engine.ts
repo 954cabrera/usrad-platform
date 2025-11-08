@@ -120,5 +120,5 @@ declare global {
 
 if (typeof window !== 'undefined') {
   window.searchUniversalProcedures = searchUniversalProcedures;
-  console.log("ðŸ” Universal Search Engine initialized.");
+  console.log("[OK] Universal Search Engine initialized.");
 }

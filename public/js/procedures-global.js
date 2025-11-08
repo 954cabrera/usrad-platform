@@ -2665,7 +2665,7 @@ if (typeof module !== 'undefined' && module.exports) {
     }
   };
 
-  console.log('Ã¢Å“â€¦ Procedure Library loaded successfully!');
-  console.log('Ã°Å¸â€œÂ¦ Available:', Object.keys(window.ProcedureLibrary).join(', '));
+  console.log('✓ Procedure Library loaded successfully!');
+console.log('✓ Available:', Object.keys(window.ProcedureLibrary).join(', '));
 
 })();

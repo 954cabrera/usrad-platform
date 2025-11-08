@@ -204,7 +204,7 @@ export function buildUniversalIndex(): ProcedureIndexEntry[] {
     });
   }
 
-  console.log(`âœ… Universal Procedure Index built: ${index.length} items`);
+  console.log(`[OK] Universal Procedure Index built: ${index.length} items`);
   return index;
 }
 
