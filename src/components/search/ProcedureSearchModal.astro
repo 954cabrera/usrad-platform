@@ -1,0 +1,190 @@
+---
+import { SearchEvents } from "../../lib/events/search-events";
+import { searchUniversalProcedures } from "../../lib/procedures/utils/universal-search-engine";
+---
+
+<!-- ======================================================
+     PROCEDURE SEARCH MODAL
+     ====================================================== -->
+<div
+  id="modal-search-overlay"
+  class="fixed inset-0 z-[99999] hidden"
+  role="dialog"
+  aria-modal="true"
+>
+  <!-- Dark Backdrop -->
+  <div
+    class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300"
+  >
+  </div>
+
+  <!-- Centered Modal Container -->
+  <div
+    class="absolute inset-0 flex items-start justify-center pt-16 sm:pt-24 pb-8 px-4 overflow-y-auto"
+  >
+    <div
+      id="modal-content"
+      class="relative w-full max-w-3xl bg-white rounded-2xl shadow-2xl transform transition-all duration-300 scale-95 opacity-0"
+    >
+      <!-- Modal Header -->
+      <div
+        class="sticky top-0 z-10 bg-white border-b border-gray-200 rounded-t-2xl px-6 py-5 flex items-center justify-between"
+      >
+        <h2 class="text-2xl font-bold text-gray-900">Select your procedure</h2>
+        <button
+          id="modal-close"
+          class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="px-6 pt-5">
+        <input
+          id="modal-search-input"
+          placeholder="Search MRI, CT, Ultrasound..."
+          class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#003087] text-gray-900 placeholder-gray-500"
+        />
+      </div>
+
+      <!-- Search Results Container -->
+      <div
+        id="modal-results"
+        class="px-6 py-6 max-h-[60vh] overflow-y-auto text-gray-900"
+      >
+        <div class="text-center py-12 text-gray-500">
+          <p class="text-lg font-medium">Start typing to search procedures</p>
+          <p class="text-sm mt-1">Try “MRI”, “CT Scan”, or “Ultrasound”</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     SCRIPT
+     ====================================================== -->
+<script>
+  import {
+    SearchEvents,
+    dispatchProcedureSelected,
+  } from "../../lib/events/search-events";
+  import { searchUniversalProcedures } from "../../lib/procedures/utils/universal-search-engine";
+
+  // Hydration-safe modal setup
+  window.addEventListener("DOMContentLoaded", () => {
+    console.log("✅ ProcedureSearchModal ready");
+
+    const overlay = document.getElementById("modal-search-overlay");
+    const content = document.getElementById("modal-content");
+    const input = document.getElementById("modal-search-input");
+    const results = document.getElementById("modal-results");
+    const closeBtn = document.getElementById("modal-close");
+
+    if (!overlay || !content) {
+      console.error("❌ Modal elements missing");
+      return;
+    }
+
+    // ---- Open Modal ----
+    function openModal(initialQuery = "") {
+      overlay.classList.remove("hidden");
+      document.body.style.overflow = "hidden"; // prevent background scroll
+      requestAnimationFrame(() => {
+        content.style.opacity = "1";
+        content.style.transform = "scale(1)";
+      });
+      input.value = initialQuery;
+      input.focus();
+    }
+
+    // ---- Close Modal ----
+    function closeModal() {
+      content.style.opacity = "0";
+      content.style.transform = "scale(0.95)";
+      document.body.style.overflow = ""; // restore scroll
+      setTimeout(() => overlay.classList.add("hidden"), 200);
+      window.dispatchEvent(new CustomEvent(SearchEvents.MODAL_CLOSED));
+    }
+
+    // ---- Event bindings ----
+    closeBtn?.addEventListener("click", closeModal);
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) closeModal();
+    });
+
+    // Listen for open event from HeroSection
+    window.addEventListener(SearchEvents.OPEN_MODAL, (e) => {
+      if (!content) {
+        // If hydration lag occurs, retry shortly
+        console.warn("⚠️ Modal not hydrated yet, retrying...");
+        return setTimeout(() => openModal(e.detail?.initialQuery), 200);
+      }
+      openModal(e.detail?.initialQuery);
+    });
+
+    // ---- Handle Input Search ----
+    input.addEventListener("input", (e) => {
+      const value = e.target.value.trim();
+      if (value.length < 2) {
+        results.innerHTML = `
+          <div class="text-center py-12 text-gray-500">
+            <p>Start typing to search procedures</p>
+          </div>`;
+        return;
+      }
+
+      const matches = searchUniversalProcedures(value, 8);
+      if (!matches.length) {
+        results.innerHTML = `
+          <div class="text-center py-12 text-gray-500">
+            <p>No results for "${value}"</p>
+          </div>`;
+        return;
+      }
+
+      // Render results
+      results.innerHTML = matches
+        .map(
+          (r) => `
+        <button class="w-full text-left border-b border-gray-200 px-4 py-3 hover:bg-blue-50 transition-all"
+          data-cpt="${r.cpt}"
+          data-label="${r.label.replace(/"/g, "&quot;")}"
+          data-modality="${r.modality}">
+          <div class="font-semibold text-gray-900">${r.label}</div>
+          <div class="text-sm text-gray-500">${r.modality} • ${r.bodyPart} • CPT ${r.cpt}</div>
+        </button>`
+        )
+        .join("");
+
+      // Bind click listeners to each result
+      results.querySelectorAll("button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const procedure = {
+            cpt_code: btn.dataset.cpt,
+            label: btn.dataset.label,
+            modality: btn.dataset.modality,
+          };
+          dispatchProcedureSelected(procedure);
+          closeModal();
+        });
+      });
+    });
+  });
+</script>
+
+<!-- ======================================================
+     STYLE
+     ====================================================== -->
+<style>
+  #modal-content {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  #modal-search-overlay:not(.hidden) #modal-content {
+    opacity: 1;
+    transform: scale(1);
+  }
+</style>
