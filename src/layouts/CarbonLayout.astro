@@ -4,7 +4,7 @@ import "../styles/global-carbon.css";
 import UtilityBar from "../components/UtilityBar.astro";
 import CarbonFooter from "../components/CarbonFooter.astro";
 import CarbonHeader from "../components/CarbonHeader.jsx";
-
+import ProcedureSearchModal from "@/components/search/ProcedureSearchModal.astro";
 export interface Props {
   title?: string;
   description?: string;
@@ -55,6 +55,9 @@ const {
   </head>
 
   <body class="font-inter text-gray-900 bg-white antialiased">
+    <!-- Global Search Modal -->
+    <ProcedureSearchModal />
+
     <!-- Enhanced Carbon Header Component with Hero Page Prop -->
     <CarbonHeader client:load isHeroPage={isHeroPage} />
 
@@ -65,88 +68,83 @@ const {
 
     <!-- Carbon Style Footer - Using Astro Component -->
     <CarbonFooter hideNewsletter={hideNewsletter} />
-
-    <!-- Simple Chat Widget -->
-    <div class="fixed bottom-6 right-6 z-50">
-      <button
-        class="bg-[#003087] text-white w-14 h-14 rounded-full shadow-lg hover:bg-[#002266] transition flex items-center justify-center group"
-      >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4v-4z"
-          ></path>
-        </svg>
-        <span
-          class="absolute bottom-full right-0 mb-2 px-2 py-1 text-xs bg-gray-900 text-white rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap"
-        >
-          Need help?
-        </span>
-      </button>
-    </div>
-
-    <!-- AOS Animation Script - FIXED VERSION -->
-    <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script is:inline>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (typeof AOS !== "undefined") {
-          AOS.init({
-            duration: 800,
-            once: true,
-            easing: "ease-out",
-            offset: 100,
-          });
-          console.log("✅ AOS initialized successfully");
-        } else {
-          console.error("❌ AOS library not loaded");
-        }
-      });
-    </script>
-
-    <style is:global>
-      body {
-        font-family:
-          "Inter",
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          sans-serif;
-      }
-
-      /* Smooth scrolling */
-      html {
-        scroll-behavior: smooth;
-      }
-
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 10px;
-      }
-
-      ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 5px;
-      }
-
-      ::-webkit-scrollbar-thumb:hover {
-        background: #555;
-      }
-    </style>
-
-    <script
-      src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
-    ></script>
   </body>
 </html>
+
+<!-- Simple Chat Widget -->
+<div class="fixed bottom-6 right-6 z-50">
+  <button
+    class="bg-[#003087] text-white w-14 h-14 rounded-full shadow-lg hover:bg-[#002266] transition flex items-center justify-center group"
+  >
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4v-4z"
+      ></path>
+    </svg>
+    <span
+      class="absolute bottom-full right-0 mb-2 px-2 py-1 text-xs bg-gray-900 text-white rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap"
+    >
+      Need help?
+    </span>
+  </button>
+</div>
+
+<!-- AOS Animation Script - FIXED VERSION -->
+<script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof AOS !== "undefined") {
+      AOS.init({
+        duration: 800,
+        once: true,
+        easing: "ease-out",
+        offset: 100,
+      });
+      console.log("✅ AOS initialized successfully");
+    } else {
+      console.error("❌ AOS library not loaded");
+    }
+  });
+</script>
+
+<style is:global>
+  body {
+    font-family:
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+</style>
+
+<script
+  src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
+></script>

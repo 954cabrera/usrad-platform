@@ -1,5 +1,6 @@
 ---
-// HeroSection-MODAL.astro - World-Class Modal Overlay (Amazon/Airbnb Style)
+// HeroSection.astro - Hybrid Progressive Disclosure Hero
+// Pure JavaScript implementation - No TypeScript in scripts
 interface Props {
   remixUrl: string;
 }
@@ -7,7 +8,6 @@ interface Props {
 const { remixUrl } = Astro.props;
 ---
 
-<!-- PROGRESSIVE DISCLOSURE HERO SECTION -->
 <section
   class="relative py-24 px-4 sm:px-6 bg-[#003087] text-white overflow-hidden"
   data-aos="fade-up"
@@ -92,212 +92,75 @@ const { remixUrl } = Astro.props;
         <span class="block">Pay hundreds, not thousands.</span>
       </p>
 
-      <!-- PROGRESSIVE DISCLOSURE FORM -->
+      <!-- STEP 1: Initial Search -->
       <div
-        class="relative z-50 max-w-3xl mx-auto mb-16 sm:mb-24"
+        id="hero-step-1"
+        class="relative z-50 max-w-3xl mx-auto mb-16 sm:mb-24 transition-all duration-500"
         data-aos="fade-up"
         data-aos-delay="300"
       >
-        <!-- Progress Indicators -->
         <div
-          class="flex items-center justify-center gap-2 mb-6"
-          role="progressbar"
-          aria-valuenow="1"
-          aria-valuemin="1"
-          aria-valuemax="2"
-          aria-label="Form progress: Step 1 of 2"
+          class="bg-white/90 backdrop-blur-md border-2 border-white/60 shadow-lg rounded-xl flex flex-col sm:flex-row items-stretch overflow-hidden"
         >
-          <!-- Step 1 -->
-          <div class="flex items-center gap-2">
-            <div
-              id="step-1-indicator"
-              class="w-10 h-10 rounded-full bg-[#003087] text-white flex items-center justify-center text-sm font-bold transition-all duration-500 shadow-lg"
-              aria-label="Step 1: Select procedure"
-            >
-              1
-            </div>
-            <span
-              id="step-1-label"
-              class="text-sm font-semibold text-white transition-all duration-500"
-              >Procedure</span
-            >
-          </div>
-
-          <!-- Animated Progress Line -->
-          <div
-            class="relative w-16 sm:w-24 h-1 bg-white/20 rounded-full overflow-hidden"
-            aria-hidden="true"
+          <input
+            type="text"
+            id="hero-search-trigger"
+            placeholder="Type MRI, CT, Ultrasound..."
+            readonly
+            class="flex-1 px-6 py-4 sm:py-5 text-base sm:text-lg text-gray-900 placeholder-gray-500 bg-transparent focus:outline-none cursor-pointer"
+            aria-label="Click to search for medical procedures"
+          />
+          <button
+            type="button"
+            id="hero-find-initial"
+            class="bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-8 py-4 sm:py-5 font-bold text-base sm:text-lg transition-all duration-300 hover:brightness-110"
           >
-            <div
-              id="progress-fill"
-              class="absolute left-0 top-0 h-full bg-gradient-to-r from-[#003087] to-[#cc9933] rounded-full transition-all duration-700 ease-out w-0"
-            >
-            </div>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="flex items-center gap-2">
-            <div
-              id="step-2-indicator"
-              class="w-10 h-10 rounded-full bg-white/20 text-white/50 flex items-center justify-center text-sm font-bold transition-all duration-500"
-              aria-label="Step 2: Enter location"
-            >
-              2
-            </div>
-            <span
-              id="step-2-label"
-              class="text-sm font-medium text-white/50 transition-all duration-500"
-              >Location</span
-            >
-          </div>
-        </div>
-
-        <!-- Form Container -->
-        <div
-          class="bg-white/95 backdrop-blur-xl border-2 border-white/80 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.3),0_0_100px_rgba(255,255,255,0.1)] transition-all duration-300 hover:shadow-[0_24px_70px_rgba(0,0,0,0.35),0_0_120px_rgba(255,255,255,0.15)]"
-        >
-          <div
-            class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-3xl pointer-events-none"
-          >
-          </div>
-
-          <form
-            action={`${remixUrl}/pbs/search`}
-            method="GET"
-            id="hero-search-form"
-            class="relative z-10"
-          >
-            <!-- STEP 1: Procedure Search -->
-            <div
-              id="step-1-container"
-              class="p-6 sm:p-8 transition-all duration-500"
-            >
-              <div class="text-center mb-6">
-                <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-                  What scan do you need?
-                </h3>
-                <p class="text-gray-700">Start typing to see options</p>
-              </div>
-
-              <div class="relative">
-                <!-- Search Icon with Loading Spinner -->
-                <div
-                  class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10"
-                >
-                  <svg
-                    id="search-icon"
-                    class="w-6 h-6 text-gray-400 transition-colors duration-300"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                  </svg>
-                  <svg
-                    id="search-loading"
-                    class="w-6 h-6 text-[#003087] animate-spin hidden"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      class="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      stroke-width="4"></circle>
-                    <path
-                      class="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                </div>
-
-                <input
-                  type="text"
-                  id="hero-procedure-search"
-                  placeholder="Type: MRI, CT, Ultrasound, X-Ray..."
-                  class="w-full pl-14 pr-14 py-4 sm:py-5 text-base sm:text-lg text-gray-900 placeholder-gray-500 bg-white border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#003087] focus:border-transparent transition-all min-h-[56px] shadow-sm"
-                  autocomplete="off"
-                  aria-label="Search for medical procedure"
-                  aria-describedby="search-helper"
-                  aria-controls="modal-search-overlay"
-                  aria-autocomplete="list"
-                  role="combobox"
-                  aria-expanded="false"
-                />
-              </div>
-
-              <!-- Helper Text -->
-              <div
-                id="search-helper"
-                class="mt-4 px-4 py-2.5 bg-blue-50 border border-blue-200 rounded-lg opacity-0 transition-opacity duration-300"
+            <span class="flex items-center justify-center gap-2">
+              Find
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                <p class="text-sm font-medium text-blue-800 text-center">
-                  ðŸ’¡ Try searching for <span class="font-semibold">"MRI"</span
-                  >, <span class="font-semibold">"CT Scan"</span>, or <span
-                    class="font-semibold">"Ultrasound"</span
-                  >
-                </p>
-              </div>
-            </div>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
 
-            <!-- STEP 2: Location (Initially Hidden) -->
-            <div
-              id="step-2-container"
-              class="hidden p-6 sm:p-8 transition-all duration-500"
-            >
-              <div class="text-center mb-6">
-                <!-- Selected Procedure Display with Change Button -->
-                <div class="mb-8">
-                  <div
-                    class="inline-flex items-center justify-between w-full max-w-2xl mx-auto bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl px-6 py-4 shadow-sm hover:shadow-md transition-all duration-200"
-                  >
-                    <!-- Left: Checkmark Icon -->
-                    <div class="flex items-center gap-3 flex-1 min-w-0">
-                      <div
-                        class="flex-shrink-0 w-6 h-6 rounded-full bg-green-500/10 flex items-center justify-center"
-                      >
-                        <svg
-                          class="w-3.5 h-3.5 text-green-600"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clip-rule="evenodd"></path>
-                        </svg>
-                      </div>
-
-                      <!-- Center: Two-line text layout -->
-                      <div class="flex-1 text-left min-w-0">
-                        <p
-                          class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-0.5"
-                        >
-                          Selected Procedure
-                        </p>
-                        <div
-                          id="selected-procedure-display"
-                          class="text-sm font-semibold text-gray-900 leading-tight space-y-0.5"
-                        >
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Right: Change Button -->
-                    <button
-                      type="button"
-                      id="change-procedure-button"
-                      class="rotate-on-hover flex-shrink-0 ml-4 flex items-center gap-2 bg-gray-50 hover:bg-gray-100 text-gray-700 hover:text-gray-900 px-4 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 min-h-[44px] border border-gray-200"
+      <!-- STEP 2: Horizontal Compact Layout (Hidden Initially) -->
+      <div
+        id="hero-step-2"
+        class="hidden relative z-50 max-w-4xl mx-auto mb-16 sm:mb-24 transition-all duration-500"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <form
+          action={`${remixUrl}/pbs/search`}
+          method="GET"
+          id="hero-search-form"
+        >
+          <!-- Compact Horizontal Row -->
+          <div
+            class="bg-white/90 backdrop-blur-md border-2 border-white/60 shadow-lg rounded-xl overflow-hidden"
+          >
+            <!-- Mobile: Stack Vertically -->
+            <div class="flex flex-col sm:hidden">
+              <!-- Selected Procedure Pill - Mobile -->
+              <div class="p-4 border-b border-gray-200">
+                <div class="flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-2 flex-1 min-w-0">
+                    <div
+                      class="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center"
                     >
                       <svg
-                        class="w-4 h-4"
+                        class="w-5 h-5 text-white"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -305,27 +168,100 @@ const { remixUrl } = Astro.props;
                         <path
                           stroke-linecap="round"
                           stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                        ></path>
+                          stroke-width="3"
+                          d="M5 13l4 4L19 7"></path>
                       </svg>
-                      Change
-                    </button>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-xs font-medium text-gray-500 mb-0.5">
+                        Selected
+                      </p>
+                      <p
+                        id="selected-procedure-display-mobile"
+                        class="text-sm font-semibold text-gray-900 truncate"
+                      >
+                      </p>
+                    </div>
                   </div>
+                  <button
+                    type="button"
+                    id="change-procedure-button-mobile"
+                    class="flex-shrink-0 text-xs font-medium text-[#003087] hover:text-[#cc9933] transition-colors px-3 py-1.5 rounded-lg hover:bg-gray-100"
+                  >
+                    Change
+                  </button>
                 </div>
-                <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-                  Where are you located?
-                </h3>
-                <p class="text-gray-700">We'll find centers near you</p>
               </div>
 
-              <div class="space-y-4">
-                <div class="relative group">
-                  <div
-                    class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+              <!-- ZIP Input - Mobile -->
+              <div class="relative p-4 border-b border-gray-200">
+                <label
+                  for="hero-zip-input-mobile"
+                  class="block text-xs font-medium text-gray-500 mb-2"
+                  >ZIP Code</label
+                >
+                <div class="relative">
+                  <input
+                    type="text"
+                    id="hero-zip-input-mobile"
+                    name="zip"
+                    placeholder="Enter ZIP code"
+                    inputmode="numeric"
+                    pattern="[0-9]{5}"
+                    maxlength="5"
+                    class="w-full px-4 py-3 text-base text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:border-[#003087] focus:ring-2 focus:ring-[#003087]/20 transition-all pr-10"
+                  />
+                  <button
+                    type="button"
+                    id="hero-detect-location-mobile"
+                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-[#003087] hover:text-[#cc9933] transition-all"
+                    title="Detect location"
                   >
                     <svg
-                      class="w-5 h-5 text-gray-400 group-focus-within:text-[#003087] transition-colors"
+                      id="location-icon-mobile"
+                      class="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                      ></path>
+                    </svg>
+                    <svg
+                      id="location-loading-mobile"
+                      class="w-5 h-5 animate-spin hidden"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        class="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        stroke-width="4"></circle>
+                      <path
+                        class="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Submit Button - Mobile -->
+              <div class="p-4">
+                <button
+                  type="submit"
+                  id="hero-search-button-mobile"
+                  class="w-full bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-6 py-4 rounded-lg font-bold text-base transition-all duration-300 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled
+                >
+                  <span class="flex items-center justify-center gap-2">
+                    <span>Find Centers</span>
+                    <svg
+                      class="w-5 h-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -334,29 +270,90 @@ const { remixUrl } = Astro.props;
                         stroke-linecap="round"
                         stroke-linejoin="round"
                         stroke-width="2"
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      ></path>
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                     </svg>
-                  </div>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Desktop: Single Horizontal Row -->
+            <div class="hidden sm:flex items-center">
+              <!-- Selected Procedure Pill -->
+              <div
+                class="flex-1 flex items-center gap-3 px-6 py-4 border-r border-gray-200"
+              >
+                <div
+                  class="flex-shrink-0 w-10 h-10 bg-green-500 rounded-full flex items-center justify-center"
+                >
+                  <svg
+                    class="w-6 h-6 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-medium text-gray-500 mb-0.5">
+                    Selected Procedure
+                  </p>
+                  <p
+                    id="selected-procedure-display"
+                    class="text-base font-semibold text-gray-900 truncate"
+                  >
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  id="change-procedure-button"
+                  class="flex-shrink-0 flex items-center gap-1.5 text-[#003087] hover:text-[#cc9933] font-medium text-sm transition-all px-3 py-2 rounded-lg hover:bg-gray-100"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    ></path>
+                  </svg>
+                  Change
+                </button>
+              </div>
+
+              <!-- ZIP Input -->
+              <div class="relative px-6 py-4 border-r border-gray-200">
+                <label
+                  for="hero-zip-input"
+                  class="block text-xs font-medium text-gray-500 mb-2"
+                  >ZIP Code</label
+                >
+                <div class="relative">
                   <input
                     type="text"
                     id="hero-zip-input"
-                    placeholder="ZIP code (5 digits)"
+                    name="zip"
+                    placeholder="12345"
                     inputmode="numeric"
                     pattern="[0-9]{5}"
                     maxlength="5"
-                    class="w-full pl-12 pr-14 py-4 sm:py-5 text-base sm:text-lg text-gray-900 placeholder-gray-400 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#003087]/20 focus:border-transparent hover:border-gray-300 transition-all min-h-[56px] shadow-sm"
+                    class="w-32 px-3 py-2 text-center text-lg font-semibold text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:border-[#003087] focus:ring-2 focus:ring-[#003087]/20 transition-all"
                   />
                   <button
                     type="button"
                     id="hero-detect-location"
-                    class="absolute inset-y-0 right-0 pr-4 flex items-center text-[#003087] hover:text-[#cc9933] transition-all hover:scale-110 min-h-[44px] min-w-[44px] justify-center"
-                    title="Use my current location"
+                    class="absolute -right-8 top-1/2 -translate-y-1/2 text-[#003087] hover:text-[#cc9933] transition-all hover:scale-110"
+                    title="Detect location"
                   >
                     <svg
                       id="location-icon"
@@ -389,37 +386,15 @@ const { remixUrl } = Astro.props;
                     </svg>
                   </button>
                 </div>
+              </div>
 
-                <!-- Location Helper Text -->
-                <div
-                  id="location-helper"
-                  class="opacity-0 transition-opacity duration-300"
-                >
-                  <p class="text-sm text-gray-500 text-center">
-                    <span class="inline-flex items-center gap-1.5">
-                      <svg
-                        class="w-4 h-4 text-gray-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        ></path>
-                      </svg>
-                      Enter your 5-digit ZIP code or click the location icon to auto-detect
-                    </span>
-                  </p>
-                </div>
-
-                <!-- Enhanced Search Button -->
+              <!-- Submit Button -->
+              <div class="flex-shrink-0">
                 <button
                   type="submit"
                   id="hero-search-button"
-                  class="w-full bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-8 py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 mt-6 min-h-[56px] relative overflow-hidden group"
+                  class="h-full bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-8 py-4 font-bold text-lg transition-all duration-300 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+                  disabled
                 >
                   <span
                     class="flex items-center justify-center gap-2 relative z-10"
@@ -445,20 +420,24 @@ const { remixUrl } = Astro.props;
                 </button>
               </div>
             </div>
+          </div>
 
-            <!-- Hidden Form Fields -->
-            <input
-              type="hidden"
-              name="procedure"
-              id="hero-selected-procedure"
-              value=""
-            />
-            <input type="hidden" name="cpt" id="hero-selected-cpt" value="" />
-            <input type="hidden" name="zip" id="hero-zip" value="" />
-            <input type="hidden" name="state" value="" />
-            <input type="hidden" name="radius" value="10" />
-          </form>
-        </div>
+          <!-- Status Message Below -->
+          <div id="zip-status-message" class="mt-3 text-center">
+            <p class="text-sm text-white/80"></p>
+          </div>
+
+          <!-- Hidden Form Fields -->
+          <input
+            type="hidden"
+            name="procedure"
+            id="hero-selected-procedure"
+            value=""
+          />
+          <input type="hidden" name="cpt" id="hero-selected-cpt" value="" />
+          <input type="hidden" name="state" value="" />
+          <input type="hidden" name="radius" value="10" />
+        </form>
       </div>
 
       <!-- Trust Indicators -->
@@ -511,481 +490,296 @@ const { remixUrl } = Astro.props;
   </div>
 </section>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-<!-- WORLD-CLASS MODAL OVERLAY (Amazon/Airbnb Style) -->
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-<div
-  id="modal-search-overlay"
-  class="fixed inset-0 z-[99999] hidden"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="modal-title"
->
-  <!-- Full-screen backdrop (80% black - strong dimming) -->
-  <div
-    id="modal-backdrop"
-    class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300 opacity-0"
-    aria-hidden="true"
-  >
-  </div>
+<script>
+  // Self-contained event system - no imports needed
+  const SearchEvents = {
+    OPEN_MODAL: "usrad:openSearchModal",
+    PROCEDURE_SELECTED: "usrad:procedureSelected",
+    MODAL_CLOSED: "usrad:modalClosed",
+  };
 
-  <!-- Modal container (centered) -->
-  <div
-    class="absolute inset-0 flex items-start justify-center pt-16 sm:pt-24 pb-8 px-4 overflow-y-auto"
-  >
-    <!-- Modal content -->
-    <div
-      id="modal-content"
-      class="relative w-full max-w-3xl bg-white rounded-2xl shadow-2xl transform transition-all duration-300 scale-95 opacity-0"
-    >
-      <!-- Modal Header -->
-      <div
-        class="sticky top-0 z-10 bg-white border-b border-gray-200 rounded-t-2xl px-6 py-5"
-      >
-        <div class="flex items-center justify-between">
-          <h2 id="modal-title" class="text-2xl font-bold text-gray-900">
-            Select your procedure
-          </h2>
-          <button
-            type="button"
-            id="modal-close-button"
-            class="flex-shrink-0 p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all"
-            aria-label="Close search modal"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
+  function openSearchModal(initialQuery) {
+    console.log("ðŸ” Opening search modal");
+    window.dispatchEvent(
+      new CustomEvent(SearchEvents.OPEN_MODAL, {
+        detail: { initialQuery: initialQuery || "" },
+      })
+    );
+  }
 
-        <!-- Search Input (in modal) -->
-        <div class="mt-4 relative">
-          <div
-            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
-          >
-            <svg
-              class="w-5 h-5 text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-          </div>
-          <input
-            type="text"
-            id="modal-search-input"
-            placeholder="Search procedures..."
-            class="w-full pl-12 pr-4 py-3 text-base text-gray-900 placeholder-gray-400 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#003087] focus:border-transparent transition-all"
-            autocomplete="off"
-          />
-        </div>
-      </div>
-
-      <!-- Modal Body (scrollable results) -->
-      <div
-        id="modal-results"
-        class="px-6 py-6 max-h-[60vh] overflow-y-auto"
-        style="scrollbar-width: thin; scrollbar-color: #003087 #f1f5f9;"
-      >
-        <!-- Results will be populated here by JavaScript -->
-        <div class="text-center py-12 text-gray-500">
-          <svg
-            class="w-16 h-16 mx-auto mb-4 text-gray-300"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-          </svg>
-          <p class="text-lg font-medium">Start typing to search procedures</p>
-          <p class="text-sm mt-1">Try "MRI", "CT Scan", or "Ultrasound"</p>
-        </div>
-      </div>
-
-      <!-- Modal Footer -->
-      <div
-        class="sticky bottom-0 bg-gray-50 border-t border-gray-200 rounded-b-2xl px-6 py-4"
-      >
-        <div class="text-center">
-          <p class="text-sm text-gray-700 font-medium mb-3">
-            Can't find your procedure? Try searching by:
-          </p>
-          <div class="flex flex-wrap justify-center gap-2 text-xs">
-            <span
-              class="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-gray-600"
-            >
-              Body part (e.g., "knee", "shoulder")
-            </span>
-            <span
-              class="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-gray-600"
-            >
-              CPT code (e.g., "70553")
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Load Procedure Library FIRST -->
-  <script is:inline src="/js/procedures-global.js"></script>
-  console.log(window.ProcedureLibrary);
-
-  <!-- Load new Universal Search modules -->
-  <script type="module">
-    import { searchUniversalProcedures } from "/src/lib/procedures/utils/universal-search-engine.ts";
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const input = document.getElementById("modal-search-input");
-      const resultsContainer = document.getElementById("modal-results");
-
-      if (!input || !resultsContainer) return;
-
-      input.addEventListener("input", (e) => {
-        const value = e.target.value.trim();
-
-        if (value.length < 2) {
-          resultsContainer.innerHTML = `<div class="text-center py-12 text-gray-500">
-              <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-              </svg>
-              <p class="text-lg font-medium">Start typing to search procedures</p>
-              <p class="text-sm mt-1">Try "MRI", "CT Scan", or "Ultrasound"</p>
-            </div>`;
-          return;
-        }
-
-        const results = searchUniversalProcedures(value, 8);
-
-        if (!results.length) {
-          resultsContainer.innerHTML = `<div class="text-center py-12 text-gray-500">
-              <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-              </svg>
-              <p class="text-lg font-medium">No results found for "${value}"</p>
-              <p class="text-sm mt-1">Try a different search term</p>
-            </div>`;
-          return;
-        }
-
-        // Render results list
-        resultsContainer.innerHTML = results
-          .map(
-            (r) => `
-          <button class="w-full text-left border-b border-gray-200 px-4 py-3 hover:bg-blue-50 transition-all focus:outline-none focus:ring-2 focus:ring-[#003087] focus:bg-blue-50"
-            data-cpt="${r.cpt}"
-            data-modality="${r.modality}"
-            data-label="${r.label.replace(/"/g, "&quot;")}">
-            <div class="flex items-start gap-3">
-              <div class="flex-shrink-0 w-10 h-10 bg-[#003087] text-white rounded-lg flex items-center justify-center text-sm font-bold">
-                ${r.modality.substring(0, 2).toUpperCase()}
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="font-semibold text-gray-900">${r.label}</div>
-                <div class="text-sm text-gray-500 mt-0.5">${r.modality} • ${r.bodyPart} • CPT ${r.cpt}</div>
-              </div>
-            </div>
-          </button>`
-          )
-          .join("");
-
-        // Handle selection
-        resultsContainer.querySelectorAll("button").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            const procedure = {
-              cpt_code: btn.dataset.cpt,
-              label: btn.dataset.label,
-              modality: btn.dataset.modality,
-            };
-
-            document.dispatchEvent(
-              new CustomEvent("procedureSelected", { detail: { procedure } })
-            );
-
-            console.log("✅ Universal search selection:", procedure);
-          });
-        });
-      });
-    });
-  </script>
-
-  <script>
-    import "@/lib/procedures/controllers/modal-controller.ts";
-
-    // Listen for procedure selection from the modal
-    document.addEventListener("DOMContentLoaded", () => {
-      const searchButton = document.getElementById(
-        "hero-search-button"
-      ) as HTMLButtonElement;
-      const cptInput = document.getElementById(
-        "hero-selected-cpt"
-      ) as HTMLInputElement;
-      const zipDisplayInput = document.getElementById(
-        "hero-zip-input"
-      ) as HTMLInputElement;
-      const hiddenZipInput = document.getElementById(
-        "hero-zip"
-      ) as HTMLInputElement;
-
-      // Initially disable the button
-      if (searchButton) {
-        searchButton.disabled = true;
-      }
-
-      // Listen for the custom event dispatched when a procedure is selected
-      document.addEventListener("procedureSelected", (event: any) => {
-        const { procedure } = event.detail;
-
-        if (procedure && procedure.cpt_code) {
-          // Populate the hidden CPT input
-          if (cptInput) {
-            cptInput.value = procedure.cpt_code;
-            console.log("âœ… CPT code set:", procedure.cpt_code);
-          }
-
-          // Check if both procedure and ZIP are filled
-          checkFormReady();
-        }
-      });
-
-      // Listen for ZIP input changes
-      if (zipDisplayInput) {
-        zipDisplayInput.addEventListener("input", () => {
-          if (hiddenZipInput) {
-            hiddenZipInput.value = zipDisplayInput.value;
-          }
-          checkFormReady();
-        });
-      }
-
-      // Function to check if form is ready to submit
-      function checkFormReady() {
-        const hasCpt = cptInput && cptInput.value.length > 0;
-        const hasZip = zipDisplayInput && zipDisplayInput.value.length === 5;
-
-        if (searchButton) {
-          searchButton.disabled = !(hasCpt && hasZip);
-
-          if (hasCpt && hasZip) {
-            console.log("âœ… Form ready to submit:", {
-              cpt: cptInput.value,
-              zip: zipDisplayInput.value,
-            });
-          }
-        }
-      }
-
-      // Before form submission, ensure hidden ZIP is populated
-      const form = document.getElementById(
-        "hero-search-form"
-      ) as HTMLFormElement;
-      if (form) {
-        form.addEventListener("submit", (e) => {
-          // Copy ZIP to hidden input
-          if (zipDisplayInput && hiddenZipInput) {
-            hiddenZipInput.value = zipDisplayInput.value;
-          }
-
-          // Log submission for debugging
-          console.log("ðŸ“¤ Submitting form with:", {
-            cpt: cptInput?.value,
-            zip: hiddenZipInput?.value,
-            action: form.action,
-          });
-        });
+  function onProcedureSelected(callback) {
+    window.addEventListener(SearchEvents.PROCEDURE_SELECTED, (e) => {
+      if (e.detail && e.detail.procedure) {
+        callback(e.detail.procedure);
       }
     });
-  </script>
+  }
 
-  <style>
-    @keyframes draw-line {
-      from {
-        stroke-dashoffset: 200;
-        opacity: 0;
-      }
-      to {
-        stroke-dashoffset: 0;
-        opacity: 0.8;
-      }
+  // Get all DOM elements
+  const step1 = document.getElementById("hero-step-1");
+  const step2 = document.getElementById("hero-step-2");
+  const trigger = document.getElementById("hero-search-trigger");
+  const findInitialBtn = document.getElementById("hero-find-initial");
+
+  // Desktop elements
+  const changeBtn = document.getElementById("change-procedure-button");
+  const procDisplay = document.getElementById("selected-procedure-display");
+  const zipInput = document.getElementById("hero-zip-input");
+  const submitBtn = document.getElementById("hero-search-button");
+  const detectBtn = document.getElementById("hero-detect-location");
+  const locationIcon = document.getElementById("location-icon");
+  const locationLoading = document.getElementById("location-loading");
+
+  // Mobile elements
+  const changeBtnMobile = document.getElementById(
+    "change-procedure-button-mobile"
+  );
+  const procDisplayMobile = document.getElementById(
+    "selected-procedure-display-mobile"
+  );
+  const zipInputMobile = document.getElementById("hero-zip-input-mobile");
+  const submitBtnMobile = document.getElementById("hero-search-button-mobile");
+  const detectBtnMobile = document.getElementById(
+    "hero-detect-location-mobile"
+  );
+  const locationIconMobile = document.getElementById("location-icon-mobile");
+  const locationLoadingMobile = document.getElementById(
+    "location-loading-mobile"
+  );
+
+  // Shared elements
+  const cptHidden = document.getElementById("hero-selected-cpt");
+  const procedureHidden = document.getElementById("hero-selected-procedure");
+  const zipStatus = document.getElementById("zip-status-message");
+
+  console.log("âœ… HeroSection initialized", {
+    trigger: trigger !== null,
+    findInitialBtn: findInitialBtn !== null,
+    step1: step1 !== null,
+    step2: step2 !== null,
+  });
+
+  // Open modal when clicking search trigger or Find button
+  if (trigger) {
+    trigger.addEventListener("click", () => {
+      console.log("ðŸ–±ï¸ Search trigger clicked");
+      openSearchModal();
+    });
+  }
+
+  if (findInitialBtn) {
+    findInitialBtn.addEventListener("click", () => {
+      console.log("ðŸ–±ï¸ Find button clicked");
+      openSearchModal();
+    });
+  }
+
+  // Listen for procedure selection
+  onProcedureSelected((procedure) => {
+    console.log("âœ… Procedure selected:", procedure);
+
+    if (!step1 || !step2 || !procDisplay || !cptHidden || !procedureHidden) {
+      console.error("âŒ Missing required elements for step transition");
+      return;
     }
-    .animate-draw-line {
-      stroke-dasharray: 200;
+
+    // Transition to Step 2
+    step1.classList.add("hidden");
+    step2.classList.remove("hidden");
+
+    // Update UI - both desktop and mobile
+    if (procDisplay) procDisplay.textContent = procedure.label || "";
+    if (procDisplayMobile)
+      procDisplayMobile.textContent = procedure.label || "";
+
+    // Update hidden fields
+    cptHidden.value = procedure.cpt_code || "";
+    procedureHidden.value = procedure.label || "";
+
+    console.log("ðŸ”„ Transitioned to Step 2");
+
+    // Auto-detect ZIP
+    detectZIP();
+  });
+
+  // Change procedure button
+  if (changeBtn) {
+    changeBtn.addEventListener("click", () => {
+      console.log("Change procedure clicked");
+      if (step2 && step1) {
+        step2.classList.add("hidden");
+        step1.classList.remove("hidden");
+      }
+      openSearchModal();
+    });
+  }
+
+  // Change procedure button - Mobile
+  if (changeBtnMobile) {
+    changeBtnMobile.addEventListener("click", () => {
+      console.log("Change procedure clicked (mobile)");
+      if (step2 && step1) {
+        step2.classList.add("hidden");
+        step1.classList.remove("hidden");
+      }
+      openSearchModal();
+    });
+  }
+
+  // Manual location detection button
+  if (detectBtn) {
+    detectBtn.addEventListener("click", () => {
+      console.log("Detect location clicked");
+      detectZIP();
+    });
+  }
+
+  // Manual location detection button - Mobile
+  if (detectBtnMobile) {
+    detectBtnMobile.addEventListener("click", () => {
+      console.log("Detect location clicked (mobile)");
+      detectZIP();
+    });
+  }
+
+  // ZIP input validation and form ready check
+  if (zipInput) {
+    zipInput.addEventListener("input", () => {
+      // Sync mobile input
+      if (zipInputMobile) zipInputMobile.value = zipInput.value;
+      checkFormReady();
+    });
+  }
+
+  // ZIP input validation - Mobile
+  if (zipInputMobile) {
+    zipInputMobile.addEventListener("input", () => {
+      // Sync desktop input
+      if (zipInput) zipInput.value = zipInputMobile.value;
+      checkFormReady();
+    });
+  }
+
+  // Auto-detect ZIP function
+  async function detectZIP() {
+    // Need at least one valid ZIP input
+    const inputs = [zipInput, zipInputMobile].filter(Boolean);
+    if (inputs.length === 0) return;
+
+    console.log("ðŸ“ Starting ZIP detection...");
+    locationIcon.classList.add("hidden");
+    locationLoading.classList.remove("hidden");
+    if (locationIconMobile) locationIconMobile.classList.add("hidden");
+    if (locationLoadingMobile) locationLoadingMobile.classList.remove("hidden");
+
+    const statusP = zipStatus.querySelector("p");
+    if (statusP) {
+      statusP.textContent = "ðŸ“ Finding your location...";
+    }
+
+    try {
+      // Get user's position
+      const pos = await new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+          reject(new Error("Geolocation not supported"));
+          return;
+        }
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          timeout: 5000,
+          maximumAge: 300000,
+        });
+      });
+
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+
+      console.log("ðŸ“ Got coordinates:", { lat, lng });
+
+      // Call your geocode API
+      const res = await fetch(`/api/geocode?lat=${lat}&lng=${lng}`);
+      const data = await res.json();
+
+      console.log("ðŸ“ Geocode response:", data);
+
+      if (data.postalCode) {
+        zipInput.value = data.postalCode;
+        if (zipInputMobile) zipInputMobile.value = data.postalCode;
+        if (statusP) {
+          statusP.textContent = `ðŸ“ Detected your location${data.city ? ` in ${data.city}` : ""} â€¢ Change`;
+        }
+        console.log("âœ… ZIP detected:", data.postalCode);
+        checkFormReady();
+      } else {
+        throw new Error("No postal code found");
+      }
+    } catch (err) {
+      console.error("âŒ Location detection error:", err);
+      if (statusP) {
+        statusP.textContent =
+          "ðŸ“ Could not detect location â€¢ Enter ZIP manually";
+      }
+      if (zipInput) {
+        zipInput.focus();
+      }
+    } finally {
+      // Restore icon state for both desktop and mobile
+      if (locationIcon) locationIcon.classList.remove("hidden");
+      if (locationLoading) locationLoading.classList.add("hidden");
+      if (locationIconMobile) locationIconMobile.classList.remove("hidden");
+      if (locationLoadingMobile) locationLoadingMobile.classList.add("hidden");
+    }
+  }
+
+  // Check if form is ready to submit
+  function checkFormReady() {
+    if (!cptHidden) return;
+
+    const hasCpt = cptHidden.value && cptHidden.value.length > 0;
+
+    // Check both ZIP inputs
+    const zipValue = zipInput?.value || zipInputMobile?.value || "";
+    const hasZip = zipValue.length === 5;
+
+    // Update both submit buttons
+    const isReady = hasCpt && hasZip;
+    if (submitBtn) submitBtn.disabled = !isReady;
+    if (submitBtnMobile) submitBtnMobile.disabled = !isReady;
+
+    if (isReady) {
+      console.log("Form ready to submit");
+    }
+  }
+
+  // Form submission handler
+  const form = document.getElementById("hero-search-form");
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      // Log for debugging
+      console.log("ðŸš€ Submitting form:", {
+        cpt: cptHidden ? cptHidden.value : "",
+        procedure: procedureHidden ? procedureHidden.value : "",
+        zip: zipInput ? zipInput.value : "",
+        action: form.action,
+      });
+    });
+  }
+</script>
+
+<style>
+  @keyframes draw-line {
+    from {
       stroke-dashoffset: 200;
-      animation: draw-line 1.5s ease-out 0.8s forwards;
-    }
-
-    /* Step transition animations */
-    .step-fade-out {
-      opacity: 0;
-      transform: translateX(-30px);
-      transition: all 0.25s ease;
-    }
-
-    .step-fade-in {
-      animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    /* Celebration animation */
-    @keyframes celebration {
-      0%,
-      100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.15);
-      }
-    }
-
-    .celebrate {
-      animation: celebration 0.5s ease-in-out;
-    }
-
-    /* Button pulse when enabled */
-    @keyframes buttonPulse {
-      0%,
-      100% {
-        box-shadow: 0 0 0 0 rgba(204, 153, 51, 0.4);
-      }
-      50% {
-        box-shadow: 0 0 0 8px rgba(204, 153, 51, 0);
-      }
-    }
-
-    #hero-search-button:not(:disabled) {
-      animation: buttonPulse 2s ease-in-out 1;
-    }
-
-    /* Rotate animation for Change button */
-    @keyframes rotateIcon {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(-180deg);
-      }
-    }
-
-    .rotate-on-hover:hover svg {
-      animation: rotateIcon 0.5s ease-in-out;
-    }
-
-    /* Keyboard navigation highlight */
-    .keyboard-nav-item.bg-blue-100 {
-      background-color: #dbeafe !important;
-      outline: 2px solid #3b82f6;
-      outline-offset: -2px;
-    }
-
-    /* Loading skeleton */
-    @keyframes shimmer {
-      0% {
-        background-position: -1000px 0;
-      }
-      100% {
-        background-position: 1000px 0;
-      }
-    }
-
-    .skeleton {
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-      background-size: 1000px 100%;
-      animation: shimmer 2s infinite;
-    }
-
-    /* Mobile touch improvements */
-    @media (hover: none) and (pointer: coarse) {
-      input,
-      button,
-      select {
-        font-size: 16px !important;
-      }
-    }
-
-    #hero-procedure-search:focus,
-    #hero-location:focus,
-    #modal-search-input:focus {
-      outline: none;
-    }
-
-    #hero-search-button:not(:disabled):active {
-      transform: scale(0.98);
-    }
-
-    /* Modal animations */
-    #modal-search-overlay.modal-opening #modal-backdrop {
-      opacity: 1;
-    }
-
-    #modal-search-overlay.modal-opening #modal-content {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    #modal-search-overlay.modal-closing #modal-backdrop {
       opacity: 0;
     }
+    to {
+      stroke-dashoffset: 0;
+      opacity: 0.8;
+    }
+  }
 
-    #modal-search-overlay.modal-closing #modal-content {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-
-    /* Custom scrollbar for modal */
-    #modal-results::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    #modal-results::-webkit-scrollbar-track {
-      background: #f1f5f9;
-      border-radius: 4px;
-    }
-
-    #modal-results::-webkit-scrollbar-thumb {
-      background: #003087;
-      border-radius: 4px;
-    }
-
-    #modal-results::-webkit-scrollbar-thumb:hover {
-      background: #002060;
-    }
-    .suggestion-chip {
-      @apply px-3 py-1.5 bg-white border border-gray-300 rounded-full text-sm text-gray-700 hover:border-[#003087] hover:bg-blue-50 transition-all duration-200;
-    }
-
-    .line-clamp-2 {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-  </style>
-</div>
+  .animate-draw-line {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: draw-line 1.5s ease-out 0.8s forwards;
+  }
+</style>
