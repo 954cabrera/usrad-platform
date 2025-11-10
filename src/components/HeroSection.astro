@@ -607,7 +607,7 @@ const { remixUrl } = Astro.props;
     for (const modality in lib) {
       for (const region in lib[modality]) {
         const entry = lib[modality][region];
-        const procedures = entry.procedures || [];
+        const procedures = entry.procedures || entry.viewOptions || [];
 
         procedures.forEach((proc) => {
           const searchText = normalizeText(
@@ -675,9 +675,8 @@ const { remixUrl } = Astro.props;
         const procedures = entry.procedures || [];
 
         procedures.forEach((proc) => {
-          const searchText = (
-            `${proc.label} ${modality} ${region} ${proc.cpt} ${(entry.matchKeywords || []).join(" ")}`
-          ).toLowerCase();
+          const searchText =
+            `${proc.label} ${modality} ${region} ${proc.cpt} ${(entry.matchKeywords || []).join(" ")}`.toLowerCase();
           if (searchText.includes(lowerQuery)) {
             results.push({
               label: proc.label,

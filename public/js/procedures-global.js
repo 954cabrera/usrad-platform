@@ -382,327 +382,419 @@ const MRI_PROCEDURES = {
 
 
     // ============================================
-    // VASCULAR IMAGING - MRA/MRV
-    // ============================================
+// VASCULAR IMAGING - MRA/MRV
+// ============================================
 
-    mraBrain: {
-      category: "MRA Brain",
-      icon: "brain",
-      categoryGroup: "vascular",
-      badge: "MRA",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "70544",
-          label: "MRA Brain - With Contrast",
-          shortLabel: "MRA Brain",
-          description: "Aneurysm or stenosis screening",
-          duration: "30-45 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Aneurysm detection, stroke evaluation, vascular malformations"
-        }
-      ]
-    },
-
-    mrvHead: {
-      category: "MRV Head (Venous)",
-      icon: "brain",
-      categoryGroup: "vascular",
-      badge: "MRV",
-      contrastMode: "optional",
-      procedures: [
-        {
-          cpt: "70545",
-          label: "MRV Head - Without Contrast",
-          shortLabel: "MRV Head - Without",
-          description: "Venous thrombosis evaluation",
-          duration: "30-45 min",
-          prep: "Remove metal objects",
-          useCase: "Venous sinus thrombosis, venous malformations"
-        },
-        {
-          cpt: "70546",
-          label: "MRV Head - With Contrast",
-          shortLabel: "MRV Head - With",
-          description: "Enhanced venous evaluation",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Detailed venous thrombosis assessment"
-        }
-      ]
-    },
-
-    mraNeck: {
-      category: "MRA Neck (Carotid)",
-      icon: "heart",
-      categoryGroup: "vascular",
-      badge: "MRA",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "70547",
-          label: "MRA Neck - With Contrast",
-          shortLabel: "MRA Neck",
-          description: "Carotid artery evaluation",
-          duration: "30-45 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Carotid stenosis, dissection, stroke prevention"
-        }
-      ]
-    },
-
-    mraChest: {
-      category: "MRA Chest / Aorta",
-      icon: "heart",
-      categoryGroup: "vascular",
-      badge: "MRA",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "71555",
-          label: "MRA Chest - With Contrast",
-          shortLabel: "MRA Chest",
-          description: "Thoracic aorta evaluation",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Aortic aneurysm, dissection, coarctation"
-        }
-      ]
-    },
-
-    mraAbdomen: {
-      category: "MRA Abdomen / Renal",
-      icon: "abdomen",
-      categoryGroup: "vascular",
-      badge: "MRA",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "74185",
-          label: "MRA Abdomen - With Contrast",
-          shortLabel: "MRA Abdomen",
-          description: "Renal artery stenosis evaluation",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Renal artery stenosis, mesenteric ischemia, abdominal aneurysm"
-        }
-      ]
-    },
-
-    mraPelvis: {
-      category: "MRA Pelvis",
-      icon: "bone",
-      categoryGroup: "vascular",
-      badge: "MRA",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "72198",
-          label: "MRA Pelvis - With Contrast",
-          shortLabel: "MRA Pelvis",
-          description: "Iliac vessel evaluation",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Iliac artery stenosis, pelvic vascular malformations"
-        }
-      ]
-    },
-
-    mraRunoff: {
-      category: "MRA Runoff (Legs)",
-      icon: "leg",
-      categoryGroup: "vascular",
-      badge: "MRA",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "73725",
-          label: "MRA Lower Extremities - With Contrast",
-          shortLabel: "MRA Runoff",
-          description: "Peripheral vascular disease evaluation",
-          duration: "60-75 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Peripheral artery disease, claudication, limb ischemia"
-        }
-      ]
-    },
-
-    mraSpine: {
-      category: "MRA Spine",
-      icon: "spine",
-      categoryGroup: "vascular",
-      badge: "MRA",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "72159",
-          label: "MRA Spine - With Contrast",
-          shortLabel: "MRA Spine",
-          description: "Spinal cord vascular evaluation",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Spinal vascular malformations, AVMs, dural fistulas"
-        }
-      ]
-    },
-
-    // ============================================
-    // SPECIALIZED MRI - ARTHROGRAMS
-    // ============================================
-
-    arthrogramShoulder: {
-      category: "MRI Shoulder Arthrogram",
-      icon: "shoulder",
-      categoryGroup: "specialized",
-      badge: "Arthrogram",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "73222",
-          label: "MRI Shoulder Arthrogram - With Contrast",
-          shortLabel: "Shoulder Arthrogram",
-          description: "Fluoro-guided contrast injection into shoulder joint",
-          duration: "45-60 min",
-          prep: "Fluoroscopy-guided injection, then immediate MRI",
-          useCase: "Labral tears, rotator cuff evaluation, capsular injury"
-        }
-      ]
-    },
-
-    arthrogramKnee: {
-      category: "MRI Knee Arthrogram",
-      icon: "knee",
-      categoryGroup: "specialized",
-      badge: "Arthrogram",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "73722",
-          label: "MRI Knee Arthrogram - With Contrast",
-          shortLabel: "Knee Arthrogram",
-          description: "Fluoro-guided contrast injection into knee joint",
-          duration: "45-60 min",
-          prep: "Fluoroscopy-guided injection, then immediate MRI",
-          useCase: "Meniscal tears, ligament evaluation, cartilage assessment"
-        }
-      ]
-    },
-
-    // ============================================
-    // SPECIALIZED MRI - BREAST
-    // ============================================
-
-    mriBreast: {
-      category: "MRI Breast (CAD)",
-      icon: "breast",
-      categoryGroup: "specialized",
-      badge: "Specialized",
-      contrastMode: "manual",
-      procedures: [
-        {
-          cpt: "77046",
-          label: "MRI Breast - Without Contrast",
-          shortLabel: "Breast - Without",
-          description: "High-risk screening without contrast",
-          duration: "30-45 min",
-          prep: "No metal bra, avoid week before period",
-          useCase: "Initial screening, contrast allergy"
-        },
-        {
-          cpt: "77047",
-          label: "MRI Breast - With Contrast",
-          shortLabel: "Breast - With",
-          description: "High-risk screening and cancer staging",
-          duration: "45-60 min",
-          prep: "IV contrast, no metal bra",
-          useCase: "High-risk screening, cancer staging, implant evaluation"
-        },
-        {
-          cpt: "77048",
-          label: "MRI Breast - With & Without Contrast",
-          shortLabel: "Breast - Both",
-          description: "Comprehensive breast evaluation",
-          duration: "60-75 min",
-          prep: "IV contrast, no metal bra",
-          useCase: "Complex cases, cancer staging, post-treatment surveillance"
-        }
-      ]
-    },
-
-    // ============================================
-    // SPECIALIZED MRI - FUNCTIONAL / METABOLIC
-    // ============================================
-
-    spectroscopy: {
-      category: "MR Spectroscopy (MRS)",
-      icon: "brain",
-      categoryGroup: "specialized",
-      badge: "MRS",
-      contrastMode: "none",
-      procedures: [
-        {
-          cpt: "76390",
-          label: "MR Spectroscopy - Without Contrast",
-          shortLabel: "MR Spectroscopy",
-          description: "Metabolic brain analysis (non-contrast)",
-          duration: "45-60 min",
-          prep: "Standard MRI prep, remove metal",
-          useCase: "Brain tumor characterization, metabolic disorders, dementia evaluation"
-        }
-      ]
-    },
-
-    elastography: {
-      category: "MR Elastography (MRE)",
-      icon: "liver",
-      categoryGroup: "specialized",
-      badge: "MRE",
-      contrastMode: "none",
-      procedures: [
-        {
-          cpt: "76391",
-          label: "MR Elastography - Without Contrast",
-          shortLabel: "MR Elastography",
-          description: "Liver fibrosis evaluation (non-contrast)",
-          duration: "45-60 min",
-          prep: "Fasting 4 hours, passive driver placed on abdomen",
-          useCase: "Liver fibrosis staging, chronic liver disease, cirrhosis evaluation"
-        }
-      ]
+mraBrain: {
+  category: "MRA Brain",
+  icon: "brain",
+  categoryGroup: "vascular",
+  badge: "🧠 MRA",
+  contrastMode: "auto",
+  matchKeywords: [
+    "mra brain",
+    "brain vessels",
+    "aneurysm",
+    "stroke",
+    "vascular malformation",
+    "angiogram brain",
+    "cerebral arteries"
+  ],
+  procedures: [
+    {
+      cpt: "70544",
+      label: "MRA Brain - With Contrast",
+      shortLabel: "MRA Brain",
+      description: "Aneurysm or stenosis screening",
+      duration: "30-45 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Aneurysm detection, stroke evaluation, vascular malformations"
     }
-  };
+  ]
+},
 
-  /**
- * ENHANCED CT PROCEDURES - COMPLETE DATASET
- * ==========================================
- * Includes Standard CT, CTA (Vascular Imaging), and Specialized Screening
- * 
- * Category Groups:
- * - standard: Diagnostic CT scans (Head, Chest, Abdomen, Spine, etc.)
- * - vascular: CTA procedures for blood vessel evaluation
- * - screening: Preventive and wellness screening (Lung, Cardiac, Colonoscopy)
- * 
- * New Metadata Fields:
- * - categoryGroup: 'standard' | 'vascular' | 'screening'
- * - displayIn: Array of where to show (e.g., ['torso', 'vascular', 'screening'])
- * - tags: Array of search keywords
- * - clinicalIndication: Patient-friendly description of why this scan is done
- * - isScreening: Boolean flag for screening procedures
- * - isVascular: Boolean flag for CTA procedures
- * - helperText: Optional education line for screening items
- */
+mrvHead: {
+  category: "MRV Head (Venous)",
+  icon: "brain",
+  categoryGroup: "vascular",
+  badge: "🩸 MRV",
+  contrastMode: "optional",
+  matchKeywords: [
+    "mrv head",
+    "venous thrombosis",
+    "brain veins",
+    "sinus thrombosis",
+    "vascular malformation"
+  ],
+  procedures: [
+    {
+      cpt: "70545",
+      label: "MRV Head - Without Contrast",
+      shortLabel: "MRV Head - Without",
+      description: "Venous thrombosis evaluation",
+      duration: "30-45 min",
+      prep: "Remove metal objects",
+      useCase: "Venous sinus thrombosis, venous malformations"
+    },
+    {
+      cpt: "70546",
+      label: "MRV Head - With Contrast",
+      shortLabel: "MRV Head - With",
+      description: "Enhanced venous evaluation",
+      duration: "45-60 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Detailed venous thrombosis assessment"
+    }
+  ]
+},
+
+mraNeck: {
+  category: "MRA Neck (Carotid)",
+  icon: "heart",
+  categoryGroup: "vascular",
+  badge: "🧠 MRA",
+  contrastMode: "auto",
+  matchKeywords: [
+    "mra neck",
+    "carotid",
+    "neck vessels",
+    "stroke prevention",
+    "dissection",
+    "stenosis"
+  ],
+  procedures: [
+    {
+      cpt: "70547",
+      label: "MRA Neck - With Contrast",
+      shortLabel: "MRA Neck",
+      description: "Carotid artery evaluation",
+      duration: "30-45 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Carotid stenosis, dissection, stroke prevention"
+    }
+  ]
+},
+
+mraChest: {
+  category: "MRA Chest / Aorta",
+  icon: "heart",
+  categoryGroup: "vascular",
+  badge: "🧠 MRA",
+  contrastMode: "auto",
+  matchKeywords: [
+    "mra chest",
+    "thoracic aorta",
+    "aortic aneurysm",
+    "dissection",
+    "coarctation",
+    "vascular chest"
+  ],
+  procedures: [
+    {
+      cpt: "71555",
+      label: "MRA Chest - With Contrast",
+      shortLabel: "MRA Chest",
+      description: "Thoracic aorta evaluation",
+      duration: "45-60 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Aortic aneurysm, dissection, coarctation"
+    }
+  ]
+},
+
+mraAbdomen: {
+  category: "MRA Abdomen / Renal",
+  icon: "abdomen",
+  categoryGroup: "vascular",
+  badge: "🧠 MRA",
+  contrastMode: "auto",
+  matchKeywords: [
+    "mra abdomen",
+    "renal arteries",
+    "abdominal aorta",
+    "mesenteric ischemia",
+    "aneurysm"
+  ],
+  procedures: [
+    {
+      cpt: "74185",
+      label: "MRA Abdomen - With Contrast",
+      shortLabel: "MRA Abdomen",
+      description: "Renal artery stenosis evaluation",
+      duration: "45-60 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Renal artery stenosis, mesenteric ischemia, abdominal aneurysm"
+    }
+  ]
+},
+
+mraPelvis: {
+  category: "MRA Pelvis",
+  icon: "bone",
+  categoryGroup: "vascular",
+  badge: "🧠 MRA",
+  contrastMode: "auto",
+  matchKeywords: [
+    "mra pelvis",
+    "iliac artery",
+    "pelvic vessels",
+    "vascular malformation"
+  ],
+  procedures: [
+    {
+      cpt: "72198",
+      label: "MRA Pelvis - With Contrast",
+      shortLabel: "MRA Pelvis",
+      description: "Iliac vessel evaluation",
+      duration: "45-60 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Iliac artery stenosis, pelvic vascular malformations"
+    }
+  ]
+},
+
+mraRunoff: {
+  category: "MRA Runoff (Legs)",
+  icon: "leg",
+  categoryGroup: "vascular",
+  badge: "🧠 MRA",
+  contrastMode: "auto",
+  matchKeywords: [
+    "mra legs",
+    "runoff",
+    "peripheral artery disease",
+    "claudication",
+    "limb ischemia"
+  ],
+  procedures: [
+    {
+      cpt: "73725",
+      label: "MRA Lower Extremities - With Contrast",
+      shortLabel: "MRA Runoff",
+      description: "Peripheral vascular disease evaluation",
+      duration: "60-75 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Peripheral artery disease, claudication, limb ischemia"
+    }
+  ]
+},
+
+mraSpine: {
+  category: "MRA Spine",
+  icon: "spine",
+  categoryGroup: "vascular",
+  badge: "🧠 MRA",
+  contrastMode: "auto",
+  matchKeywords: [
+    "mra spine",
+    "spinal cord vessels",
+    "avm",
+    "dural fistula",
+    "spinal vascular"
+  ],
+  procedures: [
+    {
+      cpt: "72159",
+      label: "MRA Spine - With Contrast",
+      shortLabel: "MRA Spine",
+      description: "Spinal cord vascular evaluation",
+      duration: "45-60 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Spinal vascular malformations, AVMs, dural fistulas"
+    }
+  ]
+},
+
+// ============================================
+// SPECIALIZED MRI - ARTHROGRAMS
+// ============================================
+
+arthrogramShoulder: {
+  category: "MRI Shoulder Arthrogram",
+  icon: "shoulder",
+  categoryGroup: "specialized",
+  badge: "💉 Arthrogram",
+  contrastMode: "auto",
+  matchKeywords: [
+    "shoulder arthrogram",
+    "labrum",
+    "rotator cuff",
+    "joint injection",
+    "capsule injury"
+  ],
+  procedures: [
+    {
+      cpt: "73222",
+      label: "MRI Shoulder Arthrogram - With Contrast",
+      shortLabel: "Shoulder Arthrogram",
+      description: "Fluoro-guided contrast injection into shoulder joint",
+      duration: "45-60 min",
+      prep: "Fluoroscopy-guided injection, then immediate MRI",
+      useCase: "Labral tears, rotator cuff evaluation, capsular injury"
+    }
+  ]
+},
+
+arthrogramKnee: {
+  category: "MRI Knee Arthrogram",
+  icon: "knee",
+  categoryGroup: "specialized",
+  badge: "💉 Arthrogram",
+  contrastMode: "auto",
+  matchKeywords: [
+    "knee arthrogram",
+    "meniscus tear",
+    "cartilage",
+    "ligament",
+    "joint injection"
+  ],
+  procedures: [
+    {
+      cpt: "73722",
+      label: "MRI Knee Arthrogram - With Contrast",
+      shortLabel: "Knee Arthrogram",
+      description: "Fluoro-guided contrast injection into knee joint",
+      duration: "45-60 min",
+      prep: "Fluoroscopy-guided injection, then immediate MRI",
+      useCase: "Meniscal tears, ligament evaluation, cartilage assessment"
+    }
+  ]
+},
+
+// ============================================
+// SPECIALIZED MRI - BREAST
+// ============================================
+
+mriBreast: {
+  category: "MRI Breast (CAD)",
+  icon: "breast",
+  categoryGroup: "specialized",
+  badge: "🎗️ Breast MRI",
+  contrastMode: "manual",
+  matchKeywords: [
+    "breast mri",
+    "breast cancer",
+    "implant",
+    "dense breasts",
+    "high risk screening"
+  ],
+  procedures: [
+    {
+      cpt: "77046",
+      label: "MRI Breast - Without Contrast",
+      shortLabel: "Breast - Without",
+      description: "High-risk screening without contrast",
+      duration: "30-45 min",
+      prep: "No metal bra, avoid week before period",
+      useCase: "Initial screening, contrast allergy"
+    },
+    {
+      cpt: "77047",
+      label: "MRI Breast - With Contrast",
+      shortLabel: "Breast - With",
+      description: "High-risk screening and cancer staging",
+      duration: "45-60 min",
+      prep: "IV contrast, no metal bra",
+      useCase: "High-risk screening, cancer staging, implant evaluation"
+    },
+    {
+      cpt: "77048",
+      label: "MRI Breast - With & Without Contrast",
+      shortLabel: "Breast - Both",
+      description: "Comprehensive breast evaluation",
+      duration: "60-75 min",
+      prep: "IV contrast, no metal bra",
+      useCase: "Complex cases, cancer staging, post-treatment surveillance"
+    }
+  ]
+},
+
+// ============================================
+// SPECIALIZED MRI - FUNCTIONAL / METABOLIC
+// ============================================
+
+spectroscopy: {
+  category: "MR Spectroscopy (MRS)",
+  icon: "brain",
+  categoryGroup: "specialized",
+  badge: "🧪 MRS",
+  contrastMode: "none",
+  matchKeywords: [
+    "mr spectroscopy",
+    "metabolic",
+    "brain chemistry",
+    "tumor analysis",
+    "dementia"
+  ],
+  procedures: [
+    {
+      cpt: "76390",
+      label: "MR Spectroscopy - Without Contrast",
+      shortLabel: "MR Spectroscopy",
+      description: "Metabolic brain analysis (non-contrast)",
+      duration: "45-60 min",
+      prep: "Standard MRI prep, remove metal",
+      useCase: "Brain tumor characterization, metabolic disorders, dementia evaluation"
+    }
+  ]
+},
+
+elastography: {
+  category: "MR Elastography (MRE)",
+  icon: "liver",
+  categoryGroup: "specialized",
+  badge: "🧪 MRE",
+  contrastMode: "none",
+  matchKeywords: [
+    "mr elastography",
+    "liver stiffness",
+    "fibrosis",
+    "cirrhosis",
+    "mre"
+  ],
+  procedures: [
+    {
+      cpt: "76391",
+      label: "MR Elastography - Without Contrast",
+      shortLabel: "MR Elastography",
+      description: "Liver fibrosis evaluation (non-contrast)",
+      duration: "45-60 min",
+      prep: "Fasting 4 hours, passive driver placed on abdomen",
+      useCase: "Liver fibrosis staging, chronic liver disease, cirrhosis evaluation"
+    }
+  ]
+}  // ✅ closes elastography entry
+}; // ✅ closes MRI_PROCEDURES object
+
+
+  // ============================================
+// ENHANCED CT PROCEDURES - COMPLETE DATASET (with matchKeywords)
+// ============================================
 
 const CT_PROCEDURES = {
-  
+
   // ============================================
   // STANDARD CT - HEAD & NECK
   // ============================================
-  
+
   head: {
     category: "Head / Brain",
     icon: "brain",
     categoryGroup: "standard",
     displayIn: ["head", "brain"],
+    matchKeywords: [
+      "brain",
+      "head",
+      "stroke",
+      "bleeding",
+      "trauma",
+      "headache",
+      "concussion",
+      "seizure",
+      "brain injury",
+      "head ct",
+      "ct brain"
+    ],
     procedures: [
       {
         cpt: "70450",
@@ -742,6 +834,16 @@ const CT_PROCEDURES = {
     icon: "sinuses",
     categoryGroup: "standard",
     displayIn: ["head"],
+    matchKeywords: [
+      "sinus",
+      "sinusitis",
+      "sinus infection",
+      "nasal polyps",
+      "sinus pressure",
+      "facial pain",
+      "sinus ct",
+      "ct sinus"
+    ],
     procedures: [
       {
         cpt: "70486",
@@ -761,6 +863,16 @@ const CT_PROCEDURES = {
     icon: "neck",
     categoryGroup: "standard",
     displayIn: ["head"],
+    matchKeywords: [
+      "neck",
+      "throat",
+      "lymph node",
+      "neck mass",
+      "thyroid",
+      "airway",
+      "neck ct",
+      "soft tissue neck"
+    ],
     procedures: [
       {
         cpt: "70490",
@@ -788,12 +900,25 @@ const CT_PROCEDURES = {
   // ============================================
   // STANDARD CT - TORSO
   // ============================================
-  
+
   chest: {
     category: "Chest",
     icon: "chest",
     categoryGroup: "standard",
     displayIn: ["torso"],
+    matchKeywords: [
+      "chest",
+      "lungs",
+      "pneumonia",
+      "covid",
+      "pulmonary embolism",
+      "lung cancer",
+      "mediastinum",
+      "chest pain",
+      "shortness of breath",
+      "ct chest",
+      "lung ct"
+    ],
     procedures: [
       {
         cpt: "71250",
@@ -833,6 +958,19 @@ const CT_PROCEDURES = {
     icon: "abdomen",
     categoryGroup: "standard",
     displayIn: ["torso"],
+    matchKeywords: [
+      "abdomen",
+      "stomach",
+      "abdominal pain",
+      "appendicitis",
+      "kidney stones",
+      "liver",
+      "pancreas",
+      "gallbladder",
+      "appendix",
+      "diverticulitis",
+      "ct abdomen"
+    ],
     procedures: [
       {
         cpt: "74150",
@@ -872,6 +1010,18 @@ const CT_PROCEDURES = {
     icon: "pelvis",
     categoryGroup: "standard",
     displayIn: ["torso"],
+    matchKeywords: [
+      "pelvis",
+      "hip",
+      "bladder",
+      "ovaries",
+      "uterus",
+      "prostate",
+      "pelvic pain",
+      "stones",
+      "pelvic fracture",
+      "ct pelvis"
+    ],
     procedures: [
       {
         cpt: "72192",
@@ -911,6 +1061,16 @@ const CT_PROCEDURES = {
     icon: "abdomen",
     categoryGroup: "standard",
     displayIn: ["torso"],
+    matchKeywords: [
+      "abdomen",
+      "pelvis",
+      "kidney stones",
+      "appendicitis",
+      "bowel obstruction",
+      "abdominal pain",
+      "diverticulitis",
+      "ct abdomen pelvis"
+    ],
     procedures: [
       {
         cpt: "74176",
@@ -945,15 +1105,20 @@ const CT_PROCEDURES = {
     ]
   },
 
-  // ============================================
-  // STANDARD CT - SPINE
-  // ============================================
-
   cervicalSpine: {
     category: "Cervical Spine (Neck)",
     icon: "spine",
     categoryGroup: "standard",
     displayIn: ["spine"],
+    matchKeywords: [
+      "neck",
+      "cervical spine",
+      "whiplash",
+      "fracture",
+      "neck trauma",
+      "c spine",
+      "spine ct"
+    ],
     procedures: [
       {
         cpt: "72125",
@@ -983,6 +1148,15 @@ const CT_PROCEDURES = {
     icon: "spine",
     categoryGroup: "standard",
     displayIn: ["spine"],
+    matchKeywords: [
+      "thoracic spine",
+      "mid back",
+      "upper back",
+      "compression fracture",
+      "t spine",
+      "spine fracture",
+      "back ct"
+    ],
     procedures: [
       {
         cpt: "72128",
@@ -1012,6 +1186,17 @@ const CT_PROCEDURES = {
     icon: "spine",
     categoryGroup: "standard",
     displayIn: ["spine"],
+    matchKeywords: [
+      "lumbar spine",
+      "low back",
+      "lower back",
+      "back pain",
+      "sciatica",
+      "l spine",
+      "spinal stenosis",
+      "disc fracture",
+      "spine ct"
+    ],
     procedures: [
       {
         cpt: "72131",
@@ -1036,7 +1221,8 @@ const CT_PROCEDURES = {
     ]
   },
 
-  // ============================================
+
+    // ============================================
   // CTA - VASCULAR IMAGING (HEAD & NECK)
   // ============================================
 
@@ -1046,7 +1232,18 @@ const CT_PROCEDURES = {
     categoryGroup: "vascular",
     displayIn: ["head", "vascular"],
     isVascular: true,
-    badge: "ðŸ’“ CTA",
+    badge: "🩸 CTA",
+    matchKeywords: [
+      "cta head",
+      "cta neck",
+      "brain vessels",
+      "carotid artery",
+      "stroke",
+      "aneurysm",
+      "vascular imaging",
+      "angiogram head",
+      "angiogram neck"
+    ],
     procedures: [
       {
         cpt: "70496",
@@ -1056,8 +1253,8 @@ const CT_PROCEDURES = {
         duration: "15-20 min",
         prep: "IV contrast, kidney function check",
         useCase: "Aneurysm detection, stroke evaluation, vascular abnormalities",
-        clinicalIndication: "Angiography of brain blood vessels for aneurysm, stroke, and vascular malformations",
-        isVascular: true,
+        clinicalIndication:
+          "Angiography of brain blood vessels for aneurysm, stroke, and vascular malformations",
         tags: ["angiogram", "aneurysm", "stroke", "vascular", "brain vessels"]
       },
       {
@@ -1068,8 +1265,8 @@ const CT_PROCEDURES = {
         duration: "15-20 min",
         prep: "IV contrast, kidney function check",
         useCase: "Carotid stenosis, dissection, pre-stroke workup",
-        clinicalIndication: "Angiography of neck blood vessels for carotid stenosis and dissection",
-        isVascular: true,
+        clinicalIndication:
+          "Angiography of neck blood vessels for carotid stenosis and dissection",
         tags: ["carotid", "angiogram", "stenosis", "dissection", "neck vessels"]
       }
     ]
@@ -1085,7 +1282,16 @@ const CT_PROCEDURES = {
     categoryGroup: "vascular",
     displayIn: ["torso", "vascular"],
     isVascular: true,
-    badge: "ðŸ’“ CTA",
+    badge: "🩸 CTA",
+    matchKeywords: [
+      "cta chest",
+      "pulmonary embolism",
+      "pe scan",
+      "aortic dissection",
+      "aneurysm",
+      "lung arteries",
+      "chest vessels"
+    ],
     procedures: [
       {
         cpt: "71275",
@@ -1095,8 +1301,8 @@ const CT_PROCEDURES = {
         duration: "15-20 min",
         prep: "IV contrast, kidney function check, breath holding",
         useCase: "Pulmonary embolism (PE), aortic dissection, aneurysm",
-        clinicalIndication: "Angiography for pulmonary embolism detection and aortic evaluation",
-        isVascular: true,
+        clinicalIndication:
+          "Angiography for pulmonary embolism detection and aortic evaluation",
         tags: ["pulmonary embolism", "PE", "aortic dissection", "aneurysm", "chest vessels"]
       }
     ]
@@ -1108,7 +1314,16 @@ const CT_PROCEDURES = {
     categoryGroup: "vascular",
     displayIn: ["torso", "vascular"],
     isVascular: true,
-    badge: "ðŸ’“ CTA",
+    badge: "🩸 CTA",
+    matchKeywords: [
+      "cta coronary",
+      "heart scan",
+      "cta heart",
+      "coronary angiogram",
+      "chest pain",
+      "coronary arteries",
+      "bypass graft"
+    ],
     procedures: [
       {
         cpt: "75574",
@@ -1118,8 +1333,8 @@ const CT_PROCEDURES = {
         duration: "20-30 min",
         prep: "IV contrast, beta blockers, heart rate control",
         useCase: "Coronary artery disease, chest pain evaluation, bypass graft assessment",
-        clinicalIndication: "Non-invasive angiography of coronary arteries for blockage detection",
-        isVascular: true,
+        clinicalIndication:
+          "Non-invasive angiography of coronary arteries for blockage detection",
         tags: ["coronary", "heart", "cardiac", "angiogram", "chest pain", "CAD"]
       }
     ]
@@ -1135,7 +1350,15 @@ const CT_PROCEDURES = {
     categoryGroup: "vascular",
     displayIn: ["torso", "vascular"],
     isVascular: true,
-    badge: "ðŸ’“ CTA",
+    badge: "🩸 CTA",
+    matchKeywords: [
+      "cta abdomen",
+      "aortic aneurysm",
+      "AAA",
+      "mesenteric ischemia",
+      "renal artery",
+      "abdominal vessels"
+    ],
     procedures: [
       {
         cpt: "74175",
@@ -1145,8 +1368,8 @@ const CT_PROCEDURES = {
         duration: "20-25 min",
         prep: "IV contrast, kidney function check",
         useCase: "AAA evaluation, mesenteric ischemia, renal artery stenosis",
-        clinicalIndication: "Angiography of abdominal vessels for aneurysm and vascular disease",
-        isVascular: true,
+        clinicalIndication:
+          "Angiography of abdominal vessels for aneurysm and vascular disease",
         tags: ["aortic aneurysm", "AAA", "mesenteric", "renal artery", "abdominal vessels"]
       }
     ]
@@ -1162,7 +1385,16 @@ const CT_PROCEDURES = {
     categoryGroup: "vascular",
     displayIn: ["extremities", "vascular"],
     isVascular: true,
-    badge: "ðŸ’“ CTA",
+    badge: "🩸 CTA",
+    matchKeywords: [
+      "cta leg",
+      "cta arm",
+      "peripheral artery disease",
+      "PAD",
+      "claudication",
+      "runoff",
+      "vascular legs"
+    ],
     procedures: [
       {
         cpt: "73706",
@@ -1172,8 +1404,8 @@ const CT_PROCEDURES = {
         duration: "20-30 min",
         prep: "IV contrast, kidney function check",
         useCase: "Peripheral artery disease, leg claudication, pre-surgical planning",
-        clinicalIndication: "Angiography of leg arteries for peripheral artery disease evaluation",
-        isVascular: true,
+        clinicalIndication:
+          "Angiography of leg arteries for peripheral artery disease evaluation",
         tags: ["peripheral artery disease", "PAD", "claudication", "leg vessels", "run-off"]
       },
       {
@@ -1184,8 +1416,8 @@ const CT_PROCEDURES = {
         duration: "15-20 min",
         prep: "IV contrast, kidney function check",
         useCase: "Arm arterial disease, thoracic outlet syndrome, vascular malformations",
-        clinicalIndication: "Angiography of arm arteries for vascular abnormalities",
-        isVascular: true,
+        clinicalIndication:
+          "Angiography of arm arteries for vascular abnormalities",
         tags: ["arm vessels", "thoracic outlet", "upper extremity"]
       }
     ]
@@ -1201,7 +1433,16 @@ const CT_PROCEDURES = {
     categoryGroup: "screening",
     displayIn: ["screening", "torso"],
     isScreening: true,
-    badge: "â­ Screening",
+    badge: "⭐ Screening",
+    matchKeywords: [
+      "lung screening",
+      "low dose ct",
+      "LDCT",
+      "lung cancer",
+      "preventive scan",
+      "smoker screening",
+      "annual scan"
+    ],
     procedures: [
       {
         cpt: "71271",
@@ -1211,8 +1452,8 @@ const CT_PROCEDURES = {
         duration: "5-10 min",
         prep: "None required - no contrast",
         useCase: "Annual lung cancer screening for high-risk patients",
-        clinicalIndication: "Low-dose CT for early lung cancer detection in high-risk patients",
-        isScreening: true,
+        clinicalIndication:
+          "Low-dose CT for early lung cancer detection in high-risk patients",
         helperText: "Annual screening for ages 50-80 with smoking history",
         tags: ["screening", "preventive", "lung cancer", "LDCT", "low dose"]
       }
@@ -1225,7 +1466,15 @@ const CT_PROCEDURES = {
     categoryGroup: "screening",
     displayIn: ["screening", "torso"],
     isScreening: true,
-    badge: "â­ Screening",
+    badge: "⭐ Screening",
+    matchKeywords: [
+      "calcium score",
+      "heart screening",
+      "cardiac risk",
+      "heart disease prevention",
+      "coronary calcium",
+      "preventive scan"
+    ],
     procedures: [
       {
         cpt: "75571",
@@ -1235,8 +1484,8 @@ const CT_PROCEDURES = {
         duration: "10-15 min",
         prep: "None required - no contrast",
         useCase: "Cardiovascular risk assessment, preventive cardiology",
-        clinicalIndication: "Quantifies coronary calcium to assess cardiovascular disease risk",
-        isScreening: true,
+        clinicalIndication:
+          "Quantifies coronary calcium to assess cardiovascular disease risk",
         helperText: "Risk assessment for heart disease - no contrast needed",
         tags: ["screening", "preventive", "calcium score", "heart disease", "cardiac risk"]
       }
@@ -1249,7 +1498,15 @@ const CT_PROCEDURES = {
     categoryGroup: "screening",
     displayIn: ["screening", "torso"],
     isScreening: true,
-    badge: "â­ Screening",
+    badge: "⭐ Screening",
+    matchKeywords: [
+      "colon screening",
+      "colon cancer",
+      "virtual colonoscopy",
+      "colonography",
+      "polyps",
+      "ct colon"
+    ],
     procedures: [
       {
         cpt: "74263",
@@ -1259,45 +1516,54 @@ const CT_PROCEDURES = {
         duration: "20-30 min",
         prep: "Bowel preparation required, no sedation",
         useCase: "Colon cancer screening, alternative to optical colonoscopy",
-        clinicalIndication: "Non-invasive colon imaging for polyp and cancer detection",
-        isScreening: true,
+        clinicalIndication:
+          "Non-invasive colon imaging for polyp and cancer detection",
         helperText: "Colon cancer screening ages 45+ - no sedation required",
         tags: ["screening", "preventive", "colon cancer", "colonography", "polyps"]
       }
     ]
   },
 
-  screeningCoronary: {        // âœ… Correct name
-  category: "Coronary CTA Screening",
-  icon: "heart",
-  categoryGroup: "screening",
-  displayIn: ["screening", "vascular"],  // âœ… Added "vascular"
-  isVascular: true,         // âœ… NEW - marks as CTA
-  isScreening: true,
-  badge: "ðŸ’“ CTA",           // âœ… Matches other CTA procedures
-  procedures: [
-    {
-      cpt: "75574",         // âœ… Correct CTA coronary code
-      label: "CTA Coronary Arteries - Screening",
-      shortLabel: "Heart CTA",
-      description: "Non-invasive coronary artery evaluation",
-      duration: "20-30 min",
-      prep: "IV contrast required, heart rate control, beta blockers",  // âœ… Correct for CTA
-      useCase: "Chest pain evaluation, family history of heart disease",
-      clinicalIndication: "Coronary CTA for non-invasive cardiac assessment",
-      isVascular: true,     // âœ… NEW
-      isScreening: true,
-      helperText: "Non-invasive heart evaluation",
-      tags: ["coronary", "heart screening", "cta", "cardiac"]
-    }
-  ]
-}
-};
+  screeningCoronary: {
+    category: "Coronary CTA Screening",
+    icon: "heart",
+    categoryGroup: "screening",
+    displayIn: ["screening", "vascular"],
+    isVascular: true,
+    isScreening: true,
+    badge: "🩸 CTA",
+    matchKeywords: [
+      "heart screening",
+      "cta heart",
+      "cta coronary",
+      "coronary arteries",
+      "heart scan",
+      "chest pain"
+    ],
+    procedures: [
+      {
+        cpt: "75574",
+        label: "CTA Coronary Arteries - Screening",
+        shortLabel: "Heart CTA",
+        description: "Non-invasive coronary artery evaluation",
+        duration: "20-30 min",
+        prep: "IV contrast required, heart rate control, beta blockers",
+        useCase: "Chest pain evaluation, family history of heart disease",
+        clinicalIndication: "Coronary CTA for non-invasive cardiac assessment",
+        helperText: "Non-invasive heart evaluation",
+        tags: ["coronary", "heart screening", "cta", "cardiac"]
+      }
+        ]
+  }   // ← closes screeningCoronary
+};    // ✅ closes CT_PROCEDURES object
 
-// Export for use
+// ============================================
+// EXPORT / GLOBAL ATTACHMENT
+// ============================================
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { CT_PROCEDURES };
 }
+
 
   // ============================================
 // X-RAY PROCEDURES - COMPLETE REFERENCE (ENHANCED)
