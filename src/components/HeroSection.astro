@@ -307,6 +307,7 @@ const { remixUrl } = Astro.props;
                       d="M5 13l4 4L19 7"></path>
                   </svg>
                 </div>
+
                 <div class="flex-1 min-w-0">
                   <p class="text-xs font-medium text-gray-500 mb-0.5">
                     Selected Procedure
@@ -316,7 +317,14 @@ const { remixUrl } = Astro.props;
                     class="text-base font-semibold text-gray-900 truncate"
                   >
                   </p>
+
+                  <!-- ✅ Move reassurance line here -->
+                  <p class="text-xs text-gray-500 mt-1 leading-snug">
+                    You’ll compare prices and book instantly — no payment until
+                    appointment is confirmed.
+                  </p>
                 </div>
+
                 <button
                   type="button"
                   id="change-procedure-button"
@@ -1233,6 +1241,32 @@ const { remixUrl } = Astro.props;
     }
   });
 
+  // --- Confirmation animation for selected procedure ---
+  function animateProcedureConfirmation() {
+    const checkIcon = document
+      .querySelector("#selected-procedure-display")
+      ?.closest(".flex")
+      .querySelector(".bg-green-500");
+
+    const label = document.getElementById("selected-procedure-display");
+
+    if (checkIcon) {
+      // reset animation so it can replay cleanly each time
+      checkIcon.classList.remove("procedure-confirmed");
+      void checkIcon.offsetWidth; // force reflow
+      checkIcon.classList.add("procedure-confirmed");
+    }
+
+    if (label) label.classList.add("fade-in");
+  }
+
+  // Hook into existing selection handler safely
+  const originalHandle = handleProcedureSelection;
+  handleProcedureSelection = function (procedure) {
+    originalHandle(procedure);
+    setTimeout(animateProcedureConfirmation, 200);
+  };
+
   async function detectZIP() {
     const inputs = [zipInput, zipInputMobile].filter(Boolean);
     if (inputs.length === 0) return;
@@ -1333,6 +1367,9 @@ const { remixUrl } = Astro.props;
 </script>
 
 <style>
+  /* ============================================
+     SVG line animation for decorative icons
+  ============================================ */
   @keyframes draw-line {
     from {
       stroke-dashoffset: 200;
@@ -1350,10 +1387,16 @@ const { remixUrl } = Astro.props;
     animation: draw-line 1.5s ease-out 0.8s forwards;
   }
 
-  /* Force dropdown above everything */
+  /* ============================================
+     Search Dropdown Layer & Transitions
+  ============================================ */
   #search-dropdown {
     z-index: 9999 !important;
     isolation: isolate;
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease;
+    will-change: opacity, transform;
 
     /* Depth & polish */
     box-shadow:
@@ -1366,7 +1409,31 @@ const { remixUrl } = Astro.props;
     background-color: rgba(255, 255, 255, 0.9);
   }
 
-  /* Animated gold highlight for matched text */
+  #search-dropdown.hidden {
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+  }
+
+  #search-dropdown:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #search-dropdown::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.9), transparent);
+    pointer-events: none;
+  }
+
+  /* ============================================
+     Highlighted text inside search results
+  ============================================ */
   @keyframes fade-highlight {
     from {
       background-color: rgba(204, 153, 51, 0);
@@ -1402,31 +1469,43 @@ const { remixUrl } = Astro.props;
     transition: opacity 0.25s ease-in-out;
   }
 
-  /* Smooth dropdown enter/exit */
-  #search-dropdown {
-    transition:
-      opacity 0.15s ease,
-      transform 0.15s ease;
-    will-change: opacity, transform;
-  }
-  #search-dropdown.hidden {
-    opacity: 0;
-    transform: translateY(-4px);
-    pointer-events: none; /* prevents accidental hover when hidden */
-  }
-  #search-dropdown:not(.hidden) {
-    opacity: 1;
-    transform: translateY(0);
+  /* ============================================
+     Stronger Confirmation Pulse (Visible + Tactile)
+  ============================================ */
+  @keyframes confirmPulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); /* bright emerald green */
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+      transform: scale(1.08);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+      transform: scale(1);
+    }
   }
 
-  #search-dropdown::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 8px;
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.9), transparent);
-    pointer-events: none;
+  .procedure-confirmed {
+    animation: confirmPulse 0.8s ease-out;
+  }
+
+  /* ============================================
+     Fade-In Utility (for labels/text)
+  ============================================ */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(3px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.25s ease-out forwards;
   }
 </style>
