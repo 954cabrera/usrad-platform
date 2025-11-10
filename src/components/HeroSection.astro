@@ -10,6 +10,7 @@ const { remixUrl } = Astro.props;
 
 <section
   class="relative pt-40 pb-24 px-4 sm:px-6 bg-[#003087] text-white overflow-hidden"
+  style="margin-top: -32px;"
   data-aos="fade-up"
 >
   <!-- Video Background -->
@@ -716,6 +717,17 @@ const { remixUrl } = Astro.props;
     return localResults;
   }
 
+  // ✅ Highlight matched query in labels
+  function highlightMatch(label, query) {
+    if (!query) return label;
+    const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const regex = new RegExp(`(${safeQuery})`, "ig");
+    return label.replace(
+      regex,
+      '<mark class="bg-yellow-200 text-gray-900">$1</mark>'
+    );
+  }
+
   // Render functions
   function renderProcedureButton(procedure) {
     const colors = MODALITY_COLORS[procedure.modality] || MODALITY_COLORS.MRI;
@@ -735,8 +747,9 @@ const { remixUrl } = Astro.props;
           </span>
           <div class="flex-1 min-w-0">
             <div class="font-semibold text-gray-900 text-sm group-hover:${colors.text} transition-colors truncate">
-              ${procedure.label || ""}
+              ${highlightMatch(procedure.label || "", currentQuery)}
             </div>
+
             <div class="flex items-center gap-2 text-xs text-gray-500 mt-0.5">
               <span>${procedure.bodyPart || ""}</span>
               <span class="text-gray-300">•</span>
@@ -880,6 +893,9 @@ const { remixUrl } = Astro.props;
   let searchTimeout;
   let isDropdownOpen = false;
 
+  // Track current query for highlighting
+  let currentQuery = "";
+
   console.log("Inline search initialized");
 
   // Dropdown functions
@@ -911,6 +927,8 @@ const { remixUrl } = Astro.props;
         '<div class="text-center py-4 text-gray-500">Searching...</div>';
 
     try {
+      // ✅ Save the active search term for highlighting
+      currentQuery = query;
       const results = await hybridSearch(query);
 
       if (results.length === 0) {
@@ -1133,6 +1151,20 @@ const { remixUrl } = Astro.props;
       });
     });
   }
+
+  // DEBUG: Check layout on load
+  window.addEventListener("load", () => {
+    const header = document.querySelector("header");
+    const heroSection = document.querySelector("section");
+
+    console.log("🔍 Layout Debug:", {
+      headerHeight: header?.offsetHeight,
+      heroTop: heroSection?.getBoundingClientRect().top,
+      heroPaddingTop: window.getComputedStyle(heroSection).paddingTop,
+      scrollPosition: window.scrollY,
+      viewportHeight: window.innerHeight,
+    });
+  });
 </script>
 
 <style>
@@ -1157,5 +1189,18 @@ const { remixUrl } = Astro.props;
   #search-dropdown {
     z-index: 9999 !important;
     isolation: isolate;
+  }
+
+  mark {
+    background-color: rgba(204, 153, 51, 0.25); /* USRad gold at 25% opacity */
+    color: #1a1a1a; /* deep neutral text for contrast */
+    font-weight: 600;
+    border-radius: 2px;
+    padding: 0 2px;
+    transition: background-color 0.2s ease;
+  }
+
+  mark:hover {
+    background-color: rgba(204, 153, 51, 0.4);
   }
 </style>
