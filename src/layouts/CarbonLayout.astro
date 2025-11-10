@@ -55,9 +55,6 @@ const {
   </head>
 
   <body class="font-inter text-gray-900 bg-white antialiased">
-    <!-- Global Search Modal -->
-    <ProcedureSearchModal />
-
     <!-- Enhanced Carbon Header Component with Hero Page Prop -->
     <CarbonHeader client:load isHeroPage={isHeroPage} />
 
@@ -94,6 +91,10 @@ const {
 
 <!-- AOS Animation Script - FIXED VERSION -->
 <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<!-- Load Procedure Library FIRST (required for search) -->
+<script is:inline src="/js/procedures-global.js"></script>
+
 <script is:inline>
   document.addEventListener("DOMContentLoaded", function () {
     if (typeof AOS !== "undefined") {

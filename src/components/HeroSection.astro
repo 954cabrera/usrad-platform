@@ -9,7 +9,7 @@ const { remixUrl } = Astro.props;
 ---
 
 <section
-  class="relative py-24 px-4 sm:px-6 bg-[#003087] text-white overflow-hidden"
+  class="relative pt-40 pb-24 px-4 sm:px-6 bg-[#003087] text-white overflow-hidden"
   data-aos="fade-up"
 >
   <!-- Video Background -->
@@ -92,45 +92,52 @@ const { remixUrl } = Astro.props;
         <span class="block">Pay hundreds, not thousands.</span>
       </p>
 
-      <!-- STEP 1: Initial Search -->
+      <!-- STEP 1: Inline Search with Dropdown -->
       <div
         id="hero-step-1"
-        class="relative z-50 max-w-3xl mx-auto mb-16 sm:mb-24 transition-all duration-500"
+        class="relative z-[9999] max-w-3xl mx-auto mb-16 sm:mb-24 transition-all duration-500"
         data-aos="fade-up"
         data-aos-delay="300"
       >
-        <div
-          class="bg-white/90 backdrop-blur-md border-2 border-white/60 shadow-lg rounded-xl flex flex-col sm:flex-row items-stretch overflow-hidden"
-        >
-          <input
-            type="text"
-            id="hero-search-trigger"
-            placeholder="Type MRI, CT, Ultrasound..."
-            readonly
-            class="flex-1 px-6 py-4 sm:py-5 text-base sm:text-lg text-gray-900 placeholder-gray-500 bg-transparent focus:outline-none cursor-pointer"
-            aria-label="Click to search for medical procedures"
-          />
-          <button
-            type="button"
-            id="hero-find-initial"
-            class="bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-8 py-4 sm:py-5 font-bold text-base sm:text-lg transition-all duration-300 hover:brightness-110"
+        <!-- Search Input Container -->
+        <div class="relative">
+          <div
+            class="bg-white/90 backdrop-blur-md border-2 border-white/60 shadow-lg rounded-xl flex flex-col sm:flex-row items-stretch overflow-hidden"
           >
-            <span class="flex items-center justify-center gap-2">
-              Find
-              <svg
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-              </svg>
-            </span>
-          </button>
+            <!-- Real Search Input (not readonly anymore) -->
+            <input
+              type="text"
+              id="hero-search-input"
+              placeholder="Type MRI, CT, Ultrasound..."
+              autocomplete="off"
+              class="flex-1 px-6 py-4 sm:py-5 text-base sm:text-lg text-gray-900 placeholder-gray-500 bg-transparent focus:outline-none focus:ring-2 focus:ring-[#003087]/20 transition-all"
+              aria-label="Search for medical procedures"
+              aria-autocomplete="list"
+              aria-controls="search-dropdown"
+              aria-expanded="false"
+            />
+            <button
+              type="button"
+              id="hero-find-button"
+              class="bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-8 py-4 sm:py-5 font-bold text-base sm:text-lg transition-all duration-300 hover:brightness-110"
+            >
+              <span class="flex items-center justify-center gap-2">
+                Find
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -490,200 +497,575 @@ const { remixUrl } = Astro.props;
   </div>
 </section>
 
+<!-- DROPDOWN PORTAL - Positioned outside hero section for proper z-index -->
+<div
+  id="search-dropdown"
+  class="hidden fixed bg-white rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-gray-200 overflow-hidden max-h-[500px] z-[9999]"
+  role="listbox"
+  aria-label="Procedure search results"
+>
+  <!-- Popular Procedures Section -->
+  <div id="popular-procedures-section" class="hidden">
+    <div
+      class="px-4 py-3 bg-gradient-to-r from-gray-50 to-white border-b border-gray-200"
+    >
+      <h3 class="text-sm font-semibold text-gray-700">Popular Procedures</h3>
+      <p class="text-xs text-gray-500 mt-0.5">Or start typing to search...</p>
+    </div>
+    <div id="popular-procedures-list" class="overflow-y-auto max-h-[400px] p-2">
+      <!-- Popular procedures rendered here -->
+    </div>
+  </div>
+
+  <!-- Search Results Section -->
+  <div id="search-results-section" class="hidden">
+    <div
+      class="px-4 py-3 bg-gradient-to-r from-blue-50 to-white border-b border-gray-200"
+    >
+      <h3 class="text-sm font-semibold text-gray-700">
+        <span id="results-count">0</span> Results
+      </h3>
+    </div>
+    <div id="search-results-list" class="overflow-y-auto max-h-[400px] p-2">
+      <!-- Search results rendered here -->
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div id="empty-state" class="hidden text-center py-12 px-4">
+    <svg
+      class="w-16 h-16 mx-auto mb-4 text-gray-300"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+    </svg>
+    <p class="text-base font-semibold text-gray-700 mb-1">
+      No procedures found
+    </p>
+    <p class="text-sm text-gray-500">Try a different search term</p>
+  </div>
+</div>
+
 <script>
-  // Self-contained event system - no imports needed
-  const SearchEvents = {
-    OPEN_MODAL: "usrad:openSearchModal",
-    PROCEDURE_SELECTED: "usrad:procedureSelected",
-    MODAL_CLOSED: "usrad:modalClosed",
+  // ========================================
+  // SELF-CONTAINED INLINE SEARCH
+  // No external imports needed
+  // ========================================
+
+  const MODALITY_COLORS = {
+    MRI: {
+      bg: "bg-blue-500",
+      text: "text-blue-600",
+      lightBg: "bg-blue-50",
+      border: "border-blue-200",
+    },
+    CT: {
+      bg: "bg-teal-500",
+      text: "text-teal-600",
+      lightBg: "bg-teal-50",
+      border: "border-teal-200",
+    },
+    "X-Ray": {
+      bg: "bg-amber-500",
+      text: "text-amber-600",
+      lightBg: "bg-amber-50",
+      border: "border-amber-200",
+    },
+    Ultrasound: {
+      bg: "bg-sky-500",
+      text: "text-sky-600",
+      lightBg: "bg-sky-50",
+      border: "border-sky-200",
+    },
   };
 
-  function openSearchModal(initialQuery) {
-    console.log("ðŸ” Opening search modal");
-    window.dispatchEvent(
-      new CustomEvent(SearchEvents.OPEN_MODAL, {
-        detail: { initialQuery: initialQuery || "" },
-      })
+  // Universal search engine (self-contained)
+  function normalizeText(str) {
+    return (str || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function searchUniversalProcedures(query, limit = 8) {
+    if (!query || query.length < 2) return [];
+
+    const lib = window.ProcedureLibrary;
+    if (!lib) return [];
+
+    const results = [];
+    const lowerQuery = normalizeText(query);
+
+    for (const modality in lib) {
+      for (const region in lib[modality]) {
+        const entry = lib[modality][region];
+        const procedures = entry.procedures || [];
+
+        procedures.forEach((proc) => {
+          const searchText = normalizeText(
+            `${proc.label} ${modality} ${region} ${proc.cpt}`
+          );
+
+          if (searchText.includes(lowerQuery)) {
+            const score = searchText.indexOf(lowerQuery) === 0 ? 100 : 50;
+            results.push({
+              label: proc.label,
+              cpt: proc.cpt,
+              modality: modality,
+              bodyPart: region,
+              score: score,
+            });
+          }
+        });
+      }
+    }
+
+    return results.sort((a, b) => b.score - a.score).slice(0, limit);
+  }
+
+  // Popular procedures generator
+  function getPopularProcedures(limit = 50) {
+    const lib = window.ProcedureLibrary;
+    if (!lib) {
+      console.error("ProcedureLibrary not loaded");
+      return [];
+    }
+
+    const items = [];
+    for (const modality in lib) {
+      for (const region in lib[modality]) {
+        const entry = lib[modality][region];
+        const procedures = entry.procedures || [];
+
+        procedures.slice(0, 2).forEach((proc) => {
+          items.push({
+            label: proc.label,
+            cpt: proc.cpt,
+            modality: modality,
+            bodyPart: region,
+          });
+        });
+      }
+    }
+
+    return items.sort(() => Math.random() - 0.5).slice(0, limit);
+  }
+
+  // Local search
+  function searchLocalProcedures(query, limit = 8) {
+    if (!query || query.length < 2) return [];
+
+    const lib = window.ProcedureLibrary;
+    if (!lib) return [];
+
+    const results = [];
+    const lowerQuery = query.toLowerCase();
+
+    for (const modality in lib) {
+      for (const region in lib[modality]) {
+        const entry = lib[modality][region];
+        const procedures = entry.procedures || [];
+
+        procedures.forEach((proc) => {
+          const searchText =
+            `${proc.label} ${modality} ${region} ${proc.cpt}`.toLowerCase();
+          if (searchText.includes(lowerQuery)) {
+            results.push({
+              label: proc.label,
+              cpt: proc.cpt,
+              modality: modality,
+              bodyPart: region,
+              score: searchText.indexOf(lowerQuery) === 0 ? 10 : 1,
+            });
+          }
+        });
+      }
+    }
+
+    return results.sort((a, b) => b.score - a.score).slice(0, limit);
+  }
+
+  // Hybrid search
+  async function hybridSearch(query) {
+    console.log("Hybrid search:", query);
+
+    const localResults = searchLocalProcedures(query, 8);
+    console.log("Local results:", localResults.length);
+
+    if (localResults.length < 6) {
+      console.log("Adding universal search results");
+      const universalResults = searchUniversalProcedures(query, 8);
+
+      const merged = [...localResults];
+      universalResults.forEach((uResult) => {
+        if (!merged.find((m) => m.cpt === uResult.cpt)) {
+          merged.push(uResult);
+        }
+      });
+
+      return merged.slice(0, 12);
+    }
+
+    return localResults;
+  }
+
+  // Render functions
+  function renderProcedureButton(procedure) {
+    const colors = MODALITY_COLORS[procedure.modality] || MODALITY_COLORS.MRI;
+
+    return `
+      <button
+        type="button"
+        class="w-full text-left p-3 rounded-lg border ${colors.border} hover:${colors.lightBg} transition-all duration-200 group procedure-result"
+        data-cpt="${procedure.cpt || ""}"
+        data-label="${(procedure.label || "").replace(/"/g, "&quot;")}"
+        data-modality="${procedure.modality || ""}"
+        data-bodypart="${procedure.bodyPart || ""}"
+      >
+        <div class="flex items-center gap-3">
+          <span class="flex-shrink-0 px-2.5 py-1 rounded-full text-xs font-semibold ${colors.bg} text-white">
+            ${procedure.modality || "Scan"}
+          </span>
+          <div class="flex-1 min-w-0">
+            <div class="font-semibold text-gray-900 text-sm group-hover:${colors.text} transition-colors truncate">
+              ${procedure.label || ""}
+            </div>
+            <div class="flex items-center gap-2 text-xs text-gray-500 mt-0.5">
+              <span>${procedure.bodyPart || ""}</span>
+              <span class="text-gray-300">•</span>
+              <span class="font-mono">CPT ${procedure.cpt || ""}</span>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-gray-400 group-hover:${colors.text} transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </div>
+      </button>
+    `;
+  }
+
+  function groupByModality(procedures) {
+    const groups = {};
+    procedures.forEach((proc) => {
+      const modality = proc.modality || "Other";
+      if (!groups[modality]) groups[modality] = [];
+      groups[modality].push(proc);
+    });
+    return groups;
+  }
+
+  function renderGroupedResults(procedures) {
+    const groups = groupByModality(procedures);
+    const modalityOrder = ["MRI", "CT", "X-Ray", "Ultrasound", "Other"];
+
+    let html = "";
+    modalityOrder.forEach((modality) => {
+      if (groups[modality] && groups[modality].length > 0) {
+        const colors = MODALITY_COLORS[modality] || MODALITY_COLORS.MRI;
+        html += `
+          <div class="mb-4">
+            <h4 class="text-xs font-semibold ${colors.text} uppercase tracking-wide mb-2 px-1">
+              ${modality} (${groups[modality].length})
+            </h4>
+            <div class="space-y-1">
+              ${groups[modality].map((proc) => renderProcedureButton(proc)).join("")}
+            </div>
+          </div>
+        `;
+      }
+    });
+
+    return (
+      html || '<p class="text-center py-4 text-gray-500">No results found</p>'
     );
   }
 
-  function onProcedureSelected(callback) {
-    window.addEventListener(SearchEvents.PROCEDURE_SELECTED, (e) => {
-      if (e.detail && e.detail.procedure) {
-        callback(e.detail.procedure);
-      }
-    });
-  }
-
-  // Get all DOM elements
+  // DOM elements
   const step1 = document.getElementById("hero-step-1");
   const step2 = document.getElementById("hero-step-2");
-  const trigger = document.getElementById("hero-search-trigger");
-  const findInitialBtn = document.getElementById("hero-find-initial");
+  const searchInput = document.getElementById("hero-search-input");
+  const dropdown = document.getElementById("search-dropdown");
+  const popularSection = document.getElementById("popular-procedures-section");
+  const popularList = document.getElementById("popular-procedures-list");
+  const searchSection = document.getElementById("search-results-section");
+  const searchList = document.getElementById("search-results-list");
+  const emptyState = document.getElementById("empty-state");
+  const resultsCount = document.getElementById("results-count");
 
-  // Desktop elements
   const changeBtn = document.getElementById("change-procedure-button");
-  const procDisplay = document.getElementById("selected-procedure-display");
-  const zipInput = document.getElementById("hero-zip-input");
-  const submitBtn = document.getElementById("hero-search-button");
-  const detectBtn = document.getElementById("hero-detect-location");
-  const locationIcon = document.getElementById("location-icon");
-  const locationLoading = document.getElementById("location-loading");
-
-  // Mobile elements
   const changeBtnMobile = document.getElementById(
     "change-procedure-button-mobile"
   );
+  const procDisplay = document.getElementById("selected-procedure-display");
   const procDisplayMobile = document.getElementById(
     "selected-procedure-display-mobile"
   );
+  const zipInput = document.getElementById("hero-zip-input");
   const zipInputMobile = document.getElementById("hero-zip-input-mobile");
+  const submitBtn = document.getElementById("hero-search-button");
   const submitBtnMobile = document.getElementById("hero-search-button-mobile");
+  const detectBtn = document.getElementById("hero-detect-location");
   const detectBtnMobile = document.getElementById(
     "hero-detect-location-mobile"
   );
+  const locationIcon = document.getElementById("location-icon");
   const locationIconMobile = document.getElementById("location-icon-mobile");
+  const locationLoading = document.getElementById("location-loading");
   const locationLoadingMobile = document.getElementById(
     "location-loading-mobile"
   );
-
-  // Shared elements
   const cptHidden = document.getElementById("hero-selected-cpt");
   const procedureHidden = document.getElementById("hero-selected-procedure");
   const zipStatus = document.getElementById("zip-status-message");
 
-  console.log("âœ… HeroSection initialized", {
-    trigger: trigger !== null,
-    findInitialBtn: findInitialBtn !== null,
-    step1: step1 !== null,
-    step2: step2 !== null,
-  });
+  // Position dropdown relative to search input (for fixed positioning)
+  function positionDropdown() {
+    const dropdown = document.getElementById("search-dropdown");
+    const searchInput = document.getElementById("hero-search-input");
 
-  // Open modal when clicking search trigger or Find button
-  if (trigger) {
-    trigger.addEventListener("click", () => {
-      console.log("ðŸ–±ï¸ Search trigger clicked");
-      openSearchModal();
+    if (!dropdown || !searchInput) return;
+
+    const inputRect = searchInput.getBoundingClientRect();
+
+    // DEBUG: Log values to console
+    console.log({
+      inputBottom: inputRect.bottom,
+      inputLeft: inputRect.left,
+      inputWidth: inputRect.width,
+      windowScrollY: window.scrollY,
+    });
+
+    const topOffset = inputRect.bottom + 8;
+    const leftOffset = inputRect.left;
+    const widthMatch = inputRect.width;
+
+    dropdown.style.top = `${inputRect.bottom + 8}px`; // ✅ CORRECT - no window.scrollY
+    dropdown.style.left = `${inputRect.left}px`;
+    dropdown.style.width = `${inputRect.width}px`;
+
+    // DEBUG: Log final position
+    console.log("Dropdown positioned at:", {
+      top: topOffset,
+      left: leftOffset,
+      width: widthMatch,
     });
   }
 
-  if (findInitialBtn) {
-    findInitialBtn.addEventListener("click", () => {
-      console.log("ðŸ–±ï¸ Find button clicked");
-      openSearchModal();
-    });
+  // Show dropdown function
+  function showDropdown() {
+    const dropdown = document.getElementById("search-dropdown");
+    if (!dropdown) return;
+
+    positionDropdown();
+    dropdown.classList.remove("hidden");
+    isDropdownOpen = true;
   }
 
-  // Listen for procedure selection
-  onProcedureSelected((procedure) => {
-    console.log("âœ… Procedure selected:", procedure);
+  // Hide dropdown function
+  function hideDropdown() {
+    const dropdown = document.getElementById("search-dropdown");
+    if (!dropdown) return;
+    dropdown.classList.add("hidden");
+    dropdown.classList.add("hidden");
+    isDropdownOpen = false;
+  }
 
-    if (!step1 || !step2 || !procDisplay || !cptHidden || !procedureHidden) {
-      console.error("âŒ Missing required elements for step transition");
+  let searchTimeout;
+  let isDropdownOpen = false;
+
+  console.log("Inline search initialized");
+
+  // Dropdown functions
+
+  function showPopularProcedures() {
+    const popular = getPopularProcedures(50);
+
+    if (popularSection && popularList) {
+      popularSection.classList.remove("hidden");
+      searchSection?.classList.add("hidden");
+      emptyState?.classList.add("hidden");
+
+      popularList.innerHTML = renderGroupedResults(popular);
+      attachResultHandlers();
+    }
+  }
+
+  async function performSearch(query) {
+    if (!query || query.length < 2) {
+      showPopularProcedures();
       return;
     }
 
-    // Transition to Step 2
+    if (popularSection) popularSection.classList.add("hidden");
+    if (searchSection) searchSection.classList.remove("hidden");
+    if (emptyState) emptyState.classList.add("hidden");
+    if (searchList)
+      searchList.innerHTML =
+        '<div class="text-center py-4 text-gray-500">Searching...</div>';
+
+    try {
+      const results = await hybridSearch(query);
+
+      if (results.length === 0) {
+        searchSection?.classList.add("hidden");
+        emptyState?.classList.remove("hidden");
+      } else {
+        if (resultsCount) resultsCount.textContent = results.length;
+        if (searchList) searchList.innerHTML = renderGroupedResults(results);
+        attachResultHandlers();
+      }
+    } catch (error) {
+      console.error("Search error:", error);
+    }
+  }
+
+  function attachResultHandlers() {
+    dropdown?.querySelectorAll(".procedure-result").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const procedure = {
+          cpt_code: btn.getAttribute("data-cpt"),
+          label: btn.getAttribute("data-label"),
+          modality: btn.getAttribute("data-modality"),
+          bodyPart: btn.getAttribute("data-bodypart"),
+        };
+
+        handleProcedureSelection(procedure);
+        hideDropdown();
+      });
+    });
+  }
+
+  function handleProcedureSelection(procedure) {
+    if (!step1 || !step2 || !cptHidden || !procedureHidden) return;
+
     step1.classList.add("hidden");
     step2.classList.remove("hidden");
 
-    // Update UI - both desktop and mobile
     if (procDisplay) procDisplay.textContent = procedure.label || "";
     if (procDisplayMobile)
       procDisplayMobile.textContent = procedure.label || "";
 
-    // Update hidden fields
     cptHidden.value = procedure.cpt_code || "";
     procedureHidden.value = procedure.label || "";
 
-    console.log("ðŸ”„ Transitioned to Step 2");
-
-    // Auto-detect ZIP
     detectZIP();
+  }
+
+  // Event listeners
+  if (searchInput) {
+    searchInput.addEventListener("focus", () => {
+      showDropdown();
+      if (!searchInput.value || searchInput.value.trim().length === 0) {
+        showPopularProcedures();
+      }
+    });
+
+    searchInput.addEventListener("input", (e) => {
+      clearTimeout(searchTimeout);
+      showDropdown();
+
+      const query = e.target.value.trim();
+      searchTimeout = setTimeout(() => performSearch(query), 200);
+    });
+  }
+
+  document.addEventListener("click", (e) => {
+    if (
+      dropdown &&
+      searchInput &&
+      !dropdown.contains(e.target) &&
+      !searchInput.contains(e.target)
+    ) {
+      hideDropdown();
+    }
   });
 
-  // Change procedure button
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isDropdownOpen) {
+      hideDropdown();
+      searchInput?.blur();
+    }
+  });
+
   if (changeBtn) {
     changeBtn.addEventListener("click", () => {
-      console.log("Change procedure clicked");
       if (step2 && step1) {
         step2.classList.add("hidden");
         step1.classList.remove("hidden");
       }
-      openSearchModal();
+      searchInput?.focus();
     });
   }
 
-  // Change procedure button - Mobile
   if (changeBtnMobile) {
     changeBtnMobile.addEventListener("click", () => {
-      console.log("Change procedure clicked (mobile)");
       if (step2 && step1) {
         step2.classList.add("hidden");
         step1.classList.remove("hidden");
       }
-      openSearchModal();
+      searchInput?.focus();
     });
   }
 
-  // Manual location detection button
   if (detectBtn) {
-    detectBtn.addEventListener("click", () => {
-      console.log("Detect location clicked");
-      detectZIP();
-    });
+    detectBtn.addEventListener("click", detectZIP);
   }
 
-  // Manual location detection button - Mobile
   if (detectBtnMobile) {
-    detectBtnMobile.addEventListener("click", () => {
-      console.log("Detect location clicked (mobile)");
-      detectZIP();
-    });
+    detectBtnMobile.addEventListener("click", detectZIP);
   }
 
-  // ZIP input validation and form ready check
   if (zipInput) {
     zipInput.addEventListener("input", () => {
-      // Sync mobile input
       if (zipInputMobile) zipInputMobile.value = zipInput.value;
       checkFormReady();
     });
   }
 
-  // ZIP input validation - Mobile
   if (zipInputMobile) {
     zipInputMobile.addEventListener("input", () => {
-      // Sync desktop input
       if (zipInput) zipInput.value = zipInputMobile.value;
       checkFormReady();
     });
   }
 
-  // Auto-detect ZIP function
+  // Reposition dropdown on window resize
+  window.addEventListener("resize", () => {
+    if (isDropdownOpen) {
+      positionDropdown();
+    }
+  });
+
+  // Reposition dropdown on scroll
+  window.addEventListener("scroll", () => {
+    if (isDropdownOpen) {
+      hideDropdown(); // ✅ This is CORRECT
+    }
+  });
+
   async function detectZIP() {
-    // Need at least one valid ZIP input
     const inputs = [zipInput, zipInputMobile].filter(Boolean);
     if (inputs.length === 0) return;
 
-    console.log("ðŸ“ Starting ZIP detection...");
-    locationIcon.classList.add("hidden");
-    locationLoading.classList.remove("hidden");
+    if (locationIcon) locationIcon.classList.add("hidden");
     if (locationIconMobile) locationIconMobile.classList.add("hidden");
+    if (locationLoading) locationLoading.classList.remove("hidden");
     if (locationLoadingMobile) locationLoadingMobile.classList.remove("hidden");
 
-    const statusP = zipStatus.querySelector("p");
-    if (statusP) {
-      statusP.textContent = "ðŸ“ Finding your location...";
-    }
+    const statusP = zipStatus?.querySelector("p");
+    if (statusP) statusP.textContent = "Finding your location...";
 
     try {
-      // Get user's position
       const pos = await new Promise((resolve, reject) => {
-        if (!navigator.geolocation) {
+        if (!navigator.geolocation)
           reject(new Error("Geolocation not supported"));
-          return;
-        }
         navigator.geolocation.getCurrentPosition(resolve, reject, {
           timeout: 5000,
           maximumAge: 300000,
@@ -693,36 +1075,30 @@ const { remixUrl } = Astro.props;
       const lat = pos.coords.latitude;
       const lng = pos.coords.longitude;
 
-      console.log("ðŸ“ Got coordinates:", { lat, lng });
-
-      // Call your geocode API
       const res = await fetch(`/api/geocode?lat=${lat}&lng=${lng}`);
       const data = await res.json();
 
-      console.log("ðŸ“ Geocode response:", data);
-
       if (data.postalCode) {
-        zipInput.value = data.postalCode;
-        if (zipInputMobile) zipInputMobile.value = data.postalCode;
+        inputs.forEach((input) => {
+          if (input) input.value = data.postalCode;
+        });
+
         if (statusP) {
-          statusP.textContent = `ðŸ“ Detected your location${data.city ? ` in ${data.city}` : ""} â€¢ Change`;
+          statusP.textContent = `Detected your location${data.city ? ` in ${data.city}` : ""} • Change`;
         }
-        console.log("âœ… ZIP detected:", data.postalCode);
         checkFormReady();
       } else {
         throw new Error("No postal code found");
       }
     } catch (err) {
-      console.error("âŒ Location detection error:", err);
+      console.error("Location detection error:", err);
       if (statusP) {
-        statusP.textContent =
-          "ðŸ“ Could not detect location â€¢ Enter ZIP manually";
+        statusP.textContent = "Could not detect location • Enter ZIP manually";
       }
       if (zipInput) {
         zipInput.focus();
       }
     } finally {
-      // Restore icon state for both desktop and mobile
       if (locationIcon) locationIcon.classList.remove("hidden");
       if (locationLoading) locationLoading.classList.add("hidden");
       if (locationIconMobile) locationIconMobile.classList.remove("hidden");
@@ -730,18 +1106,14 @@ const { remixUrl } = Astro.props;
     }
   }
 
-  // Check if form is ready to submit
   function checkFormReady() {
     if (!cptHidden) return;
 
     const hasCpt = cptHidden.value && cptHidden.value.length > 0;
-
-    // Check both ZIP inputs
     const zipValue = zipInput?.value || zipInputMobile?.value || "";
     const hasZip = zipValue.length === 5;
-
-    // Update both submit buttons
     const isReady = hasCpt && hasZip;
+
     if (submitBtn) submitBtn.disabled = !isReady;
     if (submitBtnMobile) submitBtnMobile.disabled = !isReady;
 
@@ -750,12 +1122,10 @@ const { remixUrl } = Astro.props;
     }
   }
 
-  // Form submission handler
   const form = document.getElementById("hero-search-form");
   if (form) {
     form.addEventListener("submit", (e) => {
-      // Log for debugging
-      console.log("ðŸš€ Submitting form:", {
+      console.log("Submitting form:", {
         cpt: cptHidden ? cptHidden.value : "",
         procedure: procedureHidden ? procedureHidden.value : "",
         zip: zipInput ? zipInput.value : "",
@@ -781,5 +1151,11 @@ const { remixUrl } = Astro.props;
     stroke-dasharray: 200;
     stroke-dashoffset: 200;
     animation: draw-line 1.5s ease-out 0.8s forwards;
+  }
+
+  /* Force dropdown above everything */
+  #search-dropdown {
+    z-index: 9999 !important;
+    isolation: isolate;
   }
 </style>
