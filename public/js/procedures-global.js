@@ -2066,209 +2066,368 @@ if (typeof module !== 'undefined' && module.exports) {
   };
 
   // ============================================
-  // ULTRASOUND PROCEDURES - COMPLETE REFERENCE
-  // ============================================
+// ULTRASOUND PROCEDURES - COMPLETE REFERENCE
+// ============================================
 
-  const ULTRASOUND_PROCEDURES = {
-    abdomen: {
-      category: "Abdomen",
-      icon: "abdomen",
-      procedures: [
-        {
-          cpt: "76700",
-          label: "Ultrasound Abdomen – Complete",
-          shortLabel: "Abdomen – Complete",
-          description: "Evaluates liver, gallbladder, kidneys, pancreas, spleen, and abdominal aorta",
-          duration: "20–30 min",
-          prep: "Fast 6 hours prior to exam",
-          useCase: "Abdominal pain, gallstones, liver disease, kidney stones"
-        },
-        {
-          cpt: "76705",
-          label: "Ultrasound Abdomen – Limited",
-          shortLabel: "Abdomen – Limited",
-          description: "Focused evaluation of specific abdominal organ or region",
-          duration: "15–20 min",
-          prep: "Fast 6 hours prior to exam",
-          useCase: "Follow-up imaging, targeted evaluation of known abnormality"
-        },
-        {
-          cpt: "76706",
-          label: "Ultrasound Aorta – Abdominal",
-          shortLabel: "Aorta – Abdominal",
-          description: "Evaluates abdominal aorta for aneurysm or other abnormalities",
-          duration: "15–20 min",
-          prep: "Fast 6 hours prior to exam",
-          useCase: "Screening for aortic aneurysm, vascular disease"
-        }
-      ]
-    },
-    pelvis: {
-      category: "Pelvis",
-      icon: "pelvis",
-      procedures: [
-        {
-          cpt: "76856",
-          label: "Ultrasound Pelvis – Complete",
-          shortLabel: "Pelvis – Complete",
-          description: "Evaluates uterus, ovaries, and surrounding pelvic structures",
-          duration: "20–30 min",
-          prep: "Full bladder required – drink 32 oz water 1 hour before",
-          useCase: "Pelvic pain, abnormal bleeding, ovarian cysts, fibroids"
-        },
-        {
-          cpt: "76857",
-          label: "Ultrasound Pelvis – Limited",
-          shortLabel: "Pelvis – Limited",
-          description: "Focused evaluation of specific pelvic structure or region",
-          duration: "15–20 min",
-          prep: "Full bladder required – drink 32 oz water 1 hour before",
-          useCase: "Follow-up of known findings, targeted pelvic evaluation"
-        },
-        {
-          cpt: "76830",
-          label: "Ultrasound Transvaginal",
-          shortLabel: "Transvaginal",
-          description: "Detailed internal evaluation of uterus and ovaries via vaginal probe",
-          duration: "20–30 min",
-          prep: "Empty bladder before exam",
-          useCase: "Pelvic pain, infertility, early pregnancy evaluation, ovarian masses"
-        }
-      ]
-    },
-    obstetric: {
-      category: "Pregnancy Ultrasound (OB)",
-      icon: "pregnancy",
-      procedures: [
-        {
-          cpt: "76801",
-          label: "Ultrasound OB – First Trimester",
-          shortLabel: "OB – First Trimester",
-          description: "Evaluates early pregnancy, confirms viability, estimates gestational age",
-          duration: "15–20 min",
-          prep: "Full bladder may be helpful in early pregnancy",
-          useCase: "Confirm pregnancy, evaluate bleeding, date pregnancy"
-        },
-        {
-          cpt: "76805",
-          label: "Ultrasound OB – Second/Third Trimester",
-          shortLabel: "OB – Complete",
-          description: "Comprehensive evaluation of fetal anatomy, growth, and placental position",
-          duration: "30–45 min",
-          prep: "No special preparation required",
-          useCase: "Routine prenatal care, anatomy survey at 18–20 weeks"
-        },
-        {
-          cpt: "76815",
-          label: "Ultrasound OB – Limited",
-          shortLabel: "OB – Limited",
-          description: "Focused assessment of fetal position, heart rate, or amniotic fluid",
-          duration: "15–20 min",
-          prep: "No special preparation required",
-          useCase: "Follow-up exam, check fetal presentation, biophysical profile"
-        }
-      ]
-    },
-    vascular: {
-      category: "Vascular / Blood Flow (Doppler)",
-      icon: "heart",
-      procedures: [
-        {
-          cpt: "93880",
-          label: "Duplex Scan Carotid – Bilateral",
-          shortLabel: "Carotid Duplex",
-          description: "Evaluates blood flow through carotid arteries in the neck",
-          duration: "30–45 min",
-          prep: "No special preparation required",
-          useCase: "Stroke risk assessment, carotid stenosis, vascular disease"
-        },
-        {
-          cpt: "93970",
-          label: "Duplex Scan Lower Extremity – Venous",
-          shortLabel: "LE Venous Duplex",
-          description: "Evaluates leg veins for blood clots or venous insufficiency",
-          duration: "30–45 min",
-          prep: "No special preparation required",
-          useCase: "Leg swelling, suspected DVT, varicose veins"
-        },
-        {
-          cpt: "93925",
-          label: "Duplex Scan Lower Extremity – Arterial",
-          shortLabel: "LE Arterial Duplex",
-          description: "Evaluates arterial blood flow to the legs",
-          duration: "30–45 min",
-          prep: "No special preparation required",
-          useCase: "Leg pain with walking, peripheral artery disease, poor circulation"
-        }
-      ]
-    },
-    smallParts: {
-      category: "Soft Tissue / Thyroid",
-      icon: "thyroid",
-      procedures: [
-        {
-          cpt: "76536",
-          label: "Ultrasound Soft Tissue – Head and Neck",
-          shortLabel: "Soft Tissue – Head/Neck",
-          description: "Evaluates superficial masses, lymph nodes, or soft tissue abnormalities",
-          duration: "15–20 min",
-          prep: "No special preparation required",
-          useCase: "Neck mass, enlarged lymph nodes, salivary gland evaluation"
-        },
-        {
-          cpt: "76642",
-          label: "Ultrasound Breast – Unilateral",
-          shortLabel: "Breast – Unilateral",
-          description: "Evaluates breast tissue for masses, cysts, or abnormalities",
-          duration: "15–20 min",
-          prep: "No special preparation required",
-          useCase: "Palpable lump, breast pain, follow-up of mammogram findings"
-        },
-        {
-          cpt: "76870",
-          label: "Ultrasound Scrotum",
-          shortLabel: "Scrotum",
-          description: "Evaluates testicles, epididymis, and surrounding scrotal structures",
-          duration: "20–30 min",
-          prep: "No special preparation required",
-          useCase: "Testicular pain, swelling, mass, trauma, infertility evaluation"
-        }
-      ]
-    },
-    musculoskeletal: {
-      category: "Joint / Tendon / Muscle",
-      icon: "shoulder",
-      procedures: [
-        {
-          cpt: "76881",
-          label: "Ultrasound Extremity – Complete",
-          shortLabel: "Extremity – Complete",
-          description: "Comprehensive evaluation of muscles, tendons, ligaments, and joints",
-          duration: "20–30 min",
-          prep: "No special preparation required",
-          useCase: "Tendon tears, ligament injury, soft tissue masses, joint effusion"
-        },
-        {
-          cpt: "76882",
-          label: "Ultrasound Extremity – Limited",
-          shortLabel: "Extremity – Limited",
-          description: "Focused evaluation of specific tendon, muscle, or joint region",
-          duration: "15–20 min",
-          prep: "No special preparation required",
-          useCase: "Targeted assessment of rotator cuff, Achilles tendon, or specific joint"
-        },
-        {
-          cpt: "76942",
-          label: "Ultrasound Guidance for Needle Placement",
-          shortLabel: "US-Guided Procedure",
-          description: "Real-time ultrasound guidance for injections, biopsies, or aspirations",
-          duration: "10–20 min",
-          prep: "Varies based on specific procedure",
-          useCase: "Joint injections, fluid aspiration, biopsy guidance"
-        }
-      ]
-    }
-  };
+const ULTRASOUND_PROCEDURES = {
+  abdomen: {
+    category: "Abdomen",
+    icon: "abdomen",
+
+    // ✅ Enhanced search awareness
+    matchKeywords: [
+      "liver",
+      "gallbladder",
+      "kidneys",
+      "pancreas",
+      "spleen",
+      "stomach",
+      "abdominal pain",
+      "nausea",
+      "stones",
+      "gallstones",
+      "kidney stones",
+      "digestive",
+      "upper abdomen",
+      "ultrasound abdomen",
+      "stomach scan",
+      "liver ultrasound"
+    ],
+
+    procedures: [
+      {
+        cpt: "76700",
+        label: "Ultrasound Abdomen – Complete",
+        shortLabel: "Abdomen – Complete",
+        description:
+          "Evaluates liver, gallbladder, kidneys, pancreas, spleen, and abdominal aorta.",
+        duration: "20–30 min",
+        prep: "Fast for 6 hours before exam.",
+        useCase:
+          "Abdominal pain, gallstones, liver disease, or kidney stones."
+      },
+      {
+        cpt: "76705",
+        label: "Ultrasound Abdomen – Limited",
+        shortLabel: "Abdomen – Limited",
+        description:
+          "Focused evaluation of a specific abdominal organ or region.",
+        duration: "15–20 min",
+        prep: "Fast for 6 hours before exam.",
+        useCase:
+          "Follow-up imaging or targeted evaluation of a known abnormality."
+      },
+      {
+        cpt: "76706",
+        label: "Ultrasound Aorta – Abdominal",
+        shortLabel: "Aorta – Abdominal",
+        description:
+          "Evaluates the abdominal aorta for aneurysm or other vascular abnormalities.",
+        duration: "15–20 min",
+        prep: "Fast for 6 hours before exam.",
+        useCase:
+          "Screening for aortic aneurysm, vascular disease, or family history of aneurysm."
+      }
+    ]
+  },
+
+  pelvis: {
+    category: "Pelvis",
+    icon: "pelvis",
+
+    matchKeywords: [
+      "uterus",
+      "ovaries",
+      "bladder",
+      "pelvic pain",
+      "fibroids",
+      "ovarian cysts",
+      "menstrual issues",
+      "infertility",
+      "reproductive system",
+      "pelvic scan",
+      "pelvic ultrasound",
+      "female ultrasound",
+      "transvaginal",
+      "gynecology"
+    ],
+
+    procedures: [
+      {
+        cpt: "76856",
+        label: "Ultrasound Pelvis – Complete",
+        shortLabel: "Pelvis – Complete",
+        description:
+          "Evaluates uterus, ovaries, and surrounding pelvic structures.",
+        duration: "20–30 min",
+        prep: "Full bladder required — drink 32 oz of water 1 hour before exam.",
+        useCase:
+          "Pelvic pain, abnormal bleeding, ovarian cysts, or uterine fibroids."
+      },
+      {
+        cpt: "76857",
+        label: "Ultrasound Pelvis – Limited",
+        shortLabel: "Pelvis – Limited",
+        description:
+          "Focused evaluation of a specific pelvic structure or region.",
+        duration: "15–20 min",
+        prep: "Full bladder required — drink 32 oz of water 1 hour before exam.",
+        useCase:
+          "Follow-up of known findings or targeted pelvic evaluation."
+      },
+      {
+        cpt: "76830",
+        label: "Ultrasound Transvaginal",
+        shortLabel: "Transvaginal",
+        description:
+          "Detailed internal evaluation of uterus and ovaries using a vaginal probe.",
+        duration: "20–30 min",
+        prep: "Empty bladder before exam.",
+        useCase:
+          "Pelvic pain, infertility, early pregnancy, or ovarian mass evaluation."
+      }
+    ]
+  },
+
+  obstetric: {
+    category: "Pregnancy Ultrasound (OB)",
+    icon: "pregnancy",
+
+    matchKeywords: [
+      "pregnancy",
+      "baby",
+      "ob",
+      "obstetric",
+      "prenatal",
+      "fetus",
+      "fetal",
+      "expecting",
+      "ultrasound for pregnancy",
+      "baby ultrasound",
+      "pregnancy scan",
+      "prenatal ultrasound",
+      "ultrasound baby check",
+      "pregnant",
+      "anatomy scan",
+      "due date"
+    ],
+
+    procedures: [
+      {
+        cpt: "76801",
+        label: "Ultrasound OB – First Trimester",
+        shortLabel: "OB – First Trimester",
+        description:
+          "Evaluates early pregnancy, confirms viability, and estimates gestational age.",
+        duration: "15–20 min",
+        prep: "Full bladder may be helpful in early pregnancy.",
+        useCase:
+          "Confirm pregnancy, evaluate bleeding, or establish accurate dating."
+      },
+      {
+        cpt: "76805",
+        label: "Ultrasound OB – Second/Third Trimester",
+        shortLabel: "OB – Complete",
+        description:
+          "Comprehensive evaluation of fetal anatomy, growth, and placental position.",
+        duration: "30–45 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Routine prenatal care, anatomy survey at 18–20 weeks, or growth assessment."
+      },
+      {
+        cpt: "76815",
+        label: "Ultrasound OB – Limited",
+        shortLabel: "OB – Limited",
+        description:
+          "Focused assessment of fetal position, heart rate, or amniotic fluid volume.",
+        duration: "15–20 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Follow-up exam, fetal position check, or biophysical profile."
+      }
+    ]
+  },
+
+  vascular: {
+    category: "Vascular / Blood Flow (Doppler)",
+    icon: "heart",
+
+    matchKeywords: [
+      "carotid",
+      "artery",
+      "vein",
+      "blood flow",
+      "duplex",
+      "doppler",
+      "circulation",
+      "blood clot",
+      "deep vein thrombosis",
+      "dvt",
+      "stroke risk",
+      "peripheral artery disease",
+      "leg swelling",
+      "poor circulation",
+      "vascular scan"
+    ],
+
+    procedures: [
+      {
+        cpt: "93880",
+        label: "Duplex Scan Carotid – Bilateral",
+        shortLabel: "Carotid Duplex",
+        description:
+          "Evaluates blood flow through carotid arteries in the neck to assess stroke risk.",
+        duration: "30–45 min",
+        prep: "No special preparation required.",
+        useCase: "Stroke risk, carotid stenosis, or vascular disease screening."
+      },
+      {
+        cpt: "93970",
+        label: "Duplex Scan Lower Extremity – Venous",
+        shortLabel: "LE Venous Duplex",
+        description:
+          "Evaluates leg veins for blood clots or venous insufficiency.",
+        duration: "30–45 min",
+        prep: "No special preparation required.",
+        useCase: "Leg swelling, suspected DVT, or varicose veins."
+      },
+      {
+        cpt: "93925",
+        label: "Duplex Scan Lower Extremity – Arterial",
+        shortLabel: "LE Arterial Duplex",
+        description:
+          "Evaluates arterial blood flow to the legs to detect blockages or narrowing.",
+        duration: "30–45 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Leg pain with walking, peripheral artery disease, or poor circulation."
+      }
+    ]
+  },
+
+  smallParts: {
+    category: "Soft Tissue / Thyroid",
+    icon: "thyroid",
+
+    matchKeywords: [
+      "thyroid",
+      "neck lump",
+      "nodule",
+      "goiter",
+      "lymph node",
+      "soft tissue",
+      "mass",
+      "lump",
+      "swelling",
+      "salivary gland",
+      "breast",
+      "testicle",
+      "scrotum",
+      "ultrasound neck",
+      "breast ultrasound",
+      "thyroid ultrasound"
+    ],
+
+    procedures: [
+      {
+        cpt: "76536",
+        label: "Ultrasound Soft Tissue – Head and Neck",
+        shortLabel: "Soft Tissue – Head/Neck",
+        description:
+          "Evaluates superficial masses, lymph nodes, or soft tissue abnormalities in the head and neck.",
+        duration: "15–20 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Neck lump, enlarged lymph nodes, or salivary gland evaluation."
+      },
+      {
+        cpt: "76642",
+        label: "Ultrasound Breast – Unilateral",
+        shortLabel: "Breast – Unilateral",
+        description:
+          "Evaluates breast tissue for masses, cysts, or other abnormalities.",
+        duration: "15–20 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Palpable lump, breast pain, or follow-up of mammogram findings."
+      },
+      {
+        cpt: "76870",
+        label: "Ultrasound Scrotum",
+        shortLabel: "Scrotum",
+        description:
+          "Evaluates testicles, epididymis, and surrounding scrotal structures.",
+        duration: "20–30 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Testicular pain, swelling, mass, trauma, or infertility evaluation."
+      }
+    ]
+  },
+
+  musculoskeletal: {
+    category: "Joint / Tendon / Muscle",
+    icon: "shoulder",
+
+    matchKeywords: [
+      "joint",
+      "shoulder",
+      "rotator cuff",
+      "elbow",
+      "knee",
+      "ankle",
+      "wrist",
+      "muscle",
+      "tendon",
+      "ligament",
+      "sports injury",
+      "sprain",
+      "tear",
+      "strain",
+      "ultrasound joint",
+      "ultrasound shoulder",
+      "musculoskeletal ultrasound"
+    ],
+
+    procedures: [
+      {
+        cpt: "76881",
+        label: "Ultrasound Extremity – Complete",
+        shortLabel: "Extremity – Complete",
+        description:
+          "Comprehensive evaluation of muscles, tendons, ligaments, and joints.",
+        duration: "20–30 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Tendon tear, ligament injury, soft tissue mass, or joint effusion."
+      },
+      {
+        cpt: "76882",
+        label: "Ultrasound Extremity – Limited",
+        shortLabel: "Extremity – Limited",
+        description:
+          "Focused evaluation of a specific tendon, muscle, or joint region.",
+        duration: "15–20 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Targeted assessment of rotator cuff, Achilles tendon, or specific joint injury."
+      },
+      {
+        cpt: "76942",
+        label: "Ultrasound Guidance for Needle Placement",
+        shortLabel: "US-Guided Procedure",
+        description:
+          "Real-time ultrasound guidance for injections, biopsies, or aspirations.",
+        duration: "10–20 min",
+        prep: "Varies based on specific procedure.",
+        useCase:
+          "Joint injections, fluid aspiration, or biopsy guidance."
+      }
+    ]
+  }
+};
+
 
   
   // ============================================

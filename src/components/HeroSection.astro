@@ -611,7 +611,7 @@ const { remixUrl } = Astro.props;
 
         procedures.forEach((proc) => {
           const searchText = normalizeText(
-            `${proc.label} ${modality} ${region} ${proc.cpt}`
+            `${proc.label} ${modality} ${region} ${proc.cpt} ${(entry.matchKeywords || []).join(" ")}`
           );
 
           if (searchText.includes(lowerQuery)) {
@@ -675,8 +675,9 @@ const { remixUrl } = Astro.props;
         const procedures = entry.procedures || [];
 
         procedures.forEach((proc) => {
-          const searchText =
-            `${proc.label} ${modality} ${region} ${proc.cpt}`.toLowerCase();
+          const searchText = (
+            `${proc.label} ${modality} ${region} ${proc.cpt} ${(entry.matchKeywords || []).join(" ")}`
+          ).toLowerCase();
           if (searchText.includes(lowerQuery)) {
             results.push({
               label: proc.label,
@@ -1191,16 +1192,39 @@ const { remixUrl } = Astro.props;
     isolation: isolate;
   }
 
+  /* Animated gold highlight for matched text */
+  @keyframes fade-highlight {
+    from {
+      background-color: rgba(204, 153, 51, 0);
+      color: #cc9933;
+      opacity: 0;
+    }
+    to {
+      background-color: rgba(204, 153, 51, 0.25);
+      color: #1a1a1a;
+      opacity: 1;
+    }
+  }
+
   mark {
-    background-color: rgba(204, 153, 51, 0.25); /* USRad gold at 25% opacity */
-    color: #1a1a1a; /* deep neutral text for contrast */
+    background-color: rgba(204, 153, 51, 0.25); /* USRad gold tone */
+    color: #1a1a1a;
     font-weight: 600;
-    border-radius: 2px;
+    border-radius: 3px;
     padding: 0 2px;
-    transition: background-color 0.2s ease;
+    animation: fade-highlight 0.25s ease-out;
+    transition:
+      background-color 0.25s ease,
+      box-shadow 0.25s ease;
   }
 
   mark:hover {
-    background-color: rgba(204, 153, 51, 0.4);
+    background-color: rgba(204, 153, 51, 0.45);
+    box-shadow: 0 0 8px rgba(204, 153, 51, 0.3);
+  }
+
+  /* Smooth list updates for dynamic search results */
+  #search-results-list {
+    transition: opacity 0.25s ease-in-out;
   }
 </style>
