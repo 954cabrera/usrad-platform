@@ -1,0 +1,358 @@
+---
+// Clean, minimal modal that WORKS
+---
+
+<!-- Modal Overlay -->
+<div
+  id="modal-search-overlay"
+  class="hidden fixed inset-0"
+  style="z-index: 9999999;"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+>
+  <!-- Backdrop -->
+  <div
+    id="modal-backdrop"
+    class="absolute inset-0 bg-gray-900/40 transition-opacity duration-300"
+    style="opacity: 0;"
+    aria-hidden="true"
+  >
+  </div>
+
+  <!-- Modal Container -->
+  <div class="absolute inset-0 overflow-y-auto pt-[10vh] px-4">
+    <!-- Modal Content -->
+    <div
+      id="modal-content"
+      class="max-w-[700px] mx-auto bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
+      style="opacity: 0; transform: translateY(-20px); transition: all 300ms ease-out;"
+    >
+      <!-- Header -->
+      <div
+        class="bg-gradient-to-r from-[#003087] to-[#0052b4] px-6 py-4 rounded-t-2xl flex items-center justify-between"
+      >
+        <div class="flex items-center gap-3">
+          <svg
+            class="w-5 h-5 text-white"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <h2 id="modal-title" class="text-xl font-bold text-white">
+            Search Procedures
+          </h2>
+        </div>
+        <button
+          type="button"
+          id="modal-close-button"
+          class="p-1.5 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-all"
+          aria-label="Close modal"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="p-6 border-b border-gray-200">
+        <div class="relative">
+          <div
+            class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"
+          >
+            <svg
+              class="w-5 h-5 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <input
+            type="text"
+            id="modal-search-input"
+            placeholder="Type: MRI, CT, Ultrasound, X-Ray..."
+            class="w-full pl-12 pr-4 py-3 text-base border border-gray-300 rounded-lg focus:outline-none focus:border-[#003087] focus:ring-2 focus:ring-[#003087]/10 transition-all"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+
+      <!-- Results Container -->
+      <div id="modal-results" class="max-h-[500px] overflow-y-auto px-6 py-4">
+        <!-- Default empty state -->
+        <div class="text-center py-12 text-gray-500">
+          <svg
+            class="w-16 h-16 mx-auto mb-4 text-gray-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <p class="text-lg font-semibold mb-1">Start typing to search</p>
+          <p class="text-sm">Try "MRI", "CT Scan", or "Ultrasound"</p>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="bg-gray-50 border-t border-gray-200 px-6 py-3 rounded-b-2xl">
+        <p class="text-center text-xs text-gray-600">
+          Can't find your procedure? Try searching by <span
+            class="font-semibold">body part</span
+          > (e.g., "knee") or <span class="font-semibold">CPT code</span> (e.g.,
+          "70553")
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Load Procedure Library FIRST -->
+<script is:inline src="/js/procedures-global.js"></script>
+
+<script>
+  // Event system
+  const SearchEvents = {
+    OPEN_MODAL: "usrad:openSearchModal",
+    PROCEDURE_SELECTED: "usrad:procedureSelected",
+    MODAL_CLOSED: "usrad:modalClosed",
+  };
+
+  function dispatchProcedureSelected(procedure) {
+    window.dispatchEvent(
+      new CustomEvent(SearchEvents.PROCEDURE_SELECTED, {
+        detail: { procedure },
+      })
+    );
+  }
+
+  // Import search
+  import { searchUniversalProcedures } from "../../lib/procedures/utils/universal-search-engine.ts";
+
+  // Get elements
+  const overlay = document.getElementById("modal-search-overlay");
+  const backdrop = document.getElementById("modal-backdrop");
+  const content = document.getElementById("modal-content");
+  const input = document.getElementById("modal-search-input");
+  const results = document.getElementById("modal-results");
+  const closeBtn = document.getElementById("modal-close-button");
+
+  let lastFocusedElement = null;
+  let searchTimeout = null;
+
+  console.log("âœ… Modal V2 initialized", {
+    overlay: overlay !== null,
+    backdrop: backdrop !== null,
+    content: content !== null,
+    input: input !== null,
+  });
+
+  // SIMPLE open modal with classList
+  function openModal(initialQuery = "") {
+    if (!overlay || !backdrop || !content || !input) {
+      console.error("âŒ Modal elements missing");
+      return;
+    }
+
+    console.log("ðŸ“– Opening modal V2");
+    lastFocusedElement = document.activeElement;
+
+    // Show overlay
+    overlay.classList.remove("hidden");
+
+    // Animate in
+    setTimeout(() => {
+      backdrop.style.opacity = "1";
+      content.style.opacity = "1";
+      content.style.transform = "translateY(0)";
+
+      console.log("âœ… Modal styles applied");
+      console.log("Content rect:", content.getBoundingClientRect());
+    }, 10);
+
+    // Focus input
+    setTimeout(() => {
+      input.value = initialQuery;
+      input.focus();
+      console.log("âœ… Input focused - modal should be visible");
+    }, 100);
+  }
+
+  // Close modal
+  function closeModal() {
+    if (!overlay || !backdrop || !content) return;
+
+    console.log("ðŸ“• Closing modal");
+
+    backdrop.style.opacity = "0";
+    content.style.opacity = "0";
+    content.style.transform = "translateY(-20px)";
+
+    setTimeout(() => {
+      overlay.classList.add("hidden");
+      if (lastFocusedElement?.focus) {
+        lastFocusedElement.focus();
+      }
+    }, 300);
+
+    window.dispatchEvent(new CustomEvent(SearchEvents.MODAL_CLOSED));
+  }
+
+  // Search function
+  function performSearch(value) {
+    if (!results) return;
+
+    if (value.length < 2) {
+      results.innerHTML = `
+        <div class="text-center py-12 text-gray-500">
+          <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <p class="text-lg font-semibold mb-1">Start typing to search</p>
+          <p class="text-sm">Try "MRI", "CT Scan", or "Ultrasound"</p>
+        </div>
+      `;
+      return;
+    }
+
+    console.log("ðŸ” Searching:", value);
+    const matches = searchUniversalProcedures(value, 8);
+    console.log("ðŸ“‹ Results:", matches.length);
+
+    if (!matches?.length) {
+      results.innerHTML = `
+        <div class="text-center py-12 text-gray-500">
+          <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <p class="text-lg font-semibold mb-1">No results for "${value}"</p>
+          <p class="text-sm">Try a different search term</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Render results
+    results.innerHTML = matches
+      .map(
+        (r) => `
+      <button 
+        class="result-btn w-full text-left p-4 mb-2 rounded-xl border border-gray-200 hover:border-[#003087]/30 hover:bg-blue-50/50 transition-all duration-200 group"
+        data-cpt="${r.cpt || ""}" 
+        data-label="${(r.label || "").replace(/"/g, "&quot;")}" 
+        data-modality="${r.modality || ""}"
+        data-bodypart="${r.bodyPart || ""}"
+      >
+        <div class="flex items-center gap-4">
+          <!-- Modality Badge -->
+          <div class="flex-shrink-0">
+            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-[#003087] text-white">
+              ${r.modality || "Scan"}
+            </span>
+          </div>
+          
+          <!-- Procedure Details -->
+          <div class="flex-1 min-w-0">
+            <div class="font-semibold text-gray-900 mb-1 group-hover:text-[#003087] transition-colors">
+              ${r.label || ""}
+            </div>
+            <div class="flex items-center gap-2 text-sm text-gray-500">
+              <span>${r.bodyPart || ""}</span>
+              <span class="text-gray-300">•</span>
+              <span class="font-mono text-xs">CPT ${r.cpt || ""}</span>
+            </div>
+          </div>
+          
+          <!-- Arrow Icon -->
+          <div class="flex-shrink-0 text-gray-400 group-hover:text-[#003087] transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </div>
+      </button>
+    `
+      )
+      .join("");
+
+    // Add click handlers
+    results.querySelectorAll(".result-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const procedure = {
+          cpt_code: btn.getAttribute("data-cpt"),
+          label: btn.getAttribute("data-label"),
+          modality: btn.getAttribute("data-modality"),
+          bodyPart: btn.getAttribute("data-bodypart"),
+        };
+        console.log("âœ… Selected:", procedure);
+        dispatchProcedureSelected(procedure);
+        closeModal();
+      });
+    });
+  }
+
+  // Event listeners
+  if (closeBtn) closeBtn.addEventListener("click", closeModal);
+  if (backdrop) backdrop.addEventListener("click", closeModal);
+
+  window.addEventListener(SearchEvents.OPEN_MODAL, (e) => {
+    console.log("ðŸ“¨ Open event received");
+    openModal(e.detail?.initialQuery || "");
+  });
+
+  if (input) {
+    input.addEventListener("input", (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(
+        () => performSearch(e.target.value.trim()),
+        200
+      );
+    });
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !overlay?.classList.contains("hidden")) {
+      closeModal();
+    }
+  });
+</script>
+
+<style>
+  #modal-results::-webkit-scrollbar {
+    width: 8px;
+  }
+  #modal-results::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+  }
+  #modal-results::-webkit-scrollbar-thumb {
+    background: #003087;
+    border-radius: 4px;
+  }
+</style>

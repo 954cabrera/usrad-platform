@@ -16,867 +16,1035 @@
   'use strict';
 
   // ============================================
-  // MRI PROCEDURES - COMPLETE REFERENCE
-  // ============================================
+// MRI PROCEDURES - COMPLETE REFERENCE (ENHANCED WITH matchKeywords)
+// ============================================
 
-  const MRI_PROCEDURES = {
-    
-    brain: {
-      category: "Brain",
-      icon: "brain",
-      procedures: [
-        {
-          cpt: "70551",
-          label: "MRI Brain - Without Contrast",
-          shortLabel: "Brain - Without",
-          description: "Evaluates stroke, tumors, MS, headaches",
-          duration: "30-45 min",
-          prep: "Remove metal objects",
-          useCase: "Initial brain evaluation, stroke, seizures"
-        },
-        {
-          cpt: "70552",
-          label: "MRI Brain - With Contrast",
-          shortLabel: "Brain - With",
-          description: "Enhanced detail for tumors, infections, MS",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Tumor characterization, infection, MS lesions"
-        },
-        {
-          cpt: "70553",
-          label: "MRI Brain - With & Without Contrast",
-          shortLabel: "Brain - Both",
-          description: "Complete brain evaluation with comparison",
-          duration: "60-90 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Comprehensive tumor staging, complex cases"
-        }
-      ]
-    },
+const MRI_PROCEDURES = {
+  brain: {
+    category: "Brain",
+    icon: "brain",
+    matchKeywords: [
+      "brain",
+      "head",
+      "stroke",
+      "seizure",
+      "headache",
+      "migraine",
+      "memory loss",
+      "tumor",
+      "ms",
+      "multiple sclerosis",
+      "dementia",
+      "brain scan",
+      "neurology"
+    ],
+    procedures: [
+      {
+        cpt: "70551",
+        label: "MRI Brain - Without Contrast",
+        shortLabel: "Brain - Without",
+        description: "Evaluates stroke, tumors, MS, headaches",
+        duration: "30-45 min",
+        prep: "Remove metal objects",
+        useCase: "Initial brain evaluation, stroke, seizures"
+      },
+      {
+        cpt: "70552",
+        label: "MRI Brain - With Contrast",
+        shortLabel: "Brain - With",
+        description: "Enhanced detail for tumors, infections, MS",
+        duration: "45-60 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Tumor characterization, infection, MS lesions"
+      },
+      {
+        cpt: "70553",
+        label: "MRI Brain - With & Without Contrast",
+        shortLabel: "Brain - Both",
+        description: "Complete brain evaluation with comparison",
+        duration: "60-90 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Comprehensive tumor staging, complex cases"
+      }
+    ]
+  },
 
-    cervicalSpine: {
-      category: "Cervical Spine (Neck)",
-      icon: "spine",
-      procedures: [
-        {
-          cpt: "72141",
-          label: "MRI Cervical Spine - Without Contrast",
-          shortLabel: "C-Spine - Without",
-          description: "Neck pain, disc herniation, stenosis",
-          duration: "30-45 min",
-          prep: "Remove metal objects, jewelry",
-          useCase: "Neck pain, numbness in arms, disc problems"
-        },
-        {
-          cpt: "72142",
-          label: "MRI Cervical Spine - With Contrast",
-          shortLabel: "C-Spine - With",
-          description: "Post-surgery, infection, tumor evaluation",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Post-surgical evaluation, infection, tumors"
-        },
-        {
-          cpt: "72156",
-          label: "MRI Cervical Spine - With & Without Contrast",
-          shortLabel: "C-Spine - Both",
-          description: "Complete cervical spine evaluation",
-          duration: "60-75 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Complex cases, tumor staging"
-        }
-      ]
-    },
+  cervicalSpine: {
+    category: "Cervical Spine (Neck)",
+    icon: "spine",
+    matchKeywords: [
+      "neck",
+      "neck pain",
+      "cervical spine",
+      "c spine",
+      "whiplash",
+      "arm numbness",
+      "neck injury",
+      "pinched nerve",
+      "herniated disc",
+      "cervical stenosis",
+      "spine mri"
+    ],
+    procedures: [
+      {
+        cpt: "72141",
+        label: "MRI Cervical Spine - Without Contrast",
+        shortLabel: "C-Spine - Without",
+        description: "Neck pain, disc herniation, stenosis",
+        duration: "30-45 min",
+        prep: "Remove metal objects, jewelry",
+        useCase: "Neck pain, numbness in arms, disc problems"
+      },
+      {
+        cpt: "72142",
+        label: "MRI Cervical Spine - With Contrast",
+        shortLabel: "C-Spine - With",
+        description: "Post-surgery, infection, tumor evaluation",
+        duration: "45-60 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Post-surgical evaluation, infection, tumors"
+      },
+      {
+        cpt: "72156",
+        label: "MRI Cervical Spine - With & Without Contrast",
+        shortLabel: "C-Spine - Both",
+        description: "Complete cervical spine evaluation",
+        duration: "60-75 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Complex cases, tumor staging"
+      }
+    ]
+  },
 
-    thoracicSpine: {
-      category: "Thoracic Spine (Mid Back)",
-      icon: "spine",
-      procedures: [
-        {
-          cpt: "72146",
-          label: "MRI Thoracic Spine - Without Contrast",
-          shortLabel: "T-Spine - Without",
-          description: "Mid-back pain, compression fractures",
-          duration: "30-45 min",
-          prep: "Remove metal objects",
-          useCase: "Mid-back pain, fractures, disc disease"
-        },
-        {
-          cpt: "72147",
-          label: "MRI Thoracic Spine - With Contrast",
-          shortLabel: "T-Spine - With",
-          description: "Infection, tumor, post-surgical changes",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Post-surgery, infection, metastases"
-        },
-        {
-          cpt: "72157",
-          label: "MRI Thoracic Spine - With & Without Contrast",
-          shortLabel: "T-Spine - Both",
-          description: "Complete thoracic evaluation",
-          duration: "60-75 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Complex spine disorders, tumor staging"
-        }
-      ]
-    },
+  thoracicSpine: {
+    category: "Thoracic Spine (Mid Back)",
+    icon: "spine",
+    matchKeywords: [
+      "mid back",
+      "upper back",
+      "thoracic spine",
+      "t spine",
+      "back pain",
+      "compression fracture",
+      "scoliosis",
+      "midback pain",
+      "thoracic disc"
+    ],
+    procedures: [
+      {
+        cpt: "72146",
+        label: "MRI Thoracic Spine - Without Contrast",
+        shortLabel: "T-Spine - Without",
+        description: "Mid-back pain, compression fractures",
+        duration: "30-45 min",
+        prep: "Remove metal objects",
+        useCase: "Mid-back pain, fractures, disc disease"
+      },
+      {
+        cpt: "72147",
+        label: "MRI Thoracic Spine - With Contrast",
+        shortLabel: "T-Spine - With",
+        description: "Infection, tumor, post-surgical changes",
+        duration: "45-60 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Post-surgery, infection, metastases"
+      },
+      {
+        cpt: "72157",
+        label: "MRI Thoracic Spine - With & Without Contrast",
+        shortLabel: "T-Spine - Both",
+        description: "Complete thoracic evaluation",
+        duration: "60-75 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Complex spine disorders, tumor staging"
+      }
+    ]
+  },
 
-    lumbarSpine: {
-      category: "Lumbar Spine (Low Back)",
-      icon: "spine",
-      procedures: [
-        {
-          cpt: "72148",
-          label: "MRI Lumbar Spine - Without Contrast",
-          shortLabel: "L-Spine - Without",
-          description: "Low back pain, sciatica, disc herniation",
-          duration: "30-45 min",
-          prep: "Remove metal objects",
-          useCase: "Back pain, sciatica, herniated disc"
-        },
-        {
-          cpt: "72149",
-          label: "MRI Lumbar Spine - With Contrast",
-          shortLabel: "L-Spine - With",
-          description: "Post-surgery evaluation, infection",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Failed back surgery, infection, tumors"
-        },
-        {
-          cpt: "72158",
-          label: "MRI Lumbar Spine - With & Without Contrast",
-          shortLabel: "L-Spine - Both",
-          description: "Complete lumbar evaluation",
-          duration: "60-75 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Complex back problems, tumor staging"
-        }
-      ]
-    },
-
-    // ============================================
-    // UPPER EXTREMITY - MAIN ENTRIES
-    // ============================================
-    
-    upperExtremityJoint: {
-      category: "Upper Extremity - Any Joint",
-      includes: "Shoulder, Elbow, or Wrist joint",
-      clinicalUse: "Rotator cuff tears, labral tears, ligament injuries, joint effusions",
-      icon: "shoulder",
-      contrastAvailability: ["without", "with", "both"],
-      matchKeywords: ["shoulder", "elbow", "wrist"],
-      procedures: [
-        {
-          cpt: "73221",
-          label: "MRI Upper Extremity (Joint) - Without Contrast",
-          shortLabel: "Without Contrast",
-          description: "Joint imaging without IV contrast injection",
-          duration: "30-45 min",
-          prep: "Remove metal objects, jewelry",
-          useCase: "Rotator cuff tears, ligament injuries, meniscal tears"
-        },
-        {
-          cpt: "73222",
-          label: "MRI Upper Extremity (Joint) - With Contrast",
-          shortLabel: "With Contrast",
-          description: "Enhanced joint imaging with IV contrast",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Infection, tumor evaluation, synovitis"
-        },
-        {
-          cpt: "73223",
-          label: "MRI Upper Extremity (Joint) - With & Without Contrast",
-          shortLabel: "With & Without Contrast",
-          description: "Complete joint evaluation with comparison",
-          duration: "60-75 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Complex joint pathology, tumor staging"
-        }
-      ]
-    },
-
-    upperExtremityNonJoint: {
-      category: "Upper Extremity - Other Than Joint",
-      includes: "Hand, Forearm, or Arm bones/soft tissue (radius, ulna, humerus)",
-      clinicalUse: "Fractures, bone tumors, soft tissue masses, osteomyelitis",
-      icon: "hand",
-      contrastAvailability: ["without", "both"],
-      matchKeywords: ["hand", "forearm", "arm", "radius", "ulna", "humerus", "finger"],
-      procedures: [
-        {
-          cpt: "73218",
-          label: "MRI Upper Extremity (Non-Joint) - Without Contrast",
-          shortLabel: "Without Contrast",
-          description: "Bone and soft tissue imaging",
-          duration: "30-45 min",
-          prep: "Remove metal objects, jewelry",
-          useCase: "Hand fractures, soft tissue masses, bone infection"
-        },
-        {
-          cpt: "73220",
-          label: "MRI Upper Extremity (Non-Joint) - With & Without Contrast",
-          shortLabel: "With & Without Contrast",
-          description: "Complete bone and soft tissue evaluation",
-          duration: "60-75 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Tumor characterization, complex infection"
-        }
-      ]
-    },
-
-    // ============================================
-    // LOWER EXTREMITY - MAIN ENTRIES
-    // ============================================
-    
-    lowerExtremityJoint: {
-      category: "Lower Extremity - Any Joint",
-      includes: "Hip, Knee, or Ankle joint",
-      clinicalUse: "Meniscus tears, ACL/MCL injuries, labral tears, cartilage damage",
-      icon: "knee",
-      contrastAvailability: ["without", "with", "both"],
-      matchKeywords: ["hip", "knee", "ankle"],
-      procedures: [
-        {
-          cpt: "73721",
-          label: "MRI Lower Extremity (Joint) - Without Contrast",
-          shortLabel: "Without Contrast",
-          description: "Joint imaging without IV contrast injection",
-          duration: "30-45 min",
-          prep: "Remove metal objects",
-          useCase: "Meniscus tears, ACL/MCL injuries, hip labral tears"
-        },
-        {
-          cpt: "73722",
-          label: "MRI Lower Extremity (Joint) - With Contrast",
-          shortLabel: "With Contrast",
-          description: "Enhanced joint imaging with IV contrast",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Joint infection, tumor evaluation, inflammatory arthritis"
-        },
-        {
-          cpt: "73723",
-          label: "MRI Lower Extremity (Joint) - With & Without Contrast",
-          shortLabel: "With & Without Contrast",
-          description: "Complete joint evaluation with comparison",
-          duration: "60-75 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Complex joint pathology, tumor staging"
-        }
-      ]
-    },
-
-    lowerExtremityNonJoint: {
-      category: "Lower Extremity - Other Than Joint",
-      includes: "Foot, Leg, or Thigh bones/soft tissue (tibia, fibula, femur)",
-      clinicalUse: "Stress fractures, bone tumors, soft tissue masses, shin splints",
-      icon: "foot",
-      contrastAvailability: ["without", "both"],
-      matchKeywords: ["foot", "leg", "thigh", "tibia", "fibula", "femur", "shin", "calf", "toe"],
-      procedures: [
-        {
-          cpt: "73718",
-          label: "MRI Lower Extremity (Non-Joint) - Without Contrast",
-          shortLabel: "Without Contrast",
-          description: "Bone and soft tissue imaging",
-          duration: "30-45 min",
-          prep: "Remove metal objects",
-          useCase: "Stress fractures, plantar fasciitis, Achilles tendon"
-        },
-        {
-          cpt: "73720",
-          label: "MRI Lower Extremity (Non-Joint) - With & Without Contrast",
-          shortLabel: "With & Without Contrast",
-          description: "Complete bone and soft tissue evaluation",
-          duration: "60-75 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Bone tumor characterization, complex infection"
-        }
-      ]
-    },
-
-    // ============================================
-    // REDIRECT ENTRIES (SIMPLIFIED - FIXED!)
-    // ============================================
-    
-    shoulder: {
-      category: "Shoulder",
-      icon: "shoulder",
-      redirectTo: "upperExtremityJoint"
-    },
-
-    elbow: {
-      category: "Elbow",
-      icon: "elbow",
-      redirectTo: "upperExtremityJoint"
-    },
-
-    wrist: {
-      category: "Wrist / Hand",
-      icon: "wrist",
-      redirectTo: "upperExtremityJoint"
-    },
-
-    hip: {
-      category: "Hip",
-      icon: "hip",
-      redirectTo: "lowerExtremityJoint"
-    },
+  lumbarSpine: {
+    category: "Lumbar Spine (Low Back)",
+    icon: "spine",
+    matchKeywords: [
+      "low back",
+      "lower back",
+      "lumbar",
+      "sciatica",
+      "back pain",
+      "herniated disc",
+      "disc bulge",
+      "degenerative disc disease",
+      "spinal stenosis",
+      "spine mri",
+      "l spine"
+    ],
+    procedures: [
+      {
+        cpt: "72148",
+        label: "MRI Lumbar Spine - Without Contrast",
+        shortLabel: "L-Spine - Without",
+        description: "Low back pain, sciatica, disc herniation",
+        duration: "30-45 min",
+        prep: "Remove metal objects",
+        useCase: "Back pain, sciatica, herniated disc"
+      },
+      {
+        cpt: "72149",
+        label: "MRI Lumbar Spine - With Contrast",
+        shortLabel: "L-Spine - With",
+        description: "Post-surgery evaluation, infection",
+        duration: "45-60 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Failed back surgery, infection, tumors"
+      },
+      {
+        cpt: "72158",
+        label: "MRI Lumbar Spine - With & Without Contrast",
+        shortLabel: "L-Spine - Both",
+        description: "Complete lumbar evaluation",
+        duration: "60-75 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Complex back problems, tumor staging"
+      }
+    ]
+  },
 
     knee: {
-      category: "Knee",
-      icon: "knee",
-      redirectTo: "lowerExtremityJoint"
-    },
+    category: "Knee",
+    icon: "knee",
+    matchKeywords: [
+      "knee",
+      "knee pain",
+      "meniscus",
+      "ligament",
+      "acl",
+      "mcl",
+      "patella",
+      "cartilage",
+      "joint",
+      "mri knee"
+    ],
+    procedures: [
+      {
+        cpt: "73721",
+        label: "MRI Knee - Without Contrast",
+        shortLabel: "Knee - Without",
+        description: "Meniscus tear, ligament injury, cartilage damage",
+        duration: "30-45 min",
+        prep: "Remove metal objects, wear loose clothing",
+        useCase: "Meniscal tear, ligament injury, arthritis, cartilage damage"
+      },
+      {
+        cpt: "73722",
+        label: "MRI Knee - With Contrast",
+        shortLabel: "Knee - With",
+        description: "Post-surgical or tumor evaluation",
+        duration: "45-60 min",
+        prep: "IV contrast required",
+        useCase: "Post-surgical evaluation, mass characterization, infection"
+      },
+      {
+        cpt: "73723",
+        label: "MRI Knee - With & Without Contrast",
+        shortLabel: "Knee - Both",
+        description: "Comprehensive knee evaluation",
+        duration: "60 min",
+        prep: "IV contrast, remove metal objects",
+        useCase: "Comprehensive ligament, tendon, and cartilage evaluation"
+      }
+    ]
+  },
 
-    ankle: {
-      category: "Ankle / Foot",
-      icon: "ankle",
-      procedures: [
-        {
-          cpt: "73718",
-          label: "MRI Ankle - Without Contrast",
-          shortLabel: "Ankle - Without",
-          description: "Ankle sprains, Achilles tendon, fractures",
-          duration: "30-45 min",
-          prep: "Remove metal objects",
-          useCase: "Ankle pain, ligament tears, Achilles tendon"
-        }
-      ]
-    },
+shoulder: {
+    category: "Shoulder",
+    icon: "shoulder",
+    matchKeywords: [
+      "shoulder",
+      "rotator cuff",
+      "labrum",
+      "bursitis",
+      "impingement",
+      "shoulder pain",
+      "mri shoulder"
+    ],
+    procedures: [
+      {
+        cpt: "73221",
+        label: "MRI Shoulder - Without Contrast",
+        shortLabel: "Shoulder - Without",
+        description: "Rotator cuff tear, bursitis, impingement",
+        duration: "30–45 min",
+        prep: "Remove metal objects, wear loose clothing",
+        useCase: "Rotator cuff tear, bursitis, labral injury"
+      },
+      {
+        cpt: "73222",
+        label: "MRI Shoulder - With Contrast",
+        shortLabel: "Shoulder - With",
+        description: "Arthrogram or post-surgical evaluation",
+        duration: "45–60 min",
+        prep: "IV contrast or joint injection if ordered",
+        useCase: "Labral tears, post-surgical changes, tumor or infection"
+      },
+      {
+        cpt: "73223",
+        label: "MRI Shoulder - With & Without Contrast",
+        shortLabel: "Shoulder - Both",
+        description: "Complete shoulder joint evaluation",
+        duration: "60 min",
+        prep: "IV contrast, remove metal objects",
+        useCase: "Comprehensive soft tissue and joint assessment"
+      }
+    ]
+  },
 
-    // ============================================
-    // TORSO
-    // ============================================
+  elbow: {
+    category: "Elbow",
+    icon: "elbow",
+    matchKeywords: [
+      "elbow",
+      "tennis elbow",
+      "golfer's elbow",
+      "ligament",
+      "tendon",
+      "elbow pain",
+      "mri elbow"
+    ],
+    procedures: [
+      {
+        cpt: "73218",
+        label: "MRI Elbow - Without Contrast",
+        shortLabel: "Elbow - Without",
+        description: "Tendon or ligament injury, bursitis, arthritis",
+        duration: "30–45 min",
+        prep: "Remove metal objects",
+        useCase: "Tendon tear, ligament sprain, joint effusion"
+      },
+      {
+        cpt: "73219",
+        label: "MRI Elbow - With Contrast",
+        shortLabel: "Elbow - With",
+        description: "Post-surgical or mass evaluation",
+        duration: "45–60 min",
+        prep: "IV contrast required",
+        useCase: "Mass, infection, post-surgical changes"
+      },
+      {
+        cpt: "73220",
+        label: "MRI Elbow - With & Without Contrast",
+        shortLabel: "Elbow - Both",
+        description: "Full joint and soft tissue evaluation",
+        duration: "60 min",
+        prep: "IV contrast, remove metal",
+        useCase: "Comprehensive tendon and joint evaluation"
+      }
+    ]
+  },
 
-    abdomen: {
-      category: "Abdomen",
-      icon: "abdomen",
-      procedures: [
-        {
-          cpt: "74181",
-          label: "MRI Abdomen - Without Contrast",
-          shortLabel: "Abdomen - Without",
-          description: "Liver, kidney, pancreas evaluation",
-          duration: "30-45 min",
-          prep: "Fasting 4-6 hours",
-          useCase: "Abdominal pain, liver lesions, kidney masses"
-        },
-        {
-          cpt: "74182",
-          label: "MRI Abdomen - With Contrast",
-          shortLabel: "Abdomen - With",
-          description: "Tumor characterization, organ evaluation",
-          duration: "45-60 min",
-          prep: "Fasting, IV contrast",
-          useCase: "Tumor staging, liver lesion characterization"
-        },
-        {
-          cpt: "74183",
-          label: "MRI Abdomen - With & Without Contrast",
-          shortLabel: "Abdomen - Both",
-          description: "Complete abdominal imaging",
-          duration: "60-90 min",
-          prep: "Fasting, IV contrast",
-          useCase: "Comprehensive cancer staging"
-        }
-      ]
-    },
+  wrist: {
+    category: "Wrist",
+    icon: "wrist",
+    matchKeywords: [
+      "wrist",
+      "carpal tunnel",
+      "tfcc",
+      "ligament",
+      "tendon",
+      "mri wrist"
+    ],
+    procedures: [
+      {
+        cpt: "73221",
+        label: "MRI Wrist - Without Contrast",
+        shortLabel: "Wrist - Without",
+        description: "Ligament, tendon, or cartilage injury",
+        duration: "30–45 min",
+        prep: "Remove jewelry or watches",
+        useCase: "TFCC tear, ligament injury, carpal tunnel evaluation"
+      },
+      {
+        cpt: "73222",
+        label: "MRI Wrist - With Contrast",
+        shortLabel: "Wrist - With",
+        description: "Arthrogram or post-surgical evaluation",
+        duration: "45–60 min",
+        prep: "IV contrast required",
+        useCase: "Post-surgical changes, tumor, or infection"
+      },
+      {
+        cpt: "73223",
+        label: "MRI Wrist - With & Without Contrast",
+        shortLabel: "Wrist - Both",
+        description: "Comprehensive wrist evaluation",
+        duration: "60 min",
+        prep: "IV contrast, remove metal",
+        useCase: "Complete evaluation of wrist tendons and ligaments"
+      }
+    ]
+  },
 
-    pelvis: {
-      category: "Pelvis",
-      icon: "pelvis",
-      procedures: [
-        {
-          cpt: "72195",
-          label: "MRI Pelvis - Without Contrast",
-          shortLabel: "Pelvis - Without",
-          description: "Bladder, prostate, uterus, ovaries",
-          duration: "30-45 min",
-          prep: "Full bladder recommended",
-          useCase: "Pelvic pain, prostate, gynecologic issues"
-        },
-        {
-          cpt: "72196",
-          label: "MRI Pelvis - With Contrast",
-          shortLabel: "Pelvis - With",
-          description: "Pelvic masses, cancer staging",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Pelvic mass evaluation, cancer staging"
-        },
-        {
-          cpt: "72197",
-          label: "MRI Pelvis - With & Without Contrast",
-          shortLabel: "Pelvis - Both",
-          description: "Complete pelvic evaluation",
-          duration: "60-75 min",
-          prep: "IV contrast, full bladder",
-          useCase: "Comprehensive cancer evaluation"
-        }
-      ]
-    },
+  hip: {
+    category: "Hip",
+    icon: "hip",
+    matchKeywords: [
+      "hip",
+      "labral tear",
+      "hip pain",
+      "bursitis",
+      "arthritis",
+      "groin pain",
+      "mri hip"
+    ],
+    procedures: [
+      {
+        cpt: "73721",
+        label: "MRI Hip - Without Contrast",
+        shortLabel: "Hip - Without",
+        description: "Labral tear, arthritis, bursitis",
+        duration: "30–45 min",
+        prep: "Remove metal objects, wear loose clothing",
+        useCase: "Labral tear, avascular necrosis, bursitis, arthritis"
+      },
+      {
+        cpt: "73722",
+        label: "MRI Hip - With Contrast",
+        shortLabel: "Hip - With",
+        description: "Arthrogram or post-surgical evaluation",
+        duration: "45–60 min",
+        prep: "IV contrast or joint injection",
+        useCase: "Labral tear, infection, tumor, post-surgical changes"
+      },
+      {
+        cpt: "73723",
+        label: "MRI Hip - With & Without Contrast",
+        shortLabel: "Hip - Both",
+        description: "Comprehensive hip joint evaluation",
+        duration: "60 min",
+        prep: "IV contrast, remove metal",
+        useCase: "Comprehensive labral and cartilage evaluation"
+      }
+    ]
+  },
 
-    chest: {
-      category: "Chest",
-      icon: "chest",
-      procedures: [
-        {
-          cpt: "71550",
-          label: "MRI Chest - Without Contrast",
-          shortLabel: "Chest - Without",
-          description: "Lung nodules, mediastinal masses",
-          duration: "30-45 min",
-          prep: "Remove metal objects",
-          useCase: "Chest mass, staging, cardiac evaluation"
-        },
-        {
-          cpt: "71551",
-          label: "MRI Chest - With Contrast",
-          shortLabel: "Chest - With",
-          description: "Tumor evaluation, vascular assessment",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Lung cancer staging, mediastinal masses"
-        },
-        {
-          cpt: "71552",
-          label: "MRI Chest - With & Without Contrast",
-          shortLabel: "Chest - Both",
-          description: "Complete chest imaging",
-          duration: "60-90 min",
-          prep: "IV contrast, breath holding",
-          useCase: "Comprehensive tumor evaluation"
-        }
-      ]
-    },
+  ankle: {
+    category: "Ankle",
+    icon: "ankle",
+    matchKeywords: [
+      "ankle",
+      "sprain",
+      "ligament",
+      "tendon",
+      "achilles",
+      "ankle pain",
+      "mri ankle"
+    ],
+    procedures: [
+      {
+        cpt: "73718",
+        label: "MRI Ankle - Without Contrast",
+        shortLabel: "Ankle - Without",
+        description: "Ligament or tendon injury, sprain, arthritis",
+        duration: "30–45 min",
+        prep: "Remove metal objects, wear loose clothing",
+        useCase: "Sprain, ligament tear, tendonitis, arthritis"
+      },
+      {
+        cpt: "73719",
+        label: "MRI Ankle - With Contrast",
+        shortLabel: "Ankle - With",
+        description: "Post-surgical or infection evaluation",
+        duration: "45–60 min",
+        prep: "IV contrast required",
+        useCase: "Post-surgical assessment, infection, tumor"
+      },
+      {
+        cpt: "73720",
+        label: "MRI Ankle - With & Without Contrast",
+        shortLabel: "Ankle - Both",
+        description: "Comprehensive ankle evaluation",
+        duration: "60 min",
+        prep: "IV contrast, remove metal",
+        useCase: "Comprehensive ligament, tendon, and joint evaluation"
+      }
+    ]
+  },
 
-    breast: {
-      category: "Breast",
-      icon: "breast",
-      procedures: [
-        {
-          cpt: "77046",
-          label: "MRI Breast - Unilateral",
-          shortLabel: "Breast - One Side",
-          description: "High-risk screening, problem-solving",
-          duration: "30-45 min",
-          prep: "Scheduled 7-14 days after period starts",
-          useCase: "High-risk screening, implant evaluation"
-        },
-        {
-          cpt: "77047",
-          label: "MRI Breast - Bilateral",
-          shortLabel: "Breast - Both Sides",
-          description: "Comprehensive breast cancer screening",
-          duration: "45-60 min",
-          prep: "Scheduled 7-14 days after period starts",
-          useCase: "BRCA positive, dense breasts, cancer staging"
-        },
-        {
-          cpt: "77048",
-          label: "MRI Breast - Unilateral With & Without Contrast",
-          shortLabel: "Breast - One Side Enhanced",
-          description: "Single breast with contrast comparison",
-          duration: "45-60 min",
-          prep: "IV contrast, scheduled 7-14 days after period",
-          useCase: "Cancer staging, suspicious lesion workup"
-        },
-        {
-          cpt: "77049",
-          label: "MRI Breast - Bilateral With & Without Contrast",
-          shortLabel: "Breast - Both Sides Enhanced",
-          description: "Both breasts with complete contrast protocol",
-          duration: "60-75 min",
-          prep: "IV contrast, scheduled 7-14 days after period",
-          useCase: "Comprehensive cancer screening, bilateral workup"
-        }
-      ]
-    },
 
-    orbitFaceNeck: {
-      category: "Orbit / Face / Neck",
-      icon: "eye",
-      procedures: [
-        {
-          cpt: "70540",
-          label: "MRI Orbit/Face/Neck - Without Contrast",
-          shortLabel: "Orbit - Without",
-          description: "Eye socket, facial structures",
-          duration: "30-45 min",
-          prep: "Remove metal, especially eye makeup",
-          useCase: "Orbital mass, facial pain"
-        }
-      ]
-    },
+  abdomen: {
+    category: "Abdomen",
+    icon: "abdomen",
+    matchKeywords: [
+      "abdomen",
+      "liver",
+      "kidney",
+      "pancreas",
+      "gallbladder",
+      "abdominal pain",
+      "liver lesion",
+      "renal mass",
+      "tumor staging",
+      "cancer scan"
+    ],
+    procedures: [
+      {
+        cpt: "74181",
+        label: "MRI Abdomen - Without Contrast",
+        shortLabel: "Abdomen - Without",
+        description: "Liver, kidney, pancreas evaluation",
+        duration: "30-45 min",
+        prep: "Fasting 4-6 hours",
+        useCase: "Abdominal pain, liver lesions, kidney masses"
+      },
+      {
+        cpt: "74182",
+        label: "MRI Abdomen - With Contrast",
+        shortLabel: "Abdomen - With",
+        description: "Tumor characterization, organ evaluation",
+        duration: "45-60 min",
+        prep: "Fasting, IV contrast",
+        useCase: "Tumor staging, liver lesion characterization"
+      },
+      {
+        cpt: "74183",
+        label: "MRI Abdomen - With & Without Contrast",
+        shortLabel: "Abdomen - Both",
+        description: "Complete abdominal imaging",
+        duration: "60-90 min",
+        prep: "Fasting, IV contrast",
+        useCase: "Comprehensive cancer staging"
+      }
+    ]
+  },
 
-    tmj: {
-      category: "TMJ",
-      icon: "tmj",
-      procedures: [
-        {
-          cpt: "70336",
-          label: "MRI TMJ - Without Contrast",
-          shortLabel: "TMJ - Without",
-          description: "Jaw joint imaging",
-          duration: "30-45 min",
-          prep: "Remove metal from head area",
-          useCase: "TMJ pain, jaw clicking"
-        }
-      ]
-    },
+  pelvis: {
+    category: "Pelvis",
+    icon: "pelvis",
+    matchKeywords: [
+      "pelvis",
+      "bladder",
+      "prostate",
+      "uterus",
+      "ovaries",
+      "fibroids",
+      "pelvic pain",
+      "gynecology",
+      "prostate cancer",
+      "pelvic mass"
+    ],
+    procedures: [
+      {
+        cpt: "72195",
+        label: "MRI Pelvis - Without Contrast",
+        shortLabel: "Pelvis - Without",
+        description: "Bladder, prostate, uterus, ovaries",
+        duration: "30-45 min",
+        prep: "Full bladder recommended",
+        useCase: "Pelvic pain, prostate, gynecologic issues"
+      },
+      {
+        cpt: "72196",
+        label: "MRI Pelvis - With Contrast",
+        shortLabel: "Pelvis - With",
+        description: "Pelvic masses, cancer staging",
+        duration: "45-60 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Pelvic mass evaluation, cancer staging"
+      },
+      {
+        cpt: "72197",
+        label: "MRI Pelvis - With & Without Contrast",
+        shortLabel: "Pelvis - Both",
+        description: "Complete pelvic evaluation",
+        duration: "60-75 min",
+        prep: "IV contrast, full bladder",
+        useCase: "Comprehensive cancer evaluation"
+      }
+    ]
+  },
 
-    cardiac: {
-      category: "Cardiac",
-      icon: "heart",
-      procedures: [
-        {
-          cpt: "75557",
-          label: "Cardiac MRI - Without Contrast",
-          shortLabel: "Heart - Without",
-          description: "Heart function, chamber size, valve disease",
-          duration: "45-60 min",
-          prep: "ECG monitoring during scan",
-          useCase: "Cardiomyopathy, valve disease, congenital heart"
-        },
-        {
-          cpt: "75561",
-          label: "Cardiac MRI - With Contrast",
-          shortLabel: "Heart - With",
-          description: "Viability assessment, scarring, inflammation",
-          duration: "60-90 min",
-          prep: "IV contrast, ECG monitoring",
-          useCase: "Heart attack evaluation, myocarditis, tumors"
-        }
-      ]
-    },
+  breast: {
+    category: "Breast",
+    icon: "breast",
+    matchKeywords: [
+      "breast",
+      "mammogram follow-up",
+      "dense breasts",
+      "implant",
+      "brca",
+      "breast cancer",
+      "screening",
+      "high risk",
+      "breast mri"
+    ],
+    procedures: [
+      {
+        cpt: "77046",
+        label: "MRI Breast - Unilateral",
+        shortLabel: "Breast - One Side",
+        description: "High-risk screening, problem-solving",
+        duration: "30-45 min",
+        prep: "Scheduled 7-14 days after period starts",
+        useCase: "High-risk screening, implant evaluation"
+      },
+      {
+        cpt: "77047",
+        label: "MRI Breast - Bilateral",
+        shortLabel: "Breast - Both Sides",
+        description: "Comprehensive breast cancer screening",
+        duration: "45-60 min",
+        prep: "Scheduled 7-14 days after period starts",
+        useCase: "BRCA positive, dense breasts, cancer staging"
+      },
+      {
+        cpt: "77049",
+        label: "MRI Breast - Bilateral With & Without Contrast",
+        shortLabel: "Breast - Both Sides Enhanced",
+        description: "Both breasts with complete contrast protocol",
+        duration: "60-75 min",
+        prep: "IV contrast, scheduled 7-14 days after period",
+        useCase: "Comprehensive cancer screening, bilateral workup"
+      }
+    ]
+  },
 
-    // ============================================
-    // VASCULAR IMAGING - MRA/MRV
-    // ============================================
+  cardiac: {
+    category: "Cardiac",
+    icon: "heart",
+    matchKeywords: [
+      "heart",
+      "cardiac",
+      "heart function",
+      "valve disease",
+      "myocarditis",
+      "cardiomyopathy",
+      "heart attack",
+      "heart mri"
+    ],
+    procedures: [
+      {
+        cpt: "75557",
+        label: "Cardiac MRI - Without Contrast",
+        shortLabel: "Heart - Without",
+        description: "Heart function, chamber size, valve disease",
+        duration: "45-60 min",
+        prep: "ECG monitoring during scan",
+        useCase: "Cardiomyopathy, valve disease, congenital heart"
+      },
+      {
+        cpt: "75561",
+        label: "Cardiac MRI - With Contrast",
+        shortLabel: "Heart - With",
+        description: "Viability assessment, scarring, inflammation",
+        duration: "60-90 min",
+        prep: "IV contrast, ECG monitoring",
+        useCase: "Heart attack evaluation, myocarditis, tumors"
+      }
+    ]
+  },
 
-    mraBrain: {
-      category: "MRA Brain",
-      icon: "brain",
-      categoryGroup: "vascular",
-      badge: "MRA",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "70544",
-          label: "MRA Brain - With Contrast",
-          shortLabel: "MRA Brain",
-          description: "Aneurysm or stenosis screening",
-          duration: "30-45 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Aneurysm detection, stroke evaluation, vascular malformations"
-        }
-      ]
-    },
-
-    mrvHead: {
-      category: "MRV Head (Venous)",
-      icon: "brain",
-      categoryGroup: "vascular",
-      badge: "MRV",
-      contrastMode: "optional",
-      procedures: [
-        {
-          cpt: "70545",
-          label: "MRV Head - Without Contrast",
-          shortLabel: "MRV Head - Without",
-          description: "Venous thrombosis evaluation",
-          duration: "30-45 min",
-          prep: "Remove metal objects",
-          useCase: "Venous sinus thrombosis, venous malformations"
-        },
-        {
-          cpt: "70546",
-          label: "MRV Head - With Contrast",
-          shortLabel: "MRV Head - With",
-          description: "Enhanced venous evaluation",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Detailed venous thrombosis assessment"
-        }
-      ]
-    },
-
-    mraNeck: {
-      category: "MRA Neck (Carotid)",
-      icon: "heart",
-      categoryGroup: "vascular",
-      badge: "MRA",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "70547",
-          label: "MRA Neck - With Contrast",
-          shortLabel: "MRA Neck",
-          description: "Carotid artery evaluation",
-          duration: "30-45 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Carotid stenosis, dissection, stroke prevention"
-        }
-      ]
-    },
-
-    mraChest: {
-      category: "MRA Chest / Aorta",
-      icon: "heart",
-      categoryGroup: "vascular",
-      badge: "MRA",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "71555",
-          label: "MRA Chest - With Contrast",
-          shortLabel: "MRA Chest",
-          description: "Thoracic aorta evaluation",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Aortic aneurysm, dissection, coarctation"
-        }
-      ]
-    },
-
-    mraAbdomen: {
-      category: "MRA Abdomen / Renal",
-      icon: "abdomen",
-      categoryGroup: "vascular",
-      badge: "MRA",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "74185",
-          label: "MRA Abdomen - With Contrast",
-          shortLabel: "MRA Abdomen",
-          description: "Renal artery stenosis evaluation",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Renal artery stenosis, mesenteric ischemia, abdominal aneurysm"
-        }
-      ]
-    },
-
-    mraPelvis: {
-      category: "MRA Pelvis",
-      icon: "bone",
-      categoryGroup: "vascular",
-      badge: "MRA",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "72198",
-          label: "MRA Pelvis - With Contrast",
-          shortLabel: "MRA Pelvis",
-          description: "Iliac vessel evaluation",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Iliac artery stenosis, pelvic vascular malformations"
-        }
-      ]
-    },
-
-    mraRunoff: {
-      category: "MRA Runoff (Legs)",
-      icon: "leg",
-      categoryGroup: "vascular",
-      badge: "MRA",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "73725",
-          label: "MRA Lower Extremities - With Contrast",
-          shortLabel: "MRA Runoff",
-          description: "Peripheral vascular disease evaluation",
-          duration: "60-75 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Peripheral artery disease, claudication, limb ischemia"
-        }
-      ]
-    },
-
-    mraSpine: {
-      category: "MRA Spine",
-      icon: "spine",
-      categoryGroup: "vascular",
-      badge: "MRA",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "72159",
-          label: "MRA Spine - With Contrast",
-          shortLabel: "MRA Spine",
-          description: "Spinal cord vascular evaluation",
-          duration: "45-60 min",
-          prep: "IV contrast, kidney function check",
-          useCase: "Spinal vascular malformations, AVMs, dural fistulas"
-        }
-      ]
-    },
-
-    // ============================================
-    // SPECIALIZED MRI - ARTHROGRAMS
-    // ============================================
-
-    arthrogramShoulder: {
-      category: "MRI Shoulder Arthrogram",
-      icon: "shoulder",
-      categoryGroup: "specialized",
-      badge: "Arthrogram",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "73222",
-          label: "MRI Shoulder Arthrogram - With Contrast",
-          shortLabel: "Shoulder Arthrogram",
-          description: "Fluoro-guided contrast injection into shoulder joint",
-          duration: "45-60 min",
-          prep: "Fluoroscopy-guided injection, then immediate MRI",
-          useCase: "Labral tears, rotator cuff evaluation, capsular injury"
-        }
-      ]
-    },
-
-    arthrogramKnee: {
-      category: "MRI Knee Arthrogram",
-      icon: "knee",
-      categoryGroup: "specialized",
-      badge: "Arthrogram",
-      contrastMode: "auto",
-      procedures: [
-        {
-          cpt: "73722",
-          label: "MRI Knee Arthrogram - With Contrast",
-          shortLabel: "Knee Arthrogram",
-          description: "Fluoro-guided contrast injection into knee joint",
-          duration: "45-60 min",
-          prep: "Fluoroscopy-guided injection, then immediate MRI",
-          useCase: "Meniscal tears, ligament evaluation, cartilage assessment"
-        }
-      ]
-    },
-
-    // ============================================
-    // SPECIALIZED MRI - BREAST
-    // ============================================
-
-    mriBreast: {
-      category: "MRI Breast (CAD)",
-      icon: "breast",
-      categoryGroup: "specialized",
-      badge: "Specialized",
-      contrastMode: "manual",
-      procedures: [
-        {
-          cpt: "77046",
-          label: "MRI Breast - Without Contrast",
-          shortLabel: "Breast - Without",
-          description: "High-risk screening without contrast",
-          duration: "30-45 min",
-          prep: "No metal bra, avoid week before period",
-          useCase: "Initial screening, contrast allergy"
-        },
-        {
-          cpt: "77047",
-          label: "MRI Breast - With Contrast",
-          shortLabel: "Breast - With",
-          description: "High-risk screening and cancer staging",
-          duration: "45-60 min",
-          prep: "IV contrast, no metal bra",
-          useCase: "High-risk screening, cancer staging, implant evaluation"
-        },
-        {
-          cpt: "77048",
-          label: "MRI Breast - With & Without Contrast",
-          shortLabel: "Breast - Both",
-          description: "Comprehensive breast evaluation",
-          duration: "60-75 min",
-          prep: "IV contrast, no metal bra",
-          useCase: "Complex cases, cancer staging, post-treatment surveillance"
-        }
-      ]
-    },
 
     // ============================================
-    // SPECIALIZED MRI - FUNCTIONAL / METABOLIC
-    // ============================================
+// VASCULAR IMAGING - MRA/MRV
+// ============================================
 
-    spectroscopy: {
-      category: "MR Spectroscopy (MRS)",
-      icon: "brain",
-      categoryGroup: "specialized",
-      badge: "MRS",
-      contrastMode: "none",
-      procedures: [
-        {
-          cpt: "76390",
-          label: "MR Spectroscopy - Without Contrast",
-          shortLabel: "MR Spectroscopy",
-          description: "Metabolic brain analysis (non-contrast)",
-          duration: "45-60 min",
-          prep: "Standard MRI prep, remove metal",
-          useCase: "Brain tumor characterization, metabolic disorders, dementia evaluation"
-        }
-      ]
-    },
-
-    elastography: {
-      category: "MR Elastography (MRE)",
-      icon: "liver",
-      categoryGroup: "specialized",
-      badge: "MRE",
-      contrastMode: "none",
-      procedures: [
-        {
-          cpt: "76391",
-          label: "MR Elastography - Without Contrast",
-          shortLabel: "MR Elastography",
-          description: "Liver fibrosis evaluation (non-contrast)",
-          duration: "45-60 min",
-          prep: "Fasting 4 hours, passive driver placed on abdomen",
-          useCase: "Liver fibrosis staging, chronic liver disease, cirrhosis evaluation"
-        }
-      ]
+mraBrain: {
+  category: "MRA Brain",
+  icon: "brain",
+  categoryGroup: "vascular",
+  badge: "🧠 MRA",
+  contrastMode: "auto",
+  matchKeywords: [
+    "mra brain",
+    "brain vessels",
+    "aneurysm",
+    "stroke",
+    "vascular malformation",
+    "angiogram brain",
+    "cerebral arteries"
+  ],
+  procedures: [
+    {
+      cpt: "70544",
+      label: "MRA Brain - With Contrast",
+      shortLabel: "MRA Brain",
+      description: "Aneurysm or stenosis screening",
+      duration: "30-45 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Aneurysm detection, stroke evaluation, vascular malformations"
     }
-  };
+  ]
+},
 
-  /**
- * ENHANCED CT PROCEDURES - COMPLETE DATASET
- * ==========================================
- * Includes Standard CT, CTA (Vascular Imaging), and Specialized Screening
- * 
- * Category Groups:
- * - standard: Diagnostic CT scans (Head, Chest, Abdomen, Spine, etc.)
- * - vascular: CTA procedures for blood vessel evaluation
- * - screening: Preventive and wellness screening (Lung, Cardiac, Colonoscopy)
- * 
- * New Metadata Fields:
- * - categoryGroup: 'standard' | 'vascular' | 'screening'
- * - displayIn: Array of where to show (e.g., ['torso', 'vascular', 'screening'])
- * - tags: Array of search keywords
- * - clinicalIndication: Patient-friendly description of why this scan is done
- * - isScreening: Boolean flag for screening procedures
- * - isVascular: Boolean flag for CTA procedures
- * - helperText: Optional education line for screening items
- */
+mrvHead: {
+  category: "MRV Head (Venous)",
+  icon: "brain",
+  categoryGroup: "vascular",
+  badge: "🩸 MRV",
+  contrastMode: "optional",
+  matchKeywords: [
+    "mrv head",
+    "venous thrombosis",
+    "brain veins",
+    "sinus thrombosis",
+    "vascular malformation"
+  ],
+  procedures: [
+    {
+      cpt: "70545",
+      label: "MRV Head - Without Contrast",
+      shortLabel: "MRV Head - Without",
+      description: "Venous thrombosis evaluation",
+      duration: "30-45 min",
+      prep: "Remove metal objects",
+      useCase: "Venous sinus thrombosis, venous malformations"
+    },
+    {
+      cpt: "70546",
+      label: "MRV Head - With Contrast",
+      shortLabel: "MRV Head - With",
+      description: "Enhanced venous evaluation",
+      duration: "45-60 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Detailed venous thrombosis assessment"
+    }
+  ]
+},
+
+mraNeck: {
+  category: "MRA Neck (Carotid)",
+  icon: "heart",
+  categoryGroup: "vascular",
+  badge: "🧠 MRA",
+  contrastMode: "auto",
+  matchKeywords: [
+    "mra neck",
+    "carotid",
+    "neck vessels",
+    "stroke prevention",
+    "dissection",
+    "stenosis"
+  ],
+  procedures: [
+    {
+      cpt: "70547",
+      label: "MRA Neck - With Contrast",
+      shortLabel: "MRA Neck",
+      description: "Carotid artery evaluation",
+      duration: "30-45 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Carotid stenosis, dissection, stroke prevention"
+    }
+  ]
+},
+
+mraChest: {
+  category: "MRA Chest / Aorta",
+  icon: "heart",
+  categoryGroup: "vascular",
+  badge: "🧠 MRA",
+  contrastMode: "auto",
+  matchKeywords: [
+    "mra chest",
+    "thoracic aorta",
+    "aortic aneurysm",
+    "dissection",
+    "coarctation",
+    "vascular chest"
+  ],
+  procedures: [
+    {
+      cpt: "71555",
+      label: "MRA Chest - With Contrast",
+      shortLabel: "MRA Chest",
+      description: "Thoracic aorta evaluation",
+      duration: "45-60 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Aortic aneurysm, dissection, coarctation"
+    }
+  ]
+},
+
+mraAbdomen: {
+  category: "MRA Abdomen / Renal",
+  icon: "abdomen",
+  categoryGroup: "vascular",
+  badge: "🧠 MRA",
+  contrastMode: "auto",
+  matchKeywords: [
+    "mra abdomen",
+    "renal arteries",
+    "abdominal aorta",
+    "mesenteric ischemia",
+    "aneurysm"
+  ],
+  procedures: [
+    {
+      cpt: "74185",
+      label: "MRA Abdomen - With Contrast",
+      shortLabel: "MRA Abdomen",
+      description: "Renal artery stenosis evaluation",
+      duration: "45-60 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Renal artery stenosis, mesenteric ischemia, abdominal aneurysm"
+    }
+  ]
+},
+
+mraPelvis: {
+  category: "MRA Pelvis",
+  icon: "bone",
+  categoryGroup: "vascular",
+  badge: "🧠 MRA",
+  contrastMode: "auto",
+  matchKeywords: [
+    "mra pelvis",
+    "iliac artery",
+    "pelvic vessels",
+    "vascular malformation"
+  ],
+  procedures: [
+    {
+      cpt: "72198",
+      label: "MRA Pelvis - With Contrast",
+      shortLabel: "MRA Pelvis",
+      description: "Iliac vessel evaluation",
+      duration: "45-60 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Iliac artery stenosis, pelvic vascular malformations"
+    }
+  ]
+},
+
+mraRunoff: {
+  category: "MRA Runoff (Legs)",
+  icon: "leg",
+  categoryGroup: "vascular",
+  badge: "🧠 MRA",
+  contrastMode: "auto",
+  matchKeywords: [
+    "mra legs",
+    "runoff",
+    "peripheral artery disease",
+    "claudication",
+    "limb ischemia"
+  ],
+  procedures: [
+    {
+      cpt: "73725",
+      label: "MRA Lower Extremities - With Contrast",
+      shortLabel: "MRA Runoff",
+      description: "Peripheral vascular disease evaluation",
+      duration: "60-75 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Peripheral artery disease, claudication, limb ischemia"
+    }
+  ]
+},
+
+mraSpine: {
+  category: "MRA Spine",
+  icon: "spine",
+  categoryGroup: "vascular",
+  badge: "🧠 MRA",
+  contrastMode: "auto",
+  matchKeywords: [
+    "mra spine",
+    "spinal cord vessels",
+    "avm",
+    "dural fistula",
+    "spinal vascular"
+  ],
+  procedures: [
+    {
+      cpt: "72159",
+      label: "MRA Spine - With Contrast",
+      shortLabel: "MRA Spine",
+      description: "Spinal cord vascular evaluation",
+      duration: "45-60 min",
+      prep: "IV contrast, kidney function check",
+      useCase: "Spinal vascular malformations, AVMs, dural fistulas"
+    }
+  ]
+},
+
+// ============================================
+// SPECIALIZED MRI - ARTHROGRAMS
+// ============================================
+
+arthrogramShoulder: {
+  category: "MRI Shoulder Arthrogram",
+  icon: "shoulder",
+  categoryGroup: "specialized",
+  badge: "💉 Arthrogram",
+  contrastMode: "auto",
+  matchKeywords: [
+    "shoulder arthrogram",
+    "labrum",
+    "rotator cuff",
+    "joint injection",
+    "capsule injury"
+  ],
+  procedures: [
+    {
+      cpt: "73222",
+      label: "MRI Shoulder Arthrogram - With Contrast",
+      shortLabel: "Shoulder Arthrogram",
+      description: "Fluoro-guided contrast injection into shoulder joint",
+      duration: "45-60 min",
+      prep: "Fluoroscopy-guided injection, then immediate MRI",
+      useCase: "Labral tears, rotator cuff evaluation, capsular injury"
+    }
+  ]
+},
+
+arthrogramKnee: {
+  category: "MRI Knee Arthrogram",
+  icon: "knee",
+  categoryGroup: "specialized",
+  badge: "💉 Arthrogram",
+  contrastMode: "auto",
+  matchKeywords: [
+    "knee arthrogram",
+    "meniscus tear",
+    "cartilage",
+    "ligament",
+    "joint injection"
+  ],
+  procedures: [
+    {
+      cpt: "73722",
+      label: "MRI Knee Arthrogram - With Contrast",
+      shortLabel: "Knee Arthrogram",
+      description: "Fluoro-guided contrast injection into knee joint",
+      duration: "45-60 min",
+      prep: "Fluoroscopy-guided injection, then immediate MRI",
+      useCase: "Meniscal tears, ligament evaluation, cartilage assessment"
+    }
+  ]
+},
+
+// ============================================
+// SPECIALIZED MRI - BREAST
+// ============================================
+
+mriBreast: {
+  category: "MRI Breast (CAD)",
+  icon: "breast",
+  categoryGroup: "specialized",
+  badge: "🎗️ Breast MRI",
+  contrastMode: "manual",
+  matchKeywords: [
+    "breast mri",
+    "breast cancer",
+    "implant",
+    "dense breasts",
+    "high risk screening"
+  ],
+  procedures: [
+    {
+      cpt: "77046",
+      label: "MRI Breast - Without Contrast",
+      shortLabel: "Breast - Without",
+      description: "High-risk screening without contrast",
+      duration: "30-45 min",
+      prep: "No metal bra, avoid week before period",
+      useCase: "Initial screening, contrast allergy"
+    },
+    {
+      cpt: "77047",
+      label: "MRI Breast - With Contrast",
+      shortLabel: "Breast - With",
+      description: "High-risk screening and cancer staging",
+      duration: "45-60 min",
+      prep: "IV contrast, no metal bra",
+      useCase: "High-risk screening, cancer staging, implant evaluation"
+    },
+    {
+      cpt: "77048",
+      label: "MRI Breast - With & Without Contrast",
+      shortLabel: "Breast - Both",
+      description: "Comprehensive breast evaluation",
+      duration: "60-75 min",
+      prep: "IV contrast, no metal bra",
+      useCase: "Complex cases, cancer staging, post-treatment surveillance"
+    }
+  ]
+},
+
+// ============================================
+// SPECIALIZED MRI - FUNCTIONAL / METABOLIC
+// ============================================
+
+spectroscopy: {
+  category: "MR Spectroscopy (MRS)",
+  icon: "brain",
+  categoryGroup: "specialized",
+  badge: "🧪 MRS",
+  contrastMode: "none",
+  matchKeywords: [
+    "mr spectroscopy",
+    "metabolic",
+    "brain chemistry",
+    "tumor analysis",
+    "dementia"
+  ],
+  procedures: [
+    {
+      cpt: "76390",
+      label: "MR Spectroscopy - Without Contrast",
+      shortLabel: "MR Spectroscopy",
+      description: "Metabolic brain analysis (non-contrast)",
+      duration: "45-60 min",
+      prep: "Standard MRI prep, remove metal",
+      useCase: "Brain tumor characterization, metabolic disorders, dementia evaluation"
+    }
+  ]
+},
+
+elastography: {
+  category: "MR Elastography (MRE)",
+  icon: "liver",
+  categoryGroup: "specialized",
+  badge: "🧪 MRE",
+  contrastMode: "none",
+  matchKeywords: [
+    "mr elastography",
+    "liver stiffness",
+    "fibrosis",
+    "cirrhosis",
+    "mre"
+  ],
+  procedures: [
+    {
+      cpt: "76391",
+      label: "MR Elastography - Without Contrast",
+      shortLabel: "MR Elastography",
+      description: "Liver fibrosis evaluation (non-contrast)",
+      duration: "45-60 min",
+      prep: "Fasting 4 hours, passive driver placed on abdomen",
+      useCase: "Liver fibrosis staging, chronic liver disease, cirrhosis evaluation"
+    }
+  ]
+}  // ✅ closes elastography entry
+}; // ✅ closes MRI_PROCEDURES object
+
+
+  // ============================================
+// ENHANCED CT PROCEDURES - COMPLETE DATASET
+// ============================================
 
 const CT_PROCEDURES = {
-  
   // ============================================
   // STANDARD CT - HEAD & NECK
   // ============================================
-  
   head: {
     category: "Head / Brain",
     icon: "brain",
     categoryGroup: "standard",
     displayIn: ["head", "brain"],
+    matchKeywords: [
+      "brain","head","stroke","bleeding","trauma","headache","concussion","seizure",
+      "brain injury","head ct","ct brain"
+    ],
     procedures: [
       {
         cpt: "70450",
@@ -911,21 +1079,90 @@ const CT_PROCEDURES = {
     ]
   },
 
+  // Sinuses
   sinuses: {
     category: "Sinuses",
     icon: "sinuses",
     categoryGroup: "standard",
-    displayIn: ["head"],
+    displayIn: ["head", "face"],
+    matchKeywords: [
+      "sinus","sinuses","sinusitis","sinus infection","nasal polyps","sinus pressure",
+      "facial pain","sinus ct","ct sinus","ct sinuses"
+    ],
     procedures: [
       {
         cpt: "70486",
         label: "CT Sinuses - Without Contrast",
-        shortLabel: "Sinuses",
-        description: "Sinusitis, polyps, surgical planning",
+        shortLabel: "Sinuses - Without",
+        description: "Sinusitis, infection, congestion",
         duration: "5-10 min",
         prep: "None required",
         useCase: "Chronic sinusitis, polyps, pre-surgical planning",
         clinicalIndication: "Evaluation of chronic sinus infections, polyps, and pre-surgical anatomy"
+      },
+      {
+        cpt: "70487",
+        label: "CT Sinuses - With Contrast",
+        shortLabel: "Sinuses - With",
+        description: "Evaluation of infection or tumor",
+        duration: "15-20 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Infection, tumor, sinus obstruction",
+        clinicalIndication: "Enhanced imaging for infection, tumor, or obstruction"
+      },
+      {
+        cpt: "70488",
+        label: "CT Sinuses - With & Without Contrast",
+        shortLabel: "Sinuses - Both",
+        description: "Comprehensive sinus evaluation",
+        duration: "20-25 min",
+        prep: "IV contrast, remove metal objects",
+        useCase: "Full sinus workup for chronic or recurrent sinusitis",
+        clinicalIndication: "Comprehensive evaluation for chronic/recurrent sinus disease"
+      }
+    ]
+  },
+
+  // Face / Orbits / Temporal Bone
+  orbitsFace: {
+    category: "Orbits / Face / Temporal Bone",
+    icon: "face",
+    categoryGroup: "standard",
+    displayIn: ["head", "face"],
+    matchKeywords: [
+      "orbit","orbits","eye socket","temporal bone","facial bones","maxillofacial",
+      "ct orbit","ct face","ct temporal bone","zygoma","blowout fracture"
+    ],
+    procedures: [
+      {
+        cpt: "70480",
+        label: "CT Orbits / Temporal Bone - Without Contrast",
+        shortLabel: "Orbits/Temporal - Without",
+        description: "Facial fractures, sinus disease, or trauma assessment",
+        duration: "10–15 min",
+        prep: "Remove metal near head or face",
+        useCase: "Fracture, infection, sinusitis, orbital trauma, temporal bone pathology",
+        clinicalIndication: "Evaluation of facial/orbital fractures and temporal bone pathology"
+      },
+      {
+        cpt: "70481",
+        label: "CT Orbits / Temporal Bone - With Contrast",
+        shortLabel: "Orbits/Temporal - With",
+        description: "Evaluation of infection, tumors, or inflammatory disease",
+        duration: "15–20 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Infection, tumor, inflammatory disease of orbit or temporal bone",
+        clinicalIndication: "Enhanced imaging for infection, tumor, or inflammation"
+      },
+      {
+        cpt: "70482",
+        label: "CT Orbits / Temporal Bone - With & Without Contrast",
+        shortLabel: "Orbits/Temporal - Both",
+        description: "Comprehensive orbital and temporal bone evaluation",
+        duration: "20–25 min",
+        prep: "IV contrast required, remove metal objects",
+        useCase: "Comprehensive assessment of orbital and facial structures",
+        clinicalIndication: "Full evaluation of orbital/facial structures with and without contrast"
       }
     ]
   },
@@ -935,6 +1172,10 @@ const CT_PROCEDURES = {
     icon: "neck",
     categoryGroup: "standard",
     displayIn: ["head"],
+    matchKeywords: [
+      "neck","throat","lymph node","neck mass","thyroid","airway",
+      "neck ct","soft tissue neck","ct neck"
+    ],
     procedures: [
       {
         cpt: "70490",
@@ -962,12 +1203,15 @@ const CT_PROCEDURES = {
   // ============================================
   // STANDARD CT - TORSO
   // ============================================
-  
   chest: {
     category: "Chest",
     icon: "chest",
     categoryGroup: "standard",
     displayIn: ["torso"],
+    matchKeywords: [
+      "chest","lungs","pneumonia","covid","pulmonary embolism","lung cancer",
+      "mediastinum","chest pain","shortness of breath","ct chest","lung ct"
+    ],
     procedures: [
       {
         cpt: "71250",
@@ -1007,6 +1251,10 @@ const CT_PROCEDURES = {
     icon: "abdomen",
     categoryGroup: "standard",
     displayIn: ["torso"],
+    matchKeywords: [
+      "abdomen","stomach","abdominal pain","appendicitis","kidney stones","liver",
+      "pancreas","gallbladder","appendix","diverticulitis","ct abdomen"
+    ],
     procedures: [
       {
         cpt: "74150",
@@ -1046,6 +1294,10 @@ const CT_PROCEDURES = {
     icon: "pelvis",
     categoryGroup: "standard",
     displayIn: ["torso"],
+    matchKeywords: [
+      "pelvis","hip","bladder","ovaries","uterus","prostate","pelvic pain",
+      "stones","pelvic fracture","ct pelvis"
+    ],
     procedures: [
       {
         cpt: "72192",
@@ -1085,6 +1337,10 @@ const CT_PROCEDURES = {
     icon: "abdomen",
     categoryGroup: "standard",
     displayIn: ["torso"],
+    matchKeywords: [
+      "abdomen","pelvis","kidney stones","appendicitis","bowel obstruction",
+      "abdominal pain","diverticulitis","ct abdomen pelvis","a/p ct"
+    ],
     procedures: [
       {
         cpt: "74176",
@@ -1122,12 +1378,14 @@ const CT_PROCEDURES = {
   // ============================================
   // STANDARD CT - SPINE
   // ============================================
-
   cervicalSpine: {
     category: "Cervical Spine (Neck)",
     icon: "spine",
     categoryGroup: "standard",
     displayIn: ["spine"],
+    matchKeywords: [
+      "neck","cervical spine","whiplash","fracture","neck trauma","c spine","spine ct"
+    ],
     procedures: [
       {
         cpt: "72125",
@@ -1157,6 +1415,10 @@ const CT_PROCEDURES = {
     icon: "spine",
     categoryGroup: "standard",
     displayIn: ["spine"],
+    matchKeywords: [
+      "thoracic spine","mid back","upper back","compression fracture","t spine",
+      "spine fracture","back ct"
+    ],
     procedures: [
       {
         cpt: "72128",
@@ -1186,6 +1448,10 @@ const CT_PROCEDURES = {
     icon: "spine",
     categoryGroup: "standard",
     displayIn: ["spine"],
+    matchKeywords: [
+      "lumbar spine","low back","lower back","back pain","sciatica","l spine",
+      "spinal stenosis","disc fracture","spine ct"
+    ],
     procedures: [
       {
         cpt: "72131",
@@ -1211,16 +1477,106 @@ const CT_PROCEDURES = {
   },
 
   // ============================================
-  // CTA - VASCULAR IMAGING (HEAD & NECK)
+  // STANDARD CT - EXTREMITIES
   // ============================================
+  upperExtremity: {
+    category: "Upper Extremity (Arm / Hand)",
+    icon: "arm",
+    categoryGroup: "standard",
+    displayIn: ["extremities"],
+    matchKeywords: [
+      "arm","hand","forearm","elbow","shoulder","upper extremity",
+      "humerus","radius","ulna","ct arm","ct hand"
+    ],
+    procedures: [
+      {
+        cpt: "73200",
+        label: "CT Upper Extremity - Without Contrast",
+        shortLabel: "Upper Extremity - Without",
+        description: "Fracture, bone lesion, or post-traumatic assessment",
+        duration: "10–15 min",
+        prep: "Remove metal jewelry or clothing",
+        useCase: "Fractures, bone lesions, deformities, post-surgical follow-up",
+        clinicalIndication: "Evaluation of fractures, bone lesions, and post-trauma"
+      },
+      {
+        cpt: "73201",
+        label: "CT Upper Extremity - With Contrast",
+        shortLabel: "Upper Extremity - With",
+        description: "Evaluation of tumors, infections, or vascular abnormalities",
+        duration: "15–20 min",
+        prep: "IV contrast required, kidney function check",
+        useCase: "Tumor evaluation, infection, or vascular lesions",
+        clinicalIndication: "Enhanced evaluation of tumor, infection, or vascular lesions"
+      },
+      {
+        cpt: "73202",
+        label: "CT Upper Extremity - With & Without Contrast",
+        shortLabel: "Upper Extremity - Both",
+        description: "Comprehensive upper extremity evaluation",
+        duration: "20–30 min",
+        prep: "IV contrast, remove metal objects",
+        useCase: "Full diagnostic workup of arm or hand",
+        clinicalIndication: "Comprehensive evaluation of bones, joints, and soft tissues"
+      }
+    ]
+  },
 
+  lowerExtremity: {
+    category: "Lower Extremity (Leg / Foot)",
+    icon: "leg",
+    categoryGroup: "standard",
+    displayIn: ["extremities"],
+    matchKeywords: [
+      "leg","knee","ankle","foot","femur","tibia","fibula",
+      "lower extremity","ct leg","ct ankle","ct foot"
+    ],
+    procedures: [
+      {
+        cpt: "73700",
+        label: "CT Lower Extremity - Without Contrast",
+        shortLabel: "Lower Extremity - Without",
+        description: "Fracture, dislocation, or bone lesion",
+        duration: "10–15 min",
+        prep: "Remove metal objects or clothing",
+        useCase: "Trauma, fractures, degenerative bone disease",
+        clinicalIndication: "Evaluation of fractures, dislocations, or bone lesions"
+      },
+      {
+        cpt: "73701",
+        label: "CT Lower Extremity - With Contrast",
+        shortLabel: "Lower Extremity - With",
+        description: "Infection, tumor, or post-surgical changes",
+        duration: "15–20 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Infection, tumor, vascular abnormalities, post-surgical assessment",
+        clinicalIndication: "Enhanced evaluation for infection, tumor, or vascular abnormalities"
+      },
+      {
+        cpt: "73702",
+        label: "CT Lower Extremity - With & Without Contrast",
+        shortLabel: "Lower Extremity - Both",
+        description: "Comprehensive lower extremity evaluation",
+        duration: "20–30 min",
+        prep: "IV contrast, remove metal objects",
+        useCase: "Detailed assessment of bones, joints, and soft tissues",
+        clinicalIndication: "Comprehensive evaluation of lower extremity"
+      }
+    ]
+  },
+
+  // ============================================
+  // CTA - VASCULAR IMAGING
+  // ============================================
   ctaHeadNeck: {
     category: "CTA Head & Neck",
     icon: "brain",
     categoryGroup: "vascular",
     displayIn: ["head", "vascular"],
-    isVascular: true,
-    badge: "ðŸ’“ CTA",
+    matchKeywords: [
+      "cta","angiography","head vessels","neck vessels","carotid","aneurysm",
+      "dissection","stroke","ct angiography head","ct angiography neck"
+    ],
     procedures: [
       {
         cpt: "70496",
@@ -1230,9 +1586,7 @@ const CT_PROCEDURES = {
         duration: "15-20 min",
         prep: "IV contrast, kidney function check",
         useCase: "Aneurysm detection, stroke evaluation, vascular abnormalities",
-        clinicalIndication: "Angiography of brain blood vessels for aneurysm, stroke, and vascular malformations",
-        isVascular: true,
-        tags: ["angiogram", "aneurysm", "stroke", "vascular", "brain vessels"]
+        clinicalIndication: "Angiography of brain blood vessels for aneurysm, stroke, and vascular malformations"
       },
       {
         cpt: "70498",
@@ -1242,24 +1596,20 @@ const CT_PROCEDURES = {
         duration: "15-20 min",
         prep: "IV contrast, kidney function check",
         useCase: "Carotid stenosis, dissection, pre-stroke workup",
-        clinicalIndication: "Angiography of neck blood vessels for carotid stenosis and dissection",
-        isVascular: true,
-        tags: ["carotid", "angiogram", "stenosis", "dissection", "neck vessels"]
+        clinicalIndication: "Angiography of neck blood vessels for carotid stenosis and dissection"
       }
     ]
   },
-
-  // ============================================
-  // CTA - VASCULAR IMAGING (CHEST)
-  // ============================================
 
   ctaChest: {
     category: "CTA Chest",
     icon: "heart",
     categoryGroup: "vascular",
     displayIn: ["torso", "vascular"],
-    isVascular: true,
-    badge: "ðŸ’“ CTA",
+    matchKeywords: [
+      "cta chest","pulmonary embolism","pe","aortic dissection","aneurysm",
+      "ct angiography chest","pulmonary arteries"
+    ],
     procedures: [
       {
         cpt: "71275",
@@ -1269,9 +1619,7 @@ const CT_PROCEDURES = {
         duration: "15-20 min",
         prep: "IV contrast, kidney function check, breath holding",
         useCase: "Pulmonary embolism (PE), aortic dissection, aneurysm",
-        clinicalIndication: "Angiography for pulmonary embolism detection and aortic evaluation",
-        isVascular: true,
-        tags: ["pulmonary embolism", "PE", "aortic dissection", "aneurysm", "chest vessels"]
+        clinicalIndication: "Angiography for pulmonary embolism detection and aortic evaluation"
       }
     ]
   },
@@ -1281,8 +1629,9 @@ const CT_PROCEDURES = {
     icon: "heart",
     categoryGroup: "vascular",
     displayIn: ["torso", "vascular"],
-    isVascular: true,
-    badge: "ðŸ’“ CTA",
+    matchKeywords: [
+      "cta coronary","coronary ct angiography","ccta","heart arteries","cad","chest pain"
+    ],
     procedures: [
       {
         cpt: "75574",
@@ -1292,24 +1641,20 @@ const CT_PROCEDURES = {
         duration: "20-30 min",
         prep: "IV contrast, beta blockers, heart rate control",
         useCase: "Coronary artery disease, chest pain evaluation, bypass graft assessment",
-        clinicalIndication: "Non-invasive angiography of coronary arteries for blockage detection",
-        isVascular: true,
-        tags: ["coronary", "heart", "cardiac", "angiogram", "chest pain", "CAD"]
+        clinicalIndication: "Non-invasive angiography of coronary arteries for blockage detection"
       }
     ]
   },
-
-  // ============================================
-  // CTA - VASCULAR IMAGING (ABDOMEN)
-  // ============================================
 
   ctaAbdomen: {
     category: "CTA Abdomen",
     icon: "abdomen",
     categoryGroup: "vascular",
     displayIn: ["torso", "vascular"],
-    isVascular: true,
-    badge: "ðŸ’“ CTA",
+    matchKeywords: [
+      "cta abdomen","abdominal aortic aneurysm","aaa","mesenteric ischemia",
+      "renal artery stenosis","ct angiography abdomen"
+    ],
     procedures: [
       {
         cpt: "74175",
@@ -1319,24 +1664,20 @@ const CT_PROCEDURES = {
         duration: "20-25 min",
         prep: "IV contrast, kidney function check",
         useCase: "AAA evaluation, mesenteric ischemia, renal artery stenosis",
-        clinicalIndication: "Angiography of abdominal vessels for aneurysm and vascular disease",
-        isVascular: true,
-        tags: ["aortic aneurysm", "AAA", "mesenteric", "renal artery", "abdominal vessels"]
+        clinicalIndication: "Angiography of abdominal vessels for aneurysm and vascular disease"
       }
     ]
   },
-
-  // ============================================
-  // CTA - VASCULAR IMAGING (EXTREMITIES)
-  // ============================================
 
   ctaExtremities: {
     category: "CTA Extremities",
     icon: "leg",
     categoryGroup: "vascular",
     displayIn: ["extremities", "vascular"],
-    isVascular: true,
-    badge: "ðŸ’“ CTA",
+    matchKeywords: [
+      "cta leg","runoff","pad","peripheral artery disease","cta arm","cta extremity",
+      "ct angiography legs","claudication"
+    ],
     procedures: [
       {
         cpt: "73706",
@@ -1346,9 +1687,7 @@ const CT_PROCEDURES = {
         duration: "20-30 min",
         prep: "IV contrast, kidney function check",
         useCase: "Peripheral artery disease, leg claudication, pre-surgical planning",
-        clinicalIndication: "Angiography of leg arteries for peripheral artery disease evaluation",
-        isVascular: true,
-        tags: ["peripheral artery disease", "PAD", "claudication", "leg vessels", "run-off"]
+        clinicalIndication: "Angiography of leg arteries for peripheral artery disease evaluation"
       },
       {
         cpt: "73206",
@@ -1358,9 +1697,7 @@ const CT_PROCEDURES = {
         duration: "15-20 min",
         prep: "IV contrast, kidney function check",
         useCase: "Arm arterial disease, thoracic outlet syndrome, vascular malformations",
-        clinicalIndication: "Angiography of arm arteries for vascular abnormalities",
-        isVascular: true,
-        tags: ["arm vessels", "thoracic outlet", "upper extremity"]
+        clinicalIndication: "Angiography of arm arteries for vascular abnormalities"
       }
     ]
   },
@@ -1368,14 +1705,14 @@ const CT_PROCEDURES = {
   // ============================================
   // SPECIALIZED SCREENING
   // ============================================
-
   screeningLung: {
     category: "Lung Cancer Screening",
     icon: "lungs",
     categoryGroup: "screening",
     displayIn: ["screening", "torso"],
-    isScreening: true,
-    badge: "â­ Screening",
+    matchKeywords: [
+      "lung screening","ldct","low dose","smoker","screening lung","lung cancer screen"
+    ],
     procedures: [
       {
         cpt: "71271",
@@ -1385,10 +1722,7 @@ const CT_PROCEDURES = {
         duration: "5-10 min",
         prep: "None required - no contrast",
         useCase: "Annual lung cancer screening for high-risk patients",
-        clinicalIndication: "Low-dose CT for early lung cancer detection in high-risk patients",
-        isScreening: true,
-        helperText: "Annual screening for ages 50-80 with smoking history",
-        tags: ["screening", "preventive", "lung cancer", "LDCT", "low dose"]
+        clinicalIndication: "Low-dose CT for early lung cancer detection in high-risk patients"
       }
     ]
   },
@@ -1398,8 +1732,9 @@ const CT_PROCEDURES = {
     icon: "heart",
     categoryGroup: "screening",
     displayIn: ["screening", "torso"],
-    isScreening: true,
-    badge: "â­ Screening",
+    matchKeywords: [
+      "calcium score","cardiac screening","heart scan","cac","preventive cardiology"
+    ],
     procedures: [
       {
         cpt: "75571",
@@ -1409,10 +1744,7 @@ const CT_PROCEDURES = {
         duration: "10-15 min",
         prep: "None required - no contrast",
         useCase: "Cardiovascular risk assessment, preventive cardiology",
-        clinicalIndication: "Quantifies coronary calcium to assess cardiovascular disease risk",
-        isScreening: true,
-        helperText: "Risk assessment for heart disease - no contrast needed",
-        tags: ["screening", "preventive", "calcium score", "heart disease", "cardiac risk"]
+        clinicalIndication: "Quantifies coronary calcium to assess cardiovascular disease risk"
       }
     ]
   },
@@ -1422,8 +1754,9 @@ const CT_PROCEDURES = {
     icon: "intestine",
     categoryGroup: "screening",
     displayIn: ["screening", "torso"],
-    isScreening: true,
-    badge: "â­ Screening",
+    matchKeywords: [
+      "virtual colonoscopy","colonography","colon cancer screening","ctc","polyps"
+    ],
     procedures: [
       {
         cpt: "74263",
@@ -1433,842 +1766,722 @@ const CT_PROCEDURES = {
         duration: "20-30 min",
         prep: "Bowel preparation required, no sedation",
         useCase: "Colon cancer screening, alternative to optical colonoscopy",
-        clinicalIndication: "Non-invasive colon imaging for polyp and cancer detection",
-        isScreening: true,
-        helperText: "Colon cancer screening ages 45+ - no sedation required",
-        tags: ["screening", "preventive", "colon cancer", "colonography", "polyps"]
+        clinicalIndication: "Non-invasive colon imaging for polyp and cancer detection"
       }
     ]
   },
 
-  screeningCoronary: {        // âœ… Correct name
-  category: "Coronary CTA Screening",
-  icon: "heart",
-  categoryGroup: "screening",
-  displayIn: ["screening", "vascular"],  // âœ… Added "vascular"
-  isVascular: true,         // âœ… NEW - marks as CTA
-  isScreening: true,
-  badge: "ðŸ’“ CTA",           // âœ… Matches other CTA procedures
-  procedures: [
-    {
-      cpt: "75574",         // âœ… Correct CTA coronary code
-      label: "CTA Coronary Arteries - Screening",
-      shortLabel: "Heart CTA",
-      description: "Non-invasive coronary artery evaluation",
-      duration: "20-30 min",
-      prep: "IV contrast required, heart rate control, beta blockers",  // âœ… Correct for CTA
-      useCase: "Chest pain evaluation, family history of heart disease",
-      clinicalIndication: "Coronary CTA for non-invasive cardiac assessment",
-      isVascular: true,     // âœ… NEW
-      isScreening: true,
-      helperText: "Non-invasive heart evaluation",
-      tags: ["coronary", "heart screening", "cta", "cardiac"]
-    }
-  ]
-}
+  screeningCoronary: {
+    category: "Coronary CTA Screening",
+    icon: "heart",
+    categoryGroup: "screening",
+    displayIn: ["screening", "vascular"],
+    matchKeywords: [
+      "cta coronary screening","heart cta screening","noninvasive heart evaluation"
+    ],
+    procedures: [
+      {
+        cpt: "75574",
+        label: "CTA Coronary Arteries - Screening",
+        shortLabel: "Heart CTA",
+        description: "Non-invasive coronary artery evaluation",
+        duration: "20-30 min",
+        prep: "IV contrast required, heart rate control, beta blockers",
+        useCase: "Chest pain evaluation, family history of heart disease",
+        clinicalIndication: "Coronary CTA for non-invasive cardiac assessment"
+      }
+    ]
+  }
 };
+    // ✅ closes CT_PROCEDURES object
 
-// Export for use
+// ============================================
+// EXPORT / GLOBAL ATTACHMENT
+// ============================================
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { CT_PROCEDURES };
 }
 
-  // ============================================
-  // X-RAY PROCEDURES - COMPLETE REFERENCE
-  // ============================================
-  
-  const XRAY_PROCEDURES = {
-    
-    chest: {
-      category: "Chest",
-      icon: "chest",
-      viewOptions: [
-        {
-          views: "1",
-          cpt: "71045",
-          label: "X-Ray Chest - 1 View",
-          shortLabel: "Chest - 1 View",
-          description: "Single frontal chest X-ray",
-          duration: "5 min",
-          prep: "Remove jewelry, metal objects from chest area",
-          useCase: "Basic chest screening, follow-up",
-          isCommon: false
-        },
-        {
-          views: "2",
-          cpt: "71046",
-          label: "X-Ray Chest - 2 Views (PA & Lateral)",
-          shortLabel: "Chest - 2 Views",
-          description: "Standard two-view chest X-ray",
-          duration: "5-10 min",
-          prep: "Remove jewelry, metal objects from chest area",
-          useCase: "Standard chest X-ray, pneumonia, COVID, heart size",
-          isCommon: true
-        },
-        {
-          views: "apical",
-          cpt: "71042",
-          label: "X-Ray Chest - Apical Lordotic",
-          shortLabel: "Chest - Apical Lordotic",
-          description: "Specialized angled view of lung apex",
-          duration: "10 min",
-          prep: "Remove jewelry, metal objects",
-          useCase: "Lung apex evaluation, apical masses",
-          isCommon: false
-        },
-        {
-          views: "3-4",
-          cpt: "71047-71048",
-          label: "X-Ray Chest - Oblique/Special Views",
-          shortLabel: "Chest - Special Views",
-          description: "Multiple angled chest views",
-          duration: "10-15 min",
-          prep: "Remove jewelry, metal objects",
-          useCase: "Rib fractures, comprehensive chest evaluation",
-          isCommon: false
-        }
-      ]
-    },
-
-    cervicalSpine: {
-      category: "Cervical Spine (Neck)",
-      icon: "spine",
-      viewOptions: [
-        {
-          views: "<4",
-          cpt: "72040",
-          label: "X-Ray Cervical Spine - Less Than 4 Views",
-          shortLabel: "C-Spine - <4 Views",
-          description: "Limited cervical spine series",
-          duration: "10 min",
-          prep: "Remove neck jewelry, necklaces",
-          useCase: "Limited neck evaluation",
-          isCommon: false
-        },
-        {
-          views: "4-5",
-          cpt: "72050",
-          label: "X-Ray Cervical Spine - 4-5 Views",
-          shortLabel: "C-Spine - 4-5 Views",
-          description: "Standard cervical spine series",
-          duration: "10-15 min",
-          prep: "Remove neck jewelry, necklaces",
-          useCase: "Standard neck pain evaluation, whiplash",
-          isCommon: true
-        },
-        {
-          views: "6+",
-          cpt: "72052",
-          label: "X-Ray Cervical Spine - 6+ Views (Flex/Ext)",
-          shortLabel: "C-Spine - 6+ Views",
-          description: "Complete cervical series with flexion/extension",
-          duration: "15-20 min",
-          prep: "Remove neck jewelry, necklaces",
-          useCase: "Instability evaluation, post-injury assessment",
-          isCommon: false
-        }
-      ]
-    },
-
-    thoracicSpine: {
-      category: "Thoracic Spine (Mid Back)",
-      icon: "spine",
-      viewOptions: [
-        {
-          views: "2",
-          cpt: "72070",
-          label: "X-Ray Thoracic Spine - 2 Views",
-          shortLabel: "T-Spine - 2 Views",
-          description: "Two-view thoracic spine",
-          duration: "10 min",
-          prep: "Remove clothing with metal fasteners",
-          useCase: "Mid-back pain, compression fractures",
-          isCommon: true
-        },
-        {
-          views: "3+",
-          cpt: "72074",
-          label: "X-Ray Thoracic Spine - 3+ Views",
-          shortLabel: "T-Spine - 3+ Views",
-          description: "Complete thoracic spine series",
-          duration: "15 min",
-          prep: "Remove clothing with metal fasteners",
-          useCase: "Scoliosis evaluation, detailed spine assessment",
-          isCommon: false
-        }
-      ]
-    },
-
-    lumbarSpine: {
-      category: "Lumbar Spine (Low Back)",
-      icon: "spine",
-      viewOptions: [
-        {
-          views: "<4",
-          cpt: "72100",
-          label: "X-Ray Lumbar Spine - Less Than 4 Views",
-          shortLabel: "L-Spine - <4 Views",
-          description: "Limited lumbar spine series",
-          duration: "10 min",
-          prep: "Remove belt, pants with metal",
-          useCase: "Limited low back evaluation",
-          isCommon: false
-        },
-        {
-          views: "4",
-          cpt: "72110",
-          label: "X-Ray Lumbar Spine - 4 Views",
-          shortLabel: "L-Spine - 4 Views",
-          description: "Standard lumbar spine series",
-          duration: "10-15 min",
-          prep: "Remove belt, pants with metal",
-          useCase: "Low back pain, sciatica evaluation",
-          isCommon: true
-        },
-        {
-          views: "6",
-          cpt: "72114",
-          label: "X-Ray Lumbar Spine - 6 Views (Flex/Ext)",
-          shortLabel: "L-Spine - 6 Views",
-          description: "Complete lumbar series with bending views",
-          duration: "15-20 min",
-          prep: "Remove belt, pants with metal",
-          useCase: "Instability, spondylolisthesis evaluation",
-          isCommon: false
-        }
-      ]
-    },
-
-    knee: {
-      category: "Knee",
-      icon: "knee",
-      viewOptions: [
-        {
-          views: "2",
-          cpt: "73560",
-          label: "X-Ray Knee - 2 Views",
-          shortLabel: "Knee - 2 Views",
-          description: "AP and lateral knee views",
-          duration: "5-10 min",
-          prep: "None required",
-          useCase: "Knee pain, injury evaluation",
-          isCommon: true,
-          bilateral: true
-        },
-        {
-          views: "3",
-          cpt: "73562",
-          label: "X-Ray Knee - 3 Views",
-          shortLabel: "Knee - 3 Views",
-          description: "Complete knee series",
-          duration: "10 min",
-          prep: "None required",
-          useCase: "Comprehensive knee evaluation",
-          isCommon: false,
-          bilateral: true
-        },
-        {
-          views: "4",
-          cpt: "73564",
-          label: "X-Ray Knee - 4 Views (Anika)",
-          shortLabel: "Knee - 4 Views",
-          description: "Specialized knee series",
-          duration: "10-15 min",
-          prep: "None required",
-          useCase: "Detailed knee assessment",
-          isCommon: false,
-          bilateral: true
-        }
-      ]
-    },
-
-    shoulder: {
-      category: "Shoulder",
-      icon: "shoulder",
-      viewOptions: [
-        {
-          views: "2",
-          cpt: "73020",
-          label: "X-Ray Shoulder - 2 Views",
-          shortLabel: "Shoulder - 2 Views",
-          description: "AP and lateral shoulder",
-          duration: "5-10 min",
-          prep: "Remove clothing from shoulder area",
-          useCase: "Shoulder pain, injury",
-          isCommon: false,
-          bilateral: true
-        },
-        {
-          views: "3",
-          cpt: "73030",
-          label: "X-Ray Shoulder - 3 Views (Complete)",
-          shortLabel: "Shoulder - 3 Views",
-          description: "Complete shoulder series",
-          duration: "10-15 min",
-          prep: "Remove clothing from shoulder area",
-          useCase: "Rotator cuff evaluation, dislocation",
-          isCommon: true,
-          bilateral: true
-        }
-      ]
-    },
-
-    clavicle: {
-      category: "Clavicle",
-      icon: "clavicle",
-      viewOptions: [
-        {
-          views: "2",
-          cpt: "73000",
-          label: "X-Ray Clavicle - 2 Views (Complete)",
-          shortLabel: "Clavicle - Complete",
-          description: "Complete clavicle X-ray",
-          duration: "5 min",
-          prep: "Remove clothing from shoulder/chest area",
-          useCase: "Clavicle fracture, injury",
-          isCommon: true
-        }
-      ]
-    },
-
-    abdomen: {
-      category: "Abdomen (KUB)",
-      icon: "abdomen",
-      viewOptions: [
-        {
-          views: "1",
-          cpt: "74018",
-          label: "X-Ray Abdomen - 1 View (KUB)",
-          shortLabel: "KUB - 1 View",
-          description: "Single abdominal view (kidneys, ureters, bladder)",
-          duration: "5 min",
-          prep: "None required",
-          useCase: "Kidney stones, constipation, abdominal pain",
-          isCommon: true
-        },
-        {
-          views: "2",
-          cpt: "74019",
-          label: "X-Ray Abdomen - 2 Views",
-          shortLabel: "Abdomen - 2 Views",
-          description: "AP and additional abdominal view",
-          duration: "5-10 min",
-          prep: "None required",
-          useCase: "Abdominal pain, bowel obstruction",
-          isCommon: false
-        },
-        {
-          views: "3+",
-          cpt: "74021",
-          label: "X-Ray Abdomen - 3+ Views (Acute Series)",
-          shortLabel: "Abdomen - Acute Series",
-          description: "Complete abdominal series with oblique",
-          duration: "10-15 min",
-          prep: "None required",
-          useCase: "Bowel obstruction, acute abdomen",
-          isCommon: false
-        }
-      ]
-    },
-
-    pelvis: {
-      category: "Pelvis",
-      icon: "pelvis",
-      viewOptions: [
-        {
-          views: "1-2",
-          cpt: "72170",
-          label: "X-Ray Pelvis - 1 or 2 Views",
-          shortLabel: "Pelvis - 1-2 Views",
-          description: "Standard pelvis X-ray",
-          duration: "5-10 min",
-          prep: "None required",
-          useCase: "Hip pain, pelvic fracture",
-          isCommon: true
-        },
-        {
-          views: "3+",
-          cpt: "72190",
-          label: "X-Ray Pelvis - 3+ Views (Complete)",
-          shortLabel: "Pelvis - Complete",
-          description: "Complete pelvis series",
-          duration: "10-15 min",
-          prep: "None required",
-          useCase: "Trauma evaluation, detailed assessment",
-          isCommon: false
-        }
-      ]
-    },
-
-    ribs: {
-      category: "Ribs",
-      icon: "ribs",
-      viewOptions: [
-        {
-          views: "2",
-          cpt: "71100",
-          label: "X-Ray Ribs - Unilateral 2 Views",
-          shortLabel: "Ribs - 2 Views (One Side)",
-          description: "Two views of one side of ribs",
-          duration: "10 min",
-          prep: "Remove clothing from chest area",
-          useCase: "Rib fracture, chest wall pain",
-          isCommon: false
-        },
-        {
-          views: "3",
-          cpt: "71101",
-          label: "X-Ray Ribs - Including Chest 3-4 Views",
-          shortLabel: "Ribs - 3-4 Views",
-          description: "Ribs with chest views",
-          duration: "10-15 min",
-          prep: "Remove clothing from chest area",
-          useCase: "Comprehensive rib evaluation",
-          isCommon: false
-        },
-        {
-          views: "bilateral",
-          cpt: "71110",
-          label: "X-Ray Ribs - Bilateral (Both Sides)",
-          shortLabel: "Ribs - Bilateral",
-          description: "Both sides of ribs",
-          duration: "15 min",
-          prep: "Remove clothing from chest area",
-          useCase: "Bilateral rib trauma",
-          isCommon: true
-        }
-      ]
-    },
-
-    ankle: {
-      category: "Ankle",
-      icon: "ankle",
-      viewOptions: [
-        {
-          views: "2",
-          cpt: "73600",
-          label: "X-Ray Ankle - 2 Views",
-          shortLabel: "Ankle - 2 Views",
-          description: "AP and lateral ankle",
-          duration: "5-10 min",
-          prep: "None required",
-          useCase: "Ankle sprain, fracture evaluation",
-          isCommon: true,
-          bilateral: true
-        },
-        {
-          views: "3",
-          cpt: "73610",
-          label: "X-Ray Ankle - 3 Views (Complete)",
-          shortLabel: "Ankle - 3 Views",
-          description: "Complete ankle series",
-          duration: "10 min",
-          prep: "None required",
-          useCase: "Comprehensive ankle evaluation",
-          isCommon: false,
-          bilateral: true
-        }
-      ]
-    },
-
-    foot: {
-      category: "Foot",
-      icon: "foot",
-      viewOptions: [
-        {
-          views: "2",
-          cpt: "73620",
-          label: "X-Ray Foot - 2 Views",
-          shortLabel: "Foot - 2 Views",
-          description: "AP and lateral foot",
-          duration: "5-10 min",
-          prep: "None required",
-          useCase: "Foot pain, fracture",
-          isCommon: true,
-          bilateral: true
-        },
-        {
-          views: "3",
-          cpt: "73630",
-          label: "X-Ray Foot - 3 Views (Complete)",
-          shortLabel: "Foot - 3 Views",
-          description: "Complete foot series",
-          duration: "10 min",
-          prep: "None required",
-          useCase: "Comprehensive foot evaluation",
-          isCommon: false,
-          bilateral: true
-        }
-      ]
-    },
-
-    hand: {
-      category: "Hand",
-      icon: "hand",
-      viewOptions: [
-        {
-          views: "2",
-          cpt: "73120",
-          label: "X-Ray Hand - 2 Views",
-          shortLabel: "Hand - 2 Views",
-          description: "AP and lateral hand",
-          duration: "5-10 min",
-          prep: "Remove rings, jewelry",
-          useCase: "Hand injury, fracture",
-          isCommon: true,
-          bilateral: true
-        },
-        {
-          views: "3",
-          cpt: "73130",
-          label: "X-Ray Hand - 3 Views (Complete)",
-          shortLabel: "Hand - 3 Views",
-          description: "Complete hand series",
-          duration: "10 min",
-          prep: "Remove rings, jewelry",
-          useCase: "Comprehensive hand evaluation",
-          isCommon: false,
-          bilateral: true
-        }
-      ]
-    },
-
-    wrist: {
-      category: "Wrist",
-      icon: "wrist",
-      viewOptions: [
-        {
-          views: "2",
-          cpt: "73100",
-          label: "X-Ray Wrist - 2 Views",
-          shortLabel: "Wrist - 2 Views",
-          description: "AP and lateral wrist",
-          duration: "5-10 min",
-          prep: "Remove watches, bracelets",
-          useCase: "Wrist pain, fracture",
-          isCommon: true,
-          bilateral: true
-        },
-        {
-          views: "3",
-          cpt: "73110",
-          label: "X-Ray Wrist - 3 Views (Complete)",
-          shortLabel: "Wrist - 3 Views",
-          description: "Complete wrist series",
-          duration: "10 min",
-          prep: "Remove watches, bracelets",
-          useCase: "Comprehensive wrist evaluation, scaphoid",
-          isCommon: false,
-          bilateral: true
-        }
-      ]
-    },
-
-    hip: {
-      category: "Hip",
-      icon: "hip",
-      viewOptions: [
-        {
-          views: "2-3",
-          cpt: "73521",
-          label: "X-Ray Hip - Unilateral 2-3 Views",
-          shortLabel: "Hip - 2-3 Views (One Side)",
-          description: "One hip with multiple views",
-          duration: "10 min",
-          prep: "None required",
-          useCase: "Hip pain, fracture evaluation",
-          isCommon: true,
-          bilateral: true
-        },
-        {
-          views: "4+",
-          cpt: "73522",
-          label: "X-Ray Hip - Bilateral 3-4 Views",
-          shortLabel: "Hip - Bilateral",
-          description: "Both hips",
-          duration: "10-15 min",
-          prep: "None required",
-          useCase: "Bilateral hip assessment",
-          isCommon: false,
-          bilateral: true
-        }
-      ]
-    },
-
-    elbow: {
-      category: "Elbow",
-      icon: "elbow",
-      viewOptions: [
-        {
-          views: "2",
-          cpt: "73070",
-          label: "X-Ray Elbow - 2 Views",
-          shortLabel: "Elbow - 2 Views",
-          description: "AP and lateral elbow",
-          duration: "5-10 min",
-          prep: "None required",
-          useCase: "Elbow pain, injury",
-          isCommon: true,
-          bilateral: true
-        },
-        {
-          views: "3",
-          cpt: "73080",
-          label: "X-Ray Elbow - 3 Views (Complete)",
-          shortLabel: "Elbow - 3 Views",
-          description: "Complete elbow series",
-          duration: "10 min",
-          prep: "None required",
-          useCase: "Comprehensive elbow evaluation",
-          isCommon: false,
-          bilateral: true
-        }
-      ]
-    },
-
-    femur: {
-      category: "Femur (Thigh)",
-      icon: "femur",
-      viewOptions: [
-        {
-          views: "2",
-          cpt: "73552",
-          label: "X-Ray Femur - 2 Views",
-          shortLabel: "Femur - 2 Views",
-          description: "AP and lateral femur",
-          duration: "10 min",
-          prep: "None required",
-          useCase: "Thigh pain, femur fracture",
-          isCommon: true
-        }
-      ]
-    },
-
-    tibia: {
-      category: "Tibia/Fibula (Lower Leg)",
-      icon: "tibia",
-      viewOptions: [
-        {
-          views: "2",
-          cpt: "73590",
-          label: "X-Ray Tibia/Fibula - 2 Views",
-          shortLabel: "Lower Leg - 2 Views",
-          description: "AP and lateral lower leg",
-          duration: "10 min",
-          prep: "None required",
-          useCase: "Lower leg pain, fracture",
-          isCommon: true,
-          bilateral: true
-        }
-      ]
-    }
-
-  };
 
   // ============================================
-  // ULTRASOUND PROCEDURES - COMPLETE REFERENCE
-  // ============================================
+// X-RAY PROCEDURES - COMPLETE REFERENCE (ENHANCED)
+// ============================================
 
-  const ULTRASOUND_PROCEDURES = {
-    abdomen: {
-      category: "Abdomen",
-      icon: "abdomen",
-      procedures: [
-        {
-          cpt: "76700",
-          label: "Ultrasound Abdomen – Complete",
-          shortLabel: "Abdomen – Complete",
-          description: "Evaluates liver, gallbladder, kidneys, pancreas, spleen, and abdominal aorta",
-          duration: "20–30 min",
-          prep: "Fast 6 hours prior to exam",
-          useCase: "Abdominal pain, gallstones, liver disease, kidney stones"
-        },
-        {
-          cpt: "76705",
-          label: "Ultrasound Abdomen – Limited",
-          shortLabel: "Abdomen – Limited",
-          description: "Focused evaluation of specific abdominal organ or region",
-          duration: "15–20 min",
-          prep: "Fast 6 hours prior to exam",
-          useCase: "Follow-up imaging, targeted evaluation of known abnormality"
-        },
-        {
-          cpt: "76706",
-          label: "Ultrasound Aorta – Abdominal",
-          shortLabel: "Aorta – Abdominal",
-          description: "Evaluates abdominal aorta for aneurysm or other abnormalities",
-          duration: "15–20 min",
-          prep: "Fast 6 hours prior to exam",
-          useCase: "Screening for aortic aneurysm, vascular disease"
-        }
-      ]
-    },
-    pelvis: {
-      category: "Pelvis",
-      icon: "pelvis",
-      procedures: [
-        {
-          cpt: "76856",
-          label: "Ultrasound Pelvis – Complete",
-          shortLabel: "Pelvis – Complete",
-          description: "Evaluates uterus, ovaries, and surrounding pelvic structures",
-          duration: "20–30 min",
-          prep: "Full bladder required – drink 32 oz water 1 hour before",
-          useCase: "Pelvic pain, abnormal bleeding, ovarian cysts, fibroids"
-        },
-        {
-          cpt: "76857",
-          label: "Ultrasound Pelvis – Limited",
-          shortLabel: "Pelvis – Limited",
-          description: "Focused evaluation of specific pelvic structure or region",
-          duration: "15–20 min",
-          prep: "Full bladder required – drink 32 oz water 1 hour before",
-          useCase: "Follow-up of known findings, targeted pelvic evaluation"
-        },
-        {
-          cpt: "76830",
-          label: "Ultrasound Transvaginal",
-          shortLabel: "Transvaginal",
-          description: "Detailed internal evaluation of uterus and ovaries via vaginal probe",
-          duration: "20–30 min",
-          prep: "Empty bladder before exam",
-          useCase: "Pelvic pain, infertility, early pregnancy evaluation, ovarian masses"
-        }
-      ]
-    },
-    obstetric: {
-      category: "Pregnancy Ultrasound (OB)",
-      icon: "pregnancy",
-      procedures: [
-        {
-          cpt: "76801",
-          label: "Ultrasound OB – First Trimester",
-          shortLabel: "OB – First Trimester",
-          description: "Evaluates early pregnancy, confirms viability, estimates gestational age",
-          duration: "15–20 min",
-          prep: "Full bladder may be helpful in early pregnancy",
-          useCase: "Confirm pregnancy, evaluate bleeding, date pregnancy"
-        },
-        {
-          cpt: "76805",
-          label: "Ultrasound OB – Second/Third Trimester",
-          shortLabel: "OB – Complete",
-          description: "Comprehensive evaluation of fetal anatomy, growth, and placental position",
-          duration: "30–45 min",
-          prep: "No special preparation required",
-          useCase: "Routine prenatal care, anatomy survey at 18–20 weeks"
-        },
-        {
-          cpt: "76815",
-          label: "Ultrasound OB – Limited",
-          shortLabel: "OB – Limited",
-          description: "Focused assessment of fetal position, heart rate, or amniotic fluid",
-          duration: "15–20 min",
-          prep: "No special preparation required",
-          useCase: "Follow-up exam, check fetal presentation, biophysical profile"
-        }
-      ]
-    },
-    vascular: {
-      category: "Vascular / Blood Flow (Doppler)",
-      icon: "heart",
-      procedures: [
-        {
-          cpt: "93880",
-          label: "Duplex Scan Carotid – Bilateral",
-          shortLabel: "Carotid Duplex",
-          description: "Evaluates blood flow through carotid arteries in the neck",
-          duration: "30–45 min",
-          prep: "No special preparation required",
-          useCase: "Stroke risk assessment, carotid stenosis, vascular disease"
-        },
-        {
-          cpt: "93970",
-          label: "Duplex Scan Lower Extremity – Venous",
-          shortLabel: "LE Venous Duplex",
-          description: "Evaluates leg veins for blood clots or venous insufficiency",
-          duration: "30–45 min",
-          prep: "No special preparation required",
-          useCase: "Leg swelling, suspected DVT, varicose veins"
-        },
-        {
-          cpt: "93925",
-          label: "Duplex Scan Lower Extremity – Arterial",
-          shortLabel: "LE Arterial Duplex",
-          description: "Evaluates arterial blood flow to the legs",
-          duration: "30–45 min",
-          prep: "No special preparation required",
-          useCase: "Leg pain with walking, peripheral artery disease, poor circulation"
-        }
-      ]
-    },
-    smallParts: {
-      category: "Soft Tissue / Thyroid",
-      icon: "thyroid",
-      procedures: [
-        {
-          cpt: "76536",
-          label: "Ultrasound Soft Tissue – Head and Neck",
-          shortLabel: "Soft Tissue – Head/Neck",
-          description: "Evaluates superficial masses, lymph nodes, or soft tissue abnormalities",
-          duration: "15–20 min",
-          prep: "No special preparation required",
-          useCase: "Neck mass, enlarged lymph nodes, salivary gland evaluation"
-        },
-        {
-          cpt: "76642",
-          label: "Ultrasound Breast – Unilateral",
-          shortLabel: "Breast – Unilateral",
-          description: "Evaluates breast tissue for masses, cysts, or abnormalities",
-          duration: "15–20 min",
-          prep: "No special preparation required",
-          useCase: "Palpable lump, breast pain, follow-up of mammogram findings"
-        },
-        {
-          cpt: "76870",
-          label: "Ultrasound Scrotum",
-          shortLabel: "Scrotum",
-          description: "Evaluates testicles, epididymis, and surrounding scrotal structures",
-          duration: "20–30 min",
-          prep: "No special preparation required",
-          useCase: "Testicular pain, swelling, mass, trauma, infertility evaluation"
-        }
-      ]
-    },
-    musculoskeletal: {
-      category: "Joint / Tendon / Muscle",
-      icon: "shoulder",
-      procedures: [
-        {
-          cpt: "76881",
-          label: "Ultrasound Extremity – Complete",
-          shortLabel: "Extremity – Complete",
-          description: "Comprehensive evaluation of muscles, tendons, ligaments, and joints",
-          duration: "20–30 min",
-          prep: "No special preparation required",
-          useCase: "Tendon tears, ligament injury, soft tissue masses, joint effusion"
-        },
-        {
-          cpt: "76882",
-          label: "Ultrasound Extremity – Limited",
-          shortLabel: "Extremity – Limited",
-          description: "Focused evaluation of specific tendon, muscle, or joint region",
-          duration: "15–20 min",
-          prep: "No special preparation required",
-          useCase: "Targeted assessment of rotator cuff, Achilles tendon, or specific joint"
-        },
-        {
-          cpt: "76942",
-          label: "Ultrasound Guidance for Needle Placement",
-          shortLabel: "US-Guided Procedure",
-          description: "Real-time ultrasound guidance for injections, biopsies, or aspirations",
-          duration: "10–20 min",
-          prep: "Varies based on specific procedure",
-          useCase: "Joint injections, fluid aspiration, biopsy guidance"
-        }
-      ]
-    }
-  };
+const XRAY_PROCEDURES = {
+  chest: {
+    category: "Chest",
+    icon: "chest",
+    categoryGroup: "standard",
+    displayIn: ["chest", "torso"],
+    matchKeywords: [
+      "chest","lungs","pneumonia","heart","rib","respiratory","cough",
+      "shortness of breath","covid","chest pain","lung xray","chest xray"
+    ],
+    procedures: [
+      { cpt: "71045", label: "X-Ray Chest – 1 View", shortLabel: "Chest – 1 View",
+        description: "Single frontal chest X-ray.", duration: "5 min",
+        prep: "Remove jewelry or metal objects from chest area.",
+        useCase: "Basic chest screening, follow-up." },
+      { cpt: "71046", label: "X-Ray Chest – 2 Views (PA & Lateral)", shortLabel: "Chest – 2 Views",
+        description: "Standard two-view chest X-ray.", duration: "5–10 min",
+        prep: "Remove jewelry or metal objects from chest area.",
+        useCase: "Pneumonia, infection, or heart evaluation." },
+      { cpt: "71042", label: "X-Ray Chest – Apical Lordotic", shortLabel: "Chest – Apical Lordotic",
+        description: "Special angled view of the lung apex.", duration: "10 min",
+        prep: "Remove jewelry, metal objects.",
+        useCase: "Lung apex evaluation or apical mass." },
+      { cpt: "71047-71048", label: "X-Ray Chest – Oblique/Special Views", shortLabel: "Chest – Special Views",
+        description: "Multiple angled chest views.", duration: "10–15 min",
+        prep: "Remove jewelry, metal objects.",
+        useCase: "Rib fractures or comprehensive chest assessment." }
+    ]
+  },
+
+  cervicalSpine: {
+    category: "Cervical Spine (Neck)",
+    icon: "spine",
+    categoryGroup: "spine",
+    displayIn: ["spine","neck"],
+    matchKeywords: ["neck","whiplash","cervical spine","c spine","neck fracture","spine xray"],
+    procedures: [
+      { cpt: "72040", label: "X-Ray Cervical Spine – <4 Views", shortLabel: "C-Spine – <4 Views",
+        description: "Limited cervical spine series.", duration: "10 min",
+        prep: "Remove neck jewelry.", useCase: "Limited neck evaluation." },
+      { cpt: "72050", label: "X-Ray Cervical Spine – 4–5 Views", shortLabel: "C-Spine – 4–5 Views",
+        description: "Standard cervical spine series.", duration: "10–15 min",
+        prep: "Remove neck jewelry.", useCase: "Neck pain, injury, or whiplash." },
+      { cpt: "72052", label: "X-Ray Cervical Spine – 6+ Views (Flex/Ext)", shortLabel: "C-Spine – 6+ Views",
+        description: "Complete cervical series with flexion/extension.", duration: "15–20 min",
+        prep: "Remove neck jewelry.", useCase: "Instability or post-injury motion study." }
+    ]
+  },
+
+  thoracicSpine: {
+    category: "Thoracic Spine (Mid Back)",
+    icon: "spine",
+    categoryGroup: "spine",
+    displayIn: ["spine","back"],
+    matchKeywords: ["mid back","thoracic spine","t spine","compression fracture","scoliosis","back pain"],
+    procedures: [
+      { cpt: "72070", label: "X-Ray Thoracic Spine – 2 Views", shortLabel: "T-Spine – 2 Views",
+        description: "Two-view thoracic spine X-ray.", duration: "10 min",
+        prep: "Remove clothing with metal fasteners.", useCase: "Mid-back pain or fracture assessment." },
+      { cpt: "72074", label: "X-Ray Thoracic Spine – 3+ Views", shortLabel: "T-Spine – 3+ Views",
+        description: "Complete thoracic spine series.", duration: "15 min",
+        prep: "Remove clothing with metal fasteners.", useCase: "Scoliosis or detailed spine evaluation." }
+    ]
+  },
+
+  lumbarSpine: {
+    category: "Lumbar Spine (Low Back)",
+    icon: "spine",
+    categoryGroup: "spine",
+    displayIn: ["spine","back"],
+    matchKeywords: ["low back","lumbar","sciatica","spinal","lumbar fracture","back pain"],
+    procedures: [
+      { cpt: "72100", label: "X-Ray Lumbar Spine – <4 Views", shortLabel: "L-Spine – <4 Views",
+        description: "Limited lumbar spine series.", duration: "10 min",
+        prep: "Remove belt or metal clothing.", useCase: "Limited low back evaluation." },
+      { cpt: "72110", label: "X-Ray Lumbar Spine – 4 Views", shortLabel: "L-Spine – 4 Views",
+        description: "Standard lumbar spine series.", duration: "10–15 min",
+        prep: "Remove belt or metal pants.", useCase: "Low back pain, sciatica, or disc issues." },
+      { cpt: "72114", label: "X-Ray Lumbar Spine – 6 Views (Flex/Ext)", shortLabel: "L-Spine – 6 Views",
+        description: "Complete lumbar series with bending views.", duration: "15–20 min",
+        prep: "Remove belt or metal pants.", useCase: "Instability or spondylolisthesis evaluation." }
+    ]
+  },
+
+  knee: {
+    category: "Knee",
+    icon: "knee",
+    categoryGroup: "extremities",
+    displayIn: ["leg","extremities"],
+    matchKeywords: ["knee","arthritis","knee injury","fracture","patella","kneecap","knee xray"],
+    procedures: [
+      { cpt: "73560", label: "X-Ray Knee – 2 Views", shortLabel: "Knee – 2 Views",
+        description: "AP and lateral knee views.", duration: "5–10 min",
+        prep: "None required.", useCase: "Knee pain or injury evaluation." },
+      { cpt: "73562", label: "X-Ray Knee – 3 Views", shortLabel: "Knee – 3 Views",
+        description: "Comprehensive knee series.", duration: "10 min",
+        prep: "None required.", useCase: "Arthritis or detailed knee assessment." },
+      { cpt: "73564", label: "X-Ray Knee – 4 Views (Axial/Oblique)", shortLabel: "Knee – 4 Views",
+        description: "Specialized knee series.", duration: "10–15 min",
+        prep: "None required.", useCase: "Pre-surgical or complex knee evaluation." }
+    ]
+  },
+
+  shoulder: {
+    category: "Shoulder",
+    icon: "shoulder",
+    categoryGroup: "extremities",
+    displayIn: ["upper","extremities"],
+    matchKeywords: ["shoulder","rotator cuff","dislocation","fracture","ac joint","clavicle","shoulder xray"],
+    procedures: [
+      { cpt: "73020", label: "X-Ray Shoulder – 2 Views", shortLabel: "Shoulder – 2 Views",
+        description: "AP and lateral shoulder views.", duration: "5–10 min",
+        prep: "Remove clothing from shoulder area.", useCase: "Shoulder pain or trauma." },
+      { cpt: "73030", label: "X-Ray Shoulder – 3 Views (Complete)", shortLabel: "Shoulder – 3 Views",
+        description: "Complete shoulder series.", duration: "10–15 min",
+        prep: "Remove clothing from shoulder area.", useCase: "Rotator cuff or dislocation evaluation." }
+    ]
+  },
+
+  clavicle: {
+    category: "Clavicle",
+    icon: "clavicle",
+    categoryGroup: "extremities",
+    displayIn: ["upper","shoulder"],
+    matchKeywords: ["collarbone","clavicle fracture","shoulder fracture","ac joint","broken collarbone"],
+    procedures: [
+      { cpt: "73000", label: "X-Ray Clavicle – 2 Views (Complete)", shortLabel: "Clavicle – Complete",
+        description: "Complete clavicle X-ray.", duration: "5 min",
+        prep: "Remove clothing from shoulder/chest area.",
+        useCase: "Clavicle fracture or injury." }
+    ]
+  },
+
+  abdomen: {
+    category: "Abdomen (KUB)",
+    icon: "abdomen",
+    categoryGroup: "standard",
+    displayIn: ["torso","abdomen"],
+    matchKeywords: ["abdomen","kidney","stones","kub","bowel obstruction","stomach","abdomen xray"],
+    procedures: [
+      { cpt: "74018", label: "X-Ray Abdomen – 1 View (KUB)", shortLabel: "KUB – 1 View",
+        description: "Single abdominal view (kidneys, ureters, bladder).", duration: "5 min",
+        prep: "None required.", useCase: "Kidney stones, constipation, or abdominal pain." },
+      { cpt: "74019", label: "X-Ray Abdomen – 2 Views", shortLabel: "Abdomen – 2 Views",
+        description: "AP and additional abdominal view.", duration: "5–10 min",
+        prep: "None required.", useCase: "Bowel obstruction or abdominal pain." },
+      { cpt: "74021", label: "X-Ray Abdomen – 3+ Views (Acute Series)", shortLabel: "Abdomen – Acute Series",
+        description: "Complete abdominal series with obliques.", duration: "10–15 min",
+        prep: "None required.", useCase: "Acute abdomen or bowel obstruction evaluation." }
+    ]
+  },
+
+  pelvis: {
+    category: "Pelvis",
+    icon: "pelvis",
+    categoryGroup: "standard",
+    displayIn: ["pelvis","hip"],
+    matchKeywords: ["pelvis","hip pain","pelvic fracture","si joint","pelvis xray"],
+    procedures: [
+      { cpt: "72170", label: "X-Ray Pelvis – 1 or 2 Views", shortLabel: "Pelvis – 1–2 Views",
+        description: "Standard pelvis X-ray.", duration: "5–10 min",
+        prep: "None required.", useCase: "Hip pain or pelvic trauma." },
+      { cpt: "72190", label: "X-Ray Pelvis – 3+ Views (Complete)", shortLabel: "Pelvis – Complete",
+        description: "Complete pelvis series.", duration: "10–15 min",
+        prep: "None required.", useCase: "Fracture or detailed pelvic evaluation." }
+    ]
+  },
+
+  ribs: {
+    category: "Ribs",
+    icon: "ribs",
+    categoryGroup: "standard",
+    displayIn: ["chest"],
+    matchKeywords: ["rib","rib fracture","rib pain","chest wall","broken rib","rib xray"],
+    procedures: [
+      { cpt: "71100", label: "X-Ray Ribs – Unilateral 2 Views", shortLabel: "Ribs – 2 Views (One Side)",
+        description: "Two views of one side of ribs.", duration: "10 min",
+        prep: "Remove clothing from chest area.", useCase: "Rib fracture or localized chest pain." },
+      { cpt: "71101", label: "X-Ray Ribs – Including Chest 3–4 Views", shortLabel: "Ribs – 3–4 Views",
+        description: "Ribs with chest views.", duration: "10–15 min",
+        prep: "Remove clothing from chest area.", useCase: "Comprehensive rib and lung evaluation." },
+      { cpt: "71110", label: "X-Ray Ribs – Bilateral (Both Sides)", shortLabel: "Ribs – Bilateral",
+        description: "Both sides of ribs.", duration: "15 min",
+        prep: "Remove clothing from chest area.", useCase: "Bilateral rib trauma." }
+    ]
+  },
+
+  ankle: {
+    category: "Ankle",
+    icon: "ankle",
+    categoryGroup: "extremities",
+    displayIn: ["leg"],
+    matchKeywords: ["ankle","sprain","fracture","twisted ankle","foot and ankle","ankle xray"],
+    procedures: [
+      { cpt: "73600", label: "X-Ray Ankle – 2 Views", shortLabel: "Ankle – 2 Views",
+        description: "AP and lateral ankle views.", duration: "5–10 min",
+        prep: "None required.", useCase: "Ankle sprain or fracture evaluation." },
+      { cpt: "73610", label: "X-Ray Ankle – 3 Views (Complete)", shortLabel: "Ankle – 3 Views",
+        description: "Complete ankle series.", duration: "10 min",
+        prep: "None required.", useCase: "Comprehensive ankle assessment." }
+    ]
+  },
+
+  foot: {
+    category: "Foot",
+    icon: "foot",
+    categoryGroup: "extremities",
+    displayIn: ["leg","foot"],
+    matchKeywords: ["foot","broken foot","metatarsal","heel","toe","foot xray"],
+    procedures: [
+      { cpt: "73620", label: "X-Ray Foot – 2 Views", shortLabel: "Foot – 2 Views",
+        description: "AP and lateral foot.", duration: "5–10 min",
+        prep: "None required.", useCase: "Foot pain or fracture evaluation." },
+      { cpt: "73630", label: "X-Ray Foot – 3 Views (Complete)", shortLabel: "Foot – 3 Views",
+        description: "Complete foot series.", duration: "10 min",
+        prep: "None required.", useCase: "Comprehensive foot injury or deformity assessment." }
+    ]
+  },
+
+  hand: {
+    category: "Hand",
+    icon: "hand",
+    categoryGroup: "extremities",
+    displayIn: ["upper"],
+    matchKeywords: ["hand","finger","metacarpal","hand pain","broken hand","hand xray"],
+    procedures: [
+      { cpt: "73120", label: "X-Ray Hand – 2 Views", shortLabel: "Hand – 2 Views",
+        description: "AP and lateral hand.", duration: "5–10 min",
+        prep: "Remove rings or jewelry.", useCase: "Hand injury or suspected fracture." },
+      { cpt: "73130", label: "X-Ray Hand – 3 Views (Complete)", shortLabel: "Hand – 3 Views",
+        description: "Complete hand series.", duration: "10 min",
+        prep: "Remove rings or jewelry.", useCase: "Comprehensive hand evaluation." }
+    ]
+  },
+
+  wrist: {
+    category: "Wrist",
+    icon: "wrist",
+    categoryGroup: "extremities",
+    displayIn: ["upper"],
+    matchKeywords: ["wrist","carpal","scaphoid","broken wrist","wrist xray"],
+    procedures: [
+      { cpt: "73100", label: "X-Ray Wrist – 2 Views", shortLabel: "Wrist – 2 Views",
+        description: "AP and lateral wrist.", duration: "5–10 min",
+        prep: "Remove watches or bracelets.", useCase: "Wrist pain or injury evaluation." },
+      { cpt: "73110", label: "X-Ray Wrist – 3 Views (Complete)", shortLabel: "Wrist – 3 Views",
+        description: "Complete wrist series.", duration: "10 min",
+        prep: "Remove watches or bracelets.", useCase: "Comprehensive wrist or scaphoid evaluation." }
+    ]
+  },
+
+  hip: {
+    category: "Hip",
+    icon: "hip",
+    categoryGroup: "extremities",
+    displayIn: ["pelvis","hip"],
+    matchKeywords: ["hip","hip fracture","hip pain","hip replacement","hip arthritis","hip xray"],
+    procedures: [
+      { cpt: "73521", label: "X-Ray Hip – Unilateral 2–3 Views", shortLabel: "Hip – 2–3 Views (One Side)",
+        description: "One hip with multiple views.", duration: "10 min",
+        prep: "None required.", useCase: "Hip pain or fracture assessment." },
+      { cpt: "73522", label: "X-Ray Hip – Bilateral 3–4 Views", shortLabel: "Hip – Bilateral",
+        description: "Both hips X-ray.", duration: "10–15 min",
+        prep: "None required.", useCase: "Bilateral hip comparison or post-surgical follow-up." }
+    ]
+  },
+
+  elbow: {
+    category: "Elbow",
+    icon: "elbow",
+    categoryGroup: "extremities",
+    displayIn: ["upper"],
+    matchKeywords: ["elbow","tennis elbow","olecranon","elbow fracture","elbow xray"],
+    procedures: [
+      { cpt: "73070", label: "X-Ray Elbow – 2 Views", shortLabel: "Elbow – 2 Views",
+        description: "AP and lateral elbow.", duration: "5–10 min",
+        prep: "None required.", useCase: "Elbow pain or trauma." },
+      { cpt: "73080", label: "X-Ray Elbow – 3 Views (Complete)", shortLabel: "Elbow – 3 Views",
+        description: "Complete elbow series.", duration: "10 min",
+        prep: "None required.", useCase: "Comprehensive elbow evaluation." }
+    ]
+  },
+
+  femur: {
+    category: "Femur (Thigh)",
+    icon: "femur",
+    categoryGroup: "extremities",
+    displayIn: ["leg"],
+    matchKeywords: ["thigh","femur","leg fracture","broken leg","femur xray"],
+    procedures: [
+      { cpt: "73552", label: "X-Ray Femur – 2 Views", shortLabel: "Femur – 2 Views",
+        description: "AP and lateral femur.", duration: "10 min",
+        prep: "None required.", useCase: "Thigh pain or femur fracture." }
+    ]
+  },
+
+  tibia: {
+    category: "Tibia/Fibula (Lower Leg)",
+    icon: "tibia",
+    categoryGroup: "extremities",
+    displayIn: ["leg"],
+    matchKeywords: ["shin","tibia","fibula","lower leg pain","leg fracture","tibia xray"],
+    procedures: [
+      { cpt: "73590", label: "X-Ray Tibia/Fibula – 2 Views", shortLabel: "Lower Leg – 2 Views",
+        description: "AP and lateral lower leg.", duration: "10 min",
+        prep: "None required.", useCase: "Lower leg pain or fracture evaluation." }
+    ]
+  }
+};
+
+
+
+  // ============================================
+// ULTRASOUND PROCEDURES - COMPLETE REFERENCE
+// ============================================
+
+const ULTRASOUND_PROCEDURES = {
+  abdomen: {
+    category: "Abdomen",
+    icon: "abdomen",
+
+    // ✅ Enhanced search awareness
+    matchKeywords: [
+      "liver",
+      "gallbladder",
+      "kidneys",
+      "pancreas",
+      "spleen",
+      "stomach",
+      "abdominal pain",
+      "nausea",
+      "stones",
+      "gallstones",
+      "kidney stones",
+      "digestive",
+      "upper abdomen",
+      "ultrasound abdomen",
+      "stomach scan",
+      "liver ultrasound"
+    ],
+
+    procedures: [
+      {
+        cpt: "76700",
+        label: "Ultrasound Abdomen – Complete",
+        shortLabel: "Abdomen – Complete",
+        description:
+          "Evaluates liver, gallbladder, kidneys, pancreas, spleen, and abdominal aorta.",
+        duration: "20–30 min",
+        prep: "Fast for 6 hours before exam.",
+        useCase:
+          "Abdominal pain, gallstones, liver disease, or kidney stones."
+      },
+      {
+        cpt: "76705",
+        label: "Ultrasound Abdomen – Limited",
+        shortLabel: "Abdomen – Limited",
+        description:
+          "Focused evaluation of a specific abdominal organ or region.",
+        duration: "15–20 min",
+        prep: "Fast for 6 hours before exam.",
+        useCase:
+          "Follow-up imaging or targeted evaluation of a known abnormality."
+      },
+      {
+        cpt: "76706",
+        label: "Ultrasound Aorta – Abdominal",
+        shortLabel: "Aorta – Abdominal",
+        description:
+          "Evaluates the abdominal aorta for aneurysm or other vascular abnormalities.",
+        duration: "15–20 min",
+        prep: "Fast for 6 hours before exam.",
+        useCase:
+          "Screening for aortic aneurysm, vascular disease, or family history of aneurysm."
+      }
+    ]
+  },
+
+  pelvis: {
+    category: "Pelvis",
+    icon: "pelvis",
+
+    matchKeywords: [
+      "uterus",
+      "ovaries",
+      "bladder",
+      "pelvic pain",
+      "fibroids",
+      "ovarian cysts",
+      "menstrual issues",
+      "infertility",
+      "reproductive system",
+      "pelvic scan",
+      "pelvic ultrasound",
+      "female ultrasound",
+      "transvaginal",
+      "gynecology"
+    ],
+
+    procedures: [
+      {
+        cpt: "76856",
+        label: "Ultrasound Pelvis – Complete",
+        shortLabel: "Pelvis – Complete",
+        description:
+          "Evaluates uterus, ovaries, and surrounding pelvic structures.",
+        duration: "20–30 min",
+        prep: "Full bladder required — drink 32 oz of water 1 hour before exam.",
+        useCase:
+          "Pelvic pain, abnormal bleeding, ovarian cysts, or uterine fibroids."
+      },
+      {
+        cpt: "76857",
+        label: "Ultrasound Pelvis – Limited",
+        shortLabel: "Pelvis – Limited",
+        description:
+          "Focused evaluation of a specific pelvic structure or region.",
+        duration: "15–20 min",
+        prep: "Full bladder required — drink 32 oz of water 1 hour before exam.",
+        useCase:
+          "Follow-up of known findings or targeted pelvic evaluation."
+      },
+      {
+        cpt: "76830",
+        label: "Ultrasound Transvaginal",
+        shortLabel: "Transvaginal",
+        description:
+          "Detailed internal evaluation of uterus and ovaries using a vaginal probe.",
+        duration: "20–30 min",
+        prep: "Empty bladder before exam.",
+        useCase:
+          "Pelvic pain, infertility, early pregnancy, or ovarian mass evaluation."
+      }
+    ]
+  },
+
+  obstetric: {
+    category: "Pregnancy Ultrasound (OB)",
+    icon: "pregnancy",
+
+    matchKeywords: [
+      "pregnancy",
+      "baby",
+      "ob",
+      "obstetric",
+      "prenatal",
+      "fetus",
+      "fetal",
+      "expecting",
+      "ultrasound for pregnancy",
+      "baby ultrasound",
+      "pregnancy scan",
+      "prenatal ultrasound",
+      "ultrasound baby check",
+      "pregnant",
+      "anatomy scan",
+      "due date"
+    ],
+
+    procedures: [
+      {
+        cpt: "76801",
+        label: "Ultrasound OB – First Trimester",
+        shortLabel: "OB – First Trimester",
+        description:
+          "Evaluates early pregnancy, confirms viability, and estimates gestational age.",
+        duration: "15–20 min",
+        prep: "Full bladder may be helpful in early pregnancy.",
+        useCase:
+          "Confirm pregnancy, evaluate bleeding, or establish accurate dating."
+      },
+      {
+        cpt: "76805",
+        label: "Ultrasound OB – Second/Third Trimester",
+        shortLabel: "OB – Complete",
+        description:
+          "Comprehensive evaluation of fetal anatomy, growth, and placental position.",
+        duration: "30–45 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Routine prenatal care, anatomy survey at 18–20 weeks, or growth assessment."
+      },
+      {
+        cpt: "76815",
+        label: "Ultrasound OB – Limited",
+        shortLabel: "OB – Limited",
+        description:
+          "Focused assessment of fetal position, heart rate, or amniotic fluid volume.",
+        duration: "15–20 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Follow-up exam, fetal position check, or biophysical profile."
+      }
+    ]
+  },
+
+  vascular: {
+    category: "Vascular / Blood Flow (Doppler)",
+    icon: "heart",
+
+    matchKeywords: [
+      "carotid",
+      "artery",
+      "vein",
+      "blood flow",
+      "duplex",
+      "doppler",
+      "circulation",
+      "blood clot",
+      "deep vein thrombosis",
+      "dvt",
+      "stroke risk",
+      "peripheral artery disease",
+      "leg swelling",
+      "poor circulation",
+      "vascular scan"
+    ],
+
+    procedures: [
+      {
+        cpt: "93880",
+        label: "Duplex Scan Carotid – Bilateral",
+        shortLabel: "Carotid Duplex",
+        description:
+          "Evaluates blood flow through carotid arteries in the neck to assess stroke risk.",
+        duration: "30–45 min",
+        prep: "No special preparation required.",
+        useCase: "Stroke risk, carotid stenosis, or vascular disease screening."
+      },
+      {
+        cpt: "93970",
+        label: "Duplex Scan Lower Extremity – Venous",
+        shortLabel: "LE Venous Duplex",
+        description:
+          "Evaluates leg veins for blood clots or venous insufficiency.",
+        duration: "30–45 min",
+        prep: "No special preparation required.",
+        useCase: "Leg swelling, suspected DVT, or varicose veins."
+      },
+      {
+        cpt: "93925",
+        label: "Duplex Scan Lower Extremity – Arterial",
+        shortLabel: "LE Arterial Duplex",
+        description:
+          "Evaluates arterial blood flow to the legs to detect blockages or narrowing.",
+        duration: "30–45 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Leg pain with walking, peripheral artery disease, or poor circulation."
+      }
+    ]
+  },
+
+  smallParts: {
+    category: "Soft Tissue / Thyroid",
+    icon: "thyroid",
+
+    matchKeywords: [
+      "thyroid",
+      "neck lump",
+      "nodule",
+      "goiter",
+      "lymph node",
+      "soft tissue",
+      "mass",
+      "lump",
+      "swelling",
+      "salivary gland",
+      "breast",
+      "testicle",
+      "scrotum",
+      "ultrasound neck",
+      "breast ultrasound",
+      "thyroid ultrasound"
+    ],
+
+    procedures: [
+      {
+        cpt: "76536",
+        label: "Ultrasound Soft Tissue – Head and Neck",
+        shortLabel: "Soft Tissue – Head/Neck",
+        description:
+          "Evaluates superficial masses, lymph nodes, or soft tissue abnormalities in the head and neck.",
+        duration: "15–20 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Neck lump, enlarged lymph nodes, or salivary gland evaluation."
+      },
+      {
+        cpt: "76642",
+        label: "Ultrasound Breast – Unilateral",
+        shortLabel: "Breast – Unilateral",
+        description:
+          "Evaluates breast tissue for masses, cysts, or other abnormalities.",
+        duration: "15–20 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Palpable lump, breast pain, or follow-up of mammogram findings."
+      },
+      {
+        cpt: "76870",
+        label: "Ultrasound Scrotum",
+        shortLabel: "Scrotum",
+        description:
+          "Evaluates testicles, epididymis, and surrounding scrotal structures.",
+        duration: "20–30 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Testicular pain, swelling, mass, trauma, or infertility evaluation."
+      }
+    ]
+  },
+
+  musculoskeletal: {
+    category: "Joint / Tendon / Muscle",
+    icon: "shoulder",
+
+    matchKeywords: [
+      "joint",
+      "shoulder",
+      "rotator cuff",
+      "elbow",
+      "knee",
+      "ankle",
+      "wrist",
+      "muscle",
+      "tendon",
+      "ligament",
+      "sports injury",
+      "sprain",
+      "tear",
+      "strain",
+      "ultrasound joint",
+      "ultrasound shoulder",
+      "musculoskeletal ultrasound"
+    ],
+
+    procedures: [
+      {
+        cpt: "76881",
+        label: "Ultrasound Extremity – Complete",
+        shortLabel: "Extremity – Complete",
+        description:
+          "Comprehensive evaluation of muscles, tendons, ligaments, and joints.",
+        duration: "20–30 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Tendon tear, ligament injury, soft tissue mass, or joint effusion."
+      },
+      {
+        cpt: "76882",
+        label: "Ultrasound Extremity – Limited",
+        shortLabel: "Extremity – Limited",
+        description:
+          "Focused evaluation of a specific tendon, muscle, or joint region.",
+        duration: "15–20 min",
+        prep: "No special preparation required.",
+        useCase:
+          "Targeted assessment of rotator cuff, Achilles tendon, or specific joint injury."
+      },
+      {
+        cpt: "76942",
+        label: "Ultrasound Guidance for Needle Placement",
+        shortLabel: "US-Guided Procedure",
+        description:
+          "Real-time ultrasound guidance for injections, biopsies, or aspirations.",
+        duration: "10–20 min",
+        prep: "Varies based on specific procedure.",
+        useCase:
+          "Joint injections, fluid aspiration, or biopsy guidance."
+      }
+    ]
+  }
+};
+
 
   
   // ============================================
@@ -2590,17 +2803,62 @@ if (typeof module !== 'undefined' && module.exports) {
     });
   }
 
+// ============================================
+// MOST POPULAR PROCEDURES (HYBRID SEARCH PRELOAD)
+// ============================================
+
+// ============================================
+// POPULAR PROCEDURES - CROSS-MODALITY TOP 22
+// ============================================
+
+const POPULAR_PROCEDURES = [
+  // ===== MRI (8) =====
+  { modality: "MRI", cpt: "70551", label: "MRI Brain - Without Contrast" },
+  { modality: "MRI", cpt: "73721", label: "MRI Knee - Without Contrast" },
+  { modality: "MRI", cpt: "72148", label: "MRI Lumbar Spine - Without Contrast" },
+  { modality: "MRI", cpt: "72146", label: "MRI Cervical Spine - Without Contrast" },
+  { modality: "MRI", cpt: "73221", label: "MRI Shoulder - Without Contrast" },
+  { modality: "MRI", cpt: "72156", label: "MRI Thoracic Spine - Without Contrast" },
+  { modality: "MRI", cpt: "70553", label: "MRI Brain - With & Without Contrast" },
+  { modality: "MRI", cpt: "74181", label: "MRI Abdomen - Without Contrast" },
+
+  // ===== CT (8) =====
+  { modality: "CT", cpt: "70450", label: "CT Head/Brain - Without Contrast" },
+  { modality: "CT", cpt: "74177", label: "CT Abdomen & Pelvis - With Contrast" },
+  { modality: "CT", cpt: "74176", label: "CT Abdomen & Pelvis - Without Contrast" },
+  { modality: "CT", cpt: "71250", label: "CT Chest - Without Contrast" },
+  { modality: "CT", cpt: "72125", label: "CT Cervical Spine - Without Contrast" },
+  { modality: "CT", cpt: "72132", label: "CT Lumbar Spine - With Contrast" },
+  { modality: "CT", cpt: "71260", label: "CT Chest - With Contrast" },
+  { modality: "CT", cpt: "70486", label: "CT Sinuses - Without Contrast" },
+
+  // ===== X-Ray (3) =====
+  { modality: "X-Ray", cpt: "71046", label: "X-Ray Chest - 2 Views (PA & Lateral)" },
+  { modality: "X-Ray", cpt: "73560", label: "X-Ray Knee - 3 Views" },
+  { modality: "X-Ray", cpt: "73030", label: "X-Ray Shoulder - 2 Views" },
+
+  // ===== Ultrasound (3) =====
+  { modality: "Ultrasound", cpt: "76805", label: "Ultrasound OB - Second/Third Trimester (Anatomy Scan)" },
+  { modality: "Ultrasound", cpt: "76700", label: "Ultrasound Abdomen - Complete" },
+  { modality: "Ultrasound", cpt: "76856", label: "Ultrasound Pelvis - Complete" }
+];
+
+
+
   // ============================================
   // EXPOSE TO GLOBAL SCOPE
   // ============================================
 
-  window.ProcedureLibrary = {
-     MRI: MRI_PROCEDURES,
-     CT: CT_PROCEDURES,
-     'X-Ray': XRAY_PROCEDURES,
-     Ultrasound: ULTRASOUND_PROCEDURES,
-     MRI_CATEGORY_CONFIG: window.MRI_CATEGORY_CONFIG  // Reference the global
-   };
+    window.ProcedureLibrary = {
+      MRI: MRI_PROCEDURES,
+      CT: CT_PROCEDURES,
+      'X-Ray': XRAY_PROCEDURES,
+      Ultrasound: ULTRASOUND_PROCEDURES,
+      Popular: POPULAR_PROCEDURES,
+      MRI_CATEGORY_CONFIG: window.MRI_CATEGORY_CONFIG
+    };
+
+
 
   window.ProcedureHelpers = {
     resolveProcedure: resolveProcedure,
