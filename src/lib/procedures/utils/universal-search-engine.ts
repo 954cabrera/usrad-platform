@@ -76,8 +76,33 @@ function getMatchScore(entry: ProcedureIndexEntry, query: string): number {
 }
 
 export function searchUniversalProcedures(query: string, limit = 8): ProcedureIndexEntry[] {
+  // Expand aliases and normalize input
   const q = normalizeInput(expandQueryWithAliases(query));
   if (q.length < 2) return [];
+
+  // Build index fresh each time to ensure it has latest data
+  const index = buildUniversalIndex();
+
+  if (index.length === 0) {
+    console.warn("⚠️ Universal index is empty");
+    return [];
+  }
+
+  const intent = detectIntent(q);
+
+  const results = index
+    .map(entry => ({
+      ...entry,
+      score: getMatchScore(entry, q),
+    }))
+    .filter(e => e.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit);
+
+  return results;
+}
+
+
 
   // Build index fresh each time to ensure it has latest data
   const index = buildUniversalIndex();

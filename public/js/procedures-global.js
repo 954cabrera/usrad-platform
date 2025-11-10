@@ -2844,6 +2844,46 @@ const POPULAR_PROCEDURES = [
 ];
 
 
+// ============================================
+// === PATCH: CT + MRI Extremity Alias Enhancements ===
+// ============================================
+
+// --- PATCH START ---
+CT_PROCEDURES.lowerExtremity.matchKeywords.push(
+  "ct knee", "ct ankle", "ct leg", "ct foot", "knee ct", "ankle ct", "leg ct", "foot ct"
+);
+
+CT_PROCEDURES.lowerExtremity.procedures.forEach(proc => {
+  if (proc.cpt === "73700") {
+    proc.aliases = ["ct knee", "ct ankle", "ct leg", "ct foot", "ct knee without contrast"];
+  }
+  if (proc.cpt === "73701") {
+    proc.aliases = ["ct knee with contrast", "ct ankle with contrast", "ct leg with contrast"];
+  }
+  if (proc.cpt === "73702") {
+    proc.aliases = [
+      "ct knee with and without contrast",
+      "ct ankle with and without contrast",
+      "ct leg with and without contrast"
+    ];
+  }
+});
+
+["knee", "shoulder", "elbow", "wrist", "hip", "ankle"].forEach(region => {
+  const section = MRI_PROCEDURES[region];
+  if (section && section.procedures) {
+    section.procedures.forEach(proc => {
+      if (!proc.aliases) proc.aliases = [];
+      const base = region.toLowerCase();
+      const modality = "mri";
+      const label = `${base} ${modality}`;
+      const reverse = `${modality} ${base}`;
+      proc.aliases.push(label, reverse, `${label} with contrast`, `${reverse} with contrast`);
+    });
+  }
+});
+// --- PATCH END ---
+
 
   // ============================================
   // EXPOSE TO GLOBAL SCOPE

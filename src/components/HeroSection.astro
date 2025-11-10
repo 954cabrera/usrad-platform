@@ -647,6 +647,24 @@ const { remixUrl } = Astro.props;
   function searchUniversalProcedures(query, limit = 8) {
     if (!query || query.length < 2) return [];
 
+    // --- Normalize reversed modality order (e.g., "knee MRI" → "MRI knee") ---
+    const modalitySwapMap = {
+      mri: ["mri", "mr"],
+      ct: ["ct"],
+      xray: ["xray", "x-ray", "x ray"],
+      ultrasound: ["ultrasound", "sono", "sonogram"],
+    };
+
+    for (const [modality, variants] of Object.entries(modalitySwapMap)) {
+      for (const v of variants) {
+        const regex = new RegExp(`^(\\w+)\\s+${v}$`, "i");
+        if (regex.test(query.trim())) {
+          query = `${v} ${RegExp.$1}`.trim();
+          break;
+        }
+      }
+    }
+
     const lib = window.ProcedureLibrary;
     if (!lib) return [];
 
