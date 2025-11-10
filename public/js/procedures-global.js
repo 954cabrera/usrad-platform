@@ -3028,17 +3028,34 @@ const ULTRASOUND_PROCEDURES = {
     });
   }
 
+// ============================================
+// MOST POPULAR PROCEDURES (HYBRID SEARCH PRELOAD)
+// ============================================
+
+const POPULAR_PROCEDURES = [
+  { modality: "MRI", cpt: "70551", label: "MRI Brain – Without Contrast", shortLabel: "Brain - Without" },
+  { modality: "MRI", cpt: "73721", label: "MRI Knee – Without Contrast", shortLabel: "Knee - Without" },
+  { modality: "MRI", cpt: "72148", label: "MRI Lumbar Spine – Without Contrast", shortLabel: "L-Spine - Without" },
+  { modality: "MRI", cpt: "72146", label: "MRI Cervical Spine – Without Contrast", shortLabel: "C-Spine - Without" },
+  { modality: "CT", cpt: "70450", label: "CT Head/Brain – Without Contrast", shortLabel: "Head - Without" },
+  { modality: "CT", cpt: "74177", label: "CT Abdomen & Pelvis – With Contrast", shortLabel: "Abd/Pelvis - With" },
+  { modality: "X-Ray", cpt: "71046", label: "Chest X-Ray – 2 Views (PA & Lateral)", shortLabel: "Chest - 2 Views" },
+  { modality: "Ultrasound", cpt: "76805", label: "Obstetric Ultrasound – Complete", shortLabel: "OB - Complete" }
+];
+
+
   // ============================================
   // EXPOSE TO GLOBAL SCOPE
   // ============================================
 
-  window.ProcedureLibrary = {
-     MRI: MRI_PROCEDURES,
-     CT: CT_PROCEDURES,
-     'X-Ray': XRAY_PROCEDURES,
-     Ultrasound: ULTRASOUND_PROCEDURES,
-     MRI_CATEGORY_CONFIG: window.MRI_CATEGORY_CONFIG  // Reference the global
-   };
+    window.ProcedureLibrary = {
+    MRI: MRI_PROCEDURES,
+    CT: CT_PROCEDURES,
+    XRay: XRAY_PROCEDURES,
+    Ultrasound: ULTRASOUND_PROCEDURES,
+    Popular: POPULAR_PROCEDURES
+  };
+
 
   window.ProcedureHelpers = {
     resolveProcedure: resolveProcedure,
