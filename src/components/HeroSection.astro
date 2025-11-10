@@ -1024,34 +1024,88 @@ const { remixUrl } = Astro.props;
     }
   }
 
+  // ============================================
+  // Optimized Search with Caching + Smooth Transitions
+  // ============================================
+  // ============================================
+  // Optimized Search (Anti-Flicker Version)
+  // ============================================
+  let lastQuery = "";
+  let lastResults = [];
+  let isLoading = false;
+
   async function performSearch(query) {
     if (!query || query.length < 2) {
-      showPopularProceduresFromLibrary(); // ✅ use curated list
+      showPopularProceduresFromLibrary();
       return;
     }
 
+    // Reuse cache instantly
+    if (query === lastQuery && lastResults.length > 0) {
+      renderResults(lastResults, true);
+      return;
+    }
+
+    // Prevent overlapping searches
+    if (isLoading) return;
+    isLoading = true;
+
+    // Keep old results visible during fetch (no opacity = 0 here)
     if (popularSection) popularSection.classList.add("hidden");
     if (searchSection) searchSection.classList.remove("hidden");
     if (emptyState) emptyState.classList.add("hidden");
-    if (searchList)
-      searchList.innerHTML =
-        '<div class="text-center py-4 text-gray-500">Searching...</div>';
+
+    // Subtle shimmer overlay instead of blank state
+    if (searchList) {
+      const shimmer = document.createElement("div");
+      shimmer.className =
+        "absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse pointer-events-none";
+      shimmer.style.borderRadius = "inherit";
+      searchList.appendChild(shimmer);
+    }
 
     try {
-      // ✅ Save the active search term for highlighting
       currentQuery = query;
       const results = await hybridSearch(query);
+      lastQuery = query;
+      lastResults = results;
 
-      if (results.length === 0) {
-        searchSection?.classList.add("hidden");
-        emptyState?.classList.remove("hidden");
-      } else {
-        if (resultsCount) resultsCount.textContent = results.length;
-        if (searchList) searchList.innerHTML = renderGroupedResults(results);
+      // Render new results smoothly
+      renderResults(results);
+      if (searchList) {
+        searchList.style.opacity = 0.9;
+        requestAnimationFrame(() => (searchList.style.opacity = 1));
+      }
+    } catch (err) {
+      console.error("Search error:", err);
+    } finally {
+      isLoading = false;
+      const shimmer = searchList?.querySelector(".animate-pulse");
+      if (shimmer) shimmer.remove();
+    }
+  }
+
+  function renderResults(results, fromCache = false) {
+    if (results.length === 0) {
+      searchSection?.classList.add("hidden");
+      emptyState?.classList.remove("hidden");
+      return;
+    }
+
+    if (resultsCount) resultsCount.textContent = results.length;
+
+    if (searchList) {
+      // Only update if content actually changed
+      const html = renderGroupedResults(results);
+      if (searchList.innerHTML !== html) {
+        searchList.innerHTML = html;
         attachResultHandlers();
       }
-    } catch (error) {
-      console.error("Search error:", error);
+    }
+
+    // Cached draws skip fade entirely
+    if (fromCache && searchList) {
+      searchList.style.opacity = 1;
     }
   }
 
@@ -1175,7 +1229,7 @@ const { remixUrl } = Astro.props;
   // Reposition dropdown on scroll
   window.addEventListener("scroll", () => {
     if (isDropdownOpen) {
-      hideDropdown(); // ✅ This is CORRECT
+      positionDropdown(); // ✅ This is CORRECT
     }
   });
 
@@ -1300,6 +1354,16 @@ const { remixUrl } = Astro.props;
   #search-dropdown {
     z-index: 9999 !important;
     isolation: isolate;
+
+    /* Depth & polish */
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.08),
+      0 12px 32px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.9);
   }
 
   /* Animated gold highlight for matched text */
@@ -1336,5 +1400,33 @@ const { remixUrl } = Astro.props;
   /* Smooth list updates for dynamic search results */
   #search-results-list {
     transition: opacity 0.25s ease-in-out;
+  }
+
+  /* Smooth dropdown enter/exit */
+  #search-dropdown {
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease;
+    will-change: opacity, transform;
+  }
+  #search-dropdown.hidden {
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none; /* prevents accidental hover when hidden */
+  }
+  #search-dropdown:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #search-dropdown::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.9), transparent);
+    pointer-events: none;
   }
 </style>
