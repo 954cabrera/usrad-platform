@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Procedure Library Audit Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            background: #f8fafc;
+            margin: 0;
+            padding: 2rem;
+            color: #1e293b;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #0f172a;
+            margin-bottom: 0.25rem;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            min-width: 220px;
+            padding: 0.6rem 0.9rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 0.9rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.15s ease;
+        }
+
+        .btn:hover {
+            background: #f1f5f9;
+        }
+
+        .btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 1rem 1.25rem;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .count {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .category {
+            font-weight: 600;
+            color: #0f172a;
+            margin-top: 1rem;
+        }
+
+        .procedure {
+            font-size: 0.9rem;
+            color: #475569;
+            margin-left: 1.25rem;
+        }
+
+        .empty {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        mark {
+            background: #fde68a;
+            color: inherit;
+            padding: 0 2px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🩻 Procedure Library Audit Dashboard</h1>
+    <p>Audit all modalities, categories, and CPTs dynamically from <strong>procedures-global.js</strong>.</p>
+
+    <div class="controls">
+        <input id="searchInput" type="text" placeholder="Search by name, category, or CPT..." />
+        <div class="buttons">
+            <button class="btn active" data-mod="All">All</button>
+            <button class="btn" data-mod="MRI">MRI</button>
+            <button class="btn" data-mod="CT">CT</button>
+            <button class="btn" data-mod="X-Ray">X-Ray</button>
+            <button class="btn" data-mod="Ultrasound">Ultrasound</button>
+        </div>
+    </div>
+
+    <div id="summary" class="summary"></div>
+    <div id="details"></div>
+
+    <div class="footer">Generated dynamically from window.ProcedureLibrary</div>
+
+    <script src="../js/procedures-global.js"></script>
+    <script>
+        const modalities = ["MRI", "CT", "X-Ray", "Ultrasound"];
+        const summaryContainer = document.getElementById("summary");
+        const detailsContainer = document.getElementById("details");
+        const searchInput = document.getElementById("searchInput");
+        const buttons = document.querySelectorAll(".btn");
+        let activeMod = "All";
+        let fullData = {};
+
+        function highlight(text, term) {
+            if (!term) return text;
+            const regex = new RegExp(`(${term})`, "gi");
+            return text.replace(regex, "<mark>$1</mark>");
+        }
+
+        function buildSummary() {
+            summaryContainer.innerHTML = "";
+            detailsContainer.innerHTML = "";
+            const query = searchInput.value.trim().toLowerCase();
+
+            modalities.forEach(mod => {
+                if (activeMod !== "All" && mod !== activeMod) return;
+                const set = window.ProcedureLibrary[mod];
+                if (!set) return;
+
+                let categoryCount = 0;
+                let totalProcedures = 0;
+                const emptyCategories = [];
+
+                for (const key in set) {
+                    categoryCount++;
+                    const procs = set[key].procedures || set[key].viewOptions || [];
+                    if (!procs.length) emptyCategories.push(key);
+                    totalProcedures += procs.length;
+                }
+
+                // Card
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `
+          <h2>${mod}</h2>
+          <div class="count">${categoryCount} categories / ${totalProcedures} procedures</div>
+          ${emptyCategories.length
+                        ? `<p class="empty">⚠️ ${emptyCategories.length} empty categories</p>`
+                        : `<p style="color:#16a34a;">✅ All categories populated</p>`
+                    }
+        `;
+                summaryContainer.appendChild(card);
+
+                // Detail
+                const section = document.createElement("div");
+                section.className = "section";
+                section.innerHTML = `<h2>${mod}</h2>`;
+
+                for (const key in set) {
+                    const c = set[key];
+                    const procs = c.procedures || c.viewOptions || [];
+                    const catName = c.category || key;
+                    const catDiv = document.createElement("div");
+
+                    // Filter
+                    const matchesSearch =
+                        !query ||
+                        catName.toLowerCase().includes(query) ||
+                        procs.some(p =>
+                            [p.label, p.cpt].some(
+                                v => v && v.toLowerCase().includes(query)
+                            )
+                        );
+                    if (!matchesSearch) continue;
+
+                    catDiv.innerHTML = `<div class="category">${highlight(catName, query)} — ${procs.length} procedure(s)</div>`;
+                    procs.forEach(p => {
+                        const line = document.createElement("div");
+                        line.className = "procedure";
+                        line.innerHTML = `• ${highlight(p.label, query)} <span style="color:#94a3b8;">(${p.cpt})</span>`;
+                        catDiv.appendChild(line);
+                    });
+                    section.appendChild(catDiv);
+                }
+                detailsContainer.appendChild(section);
+            });
+        }
+
+        searchInput.addEventListener("input", buildSummary);
+        buttons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                buttons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                activeMod = btn.dataset.mod;
+                buildSummary();
+            });
+        });
+
+        window.addEventListener("load", buildSummary);
+    </script>
+</body>
+
+</html>
