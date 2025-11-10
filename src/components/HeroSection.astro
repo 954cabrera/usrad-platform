@@ -501,18 +501,27 @@ const { remixUrl } = Astro.props;
 <!-- DROPDOWN PORTAL - Positioned outside hero section for proper z-index -->
 <div
   id="search-dropdown"
-  class="hidden fixed bg-white rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-gray-200 overflow-hidden max-h-[500px] z-[9999]"
+  class="hidden fixed bg-white rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-gray-200 overflow-y-auto max-h-[70vh] z-[9999] backdrop-blur-sm"
   role="listbox"
   aria-label="Procedure search results"
 >
   <!-- Popular Procedures Section -->
   <div id="popular-procedures-section" class="hidden">
     <div
-      class="px-4 py-3 bg-gradient-to-r from-gray-50 to-white border-b border-gray-200"
+      class="px-4 py-3 bg-gradient-to-r from-[#fff8ee] to-white border-b border-[#f5e4c3] flex items-center justify-between"
     >
-      <h3 class="text-sm font-semibold text-gray-700">Popular Procedures</h3>
-      <p class="text-xs text-gray-500 mt-0.5">Or start typing to search...</p>
+      <div>
+        <h3
+          class="text-sm font-semibold text-[#b8862d] flex items-center gap-2"
+        >
+          ⭐ Popular Procedures
+        </h3>
+        <p class="text-xs text-gray-500 mt-0.5">Or start typing to search...</p>
+      </div>
+      <span class="text-xs text-[#b8862d]/80 font-medium">Curated by USRad</span
+      >
     </div>
+
     <div id="popular-procedures-list" class="overflow-y-auto max-h-[400px] p-2">
       <!-- Popular procedures rendered here -->
     </div>
@@ -551,6 +560,12 @@ const { remixUrl } = Astro.props;
     </p>
     <p class="text-sm text-gray-500">Try a different search term</p>
   </div>
+</div>
+
+<!-- Soft gradient fade at dropdown bottom -->
+<div
+  class="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#fff8ee] to-transparent rounded-b-xl z-[10000]"
+>
 </div>
 
 <script>
@@ -774,26 +789,78 @@ const { remixUrl } = Astro.props;
     return groups;
   }
 
+  // ============================================
+  // ENHANCED GROUPED RENDERER — ZOCDOC STYLE (Sticky Headers)
+  // ============================================
   function renderGroupedResults(procedures) {
     const groups = groupByModality(procedures);
     const modalityOrder = ["MRI", "CT", "X-Ray", "Ultrasound", "Other"];
 
-    let html = "";
-    modalityOrder.forEach((modality) => {
-      if (groups[modality] && groups[modality].length > 0) {
+    const ICONS = {
+      MRI: "🧠",
+      CT: "🦵",
+      "X-Ray": "💀",
+      Ultrasound: "🩺",
+      Other: "📋",
+    };
+
+    const html = modalityOrder
+      .map((modality) => {
+        const group = groups[modality];
+        if (!group || group.length === 0) return "";
+
         const colors = MODALITY_COLORS[modality] || MODALITY_COLORS.MRI;
-        html += `
-          <div class="mb-4">
-            <h4 class="text-xs font-semibold ${colors.text} uppercase tracking-wide mb-2 px-1">
-              ${modality} (${groups[modality].length})
+        const icon = ICONS[modality] || "📋";
+
+        return `
+        <div class="mb-4 border border-gray-100 rounded-lg overflow-hidden shadow-sm">
+          <div class="sticky top-0 z-10 px-4 py-2 bg-gradient-to-r from-[#fff8ee] to-white border-b border-[#f5e4c3] flex items-center justify-between backdrop-blur-sm">
+            <h4 class="text-sm font-semibold text-[#b8862d] flex items-center gap-2">
+              <span>${icon}</span> ${modality}
             </h4>
-            <div class="space-y-1">
-              ${groups[modality].map((proc) => renderProcedureButton(proc)).join("")}
-            </div>
+            <span class="text-xs text-gray-500">${group.length} procedures</span>
           </div>
-        `;
-      }
-    });
+          <div class="divide-y divide-gray-100 max-h-[220px] overflow-y-auto">
+            ${group
+              .map(
+                (proc) => `
+              <button
+                type="button"
+                class="w-full text-left flex items-center justify-between px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition procedure-result"
+                data-cpt="${proc.cpt || ""}"
+                data-label="${(proc.label || "").replace(/"/g, "&quot;")}"
+                data-modality="${proc.modality || ""}"
+                data-bodypart="${proc.bodyPart || ""}"
+              >
+                <div class="flex flex-col">
+                  <span class="text-[15px] font-medium text-gray-900 leading-tight">
+                    ${proc.label}
+                  </span>
+                </div>
+                <span
+                  class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wide
+                  ${
+                    modality === "MRI"
+                      ? "bg-[#e7f0ff] text-[#003087]"
+                      : modality === "CT"
+                        ? "bg-[#fff8ee] text-[#b8862d]"
+                        : modality === "X-Ray"
+                          ? "bg-[#f3f4f6] text-gray-700"
+                          : "bg-[#eefaf1] text-[#006d3b]"
+                  }"
+                >
+                  ${modality}
+                </span>
+
+              </button>
+            `
+              )
+              .join("")}
+          </div>
+        </div>
+      `;
+      })
+      .join("");
 
     return (
       html || '<p class="text-center py-4 text-gray-500">No results found</p>'
@@ -900,6 +967,30 @@ const { remixUrl } = Astro.props;
 
   // Dropdown functions
 
+  // ============================================
+  // USE PREDEFINED "POPULAR_PROCEDURES" LIST
+  // ============================================
+
+  function showPopularProceduresFromLibrary() {
+    const lib = window.ProcedureLibrary;
+    if (!lib || !lib.Popular) {
+      console.warn("Popular procedures not found in ProcedureLibrary");
+      return;
+    }
+
+    const popular = lib.Popular;
+
+    if (popularSection && popularList) {
+      popularSection.classList.remove("hidden");
+      searchSection?.classList.add("hidden");
+      emptyState?.classList.add("hidden");
+
+      // Render with grouped layout (Zocdoc style)
+      popularList.innerHTML = renderGroupedResults(popular);
+      attachResultHandlers();
+    }
+  }
+
   function showPopularProcedures() {
     const popular = getPopularProcedures(50);
 
@@ -915,7 +1006,7 @@ const { remixUrl } = Astro.props;
 
   async function performSearch(query) {
     if (!query || query.length < 2) {
-      showPopularProcedures();
+      showPopularProceduresFromLibrary(); // ✅ use curated list
       return;
     }
 
@@ -981,7 +1072,7 @@ const { remixUrl } = Astro.props;
     searchInput.addEventListener("focus", () => {
       showDropdown();
       if (!searchInput.value || searchInput.value.trim().length === 0) {
-        showPopularProcedures();
+        showPopularProceduresFromLibrary(); // ✅ use curated list
       }
     });
 

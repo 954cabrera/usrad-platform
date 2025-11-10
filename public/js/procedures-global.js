@@ -3032,16 +3032,42 @@ const ULTRASOUND_PROCEDURES = {
 // MOST POPULAR PROCEDURES (HYBRID SEARCH PRELOAD)
 // ============================================
 
+// ============================================
+// POPULAR PROCEDURES - CROSS-MODALITY TOP 22
+// ============================================
+
 const POPULAR_PROCEDURES = [
-  { modality: "MRI", cpt: "70551", label: "MRI Brain – Without Contrast", shortLabel: "Brain - Without" },
-  { modality: "MRI", cpt: "73721", label: "MRI Knee – Without Contrast", shortLabel: "Knee - Without" },
-  { modality: "MRI", cpt: "72148", label: "MRI Lumbar Spine – Without Contrast", shortLabel: "L-Spine - Without" },
-  { modality: "MRI", cpt: "72146", label: "MRI Cervical Spine – Without Contrast", shortLabel: "C-Spine - Without" },
-  { modality: "CT", cpt: "70450", label: "CT Head/Brain – Without Contrast", shortLabel: "Head - Without" },
-  { modality: "CT", cpt: "74177", label: "CT Abdomen & Pelvis – With Contrast", shortLabel: "Abd/Pelvis - With" },
-  { modality: "X-Ray", cpt: "71046", label: "Chest X-Ray – 2 Views (PA & Lateral)", shortLabel: "Chest - 2 Views" },
-  { modality: "Ultrasound", cpt: "76805", label: "Obstetric Ultrasound – Complete", shortLabel: "OB - Complete" }
+  // ===== MRI (8) =====
+  { modality: "MRI", cpt: "70551", label: "MRI Brain - Without Contrast" },
+  { modality: "MRI", cpt: "73721", label: "MRI Knee - Without Contrast" },
+  { modality: "MRI", cpt: "72148", label: "MRI Lumbar Spine - Without Contrast" },
+  { modality: "MRI", cpt: "72146", label: "MRI Cervical Spine - Without Contrast" },
+  { modality: "MRI", cpt: "73221", label: "MRI Shoulder - Without Contrast" },
+  { modality: "MRI", cpt: "72156", label: "MRI Thoracic Spine - Without Contrast" },
+  { modality: "MRI", cpt: "70553", label: "MRI Brain - With & Without Contrast" },
+  { modality: "MRI", cpt: "74181", label: "MRI Abdomen - Without Contrast" },
+
+  // ===== CT (8) =====
+  { modality: "CT", cpt: "70450", label: "CT Head/Brain - Without Contrast" },
+  { modality: "CT", cpt: "74177", label: "CT Abdomen & Pelvis - With Contrast" },
+  { modality: "CT", cpt: "74176", label: "CT Abdomen & Pelvis - Without Contrast" },
+  { modality: "CT", cpt: "71250", label: "CT Chest - Without Contrast" },
+  { modality: "CT", cpt: "72125", label: "CT Cervical Spine - Without Contrast" },
+  { modality: "CT", cpt: "72132", label: "CT Lumbar Spine - With Contrast" },
+  { modality: "CT", cpt: "71260", label: "CT Chest - With Contrast" },
+  { modality: "CT", cpt: "70486", label: "CT Sinuses - Without Contrast" },
+
+  // ===== X-Ray (3) =====
+  { modality: "X-Ray", cpt: "71046", label: "X-Ray Chest - 2 Views (PA & Lateral)" },
+  { modality: "X-Ray", cpt: "73560", label: "X-Ray Knee - 3 Views" },
+  { modality: "X-Ray", cpt: "73030", label: "X-Ray Shoulder - 2 Views" },
+
+  // ===== Ultrasound (3) =====
+  { modality: "Ultrasound", cpt: "76805", label: "Ultrasound OB - Second/Third Trimester (Anatomy Scan)" },
+  { modality: "Ultrasound", cpt: "76700", label: "Ultrasound Abdomen - Complete" },
+  { modality: "Ultrasound", cpt: "76856", label: "Ultrasound Pelvis - Complete" }
 ];
+
 
 
   // ============================================
@@ -3049,12 +3075,14 @@ const POPULAR_PROCEDURES = [
   // ============================================
 
     window.ProcedureLibrary = {
-    MRI: MRI_PROCEDURES,
-    CT: CT_PROCEDURES,
-    XRay: XRAY_PROCEDURES,
-    Ultrasound: ULTRASOUND_PROCEDURES,
-    Popular: POPULAR_PROCEDURES
-  };
+      MRI: MRI_PROCEDURES,
+      CT: CT_PROCEDURES,
+      'X-Ray': XRAY_PROCEDURES,
+      Ultrasound: ULTRASOUND_PROCEDURES,
+      Popular: POPULAR_PROCEDURES,
+      MRI_CATEGORY_CONFIG: window.MRI_CATEGORY_CONFIG
+    };
+
 
 
   window.ProcedureHelpers = {
