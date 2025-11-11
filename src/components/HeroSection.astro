@@ -987,6 +987,7 @@ const { remixUrl } = Astro.props;
   const zipStatus = document.getElementById("zip-status-message");
 
   // Position dropdown relative to search input (for fixed positioning)
+  // Position dropdown relative to search input (for fixed positioning)
   function positionDropdown() {
     const dropdown = document.getElementById("search-dropdown");
     const searchInput = document.getElementById("hero-search-input");
@@ -1001,15 +1002,16 @@ const { remixUrl } = Astro.props;
       inputLeft: inputRect.left,
       inputWidth: inputRect.width,
       windowScrollY: window.scrollY,
+      bodyPaddingRight: document.body.style.paddingRight,
     });
 
     const topOffset = inputRect.bottom + 8;
     const leftOffset = inputRect.left;
     const widthMatch = inputRect.width;
 
-    dropdown.style.top = `${inputRect.bottom + 8}px`; // ✅ CORRECT - no window.scrollY
-    dropdown.style.left = `${inputRect.left}px`;
-    dropdown.style.width = `${inputRect.width}px`;
+    dropdown.style.top = `${topOffset}px`;
+    dropdown.style.left = `${leftOffset}px`;
+    dropdown.style.width = `${widthMatch}px`;
 
     // DEBUG: Log final position
     console.log("Dropdown positioned at:", {
@@ -1025,14 +1027,22 @@ const { remixUrl } = Astro.props;
     const backdrop = document.getElementById("search-backdrop");
     if (!dropdown) return;
 
+    // Calculate scrollbar width BEFORE hiding it
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
     positionDropdown();
     dropdown.classList.remove("hidden");
 
     // Show backdrop and lock scroll
     if (backdrop) {
       backdrop.classList.remove("hidden");
+
+      // Prevent layout shift by adding padding
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
       document.body.style.overflow = "hidden";
       document.body.classList.add("search-active");
+
       applyBlurToContent(true); // Apply blur
     }
 
@@ -1050,8 +1060,12 @@ const { remixUrl } = Astro.props;
     // Hide backdrop and unlock scroll
     if (backdrop) {
       backdrop.classList.add("hidden");
+
+      // Remove padding and restore scroll
+      document.body.style.paddingRight = "";
       document.body.style.overflow = "";
       document.body.classList.remove("search-active");
+
       applyBlurToContent(false); // Remove blur
     }
 
@@ -1530,6 +1544,31 @@ const { remixUrl } = Astro.props;
     });
   }
   setupFindCentersShimmer();
+
+  // Add scroll position detection for fade indicators
+  function setupScrollIndicators() {
+    const scrollContainers = [
+      document.getElementById("popular-procedures-list"),
+      document.getElementById("search-results-list"),
+    ].filter(Boolean);
+
+    scrollContainers.forEach((container) => {
+      container.addEventListener("scroll", () => {
+        if (container.scrollTop > 10) {
+          container.classList.add("scrolled");
+        } else {
+          container.classList.remove("scrolled");
+        }
+      });
+    });
+  }
+
+  // Call after dropdown opens
+  const originalShowDropdown = showDropdown;
+  showDropdown = function () {
+    originalShowDropdown();
+    setTimeout(setupScrollIndicators, 100);
+  };
 </script>
 
 <style>
@@ -1805,5 +1844,56 @@ const { remixUrl } = Astro.props;
   #search-dropdown {
     z-index: 9999 !important;
     position: fixed !important;
+  }
+
+  /* ============================================
+     Enhanced Scrollbar Styling for Dropdown
+  ============================================ */
+
+  /* Target ALL scrollable areas within the dropdown */
+  #search-dropdown *::-webkit-scrollbar {
+    width: 12px !important;
+    height: 12px !important;
+  }
+
+  #search-dropdown *::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+    border-radius: 10px !important;
+  }
+
+  #search-dropdown *::-webkit-scrollbar-thumb {
+    background: #b8862d !important;
+    border-radius: 10px !important;
+    border: 2px solid #ffffff !important;
+  }
+
+  #search-dropdown *::-webkit-scrollbar-thumb:hover {
+    background: #996d24 !important;
+  }
+
+  /* Firefox */
+  #search-dropdown * {
+    scrollbar-width: auto !important;
+    scrollbar-color: #b8862d #f1f1f1 !important;
+  }
+
+  /* Specifically target the list containers */
+  .overflow-y-auto::-webkit-scrollbar {
+    width: 10px !important;
+  }
+
+  .overflow-y-auto::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+    border-radius: 10px !important;
+  }
+
+  .overflow-y-auto::-webkit-scrollbar-thumb {
+    background: #b8862d !important;
+    border-radius: 10px !important;
+    border: 2px solid #ffffff !important;
+  }
+
+  .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    background: #996d24 !important;
   }
 </style>
