@@ -143,7 +143,8 @@ declare global {
   }
 }
 
-if (typeof window !== 'undefined') {
-  window.searchUniversalProcedures = searchUniversalProcedures;
+// ✅ Expose globally for testing (ONLY ONCE, AT TOP LEVEL)
+if (typeof window !== "undefined") {
+  (window as any).searchUniversalProcedures = searchUniversalProcedures;
   console.log("[OK] Universal Search Engine initialized.");
 }

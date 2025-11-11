@@ -13,18 +13,83 @@
 // ======================================================
 
 export const BODY_PART_ALIASES: Record<string, string[]> = {
-  brain: ["head", "skull"],
-  chest: ["thorax", "lung"],
-  abdomen: ["belly", "stomach"],
-  pelvis: ["hip", "pelvic"],
-  elbow: ["upper extremity", "arm"],
-  wrist: ["hand", "upper extremity"],
-  knee: ["lower extremity", "leg"],
-  ankle: ["foot", "lower extremity"],
-  shoulder: ["upper extremity", "arm"],
-  neck: ["cervical spine", "spine", "head and neck"],
-  spine: ["cervical", "thoracic", "lumbar"],
+  // Core anatomical aliases
+  brain: ["head", "skull", "cranium"],
+  chest: ["thorax", "lung", "lungs", "rib", "thoracic cavity"],
+  abdomen: ["belly", "stomach", "abdominal"],
+  pelvis: ["hip", "pelvic", "groin", "bladder", "uterus", "prostate"],
+
+  // Extremities (mapped across modalities)
+  shoulder: [
+    "upper extremity",
+    "arm",
+    "humerus",
+    "rotator cuff",
+    "ac joint",
+    "ct shoulder",
+    "mri shoulder",
+    "xray shoulder",
+  ],
+  elbow: [
+    "upper extremity",
+    "arm",
+    "forearm",
+    "radius",
+    "ulna",
+    "ct elbow",
+    "mri elbow",
+    "xray elbow",
+  ],
+  wrist: [
+    "hand",
+    "upper extremity",
+    "carpal",
+    "metacarpal",
+    "ct wrist",
+    "mri wrist",
+    "xray wrist",
+  ],
+  knee: [
+    "lower extremity",
+    "leg",
+    "patella",
+    "meniscus",
+    "acl",
+    "pcl",
+    "ct knee",
+    "mri knee",
+    "xray knee",
+  ],
+  ankle: [
+    "foot",
+    "lower extremity",
+    "tibia",
+    "fibula",
+    "heel",
+    "ct ankle",
+    "mri ankle",
+    "xray ankle",
+  ],
+  foot: [
+    "toe",
+    "metatarsal",
+    "heel",
+    "plantar",
+    "lower extremity",
+    "ct foot",
+    "mri foot",
+    "xray foot",
+  ],
+
+  // Spine regions
+  neck: ["cervical spine", "spine", "head and neck", "c-spine"],
+  spine: ["cervical", "thoracic", "lumbar", "l-spine", "t-spine", "spinal"],
+
+  // Additional combined mappings
+  leg: ["lower extremity", "thigh", "shin", "calf"],
+  arm: ["upper extremity", "forearm", "humerus"],
 };
+
 
 // Helper to build alias strings
 function getAliasString(category: string): string {
@@ -117,33 +182,43 @@ export function buildUniversalIndex(): ProcedureIndexEntry[] {
   // CT
   // ------------------------------------------------------
   for (const key in CT_PROCEDURES) {
-    const item = CT_PROCEDURES[key];
-    if (!item?.procedures) continue;
+  const item = CT_PROCEDURES[key];
 
-    item.procedures.forEach((proc: any) => {
-      // Include body-part aliases in searchable text
-      const aliasString = getAliasString(item.category);
-      index.push({
-        modality: "CT",
-        bodyPart: item.category,
-        cpt: proc.cpt,
-        label: proc.label,
-        shortLabel: proc.shortLabel,
-        tags: [
-          "ct",
-          ...(item.displayIn || []),
-          ...(proc.tags || [])
-        ].map(t => t.toLowerCase()),
-        searchable: normalizeText(
-          `ct ${item.category} ${aliasString} ${proc.label} ${proc.cpt} ${proc.useCase || ""}`
-        ),
-        icon: item.icon,
-        categoryGroup: item.categoryGroup,
-        isVascular: item.isVascular,
-        isScreening: item.isScreening,
-      });
+  // ✅ Skip hidden categories (like upperExtremity / lowerExtremity)
+  // ✅ Ensure hidden categories never index (CT Upper/Lower Extremity)
+if (item.hiddenFromSearch === true || key.toLowerCase().includes("extremity")) {
+  console.log(`[Universal Index] Skipping hidden CT group: ${key}`);
+  continue;
+}
+
+
+  if (!item?.procedures) continue;
+
+  item.procedures.forEach((proc: any) => {
+    // Include body-part aliases in searchable text
+    const aliasString = getAliasString(item.category);
+    index.push({
+      modality: "CT",
+      bodyPart: item.category,
+      cpt: proc.cpt,
+      label: proc.label,
+      shortLabel: proc.shortLabel,
+      tags: [
+        "ct",
+        ...(item.displayIn || []),
+        ...(proc.tags || [])
+      ].map(t => t.toLowerCase()),
+      searchable: normalizeText(
+        `ct ${item.category} ${aliasString} ${proc.label} ${proc.cpt} ${proc.useCase || ""}`
+      ),
+      icon: item.icon,
+      categoryGroup: item.categoryGroup,
+      isVascular: item.isVascular,
+      isScreening: item.isScreening,
     });
-  }
+  });
+}
+
 
   // ------------------------------------------------------
   // X-RAY

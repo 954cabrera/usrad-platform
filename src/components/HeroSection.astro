@@ -672,13 +672,16 @@ const { remixUrl } = Astro.props;
     const lowerQuery = normalizeText(query);
 
     for (const modality in lib) {
+      const normalizedModality = modality
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "");
       for (const region in lib[modality]) {
         const entry = lib[modality][region];
         const procedures = entry.procedures || entry.viewOptions || [];
 
         procedures.forEach((proc) => {
           const searchText = normalizeText(
-            `${proc.label} ${modality} ${region} ${proc.cpt} ${(entry.matchKeywords || []).join(" ")}`
+            `${proc.label} ${normalizedModality} ${region} ${proc.cpt} ${(entry.matchKeywords || []).join(" ")}`
           );
 
           if (searchText.includes(lowerQuery)) {
@@ -686,9 +689,9 @@ const { remixUrl } = Astro.props;
             results.push({
               label: proc.label,
               cpt: proc.cpt,
-              modality: modality,
+              modality: modality, // keep original for display
               bodyPart: region,
-              score: score,
+              score,
             });
           }
         });
@@ -1454,6 +1457,9 @@ const { remixUrl } = Astro.props;
     });
   }
   setupFindCentersShimmer();
+
+  // ✅ Expose search function globally for debugging & dev console use
+  window.searchUniversalProcedures = searchUniversalProcedures;
 </script>
 
 <style>

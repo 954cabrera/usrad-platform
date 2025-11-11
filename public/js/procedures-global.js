@@ -468,6 +468,38 @@ shoulder: {
     ]
   },
 
+  prostate: {
+  category: "Prostate (Pelvis)",
+  icon: "prostate",
+  categoryGroup: "standard",
+  displayIn: ["pelvis"],
+  matchKeywords: [
+    "prostate",
+    "prostate gland",
+    "prostate cancer",
+    "multiparametric",
+    "mpmri",
+    "pelvic prostate",
+    "prostate screening",
+    "prostate staging",
+    "mri prostate"
+  ],
+  aliases: ["prostate", "pelvis prostate", "mpmri"],
+  procedures: [
+    {
+      cpt: "72197",
+      label: "MRI Prostate - With & Without Contrast",
+      shortLabel: "Prostate - W/ & W/O",
+      description: "Comprehensive multiparametric MRI (mpMRI) for prostate evaluation, combining T2, diffusion, and dynamic contrast sequences.",
+      duration: "45–60 min",
+      prep: "Full bladder preferred; light meal only 4 hours before exam.",
+      useCase: "Prostate cancer detection, staging, and active surveillance.",
+      clinicalIndication: "Evaluation of prostate cancer, elevated PSA, or abnormal digital rectal exam findings."
+    }
+  ]
+},
+
+
 
   abdomen: {
     category: "Abdomen",
@@ -1444,126 +1476,298 @@ const CT_PROCEDURES = {
   },
 
   lumbarSpine: {
-    category: "Lumbar Spine (Low Back)",
-    icon: "spine",
-    categoryGroup: "standard",
-    displayIn: ["spine"],
-    matchKeywords: [
-      "lumbar spine","low back","lower back","back pain","sciatica","l spine",
-      "spinal stenosis","disc fracture","spine ct"
-    ],
-    procedures: [
-      {
-        cpt: "72131",
-        label: "CT Lumbar Spine - Without Contrast",
-        shortLabel: "L-Spine - Without",
-        description: "Fractures, stenosis, bone density",
-        duration: "10-15 min",
-        prep: "None required",
-        useCase: "Fractures, spinal stenosis, scoliosis evaluation",
-        clinicalIndication: "Evaluation of fractures, spinal stenosis, and bone structure"
-      },
-      {
-        cpt: "72132",
-        label: "CT Lumbar Spine - With Contrast",
-        shortLabel: "L-Spine - With",
-        description: "Post-surgical changes, tumors",
-        duration: "15-20 min",
-        prep: "IV contrast",
-        useCase: "Failed back surgery, infection, tumors",
-        clinicalIndication: "Enhanced imaging for post-surgical evaluation, infections, and tumors"
-      }
-    ]
-  },
+  category: "Lumbar Spine (Low Back)",
+  icon: "spine",
+  categoryGroup: "standard",
+  displayIn: ["spine"],
+  matchKeywords: [
+    "lumbar spine",
+    "low back",
+    "lower back",
+    "back pain",
+    "sciatica",
+    "l spine",
+    "lumbar",
+    "spinal stenosis",
+    "disc herniation",
+    "vertebrae",
+    "lumbar ct",
+    "spine ct",
+    "ct low back"
+  ],
+  aliases: ["low back", "lumbar", "spine", "l spine"],
+  procedures: [
+    {
+      cpt: "72131",
+      label: "CT Lumbar Spine - Without Contrast",
+      shortLabel: "Lumbar Spine - Without",
+      description: "Evaluates fractures, stenosis, bone density, or degenerative changes.",
+      duration: "10–15 min",
+      prep: "None required.",
+      useCase: "Fractures, spinal stenosis, scoliosis, or degenerative disease evaluation.",
+      clinicalIndication: "Assessment of fractures, spinal stenosis, and bone structure."
+    },
+    {
+      cpt: "72132",
+      label: "CT Lumbar Spine - With Contrast",
+      shortLabel: "Lumbar Spine - With",
+      description: "Highlights post-surgical changes, infections, or tumor involvement.",
+      duration: "15–20 min",
+      prep: "IV contrast required; kidney function check recommended.",
+      useCase: "Failed back surgery, infection, tumor, or post-surgical follow-up.",
+      clinicalIndication: "Enhanced evaluation for post-surgical assessment, infections, or neoplasms."
+    },
+    {
+      cpt: "72133",
+      label: "CT Lumbar Spine - With & Without Contrast",
+      shortLabel: "Lumbar Spine - Both",
+      description: "Comprehensive lumbar spine imaging including both non-contrast and contrast phases.",
+      duration: "20–30 min",
+      prep: "IV contrast; no specific fasting required.",
+      useCase: "Comprehensive low-back evaluation where both bone and soft-tissue contrast detail are needed.",
+      clinicalIndication: "Full diagnostic evaluation of lumbar spine pathology with contrast enhancement."
+    }
+  ]
+},
 
-  // ============================================
-  // STANDARD CT - EXTREMITIES
-  // ============================================
-  upperExtremity: {
-    category: "Upper Extremity (Arm / Hand)",
-    icon: "arm",
-    categoryGroup: "standard",
-    displayIn: ["extremities"],
-    matchKeywords: [
-      "arm","hand","forearm","elbow","shoulder","upper extremity",
-      "humerus","radius","ulna","ct arm","ct hand"
-    ],
-    procedures: [
-      {
-        cpt: "73200",
-        label: "CT Upper Extremity - Without Contrast",
-        shortLabel: "Upper Extremity - Without",
-        description: "Fracture, bone lesion, or post-traumatic assessment",
-        duration: "10–15 min",
-        prep: "Remove metal jewelry or clothing",
-        useCase: "Fractures, bone lesions, deformities, post-surgical follow-up",
-        clinicalIndication: "Evaluation of fractures, bone lesions, and post-trauma"
-      },
-      {
-        cpt: "73201",
-        label: "CT Upper Extremity - With Contrast",
-        shortLabel: "Upper Extremity - With",
-        description: "Evaluation of tumors, infections, or vascular abnormalities",
-        duration: "15–20 min",
-        prep: "IV contrast required, kidney function check",
-        useCase: "Tumor evaluation, infection, or vascular lesions",
-        clinicalIndication: "Enhanced evaluation of tumor, infection, or vascular lesions"
-      },
-      {
-        cpt: "73202",
-        label: "CT Upper Extremity - With & Without Contrast",
-        shortLabel: "Upper Extremity - Both",
-        description: "Comprehensive upper extremity evaluation",
-        duration: "20–30 min",
-        prep: "IV contrast, remove metal objects",
-        useCase: "Full diagnostic workup of arm or hand",
-        clinicalIndication: "Comprehensive evaluation of bones, joints, and soft tissues"
-      }
-    ]
-  },
 
-  lowerExtremity: {
-    category: "Lower Extremity (Leg / Foot)",
-    icon: "leg",
-    categoryGroup: "standard",
-    displayIn: ["extremities"],
-    matchKeywords: [
-      "leg","knee","ankle","foot","femur","tibia","fibula",
-      "lower extremity","ct leg","ct ankle","ct foot"
-    ],
-    procedures: [
-      {
-        cpt: "73700",
-        label: "CT Lower Extremity - Without Contrast",
-        shortLabel: "Lower Extremity - Without",
-        description: "Fracture, dislocation, or bone lesion",
-        duration: "10–15 min",
-        prep: "Remove metal objects or clothing",
-        useCase: "Trauma, fractures, degenerative bone disease",
-        clinicalIndication: "Evaluation of fractures, dislocations, or bone lesions"
-      },
-      {
-        cpt: "73701",
-        label: "CT Lower Extremity - With Contrast",
-        shortLabel: "Lower Extremity - With",
-        description: "Infection, tumor, or post-surgical changes",
-        duration: "15–20 min",
-        prep: "IV contrast, kidney function check",
-        useCase: "Infection, tumor, vascular abnormalities, post-surgical assessment",
-        clinicalIndication: "Enhanced evaluation for infection, tumor, or vascular abnormalities"
-      },
-      {
-        cpt: "73702",
-        label: "CT Lower Extremity - With & Without Contrast",
-        shortLabel: "Lower Extremity - Both",
-        description: "Comprehensive lower extremity evaluation",
-        duration: "20–30 min",
-        prep: "IV contrast, remove metal objects",
-        useCase: "Detailed assessment of bones, joints, and soft tissues",
-        clinicalIndication: "Comprehensive evaluation of lower extremity"
-      }
-    ]
-  },
+// ============================================
+// CT EXTREMITY BODY PARTS (MRI-style granularity)
+// ============================================
+
+// ---- CT Shoulder ----
+ctShoulder: {
+  category: "Shoulder",
+  icon: "shoulder",
+  matchKeywords: [
+    "shoulder", "ct shoulder", "rotator cuff", "arm pain", "fracture",
+    "joint", "clavicle", "scapula", "ac joint", "humerus"
+  ],
+  procedures: [
+    {
+      cpt: "73200",
+      label: "CT Shoulder - Without Contrast",
+      shortLabel: "Shoulder - Without",
+      description: "Evaluates fractures, dislocations, or degenerative joint disease.",
+      duration: "10–15 min",
+      prep: "Remove metal jewelry or clothing.",
+      useCase: "Fractures, arthritis, joint pain evaluation."
+    },
+    {
+      cpt: "73201",
+      label: "CT Shoulder - With Contrast",
+      shortLabel: "Shoulder - With",
+      description: "Evaluates infection, tumor, or post-surgical changes.",
+      duration: "15–20 min",
+      prep: "IV contrast required; verify kidney function.",
+      useCase: "Infection, tumor, or post-operative changes."
+    },
+    {
+      cpt: "73202",
+      label: "CT Shoulder - With & Without Contrast",
+      shortLabel: "Shoulder - Both",
+      description: "Comprehensive shoulder imaging including both contrast phases.",
+      duration: "20–30 min",
+      prep: "IV contrast; remove metal objects.",
+      useCase: "Comprehensive shoulder joint evaluation."
+    }
+  ]
+},
+
+// ---- CT Elbow ----
+ctElbow: {
+  category: "Elbow",
+  icon: "elbow",
+  matchKeywords: [
+    "elbow", "arm", "forearm", "ct elbow", "radius", "ulna",
+    "fracture", "arthritis", "joint pain"
+  ],
+  procedures: [
+    {
+      cpt: "73200",
+      label: "CT Elbow - Without Contrast",
+      shortLabel: "Elbow - Without",
+      description: "Evaluates fractures, joint degeneration, or deformities.",
+      duration: "10–15 min",
+      prep: "Remove metal jewelry or clothing.",
+      useCase: "Fracture or degenerative joint evaluation."
+    },
+    {
+      cpt: "73201",
+      label: "CT Elbow - With Contrast",
+      shortLabel: "Elbow - With",
+      description: "Evaluates infection, tumor, or post-surgical changes.",
+      duration: "15–20 min",
+      prep: "IV contrast required; verify kidney function.",
+      useCase: "Infection, tumor, or soft-tissue assessment."
+    },
+    {
+      cpt: "73202",
+      label: "CT Elbow - With & Without Contrast",
+      shortLabel: "Elbow - Both",
+      description: "Comprehensive elbow joint evaluation with and without contrast.",
+      duration: "20–30 min",
+      prep: "IV contrast; remove metal objects.",
+      useCase: "Comprehensive bone and joint assessment."
+    }
+  ]
+},
+
+// ---- CT Wrist ----
+ctWrist: {
+  category: "Wrist",
+  icon: "wrist",
+  matchKeywords: [
+    "wrist", "ct wrist", "hand", "carpal", "fracture", "radius", "ulna",
+    "wrist pain", "injury"
+  ],
+  procedures: [
+    {
+      cpt: "73200",
+      label: "CT Wrist - Without Contrast",
+      shortLabel: "Wrist - Without",
+      description: "Evaluates wrist fractures or carpal bone abnormalities.",
+      duration: "10–15 min",
+      prep: "Remove jewelry or watches.",
+      useCase: "Fractures, deformities, or post-surgical evaluation."
+    },
+    {
+      cpt: "73201",
+      label: "CT Wrist - With Contrast",
+      shortLabel: "Wrist - With",
+      description: "Evaluates infection, tumor, or inflammatory conditions.",
+      duration: "15–20 min",
+      prep: "IV contrast required; verify kidney function.",
+      useCase: "Infection, tumor, or post-surgical follow-up."
+    },
+    {
+      cpt: "73202",
+      label: "CT Wrist - With & Without Contrast",
+      shortLabel: "Wrist - Both",
+      description: "Comprehensive CT imaging of wrist joint and carpal bones.",
+      duration: "20–30 min",
+      prep: "IV contrast; remove metal objects.",
+      useCase: "Comprehensive bone and joint assessment."
+    }
+  ]
+},
+
+// ---- CT Knee ----
+ctKnee: {
+  category: "Knee",
+  icon: "knee",
+  matchKeywords: [
+    "knee", "ct knee", "leg", "joint", "patella", "meniscus", "acl", "pcl",
+    "arthritis", "fracture", "pain"
+  ],
+  procedures: [
+    {
+      cpt: "73700",
+      label: "CT Knee - Without Contrast",
+      shortLabel: "Knee - Without",
+      description: "Evaluates fractures, bone lesions, or arthritis in the knee joint.",
+      duration: "10–15 min",
+      prep: "Remove metal clothing or jewelry.",
+      useCase: "Trauma, arthritis, bone lesion evaluation."
+    },
+    {
+      cpt: "73701",
+      label: "CT Knee - With Contrast",
+      shortLabel: "Knee - With",
+      description: "Evaluates infection, tumor, or post-surgical changes.",
+      duration: "15–20 min",
+      prep: "IV contrast required; verify kidney function.",
+      useCase: "Infection, tumor, or post-operative assessment."
+    },
+    {
+      cpt: "73702",
+      label: "CT Knee - With & Without Contrast",
+      shortLabel: "Knee – Both",
+      description: "Comprehensive CT evaluation of the knee joint.",
+      duration: "20–30 min",
+      prep: "IV contrast; remove metal objects.",
+      useCase: "Comprehensive bone and joint assessment."
+    }
+  ]
+},
+
+// ---- CT Ankle ----
+ctAnkle: {
+  category: "Ankle",
+  icon: "ankle",
+  matchKeywords: [
+    "ankle", "ct ankle", "foot", "leg", "joint", "fracture", "sprain",
+    "pain", "tibia", "fibula"
+  ],
+  procedures: [
+    {
+      cpt: "73700",
+      label: "CT Ankle - Without Contrast",
+      shortLabel: "Ankle - Without",
+      description: "Evaluates fractures, dislocations, or joint abnormalities.",
+      duration: "10–15 min",
+      prep: "Remove metal jewelry or footwear.",
+      useCase: "Fractures, arthritis, or post-traumatic assessment."
+    },
+    {
+      cpt: "73701",
+      label: "CT Ankle - With Contrast",
+      shortLabel: "Ankle - With",
+      description: "Evaluates infection, tumor, or vascular abnormalities.",
+      duration: "15–20 min",
+      prep: "IV contrast required; verify kidney function.",
+      useCase: "Infection, tumor, or soft-tissue evaluation."
+    },
+    {
+      cpt: "73702",
+      label: "CT Ankle - With & Without Contrast",
+      shortLabel: "Ankle - Both",
+      description: "Comprehensive CT imaging of the ankle joint.",
+      duration: "20–30 min",
+      prep: "IV contrast; remove metal objects.",
+      useCase: "Comprehensive ankle and joint imaging."
+    }
+  ]
+},
+
+// ---- CT Foot ----
+ctFoot: {
+  category: "Foot",
+  icon: "foot",
+  matchKeywords: [
+    "foot", "ct foot", "toe", "metatarsal", "heel", "plantar", "fracture", "pain"
+  ],
+  procedures: [
+    {
+      cpt: "73700",
+      label: "CT Foot - Without Contrast",
+      shortLabel: "Foot - Without",
+      description: "Evaluates fractures, deformities, or arthritis in the foot.",
+      duration: "10–15 min",
+      prep: "Remove footwear and metal items.",
+      useCase: "Fracture, arthritis, or post-surgical evaluation."
+    },
+    {
+      cpt: "73701",
+      label: "CT Foot - With Contrast",
+      shortLabel: "Foot - With",
+      description: "Evaluates infection, tumor, or vascular abnormalities.",
+      duration: "15–20 min",
+      prep: "IV contrast required; verify kidney function.",
+      useCase: "Infection, tumor, or vascular condition evaluation."
+    },
+    {
+      cpt: "73702",
+      label: "CT Foot - With & Without Contrast",
+      shortLabel: "Foot - Both",
+      description: "Comprehensive CT imaging of the foot and ankle.",
+      duration: "20–30 min",
+      prep: "IV contrast; remove metal objects.",
+      useCase: "Comprehensive foot imaging for trauma, infection, or tumor."
+    }
+  ]
+},
+
 
   // ============================================
   // CTA - VASCULAR IMAGING
@@ -2803,9 +3007,6 @@ const ULTRASOUND_PROCEDURES = {
     });
   }
 
-// ============================================
-// MOST POPULAR PROCEDURES (HYBRID SEARCH PRELOAD)
-// ============================================
 
 // ============================================
 // POPULAR PROCEDURES - CROSS-MODALITY TOP 22
@@ -2849,25 +3050,6 @@ const POPULAR_PROCEDURES = [
 // ============================================
 
 // --- PATCH START ---
-CT_PROCEDURES.lowerExtremity.matchKeywords.push(
-  "ct knee", "ct ankle", "ct leg", "ct foot", "knee ct", "ankle ct", "leg ct", "foot ct"
-);
-
-CT_PROCEDURES.lowerExtremity.procedures.forEach(proc => {
-  if (proc.cpt === "73700") {
-    proc.aliases = ["ct knee", "ct ankle", "ct leg", "ct foot", "ct knee without contrast"];
-  }
-  if (proc.cpt === "73701") {
-    proc.aliases = ["ct knee with contrast", "ct ankle with contrast", "ct leg with contrast"];
-  }
-  if (proc.cpt === "73702") {
-    proc.aliases = [
-      "ct knee with and without contrast",
-      "ct ankle with and without contrast",
-      "ct leg with and without contrast"
-    ];
-  }
-});
 
 ["knee", "shoulder", "elbow", "wrist", "hip", "ankle"].forEach(region => {
   const section = MRI_PROCEDURES[region];
