@@ -602,7 +602,26 @@ const { remixUrl } = Astro.props;
 >
 </div>
 
+<!-- Search Backdrop Blur - only affects content below hero -->
+<div
+  id="search-backdrop"
+  class="hidden fixed inset-0 pointer-events-none"
+  style="z-index: 9998;"
+  aria-hidden="true"
+>
+</div>
+
 <script>
+  // Calculate scrollbar width to prevent layout shift when locking scroll
+  if (typeof window !== "undefined") {
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty(
+      "--scrollbar-width",
+      `${scrollbarWidth}px`
+    );
+  }
+
   // ========================================
   // SELF-CONTAINED INLINE SEARCH
   // No external imports needed
@@ -1003,19 +1022,39 @@ const { remixUrl } = Astro.props;
   // Show dropdown function
   function showDropdown() {
     const dropdown = document.getElementById("search-dropdown");
+    const backdrop = document.getElementById("search-backdrop");
     if (!dropdown) return;
 
     positionDropdown();
     dropdown.classList.remove("hidden");
+
+    // Show backdrop and lock scroll
+    if (backdrop) {
+      backdrop.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+      document.body.classList.add("search-active");
+      applyBlurToContent(true); // Apply blur
+    }
+
     isDropdownOpen = true;
   }
 
   // Hide dropdown function
   function hideDropdown() {
     const dropdown = document.getElementById("search-dropdown");
+    const backdrop = document.getElementById("search-backdrop");
     if (!dropdown) return;
+
     dropdown.classList.add("hidden");
-    dropdown.classList.add("hidden");
+
+    // Hide backdrop and unlock scroll
+    if (backdrop) {
+      backdrop.classList.add("hidden");
+      document.body.style.overflow = "";
+      document.body.classList.remove("search-active");
+      applyBlurToContent(false); // Remove blur
+    }
+
     isDropdownOpen = false;
   }
 
@@ -1026,6 +1065,34 @@ const { remixUrl } = Astro.props;
   let currentQuery = "";
 
   console.log("Inline search initialized");
+
+  // Apply blur to sections below hero
+  function applyBlurToContent(shouldBlur) {
+    // Get the hero section
+    const heroSection = document.querySelector('section[class*="pt-40"]');
+    if (!heroSection) return;
+
+    // Get all sections after hero
+    let nextSection = heroSection.nextElementSibling;
+    while (nextSection) {
+      if (nextSection.tagName === "SECTION") {
+        if (shouldBlur) {
+          nextSection.style.filter = "blur(4px)";
+          nextSection.style.opacity = "0.5";
+          nextSection.style.transition = "filter 0.3s ease, opacity 0.3s ease";
+          nextSection.style.pointerEvents = "none";
+          nextSection.style.userSelect = "none";
+        } else {
+          nextSection.style.filter = "";
+          nextSection.style.opacity = "";
+          nextSection.style.transition = "";
+          nextSection.style.pointerEvents = "";
+          nextSection.style.userSelect = "";
+        }
+      }
+      nextSection = nextSection.nextElementSibling;
+    }
+  }
 
   // Dropdown functions
 
@@ -1707,5 +1774,36 @@ const { remixUrl } = Astro.props;
   .fade-out-step {
     animation: stepFadeOut 0.25s ease-in forwards;
     will-change: opacity, transform;
+  }
+
+  /* ============================================
+     Search Backdrop & Scroll Lock
+  ============================================ */
+
+  /* Backdrop element (for future use if needed) */
+  #search-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9998;
+    pointer-events: none;
+  }
+
+  #search-backdrop:not(.hidden) {
+    display: block;
+  }
+
+  /* Smooth scroll lock */
+  body.search-active {
+    overflow: hidden;
+  }
+
+  /* Ensure dropdown stays above everything */
+  #search-dropdown {
+    z-index: 9999 !important;
+    position: fixed !important;
   }
 </style>

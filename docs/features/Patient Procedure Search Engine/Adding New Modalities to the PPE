@@ -1,0 +1,2433 @@
+# Universal Search Expansion Guide — Adding New Modalities to the PPE
+
+**Version:** 2.0 (Revised & Expanded)  
+**Last Updated:** November 2025  
+**Audience:** Developers, System Architects, AI Assistants  
+
+---
+
+## 📋 Table of Contents
+
+1. [Overview](#1-overview)
+2. [Prerequisite Checks](#2-prerequisite-checks)
+3. [Directory & File Placement](#3-directory--file-placement)
+4. [Data Schema Reference](#4-data-schema-reference)
+5. [Index Integration Procedure](#5-index-integration-procedure)
+   - 5.5 **NEW:** Refactoring Existing Modalities
+6. [Search Engine Integration](#6-search-engine-integration)
+   - 6.2 **NEW:** Understanding Search Matching Logic
+   - 6.3 **NEW:** Configuring Search Result Limits
+7. [Semantic Alias Integration](#7-semantic-alias-integration)
+8. [Testing Checklist](#8-testing-checklist)
+9. [Post-Integration QA](#9-post-integration-qa)
+   - 9.5 **NEW:** Development Workflow Best Practices
+10. [Commit Template](#10-commit-template)
+11. [Appendix: Reference Examples](#11-appendix-reference-examples)
+    - Example G: **NEW:** CT Extremities Refactor (Real-World Case Study)
+12. [Troubleshooting](#12-troubleshooting)
+    - **NEW:** Issue 9: Search Works in Console But Not in UI
+    - **NEW:** Issue 10: Reversed Query Not Working
+
+---
+
+## 1. Overview
+
+### What is the Universal Search Engine?
+
+The **Universal Search Engine (USRad PPE - Patient Procedure Engine)** is a unified search system that centralizes all imaging modalities under one intelligent search schema. It provides:
+
+- **Single Index:** One consolidated search index for all procedures
+- **Cross-Modality Search:** Users can search across MRI, CT, X-Ray, Ultrasound simultaneously
+- **Smart Matching:** Intelligent scoring algorithm with CPT, body part, and modality awareness
+- **Semantic Aliases:** Natural language expansion (e.g., "elbow" → "upper extremity")
+- **Patient-Friendly:** Supports both medical terminology and everyday language
+
+### Current Modalities
+
+As of November 2025, the system supports:
+
+1. **MRI** (Magnetic Resonance Imaging)
+2. **CT** (Computed Tomography)
+3. **X-Ray** (Radiography)
+4. **Ultrasound** (Sonography)
+
+### Purpose of This Guide
+
+This document serves as a living blueprint for:
+- Integrating new imaging modalities (e.g., PET, Mammography, Nuclear Medicine, DEXA)
+- **Refactoring existing modalities** (e.g., replacing generic sections with detailed body parts)
+
+Following these guidelines ensures:
+
+✅ Consistent data structure  
+✅ Proper indexing and search behavior  
+✅ Semantic alias coverage  
+✅ No breaking changes to existing modalities  
+✅ Maintainable, scalable architecture  
+
+### Why Consistency Matters
+
+The Universal Search Engine relies on:
+
+1. Standardized naming conventions for body parts and procedures
+2. Consistent tagging for effective search matching
+3. Normalized text for case-insensitive, punctuation-safe searches
+4. Unified schema across all modalities for predictable behavior
+
+Deviating from these patterns will cause search quality degradation and maintenance headaches.
+
+---
+
+## 2. Prerequisite Checks
+
+### ✅ Pre-Integration Checklist
+
+Before adding a new modality, verify the following:
+
+#### ☐ 2.1 Procedure Data Exists
+
+Confirm your modality has a complete data structure in `procedures-global.js`:
+
+```javascript
+const PET_PROCEDURES = {
+  WHOLE_BODY: {
+    category: "Whole Body",
+    icon: "🔬",
+    procedures: [
+      {
+        cpt: "78815",
+        label: "PET Whole Body with CT - With Contrast",
+        shortLabel: "PET/CT - Contrast",
+        useCase: "Oncology staging, metabolic assessment"
+      }
+    ]
+  }
+};
+```
+
+#### ☐ 2.2 Required Fields Present
+
+Each procedure entry MUST include:
+
+| Field | Required | Type | Example |
+|-------|----------|------|---------|
+| `category` | ✅ Yes | string | "Whole Body", "Brain" |
+| `icon` | ✅ Yes | string | "🔬", "🩺" |
+| `procedures` | ✅ Yes | array | `[{ }]` |
+| `procedures[].cpt` | ✅ Yes | string | "78815" |
+| `procedures[].label` | ✅ Yes | string | "PET Whole Body..." |
+| `procedures[].shortLabel` | ⚠️ Recommended | string | "PET/CT" |
+| `procedures[].useCase` | ⚠️ Recommended | string | "Oncology staging" |
+| `procedures[].tags` | ⚪ Optional | string[] | `["oncology", "fdg"]` |
+
+#### ☐ 2.3 No Duplicate CPT Codes
+
+Run this validation in browser console:
+
+```javascript
+// Check for CPT duplicates across all modalities
+const allCPTs = [];
+const ProcLib = window.ProcedureLibrary;
+
+Object.keys(ProcLib).forEach(modality => {
+  Object.values(ProcLib[modality]).forEach(category => {
+    const procs = category.procedures || category.viewOptions || [];
+    procs.forEach(p => allCPTs.push({cpt: p.cpt, modality}));
+  });
+});
+
+const duplicates = allCPTs.filter((item, index) => 
+  allCPTs.findIndex(x => x.cpt === item.cpt) !== index
+);
+
+if (duplicates.length > 0) {
+  console.error("⚠️ Duplicate CPT codes found:", duplicates);
+} else {
+  console.log("✅ No CPT duplicates");
+}
+```
+
+#### ☐ 2.4 Semantic Alias Coverage
+
+If your modality uses unique anatomical terms, add them to `BODY_PART_ALIASES`:
+
+```javascript
+// Example: Adding PET-specific terms
+export const BODY_PART_ALIASES: Record<string, string[]> = {
+  // ... existing aliases
+  heart: ["cardiac", "myocardial", "coronary"],
+  "whole body": ["full body", "total body", "systemic"],
+  liver: ["hepatic"],
+  // Add more as needed
+};
+```
+
+#### ☐ 2.5 Icon Selection
+
+Choose an appropriate emoji or icon:
+
+- **PET:** 🔬 (microscope) or ⚛️ (atom)
+- **Mammography:** 🎗️ (awareness ribbon)
+- **Nuclear Medicine:** ☢️ (radioactive) or 🧪 (test tube)
+- **DEXA:** 🦴 (bone)
+
+---
+
+## 3. Directory & File Placement
+
+### File Modification Map
+
+| File | Purpose | Action Required |
+|------|---------|-----------------|
+| `/public/js/procedures-global.js` | Base data source | ✅ Add new modality object (e.g., `PET_PROCEDURES`) |
+| `/src/lib/procedures/utils/universal-search-index.ts` | Index builder | ✅ Add new modality loop (copy existing pattern) |
+| `/src/lib/procedures/utils/universal-search-engine.ts` | Search logic | ⚠️ Only if adding new intent keyword |
+| `/src/lib/procedures/utils/universal-search-index.ts` | Aliases | ⚠️ Only if adding new body-part terms |
+
+### ⚠️ Files You Should NOT Modify
+
+- `modal-controller.ts` (unless adding UI-specific logic)
+- `*-category-config.ts` files (modality-specific configs)
+- `*-renderer.ts` files (UI rendering logic)
+- `selection-flow.ts` (unless changing selection behavior)
+
+---
+
+## 4. Data Schema Reference
+
+### ProcedureIndexEntry Interface
+
+This is the canonical structure for all procedures in the Universal Search Index:
+
+```typescript
+export interface ProcedureIndexEntry {
+  /**
+   * Modality name (standardized, title case)
+   * Examples: "MRI", "CT", "X-Ray", "Ultrasound", "PET", "Mammography"
+   */
+  modality: string;
+
+  /**
+   * Body part or anatomical region
+   * Examples: "Brain", "Chest", "Upper Extremity", "Whole Body"
+   * Should match category from procedures-global.js
+   */
+  bodyPart: string;
+
+  /**
+   * CPT code (5-digit string)
+   * Must be unique across ALL modalities
+   * Example: "78815"
+   */
+  cpt: string;
+
+  /**
+   * Full procedure label (descriptive)
+   * Example: "PET Whole Body with CT - With Contrast"
+   */
+  label: string;
+
+  /**
+   * Short display label (optional, for UI)
+   * Example: "PET/CT - Contrast"
+   */
+  shortLabel?: string;
+
+  /**
+   * Search tags (lowercase)
+   * Include modality keywords, body part variations, common terms
+   * Example: ["pet", "positron emission tomography", "whole body", "fdg"]
+   */
+  tags: string[];
+
+  /**
+   * Searchable text (normalized, lowercase, no special chars)
+   * Auto-generated via normalizeText()
+   * Includes: modality + category + aliases + label + cpt + useCase
+   */
+  searchable: string;
+
+  /**
+   * Icon (emoji or image path)
+   * Example: "🔬"
+   */
+  icon?: string;
+
+  /**
+   * Category grouping (optional)
+   * Used for UI organization
+   * Example: "neurological", "oncology"
+   */
+  categoryGroup?: string;
+
+  /**
+   * Flags for special procedure types
+   */
+  isVascular?: boolean;  // Vascular/angiography procedures
+  isScreening?: boolean; // Screening procedures
+  contrastMode?: string; // "with", "without", "with and without"
+}
+```
+
+### Key Fields Explained
+
+#### `searchable` Field
+
+This is the most important field for search quality. It's auto-generated and includes:
+
+```javascript
+searchable: normalizeText(
+  `${modality} ${bodyPart} ${aliasString} ${label} ${cpt} ${useCase}`
+)
+```
+
+The `normalizeText()` function:
+- Converts to lowercase
+- Removes special characters
+- Collapses whitespace
+- Creates a search-optimized string
+
+#### `tags` Field
+
+Tags should include:
+- Primary modality name (lowercase): `"pet"`
+- Full modality name: `"positron emission tomography"`
+- Body part (lowercase): `"whole body"`
+- Common abbreviations: `"fdg"`, `"ct"`
+- Medical terms: `"oncology"`, `"metabolic"`
+
+### 4.5 **NEW:** matchKeywords Best Practices
+
+#### Purpose:
+`matchKeywords` arrays improve search discoverability by including terms patients actually use.
+
+#### What to Include:
+✅ **Primary terms:** "prostate", "shoulder", "knee"  
+✅ **Medical synonyms:** "prostate gland", "rotator cuff"  
+✅ **Common abbreviations:** "mpmri", "acl", "pcl"  
+✅ **Related conditions:** "prostate cancer", "arthritis"  
+✅ **Procedure variations:** "prostate screening", "prostate staging"  
+
+#### What to AVOID:
+❌ **Generic anatomical groups:** "upper extremity", "lower extremity"
+- **Reason:** Pollutes search results with too many matches
+- **Use `BODY_PART_ALIASES` for semantic expansion instead**
+
+❌ **Duplicate terms:** Don't repeat category name  
+❌ **Overly broad terms:** "scan", "imaging", "test"  
+
+#### Patient-First Language:
+Prioritize terms patients would actually search for over medical jargon.
+
+**Example:**
+```javascript
+// ✅ Good
+matchKeywords: [
+  "prostate", "prostate gland", "prostate cancer",
+  "multiparametric", "mpmri", "prostate screening"
+]
+
+// ❌ Bad
+matchKeywords: [
+  "prostate", "lower abdomen", "pelvic region", "imaging", "scan"
+]
+```
+
+---
+
+## 5. Index Integration Procedure
+
+### Step-by-Step Implementation
+
+#### Step 1: Add to procedures-global.js
+
+```javascript
+// At the end of procedures-global.js, before the window export
+const PET_PROCEDURES = {
+  WHOLE_BODY: {
+    category: "Whole Body",
+    icon: "🔬",
+    categoryGroup: "oncology",
+    procedures: [
+      {
+        cpt: "78815",
+        label: "PET Whole Body with CT - With Contrast",
+        shortLabel: "PET/CT - Contrast",
+        useCase: "Oncology staging, metabolic assessment",
+        tags: ["fdg", "oncology"]
+      },
+      {
+        cpt: "78816",
+        label: "PET Whole Body with CT - Without Contrast",
+        shortLabel: "PET/CT - No Contrast",
+        useCase: "Cancer detection, follow-up",
+        tags: ["fdg", "oncology"]
+      }
+    ]
+  },
+  BRAIN: {
+    category: "Brain",
+    icon: "🧠",
+    categoryGroup: "neurological",
+    procedures: [
+      {
+        cpt: "78608",
+        label: "PET Brain - Perfusion Study",
+        shortLabel: "PET Brain Perfusion",
+        useCase: "Alzheimer's, dementia assessment",
+        tags: ["neurological", "dementia", "alzheimer"]
+      }
+    ]
+  }
+};
+
+// Update window.ProcedureLibrary export
+window.ProcedureLibrary = {
+  MRI: MRI_PROCEDURES,
+  CT: CT_PROCEDURES,
+  'X-Ray': XRAY_PROCEDURES,
+  Ultrasound: ULTRASOUND_PROCEDURES,
+  PET: PET_PROCEDURES  // ← Add your new modality here
+};
+```
+
+#### Step 2: Update universal-search-index.ts
+
+Add a new modality section before the final `console.log` and `return` statement:
+
+```typescript
+// ------------------------------------------------------
+// PET (NEW MODALITY)
+// ------------------------------------------------------
+const PET_PROCEDURES = window.ProcedureLibrary.PET;
+
+if (PET_PROCEDURES) {
+  for (const key in PET_PROCEDURES) {
+    const item = PET_PROCEDURES[key];
+    if (!item?.procedures) continue;
+
+    item.procedures.forEach((proc: any) => {
+      // Include body-part aliases in searchable text
+      const aliasString = getAliasString(item.category);
+      const matchKeywordsString = (item.matchKeywords || []).join(" ");
+      
+      index.push({
+        modality: "PET",
+        bodyPart: item.category,
+        cpt: proc.cpt,
+        label: proc.label,
+        shortLabel: proc.shortLabel,
+        tags: [
+          "pet",
+          "positron emission tomography",
+          item.category.toLowerCase(),
+          ...(proc.tags || [])
+        ],
+        searchable: normalizeText(
+          `pet positron emission tomography ${item.category} ${aliasString} ${matchKeywordsString} ${proc.label} ${proc.cpt} ${proc.useCase || ""}`
+        ),
+        icon: item.icon,
+        categoryGroup: item.categoryGroup,
+        isScreening: item.isScreening || false,
+      });
+    });
+  }
+}
+```
+
+#### Step 3: Update TypeScript Global Declaration
+
+Update the global interface in `universal-search-index.ts`:
+
+```typescript
+declare global {
+  interface Window {
+    ProcedureLibrary: {
+      MRI: any;
+      CT: any;
+      'X-Ray': any;
+      Ultrasound: any;
+      PET: any;  // ← Add this line
+    };
+  }
+}
+```
+
+### ⚡ Quick Copy Template
+
+```typescript
+// ------------------------------------------------------
+// [MODALITY_NAME] (NEW MODALITY)
+// ------------------------------------------------------
+const [MODALITY_NAME]_PROCEDURES = window.ProcedureLibrary.[MODALITY_NAME];
+
+if ([MODALITY_NAME]_PROCEDURES) {
+  for (const key in [MODALITY_NAME]_PROCEDURES) {
+    const item = [MODALITY_NAME]_PROCEDURES[key];
+    if (!item?.procedures) continue;
+
+    item.procedures.forEach((proc: any) => {
+      const aliasString = getAliasString(item.category);
+      const matchKeywordsString = (item.matchKeywords || []).join(" ");
+      
+      index.push({
+        modality: "[MODALITY_NAME]",
+        bodyPart: item.category,
+        cpt: proc.cpt,
+        label: proc.label,
+        shortLabel: proc.shortLabel,
+        tags: [
+          "[modality_keyword]",
+          "[full_modality_name]",
+          item.category.toLowerCase(),
+          ...(proc.tags || [])
+        ],
+        searchable: normalizeText(
+          `[modality_keyword] [full_modality_name] ${item.category} ${aliasString} ${matchKeywordsString} ${proc.label} ${proc.cpt} ${proc.useCase || ""}`
+        ),
+        icon: item.icon,
+        categoryGroup: item.categoryGroup,
+        isScreening: item.isScreening || false,
+        // Add other optional fields as needed
+      });
+    });
+  }
+}
+```
+
+**Replace:**
+- `[MODALITY_NAME]` → `PET`, `MAMMOGRAPHY`, `NUCLEAR_MEDICINE`, etc.
+- `[modality_keyword]` → `pet`, `mammogram`, `nuclear`, etc.
+- `[full_modality_name]` → `positron emission tomography`, `mammography`, etc.
+
+---
+
+## 5.5 **NEW:** Refactoring Existing Modalities (Breaking Changes)
+
+Sometimes you need to replace generic sections with more detailed body parts (e.g., replacing "Upper Extremity" with "Shoulder", "Elbow", "Wrist").
+
+### When to Refactor:
+- Generic categories are too broad for patient searches
+- Medical terminology doesn't match patient language
+- Need more granular CPT code coverage
+- Search results are too cluttered with generic matches
+
+### Refactoring Checklist:
+
+☐ **Document old structure** (CPT codes, categories)  
+☐ **Create detailed replacement sections**  
+☐ **Verify NO CPT code duplication**  
+☐ **Update matchKeywords to remove generic terms**  
+☐ **Update BODY_PART_ALIASES if needed**  
+☐ **Test that old search terms still work (via aliases)**  
+☐ **Update documentation with migration notes**  
+☐ **Increase search result limits if needed** (see Section 6.3)  
+
+### Example: CT Extremities Refactor
+
+**Before:**
+```javascript
+ctUpperExtremity: {
+  category: "Upper Extremity",
+  procedures: [
+    { cpt: "73200", label: "CT Upper Extremity - Without" },
+    { cpt: "73201", label: "CT Upper Extremity - With" },
+    { cpt: "73202", label: "CT Upper Extremity - Both" }
+  ]
+},
+ctLowerExtremity: {
+  category: "Lower Extremity",
+  procedures: [
+    { cpt: "73700", label: "CT Lower Extremity - Without" },
+    { cpt: "73701", label: "CT Lower Extremity - With" },
+    { cpt: "73702", label: "CT Lower Extremity - Both" }
+  ]
+}
+```
+**Total:** 6 procedures
+
+**After:**
+```javascript
+ctShoulder: {
+  category: "Shoulder",
+  matchKeywords: ["shoulder", "rotator cuff", "labrum", "ct shoulder"],
+  procedures: [
+    { cpt: "73200", label: "CT Shoulder - Without Contrast" },
+    { cpt: "73201", label: "CT Shoulder - With Contrast" },
+    { cpt: "73202", label: "CT Shoulder - With & Without Contrast" }
+  ]
+},
+ctElbow: {
+  category: "Elbow",
+  matchKeywords: ["elbow", "fracture", "olecranon", "ct elbow"],
+  procedures: [
+    { cpt: "73206", label: "CT Elbow - Without Contrast" },
+    { cpt: "73207", label: "CT Elbow - With Contrast" },
+    { cpt: "73208", label: "CT Elbow - With & Without Contrast" }
+  ]
+},
+ctWrist: {
+  category: "Wrist / Hand",
+  matchKeywords: ["wrist", "hand", "carpal", "ct wrist"],
+  procedures: [
+    { cpt: "73200", label: "CT Wrist / Hand - Without Contrast" },
+    { cpt: "73201", label: "CT Wrist / Hand - With Contrast" }
+  ]
+},
+ctHip: {
+  category: "Hip",
+  matchKeywords: ["hip", "acetabulum", "fracture", "ct hip"],
+  procedures: [
+    { cpt: "73700", label: "CT Hip - Without Contrast" },
+    { cpt: "73701", label: "CT Hip - With Contrast" },
+    { cpt: "73702", label: "CT Hip - With & Without Contrast" }
+  ]
+},
+ctKnee: {
+  category: "Knee",
+  matchKeywords: ["knee", "patella", "acl", "ct knee"],
+  procedures: [
+    { cpt: "73700", label: "CT Knee - Without Contrast" },
+    { cpt: "73701", label: "CT Knee - With Contrast" },
+    { cpt: "73702", label: "CT Knee - With & Without Contrast" }
+  ]
+},
+ctAnkle: {
+  category: "Ankle / Foot",
+  matchKeywords: ["ankle", "foot", "calcaneus", "ct ankle"],
+  procedures: [
+    { cpt: "73700", label: "CT Ankle / Foot - Without Contrast" },
+    { cpt: "73701", label: "CT Ankle / Foot - With Contrast" },
+    { cpt: "73702", label: "CT Ankle / Foot - With & Without Contrast" }
+  ]
+}
+```
+**Total:** 17 procedures (+11 procedures)
+
+### Result:
+✅ +11 procedures (6 → 17)  
+✅ Better patient-friendly search terms  
+✅ "CT shoulder" works perfectly  
+✅ "CT knee" works perfectly  
+❌ "CT upper extremity" no longer needed (patients don't search this)  
+
+### Key Lessons:
+1. **Match patient language, not medical jargon**
+2. **Remove generic keywords** like "upper extremity" from matchKeywords
+3. **Keep generic terms in BODY_PART_ALIASES** for semantic expansion only
+4. **Increase search result limits** to accommodate more detailed results
+
+---
+
+## 6. Search Engine Integration
+
+### When to Update universal-search-engine.ts
+
+You only need to modify `universal-search-engine.ts` if:
+
+1. Your modality introduces a new keyword users might search for
+2. You want the keyword to be recognized as a "modality" intent
+
+### Adding a New Modality Keyword
+
+Locate the `detectIntent()` function and update the modality regex:
+
+**Before:**
+```typescript
+function detectIntent(input: string): "cpt" | "modality" | "bodyPart" | "mixed" {
+  const normalized = normalizeInput(input);
+  
+  // Exact CPT code (5 digits)
+  if (/^\d{5}$/.test(normalized)) return "cpt";
+  
+  // Modality keywords
+  if (/^(mri|ct|xray|x-ray|ultrasound|us)$/i.test(normalized)) return "modality";
+  
+  // Common body parts
+  if (/^(brain|chest|abdomen|knee|shoulder|neck|leg|foot|spine|pelvis|head|heart|liver|kidney)$/i.test(normalized)) {
+    return "bodyPart";
+  }
+  
+  return "mixed";
+}
+```
+
+**After:**
+```typescript
+function detectIntent(input: string): "cpt" | "modality" | "bodyPart" | "mixed" {
+  const normalized = normalizeInput(input);
+  
+  // Exact CPT code (5 digits)
+  if (/^\d{5}$/.test(normalized)) return "cpt";
+  
+  // Modality keywords
+  if (/^(mri|ct|xray|x-ray|ultrasound|us|pet|mammogram|mammography|nuclear|dexa)$/i.test(normalized)) {
+    return "modality";
+  }
+  
+  // Common body parts
+  if (/^(brain|chest|abdomen|knee|shoulder|neck|leg|foot|spine|pelvis|head|heart|liver|kidney)$/i.test(normalized)) {
+    return "bodyPart";
+  }
+  
+  return "mixed";
+}
+```
+
+### ℹ️ Note on detectIntent()
+
+The `detectIntent()` function is primarily for optimization and analytics, not core functionality. The search engine will still find your modality's procedures even if you don't add the keyword here. However, adding it provides:
+
+- Better query classification
+- Potential future optimization paths
+- More accurate search analytics
+
+---
+
+## 6.2 **NEW:** Understanding Search Matching Logic
+
+### Current Implementation: Word-Based Matching
+
+The search uses **word-based matching**, not exact phrase matching:
+
+```javascript
+// Query: "prostate mri"
+// Splits into: ["prostate", "mri"]
+// Matches if BOTH words exist in searchable text (order doesn't matter)
+
+const queryWords = lowerQuery.split(/\s+/).filter(w => w.length > 0);
+const allWordsMatch = queryWords.every(word => searchText.includes(word));
+```
+
+### Why This Matters:
+
+✅ "MRI prostate" works  
+✅ "prostate MRI" works (swapped, then matched)  
+✅ "prostate cancer MRI" works (extra words ignored)  
+❌ Requires ALL words to be present  
+
+### Modality Swap Logic:
+
+Queries like "knee MRI" are automatically swapped to "MRI knee" before searching:
+
+```javascript
+const regex = new RegExp(`^(\\w+)\\s+${v}$`, "i");
+if (regex.test(query.trim())) {
+  query = `${v} ${RegExp.$1}`.trim();
+}
+```
+
+**Important:** This only works for **single-word body parts** + modality.
+
+**Examples:**
+- ✅ "knee mri" → "mri knee" (works)
+- ✅ "shoulder ct" → "ct shoulder" (works)
+- ⚠️ "prostate mri" → "mri prostate" (works)
+- ❌ "upper extremity ct" → no swap (multi-word body part)
+
+### How Search Actually Works:
+
+1. **Query Input:** "prostate mri"
+2. **Swap (if applicable):** "mri prostate"
+3. **Normalize:** "mri prostate" (lowercase, remove special chars)
+4. **Split into words:** `["mri", "prostate"]`
+5. **Search:** Find procedures where searchText contains BOTH "mri" AND "prostate"
+6. **Score:** Rank by relevance (earlier matches score higher)
+7. **Return:** Top N results (default 12)
+
+---
+
+## 6.3 **NEW:** Configuring Search Result Limits
+
+### Default Limits
+
+```javascript
+function searchUniversalProcedures(query, limit = 12) { ... }
+function searchLocalProcedures(query, limit = 12) { ... }
+```
+
+### When to Increase Limits:
+
+- Adding many detailed body part sections (e.g., 6 CT extremities)
+- "Generic term" searches return many results (e.g., "CT upper")
+- User feedback indicates missing relevant results
+
+### Performance Considerations:
+
+| Limit | Performance | Use Case |
+|-------|-------------|----------|
+| 8 | < 50ms | Small procedure libraries (<100 procedures) |
+| 12 | < 75ms | **Recommended default** (100-200 procedures) |
+| 20 | < 100ms | Large libraries (200+ procedures) |
+| 50+ | > 100ms | Not recommended (UI clutter + performance impact) |
+
+### How to Update:
+
+**File:** `HeroSection.astro` (or your search component file)
+
+```javascript
+// 1. Update function signature
+function searchUniversalProcedures(query, limit = 12) { // ← Change this
+  if (!query || query.length < 2) return [];
+  // ... rest of function
+}
+
+// 2. Update function signature
+function searchLocalProcedures(query, limit = 12) { // ← Change this
+  if (!query || query.length < 2) return [];
+  // ... rest of function
+}
+
+// 3. Update hybridSearch calls
+async function hybridSearch(query) {
+  const localResults = searchLocalProcedures(query, 12); // ← Change this
+  
+  if (localResults.length < 6) {
+    const universalResults = searchUniversalProcedures(query, 12); // ← Change this
+    // ... merge logic
+    return merged.slice(0, 12); // ← Change this
+  }
+  
+  return localResults;
+}
+```
+
+### Testing Performance:
+
+```javascript
+// Test search performance in console
+console.time("search");
+window.searchUniversalProcedures("mri brain", 12);
+console.timeEnd("search");
+// Should be < 100ms
+```
+
+---
+
+## 7. Semantic Alias Integration
+
+### Why Aliases Matter
+
+Semantic aliases allow patients to use natural language:
+
+- "heart scan" → matches "cardiac", "myocardial"
+- "bone density" → matches "DEXA", "osteoporosis screening"
+- "breast" → matches "mammography", "mammo"
+
+### Adding New Aliases
+
+If your modality uses specialized anatomical terms, update `BODY_PART_ALIASES` in `universal-search-index.ts`:
+
+```typescript
+export const BODY_PART_ALIASES: Record<string, string[]> = {
+  // Existing aliases
+  brain: ["head", "skull"],
+  chest: ["thorax", "lung"],
+  abdomen: ["belly", "stomach"],
+  pelvis: ["hip", "pelvic"],
+  elbow: ["forearm", "upper extremity"],
+  wrist: ["hand", "upper extremity"],
+  knee: ["leg", "lower extremity"],
+  ankle: ["foot", "lower extremity"],
+  shoulder: ["upper extremity", "arm"],
+  neck: ["cervical spine", "spine", "head and neck"],
+  spine: ["cervical", "thoracic", "lumbar"],
+  
+  // New aliases for PET/Nuclear Medicine
+  heart: ["cardiac", "myocardial", "coronary"],
+  "whole body": ["full body", "total body", "systemic"],
+  liver: ["hepatic"],
+  kidney: ["renal"],
+  bone: ["skeletal", "osseous"],
+  
+  // New aliases for Mammography
+  breast: ["mammary", "chest wall"],
+  
+  // New aliases for DEXA
+  "bone density": ["dexa", "osteoporosis", "bmd"],
+  
+  // New aliases for Prostate
+  prostate: ["prostate gland", "pelvic prostate", "multiparametric", "mpmri"],
+};
+```
+
+### Alias Best Practices
+
+1. **Lowercase Only:** All aliases should be lowercase
+2. **Common Terms:** Include everyday patient language
+3. **Medical Synonyms:** Include technical medical terms
+4. **Abbreviations:** Include common abbreviations
+5. **Regional Variations:** Consider spelling variations (e.g., "colour" vs "color")
+
+### Testing Alias Coverage
+
+```javascript
+// Test alias expansion in console
+function testAlias(term) {
+  const result = window.searchUniversalProcedures(term, 5);
+  console.log(`"${term}" → ${result.length} results`);
+  return result;
+}
+
+testAlias("heart scan");  // Should find cardiac procedures
+testAlias("bone density");  // Should find DEXA
+testAlias("breast screening");  // Should find mammography
+```
+
+---
+
+## 8. Testing Checklist
+
+### Comprehensive Test Plan
+
+Run all tests in browser console after integration:
+
+### ✅ Phase 1: Basic Modality Tests
+
+| Test # | Input | Expected Output | Validation |
+|--------|-------|-----------------|------------|
+| 1 | `window.searchUniversalProcedures("pet", 10)` | All PET procedures | Check `modality` field = "PET" |
+| 2 | `window.searchUniversalProcedures("mammogram", 10)` | All mammography procedures | Results > 0 |
+| 3 | `window.searchUniversalProcedures("nuclear", 10)` | Nuclear medicine procedures | Check tags include "nuclear" |
+
+### ✅ Phase 2: Body Part + Modality Tests
+
+| Test # | Input | Expected Output | Validation |
+|--------|-------|-----------------|------------|
+| 4 | `window.searchUniversalProcedures("pet brain", 10)` | PET brain procedures | `bodyPart` = "Brain" |
+| 5 | `window.searchUniversalProcedures("pet whole body", 10)` | PET whole body scans | Check multiple results |
+| 6 | `window.searchUniversalProcedures("mammography breast", 10)` | Breast imaging | Relevant procedures only |
+
+### ✅ Phase 3: CPT Lookup Tests
+
+| Test # | Input | Expected Output | Validation |
+|--------|-------|-----------------|------------|
+| 7 | `window.searchUniversalProcedures("78815", 10)` | Exact CPT match | `results[0].cpt` = "78815" |
+| 8 | `window.searchUniversalProcedures("78608", 10)` | PET Brain procedure | Single result |
+
+### ✅ Phase 4: Alias Coverage Tests
+
+| Test # | Input | Expected Output | Validation |
+|--------|-------|-----------------|------------|
+| 9 | `window.searchUniversalProcedures("heart scan", 10)` | Cardiac procedures | Includes PET cardiac |
+| 10 | `window.searchUniversalProcedures("metabolic study", 10)` | PET procedures | Check `useCase` mentions |
+| 11 | `window.searchUniversalProcedures("bone density", 10)` | DEXA scans | If DEXA added |
+
+### ✅ Phase 5: Edge Case Tests
+
+| Test # | Input | Expected Output | Validation |
+|--------|-------|-----------------|------------|
+| 12 | `window.searchUniversalProcedures("xyz", 10)` | Empty array `[]` | No false matches |
+| 13 | `window.searchUniversalProcedures("a", 10)` | Empty array `[]` | Length check works |
+| 14 | `window.searchUniversalProcedures("PET", 10)` | Case insensitive match | Same as "pet" |
+
+### ✅ Phase 6: Regression Tests (Existing Modalities)
+
+| Test # | Input | Expected Output | Validation |
+|--------|-------|-----------------|------------|
+| 15 | `window.searchUniversalProcedures("mri brain", 10)` | MRI brain procedures | Still works correctly |
+| 16 | `window.searchUniversalProcedures("ct chest", 10)` | CT chest procedures | No interference |
+| 17 | `window.searchUniversalProcedures("xray knee", 10)` | X-Ray knee | Existing still works |
+| 18 | `window.searchUniversalProcedures("ultrasound abdomen", 10)` | US abdomen | No degradation |
+
+### Test Script Template
+
+Copy and paste into browser console:
+
+```javascript
+// Run complete test suite
+function runModalityTests(modalityKeyword, sampleCPT, bodyPartTest) {
+  console.log(`\n🧪 Testing ${modalityKeyword.toUpperCase()} Integration\n`);
+  
+  // Test 1: Modality keyword
+  let results = window.searchUniversalProcedures(modalityKeyword, 10);
+  console.log(`✓ Test 1 - "${modalityKeyword}": ${results.length} results`);
+  
+  // Test 2: CPT lookup
+  results = window.searchUniversalProcedures(sampleCPT, 10);
+  console.log(`✓ Test 2 - CPT "${sampleCPT}": ${results.length} results`);
+  if (results.length > 0 && results[0].cpt === sampleCPT) {
+    console.log(`  ✅ Exact CPT match confirmed`);
+  }
+  
+  // Test 3: Body part + modality
+  results = window.searchUniversalProcedures(`${modalityKeyword} ${bodyPartTest}`, 10);
+  console.log(`✓ Test 3 - "${modalityKeyword} ${bodyPartTest}": ${results.length} results`);
+  
+  // Test 4: Case insensitivity
+  results = window.searchUniversalProcedures(modalityKeyword.toUpperCase(), 10);
+  console.log(`✓ Test 4 - Case insensitive: ${results.length} results`);
+  
+  console.log(`\n✅ ${modalityKeyword.toUpperCase()} tests complete!\n`);
+}
+
+// Example: Test PET integration
+runModalityTests("pet", "78815", "brain");
+
+// Example: Test Mammography integration
+runModalityTests("mammogram", "77067", "breast");
+```
+
+---
+
+## 9. Post-Integration QA
+
+### Quality Assurance Checklist
+
+After completing the integration, verify the following:
+
+#### ☐ 9.1 Console Output
+
+Check browser console for successful initialization:
+
+```
+✅ Procedure Library loaded successfully!
+✅ Universal Procedure Index built: [NEW_TOTAL] items ← Should increase
+🔍 Universal Search Engine initialized.
+```
+
+**Expected Count Increase:**
+- MRI, CT, X-Ray, Ultrasound = 149 items
+- PET (example: 15 procedures) = 164 items
+- Mammography (example: 8 procedures) = 172 items
+
+#### ☐ 9.2 No Console Errors
+
+Verify zero errors during:
+- Page load
+- Modal open
+- Search queries
+- Result selection
+
+#### ☐ 9.3 Query Latency
+
+Test search performance:
+
+```javascript
+// Performance test
+console.time("search");
+window.searchUniversalProcedures("pet brain", 10);
+console.timeEnd("search");
+// Should be < 100ms
+```
+
+**Acceptable Performance:**
+- Single search: < 100ms
+- 10 consecutive searches: < 500ms total
+- Index build time: < 200ms
+
+#### ☐ 9.4 CPT Uniqueness
+
+Run duplicate detection:
+
+```javascript
+// Check for duplicates after adding new modality
+const index = window.buildUniversalIndex();
+const cpts = index.map(item => item.cpt);
+const duplicates = cpts.filter((cpt, idx) => cpts.indexOf(cpt) !== idx);
+
+if (duplicates.length > 0) {
+  console.error("⚠️ Duplicate CPTs:", [...new Set(duplicates)]);
+} else {
+  console.log("✅ All CPT codes unique");
+}
+```
+
+#### ☐ 9.5 Modality Distribution
+
+Verify balanced results:
+
+```javascript
+// Check modality distribution
+function analyzeResults(query) {
+  const results = window.searchUniversalProcedures(query, 50);
+  const distribution = {};
+  results.forEach(r => {
+    distribution[r.modality] = (distribution[r.modality] || 0) + 1;
+  });
+  console.log(`Query: "${query}"`);
+  console.table(distribution);
+}
+
+analyzeResults("brain");  // Should show multiple modalities
+analyzeResults("chest");  // Should show multiple modalities
+analyzeResults("pet");    // Should show only PET
+```
+
+#### ☐ 9.6 Tag Coverage
+
+Verify tags are comprehensive:
+
+```javascript
+// Inspect tags for new modality
+function inspectTags(modality) {
+  const index = window.buildUniversalIndex();
+  const modalityProcs = index.filter(i => i.modality === modality);
+  const allTags = new Set();
+  modalityProcs.forEach(p => p.tags.forEach(t => allTags.add(t)));
+  console.log(`${modality} Tags:`, Array.from(allTags).sort());
+}
+
+inspectTags("PET");
+```
+
+#### ☐ 9.7 Searchable Text Quality
+
+Inspect searchable strings:
+
+```javascript
+// Check searchable text construction
+function inspectSearchable(modality, limit = 3) {
+  const index = window.buildUniversalIndex();
+  const samples = index
+    .filter(i => i.modality === modality)
+    .slice(0, limit);
+  
+  samples.forEach(s => {
+    console.log(`\nCPT ${s.cpt}:`);
+    console.log(`Label: ${s.label}`);
+    console.log(`Searchable: ${s.searchable}`);
+  });
+}
+
+inspectSearchable("PET", 3);
+```
+
+#### ☐ 9.8 Existing Modality Regression
+
+Confirm no degradation:
+
+```javascript
+// Quick regression test
+const regressionTests = [
+  "mri brain",
+  "ct chest",
+  "xray knee",
+  "ultrasound abdomen"
+];
+
+regressionTests.forEach(query => {
+  const results = window.searchUniversalProcedures(query, 10);
+  console.log(`${query}: ${results.length} results - ${results.length >= 5 ? '✅' : '⚠️'}`);
+});
+```
+
+### Performance Benchmarks
+
+| Metric | Target | Acceptable | Poor |
+|--------|--------|------------|------|
+| Single search | < 50ms | < 100ms | > 100ms |
+| Index build | < 100ms | < 200ms | > 200ms |
+| Result rendering | < 50ms | < 100ms | > 100ms |
+| Total procedures | 150-200 | < 300 | > 300 |
+
+---
+
+## 9.5 **NEW:** Development Workflow Best Practices
+
+### File Location Awareness
+
+⚠️ **CRITICAL:** Always verify you're editing the actual project files, not copies.
+
+```bash
+# Before editing, confirm file location:
+pwd
+ls -la procedures-global.js
+
+# Common mistake: Editing /mnt/project/ instead of ~/your-project/
+```
+
+### Testing in Multiple Browsers
+
+Test in at least 2 browsers to catch cache issues:
+- Chrome/Chromium
+- Firefox
+- Safari (if on Mac)
+
+### Dev Server Restart Checklist
+
+Restart the dev server when:
+- ✅ Adding new modality sections
+- ✅ Updating matchKeywords
+- ✅ Modifying search logic
+- ✅ Changes to procedures-global.js
+
+**How to restart:**
+```bash
+# Stop: Ctrl+C in terminal
+# Start: npm run dev
+```
+
+### Git Workflow for Refactors
+
+For breaking changes (refactoring existing modalities):
+
+```bash
+# 1. Create feature branch
+git checkout -b feature/refactor-ct-extremities
+
+# 2. Make changes incrementally
+git add file1.js
+git commit -m "Step 1: Add new detailed sections"
+
+git add file2.ts
+git commit -m "Step 2: Remove old generic sections"
+
+git add file3.ts
+git commit -m "Step 3: Update matchKeywords and aliases"
+
+# 3. Test thoroughly
+npm run test
+# Run all manual tests in browser console
+
+# 4. Merge to main only after thorough testing
+git checkout main
+git merge feature/refactor-ct-extremities
+
+# 5. Push to remote
+git push origin main
+```
+
+### Cache Management
+
+**Browser cache issues are the #1 source of confusion.**
+
+When changes don't appear:
+
+1. **Hard refresh:** Ctrl+Shift+R (or Cmd+Shift+R on Mac)
+2. **Clear search cache:**
+   ```javascript
+   window.lastQuery = "";
+   window.lastResults = [];
+   location.reload();
+   ```
+3. **Clear browser cache completely:**
+   - Chrome: Settings → Privacy → Clear browsing data → Cached images and files
+   - Firefox: Settings → Privacy → Clear Data → Cache
+4. **Restart dev server**
+5. **Try incognito/private mode**
+
+### Verification Script
+
+Before committing, run this verification:
+
+```javascript
+// Comprehensive pre-commit verification
+function verifyIntegration() {
+  console.log("🔍 Running Pre-Commit Verification...\n");
+  
+  // 1. Check index built
+  const index = window.buildUniversalIndex();
+  console.log(`✓ Index built: ${index.length} items`);
+  
+  // 2. Check for duplicates
+  const cpts = index.map(i => i.cpt);
+  const dups = cpts.filter((c, i) => cpts.indexOf(c) !== i);
+  console.log(dups.length === 0 ? "✓ No duplicate CPTs" : `⚠️ ${dups.length} duplicates found`);
+  
+  // 3. Test performance
+  console.time("search-perf");
+  window.searchUniversalProcedures("mri brain", 10);
+  console.timeEnd("search-perf");
+  
+  // 4. Test your new modality
+  const results = window.searchUniversalProcedures("pet", 10);
+  console.log(`✓ New modality test: ${results.length} results`);
+  
+  console.log("\n✅ Verification complete!");
+}
+
+verifyIntegration();
+```
+
+---
+
+## 10. Commit Template
+
+### Git Workflow
+
+#### Step 1: Stage Changes
+
+```bash
+# Stage modified files
+git add public/js/procedures-global.js
+git add src/lib/procedures/utils/universal-search-index.ts
+
+# If you modified search engine
+git add src/lib/procedures/utils/universal-search-engine.ts
+
+# Check staged changes
+git status
+```
+
+#### Step 2: Commit with Descriptive Message
+
+```bash
+git commit -m "🩺 Added new modality: PET
+
+- Integrated PET_PROCEDURES into universal search index
+- Added 15 PET procedures across 3 body regions (Whole Body, Brain, Heart)
+- Updated BODY_PART_ALIASES for cardiac/metabolic terms
+- Added 'pet' keyword to modality intent detection
+- Verified CPT uniqueness (no duplicates)
+- All regression tests passing
+- Total index size: 149 → 164 items
+
+Testing:
+✓ Modality search ('pet') returns all PET procedures
+✓ CPT lookup (78815) exact match confirmed
+✓ Alias expansion working (heart scan → cardiac procedures)
+✓ No performance degradation (< 100ms search latency)
+✓ Existing modalities unaffected"
+```
+
+#### Step 3: Push to Feature Branch
+
+```bash
+# Push to feature branch
+git push origin feature/pet-modality
+
+# Or if working on main development branch
+git push origin develop
+```
+
+### Commit Message Template (Copy-Ready)
+
+```bash
+git commit -m "🩺 Added new modality: [MODALITY_NAME]
+
+- Integrated [MODALITY_NAME]_PROCEDURES into universal search index
+- Added [X] procedures across [Y] body regions ([list regions])
+- Updated BODY_PART_ALIASES for [new anatomical terms]
+- Added '[keyword]' to modality intent detection
+- Verified CPT uniqueness (no duplicates)
+- All regression tests passing
+- Total index size: [OLD] → [NEW] items
+
+Testing:
+✓ Modality search ('[keyword]') returns all [MODALITY_NAME] procedures
+✓ CPT lookup ([sample CPT]) exact match confirmed
+✓ Alias expansion working ([example alias] → [expected results])
+✓ No performance degradation (< 100ms search latency)
+✓ Existing modalities unaffected"
+```
+
+### Pull Request Template
+
+When creating a PR, include:
+
+```markdown
+## 🩺 New Modality: [MODALITY_NAME]
+
+### Summary
+Added [MODALITY_NAME] support to the Universal Search System with [X] procedures across [Y] body regions.
+
+### Changes
+- ✅ Added `[MODALITY_NAME]_PROCEDURES` to `procedures-global.js`
+- ✅ Integrated modality loop in `universal-search-index.ts`
+- ✅ Updated `BODY_PART_ALIASES` with [list new aliases]
+- ✅ Added '[keyword]' to modality detection (if applicable)
+
+### Testing
+- [x] All 18 test cases passing (6 phases)
+- [x] CPT uniqueness verified
+- [x] No duplicate procedures
+- [x] Performance < 100ms
+- [x] No regression in existing modalities
+
+### Index Statistics
+- **Before:** 149 procedures
+- **After:** [NEW_COUNT] procedures
+- **New Modality:** [X] procedures
+
+### Sample Searches
+```javascript
+window.searchUniversalProcedures("[keyword]", 10);  // [X] results
+window.searchUniversalProcedures("[sample CPT]", 10);  // 1 result
+window.searchUniversalProcedures("[keyword] [body]", 10);  // [Y] results
+```
+
+### Screenshots
+[Attach search results screenshots if available]
+
+### Reviewer Checklist
+- [ ] Code follows existing patterns
+- [ ] No duplicate CPT codes
+- [ ] Aliases comprehensive
+- [ ] Console output clean
+- [ ] Performance acceptable
+- [ ] Documentation updated
+```
+
+---
+
+## 11. Appendix: Reference Examples
+
+### Example A: MRI Integration (Existing Pattern)
+
+```typescript
+// ------------------------------------------------------
+// MRI
+// ------------------------------------------------------
+for (const key in MRI_PROCEDURES) {
+  const item = MRI_PROCEDURES[key];
+  if (!item?.procedures) continue;
+
+  item.procedures.forEach((proc: any) => {
+    // Include body-part aliases in searchable text
+    const aliasString = getAliasString(item.category);
+    const matchKeywordsString = (item.matchKeywords || []).join(" ");
+    
+    index.push({
+      modality: "MRI",
+      bodyPart: item.category,
+      cpt: proc.cpt,
+      label: proc.label,
+      shortLabel: proc.shortLabel,
+      tags: [
+        "mri",
+        item.category.toLowerCase(),
+        ...(proc.useCase?.toLowerCase().split(" ") || [])
+      ],
+      searchable: normalizeText(
+        `mri ${item.category} ${aliasString} ${matchKeywordsString} ${proc.label} ${proc.cpt} ${proc.useCase || ""}`
+      ),
+      icon: item.icon,
+      categoryGroup: item.categoryGroup,
+      contrastMode: item.contrastMode,
+    });
+  });
+}
+```
+
+### Example B: CT Integration (Existing Pattern)
+
+```typescript
+// ------------------------------------------------------
+// CT
+// ------------------------------------------------------
+for (const key in CT_PROCEDURES) {
+  const item = CT_PROCEDURES[key];
+  if (!item?.procedures) continue;
+
+  item.procedures.forEach((proc: any) => {
+    // Include body-part aliases in searchable text
+    const aliasString = getAliasString(item.category);
+    const matchKeywordsString = (item.matchKeywords || []).join(" ");
+    
+    index.push({
+      modality: "CT",
+      bodyPart: item.category,
+      cpt: proc.cpt,
+      label: proc.label,
+      shortLabel: proc.shortLabel,
+      tags: [
+        "ct",
+        ...(item.displayIn || []),
+        ...(proc.tags || [])
+      ].map(t => t.toLowerCase()),
+      searchable: normalizeText(
+        `ct ${item.category} ${aliasString} ${matchKeywordsString} ${proc.label} ${proc.cpt} ${proc.useCase || ""}`
+      ),
+      icon: item.icon,
+      categoryGroup: item.categoryGroup,
+      isVascular: item.isVascular,
+      isScreening: item.isScreening,
+    });
+  });
+}
+```
+
+### Example C: X-Ray Integration (Existing Pattern)
+
+```typescript
+// ------------------------------------------------------
+// X-RAY
+// ------------------------------------------------------
+for (const key in XRAY_PROCEDURES) {
+  const item = XRAY_PROCEDURES[key];
+  if (!item?.viewOptions) continue;  // Note: X-Ray uses 'viewOptions' not 'procedures'
+
+  item.viewOptions.forEach((view: any) => {
+    // Include body-part aliases in searchable text
+    const aliasString = getAliasString(item.category);
+    
+    index.push({
+      modality: "X-Ray",
+      bodyPart: item.category,
+      cpt: view.cpt,
+      label: view.label,
+      shortLabel: view.shortLabel,
+      tags: [
+        "xray",
+        "x-ray",
+        item.category.toLowerCase(),
+        `${view.views} view`  // X-Ray specific: includes view count
+      ],
+      searchable: normalizeText(
+        `xray x-ray ${item.category} ${aliasString} ${view.label} ${view.cpt}`
+      ),
+      icon: item.icon,
+    });
+  });
+}
+```
+
+### Example D: Ultrasound Integration (Existing Pattern)
+
+```typescript
+// ------------------------------------------------------
+// ULTRASOUND
+// ------------------------------------------------------
+for (const key in ULTRASOUND_PROCEDURES) {
+  const item = ULTRASOUND_PROCEDURES[key];
+  if (!item?.procedures) continue;
+
+  item.procedures.forEach((proc: any) => {
+    // Include body-part aliases in searchable text
+    const aliasString = getAliasString(item.category);
+    
+    index.push({
+      modality: "Ultrasound",
+      bodyPart: item.category,
+      cpt: proc.cpt,
+      label: proc.label,
+      shortLabel: proc.shortLabel,
+      tags: [
+        "ultrasound",
+        "us",  // Common abbreviation
+        item.category.toLowerCase()
+      ],
+      searchable: normalizeText(
+        `ultrasound us ${item.category} ${aliasString} ${proc.label} ${proc.cpt}`
+      ),
+      icon: item.icon,
+    });
+  });
+}
+```
+
+### Example E: PET Integration (New Modality Template)
+
+```typescript
+// ------------------------------------------------------
+// PET (NEW MODALITY)
+// ------------------------------------------------------
+const PET_PROCEDURES = window.ProcedureLibrary.PET;
+
+if (PET_PROCEDURES) {
+  for (const key in PET_PROCEDURES) {
+    const item = PET_PROCEDURES[key];
+    if (!item?.procedures) continue;
+
+    item.procedures.forEach((proc: any) => {
+      // Include body-part aliases in searchable text
+      const aliasString = getAliasString(item.category);
+      const matchKeywordsString = (item.matchKeywords || []).join(" ");
+      
+      index.push({
+        modality: "PET",
+        bodyPart: item.category,
+        cpt: proc.cpt,
+        label: proc.label,
+        shortLabel: proc.shortLabel,
+        tags: [
+          "pet",
+          "positron emission tomography",
+          "nuclear",  // Related term
+          "fdg",      // Common tracer
+          item.category.toLowerCase(),
+          ...(proc.tags || [])
+        ],
+        searchable: normalizeText(
+          `pet positron emission tomography nuclear fdg ${item.category} ${aliasString} ${matchKeywordsString} ${proc.label} ${proc.cpt} ${proc.useCase || ""}`
+        ),
+        icon: item.icon,
+        categoryGroup: item.categoryGroup,
+        isScreening: item.isScreening || false,
+      });
+    });
+  }
+}
+```
+
+### Example F: Mammography Integration (New Modality Template)
+
+```typescript
+// ------------------------------------------------------
+// MAMMOGRAPHY (NEW MODALITY)
+// ------------------------------------------------------
+const MAMMOGRAPHY_PROCEDURES = window.ProcedureLibrary.Mammography;
+
+if (MAMMOGRAPHY_PROCEDURES) {
+  for (const key in MAMMOGRAPHY_PROCEDURES) {
+    const item = MAMMOGRAPHY_PROCEDURES[key];
+    if (!item?.procedures) continue;
+
+    item.procedures.forEach((proc: any) => {
+      // Include body-part aliases in searchable text
+      const aliasString = getAliasString(item.category);
+      const matchKeywordsString = (item.matchKeywords || []).join(" ");
+      
+      index.push({
+        modality: "Mammography",
+        bodyPart: item.category,
+        cpt: proc.cpt,
+        label: proc.label,
+        shortLabel: proc.shortLabel,
+        tags: [
+          "mammography",
+          "mammogram",
+          "mammo",  // Common abbreviation
+          "breast imaging",
+          item.category.toLowerCase(),
+          ...(proc.tags || [])
+        ],
+        searchable: normalizeText(
+          `mammography mammogram mammo breast imaging ${item.category} ${aliasString} ${matchKeywordsString} ${proc.label} ${proc.cpt} ${proc.useCase || ""}`
+        ),
+        icon: item.icon,
+        categoryGroup: item.categoryGroup,
+        isScreening: proc.isScreening || item.isScreening || false,
+      });
+    });
+  }
+}
+```
+
+### Example G: **NEW:** CT Extremities Refactor (Real-World Case Study)
+
+#### Problem:
+Generic "Upper Extremity" and "Lower Extremity" sections were:
+- Too broad for patient searches
+- Using medical jargon patients don't understand
+- Only 6 total procedures
+- Search results cluttered when users typed "upper" or "lower"
+
+#### Solution:
+Replace with 6 detailed body part sections.
+
+#### Before (Generic Sections):
+
+```javascript
+// ❌ OLD - procedures-global.js
+const CT_PROCEDURES = {
+  // ... other sections
+  
+  ctUpperExtremity: {
+    category: "Upper Extremity",
+    icon: "arm",
+    matchKeywords: [
+      "upper extremity", "arm", "upper limb", "ct upper extremity"
+    ],
+    procedures: [
+      {
+        cpt: "73200",
+        label: "CT Upper Extremity - Without Contrast",
+        shortLabel: "Upper Extremity - Without",
+        useCase: "Fracture, tumor, infection"
+      },
+      {
+        cpt: "73201",
+        label: "CT Upper Extremity - With Contrast",
+        shortLabel: "Upper Extremity - With",
+        useCase: "Tumor evaluation, vascular assessment"
+      },
+      {
+        cpt: "73202",
+        label: "CT Upper Extremity - With & Without Contrast",
+        shortLabel: "Upper Extremity - Both",
+        useCase: "Comprehensive extremity evaluation"
+      }
+    ]
+  },
+  
+  ctLowerExtremity: {
+    category: "Lower Extremity",
+    icon: "leg",
+    matchKeywords: [
+      "lower extremity", "leg", "lower limb", "ct lower extremity"
+    ],
+    procedures: [
+      {
+        cpt: "73700",
+        label: "CT Lower Extremity - Without Contrast",
+        shortLabel: "Lower Extremity - Without",
+        useCase: "Fracture, tumor, infection"
+      },
+      {
+        cpt: "73701",
+        label: "CT Lower Extremity - With Contrast",
+        shortLabel: "Lower Extremity - With",
+        useCase: "Tumor evaluation, vascular assessment"
+      },
+      {
+        cpt: "73702",
+        label: "CT Lower Extremity - With & Without Contrast",
+        shortLabel: "Lower Extremity - Both",
+        useCase: "Comprehensive extremity evaluation"
+      }
+    ]
+  }
+};
+```
+
+**Total:** 6 procedures
+
+#### After (Detailed Body Parts):
+
+```javascript
+// ✅ NEW - procedures-global.js
+const CT_PROCEDURES = {
+  // ... other sections
+  
+  ctShoulder: {
+    category: "Shoulder",
+    icon: "shoulder",
+    categoryGroup: "detailed",
+    displayIn: ["extremities"],
+    matchKeywords: [
+      "shoulder", "rotator cuff", "labrum", "bursitis", "fracture", "ct shoulder"
+    ],
+    procedures: [
+      {
+        cpt: "73200",
+        label: "CT Shoulder - Without Contrast",
+        shortLabel: "Shoulder - Without",
+        description: "Shoulder joint, bone, and soft tissue evaluation",
+        duration: "10–15 min",
+        prep: "Remove metal objects or clothing",
+        useCase: "Fractures, dislocations, bone lesions",
+        clinicalIndication: "Evaluation of shoulder trauma or bone pathology"
+      },
+      {
+        cpt: "73201",
+        label: "CT Shoulder - With Contrast",
+        shortLabel: "Shoulder - With",
+        description: "Enhanced shoulder evaluation",
+        duration: "15–20 min",
+        prep: "IV contrast required, kidney function check",
+        useCase: "Tumor evaluation, infection, vascular lesions",
+        clinicalIndication: "Enhanced evaluation for tumor, infection, or vascular abnormalities"
+      },
+      {
+        cpt: "73202",
+        label: "CT Shoulder - With & Without Contrast",
+        shortLabel: "Shoulder - Both",
+        description: "Comprehensive shoulder evaluation",
+        duration: "20–30 min",
+        prep: "IV contrast, remove metal objects",
+        useCase: "Detailed assessment of bones, joints, and soft tissues",
+        clinicalIndication: "Comprehensive evaluation of shoulder"
+      }
+    ]
+  },
+  
+  ctElbow: {
+    category: "Elbow",
+    icon: "elbow",
+    categoryGroup: "detailed",
+    displayIn: ["extremities"],
+    matchKeywords: [
+      "elbow", "fracture", "olecranon", "radius", "ulna", "joint", "pain", "ct elbow"
+    ],
+    procedures: [
+      {
+        cpt: "73206",
+        label: "CT Elbow - Without Contrast",
+        shortLabel: "Elbow - Without",
+        description: "Elbow joint and bone evaluation",
+        duration: "10–15 min",
+        prep: "Remove metal objects",
+        useCase: "Fracture, dislocation, bone lesion",
+        clinicalIndication: "Evaluation of elbow trauma or bone pathology"
+      },
+      {
+        cpt: "73207",
+        label: "CT Elbow - With Contrast",
+        shortLabel: "Elbow - With",
+        description: "Enhanced elbow evaluation",
+        duration: "15–20 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Mass, infection, post-surgical changes",
+        clinicalIndication: "Enhanced evaluation for mass, infection, or vascular abnormalities"
+      },
+      {
+        cpt: "73208",
+        label: "CT Elbow - With & Without Contrast",
+        shortLabel: "Elbow - Both",
+        description: "Comprehensive elbow evaluation",
+        duration: "20–30 min",
+        prep: "IV contrast, remove metal",
+        useCase: "Full joint and soft tissue evaluation",
+        clinicalIndication: "Comprehensive evaluation of elbow"
+      }
+    ]
+  },
+  
+  ctWrist: {
+    category: "Wrist / Hand",
+    icon: "wrist",
+    categoryGroup: "detailed",
+    displayIn: ["extremities"],
+    matchKeywords: [
+      "wrist", "hand", "fracture", "carpal", "scaphoid", "ct wrist", "ct hand"
+    ],
+    procedures: [
+      {
+        cpt: "73200",
+        label: "CT Wrist / Hand - Without Contrast",
+        shortLabel: "Wrist - Without",
+        description: "Wrist and hand bone evaluation",
+        duration: "10–15 min",
+        prep: "Remove jewelry or watches",
+        useCase: "Fracture, dislocation, scaphoid injury",
+        clinicalIndication: "Evaluation of wrist/hand trauma or bone pathology"
+      },
+      {
+        cpt: "73201",
+        label: "CT Wrist / Hand - With Contrast",
+        shortLabel: "Wrist - With",
+        description: "Enhanced wrist evaluation",
+        duration: "15–20 min",
+        prep: "IV contrast required",
+        useCase: "Mass, infection, tumor",
+        clinicalIndication: "Enhanced evaluation for mass or infection"
+      }
+    ]
+  },
+  
+  ctHip: {
+    category: "Hip",
+    icon: "hip",
+    categoryGroup: "detailed",
+    displayIn: ["extremities"],
+    matchKeywords: [
+      "hip", "acetabulum", "fracture", "arthroplasty", "arthritis", "ct hip"
+    ],
+    procedures: [
+      {
+        cpt: "73700",
+        label: "CT Hip - Without Contrast",
+        shortLabel: "Hip - Without",
+        description: "Hip joint and bone evaluation",
+        duration: "10–15 min",
+        prep: "None required",
+        useCase: "Fractures, avascular necrosis, arthritis",
+        clinicalIndication: "Evaluation of hip trauma or bone pathology"
+      },
+      {
+        cpt: "73701",
+        label: "CT Hip - With Contrast",
+        shortLabel: "Hip - With",
+        description: "Enhanced hip evaluation",
+        duration: "15–20 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Mass, infection, post-surgical changes",
+        clinicalIndication: "Enhanced evaluation for mass, infection, or complications"
+      },
+      {
+        cpt: "73702",
+        label: "CT Hip - With & Without Contrast",
+        shortLabel: "Hip - Both",
+        description: "Comprehensive hip evaluation",
+        duration: "20–30 min",
+        prep: "IV contrast, remove metal",
+        useCase: "Detailed joint and bone assessment",
+        clinicalIndication: "Comprehensive evaluation of hip"
+      }
+    ]
+  },
+  
+  ctKnee: {
+    category: "Knee",
+    icon: "knee",
+    categoryGroup: "detailed",
+    displayIn: ["extremities"],
+    matchKeywords: [
+      "knee", "leg", "patella", "acl", "pcl", "arthritis", "fracture", "ct knee"
+    ],
+    procedures: [
+      {
+        cpt: "73700",
+        label: "CT Knee - Without Contrast",
+        shortLabel: "Knee - Without",
+        description: "Knee joint and bone evaluation",
+        duration: "10–15 min",
+        prep: "None required",
+        useCase: "Fractures, arthritis, bone lesions",
+        clinicalIndication: "Evaluation of knee trauma or bone pathology"
+      },
+      {
+        cpt: "73701",
+        label: "CT Knee - With Contrast",
+        shortLabel: "Knee - With",
+        description: "Enhanced knee evaluation",
+        duration: "15–20 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Mass, infection, vascular evaluation",
+        clinicalIndication: "Enhanced evaluation for mass or infection"
+      },
+      {
+        cpt: "73702",
+        label: "CT Knee - With & Without Contrast",
+        shortLabel: "Knee - Both",
+        description: "Comprehensive knee evaluation",
+        duration: "20–30 min",
+        prep: "IV contrast, remove metal",
+        useCase: "Full joint and soft tissue assessment",
+        clinicalIndication: "Comprehensive evaluation of knee"
+      }
+    ]
+  },
+  
+  ctAnkle: {
+    category: "Ankle / Foot",
+    icon: "ankle",
+    categoryGroup: "detailed",
+    displayIn: ["extremities"],
+    matchKeywords: [
+      "ankle", "foot", "calcaneus", "tibia", "fibula", "heel", "ct ankle", "ct foot"
+    ],
+    procedures: [
+      {
+        cpt: "73700",
+        label: "CT Ankle / Foot - Without Contrast",
+        shortLabel: "Ankle - Without",
+        description: "Ankle and foot bone evaluation",
+        duration: "10–15 min",
+        prep: "Remove metal objects or clothing",
+        useCase: "Fractures, arthritis, bone lesions",
+        clinicalIndication: "Evaluation of ankle/foot trauma or bone pathology"
+      },
+      {
+        cpt: "73701",
+        label: "CT Ankle / Foot - With Contrast",
+        shortLabel: "Ankle - With",
+        description: "Enhanced ankle evaluation",
+        duration: "15–20 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Mass, infection, post-surgical assessment",
+        clinicalIndication: "Enhanced evaluation for mass or infection"
+      },
+      {
+        cpt: "73702",
+        label: "CT Ankle / Foot - With & Without Contrast",
+        shortLabel: "Ankle - Both",
+        description: "Comprehensive ankle evaluation",
+        duration: "20–30 min",
+        prep: "IV contrast, remove metal",
+        useCase: "Full joint and bone assessment",
+        clinicalIndication: "Comprehensive evaluation of ankle/foot"
+      }
+    ]
+  }
+};
+```
+
+**Total:** 17 procedures (+11 procedures)
+
+#### Changes Made:
+
+1. **Removed generic matchKeywords:**
+   - Deleted "upper extremity" and "lower extremity" from matchKeywords
+   - These terms were polluting search results
+
+2. **Added to BODY_PART_ALIASES:**
+   ```typescript
+   // Keep for semantic expansion only
+   "upper extremity": ["shoulder", "elbow", "wrist", "arm", "hand", "forearm"],
+   "lower extremity": ["hip", "knee", "ankle", "leg", "foot", "thigh", "calf"],
+   ```
+
+3. **Increased search result limit:**
+   ```javascript
+   // Before: limit = 8
+   // After: limit = 12
+   function searchUniversalProcedures(query, limit = 12) { ... }
+   ```
+
+#### Results:
+
+✅ **Better patient experience:**
+- "CT shoulder" → returns shoulder procedures only
+- "CT knee" → returns knee procedures only
+- "CT wrist" → returns wrist procedures only
+
+✅ **More procedures available:**
+- 6 procedures → 17 procedures (+11)
+
+✅ **Improved search quality:**
+- No more generic "upper extremity" cluttering results
+- Patients search for body parts, not medical anatomical groups
+
+✅ **Maintained backward compatibility:**
+- IF someone searches "ct upper extremity", BODY_PART_ALIASES expands it to include shoulder, elbow, wrist
+
+#### Key Lessons Learned:
+
+1. **Match patient language, not medical jargon**
+   - Patients say "knee", not "lower extremity"
+   
+2. **Remove generic keywords from matchKeywords**
+   - They pollute search results
+   - Use BODY_PART_ALIASES for semantic expansion instead
+
+3. **Increase search limits for detailed sections**
+   - More body parts = more results
+   - Default limit of 8 was too low
+
+4. **Test thoroughly after refactoring**
+   - Check all old search terms still work
+   - Verify no CPT duplicates
+   - Test performance
+
+---
+
+### Side-by-Side Comparison
+
+| Feature | MRI/CT/US | X-Ray | New Modality (PET) |
+|---------|-----------|-------|-------------------|
+| **Data Array** | `procedures` | `viewOptions` | `procedures` |
+| **Tags Strategy** | Modality + category + useCase words | Modality + category + view count | Modality + full name + category + tags |
+| **Special Fields** | `contrastMode`, `isVascular` | `views` count | `isScreening`, optional fields |
+| **Searchable Text** | Standard pattern | No useCase | Include tracer/technique keywords |
+
+---
+
+## 12. Troubleshooting
+
+### Common Issues and Solutions
+
+#### Issue 1: "Universal Index is Empty"
+
+**Symptom:**
+```
+⚠️ Universal index is empty
+```
+
+**Causes:**
+- `procedures-global.js` not loaded yet
+- New modality not added to `window.ProcedureLibrary`
+- TypeScript global declaration missing
+
+**Solution:**
+```javascript
+// 1. Check if ProcedureLibrary exists
+console.log(window.ProcedureLibrary);
+
+// 2. Verify your modality is present
+console.log(window.ProcedureLibrary.PET);
+
+// 3. Check global declaration in universal-search-index.ts
+declare global {
+  interface Window {
+    ProcedureLibrary: {
+      // ... existing modalities
+      PET: any;  // ← Add this
+    };
+  }
+}
+```
+
+---
+
+#### Issue 2: "No Results for New Modality"
+
+**Symptom:**
+```javascript
+window.searchUniversalProcedures("pet", 10);
+// Returns: []
+```
+
+**Causes:**
+- Searchable text doesn't include modality keyword
+- Tags are missing modality identifier
+- `normalizeText()` stripping important terms
+
+**Solution:**
+```javascript
+// Ensure searchable includes modality keyword
+searchable: normalizeText(
+  `pet positron emission tomography ...`  // ← Must include "pet"
+),
+
+// Ensure tags include keyword
+tags: [
+  "pet",  // ← Must include primary keyword
+  "positron emission tomography",
+  // ...
+],
+```
+
+---
+
+#### Issue 3: "Duplicate CPT Codes"
+
+**Symptom:**
+```
+⚠️ Duplicate CPT codes found: ["78815", "78815"]
+```
+
+**Causes:**
+- Same CPT used across multiple modalities
+- Typo in CPT code
+- Copied procedure without changing CPT
+
+**Solution:**
+```javascript
+// Run duplicate detector
+const allProcs = window.buildUniversalIndex();
+const cptMap = new Map();
+
+allProcs.forEach(p => {
+  if (cptMap.has(p.cpt)) {
+    console.error(`Duplicate CPT ${p.cpt}:`, cptMap.get(p.cpt), p);
+  } else {
+    cptMap.set(p.cpt, p);
+  }
+});
+```
+
+**Fix:** Update duplicate CPTs to correct values or remove duplicates.
+
+---
+
+#### Issue 4: "Search is Slow"
+
+**Symptom:**
+```javascript
+console.time("search");
+window.searchUniversalProcedures("pet brain", 10);
+console.timeEnd("search");
+// Output: search: 250ms ← Too slow!
+```
+
+**Causes:**
+- Too many procedures (>500)
+- Searchable strings too long
+- Inefficient tag arrays
+
+**Solution:**
+```javascript
+// 1. Optimize searchable text length
+searchable: normalizeText(
+  // Remove redundant words, keep it concise
+  `pet ${item.category} ${proc.label} ${proc.cpt}`  // Simplified
+),
+
+// 2. Limit tag count to < 10 per procedure
+tags: [
+  "pet",
+  item.category.toLowerCase(),
+  ...proc.tags.slice(0, 5)  // Limit tags
+],
+
+// 3. Consider caching the index
+let cachedIndex = null;
+
+export function buildUniversalIndex() {
+  if (cachedIndex) return cachedIndex;
+  // ... build logic
+  cachedIndex = index;
+  return index;
+}
+```
+
+---
+
+#### Issue 5: "Alias Expansion Not Working"
+
+**Symptom:**
+```javascript
+window.searchUniversalProcedures("heart scan", 10);
+// Expected: PET cardiac procedures
+// Actual: No PET results
+```
+
+**Causes:**
+- "heart" not in `BODY_PART_ALIASES`
+- Alias expansion disabled
+- Case sensitivity issue
+
+**Solution:**
+```javascript
+// 1. Add to BODY_PART_ALIASES
+export const BODY_PART_ALIASES: Record<string, string[]> = {
+  // ... existing
+  heart: ["cardiac", "myocardial", "coronary"],  // ← Add this
+};
+
+// 2. Verify expansion is called
+const q = normalizeInput(expandQueryWithAliases(query));  // ← Correct
+
+// 3. Test expansion directly
+console.log(expandQueryWithAliases("heart scan"));
+// Should output: "heart scan cardiac myocardial coronary"
+```
+
+---
+
+#### Issue 6: "Build Fails with TypeScript Errors"
+
+**Symptom:**
+```
+Error: Property 'PET' does not exist on type '{ MRI: any; CT: any; ... }'
+```
+
+**Cause:** TypeScript global declaration not updated
+
+**Solution:**
+```typescript
+// In universal-search-index.ts, update global declaration:
+declare global {
+  interface Window {
+    ProcedureLibrary: {
+      MRI: any;
+      CT: any;
+      'X-Ray': any;
+      Ultrasound: any;
+      PET: any;  // ← Add this line
+    };
+  }
+}
+```
+
+---
+
+#### Issue 7: "Results Missing Icon"
+
+**Symptom:** UI shows no icon or default icon for new modality
+
+**Causes:**
+- Icon not set in `procedures-global.js`
+- Icon field not included in index push
+
+**Solution:**
+```javascript
+// In procedures-global.js
+const PET_PROCEDURES = {
+  WHOLE_BODY: {
+    category: "Whole Body",
+    icon: "🔬",  // ← Must set icon
+    procedures: [ ... ]
+  }
+};
+
+// In universal-search-index.ts
+index.push({
+  // ... other fields
+  icon: item.icon,  // ← Must include this
+});
+```
+
+---
+
+#### Issue 8: "Modality Not Appearing in Modal"
+
+**Symptom:** Search works in console but not in UI modal
+
+**Causes:**
+- Modal controller not updated
+- Missing modality in renderer
+- UI component filtering out modality
+
+**Solution:** This guide covers search index integration only. For UI integration:
+1. Check `modal-controller.ts` for modality filters
+2. Update `search-results-renderer.ts` if needed
+3. Add modality to any UI-specific configs
+4. Consult UI integration documentation
+
+---
+
+#### Issue 9: **NEW:** "Search Works in Console But Not in UI"
+
+**Symptom:**
+- `window.searchUniversalProcedures("term", 10)` returns results in console ✅
+- Typing "term" in UI search box shows no results ❌
+
+**Causes:**
+1. **Browser cache** - Old JavaScript files cached
+2. **Search result caching** - Old results cached in `lastQuery`/`lastResults`
+3. **Dev server not restarted** - Astro/build tool serving old files
+4. **Wrong file edited** - Edited `/mnt/project/` instead of actual project file
+
+**Solution:**
+```bash
+# 1. Clear browser cache
+Ctrl+Shift+R (hard refresh)
+# Or on Mac: Cmd+Shift+R
+
+# 2. Restart dev server
+Ctrl+C
+npm run dev
+
+# 3. Clear search cache in console
+window.lastQuery = "";
+window.lastResults = [];
+location.reload();
+
+# 4. Verify correct file edited
+cd ~/your-project
+find . -name "procedures-global.js" -type f
+# Make sure you edited the actual file, not a copy
+
+# 5. Try incognito/private mode
+# This bypasses all caching
+```
+
+**Additional debugging:**
+```javascript
+// Check if updated code is loaded
+console.log(window.ProcedureLibrary.PET);  // Should show your new modality
+
+// Check index was rebuilt
+const index = window.buildUniversalIndex();
+console.log(`Index size: ${index.length}`);  // Should be larger
+
+// Test search directly
+window.searchUniversalProcedures("pet", 10);
+```
+
+---
+
+#### Issue 10: **NEW:** "Reversed Query Not Working (e.g., 'prostate mri')"
+
+**Symptom:**
+- "MRI prostate" ✅ works
+- "prostate MRI" ❌ doesn't work
+
+**Cause:** Modality swap only works for single-word body parts
+
+**Technical Details:**
+The swap logic uses:
+```javascript
+const regex = new RegExp(`^(\\w+)\\s+${v}$`, "i");
+```
+
+This matches: `[single-word] [modality]` only.
+
+**Examples:**
+- ✅ "knee mri" → swaps to "mri knee"
+- ✅ "shoulder ct" → swaps to "ct shoulder"
+- ✅ "prostate mri" → swaps to "mri prostate"
+- ❌ "upper extremity ct" → no swap (multi-word body part)
+
+**Why this still works:**
+Word-based matching means both orders eventually work if matchKeywords are comprehensive. When you search "prostate mri":
+1. Swap logic tries to reverse it
+2. Even if swap fails, word-based search finds procedures containing BOTH "prostate" AND "mri"
+3. Results are returned
+
+**Solution:** This is expected behavior. As long as matchKeywords are comprehensive, both orders will work via word-based matching.
+
+---
+
+## 📚 Additional Resources
+
+### Related Documentation
+
+- **Semantic Alias Guide:** See `semantic-alias-visual-guide.md` for alias system details
+- **Search Engine Architecture:** See `universal-search-engine.ts` comments for scoring logic
+- **CPT Code Reference:** [AMA CPT Codes](https://www.ama-assn.org/practice-management/cpt)
+
+### Best Practices Summary
+
+#### ✅ DO:
+
+- Follow existing patterns exactly
+- Include comprehensive tags
+- Add semantic aliases for new body parts
+- Test thoroughly before committing
+- Update TypeScript declarations
+- Document unique features in code comments
+- Run CPT uniqueness check
+- Include matchKeywords in searchable text
+- Use patient-friendly language in matchKeywords
+
+#### ❌ DON'T:
+
+- Modify existing modality logic
+- Skip alias integration
+- Use duplicate CPT codes
+- Hardcode modality-specific UI logic in index
+- Ignore console warnings
+- Skip regression testing
+- Commit without testing
+- Add generic terms to matchKeywords ("upper extremity", "lower extremity")
+- Edit `/mnt/project/` files instead of actual project files
+
+### Code Review Checklist
+
+Before submitting PR, verify:
+
+- [ ] Follows existing modality pattern
+- [ ] All required fields present
+- [ ] CPT codes unique
+- [ ] Aliases added if needed
+- [ ] Tags comprehensive
+- [ ] Searchable text includes modality keyword
+- [ ] matchKeywords includes patient-friendly terms
+- [ ] TypeScript declaration updated
+- [ ] All 18 tests passing
+- [ ] No console errors
+- [ ] Performance < 100ms
+- [ ] Regression tests pass
+- [ ] Code commented appropriately
+- [ ] Commit message descriptive
+- [ ] Dev server restarted
+- [ ] Browser cache cleared
+
+---
+
+## 🎯 Quick Reference Card
+
+### Minimum Required Changes
+
+1. `procedures-global.js`: Add `NEW_MODALITY_PROCEDURES`
+2. `universal-search-index.ts`: Add modality loop (25 lines)
+3. `universal-search-index.ts`: Update global declaration (1 line)
+4. Test: Run console tests
+5. Commit: Use template from Section 10
+
+### Estimated Time to Integrate
+
+- **Simple modality** (5-10 procedures): 30-60 minutes
+- **Complex modality** (20+ procedures, new aliases): 1-2 hours
+- **Refactoring existing modality**: 2-3 hours
+- **Testing and QA**: 30-45 minutes
+
+**Total:** 1-4 hours for complete integration
+
+### Success Criteria
+
+✅ Index builds without errors  
+✅ Console shows increased procedure count  
+✅ Modality keyword returns results  
+✅ CPT lookup works  
+✅ Aliases expand correctly  
+✅ Performance < 100ms  
+✅ No regression in existing modalities  
+✅ All tests passing  
+✅ Browser cache cleared  
+✅ Dev server restarted  
+
+---
+
+## Document Revision History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.0 | November 2025 | Initial release |
+| 2.0 | November 2025 | Added: Refactoring guide, search logic explanation, matchKeywords best practices, troubleshooting for cache issues, development workflow, search limit configuration, real-world CT extremities example |
+
+---
+
+**Document Version:** 2.0  
+**Last Updated:** November 2025  
+**Status:** ✅ Production Ready  
+**Maintainer:** Development Team  
+
+---
+
+*This guide is a living document. Update as the system evolves.*
