@@ -25,6 +25,7 @@ export const BODY_PART_ALIASES: Record<string, string[]> = {
   ankle: ["foot", "heel", "lower leg"],
   neck: ["cervical spine", "spine", "head and neck"],
   spine: ["cervical", "thoracic", "lumbar"],
+  prostate: ["prostate gland", "pelvic prostate", "multiparametric", "mpmri"],
   "upper extremity": ["shoulder", "elbow", "wrist", "arm", "hand", "forearm"],
   "lower extremity": ["hip", "knee", "ankle", "leg", "foot", "thigh", "calf"],
 };

@@ -561,6 +561,36 @@ shoulder: {
     ]
   },
 
+prostate: {
+    category: "Prostate (Pelvis)",
+    icon: "prostate",
+    categoryGroup: "standard",
+    displayIn: ["pelvis"],
+    matchKeywords: [
+      "prostate",
+      "prostate gland",
+      "prostate cancer",
+      "multiparametric",
+      "mpmri",
+      "pelvic prostate",
+      "prostate screening",
+      "prostate staging",
+      "mri prostate"
+    ],
+    procedures: [
+      {
+        cpt: "72197",
+        label: "MRI Prostate - With & Without Contrast",
+        shortLabel: "Prostate - W/ & W/O",
+        description: "Comprehensive multiparametric MRI (mpMRI) for prostate evaluation, combining T2, diffusion, and dynamic contrast sequences.",
+        duration: "45–60 min",
+        prep: "Full bladder preferred; light meal only 4 hours before exam.",
+        useCase: "Prostate cancer detection, staging, and active surveillance.",
+        clinicalIndication: "Evaluation of prostate cancer, elevated PSA, or abnormal digital rectal exam findings."
+      }
+    ]
+  },
+
   breast: {
     category: "Breast",
     icon: "breast",
@@ -3024,7 +3054,7 @@ const POPULAR_PROCEDURES = [
 });
 
 // MRI Extremity Aliases
-["knee", "shoulder", "elbow", "wrist", "hip", "ankle"].forEach(region => {
+["knee", "shoulder", "elbow", "wrist", "hip", "ankle", "prostate"].forEach(region => {
   const section = MRI_PROCEDURES[region];
   if (section && section.procedures) {
     section.procedures.forEach(proc => {
