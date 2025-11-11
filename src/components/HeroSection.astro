@@ -644,7 +644,7 @@ const { remixUrl } = Astro.props;
       .trim();
   }
 
-  function searchUniversalProcedures(query, limit = 8) {
+  function searchUniversalProcedures(query, limit = 12) {
     if (!query || query.length < 2) return [];
 
     // --- Normalize reversed modality order (e.g., "knee MRI" → "MRI knee") ---
@@ -670,6 +670,7 @@ const { remixUrl } = Astro.props;
 
     const results = [];
     const lowerQuery = normalizeText(query);
+    const queryWords = lowerQuery.split(/\s+/).filter((w) => w.length > 0);
 
     for (const modality in lib) {
       for (const region in lib[modality]) {
@@ -681,8 +682,16 @@ const { remixUrl } = Astro.props;
             `${proc.label} ${modality} ${region} ${proc.cpt} ${(entry.matchKeywords || []).join(" ")}`
           );
 
-          if (searchText.includes(lowerQuery)) {
-            const score = searchText.indexOf(lowerQuery) === 0 ? 100 : 50;
+          // Check if all query words exist in searchText
+          const allWordsMatch = queryWords.every((word) =>
+            searchText.includes(word)
+          );
+
+          if (allWordsMatch) {
+            // Score based on how early the first match appears
+            const firstWordIndex = searchText.indexOf(queryWords[0]);
+            const score =
+              firstWordIndex === 0 ? 100 : 50 - Math.min(firstWordIndex, 40);
             results.push({
               label: proc.label,
               cpt: proc.cpt,
@@ -727,7 +736,7 @@ const { remixUrl } = Astro.props;
   }
 
   // Local search
-  function searchLocalProcedures(query, limit = 8) {
+  function searchLocalProcedures(query, limit = 12) {
     if (!query || query.length < 2) return [];
 
     const lib = window.ProcedureLibrary;
@@ -764,12 +773,12 @@ const { remixUrl } = Astro.props;
   async function hybridSearch(query) {
     console.log("Hybrid search:", query);
 
-    const localResults = searchLocalProcedures(query, 8);
+    const localResults = searchLocalProcedures(query, 12);
     console.log("Local results:", localResults.length);
 
     if (localResults.length < 6) {
       console.log("Adding universal search results");
-      const universalResults = searchUniversalProcedures(query, 8);
+      const universalResults = searchUniversalProcedures(query, 12);
 
       const merged = [...localResults];
       universalResults.forEach((uResult) => {

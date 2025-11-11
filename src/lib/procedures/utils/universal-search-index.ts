@@ -8,7 +8,7 @@
 // ======================================================
 // SEMANTIC ALIAS DICTIONARY
 // ======================================================
-// Expands natural body-part terms like "elbow" → "upper extremity"
+// Expands natural body-part terms like "elbow" â†’ "upper extremity"
 // so that patient-friendly searches match grouped radiology regions.
 // ======================================================
 
@@ -17,13 +17,16 @@ export const BODY_PART_ALIASES: Record<string, string[]> = {
   chest: ["thorax", "lung"],
   abdomen: ["belly", "stomach"],
   pelvis: ["hip", "pelvic"],
-  elbow: ["upper extremity", "arm"],
-  wrist: ["hand", "upper extremity"],
-  knee: ["lower extremity", "leg"],
-  ankle: ["foot", "lower extremity"],
-  shoulder: ["upper extremity", "arm"],
+  shoulder: ["rotator cuff", "upper arm", "joint"],
+  elbow: ["forearm", "upper extremity"],
+  wrist: ["hand", "carpal"],
+  hip: ["acetabulum", "pelvis", "joint"],
+  knee: ["leg", "patella", "joint"],
+  ankle: ["foot", "heel", "lower leg"],
   neck: ["cervical spine", "spine", "head and neck"],
   spine: ["cervical", "thoracic", "lumbar"],
+  "upper extremity": ["shoulder", "elbow", "wrist", "arm", "hand", "forearm"],
+  "lower extremity": ["hip", "knee", "ankle", "leg", "foot", "thigh", "calf"],
 };
 
 // Helper to build alias strings
@@ -73,7 +76,7 @@ export function buildUniversalIndex(): ProcedureIndexEntry[] {
   const index: ProcedureIndexEntry[] = [];
   
   if (typeof window === 'undefined' || !window.ProcedureLibrary) {
-    console.warn('âš ï¸ ProcedureLibrary not loaded yet');
+    console.warn('Ã¢Å¡Â Ã¯Â¸Â ProcedureLibrary not loaded yet');
     return index;
   }
 
@@ -92,6 +95,7 @@ export function buildUniversalIndex(): ProcedureIndexEntry[] {
     item.procedures.forEach((proc: any) => {
       // Include body-part aliases in searchable text
       const aliasString = getAliasString(item.category);
+      const matchKeywordsString = (item.matchKeywords || []).join(" ");
       index.push({
         modality: "MRI",
         bodyPart: item.category,
@@ -104,7 +108,7 @@ export function buildUniversalIndex(): ProcedureIndexEntry[] {
           ...(proc.useCase?.toLowerCase().split(" ") || [])
         ],
         searchable: normalizeText(
-          `mri ${item.category} ${aliasString} ${proc.label} ${proc.cpt} ${proc.useCase || ""}`
+          `mri ${item.category} ${aliasString} ${matchKeywordsString} ${proc.label} ${proc.cpt} ${proc.useCase || ""}`
         ),
         icon: item.icon,
         categoryGroup: item.categoryGroup,
@@ -123,6 +127,7 @@ export function buildUniversalIndex(): ProcedureIndexEntry[] {
     item.procedures.forEach((proc: any) => {
       // Include body-part aliases in searchable text
       const aliasString = getAliasString(item.category);
+      const matchKeywordsString = (item.matchKeywords || []).join(" ");
       index.push({
         modality: "CT",
         bodyPart: item.category,
@@ -135,7 +140,7 @@ export function buildUniversalIndex(): ProcedureIndexEntry[] {
           ...(proc.tags || [])
         ].map(t => t.toLowerCase()),
         searchable: normalizeText(
-          `ct ${item.category} ${aliasString} ${proc.label} ${proc.cpt} ${proc.useCase || ""}`
+          `ct ${item.category} ${aliasString} ${matchKeywordsString} ${proc.label} ${proc.cpt} ${proc.useCase || ""}`
         ),
         icon: item.icon,
         categoryGroup: item.categoryGroup,

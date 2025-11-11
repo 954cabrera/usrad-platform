@@ -1477,93 +1477,251 @@ const CT_PROCEDURES = {
   },
 
   // ============================================
-  // STANDARD CT - EXTREMITIES
+  // CT EXTREMITIES — DETAILED BODY PARTS
   // ============================================
-  upperExtremity: {
-    category: "Upper Extremity (Arm / Hand)",
-    icon: "arm",
-    categoryGroup: "standard",
+
+  ctShoulder: {
+    category: "Shoulder",
+    icon: "shoulder",
+    categoryGroup: "detailed",
     displayIn: ["extremities"],
     matchKeywords: [
-      "arm","hand","forearm","elbow","shoulder","upper extremity",
-      "humerus","radius","ulna","ct arm","ct hand"
+      "shoulder", "rotator cuff", "labrum", "bursitis", "fracture", "ct shoulder"
     ],
     procedures: [
       {
         cpt: "73200",
-        label: "CT Upper Extremity - Without Contrast",
-        shortLabel: "Upper Extremity - Without",
-        description: "Fracture, bone lesion, or post-traumatic assessment",
+        label: "CT Shoulder - Without Contrast",
+        shortLabel: "Shoulder - Without",
+        description: "Evaluates bone injury, fracture, or arthritis in shoulder joint.",
         duration: "10–15 min",
-        prep: "Remove metal jewelry or clothing",
-        useCase: "Fractures, bone lesions, deformities, post-surgical follow-up",
-        clinicalIndication: "Evaluation of fractures, bone lesions, and post-trauma"
+        prep: "Remove jewelry or metal near shoulder.",
+        useCase: "Fractures, degenerative changes, joint evaluation.",
+        clinicalIndication: "Evaluation of bone injury, fracture, or arthritis in shoulder joint"
       },
       {
         cpt: "73201",
-        label: "CT Upper Extremity - With Contrast",
-        shortLabel: "Upper Extremity - With",
-        description: "Evaluation of tumors, infections, or vascular abnormalities",
+        label: "CT Shoulder - With Contrast",
+        shortLabel: "Shoulder - With",
+        description: "Evaluates tumor, infection, or soft tissue abnormalities.",
         duration: "15–20 min",
-        prep: "IV contrast required, kidney function check",
-        useCase: "Tumor evaluation, infection, or vascular lesions",
-        clinicalIndication: "Enhanced evaluation of tumor, infection, or vascular lesions"
+        prep: "IV contrast required; kidney function check recommended.",
+        useCase: "Tumors, infections, post-surgical complications.",
+        clinicalIndication: "Enhanced evaluation of tumor, infection, or soft tissue abnormalities"
       },
       {
         cpt: "73202",
-        label: "CT Upper Extremity - With & Without Contrast",
-        shortLabel: "Upper Extremity - Both",
-        description: "Comprehensive upper extremity evaluation",
-        duration: "20–30 min",
-        prep: "IV contrast, remove metal objects",
-        useCase: "Full diagnostic workup of arm or hand",
-        clinicalIndication: "Comprehensive evaluation of bones, joints, and soft tissues"
+        label: "CT Shoulder - With & Without Contrast",
+        shortLabel: "Shoulder - Both",
+        description: "Comprehensive evaluation of shoulder joint.",
+        duration: "20–25 min",
+        prep: "IV contrast, remove metal near shoulder.",
+        useCase: "Comprehensive joint or mass evaluation.",
+        clinicalIndication: "Comprehensive evaluation of shoulder joint"
       }
     ]
   },
 
-  lowerExtremity: {
-    category: "Lower Extremity (Leg / Foot)",
-    icon: "leg",
-    categoryGroup: "standard",
+  ctElbow: {
+    category: "Elbow",
+    icon: "elbow",
+    categoryGroup: "detailed",
     displayIn: ["extremities"],
     matchKeywords: [
-      "leg","knee","ankle","foot","femur","tibia","fibula",
-      "lower extremity","ct leg","ct ankle","ct foot"
+      "elbow", "fracture", "olecranon", "radius", "ulna", "joint", "pain", "ct elbow"
+    ],
+    procedures: [
+      {
+        cpt: "73206",
+        label: "CT Elbow - Without Contrast",
+        shortLabel: "Elbow - Without",
+        description: "Evaluates fractures, arthritis, or bone deformities in the elbow.",
+        duration: "10–15 min",
+        prep: "Remove jewelry or watches.",
+        useCase: "Trauma, arthritis, bone lesion evaluation.",
+        clinicalIndication: "Evaluation of fractures, arthritis, or bone deformities"
+      },
+      {
+        cpt: "73207",
+        label: "CT Elbow - With Contrast",
+        shortLabel: "Elbow - With",
+        description: "Evaluates infection, mass, or post-surgical complications.",
+        duration: "15–20 min",
+        prep: "IV contrast required.",
+        useCase: "Mass, infection, tumor, or post-surgical follow-up.",
+        clinicalIndication: "Enhanced evaluation for infection, mass, or post-surgical complications"
+      },
+      {
+        cpt: "73208",
+        label: "CT Elbow - With & Without Contrast",
+        shortLabel: "Elbow - Both",
+        description: "Comprehensive elbow joint evaluation.",
+        duration: "20–25 min",
+        prep: "IV contrast, kidney function check.",
+        useCase: "Comprehensive bone and joint analysis.",
+        clinicalIndication: "Comprehensive evaluation of elbow joint"
+      }
+    ]
+  },
+
+  ctWrist: {
+    category: "Wrist / Hand",
+    icon: "wrist",
+    categoryGroup: "detailed",
+    displayIn: ["extremities"],
+    matchKeywords: [
+      "wrist", "hand", "fracture", "carpal", "scaphoid", "ct wrist", "ct hand"
+    ],
+    procedures: [
+      {
+        cpt: "73200",
+        label: "CT Wrist / Hand - Without Contrast",
+        shortLabel: "Wrist - Without",
+        description: "Evaluates fractures, arthritis, or bone deformities.",
+        duration: "10–15 min",
+        prep: "Remove jewelry or watches.",
+        useCase: "Trauma, arthritis, bone lesion evaluation.",
+        clinicalIndication: "Evaluation of fractures, arthritis, or bone deformities"
+      },
+      {
+        cpt: "73201",
+        label: "CT Wrist / Hand - With Contrast",
+        shortLabel: "Wrist - With",
+        description: "Evaluates infection, mass, or post-surgical complications.",
+        duration: "15–20 min",
+        prep: "IV contrast required.",
+        useCase: "Mass, infection, tumor, or post-surgical follow-up.",
+        clinicalIndication: "Enhanced evaluation for infection, mass, or post-surgical complications"
+      }
+    ]
+  },
+
+  ctHip: {
+    category: "Hip",
+    icon: "hip",
+    categoryGroup: "detailed",
+    displayIn: ["extremities"],
+    matchKeywords: [
+      "hip", "acetabulum", "fracture", "arthroplasty", "arthritis", "ct hip"
     ],
     procedures: [
       {
         cpt: "73700",
-        label: "CT Lower Extremity - Without Contrast",
-        shortLabel: "Lower Extremity - Without",
-        description: "Fracture, dislocation, or bone lesion",
+        label: "CT Hip - Without Contrast",
+        shortLabel: "Hip - Without",
+        description: "Evaluates fracture, arthritis, or prosthesis alignment.",
         duration: "10–15 min",
-        prep: "Remove metal objects or clothing",
-        useCase: "Trauma, fractures, degenerative bone disease",
-        clinicalIndication: "Evaluation of fractures, dislocations, or bone lesions"
+        prep: "Remove metal near hip area.",
+        useCase: "Fractures, arthritis, prosthesis evaluation.",
+        clinicalIndication: "Evaluation of fracture, arthritis, or prosthesis alignment"
       },
       {
         cpt: "73701",
-        label: "CT Lower Extremity - With Contrast",
-        shortLabel: "Lower Extremity - With",
-        description: "Infection, tumor, or post-surgical changes",
+        label: "CT Hip - With Contrast",
+        shortLabel: "Hip - With",
+        description: "Evaluates infection, tumor, or vascular involvement.",
         duration: "15–20 min",
-        prep: "IV contrast, kidney function check",
-        useCase: "Infection, tumor, vascular abnormalities, post-surgical assessment",
-        clinicalIndication: "Enhanced evaluation for infection, tumor, or vascular abnormalities"
+        prep: "IV contrast required.",
+        useCase: "Infection, mass, or tumor evaluation.",
+        clinicalIndication: "Enhanced evaluation for infection, tumor, or vascular involvement"
       },
       {
         cpt: "73702",
-        label: "CT Lower Extremity - With & Without Contrast",
-        shortLabel: "Lower Extremity - Both",
-        description: "Comprehensive lower extremity evaluation",
-        duration: "20–30 min",
-        prep: "IV contrast, remove metal objects",
-        useCase: "Detailed assessment of bones, joints, and soft tissues",
-        clinicalIndication: "Comprehensive evaluation of lower extremity"
+        label: "CT Hip - With & Without Contrast",
+        shortLabel: "Hip - Both",
+        description: "Comprehensive hip evaluation.",
+        duration: "20–25 min",
+        prep: "IV contrast; kidney function check recommended.",
+        useCase: "Comprehensive evaluation for complex hip conditions.",
+        clinicalIndication: "Comprehensive hip evaluation"
       }
     ]
   },
+
+  ctKnee: {
+    category: "Knee",
+    icon: "knee",
+    categoryGroup: "detailed",
+    displayIn: ["extremities"],
+    matchKeywords: [
+      "knee", "leg", "patella", "acl", "pcl", "arthritis", "fracture", "ct knee"
+    ],
+    procedures: [
+      {
+        cpt: "73700",
+        label: "CT Knee - Without Contrast",
+        shortLabel: "Knee - Without",
+        description: "Evaluates fractures, bone lesions, or arthritis in the knee joint.",
+        duration: "10–15 min",
+        prep: "Remove metal clothing or jewelry.",
+        useCase: "Trauma, arthritis, bone lesion evaluation.",
+        clinicalIndication: "Evaluation of fractures, bone lesions, or arthritis"
+      },
+      {
+        cpt: "73701",
+        label: "CT Knee - With Contrast",
+        shortLabel: "Knee - With",
+        description: "Evaluates infection, tumor, or post-surgical changes.",
+        duration: "15–20 min",
+        prep: "IV contrast required.",
+        useCase: "Infection, tumor, post-operative evaluation.",
+        clinicalIndication: "Enhanced evaluation for infection, tumor, or post-surgical changes"
+      },
+      {
+        cpt: "73702",
+        label: "CT Knee - With & Without Contrast",
+        shortLabel: "Knee - Both",
+        description: "Comprehensive knee evaluation.",
+        duration: "20–25 min",
+        prep: "IV contrast required; kidney function check.",
+        useCase: "Complex cases needing soft-tissue and bone detail.",
+        clinicalIndication: "Comprehensive knee evaluation"
+      }
+    ]
+  },
+
+  ctAnkle: {
+    category: "Ankle / Foot",
+    icon: "ankle",
+    categoryGroup: "detailed",
+    displayIn: ["extremities"],
+    matchKeywords: [
+      "ankle", "foot", "calcaneus", "tibia", "fibula", "heel", "ct ankle", "ct foot"
+    ],
+    procedures: [
+      {
+        cpt: "73700",
+        label: "CT Ankle / Foot - Without Contrast",
+        shortLabel: "Ankle - Without",
+        description: "Evaluates fractures, arthritis, or bone abnormalities.",
+        duration: "10–15 min",
+        prep: "Remove metal or shoes.",
+        useCase: "Fractures, arthritis, bone lesions, deformities.",
+        clinicalIndication: "Evaluation of fractures, arthritis, or bone abnormalities"
+      },
+      {
+        cpt: "73701",
+        label: "CT Ankle / Foot - With Contrast",
+        shortLabel: "Ankle - With",
+        description: "Evaluates infection, tumor, or vascular involvement.",
+        duration: "15–20 min",
+        prep: "IV contrast required.",
+        useCase: "Infection, tumor, or complex trauma.",
+        clinicalIndication: "Enhanced evaluation for infection, tumor, or vascular involvement"
+      },
+      {
+        cpt: "73702",
+        label: "CT Ankle / Foot - With & Without Contrast",
+        shortLabel: "Ankle - Both",
+        description: "Comprehensive ankle/foot evaluation.",
+        duration: "20–25 min",
+        prep: "IV contrast; kidney function check recommended.",
+        useCase: "Detailed bone and soft-tissue evaluation.",
+        clinicalIndication: "Comprehensive ankle/foot evaluation"
+      }
+    ]
+  },
+
 
   // ============================================
   // CTA - VASCULAR IMAGING
@@ -2849,26 +3007,23 @@ const POPULAR_PROCEDURES = [
 // ============================================
 
 // --- PATCH START ---
-CT_PROCEDURES.lowerExtremity.matchKeywords.push(
-  "ct knee", "ct ankle", "ct leg", "ct foot", "knee ct", "ankle ct", "leg ct", "foot ct"
-);
 
-CT_PROCEDURES.lowerExtremity.procedures.forEach(proc => {
-  if (proc.cpt === "73700") {
-    proc.aliases = ["ct knee", "ct ankle", "ct leg", "ct foot", "ct knee without contrast"];
-  }
-  if (proc.cpt === "73701") {
-    proc.aliases = ["ct knee with contrast", "ct ankle with contrast", "ct leg with contrast"];
-  }
-  if (proc.cpt === "73702") {
-    proc.aliases = [
-      "ct knee with and without contrast",
-      "ct ankle with and without contrast",
-      "ct leg with and without contrast"
-    ];
+// CT Extremity Aliases
+["ctShoulder", "ctElbow", "ctWrist", "ctHip", "ctKnee", "ctAnkle"].forEach(region => {
+  const section = CT_PROCEDURES[region];
+  if (section && section.procedures) {
+    section.procedures.forEach(proc => {
+      if (!proc.aliases) proc.aliases = [];
+      const base = section.category.toLowerCase().replace(/\s*\/\s*/g, " "); // "Wrist / Hand" -> "wrist hand"
+      const modality = "ct";
+      const label = `${base} ${modality}`;
+      const reverse = `${modality} ${base}`;
+      proc.aliases.push(label, reverse, `${label} with contrast`, `${reverse} with contrast`);
+    });
   }
 });
 
+// MRI Extremity Aliases
 ["knee", "shoulder", "elbow", "wrist", "hip", "ankle"].forEach(region => {
   const section = MRI_PROCEDURES[region];
   if (section && section.procedures) {
