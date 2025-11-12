@@ -1125,8 +1125,11 @@ const { remixUrl } = Astro.props;
 
   function showPopularProceduresFromLibrary() {
     const lib = window.ProcedureLibrary;
+
     if (!lib || !lib.Popular) {
-      console.warn("Popular procedures not found in ProcedureLibrary");
+      console.warn("Popular procedures not ready, waiting...");
+      // Retry after a short delay
+      setTimeout(showPopularProceduresFromLibrary, 50);
       return;
     }
 

@@ -5,10 +5,14 @@
 // search index for the PPE (Patient Procedure Engine).
 // ======================================================
 
+// Import procedure data from ES6 module
+import { ProcedureLibrary } from '../data/procedure-data.js';
+
+
 // ======================================================
 // SEMANTIC ALIAS DICTIONARY
 // ======================================================
-// Expands natural body-part terms like "elbow" â†’ "upper extremity"
+// Expands natural body-part terms like "elbow" Ã¢â€ â€™ "upper extremity"
 // so that patient-friendly searches match grouped radiology regions.
 // ======================================================
 
@@ -36,18 +40,6 @@ function getAliasString(category: string): string {
   return aliases.join(" ");
 }
 
-// Import from procedures-global.js (loaded globally)
-declare global {
-  interface Window {
-    ProcedureLibrary: {
-      MRI: any;
-      CT: any;
-      'X-Ray': any;
-      Ultrasound: any;
-    };
-  }
-}
-
 export interface ProcedureIndexEntry {
   modality: string;            // "MRI" | "CT" | "X-Ray" | "Ultrasound"
   bodyPart: string;
@@ -72,19 +64,21 @@ function normalizeText(str: string): string {
     .trim();
 }
 
-// Function to build the index (called after procedures-global.js loads)
+// Function to build the index (now uses imported ProcedureLibrary)
 export function buildUniversalIndex(): ProcedureIndexEntry[] {
   const index: ProcedureIndexEntry[] = [];
   
-  if (typeof window === 'undefined' || !window.ProcedureLibrary) {
-    console.warn('Ã¢Å¡Â Ã¯Â¸Â ProcedureLibrary not loaded yet');
+  
+  // Use imported ProcedureLibrary directly (no window dependency)
+  const MRI_PROCEDURES = ProcedureLibrary.MRI;
+  const CT_PROCEDURES = ProcedureLibrary.CT;
+  const XRAY_PROCEDURES = ProcedureLibrary['X-Ray'];
+  const ULTRASOUND_PROCEDURES = ProcedureLibrary.Ultrasound;
+
+  if (!MRI_PROCEDURES || !CT_PROCEDURES || !XRAY_PROCEDURES || !ULTRASOUND_PROCEDURES) {
+    console.warn('⚠️ ProcedureLibrary incomplete');
     return index;
   }
-
-  const MRI_PROCEDURES = window.ProcedureLibrary.MRI;
-  const CT_PROCEDURES = window.ProcedureLibrary.CT;
-  const XRAY_PROCEDURES = window.ProcedureLibrary['X-Ray'];
-  const ULTRASOUND_PROCEDURES = window.ProcedureLibrary.Ultrasound;
 
   // ------------------------------------------------------
   // MRI
@@ -214,5 +208,5 @@ export function buildUniversalIndex(): ProcedureIndexEntry[] {
   return index;
 }
 
-// Build immediately if window is available
+// Build the index immediately on module load
 export const UniversalProcedureIndex = buildUniversalIndex();

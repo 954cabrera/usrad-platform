@@ -50,6 +50,11 @@ const {
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
+    <!-- Procedure Data - ES6 Module (replaces old procedures-global.js) -->
+    <script type="module">
+      import "/src/lib/procedures/data/procedure-data.js";
+    </script>
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
@@ -92,8 +97,16 @@ const {
 <!-- AOS Animation Script - FIXED VERSION -->
 <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-<!-- Load Procedure Library FIRST (required for search) -->
-<script is:inline src="/js/procedures-global.js"></script>
+<!-- 
+    OLD - REMOVE THIS LINE IN YOUR ACTUAL FILE:
+    <script is:inline src="/js/procedures-global.js"></script>
+  -->
+
+<!-- 
+    REFACTOR NOTE: Procedure data now loaded as ES6 module via universal-search-index.ts
+    Legacy global script removed during refactor on November 12, 2025
+    The data is automatically available through module imports - no script tag needed!
+  -->
 
 <script is:inline>
   document.addEventListener("DOMContentLoaded", function () {
