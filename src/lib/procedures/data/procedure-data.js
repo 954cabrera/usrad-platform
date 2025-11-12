@@ -1,17 +1,61 @@
 /**
+ * ⚠️  CRITICAL: DUAL-FILE SYSTEM - READ BEFORE EDITING ⚠️
+ * =========================================================
+ * 
+ * THIS FILE EXISTS IN TWO LOCATIONS:
+ * 
+ * 1. src/lib/procedures/data/procedure-data.js  ← YOU ARE HERE (SOURCE OF TRUTH)
+ * 2. public/js/procedure-data.js                 ← MUST BE KEPT IN SYNC
+ * 
+ * WHY TWO COPIES?
+ * ---------------
+ * • This file (src/lib/) = Used by TypeScript at BUILD TIME
+ *   - Imported by universal-search-index.ts for search algorithm
+ *   - Enables ES6 imports and type checking
+ *   - Cannot be accessed by browser directly
+ * 
+ * • Public copy (public/js/) = Used by browser at RUNTIME
+ *   - Loaded by HeroSection.astro for window.ProcedureLibrary
+ *   - Enables popular procedures dropdown
+ *   - Required for backward compatibility
+ * 
+ * ⚠️  WHEN YOU EDIT THIS FILE, YOU MUST:
+ * -------------------------------------
+ * 1. Make your changes here (src/lib/procedures/data/procedure-data.js)
+ * 2. Copy to public folder:
+ *    
+ *    cp src/lib/procedures/data/procedure-data.js public/js/procedure-data.js
+ * 
+ * 3. Test locally:
+ *    npm run dev
+ *    - Open browser console
+ *    - Check for "✓ Procedure Library loaded successfully"
+ *    - Test search functionality
+ * 
+ * 4. Commit BOTH files:
+ *    git add src/lib/procedures/data/procedure-data.js public/js/procedure-data.js
+ *    git commit -m "feat: Update procedure data - [describe changes]"
+ * 
+ * ⚠️  FAILURE TO UPDATE BOTH FILES WILL CAUSE:
+ * ------------------------------------------
+ * • TypeScript errors (if only public/ updated)
+ * • Search not finding new procedures (if only src/ updated)
+ * • Popular procedures not showing (if only src/ updated)
+ * • Build failures in production
+ * • Inconsistent behavior between search and display
+ * 
+ * 📚 FOR MORE INFO:
+ * ----------------
+ * See: USRad_Procedure_Library_System_Architecture_COMPLETE.md
+ * Section: "The Dual-Import System Explained"
+ * 
  * COMPREHENSIVE IMAGING PROCEDURE LIBRARY
- * ==========================================
- * Complete CPT reference - ES6 Module Version
+ * =======================================
+ * Complete CPT reference with ES6 module exports
  * 
- * Usage: import { ProcedureLibrary, ProcedureHelpers } from './procedure-data.js'
- * 
- * Last Updated: November 12, 2025 (Refactored to ES6 module)
+ * Last Updated: November 12, 2025
  * Data Source: Medicare CPT codes + Clinical references
- * 
- * REFACTOR: Migrated from public/js/procedures-global.js to ES6 module
- * - Removed IIFE wrapper
- * - Changed from window globals to named exports
- * - Maintains same data structure for backward compatibility
+ * Architecture: Modern ES6 module with backward compatibility
  */
 
 
