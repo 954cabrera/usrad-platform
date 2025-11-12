@@ -1031,10 +1031,7 @@ const { remixUrl } = Astro.props;
     const scrollbarWidth =
       window.innerWidth - document.documentElement.clientWidth;
 
-    positionDropdown();
-    dropdown.classList.remove("hidden");
-
-    // Show backdrop and lock scroll
+    // Show backdrop and lock scroll FIRST
     if (backdrop) {
       backdrop.classList.remove("hidden");
 
@@ -1045,6 +1042,12 @@ const { remixUrl } = Astro.props;
 
       applyBlurToContent(true); // Apply blur
     }
+
+    // Position dropdown AFTER body padding is applied
+    requestAnimationFrame(() => {
+      positionDropdown();
+      dropdown.classList.remove("hidden");
+    });
 
     isDropdownOpen = true;
   }
@@ -1895,5 +1898,40 @@ const { remixUrl } = Astro.props;
 
   .overflow-y-auto::-webkit-scrollbar-thumb:hover {
     background: #996d24 !important;
+  }
+  /* ============================================
+     Lighter, More Scannable Procedure Text
+  ============================================ */
+
+  /* Main procedure labels - lighter weight */
+  .procedure-result .text-gray-900 {
+    font-weight: 500 !important; /* Medium instead of semibold */
+    color: #1f2937 !important; /* Slightly lighter gray-900 */
+  }
+
+  /* On hover, make it slightly bolder for feedback */
+  .procedure-result:hover .text-gray-900 {
+    font-weight: 600 !important;
+    color: #111827 !important; /* Darker on hover */
+  }
+
+  /* Secondary text (body part, CPT) should be lighter */
+  .procedure-result .text-gray-500 {
+    font-weight: 400 !important; /* Normal weight */
+    color: #6b7280 !important;
+  }
+
+  /* Modality badges - keep semibold but slightly smaller */
+  .procedure-result span[class*="bg-blue"],
+  .procedure-result span[class*="bg-teal"],
+  .procedure-result span[class*="bg-amber"],
+  .procedure-result span[class*="bg-sky"] {
+    font-weight: 600 !important; /* Keep badges semibold */
+    font-size: 11px !important; /* Slightly smaller */
+  }
+
+  /* Group headers should remain bold */
+  #search-dropdown h4 {
+    font-weight: 600 !important;
   }
 </style>
