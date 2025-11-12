@@ -1,6 +1,9 @@
 ---
 // HeroSection.astro - Hybrid Progressive Disclosure Hero
 // Pure JavaScript implementation - No TypeScript in scripts
+
+import MobileSearchModal from "./MobileSearchModal.astro";
+
 interface Props {
   remixUrl: string;
 }
@@ -512,6 +515,9 @@ const { remixUrl } = Astro.props;
     </div>
   </div>
 </section>
+
+<!-- Mobile Search Modal (ZocDoc style - only visible on mobile) -->
+<MobileSearchModal />
 
 <!-- DROPDOWN PORTAL - Positioned outside hero section for proper z-index -->
 <div
@@ -1270,21 +1276,48 @@ const { remixUrl } = Astro.props;
     document.getElementById("hero-zip-input")?.focus({ preventScroll: true });
   }
 
+  // Listen for procedure selection from mobile modal
+  if (typeof document !== "undefined") {
+    document.addEventListener("mobile-procedure-selected", function (e) {
+      var procedure = e.detail;
+      if (procedure) {
+        handleProcedureSelection(procedure);
+      }
+    });
+  }
+
   // Event listeners
   if (searchInput) {
-    searchInput.addEventListener("focus", () => {
-      showDropdown();
-      if (!searchInput.value || searchInput.value.trim().length === 0) {
-        showPopularProceduresFromLibrary(); // ✅ use curated list
+    searchInput.addEventListener("focus", function () {
+      // Mobile detection: Open full-screen modal on mobile, dropdown on desktop
+      var isMobile = window.innerWidth < 768;
+
+      if (isMobile && typeof window.mobileSearchModal !== "undefined") {
+        // Blur the input immediately to prevent keyboard from showing
+        searchInput.blur();
+        // Open mobile modal
+        window.mobileSearchModal.open();
+      } else {
+        // Desktop: Use existing dropdown
+        showDropdown();
+        if (!searchInput.value || searchInput.value.trim().length === 0) {
+          showPopularProceduresFromLibrary();
+        }
       }
     });
 
-    searchInput.addEventListener("input", (e) => {
+    searchInput.addEventListener("input", function (e) {
+      // Only handle input on desktop (mobile uses the modal's own input)
+      var isMobile = window.innerWidth < 768;
+      if (isMobile) return;
+
       clearTimeout(searchTimeout);
       showDropdown();
 
-      const query = e.target.value.trim();
-      searchTimeout = setTimeout(() => performSearch(query), 200);
+      var query = e.target.value.trim();
+      searchTimeout = setTimeout(function () {
+        performSearch(query);
+      }, 200);
     });
   }
 

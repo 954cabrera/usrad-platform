@@ -1,0 +1,73 @@
+============================================================
+CHECKING ACTUAL PROCEDURE USAGE IN CARBONLAYOUT PAGES
+============================================================
+
+Checking each page for actual ProcedureLibrary usage...
+
+✅ src/pages/employer/schedule.astro - does NOT use procedures
+⚠️  src/pages/education/what-is-an-mri.astro - USES procedures
+   Found:
+✅ src/pages/blog/real-cost-of-mri.astro - does NOT use procedures
+✅ src/pages/blog/uninsured-imaging-guide.astro - does NOT use procedures
+⚠️  src/pages/blog/mri-basics.astro - USES procedures
+   Found:
+✅ src/pages/blog/cost-saving-tips.astro - does NOT use procedures
+✅ src/pages/blog/health-tips.astro - does NOT use procedures
+✅ src/pages/blog/preventive-care-checklist.astro - does NOT use procedures
+✅ src/pages/blog/first-mri-preparation-guide.astro - does NOT use procedures
+✅ src/pages/blog/managing-mri-anxiety.astro - does NOT use procedures
+✅ src/pages/blog/future-ai-medical-imaging.astro - does NOT use procedures
+✅ src/pages/blog/understanding-mri-results.astro - does NOT use procedures
+⚠️  src/pages/blog/price-transparency-healthcare.astro - USES procedures
+   Found:
+⚠️  src/pages/search-results.astro - USES procedures
+   Found: procedure = search
+✅ src/pages/about.astro - does NOT use procedures
+✅ src/pages/accessibility.astro - does NOT use procedures
+✅ src/pages/careers.astro - does NOT use procedures
+⚠️  src/pages/co-founder-d.astro - USES procedures
+   Found:
+⚠️  src/pages/co-founder-m.astro - USES procedures
+   Found:
+⚠️  src/pages/contact.astro - USES procedures
+   Found:
+✅ src/pages/employer.astro - does NOT use procedures
+✅ src/pages/faq.astro - does NOT use procedures
+⚠️  src/pages/how-it-works-ab.astro - USES procedures
+   Found:
+✅ src/pages/how-it-works.astro - does NOT use procedures
+✅ src/pages/investor.astro - does NOT use procedures
+⚠️  src/pages/partner.astro - USES procedures
+   Found: modal
+✅ src/pages/privacy.astro - does NOT use procedures
+✅ src/pages/terms.astro - does NOT use procedures
+✅ src/pages/provider.astro - does NOT use procedures
+✅ src/pages/provider/consultation.astro - does NOT use procedures
+⚠️  src/pages/provider/faq.astro - USES procedures
+   Found: modal
+✅ src/pages/blog.astro - does NOT use procedures
+✅ src/pages/index.astro - does NOT use procedures
+
+============================================================
+SUMMARY
+============================================================
+
+Pages using CarbonLayout: 33
+Pages that USE procedures: 10
+Pages that DON'T use procedures: 23
+
+🚨 MANY pages use procedures
+
+10 pages actively use ProcedureLibrary.
+Need careful migration strategy.
+
+============================================================
+RECOMMENDED NEXT STEPS
+============================================================
+
+1. Review the pages marked with ⚠️ above
+2. Check if they ACTUALLY need procedure data
+3. Make a decision:
+   A) Remove functionality from those pages, OR
+   B) Update them to use new data structure
+
