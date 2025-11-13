@@ -1,10 +1,10 @@
 ---
-import HeroBackground from './HeroBackground.astro';
-import HeroHeadline from './HeroHeadline.astro';
-import SearchStep1 from './SearchStep1.astro';
-import SearchStep2 from './SearchStep2.astro';
-import SearchDropdown from './search/SearchDropdown.astro';
-import MobileSearchModal from './MobileSearchModal.astro';
+import HeroBackground from "./HeroBackground.astro";
+import HeroHeadline from "./HeroHeadline.astro";
+import SearchStep1 from "./SearchStep1.astro";
+import SearchStep2 from "./SearchStep2.astro";
+import SearchDropdown from "./search/SearchDropdown.astro";
+import MobileSearchModal from "./MobileSearchModal.astro";
 
 interface Props {
   remixUrl: string;
@@ -15,7 +15,7 @@ const { remixUrl } = Astro.props;
 
 <script type="module">
   await import("/js/procedure-data.js");
-  console.log("✅ Procedure data loaded for HeroSection");
+  console.log("âœ… Procedure data loaded for HeroSection");
 </script>
 
 <section
@@ -37,37 +37,40 @@ const { remixUrl } = Astro.props;
     </div>
   </div>
 
-  <SearchDropdown />
-
-  <div 
-    id="search-backdrop" 
-    class="hidden fixed inset-0 pointer-events-none" 
-    style="z-index: 99999998;"
-    aria-hidden="true"
-  ></div>
-
   <MobileSearchModal />
 </section>
 
+<!-- DROPDOWN PORTAL - Positioned outside hero section for proper z-index stacking -->
+<!-- This prevents the SocialProofBar from covering the dropdown -->
+<SearchDropdown />
+
+<div
+  id="search-backdrop"
+  class="hidden fixed inset-0 pointer-events-none"
+  style="z-index: 99999998;"
+  aria-hidden="true"
+>
+</div>
+
 <script>
-  import { searchManager } from '../../lib/search-manager';
+  import { searchManager } from "../../lib/search-manager";
 
   function initializeSearchManager() {
-    if (typeof (window as any).ProcedureLibrary === 'undefined') {
+    if (typeof (window as any).ProcedureLibrary === "undefined") {
       setTimeout(initializeSearchManager, 100);
       return;
     }
 
     const lib = (window as any).ProcedureLibrary;
-    
+
     if (!lib) {
-      console.error('❌ ProcedureLibrary not found!');
+      console.error("âŒ ProcedureLibrary not found!");
       return;
     }
 
     try {
       let popularProcs = lib.Popular || [];
-      
+
       if (!Array.isArray(popularProcs)) {
         const allProcs: any[] = [];
         for (const region in popularProcs) {
@@ -81,35 +84,35 @@ const { remixUrl } = Astro.props;
       searchManager.initialize(
         lib.MRI || {},
         lib.CT || {},
-        lib['X-Ray'] || {},
+        lib["X-Ray"] || {},
         lib.Ultrasound || {},
         popularProcs
       );
 
-      console.log('✅ SearchManager initialized');
+      console.log("âœ… SearchManager initialized");
     } catch (error) {
-      console.error('❌ Error initializing SearchManager:', error);
+      console.error("âŒ Error initializing SearchManager:", error);
     }
   }
 
   function initHeroSection() {
-    console.log('🚀 HeroSection: Initializing...');
+    console.log("ðŸš€ HeroSection: Initializing...");
     initializeSearchManager();
-    
-    document.addEventListener('mobile-procedure-selected', (e: any) => {
-      console.log('✅ Mobile modal: Procedure selected', e.detail);
+
+    document.addEventListener("mobile-procedure-selected", (e: any) => {
+      console.log("âœ… Mobile modal: Procedure selected", e.detail);
     });
-    
-    console.log('✅ HeroSection: Initialization complete');
+
+    console.log("âœ… HeroSection: Initialization complete");
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHeroSection);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initHeroSection);
   } else {
     initHeroSection();
   }
 
-  document.addEventListener('astro:page-load', initHeroSection);
+  document.addEventListener("astro:page-load", initHeroSection);
 </script>
 
 <style>

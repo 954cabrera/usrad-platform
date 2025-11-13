@@ -137,19 +137,27 @@
      */
     searchInput.addEventListener("focus", function () {
       const isMobile = window.innerWidth < 768;
+      const currentState = searchManager.getState();
 
-      console.log("SearchStep1: Input focused", { isMobile });
+      console.log("SearchStep1: Input focused", {
+        isMobile,
+        currentStep: currentState.currentStep,
+      });
+
+      // Only open dropdown if we're on Step 1
+      if (currentState.currentStep !== 1) {
+        console.log("SearchStep1: Not opening dropdown - not on Step 1");
+        return;
+      }
 
       if (
         isMobile &&
         typeof (window as any).mobileSearchModal !== "undefined"
       ) {
-        // Mobile: blur input to prevent keyboard, open modal
         searchInput.blur();
         (window as any).mobileSearchModal.open();
         console.log("✅ Mobile modal opened");
       } else {
-        // Desktop: open dropdown via SearchManager
         searchManager.openDropdown();
         console.log("✅ Desktop dropdown opened");
       }

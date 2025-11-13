@@ -20,7 +20,7 @@ import PopularProcedures from "./PopularProcedures.astro";
 import SearchResults from "../SearchResults.astro";
 ---
 
-<!-- Backdrop element (click-outside detection + blur effect trigger) -->
+<!-- Backdrop element (click-outside detection ONLY - no visual effect) -->
 <div
   id="search-backdrop"
   class="hidden fixed inset-0 pointer-events-auto transition-opacity duration-300"
@@ -33,7 +33,7 @@ import SearchResults from "../SearchResults.astro";
 <div
   id="search-dropdown"
   class="hidden fixed bg-white shadow-2xl rounded-lg overflow-hidden border border-gray-200"
-  style="z-index: 2147483647999; max-height: 600px;"
+  style="z-index: 9999999; max-height: 600px;"
 >
   <!-- Content container with custom scrollbar -->
   <div class="overflow-y-auto h-full search-dropdown-scroll">
@@ -132,22 +132,38 @@ import SearchResults from "../SearchResults.astro";
     const emptyContainer = document.getElementById("empty-state-container");
 
     if (!dropdown || !backdrop || !searchInput) {
-      console.warn("⚠️ SearchDropdown: Required elements not found");
+      console.warn("âš ï¸ SearchDropdown: Required elements not found");
       return;
     }
 
-    console.log("✅ SearchDropdown: Initializing...");
+    console.log("âœ… SearchDropdown: Initializing...");
 
     /**
      * Position dropdown below search input
+     * FIXED: Account for scroll offset when body is fixed
      */
     function positionDropdown() {
       const inputRect = searchInput.getBoundingClientRect();
-      const dropdownWidth = Math.min(800, window.innerWidth - 32);
+
+      // Match search input width exactly (not wider)
+      const dropdownWidth = inputRect.width;
+
+      // Get current scroll offset if body is fixed
+      const scrollOffset =
+        document.body.style.position === "fixed"
+          ? Math.abs(parseInt(document.body.style.top || "0"))
+          : 0;
 
       dropdown.style.width = `${dropdownWidth}px`;
-      dropdown.style.top = `${inputRect.bottom + 8}px`;
-      dropdown.style.left = `${Math.max(16, (window.innerWidth - dropdownWidth) / 2)}px`;
+      dropdown.style.top = `${inputRect.bottom + scrollOffset + 8}px`;
+      dropdown.style.left = `${inputRect.left}px`;
+
+      console.log("Dropdown positioned:", {
+        inputBottom: inputRect.bottom,
+        scrollOffset,
+        finalTop: inputRect.bottom + scrollOffset + 8,
+        width: dropdownWidth,
+      });
     }
 
     /**
@@ -182,7 +198,7 @@ import SearchResults from "../SearchResults.astro";
       // Blur sections below hero
       blurSectionsBelow();
 
-      console.log("✅ SearchDropdown: Opened with scroll lock");
+      console.log("âœ… SearchDropdown: Opened with scroll lock");
     }
 
     /**
@@ -213,11 +229,12 @@ import SearchResults from "../SearchResults.astro";
       // Remove blur
       unblurSectionsBelow();
 
-      console.log("✅ SearchDropdown: Closed, scroll restored");
+      console.log("âœ… SearchDropdown: Closed, scroll restored");
     }
 
     /**
      * Blur sections below hero
+     * FIXED: Skip dropdown and backdrop to avoid blurring them
      */
     function blurSectionsBelow() {
       const heroSection = document.getElementById("hero-section");
@@ -225,6 +242,16 @@ import SearchResults from "../SearchResults.astro";
 
       let nextSection = heroSection.nextElementSibling;
       while (nextSection) {
+        // Skip the dropdown and backdrop elements
+        if (
+          nextSection.id === "search-dropdown" ||
+          nextSection.id === "search-backdrop"
+        ) {
+          nextSection = nextSection.nextElementSibling;
+          continue;
+        }
+
+        // Blur actual content sections
         if (
           nextSection.tagName === "SECTION" ||
           nextSection.tagName === "DIV"
@@ -238,6 +265,7 @@ import SearchResults from "../SearchResults.astro";
 
     /**
      * Remove blur from sections below hero
+     * FIXED: Skip dropdown and backdrop to avoid issues
      */
     function unblurSectionsBelow() {
       const heroSection = document.getElementById("hero-section");
@@ -245,6 +273,16 @@ import SearchResults from "../SearchResults.astro";
 
       let nextSection = heroSection.nextElementSibling;
       while (nextSection) {
+        // Skip the dropdown and backdrop elements
+        if (
+          nextSection.id === "search-dropdown" ||
+          nextSection.id === "search-backdrop"
+        ) {
+          nextSection = nextSection.nextElementSibling;
+          continue;
+        }
+
+        // Remove blur from actual content sections
         if (
           nextSection.tagName === "SECTION" ||
           nextSection.tagName === "DIV"
@@ -325,7 +363,7 @@ import SearchResults from "../SearchResults.astro";
       }
     });
 
-    console.log("✅ SearchDropdown: Initialization complete");
+    console.log("âœ… SearchDropdown: Initialization complete");
   }
 
   // Initialize on DOM ready
