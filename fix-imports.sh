@@ -1,0 +1,204 @@
+#!/bin/bash
+# Fix all imports for src/components/hero/ structure
+
+cd src/components/hero
+
+echo "🔧 Fixing HeroSection.astro imports..."
+
+# Fix HeroSection.astro - imports from same directory and search/
+cat > HeroSection.astro.tmp << 'EOF'
+---
+/**
+ * HeroSection.astro - REFACTORED MAIN ORCHESTRATOR
+ */
+
+// Import all refactored components
+import HeroBackground from './HeroBackground.astro';
+import HeroHeadline from './HeroHeadline.astro';
+import SearchStep1 from './SearchStep1.astro';
+import SearchStep2 from './SearchStep2.astro';
+import SearchDropdown from './search/SearchDropdown.astro';
+import MobileSearchModal from './MobileSearchModal.astro';
+
+interface Props {
+  remixUrl: string;
+}
+
+const { remixUrl } = Astro.props;
+---
+
+<!-- Load Procedure Data -->
+<script type="module">
+  await import("/js/procedure-data.js");
+  console.log("✅ Procedure data loaded for HeroSection");
+</script>
+
+<!-- Main Hero Section -->
+<section
+  id="hero-section"
+  class="relative pt-40 pb-24 px-4 sm:px-6 bg-[#003087] text-white overflow-hidden"
+  style="margin-top: -32px;"
+  data-aos="fade-up"
+>
+  <!-- Background Layer -->
+  <HeroBackground />
+
+  <!-- Content Layer -->
+  <div class="max-w-7xl mx-auto relative z-20">
+    <div class="max-w-5xl mx-auto text-center">
+      
+      <!-- Headline -->
+      <HeroHeadline />
+
+      <!-- Search Container -->
+      <div id="hero-search-container" class="relative">
+        
+        <!-- Step 1: Search Input -->
+        <SearchStep1 />
+
+        <!-- Step 2: ZIP Code Input -->
+        <SearchStep2 remixUrl={remixUrl} />
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Dropdown -->
+  <SearchDropdown />
+
+  <!-- Backdrop Element -->
+  <div 
+    id="search-backdrop" 
+    class="hidden fixed inset-0 pointer-events-none" 
+    style="z-index: 9998;"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Mobile Search Modal -->
+  <MobileSearchModal />
+</section>
+
+<script>
+  import { searchManager } from '../../lib/search-manager';
+
+  function initializeSearchManager() {
+    if (typeof (window as any).ProcedureLibrary === 'undefined') {
+      setTimeout(initializeSearchManager, 100);
+      return;
+    }
+
+    const lib = (window as any).ProcedureLibrary;
+    
+    if (!lib) {
+      console.error('❌ ProcedureLibrary not found!');
+      return;
+    }
+
+    try {
+      searchManager.initialize(
+        lib.MRI || {},
+        lib.CT || {},
+        lib['X-Ray'] || {},
+        lib.Ultrasound || {},
+        lib.Popular || []
+      );
+
+      console.log('✅ SearchManager initialized');
+    } catch (error) {
+      console.error('❌ Error initializing SearchManager:', error);
+    }
+  }
+
+  function setupMobileModalListener() {
+    document.addEventListener('mobile-procedure-selected', (e: any) => {
+      console.log('✅ Mobile modal: Procedure selected', e.detail);
+    });
+  }
+
+  function initHeroSection() {
+    console.log('🚀 HeroSection: Initializing...');
+    initializeSearchManager();
+    setupMobileModalListener();
+    console.log('✅ HeroSection: Initialization complete');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroSection);
+  } else {
+    initHeroSection();
+  }
+
+  document.addEventListener('astro:page-load', initHeroSection);
+</script>
+
+<style>
+  #hero-section {
+    position: relative;
+    isolation: isolate;
+  }
+
+  #hero-search-container {
+    position: relative;
+    z-index: 9999;
+  }
+
+  #search-backdrop {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    transition: opacity 0.3s ease;
+  }
+
+  #search-backdrop.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #search-backdrop:not(.hidden) {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
+EOF
+
+mv HeroSection.astro.tmp HeroSection.astro
+echo "✅ HeroSection.astro fixed!"
+
+echo "🔧 Fixing component imports..."
+
+# Fix SearchStep1.astro
+sed -i "s|from ['\"].*lib/search-manager['\"]|from '../../lib/search-manager'|g" SearchStep1.astro
+
+# Fix SearchStep2.astro  
+sed -i "s|from ['\"].*lib/search-manager['\"]|from '../../lib/search-manager'|g" SearchStep2.astro
+
+# Fix SearchResults.astro
+sed -i "s|from ['\"].*lib/search-utils['\"]|from '../../lib/search-utils'|g" SearchResults.astro
+sed -i "s|from ['\"].*lib/search-manager['\"]|from '../../lib/search-manager'|g" SearchResults.astro
+
+# Fix MobileSearchModal.astro
+sed -i "s|from ['\"].*lib/search-manager['\"]|from '../../lib/search-manager'|g" MobileSearchModal.astro
+sed -i "s|from ['\"].*lib/search-utils['\"]|from '../../lib/search-utils'|g" MobileSearchModal.astro
+
+echo "✅ Main components fixed!"
+
+echo "🔧 Fixing search/ subdirectory imports..."
+cd search
+
+# Fix SearchDropdown.astro - imports PopularProcedures from same dir, SearchResults from parent
+sed -i "s|from ['\"].*PopularProcedures|from './PopularProcedures|g" SearchDropdown.astro
+sed -i "s|from ['\"].*SearchResults|from '../SearchResults|g" SearchDropdown.astro
+sed -i "s|from ['\"].*lib/search-manager['\"]|from '../../../lib/search-manager'|g" SearchDropdown.astro
+
+# Fix PopularProcedures.astro
+sed -i "s|from ['\"].*lib/search-utils['\"]|from '../../../lib/search-utils'|g" PopularProcedures.astro
+sed -i "s|from ['\"].*lib/search-manager['\"]|from '../../../lib/search-manager'|g" PopularProcedures.astro
+
+cd ..
+
+echo "✅ Search subdirectory components fixed!"
+
+echo ""
+echo "🎉 ALL IMPORTS FIXED!"
+echo ""
+echo "Now run: npm run dev"
+echo ""

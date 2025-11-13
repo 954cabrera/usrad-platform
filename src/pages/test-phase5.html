@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 5: Search Steps Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #1e3a8a, #1e40af, #3b82f6);
+        }
+
+        /* Fade animations for step transitions */
+        .fade-in-step {
+            animation: fadeInStep 0.25s ease-out;
+        }
+
+        .fade-out-step {
+            animation: fadeOutStep 0.25s ease-out;
+        }
+
+        @keyframes fadeInStep {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOutStep {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: #1e293b;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .status-label {
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .status-value {
+            color: #10b981;
+            font-weight: 600;
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+
+        .test-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-green {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-blue {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-purple {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        .btn-orange {
+            background: #f97316;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Hero Section -->
+    <section id="hero-section" class="relative min-h-screen flex items-center justify-center px-4 pt-20">
+        <div class="max-w-6xl mx-auto w-full">
+
+            <!-- Test Title -->
+            <h1 class="text-6xl font-bold text-white mb-6 text-center">
+                Phase 5: Search Steps Test
+            </h1>
+
+            <p class="text-xl text-white/80 mb-12 text-center">
+                Testing SearchStep1 and SearchStep2 components
+            </p>
+
+            <!-- SEARCH STEP 1: Search Input -->
+            <div id="search-step-1" class="relative z-[9999] max-w-3xl mx-auto mb-8 transition-all duration-500">
+                <div class="relative">
+                    <div
+                        class="bg-white/90 backdrop-blur-md border-2 border-white/60 shadow-lg rounded-xl flex flex-col sm:flex-row items-stretch overflow-hidden">
+                        <input type="text" id="hero-search-input" placeholder="Type MRI, CT, Ultrasound..."
+                            autocomplete="off"
+                            class="flex-1 px-6 py-4 sm:py-5 text-base sm:text-lg text-gray-900 placeholder-gray-500 bg-transparent focus:outline-none focus:ring-2 focus:ring-[#003087]/20 transition-all"
+                            aria-label="Search for medical procedures" />
+                        <button type="button" id="hero-find-button"
+                            class="bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-8 py-4 sm:py-5 font-bold text-base sm:text-lg transition-all duration-300 hover:brightness-110">
+                            <span class="flex items-center justify-center gap-2">
+                                Find
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEARCH STEP 2: ZIP Code Input (Hidden Initially) -->
+            <div id="search-step-2" class="hidden relative z-50 max-w-4xl mx-auto mb-8 transition-all duration-500">
+                <form id="hero-search-form" onsubmit="return false;">
+                    <div
+                        class="bg-white/90 backdrop-blur-md border-2 border-white/60 shadow-lg rounded-xl overflow-hidden">
+
+                        <!-- Mobile: Stack Vertically -->
+                        <div class="flex flex-col sm:hidden">
+                            <div class="p-4 border-b border-gray-200">
+                                <div class="flex items-center justify-between gap-3">
+                                    <div class="flex items-center gap-2 flex-1 min-w-0">
+                                        <div
+                                            class="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                                    d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-xs font-medium text-gray-500 mb-0.5">Selected</p>
+                                            <p id="selected-procedure-display-mobile"
+                                                class="text-sm font-semibold text-gray-900 truncate">MRI Brain - Without
+                                                Contrast</p>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="change-procedure-button-mobile"
+                                        class="flex-shrink-0 text-xs font-medium text-[#003087] hover:text-[#cc9933] transition-colors px-3 py-1.5 rounded-lg hover:bg-gray-100">
+                                        Change
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="relative p-4 border-b border-gray-200">
+                                <label for="hero-zip-input-mobile"
+                                    class="block text-xs font-medium text-gray-500 mb-2">ZIP Code</label>
+                                <div class="relative">
+                                    <input type="text" id="hero-zip-input-mobile" name="zip"
+                                        placeholder="Enter ZIP code" inputmode="numeric" pattern="[0-9]{5}"
+                                        maxlength="5"
+                                        class="w-full px-4 py-3 text-base text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:border-[#003087] focus:ring-2 focus:ring-[#003087]/20 transition-all pr-10" />
+                                    <button type="button" id="hero-detect-location-mobile"
+                                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-[#003087] hover:text-[#cc9933] transition-all"
+                                        title="Detect location">
+                                        <svg id="location-icon-mobile" class="w-5 h-5" fill="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z">
+                                            </path>
+                                        </svg>
+                                        <svg id="location-loading-mobile" class="w-5 h-5 animate-spin hidden"
+                                            fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor"
+                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="p-4 relative">
+                                <button type="submit" id="hero-search-button-mobile"
+                                    class="w-full bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-6 py-4 rounded-lg font-bold text-base transition-all duration-300 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    disabled>
+                                    <span class="flex items-center justify-center gap-2">
+                                        <span>Find Centers</span>
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Desktop: Horizontal Layout -->
+                        <div class="hidden sm:flex items-stretch rounded-xl overflow-hidden">
+                            <div class="flex flex-col justify-center flex-1 px-6 py-3 border-r border-gray-200">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="flex-shrink-0 w-10 h-10 bg-green-500 rounded-full flex items-center justify-center shadow-sm">
+                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                                d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-xs font-medium text-gray-500 mb-0.5">Selected Procedure</p>
+                                        <p id="selected-procedure-display"
+                                            class="text-base font-semibold text-gray-900 truncate">MRI Brain - Without
+                                            Contrast</p>
+                                        <p class="text-xs text-gray-500 mt-1 leading-snug">
+                                            You'll compare prices and book instantly — no payment until appointment is
+                                            confirmed.
+                                        </p>
+                                    </div>
+                                    <button type="button" id="change-procedure-button"
+                                        class="flex-shrink-0 flex items-center gap-1.5 text-[#003087] hover:text-[#cc9933] font-medium text-sm transition-all px-3 py-1.5 rounded-lg hover:bg-gray-100">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                                            </path>
+                                        </svg>
+                                        Change
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col justify-center px-6 py-3 border-r border-gray-200 min-w-[180px]">
+                                <label for="hero-zip-input" class="block text-xs font-medium text-gray-500 mb-1">ZIP
+                                    Code</label>
+                                <div class="relative">
+                                    <input type="text" id="hero-zip-input" name="zip" placeholder="12345"
+                                        inputmode="numeric" pattern="[0-9]{5}" maxlength="5"
+                                        class="w-full px-3 py-2 text-center text-lg font-semibold text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:border-[#003087] focus:ring-2 focus:ring-[#003087]/20 transition-all" />
+                                    <button type="button" id="hero-detect-location"
+                                        class="absolute right-2 top-1/2 -translate-y-1/2 text-[#003087] hover:text-[#cc9933] transition-transform hover:scale-110"
+                                        title="Detect location">
+                                        <svg id="location-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z">
+                                            </path>
+                                        </svg>
+                                        <svg id="location-loading" class="w-5 h-5 animate-spin hidden" fill="none"
+                                            viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor"
+                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <p id="zip-hint" class="text-gray-500 text-xs mt-1">Enter ZIP to continue</p>
+                            </div>
+
+                            <div class="flex items-center justify-center p-3.5">
+                                <button type="submit" id="hero-search-button"
+                                    class="relative h-full bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-6 py-3.5 font-bold text-lg transition-all duration-300 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg"
+                                    disabled>
+                                    <span class="flex items-center justify-center gap-2">
+                                        <span>Find Centers</span>
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="cpt-code-hidden" name="cpt" value="70551" />
+                        <input type="hidden" id="procedure-name-hidden" name="procedure"
+                            value="MRI Brain - Without Contrast" />
+                    </div>
+                </form>
+            </div>
+
+            <!-- Test Controls -->
+            <div class="max-w-4xl mx-auto mt-12 bg-gray-800/90 backdrop-blur-sm rounded-xl p-8 shadow-2xl">
+
+                <!-- Test Buttons -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                    <button id="btn-goto-step2" class="test-btn btn-green">
+                        ✅ Simulate Procedure Selection (Go to Step 2)
+                    </button>
+                    <button id="btn-goto-step1" class="test-btn btn-blue">
+                        ⬅️ Test "Change" Button (Go to Step 1)
+                    </button>
+                    <button id="btn-test-mobile" class="test-btn btn-purple">
+                        📱 Toggle Mobile View (< 768px) </button>
+                            <button id="btn-test-geolocation" class="test-btn btn-orange">
+                                📍 Test Geolocation (Mock ZIP)
+                            </button>
+                </div>
+
+                <!-- Real-Time Status Display -->
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4">📊 Real-Time Status:</h3>
+
+                    <div class="status-item">
+                        <span class="status-label">Current Step:</span>
+                        <span id="status-step" class="status-value">1</span>
+                    </div>
+
+                    <div class="status-item">
+                        <span class="status-label">Viewport Width:</span>
+                        <span id="status-width" class="status-value">0px</span>
+                    </div>
+
+                    <div class="status-item">
+                        <span class="status-label">Is Mobile:</span>
+                        <span id="status-mobile" class="status-value">false</span>
+                    </div>
+
+                    <div class="status-item">
+                        <span class="status-label">ZIP Code:</span>
+                        <span id="status-zip" class="status-value">empty</span>
+                    </div>
+
+                    <div class="status-item">
+                        <span class="status-label">Form Valid:</span>
+                        <span id="status-valid" class="status-value">false</span>
+                    </div>
+
+                    <div class="status-item">
+                        <span class="status-label">Submit Button:</span>
+                        <span id="status-submit" class="status-value">disabled</span>
+                    </div>
+                </div>
+
+                <!-- Critical Tests Checklist -->
+                <div class="mt-8 p-6 bg-yellow-900/30 border-2 border-yellow-500 rounded-lg">
+                    <h4 class="text-yellow-300 font-bold mb-3 text-lg">⚠️ CRITICAL TESTS:</h4>
+                    <ul class="text-yellow-100 text-sm space-y-2">
+                        <li>✓ Step 1 visible on load</li>
+                        <li>✓ Click green button → Step 2 appears</li>
+                        <li>✓ Procedure name displays in Step 2</li>
+                        <li>✓ Enter ZIP → button enables</li>
+                        <li>✓ Click "Change" → returns to Step 1</li>
+                        <li>✓ Smooth 250ms fade transitions</li>
+                        <li>✓ Mobile detection (resize window < 768px)</li>
+                        <li>✓ Geolocation mock fills ZIP</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        let currentStep = 1;
+        let isMobileView = false;
+
+        /**
+         * Update status display
+         */
+        function updateStatus() {
+            const zipInput = document.getElementById('hero-zip-input');
+            const zipInputMobile = document.getElementById('hero-zip-input-mobile');
+            const submitBtn = document.getElementById('hero-search-button');
+            const submitBtnMobile = document.getElementById('hero-search-button-mobile');
+            const cptHidden = document.getElementById('cpt-code-hidden');
+
+            const width = window.innerWidth;
+            const isMobile = width < 768;
+            const zipValue = zipInput?.value || zipInputMobile?.value || '';
+            const hasCpt = cptHidden?.value && cptHidden.value.length > 0;
+            const hasZip = zipValue.length === 5 && /^\d{5}$/.test(zipValue);
+            const isValid = hasCpt && hasZip;
+
+            document.getElementById('status-step').textContent = currentStep;
+            document.getElementById('status-width').textContent = width + 'px';
+            document.getElementById('status-mobile').textContent = isMobile ? 'true' : 'false';
+            document.getElementById('status-mobile').style.color = isMobile ? '#f97316' : '#10b981';
+            document.getElementById('status-zip').textContent = zipValue || 'empty';
+            document.getElementById('status-valid').textContent = isValid ? 'true' : 'false';
+            document.getElementById('status-valid').style.color = isValid ? '#10b981' : '#ef4444';
+            document.getElementById('status-submit').textContent = (submitBtn?.disabled ?? true) ? 'disabled' : 'enabled';
+            document.getElementById('status-submit').style.color = (submitBtn?.disabled ?? true) ? '#ef4444' : '#10b981';
+        }
+
+        /**
+         * Transition to Step 2
+         */
+        function goToStep2() {
+            const step1 = document.getElementById('search-step-1');
+            const step2 = document.getElementById('search-step-2');
+
+            if (!step1 || !step2) return;
+
+            console.log('Transitioning to Step 2...');
+
+            step1.classList.add('fade-out-step');
+
+            setTimeout(() => {
+                step1.classList.add('hidden');
+                step1.classList.remove('fade-out-step');
+
+                step2.classList.remove('hidden');
+                step2.classList.add('fade-in-step');
+
+                const zipInput = document.getElementById('hero-zip-input');
+                if (zipInput) {
+                    zipInput.focus({ preventScroll: true });
+                }
+
+                currentStep = 2;
+                updateStatus();
+
+                console.log('✅ Transitioned to Step 2');
+            }, 250);
+        }
+
+        /**
+         * Transition to Step 1
+         */
+        function goToStep1() {
+            const step1 = document.getElementById('search-step-1');
+            const step2 = document.getElementById('search-step-2');
+
+            if (!step1 || !step2) return;
+
+            console.log('Transitioning to Step 1...');
+
+            step2.classList.add('fade-out-step');
+
+            setTimeout(() => {
+                step2.classList.add('hidden');
+                step2.classList.remove('fade-out-step');
+
+                step1.classList.remove('hidden');
+                step1.classList.add('fade-in-step');
+
+                const searchInput = document.getElementById('hero-search-input');
+                if (searchInput) {
+                    searchInput.value = '';
+                    searchInput.focus();
+                }
+
+                currentStep = 1;
+                updateStatus();
+
+                console.log('✅ Transitioned to Step 1');
+            }, 250);
+        }
+
+        /**
+         * Toggle mobile view (simulate responsive behavior)
+         */
+        function toggleMobileView() {
+            isMobileView = !isMobileView;
+
+            if (isMobileView) {
+                // Force narrow viewport
+                document.body.style.maxWidth = '600px';
+                document.body.style.margin = '0 auto';
+                alert('📱 Mobile view simulated!\n\nResize your browser window to < 768px to see actual mobile behavior.');
+            } else {
+                document.body.style.maxWidth = '';
+                document.body.style.margin = '';
+                alert('🖥️ Desktop view restored!');
+            }
+
+            updateStatus();
+        }
+
+        /**
+         * Mock geolocation (fills ZIP automatically)
+         */
+        function testGeolocation() {
+            const zipInput = document.getElementById('hero-zip-input');
+            const zipInputMobile = document.getElementById('hero-zip-input-mobile');
+            const zipHint = document.getElementById('zip-hint');
+            const locationIcon = document.getElementById('location-icon');
+            const locationIconMobile = document.getElementById('location-icon-mobile');
+            const locationLoading = document.getElementById('location-loading');
+            const locationLoadingMobile = document.getElementById('location-loading-mobile');
+
+            console.log('Testing geolocation (mock)...');
+
+            // Show loading
+            if (locationIcon) locationIcon.classList.add('hidden');
+            if (locationIconMobile) locationIconMobile.classList.add('hidden');
+            if (locationLoading) locationLoading.classList.remove('hidden');
+            if (locationLoadingMobile) locationLoadingMobile.classList.remove('hidden');
+
+            // Mock delay
+            setTimeout(() => {
+                const mockZip = '10001'; // NYC
+                const mockCity = 'New York';
+
+                if (zipInput) zipInput.value = mockZip;
+                if (zipInputMobile) zipInputMobile.value = mockZip;
+
+                if (zipHint) {
+                    zipHint.textContent = `Detected your location in ${mockCity}`;
+                    zipHint.classList.add('text-green-600');
+                    zipHint.classList.remove('text-gray-500');
+                }
+
+                // Restore icon
+                if (locationIcon) locationIcon.classList.remove('hidden');
+                if (locationIconMobile) locationIconMobile.classList.remove('hidden');
+                if (locationLoading) locationLoading.classList.add('hidden');
+                if (locationLoadingMobile) locationLoadingMobile.classList.add('hidden');
+
+                checkFormReady();
+                updateStatus();
+
+                console.log('✅ Geolocation mock complete:', mockZip);
+                alert(`📍 Geolocation mock successful!\n\nDetected ZIP: ${mockZip}\nCity: ${mockCity}`);
+            }, 1500);
+        }
+
+        /**
+         * Check form validation
+         */
+        function checkFormReady() {
+            const cptHidden = document.getElementById('cpt-code-hidden');
+            const zipInput = document.getElementById('hero-zip-input');
+            const zipInputMobile = document.getElementById('hero-zip-input-mobile');
+            const submitBtn = document.getElementById('hero-search-button');
+            const submitBtnMobile = document.getElementById('hero-search-button-mobile');
+            const zipHint = document.getElementById('zip-hint');
+
+            const hasCpt = cptHidden && cptHidden.value && cptHidden.value.length > 0;
+            const zipValue = zipInput?.value || zipInputMobile?.value || '';
+            const hasZip = zipValue.length === 5 && /^\d{5}$/.test(zipValue);
+            const isReady = hasCpt && hasZip;
+
+            if (submitBtn) submitBtn.disabled = !isReady;
+            if (submitBtnMobile) submitBtnMobile.disabled = !isReady;
+
+            if (zipHint && currentStep === 2) {
+                if (hasZip) {
+                    zipHint.textContent = 'Ready to search!';
+                    zipHint.classList.add('text-green-600');
+                    zipHint.classList.remove('text-gray-500');
+                } else {
+                    zipHint.textContent = 'Enter ZIP to continue';
+                    zipHint.classList.add('text-gray-500');
+                    zipHint.classList.remove('text-green-600');
+                }
+            }
+
+            updateStatus();
+        }
+
+        /**
+         * Initialize ZIP input handlers
+         */
+        function initZipInputs() {
+            const zipInput = document.getElementById('hero-zip-input');
+            const zipInputMobile = document.getElementById('hero-zip-input-mobile');
+
+            [zipInput, zipInputMobile].filter(Boolean).forEach((input) => {
+                input.addEventListener('input', function (e) {
+                    const value = e.target.value;
+                    const cleaned = value.replace(/\D/g, '');
+                    e.target.value = cleaned;
+
+                    // Sync both inputs
+                    if (zipInput) zipInput.value = cleaned;
+                    if (zipInputMobile) zipInputMobile.value = cleaned;
+
+                    checkFormReady();
+                });
+            });
+        }
+
+        /**
+         * Initialize change buttons
+         */
+        function initChangeButtons() {
+            const changeBtn = document.getElementById('change-procedure-button');
+            const changeBtnMobile = document.getElementById('change-procedure-button-mobile');
+
+            if (changeBtn) {
+                changeBtn.addEventListener('click', goToStep1);
+            }
+
+            if (changeBtnMobile) {
+                changeBtnMobile.addEventListener('click', goToStep1);
+            }
+        }
+
+        /**
+         * Initialize geolocation buttons
+         */
+        function initGeolocationButtons() {
+            const detectBtn = document.getElementById('hero-detect-location');
+            const detectBtnMobile = document.getElementById('hero-detect-location-mobile');
+
+            if (detectBtn) {
+                detectBtn.addEventListener('click', testGeolocation);
+            }
+
+            if (detectBtnMobile) {
+                detectBtnMobile.addEventListener('click', testGeolocation);
+            }
+        }
+
+        /**
+         * Initialize form submission
+         */
+        function initFormSubmission() {
+            const form = document.getElementById('hero-search-form');
+
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const cpt = document.getElementById('cpt-code-hidden')?.value;
+                    const procedure = document.getElementById('procedure-name-hidden')?.value;
+                    const zip = document.getElementById('hero-zip-input')?.value ||
+                        document.getElementById('hero-zip-input-mobile')?.value;
+
+                    console.log('Form submission:', { cpt, procedure, zip });
+                    alert(`✅ Form would submit!\n\nCPT: ${cpt}\nProcedure: ${procedure}\nZIP: ${zip}`);
+                });
+            }
+        }
+
+        // Initialize test button handlers
+        document.getElementById('btn-goto-step2').addEventListener('click', goToStep2);
+        document.getElementById('btn-goto-step1').addEventListener('click', goToStep1);
+        document.getElementById('btn-test-mobile').addEventListener('click', toggleMobileView);
+        document.getElementById('btn-test-geolocation').addEventListener('click', testGeolocation);
+
+        // Initialize component handlers
+        initZipInputs();
+        initChangeButtons();
+        initGeolocationButtons();
+        initFormSubmission();
+
+        // Update status on window resize
+        window.addEventListener('resize', updateStatus);
+
+        // Initial status update
+        updateStatus();
+
+        // Update status every 100ms
+        setInterval(updateStatus, 100);
+
+        console.log('✅ Phase 5 test page loaded');
+    </script>
+
+</body>
+
+</html>
