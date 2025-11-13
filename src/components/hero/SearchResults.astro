@@ -108,9 +108,9 @@
    * ⚠️ CRITICAL: Applies character encoding fixes to all labels
    */
 
-  import { searchManager } from '../../lib/search-manager';
-  import { fixCharacterEncoding } from '../../lib/search-utils';
-  import type { Procedure } from '../../lib/search-manager';
+  import { searchManager } from "../../lib/search-manager";
+  import { fixCharacterEncoding } from "../../lib/search-utils";
+  import type { Procedure } from "../../lib/search-manager";
 
   // Modality color configuration (matching original)
   const MODALITY_COLORS = {
@@ -310,7 +310,7 @@
    * ⚠️ CRITICAL: This is where character encoding fixes are applied
    */
   function renderSearchResults(state: any) {
-    const query = state.query || "";
+    const query = state.currentQuery || ""; // ✅ CORRECT!
     const results = state.searchResults || [];
 
     // Determine what to show based on query and results

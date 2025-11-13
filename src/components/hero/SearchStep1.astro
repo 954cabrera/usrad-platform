@@ -12,14 +12,14 @@
  * 5. Smooth transitions when switching steps
  *
  * MOBILE BEHAVIOR:
- * - Focus → blur input immediately → open modal
+ * - Focus â†’ blur input immediately â†’ open modal
  * - Prevents keyboard from showing
  *
  * DESKTOP BEHAVIOR:
- * - Focus → open dropdown
- * - Input → search with 200ms debounce
- * - Escape → close dropdown
- * - Click outside → close dropdown
+ * - Focus â†’ open dropdown
+ * - Input â†’ search with 200ms debounce
+ * - Escape â†’ close dropdown
+ * - Click outside â†’ close dropdown
  */
 ---
 
@@ -126,22 +126,23 @@
     ) as HTMLButtonElement;
 
     if (!searchInput) {
-      console.error("❌ SearchStep1: Search input not found");
+      console.error("âŒ SearchStep1: Search input not found");
       return;
     }
 
-    console.log("✅ SearchStep1: Initializing...");
+    console.log("âœ… SearchStep1: Initializing...");
 
     /**
      * Focus handler - opens dropdown (desktop) or modal (mobile)
+     * FIXED: Check current step before opening
      */
     searchInput.addEventListener("focus", function () {
       const isMobile = window.innerWidth < 768;
       const currentState = searchManager.getState();
 
-      console.log("SearchStep1: Input focused", {
-        isMobile,
-        currentStep: currentState.currentStep,
+      console.log("SearchStep1: Input focused", { 
+        isMobile, 
+        currentStep: currentState.currentStep 
       });
 
       // Only open dropdown if we're on Step 1
@@ -154,10 +155,12 @@
         isMobile &&
         typeof (window as any).mobileSearchModal !== "undefined"
       ) {
+        // Mobile: blur input to prevent keyboard, open modal
         searchInput.blur();
         (window as any).mobileSearchModal.open();
         console.log("✅ Mobile modal opened");
       } else {
+        // Desktop: open dropdown via SearchManager
         searchManager.openDropdown();
         console.log("✅ Desktop dropdown opened");
       }
@@ -207,6 +210,8 @@
      * Subscribe to SearchManager state changes
      */
     if (!isSubscribed) {
+      let previousStep = 1; // Track previous step to detect transitions
+
       searchManager.subscribe((state) => {
         console.log("SearchStep1: State update", {
           currentStep: state.currentStep,
@@ -217,16 +222,20 @@
         if (state.selectedProcedure && state.currentStep === 2) {
           searchInput.value = state.selectedProcedure.label;
           console.log(
-            "✅ SearchStep1: Input updated with procedure:",
+            "âœ… SearchStep1: Input updated with procedure:",
             state.selectedProcedure.label
           );
         }
 
-        // Clear input when returning to Step 1 from Step 2
-        if (state.currentStep === 1 && searchInput.value) {
+        // Clear input ONLY when transitioning from Step 2 back to Step 1
+        // (Not on every Step 1 state update!)
+        if (state.currentStep === 1 && previousStep === 2) {
           searchInput.value = "";
-          console.log("✅ SearchStep1: Input cleared");
+          console.log("✅ SearchStep1: Input cleared (transition from Step 2)");
         }
+
+        // Update previous step for next comparison
+        previousStep = state.currentStep;
 
         // Update aria-expanded attribute
         searchInput.setAttribute(
@@ -246,10 +255,10 @@
       });
 
       isSubscribed = true;
-      console.log("✅ SearchStep1: Subscribed to SearchManager");
+      console.log("âœ… SearchStep1: Subscribed to SearchManager");
     }
 
-    console.log("✅ SearchStep1: Initialization complete");
+    console.log("âœ… SearchStep1: Initialization complete");
   }
 
   // Initialize on DOM ready
