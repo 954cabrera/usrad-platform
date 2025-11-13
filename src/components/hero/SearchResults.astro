@@ -163,17 +163,36 @@
   function highlightMatch(text: string, query: string): string {
     if (!query || query.length < 2) return text;
 
-    // Escape special regex characters in query
-    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    // Normalize query by removing punctuation (match search behavior)
+    const normalizedQuery = query
+      .toLowerCase()
+      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
 
-    // Create case-insensitive regex
-    const regex = new RegExp(`(${escapedQuery})`, "gi");
+    // Split into words for word-by-word highlighting
+    const queryWords = normalizedQuery.split(" ").filter((w) => w.length > 0);
 
-    // Highlight matches with gold color
-    return text.replace(
-      regex,
-      '<span class="font-semibold text-[#cc9933]">$1</span>'
-    );
+    let result = text;
+
+    // Highlight each query word independently
+    queryWords.forEach((word) => {
+      if (word.length < 2) return;
+
+      // Escape special regex characters
+      const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+      // Create case-insensitive regex with word boundaries for cleaner matching
+      const regex = new RegExp(`(${escapedWord})`, "gi");
+
+      // Highlight matches with gold color
+      result = result.replace(
+        regex,
+        '<span class="font-semibold text-[#cc9933]">$1</span>'
+      );
+    });
+
+    return result;
   }
 
   /**
