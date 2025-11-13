@@ -297,7 +297,7 @@
         return;
       }
 
-      popularList.innerHTML = renderGroupedResults(lib.Popular);
+      popularList.innerHTML = renderGroupedResults(lib.Popular, "");
       attachResultHandlers();
 
       console.log("MobileSearchModal: Popular procedures shown");
@@ -320,7 +320,8 @@
 
       if (resultsCount) resultsCount.textContent = results.length.toString();
       if (searchList) {
-        searchList.innerHTML = renderGroupedResults(results);
+        const currentQuery = searchInput?.value || "";
+        searchList.innerHTML = renderGroupedResults(results, currentQuery);
         attachResultHandlers();
       }
 
@@ -330,9 +331,26 @@
     }
 
     /**
+     * Highlight matching characters in gold (USRad signature color)
+     * while preserving original text and preventing regex issues.
+     */
+    function highlightMatch(text: string, query: string): string {
+      if (!query || query.trim().length < 2) return text;
+      const cleanText = text ?? "";
+      const cleanQuery = query.trim();
+      // Escape regex metacharacters in the search query
+      const escaped = cleanQuery.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      // Case-insensitive, global match
+      const regex = new RegExp(escaped, "gi");
+      return cleanText.replace(regex, (match) => {
+        return `<span class="text-[#b8862d] font-semibold">${match}</span>`;
+      });
+    }
+
+    /**
      * Render grouped results with character encoding fixes
      */
-    function renderGroupedResults(procedures: any[]) {
+    function renderGroupedResults(procedures: any[], query: string = "") {
       const groups: Record<string, any[]> = {};
 
       procedures.forEach((proc) => {
@@ -377,7 +395,7 @@
                         data-label="${cleanLabel}" 
                         data-modality="${modality}" 
                         data-bodypart="${bodyPart}">
-                        <span class="text-[15px] font-medium text-gray-900">${cleanLabel}</span>
+                        <span class="text-[15px] font-medium text-gray-900">${highlightMatch(cleanLabel, query)}</span>
                         <span class="text-xs px-2 py-1 rounded ${
                           modality === "MRI"
                             ? "bg-blue-100 text-blue-600"
