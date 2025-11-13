@@ -21,14 +21,15 @@
 <!-- Mobile Search Modal - Full Screen Overlay -->
 <div
   id="mobile-search-modal"
-  class="mobile-search-modal hidden fixed inset-0 z-[10000] bg-white"
+  class="mobile-search-modal hidden fixed inset-0 bg-white"
+  style="z-index: 2147483647 !important; position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; background-color: white !important; width: 100vw !important; height: 100vh !important;"
   role="dialog"
   aria-modal="true"
   aria-labelledby="mobile-search-title"
 >
   <!-- Header: Fixed at top -->
   <div
-    class="mobile-modal-header sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm"
+    class="mobile-modal-header sticky top-0 z-[100] bg-white border-b border-gray-200 shadow-sm"
   >
     <div class="flex items-center gap-3 p-4">
       <!-- Close Button -->
@@ -97,7 +98,7 @@
   <div
     id="mobile-modal-results"
     class="mobile-modal-body overflow-y-auto"
-    style="height: calc(100vh - 140px);"
+    style="height: calc(100vh - 160px);"
   >
     <!-- Popular Procedures Section -->
     <div id="mobile-popular-section" class="px-4 py-3">
@@ -153,8 +154,8 @@
   /**
    * ✅ PHASE 6: Mobile Modal with SearchManager Integration
    */
-  import { searchManager } from '../../lib/search-manager';
-  import { fixCharacterEncoding } from '../../lib/search-utils';
+  import { searchManager } from "../../lib/search-manager";
+  import { fixCharacterEncoding } from "../../lib/search-utils";
 
   // Initialize when DOM is ready
   if (document.readyState === "loading") {
@@ -194,6 +195,8 @@
         modal.classList.remove("hidden");
         modal.classList.add("modal-enter");
         document.body.style.overflow = "hidden";
+        document.body.style.position = "fixed";
+        document.body.style.width = "100%";
 
         setTimeout(() => {
           searchInput?.focus();
@@ -213,6 +216,8 @@
           modal.classList.add("hidden");
           modal.classList.remove("modal-exit");
           document.body.style.overflow = "";
+          document.body.style.position = "";
+          document.body.style.width = "";
 
           if (searchInput) searchInput.value = "";
           showPopularProcedures();
@@ -459,6 +464,24 @@
   .mobile-modal-body {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
+  }
+
+  .mobile-search-modal {
+    /* Maximum z-index and positioning */
+    z-index: 2147483647 !important;
+    position: fixed !important;
+    /* ... all positioning props ... */
+
+    /* Solid background - no transparency */
+    background-color: white !important;
+
+    /* Create new stacking context at root level */
+    transform: translateZ(0);
+    will-change: transform;
+    isolation: isolate;
+
+    /* Ensure it's on its own layer */
+    contain: layout style paint;
   }
 
   .mobile-procedure-result:active {

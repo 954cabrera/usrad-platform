@@ -36,9 +36,11 @@ const { remixUrl } = Astro.props;
       </div>
     </div>
   </div>
-
-  <MobileSearchModal />
 </section>
+
+<!-- Mobile Search Modal - Moved outside section for proper z-index stacking -->
+<MobileSearchModal />
+<!-- ✅ OUTSIDE section -->
 
 <!-- DROPDOWN PORTAL - Positioned outside hero section for proper z-index stacking -->
 <!-- This prevents the SocialProofBar from covering the dropdown -->
@@ -118,7 +120,6 @@ const { remixUrl } = Astro.props;
 <style>
   #hero-section {
     position: relative;
-    isolation: isolate;
   }
 
   #hero-search-container {
