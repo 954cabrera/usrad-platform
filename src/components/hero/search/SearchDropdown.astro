@@ -23,8 +23,9 @@ import SearchResults from "../SearchResults.astro";
 <!-- Backdrop element (click-outside detection + blur effect trigger) -->
 <div
   id="search-backdrop"
-  class="hidden fixed inset-0 bg-black/20 backdrop-blur-sm transition-all duration-300"
-  style="z-index: 214748364798;"
+  class="hidden fixed inset-0 pointer-events-auto transition-opacity duration-300"
+  style="z-index: 9999998;"
+  aria-hidden="true"
 >
 </div>
 
