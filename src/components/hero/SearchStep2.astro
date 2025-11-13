@@ -595,16 +595,27 @@ const { remixUrl } = Astro.props;
 
         if (state.selectedProcedure) {
           const label = state.selectedProcedure.label;
+          // Extract CPT code from either cptCode or cpt property
+          const cptCode =
+            state.selectedProcedure.cptCode ||
+            state.selectedProcedure.cpt ||
+            "";
 
           if (procedureDisplay) procedureDisplay.textContent = label;
           if (procedureDisplayMobile)
             procedureDisplayMobile.textContent = label;
 
-          if (cptHidden)
-            cptHidden.value = state.selectedProcedure.cptCode || "";
+          if (cptHidden) {
+            cptHidden.value = cptCode;
+            console.log("🔍 CPT code set:", {
+              cptCode,
+              cptHiddenValue: cptHidden.value,
+              hasValue: cptHidden.value.length > 0,
+            });
+          }
           if (procedureHidden) procedureHidden.value = label;
 
-          console.log("✅ Procedure display updated", { label });
+          console.log("✅ Procedure display updated", { label, cptCode });
         }
 
         if (state.zipCode) {
