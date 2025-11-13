@@ -1,0 +1,339 @@
+---
+/**
+ * SearchDropdown.astro
+ *
+ * Desktop search dropdown container that orchestrates:
+ * - PopularProcedures (when query is empty)
+ * - SearchResults (when query has 2+ chars)
+ * - Empty state (when query has 2+ chars but no results)
+ *
+ * CRITICAL FEATURES:
+ * 1. Blur ONLY sections BELOW hero (not hero itself)
+ * 2. Scroll lock with padding compensation
+ * 3. Backdrop element for click-outside handling
+ * 4. Fixed positioning relative to search input
+ * 5. Event handlers (click outside, Escape, resize)
+ */
+
+// Import search subcomponents
+import PopularProcedures from "./PopularProcedures.astro";
+import SearchResults from "../SearchResults.astro";
+---
+
+<!-- Backdrop element (click-outside detection + blur effect trigger) -->
+<div
+  id="search-backdrop"
+  class="hidden fixed inset-0 bg-black/20 backdrop-blur-sm transition-all duration-300"
+  style="z-index: 999998;"
+>
+</div>
+
+<!-- Search dropdown container (fixed positioning) -->
+<div
+  id="search-dropdown"
+  class="hidden fixed bg-white shadow-2xl rounded-lg overflow-hidden border border-gray-200"
+  style="z-index: 9999999; max-height: 600px;"
+>
+  <!-- Content container with custom scrollbar -->
+  <div class="overflow-y-auto h-full search-dropdown-scroll">
+    <!-- Popular Procedures (shown when query is empty) -->
+    <div id="popular-procedures-container">
+      <PopularProcedures />
+    </div>
+
+    <!-- Search Results (shown when query >= 2 chars AND results exist) -->
+    <div id="search-results-container" class="hidden">
+      <SearchResults />
+    </div>
+
+    <!-- Empty State (shown when query >= 2 chars AND no results) -->
+    <div id="empty-state-container" class="hidden">
+      <div class="p-8 text-center">
+        <svg
+          class="mx-auto h-12 w-12 text-gray-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <h3 class="mt-4 text-lg font-medium text-gray-900">
+          No procedures found
+        </h3>
+        <p class="mt-2 text-sm text-gray-500">
+          Try searching for a different procedure or body part.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Custom scrollbar styling */
+  .search-dropdown-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #b8862d #f3f4f6;
+  }
+
+  .search-dropdown-scroll::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .search-dropdown-scroll::-webkit-scrollbar-track {
+    background: #f3f4f6;
+  }
+
+  .search-dropdown-scroll::-webkit-scrollbar-thumb {
+    background-color: #b8862d;
+    border-radius: 4px;
+  }
+
+  .search-dropdown-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #cc9933;
+  }
+</style>
+
+<script>
+  /**
+   * SearchDropdown - Desktop dropdown orchestrator
+   *
+   * This script manages:
+   * 1. Dropdown positioning (below search input)
+   * 2. Backdrop visibility and blur effects
+   * 3. Scroll lock (body becomes fixed)
+   * 4. Click outside to close
+   * 5. Escape key to close
+   * 6. Window resize repositioning
+   */
+
+  import { searchManager } from "../../../lib/search-manager";
+
+  let scrollLockPadding = 0;
+
+  /**
+   * Initialize dropdown behavior
+   */
+  function initSearchDropdown() {
+    const dropdown = document.getElementById("search-dropdown");
+    const backdrop = document.getElementById("search-backdrop");
+    const searchInput = document.getElementById("hero-search-input");
+    const popularContainer = document.getElementById(
+      "popular-procedures-container"
+    );
+    const resultsContainer = document.getElementById(
+      "search-results-container"
+    );
+    const emptyContainer = document.getElementById("empty-state-container");
+
+    if (!dropdown || !backdrop || !searchInput) {
+      console.warn("⚠️ SearchDropdown: Required elements not found");
+      return;
+    }
+
+    console.log("✅ SearchDropdown: Initializing...");
+
+    /**
+     * Position dropdown below search input
+     */
+    function positionDropdown() {
+      const inputRect = searchInput.getBoundingClientRect();
+      const dropdownWidth = Math.min(800, window.innerWidth - 32);
+
+      dropdown.style.width = `${dropdownWidth}px`;
+      dropdown.style.top = `${inputRect.bottom + 8}px`;
+      dropdown.style.left = `${Math.max(16, (window.innerWidth - dropdownWidth) / 2)}px`;
+    }
+
+    /**
+     * Open dropdown
+     */
+    function openDropdown() {
+      if (!dropdown.classList.contains("hidden")) return;
+
+      console.log("SearchDropdown: Opening");
+
+      // Calculate scrollbar width
+      scrollLockPadding =
+        window.innerWidth - document.documentElement.clientWidth;
+
+      // Apply scroll lock
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${window.scrollY}px`;
+      document.body.style.width = "100%";
+
+      if (scrollLockPadding > 0) {
+        document.body.style.paddingRight = `${scrollLockPadding}px`;
+      }
+
+      // Show backdrop and dropdown
+      backdrop.classList.remove("hidden");
+      dropdown.classList.remove("hidden");
+
+      // Position dropdown
+      positionDropdown();
+
+      // Blur sections below hero
+      blurSectionsBelow();
+
+      console.log("✅ SearchDropdown: Opened with scroll lock");
+    }
+
+    /**
+     * Close dropdown
+     */
+    function closeDropdown() {
+      if (dropdown.classList.contains("hidden")) return;
+
+      console.log("SearchDropdown: Closing");
+
+      // Get scroll position
+      const scrollY = document.body.style.top;
+
+      // Remove scroll lock
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      document.body.style.paddingRight = "";
+
+      // Restore scroll position
+      window.scrollTo(0, parseInt(scrollY || "0") * -1);
+
+      // Hide backdrop and dropdown
+      backdrop.classList.add("hidden");
+      dropdown.classList.add("hidden");
+
+      // Remove blur
+      unblurSectionsBelow();
+
+      console.log("✅ SearchDropdown: Closed, scroll restored");
+    }
+
+    /**
+     * Blur sections below hero
+     */
+    function blurSectionsBelow() {
+      const heroSection = document.getElementById("hero-section");
+      if (!heroSection) return;
+
+      let nextSection = heroSection.nextElementSibling;
+      while (nextSection) {
+        if (
+          nextSection.tagName === "SECTION" ||
+          nextSection.tagName === "DIV"
+        ) {
+          (nextSection as HTMLElement).style.filter = "blur(3px)";
+          (nextSection as HTMLElement).style.transition = "filter 0.3s ease";
+        }
+        nextSection = nextSection.nextElementSibling;
+      }
+    }
+
+    /**
+     * Remove blur from sections below hero
+     */
+    function unblurSectionsBelow() {
+      const heroSection = document.getElementById("hero-section");
+      if (!heroSection) return;
+
+      let nextSection = heroSection.nextElementSibling;
+      while (nextSection) {
+        if (
+          nextSection.tagName === "SECTION" ||
+          nextSection.tagName === "DIV"
+        ) {
+          (nextSection as HTMLElement).style.filter = "";
+        }
+        nextSection = nextSection.nextElementSibling;
+      }
+    }
+
+    /**
+     * Show/hide sections based on search state
+     */
+    function updateVisibility(state: any) {
+      const hasQuery = state.currentQuery && state.currentQuery.length >= 2;
+      const hasResults = state.searchResults && state.searchResults.length > 0;
+
+      if (!hasQuery) {
+        // Show popular procedures
+        popularContainer?.classList.remove("hidden");
+        resultsContainer?.classList.add("hidden");
+        emptyContainer?.classList.add("hidden");
+      } else if (hasResults) {
+        // Show search results
+        popularContainer?.classList.add("hidden");
+        resultsContainer?.classList.remove("hidden");
+        emptyContainer?.classList.add("hidden");
+      } else {
+        // Show empty state
+        popularContainer?.classList.add("hidden");
+        resultsContainer?.classList.add("hidden");
+        emptyContainer?.classList.remove("hidden");
+      }
+    }
+
+    /**
+     * Subscribe to SearchManager state
+     */
+    searchManager.subscribe((state) => {
+      console.log("SearchDropdown: State update", {
+        isOpen: state.isDropdownOpen,
+        query: state.currentQuery,
+        results: state.searchResults?.length,
+      });
+
+      if (state.isDropdownOpen) {
+        openDropdown();
+      } else {
+        closeDropdown();
+      }
+
+      updateVisibility(state);
+    });
+
+    /**
+     * Click outside to close
+     */
+    backdrop.addEventListener("click", () => {
+      searchManager.closeDropdown();
+    });
+
+    /**
+     * Escape key to close
+     */
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !dropdown.classList.contains("hidden")) {
+        searchManager.closeDropdown();
+        searchInput.blur();
+      }
+    });
+
+    /**
+     * Reposition on window resize
+     */
+    window.addEventListener("resize", () => {
+      if (!dropdown.classList.contains("hidden")) {
+        positionDropdown();
+      }
+    });
+
+    console.log("✅ SearchDropdown: Initialization complete");
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSearchDropdown);
+  } else {
+    initSearchDropdown();
+  }
+
+  // Re-initialize on Astro page transitions
+  document.addEventListener("astro:page-load", initSearchDropdown);
+</script>

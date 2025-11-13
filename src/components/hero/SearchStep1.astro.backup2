@@ -1,0 +1,237 @@
+---
+/**
+ * SearchStep1.astro
+ *
+ * Search input component (Step 1 of the hero search flow)
+ *
+ * FEATURES:
+ * 1. Search input with real-time search
+ * 2. Focus handler that opens dropdown (desktop) or modal (mobile)
+ * 3. Mobile detection (< 768px)
+ * 4. Integration with SearchManager
+ * 5. Smooth transitions when switching steps
+ *
+ * MOBILE BEHAVIOR:
+ * - Focus → blur input immediately → open modal
+ * - Prevents keyboard from showing
+ *
+ * DESKTOP BEHAVIOR:
+ * - Focus → open dropdown
+ * - Input → search with 200ms debounce
+ * - Escape → close dropdown
+ * - Click outside → close dropdown
+ */
+---
+
+<!-- STEP 1: Search Input with Find Button -->
+<div
+  id="search-step-1"
+  class="relative z-[9999] max-w-3xl mx-auto mb-16 sm:mb-24 transition-all duration-500"
+  data-aos="fade-up"
+  data-aos-delay="300"
+>
+  <!-- Search Input Container -->
+  <div class="relative">
+    <div
+      class="bg-white/90 backdrop-blur-md border-2 border-white/60 shadow-lg rounded-xl flex flex-col sm:flex-row items-stretch overflow-hidden"
+    >
+      <!-- Search Input -->
+      <input
+        type="text"
+        id="hero-search-input"
+        placeholder="Type MRI, CT, Ultrasound..."
+        autocomplete="off"
+        class="flex-1 px-6 py-4 sm:py-5 text-base sm:text-lg text-gray-900 placeholder-gray-500 bg-transparent focus:outline-none focus:ring-2 focus:ring-[#003087]/20 transition-all"
+        aria-label="Search for medical procedures"
+        aria-autocomplete="list"
+        aria-controls="search-dropdown"
+        aria-expanded="false"
+      />
+
+      <!-- Find Button -->
+      <button
+        type="button"
+        id="hero-find-button"
+        class="bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-8 py-4 sm:py-5 font-bold text-base sm:text-lg transition-all duration-300 hover:brightness-110"
+      >
+        <span class="flex items-center justify-center gap-2">
+          Find
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Fade animations for step transitions */
+  .fade-in-step {
+    animation: fadeInStep 0.25s ease-out;
+  }
+
+  .fade-out-step {
+    animation: fadeOutStep 0.25s ease-out;
+  }
+
+  @keyframes fadeInStep {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeOutStep {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+  }
+</style>
+
+<script>
+  // Import SearchManager for state management
+  import { searchManager } from '../../lib/search-manager';
+
+  let searchTimeout: number;
+  let isSubscribed = false;
+
+  /**
+   * Initialize SearchStep1 component
+   */
+  function initializeSearchStep1() {
+    const searchInput = document.getElementById(
+      "hero-search-input"
+    ) as HTMLInputElement;
+    const findButton = document.getElementById(
+      "hero-find-button"
+    ) as HTMLButtonElement;
+
+    if (!searchInput) {
+      console.error("❌ SearchStep1: Search input not found");
+      return;
+    }
+
+    console.log("✅ SearchStep1: Initializing...");
+
+    /**
+     * Focus handler - opens dropdown (desktop) or modal (mobile)
+     */
+    searchInput.addEventListener("focus", function () {
+      const isMobile = window.innerWidth < 768;
+
+      console.log("SearchStep1: Input focused", { isMobile });
+
+      if (
+        isMobile &&
+        typeof (window as any).mobileSearchModal !== "undefined"
+      ) {
+        // Mobile: blur input to prevent keyboard, open modal
+        searchInput.blur();
+        (window as any).mobileSearchModal.open();
+        console.log("✅ Mobile modal opened");
+      } else {
+        // Desktop: open dropdown via SearchManager
+        searchManager.openDropdown();
+        console.log("✅ Desktop dropdown opened");
+      }
+    });
+
+    /**
+     * Input handler - performs search with debounce
+     * Only handles input on desktop (mobile uses modal's own input)
+     */
+    searchInput.addEventListener("input", function (e) {
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) return; // Skip on mobile
+
+      clearTimeout(searchTimeout);
+
+      // Ensure dropdown is open
+      searchManager.openDropdown();
+
+      const query = (e.target as HTMLInputElement).value.trim();
+
+      // Debounce search by 200ms
+      searchTimeout = window.setTimeout(() => {
+        searchManager.search(query);
+        console.log("SearchStep1: Search performed", { query });
+      }, 200);
+    });
+
+    /**
+     * Find button handler - currently placeholder
+     * (In full implementation, might trigger a default search)
+     */
+    if (findButton) {
+      findButton.addEventListener("click", function () {
+        const query = searchInput.value.trim();
+
+        if (query.length >= 2) {
+          searchManager.search(query);
+          console.log("SearchStep1: Find button clicked", { query });
+        } else {
+          // Open dropdown to show popular procedures
+          searchManager.openDropdown();
+        }
+      });
+    }
+
+    /**
+     * Subscribe to SearchManager state changes
+     */
+    if (!isSubscribed) {
+      searchManager.subscribe((state) => {
+        console.log("SearchStep1: State update", {
+          currentStep: state.currentStep,
+          selectedProcedure: state.selectedProcedure?.label,
+        });
+
+        // Clear input when returning to Step 1 from Step 2
+        if (state.currentStep === 1 && searchInput.value) {
+          searchInput.value = "";
+          console.log("✅ SearchStep1: Input cleared");
+        }
+
+        // Update aria-expanded attribute
+        searchInput.setAttribute(
+          "aria-expanded",
+          state.isDropdownOpen ? "true" : "false"
+        );
+      });
+
+      isSubscribed = true;
+      console.log("✅ SearchStep1: Subscribed to SearchManager");
+    }
+
+    console.log("✅ SearchStep1: Initialization complete");
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeSearchStep1);
+  } else {
+    initializeSearchStep1();
+  }
+
+  // Re-initialize on Astro page transitions (if using View Transitions)
+  document.addEventListener("astro:page-load", initializeSearchStep1);
+</script>

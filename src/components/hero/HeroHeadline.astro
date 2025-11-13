@@ -1,0 +1,56 @@
+---
+/**
+ * HeroHeadline.astro
+ * 
+ * Three-line headline with animated SVG underline
+ */
+---
+
+<div class="mb-8 sm:mb-12" data-aos="fade-up" data-aos-delay="100">
+  <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 leading-tight">
+    <div class="text-white mb-2">Same Radiologists.</div>
+    <div class="text-white mb-2">Same Scanners.</div>
+    <div class="relative inline-block">
+      <span class="text-[#cc9933]">70% Less</span>
+      <svg
+        class="absolute left-0 -bottom-2 w-full"
+        viewBox="0 0 400 20"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M0,10 Q100,5 200,10 T400,10"
+          stroke="#cc9933"
+          stroke-width="4"
+          fill="none"
+          stroke-linecap="round"
+        >
+          <animate
+            attributeName="d"
+            values="M0,10 Q100,5 200,10 T400,10; M0,10 Q100,15 200,10 T400,10; M0,10 Q100,5 200,10 T400,10"
+            dur="3s"
+            repeatCount="indefinite"
+          />
+        </path>
+      </svg>
+    </div>
+    <span class="text-[#cc9933]">.</span>
+  </h1>
+
+  <p class="text-xl sm:text-2xl md:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+    Book in minutes. Get scanned this week.<br />
+    Pay hundreds, not thousands.
+  </p>
+</div>
+
+<style>
+  h1 {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 2.5rem;
+    }
+  }
+</style>

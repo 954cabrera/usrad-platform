@@ -1,0 +1,380 @@
+---
+/**
+ * PopularProcedures.astro
+ * ========================
+ * Displays curated list of popular procedures when search query is empty.
+ *
+ * PURPOSE:
+ * - Shows 22 popular procedures by default
+ * - Groups procedures by modality (MRI, CT, X-Ray, Ultrasound)
+ * - Provides quick access to common procedures
+ * - Subscribes to SearchManager for reactive updates
+ *
+ * DEPENDENCIES:
+ * - SearchManager (for state management)
+ * - search-utils (for character encoding fixes)
+ *
+ * BEHAVIOR:
+ * - Visible when query === '' (empty search)
+ * - Hidden when query.length >= 2 (search active)
+ * - Handles procedure selection via SearchManager
+ * - Unsubscribes on component cleanup
+ *
+ * STRUCTURE:
+ * - Header with title and "Curated by USRad" badge
+ * - Scrollable list with groups by modality
+ * - Each procedure clickable with hover effects
+ * - Gentle fade at bottom for scroll indication
+ */
+---
+
+<!-- Popular Procedures Container -->
+<div id="popular-procedures-section" class="hidden relative">
+  <!-- 
+    Header Section
+    ==============
+    - Gold gradient background for premium feel
+    - Star emoji for visual interest
+    - "Curated by USRad" badge for trust
+  -->
+  <div
+    class="px-4 py-3 bg-gradient-to-r from-[#fff5e3] via-[#fffaf5] to-white border-b border-[#f5e4c3] flex items-center justify-between"
+  >
+    <div>
+      <h3 class="text-sm font-semibold text-[#b8862d] flex items-center gap-2">
+        ⭐ Popular Procedures
+      </h3>
+      <p class="text-xs text-gray-500 mt-0.5">Or start typing to search...</p>
+    </div>
+    <span class="text-xs text-[#b8862d]/80 font-medium">Curated by USRad</span>
+  </div>
+
+  <!-- 
+    Scrollable List Container
+    =========================
+    - max-h-[420px]: Maximum height before scrolling
+    - Custom scrollbar styling applied via CSS
+    - overflow-y-auto: Scrolls when content exceeds height
+  -->
+  <div
+    id="popular-procedures-list"
+    class="overflow-y-auto max-h-[420px] px-3 py-2.5"
+  >
+    <!-- Procedures will be rendered here by JavaScript -->
+  </div>
+
+  <!-- 
+    Fade Indicator
+    ==============
+    Gentle gradient at bottom to indicate more content below
+    - pointer-events-none: Doesn't interfere with clicking
+    - Fades from white to transparent
+  -->
+  <div
+    class="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent rounded-b-xl"
+  >
+  </div>
+</div>
+
+<script>
+  /**
+   * PopularProcedures Component Script
+   * ===================================
+   * Handles rendering and interaction of popular procedures list
+   */
+
+  import { searchManager } from '../../../lib/search-manager';
+  import { fixCharacterEncoding } from '../../../lib/search-utils';
+  import type { Procedure } from '../../../lib/search-manager';
+
+  // Modality color configuration (matching original)
+  const MODALITY_COLORS = {
+    MRI: {
+      bg: "bg-blue-500",
+      text: "text-blue-600",
+      lightBg: "bg-blue-50",
+      border: "border-blue-200",
+    },
+    CT: {
+      bg: "bg-teal-500",
+      text: "text-teal-600",
+      lightBg: "bg-teal-50",
+      border: "border-teal-200",
+    },
+    "X-Ray": {
+      bg: "bg-amber-500",
+      text: "text-amber-600",
+      lightBg: "bg-amber-50",
+      border: "border-amber-200",
+    },
+    Ultrasound: {
+      bg: "bg-sky-500",
+      text: "text-sky-600",
+      lightBg: "bg-sky-50",
+      border: "border-sky-200",
+    },
+  };
+
+  // Modality icons for group headers
+  const MODALITY_ICONS = {
+    MRI: "🧠",
+    CT: "🦴",
+    "X-Ray": "👀",
+    Ultrasound: "🩺",
+  };
+
+  // Get DOM elements
+  const container = document.getElementById("popular-procedures-section");
+  const listContainer = document.getElementById("popular-procedures-list");
+
+  /**
+   * Group procedures by modality
+   * @param procedures - Array of procedures to group
+   * @returns Object with modality as keys and procedure arrays as values
+   */
+  function groupByModality(
+    procedures: Procedure[]
+  ): Record<string, Procedure[]> {
+    const groups: Record<string, Procedure[]> = {};
+
+    procedures.forEach((proc) => {
+      const modality = proc.modality || "Other";
+      if (!groups[modality]) {
+        groups[modality] = [];
+      }
+      groups[modality].push(proc);
+    });
+
+    return groups;
+  }
+
+  /**
+   * Render a single procedure button
+   * @param procedure - Procedure to render
+   * @param currentQuery - Current search query (empty for popular)
+   * @returns HTML string for procedure button
+   */
+  function renderProcedureButton(
+    procedure: Procedure,
+    currentQuery: string = ""
+  ): string {
+    const colors =
+      MODALITY_COLORS[procedure.modality as keyof typeof MODALITY_COLORS] ||
+      MODALITY_COLORS.MRI;
+
+    // Apply character encoding fixes to procedure label
+    const cleanLabel = fixCharacterEncoding(procedure.label);
+
+    return `
+      <button
+        type="button"
+        class="w-full text-left flex items-center justify-between px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition procedure-result"
+        data-cpt="${procedure.cpt || ""}"
+        data-label="${cleanLabel.replace(/"/g, "&quot;")}"
+        data-modality="${procedure.modality || ""}"
+        data-bodypart="${procedure.bodyPart || ""}"
+        aria-label="Select ${cleanLabel}"
+      >
+        <div class="flex flex-col">
+          <span class="text-[15px] font-medium text-gray-900 leading-tight">
+            ${cleanLabel}
+          </span>
+        </div>
+        <span
+          class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wide
+          ${
+            procedure.modality === "MRI"
+              ? "bg-[#e7f0ff] text-[#003087]"
+              : procedure.modality === "CT"
+                ? "bg-[#fff8ee] text-[#b8862d]"
+                : procedure.modality === "X-Ray"
+                  ? "bg-[#f3f4f6] text-gray-700"
+                  : "bg-[#eefaf1] text-[#006d3b]"
+          }"
+        >
+          ${procedure.modality || "Scan"}
+        </span>
+      </button>
+    `;
+  }
+
+  /**
+   * Render grouped procedures with sticky headers
+   * @param procedures - Array of procedures to render
+   * @returns HTML string for all grouped procedures
+   */
+  function renderGroupedProcedures(procedures: Procedure[]): string {
+    const groups = groupByModality(procedures);
+    const modalityOrder = ["MRI", "CT", "X-Ray", "Ultrasound"];
+
+    return modalityOrder
+      .map((modality) => {
+        const group = groups[modality];
+        if (!group || group.length === 0) return "";
+
+        const icon =
+          MODALITY_ICONS[modality as keyof typeof MODALITY_ICONS] || "📋";
+
+        return `
+        <div class="mb-4 border border-gray-100 rounded-lg overflow-hidden shadow-sm">
+          <!-- Sticky Group Header -->
+          <div class="sticky top-0 z-10 px-4 py-2 bg-gradient-to-r from-[#fff8ee] to-white border-b border-[#f5e4c3] flex items-center justify-between backdrop-blur-sm">
+            <h4 class="text-sm font-semibold text-[#b8862d] flex items-center gap-2">
+              <span>${icon}</span> ${modality}
+            </h4>
+            <span class="text-xs text-gray-500">${group.length} procedures</span>
+          </div>
+          
+          <!-- Procedure List -->
+          <div class="divide-y divide-gray-100 max-h-[220px] overflow-y-auto">
+            ${group.map((proc) => renderProcedureButton(proc)).join("")}
+          </div>
+        </div>
+        `;
+      })
+      .filter((html) => html !== "")
+      .join("");
+  }
+
+  /**
+   * Render popular procedures
+   * Called when state updates
+   */
+  function renderPopularProcedures(state: any) {
+    if (!listContainer) return;
+
+    // Only render popular when query is empty
+    const shouldShowPopular = !state.query || state.query.length < 2;
+
+    if (!shouldShowPopular) {
+      container?.classList.add("hidden");
+      return;
+    }
+
+    // Show container
+    container?.classList.remove("hidden");
+
+    // Get popular procedures from state
+    const popularProcedures = state.popularProcedures || [];
+
+    if (popularProcedures.length === 0) {
+      listContainer.innerHTML = `
+        <div class="text-center py-8 text-gray-500 text-sm">
+          <p>Loading popular procedures...</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Render grouped procedures
+    listContainer.innerHTML = renderGroupedProcedures(popularProcedures);
+
+    // Attach click handlers to all procedure buttons
+    attachClickHandlers();
+  }
+
+  /**
+   * Attach click handlers to procedure buttons
+   * Calls SearchManager.selectProcedure() on click
+   */
+  function attachClickHandlers() {
+    const buttons = listContainer?.querySelectorAll(".procedure-result");
+
+    buttons?.forEach((button) => {
+      button.addEventListener("click", () => {
+        const cpt = button.getAttribute("data-cpt") || "";
+        const label = button.getAttribute("data-label") || "";
+        const modality = button.getAttribute("data-modality") || "";
+        const bodyPart = button.getAttribute("data-bodypart") || "";
+
+        // Create procedure object
+        const procedure: Procedure = {
+          cpt,
+          label,
+          modality,
+          bodyPart,
+          description: "", // Not needed for selection
+        };
+
+        // Select procedure via SearchManager
+        searchManager.selectProcedure(procedure);
+      });
+    });
+  }
+
+  /**
+   * Initialize component
+   * Subscribe to SearchManager state changes
+   */
+  function init() {
+    // Subscribe to state changes
+    const unsubscribe = searchManager.subscribe(renderPopularProcedures);
+
+    // Cleanup on page navigation (Astro specific)
+    document.addEventListener("astro:before-swap", () => {
+      unsubscribe();
+    });
+
+    // Also cleanup on beforeunload for non-Astro scenarios
+    window.addEventListener("beforeunload", () => {
+      unsubscribe();
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+</script>
+
+<style>
+  /**
+   * Custom Scrollbar Styling
+   * ========================
+   * Gold/bronze theme matching brand colors
+   */
+
+  /* WebKit browsers (Chrome, Safari, Edge) */
+  #popular-procedures-list::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  #popular-procedures-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  #popular-procedures-list::-webkit-scrollbar-thumb {
+    background: #b8862d; /* Brand gold */
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+  }
+
+  #popular-procedures-list::-webkit-scrollbar-thumb:hover {
+    background: #996d24; /* Darker gold on hover */
+  }
+
+  /* Firefox */
+  #popular-procedures-list {
+    scrollbar-width: auto;
+    scrollbar-color: #b8862d #f1f1f1;
+  }
+
+  /* Nested scrollbars (for group lists) */
+  #popular-procedures-list .overflow-y-auto::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  #popular-procedures-list .overflow-y-auto::-webkit-scrollbar-track {
+    background: #f9f9f9;
+    border-radius: 8px;
+  }
+
+  #popular-procedures-list .overflow-y-auto::-webkit-scrollbar-thumb {
+    background: #d4a855;
+    border-radius: 8px;
+    border: 1px solid #ffffff;
+  }
+</style>

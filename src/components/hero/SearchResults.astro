@@ -1,0 +1,456 @@
+---
+/**
+ * SearchResults.astro
+ * ===================
+ * Displays search results when user types 2+ characters.
+ *
+ * ⚠️ CRITICAL: CHARACTER ENCODING FIXES APPLIED ⚠️
+ * This component applies fixCharacterEncoding() to ALL procedure labels
+ * to prevent corrupted UTF-8 characters (â€", â€œ, etc.) from displaying.
+ *
+ * PURPOSE:
+ * - Shows search results grouped by modality
+ * - Displays result count
+ * - Handles empty state (no results found)
+ * - Subscribes to SearchManager for reactive updates
+ *
+ * DEPENDENCIES:
+ * - SearchManager (for state management)
+ * - search-utils (for character encoding fixes) ← CRITICAL
+ *
+ * BEHAVIOR:
+ * - Visible when query.length >= 2 AND results exist
+ * - Hidden when query is empty
+ * - Shows empty state when query >= 2 but no results
+ * - Maximum 10 results displayed
+ * - Handles procedure selection via SearchManager
+ *
+ * STRUCTURE:
+ * - Header with result count
+ * - Scrollable list with groups by modality
+ * - Each procedure clickable with hover effects
+ * - Empty state with icon and message
+ * - Gentle fade at bottom for scroll indication
+ */
+---
+
+<!-- Search Results Container -->
+<div id="search-results-section" class="hidden relative">
+  <!-- 
+    Header Section with Result Count
+    =================================
+    - Blue gradient background to distinguish from popular
+    - Dynamic result count updated by JavaScript
+  -->
+  <div
+    class="px-4 py-3 bg-gradient-to-r from-blue-50 to-white border-b border-gray-200"
+  >
+    <h3 class="text-sm font-semibold text-gray-700">
+      <span id="results-count">0</span> Results
+    </h3>
+  </div>
+
+  <!-- 
+    Scrollable Results Container
+    ============================
+    - max-h-[420px]: Maximum height before scrolling
+    - Custom scrollbar styling applied via CSS
+    - overflow-y-auto: Scrolls when content exceeds height
+  -->
+  <div
+    id="search-results-list"
+    class="overflow-y-auto max-h-[420px] px-3 py-2.5"
+  >
+    <!-- Search results will be rendered here by JavaScript -->
+  </div>
+
+  <!-- 
+    Fade Indicator
+    ==============
+    Gentle gradient at bottom to indicate more content below
+  -->
+  <div
+    class="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent rounded-b-xl"
+  >
+  </div>
+</div>
+
+<!-- 
+  Empty State
+  ===========
+  Shown when search query is >= 2 chars but no results found
+-->
+<div id="empty-state" class="hidden text-center py-12 px-4">
+  <!-- Search icon -->
+  <svg
+    class="w-16 h-16 mx-auto mb-4 text-gray-300"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+  </svg>
+
+  <!-- Empty state message -->
+  <p class="text-base font-semibold text-gray-700 mb-1">No procedures found</p>
+  <p class="text-sm text-gray-500">Try a different search term</p>
+</div>
+
+<script>
+  /**
+   * SearchResults Component Script
+   * ===============================
+   * ⚠️ CRITICAL: Applies character encoding fixes to all labels
+   */
+
+  import { searchManager } from '../../lib/search-manager';
+  import { fixCharacterEncoding } from '../../lib/search-utils';
+  import type { Procedure } from '../../lib/search-manager';
+
+  // Modality color configuration (matching original)
+  const MODALITY_COLORS = {
+    MRI: {
+      bg: "bg-blue-500",
+      text: "text-blue-600",
+      lightBg: "bg-blue-50",
+      border: "border-blue-200",
+    },
+    CT: {
+      bg: "bg-teal-500",
+      text: "text-teal-600",
+      lightBg: "bg-teal-50",
+      border: "border-teal-200",
+    },
+    "X-Ray": {
+      bg: "bg-amber-500",
+      text: "text-amber-600",
+      lightBg: "bg-amber-50",
+      border: "border-amber-200",
+    },
+    Ultrasound: {
+      bg: "bg-sky-500",
+      text: "text-sky-600",
+      lightBg: "bg-sky-50",
+      border: "border-sky-200",
+    },
+  };
+
+  // Modality icons for group headers
+  const MODALITY_ICONS = {
+    MRI: "🧠",
+    CT: "🦴",
+    "X-Ray": "👀",
+    Ultrasound: "🩺",
+  };
+
+  // Get DOM elements
+  const resultsContainer = document.getElementById("search-results-section");
+  const resultsListContainer = document.getElementById("search-results-list");
+  const resultsCountElement = document.getElementById("results-count");
+  const emptyStateContainer = document.getElementById("empty-state");
+
+  /**
+   * Highlight query matches in text
+   * @param text - Text to highlight within
+   * @param query - Query to highlight
+   * @returns HTML string with highlighted matches
+   */
+  function highlightMatch(text: string, query: string): string {
+    if (!query || query.length < 2) return text;
+
+    // Escape special regex characters in query
+    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+    // Create case-insensitive regex
+    const regex = new RegExp(`(${escapedQuery})`, "gi");
+
+    // Highlight matches with gold color
+    return text.replace(
+      regex,
+      '<span class="font-semibold text-[#cc9933]">$1</span>'
+    );
+  }
+
+  /**
+   * Group procedures by modality
+   * @param procedures - Array of procedures to group
+   * @returns Object with modality as keys and procedure arrays as values
+   */
+  function groupByModality(
+    procedures: Procedure[]
+  ): Record<string, Procedure[]> {
+    const groups: Record<string, Procedure[]> = {};
+
+    procedures.forEach((proc) => {
+      const modality = proc.modality || "Other";
+      if (!groups[modality]) {
+        groups[modality] = [];
+      }
+      groups[modality].push(proc);
+    });
+
+    return groups;
+  }
+
+  /**
+   * Render a single procedure button
+   * ⚠️ CRITICAL: Applies character encoding fixes here
+   *
+   * @param procedure - Procedure to render
+   * @param currentQuery - Current search query for highlighting
+   * @returns HTML string for procedure button
+   */
+  function renderProcedureButton(
+    procedure: Procedure,
+    currentQuery: string
+  ): string {
+    const colors =
+      MODALITY_COLORS[procedure.modality as keyof typeof MODALITY_COLORS] ||
+      MODALITY_COLORS.MRI;
+
+    // ⚠️ CRITICAL: Apply character encoding fixes
+    // This fixes â€", â€œ, â€¢, â€", etc.
+    const cleanLabel = fixCharacterEncoding(procedure.label);
+    const cleanBodyPart = fixCharacterEncoding(procedure.bodyPart || "");
+
+    // Apply highlighting to clean label
+    const highlightedLabel = highlightMatch(cleanLabel, currentQuery);
+
+    return `
+      <button
+        type="button"
+        class="w-full text-left flex items-center justify-between px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition procedure-result"
+        data-cpt="${procedure.cpt || ""}"
+        data-label="${cleanLabel.replace(/"/g, "&quot;")}"
+        data-modality="${procedure.modality || ""}"
+        data-bodypart="${cleanBodyPart.replace(/"/g, "&quot;")}"
+        aria-label="Select ${cleanLabel}"
+      >
+        <div class="flex flex-col flex-1 min-w-0">
+          <span class="text-[15px] font-medium text-gray-900 leading-tight">
+            ${highlightedLabel}
+          </span>
+          ${
+            cleanBodyPart
+              ? `
+            <span class="text-xs text-gray-500 mt-0.5">${cleanBodyPart}</span>
+          `
+              : ""
+          }
+        </div>
+        <span
+          class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wide
+          ${
+            procedure.modality === "MRI"
+              ? "bg-[#e7f0ff] text-[#003087]"
+              : procedure.modality === "CT"
+                ? "bg-[#fff8ee] text-[#b8862d]"
+                : procedure.modality === "X-Ray"
+                  ? "bg-[#f3f4f6] text-gray-700"
+                  : "bg-[#eefaf1] text-[#006d3b]"
+          }"
+        >
+          ${procedure.modality || "Scan"}
+        </span>
+      </button>
+    `;
+  }
+
+  /**
+   * Render grouped search results with sticky headers
+   * @param procedures - Array of procedures to render
+   * @param query - Current search query for highlighting
+   * @returns HTML string for all grouped procedures
+   */
+  function renderGroupedResults(
+    procedures: Procedure[],
+    query: string
+  ): string {
+    const groups = groupByModality(procedures);
+    const modalityOrder = ["MRI", "CT", "X-Ray", "Ultrasound"];
+
+    return modalityOrder
+      .map((modality) => {
+        const group = groups[modality];
+        if (!group || group.length === 0) return "";
+
+        const icon =
+          MODALITY_ICONS[modality as keyof typeof MODALITY_ICONS] || "📋";
+
+        return `
+        <div class="mb-4 border border-gray-100 rounded-lg overflow-hidden shadow-sm">
+          <!-- Sticky Group Header -->
+          <div class="sticky top-0 z-10 px-4 py-2 bg-gradient-to-r from-blue-50 to-white border-b border-blue-100 flex items-center justify-between backdrop-blur-sm">
+            <h4 class="text-sm font-semibold text-gray-700 flex items-center gap-2">
+              <span>${icon}</span> ${modality}
+            </h4>
+            <span class="text-xs text-gray-500">${group.length} results</span>
+          </div>
+          
+          <!-- Procedure List -->
+          <div class="divide-y divide-gray-100 max-h-[220px] overflow-y-auto">
+            ${group.map((proc) => renderProcedureButton(proc, query)).join("")}
+          </div>
+        </div>
+        `;
+      })
+      .filter((html) => html !== "")
+      .join("");
+  }
+
+  /**
+   * Render search results
+   * Called when state updates
+   *
+   * ⚠️ CRITICAL: This is where character encoding fixes are applied
+   */
+  function renderSearchResults(state: any) {
+    const query = state.query || "";
+    const results = state.searchResults || [];
+
+    // Determine what to show based on query and results
+    const hasQuery = query.length >= 2;
+    const hasResults = results.length > 0;
+
+    // Hide everything first
+    resultsContainer?.classList.add("hidden");
+    emptyStateContainer?.classList.add("hidden");
+
+    // If query is too short, don't show anything (popular will show instead)
+    if (!hasQuery) {
+      return;
+    }
+
+    // Update result count
+    if (resultsCountElement) {
+      resultsCountElement.textContent = results.length.toString();
+    }
+
+    // Show empty state if no results
+    if (!hasResults) {
+      emptyStateContainer?.classList.remove("hidden");
+      return;
+    }
+
+    // Show results container
+    resultsContainer?.classList.remove("hidden");
+
+    // Render grouped results with character encoding fixes applied
+    if (resultsListContainer) {
+      resultsListContainer.innerHTML = renderGroupedResults(results, query);
+    }
+
+    // Attach click handlers to all procedure buttons
+    attachClickHandlers();
+  }
+
+  /**
+   * Attach click handlers to procedure buttons
+   * Calls SearchManager.selectProcedure() on click
+   */
+  function attachClickHandlers() {
+    const buttons = resultsListContainer?.querySelectorAll(".procedure-result");
+
+    buttons?.forEach((button) => {
+      button.addEventListener("click", () => {
+        const cpt = button.getAttribute("data-cpt") || "";
+        const label = button.getAttribute("data-label") || "";
+        const modality = button.getAttribute("data-modality") || "";
+        const bodyPart = button.getAttribute("data-bodypart") || "";
+
+        // Create procedure object
+        const procedure: Procedure = {
+          cpt,
+          label,
+          modality,
+          bodyPart,
+          description: "", // Not needed for selection
+        };
+
+        // Select procedure via SearchManager
+        searchManager.selectProcedure(procedure);
+      });
+    });
+  }
+
+  /**
+   * Initialize component
+   * Subscribe to SearchManager state changes
+   */
+  function init() {
+    // Subscribe to state changes
+    const unsubscribe = searchManager.subscribe(renderSearchResults);
+
+    // Cleanup on page navigation (Astro specific)
+    document.addEventListener("astro:before-swap", () => {
+      unsubscribe();
+    });
+
+    // Also cleanup on beforeunload for non-Astro scenarios
+    window.addEventListener("beforeunload", () => {
+      unsubscribe();
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+</script>
+
+<style>
+  /**
+   * Custom Scrollbar Styling
+   * ========================
+   * Gold/bronze theme matching brand colors
+   */
+
+  /* WebKit browsers (Chrome, Safari, Edge) */
+  #search-results-list::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  #search-results-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  #search-results-list::-webkit-scrollbar-thumb {
+    background: #b8862d; /* Brand gold */
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+  }
+
+  #search-results-list::-webkit-scrollbar-thumb:hover {
+    background: #996d24; /* Darker gold on hover */
+  }
+
+  /* Firefox */
+  #search-results-list {
+    scrollbar-width: auto;
+    scrollbar-color: #b8862d #f1f1f1;
+  }
+
+  /* Nested scrollbars (for group lists) */
+  #search-results-list .overflow-y-auto::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  #search-results-list .overflow-y-auto::-webkit-scrollbar-track {
+    background: #f9f9f9;
+    border-radius: 8px;
+  }
+
+  #search-results-list .overflow-y-auto::-webkit-scrollbar-thumb {
+    background: #d4a855;
+    border-radius: 8px;
+    border: 1px solid #ffffff;
+  }
+</style>

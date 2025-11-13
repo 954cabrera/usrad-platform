@@ -1,0 +1,161 @@
+---
+/**
+ * HeroBackground.astro
+ * ====================
+ * Video background component with gradient overlays for the hero section.
+ *
+ * PURPOSE:
+ * - Displays video background with autoplay and loop
+ * - Applies gradient overlays for content readability
+ * - Adds decorative gradient blobs for visual interest
+ *
+ * DEPENDENCIES: None
+ * - Purely presentational component
+ * - No JavaScript or state management
+ *
+ * STRUCTURE:
+ * - Video element (responsive with mobile/desktop sources)
+ * - Two gradient overlays (horizontal and vertical)
+ * - Two gradient blobs (top-right and bottom-left)
+ *
+ * Z-INDEX LAYERING:
+ * - z-0: Video background
+ * - z-0: Gradient overlays (same layer as video)
+ * - z-10: Gradient blobs (above overlays)
+ * - Content sits at z-20 (in parent component)
+ */
+---
+
+<!-- Video Background Container -->
+<div class="absolute inset-0 z-0">
+  <!-- 
+    Video Element
+    =============
+    - autoplay: Starts playing automatically
+    - muted: Required for autoplay in most browsers
+    - loop: Continuous playback
+    - playsinline: Prevents fullscreen on iOS
+    - preload="auto": Loads video ASAP for smooth experience
+    - poster: Fallback image while video loads
+    - object-cover: Fills container while maintaining aspect ratio
+  -->
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    class="absolute inset-0 w-full h-full object-cover"
+    poster="/images/home-hero-mri.webp?v=2.1"
+    aria-hidden="true"
+  >
+    <!-- 
+      Mobile Video Source
+      Uses media query to serve smaller video on mobile devices
+      Reduces bandwidth and improves load time on mobile
+    -->
+    <source
+      src="/videos/home-hero-mri-mobile.mp4"
+      type="video/mp4"
+      media="(max-width: 768px)"
+    />
+
+    <!-- Desktop Video Sources -->
+    <source src="/videos/home-hero-mri.mp4" type="video/mp4" />
+    <source src="/videos/home-hero-mri.webm" type="video/webm" />
+
+    <!-- Fallback message for browsers that don't support video -->
+    <p class="sr-only">
+      Your browser does not support the video tag. A static image will be
+      displayed instead.
+    </p>
+  </video>
+
+  <!-- 
+    Gradient Overlay 1: Horizontal Gradient
+    =======================================
+    - Creates a left-to-right fade
+    - Darkest on the left (80% opacity)
+    - Lightest on the right (40% opacity)
+    - Improves text readability on the left side
+  -->
+  <div
+    class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40"
+    aria-hidden="true"
+  >
+  </div>
+
+  <!-- 
+    Gradient Overlay 2: Vertical Gradient
+    =====================================
+    - Creates a top-to-bottom fade
+    - Darker at top and bottom (50% and 40% opacity)
+    - Transparent in middle
+    - Creates vignette effect for focus on center content
+  -->
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/40"
+    aria-hidden="true"
+  >
+  </div>
+</div>
+
+<!-- 
+  Decorative Gradient Blobs
+  =========================
+  These are purely aesthetic elements that add visual interest
+  and brand color to the hero section
+-->
+
+<!-- 
+  Gradient Blob 1: Top Right (Blue/Purple)
+  ========================================
+  - Positioned at top-right corner
+  - Blue to purple gradient
+  - Heavy blur (blur-3xl) for soft effect
+  - Low opacity (30%) for subtlety
+  - z-10: Above video but below content
+-->
+<div
+  class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl opacity-30 z-10"
+  aria-hidden="true"
+>
+</div>
+
+<!-- 
+  Gradient Blob 2: Bottom Left (Gold/Orange)
+  ==========================================
+  - Positioned at bottom-left corner
+  - Brand gold (#cc9933) to orange gradient
+  - Heavy blur (blur-3xl) for soft effect
+  - Very low opacity (20%) for subtle effect
+  - z-10: Above video but below content
+-->
+<div
+  class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-[#cc9933]/20 to-orange-500/20 rounded-full blur-3xl opacity-20 z-10"
+  aria-hidden="true"
+>
+</div>
+
+<!-- 
+  ACCESSIBILITY NOTES:
+  ===================
+  - aria-hidden="true" on decorative elements
+  - Video is marked as aria-hidden (purely decorative)
+  - Fallback text provided for video element
+  - All decorative elements removed from accessibility tree
+  
+  PERFORMANCE NOTES:
+  ==================
+  - Mobile video is smaller filesize
+  - Multiple video formats for browser compatibility
+  - preload="auto" for immediate playback
+  - poster image provides instant visual
+  
+  STYLING NOTES:
+  ==============
+  - absolute positioning removes from document flow
+  - inset-0 makes element fill parent container
+  - z-index layering ensures proper stacking
+  - object-cover maintains aspect ratio while filling space
+-->

@@ -1,0 +1,1979 @@
+---
+// HeroSection.astro - Hybrid Progressive Disclosure Hero
+// Pure JavaScript implementation - No TypeScript in scripts
+
+import MobileSearchModal from "./MobileSearchModal.astro";
+
+interface Props {
+  remixUrl: string;
+}
+
+const { remixUrl } = Astro.props;
+---
+
+<!-- Load Procedure Data (only for this component) -->
+<script type="module">
+  await import("/js/procedure-data.js");
+  console.log("✅ Procedure data loaded for HeroSection");
+</script>
+
+<section
+  class="relative pt-40 pb-24 px-4 sm:px-6 bg-[#003087] text-white overflow-hidden"
+  style="margin-top: -32px;"
+  data-aos="fade-up"
+>
+  <!-- Video Background -->
+  <div class="absolute inset-0 z-0">
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      class="absolute inset-0 w-full h-full object-cover"
+      poster="/images/home-hero-mri.webp?v=2.1"
+    >
+      <source
+        src="/videos/home-hero-mri-mobile.mp4"
+        type="video/mp4"
+        media="(max-width: 768px)"
+      />
+      <source src="/videos/home-hero-mri.mp4" type="video/mp4" />
+      <source src="/videos/home-hero-mri.webm" type="video/webm" />
+    </video>
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40"
+    >
+    </div>
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/40"
+    >
+    </div>
+  </div>
+
+  <!-- Gradient blobs -->
+  <div
+    class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl opacity-30 z-10"
+  >
+  </div>
+  <div
+    class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-[#cc9933]/20 to-orange-500/20 rounded-full blur-3xl opacity-20 z-10"
+  >
+  </div>
+
+  <div class="max-w-7xl mx-auto relative z-20">
+    <div class="max-w-5xl mx-auto text-center">
+      <!-- Main Headline -->
+      <h1
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 text-white leading-tight tracking-tight"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <span class="block">Same Radiologists.</span>
+        <span class="block">Same Scanners.</span>
+        <span class="text-[#cc9933] relative inline-block">
+          70% Less
+          <svg
+            class="absolute -bottom-2 sm:-bottom-3 left-0 w-full"
+            height="20"
+            viewBox="0 0 200 20"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M 2 14 Q 50 4 100 14 Q 150 24 198 14"
+              stroke="#cc9933"
+              stroke-width="5"
+              fill="none"
+              class="animate-draw-line drop-shadow-md"
+              stroke-linecap="round"
+              opacity="0.8"></path>
+          </svg>
+        </span>
+        <span class="text-white">.</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p
+        class="text-xl sm:text-2xl md:text-3xl text-white/90 max-w-3xl mx-auto leading-relaxed drop-shadow-lg mb-12"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <span class="block">Book in minutes. Get scanned this week.</span>
+        <span class="block">Pay hundreds, not thousands.</span>
+      </p>
+
+      <!-- STEP 1: Inline Search with Dropdown -->
+      <div
+        id="hero-step-1"
+        class="relative z-[9999] max-w-3xl mx-auto mb-16 sm:mb-24 transition-all duration-500"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <!-- Search Input Container -->
+        <div class="relative">
+          <div
+            class="bg-white/90 backdrop-blur-md border-2 border-white/60 shadow-lg rounded-xl flex flex-col sm:flex-row items-stretch overflow-hidden"
+          >
+            <!-- Real Search Input (not readonly anymore) -->
+            <input
+              type="text"
+              id="hero-search-input"
+              placeholder="Type MRI, CT, Ultrasound..."
+              autocomplete="off"
+              class="flex-1 px-6 py-4 sm:py-5 text-base sm:text-lg text-gray-900 placeholder-gray-500 bg-transparent focus:outline-none focus:ring-2 focus:ring-[#003087]/20 transition-all"
+              aria-label="Search for medical procedures"
+              aria-autocomplete="list"
+              aria-controls="search-dropdown"
+              aria-expanded="false"
+            />
+            <button
+              type="button"
+              id="hero-find-button"
+              class="bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-8 py-4 sm:py-5 font-bold text-base sm:text-lg transition-all duration-300 hover:brightness-110"
+            >
+              <span class="flex items-center justify-center gap-2">
+                Find
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Horizontal Compact Layout (Hidden Initially) -->
+      <div
+        id="hero-step-2"
+        class="hidden relative z-50 max-w-4xl mx-auto mb-16 sm:mb-24 transition-all duration-500"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <form
+          action={`${remixUrl}/pbs/search`}
+          method="GET"
+          id="hero-search-form"
+        >
+          <!-- Compact Horizontal Row -->
+          <div
+            class="bg-white/90 backdrop-blur-md border-2 border-white/60 shadow-lg rounded-xl overflow-hidden"
+          >
+            <!-- Mobile: Stack Vertically -->
+            <div class="flex flex-col sm:hidden">
+              <!-- Selected Procedure Pill - Mobile -->
+              <div class="p-4 border-b border-gray-200">
+                <div class="flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-2 flex-1 min-w-0">
+                    <div
+                      class="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center"
+                    >
+                      <svg
+                        class="w-5 h-5 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="3"
+                          d="M5 13l4 4L19 7"></path>
+                      </svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-xs font-medium text-gray-500 mb-0.5">
+                        Selected
+                      </p>
+                      <p
+                        id="selected-procedure-display-mobile"
+                        class="text-sm font-semibold text-gray-900 truncate"
+                      >
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    id="change-procedure-button-mobile"
+                    class="flex-shrink-0 text-xs font-medium text-[#003087] hover:text-[#cc9933] transition-colors px-3 py-1.5 rounded-lg hover:bg-gray-100"
+                  >
+                    Change
+                  </button>
+                </div>
+              </div>
+
+              <!-- ZIP Input - Mobile -->
+              <div class="relative p-4 border-b border-gray-200">
+                <label
+                  for="hero-zip-input-mobile"
+                  class="block text-xs font-medium text-gray-500 mb-2"
+                  >ZIP Code</label
+                >
+                <div class="relative">
+                  <input
+                    type="text"
+                    id="hero-zip-input-mobile"
+                    name="zip"
+                    placeholder="Enter ZIP code"
+                    inputmode="numeric"
+                    pattern="[0-9]{5}"
+                    maxlength="5"
+                    class="w-full px-4 py-3 text-base text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:border-[#003087] focus:ring-2 focus:ring-[#003087]/20 transition-all pr-10"
+                  />
+                  <button
+                    type="button"
+                    id="hero-detect-location-mobile"
+                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-[#003087] hover:text-[#cc9933] transition-all"
+                    title="Detect location"
+                  >
+                    <svg
+                      id="location-icon-mobile"
+                      class="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                      ></path>
+                    </svg>
+                    <svg
+                      id="location-loading-mobile"
+                      class="w-5 h-5 animate-spin hidden"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        class="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        stroke-width="4"></circle>
+                      <path
+                        class="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Submit Button - Mobile -->
+              <div class="p-4 relative">
+                <button
+                  type="submit"
+                  id="hero-search-button-mobile"
+                  class="w-full bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-6 py-4 rounded-lg font-bold text-base transition-all duration-300 hover:brightness-110 hover:shadow-lg hover:from-[#d7a53f] hover:to-[#b98c2f] disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled
+                >
+                  <span
+                    class="flex items-center justify-center gap-2 relative z-10"
+                  >
+                    <span id="button-text">Find Centers</span>
+                    <svg
+                      class="w-5 h-5 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Desktop: Refined Unified Hero Search Bar (with fade-in container) -->
+            <div id="hero-search-container"></div>
+            <div
+              class="hidden sm:flex items-stretch bg-white/90 backdrop-blur-md rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-gray-200 overflow-hidden w-full max-w-4xl mx-auto"
+            >
+              <!-- Selected Procedure -->
+              <div
+                class="flex flex-col justify-center flex-1 px-6 py-3 border-r border-gray-200"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="flex-shrink-0 w-10 h-10 bg-green-500 rounded-full flex items-center justify-center shadow-sm"
+                  >
+                    <svg
+                      class="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="3"
+                        d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+
+                  <div class="flex-1 min-w-0">
+                    <p class="text-xs font-medium text-gray-500 mb-0.5">
+                      Selected Procedure
+                    </p>
+                    <p
+                      id="selected-procedure-display"
+                      class="text-base font-semibold text-gray-900 truncate"
+                    >
+                    </p>
+                    <p class="text-xs text-gray-500 mt-1 leading-snug">
+                      You’ll compare prices and book instantly — no payment
+                      until appointment is confirmed.
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    id="change-procedure-button"
+                    class="flex-shrink-0 flex items-center gap-1.5 text-[#003087] hover:text-[#cc9933] font-medium text-sm transition-all px-3 py-1.5 rounded-lg hover:bg-gray-100"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      ></path>
+                    </svg>
+                    Change
+                  </button>
+                </div>
+              </div>
+
+              <!-- ZIP Input -->
+              <div
+                class="flex flex-col justify-center px-6 py-3 border-r border-gray-200 min-w-[180px]"
+              >
+                <label
+                  for="hero-zip-input"
+                  class="block text-xs font-medium text-gray-500 mb-1"
+                  >ZIP Code</label
+                >
+                <div class="relative">
+                  <input
+                    type="text"
+                    id="hero-zip-input"
+                    name="zip"
+                    placeholder="12345"
+                    inputmode="numeric"
+                    pattern="[0-9]{5}"
+                    maxlength="5"
+                    class="w-full px-3 py-2 text-center text-lg font-semibold text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:border-[#003087] focus:ring-2 focus:ring-[#003087]/20 transition-all"
+                  />
+                  <button
+                    type="button"
+                    id="hero-detect-location"
+                    class="absolute right-2 top-1/2 -translate-y-1/2 text-[#003087] hover:text-[#cc9933] transition-transform hover:scale-110"
+                    title="Detect location"
+                  >
+                    <svg
+                      id="location-icon"
+                      class="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                      ></path>
+                    </svg>
+                    <svg
+                      id="location-loading"
+                      class="w-5 h-5 animate-spin hidden"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        class="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        stroke-width="4"></circle>
+                      <path
+                        class="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+                <p id="zip-hint" class="text-gray-500 text-xs mt-1">
+                  Enter ZIP to continue
+                </p>
+              </div>
+
+              <!-- Find Centers Button -->
+              <div class="flex items-center justify-center p-3.5">
+                <button
+                  type="submit"
+                  id="hero-search-button"
+                  class="relative h-full bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-6 py-3.5 font-bold text-lg transition-all duration-300 hover:brightness-110 hover:shadow-lg hover:from-[#d7a53f] hover:to-[#b98c2f] disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden group rounded-lg"
+                  disabled
+                >
+                  <span
+                    class="flex items-center justify-center gap-2 relative z-10"
+                  >
+                    <span id="button-text">Find Centers</span>
+                    <svg
+                      class="w-5 h-5 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!-- /#hero-search-container -->
+
+        <!-- Status Message Below -->
+        <div id="zip-status-message" class="mt-3 text-center">
+          <p class="text-sm text-white/80"></p>
+        </div>
+
+        <!-- Hidden Form Fields -->
+        <input
+          type="hidden"
+          name="procedure"
+          id="hero-selected-procedure"
+          value=""
+        />
+        <input type="hidden" name="cpt" id="hero-selected-cpt" value="" />
+        <input type="hidden" name="state" value="" />
+        <input type="hidden" name="radius" value="10" />
+      </div>
+    </div>
+
+    <!-- Trust Indicators -->
+    <div
+      class="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 text-sm sm:text-base text-white font-semibold drop-shadow-lg"
+      data-aos="fade-up"
+      data-aos-delay="500"
+    >
+      <div class="flex items-center gap-2">
+        <svg
+          class="flex-shrink-0 w-5 h-5 text-green-400"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd"></path>
+        </svg>
+        <span>No insurance required</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <svg
+          class="flex-shrink-0 w-5 h-5 text-green-400"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd"></path>
+        </svg>
+        <span>Upfront pricing</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <svg
+          class="flex-shrink-0 w-5 h-5 text-green-400"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd"></path>
+        </svg>
+        <span>1,500+ locations</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mobile Search Modal (ZocDoc style - only visible on mobile) -->
+<MobileSearchModal />
+
+<!-- DROPDOWN PORTAL - Positioned outside hero section for proper z-index -->
+<div
+  id="search-dropdown"
+  class="hidden fixed bg-white rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.08),0_12px_28px_rgba(0,0,0,0.10)] border border-gray-200 overflow-hidden max-h-[70vh] z-[9999] backdrop-blur-sm"
+  role="listbox"
+  aria-label="Procedure search results"
+>
+  <!-- Popular Procedures Section -->
+  <div id="popular-procedures-section" class="hidden relative">
+    <div
+      class="px-4 py-3 bg-gradient-to-r from-[#fff5e3] via-[#fffaf5] to-white border-b border-[#f5e4c3] flex items-center justify-between"
+    >
+      <div>
+        <h3
+          class="text-sm font-semibold text-[#b8862d] flex items-center gap-2"
+        >
+          ⭐ Popular Procedures
+        </h3>
+        <p class="text-xs text-gray-500 mt-0.5">Or start typing to search...</p>
+      </div>
+      <span class="text-xs text-[#b8862d]/80 font-medium">Curated by USRad</span
+      >
+    </div>
+
+    <div
+      id="popular-procedures-list"
+      class="overflow-y-auto max-h-[420px] px-3 py-2.5"
+    >
+      <!-- Popular procedures rendered here -->
+    </div>
+
+    <!-- Gentle fade indicator -->
+    <div
+      class="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent rounded-b-xl"
+    >
+    </div>
+  </div>
+
+  <!-- Search Results Section -->
+  <div id="search-results-section" class="hidden relative">
+    <div
+      class="px-4 py-3 bg-gradient-to-r from-blue-50 to-white border-b border-gray-200"
+    >
+      <h3 class="text-sm font-semibold text-gray-700">
+        <span id="results-count">0</span> Results
+      </h3>
+    </div>
+
+    <div
+      id="search-results-list"
+      class="overflow-y-auto max-h-[420px] px-3 py-2.5"
+    >
+      <!-- Search results rendered here -->
+    </div>
+
+    <!-- Gentle fade indicator -->
+    <div
+      class="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent rounded-b-xl"
+    >
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div id="empty-state" class="hidden text-center py-12 px-4">
+    <svg
+      class="w-16 h-16 mx-auto mb-4 text-gray-300"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+    </svg>
+    <p class="text-base font-semibold text-gray-700 mb-1">
+      No procedures found
+    </p>
+    <p class="text-sm text-gray-500">Try a different search term</p>
+  </div>
+</div>
+
+<!-- Soft gradient fade at dropdown bottom -->
+<div
+  class="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#fff8ee] to-transparent rounded-b-xl z-[10000]"
+>
+</div>
+
+<!-- Search Backdrop Blur - only affects content below hero -->
+<div
+  id="search-backdrop"
+  class="hidden fixed inset-0 pointer-events-none"
+  style="z-index: 9998;"
+  aria-hidden="true"
+>
+</div>
+
+<script>
+  // Calculate scrollbar width to prevent layout shift when locking scroll
+  if (typeof window !== "undefined") {
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty(
+      "--scrollbar-width",
+      `${scrollbarWidth}px`
+    );
+  }
+
+  // ========================================
+  // SELF-CONTAINED INLINE SEARCH
+  // No external imports needed
+  // ========================================
+
+  const MODALITY_COLORS = {
+    MRI: {
+      bg: "bg-blue-500",
+      text: "text-blue-600",
+      lightBg: "bg-blue-50",
+      border: "border-blue-200",
+    },
+    CT: {
+      bg: "bg-teal-500",
+      text: "text-teal-600",
+      lightBg: "bg-teal-50",
+      border: "border-teal-200",
+    },
+    "X-Ray": {
+      bg: "bg-amber-500",
+      text: "text-amber-600",
+      lightBg: "bg-amber-50",
+      border: "border-amber-200",
+    },
+    Ultrasound: {
+      bg: "bg-sky-500",
+      text: "text-sky-600",
+      lightBg: "bg-sky-50",
+      border: "border-sky-200",
+    },
+  };
+
+  // Universal search engine (self-contained)
+  function normalizeText(str) {
+    return (str || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function searchUniversalProcedures(query, limit = 12) {
+    if (!query || query.length < 2) return [];
+
+    // --- Normalize reversed modality order (e.g., "knee MRI" → "MRI knee") ---
+    const modalitySwapMap = {
+      mri: ["mri", "mr"],
+      ct: ["ct"],
+      xray: ["xray", "x-ray", "x ray"],
+      ultrasound: ["ultrasound", "sono", "sonogram"],
+    };
+
+    for (const [modality, variants] of Object.entries(modalitySwapMap)) {
+      for (const v of variants) {
+        const regex = new RegExp(`^(\\w+)\\s+${v}$`, "i");
+        if (regex.test(query.trim())) {
+          query = `${v} ${RegExp.$1}`.trim();
+          break;
+        }
+      }
+    }
+
+    const lib = window.ProcedureLibrary;
+    if (!lib) return [];
+
+    const results = [];
+    const lowerQuery = normalizeText(query);
+    const queryWords = lowerQuery.split(/\s+/).filter((w) => w.length > 0);
+
+    for (const modality in lib) {
+      for (const region in lib[modality]) {
+        const entry = lib[modality][region];
+        const procedures = entry.procedures || entry.viewOptions || [];
+
+        procedures.forEach((proc) => {
+          const searchText = normalizeText(
+            `${proc.label} ${modality} ${region} ${proc.cpt} ${(entry.matchKeywords || []).join(" ")}`
+          );
+
+          // Check if all query words exist in searchText
+          const allWordsMatch = queryWords.every((word) =>
+            searchText.includes(word)
+          );
+
+          if (allWordsMatch) {
+            // Score based on how early the first match appears
+            const firstWordIndex = searchText.indexOf(queryWords[0]);
+            const score =
+              firstWordIndex === 0 ? 100 : 50 - Math.min(firstWordIndex, 40);
+            results.push({
+              label: proc.label,
+              cpt: proc.cpt,
+              modality: modality,
+              bodyPart: region,
+              score: score,
+            });
+          }
+        });
+      }
+    }
+
+    return results.sort((a, b) => b.score - a.score).slice(0, limit);
+  }
+
+  // Popular procedures generator
+  function getPopularProcedures(limit = 50) {
+    const lib = window.ProcedureLibrary;
+    if (!lib) {
+      console.error("ProcedureLibrary not loaded");
+      return [];
+    }
+
+    const items = [];
+    for (const modality in lib) {
+      for (const region in lib[modality]) {
+        const entry = lib[modality][region];
+        const procedures = entry.procedures || [];
+
+        procedures.slice(0, 2).forEach((proc) => {
+          items.push({
+            label: proc.label,
+            cpt: proc.cpt,
+            modality: modality,
+            bodyPart: region,
+          });
+        });
+      }
+    }
+
+    return items.sort(() => Math.random() - 0.5).slice(0, limit);
+  }
+
+  // Local search
+  function searchLocalProcedures(query, limit = 12) {
+    if (!query || query.length < 2) return [];
+
+    const lib = window.ProcedureLibrary;
+    if (!lib) return [];
+
+    const results = [];
+    const lowerQuery = query.toLowerCase();
+
+    for (const modality in lib) {
+      for (const region in lib[modality]) {
+        const entry = lib[modality][region];
+        const procedures = entry.procedures || [];
+
+        procedures.forEach((proc) => {
+          const searchText =
+            `${proc.label} ${modality} ${region} ${proc.cpt} ${(entry.matchKeywords || []).join(" ")}`.toLowerCase();
+          if (searchText.includes(lowerQuery)) {
+            results.push({
+              label: proc.label,
+              cpt: proc.cpt,
+              modality: modality,
+              bodyPart: region,
+              score: searchText.indexOf(lowerQuery) === 0 ? 10 : 1,
+            });
+          }
+        });
+      }
+    }
+
+    return results.sort((a, b) => b.score - a.score).slice(0, limit);
+  }
+
+  // Hybrid search
+  async function hybridSearch(query) {
+    console.log("Hybrid search:", query);
+
+    const localResults = searchLocalProcedures(query, 12);
+    console.log("Local results:", localResults.length);
+
+    if (localResults.length < 6) {
+      console.log("Adding universal search results");
+      const universalResults = searchUniversalProcedures(query, 12);
+
+      const merged = [...localResults];
+      universalResults.forEach((uResult) => {
+        if (!merged.find((m) => m.cpt === uResult.cpt)) {
+          merged.push(uResult);
+        }
+      });
+
+      return merged.slice(0, 12);
+    }
+
+    return localResults;
+  }
+
+  // ✅ Highlight matched query in labels
+  function highlightMatch(label, query) {
+    if (!query) return label;
+    const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const regex = new RegExp(`(${safeQuery})`, "ig");
+    return label.replace(
+      regex,
+      '<mark class="bg-yellow-200 text-gray-900">$1</mark>'
+    );
+  }
+
+  // Render functions
+  function renderProcedureButton(procedure) {
+    const colors = MODALITY_COLORS[procedure.modality] || MODALITY_COLORS.MRI;
+
+    return `
+      <button
+        type="button"
+        class="w-full text-left p-3 rounded-lg border ${colors.border} hover:${colors.lightBg} transition-all duration-200 group procedure-result"
+        data-cpt="${procedure.cpt || ""}"
+        data-label="${(procedure.label || "").replace(/"/g, "&quot;")}"
+        data-modality="${procedure.modality || ""}"
+        data-bodypart="${procedure.bodyPart || ""}"
+      >
+        <div class="flex items-center gap-3">
+          <span class="flex-shrink-0 px-2.5 py-1 rounded-full text-xs font-semibold ${colors.bg} text-white">
+            ${procedure.modality || "Scan"}
+          </span>
+          <div class="flex-1 min-w-0">
+            <div class="font-semibold text-gray-900 text-sm group-hover:${colors.text} transition-colors truncate">
+              ${highlightMatch(procedure.label || "", currentQuery)}
+            </div>
+
+            <div class="flex items-center gap-2 text-xs text-gray-500 mt-0.5">
+              <span>${procedure.bodyPart || ""}</span>
+              <span class="text-gray-300">•</span>
+              <span class="font-mono">CPT ${procedure.cpt || ""}</span>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-gray-400 group-hover:${colors.text} transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </div>
+      </button>
+    `;
+  }
+
+  function groupByModality(procedures) {
+    const groups = {};
+    procedures.forEach((proc) => {
+      const modality = proc.modality || "Other";
+      if (!groups[modality]) groups[modality] = [];
+      groups[modality].push(proc);
+    });
+    return groups;
+  }
+
+  // ============================================
+  // ENHANCED GROUPED RENDERER — ZOCDOC STYLE (Sticky Headers)
+  // ============================================
+  function renderGroupedResults(procedures) {
+    const groups = groupByModality(procedures);
+    const modalityOrder = ["MRI", "CT", "X-Ray", "Ultrasound", "Other"];
+
+    const ICONS = {
+      MRI: "🧠",
+      CT: "🦵",
+      "X-Ray": "💀",
+      Ultrasound: "🩺",
+      Other: "📋",
+    };
+
+    const html = modalityOrder
+      .map((modality) => {
+        const group = groups[modality];
+        if (!group || group.length === 0) return "";
+
+        const colors = MODALITY_COLORS[modality] || MODALITY_COLORS.MRI;
+        const icon = ICONS[modality] || "📋";
+
+        return `
+        <div class="mb-4 border border-gray-100 rounded-lg overflow-hidden shadow-sm">
+          <div class="sticky top-0 z-10 px-4 py-2 bg-gradient-to-r from-[#fff8ee] to-white border-b border-[#f5e4c3] flex items-center justify-between backdrop-blur-sm">
+            <h4 class="text-sm font-semibold text-[#b8862d] flex items-center gap-2">
+              <span>${icon}</span> ${modality}
+            </h4>
+            <span class="text-xs text-gray-500">${group.length} procedures</span>
+          </div>
+          <div class="divide-y divide-gray-100 max-h-[220px] overflow-y-auto">
+            ${group
+              .map(
+                (proc) => `
+              <button
+                type="button"
+                class="w-full text-left flex items-center justify-between px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition procedure-result"
+                data-cpt="${proc.cpt || ""}"
+                data-label="${(proc.label || "").replace(/"/g, "&quot;")}"
+                data-modality="${proc.modality || ""}"
+                data-bodypart="${proc.bodyPart || ""}"
+              >
+                <div class="flex flex-col">
+                  <span class="text-[15px] font-medium text-gray-900 leading-tight">
+                    ${highlightMatch(proc.label, currentQuery)}
+                  </span>
+
+                </div>
+                <span
+                  class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wide
+                  ${
+                    modality === "MRI"
+                      ? "bg-[#e7f0ff] text-[#003087]"
+                      : modality === "CT"
+                        ? "bg-[#fff8ee] text-[#b8862d]"
+                        : modality === "X-Ray"
+                          ? "bg-[#f3f4f6] text-gray-700"
+                          : "bg-[#eefaf1] text-[#006d3b]"
+                  }"
+                >
+                  ${modality}
+                </span>
+
+              </button>
+            `
+              )
+              .join("")}
+          </div>
+        </div>
+      `;
+      })
+      .join("");
+
+    return (
+      html || '<p class="text-center py-4 text-gray-500">No results found</p>'
+    );
+  }
+
+  // DOM elements
+  const step1 = document.getElementById("hero-step-1");
+  const step2 = document.getElementById("hero-step-2");
+  const searchInput = document.getElementById("hero-search-input");
+  const dropdown = document.getElementById("search-dropdown");
+  const popularSection = document.getElementById("popular-procedures-section");
+  const popularList = document.getElementById("popular-procedures-list");
+  const searchSection = document.getElementById("search-results-section");
+  const searchList = document.getElementById("search-results-list");
+  const emptyState = document.getElementById("empty-state");
+  const resultsCount = document.getElementById("results-count");
+
+  const changeBtn = document.getElementById("change-procedure-button");
+  const changeBtnMobile = document.getElementById(
+    "change-procedure-button-mobile"
+  );
+  const procDisplay = document.getElementById("selected-procedure-display");
+  const procDisplayMobile = document.getElementById(
+    "selected-procedure-display-mobile"
+  );
+  const zipInput = document.getElementById("hero-zip-input");
+  const zipInputMobile = document.getElementById("hero-zip-input-mobile");
+  const submitBtn = document.getElementById("hero-search-button");
+  const submitBtnMobile = document.getElementById("hero-search-button-mobile");
+  const detectBtn = document.getElementById("hero-detect-location");
+  const detectBtnMobile = document.getElementById(
+    "hero-detect-location-mobile"
+  );
+  const locationIcon = document.getElementById("location-icon");
+  const locationIconMobile = document.getElementById("location-icon-mobile");
+  const locationLoading = document.getElementById("location-loading");
+  const locationLoadingMobile = document.getElementById(
+    "location-loading-mobile"
+  );
+  const cptHidden = document.getElementById("hero-selected-cpt");
+  const procedureHidden = document.getElementById("hero-selected-procedure");
+  const zipStatus = document.getElementById("zip-status-message");
+
+  // Position dropdown relative to search input (for fixed positioning)
+  // Position dropdown relative to search input (for fixed positioning)
+  function positionDropdown() {
+    const dropdown = document.getElementById("search-dropdown");
+    const searchInput = document.getElementById("hero-search-input");
+
+    if (!dropdown || !searchInput) return;
+
+    const inputRect = searchInput.getBoundingClientRect();
+
+    // DEBUG: Log values to console
+    console.log({
+      inputBottom: inputRect.bottom,
+      inputLeft: inputRect.left,
+      inputWidth: inputRect.width,
+      windowScrollY: window.scrollY,
+      bodyPaddingRight: document.body.style.paddingRight,
+    });
+
+    const topOffset = inputRect.bottom + 8;
+    const leftOffset = inputRect.left;
+    const widthMatch = inputRect.width;
+
+    dropdown.style.top = `${topOffset}px`;
+    dropdown.style.left = `${leftOffset}px`;
+    dropdown.style.width = `${widthMatch}px`;
+
+    // DEBUG: Log final position
+    console.log("Dropdown positioned at:", {
+      top: topOffset,
+      left: leftOffset,
+      width: widthMatch,
+    });
+  }
+
+  // Show dropdown function
+  function showDropdown() {
+    const dropdown = document.getElementById("search-dropdown");
+    const backdrop = document.getElementById("search-backdrop");
+    if (!dropdown) return;
+
+    // Calculate scrollbar width BEFORE hiding it
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
+    // Show backdrop and lock scroll FIRST
+    if (backdrop) {
+      backdrop.classList.remove("hidden");
+
+      // Prevent layout shift by adding padding
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+      document.body.style.overflow = "hidden";
+      document.body.classList.add("search-active");
+
+      applyBlurToContent(true); // Apply blur
+    }
+
+    // Position dropdown AFTER body padding is applied
+    requestAnimationFrame(() => {
+      positionDropdown();
+      dropdown.classList.remove("hidden");
+    });
+
+    isDropdownOpen = true;
+  }
+
+  // Hide dropdown function
+  function hideDropdown() {
+    const dropdown = document.getElementById("search-dropdown");
+    const backdrop = document.getElementById("search-backdrop");
+    if (!dropdown) return;
+
+    dropdown.classList.add("hidden");
+
+    // Hide backdrop and unlock scroll
+    if (backdrop) {
+      backdrop.classList.add("hidden");
+
+      // Remove padding and restore scroll
+      document.body.style.paddingRight = "";
+      document.body.style.overflow = "";
+      document.body.classList.remove("search-active");
+
+      applyBlurToContent(false); // Remove blur
+    }
+
+    isDropdownOpen = false;
+  }
+
+  let searchTimeout;
+  let isDropdownOpen = false;
+
+  // Track current query for highlighting
+  let currentQuery = "";
+
+  console.log("Inline search initialized");
+
+  // Apply blur to sections below hero
+  function applyBlurToContent(shouldBlur) {
+    // Get the hero section
+    const heroSection = document.querySelector('section[class*="pt-40"]');
+    if (!heroSection) return;
+
+    // Get all sections after hero
+    let nextSection = heroSection.nextElementSibling;
+    while (nextSection) {
+      if (nextSection.tagName === "SECTION") {
+        if (shouldBlur) {
+          nextSection.style.filter = "blur(4px)";
+          nextSection.style.opacity = "0.5";
+          nextSection.style.transition = "filter 0.3s ease, opacity 0.3s ease";
+          nextSection.style.pointerEvents = "none";
+          nextSection.style.userSelect = "none";
+        } else {
+          nextSection.style.filter = "";
+          nextSection.style.opacity = "";
+          nextSection.style.transition = "";
+          nextSection.style.pointerEvents = "";
+          nextSection.style.userSelect = "";
+        }
+      }
+      nextSection = nextSection.nextElementSibling;
+    }
+  }
+
+  // Dropdown functions
+
+  // ============================================
+  // USE PREDEFINED "POPULAR_PROCEDURES" LIST
+  // ============================================
+
+  function showPopularProceduresFromLibrary() {
+    const lib = window.ProcedureLibrary;
+
+    if (!lib || !lib.Popular) {
+      console.warn("Popular procedures not ready, waiting...");
+      // Retry after a short delay
+      setTimeout(showPopularProceduresFromLibrary, 50);
+      return;
+    }
+
+    const popular = lib.Popular;
+
+    if (popularSection && popularList) {
+      popularSection.classList.remove("hidden");
+      searchSection?.classList.add("hidden");
+      emptyState?.classList.add("hidden");
+
+      // Render with grouped layout (Zocdoc style)
+      popularList.innerHTML = renderGroupedResults(popular);
+      attachResultHandlers();
+    }
+  }
+
+  function showPopularProcedures() {
+    const popular = getPopularProcedures(50);
+
+    if (popularSection && popularList) {
+      popularSection.classList.remove("hidden");
+      searchSection?.classList.add("hidden");
+      emptyState?.classList.add("hidden");
+
+      popularList.innerHTML = renderGroupedResults(popular);
+      attachResultHandlers();
+    }
+  }
+
+  // ============================================
+  // Optimized Search with Caching + Smooth Transitions
+  // ============================================
+  // ============================================
+  // Optimized Search (Anti-Flicker Version)
+  // ============================================
+  let lastQuery = "";
+  let lastResults = [];
+  let isLoading = false;
+
+  async function performSearch(query) {
+    if (!query || query.length < 2) {
+      showPopularProceduresFromLibrary();
+      return;
+    }
+
+    // Reuse cache instantly
+    if (query === lastQuery && lastResults.length > 0) {
+      renderResults(lastResults, true);
+      return;
+    }
+
+    // Prevent overlapping searches
+    if (isLoading) return;
+    isLoading = true;
+
+    // Keep old results visible during fetch (no opacity = 0 here)
+    if (popularSection) popularSection.classList.add("hidden");
+    if (searchSection) searchSection.classList.remove("hidden");
+    if (emptyState) emptyState.classList.add("hidden");
+
+    // Subtle shimmer overlay instead of blank state
+    if (searchList) {
+      const shimmer = document.createElement("div");
+      shimmer.className =
+        "absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse pointer-events-none";
+      shimmer.style.borderRadius = "inherit";
+      searchList.appendChild(shimmer);
+    }
+
+    try {
+      currentQuery = query;
+      const results = await hybridSearch(query);
+      lastQuery = query;
+      lastResults = results;
+
+      // Render new results smoothly
+      renderResults(results);
+      if (searchList) {
+        searchList.style.opacity = 0.9;
+        requestAnimationFrame(() => (searchList.style.opacity = 1));
+      }
+    } catch (err) {
+      console.error("Search error:", err);
+    } finally {
+      isLoading = false;
+      const shimmer = searchList?.querySelector(".animate-pulse");
+      if (shimmer) shimmer.remove();
+    }
+  }
+
+  function renderResults(results, fromCache = false) {
+    if (results.length === 0) {
+      searchSection?.classList.add("hidden");
+      emptyState?.classList.remove("hidden");
+      return;
+    }
+
+    if (resultsCount) resultsCount.textContent = results.length;
+
+    if (searchList) {
+      // Only update if content actually changed
+      const html = renderGroupedResults(results);
+      if (searchList.innerHTML !== html) {
+        searchList.innerHTML = html;
+        attachResultHandlers();
+      }
+    }
+
+    // Cached draws skip fade entirely
+    if (fromCache && searchList) {
+      searchList.style.opacity = 1;
+    }
+  }
+
+  function attachResultHandlers() {
+    dropdown?.querySelectorAll(".procedure-result").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const procedure = {
+          cpt_code: btn.getAttribute("data-cpt"),
+          label: btn.getAttribute("data-label"),
+          modality: btn.getAttribute("data-modality"),
+          bodyPart: btn.getAttribute("data-bodypart"),
+        };
+
+        handleProcedureSelection(procedure);
+        hideDropdown();
+      });
+    });
+  }
+
+  function handleProcedureSelection(procedure) {
+    if (!step1 || !step2 || !cptHidden || !procedureHidden) return;
+
+    step1.classList.add("hidden");
+    step2.classList.remove("hidden");
+    step2.classList.add("fade-in-step");
+
+    if (procDisplay) procDisplay.textContent = procedure.label || "";
+    if (procDisplayMobile)
+      procDisplayMobile.textContent = procedure.label || "";
+
+    cptHidden.value = procedure.cpt_code || "";
+    procedureHidden.value = procedure.label || "";
+
+    detectZIP();
+
+    document.getElementById("hero-zip-input")?.focus({ preventScroll: true });
+  }
+
+  // Listen for procedure selection from mobile modal
+  if (typeof document !== "undefined") {
+    document.addEventListener("mobile-procedure-selected", function (e) {
+      var procedure = e.detail;
+      if (procedure) {
+        handleProcedureSelection(procedure);
+      }
+    });
+  }
+
+  // Event listeners
+  if (searchInput) {
+    searchInput.addEventListener("focus", function () {
+      // Mobile detection: Open full-screen modal on mobile, dropdown on desktop
+      var isMobile = window.innerWidth < 768;
+
+      if (isMobile && typeof window.mobileSearchModal !== "undefined") {
+        // Blur the input immediately to prevent keyboard from showing
+        searchInput.blur();
+        // Open mobile modal
+        window.mobileSearchModal.open();
+      } else {
+        // Desktop: Use existing dropdown
+        showDropdown();
+        if (!searchInput.value || searchInput.value.trim().length === 0) {
+          showPopularProceduresFromLibrary();
+        }
+      }
+    });
+
+    searchInput.addEventListener("input", function (e) {
+      // Only handle input on desktop (mobile uses the modal's own input)
+      var isMobile = window.innerWidth < 768;
+      if (isMobile) return;
+
+      clearTimeout(searchTimeout);
+      showDropdown();
+
+      var query = e.target.value.trim();
+      searchTimeout = setTimeout(function () {
+        performSearch(query);
+      }, 200);
+    });
+  }
+
+  document.addEventListener("click", (e) => {
+    if (
+      dropdown &&
+      searchInput &&
+      !dropdown.contains(e.target) &&
+      !searchInput.contains(e.target)
+    ) {
+      hideDropdown();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isDropdownOpen) {
+      hideDropdown();
+      searchInput?.blur();
+    }
+  });
+
+  if (changeBtn) {
+    changeBtn.addEventListener("click", () => {
+      if (!step1 || !step2) return;
+
+      // Smoothly fade out Step 2, then reveal Step 1
+      step2.classList.add("fade-out-step");
+
+      setTimeout(() => {
+        step2.classList.add("hidden");
+        step2.classList.remove("fade-out-step");
+        step1.classList.remove("hidden");
+        step1.classList.add("fade-in-step");
+        searchInput?.focus();
+      }, 250);
+    });
+  }
+
+  if (changeBtnMobile) {
+    changeBtnMobile.addEventListener("click", () => {
+      if (!step1 || !step2) return;
+
+      // Smoothly fade out Step 2, then reveal Step 1
+      step2.classList.add("fade-out-step");
+
+      setTimeout(() => {
+        step2.classList.add("hidden");
+        step2.classList.remove("fade-out-step");
+        step1.classList.remove("hidden");
+        step1.classList.add("fade-in-step");
+        searchInput?.focus();
+      }, 250);
+    });
+  }
+
+  if (detectBtn) {
+    detectBtn.addEventListener("click", detectZIP);
+  }
+
+  if (detectBtnMobile) {
+    detectBtnMobile.addEventListener("click", detectZIP);
+  }
+
+  if (zipInput) {
+    zipInput.addEventListener("input", () => {
+      if (zipInputMobile) zipInputMobile.value = zipInput.value;
+      checkFormReady();
+    });
+  }
+
+  if (zipInputMobile) {
+    zipInputMobile.addEventListener("input", () => {
+      if (zipInput) zipInput.value = zipInputMobile.value;
+      checkFormReady();
+    });
+  }
+
+  // Reposition dropdown on window resize
+  window.addEventListener("resize", () => {
+    if (isDropdownOpen) {
+      positionDropdown();
+    }
+  });
+
+  // Reposition dropdown on scroll
+  window.addEventListener("scroll", () => {
+    if (isDropdownOpen) {
+      positionDropdown(); // ✅ This is CORRECT
+    }
+  });
+
+  // --- Confirmation animation for selected procedure ---
+  function animateProcedureConfirmation() {
+    const checkIcon = document
+      .querySelector("#selected-procedure-display")
+      ?.closest(".flex")
+      .querySelector(".bg-green-500");
+
+    const label = document.getElementById("selected-procedure-display");
+
+    if (checkIcon) {
+      // reset animation so it can replay cleanly each time
+      checkIcon.classList.remove("procedure-confirmed");
+      void checkIcon.offsetWidth; // force reflow
+      checkIcon.classList.add("procedure-confirmed");
+    }
+
+    if (label) label.classList.add("fade-in");
+  }
+
+  // Hook into existing selection handler safely
+  const originalHandle = handleProcedureSelection;
+  handleProcedureSelection = function (procedure) {
+    originalHandle(procedure);
+    setTimeout(animateProcedureConfirmation, 200);
+  };
+
+  // --- Live ZIP validation hint ---
+  function setupZipHint() {
+    const zipInput = document.getElementById("hero-zip-input");
+    const hint = document.getElementById("zip-hint");
+    if (!zipInput || !hint) return;
+
+    zipInput.addEventListener("input", () => {
+      const value = zipInput.value.trim();
+      if (/^\d{5}$/.test(value)) {
+        hint.textContent = "✓ Valid ZIP — ready to search centers nearby";
+        hint.className = "text-green-600 text-xs mt-1";
+      } else if (value.length > 0) {
+        hint.textContent = "Please enter a valid 5-digit ZIP code";
+        hint.className = "text-red-600 text-xs mt-1";
+      } else {
+        hint.textContent = "Enter ZIP to continue";
+        hint.className = "text-gray-500 text-xs mt-1";
+      }
+    });
+  }
+
+  setupZipHint();
+
+  async function detectZIP() {
+    const inputs = [zipInput, zipInputMobile].filter(Boolean);
+    if (inputs.length === 0) return;
+
+    if (locationIcon) locationIcon.classList.add("hidden");
+    if (locationIconMobile) locationIconMobile.classList.add("hidden");
+    if (locationLoading) locationLoading.classList.remove("hidden");
+    if (locationLoadingMobile) locationLoadingMobile.classList.remove("hidden");
+
+    const statusP = zipStatus?.querySelector("p");
+    if (statusP) statusP.textContent = "Finding your location...";
+
+    try {
+      const pos = await new Promise((resolve, reject) => {
+        if (!navigator.geolocation)
+          reject(new Error("Geolocation not supported"));
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          timeout: 5000,
+          maximumAge: 300000,
+        });
+      });
+
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+
+      const res = await fetch(`/api/geocode?lat=${lat}&lng=${lng}`);
+      const data = await res.json();
+
+      if (data.postalCode) {
+        inputs.forEach((input) => {
+          if (input) input.value = data.postalCode;
+        });
+
+        if (statusP) {
+          statusP.textContent = `Detected your location${data.city ? ` in ${data.city}` : ""} • Change`;
+        }
+        checkFormReady();
+      } else {
+        throw new Error("No postal code found");
+      }
+    } catch (err) {
+      console.error("Location detection error:", err);
+      if (statusP) {
+        statusP.textContent = "Could not detect location • Enter ZIP manually";
+      }
+      if (zipInput) {
+        zipInput.focus();
+      }
+    } finally {
+      if (locationIcon) locationIcon.classList.remove("hidden");
+      if (locationLoading) locationLoading.classList.add("hidden");
+      if (locationIconMobile) locationIconMobile.classList.remove("hidden");
+      if (locationLoadingMobile) locationLoadingMobile.classList.add("hidden");
+    }
+  }
+
+  function checkFormReady() {
+    if (!cptHidden) return;
+
+    const hasCpt = cptHidden.value && cptHidden.value.length > 0;
+    const zipValue = zipInput?.value || zipInputMobile?.value || "";
+    const hasZip = zipValue.length === 5;
+    const isReady = hasCpt && hasZip;
+
+    if (submitBtn) submitBtn.disabled = !isReady;
+    if (submitBtnMobile) submitBtnMobile.disabled = !isReady;
+
+    if (isReady) {
+      console.log("Form ready to submit");
+    }
+  }
+
+  const form = document.getElementById("hero-search-form");
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      console.log("Submitting form:", {
+        cpt: cptHidden ? cptHidden.value : "",
+        procedure: procedureHidden ? procedureHidden.value : "",
+        zip: zipInput ? zipInput.value : "",
+        action: form.action,
+      });
+    });
+  }
+
+  // DEBUG: Check layout on load
+  window.addEventListener("load", () => {
+    const header = document.querySelector("header");
+    const heroSection = document.querySelector("section");
+
+    console.log("🔍 Layout Debug:", {
+      headerHeight: header?.offsetHeight,
+      heroTop: heroSection?.getBoundingClientRect().top,
+      heroPaddingTop: window.getComputedStyle(heroSection).paddingTop,
+      scrollPosition: window.scrollY,
+      viewportHeight: window.innerHeight,
+    });
+  });
+
+  // --- Scanning shimmer overlay when clicking "Find Centers" ---
+  function setupFindCentersShimmer() {
+    const buttons = [
+      document.getElementById("hero-search-button"),
+      document.getElementById("hero-search-button-mobile"),
+    ].filter(Boolean);
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        if (btn.disabled) return;
+
+        // Remove old overlay if any
+        btn.querySelectorAll(".finding-overlay").forEach((el) => el.remove());
+
+        const overlay = document.createElement("div");
+        overlay.className = "finding-overlay";
+        btn.appendChild(overlay);
+
+        // Clean up after animation completes
+        setTimeout(() => overlay.remove(), 1100);
+      });
+    });
+  }
+  setupFindCentersShimmer();
+
+  // Add scroll position detection for fade indicators
+  function setupScrollIndicators() {
+    const scrollContainers = [
+      document.getElementById("popular-procedures-list"),
+      document.getElementById("search-results-list"),
+    ].filter(Boolean);
+
+    scrollContainers.forEach((container) => {
+      container.addEventListener("scroll", () => {
+        if (container.scrollTop > 10) {
+          container.classList.add("scrolled");
+        } else {
+          container.classList.remove("scrolled");
+        }
+      });
+    });
+  }
+
+  // Call after dropdown opens
+  const originalShowDropdown = showDropdown;
+  showDropdown = function () {
+    originalShowDropdown();
+    setTimeout(setupScrollIndicators, 100);
+  };
+</script>
+
+<style>
+  /* ============================================
+     SVG line animation for decorative icons
+  ============================================ */
+  @keyframes draw-line {
+    from {
+      stroke-dashoffset: 200;
+      opacity: 0;
+    }
+    to {
+      stroke-dashoffset: 0;
+      opacity: 0.8;
+    }
+  }
+
+  .animate-draw-line {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: draw-line 1.5s ease-out 0.8s forwards;
+  }
+
+  /* ============================================
+     Search Dropdown Layer & Transitions
+  ============================================ */
+  #search-dropdown {
+    z-index: 9999 !important;
+    isolation: isolate;
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease;
+    will-change: opacity, transform;
+
+    /* Depth & polish */
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.08),
+      0 12px 32px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  #search-dropdown.hidden {
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+  }
+
+  #search-dropdown:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #search-dropdown::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.9), transparent);
+    pointer-events: none;
+  }
+
+  /* ============================================
+     Highlighted text inside search results
+  ============================================ */
+  @keyframes fade-highlight {
+    from {
+      background-color: rgba(204, 153, 51, 0);
+      color: #cc9933;
+      opacity: 0;
+    }
+    to {
+      background-color: rgba(204, 153, 51, 0.25);
+      color: #1a1a1a;
+      opacity: 1;
+    }
+  }
+
+  mark {
+    background-color: rgba(204, 153, 51, 0.25); /* USRad gold tone */
+    color: #1a1a1a;
+    font-weight: 600;
+    border-radius: 3px;
+    padding: 0 2px;
+    animation: fade-highlight 0.25s ease-out;
+    transition:
+      background-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  mark:hover {
+    background-color: rgba(204, 153, 51, 0.45);
+    box-shadow: 0 0 8px rgba(204, 153, 51, 0.3);
+  }
+
+  /* Smooth list updates for dynamic search results */
+  #search-results-list {
+    transition: opacity 0.25s ease-in-out;
+  }
+
+  /* ============================================
+     Stronger Confirmation Pulse (Visible + Tactile)
+  ============================================ */
+  @keyframes confirmPulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); /* bright emerald green */
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+      transform: scale(1.08);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+      transform: scale(1);
+    }
+  }
+
+  .procedure-confirmed {
+    animation: confirmPulse 0.8s ease-out;
+  }
+
+  /* ============================================
+     Fade-In Utility (for labels/text)
+  ============================================ */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(3px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.25s ease-out forwards;
+  }
+  #zip-hint {
+    transition:
+      color 0.25s ease,
+      opacity 0.25s ease;
+  }
+
+  /* ============================================
+   Find Centers — scanning shimmer animation
+============================================ */
+  @keyframes scanningShimmer {
+    0% {
+      background-position: -200% 0;
+      opacity: 0.05;
+    }
+    50% {
+      background-position: 0% 0;
+      opacity: 0.3;
+    }
+    100% {
+      background-position: 200% 0;
+      opacity: 0.05;
+    }
+  }
+
+  .finding-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.45) 50%,
+      /* brighter center streak */ rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: scanningShimmer 1s linear forwards;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* === Hero Fade-In Animation === */
+  @keyframes heroFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  #hero-search-container {
+    animation: heroFadeUp 0.55s ease-out 0.15s both;
+  }
+
+  /* === Premium Focus Glow for Accessibility === */
+  #hero-search-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(204, 153, 51, 0.4);
+  }
+
+  /* ============================================
+   Step Transition Fade (Mobile)
+============================================ */
+
+  @keyframes stepFade {
+    0% {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in-step {
+    animation: stepFade 0.35s ease-out both;
+    will-change: opacity, transform;
+  }
+
+  /* ============================================
+   Step Fade-Out Animation
+============================================ */
+
+  @keyframes stepFadeOut {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+
+  .fade-out-step {
+    animation: stepFadeOut 0.25s ease-in forwards;
+    will-change: opacity, transform;
+  }
+
+  /* ============================================
+     Search Backdrop & Scroll Lock
+  ============================================ */
+
+  /* Backdrop element (for future use if needed) */
+  #search-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9998;
+    pointer-events: none;
+  }
+
+  #search-backdrop:not(.hidden) {
+    display: block;
+  }
+
+  /* Smooth scroll lock */
+  body.search-active {
+    overflow: hidden;
+  }
+
+  /* Ensure dropdown stays above everything */
+  #search-dropdown {
+    z-index: 9999 !important;
+    position: fixed !important;
+  }
+
+  /* ============================================
+     Enhanced Scrollbar Styling for Dropdown
+  ============================================ */
+
+  /* Target ALL scrollable areas within the dropdown */
+  #search-dropdown *::-webkit-scrollbar {
+    width: 12px !important;
+    height: 12px !important;
+  }
+
+  #search-dropdown *::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+    border-radius: 10px !important;
+  }
+
+  #search-dropdown *::-webkit-scrollbar-thumb {
+    background: #b8862d !important;
+    border-radius: 10px !important;
+    border: 2px solid #ffffff !important;
+  }
+
+  #search-dropdown *::-webkit-scrollbar-thumb:hover {
+    background: #996d24 !important;
+  }
+
+  /* Firefox */
+  #search-dropdown * {
+    scrollbar-width: auto !important;
+    scrollbar-color: #b8862d #f1f1f1 !important;
+  }
+
+  /* Specifically target the list containers */
+  .overflow-y-auto::-webkit-scrollbar {
+    width: 10px !important;
+  }
+
+  .overflow-y-auto::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+    border-radius: 10px !important;
+  }
+
+  .overflow-y-auto::-webkit-scrollbar-thumb {
+    background: #b8862d !important;
+    border-radius: 10px !important;
+    border: 2px solid #ffffff !important;
+  }
+
+  .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    background: #996d24 !important;
+  }
+  /* ============================================
+     Lighter, More Scannable Procedure Text
+  ============================================ */
+
+  /* Main procedure labels - lighter weight */
+  .procedure-result .text-gray-900 {
+    font-weight: 500 !important; /* Medium instead of semibold */
+    color: #1f2937 !important; /* Slightly lighter gray-900 */
+  }
+
+  /* On hover, make it slightly bolder for feedback */
+  .procedure-result:hover .text-gray-900 {
+    font-weight: 600 !important;
+    color: #111827 !important; /* Darker on hover */
+  }
+
+  /* Secondary text (body part, CPT) should be lighter */
+  .procedure-result .text-gray-500 {
+    font-weight: 400 !important; /* Normal weight */
+    color: #6b7280 !important;
+  }
+
+  /* Modality badges - keep semibold but slightly smaller */
+  .procedure-result span[class*="bg-blue"],
+  .procedure-result span[class*="bg-teal"],
+  .procedure-result span[class*="bg-amber"],
+  .procedure-result span[class*="bg-sky"] {
+    font-weight: 600 !important; /* Keep badges semibold */
+    font-size: 11px !important; /* Slightly smaller */
+  }
+
+  /* Group headers should remain bold */
+  #search-dropdown h4 {
+    font-weight: 600 !important;
+  }
+</style>
