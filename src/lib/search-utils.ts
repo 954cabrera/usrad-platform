@@ -42,7 +42,17 @@ export function textContainsQuery(text: string, query: string): boolean {
   const normalizedText = normalizeQuery(text);
   const normalizedQuery = normalizeQuery(query);
 
-  return normalizedText.includes(normalizedQuery);
+  // Split query into individual words for flexible matching
+  const queryWords = normalizedQuery.split(/\s+/).filter(word => word.length > 0);
+  
+  // If no words, return false
+  if (queryWords.length === 0) {
+    return false;
+  }
+
+  // Check if ALL query words appear in the text (order independent)
+  // This allows "brain mri" to match "MRI Brain - Without Contrast"
+  return queryWords.every(word => normalizedText.includes(word));
 }
 
 export function cleanProcedureLabel(label: string): string {

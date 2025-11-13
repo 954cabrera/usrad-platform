@@ -40,6 +40,17 @@ export function normalizeQuery(query: string): string {
     .replace(/\s+/g, ' ');
 }
 
+/**
+ * Check if text contains query with flexible word order
+ * 
+ * NEW VERSION with flexible word-order matching!
+ * 
+ * Examples:
+ * - "mri brain" matches "MRI Brain - Without Contrast" ✅
+ * - "brain mri" matches "MRI Brain - Without Contrast" ✅
+ * - "ct chest" matches "CT Chest - With Contrast" ✅
+ * - "chest ct" matches "CT Chest - With Contrast" ✅
+ */
 export function textContainsQuery(text: string, query: string): boolean {
   if (!text || !query) {
     return false;
@@ -48,7 +59,25 @@ export function textContainsQuery(text: string, query: string): boolean {
   const normalizedText = normalizeQuery(text);
   const normalizedQuery = normalizeQuery(query);
 
-  return normalizedText.includes(normalizedQuery);
+  // Split query into individual words
+  const queryWords = normalizedQuery.split(/\s+/).filter(word => word.length > 0);
+  
+  // If no words, return false
+  if (queryWords.length === 0) {
+    return false;
+  }
+
+  // Debug logging (remove after confirming it works)
+  console.log('🔍 Search Utils:', {
+    query: normalizedQuery,
+    queryWords,
+    text: normalizedText.substring(0, 50) + '...',
+    match: queryWords.every(word => normalizedText.includes(word))
+  });
+
+  // Check if ALL query words appear in the text (order independent)
+  // This allows "brain mri" to match "MRI Brain - Without Contrast"
+  return queryWords.every(word => normalizedText.includes(word));
 }
 
 export function cleanProcedureLabel(label: string): string {
