@@ -348,6 +348,28 @@
     }
 
     /**
+     * Return consistent color-coded badge classes for modalities.
+     * Automatically normalizes variations in naming and capitalization.
+     */
+    function getBadgeClass(modality: string): string {
+      if (!modality) return "bg-gray-100 text-gray-600";
+
+      // Normalize modality for reliable matching
+      const key = modality.trim().toLowerCase();
+
+      const badgeColors: Record<string, string> = {
+        mri: "bg-blue-100 text-blue-600",
+        ct: "bg-[#fff8ee] text-[#b8862d]", // USRad Gold
+        "x-ray": "bg-gray-100 text-gray-600",
+        xray: "bg-gray-100 text-gray-600", // alias for safety
+        ultrasound: "bg-green-100 text-green-600",
+        other: "bg-gray-100 text-gray-600",
+      };
+
+      return badgeColors[key] || badgeColors["other"];
+    }
+
+    /**
      * Render grouped results with character encoding fixes
      */
     function renderGroupedResults(procedures: any[], query: string = "") {
@@ -396,11 +418,7 @@
                         data-modality="${modality}" 
                         data-bodypart="${bodyPart}">
                         <span class="text-[15px] font-medium text-gray-900">${highlightMatch(cleanLabel, query)}</span>
-                        <span class="text-xs px-2 py-1 rounded ${
-                          modality === "MRI"
-                            ? "bg-blue-100 text-blue-600"
-                            : "bg-gray-100 text-gray-600"
-                        }">${modality}</span>
+                        <span class="text-xs px-2 py-1 rounded ${getBadgeClass(modality)}">${modality}</span>
                       </button>
                     `;
                   })
