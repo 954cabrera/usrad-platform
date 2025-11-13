@@ -420,14 +420,20 @@ const { remixUrl } = Astro.props;
         step1.classList.remove("hidden");
         step1.classList.add("fade-in-step");
 
+        // Set state to Step 1 BEFORE focusing to avoid race condition
+        searchManager.setState({ currentStep: 1 });
+
         const searchInput = document.getElementById(
           "hero-search-input"
         ) as HTMLInputElement;
+
+        // Focus the input
         searchInput?.focus();
 
-        searchManager.setState({ currentStep: 1 });
+        // Explicitly open the dropdown with popular procedures
+        searchManager.openDropdown();
 
-        console.log("✅ Transitioned to Step 1");
+        console.log("✅ Transitioned to Step 1 with dropdown open");
       }, 250);
     }
 
