@@ -31,7 +31,8 @@ const { remixUrl } = Astro.props;
           <div class="flex items-center justify-between gap-3">
             <div class="flex items-center gap-2 flex-1 min-w-0">
               <div
-                class="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center"
+                id="checkmark-mobile"
+                class="flex-shrink-0 w-8 h-8 checkmark-gradient rounded-full flex items-center justify-center"
               >
                 <svg
                   class="w-5 h-5 text-white"
@@ -160,7 +161,8 @@ const { remixUrl } = Astro.props;
         >
           <div class="flex items-center gap-3">
             <div
-              class="flex-shrink-0 w-10 h-10 bg-green-500 rounded-full flex items-center justify-center shadow-sm"
+              id="checkmark-desktop"
+              class="flex-shrink-0 w-10 h-10 checkmark-gradient rounded-full flex items-center justify-center shadow-sm"
             >
               <svg
                 class="w-6 h-6 text-white"
@@ -345,6 +347,48 @@ const { remixUrl } = Astro.props;
       opacity: 0;
       transform: translateY(-10px);
     }
+  }
+
+  /* ✨ NEW: Checkmark pulse animation */
+  @keyframes checkmarkPulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    }
+    50% {
+      transform: scale(1.1);
+      box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.3);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 16px rgba(34, 197, 94, 0);
+    }
+  }
+
+  .checkmark-pulse {
+    animation: checkmarkPulse 0.6s ease-out forwards;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important;
+  }
+
+  /* ✨ NEW: Label fade-in animation */
+  @keyframes labelFadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .label-fade-in {
+    animation: labelFadeIn 0.4s ease-out;
+  }
+
+  /* ✨ NEW: Gradient background for checkmark */
+  .checkmark-gradient {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
   }
 </style>
 
@@ -609,9 +653,43 @@ const { remixUrl } = Astro.props;
             state.selectedProcedure.cpt ||
             "";
 
-          if (procedureDisplay) procedureDisplay.textContent = label;
-          if (procedureDisplayMobile)
+          if (procedureDisplay) {
+            procedureDisplay.textContent = label;
+            procedureDisplay.classList.add("label-fade-in");
+            setTimeout(() => {
+              procedureDisplay.classList.remove("label-fade-in");
+            }, 400);
+          }
+
+          if (procedureDisplayMobile) {
             procedureDisplayMobile.textContent = label;
+            procedureDisplayMobile.classList.add("label-fade-in");
+            setTimeout(() => {
+              procedureDisplayMobile.classList.remove("label-fade-in");
+            }, 400);
+          }
+
+          // ✨ NEW: Trigger checkmark pulse animation
+          const checkmarkDesktop = document.getElementById("checkmark-desktop");
+          const checkmarkMobile = document.getElementById("checkmark-mobile");
+
+          if (checkmarkDesktop) {
+            checkmarkDesktop.classList.remove("checkmark-pulse");
+            void checkmarkDesktop.offsetWidth; // Force reflow
+            checkmarkDesktop.classList.add("checkmark-pulse");
+            setTimeout(() => {
+              checkmarkDesktop.classList.remove("checkmark-pulse");
+            }, 600);
+          }
+
+          if (checkmarkMobile) {
+            checkmarkMobile.classList.remove("checkmark-pulse");
+            void checkmarkMobile.offsetWidth; // Force reflow
+            checkmarkMobile.classList.add("checkmark-pulse");
+            setTimeout(() => {
+              checkmarkMobile.classList.remove("checkmark-pulse");
+            }, 600);
+          }
 
           if (cptHidden) {
             cptHidden.value = cptCode;
