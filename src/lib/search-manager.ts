@@ -79,7 +79,7 @@ class SearchManager {
       popularCount: this.state.popularProcedures.length,
     });
 
-    this.notify();
+// Removed this.notify() - subscribers already get initial state on subscribe()
   }
 
   private flattenProcedures(): Procedure[] {

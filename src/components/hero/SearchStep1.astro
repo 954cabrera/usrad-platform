@@ -108,6 +108,9 @@
 </style>
 
 <script>
+  // Debug flag - set to false for production
+  const DEBUG = false;
+
   // Import SearchManager for state management
   import { searchManager } from "../../lib/search-manager";
 
@@ -130,7 +133,7 @@
       return;
     }
 
-    console.log("âœ… SearchStep1: Initializing...");
+    if (DEBUG) console.log("[SearchStep1] Initializing...");
 
     /**
      * Focus handler - opens dropdown (desktop) or modal (mobile)
@@ -140,14 +143,16 @@
       const isMobile = window.innerWidth < 768;
       const currentState = searchManager.getState();
 
-      console.log("SearchStep1: Input focused", { 
-        isMobile, 
-        currentStep: currentState.currentStep 
-      });
+      if (DEBUG)
+        console.log("SearchStep1: Input focused", {
+          isMobile,
+          currentStep: currentState.currentStep,
+        });
 
       // Only open dropdown if we're on Step 1
       if (currentState.currentStep !== 1) {
-        console.log("SearchStep1: Not opening dropdown - not on Step 1");
+        if (DEBUG)
+          console.log("SearchStep1: Not opening dropdown - not on Step 1");
         return;
       }
 
@@ -158,11 +163,11 @@
         // Mobile: blur input to prevent keyboard, open modal
         searchInput.blur();
         (window as any).mobileSearchModal.open();
-        console.log("✅ Mobile modal opened");
+        if (DEBUG) console.log("[SearchStep1] Mobile modal opened");
       } else {
         // Desktop: open dropdown via SearchManager
         searchManager.openDropdown();
-        console.log("✅ Desktop dropdown opened");
+        if (DEBUG) console.log("[SearchStep1] Desktop dropdown opened");
       }
     });
 
@@ -184,7 +189,7 @@
       // Debounce search by 200ms
       searchTimeout = window.setTimeout(() => {
         searchManager.search(query);
-        console.log("SearchStep1: Search performed", { query });
+        if (DEBUG) console.log("SearchStep1: Search performed", { query });
       }, 200);
     });
 
@@ -198,7 +203,7 @@
 
         if (query.length >= 2) {
           searchManager.search(query);
-          console.log("SearchStep1: Find button clicked", { query });
+          if (DEBUG) console.log("SearchStep1: Find button clicked", { query });
         } else {
           // Open dropdown to show popular procedures
           searchManager.openDropdown();
@@ -213,25 +218,30 @@
       let previousStep = 1; // Track previous step to detect transitions
 
       searchManager.subscribe((state) => {
-        console.log("SearchStep1: State update", {
-          currentStep: state.currentStep,
-          selectedProcedure: state.selectedProcedure?.label,
-        });
+        if (DEBUG)
+          console.log("SearchStep1: State update", {
+            currentStep: state.currentStep,
+            selectedProcedure: state.selectedProcedure?.label,
+          });
 
         // When procedure is selected, show it in the input
         if (state.selectedProcedure && state.currentStep === 2) {
           searchInput.value = state.selectedProcedure.label;
-          console.log(
-            "âœ… SearchStep1: Input updated with procedure:",
-            state.selectedProcedure.label
-          );
+          if (DEBUG)
+            console.log(
+              "âœ… SearchStep1: Input updated with procedure:",
+              state.selectedProcedure.label
+            );
         }
 
         // Clear input ONLY when transitioning from Step 2 back to Step 1
         // (Not on every Step 1 state update!)
         if (state.currentStep === 1 && previousStep === 2) {
           searchInput.value = "";
-          console.log("✅ SearchStep1: Input cleared (transition from Step 2)");
+          if (DEBUG)
+            console.log(
+              "✅ SearchStep1: Input cleared (transition from Step 2)"
+            );
         }
 
         // Update previous step for next comparison
@@ -255,10 +265,10 @@
       });
 
       isSubscribed = true;
-      console.log("âœ… SearchStep1: Subscribed to SearchManager");
+      if (DEBUG) console.log("[SearchStep1] Subscribed to SearchManager");
     }
 
-    console.log("âœ… SearchStep1: Initialization complete");
+    if (DEBUG) console.log("[SearchStep1] Initialization complete");
   }
 
   // Initialize on DOM ready

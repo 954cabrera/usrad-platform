@@ -154,6 +154,10 @@
   /**
    * ✅ PHASE 6: Mobile Modal with SearchManager Integration
    */
+
+  // Debug flag - set to false for production
+  const DEBUG = false;
+
   import { searchManager } from "../../lib/search-manager";
   import { fixCharacterEncoding } from "../../lib/search-utils";
 
@@ -179,9 +183,10 @@
 
     let searchTimeout: number;
 
-    console.log(
-      "✅ MobileSearchModal: Initializing with SearchManager integration"
-    );
+    if (DEBUG)
+      console.log(
+        "✅ MobileSearchModal: Initializing with SearchManager integration"
+      );
 
     /**
      * Modal API - Exposed globally
@@ -190,7 +195,7 @@
       open: function () {
         if (!modal) return;
 
-        console.log("✅ MobileSearchModal: Opening");
+        if (DEBUG) console.log("✅ MobileSearchModal: Opening");
 
         modal.classList.remove("hidden");
         modal.classList.add("modal-enter");
@@ -207,7 +212,7 @@
       close: function () {
         if (!modal) return;
 
-        console.log("✅ MobileSearchModal: Closing");
+        if (DEBUG) console.log("✅ MobileSearchModal: Closing");
 
         modal.classList.remove("modal-enter");
         modal.classList.add("modal-exit");
@@ -257,7 +262,10 @@
         } else {
           // ✅ Use SearchManager for search
           searchManager.search(query);
-          console.log("MobileSearchModal: Search via SearchManager", { query });
+          if (DEBUG)
+            console.log("MobileSearchModal: Search via SearchManager", {
+              query,
+            });
         }
       }, 200);
     });
@@ -266,10 +274,11 @@
      * ✅ PHASE 6: Subscribe to SearchManager state
      */
     searchManager.subscribe((state) => {
-      console.log("MobileSearchModal: State update", {
-        query: state.currentQuery,
-        results: state.searchResults.length,
-      });
+      if (DEBUG)
+        console.log("MobileSearchModal: State update", {
+          query: state.currentQuery,
+          results: state.searchResults.length,
+        });
 
       // Only update if modal is open
       if (modal?.classList.contains("hidden")) return;
@@ -300,7 +309,7 @@
       popularList.innerHTML = renderGroupedResults(lib.Popular, "");
       attachResultHandlers();
 
-      console.log("MobileSearchModal: Popular procedures shown");
+      if (DEBUG) console.log("MobileSearchModal: Popular procedures shown");
     }
 
     /**
@@ -325,9 +334,10 @@
         attachResultHandlers();
       }
 
-      console.log("MobileSearchModal: Results rendered", {
-        count: results.length,
-      });
+      if (DEBUG)
+        console.log("MobileSearchModal: Results rendered", {
+          count: results.length,
+        });
     }
 
     /**
@@ -443,7 +453,8 @@
             bodyPart: btn.getAttribute("data-bodypart") || "",
           };
 
-          console.log("MobileSearchModal: Procedure selected", procedure);
+          if (DEBUG)
+            console.log("MobileSearchModal: Procedure selected", procedure);
 
           // ✅ PHASE 6: Use SearchManager to select procedure
           searchManager.selectProcedure(procedure);
@@ -462,7 +473,7 @@
       });
     }
 
-    console.log("✅ MobileSearchModal: Initialization complete");
+    if (DEBUG) console.log("✅ MobileSearchModal: Initialization complete");
   }
 </script>
 

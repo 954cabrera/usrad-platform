@@ -112,6 +112,9 @@ import SearchResults from "../SearchResults.astro";
    * 6. Window resize repositioning
    */
 
+  // Debug flag - set to false for production
+  const DEBUG = false;
+
   import { searchManager } from "../../../lib/search-manager";
 
   let scrollLockPadding = 0;
@@ -136,7 +139,7 @@ import SearchResults from "../SearchResults.astro";
       return;
     }
 
-    console.log("âœ… SearchDropdown: Initializing...");
+    if (DEBUG) console.log("[SearchDropdown] Initializing...");
 
     /**
      * Position dropdown below search input
@@ -158,12 +161,13 @@ import SearchResults from "../SearchResults.astro";
       dropdown.style.top = `${inputRect.bottom + scrollOffset + 8}px`;
       dropdown.style.left = `${inputRect.left}px`;
 
-      console.log("Dropdown positioned:", {
-        inputBottom: inputRect.bottom,
-        scrollOffset,
-        finalTop: inputRect.bottom + scrollOffset + 8,
-        width: dropdownWidth,
-      });
+      if (DEBUG)
+        console.log("Dropdown positioned:", {
+          inputBottom: inputRect.bottom,
+          scrollOffset,
+          finalTop: inputRect.bottom + scrollOffset + 8,
+          width: dropdownWidth,
+        });
     }
 
     /**
@@ -172,7 +176,7 @@ import SearchResults from "../SearchResults.astro";
     function openDropdown() {
       if (!dropdown.classList.contains("hidden")) return;
 
-      console.log("SearchDropdown: Opening");
+      if (DEBUG) console.log("SearchDropdown: Opening");
 
       // Calculate scrollbar width
       scrollLockPadding =
@@ -198,7 +202,7 @@ import SearchResults from "../SearchResults.astro";
       // Blur sections below hero
       blurSectionsBelow();
 
-      console.log("âœ… SearchDropdown: Opened with scroll lock");
+      if (DEBUG) console.log("âœ… SearchDropdown: Opened with scroll lock");
     }
 
     /**
@@ -207,7 +211,7 @@ import SearchResults from "../SearchResults.astro";
     function closeDropdown() {
       if (dropdown.classList.contains("hidden")) return;
 
-      console.log("SearchDropdown: Closing");
+      if (DEBUG) console.log("SearchDropdown: Closing");
 
       // Get scroll position
       const scrollY = document.body.style.top;
@@ -229,7 +233,7 @@ import SearchResults from "../SearchResults.astro";
       // Remove blur
       unblurSectionsBelow();
 
-      console.log("âœ… SearchDropdown: Closed, scroll restored");
+      if (DEBUG) console.log("[SearchDropdown] Closed, scroll restored");
     }
 
     /**
@@ -323,11 +327,12 @@ import SearchResults from "../SearchResults.astro";
      * Subscribe to SearchManager state
      */
     searchManager.subscribe((state) => {
-      console.log("SearchDropdown: State update", {
-        isOpen: state.isDropdownOpen,
-        query: state.currentQuery,
-        results: state.searchResults?.length,
-      });
+      if (DEBUG)
+        console.log("SearchDropdown: State update", {
+          isOpen: state.isDropdownOpen,
+          query: state.currentQuery,
+          results: state.searchResults?.length,
+        });
 
       if (state.isDropdownOpen) {
         openDropdown();
@@ -364,7 +369,7 @@ import SearchResults from "../SearchResults.astro";
       }
     });
 
-    console.log("âœ… SearchDropdown: Initialization complete");
+    if (DEBUG) console.log("[SearchDropdown] Initialization complete");
   }
 
   // Initialize on DOM ready

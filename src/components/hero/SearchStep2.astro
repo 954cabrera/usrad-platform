@@ -473,6 +473,9 @@ const { remixUrl } = Astro.props;
 </style>
 
 <script>
+  // Debug flag - set to false for production
+  const DEBUG = false;
+
   import { searchManager } from "../../lib/search-manager";
 
   let isSubscribed = false;
@@ -528,12 +531,12 @@ const { remixUrl } = Astro.props;
 
     const zipHint = document.getElementById("zip-hint");
 
-    console.log("✅ SearchStep2: Initializing...");
+    if (DEBUG) console.log("✅ SearchStep2: Initializing...");
 
     function transitionToStep1() {
       if (!step1 || !step2) return;
 
-      console.log("SearchStep2: Transitioning to Step 1");
+      if (DEBUG) console.log("SearchStep2: Transitioning to Step 1");
 
       step2.classList.add("fade-out-step");
 
@@ -558,13 +561,17 @@ const { remixUrl } = Astro.props;
         const isMobile = window.innerWidth < 768;
         if (!isMobile) {
           searchManager.openDropdown();
-          console.log(
-            "âœ… Transitioned to Step 1 with dropdown open (desktop)"
-          );
+          if (DEBUG) {
+            console.log(
+              "[SearchStep2] Transitioned to Step 1 with dropdown open (desktop)"
+            );
+          }
         } else {
-          console.log(
-            "âœ… Transitioned to Step 1, modal will open via focus handler (mobile)"
-          );
+          if (DEBUG) {
+            console.log(
+              "[SearchStep2] Transitioned to Step 1, modal will open via focus handler (mobile)"
+            );
+          }
         }
       }, 250);
     }
@@ -625,8 +632,6 @@ const { remixUrl } = Astro.props;
           zipHint.classList.remove("text-green-600");
         }
       }
-
-      console.log("SearchStep2: Form ready check", { hasCpt, hasZip, isReady });
     }
 
     [zipInput, zipInputMobile].filter(Boolean).forEach((input) => {
@@ -665,7 +670,7 @@ const { remixUrl } = Astro.props;
     });
 
     async function detectLocation() {
-      console.log("SearchStep2: Detecting location...");
+      if (DEBUG) console.log("SearchStep2: Detecting location...");
 
       // Show loading spinner immediately
       if (locationIcon) locationIcon.classList.add("hidden");
@@ -692,7 +697,7 @@ const { remixUrl } = Astro.props;
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
 
-        console.log("SearchStep2: Got coordinates", { lat, lng });
+        if (DEBUG) console.log("SearchStep2: Got coordinates", { lat, lng });
 
         const response = await fetch(`/api/geocode?lat=${lat}&lng=${lng}`);
         const data = await response.json();
@@ -711,10 +716,11 @@ const { remixUrl } = Astro.props;
 
           checkFormReady();
 
-          console.log("✅ Location detected", {
-            zip: data.postalCode,
-            city: data.city,
-          });
+          if (DEBUG)
+            console.log("✅ Location detected", {
+              zip: data.postalCode,
+              city: data.city,
+            });
         } else {
           throw new Error("No postal code found");
         }
@@ -758,22 +764,24 @@ const { remixUrl } = Astro.props;
     const form = document.getElementById("hero-search-form") as HTMLFormElement;
     if (form) {
       form.addEventListener("submit", (e) => {
-        console.log("SearchStep2: Form submitting", {
-          cpt: cptHidden?.value,
-          procedure: procedureHidden?.value,
-          zip: zipInput?.value || zipInputMobile?.value,
-          action: form.action,
-        });
+        if (DEBUG)
+          console.log("SearchStep2: Form submitting", {
+            cpt: cptHidden?.value,
+            procedure: procedureHidden?.value,
+            zip: zipInput?.value || zipInputMobile?.value,
+            action: form.action,
+          });
       });
     }
 
     if (!isSubscribed) {
       searchManager.subscribe((state) => {
-        console.log("SearchStep2: State update", {
-          currentStep: state.currentStep,
-          selectedProcedure: state.selectedProcedure?.label,
-          zipCode: state.zipCode,
-        });
+        if (DEBUG)
+          console.log("SearchStep2: State update", {
+            currentStep: state.currentStep,
+            selectedProcedure: state.selectedProcedure?.label,
+            zipCode: state.zipCode,
+          });
 
         if (state.selectedProcedure) {
           const label = state.selectedProcedure.label;
@@ -843,15 +851,17 @@ const { remixUrl } = Astro.props;
 
           if (cptHidden) {
             cptHidden.value = cptCode;
-            console.log("🔍 CPT code set:", {
-              cptCode,
-              cptHiddenValue: cptHidden.value,
-              hasValue: cptHidden.value.length > 0,
-            });
+            if (DEBUG)
+              console.log("🔍 CPT code set:", {
+                cptCode,
+                cptHiddenValue: cptHidden.value,
+                hasValue: cptHidden.value.length > 0,
+              });
           }
           if (procedureHidden) procedureHidden.value = label;
 
-          console.log("✅ Procedure display updated", { label, cptCode });
+          if (DEBUG)
+            console.log("✅ Procedure display updated", { label, cptCode });
         }
 
         if (state.zipCode) {
@@ -885,10 +895,10 @@ const { remixUrl } = Astro.props;
       });
 
       isSubscribed = true;
-      console.log("✅ SearchStep2: Subscribed to SearchManager");
+      if (DEBUG) console.log("✅ SearchStep2: Subscribed to SearchManager");
     }
 
-    console.log("✅ SearchStep2: Initialization complete");
+    if (DEBUG) console.log("✅ SearchStep2: Initialization complete");
   }
 
   if (document.readyState === "loading") {

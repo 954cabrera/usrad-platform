@@ -15,7 +15,7 @@ const { remixUrl } = Astro.props;
 
 <script type="module">
   await import("/js/procedure-data.js");
-  console.log("âœ… Procedure data loaded for HeroSection");
+  // Procedure data loaded - always silent in production
 </script>
 
 <section
@@ -55,6 +55,9 @@ const { remixUrl } = Astro.props;
 </div>
 
 <script>
+  // Debug flag - set to false for production
+  const DEBUG = false;
+
   import { searchManager } from "../../lib/search-manager";
 
   function initializeSearchManager() {
@@ -91,21 +94,22 @@ const { remixUrl } = Astro.props;
         popularProcs
       );
 
-      console.log("âœ… SearchManager initialized");
+      if (DEBUG) console.log("[HeroSection] SearchManager initialized");
     } catch (error) {
       console.error("âŒ Error initializing SearchManager:", error);
     }
   }
 
   function initHeroSection() {
-    console.log("ðŸš€ HeroSection: Initializing...");
+    if (DEBUG) console.log("[HeroSection] Initializing...");
     initializeSearchManager();
 
     document.addEventListener("mobile-procedure-selected", (e: any) => {
-      console.log("âœ… Mobile modal: Procedure selected", e.detail);
+      if (DEBUG)
+        console.log("[HeroSection] Mobile modal: Procedure selected", e.detail);
     });
 
-    console.log("âœ… HeroSection: Initialization complete");
+    if (DEBUG) console.log("[HeroSection] Initialization complete");
   }
 
   if (document.readyState === "loading") {
