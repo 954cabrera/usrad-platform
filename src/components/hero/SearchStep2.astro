@@ -59,8 +59,22 @@ const { remixUrl } = Astro.props;
             <button
               type="button"
               id="change-procedure-button-mobile"
-              class="flex-shrink-0 text-xs font-medium text-[#003087] hover:text-[#cc9933] transition-colors px-3 py-1.5 rounded-lg hover:bg-gray-100"
+              class="flex-shrink-0 flex items-center gap-1 text-xs font-medium text-[#003087] hover:text-[#cc9933] transition-colors px-3 py-1.5 rounded-lg hover:bg-gray-100"
             >
+              <svg
+                id="change-arrow-mobile"
+                class="w-3 h-3"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                ></path>
+              </svg>
               Change
             </button>
           </div>
@@ -199,6 +213,7 @@ const { remixUrl } = Astro.props;
               class="flex-shrink-0 flex items-center gap-1.5 text-[#003087] hover:text-[#cc9933] font-medium text-sm transition-all px-3 py-1.5 rounded-lg hover:bg-gray-100"
             >
               <svg
+                id="change-arrow-desktop"
                 class="w-4 h-4"
                 fill="none"
                 stroke="currentColor"
@@ -390,6 +405,20 @@ const { remixUrl } = Astro.props;
   .checkmark-gradient {
     background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
   }
+
+  /* ✨ NEW: 180° rotate animation for change button arrow */
+  @keyframes rotateArrow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(180deg);
+    }
+  }
+
+  .rotate-arrow {
+    animation: rotateArrow 0.4s ease-in-out;
+  }
 </style>
 
 <script>
@@ -490,11 +519,39 @@ const { remixUrl } = Astro.props;
     }
 
     if (changeBtn) {
-      changeBtn.addEventListener("click", transitionToStep1);
+      changeBtn.addEventListener("click", () => {
+        // Trigger 180° arrow rotation animation
+        const arrow = document.getElementById("change-arrow-desktop");
+        if (arrow) {
+          arrow.classList.remove("rotate-arrow");
+          void arrow.offsetWidth; // Force reflow
+          arrow.classList.add("rotate-arrow");
+          setTimeout(() => {
+            arrow.classList.remove("rotate-arrow");
+          }, 400);
+        }
+
+        // Then transition to step 1
+        transitionToStep1();
+      });
     }
 
     if (changeBtnMobile) {
-      changeBtnMobile.addEventListener("click", transitionToStep1);
+      changeBtnMobile.addEventListener("click", () => {
+        // Trigger 180° arrow rotation animation
+        const arrow = document.getElementById("change-arrow-mobile");
+        if (arrow) {
+          arrow.classList.remove("rotate-arrow");
+          void arrow.offsetWidth; // Force reflow
+          arrow.classList.add("rotate-arrow");
+          setTimeout(() => {
+            arrow.classList.remove("rotate-arrow");
+          }, 400);
+        }
+
+        // Then transition to step 1
+        transitionToStep1();
+      });
     }
 
     function checkFormReady() {
