@@ -242,10 +242,11 @@ import SearchResults from "../SearchResults.astro";
 
       let nextSection = heroSection.nextElementSibling;
       while (nextSection) {
-        // Skip the dropdown and backdrop elements
+        // Skip the dropdown, backdrop, and mobile modal elements
         if (
           nextSection.id === "search-dropdown" ||
-          nextSection.id === "search-backdrop"
+          nextSection.id === "search-backdrop" ||
+          nextSection.id === "mobile-search-modal"
         ) {
           nextSection = nextSection.nextElementSibling;
           continue;
