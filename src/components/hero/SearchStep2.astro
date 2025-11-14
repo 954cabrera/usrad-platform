@@ -81,7 +81,7 @@ const { remixUrl } = Astro.props;
         </div>
 
         <!-- ZIP Input - Mobile -->
-        <div class="relative p-4 border-b border-gray-200">
+        <div class="relative p-3 border-b border-gray-200">
           <label
             for="hero-zip-input-mobile"
             class="block text-xs font-medium text-gray-500 mb-2"
@@ -97,7 +97,7 @@ const { remixUrl } = Astro.props;
               inputmode="numeric"
               pattern="[0-9]{5}"
               maxlength="5"
-              class="w-full px-4 py-3 text-base text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:border-[#003087] focus:ring-2 focus:ring-[#003087]/20 transition-all pr-10"
+              class="w-full px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:border-[#003087] focus:ring-2 focus:ring-[#003087]/20 transition-all pr-10"
             />
             <button
               type="button"
@@ -139,11 +139,11 @@ const { remixUrl } = Astro.props;
         </div>
 
         <!-- Submit Button - Mobile -->
-        <div class="p-4 relative">
+        <div class="p-3 relative">
           <button
             type="submit"
             id="hero-search-button-mobile"
-            class="w-full bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-6 py-4 rounded-lg font-bold text-base transition-all duration-300 hover:brightness-110 hover:shadow-lg hover:from-[#d7a53f] hover:to-[#b98c2f] disabled:opacity-50 disabled:cursor-not-allowed"
+            class="w-full bg-gradient-to-r from-[#cc9933] to-[#b8862d] text-white px-5 py-3 rounded-lg font-bold text-sm transition-all duration-300 hover:brightness-110 hover:shadow-lg hover:from-[#d7a53f] hover:to-[#b98c2f] disabled:opacity-50 disabled:cursor-not-allowed"
             disabled
           >
             <span class="flex items-center justify-center gap-2 relative z-10">
@@ -419,6 +419,57 @@ const { remixUrl } = Astro.props;
   .rotate-arrow {
     animation: rotateArrow 0.4s ease-in-out;
   }
+
+  /* ✨ Progressive button states */
+  @keyframes readyPulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(204, 153, 51, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(204, 153, 51, 0);
+    }
+  }
+
+  /* Button ready state - when ZIP is valid */
+  #hero-search-button-mobile.button-ready {
+    animation: readyPulse 2s infinite;
+    box-shadow: 0 4px 12px rgba(204, 153, 51, 0.3);
+  }
+
+  /* Typing state - gentle pulse on border */
+  #hero-zip-input-mobile.zip-typing {
+    border-color: #cc9933;
+    box-shadow: 0 0 0 3px rgba(204, 153, 51, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  /* Valid ZIP - green border */
+  #hero-zip-input-mobile.zip-valid {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+  }
+
+  /* ✨ Pin bounce animation */
+  @keyframes pinBounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    25% {
+      transform: translateY(-6px);
+    }
+    50% {
+      transform: translateY(0);
+    }
+    75% {
+      transform: translateY(-3px);
+    }
+  }
+
+  .pin-bouncing {
+    animation: pinBounce 0.6s ease-in-out;
+  }
 </style>
 
 <script>
@@ -587,6 +638,27 @@ const { remixUrl } = Astro.props;
         if (zipInput) zipInput.value = cleaned;
         if (zipInputMobile) zipInputMobile.value = cleaned;
 
+        // ✨ NEW: Progressive visual feedback
+        const length = cleaned.length;
+
+        // Remove all state classes first
+        if (zipInputMobile) {
+          zipInputMobile.classList.remove("zip-typing", "zip-valid");
+        }
+        if (submitBtnMobile) {
+          submitBtnMobile.classList.remove("button-ready");
+        }
+
+        // Apply appropriate state
+        if (length > 0 && length < 5) {
+          // Typing state (1-4 digits)
+          if (zipInputMobile) zipInputMobile.classList.add("zip-typing");
+        } else if (length === 5) {
+          // Valid state (5 digits)
+          if (zipInputMobile) zipInputMobile.classList.add("zip-valid");
+          if (submitBtnMobile) submitBtnMobile.classList.add("button-ready");
+        }
+
         searchManager.setZipCode(cleaned);
         checkFormReady();
       });
@@ -595,6 +667,7 @@ const { remixUrl } = Astro.props;
     async function detectLocation() {
       console.log("SearchStep2: Detecting location...");
 
+      // Show loading spinner immediately
       if (locationIcon) locationIcon.classList.add("hidden");
       if (locationIconMobile) locationIconMobile.classList.add("hidden");
       if (locationLoading) locationLoading.classList.remove("hidden");
@@ -710,7 +783,8 @@ const { remixUrl } = Astro.props;
             state.selectedProcedure.cpt ||
             "";
 
-          if (procedureDisplay) {
+          // Only update text if it actually changed (prevents blinking)
+          if (procedureDisplay && procedureDisplay.textContent !== label) {
             procedureDisplay.textContent = label;
             procedureDisplay.classList.add("label-fade-in");
             setTimeout(() => {
@@ -718,7 +792,10 @@ const { remixUrl } = Astro.props;
             }, 400);
           }
 
-          if (procedureDisplayMobile) {
+          if (
+            procedureDisplayMobile &&
+            procedureDisplayMobile.textContent !== label
+          ) {
             procedureDisplayMobile.textContent = label;
             procedureDisplayMobile.classList.add("label-fade-in");
             setTimeout(() => {
@@ -726,26 +803,42 @@ const { remixUrl } = Astro.props;
             }, 400);
           }
 
-          // ✨ NEW: Trigger checkmark pulse animation
+          // Trigger checkmark pulse animation ONLY when procedure changes
           const checkmarkDesktop = document.getElementById("checkmark-desktop");
           const checkmarkMobile = document.getElementById("checkmark-mobile");
 
-          if (checkmarkDesktop) {
-            checkmarkDesktop.classList.remove("checkmark-pulse");
-            void checkmarkDesktop.offsetWidth; // Force reflow
-            checkmarkDesktop.classList.add("checkmark-pulse");
-            setTimeout(() => {
-              checkmarkDesktop.classList.remove("checkmark-pulse");
-            }, 600);
-          }
+          // Check if this is a NEW procedure selection (not just a state update)
+          const lastProcedure =
+            checkmarkDesktop?.getAttribute("data-last-procedure") || "";
+          const currentProcedure = label || "";
 
-          if (checkmarkMobile) {
-            checkmarkMobile.classList.remove("checkmark-pulse");
-            void checkmarkMobile.offsetWidth; // Force reflow
-            checkmarkMobile.classList.add("checkmark-pulse");
-            setTimeout(() => {
+          // Only animate if procedure actually changed
+          if (currentProcedure !== lastProcedure) {
+            if (checkmarkDesktop) {
+              checkmarkDesktop.setAttribute(
+                "data-last-procedure",
+                currentProcedure
+              );
+              checkmarkDesktop.classList.remove("checkmark-pulse");
+              void checkmarkDesktop.offsetWidth; // Force reflow
+              checkmarkDesktop.classList.add("checkmark-pulse");
+              setTimeout(() => {
+                checkmarkDesktop.classList.remove("checkmark-pulse");
+              }, 600);
+            }
+
+            if (checkmarkMobile) {
+              checkmarkMobile.setAttribute(
+                "data-last-procedure",
+                currentProcedure
+              );
               checkmarkMobile.classList.remove("checkmark-pulse");
-            }, 600);
+              void checkmarkMobile.offsetWidth; // Force reflow
+              checkmarkMobile.classList.add("checkmark-pulse");
+              setTimeout(() => {
+                checkmarkMobile.classList.remove("checkmark-pulse");
+              }, 600);
+            }
           }
 
           if (cptHidden) {
@@ -771,6 +864,18 @@ const { remixUrl } = Astro.props;
         if (step2Container) {
           if (state.currentStep === 2) {
             step2Container.classList.remove("hidden");
+
+            // ✨ NEW: Auto-focus ZIP input after transition
+            const isMobile = window.innerWidth < 768;
+            if (isMobile && zipInputMobile) {
+              setTimeout(() => {
+                zipInputMobile.focus();
+              }, 300); // After fade-in animation
+            } else if (!isMobile && zipInput) {
+              setTimeout(() => {
+                zipInput.focus();
+              }, 300);
+            }
           } else {
             step2Container.classList.add("hidden");
           }
