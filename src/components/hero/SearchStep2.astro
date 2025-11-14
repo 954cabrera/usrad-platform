@@ -427,13 +427,21 @@ const { remixUrl } = Astro.props;
           "hero-search-input"
         ) as HTMLInputElement;
 
-        // Focus the input
+        // Focus the input (this will trigger the appropriate modal/dropdown based on screen size)
         searchInput?.focus();
 
-        // Explicitly open the dropdown with popular procedures
-        searchManager.openDropdown();
-
-        console.log("✅ Transitioned to Step 1 with dropdown open");
+        // Only open dropdown explicitly on desktop (mobile uses focus handler to open modal)
+        const isMobile = window.innerWidth < 768;
+        if (!isMobile) {
+          searchManager.openDropdown();
+          console.log(
+            "âœ… Transitioned to Step 1 with dropdown open (desktop)"
+          );
+        } else {
+          console.log(
+            "âœ… Transitioned to Step 1, modal will open via focus handler (mobile)"
+          );
+        }
       }, 250);
     }
 
