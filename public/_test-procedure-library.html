@@ -20,6 +20,11 @@
             margin-bottom: 0.25rem;
         }
 
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+
         .controls {
             display: flex;
             flex-wrap: wrap;
@@ -84,6 +89,12 @@
             transform: translateY(-2px);
         }
 
+        .card h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+            color: #0f172a;
+        }
+
         .count {
             font-size: 1.4rem;
             font-weight: 600;
@@ -92,18 +103,80 @@
 
         .section {
             margin-bottom: 3rem;
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .section h2 {
+            margin: 0 0 1rem 0;
+            color: #0f172a;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
         }
 
         .category {
             font-weight: 600;
             color: #0f172a;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            padding: 0.5rem;
+            background: #f1f5f9;
+            border-radius: 6px;
         }
 
         .procedure {
             font-size: 0.9rem;
             color: #475569;
             margin-left: 1.25rem;
+            padding: 0.4rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .procedure:hover {
+            background: #f8fafc;
+            padding-left: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .cpt-badge {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .keyword-section {
+            margin-left: 2.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #64748b;
+            background: #f8fafc;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border-left: 3px solid #94a3b8;
+        }
+
+        .keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.3rem;
+        }
+
+        .keyword {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
         }
 
         .empty {
@@ -124,15 +197,43 @@
             padding: 0 2px;
             border-radius: 3px;
         }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #fca5a5;
+            margin-bottom: 1rem;
+        }
+
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #6ee7b7;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 
 <body>
     <h1>🩻 Procedure Library Audit Dashboard</h1>
-    <p>Audit all modalities, categories, and CPTs dynamically from <strong>procedures-global.js</strong>.</p>
+    <p class="subtitle">Audit all modalities, categories, and CPTs dynamically from <strong>procedure-data.js</strong>
+        (ES6 Module)</p>
+
+    <div id="status-message"></div>
 
     <div class="controls">
-        <input id="searchInput" type="text" placeholder="Search by name, category, or CPT..." />
+        <input id="searchInput" type="text" placeholder="Search by name, category, CPT, or keyword..." />
         <div class="buttons">
             <button class="btn active" data-mod="All">All</button>
             <button class="btn" data-mod="MRI">MRI</button>
@@ -145,17 +246,33 @@
     <div id="summary" class="summary"></div>
     <div id="details"></div>
 
-    <div class="footer">Generated dynamically from window.ProcedureLibrary</div>
+    <div class="footer">Generated dynamically from window.ProcedureLibrary | Using ES6 Module Import</div>
 
-    <script src="../js/procedures-global.js"></script>
-    <script>
+    <!-- ✅ UPDATED: ES6 Module Import -->
+    <script type="module">
+        // Import the ProcedureLibrary from the ES6 module
+        import { ProcedureLibrary } from '/js/procedure-data.js';
+
+        // Make it available globally
+        window.ProcedureLibrary = ProcedureLibrary;
+
+        console.log('✅ ProcedureLibrary loaded:', ProcedureLibrary);
+
         const modalities = ["MRI", "CT", "X-Ray", "Ultrasound"];
         const summaryContainer = document.getElementById("summary");
         const detailsContainer = document.getElementById("details");
         const searchInput = document.getElementById("searchInput");
         const buttons = document.querySelectorAll(".btn");
+        const statusMessage = document.getElementById("status-message");
         let activeMod = "All";
-        let fullData = {};
+
+        // Show success message
+        statusMessage.innerHTML = `
+            <div class="success">
+                ✅ Successfully loaded procedure-data.js (ES6 Module)<br>
+                📊 Found ${Object.keys(ProcedureLibrary).length - 1} modalities: ${modalities.join(', ')}
+            </div>
+        `;
 
         function highlight(text, term) {
             if (!term) return text;
@@ -175,26 +292,35 @@
 
                 let categoryCount = 0;
                 let totalProcedures = 0;
+                let totalKeywords = 0;
                 const emptyCategories = [];
 
                 for (const key in set) {
                     categoryCount++;
-                    const procs = set[key].procedures || set[key].viewOptions || [];
+                    const item = set[key];
+                    const procs = item.procedures || item.viewOptions || [];
+                    const keywords = item.matchKeywords || [];
+
                     if (!procs.length) emptyCategories.push(key);
                     totalProcedures += procs.length;
+                    totalKeywords += keywords.length;
                 }
 
                 // Card
                 const card = document.createElement("div");
                 card.className = "card";
                 card.innerHTML = `
-          <h2>${mod}</h2>
-          <div class="count">${categoryCount} categories / ${totalProcedures} procedures</div>
-          ${emptyCategories.length
+                    <h2>${mod}</h2>
+                    <div class="count">${categoryCount} categories</div>
+                    <div style="font-size: 0.9rem; color: #64748b; margin-top: 0.5rem;">
+                        ${totalProcedures} procedures<br>
+                        ${totalKeywords} search keywords
+                    </div>
+                    ${emptyCategories.length
                         ? `<p class="empty">⚠️ ${emptyCategories.length} empty categories</p>`
                         : `<p style="color:#16a34a;">✅ All categories populated</p>`
                     }
-        `;
+                `;
                 summaryContainer.appendChild(card);
 
                 // Detail
@@ -205,6 +331,7 @@
                 for (const key in set) {
                     const c = set[key];
                     const procs = c.procedures || c.viewOptions || [];
+                    const keywords = c.matchKeywords || [];
                     const catName = c.category || key;
                     const catDiv = document.createElement("div");
 
@@ -212,24 +339,66 @@
                     const matchesSearch =
                         !query ||
                         catName.toLowerCase().includes(query) ||
+                        keywords.some(k => k.toLowerCase().includes(query)) ||
                         procs.some(p =>
-                            [p.label, p.cpt].some(
+                            [p.label, p.cpt, p.description, p.useCase].some(
                                 v => v && v.toLowerCase().includes(query)
                             )
                         );
                     if (!matchesSearch) continue;
 
-                    catDiv.innerHTML = `<div class="category">${highlight(catName, query)} — ${procs.length} procedure(s)</div>`;
+                    catDiv.innerHTML = `
+                        <div class="category">
+                            ${highlight(catName, query)} — ${procs.length} procedure(s)
+                        </div>
+                    `;
+
+                    // Show matchKeywords if available
+                    if (keywords.length > 0) {
+                        const keywordDiv = document.createElement("div");
+                        keywordDiv.className = "keyword-section";
+                        keywordDiv.innerHTML = `
+                            <strong>🔍 Search Keywords:</strong>
+                            <div class="keywords">
+                                ${keywords.map(k => `<span class="keyword">${highlight(k, query)}</span>`).join('')}
+                            </div>
+                        `;
+                        catDiv.appendChild(keywordDiv);
+                    }
+
                     procs.forEach(p => {
                         const line = document.createElement("div");
                         line.className = "procedure";
-                        line.innerHTML = `• ${highlight(p.label, query)} <span style="color:#94a3b8;">(${p.cpt})</span>`;
+                        line.innerHTML = `
+                            <span>• ${highlight(p.label, query)}</span>
+                            <span class="cpt-badge">${p.cpt}</span>
+                        `;
+
+                        // Add metadata on hover if available
+                        if (p.duration || p.prep || p.useCase) {
+                            line.title = [
+                                p.duration && `Duration: ${p.duration}`,
+                                p.prep && `Prep: ${p.prep}`,
+                                p.useCase && `Use: ${p.useCase}`
+                            ].filter(Boolean).join(' | ');
+                        }
+
                         catDiv.appendChild(line);
                     });
                     section.appendChild(catDiv);
                 }
                 detailsContainer.appendChild(section);
             });
+
+            // If no results
+            if (query && detailsContainer.children.length === 0) {
+                detailsContainer.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: #64748b;">
+                        <p style="font-size: 1.2rem;">No results found for "${query}"</p>
+                        <p>Try searching for: MRI, brain, knee, ultrasound, 70551, etc.</p>
+                    </div>
+                `;
+            }
         }
 
         searchInput.addEventListener("input", buildSummary);
@@ -242,7 +411,37 @@
             });
         });
 
-        window.addEventListener("load", buildSummary);
+        // Build on load
+        buildSummary();
+
+        console.log('🎨 Audit Dashboard initialized');
+        console.log('📊 Total procedures across all modalities:',
+            modalities.reduce((sum, mod) => {
+                const set = ProcedureLibrary[mod];
+                return sum + Object.keys(set || {}).reduce((total, key) => {
+                    const procs = set[key].procedures || set[key].viewOptions || [];
+                    return total + procs.length;
+                }, 0);
+            }, 0)
+        );
+    </script>
+
+    <!-- Fallback error handling -->
+    <script>
+        // If module import fails, show error
+        window.addEventListener('error', (e) => {
+            if (e.message.includes('procedure-data.js')) {
+                const statusDiv = document.getElementById('status-message');
+                statusDiv.innerHTML = `
+                    <div class="error">
+                        ❌ Error: procedure-data.js not loaded<br>
+                        Please ensure /js/procedure-data.js is accessible.<br>
+                        Expected path: /public/js/procedure-data.js<br><br>
+                        <strong>Error:</strong> ${e.message}
+                    </div>
+                `;
+            }
+        });
     </script>
 </body>
 

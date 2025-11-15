@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USRad - Test Dashboard Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-color: #667eea;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .icon {
+            font-size: 2rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .card-description {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-primary {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-info {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .add-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+
+        .add-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 2rem;
+        }
+
+        .quick-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .quick-link {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .quick-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🧪 USRad Test Dashboard</h1>
+            <p class="subtitle">Central hub for all development & testing tools</p>
+        </header>
+
+        <!-- Quick Links -->
+        <div class="quick-links">
+            <a href="/" class="quick-link">🏠 Main Site</a>
+            <a href="/pbs/search" class="quick-link">🔍 Search App</a>
+            <a href="/admin" class="quick-link">⚙️ Admin</a>
+        </div>
+
+        <!-- Procedure Library Section -->
+        <section class="section">
+            <h2 class="section-title">📚 Procedure Library Tools</h2>
+            <div class="dashboard-grid">
+                <!-- Universal Search Test -->
+                <div class="card" onclick="window.location.href='/_test-universal-search.html'">
+                    <div class="card-header">
+                        <div class="icon">🔍</div>
+                        <h3 class="card-title">Universal Search Test</h3>
+                    </div>
+                    <p class="card-description">
+                        Test the unified search index across MRI, CT, X-Ray, and Ultrasound procedures with enhanced
+                        matchKeywords support.
+                    </p>
+                    <div class="card-meta">
+                        <span class="badge badge-primary">Search Engine</span>
+                        <span class="badge badge-success">ES6 Module</span>
+                        <span class="badge badge-info">194 Procedures</span>
+                    </div>
+                </div>
+
+                <!-- Procedure Library Audit -->
+                <div class="card" onclick="window.location.href='/_test-procedure-library.html'">
+                    <div class="card-header">
+                        <div class="icon">🩻</div>
+                        <h3 class="card-title">Procedure Library Audit</h3>
+                    </div>
+                    <p class="card-description">
+                        Comprehensive audit dashboard showing all procedures, categories, CPT codes, and search keywords
+                        by modality.
+                    </p>
+                    <div class="card-meta">
+                        <span class="badge badge-primary">Audit Tool</span>
+                        <span class="badge badge-success">ES6 Module</span>
+                        <span class="badge badge-warning">Keywords</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Database & API Tools Section -->
+        <section class="section">
+            <h2 class="section-title">🗄️ Database & API Tools</h2>
+            <div class="dashboard-grid">
+                <!-- API: Procedure Search -->
+                <div class="card" onclick="testAPI('/api/procedures/search?q=mri')">
+                    <div class="card-header">
+                        <div class="icon">🔌</div>
+                        <h3 class="card-title">Procedure Search API</h3>
+                    </div>
+                    <p class="card-description">
+                        Test the procedure search endpoint. Returns procedures matching query string.
+                    </p>
+                    <div class="card-meta">
+                        <span class="badge badge-primary">GET</span>
+                        <span class="badge badge-success">Active</span>
+                        <span class="badge badge-info">/api/procedures/search</span>
+                    </div>
+                </div>
+
+                <!-- API: Medicare Pricing -->
+                <div class="card" onclick="testAPI('/api/pricing/calculate-nationwide?cpt=70551&zip=33101&year=2025')">
+                    <div class="card-header">
+                        <div class="icon">💰</div>
+                        <h3 class="card-title">Medicare Pricing API</h3>
+                    </div>
+                    <p class="card-description">
+                        Calculate Medicare-based pricing for procedures. Returns rates by CPT code and ZIP.
+                    </p>
+                    <div class="card-meta">
+                        <span class="badge badge-primary">GET</span>
+                        <span class="badge badge-success">Active</span>
+                        <span class="badge badge-info">/api/pricing/*</span>
+                    </div>
+                </div>
+
+                <!-- API: Supabase Query Test -->
+                <div class="card" onclick="window.location.href='/_test-supabase-query.html'">
+                    <div class="card-header">
+                        <div class="icon">🗄️</div>
+                        <h3 class="card-title">Supabase Query Tester</h3>
+                    </div>
+                    <p class="card-description">
+                        Interactive tool to test Supabase queries against procedure_search_index and other tables.
+                    </p>
+                    <div class="card-meta">
+                        <span class="badge badge-primary">Database</span>
+                        <span class="badge badge-warning">Development</span>
+                        <span class="badge badge-info">Supabase</span>
+                    </div>
+                </div>
+
+                <!-- Add New Placeholder -->
+                <div class="card add-card">
+                    <div class="add-icon">➕</div>
+                    <div>Add API Test</div>
+                    <small style="margin-top: 0.5rem; opacity: 0.8;">Click to add new endpoint test...</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Component Testing Section -->
+        <section class="section">
+            <h2 class="section-title">🎨 Component Testing</h2>
+            <div class="dashboard-grid">
+                <!-- Add New Card Placeholder -->
+                <div class="card add-card">
+                    <div class="add-icon">➕</div>
+                    <div>Add Component Test</div>
+                    <small style="margin-top: 0.5rem; opacity: 0.8;">Coming soon...</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Documentation Section -->
+        <section class="section">
+            <h2 class="section-title">📖 Documentation & Guides</h2>
+            <div class="dashboard-grid">
+                <!-- Add New Card Placeholder -->
+                <div class="card add-card">
+                    <div class="add-icon">➕</div>
+                    <div>Add Documentation Link</div>
+                    <small style="margin-top: 0.5rem; opacity: 0.8;">Coming soon...</small>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>USRad Development Tools | Last updated: <span id="last-updated"></span></p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+                💡 To add new pages, edit this file at <code
+                    style="background: rgba(0,0,0,0.2); padding: 0.2rem 0.5rem; border-radius: 4px;">/_test-dashboard.html</code>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Show last updated timestamp
+        document.getElementById('last-updated').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Log available pages
+        console.log('🧪 USRad Test Dashboard loaded');
+        console.log('📋 Available test pages:', [
+            '/_test-universal-search.html',
+            '/_test-procedure-library.html'
+        ]);
+
+        // ===================================
+        // API TESTING FUNCTIONALITY
+        // ===================================
+
+        // Create modal for API results
+        const modalHTML = `
+            <div id="apiModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; padding: 2rem; overflow-y: auto;">
+                <div style="max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; padding: 2rem; position: relative;">
+                    <button onclick="closeAPIModal()" style="position: absolute; top: 1rem; right: 1rem; background: #f87171; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600;">Close ✕</button>
+                    
+                    <h2 style="margin: 0 0 1rem 0; color: #1e293b;">API Test Results</h2>
+                    
+                    <div style="background: #f1f5f9; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                        <strong>Endpoint:</strong> <code id="apiEndpoint" style="background: #e2e8f0; padding: 0.25rem 0.5rem; border-radius: 4px;"></code>
+                    </div>
+                    
+                    <div style="background: #1f2937; color: #f9fafb; padding: 1rem; border-radius: 8px; overflow-x: auto;">
+                        <pre id="apiResponse" style="margin: 0; white-space: pre-wrap; font-size: 0.9rem;"></pre>
+                    </div>
+                    
+                    <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                        <button onclick="copyAPIResponse()" style="background: #3b82f6; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">📋 Copy JSON</button>
+                        <button onclick="openInNewTab()" style="background: #8b5cf6; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">🔗 Open in New Tab</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+        let currentAPIUrl = '';
+
+        // Test API endpoint
+        async function testAPI(endpoint) {
+            currentAPIUrl = endpoint;
+            const modal = document.getElementById('apiModal');
+            const endpointEl = document.getElementById('apiEndpoint');
+            const responseEl = document.getElementById('apiResponse');
+
+            // Show modal with loading state
+            modal.style.display = 'block';
+            endpointEl.textContent = endpoint;
+            responseEl.textContent = 'Loading... ⏳';
+
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+
+                // Format JSON with syntax highlighting
+                responseEl.textContent = JSON.stringify(data, null, 2);
+
+                console.log('✅ API Response:', data);
+            } catch (error) {
+                responseEl.textContent = `❌ Error: ${error.message}\n\nMake sure the API endpoint is running.`;
+                console.error('API Error:', error);
+            }
+        }
+
+        // Close modal
+        function closeAPIModal() {
+            document.getElementById('apiModal').style.display = 'none';
+        }
+
+        // Copy response to clipboard
+        function copyAPIResponse() {
+            const responseText = document.getElementById('apiResponse').textContent;
+            navigator.clipboard.writeText(responseText).then(() => {
+                alert('✅ Response copied to clipboard!');
+            });
+        }
+
+        // Open API in new tab
+        function openInNewTab() {
+            window.open(currentAPIUrl, '_blank');
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAPIModal();
+            }
+        });
+
+        // Make functions global
+        window.testAPI = testAPI;
+        window.closeAPIModal = closeAPIModal;
+        window.copyAPIResponse = copyAPIResponse;
+        window.openInNewTab = openInNewTab;
+    </script>
+</body>
+
+</html>
