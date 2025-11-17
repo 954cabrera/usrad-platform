@@ -79,7 +79,7 @@ class SearchManager {
       popularCount: this.state.popularProcedures.length,
     });
 
-    this.notify();
+// Removed this.notify() - subscribers already get initial state on subscribe()
   }
 
   private flattenProcedures(): Procedure[] {
@@ -112,7 +112,6 @@ class SearchManager {
   }
 
   search(query: string): void {
-
     this.state.currentQuery = query;
 
     if (!query || query.trim().length < 2) {
