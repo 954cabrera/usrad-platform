@@ -1,4 +1,8 @@
 ---
+import {
+  USE_NEW_PROCEDURE_ENGINE,
+  ENABLE_DEBUG_NEW_ENGINE,
+} from "../../lib/feature-flags";
 import HeroBackground from "./HeroBackground.astro";
 import HeroHeadline from "./HeroHeadline.astro";
 import SearchStep1 from "./SearchStep1.astro";
@@ -56,7 +60,12 @@ const { remixUrl } = Astro.props;
 
 <script>
   // Debug flag - set to false for production
-  const DEBUG = false;
+  const DEBUG = false; // Legacy debug flag
+
+  import {
+    USE_NEW_PROCEDURE_ENGINE,
+    ENABLE_DEBUG_NEW_ENGINE,
+  } from "../../lib/feature-flags";
 
   import { searchManager } from "../../lib/search-manager";
 
@@ -101,6 +110,9 @@ const { remixUrl } = Astro.props;
         popularProcs
       );
 
+      // Phase 0.5: Initialize new engine in shadow mode if enabled
+      initializeNewEngineIfEnabled();
+
       if (DEBUG) console.log("[HeroSection] SearchManager initialized");
     } catch (error) {
       console.error("❌ Error initializing SearchManager:", error);
@@ -108,6 +120,13 @@ const { remixUrl } = Astro.props;
   }
 
   function initHeroSection() {
+    if (USE_NEW_PROCEDURE_ENGINE && ENABLE_DEBUG_NEW_ENGINE) {
+      console.log("🔬 Phase 0.5: Shadow Mode Active", {
+        newEngine: USE_NEW_PROCEDURE_ENGINE,
+        debug: ENABLE_DEBUG_NEW_ENGINE,
+      });
+    }
+
     if (DEBUG) console.log("[HeroSection] Initializing...");
     initializeSearchManager();
 
@@ -126,6 +145,30 @@ const { remixUrl } = Astro.props;
   }
 
   document.addEventListener("astro:page-load", initHeroSection);
+
+  /**
+   * Phase 0.5: New Engine Initialization
+   * Ensures the procedure-resolver can access ProcedureLibrary when flags are enabled
+   * This is a no-op check that verifies shadow-mode readiness
+   */
+  function initializeNewEngineIfEnabled() {
+    if (!USE_NEW_PROCEDURE_ENGINE) {
+      return; // New engine disabled, skip initialization
+    }
+
+    // Verify ProcedureLibrary is accessible for the new engine
+    const lib = (window as any).ProcedureLibrary;
+    if (!lib) {
+      console.warn("⚠️ New Engine enabled but ProcedureLibrary not available");
+      return;
+    }
+
+    if (ENABLE_DEBUG_NEW_ENGINE) {
+      console.log("✅ New Engine shadow mode ready", {
+        procedureCount: lib.procedures?.length || 0,
+      });
+    }
+  }
 </script>
 
 <style>
