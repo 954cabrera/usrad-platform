@@ -79,7 +79,7 @@ class SearchManager {
       popularCount: this.state.popularProcedures.length,
     });
 
-    this.notify();
+// Removed this.notify() - subscribers already get initial state on subscribe()
   }
 
   private flattenProcedures(): Procedure[] {
@@ -112,10 +112,11 @@ class SearchManager {
   }
 
   search(query: string): void {
+    const normalizedQuery = normalizeQuery(query);
 
     this.state.currentQuery = query;
 
-    if (!query || query.trim().length < 2) {
+    if (!normalizedQuery || normalizedQuery.length < 2) {
       this.state.searchResults = [];
       this.notify();
       return;
@@ -123,7 +124,7 @@ class SearchManager {
 
     const results = this.allProcedures.filter(proc => {
       const searchText = `${proc.label} ${proc.modality} ${proc.bodyPart || ''} ${proc.cptCode || ''}`;
-      return textContainsQuery(searchText, query);
+      return textContainsQuery(searchText, normalizedQuery);
     });
 
     this.state.searchResults = results.slice(0, 20);
