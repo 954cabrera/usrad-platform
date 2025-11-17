@@ -1,0 +1,138 @@
+---
+import HeroBackground from "./HeroBackground.astro";
+import HeroHeadline from "./HeroHeadline.astro";
+import SearchStep1 from "./SearchStep1.astro";
+import SearchStep2 from "./SearchStep2.astro";
+import SearchDropdown from "./search/SearchDropdown.astro";
+import MobileSearchModal from "./MobileSearchModal.astro";
+
+interface Props {
+  remixUrl: string;
+}
+
+const { remixUrl } = Astro.props;
+---
+
+<!-- ======================================================
+  PROCEDURE DATA LOADER
+  ====================================================== -->
+<!-- Load procedure-data.js from /public (plain ES module) -->
+<script type="module">
+  await import("/js/procedure-data.js");
+  // Procedure data loaded silently - creates window.ProcedureLibrary
+</script>
+
+<!-- ======================================================
+  SEARCH ENGINE CLIENT LOADER (NEW!)
+  ====================================================== -->
+<!-- This is the KEY fix: Load bundled search engine via Astro -->
+<!-- Astro will bundle this TypeScript file and all its dependencies -->
+<script src="../../lib/search/search-manager.client.ts" client:load></script>
+
+<!-- ======================================================
+  HERO SECTION MARKUP
+  ====================================================== -->
+<section
+  id="hero-section"
+  class="relative pt-40 pb-24 px-4 sm:px-6 bg-[#003087] text-white overflow-visible"
+  style="margin-top: -32px;"
+  data-aos="fade-up"
+>
+  <HeroBackground />
+
+  <div class="max-w-7xl mx-auto relative z-20">
+    <div class="max-w-5xl mx-auto text-center">
+      <HeroHeadline />
+
+      <div id="hero-search-container" class="relative">
+        <SearchStep1 />
+        <SearchStep2 remixUrl={remixUrl} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mobile Search Modal - Moved outside section for proper z-index stacking -->
+<MobileSearchModal />
+
+<!-- DROPDOWN PORTAL - Positioned outside hero section for proper z-index stacking -->
+<!-- This prevents the SocialProofBar from covering the dropdown -->
+<SearchDropdown />
+
+<div
+  id="search-backdrop"
+  class="hidden fixed inset-0 pointer-events-none"
+  style="z-index: 99999998;"
+  aria-hidden="true"
+>
+</div>
+
+<!-- ======================================================
+  UI INTERACTION HANDLERS
+  ====================================================== -->
+<!-- This script only handles UI events - it uses the already-loaded -->
+<!-- window.searchManager from search-manager.client.ts -->
+<script>
+  const DEBUG = false;
+
+  function initHeroSection() {
+    if (DEBUG) console.log('[HeroSection] Initializing UI handlers...');
+
+    // The searchManager is already initialized by search-manager.client.ts
+    // We just need to verify it exists
+    if (!window.searchManager) {
+      console.warn('[HeroSection] window.searchManager not ready yet, retrying...');
+      setTimeout(initHeroSection, 100);
+      return;
+    }
+
+    if (DEBUG) console.log('[HeroSection] ✅ window.searchManager is available');
+
+    // Handle mobile procedure selection events
+    document.addEventListener('mobile-procedure-selected', ((e: CustomEvent) => {
+      if (DEBUG) console.log('[HeroSection] Mobile modal: Procedure selected', e.detail);
+    }) as EventListener);
+
+    if (DEBUG) console.log('[HeroSection] ✅ UI handlers initialized');
+  }
+
+  // DOM ready initialization
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroSection);
+  } else {
+    initHeroSection();
+  }
+
+  // Support Astro page transitions
+  document.addEventListener('astro:page-load', initHeroSection);
+</script>
+
+<!-- ======================================================
+  STYLES
+  ====================================================== -->
+<style>
+  #hero-section {
+    position: relative;
+  }
+
+  #hero-search-container {
+    position: relative;
+    z-index: 999999;
+  }
+
+  #search-backdrop {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    transition: opacity 0.3s ease;
+  }
+
+  #search-backdrop.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #search-backdrop:not(.hidden) {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>

@@ -11,8 +11,8 @@
  * - Subscribes to SearchManager for reactive updates
  *
  * DEPENDENCIES:
- * - SearchManager (for state management)
- * - search-utils (for character encoding fixes)
+ * - window.searchManager (global instance from HeroSection)
+ * - window.ProcedureLibrary (loaded from /js/procedure-data.js)
  *
  * BEHAVIOR:
  * - Visible when query === '' (empty search)
@@ -77,256 +77,216 @@
 </div>
 
 <script>
-  /**
-   * PopularProcedures Component Script
-   * ===================================
-   * Handles rendering and interaction of popular procedures list
-   */
-
-  import { searchManager } from '../../../lib/search-manager';
-  import { fixCharacterEncoding } from '../../../lib/search-utils';
-  import type { Procedure } from '../../../lib/search-manager';
-
-  // Modality color configuration (matching original)
-  const MODALITY_COLORS = {
-    MRI: {
-      bg: "bg-blue-500",
-      text: "text-blue-600",
-      lightBg: "bg-blue-50",
-      border: "border-blue-200",
-    },
-    CT: {
-      bg: "bg-teal-500",
-      text: "text-teal-600",
-      lightBg: "bg-teal-50",
-      border: "border-teal-200",
-    },
-    "X-Ray": {
-      bg: "bg-amber-500",
-      text: "text-amber-600",
-      lightBg: "bg-amber-50",
-      border: "border-amber-200",
-    },
-    Ultrasound: {
-      bg: "bg-sky-500",
-      text: "text-sky-600",
-      lightBg: "bg-sky-50",
-      border: "border-sky-200",
-    },
-  };
-
-  // Modality icons for group headers
-  const MODALITY_ICONS = {
-    MRI: "🧠",
-    CT: "🦴",
-    "X-Ray": "👀",
-    Ultrasound: "🩺",
-  };
-
-  // Get DOM elements
-  const container = document.getElementById("popular-procedures-section");
-  const listContainer = document.getElementById("popular-procedures-list");
+  const DEBUG = false;
 
   /**
-   * Group procedures by modality
-   * @param procedures - Array of procedures to group
-   * @returns Object with modality as keys and procedure arrays as values
+   * Helper: Fix character encoding issues
+   * (Inline version - no import needed)
    */
-  function groupByModality(
-    procedures: Procedure[]
-  ): Record<string, Procedure[]> {
-    const groups: Record<string, Procedure[]> = {};
+  function fixCharacterEncoding(text: string): string {
+    if (!text || typeof text !== "string") return text;
 
-    procedures.forEach((proc) => {
-      const modality = proc.modality || "Other";
-      if (!groups[modality]) {
-        groups[modality] = [];
+    const ENCODING_MAP: Record<string, string> = {
+      "\xE2\x80\x93": "\u2013",
+      "\xE2\x80\x94": "\u2014",
+      "\xE2\x80\x9C": "\u201C",
+      "\xE2\x80\x9D": "\u201D",
+      "\xE2\x80\x98": "\u2018",
+      "\xE2\x80\x99": "\u2019",
+      "\xE2\x80\xA2": "\u2022",
+      "\xC2\xA0": "\u00A0",
+    };
+
+    let fixed = text;
+    for (const [bad, good] of Object.entries(ENCODING_MAP)) {
+      fixed = fixed.split(bad).join(good);
+    }
+    return fixed;
+  }
+
+  /**
+   * Initialize PopularProcedures
+   */
+  function initPopularProcedures() {
+    // Wait for window.searchManager and window.ProcedureLibrary
+    if (!window.searchManager || !window.ProcedureLibrary) {
+      setTimeout(initPopularProcedures, 50);
+      return;
+    }
+
+    const container = document.getElementById("popular-procedures-section");
+    const listContainer = document.getElementById("popular-procedures-list");
+
+    if (!container || !listContainer) {
+      console.warn("PopularProcedures: missing container elements");
+      return;
+    }
+
+    if (DEBUG) console.log("⭐ PopularProcedures: initializing…");
+
+    /**
+     * ████████████████████████████████████████
+     *   SUBSCRIBE TO SEARCH MANAGER
+     * ████████████████████████████████████████
+     */
+    window.searchManager.subscribe((state) => {
+      const query = state.currentQuery || "";
+
+      if (DEBUG)
+        console.log("⭐ PopularProcedures: state", {
+          query,
+          shouldShow: query.length < 2,
+        });
+
+      // Show only when no active query
+      if (!query || query.length < 2) {
+        container.classList.remove("hidden");
+        renderPopular();
+      } else {
+        container.classList.add("hidden");
       }
-      groups[modality].push(proc);
     });
 
-    return groups;
-  }
+    /**
+     * ████████████████████████████████████████
+     *   RENDER POPULAR PROCEDURES
+     * ████████████████████████████████████████
+     */
+    function renderPopular() {
+      const lib = window.ProcedureLibrary;
 
-  /**
-   * Render a single procedure button
-   * @param procedure - Procedure to render
-   * @param currentQuery - Current search query (empty for popular)
-   * @returns HTML string for procedure button
-   */
-  function renderProcedureButton(
-    procedure: Procedure,
-    currentQuery: string = ""
-  ): string {
-    const colors =
-      MODALITY_COLORS[procedure.modality as keyof typeof MODALITY_COLORS] ||
-      MODALITY_COLORS.MRI;
+      let popular = lib?.Popular || [];
 
-    // Apply character encoding fixes to procedure label
-    const cleanLabel = fixCharacterEncoding(procedure.label);
+      // Allow both array and {region: {procedures: []}} objects
+      if (!Array.isArray(popular) && typeof popular === "object") {
+        popular = Object.values(popular)
+          .filter((x) => x?.procedures)
+          .flatMap((x) => x.procedures);
+      }
 
-    return `
-      <button
-        type="button"
-        class="w-full text-left flex items-center justify-between px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition procedure-result"
-        data-cpt="${procedure.cpt || ""}"
-        data-label="${cleanLabel.replace(/"/g, "&quot;")}"
-        data-modality="${procedure.modality || ""}"
-        data-bodypart="${procedure.bodyPart || ""}"
-        aria-label="Select ${cleanLabel}"
-      >
-        <div class="flex flex-col">
-          <span class="text-[15px] font-medium text-gray-900 leading-tight">
-            ${cleanLabel}
-          </span>
-        </div>
-        <span
-          class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wide
-          ${
-            procedure.modality === "MRI"
-              ? "bg-[#e7f0ff] text-[#003087]"
-              : procedure.modality === "CT"
-                ? "bg-[#fff8ee] text-[#b8862d]"
-                : procedure.modality === "X-Ray"
-                  ? "bg-[#f3f4f6] text-gray-700"
-                  : "bg-[#eefaf1] text-[#006d3b]"
-          }"
-        >
-          ${procedure.modality || "Scan"}
-        </span>
-      </button>
-    `;
-  }
+      popular = popular || [];
 
-  /**
-   * Render grouped procedures with sticky headers
-   * @param procedures - Array of procedures to render
-   * @returns HTML string for all grouped procedures
-   */
-  function renderGroupedProcedures(procedures: Procedure[]): string {
-    const groups = groupByModality(procedures);
-    const modalityOrder = ["MRI", "CT", "X-Ray", "Ultrasound"];
+      if (DEBUG)
+        console.log(`⭐ PopularProcedures: rendering ${popular.length} items`);
 
-    return modalityOrder
-      .map((modality) => {
-        const group = groups[modality];
-        if (!group || group.length === 0) return "";
-
-        const icon =
-          MODALITY_ICONS[modality as keyof typeof MODALITY_ICONS] || "📋";
-
-        return `
-        <div class="mb-4 border border-gray-100 rounded-lg overflow-hidden shadow-sm">
-          <!-- Sticky Group Header -->
-          <div class="sticky top-0 z-10 px-4 py-2 bg-gradient-to-r from-[#fff8ee] to-white border-b border-[#f5e4c3] flex items-center justify-between backdrop-blur-sm">
-            <h4 class="text-sm font-semibold text-[#b8862d] flex items-center gap-2">
-              <span>${icon}</span> ${modality}
-            </h4>
-            <span class="text-xs text-gray-500">${group.length} procedures</span>
+      if (popular.length === 0) {
+        listContainer.innerHTML = `
+          <div class="text-center py-8 text-gray-500 text-sm">
+            Loading popular procedures…
           </div>
-          
-          <!-- Procedure List -->
-          <div class="divide-y divide-gray-100 max-h-[220px] overflow-y-auto">
-            ${group.map((proc) => renderProcedureButton(proc)).join("")}
-          </div>
-        </div>
         `;
-      })
-      .filter((html) => html !== "")
-      .join("");
-  }
+        return;
+      }
 
-  /**
-   * Render popular procedures
-   * Called when state updates
-   */
-  function renderPopularProcedures(state: any) {
-    if (!listContainer) return;
-
-    // Only render popular when query is empty
-    const shouldShowPopular = !state.query || state.query.length < 2;
-
-    if (!shouldShowPopular) {
-      container?.classList.add("hidden");
-      return;
+      listContainer.innerHTML = renderGroupedProcedures(popular);
+      attachClickHandlers();
     }
 
-    // Show container
-    container?.classList.remove("hidden");
+    /**
+     * ████████████████████████████████████████
+     *   GROUP + RENDER
+     * ████████████████████████████████████████
+     */
+    function renderGroupedProcedures(procedures) {
+      const groups = {};
 
-    // Get popular procedures from state
-    const popularProcedures = state.popularProcedures || [];
-
-    if (popularProcedures.length === 0) {
-      listContainer.innerHTML = `
-        <div class="text-center py-8 text-gray-500 text-sm">
-          <p>Loading popular procedures...</p>
-        </div>
-      `;
-      return;
-    }
-
-    // Render grouped procedures
-    listContainer.innerHTML = renderGroupedProcedures(popularProcedures);
-
-    // Attach click handlers to all procedure buttons
-    attachClickHandlers();
-  }
-
-  /**
-   * Attach click handlers to procedure buttons
-   * Calls SearchManager.selectProcedure() on click
-   */
-  function attachClickHandlers() {
-    const buttons = listContainer?.querySelectorAll(".procedure-result");
-
-    buttons?.forEach((button) => {
-      button.addEventListener("click", () => {
-        const cpt = button.getAttribute("data-cpt") || "";
-        const label = button.getAttribute("data-label") || "";
-        const modality = button.getAttribute("data-modality") || "";
-        const bodyPart = button.getAttribute("data-bodypart") || "";
-
-        // Create procedure object
-        const procedure: Procedure = {
-          cpt,
-          label,
-          modality,
-          bodyPart,
-          description: "", // Not needed for selection
-        };
-
-        // Select procedure via SearchManager
-        searchManager.selectProcedure(procedure);
+      procedures.forEach((p) => {
+        const m = p.modality || "Other";
+        if (!groups[m]) groups[m] = [];
+        groups[m].push(p);
       });
-    });
+
+      const order = ["MRI", "CT", "X-Ray", "Ultrasound", "Other"];
+      const ICONS = {
+        MRI: "🧠",
+        CT: "🦴",
+        "X-Ray": "👀",
+        Ultrasound: "🩺",
+        Other: "📋",
+      };
+
+      return order
+        .map((mod) => {
+          const group = groups[mod];
+          if (!group || group.length === 0) return "";
+
+          return `
+          <div class="mb-4 border border-gray-100 rounded-lg overflow-hidden shadow-sm">
+            <div class="sticky top-0 z-10 px-4 py-2 bg-gradient-to-r from-[#fff8ee] to-white border-b border-[#f5e4c3] flex items-center justify-between backdrop-blur-sm">
+              <h4 class="text-sm font-semibold text-[#b8862d]">
+                ${ICONS[mod] || "📋"} ${mod}
+              </h4>
+              <span class="text-xs text-gray-500">${group.length} procedures</span>
+            </div>
+
+            <div class="divide-y divide-gray-100 max-h-[220px] overflow-y-auto">
+              ${group.map(renderButton).join("")}
+            </div>
+          </div>
+        `;
+        })
+        .join("");
+    }
+
+    /**
+     * ████████████████████████████████████████
+     *   RENDER SINGLE PROCEDURE BUTTON
+     * ████████████████████████████████████████
+     */
+    function renderButton(proc) {
+      const cleanLabel = fixCharacterEncoding(proc.label);
+      const cpt = proc.cpt || proc.cptCode || "";
+
+      return `
+        <button
+          type="button"
+          class="w-full text-left flex items-center justify-between px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition procedure-result"
+          data-cpt="${cpt}"
+          data-label="${cleanLabel}"
+          data-modality="${proc.modality || ""}"
+          data-bodypart="${proc.bodyPart || ""}"
+        >
+          <span class="text-[15px] font-medium text-gray-900">${cleanLabel}</span>
+          <span class="text-xs px-2 py-1 rounded bg-gray-100 text-gray-700">
+            ${proc.modality || "Scan"}
+          </span>
+        </button>
+      `;
+    }
+
+    /**
+     * ████████████████████████████████████████
+     *   CLICK HANDLERS — SELECT PROCEDURE
+     * ████████████████████████████████████████
+     */
+    function attachClickHandlers() {
+      listContainer.querySelectorAll(".procedure-result").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const selected = {
+            cptCode: btn.getAttribute("data-cpt") || "",
+            label: btn.getAttribute("data-label") || "",
+            modality: btn.getAttribute("data-modality") || "",
+            bodyPart: btn.getAttribute("data-bodypart") || "",
+          };
+
+          if (DEBUG) console.log("⭐ PopularProcedures: selecting", selected);
+
+          window.searchManager.selectProcedure(selected);
+        });
+      });
+    }
+
+    if (DEBUG) console.log("⭐ PopularProcedures: ready");
   }
 
-  /**
-   * Initialize component
-   * Subscribe to SearchManager state changes
-   */
-  function init() {
-    // Subscribe to state changes
-    const unsubscribe = searchManager.subscribe(renderPopularProcedures);
-
-    // Cleanup on page navigation (Astro specific)
-    document.addEventListener("astro:before-swap", () => {
-      unsubscribe();
-    });
-
-    // Also cleanup on beforeunload for non-Astro scenarios
-    window.addEventListener("beforeunload", () => {
-      unsubscribe();
-    });
-  }
-
-  // Initialize when DOM is ready
+  // DOM Ready & Astro navigation support
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("DOMContentLoaded", initPopularProcedures);
   } else {
-    init();
+    initPopularProcedures();
   }
+
+  document.addEventListener("astro:page-load", initPopularProcedures);
 </script>
 
 <style>

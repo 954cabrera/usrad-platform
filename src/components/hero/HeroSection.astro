@@ -1,4 +1,12 @@
 ---
+/**
+ * HeroSection.astro - Main search interface
+ *
+ * DEPENDENCIES:
+ * - procedure-data.js (creates window.ProcedureLibrary)
+ * - search-manager.ts (bundled by Astro, creates window.searchManager)
+ */
+
 import HeroBackground from "./HeroBackground.astro";
 import HeroHeadline from "./HeroHeadline.astro";
 import SearchStep1 from "./SearchStep1.astro";
@@ -13,11 +21,17 @@ interface Props {
 const { remixUrl } = Astro.props;
 ---
 
+<!-- ======================================================
+  PROCEDURE DATA LOADER
+  ====================================================== --><!-- Load procedure-data.js from /public (plain ES module) -->
 <script type="module">
   await import("/js/procedure-data.js");
-  // Procedure data loaded - always silent in production
+  // Procedure data loaded silently - creates window.ProcedureLibrary
 </script>
 
+<!-- ======================================================
+  HERO SECTION MARKUP
+  ====================================================== -->
 <section
   id="hero-section"
   class="relative pt-40 pb-24 px-4 sm:px-6 bg-[#003087] text-white overflow-visible"
@@ -55,70 +69,100 @@ const { remixUrl } = Astro.props;
 </div>
 
 <script>
-  // Debug flag - set to false for production
-  const DEBUG = false;
-
+  // Import and initialize search manager
   import { searchManager } from "../../lib/search-manager";
+  import type { SearchManager } from "../../lib/search-manager";
 
-  function initializeSearchManager() {
-    if (typeof (window as any).ProcedureLibrary === "undefined") {
-      setTimeout(initializeSearchManager, 100);
+  // Expose to window
+  window.searchManager = searchManager;
+  window.isMobileViewport = () => window.innerWidth < 768;
+
+  /**
+   * ════════════════════════════════════════════════════════════════
+   *   CRITICAL FIX: Proper procedure data flattening
+   * ════════════════════════════════════════════════════════════════
+   *
+   * The procedure-data.js structure is:
+   *
+   * MRI_PROCEDURES = {
+   *   brain: {
+   *     category: "Brain",
+   *     procedures: [{ cpt: "70551", label: "...", ... }]
+   *   },
+   *   knee: {
+   *     category: "Knee",
+   *     procedures: [{ cpt: "73721", label: "...", ... }]
+   *   }
+   * }
+   *
+   * We need to extract ALL procedures arrays and flatten them.
+   */
+
+  function flattenProcedureData(modalityData: Record<string, any>): any[] {
+    if (!modalityData || typeof modalityData !== "object") {
+      return [];
+    }
+
+    const procedures: any[] = [];
+
+    // Iterate through each region/body part
+    for (const key in modalityData) {
+      const entry = modalityData[key];
+
+      // Check if this entry has a procedures array
+      if (entry && Array.isArray(entry.procedures)) {
+        // Add all procedures from this region
+        procedures.push(...entry.procedures);
+      }
+    }
+
+    return procedures;
+  }
+
+  // Wait for ProcedureLibrary and initialize
+  function initSearchEngine() {
+    if (typeof window.ProcedureLibrary === "undefined") {
+      setTimeout(initSearchEngine, 70);
       return;
     }
 
-    const lib = (window as any).ProcedureLibrary;
-
+    const lib = window.ProcedureLibrary;
     if (!lib) {
-      console.error("âŒ ProcedureLibrary not found!");
+      console.error("❌ ProcedureLibrary missing");
       return;
     }
 
     try {
-      let popularProcs = lib.Popular || [];
+      // Flatten each modality's procedures
+      const mriProcs = flattenProcedureData(lib.MRI);
+      const ctProcs = flattenProcedureData(lib.CT);
+      const xrayProcs = flattenProcedureData(lib["X-Ray"]);
+      const usProcs = flattenProcedureData(lib.Ultrasound);
 
-      if (!Array.isArray(popularProcs)) {
-        const allProcs: any[] = [];
-        for (const region in popularProcs) {
-          if (popularProcs[region]?.procedures) {
-            allProcs.push(...popularProcs[region].procedures);
-          }
-        }
-        popularProcs = allProcs;
-      }
+      // Normalize popular procedures
+      let popularProcs = Array.isArray(lib.Popular) ? lib.Popular : [];
 
+      // Initialize SearchManager with flattened data
       searchManager.initialize(
-        lib.MRI || {},
-        lib.CT || {},
-        lib["X-Ray"] || {},
-        lib.Ultrasound || {},
+        mriProcs,
+        ctProcs,
+        xrayProcs,
+        usProcs,
         popularProcs
       );
 
-      if (DEBUG) console.log("[HeroSection] SearchManager initialized");
-    } catch (error) {
-      console.error("âŒ Error initializing SearchManager:", error);
+      console.log("✅ [HeroSection] SearchManager initialized successfully");
+    } catch (err) {
+      console.error("❌ [HeroSection] Initialization error:", err);
     }
   }
 
-  function initHeroSection() {
-    if (DEBUG) console.log("[HeroSection] Initializing...");
-    initializeSearchManager();
-
-    document.addEventListener("mobile-procedure-selected", (e: any) => {
-      if (DEBUG)
-        console.log("[HeroSection] Mobile modal: Procedure selected", e.detail);
-    });
-
-    if (DEBUG) console.log("[HeroSection] Initialization complete");
-  }
-
+  // Start initialization
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initHeroSection);
+    document.addEventListener("DOMContentLoaded", initSearchEngine);
   } else {
-    initHeroSection();
+    initSearchEngine();
   }
-
-  document.addEventListener("astro:page-load", initHeroSection);
 </script>
 
 <style>

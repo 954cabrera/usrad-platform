@@ -8,6 +8,10 @@
  * 3. Subscribes to SearchManager state
  * 4. Maintains backward compatibility with custom events
  *
+ * DEPENDENCIES:
+ * - window.searchManager (provided by HeroSection.astro initialization)
+ * - window.ProcedureLibrary (provided by procedure-data.js)
+ *
  * API:
  * - window.mobileSearchModal.open() - Opens modal
  * - window.mobileSearchModal.close() - Closes modal
@@ -151,51 +155,72 @@
 </div>
 
 <script>
-  /**
-   * ✅ PHASE 6: Mobile Modal with SearchManager Integration
-   */
-
-  // Debug flag - set to false for production
   const DEBUG = false;
 
-  import { searchManager } from "../../lib/search-manager";
-  import { fixCharacterEncoding } from "../../lib/search-utils";
+  /**
+   * ════════════════════════════════════════════════════════════════
+   *   INLINE UTILITY: fixCharacterEncoding
+   * ════════════════════════════════════════════════════════════════
+   */
+  const ENCODING_MAP = {
+    "\xE2\x80\x93": "\u2013", // en dash
+    "\xE2\x80\x94": "\u2014", // em dash
+    "\xE2\x80\x9C": "\u201C", // left double quote
+    "\xE2\x80\x9D": "\u201D", // right double quote
+    "\xE2\x80\x98": "\u2018", // left single quote
+    "\xE2\x80\x99": "\u2019", // right single quote
+    "\xE2\x80\xA2": "\u2022", // bullet
+    "\xC2\xA0": "\u00A0", // non-breaking space
+  };
 
-  // Initialize when DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initMobileModal);
-  } else {
-    initMobileModal();
+  function fixCharacterEncoding(text) {
+    if (!text || typeof text !== "string") return text;
+    let fixed = text;
+    for (const [bad, good] of Object.entries(ENCODING_MAP)) {
+      fixed = fixed.split(bad).join(good);
+    }
+    return fixed;
   }
 
+  /**
+   * ════════════════════════════════════════════════════════════════
+   *   INITIALIZE MOBILE SEARCH MODAL
+   * ════════════════════════════════════════════════════════════════
+   */
   function initMobileModal() {
+    // Wait for SearchManager + ProcedureLibrary (provided by HeroSection.astro)
+    if (!window.searchManager || !window.ProcedureLibrary) {
+      setTimeout(initMobileModal, 50);
+      return;
+    }
+
     const modal = document.getElementById("mobile-search-modal");
     const closeBtn = document.getElementById("mobile-modal-close");
-    const searchInput = document.getElementById(
-      "mobile-modal-search-input"
-    ) as HTMLInputElement;
+
+    const searchInput = document.getElementById("mobile-modal-search-input");
     const popularSection = document.getElementById("mobile-popular-section");
     const popularList = document.getElementById("mobile-popular-list");
+
     const searchSection = document.getElementById("mobile-search-section");
     const searchList = document.getElementById("mobile-search-list");
+
     const emptyState = document.getElementById("mobile-empty-state");
     const resultsCount = document.getElementById("mobile-results-count");
 
-    let searchTimeout: number;
+    let searchTimeout = null;
 
-    if (DEBUG)
-      console.log(
-        "✅ MobileSearchModal: Initializing with SearchManager integration"
-      );
+    if (DEBUG) console.log("📱 MobileSearchModal: initializing");
 
     /**
-     * Modal API - Exposed globally
+     * ████████████████████████████████████████
+     *   PUBLIC API — Window.mobileSearchModal
+     * ████████████████████████████████████████
      */
-    (window as any).mobileSearchModal = {
-      open: function () {
+    window.mobileSearchModal = {
+      open() {
         if (!modal) return;
 
-        if (DEBUG) console.log("✅ MobileSearchModal: Opening");
+        if (DEBUG) console.log("📱 MobileSearchModal: open()");
 
         modal.classList.remove("hidden");
         modal.classList.add("modal-enter");
@@ -206,13 +231,13 @@
         setTimeout(() => {
           searchInput?.focus();
           showPopularProcedures();
-        }, 300);
+        }, 200);
       },
 
-      close: function () {
+      close() {
         if (!modal) return;
 
-        if (DEBUG) console.log("✅ MobileSearchModal: Closing");
+        if (DEBUG) console.log("📱 MobileSearchModal: close()");
 
         modal.classList.remove("modal-enter");
         modal.classList.add("modal-exit");
@@ -226,96 +251,110 @@
 
           if (searchInput) searchInput.value = "";
           showPopularProcedures();
-        }, 250);
+        }, 200);
       },
     };
 
     /**
-     * Event Listeners
+     * ████████████████████████████████████████
+     *   EVENT LISTENERS
+     * ████████████████████████████████████████
      */
-    closeBtn?.addEventListener("click", () => {
-      (window as any).mobileSearchModal.close();
-    });
 
+    // Close button
+    closeBtn?.addEventListener("click", () => window.mobileSearchModal.close());
+
+    // Click backdrop to close
     modal?.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        (window as any).mobileSearchModal.close();
-      }
+      if (e.target === modal) window.mobileSearchModal.close();
     });
 
+    // Esc to close modal
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !modal?.classList.contains("hidden")) {
-        (window as any).mobileSearchModal.close();
+      if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+        window.mobileSearchModal.close();
       }
     });
 
     /**
-     * ✅ PHASE 6: Search input uses SearchManager
+     * Search Input — Uses SearchManager
      */
     searchInput?.addEventListener("input", (e) => {
       clearTimeout(searchTimeout);
-      const query = (e.target as HTMLInputElement).value.trim();
+      const query = e.target.value.trim();
 
-      searchTimeout = window.setTimeout(() => {
+      searchTimeout = setTimeout(() => {
         if (query.length < 2) {
           showPopularProcedures();
         } else {
-          // ✅ Use SearchManager for search
-          searchManager.search(query);
-          if (DEBUG)
-            console.log("MobileSearchModal: Search via SearchManager", {
-              query,
-            });
+          window.searchManager.search(query);
+          if (DEBUG) console.log("MobileSearchModal: search:", query);
         }
       }, 200);
     });
 
     /**
-     * ✅ PHASE 6: Subscribe to SearchManager state
+     * ████████████████████████████████████████
+     *   SUBSCRIBE TO SEARCH MANAGER
+     * ████████████████████████████████████████
      */
-    searchManager.subscribe((state) => {
+    window.searchManager.subscribe((state) => {
+      if (modal.classList.contains("hidden")) return;
+
+      const query = state.currentQuery || "";
+
       if (DEBUG)
-        console.log("MobileSearchModal: State update", {
-          query: state.currentQuery,
+        console.log("📱 MobileSearchModal: state update", {
+          query,
           results: state.searchResults.length,
         });
 
-      // Only update if modal is open
-      if (modal?.classList.contains("hidden")) return;
-
-      // Show search results
-      if (state.currentQuery && state.currentQuery.length >= 2) {
-        renderSearchResults(state.searchResults);
+      if (query.length < 2) {
+        showPopularProcedures();
+      } else {
+        renderSearchResults(state.searchResults, query);
       }
     });
 
     /**
-     * Show popular procedures
+     * ████████████████████████████████████████
+     *   RENDER: POPULAR PROCEDURES
+     * ████████████████████████████████████████
      */
     function showPopularProcedures() {
-      if (!popularSection || !popularList) return;
+      if (!popularList || !popularSection) return;
+
+      const lib = window.ProcedureLibrary;
+
+      let popular = lib?.Popular || [];
+
+      if (!Array.isArray(popular) && typeof popular === "object") {
+        popular = Object.values(popular)
+          .filter((p) => p?.procedures)
+          .flatMap((p) => p.procedures);
+      }
+
+      popular = popular || [];
 
       popularSection.classList.remove("hidden");
       searchSection?.classList.add("hidden");
       emptyState?.classList.add("hidden");
 
-      // Get popular procedures from ProcedureLibrary
-      const lib = (window as any).ProcedureLibrary;
-      if (!lib || !lib.Popular) {
-        console.warn("ProcedureLibrary.Popular not found");
-        return;
-      }
-
-      popularList.innerHTML = renderGroupedResults(lib.Popular, "");
+      popularList.innerHTML = renderGroupedResults(popular, "");
       attachResultHandlers();
 
-      if (DEBUG) console.log("MobileSearchModal: Popular procedures shown");
+      if (DEBUG)
+        console.log("📱 MobileSearchModal: showing popular", popular.length);
     }
 
     /**
-     * Render search results
+     * ████████████████████████████████████████
+     *   RENDER: SEARCH RESULTS
+     * ████████████████████████████████████████
      */
-    function renderSearchResults(results: any[]) {
+    function renderSearchResults(results, query) {
+      if (!searchList) return;
+
       if (results.length === 0) {
         popularSection?.classList.add("hidden");
         searchSection?.classList.add("hidden");
@@ -324,75 +363,33 @@
       }
 
       popularSection?.classList.add("hidden");
-      searchSection?.classList.remove("hidden");
       emptyState?.classList.add("hidden");
+      searchSection?.classList.remove("hidden");
 
       if (resultsCount) resultsCount.textContent = results.length.toString();
-      if (searchList) {
-        const currentQuery = searchInput?.value || "";
-        searchList.innerHTML = renderGroupedResults(results, currentQuery);
-        attachResultHandlers();
-      }
+
+      searchList.innerHTML = renderGroupedResults(results, query);
+      attachResultHandlers();
 
       if (DEBUG)
-        console.log("MobileSearchModal: Results rendered", {
-          count: results.length,
-        });
+        console.log("📱 MobileSearchModal: rendered results", results.length);
     }
 
     /**
-     * Highlight matching characters in gold (USRad signature color)
-     * while preserving original text and preventing regex issues.
+     * ████████████████████████████████████████
+     *   HELPERS: RENDER grouped results
+     * ████████████████████████████████████████
      */
-    function highlightMatch(text: string, query: string): string {
-      if (!query || query.trim().length < 2) return text;
-      const cleanText = text ?? "";
-      const cleanQuery = query.trim();
-      // Escape regex metacharacters in the search query
-      const escaped = cleanQuery.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      // Case-insensitive, global match
-      const regex = new RegExp(escaped, "gi");
-      return cleanText.replace(regex, (match) => {
-        return `<span class="text-[#b8862d] font-semibold">${match}</span>`;
-      });
-    }
-
-    /**
-     * Return consistent color-coded badge classes for modalities.
-     * Automatically normalizes variations in naming and capitalization.
-     */
-    function getBadgeClass(modality: string): string {
-      if (!modality) return "bg-gray-100 text-gray-600";
-
-      // Normalize modality for reliable matching
-      const key = modality.trim().toLowerCase();
-
-      const badgeColors: Record<string, string> = {
-        mri: "bg-blue-100 text-blue-600",
-        ct: "bg-[#fff8ee] text-[#b8862d]", // USRad Gold
-        "x-ray": "bg-gray-100 text-gray-600",
-        xray: "bg-gray-100 text-gray-600", // alias for safety
-        ultrasound: "bg-green-100 text-green-600",
-        other: "bg-gray-100 text-gray-600",
-      };
-
-      return badgeColors[key] || badgeColors["other"];
-    }
-
-    /**
-     * Render grouped results with character encoding fixes
-     */
-    function renderGroupedResults(procedures: any[], query: string = "") {
-      const groups: Record<string, any[]> = {};
-
-      procedures.forEach((proc) => {
-        const modality = proc.modality || "Other";
-        if (!groups[modality]) groups[modality] = [];
-        groups[modality].push(proc);
+    function renderGroupedResults(results, query = "") {
+      const groups = {};
+      results.forEach((p) => {
+        const m = p.modality || "Other";
+        if (!groups[m]) groups[m] = [];
+        groups[m].push(p);
       });
 
-      const modalityOrder = ["MRI", "CT", "X-Ray", "Ultrasound", "Other"];
-      const ICONS: Record<string, string> = {
+      const order = ["MRI", "CT", "X-Ray", "Ultrasound", "Other"];
+      const ICONS = {
         MRI: "🧠",
         CT: "🦴",
         "X-Ray": "👀",
@@ -400,35 +397,37 @@
         Other: "📋",
       };
 
-      return modalityOrder
-        .map((modality) => {
-          const group = groups[modality];
+      return order
+        .map((mod) => {
+          const group = groups[mod];
           if (!group || group.length === 0) return "";
-
-          const icon = ICONS[modality] || "📋";
 
           return `
             <div class="mb-4 border border-gray-100 rounded-xl overflow-hidden shadow-sm">
-              <div class="sticky top-0 z-10 px-4 py-2.5 bg-gradient-to-r from-[#fff8ee] to-white border-b border-[#f5e4c3]">
-                <h4 class="text-sm font-semibold text-[#b8862d]">${icon} ${modality}</h4>
+              <div class="sticky top-0 z-10 px-4 py-2.5 bg-gradient-to-r from-[#fff8ee] to-white border-b border-[#f5e4c3] flex items-center justify-between">
+                <h4 class="text-sm font-semibold text-[#b8862d]">
+                  ${ICONS[mod] || "📋"} ${mod}
+                </h4>
               </div>
+
               <div class="divide-y divide-gray-100">
                 ${group
-                  .map((proc) => {
-                    // ✅ PHASE 6: Apply character encoding fix
-                    const cleanLabel = fixCharacterEncoding(proc.label);
-                    const cpt = proc.cpt || proc.cptCode || "";
-                    const bodyPart = proc.bodyPart || "";
+                  .map((p) => {
+                    const cleanLabel = fixCharacterEncoding(p.label);
+                    const highlighted = highlightMatch(cleanLabel, query);
+                    const cpt = p.cpt || p.cptCode || "";
 
                     return `
-                      <button type="button" 
+                      <button
+                        type="button"
                         class="w-full text-left flex items-center justify-between px-4 py-3 hover:bg-gray-50 mobile-procedure-result"
-                        data-cpt="${cpt}" 
-                        data-label="${cleanLabel}" 
-                        data-modality="${modality}" 
-                        data-bodypart="${bodyPart}">
-                        <span class="text-[15px] font-medium text-gray-900">${highlightMatch(cleanLabel, query)}</span>
-                        <span class="text-xs px-2 py-1 rounded ${getBadgeClass(modality)}">${modality}</span>
+                        data-cpt="${cpt}"
+                        data-label="${cleanLabel}"
+                        data-modality="${mod}"
+                        data-bodypart="${p.bodyPart || ""}"
+                      >
+                        <span class="text-[15px] font-medium text-gray-900">${highlighted}</span>
+                        <span class="text-xs px-2 py-1 rounded bg-gray-100 text-gray-700">${mod}</span>
                       </button>
                     `;
                   })
@@ -441,104 +440,111 @@
     }
 
     /**
-     * Attach click handlers to procedure buttons
+     * ████████████████████████████████████████
+     *   HELPERS: Highlight matches
+     * ████████████████████████████████████████
+     */
+    function highlightMatch(text, query) {
+      if (!query || query.length < 2) return text;
+
+      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const regex = new RegExp(escaped, "gi");
+
+      return text.replace(
+        regex,
+        (m) => `<span class="text-[#b8862d] font-semibold">${m}</span>`
+      );
+    }
+
+    /**
+     * ████████████████████████████████████████
+     *   HELPERS: Click handlers
+     * ████████████████████████████████████████
      */
     function attachResultHandlers() {
       document.querySelectorAll(".mobile-procedure-result").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const procedure = {
+          const selected = {
             cptCode: btn.getAttribute("data-cpt") || "",
             label: btn.getAttribute("data-label") || "",
             modality: btn.getAttribute("data-modality") || "",
             bodyPart: btn.getAttribute("data-bodypart") || "",
           };
 
-          if (DEBUG)
-            console.log("MobileSearchModal: Procedure selected", procedure);
+          if (DEBUG) console.log("📱 MobileSearchModal: selecting", selected);
 
-          // ✅ PHASE 6: Use SearchManager to select procedure
-          searchManager.selectProcedure(procedure);
+          window.searchManager.selectProcedure(selected);
 
           // Dispatch custom event for backward compatibility
-          document.dispatchEvent(
-            new CustomEvent("mobile-procedure-selected", {
-              detail: procedure,
-              bubbles: true,
-            })
-          );
+          const event = new CustomEvent("mobile-procedure-selected", {
+            detail: selected,
+            bubbles: true,
+          });
+          document.dispatchEvent(event);
 
-          // Close modal
-          (window as any).mobileSearchModal.close();
+          window.mobileSearchModal.close();
         });
       });
     }
 
-    if (DEBUG) console.log("✅ MobileSearchModal: Initialization complete");
+    if (DEBUG) console.log("✅ MobileSearchModal: ready");
   }
+
+  // Initialize on DOM ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMobileModal);
+  } else {
+    initMobileModal();
+  }
+
+  // Re-initialize on Astro page transitions
+  document.addEventListener("astro:page-load", initMobileModal);
 </script>
 
 <style>
-  @keyframes slideUp {
-    from {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideDown {
-    from {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    to {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-  }
-
+  /* Modal animations */
   .modal-enter {
-    animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: modalSlideIn 0.3s ease-out;
   }
 
   .modal-exit {
-    animation: slideDown 0.25s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+    animation: modalSlideOut 0.25s ease-in;
   }
 
-  .mobile-modal-body {
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-  }
-
-  .mobile-search-modal {
-    /* Maximum z-index and positioning */
-    z-index: 2147483647 !important;
-    position: fixed !important;
-    /* ... all positioning props ... */
-
-    /* Solid background - no transparency */
-    background-color: white !important;
-
-    /* Create new stacking context at root level */
-    transform: translateZ(0);
-    will-change: transform;
-    isolation: isolate;
-
-    /* Ensure it's on its own layer */
-    contain: layout style paint;
-  }
-
-  .mobile-procedure-result:active {
-    transform: scale(0.98);
-    transition: transform 0.1s ease;
-  }
-
-  @media (min-width: 768px) {
-    .mobile-search-modal {
-      display: none !important;
+  @keyframes modalSlideIn {
+    from {
+      transform: translateY(100%);
     }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes modalSlideOut {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(100%);
+    }
+  }
+
+  /* Scrollbar styling */
+  .mobile-modal-body {
+    scrollbar-width: thin;
+    scrollbar-color: #b8862d #f3f4f6;
+  }
+
+  .mobile-modal-body::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .mobile-modal-body::-webkit-scrollbar-track {
+    background: #f3f4f6;
+  }
+
+  .mobile-modal-body::-webkit-scrollbar-thumb {
+    background-color: #b8862d;
+    border-radius: 3px;
   }
 </style>

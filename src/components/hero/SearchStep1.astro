@@ -12,14 +12,18 @@
  * 5. Smooth transitions when switching steps
  *
  * MOBILE BEHAVIOR:
- * - Focus â†’ blur input immediately â†’ open modal
+ * - Focus → blur input immediately → open modal
  * - Prevents keyboard from showing
  *
  * DESKTOP BEHAVIOR:
- * - Focus â†’ open dropdown
- * - Input â†’ search with 200ms debounce
- * - Escape â†’ close dropdown
- * - Click outside â†’ close dropdown
+ * - Focus → open dropdown
+ * - Input → search with 200ms debounce
+ * - Escape → close dropdown
+ * - Click outside → close dropdown
+ *
+ * DEPENDENCIES:
+ * - window.searchManager (provided by HeroSection.astro initialization)
+ * - window.mobileSearchModal (provided by MobileSearchModal.astro)
  */
 ---
 
@@ -108,152 +112,115 @@
 </style>
 
 <script>
-  // Debug flag - set to false for production
   const DEBUG = false;
 
-  // Import SearchManager for state management
-  import { searchManager } from "../../lib/search-manager";
-
-  let searchTimeout: number;
+  let searchTimeout = null;
   let isSubscribed = false;
 
-  /**
-   * Initialize SearchStep1 component
-   */
   function initializeSearchStep1() {
-    const searchInput = document.getElementById(
-      "hero-search-input"
-    ) as HTMLInputElement;
-    const findButton = document.getElementById(
-      "hero-find-button"
-    ) as HTMLButtonElement;
+    const searchInput = document.getElementById("hero-search-input");
+    const findButton = document.getElementById("hero-find-button");
 
     if (!searchInput) {
-      console.error("âŒ SearchStep1: Search input not found");
+      console.error("SearchStep1: search input missing");
       return;
     }
 
-    if (DEBUG) console.log("[SearchStep1] Initializing...");
+    // Wait for searchManager (provided by HeroSection.astro)
+    if (!window.searchManager) {
+      if (DEBUG) console.log("SearchStep1: waiting for searchManager...");
+      setTimeout(initializeSearchStep1, 75);
+      return;
+    }
+
+    if (DEBUG) console.log("SearchStep1: initializing");
 
     /**
-     * Focus handler - opens dropdown (desktop) or modal (mobile)
-     * FIXED: Check current step before opening
+     * Focus handler — opens dropdown or mobile modal
      */
-    searchInput.addEventListener("focus", function () {
+    searchInput.addEventListener("focus", () => {
       const isMobile = window.innerWidth < 768;
-      const currentState = searchManager.getState();
+      const currentState = window.searchManager.getState();
 
       if (DEBUG)
-        console.log("SearchStep1: Input focused", {
+        console.log("[SearchStep1] focus:", {
+          step: currentState.currentStep,
           isMobile,
-          currentStep: currentState.currentStep,
         });
 
-      // Only open dropdown if we're on Step 1
-      if (currentState.currentStep !== 1) {
-        if (DEBUG)
-          console.log("SearchStep1: Not opening dropdown - not on Step 1");
-        return;
-      }
+      // Only open on Step 1
+      if (currentState.currentStep !== 1) return;
 
-      if (
-        isMobile &&
-        typeof (window as any).mobileSearchModal !== "undefined"
-      ) {
-        // Mobile: blur input to prevent keyboard, open modal
-        searchInput.blur();
-        (window as any).mobileSearchModal.open();
-        if (DEBUG) console.log("[SearchStep1] Mobile modal opened");
+      if (isMobile && window.mobileSearchModal) {
+        searchInput.blur(); // prevent keyboard
+        window.mobileSearchModal.open();
       } else {
-        // Desktop: open dropdown via SearchManager
-        searchManager.openDropdown();
-        if (DEBUG) console.log("[SearchStep1] Desktop dropdown opened");
+        window.searchManager.openDropdown();
       }
     });
 
     /**
-     * Input handler - performs search with debounce
-     * Only handles input on desktop (mobile uses modal's own input)
+     * Input handler — desktop search
      */
-    searchInput.addEventListener("input", function (e) {
+    searchInput.addEventListener("input", (e) => {
       const isMobile = window.innerWidth < 768;
-      if (isMobile) return; // Skip on mobile
+      if (isMobile) return;
+
+      const query = e.target.value.trim();
 
       clearTimeout(searchTimeout);
+      window.searchManager.openDropdown();
 
-      // Ensure dropdown is open
-      searchManager.openDropdown();
-
-      const query = (e.target as HTMLInputElement).value.trim();
-
-      // Debounce search by 200ms
-      searchTimeout = window.setTimeout(() => {
-        searchManager.search(query);
-        if (DEBUG) console.log("SearchStep1: Search performed", { query });
+      searchTimeout = setTimeout(() => {
+        window.searchManager.search(query);
+        if (DEBUG) console.log("[SearchStep1] search:", query);
       }, 200);
     });
 
     /**
-     * Find button handler - currently placeholder
-     * (In full implementation, might trigger a default search)
+     * Find button (desktop)
      */
     if (findButton) {
-      findButton.addEventListener("click", function () {
+      findButton.addEventListener("click", () => {
         const query = searchInput.value.trim();
-
         if (query.length >= 2) {
-          searchManager.search(query);
-          if (DEBUG) console.log("SearchStep1: Find button clicked", { query });
+          window.searchManager.search(query);
         } else {
-          // Open dropdown to show popular procedures
-          searchManager.openDropdown();
+          window.searchManager.openDropdown();
         }
       });
     }
 
     /**
-     * Subscribe to SearchManager state changes
+     * Subscribe to state updates
      */
     if (!isSubscribed) {
-      let previousStep = 1; // Track previous step to detect transitions
+      let previousStep = 1;
 
-      searchManager.subscribe((state) => {
+      window.searchManager.subscribe((state) => {
         if (DEBUG)
-          console.log("SearchStep1: State update", {
-            currentStep: state.currentStep,
-            selectedProcedure: state.selectedProcedure?.label,
+          console.log("[SearchStep1] state:", {
+            step: state.currentStep,
+            selected: state.selectedProcedure?.label,
           });
 
-        // When procedure is selected, show it in the input
+        // Update input when a procedure is chosen
         if (state.selectedProcedure && state.currentStep === 2) {
           searchInput.value = state.selectedProcedure.label;
-          if (DEBUG)
-            console.log(
-              "âœ… SearchStep1: Input updated with procedure:",
-              state.selectedProcedure.label
-            );
         }
 
-        // Clear input ONLY when transitioning from Step 2 back to Step 1
-        // (Not on every Step 1 state update!)
+        // Clear input only when going from step2 → step1
         if (state.currentStep === 1 && previousStep === 2) {
           searchInput.value = "";
-          if (DEBUG)
-            console.log(
-              "✅ SearchStep1: Input cleared (transition from Step 2)"
-            );
         }
 
-        // Update previous step for next comparison
-        previousStep = state.currentStep;
-
-        // Update aria-expanded attribute
+        // Update aria
         searchInput.setAttribute(
           "aria-expanded",
           state.isDropdownOpen ? "true" : "false"
         );
 
-        // Toggle visibility based on currentStep
+        // Toggle step visibility
         const step1Container = document.getElementById("search-step-1");
         if (step1Container) {
           if (state.currentStep === 1) {
@@ -262,22 +229,24 @@
             step1Container.classList.add("hidden");
           }
         }
+
+        previousStep = state.currentStep;
       });
 
       isSubscribed = true;
-      if (DEBUG) console.log("[SearchStep1] Subscribed to SearchManager");
+      if (DEBUG) console.log("[SearchStep1] subscribed");
     }
 
-    if (DEBUG) console.log("[SearchStep1] Initialization complete");
+    if (DEBUG) console.log("[SearchStep1] ready");
   }
 
-  // Initialize on DOM ready
+  // DOM ready
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initializeSearchStep1);
   } else {
     initializeSearchStep1();
   }
 
-  // Re-initialize on Astro page transitions (if using View Transitions)
+  // Astro page transitions
   document.addEventListener("astro:page-load", initializeSearchStep1);
 </script>

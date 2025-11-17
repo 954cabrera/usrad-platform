@@ -13,6 +13,10 @@
  * 3. Backdrop element for click-outside handling
  * 4. Fixed positioning relative to search input
  * 5. Event handlers (click outside, Escape, resize)
+ *
+ * DEPENDENCIES:
+ * - window.searchManager (provided by HeroSection.astro initialization)
+ * - PopularProcedures.astro and SearchResults.astro (both also use window.searchManager)
  */
 
 // Import search subcomponents
@@ -100,32 +104,15 @@ import SearchResults from "../SearchResults.astro";
 </style>
 
 <script>
-  /**
-   * SearchDropdown - Desktop dropdown orchestrator
-   *
-   * This script manages:
-   * 1. Dropdown positioning (below search input)
-   * 2. Backdrop visibility and blur effects
-   * 3. Scroll lock (body becomes fixed)
-   * 4. Click outside to close
-   * 5. Escape key to close
-   * 6. Window resize repositioning
-   */
-
-  // Debug flag - set to false for production
   const DEBUG = false;
-
-  import { searchManager } from "../../../lib/search-manager";
 
   let scrollLockPadding = 0;
 
-  /**
-   * Initialize dropdown behavior
-   */
   function initSearchDropdown() {
     const dropdown = document.getElementById("search-dropdown");
     const backdrop = document.getElementById("search-backdrop");
     const searchInput = document.getElementById("hero-search-input");
+
     const popularContainer = document.getElementById(
       "popular-procedures-container"
     );
@@ -135,54 +122,44 @@ import SearchResults from "../SearchResults.astro";
     const emptyContainer = document.getElementById("empty-state-container");
 
     if (!dropdown || !backdrop || !searchInput) {
-      console.warn("âš ï¸ SearchDropdown: Required elements not found");
+      console.warn("SearchDropdown: Missing elements");
       return;
     }
 
-    if (DEBUG) console.log("[SearchDropdown] Initializing...");
+    // Wait for searchManager (provided by HeroSection.astro)
+    if (!window.searchManager) {
+      if (DEBUG) console.log("SearchDropdown: waiting for searchManager...");
+      setTimeout(initSearchDropdown, 75);
+      return;
+    }
+
+    if (DEBUG) console.log("[SearchDropdown] initializing");
 
     /**
-     * Position dropdown below search input
-     * FIXED: Account for scroll offset when body is fixed
+     * Position dropdown relative to input
      */
     function positionDropdown() {
-      const inputRect = searchInput.getBoundingClientRect();
-
-      // Match search input width exactly (not wider)
-      const dropdownWidth = inputRect.width;
-
-      // Get current scroll offset if body is fixed
+      const rect = searchInput.getBoundingClientRect();
       const scrollOffset =
         document.body.style.position === "fixed"
           ? Math.abs(parseInt(document.body.style.top || "0"))
           : 0;
 
-      dropdown.style.width = `${dropdownWidth}px`;
-      dropdown.style.top = `${inputRect.bottom + scrollOffset + 8}px`;
-      dropdown.style.left = `${inputRect.left}px`;
-
-      if (DEBUG)
-        console.log("Dropdown positioned:", {
-          inputBottom: inputRect.bottom,
-          scrollOffset,
-          finalTop: inputRect.bottom + scrollOffset + 8,
-          width: dropdownWidth,
-        });
+      dropdown.style.width = `${rect.width}px`;
+      dropdown.style.top = `${rect.bottom + scrollOffset + 8}px`;
+      dropdown.style.left = `${rect.left}px`;
     }
 
     /**
-     * Open dropdown
+     * OPEN dropdown (desktop only)
      */
     function openDropdown() {
       if (!dropdown.classList.contains("hidden")) return;
 
-      if (DEBUG) console.log("SearchDropdown: Opening");
-
-      // Calculate scrollbar width
+      // Scroll lock
       scrollLockPadding =
         window.innerWidth - document.documentElement.clientWidth;
 
-      // Apply scroll lock
       document.body.style.overflow = "hidden";
       document.body.style.position = "fixed";
       document.body.style.top = `-${window.scrollY}px`;
@@ -192,131 +169,103 @@ import SearchResults from "../SearchResults.astro";
         document.body.style.paddingRight = `${scrollLockPadding}px`;
       }
 
-      // Show backdrop and dropdown
       backdrop.classList.remove("hidden");
       dropdown.classList.remove("hidden");
 
-      // Position dropdown
       positionDropdown();
-
-      // Blur sections below hero
       blurSectionsBelow();
 
-      if (DEBUG) console.log("âœ… SearchDropdown: Opened with scroll lock");
+      if (DEBUG) console.log("SearchDropdown: opened");
     }
 
     /**
-     * Close dropdown
+     * CLOSE dropdown
      */
     function closeDropdown() {
       if (dropdown.classList.contains("hidden")) return;
 
-      if (DEBUG) console.log("SearchDropdown: Closing");
-
-      // Get scroll position
       const scrollY = document.body.style.top;
 
-      // Remove scroll lock
       document.body.style.overflow = "";
       document.body.style.position = "";
       document.body.style.top = "";
       document.body.style.width = "";
       document.body.style.paddingRight = "";
 
-      // Restore scroll position
       window.scrollTo(0, parseInt(scrollY || "0") * -1);
 
-      // Hide backdrop and dropdown
       backdrop.classList.add("hidden");
       dropdown.classList.add("hidden");
 
-      // Remove blur
       unblurSectionsBelow();
 
-      if (DEBUG) console.log("[SearchDropdown] Closed, scroll restored");
+      if (DEBUG) console.log("SearchDropdown: closed");
     }
 
     /**
-     * Blur sections below hero
-     * FIXED: Skip dropdown and backdrop to avoid blurring them
+     * Blur everything below hero section
      */
     function blurSectionsBelow() {
-      const heroSection = document.getElementById("hero-section");
-      if (!heroSection) return;
+      const hero = document.getElementById("hero-section");
+      if (!hero) return;
 
-      let nextSection = heroSection.nextElementSibling;
-      while (nextSection) {
-        // Skip the dropdown, backdrop, and mobile modal elements
+      let section = hero.nextElementSibling;
+      while (section) {
         if (
-          nextSection.id === "search-dropdown" ||
-          nextSection.id === "search-backdrop" ||
-          nextSection.id === "mobile-search-modal"
+          section.id === "search-dropdown" ||
+          section.id === "search-backdrop" ||
+          section.id === "mobile-search-modal"
         ) {
-          nextSection = nextSection.nextElementSibling;
+          section = section.nextElementSibling;
           continue;
         }
 
-        // Blur actual content sections
-        if (
-          nextSection.tagName === "SECTION" ||
-          nextSection.tagName === "DIV"
-        ) {
-          (nextSection as HTMLElement).style.filter = "blur(3px)";
-          (nextSection as HTMLElement).style.transition = "filter 0.3s ease";
-        }
-        nextSection = nextSection.nextElementSibling;
+        section.style.filter = "blur(3px)";
+        section.style.transition = "filter 0.25s ease";
+
+        section = section.nextElementSibling;
       }
     }
 
     /**
-     * Remove blur from sections below hero
-     * FIXED: Skip dropdown and backdrop to avoid issues
+     * Remove blurring
      */
     function unblurSectionsBelow() {
-      const heroSection = document.getElementById("hero-section");
-      if (!heroSection) return;
+      const hero = document.getElementById("hero-section");
+      if (!hero) return;
 
-      let nextSection = heroSection.nextElementSibling;
-      while (nextSection) {
-        // Skip the dropdown and backdrop elements
+      let section = hero.nextElementSibling;
+      while (section) {
         if (
-          nextSection.id === "search-dropdown" ||
-          nextSection.id === "search-backdrop"
+          section.id === "search-dropdown" ||
+          section.id === "search-backdrop"
         ) {
-          nextSection = nextSection.nextElementSibling;
+          section = section.nextElementSibling;
           continue;
         }
 
-        // Remove blur from actual content sections
-        if (
-          nextSection.tagName === "SECTION" ||
-          nextSection.tagName === "DIV"
-        ) {
-          (nextSection as HTMLElement).style.filter = "";
-        }
-        nextSection = nextSection.nextElementSibling;
+        section.style.filter = "";
+
+        section = section.nextElementSibling;
       }
     }
 
     /**
-     * Show/hide sections based on search state
+     * Update what's visible inside the dropdown
      */
-    function updateVisibility(state: any) {
+    function updateVisibility(state) {
       const hasQuery = state.currentQuery && state.currentQuery.length >= 2;
-      const hasResults = state.searchResults && state.searchResults.length > 0;
+      const hasResults = state.searchResults?.length > 0;
 
       if (!hasQuery) {
-        // Show popular procedures
         popularContainer?.classList.remove("hidden");
         resultsContainer?.classList.add("hidden");
         emptyContainer?.classList.add("hidden");
       } else if (hasResults) {
-        // Show search results
         popularContainer?.classList.add("hidden");
         resultsContainer?.classList.remove("hidden");
         emptyContainer?.classList.add("hidden");
       } else {
-        // Show empty state
         popularContainer?.classList.add("hidden");
         resultsContainer?.classList.add("hidden");
         emptyContainer?.classList.remove("hidden");
@@ -324,44 +273,31 @@ import SearchResults from "../SearchResults.astro";
     }
 
     /**
-     * Subscribe to SearchManager state
+     * Subscribe to searchManager events
      */
-    searchManager.subscribe((state) => {
-      if (DEBUG)
-        console.log("SearchDropdown: State update", {
-          isOpen: state.isDropdownOpen,
-          query: state.currentQuery,
-          results: state.searchResults?.length,
-        });
-
-      if (state.isDropdownOpen) {
-        openDropdown();
-      } else {
-        closeDropdown();
-      }
+    window.searchManager.subscribe((state) => {
+      if (state.isDropdownOpen) openDropdown();
+      else closeDropdown();
 
       updateVisibility(state);
     });
 
     /**
-     * Click outside to close
+     * Click outside closes dropdown
      */
     backdrop.addEventListener("click", () => {
-      searchManager.closeDropdown();
+      window.searchManager.closeDropdown();
     });
 
     /**
-     * Escape key to close
+     * ESC closes dropdown
      */
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !dropdown.classList.contains("hidden")) {
-        searchManager.closeDropdown();
-        searchInput.blur();
-      }
+      if (e.key === "Escape") window.searchManager.closeDropdown();
     });
 
     /**
-     * Reposition on window resize
+     * Reposition on resize
      */
     window.addEventListener("resize", () => {
       if (!dropdown.classList.contains("hidden")) {
@@ -369,16 +305,16 @@ import SearchResults from "../SearchResults.astro";
       }
     });
 
-    if (DEBUG) console.log("[SearchDropdown] Initialization complete");
+    if (DEBUG) console.log("[SearchDropdown] ready");
   }
 
-  // Initialize on DOM ready
+  // DOM ready
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initSearchDropdown);
   } else {
     initSearchDropdown();
   }
 
-  // Re-initialize on Astro page transitions
+  // Astro navigation
   document.addEventListener("astro:page-load", initSearchDropdown);
 </script>

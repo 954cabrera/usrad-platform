@@ -15,8 +15,7 @@
  * - Subscribes to SearchManager for reactive updates
  *
  * DEPENDENCIES:
- * - SearchManager (for state management)
- * - search-utils (for character encoding fixes) ← CRITICAL
+ * - window.searchManager (global instance from HeroSection)
  *
  * BEHAVIOR:
  * - Visible when query.length >= 2 AND results exist
@@ -102,93 +101,60 @@
 </div>
 
 <script>
+  const DEBUG = false;
+
   /**
-   * SearchResults Component Script
-   * ===============================
-   * ⚠️ CRITICAL: Applies character encoding fixes to all labels
+   * Helper: Fix character encoding issues
+   * (Inline version - no import needed)
    */
+  function fixCharacterEncoding(text: string): string {
+    if (!text || typeof text !== "string") return text;
 
-  import { searchManager } from "../../lib/search-manager";
-  import { fixCharacterEncoding } from "../../lib/search-utils";
-  import type { Procedure } from "../../lib/search-manager";
+    const ENCODING_MAP: Record<string, string> = {
+      "\xE2\x80\x93": "\u2013",
+      "\xE2\x80\x94": "\u2014",
+      "\xE2\x80\x9C": "\u201C",
+      "\xE2\x80\x9D": "\u201D",
+      "\xE2\x80\x98": "\u2018",
+      "\xE2\x80\x99": "\u2019",
+      "\xE2\x80\xA2": "\u2022",
+      "\xC2\xA0": "\u00A0",
+    };
 
-  // Modality color configuration (matching original)
-  const MODALITY_COLORS = {
-    MRI: {
-      bg: "bg-blue-500",
-      text: "text-blue-600",
-      lightBg: "bg-blue-50",
-      border: "border-blue-200",
-    },
-    CT: {
-      bg: "bg-teal-500",
-      text: "text-teal-600",
-      lightBg: "bg-teal-50",
-      border: "border-teal-200",
-    },
-    "X-Ray": {
-      bg: "bg-amber-500",
-      text: "text-amber-600",
-      lightBg: "bg-amber-50",
-      border: "border-amber-200",
-    },
-    Ultrasound: {
-      bg: "bg-sky-500",
-      text: "text-sky-600",
-      lightBg: "bg-sky-50",
-      border: "border-sky-200",
-    },
-  };
+    let fixed = text;
+    for (const [bad, good] of Object.entries(ENCODING_MAP)) {
+      fixed = fixed.split(bad).join(good);
+    }
+    return fixed;
+  }
 
-  // Modality icons for group headers
-  const MODALITY_ICONS = {
-    MRI: "🧠",
-    CT: "🦴",
-    "X-Ray": "👀",
-    Ultrasound: "🩺",
-  };
-
-  // Get DOM elements
+  // State elements
   const resultsContainer = document.getElementById("search-results-section");
   const resultsListContainer = document.getElementById("search-results-list");
   const resultsCountElement = document.getElementById("results-count");
   const emptyStateContainer = document.getElementById("empty-state");
 
   /**
-   * Highlight query matches in text
-   * @param text - Text to highlight within
-   * @param query - Query to highlight
-   * @returns HTML string with highlighted matches
+   * Highlight parts of text that match the query
    */
-  function highlightMatch(text: string, query: string): string {
+  function highlightMatch(text, query) {
     if (!query || query.length < 2) return text;
 
-    // Normalize query by removing punctuation (match search behavior)
     const normalizedQuery = query
       .toLowerCase()
-      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, " ")
+      .replace(/[^\w\s]/g, " ")
       .replace(/\s+/g, " ")
       .trim();
 
-    // Split into words for word-by-word highlighting
-    const queryWords = normalizedQuery.split(" ").filter((w) => w.length > 0);
-
+    const words = normalizedQuery.split(" ").filter((w) => w.length >= 2);
     let result = text;
 
-    // Highlight each query word independently
-    queryWords.forEach((word) => {
-      if (word.length < 2) return;
-
-      // Escape special regex characters
-      const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-      // Create case-insensitive regex with word boundaries for cleaner matching
-      const regex = new RegExp(`(${escapedWord})`, "gi");
-
-      // Highlight matches with gold color
+    words.forEach((word) => {
+      const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const regex = new RegExp(`(${escaped})`, "gi");
       result = result.replace(
         regex,
-        '<span class="font-semibold text-[#cc9933]">$1</span>'
+        `<span class="font-semibold text-[#cc9933]">$1</span>`
       );
     });
 
@@ -196,57 +162,45 @@
   }
 
   /**
-   * Group procedures by modality
-   * @param procedures - Array of procedures to group
-   * @returns Object with modality as keys and procedure arrays as values
+   * Group results by modality
    */
-  function groupByModality(
-    procedures: Procedure[]
-  ): Record<string, Procedure[]> {
-    const groups: Record<string, Procedure[]> = {};
+  function groupByModality(procedures) {
+    const groups = {};
 
-    procedures.forEach((proc) => {
-      const modality = proc.modality || "Other";
-      if (!groups[modality]) {
-        groups[modality] = [];
-      }
-      groups[modality].push(proc);
+    procedures.forEach((p) => {
+      const key = p.modality || "Other";
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(p);
     });
 
     return groups;
   }
 
+  // Modalities and badges
+  const MODALITY_ICONS = {
+    MRI: "🧠",
+    CT: "🦴",
+    "X-Ray": "👀",
+    Ultrasound: "🩺",
+    Other: "📋",
+  };
+
   /**
-   * Render a single procedure button
-   * ⚠️ CRITICAL: Applies character encoding fixes here
-   *
-   * @param procedure - Procedure to render
-   * @param currentQuery - Current search query for highlighting
-   * @returns HTML string for procedure button
+   * Render a single result button
    */
-  function renderProcedureButton(
-    procedure: Procedure,
-    currentQuery: string
-  ): string {
-    const colors =
-      MODALITY_COLORS[procedure.modality as keyof typeof MODALITY_COLORS] ||
-      MODALITY_COLORS.MRI;
+  function renderProcedureButton(proc, query) {
+    const cleanLabel = fixCharacterEncoding(proc.label);
+    const cleanBodyPart = fixCharacterEncoding(proc.bodyPart || "");
 
-    // ⚠️ CRITICAL: Apply character encoding fixes
-    // This fixes â€", â€œ, â€¢, â€", etc.
-    const cleanLabel = fixCharacterEncoding(procedure.label);
-    const cleanBodyPart = fixCharacterEncoding(procedure.bodyPart || "");
-
-    // Apply highlighting to clean label
-    const highlightedLabel = highlightMatch(cleanLabel, currentQuery);
+    const highlightedLabel = highlightMatch(cleanLabel, query);
 
     return `
       <button
         type="button"
         class="w-full text-left flex items-center justify-between px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition procedure-result"
-        data-cpt="${procedure.cpt || ""}"
+        data-cpt="${proc.cpt || ""}"
         data-label="${cleanLabel.replace(/"/g, "&quot;")}"
-        data-modality="${procedure.modality || ""}"
+        data-modality="${proc.modality || ""}"
         data-bodypart="${cleanBodyPart.replace(/"/g, "&quot;")}"
         aria-label="Select ${cleanLabel}"
       >
@@ -254,174 +208,149 @@
           <span class="text-[15px] font-medium text-gray-900 leading-tight">
             ${highlightedLabel}
           </span>
+
           ${
             cleanBodyPart
-              ? `
-            <span class="text-xs text-gray-500 mt-0.5">${cleanBodyPart}</span>
-          `
+              ? `<span class="text-xs text-gray-500 mt-0.5">${cleanBodyPart}</span>`
               : ""
           }
         </div>
+
         <span
-          class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wide
-          ${
-            procedure.modality === "MRI"
+          class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wide ${
+            proc.modality === "MRI"
               ? "bg-[#e7f0ff] text-[#003087]"
-              : procedure.modality === "CT"
+              : proc.modality === "CT"
                 ? "bg-[#fff8ee] text-[#b8862d]"
-                : procedure.modality === "X-Ray"
-                  ? "bg-[#f3f4f6] text-gray-700"
+                : proc.modality === "X-Ray"
+                  ? "bg-gray-100 text-gray-700"
                   : "bg-[#eefaf1] text-[#006d3b]"
           }"
         >
-          ${procedure.modality || "Scan"}
+          ${proc.modality || "Scan"}
         </span>
       </button>
     `;
   }
 
   /**
-   * Render grouped search results with sticky headers
-   * @param procedures - Array of procedures to render
-   * @param query - Current search query for highlighting
-   * @returns HTML string for all grouped procedures
+   * Render grouped results with sticky modality headers
    */
-  function renderGroupedResults(
-    procedures: Procedure[],
-    query: string
-  ): string {
-    const groups = groupByModality(procedures);
-    const modalityOrder = ["MRI", "CT", "X-Ray", "Ultrasound"];
+  function renderGroupedResults(results, query) {
+    const groups = groupByModality(results);
+    const order = ["MRI", "CT", "X-Ray", "Ultrasound", "Other"];
 
-    return modalityOrder
-      .map((modality) => {
-        const group = groups[modality];
+    return order
+      .map((mod) => {
+        const group = groups[mod];
         if (!group || group.length === 0) return "";
 
-        const icon =
-          MODALITY_ICONS[modality as keyof typeof MODALITY_ICONS] || "📋";
+        const icon = MODALITY_ICONS[mod] || "📋";
 
         return `
-        <div class="mb-4 border border-gray-100 rounded-lg overflow-hidden shadow-sm">
-          <!-- Sticky Group Header -->
-          <div class="sticky top-0 z-10 px-4 py-2 bg-gradient-to-r from-blue-50 to-white border-b border-blue-100 flex items-center justify-between backdrop-blur-sm">
-            <h4 class="text-sm font-semibold text-gray-700 flex items-center gap-2">
-              <span>${icon}</span> ${modality}
-            </h4>
-            <span class="text-xs text-gray-500">${group.length} results</span>
+          <div class="mb-4 border border-gray-100 rounded-lg overflow-hidden shadow-sm">
+            <div class="sticky top-0 z-10 px-4 py-2 bg-gradient-to-r from-blue-50 to-white border-b border-blue-100 flex items-center justify-between backdrop-blur-sm">
+              <h4 class="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                <span>${icon}</span>${mod}
+              </h4>
+              <span class="text-xs text-gray-500">${group.length} results</span>
+            </div>
+
+            <div class="divide-y divide-gray-100 max-h-[220px] overflow-y-auto">
+              ${group.map((proc) => renderProcedureButton(proc, query)).join("")}
+            </div>
           </div>
-          
-          <!-- Procedure List -->
-          <div class="divide-y divide-gray-100 max-h-[220px] overflow-y-auto">
-            ${group.map((proc) => renderProcedureButton(proc, query)).join("")}
-          </div>
-        </div>
         `;
       })
-      .filter((html) => html !== "")
       .join("");
   }
 
   /**
-   * Render search results
-   * Called when state updates
-   *
-   * ⚠️ CRITICAL: This is where character encoding fixes are applied
+   * Attach click handlers for selecting a procedure
    */
-  function renderSearchResults(state: any) {
-    const query = state.currentQuery || ""; // ✅ CORRECT!
-    const results = state.searchResults || [];
+  function attachHandlers() {
+    const buttons = resultsListContainer?.querySelectorAll(".procedure-result");
+    if (!buttons) return;
 
-    // Determine what to show based on query and results
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const selected = {
+          cpt: btn.getAttribute("data-cpt") || "",
+          label: btn.getAttribute("data-label") || "",
+          modality: btn.getAttribute("data-modality") || "",
+          bodyPart: btn.getAttribute("data-bodypart") || "",
+        };
+
+        if (DEBUG) console.log("SearchResults: selecting", selected);
+        window.searchManager.selectProcedure(selected);
+      });
+    });
+  }
+
+  /**
+   * Main rendering logic
+   */
+  function render(state) {
+    if (!resultsContainer) return;
+
+    const query = state.currentQuery || "";
+    const results = state.searchResults || [];
     const hasQuery = query.length >= 2;
     const hasResults = results.length > 0;
 
-    // Hide everything first
-    resultsContainer?.classList.add("hidden");
+    // Reset UI
+    resultsContainer.classList.add("hidden");
     emptyStateContainer?.classList.add("hidden");
 
-    // If query is too short, don't show anything (popular will show instead)
-    if (!hasQuery) {
-      return;
-    }
+    // If query is too short, show nothing (popular list shows instead)
+    if (!hasQuery) return;
 
     // Update result count
     if (resultsCountElement) {
       resultsCountElement.textContent = results.length.toString();
     }
 
-    // Show empty state if no results
     if (!hasResults) {
       emptyStateContainer?.classList.remove("hidden");
       return;
     }
 
-    // Show results container
-    resultsContainer?.classList.remove("hidden");
+    // Show container and render results
+    resultsContainer.classList.remove("hidden");
 
-    // Render grouped results with character encoding fixes applied
-    if (resultsListContainer) {
-      resultsListContainer.innerHTML = renderGroupedResults(results, query);
-    }
+    resultsListContainer.innerHTML = renderGroupedResults(results, query);
 
-    // Attach click handlers to all procedure buttons
-    attachClickHandlers();
+    // Attach click handlers after render
+    attachHandlers();
   }
 
   /**
-   * Attach click handlers to procedure buttons
-   * Calls SearchManager.selectProcedure() on click
-   */
-  function attachClickHandlers() {
-    const buttons = resultsListContainer?.querySelectorAll(".procedure-result");
-
-    buttons?.forEach((button) => {
-      button.addEventListener("click", () => {
-        const cpt = button.getAttribute("data-cpt") || "";
-        const label = button.getAttribute("data-label") || "";
-        const modality = button.getAttribute("data-modality") || "";
-        const bodyPart = button.getAttribute("data-bodypart") || "";
-
-        // Create procedure object
-        const procedure: Procedure = {
-          cpt,
-          label,
-          modality,
-          bodyPart,
-          description: "", // Not needed for selection
-        };
-
-        // Select procedure via SearchManager
-        searchManager.selectProcedure(procedure);
-      });
-    });
-  }
-
-  /**
-   * Initialize component
-   * Subscribe to SearchManager state changes
+   * INIT — Subscribe to SearchManager
    */
   function init() {
-    // Subscribe to state changes
-    const unsubscribe = searchManager.subscribe(renderSearchResults);
+    if (!window.searchManager) {
+      if (DEBUG) console.log("SearchResults: waiting for searchManager...");
+      setTimeout(init, 50);
+      return;
+    }
 
-    // Cleanup on page navigation (Astro specific)
-    document.addEventListener("astro:before-swap", () => {
-      unsubscribe();
-    });
+    const unsubscribe = window.searchManager.subscribe(render);
 
-    // Also cleanup on beforeunload for non-Astro scenarios
-    window.addEventListener("beforeunload", () => {
-      unsubscribe();
-    });
+    document.addEventListener("astro:before-swap", unsubscribe);
+    window.addEventListener("beforeunload", unsubscribe);
+
+    if (DEBUG) console.log("SearchResults: ready");
   }
 
-  // Initialize when DOM is ready
+  // DOM Ready
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
   } else {
     init();
   }
+
+  // Astro navigation reload
+  document.addEventListener("astro:page-load", init);
 </script>
 
 <style>

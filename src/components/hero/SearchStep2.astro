@@ -476,212 +476,238 @@ const { remixUrl } = Astro.props;
   // Debug flag - set to false for production
   const DEBUG = false;
 
-  import { searchManager } from "../../lib/search-manager";
-
   let isSubscribed = false;
 
+  /**
+   * Wait until window.searchManager is ready
+   */
+  function waitForSearchManager(callback) {
+    if (
+      window.searchManager &&
+      typeof window.searchManager.subscribe === "function"
+    ) {
+      callback(window.searchManager);
+      return;
+    }
+
+    if (DEBUG) {
+      console.log("[SearchStep2] Waiting for searchManager...");
+    }
+
+    setTimeout(() => waitForSearchManager(callback), 50);
+  }
+
+  /**
+   * Main initializer for Step 2
+   */
   function initializeSearchStep2() {
-    const step1 = document.getElementById("search-step-1");
-    const step2 = document.getElementById("search-step-2");
+    waitForSearchManager((searchManager) => {
+      const step1 = document.getElementById("search-step-1");
+      const step2 = document.getElementById("search-step-2");
 
-    const changeBtn = document.getElementById("change-procedure-button");
-    const changeBtnMobile = document.getElementById(
-      "change-procedure-button-mobile"
-    );
+      const changeBtn = document.getElementById("change-procedure-button");
+      const changeBtnMobile = document.getElementById(
+        "change-procedure-button-mobile"
+      );
 
-    const zipInput = document.getElementById(
-      "hero-zip-input"
-    ) as HTMLInputElement;
-    const zipInputMobile = document.getElementById(
-      "hero-zip-input-mobile"
-    ) as HTMLInputElement;
+      const zipInput = document.getElementById("hero-zip-input");
+      const zipInputMobile = document.getElementById("hero-zip-input-mobile");
 
-    const detectBtn = document.getElementById("hero-detect-location");
-    const detectBtnMobile = document.getElementById(
-      "hero-detect-location-mobile"
-    );
+      const detectBtn = document.getElementById("hero-detect-location");
+      const detectBtnMobile = document.getElementById(
+        "hero-detect-location-mobile"
+      );
 
-    const locationIcon = document.getElementById("location-icon");
-    const locationIconMobile = document.getElementById("location-icon-mobile");
-    const locationLoading = document.getElementById("location-loading");
-    const locationLoadingMobile = document.getElementById(
-      "location-loading-mobile"
-    );
+      const locationIcon = document.getElementById("location-icon");
+      const locationIconMobile = document.getElementById(
+        "location-icon-mobile"
+      );
+      const locationLoading = document.getElementById("location-loading");
+      const locationLoadingMobile = document.getElementById(
+        "location-loading-mobile"
+      );
 
-    const submitBtn = document.getElementById(
-      "hero-search-button"
-    ) as HTMLButtonElement;
-    const submitBtnMobile = document.getElementById(
-      "hero-search-button-mobile"
-    ) as HTMLButtonElement;
+      const submitBtn = document.getElementById("hero-search-button");
+      const submitBtnMobile = document.getElementById(
+        "hero-search-button-mobile"
+      );
 
-    const procedureDisplay = document.getElementById(
-      "selected-procedure-display"
-    );
-    const procedureDisplayMobile = document.getElementById(
-      "selected-procedure-display-mobile"
-    );
+      const procedureDisplay = document.getElementById(
+        "selected-procedure-display"
+      );
+      const procedureDisplayMobile = document.getElementById(
+        "selected-procedure-display-mobile"
+      );
 
-    const cptHidden = document.getElementById(
-      "cpt-code-hidden"
-    ) as HTMLInputElement;
-    const procedureHidden = document.getElementById(
-      "procedure-name-hidden"
-    ) as HTMLInputElement;
+      const cptHidden = document.getElementById("cpt-code-hidden");
+      const procedureHidden = document.getElementById("procedure-name-hidden");
 
-    const zipHint = document.getElementById("zip-hint");
+      const zipHint = document.getElementById("zip-hint");
 
-    if (DEBUG) console.log("✅ SearchStep2: Initializing...");
+      if (DEBUG) console.log("✅ SearchStep2: Initializing...");
 
-    function transitionToStep1() {
-      if (!step1 || !step2) return;
+      /**
+       * Helper: check if form is ready to submit
+       */
+      function checkFormReady() {
+        const hasCpt =
+          cptHidden && cptHidden.value && cptHidden.value.length > 0;
 
-      if (DEBUG) console.log("SearchStep2: Transitioning to Step 1");
+        const zipValue =
+          (zipInput && zipInput.value) ||
+          (zipInputMobile && zipInputMobile.value) ||
+          "";
+        const hasZip = zipValue.length === 5 && /^\d{5}$/.test(zipValue);
+        const isReady = hasCpt && hasZip;
 
-      step2.classList.add("fade-out-step");
+        if (submitBtn) submitBtn.disabled = !isReady;
+        if (submitBtnMobile) submitBtnMobile.disabled = !isReady;
 
-      setTimeout(() => {
-        step2.classList.add("hidden");
-        step2.classList.remove("fade-out-step");
-
-        step1.classList.remove("hidden");
-        step1.classList.add("fade-in-step");
-
-        // Set state to Step 1 BEFORE focusing to avoid race condition
-        searchManager.setState({ currentStep: 1 });
-
-        const searchInput = document.getElementById(
-          "hero-search-input"
-        ) as HTMLInputElement;
-
-        // Focus the input (this will trigger the appropriate modal/dropdown based on screen size)
-        searchInput?.focus();
-
-        // Only open dropdown explicitly on desktop (mobile uses focus handler to open modal)
-        const isMobile = window.innerWidth < 768;
-        if (!isMobile) {
-          searchManager.openDropdown();
-          if (DEBUG) {
-            console.log(
-              "[SearchStep2] Transitioned to Step 1 with dropdown open (desktop)"
-            );
+        if (zipHint) {
+          if (hasZip) {
+            zipHint.textContent = "Ready to search!";
+            zipHint.classList.add("text-green-600");
+            zipHint.classList.remove("text-gray-500");
+          } else {
+            zipHint.textContent = "Enter ZIP to continue";
+            zipHint.classList.add("text-gray-500");
+            zipHint.classList.remove("text-green-600");
           }
-        } else {
-          if (DEBUG) {
-            console.log(
-              "[SearchStep2] Transitioned to Step 1, modal will open via focus handler (mobile)"
-            );
-          }
-        }
-      }, 250);
-    }
-
-    if (changeBtn) {
-      changeBtn.addEventListener("click", () => {
-        // Trigger 180° arrow rotation animation
-        const arrow = document.getElementById("change-arrow-desktop");
-        if (arrow) {
-          arrow.classList.remove("rotate-arrow");
-          void arrow.offsetWidth; // Force reflow
-          arrow.classList.add("rotate-arrow");
-          setTimeout(() => {
-            arrow.classList.remove("rotate-arrow");
-          }, 400);
-        }
-
-        // Then transition to step 1
-        transitionToStep1();
-      });
-    }
-
-    if (changeBtnMobile) {
-      changeBtnMobile.addEventListener("click", () => {
-        // Trigger 180° arrow rotation animation
-        const arrow = document.getElementById("change-arrow-mobile");
-        if (arrow) {
-          arrow.classList.remove("rotate-arrow");
-          void arrow.offsetWidth; // Force reflow
-          arrow.classList.add("rotate-arrow");
-          setTimeout(() => {
-            arrow.classList.remove("rotate-arrow");
-          }, 400);
-        }
-
-        // Then transition to step 1
-        transitionToStep1();
-      });
-    }
-
-    function checkFormReady() {
-      const hasCpt = cptHidden && cptHidden.value && cptHidden.value.length > 0;
-      const zipValue = zipInput?.value || zipInputMobile?.value || "";
-      const hasZip = zipValue.length === 5 && /^\d{5}$/.test(zipValue);
-      const isReady = hasCpt && hasZip;
-
-      if (submitBtn) submitBtn.disabled = !isReady;
-      if (submitBtnMobile) submitBtnMobile.disabled = !isReady;
-
-      if (zipHint) {
-        if (hasZip) {
-          zipHint.textContent = "Ready to search!";
-          zipHint.classList.add("text-green-600");
-          zipHint.classList.remove("text-gray-500");
-        } else {
-          zipHint.textContent = "Enter ZIP to continue";
-          zipHint.classList.add("text-gray-500");
-          zipHint.classList.remove("text-green-600");
         }
       }
-    }
 
-    [zipInput, zipInputMobile].filter(Boolean).forEach((input) => {
-      input.addEventListener("input", function (e) {
-        const value = (e.target as HTMLInputElement).value;
-        const cleaned = value.replace(/\D/g, "");
-        (e.target as HTMLInputElement).value = cleaned;
+      /**
+       * Transition back to Step 1 (Change procedure)
+       */
+      function transitionToStep1() {
+        if (!step1 || !step2) return;
 
-        if (zipInput) zipInput.value = cleaned;
-        if (zipInputMobile) zipInputMobile.value = cleaned;
+        if (DEBUG) console.log("SearchStep2: Transitioning to Step 1");
 
-        // ✨ NEW: Progressive visual feedback
-        const length = cleaned.length;
+        step2.classList.add("fade-out-step");
 
-        // Remove all state classes first
-        if (zipInputMobile) {
-          zipInputMobile.classList.remove("zip-typing", "zip-valid");
-        }
-        if (submitBtnMobile) {
-          submitBtnMobile.classList.remove("button-ready");
-        }
+        setTimeout(() => {
+          step2.classList.add("hidden");
+          step2.classList.remove("fade-out-step");
 
-        // Apply appropriate state
-        if (length > 0 && length < 5) {
-          // Typing state (1-4 digits)
-          if (zipInputMobile) zipInputMobile.classList.add("zip-typing");
-        } else if (length === 5) {
-          // Valid state (5 digits)
-          if (zipInputMobile) zipInputMobile.classList.add("zip-valid");
-          if (submitBtnMobile) submitBtnMobile.classList.add("button-ready");
-        }
+          step1.classList.remove("hidden");
+          step1.classList.add("fade-in-step");
 
-        searchManager.setZipCode(cleaned);
-        checkFormReady();
+          // Set state to Step 1 BEFORE focusing to avoid race conditions
+          searchManager.setState({ currentStep: 1 });
+
+          const searchInput = document.getElementById("hero-search-input");
+
+          // Focus the input (this will trigger modal or dropdown based on screen size)
+          if (searchInput) {
+            searchInput.focus();
+          }
+
+          const isMobile = window.innerWidth < 768;
+          if (!isMobile) {
+            searchManager.openDropdown();
+            if (DEBUG) {
+              console.log(
+                "[SearchStep2] Transitioned to Step 1 with dropdown open (desktop)"
+              );
+            }
+          } else {
+            if (DEBUG) {
+              console.log(
+                "[SearchStep2] Transitioned to Step 1, modal will open via focus (mobile)"
+              );
+            }
+          }
+        }, 250);
+      }
+
+      /**
+       * Change procedure button (desktop)
+       */
+      if (changeBtn) {
+        changeBtn.addEventListener("click", () => {
+          const arrow = document.getElementById("change-arrow-desktop");
+          if (arrow) {
+            arrow.classList.remove("rotate-arrow");
+            void arrow.offsetWidth;
+            arrow.classList.add("rotate-arrow");
+            setTimeout(() => {
+              arrow.classList.remove("rotate-arrow");
+            }, 400);
+          }
+
+          transitionToStep1();
+        });
+      }
+
+      /**
+       * Change procedure button (mobile)
+       */
+      if (changeBtnMobile) {
+        changeBtnMobile.addEventListener("click", () => {
+          const arrow = document.getElementById("change-arrow-mobile");
+          if (arrow) {
+            arrow.classList.remove("rotate-arrow");
+            void arrow.offsetWidth;
+            arrow.classList.add("rotate-arrow");
+            setTimeout(() => {
+              arrow.classList.remove("rotate-arrow");
+            }, 400);
+          }
+
+          transitionToStep1();
+        });
+      }
+
+      /**
+       * ZIP input handling (desktop + mobile)
+       */
+      [zipInput, zipInputMobile].filter(Boolean).forEach((inputEl) => {
+        inputEl.addEventListener("input", function (e) {
+          const target = e.target;
+          const value = target.value || "";
+          const cleaned = value.replace(/\D/g, "");
+          target.value = cleaned;
+
+          if (zipInput && zipInput !== target) zipInput.value = cleaned;
+          if (zipInputMobile && zipInputMobile !== target)
+            zipInputMobile.value = cleaned;
+
+          const length = cleaned.length;
+
+          if (zipInputMobile) {
+            zipInputMobile.classList.remove("zip-typing", "zip-valid");
+          }
+          if (submitBtnMobile) {
+            submitBtnMobile.classList.remove("button-ready");
+          }
+
+          if (length > 0 && length < 5) {
+            if (zipInputMobile) zipInputMobile.classList.add("zip-typing");
+          } else if (length === 5) {
+            if (zipInputMobile) zipInputMobile.classList.add("zip-valid");
+            if (submitBtnMobile) submitBtnMobile.classList.add("button-ready");
+          }
+
+          searchManager.setZipCode(cleaned);
+          checkFormReady();
+        });
       });
-    });
 
-    async function detectLocation() {
-      if (DEBUG) console.log("SearchStep2: Detecting location...");
+      /**
+       * Detect location → fetch ZIP
+       */
+      async function detectLocation() {
+        if (DEBUG) console.log("SearchStep2: Detecting location...");
 
-      // Show loading spinner immediately
-      if (locationIcon) locationIcon.classList.add("hidden");
-      if (locationIconMobile) locationIconMobile.classList.add("hidden");
-      if (locationLoading) locationLoading.classList.remove("hidden");
-      if (locationLoadingMobile)
-        locationLoadingMobile.classList.remove("hidden");
+        if (locationIcon) locationIcon.classList.add("hidden");
+        if (locationIconMobile) locationIconMobile.classList.add("hidden");
+        if (locationLoading) locationLoading.classList.remove("hidden");
+        if (locationLoadingMobile)
+          locationLoadingMobile.classList.remove("hidden");
 
-      try {
-        const position = await new Promise<GeolocationPosition>(
-          (resolve, reject) => {
+        try {
+          const position = await new Promise((resolve, reject) => {
             if (!navigator.geolocation) {
               reject(new Error("Geolocation not supported"));
               return;
@@ -691,221 +717,228 @@ const { remixUrl } = Astro.props;
               timeout: 5000,
               maximumAge: 300000,
             });
+          });
+
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+
+          if (DEBUG) console.log("SearchStep2: Got coordinates", { lat, lng });
+
+          const response = await fetch(`/api/geocode?lat=${lat}&lng=${lng}`);
+          const data = await response.json();
+
+          if (data.postalCode) {
+            if (zipInput) zipInput.value = data.postalCode;
+            if (zipInputMobile) zipInputMobile.value = data.postalCode;
+
+            searchManager.setZipCode(data.postalCode);
+
+            if (zipHint) {
+              zipHint.textContent = `Detected your location${
+                data.city ? ` in ${data.city}` : ""
+              }`;
+              zipHint.classList.add("text-green-600");
+              zipHint.classList.remove("text-gray-500");
+            }
+
+            checkFormReady();
+
+            if (DEBUG)
+              console.log("✅ Location detected", {
+                zip: data.postalCode,
+                city: data.city,
+              });
+          } else {
+            throw new Error("No postal code found");
           }
-        );
+        } catch (error) {
+          console.error("❌ Location detection error:", error);
 
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
+          let errorMessage = "Could not detect location • Enter ZIP manually";
 
-        if (DEBUG) console.log("SearchStep2: Got coordinates", { lat, lng });
-
-        const response = await fetch(`/api/geocode?lat=${lat}&lng=${lng}`);
-        const data = await response.json();
-
-        if (data.postalCode) {
-          if (zipInput) zipInput.value = data.postalCode;
-          if (zipInputMobile) zipInputMobile.value = data.postalCode;
-
-          searchManager.setZipCode(data.postalCode);
+          if (error && typeof error === "object" && "code" in error) {
+            if (error.code === error.PERMISSION_DENIED) {
+              errorMessage = "Location permission denied • Enter ZIP manually";
+            } else if (error.code === error.TIMEOUT) {
+              errorMessage = "Location timeout • Enter ZIP manually";
+            }
+          }
 
           if (zipHint) {
-            zipHint.textContent = `Detected your location${data.city ? ` in ${data.city}` : ""}`;
-            zipHint.classList.add("text-green-600");
-            zipHint.classList.remove("text-gray-500");
+            zipHint.textContent = errorMessage;
+            zipHint.classList.add("text-red-600");
+            zipHint.classList.remove("text-gray-500", "text-green-600");
+          }
+
+          if (zipInput) zipInput.focus();
+        } finally {
+          if (locationIcon) locationIcon.classList.remove("hidden");
+          if (locationIconMobile) locationIconMobile.classList.remove("hidden");
+          if (locationLoading) locationLoading.classList.add("hidden");
+          if (locationLoadingMobile)
+            locationLoadingMobile.classList.add("hidden");
+        }
+      }
+
+      if (detectBtn) {
+        detectBtn.addEventListener("click", detectLocation);
+      }
+
+      if (detectBtnMobile) {
+        detectBtnMobile.addEventListener("click", detectLocation);
+      }
+
+      const form = document.getElementById("hero-search-form");
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          if (DEBUG)
+            console.log("SearchStep2: Form submitting", {
+              cpt: cptHidden && cptHidden.value,
+              procedure: procedureHidden && procedureHidden.value,
+              zip:
+                (zipInput && zipInput.value) ||
+                (zipInputMobile && zipInputMobile.value),
+              action: form.action,
+            });
+        });
+      }
+
+      /**
+       * Subscribe to SearchManager state
+       */
+      if (!isSubscribed) {
+        searchManager.subscribe((state) => {
+          if (DEBUG)
+            console.log("SearchStep2: State update", {
+              currentStep: state.currentStep,
+              selectedProcedure: state.selectedProcedure
+                ? state.selectedProcedure.label
+                : null,
+              zipCode: state.zipCode,
+            });
+
+          if (state.selectedProcedure) {
+            const label = state.selectedProcedure.label;
+            const cptCode =
+              state.selectedProcedure.cptCode ||
+              state.selectedProcedure.cpt ||
+              "";
+
+            if (procedureDisplay && procedureDisplay.textContent !== label) {
+              procedureDisplay.textContent = label;
+              procedureDisplay.classList.add("label-fade-in");
+              setTimeout(() => {
+                procedureDisplay.classList.remove("label-fade-in");
+              }, 400);
+            }
+
+            if (
+              procedureDisplayMobile &&
+              procedureDisplayMobile.textContent !== label
+            ) {
+              procedureDisplayMobile.textContent = label;
+              procedureDisplayMobile.classList.add("label-fade-in");
+              setTimeout(() => {
+                procedureDisplayMobile.classList.remove("label-fade-in");
+              }, 400);
+            }
+
+            const checkmarkDesktop =
+              document.getElementById("checkmark-desktop");
+            const checkmarkMobile = document.getElementById("checkmark-mobile");
+
+            const lastProcedure =
+              (checkmarkDesktop &&
+                checkmarkDesktop.getAttribute("data-last-procedure")) ||
+              "";
+            const currentProcedure = label || "";
+
+            if (currentProcedure !== lastProcedure) {
+              if (checkmarkDesktop) {
+                checkmarkDesktop.setAttribute(
+                  "data-last-procedure",
+                  currentProcedure
+                );
+                checkmarkDesktop.classList.remove("checkmark-pulse");
+                void checkmarkDesktop.offsetWidth;
+                checkmarkDesktop.classList.add("checkmark-pulse");
+                setTimeout(() => {
+                  checkmarkDesktop.classList.remove("checkmark-pulse");
+                }, 600);
+              }
+
+              if (checkmarkMobile) {
+                checkmarkMobile.setAttribute(
+                  "data-last-procedure",
+                  currentProcedure
+                );
+                checkmarkMobile.classList.remove("checkmark-pulse");
+                void checkmarkMobile.offsetWidth;
+                checkmarkMobile.classList.add("checkmark-pulse");
+                setTimeout(() => {
+                  checkmarkMobile.classList.remove("checkmark-pulse");
+                }, 600);
+              }
+            }
+
+            if (cptHidden) {
+              cptHidden.value = cptCode;
+              if (DEBUG)
+                console.log("🔍 CPT code set:", {
+                  cptCode,
+                  cptHiddenValue: cptHidden.value,
+                  hasValue: cptHidden.value.length > 0,
+                });
+            }
+            if (procedureHidden) procedureHidden.value = label;
+
+            if (DEBUG)
+              console.log("✅ Procedure display updated", { label, cptCode });
+          }
+
+          if (state.zipCode) {
+            if (zipInput) zipInput.value = state.zipCode;
+            if (zipInputMobile) zipInputMobile.value = state.zipCode;
+          }
+
+          const step2Container = document.getElementById("search-step-2");
+          if (step2Container) {
+            if (state.currentStep === 2) {
+              step2Container.classList.remove("hidden");
+
+              const isMobile = window.innerWidth < 768;
+              if (isMobile && zipInputMobile) {
+                setTimeout(() => {
+                  zipInputMobile.focus();
+                }, 300);
+              } else if (!isMobile && zipInput) {
+                setTimeout(() => {
+                  zipInput.focus();
+                }, 300);
+              }
+            } else {
+              step2Container.classList.add("hidden");
+            }
           }
 
           checkFormReady();
+        });
 
-          if (DEBUG)
-            console.log("✅ Location detected", {
-              zip: data.postalCode,
-              city: data.city,
-            });
-        } else {
-          throw new Error("No postal code found");
-        }
-      } catch (error) {
-        console.error("❌ Location detection error:", error);
-
-        let errorMessage = "Could not detect location • Enter ZIP manually";
-
-        if (error instanceof GeolocationPositionError) {
-          if (error.code === error.PERMISSION_DENIED) {
-            errorMessage = "Location permission denied • Enter ZIP manually";
-          } else if (error.code === error.TIMEOUT) {
-            errorMessage = "Location timeout • Enter ZIP manually";
-          }
-        }
-
-        if (zipHint) {
-          zipHint.textContent = errorMessage;
-          zipHint.classList.add("text-red-600");
-          zipHint.classList.remove("text-gray-500", "text-green-600");
-        }
-
-        if (zipInput) zipInput.focus();
-      } finally {
-        if (locationIcon) locationIcon.classList.remove("hidden");
-        if (locationIconMobile) locationIconMobile.classList.remove("hidden");
-        if (locationLoading) locationLoading.classList.add("hidden");
-        if (locationLoadingMobile)
-          locationLoadingMobile.classList.add("hidden");
+        isSubscribed = true;
+        if (DEBUG) console.log("✅ SearchStep2: Subscribed to SearchManager");
       }
-    }
 
-    if (detectBtn) {
-      detectBtn.addEventListener("click", detectLocation);
-    }
-
-    if (detectBtnMobile) {
-      detectBtnMobile.addEventListener("click", detectLocation);
-    }
-
-    const form = document.getElementById("hero-search-form") as HTMLFormElement;
-    if (form) {
-      form.addEventListener("submit", (e) => {
-        if (DEBUG)
-          console.log("SearchStep2: Form submitting", {
-            cpt: cptHidden?.value,
-            procedure: procedureHidden?.value,
-            zip: zipInput?.value || zipInputMobile?.value,
-            action: form.action,
-          });
-      });
-    }
-
-    if (!isSubscribed) {
-      searchManager.subscribe((state) => {
-        if (DEBUG)
-          console.log("SearchStep2: State update", {
-            currentStep: state.currentStep,
-            selectedProcedure: state.selectedProcedure?.label,
-            zipCode: state.zipCode,
-          });
-
-        if (state.selectedProcedure) {
-          const label = state.selectedProcedure.label;
-          // Extract CPT code from either cptCode or cpt property
-          const cptCode =
-            state.selectedProcedure.cptCode ||
-            state.selectedProcedure.cpt ||
-            "";
-
-          // Only update text if it actually changed (prevents blinking)
-          if (procedureDisplay && procedureDisplay.textContent !== label) {
-            procedureDisplay.textContent = label;
-            procedureDisplay.classList.add("label-fade-in");
-            setTimeout(() => {
-              procedureDisplay.classList.remove("label-fade-in");
-            }, 400);
-          }
-
-          if (
-            procedureDisplayMobile &&
-            procedureDisplayMobile.textContent !== label
-          ) {
-            procedureDisplayMobile.textContent = label;
-            procedureDisplayMobile.classList.add("label-fade-in");
-            setTimeout(() => {
-              procedureDisplayMobile.classList.remove("label-fade-in");
-            }, 400);
-          }
-
-          // Trigger checkmark pulse animation ONLY when procedure changes
-          const checkmarkDesktop = document.getElementById("checkmark-desktop");
-          const checkmarkMobile = document.getElementById("checkmark-mobile");
-
-          // Check if this is a NEW procedure selection (not just a state update)
-          const lastProcedure =
-            checkmarkDesktop?.getAttribute("data-last-procedure") || "";
-          const currentProcedure = label || "";
-
-          // Only animate if procedure actually changed
-          if (currentProcedure !== lastProcedure) {
-            if (checkmarkDesktop) {
-              checkmarkDesktop.setAttribute(
-                "data-last-procedure",
-                currentProcedure
-              );
-              checkmarkDesktop.classList.remove("checkmark-pulse");
-              void checkmarkDesktop.offsetWidth; // Force reflow
-              checkmarkDesktop.classList.add("checkmark-pulse");
-              setTimeout(() => {
-                checkmarkDesktop.classList.remove("checkmark-pulse");
-              }, 600);
-            }
-
-            if (checkmarkMobile) {
-              checkmarkMobile.setAttribute(
-                "data-last-procedure",
-                currentProcedure
-              );
-              checkmarkMobile.classList.remove("checkmark-pulse");
-              void checkmarkMobile.offsetWidth; // Force reflow
-              checkmarkMobile.classList.add("checkmark-pulse");
-              setTimeout(() => {
-                checkmarkMobile.classList.remove("checkmark-pulse");
-              }, 600);
-            }
-          }
-
-          if (cptHidden) {
-            cptHidden.value = cptCode;
-            if (DEBUG)
-              console.log("🔍 CPT code set:", {
-                cptCode,
-                cptHiddenValue: cptHidden.value,
-                hasValue: cptHidden.value.length > 0,
-              });
-          }
-          if (procedureHidden) procedureHidden.value = label;
-
-          if (DEBUG)
-            console.log("✅ Procedure display updated", { label, cptCode });
-        }
-
-        if (state.zipCode) {
-          if (zipInput) zipInput.value = state.zipCode;
-          if (zipInputMobile) zipInputMobile.value = state.zipCode;
-        }
-
-        // Toggle visibility based on currentStep
-        const step2Container = document.getElementById("search-step-2");
-        if (step2Container) {
-          if (state.currentStep === 2) {
-            step2Container.classList.remove("hidden");
-
-            // ✨ NEW: Auto-focus ZIP input after transition
-            const isMobile = window.innerWidth < 768;
-            if (isMobile && zipInputMobile) {
-              setTimeout(() => {
-                zipInputMobile.focus();
-              }, 300); // After fade-in animation
-            } else if (!isMobile && zipInput) {
-              setTimeout(() => {
-                zipInput.focus();
-              }, 300);
-            }
-          } else {
-            step2Container.classList.add("hidden");
-          }
-        }
-
-        checkFormReady();
-      });
-
-      isSubscribed = true;
-      if (DEBUG) console.log("✅ SearchStep2: Subscribed to SearchManager");
-    }
-
-    if (DEBUG) console.log("✅ SearchStep2: Initialization complete");
+      if (DEBUG) console.log("✅ SearchStep2: Initialization complete");
+    });
   }
 
+  // Initialize on DOM ready
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initializeSearchStep2);
   } else {
     initializeSearchStep2();
   }
 
+  // Re-initialize on Astro page transitions
   document.addEventListener("astro:page-load", initializeSearchStep2);
 </script>
