@@ -1,9 +1,17 @@
 /**
- * Procedure Resolver - New Engine (Phase 0.5)
+ * Procedure Resolver - New Engine (Phase 1)
  * Canonical procedure resolution and search functions
  * 
  * This module provides a CPT-first, deterministic approach to procedure lookup
  * and search. It reads from the same procedure-data.js source used by the legacy engine.
+ * 
+ * Phase 1 Features:
+ * - Canonical flattened procedure index
+ * - CPT-first resolution
+ * - Enhanced search with scoring
+ * - Modality and body part inference
+ * - Alias matching
+ * - Memory-cached index for performance
  */
 
 // Type definitions matching the structure in procedure-data.js
@@ -12,24 +20,178 @@ interface ProcedureMetadata {
   name: string;
   category?: string;
   bodyPart?: string;
+  modality?: string;
   aliases?: string[];
+  label?: string;
+  shortLabel?: string;
+  description?: string;
+  duration?: string;
+  prep?: string;
+  useCase?: string;
   [key: string]: any;
 }
 
-interface ProcedureLibrary {
+interface CanonicalIndex {
   procedures: ProcedureMetadata[];
-  [key: string]: any;
+  proceduresByCPT: Map<string, ProcedureMetadata>;
+  proceduresByModality: Map<string, ProcedureMetadata[]>;
+  isLoaded: boolean;
 }
+
+// Global canonical index cache
+let canonicalIndex: CanonicalIndex | null = null;
 
 /**
  * Access the global ProcedureLibrary loaded from procedure-data.js
  * Returns null if the library hasn't been loaded yet
  */
-function getProcedureLibrary(): ProcedureLibrary | null {
+function getProcedureLibrary(): any | null {
   if (typeof window === 'undefined') {
     return null;
   }
   return (window as any).ProcedureLibrary || null;
+}
+
+/**
+ * Build canonical flattened procedure index from nested metadata
+ * Traverses MRI, CT, X-Ray, Ultrasound structures and extracts all procedures
+ * 
+ * @param library - The ProcedureLibrary object from window
+ * @returns Canonical index with flattened procedures
+ */
+function buildCanonicalIndex(library: any): CanonicalIndex {
+  const procedures: ProcedureMetadata[] = [];
+  const proceduresByCPT = new Map<string, ProcedureMetadata>();
+  const proceduresByModality = new Map<string, ProcedureMetadata[]>();
+
+  if (!library) {
+    return {
+      procedures: [],
+      proceduresByCPT,
+      proceduresByModality,
+      isLoaded: false
+    };
+  }
+
+  // Helper to extract procedures from a modality object
+  const extractFromModality = (modalityData: any, modalityName: string) => {
+    if (!modalityData || typeof modalityData !== 'object') {
+      return;
+    }
+
+    // Iterate through regions/categories
+    for (const regionKey in modalityData) {
+      const regionData = modalityData[regionKey];
+      
+      // Skip if not a valid region object
+      if (!regionData || typeof regionData !== 'object') {
+        continue;
+      }
+
+      // Extract metadata
+      const category = regionData.category || regionKey;
+      const bodyPart = regionData.category || regionKey;
+      const proceduresList = regionData.procedures || [];
+
+      // Process each procedure in this region
+      proceduresList.forEach((proc: any) => {
+        if (!proc || !proc.cpt) {
+          return; // Skip invalid procedures
+        }
+
+        // Build canonical procedure object
+        const canonical: ProcedureMetadata = {
+          cpt: proc.cpt,
+          name: proc.label || proc.name || `${modalityName} ${category}`,
+          category: category,
+          bodyPart: bodyPart,
+          modality: modalityName,
+          aliases: proc.aliases || [],
+          label: proc.label,
+          shortLabel: proc.shortLabel,
+          description: proc.description,
+          duration: proc.duration,
+          prep: proc.prep,
+          useCase: proc.useCase
+        };
+
+        // Add to main array
+        procedures.push(canonical);
+
+        // Index by CPT
+        proceduresByCPT.set(proc.cpt, canonical);
+
+        // Index by modality
+        if (!proceduresByModality.has(modalityName)) {
+          proceduresByModality.set(modalityName, []);
+        }
+        proceduresByModality.get(modalityName)!.push(canonical);
+      });
+    }
+  };
+
+  // Extract from all modalities
+  if (library.MRI) {
+    extractFromModality(library.MRI, 'MRI');
+  }
+  if (library.CT) {
+    extractFromModality(library.CT, 'CT');
+  }
+  if (library['X-Ray']) {
+    extractFromModality(library['X-Ray'], 'X-Ray');
+  }
+  if (library.Ultrasound) {
+    extractFromModality(library.Ultrasound, 'Ultrasound');
+  }
+
+  return {
+    procedures,
+    proceduresByCPT,
+    proceduresByModality,
+    isLoaded: true
+  };
+}
+
+/**
+ * Load and cache the canonical index
+ * This should be called once at application startup when the feature flag is enabled
+ * 
+ * @returns true if index was loaded successfully, false otherwise
+ */
+export function loadCanonicalIndex(): boolean {
+  // Return cached index if already loaded
+  if (canonicalIndex && canonicalIndex.isLoaded) {
+    return true;
+  }
+
+  const library = getProcedureLibrary();
+  if (!library) {
+    console.warn('[New Engine] ProcedureLibrary not available yet');
+    return false;
+  }
+
+  canonicalIndex = buildCanonicalIndex(library);
+
+  if (canonicalIndex.isLoaded) {
+    console.log('[New Engine] Canonical index loaded', {
+      totalProcedures: canonicalIndex.procedures.length,
+      modalities: Array.from(canonicalIndex.proceduresByModality.keys()),
+      cptCount: canonicalIndex.proceduresByCPT.size
+    });
+  }
+
+  return canonicalIndex.isLoaded;
+}
+
+/**
+ * Get the canonical index, loading it if necessary
+ * @returns The canonical index or null if not available
+ */
+function getCanonicalIndex(): CanonicalIndex | null {
+  if (!canonicalIndex || !canonicalIndex.isLoaded) {
+    loadCanonicalIndex();
+  }
+  return canonicalIndex && canonicalIndex.isLoaded ? canonicalIndex : null;
 }
 
 /**
@@ -38,13 +200,13 @@ function getProcedureLibrary(): ProcedureLibrary | null {
  * @returns The procedure metadata or null if not found
  */
 export function getProcedureByCPT(cpt: string): ProcedureMetadata | null {
-  const library = getProcedureLibrary();
-  if (!library || !library.procedures) {
+  const index = getCanonicalIndex();
+  if (!index) {
     return null;
   }
 
   const normalizedCPT = cpt.trim();
-  return library.procedures.find(p => p.cpt === normalizedCPT) || null;
+  return index.proceduresByCPT.get(normalizedCPT) || null;
 }
 
 /**
@@ -71,8 +233,8 @@ export function normalizeProcedureName(name: string): string {
  * @returns Array of matching procedures, sorted by relevance
  */
 export function searchProcedures(query: string, limit: number = 10): ProcedureMetadata[] {
-  const library = getProcedureLibrary();
-  if (!library || !library.procedures) {
+  const index = getCanonicalIndex();
+  if (!index) {
     return [];
   }
 
@@ -84,7 +246,7 @@ export function searchProcedures(query: string, limit: number = 10): ProcedureMe
   const queryTokens = normalizedQuery.split(' ').filter(t => t.length > 0);
 
   // Score each procedure based on match quality
-  const scored = library.procedures.map(procedure => {
+  const scored = index.procedures.map(procedure => {
     let score = 0;
 
     // Exact CPT match (highest priority)
@@ -128,6 +290,11 @@ export function searchProcedures(query: string, limit: number = 10): ProcedureMe
       if (normalizedCategory.includes(normalizedQuery)) {
         score += 100;
       }
+      queryTokens.forEach(token => {
+        if (normalizedCategory.includes(token)) {
+          score += 25;
+        }
+      });
     }
 
     // Body part match
@@ -135,6 +302,19 @@ export function searchProcedures(query: string, limit: number = 10): ProcedureMe
       const normalizedBodyPart = normalizeProcedureName(procedure.bodyPart);
       if (normalizedBodyPart.includes(normalizedQuery)) {
         score += 100;
+      }
+      queryTokens.forEach(token => {
+        if (normalizedBodyPart.includes(token)) {
+          score += 25;
+        }
+      });
+    }
+
+    // Modality match
+    if (procedure.modality) {
+      const normalizedModality = normalizeProcedureName(procedure.modality);
+      if (normalizedModality.includes(normalizedQuery)) {
+        score += 150;
       }
     }
 
@@ -146,6 +326,30 @@ export function searchProcedures(query: string, limit: number = 10): ProcedureMe
           score += 600;
         } else if (normalizedAlias.includes(normalizedQuery)) {
           score += 200;
+        }
+        queryTokens.forEach(token => {
+          if (normalizedAlias.includes(token)) {
+            score += 30;
+          }
+        });
+      });
+    }
+
+    // Use case and description matches (lower priority)
+    if (procedure.useCase) {
+      const normalizedUseCase = normalizeProcedureName(procedure.useCase);
+      queryTokens.forEach(token => {
+        if (normalizedUseCase.includes(token)) {
+          score += 10;
+        }
+      });
+    }
+
+    if (procedure.description) {
+      const normalizedDescription = normalizeProcedureName(procedure.description);
+      queryTokens.forEach(token => {
+        if (normalizedDescription.includes(token)) {
+          score += 5;
         }
       });
     }
@@ -199,4 +403,47 @@ export function resolveCPTAndNameFromInput(
   }
 
   return null;
+}
+
+/**
+ * Get all procedures for a specific modality
+ * @param modality - The modality name (MRI, CT, X-Ray, Ultrasound)
+ * @returns Array of procedures for that modality
+ */
+export function getProceduresByModality(modality: string): ProcedureMetadata[] {
+  const index = getCanonicalIndex();
+  if (!index) {
+    return [];
+  }
+
+  return index.proceduresByModality.get(modality) || [];
+}
+
+/**
+ * Get index statistics (for debugging)
+ * @returns Object with index statistics
+ */
+export function getIndexStats(): {
+  isLoaded: boolean;
+  totalProcedures: number;
+  modalities: string[];
+  cptCount: number;
+} {
+  const index = getCanonicalIndex();
+  
+  if (!index) {
+    return {
+      isLoaded: false,
+      totalProcedures: 0,
+      modalities: [],
+      cptCount: 0
+    };
+  }
+
+  return {
+    isLoaded: index.isLoaded,
+    totalProcedures: index.procedures.length,
+    modalities: Array.from(index.proceduresByModality.keys()),
+    cptCount: index.proceduresByCPT.size
+  };
 }

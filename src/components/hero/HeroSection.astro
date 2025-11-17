@@ -68,6 +68,10 @@ const { remixUrl } = Astro.props;
   } from "../../lib/feature-flags";
 
   import { searchManager } from "../../lib/search-manager";
+  import {
+    loadCanonicalIndex,
+    getIndexStats,
+  } from "../../lib/procedure-resolver";
 
   // ✅ CRITICAL: Expose searchManager to window for other components
   window.searchManager = searchManager;
@@ -110,8 +114,10 @@ const { remixUrl } = Astro.props;
         popularProcs
       );
 
-      // Phase 0.5: Initialize new engine in shadow mode if enabled
-      initializeNewEngineIfEnabled();
+      // Phase 1: Initialize new engine if enabled
+      if (USE_NEW_PROCEDURE_ENGINE) {
+        initializeNewEngine();
+      }
 
       if (DEBUG) console.log("[HeroSection] SearchManager initialized");
     } catch (error) {
@@ -120,13 +126,6 @@ const { remixUrl } = Astro.props;
   }
 
   function initHeroSection() {
-    if (USE_NEW_PROCEDURE_ENGINE && ENABLE_DEBUG_NEW_ENGINE) {
-      console.log("🔬 Phase 0.5: Shadow Mode Active", {
-        newEngine: USE_NEW_PROCEDURE_ENGINE,
-        debug: ENABLE_DEBUG_NEW_ENGINE,
-      });
-    }
-
     if (DEBUG) console.log("[HeroSection] Initializing...");
     initializeSearchManager();
 
@@ -147,25 +146,32 @@ const { remixUrl } = Astro.props;
   document.addEventListener("astro:page-load", initHeroSection);
 
   /**
-   * Phase 0.5: New Engine Initialization
-   * Ensures the procedure-resolver can access ProcedureLibrary when flags are enabled
-   * This is a no-op check that verifies shadow-mode readiness
+   * Phase 1: New Engine Initialization
+   * Loads the canonical index and verifies readiness
    */
-  function initializeNewEngineIfEnabled() {
-    if (!USE_NEW_PROCEDURE_ENGINE) {
-      return; // New engine disabled, skip initialization
-    }
-
-    // Verify ProcedureLibrary is accessible for the new engine
+  function initializeNewEngine() {
     const lib = (window as any).ProcedureLibrary;
+
     if (!lib) {
       console.warn("⚠️ New Engine enabled but ProcedureLibrary not available");
       return;
     }
 
+    // Load canonical index
+    const loaded = loadCanonicalIndex();
+
+    if (!loaded) {
+      console.error("❌ Failed to load canonical index");
+      return;
+    }
+
     if (ENABLE_DEBUG_NEW_ENGINE) {
-      console.log("✅ New Engine shadow mode ready", {
-        procedureCount: lib.procedures?.length || 0,
+      const stats = getIndexStats();
+      console.log("✅ Phase 1: New Engine Active", {
+        isLoaded: stats.isLoaded,
+        totalProcedures: stats.totalProcedures,
+        modalities: stats.modalities,
+        cptCount: stats.cptCount,
       });
     }
   }

@@ -3,7 +3,8 @@ import { USE_NEW_PROCEDURE_ENGINE, ENABLE_DEBUG_NEW_ENGINE } from './feature-fla
 import {
   searchProcedures as newEngineSearch,
   getProcedureByCPT,
-  resolveCPTAndNameFromInput
+  resolveCPTAndNameFromInput,
+  loadCanonicalIndex
 } from './procedure-resolver';
 
 export interface Procedure {
@@ -66,6 +67,14 @@ class SearchManager {
     ultrasoundData: Record<string, any>,
     popularProcedures: Procedure[]
   ): void {
+    // Initialize New Engine canonical index if feature flag is enabled
+    if (USE_NEW_PROCEDURE_ENGINE) {
+      const loaded = loadCanonicalIndex();
+      if (loaded && ENABLE_DEBUG_NEW_ENGINE) {
+        console.log('[SearchManager] New Engine canonical index loaded');
+      }
+    }
+
     this.procedureData = {
       MRI: mriData,
       CT: ctData,
@@ -84,8 +93,6 @@ class SearchManager {
       totalProcedures: this.allProcedures.length,
       popularCount: this.state.popularProcedures.length,
     });
-
-// Removed this.notify() - subscribers already get initial state on subscribe()
   }
 
   private flattenProcedures(): Procedure[] {
@@ -119,7 +126,6 @@ class SearchManager {
 
   search(query: string): void {
     this.state.currentQuery = query;
-    const legacyResults = this.performLegacySearch(query);
 
     if (!query || query.trim().length < 2) {
       this.state.searchResults = [];
@@ -127,20 +133,51 @@ class SearchManager {
       return;
     }
 
-    // Shadow-mode: Run new engine if flag is enabled
-    if (USE_NEW_PROCEDURE_ENGINE && ENABLE_DEBUG_NEW_ENGINE) {
-      this.runShadowModeComparison(query, legacyResults);
+    // Determine which engine to use based on feature flags
+    if (USE_NEW_PROCEDURE_ENGINE) {
+      // New Engine is active
+      const newEngineResults = this.performNewEngineSearch(query);
+      
+      // If debug mode is enabled, run legacy in parallel for comparison
+      if (ENABLE_DEBUG_NEW_ENGINE) {
+        const legacyResults = this.performLegacySearch(query);
+        this.runComparisonLogging(query, newEngineResults, legacyResults);
+      }
+      
+      // Use New Engine results for UI
+      this.state.searchResults = newEngineResults.slice(0, 20);
+    } else {
+      // Legacy Engine is active
+      const legacyResults = this.performLegacySearch(query);
+      this.state.searchResults = legacyResults.slice(0, 20);
     }
-
-    // Always use legacy results for UI
-    this.state.searchResults = legacyResults.slice(0, 20);
 
     console.log('SearchManager: Search', {
       query,
       resultsCount: this.state.searchResults.length,
+      engine: USE_NEW_PROCEDURE_ENGINE ? 'New Engine' : 'Legacy Engine',
     });
 
     this.notify();
+  }
+
+  private performNewEngineSearch(query: string): Procedure[] {
+    if (!query || query.trim().length < 2) {
+      return [];
+    }
+
+    // Call New Engine search
+    const newEngineResults = newEngineSearch(query, 20);
+
+    // Map New Engine ProcedureMetadata to UI Procedure shape
+    return newEngineResults.map(proc => ({
+      label: proc.name,
+      cptCode: proc.cpt,
+      cpt: proc.cpt,
+      modality: proc.modality || 'Unknown',
+      bodyPart: proc.bodyPart,
+      region: proc.bodyPart,
+    }));
   }
 
   private performLegacySearch(query: string): Procedure[] {
@@ -154,54 +191,41 @@ class SearchManager {
     });
   }
 
-  private runShadowModeComparison(query: string, legacyResults: Procedure[]): void {
+  private runComparisonLogging(query: string, newEngineResults: Procedure[], legacyResults: Procedure[]): void {
     try {
-      // Run new engine search
-      const newEngineResults = newEngineSearch(query, 20);
+      console.group('🔬 Phase 1: Engine Comparison');
+      console.log('Query:', query);
 
-      // Map new engine results to legacy format for comparison
-      const mappedNewResults = newEngineResults.map(proc => ({
-        label: proc.name,
-        cptCode: proc.cpt,
-        cpt: proc.cpt,
-        modality: this.inferModalityFromProcedure(proc),
-        bodyPart: proc.bodyPart,
-        region: proc.bodyPart,
-      }));
-
-      // Compare results
+      const newEngineCPTs = new Set(newEngineResults.map(p => p.cpt).filter(Boolean));
       const legacyCPTs = new Set(legacyResults.map(p => p.cptCode || p.cpt).filter(Boolean));
-      const newEngineCPTs = new Set(mappedNewResults.map(p => p.cpt).filter(Boolean));
 
       const onlyInLegacy = legacyResults.filter(p => {
         const cpt = p.cptCode || p.cpt;
         return cpt && !newEngineCPTs.has(cpt);
       });
 
-      const onlyInNewEngine = mappedNewResults.filter(p => {
+      const onlyInNewEngine = newEngineResults.filter(p => {
         return p.cpt && !legacyCPTs.has(p.cpt);
       });
 
-      console.group('🔬 Shadow Mode: Engine Comparison');
-      console.log('Query:', query);
-      console.log('Legacy results:', legacyResults.length);
+      const inBoth = newEngineResults.filter(p => {
+        return p.cpt && legacyCPTs.has(p.cpt);
+      });
+
       console.log('New Engine results:', newEngineResults.length);
+      console.log('Legacy results:', legacyResults.length);
+      console.log('In both engines:', inBoth.length);
       console.log('Only in Legacy:', onlyInLegacy.length, onlyInLegacy.slice(0, 5));
       console.log('Only in New Engine:', onlyInNewEngine.length, onlyInNewEngine.slice(0, 5));
+      
+      // Show top 3 from each for visual comparison
+      console.log('Top 3 New Engine:', newEngineResults.slice(0, 3).map(p => ({ cpt: p.cpt, label: p.label })));
+      console.log('Top 3 Legacy:', legacyResults.slice(0, 3).map(p => ({ cpt: p.cptCode || p.cpt, label: p.label })));
+      
       console.groupEnd();
     } catch (error) {
-      console.error('Shadow mode comparison failed:', error);
+      console.error('Engine comparison logging failed:', error);
     }
-  }
-
-  private inferModalityFromProcedure(proc: any): string {
-    // Simple heuristic: infer from category or name
-    const text = `${proc.category || ''} ${proc.name || ''}`.toLowerCase();
-    if (text.includes('mri')) return 'MRI';
-    if (text.includes('ct') || text.includes('computed tomography')) return 'CT';
-    if (text.includes('ultrasound') || text.includes('sonography')) return 'Ultrasound';
-    if (text.includes('x-ray') || text.includes('xray') || text.includes('radiograph')) return 'X-Ray';
-    return 'Unknown';
   }
 
   selectProcedure(procedure: Procedure): void {

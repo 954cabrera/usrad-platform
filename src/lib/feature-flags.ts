@@ -9,7 +9,7 @@
  * 
  * Phase 0.5 default: false (Legacy Engine is active)
  */
-export const USE_NEW_PROCEDURE_ENGINE = false;
+export const USE_NEW_PROCEDURE_ENGINE = true;
 
 /**
  * When true, enables console logging for New Engine operations in shadow mode.
@@ -18,4 +18,4 @@ export const USE_NEW_PROCEDURE_ENGINE = false;
  * Only takes effect when USE_NEW_PROCEDURE_ENGINE is true.
  * Phase 0.5 default: false
  */
-export const ENABLE_DEBUG_NEW_ENGINE = false;
+export const ENABLE_DEBUG_NEW_ENGINE = true;
