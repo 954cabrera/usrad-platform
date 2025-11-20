@@ -9,7 +9,8 @@ interface Props {
   remixUrl: string;
 }
 
-const { remixUrl } = Astro.props;
+// Use environment variable for cross-app routing (local + production)
+const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
 ---
 
 <!-- STEP 2: ZIP Code Input (Hidden Initially) -->
@@ -19,7 +20,7 @@ const { remixUrl } = Astro.props;
   data-aos="fade-up"
   data-aos-delay="300"
 >
-  <form action={`${remixUrl}/pbs/search`} method="GET" id="hero-search-form">
+  <form action={`${remixUrl}/pbs/search`} method="GET">
     <!-- Compact Horizontal Row -->
     <div
       class="bg-white/90 backdrop-blur-md border-2 border-white/60 shadow-lg rounded-xl overflow-hidden"
@@ -326,7 +327,7 @@ const { remixUrl } = Astro.props;
       <input
         type="hidden"
         id="procedure-name-hidden"
-        name="procedure"
+        name="procedureSearch"
         value=""
       />
     </div>
@@ -475,6 +476,15 @@ const { remixUrl } = Astro.props;
 <script>
   // Debug flag - set to false for production
   const DEBUG = false;
+
+  // TEMP VALIDATION — confirm Remix URL wiring
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("hero-search-form");
+    if (form) {
+      console.log("🔗 PUBLIC_REMIX_URL:", import.meta.env.PUBLIC_REMIX_URL);
+      console.log("🔗 Form action:", form.action);
+    }
+  });
 
   let isSubscribed = false;
 
