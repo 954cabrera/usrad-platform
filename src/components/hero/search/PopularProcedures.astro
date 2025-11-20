@@ -263,10 +263,12 @@
       listContainer.querySelectorAll(".procedure-result").forEach((btn) => {
         btn.addEventListener("click", () => {
           const selected = {
-            cptCode: btn.getAttribute("data-cpt") || "",
             label: btn.getAttribute("data-label") || "",
+            cpt: btn.getAttribute("data-cpt") || "", // ← ADD THIS
+            cptCode: btn.getAttribute("data-cpt") || "",
             modality: btn.getAttribute("data-modality") || "",
             bodyPart: btn.getAttribute("data-bodypart") || "",
+            region: btn.getAttribute("data-bodypart") || "", // ← ADD THIS (optional but recommended)
           };
 
           if (DEBUG) console.log("⭐ PopularProcedures: selecting", selected);
