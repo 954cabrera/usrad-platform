@@ -1,8 +1,22 @@
 ---
 /**
- * SearchStep2.astro
+ * SearchStep2.astro - Phase 2 Implementation
  *
  * ZIP code input component (Step 2 of the hero search flow)
+ *
+ * PHASE 2 CHANGES:
+ * - Added hidden form fields for bodyPartKey and displayLabel
+ * - Populates these fields from SearchManager state
+ * - Sends dual-identity data to Remix backend for proper CPT resolution
+ *
+ * DUAL-IDENTITY SUPPORT:
+ * Procedures like "MRI Shoulder" have two identities:
+ * - Display: "MRI Shoulder Without Contrast" (patient-friendly)
+ * - CPT: 73221 = "Upper Extremity" (Medicare/billing)
+ *
+ * This component now passes both to Remix:
+ * - bodyPartKey: "shoulder" (for backend disambiguation)
+ * - displayLabel: "MRI Shoulder Without Contrast" (for UI consistency)
  */
 
 interface Props {
@@ -330,6 +344,19 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
         name="procedureSearch"
         value=""
       />
+      <!-- Phase 2: Dual-identity procedure support -->
+      <input
+        type="hidden"
+        id="bodypart-key-hidden"
+        name="bodyPartKey"
+        value=""
+      />
+      <input
+        type="hidden"
+        id="display-label-hidden"
+        name="displayLabel"
+        value=""
+      />
     </div>
   </form>
 </div>
@@ -551,6 +578,12 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
 
       const cptHidden = document.getElementById("cpt-code-hidden");
       const procedureHidden = document.getElementById("procedure-name-hidden");
+
+      // Phase 2: Get references to dual-identity hidden fields
+      const bodyPartKeyHidden = document.getElementById("bodypart-key-hidden");
+      const displayLabelHidden = document.getElementById(
+        "display-label-hidden"
+      );
 
       const zipHint = document.getElementById("zip-hint");
 
@@ -805,6 +838,8 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
             console.log("SearchStep2: Form submitting", {
               cpt: cptHidden && cptHidden.value,
               procedure: procedureHidden && procedureHidden.value,
+              bodyPartKey: bodyPartKeyHidden && bodyPartKeyHidden.value,
+              displayLabel: displayLabelHidden && displayLabelHidden.value,
               zip:
                 (zipInput && zipInput.value) ||
                 (zipInputMobile && zipInputMobile.value),
@@ -902,8 +937,31 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
             }
             if (procedureHidden) procedureHidden.value = label;
 
+            // Phase 2: Populate dual-identity hidden fields
+            const bodyPartKey =
+              state.selectedProcedure.bodyPartKey ||
+              state.selectedProcedure.bodyPart ||
+              "";
+            const displayLabel =
+              state.selectedProcedure.displayLabelOverride ||
+              state.selectedProcedure.label ||
+              "";
+
+            if (bodyPartKeyHidden) {
+              bodyPartKeyHidden.value = bodyPartKey;
+            }
+
+            if (displayLabelHidden) {
+              displayLabelHidden.value = displayLabel;
+            }
+
             if (DEBUG)
-              console.log("✅ Procedure display updated", { label, cptCode });
+              console.log("✅ Procedure display updated", {
+                label,
+                cptCode,
+                bodyPartKey,
+                displayLabel,
+              });
           }
 
           if (state.zipCode) {

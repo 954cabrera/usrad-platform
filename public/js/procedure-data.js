@@ -3055,34 +3055,188 @@ const ULTRASOUND_PROCEDURES = {
 
 const POPULAR_PROCEDURES = [
   // ===== MRI (8) =====
-  { modality: "MRI", cpt: "70551", label: "MRI Brain - Without Contrast" },
-  { modality: "MRI", cpt: "73721", label: "MRI Knee - Without Contrast" },
-  { modality: "MRI", cpt: "72148", label: "MRI Lumbar Spine - Without Contrast" },
-  { modality: "MRI", cpt: "72146", label: "MRI Cervical Spine - Without Contrast" },
-  { modality: "MRI", cpt: "73221", label: "MRI Shoulder - Without Contrast" },
-  { modality: "MRI", cpt: "72156", label: "MRI Thoracic Spine - Without Contrast" },
-  { modality: "MRI", cpt: "70553", label: "MRI Brain - With & Without Contrast" },
-  { modality: "MRI", cpt: "74181", label: "MRI Abdomen - Without Contrast" },
+  { 
+    modality: "MRI", 
+    cpt: "70551", 
+    cptCode: "70551",
+    label: "MRI Brain - Without Contrast",
+    bodyPartKey: "Brain",
+    displayLabelOverride: "MRI Brain - Without Contrast"
+  },
+  { 
+    modality: "MRI", 
+    cpt: "73721", 
+    cptCode: "73721",
+    label: "MRI Knee - Without Contrast",
+    bodyPartKey: "Knee",
+    displayLabelOverride: "MRI Knee - Without Contrast"
+  },
+  { 
+    modality: "MRI", 
+    cpt: "72148", 
+    cptCode: "72148",
+    label: "MRI Lumbar Spine - Without Contrast",
+    bodyPartKey: "Lumbar Spine",
+    displayLabelOverride: "MRI Lumbar Spine - Without Contrast"
+  },
+  { 
+    modality: "MRI", 
+    cpt: "72146", 
+    cptCode: "72146",
+    label: "MRI Cervical Spine - Without Contrast",
+    bodyPartKey: "Cervical Spine",
+    displayLabelOverride: "MRI Cervical Spine - Without Contrast"
+  },
+  { 
+    modality: "MRI", 
+    cpt: "73221", 
+    cptCode: "73221",
+    label: "MRI Shoulder - Without Contrast",
+    bodyPartKey: "Shoulder",
+    displayLabelOverride: "MRI Shoulder - Without Contrast"
+  },
+  { 
+    modality: "MRI", 
+    cpt: "72156", 
+    cptCode: "72156",
+    label: "MRI Thoracic Spine - Without Contrast",
+    bodyPartKey: "Thoracic Spine",
+    displayLabelOverride: "MRI Thoracic Spine - Without Contrast"
+  },
+  { 
+    modality: "MRI", 
+    cpt: "70553", 
+    cptCode: "70553",
+    label: "MRI Brain - With & Without Contrast",
+    bodyPartKey: "Brain",
+    displayLabelOverride: "MRI Brain - With & Without Contrast"
+  },
+  { 
+    modality: "MRI", 
+    cpt: "74181", 
+    cptCode: "74181",
+    label: "MRI Abdomen - Without Contrast",
+    bodyPartKey: "Abdomen",
+    displayLabelOverride: "MRI Abdomen - Without Contrast"
+  },
 
   // ===== CT (8) =====
-  { modality: "CT", cpt: "70450", label: "CT Head/Brain - Without Contrast" },
-  { modality: "CT", cpt: "74177", label: "CT Abdomen & Pelvis - With Contrast" },
-  { modality: "CT", cpt: "74176", label: "CT Abdomen & Pelvis - Without Contrast" },
-  { modality: "CT", cpt: "71250", label: "CT Chest - Without Contrast" },
-  { modality: "CT", cpt: "72125", label: "CT Cervical Spine - Without Contrast" },
-  { modality: "CT", cpt: "72132", label: "CT Lumbar Spine - With Contrast" },
-  { modality: "CT", cpt: "71260", label: "CT Chest - With Contrast" },
-  { modality: "CT", cpt: "70486", label: "CT Sinuses - Without Contrast" },
+  { 
+    modality: "CT", 
+    cpt: "70450", 
+    cptCode: "70450",
+    label: "CT Head/Brain - Without Contrast",
+    bodyPartKey: "Head",
+    displayLabelOverride: "CT Head/Brain - Without Contrast"
+  },
+  { 
+    modality: "CT", 
+    cpt: "74177", 
+    cptCode: "74177",
+    label: "CT Abdomen & Pelvis - With Contrast",
+    bodyPartKey: "Abdomen & Pelvis",
+    displayLabelOverride: "CT Abdomen & Pelvis - With Contrast"
+  },
+  { 
+    modality: "CT", 
+    cpt: "74176", 
+    cptCode: "74176",
+    label: "CT Abdomen & Pelvis - Without Contrast",
+    bodyPartKey: "Abdomen & Pelvis",
+    displayLabelOverride: "CT Abdomen & Pelvis - Without Contrast"
+  },
+  { 
+    modality: "CT", 
+    cpt: "71250", 
+    cptCode: "71250",
+    label: "CT Chest - Without Contrast",
+    bodyPartKey: "Chest",
+    displayLabelOverride: "CT Chest - Without Contrast"
+  },
+  { 
+    modality: "CT", 
+    cpt: "72125", 
+    cptCode: "72125",
+    label: "CT Cervical Spine - Without Contrast",
+    bodyPartKey: "Cervical Spine",
+    displayLabelOverride: "CT Cervical Spine - Without Contrast"
+  },
+  { 
+    modality: "CT", 
+    cpt: "72132", 
+    cptCode: "72132",
+    label: "CT Lumbar Spine - With Contrast",
+    bodyPartKey: "Lumbar Spine",
+    displayLabelOverride: "CT Lumbar Spine - With Contrast"
+  },
+  { 
+    modality: "CT", 
+    cpt: "71260", 
+    cptCode: "71260",
+    label: "CT Chest - With Contrast",
+    bodyPartKey: "Chest",
+    displayLabelOverride: "CT Chest - With Contrast"
+  },
+  { 
+    modality: "CT", 
+    cpt: "70486", 
+    cptCode: "70486",
+    label: "CT Sinuses - Without Contrast",
+    bodyPartKey: "Sinuses",
+    displayLabelOverride: "CT Sinuses - Without Contrast"
+  },
 
   // ===== X-Ray (3) =====
-  { modality: "X-Ray", cpt: "71046", label: "X-Ray Chest - 2 Views (PA & Lateral)" },
-  { modality: "X-Ray", cpt: "73560", label: "X-Ray Knee - 3 Views" },
-  { modality: "X-Ray", cpt: "73030", label: "X-Ray Shoulder - 2 Views" },
+  { 
+    modality: "X-Ray", 
+    cpt: "71046", 
+    cptCode: "71046",
+    label: "X-Ray Chest - 2 Views (PA & Lateral)",
+    bodyPartKey: "Chest",
+    displayLabelOverride: "X-Ray Chest - 2 Views (PA & Lateral)"
+  },
+  { 
+    modality: "X-Ray", 
+    cpt: "73560", 
+    cptCode: "73560",
+    label: "X-Ray Knee - 3 Views",
+    bodyPartKey: "Knee",
+    displayLabelOverride: "X-Ray Knee - 3 Views"
+  },
+  { 
+    modality: "X-Ray", 
+    cpt: "73030", 
+    cptCode: "73030",
+    label: "X-Ray Shoulder - 2 Views",
+    bodyPartKey: "Shoulder",
+    displayLabelOverride: "X-Ray Shoulder - 2 Views"
+  },
 
   // ===== Ultrasound (3) =====
-  { modality: "Ultrasound", cpt: "76805", label: "Ultrasound OB - Second/Third Trimester (Anatomy Scan)" },
-  { modality: "Ultrasound", cpt: "76700", label: "Ultrasound Abdomen - Complete" },
-  { modality: "Ultrasound", cpt: "76856", label: "Ultrasound Pelvis - Complete" }
+  { 
+    modality: "Ultrasound", 
+    cpt: "76805", 
+    cptCode: "76805",
+    label: "Ultrasound OB - Second/Third Trimester (Anatomy Scan)",
+    bodyPartKey: "Obstetric",
+    displayLabelOverride: "Ultrasound OB - Second/Third Trimester (Anatomy Scan)"
+  },
+  { 
+    modality: "Ultrasound", 
+    cpt: "76700", 
+    cptCode: "76700",
+    label: "Ultrasound Abdomen - Complete",
+    bodyPartKey: "Abdomen",
+    displayLabelOverride: "Ultrasound Abdomen - Complete"
+  },
+  { 
+    modality: "Ultrasound", 
+    cpt: "76856", 
+    cptCode: "76856",
+    label: "Ultrasound Pelvis - Complete",
+    bodyPartKey: "Pelvis",
+    displayLabelOverride: "Ultrasound Pelvis - Complete"
+  }
 ];
 
 
