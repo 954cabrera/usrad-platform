@@ -191,7 +191,6 @@
   function renderProcedureButton(proc, query) {
     const cleanLabel = fixCharacterEncoding(proc.label);
     const cleanBodyPart = fixCharacterEncoding(proc.bodyPart || "");
-    const bodyPartKey = proc.bodyPartKey || proc.bodyPart || "";
 
     const highlightedLabel = highlightMatch(cleanLabel, query);
 
@@ -203,8 +202,6 @@
         data-label="${cleanLabel.replace(/"/g, "&quot;")}"
         data-modality="${proc.modality || ""}"
         data-bodypart="${cleanBodyPart.replace(/"/g, "&quot;")}"
-        data-bodypart-key="${bodyPartKey}"
-        data-display-override="${cleanLabel.replace(/"/g, "&quot;")}"
         aria-label="Select ${cleanLabel}"
       >
         <div class="flex flex-col flex-1 min-w-0">
@@ -278,14 +275,10 @@
     buttons.forEach((btn) => {
       btn.addEventListener("click", () => {
         const selected = {
-          label: btn.getAttribute("data-label") || "",
           cpt: btn.getAttribute("data-cpt") || "",
-          cptCode: btn.getAttribute("data-cpt") || "",
+          label: btn.getAttribute("data-label") || "",
           modality: btn.getAttribute("data-modality") || "",
           bodyPart: btn.getAttribute("data-bodypart") || "",
-          region: btn.getAttribute("data-bodypart") || "",
-          bodyPartKey: btn.getAttribute("data-bodypart-key") || "",
-          displayLabelOverride: btn.getAttribute("data-display-override") || "",
         };
 
         if (DEBUG) console.log("SearchResults: selecting", selected);

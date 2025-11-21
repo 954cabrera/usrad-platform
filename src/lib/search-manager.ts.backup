@@ -1,4 +1,11 @@
 import { fixCharacterEncoding, normalizeQuery, textContainsQuery } from './search-utils';
+import { USE_NEW_PROCEDURE_ENGINE, ENABLE_DEBUG_NEW_ENGINE } from './feature-flags';
+import {
+  searchProcedures as newEngineSearch,
+  getProcedureByCPT,
+  resolveCPTAndNameFromInput,
+  loadCanonicalIndex
+} from './procedure-resolver';
 
 export interface Procedure {
   label: string;
@@ -60,6 +67,14 @@ class SearchManager {
     ultrasoundData: Record<string, any>,
     popularProcedures: Procedure[]
   ): void {
+    // Initialize New Engine canonical index if feature flag is enabled
+    if (USE_NEW_PROCEDURE_ENGINE) {
+      const loaded = loadCanonicalIndex();
+      if (loaded && ENABLE_DEBUG_NEW_ENGINE) {
+        console.log('[SearchManager] New Engine canonical index loaded');
+      }
+    }
+
     this.procedureData = {
       MRI: mriData,
       CT: ctData,
@@ -78,8 +93,6 @@ class SearchManager {
       totalProcedures: this.allProcedures.length,
       popularCount: this.state.popularProcedures.length,
     });
-
-// Removed this.notify() - subscribers already get initial state on subscribe()
   }
 
   private flattenProcedures(): Procedure[] {
@@ -112,29 +125,107 @@ class SearchManager {
   }
 
   search(query: string): void {
-    const normalizedQuery = normalizeQuery(query);
-
     this.state.currentQuery = query;
 
-    if (!normalizedQuery || normalizedQuery.length < 2) {
+    if (!query || query.trim().length < 2) {
       this.state.searchResults = [];
       this.notify();
       return;
     }
 
-    const results = this.allProcedures.filter(proc => {
-      const searchText = `${proc.label} ${proc.modality} ${proc.bodyPart || ''} ${proc.cptCode || ''}`;
-      return textContainsQuery(searchText, normalizedQuery);
-    });
-
-    this.state.searchResults = results.slice(0, 20);
+    // Determine which engine to use based on feature flags
+    if (USE_NEW_PROCEDURE_ENGINE) {
+      // New Engine is active
+      const newEngineResults = this.performNewEngineSearch(query);
+      
+      // If debug mode is enabled, run legacy in parallel for comparison
+      if (ENABLE_DEBUG_NEW_ENGINE) {
+        const legacyResults = this.performLegacySearch(query);
+        this.runComparisonLogging(query, newEngineResults, legacyResults);
+      }
+      
+      // Use New Engine results for UI
+      this.state.searchResults = newEngineResults.slice(0, 20);
+    } else {
+      // Legacy Engine is active
+      const legacyResults = this.performLegacySearch(query);
+      this.state.searchResults = legacyResults.slice(0, 20);
+    }
 
     console.log('SearchManager: Search', {
       query,
       resultsCount: this.state.searchResults.length,
+      engine: USE_NEW_PROCEDURE_ENGINE ? 'New Engine' : 'Legacy Engine',
     });
 
     this.notify();
+  }
+
+  private performNewEngineSearch(query: string): Procedure[] {
+    if (!query || query.trim().length < 2) {
+      return [];
+    }
+
+    // Call New Engine search
+    const newEngineResults = newEngineSearch(query, 20);
+
+    // Map New Engine ProcedureMetadata to UI Procedure shape
+    return newEngineResults.map(proc => ({
+      label: proc.name,
+      cptCode: proc.cpt,
+      cpt: proc.cpt,
+      modality: proc.modality || 'Unknown',
+      bodyPart: proc.bodyPart,
+      region: proc.bodyPart,
+    }));
+  }
+
+  private performLegacySearch(query: string): Procedure[] {
+    if (!query || query.trim().length < 2) {
+      return [];
+    }
+
+    return this.allProcedures.filter(proc => {
+      const searchText = `${proc.label} ${proc.modality} ${proc.bodyPart || ''} ${proc.cptCode || ''}`;
+      return textContainsQuery(searchText, query);
+    });
+  }
+
+  private runComparisonLogging(query: string, newEngineResults: Procedure[], legacyResults: Procedure[]): void {
+    try {
+      console.group('🔬 Phase 1: Engine Comparison');
+      console.log('Query:', query);
+
+      const newEngineCPTs = new Set(newEngineResults.map(p => p.cpt).filter(Boolean));
+      const legacyCPTs = new Set(legacyResults.map(p => p.cptCode || p.cpt).filter(Boolean));
+
+      const onlyInLegacy = legacyResults.filter(p => {
+        const cpt = p.cptCode || p.cpt;
+        return cpt && !newEngineCPTs.has(cpt);
+      });
+
+      const onlyInNewEngine = newEngineResults.filter(p => {
+        return p.cpt && !legacyCPTs.has(p.cpt);
+      });
+
+      const inBoth = newEngineResults.filter(p => {
+        return p.cpt && legacyCPTs.has(p.cpt);
+      });
+
+      console.log('New Engine results:', newEngineResults.length);
+      console.log('Legacy results:', legacyResults.length);
+      console.log('In both engines:', inBoth.length);
+      console.log('Only in Legacy:', onlyInLegacy.length, onlyInLegacy.slice(0, 5));
+      console.log('Only in New Engine:', onlyInNewEngine.length, onlyInNewEngine.slice(0, 5));
+      
+      // Show top 3 from each for visual comparison
+      console.log('Top 3 New Engine:', newEngineResults.slice(0, 3).map(p => ({ cpt: p.cpt, label: p.label })));
+      console.log('Top 3 Legacy:', legacyResults.slice(0, 3).map(p => ({ cpt: p.cptCode || p.cpt, label: p.label })));
+      
+      console.groupEnd();
+    } catch (error) {
+      console.error('Engine comparison logging failed:', error);
+    }
   }
 
   selectProcedure(procedure: Procedure): void {

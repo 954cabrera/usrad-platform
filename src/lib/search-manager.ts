@@ -14,6 +14,9 @@ export interface Procedure {
   modality: string;
   bodyPart?: string;
   region?: string;
+  // Phase 1: Dual-identity support
+  bodyPartKey?: string; // Body part identifier for dual-identity procedures
+  displayLabelOverride?: string; // Patient-friendly label override
 }
 
 export interface SearchState {
@@ -229,9 +232,13 @@ class SearchManager {
   }
 
   selectProcedure(procedure: Procedure): void {
+    // Phase 1: Preserve ALL fields including bodyPartKey and displayLabelOverride
     this.state.selectedProcedure = {
       ...procedure,
       label: fixCharacterEncoding(procedure.label),
+      // Ensure Phase 1 fields are preserved
+      bodyPartKey: (procedure as any).bodyPartKey || undefined,
+      displayLabelOverride: (procedure as any).displayLabelOverride || undefined,
     };
     this.state.currentStep = 2;
     this.state.isDropdownOpen = false;
@@ -239,6 +246,8 @@ class SearchManager {
     console.log('SearchManager: Procedure selected', {
       label: procedure.label,
       cptCode: procedure.cptCode || procedure.cpt,
+      bodyPartKey: (procedure as any).bodyPartKey || '(none)',
+      displayLabelOverride: (procedure as any).displayLabelOverride || '(none)',
     });
 
     this.notify();

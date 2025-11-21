@@ -236,7 +236,6 @@
     function renderButton(proc) {
       const cleanLabel = fixCharacterEncoding(proc.label);
       const cpt = proc.cpt || proc.cptCode || "";
-      const bodyPartKey = proc.bodyPartKey || proc.bodyPart || "";
 
       return `
         <button
@@ -246,8 +245,6 @@
           data-label="${cleanLabel}"
           data-modality="${proc.modality || ""}"
           data-bodypart="${proc.bodyPart || ""}"
-          data-bodypart-key="${bodyPartKey}"
-          data-display-override="${cleanLabel}"
         >
           <span class="text-[15px] font-medium text-gray-900">${cleanLabel}</span>
           <span class="text-xs px-2 py-1 rounded bg-gray-100 text-gray-700">
@@ -267,14 +264,11 @@
         btn.addEventListener("click", () => {
           const selected = {
             label: btn.getAttribute("data-label") || "",
-            cpt: btn.getAttribute("data-cpt") || "",
+            cpt: btn.getAttribute("data-cpt") || "", // ← ADD THIS
             cptCode: btn.getAttribute("data-cpt") || "",
             modality: btn.getAttribute("data-modality") || "",
             bodyPart: btn.getAttribute("data-bodypart") || "",
-            region: btn.getAttribute("data-bodypart") || "",
-            bodyPartKey: btn.getAttribute("data-bodypart-key") || "",
-            displayLabelOverride:
-              btn.getAttribute("data-display-override") || "",
+            region: btn.getAttribute("data-bodypart") || "", // ← ADD THIS (optional but recommended)
           };
 
           if (DEBUG) console.log("⭐ PopularProcedures: selecting", selected);
