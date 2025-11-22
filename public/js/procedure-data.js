@@ -365,7 +365,7 @@ shoulder: {
     ],
     procedures: [
       {
-        cpt: "73218",
+        cpt: "73221",
         label: "MRI Elbow - Without Contrast",
         shortLabel: "Elbow - Without",
         description: "Tendon or ligament injury, bursitis, arthritis",
@@ -374,7 +374,7 @@ shoulder: {
         useCase: "Tendon tear, ligament sprain, joint effusion"
       },
       {
-        cpt: "73219",
+        cpt: "73222",
         label: "MRI Elbow - With Contrast",
         shortLabel: "Elbow - With",
         description: "Post-surgical or mass evaluation",
@@ -383,7 +383,7 @@ shoulder: {
         useCase: "Mass, infection, post-surgical changes"
       },
       {
-        cpt: "73220",
+        cpt: "73223",
         label: "MRI Elbow - With & Without Contrast",
         shortLabel: "Elbow - Both",
         description: "Full joint and soft tissue evaluation",
@@ -493,7 +493,7 @@ shoulder: {
     ],
     procedures: [
       {
-        cpt: "73718",
+        cpt: "73721",
         label: "MRI Ankle - Without Contrast",
         shortLabel: "Ankle - Without",
         description: "Ligament or tendon injury, sprain, arthritis",
@@ -502,7 +502,7 @@ shoulder: {
         useCase: "Sprain, ligament tear, tendonitis, arthritis"
       },
       {
-        cpt: "73719",
+        cpt: "73722",
         label: "MRI Ankle - With Contrast",
         shortLabel: "Ankle - With",
         description: "Post-surgical or infection evaluation",
@@ -511,7 +511,7 @@ shoulder: {
         useCase: "Post-surgical assessment, infection, tumor"
       },
       {
-        cpt: "73720",
+        cpt: "73723",
         label: "MRI Ankle - With & Without Contrast",
         shortLabel: "Ankle - Both",
         description: "Comprehensive ankle evaluation",
@@ -734,7 +734,7 @@ mraBrain: {
   category: "MRA Brain",
   icon: "brain",
   categoryGroup: "vascular",
-  badge: "🧠 MRA",
+  badge: "ðŸ§  MRA",
   contrastMode: "auto",
   matchKeywords: [
     "mra brain",
@@ -762,7 +762,7 @@ mrvHead: {
   category: "MRV Head (Venous)",
   icon: "brain",
   categoryGroup: "vascular",
-  badge: "🩸 MRV",
+  badge: "ðŸ©¸ MRV",
   contrastMode: "optional",
   matchKeywords: [
     "mrv head",
@@ -797,7 +797,7 @@ mraNeck: {
   category: "MRA Neck (Carotid)",
   icon: "heart",
   categoryGroup: "vascular",
-  badge: "🧠 MRA",
+  badge: "ðŸ§  MRA",
   contrastMode: "auto",
   matchKeywords: [
     "mra neck",
@@ -824,7 +824,7 @@ mraChest: {
   category: "MRA Chest / Aorta",
   icon: "heart",
   categoryGroup: "vascular",
-  badge: "🧠 MRA",
+  badge: "ðŸ§  MRA",
   contrastMode: "auto",
   matchKeywords: [
     "mra chest",
@@ -851,7 +851,7 @@ mraAbdomen: {
   category: "MRA Abdomen / Renal",
   icon: "abdomen",
   categoryGroup: "vascular",
-  badge: "🧠 MRA",
+  badge: "ðŸ§  MRA",
   contrastMode: "auto",
   matchKeywords: [
     "mra abdomen",
@@ -877,7 +877,7 @@ mraPelvis: {
   category: "MRA Pelvis",
   icon: "bone",
   categoryGroup: "vascular",
-  badge: "🧠 MRA",
+  badge: "ðŸ§  MRA",
   contrastMode: "auto",
   matchKeywords: [
     "mra pelvis",
@@ -902,7 +902,7 @@ mraRunoff: {
   category: "MRA Runoff (Legs)",
   icon: "leg",
   categoryGroup: "vascular",
-  badge: "🧠 MRA",
+  badge: "ðŸ§  MRA",
   contrastMode: "auto",
   matchKeywords: [
     "mra legs",
@@ -928,7 +928,7 @@ mraSpine: {
   category: "MRA Spine",
   icon: "spine",
   categoryGroup: "vascular",
-  badge: "🧠 MRA",
+  badge: "ðŸ§  MRA",
   contrastMode: "auto",
   matchKeywords: [
     "mra spine",
@@ -958,7 +958,7 @@ arthrogramShoulder: {
   category: "MRI Shoulder Arthrogram",
   icon: "shoulder",
   categoryGroup: "specialized",
-  badge: "💉 Arthrogram",
+  badge: "ðŸ’‰ Arthrogram",
   contrastMode: "auto",
   matchKeywords: [
     "shoulder arthrogram",
@@ -984,7 +984,7 @@ arthrogramKnee: {
   category: "MRI Knee Arthrogram",
   icon: "knee",
   categoryGroup: "specialized",
-  badge: "💉 Arthrogram",
+  badge: "ðŸ’‰ Arthrogram",
   contrastMode: "auto",
   matchKeywords: [
     "knee arthrogram",
@@ -1014,7 +1014,7 @@ mriBreast: {
   category: "MRI Breast (CAD)",
   icon: "breast",
   categoryGroup: "specialized",
-  badge: "🎗️ Breast MRI",
+  badge: "ðŸŽ—ï¸ Breast MRI",
   contrastMode: "manual",
   matchKeywords: [
     "breast mri",
@@ -1062,7 +1062,7 @@ spectroscopy: {
   category: "MR Spectroscopy (MRS)",
   icon: "brain",
   categoryGroup: "specialized",
-  badge: "🧪 MRS",
+  badge: "ðŸ§ª MRS",
   contrastMode: "none",
   matchKeywords: [
     "mr spectroscopy",
@@ -1088,7 +1088,7 @@ elastography: {
   category: "MR Elastography (MRE)",
   icon: "liver",
   categoryGroup: "specialized",
-  badge: "🧪 MRE",
+  badge: "ðŸ§ª MRE",
   contrastMode: "none",
   matchKeywords: [
     "mr elastography",
@@ -1108,8 +1108,8 @@ elastography: {
       useCase: "Liver fibrosis staging, chronic liver disease, cirrhosis evaluation"
     }
   ]
-}  // âœ… closes elastography entry
-}; // âœ… closes MRI_PROCEDURES object
+}  // Ã¢Å“â€¦ closes elastography entry
+}; // Ã¢Å“â€¦ closes MRI_PROCEDURES object
 
 
   // ============================================
@@ -2035,7 +2035,7 @@ const CT_PROCEDURES = {
     ]
   }
 };
-    // âœ… closes CT_PROCEDURES object
+    // Ã¢Å“â€¦ closes CT_PROCEDURES object
 
 // ============================================
 // EXPORT / GLOBAL ATTACHMENT
@@ -2370,7 +2370,7 @@ const ULTRASOUND_PROCEDURES = {
     category: "Abdomen",
     icon: "abdomen",
 
-    // âœ… Enhanced search awareness
+    // Ã¢Å“â€¦ Enhanced search awareness
     matchKeywords: [
       "liver",
       "gallbladder",
@@ -2745,19 +2745,19 @@ const ULTRASOUND_PROCEDURES = {
       // Spine
       'cervical spine': 'cervicalSpine',
       'cervical spine (neck)': 'cervicalSpine',
-      'cervicalspine': 'cervicalSpine',     // Ã¢Å“â€¦ ADD: Support camelCase from UI
+      'cervicalspine': 'cervicalSpine',     // ÃƒÂ¢Ã…â€œÃ¢â‚¬Â¦ ADD: Support camelCase from UI
       'c-spine': 'cervicalSpine',
       'neck': 'cervicalSpine',
 
       'thoracic spine': 'thoracicSpine',
       'thoracic spine (mid back)': 'thoracicSpine',
-      'thoracicspine': 'thoracicSpine',     // Ã¢Å“â€¦ ADD: Support camelCase from UI
+      'thoracicspine': 'thoracicSpine',     // ÃƒÂ¢Ã…â€œÃ¢â‚¬Â¦ ADD: Support camelCase from UI
       't-spine': 'thoracicSpine',
       'mid back': 'thoracicSpine',
 
       'lumbar spine': 'lumbarSpine',
       'lumbar spine (low back)': 'lumbarSpine',
-      'lumbarspine': 'lumbarSpine',         // Ã¢Å“â€¦ ADD: Support camelCase from UI
+      'lumbarspine': 'lumbarSpine',         // ÃƒÂ¢Ã…â€œÃ¢â‚¬Â¦ ADD: Support camelCase from UI
       'l-spine': 'lumbarSpine',
       'low back': 'lumbarSpine',
       'back': 'lumbarSpine',
@@ -2922,7 +2922,7 @@ const ULTRASOUND_PROCEDURES = {
   }
 
   function resolveProcedure(modality, contrast, region) {
-    console.log('ðŸ” [Procedure Library] Resolving:', { modality, contrast, region });
+    console.log('Ã°Å¸â€Â [Procedure Library] Resolving:', { modality, contrast, region });
     // Normalize modality
     const modalityKey = modality.toUpperCase();
     let modalityData;
@@ -2936,29 +2936,29 @@ const ULTRASOUND_PROCEDURES = {
     } else if (modalityKey === 'ULTRASOUND') {
       modalityData = ULTRASOUND_PROCEDURES;
     } else {
-      console.warn('âš ï¸ Unsupported modality:', modality);
+      console.warn('Ã¢Å¡ Ã¯Â¸Â Unsupported modality:', modality);
       return null;
     }
     
     // Find region
     const regionKey = normalizeRegionKey(region, modality);
     if (!regionKey) {
-      console.warn('âš ï¸ Region not found:', region);
+      console.warn('Ã¢Å¡ Ã¯Â¸Â Region not found:', region);
       return null;
     }
     
     const categoryData = modalityData[regionKey];
     if (!categoryData) {
-      console.warn('ÃƒÂ¢Ã‚ÂÃ…â€™ No data for region:', region);
+      console.warn('ÃƒÆ’Ã‚Â¢Ãƒâ€šÃ‚ÂÃƒâ€¦Ã¢â‚¬â„¢ No data for region:', region);
       return null;
     }
     
     // Handle redirects
     if (categoryData.redirectTo) {
-      console.log('ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ¢â‚¬Å¾ Following redirect:', categoryData.redirectTo);
+      console.log('ÃƒÆ’Ã‚Â°Ãƒâ€¦Ã‚Â¸ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾ Following redirect:', categoryData.redirectTo);
       const targetData = modalityData[categoryData.redirectTo];
       if (!targetData || !targetData.procedures) {
-        console.warn('ÃƒÂ¢Ã‚ÂÃ…â€™ Redirect target not found:', categoryData.redirectTo);
+        console.warn('ÃƒÆ’Ã‚Â¢Ãƒâ€šÃ‚ÂÃƒâ€¦Ã¢â‚¬â„¢ Redirect target not found:', categoryData.redirectTo);
         return null;
       }
       
@@ -2974,7 +2974,7 @@ const ULTRASOUND_PROCEDURES = {
     }
     
     if (!procedure) {
-      console.warn('âš ï¸ No matching procedure:', { region: region, contrast: contrast });
+      console.warn('Ã¢Å¡ Ã¯Â¸Â No matching procedure:', { region: region, contrast: contrast });
       return null;
     }
       
@@ -2994,7 +2994,7 @@ const ULTRASOUND_PROCEDURES = {
     
     // No redirect - use procedures directly
     if (!categoryData.procedures) {
-      console.warn('âš ï¸ No procedures for region:', region);
+      console.warn('Ã¢Å¡ Ã¯Â¸Â No procedures for region:', region);
       return null;
     }
     
@@ -3010,11 +3010,11 @@ const ULTRASOUND_PROCEDURES = {
     }
     
     if (!procedure) {
-      console.warn('âš ï¸ No matching procedure:', { region: region, contrast: contrast });
+      console.warn('Ã¢Å¡ Ã¯Â¸Â No matching procedure:', { region: region, contrast: contrast });
       return null;
     }
     
-    console.log('âœ… [Procedure Library] Found:', procedure);
+    console.log('Ã¢Å“â€¦ [Procedure Library] Found:', procedure);
     
     return {
       cpt_code: procedure.cpt,
@@ -3060,7 +3060,7 @@ const POPULAR_PROCEDURES = [
     cpt: "70551", 
     cptCode: "70551",
     label: "MRI Brain - Without Contrast",
-    bodyPartKey: "Brain",
+    bodyPartKey: "brain",
     displayLabelOverride: "MRI Brain - Without Contrast"
   },
   { 
@@ -3068,7 +3068,7 @@ const POPULAR_PROCEDURES = [
     cpt: "73721", 
     cptCode: "73721",
     label: "MRI Knee - Without Contrast",
-    bodyPartKey: "Knee",
+    bodyPartKey: "knee",
     displayLabelOverride: "MRI Knee - Without Contrast"
   },
   { 
@@ -3076,7 +3076,7 @@ const POPULAR_PROCEDURES = [
     cpt: "72148", 
     cptCode: "72148",
     label: "MRI Lumbar Spine - Without Contrast",
-    bodyPartKey: "Lumbar Spine",
+    bodyPartKey: "lumbarSpine",
     displayLabelOverride: "MRI Lumbar Spine - Without Contrast"
   },
   { 
@@ -3084,7 +3084,7 @@ const POPULAR_PROCEDURES = [
     cpt: "72146", 
     cptCode: "72146",
     label: "MRI Cervical Spine - Without Contrast",
-    bodyPartKey: "Cervical Spine",
+    bodyPartKey: "cervicalSpine",
     displayLabelOverride: "MRI Cervical Spine - Without Contrast"
   },
   { 
@@ -3092,7 +3092,7 @@ const POPULAR_PROCEDURES = [
     cpt: "73221", 
     cptCode: "73221",
     label: "MRI Shoulder - Without Contrast",
-    bodyPartKey: "Shoulder",
+    bodyPartKey: "shoulder",
     displayLabelOverride: "MRI Shoulder - Without Contrast"
   },
   { 
@@ -3100,7 +3100,7 @@ const POPULAR_PROCEDURES = [
     cpt: "72156", 
     cptCode: "72156",
     label: "MRI Thoracic Spine - Without Contrast",
-    bodyPartKey: "Thoracic Spine",
+    bodyPartKey: "thoracicSpine",
     displayLabelOverride: "MRI Thoracic Spine - Without Contrast"
   },
   { 
@@ -3108,7 +3108,7 @@ const POPULAR_PROCEDURES = [
     cpt: "70553", 
     cptCode: "70553",
     label: "MRI Brain - With & Without Contrast",
-    bodyPartKey: "Brain",
+    bodyPartKey: "brain",
     displayLabelOverride: "MRI Brain - With & Without Contrast"
   },
   { 
@@ -3116,7 +3116,7 @@ const POPULAR_PROCEDURES = [
     cpt: "74181", 
     cptCode: "74181",
     label: "MRI Abdomen - Without Contrast",
-    bodyPartKey: "Abdomen",
+    bodyPartKey: "abdomen",
     displayLabelOverride: "MRI Abdomen - Without Contrast"
   },
 
@@ -3126,7 +3126,7 @@ const POPULAR_PROCEDURES = [
     cpt: "70450", 
     cptCode: "70450",
     label: "CT Head/Brain - Without Contrast",
-    bodyPartKey: "Head",
+    bodyPartKey: "head",
     displayLabelOverride: "CT Head/Brain - Without Contrast"
   },
   { 
@@ -3134,7 +3134,7 @@ const POPULAR_PROCEDURES = [
     cpt: "74177", 
     cptCode: "74177",
     label: "CT Abdomen & Pelvis - With Contrast",
-    bodyPartKey: "Abdomen & Pelvis",
+    bodyPartKey: "abdomenPelvis",
     displayLabelOverride: "CT Abdomen & Pelvis - With Contrast"
   },
   { 
@@ -3142,7 +3142,7 @@ const POPULAR_PROCEDURES = [
     cpt: "74176", 
     cptCode: "74176",
     label: "CT Abdomen & Pelvis - Without Contrast",
-    bodyPartKey: "Abdomen & Pelvis",
+    bodyPartKey: "abdomenPelvis",
     displayLabelOverride: "CT Abdomen & Pelvis - Without Contrast"
   },
   { 
@@ -3150,7 +3150,7 @@ const POPULAR_PROCEDURES = [
     cpt: "71250", 
     cptCode: "71250",
     label: "CT Chest - Without Contrast",
-    bodyPartKey: "Chest",
+    bodyPartKey: "chest",
     displayLabelOverride: "CT Chest - Without Contrast"
   },
   { 
@@ -3158,7 +3158,7 @@ const POPULAR_PROCEDURES = [
     cpt: "72125", 
     cptCode: "72125",
     label: "CT Cervical Spine - Without Contrast",
-    bodyPartKey: "Cervical Spine",
+    bodyPartKey: "cervicalSpine",
     displayLabelOverride: "CT Cervical Spine - Without Contrast"
   },
   { 
@@ -3166,7 +3166,7 @@ const POPULAR_PROCEDURES = [
     cpt: "72132", 
     cptCode: "72132",
     label: "CT Lumbar Spine - With Contrast",
-    bodyPartKey: "Lumbar Spine",
+    bodyPartKey: "lumbarSpine",
     displayLabelOverride: "CT Lumbar Spine - With Contrast"
   },
   { 
@@ -3174,7 +3174,7 @@ const POPULAR_PROCEDURES = [
     cpt: "71260", 
     cptCode: "71260",
     label: "CT Chest - With Contrast",
-    bodyPartKey: "Chest",
+    bodyPartKey: "chest",
     displayLabelOverride: "CT Chest - With Contrast"
   },
   { 
@@ -3182,7 +3182,7 @@ const POPULAR_PROCEDURES = [
     cpt: "70486", 
     cptCode: "70486",
     label: "CT Sinuses - Without Contrast",
-    bodyPartKey: "Sinuses",
+    bodyPartKey: "sinuses",
     displayLabelOverride: "CT Sinuses - Without Contrast"
   },
 
@@ -3192,7 +3192,7 @@ const POPULAR_PROCEDURES = [
     cpt: "71046", 
     cptCode: "71046",
     label: "X-Ray Chest - 2 Views (PA & Lateral)",
-    bodyPartKey: "Chest",
+    bodyPartKey: "chest",
     displayLabelOverride: "X-Ray Chest - 2 Views (PA & Lateral)"
   },
   { 
@@ -3200,7 +3200,7 @@ const POPULAR_PROCEDURES = [
     cpt: "73560", 
     cptCode: "73560",
     label: "X-Ray Knee - 3 Views",
-    bodyPartKey: "Knee",
+    bodyPartKey: "knee",
     displayLabelOverride: "X-Ray Knee - 3 Views"
   },
   { 
@@ -3208,7 +3208,7 @@ const POPULAR_PROCEDURES = [
     cpt: "73030", 
     cptCode: "73030",
     label: "X-Ray Shoulder - 2 Views",
-    bodyPartKey: "Shoulder",
+    bodyPartKey: "shoulder",
     displayLabelOverride: "X-Ray Shoulder - 2 Views"
   },
 
@@ -3218,7 +3218,7 @@ const POPULAR_PROCEDURES = [
     cpt: "76805", 
     cptCode: "76805",
     label: "Ultrasound OB - Second/Third Trimester (Anatomy Scan)",
-    bodyPartKey: "Obstetric",
+    bodyPartKey: "obstetric",
     displayLabelOverride: "Ultrasound OB - Second/Third Trimester (Anatomy Scan)"
   },
   { 
@@ -3226,7 +3226,7 @@ const POPULAR_PROCEDURES = [
     cpt: "76700", 
     cptCode: "76700",
     label: "Ultrasound Abdomen - Complete",
-    bodyPartKey: "Abdomen",
+    bodyPartKey: "abdomen",
     displayLabelOverride: "Ultrasound Abdomen - Complete"
   },
   { 
@@ -3234,7 +3234,7 @@ const POPULAR_PROCEDURES = [
     cpt: "76856", 
     cptCode: "76856",
     label: "Ultrasound Pelvis - Complete",
-    bodyPartKey: "Pelvis",
+    bodyPartKey: "pelvis",
     displayLabelOverride: "Ultrasound Pelvis - Complete"
   }
 ];
@@ -3366,8 +3366,8 @@ export const ProcedureHelpers = {
 if (typeof window !== 'undefined') {
   window.ProcedureLibrary = ProcedureLibrary;
   window.ProcedureHelpers = ProcedureHelpers;
-  console.log('✓ Procedure Library loaded successfully (ES6 module)!');
-  console.log('✓ Available:', Object.keys(ProcedureLibrary).join(', '));
+  console.log('âœ“ Procedure Library loaded successfully (ES6 module)!');
+  console.log('âœ“ Available:', Object.keys(ProcedureLibrary).join(', '));
 }
 
 // ============================================
