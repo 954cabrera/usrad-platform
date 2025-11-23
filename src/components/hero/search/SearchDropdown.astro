@@ -272,7 +272,12 @@ import SearchResults from "../SearchResults.astro";
           detail: state,
         });
         document.dispatchEvent(event);
-        
+        console.log(
+          "[SearchDropdown] Dispatched force-render event:",
+          state.currentQuery,
+          "results:",
+          state.searchResults.length
+        );
       } else {
         popularContainer?.classList.add("hidden");
         resultsContainer?.classList.add("hidden");
