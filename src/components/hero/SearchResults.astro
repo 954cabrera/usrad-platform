@@ -162,110 +162,90 @@
   }
 
   /**
-   * Group results by modality
-   */
-  function groupByModality(procedures) {
-    const groups = {};
-
-    procedures.forEach((p) => {
-      const key = p.modality || "Other";
-      if (!groups[key]) groups[key] = [];
-      groups[key].push(p);
-    });
-
-    return groups;
-  }
-
-  // Modalities and badges
-  const MODALITY_ICONS = {
-    MRI: "🧠",
-    CT: "🦴",
-    "X-Ray": "👀",
-    Ultrasound: "🩺",
-    Other: "📋",
-  };
-
-  /**
-   * Render a single result button
-   */
-  function renderProcedureButton(proc, query) {
-    const cleanLabel = fixCharacterEncoding(proc.label);
-    const cleanBodyPart = fixCharacterEncoding(proc.bodyPart || "");
-    const bodyPartKey = proc.bodyPartKey || proc.bodyPart || "";
-
-    const highlightedLabel = highlightMatch(cleanLabel, query);
-
-    return `
-      <button
-        type="button"
-        class="w-full text-left flex items-center justify-between px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition procedure-result"
-        data-cpt="${proc.cpt || ""}"
-        data-label="${cleanLabel.replace(/"/g, "&quot;")}"
-        data-modality="${proc.modality || ""}"
-        data-bodypart="${cleanBodyPart.replace(/"/g, "&quot;")}"
-        data-bodypart-key="${bodyPartKey}"
-        data-display-override="${cleanLabel.replace(/"/g, "&quot;")}"
-        aria-label="Select ${cleanLabel}"
-      >
-        <div class="flex flex-col flex-1 min-w-0">
-          <span class="text-[15px] font-medium text-gray-900 leading-tight">
-            ${highlightedLabel}
-          </span>
-
-          ${
-            cleanBodyPart
-              ? `<span class="text-xs text-gray-500 mt-0.5">${cleanBodyPart}</span>`
-              : ""
-          }
-        </div>
-
-        <span
-          class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wide ${
-            proc.modality === "MRI"
-              ? "bg-[#e7f0ff] text-[#003087]"
-              : proc.modality === "CT"
-                ? "bg-[#fff8ee] text-[#b8862d]"
-                : proc.modality === "X-Ray"
-                  ? "bg-gray-100 text-gray-700"
-                  : "bg-[#eefaf1] text-[#006d3b]"
-          }"
-        >
-          ${proc.modality || "Scan"}
-        </span>
-      </button>
-    `;
-  }
-
-  /**
-   * Render grouped results with sticky modality headers
+   * Render grouped results - EXACTLY like mobile
    */
   function renderGroupedResults(results, query) {
-    const groups = groupByModality(results);
+    const groups = {};
+    results.forEach((p) => {
+      const m = p.modality || "Other";
+      if (!groups[m]) groups[m] = [];
+      groups[m].push(p);
+    });
+
     const order = ["MRI", "CT", "X-Ray", "Ultrasound", "Other"];
+    const ICONS = {
+      MRI: "🧠",
+      CT: "🦴",
+      "X-Ray": "👀",
+      Ultrasound: "🩺",
+      Other: "📋",
+    };
 
     return order
       .map((mod) => {
         const group = groups[mod];
         if (!group || group.length === 0) return "";
 
-        const icon = MODALITY_ICONS[mod] || "📋";
-
         return `
-          <div class="mb-4 border border-gray-100 rounded-lg overflow-hidden shadow-sm">
-            <div class="sticky top-0 z-10 px-4 py-2 bg-gradient-to-r from-blue-50 to-white border-b border-blue-100 flex items-center justify-between backdrop-blur-sm">
-              <h4 class="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                <span>${icon}</span>${mod}
-              </h4>
-              <span class="text-xs text-gray-500">${group.length} results</span>
-            </div>
-
-            <div class="divide-y divide-gray-100 max-h-[220px] overflow-y-auto">
-              ${group.map((proc) => renderProcedureButton(proc, query)).join("")}
-            </div>
+        <div class="mb-4 border border-gray-100 rounded-lg overflow-hidden shadow-sm">
+          <div class="sticky top-0 z-10 px-4 py-2 bg-gradient-to-r from-blue-50 to-white border-b border-blue-100 flex items-center justify-between backdrop-blur-sm">
+            <h4 class="text-sm font-semibold text-gray-700 flex items-center gap-2">
+              <span>${ICONS[mod] || "📋"}</span>${mod}
+            </h4>
+            <span class="text-xs text-gray-500">${group.length} results</span>
           </div>
-        `;
+
+          <div class="divide-y divide-gray-100 max-h-[220px] overflow-y-auto">
+            ${group.map((p) => renderProcedureButton(p, query)).join("")}
+          </div>
+        </div>
+      `;
       })
       .join("");
+  }
+
+  /**
+   * Render single procedure button - returns HTML string
+   */
+  function renderProcedureButton(proc, query) {
+    const cleanLabel = fixCharacterEncoding(proc.label);
+    const cleanBodyPart = fixCharacterEncoding(proc.bodyPart || "");
+    const bodyPartKey = proc.bodyPartKey || proc.bodyPart || "";
+    const cpt = proc.cpt || proc.cptCode || "";
+
+    const highlightedLabel = highlightMatch(cleanLabel, query);
+
+    const modalityClass =
+      proc.modality === "MRI"
+        ? "bg-[#e7f0ff] text-[#003087]"
+        : proc.modality === "CT"
+          ? "bg-[#fff8ee] text-[#b8862d]"
+          : proc.modality === "X-Ray"
+            ? "bg-gray-100 text-gray-700"
+            : "bg-[#eefaf1] text-[#006d3b]";
+
+    return `
+    <button
+      type="button"
+      class="w-full text-left flex items-center justify-between px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition procedure-result"
+      data-cpt="${cpt}"
+      data-label="${cleanLabel.replace(/"/g, "&quot;")}"
+      data-modality="${proc.modality || ""}"
+      data-bodypart="${cleanBodyPart.replace(/"/g, "&quot;")}"
+      data-bodypart-key="${bodyPartKey}"
+      data-display-override="${cleanLabel.replace(/"/g, "&quot;")}"
+    >
+      <div class="flex flex-col flex-1 min-w-0">
+        <span class="text-[15px] font-medium text-gray-900 leading-tight">
+          ${highlightedLabel}
+        </span>
+        ${cleanBodyPart ? `<span class="text-xs text-gray-500 mt-0.5">${cleanBodyPart}</span>` : ""}
+      </div>
+      <span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wide ${modalityClass}">
+        ${proc.modality || "Scan"}
+      </span>
+    </button>
+  `;
   }
 
   /**
@@ -295,30 +275,26 @@
   }
 
   /**
-   * Main rendering logic
+   * Main rendering logic - MOBILE-STYLE (direct innerHTML manipulation)
    */
   function render(state) {
-    // ✅ ADD THIS DEBUG LOGGING
-    console.log("[SearchResults] render() called with:", {
-      query: state.currentQuery,
-      resultsCount: state.searchResults?.length,
-      firstResult: state.searchResults?.[0]?.label,
-      containerExists: !!resultsContainer,
-      containerHidden: resultsContainer?.classList.contains("hidden"),
-    });
-
-    if (!resultsContainer) return;
+    if (!resultsContainer || !resultsListContainer) return;
 
     const query = state.currentQuery || "";
     const results = state.searchResults || [];
     const hasQuery = query.length >= 2;
     const hasResults = results.length > 0;
 
+    console.log("[SearchResults] render() called:", {
+      query,
+      resultsCount: results.length,
+    });
+
     // Reset UI
     resultsContainer.classList.add("hidden");
     emptyStateContainer?.classList.add("hidden");
 
-    // If query is too short, show nothing (popular list shows instead)
+    // If query is too short, show nothing
     if (!hasQuery) return;
 
     // Update result count
@@ -331,9 +307,8 @@
       return;
     }
 
-    // Show container and render results
+    // ✅ CRITICAL: Direct innerHTML manipulation like mobile
     resultsContainer.classList.remove("hidden");
-
     resultsListContainer.innerHTML = renderGroupedResults(results, query);
 
     // Attach click handlers after render
