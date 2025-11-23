@@ -189,6 +189,46 @@ const { remixUrl } = Astro.props;
       });
     }
   }
+
+  // ✅ CRITICAL: Initialize SearchDropdown from HeroSection since its own script doesn't re-run
+  function initSearchDropdownFromHero() {
+    console.log("[HeroSection] Initializing SearchDropdown...");
+
+    const dropdown = document.getElementById("search-dropdown");
+    const backdrop = document.getElementById("search-backdrop");
+
+    if (!dropdown || !backdrop || !window.searchManager) {
+      console.log("[HeroSection] Waiting for SearchDropdown elements...");
+      setTimeout(initSearchDropdownFromHero, 100);
+      return;
+    }
+
+    // Subscribe and dispatch events on state changes
+    window.searchManager.subscribe((state) => {
+      if (
+        state.currentQuery &&
+        state.currentQuery.length >= 2 &&
+        state.searchResults?.length > 0
+      ) {
+        const event = new CustomEvent("force-search-results-render", {
+          detail: state,
+        });
+        document.dispatchEvent(event);
+        console.log(
+          "[HeroSection] Dispatched force-render event:",
+          state.currentQuery,
+          "results:",
+          state.searchResults.length
+        );
+      }
+    });
+
+    console.log("[HeroSection] SearchDropdown subscription created");
+  }
+
+  initSearchDropdownFromHero();
+
+  document.addEventListener("astro:page-load", initHeroSection);
 </script>
 
 <style>
