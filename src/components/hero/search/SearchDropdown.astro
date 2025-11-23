@@ -330,4 +330,15 @@ import SearchResults from "../SearchResults.astro";
 
   // Astro navigation
   document.addEventListener("astro:page-load", initSearchDropdown);
+
+  // ✅ CRITICAL: Re-initialize on browser back/forward navigation
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+      // Page loaded from browser cache (back button)
+      console.log(
+        "[SearchDropdown] Page loaded from cache, re-initializing..."
+      );
+      initSearchDropdown();
+    }
+  });
 </script>
