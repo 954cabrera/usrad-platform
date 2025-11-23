@@ -173,6 +173,16 @@
 
       searchTimeout = setTimeout(() => {
         window.searchManager.search(query);
+
+        // ✅ NUCLEAR OPTION: Force re-render SearchResults after search
+        setTimeout(() => {
+          const event = new CustomEvent("force-search-results-render", {
+            detail: window.searchManager.getState(),
+          });
+          document.dispatchEvent(event);
+          console.log("[SearchStep1] Forced re-render:", query);
+        }, 50);
+
         if (DEBUG) console.log("[SearchStep1] search:", query);
       }, 200);
     });
