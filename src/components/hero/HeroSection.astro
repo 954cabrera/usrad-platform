@@ -127,6 +127,20 @@ const { remixUrl } = Astro.props;
 
   function initHeroSection() {
     if (DEBUG) console.log("[HeroSection] Initializing...");
+
+    // ✅ CRITICAL: Reset search state on page load to clear stale results
+    // This fixes the issue where returning from Remix via back button
+    // causes old search results to persist
+    if (window.searchManager) {
+      window.searchManager.setState({
+        currentQuery: "",
+        searchResults: [],
+        selectedProcedure: null,
+        isDropdownOpen: false,
+        currentStep: 1,
+      });
+    }
+
     initializeSearchManager();
 
     document.addEventListener("mobile-procedure-selected", (e: any) => {
