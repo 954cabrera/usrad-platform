@@ -321,24 +321,35 @@ import SearchResults from "../SearchResults.astro";
     if (DEBUG) console.log("[SearchDropdown] ready");
   }
 
+  // Force re-initialization on every possible event
+  function forceReinit() {
+    console.log("[SearchDropdown] Force re-initializing...");
+    // Small delay to ensure DOM is ready
+    setTimeout(initSearchDropdown, 100);
+  }
+
   // DOM ready
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initSearchDropdown);
+    document.addEventListener("DOMContentLoaded", forceReinit);
   } else {
-    initSearchDropdown();
+    forceReinit();
   }
 
   // Astro navigation
-  document.addEventListener("astro:page-load", initSearchDropdown);
+  document.addEventListener("astro:page-load", forceReinit);
+  document.addEventListener("astro:after-swap", forceReinit);
 
-  // ✅ CRITICAL: Re-initialize on browser back/forward navigation
-  window.addEventListener("pageshow", (event) => {
-    if (event.persisted) {
-      // Page loaded from browser cache (back button)
+  // Browser navigation (back/forward)
+  window.addEventListener("pageshow", forceReinit);
+  window.addEventListener("popstate", forceReinit);
+
+  // Visibility change (tab switching)
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
       console.log(
-        "[SearchDropdown] Page loaded from cache, re-initializing..."
+        "[SearchDropdown] Tab became visible, checking subscription..."
       );
-      initSearchDropdown();
+      forceReinit();
     }
   });
 </script>
