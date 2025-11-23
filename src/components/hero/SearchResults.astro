@@ -341,10 +341,16 @@
   }
 
   /**
-   * INIT – Subscribe to SearchManager
+   * FORCE RENDER via custom event (bypasses broken subscription)
    */
-  let currentUnsubscribe = null;
+  document.addEventListener("force-search-results-render", (e) => {
+    console.log("[SearchResults] Force render event received:", e.detail);
+    render(e.detail);
+  });
 
+  /**
+   * Initial render on page load
+   */
   function init() {
     console.log("[SearchResults] init() starting...");
 
@@ -354,68 +360,19 @@
       return;
     }
 
-    // Unsubscribe from any previous subscription
-    if (currentUnsubscribe) {
-      console.log("[SearchResults] Unsubscribing from previous subscription");
-      currentUnsubscribe();
-    }
-
-    // Create new subscription
-    currentUnsubscribe = window.searchManager.subscribe((state) => {
-      console.log("[SearchResults] render() called with:", {
-        query: state.currentQuery,
-        resultsCount: state.searchResults?.length,
-        firstResult: state.searchResults?.[0]?.label,
-        containerExists: !!resultsContainer,
-        containerHidden: resultsContainer?.classList.contains("hidden"),
-      });
-      render(state);
-    });
-
-    console.log("[SearchResults] Subscription created");
+    const state = window.searchManager.getState();
+    render(state);
+    console.log("[SearchResults] Initial render complete");
   }
 
-  // Force clean initialization
-  function forceInit() {
-    console.log("[SearchResults] forceInit() called");
-
-    // Clear any existing subscription
-    if (currentUnsubscribe) {
-      currentUnsubscribe();
-      currentUnsubscribe = null;
-    }
-
-    // Wait a tick to ensure clean state
-    setTimeout(init, 0);
-  }
-
-  // DOM Ready
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", forceInit);
+    document.addEventListener("DOMContentLoaded", init);
   } else {
-    forceInit();
+    init();
   }
 
-  // Astro page load
-  document.addEventListener("astro:page-load", () => {
-    console.log("[SearchResults] astro:page-load event fired");
-    forceInit();
-  });
-
-  // Browser back/forward cache
-  window.addEventListener("pageshow", (event) => {
-    console.log("[SearchResults] pageshow event:", {
-      persisted: event.persisted,
-    });
-    if (event.persisted) {
-      forceInit();
-    }
-  });
-
-  // Debug: log when searchManager notifies
-  if (window.searchManager) {
-    console.log("[SearchResults] searchManager available immediately");
-  }
+  // Re-init on Astro navigation
+  document.addEventListener("astro:page-load", init);
 </script>
 
 <style>

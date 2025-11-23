@@ -265,6 +265,14 @@ import SearchResults from "../SearchResults.astro";
         popularContainer?.classList.add("hidden");
         resultsContainer?.classList.remove("hidden");
         emptyContainer?.classList.add("hidden");
+
+        // ✅ CRITICAL: Force SearchResults to re-render with new data
+        // This bypasses the broken subscription mechanism
+        const event = new CustomEvent("force-search-results-render", {
+          detail: state,
+        });
+        document.dispatchEvent(event);
+        
       } else {
         popularContainer?.classList.add("hidden");
         resultsContainer?.classList.add("hidden");
