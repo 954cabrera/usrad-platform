@@ -298,6 +298,15 @@
    * Main rendering logic
    */
   function render(state) {
+    // ✅ ADD THIS DEBUG LOGGING
+    console.log("[SearchResults] render() called with:", {
+      query: state.currentQuery,
+      resultsCount: state.searchResults?.length,
+      firstResult: state.searchResults?.[0]?.label,
+      containerExists: !!resultsContainer,
+      containerHidden: resultsContainer?.classList.contains("hidden"),
+    });
+
     if (!resultsContainer) return;
 
     const query = state.currentQuery || "";
