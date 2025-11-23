@@ -159,9 +159,6 @@
       }
     });
 
-    /**
-     * Input handler — desktop search
-     */
     searchInput.addEventListener("input", (e) => {
       const isMobile = window.innerWidth < 768;
       if (isMobile) return;
@@ -174,18 +171,107 @@
       searchTimeout = setTimeout(() => {
         window.searchManager.search(query);
 
-        // ✅ NUCLEAR OPTION: Force re-render SearchResults after search
+        // ✅ NUCLEAR: Directly update SearchResults DOM
         setTimeout(() => {
-          const event = new CustomEvent("force-search-results-render", {
-            detail: window.searchManager.getState(),
-          });
-          document.dispatchEvent(event);
-          console.log("[SearchStep1] Forced re-render:", query);
-        }, 50);
+          const state = window.searchManager.getState();
+          console.log(
+            "[SearchStep1] Forcing DOM update:",
+            state.currentQuery,
+            state.searchResults.length
+          );
+
+          // Find the results list element
+          const resultsList = document.getElementById("search-results-list");
+          if (
+            resultsList &&
+            state.searchResults &&
+            state.searchResults.length > 0
+          ) {
+            // Clear and rebuild HTML
+            resultsList.innerHTML = buildResultsHTML(
+              state.searchResults,
+              query
+            );
+
+            // Attach click handlers
+            document.querySelectorAll(".procedure-result").forEach((btn) => {
+              btn.addEventListener("click", () => {
+                const selected = {
+                  label: btn.getAttribute("data-label") || "",
+                  cpt: btn.getAttribute("data-cpt") || "",
+                  cptCode: btn.getAttribute("data-cpt") || "",
+                  modality: btn.getAttribute("data-modality") || "",
+                  bodyPart: btn.getAttribute("data-bodypart") || "",
+                  region: btn.getAttribute("data-bodypart") || "",
+                  bodyPartKey: btn.getAttribute("data-bodypart-key") || "",
+                  displayLabelOverride:
+                    btn.getAttribute("data-display-override") || "",
+                };
+                window.searchManager.selectProcedure(selected);
+              });
+            });
+
+            // Show container
+            const resultsSection = document.getElementById(
+              "search-results-section"
+            );
+            if (resultsSection) resultsSection.classList.remove("hidden");
+
+            console.log(
+              "[SearchStep1] DOM updated with",
+              state.searchResults.length,
+              "results"
+            );
+          }
+        }, 100);
 
         if (DEBUG) console.log("[SearchStep1] search:", query);
       }, 200);
     });
+
+    // Helper function to build HTML
+    function buildResultsHTML(results, query) {
+      const groups = {};
+      results.forEach((p) => {
+        const m = p.modality || "Other";
+        if (!groups[m]) groups[m] = [];
+        groups[m].push(p);
+      });
+
+      const order = ["MRI", "CT", "X-Ray", "Ultrasound", "Other"];
+
+      return order
+        .map((mod) => {
+          const group = groups[mod];
+          if (!group || !group.length) return "";
+
+          return `
+      <div class="mb-4 border border-gray-100 rounded-lg overflow-hidden shadow-sm">
+        <div class="sticky top-0 z-10 px-4 py-2 bg-gradient-to-r from-blue-50 to-white border-b border-blue-100">
+          <h4 class="text-sm font-semibold text-gray-700">${mod}</h4>
+        </div>
+        <div class="divide-y divide-gray-100">
+          ${group
+            .map(
+              (p) => `
+            <button type="button" class="w-full text-left px-4 py-2.5 hover:bg-gray-50 procedure-result"
+              data-cpt="${p.cpt || p.cptCode || ""}"
+              data-label="${p.label}"
+              data-modality="${p.modality || ""}"
+              data-bodypart="${p.bodyPart || ""}"
+              data-bodypart-key="${p.bodyPartKey || p.bodyPart || ""}"
+              data-display-override="${p.label}">
+              <span class="text-sm font-medium">${p.label}</span>
+            </button>
+          `
+            )
+            .join("")}
+        </div>
+      </div>
+    `;
+        })
+        .join("");
+    }
 
     /**
      * Find button (desktop)
