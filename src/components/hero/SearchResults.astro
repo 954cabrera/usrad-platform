@@ -358,15 +358,30 @@
     if (DEBUG) console.log("SearchResults: ready");
   }
 
-  // DOM Ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
+  // ✅ CRITICAL: Force re-initialization on every page load
+  function forceInit() {
+    console.log("[SearchResults] Force initializing subscription...");
     init();
   }
 
-  // Astro navigation reload
-  document.addEventListener("astro:page-load", init);
+  // DOM Ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", forceInit);
+  } else {
+    forceInit();
+  }
+
+  // ✅ CRITICAL: Re-subscribe on Astro navigation (back button from Remix)
+  document.addEventListener("astro:page-load", forceInit);
+
+  // ✅ CRITICAL: Also listen for browser back/forward navigation
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+      // Page was loaded from cache (back button)
+      console.log("[SearchResults] Page loaded from cache, re-initializing...");
+      forceInit();
+    }
+  });
 </script>
 
 <style>
