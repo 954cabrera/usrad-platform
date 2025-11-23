@@ -259,14 +259,47 @@ class SearchManager {
   }
 
   openDropdown(): void {
-    this.state.isDropdownOpen = true;
-    this.notify();
-  }
+  console.log('[SearchManager] openDropdown called');
+  
+  this.state.isDropdownOpen = true;
+  this.notify();
+  
+  // PRODUCTION FIX: Wait for hydration/render cycle before DOM manipulation
+  // setTimeout(0) pushes to next tick, after Astro Islands finish hydrating
+  setTimeout(() => {
+    const dropdown = document.getElementById('search-dropdown');
+    const resultsSection = document.getElementById('search-results-section');
+    
+    if (dropdown) {
+      dropdown.classList.remove('hidden');
+      console.log('[SearchManager] Dropdown visible');
+    }
+    
+    if (resultsSection) {
+      resultsSection.classList.remove('hidden');
+      console.log('[SearchManager] Results section visible');
+    }
+  }, 0);
+}
 
   closeDropdown(): void {
-    this.state.isDropdownOpen = false;
-    this.notify();
+  console.log('[SearchManager] closeDropdown called');
+  
+  this.state.isDropdownOpen = false;
+  this.notify();
+  
+  // Also hide the DOM elements
+  const dropdown = document.getElementById('search-dropdown');
+  const resultsSection = document.getElementById('search-results-section');
+  
+  if (dropdown) {
+    dropdown.classList.add('hidden');
   }
+  
+  if (resultsSection) {
+    resultsSection.classList.add('hidden');
+  }
+}
 
   goToStep1(): void {
     this.state.currentStep = 1;
