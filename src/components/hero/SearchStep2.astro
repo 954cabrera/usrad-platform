@@ -1009,4 +1009,21 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
 
   // Re-initialize on Astro page transitions
   document.addEventListener("astro:page-load", initializeSearchStep2);
+
+  // ✅ CRITICAL: Force page reload after returning from Remix
+  // This clears cached search results that persist after browser back button
+  const form = document.querySelector('form[action*="/pbs/search"]');
+  if (form) {
+    form.addEventListener("submit", () => {
+      // Set flag when navigating to Remix
+      sessionStorage.setItem("navigated-to-remix", "true");
+    });
+  }
+
+  // Check if we just returned from Remix and reload if needed
+  if (sessionStorage.getItem("navigated-to-remix") === "true") {
+    sessionStorage.removeItem("navigated-to-remix");
+    console.log("[SearchStep2] Returned from Remix, forcing reload...");
+    window.location.reload();
+  }
 </script>
