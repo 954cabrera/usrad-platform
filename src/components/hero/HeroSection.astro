@@ -59,10 +59,18 @@ const { remixUrl } = Astro.props;
 </div>
 
 <script>
-  // Add this at the very top of the script, before initializeSearchManager
-  document.addEventListener("astro:before-preparation", () => {
-    console.log("[HeroSection] Navigation detected - clearing search state");
+  // Try multiple lifecycle hooks
+  document.addEventListener("astro:after-swap", () => {
+    console.log("[HeroSection] astro:after-swap - clearing search state");
+    clearSearchState();
+  });
 
+  document.addEventListener("astro:page-load", () => {
+    console.log("[HeroSection] astro:page-load - clearing search state");
+    clearSearchState();
+  });
+
+  function clearSearchState() {
     // Clear DOM
     const resultsContainer = document.getElementById("search-results-section");
     if (resultsContainer) {
@@ -92,7 +100,7 @@ const { remixUrl } = Astro.props;
         currentStep: 1,
       });
     }
-  });
+  }
 
   // Debug flag - set to false for production
   const DEBUG = false; // Legacy debug flag
