@@ -27,7 +27,6 @@ const { remixUrl } = Astro.props;
   class="relative pt-40 pb-24 px-4 sm:px-6 bg-[#003087] text-white overflow-visible"
   style="margin-top: -32px;"
   data-aos="fade-up"
-  data-astro-reload
 >
   <HeroBackground />
 
@@ -60,6 +59,41 @@ const { remixUrl } = Astro.props;
 </div>
 
 <script>
+  // Add this at the very top of the script, before initializeSearchManager
+  document.addEventListener("astro:before-preparation", () => {
+    console.log("[HeroSection] Navigation detected - clearing search state");
+
+    // Clear DOM
+    const resultsContainer = document.getElementById("search-results-section");
+    if (resultsContainer) {
+      resultsContainer.innerHTML = "";
+      resultsContainer.classList.add("hidden");
+    }
+
+    const popularContainer = document.getElementById(
+      "popular-procedures-container"
+    );
+    if (popularContainer) {
+      popularContainer.classList.remove("hidden");
+    }
+
+    const searchInput = document.getElementById("hero-search-input");
+    if (searchInput) {
+      searchInput.value = "";
+    }
+
+    // Reset SearchManager state
+    if (window.searchManager) {
+      window.searchManager.setState({
+        currentQuery: "",
+        searchResults: [],
+        selectedProcedure: null,
+        isDropdownOpen: false,
+        currentStep: 1,
+      });
+    }
+  });
+
   // Debug flag - set to false for production
   const DEBUG = false; // Legacy debug flag
 
