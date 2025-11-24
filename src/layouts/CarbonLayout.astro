@@ -40,6 +40,16 @@ const {
     <meta name="theme-color" content="#ffffff" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
+    <!-- Prevent browser bfcache from restoring stale search state -->
+    <script is:inline>
+      window.addEventListener("pageshow", (event) => {
+        if (event.persisted) {
+          console.log("⚠️ Page restored from bfcache - forcing reload");
+          window.location.reload();
+        }
+      });
+    </script>
+
     <!-- Fonts - Inter for that clean Carbon Health look -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -92,7 +102,6 @@ const {
 
 <!-- AOS Animation Script -->
 <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
 
 <!-- 
   REFACTOR NOTE: Procedure data now loaded as ES6 module above

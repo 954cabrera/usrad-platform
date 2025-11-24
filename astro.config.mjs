@@ -12,6 +12,11 @@ export default defineConfig({
   // Use Vercel adapter for deployment
   adapter: vercel(),
 
+  // Disable View Transitions to prevent DOM state preservation on navigation
+  experimental: {
+    viewTransitions: false
+  },
+
   // Local development server configuration
   server: {
     port: 3000,
