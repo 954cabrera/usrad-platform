@@ -1,6 +1,6 @@
 ---
 // src/components/provider/ExitModal.astro
-// Exit intent modal that appears when user is about to leave the page
+// Enhanced exit intent modal with 3 lead capture options
 ---
 
 <div id="exitModal" class="exit-modal" style="display: none;">
@@ -8,7 +8,8 @@
   <div class="modal-content">
     <button class="modal-close" aria-label="Close modal">×</button>
 
-    <div class="modal-body">
+    <!-- Main View -->
+    <div class="modal-body" id="mainView">
       <!-- Icon -->
       <div class="modal-icon">
         <svg
@@ -66,15 +67,154 @@
         </div>
       </div>
 
-      <!-- CTA Buttons -->
-      <div class="cta-buttons">
-        <a
-          href="https://cal.com/usrad/15min"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-primary"
+      <!-- Choose Your Next Step -->
+      <div class="options-heading">
+        <h3>Choose Your Next Step:</h3>
+      </div>
+
+      <!-- CTA Options -->
+      <div class="cta-options">
+        <!-- Option 1: Schedule Call -->
+        <button class="option-card" data-option="schedule">
+          <div class="option-icon">📞</div>
+          <div class="option-content">
+            <div class="option-title">Schedule a Quick Call</div>
+            <div class="option-description">
+              15-min onboarding session with our team
+            </div>
+          </div>
+          <div class="option-arrow">→</div>
+        </button>
+
+        <!-- Option 2: Market Analysis -->
+        <button class="option-card" data-option="analysis">
+          <div class="option-icon">📊</div>
+          <div class="option-content">
+            <div class="option-title">Get Your Market Analysis</div>
+            <div class="option-description">
+              Personalized competitor insights for your area
+            </div>
+          </div>
+          <div class="option-arrow">→</div>
+        </button>
+
+        <!-- Option 3: PDF Guide -->
+        <button class="option-card" data-option="guide">
+          <div class="option-icon">📄</div>
+          <div class="option-content">
+            <div class="option-title">Download Our Guide</div>
+            <div class="option-description">
+              The Complete Cash-Pay Imaging Playbook
+            </div>
+          </div>
+          <div class="option-arrow">→</div>
+        </button>
+      </div>
+
+      <button class="btn-secondary" id="riskWaitingBtn">
+        I'll risk waiting
+      </button>
+
+      <!-- Fine print -->
+      <p class="modal-footer">
+        ⏱️ Takes less than 5 minutes · 📞 Early access benefits · ❌ Cancel
+        anytime
+      </p>
+    </div>
+
+    <!-- Market Analysis Form View -->
+    <div class="modal-body" id="analysisView" style="display: none;">
+      <button class="back-button" id="backFromAnalysis">← Back</button>
+
+      <div class="modal-icon">
+        <svg
+          width="64"
+          height="64"
+          viewBox="0 0 64 64"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          Schedule a Call First
+          <rect
+            x="8"
+            y="8"
+            width="48"
+            height="48"
+            rx="8"
+            fill="#FEF3C7"
+            stroke="#F59E0B"
+            stroke-width="2"></rect>
+          <path
+            d="M16 28h32M24 36h24M20 20h28"
+            stroke="#F59E0B"
+            stroke-width="3"
+            stroke-linecap="round"></path>
+        </svg>
+      </div>
+
+      <h2 class="modal-title">Get Your Market Analysis</h2>
+      <p class="modal-description">
+        See exactly who you're competing against and discover untapped
+        opportunities in your market.
+      </p>
+
+      <form id="analysisForm" class="lead-form">
+        <div class="form-group">
+          <label for="analysisName">Full Name *</label>
+          <input
+            type="text"
+            id="analysisName"
+            name="name"
+            required
+            placeholder="Dr. Sarah Johnson"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="analysisEmail">Email Address *</label>
+          <input
+            type="email"
+            id="analysisEmail"
+            name="email"
+            required
+            placeholder="sarah@imagingcenter.com"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="analysisPhone">Phone Number</label>
+          <input
+            type="tel"
+            id="analysisPhone"
+            name="phone"
+            placeholder="(555) 123-4567"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="analysisZip">Facility ZIP Code *</label>
+          <input
+            type="text"
+            id="analysisZip"
+            name="zipCode"
+            required
+            placeholder="33024"
+            pattern="[0-9]{5}"
+            maxlength="5"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="analysisFacilityName">Facility Name</label>
+          <input
+            type="text"
+            id="analysisFacilityName"
+            name="facilityName"
+            placeholder="Miami Advanced Imaging"
+          />
+        </div>
+
+        <button type="submit" class="btn-primary">
+          Generate My Analysis
           <svg
             class="btn-icon"
             width="20"
@@ -87,16 +227,167 @@
               d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
               clip-rule="evenodd"></path>
           </svg>
-        </a>
-        <button class="btn-secondary" id="riskWaitingBtn">
-          I'll risk waiting
         </button>
+      </form>
+
+      <p class="form-note">
+        🔒 Your information is secure. We'll email your personalized analysis
+        within 24 hours.
+      </p>
+    </div>
+
+    <!-- PDF Guide Form View -->
+    <div class="modal-body" id="guideView" style="display: none;">
+      <button class="back-button" id="backFromGuide">← Back</button>
+
+      <div class="modal-icon">
+        <svg
+          width="64"
+          height="64"
+          viewBox="0 0 64 64"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            x="12"
+            y="8"
+            width="40"
+            height="48"
+            rx="4"
+            fill="#FEF3C7"
+            stroke="#F59E0B"
+            stroke-width="2"></rect>
+          <path
+            d="M20 20h24M20 28h24M20 36h16"
+            stroke="#F59E0B"
+            stroke-width="2"></path>
+        </svg>
       </div>
 
-      <!-- Fine print -->
-      <p class="modal-footer">
-        ⏱️ Takes less than 5 minutes · 📞 Early access benefits · ❌ Cancel
-        anytime
+      <h2 class="modal-title">Download Your Free Guide</h2>
+      <p class="modal-description">
+        The Complete Cash-Pay Imaging Playbook: Proven strategies from centers
+        generating $500K+ in annual cash-pay revenue.
+      </p>
+
+      <div class="guide-features">
+        <div class="feature-item">✓ Market positioning strategies</div>
+        <div class="feature-item">✓ Pricing optimization framework</div>
+        <div class="feature-item">✓ Patient acquisition tactics</div>
+        <div class="feature-item">✓ ROI calculation tools</div>
+      </div>
+
+      <form id="guideForm" class="lead-form">
+        <div class="form-group">
+          <label for="guideName">Full Name *</label>
+          <input
+            type="text"
+            id="guideName"
+            name="name"
+            required
+            placeholder="Dr. Sarah Johnson"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="guideEmail">Email Address *</label>
+          <input
+            type="email"
+            id="guideEmail"
+            name="email"
+            required
+            placeholder="sarah@imagingcenter.com"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="guidePhone">Phone Number (Optional)</label>
+          <input
+            type="tel"
+            id="guidePhone"
+            name="phone"
+            placeholder="(555) 123-4567"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="guideFacilityType">Facility Type *</label>
+          <select id="guideFacilityType" name="facilityType" required>
+            <option value="">Select your facility type...</option>
+            <option value="hospital">Hospital/Health System</option>
+            <option value="independent">Independent Imaging Center</option>
+            <option value="mobile">Mobile Imaging</option>
+            <option value="urgent-care">Urgent Care</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary">
+          Download Guide
+          <svg
+            class="btn-icon"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M10 3a1 1 0 011 1v9.586l2.293-2.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 13.586V4a1 1 0 011-1z"
+            ></path>
+            <path d="M4 16a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z"></path>
+          </svg>
+        </button>
+      </form>
+
+      <p class="form-note">
+        🔒 Your information is secure. Instant download link sent to your email.
+      </p>
+    </div>
+
+    <!-- Success View -->
+    <div class="modal-body" id="successView" style="display: none;">
+      <div class="modal-icon">
+        <svg
+          width="64"
+          height="64"
+          viewBox="0 0 64 64"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="32"
+            cy="32"
+            r="30"
+            fill="#D1FAE5"
+            stroke="#10B981"
+            stroke-width="2"></circle>
+          <path
+            d="M20 32l8 8 16-16"
+            stroke="#10B981"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </div>
+
+      <h2 class="modal-title">Success! Check Your Email</h2>
+      <p class="modal-description" id="successMessage">
+        We've sent your personalized market analysis to your email. You should
+        receive it within 24 hours.
+      </p>
+
+      <button class="btn-primary" onclick="window.location.reload()">
+        Continue Exploring
+      </button>
+
+      <p class="form-note">
+        Want to talk now? <a
+          href="https://cal.com/usrad/15min"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: #cc9933; text-decoration: underline;"
+          >Schedule a quick call</a
+        >
       </p>
     </div>
   </div>
@@ -172,6 +463,27 @@
   .modal-body {
     padding: 40px 30px;
     text-align: center;
+  }
+
+  .back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.2s ease;
+  }
+
+  .back-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateX(-2px);
   }
 
   .modal-icon {
@@ -270,11 +582,93 @@
     line-height: 1.5;
   }
 
-  .cta-buttons {
+  .options-heading {
+    margin-bottom: 16px;
+  }
+
+  .options-heading h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .cta-options {
     display: flex;
     flex-direction: column;
     gap: 12px;
     margin-bottom: 20px;
+  }
+
+  .option-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    width: 100%;
+  }
+
+  .option-card:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(204, 153, 51, 0.8);
+    transform: translateX(6px);
+    box-shadow: 0 4px 12px rgba(204, 153, 51, 0.2);
+  }
+
+  .option-icon {
+    font-size: 36px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+    transition: transform 0.3s ease;
+  }
+
+  .option-card:hover .option-icon {
+    transform: scale(1.1);
+  }
+
+  .option-content {
+    flex: 1;
+  }
+
+  .option-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .option-description {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.3;
+  }
+
+  .option-arrow {
+    font-size: 28px;
+    color: #cc9933;
+    transition: transform 0.3s ease;
+  }
+
+  .option-card:hover .option-arrow {
+    transform: translateX(4px);
+  }
+
+  /* Subtle pulse on highest-intent option */
+  .option-card[data-option="schedule"] {
+    animation: pulse-gold 3s ease-in-out infinite;
+  }
+
+  .option-card[data-option="schedule"]:hover {
+    animation: none;
   }
 
   .btn-primary {
@@ -293,11 +687,18 @@
     gap: 8px;
     text-decoration: none;
     box-shadow: 0 4px 15px rgba(204, 153, 51, 0.3);
+    width: 100%;
   }
 
   .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(204, 153, 51, 0.4);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
   }
 
   .btn-icon {
@@ -320,6 +721,7 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     cursor: pointer;
     transition: all 0.2s ease;
+    width: 100%;
   }
 
   .btn-secondary:hover {
@@ -330,7 +732,86 @@
   .modal-footer {
     font-size: 13px;
     color: rgba(255, 255, 255, 0.65);
-    margin: 0;
+    margin: 16px 0 0 0;
+  }
+
+  /* Form Styles */
+  .lead-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .form-group {
+    text-align: left;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #ffffff;
+    font-size: 15px;
+    transition: all 0.2s ease;
+  }
+
+  .form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: rgba(204, 153, 51, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .form-group select {
+    cursor: pointer;
+  }
+
+  .form-group select option {
+    background: #1a1a1a;
+    color: #ffffff;
+  }
+
+  .form-note {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 16px;
+    line-height: 1.4;
+  }
+
+  .guide-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 24px 0;
+  }
+
+  .feature-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
   /* Animations */
@@ -364,6 +845,16 @@
     }
   }
 
+  @keyframes pulse-gold {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(204, 153, 51, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(204, 153, 51, 0);
+    }
+  }
+
   /* Mobile responsive */
   @media (max-width: 640px) {
     .modal-body {
@@ -387,6 +878,26 @@
       text-align: center;
     }
 
+    .guide-features {
+      grid-template-columns: 1fr;
+    }
+
+    .option-card {
+      padding: 12px;
+    }
+
+    .option-icon {
+      font-size: 28px;
+    }
+
+    .option-title {
+      font-size: 15px;
+    }
+
+    .option-description {
+      font-size: 12px;
+    }
+
     .btn-primary {
       font-size: 16px;
       padding: 14px 20px;
@@ -407,7 +918,7 @@
       modalShown = true;
       console.log("🚪 Exit modal shown - exit intent detected");
 
-      // Track modal view (optional - add analytics here)
+      // Track modal view
       if (typeof window.gtag !== "undefined") {
         window.gtag("event", "exit_modal_shown", {
           event_category: "Provider",
@@ -425,10 +936,20 @@
     }
   }
 
+  function showView(viewId: string) {
+    // Hide all views
+    ["mainView", "analysisView", "guideView", "successView"].forEach((id) => {
+      const view = document.getElementById(id);
+      if (view) view.style.display = "none";
+    });
+
+    // Show requested view
+    const view = document.getElementById(viewId);
+    if (view) view.style.display = "block";
+  }
+
   // ONLY trigger on true exit intent - mouse leaving from top of viewport
   document.addEventListener("mouseleave", (e) => {
-    // Only trigger if mouse is leaving from the top (going to browser chrome/tabs)
-    // AND user has scrolled at least 25% of the page (they've engaged with content)
     const scrollPercent =
       (window.scrollY /
         (document.documentElement.scrollHeight - window.innerHeight)) *
@@ -442,8 +963,7 @@
     }
   });
 
-  // Mobile-specific: detect when user goes back to top aggressively (potential leave)
-  // Only on mobile and only if they've been on page for at least 10 seconds
+  // Mobile-specific exit intent
   let pageLoadTime = Date.now();
   let lastScrollY = 0;
   let rapidScrollToTopCount = 0;
@@ -451,19 +971,16 @@
   if (window.innerWidth <= 768) {
     window.addEventListener("scroll", () => {
       const currentScrollY = window.scrollY;
-      const timeOnPage = (Date.now() - pageLoadTime) / 1000; // seconds
+      const timeOnPage = (Date.now() - pageLoadTime) / 1000;
 
-      // If they rapidly scroll to very top AND have been on page for 10+ seconds
       if (currentScrollY < 10 && lastScrollY > 100 && timeOnPage > 10) {
         rapidScrollToTopCount++;
 
-        // If they do this twice in quick succession, they might be leaving
         if (rapidScrollToTopCount >= 2 && !modalShown) {
           console.log("🎯 Mobile exit intent detected - showing modal");
           showExitModal();
         }
 
-        // Reset counter after 3 seconds
         setTimeout(() => {
           rapidScrollToTopCount = 0;
         }, 3000);
@@ -473,7 +990,7 @@
     });
   }
 
-  // Close modal handlers
+  // Initialize modal handlers
   document.addEventListener("DOMContentLoaded", () => {
     // Close button
     const closeBtn = document.querySelector(".modal-close");
@@ -481,23 +998,216 @@
       closeBtn.addEventListener("click", closeModal);
     }
 
-    // "I'll risk waiting" button
+    // Risk waiting button
     const riskBtn = document.getElementById("riskWaitingBtn");
     if (riskBtn) {
       riskBtn.addEventListener("click", closeModal);
     }
 
-    // Click overlay to close
+    // Overlay click
     const overlay = document.querySelector(".modal-overlay");
     if (overlay) {
       overlay.addEventListener("click", closeModal);
     }
 
-    // Escape key to close
+    // Escape key
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         closeModal();
       }
     });
+
+    // Option card handlers
+    const optionCards = document.querySelectorAll(".option-card");
+    optionCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const option = card.getAttribute("data-option");
+
+        if (option === "schedule") {
+          // Track and open Cal.com
+          if (typeof window.gtag !== "undefined") {
+            window.gtag("event", "schedule_call_clicked", {
+              event_category: "Provider",
+              event_label: "Exit Modal",
+            });
+          }
+          window.open("https://cal.com/usrad/15min", "_blank");
+          closeModal();
+        } else if (option === "analysis") {
+          showView("analysisView");
+          // Track
+          if (typeof window.gtag !== "undefined") {
+            window.gtag("event", "market_analysis_view", {
+              event_category: "Provider",
+              event_label: "Exit Modal",
+            });
+          }
+        } else if (option === "guide") {
+          showView("guideView");
+          // Track
+          if (typeof window.gtag !== "undefined") {
+            window.gtag("event", "guide_download_view", {
+              event_category: "Provider",
+              event_label: "Exit Modal",
+            });
+          }
+        }
+      });
+    });
+
+    // Back buttons
+    const backFromAnalysis = document.getElementById("backFromAnalysis");
+    if (backFromAnalysis) {
+      backFromAnalysis.addEventListener("click", () => showView("mainView"));
+    }
+
+    const backFromGuide = document.getElementById("backFromGuide");
+    if (backFromGuide) {
+      backFromGuide.addEventListener("click", () => showView("mainView"));
+    }
+
+    // Analysis form submission
+    const analysisForm = document.getElementById("analysisForm");
+    if (analysisForm) {
+      analysisForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const submitBtn = analysisForm.querySelector(
+          'button[type="submit"]'
+        ) as HTMLButtonElement;
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Generating...";
+        }
+
+        const formData = new FormData(analysisForm);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+          // TODO: Replace with your actual API endpoint
+          const response = await fetch("/api/market-analysis", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...data,
+              source: "exit_modal",
+              timestamp: new Date().toISOString(),
+            }),
+          });
+
+          if (response.ok) {
+            // Track conversion
+            if (typeof window.gtag !== "undefined") {
+              window.gtag("event", "market_analysis_requested", {
+                event_category: "Provider",
+                event_label: "Exit Modal",
+                value: 1,
+              });
+            }
+
+            // Show success
+            const successMsg = document.getElementById("successMessage");
+            if (successMsg) {
+              successMsg.textContent =
+                "We've sent your personalized market analysis to your email. You should receive it within 24 hours.";
+            }
+            showView("successView");
+          } else {
+            alert(
+              "Something went wrong. Please try again or contact us directly."
+            );
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML =
+                'Generate My Analysis <svg class="btn-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>';
+            }
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert(
+            "Something went wrong. Please try again or contact us directly."
+          );
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML =
+              'Generate My Analysis <svg class="btn-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>';
+          }
+        }
+      });
+    }
+
+    // Guide form submission
+    const guideForm = document.getElementById("guideForm");
+    if (guideForm) {
+      guideForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const submitBtn = guideForm.querySelector(
+          'button[type="submit"]'
+        ) as HTMLButtonElement;
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Sending...";
+        }
+
+        const formData = new FormData(guideForm);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+          // TODO: Replace with your actual API endpoint
+          const response = await fetch("/api/guide-download", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...data,
+              source: "exit_modal",
+              timestamp: new Date().toISOString(),
+            }),
+          });
+
+          if (response.ok) {
+            // Track conversion
+            if (typeof window.gtag !== "undefined") {
+              window.gtag("event", "guide_download_requested", {
+                event_category: "Provider",
+                event_label: "Exit Modal",
+                value: 1,
+              });
+            }
+
+            // Show success
+            const successMsg = document.getElementById("successMessage");
+            if (successMsg) {
+              successMsg.textContent =
+                "Success! Check your email for the download link to your Cash-Pay Imaging Guide. It should arrive within a few minutes.";
+            }
+            showView("successView");
+          } else {
+            alert(
+              "Something went wrong. Please try again or contact us directly."
+            );
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML =
+                'Download Guide <svg class="btn-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10 3a1 1 0 011 1v9.586l2.293-2.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 13.586V4a1 1 0 011-1z"></path><path d="M4 16a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z"></path></svg>';
+            }
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert(
+            "Something went wrong. Please try again or contact us directly."
+          );
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML =
+              'Download Guide <svg class="btn-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10 3a1 1 0 011 1v9.586l2.293-2.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 13.586V4a1 1 0 011-1z"></path><path d="M4 16a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z"></path></svg>';
+          }
+        }
+      });
+    }
   });
 </script>
