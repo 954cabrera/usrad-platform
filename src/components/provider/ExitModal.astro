@@ -906,11 +906,20 @@
 </style>
 
 <script>
-  // Exit intent detection
+  // Exit intent detection with cookie persistence
   let modalShown = false;
+  const currentPath = window.location.pathname;
+
+  function hasSeenModal() {
+    const hasDismissed = document.cookie.includes(
+      `exitModalDismissed_${currentPath}=true`
+    );
+    const hasConverted = document.cookie.includes("exitModalConverted=true");
+    return hasDismissed || hasConverted;
+  }
 
   function showExitModal() {
-    if (modalShown) return;
+    if (modalShown || hasSeenModal()) return;
 
     const modal = document.getElementById("exitModal");
     if (modal) {
@@ -918,7 +927,6 @@
       modalShown = true;
       console.log("🚪 Exit modal shown - exit intent detected");
 
-      // Track modal view
       if (typeof window.gtag !== "undefined") {
         window.gtag("event", "exit_modal_shown", {
           event_category: "Provider",
@@ -928,34 +936,71 @@
     }
   }
 
-  function closeModal() {
+  function closeModal(isConversion = false) {
     const modal = document.getElementById("exitModal");
     if (modal) {
       modal.style.display = "none";
       console.log("🚪 Exit modal closed");
+
+      if (isConversion) {
+        document.cookie = `exitModalConverted=true; max-age=${90 * 24 * 60 * 60}; path=/`;
+        console.log("✅ Conversion cookie set - modal suppressed for 90 days");
+      } else {
+        document.cookie = `exitModalDismissed_${currentPath}=true; max-age=${7 * 24 * 60 * 60}; path=/`;
+        console.log(
+          "⏸️ Dismissal cookie set - modal suppressed for 7 days on this page"
+        );
+      }
     }
   }
 
   function showView(viewId: string) {
-    // Hide all views
     ["mainView", "analysisView", "guideView", "successView"].forEach((id) => {
       const view = document.getElementById(id);
       if (view) view.style.display = "none";
     });
 
-    // Show requested view
     const view = document.getElementById(viewId);
     if (view) view.style.display = "block";
   }
 
-  // ONLY trigger on true exit intent - mouse leaving from top of viewport
+  // ✅ ADD THIS ENTIRE FUNCTION
+  function formatPhoneNumber(input: HTMLInputElement) {
+    // Get only numbers from input
+    let phoneNumber = input.value.replace(/\D/g, "");
+
+    // Limit to 10 digits
+    phoneNumber = phoneNumber.substring(0, 10);
+
+    // Format based on length
+    let formatted = "";
+
+    if (phoneNumber.length === 0) {
+      formatted = "";
+    } else if (phoneNumber.length <= 3) {
+      formatted = `(${phoneNumber}`;
+    } else if (phoneNumber.length <= 6) {
+      formatted = `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
+    } else {
+      formatted = `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6)}`;
+    }
+
+    input.value = formatted;
+  }
+
+  // Desktop exit intent
   document.addEventListener("mouseleave", (e) => {
     const scrollPercent =
       (window.scrollY /
         (document.documentElement.scrollHeight - window.innerHeight)) *
       100;
 
-    if (e.clientY <= 0 && scrollPercent > 25 && !modalShown) {
+    if (
+      e.clientY <= 0 &&
+      scrollPercent > 25 &&
+      !modalShown &&
+      !hasSeenModal()
+    ) {
       console.log("🎯 Exit intent detected - showing modal");
       setTimeout(() => {
         showExitModal();
@@ -963,7 +1008,7 @@
     }
   });
 
-  // Mobile-specific exit intent
+  // Mobile exit intent
   let pageLoadTime = Date.now();
   let lastScrollY = 0;
   let rapidScrollToTopCount = 0;
@@ -976,7 +1021,7 @@
       if (currentScrollY < 10 && lastScrollY > 100 && timeOnPage > 10) {
         rapidScrollToTopCount++;
 
-        if (rapidScrollToTopCount >= 2 && !modalShown) {
+        if (rapidScrollToTopCount >= 2 && !modalShown && !hasSeenModal()) {
           console.log("🎯 Mobile exit intent detected - showing modal");
           showExitModal();
         }
@@ -990,30 +1035,29 @@
     });
   }
 
-  // Initialize modal handlers
   document.addEventListener("DOMContentLoaded", () => {
     // Close button
     const closeBtn = document.querySelector(".modal-close");
     if (closeBtn) {
-      closeBtn.addEventListener("click", closeModal);
+      closeBtn.addEventListener("click", () => closeModal(false));
     }
 
     // Risk waiting button
     const riskBtn = document.getElementById("riskWaitingBtn");
     if (riskBtn) {
-      riskBtn.addEventListener("click", closeModal);
+      riskBtn.addEventListener("click", () => closeModal(false));
     }
 
     // Overlay click
     const overlay = document.querySelector(".modal-overlay");
     if (overlay) {
-      overlay.addEventListener("click", closeModal);
+      overlay.addEventListener("click", () => closeModal(false));
     }
 
     // Escape key
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
-        closeModal();
+        closeModal(false);
       }
     });
 
@@ -1024,7 +1068,6 @@
         const option = card.getAttribute("data-option");
 
         if (option === "schedule") {
-          // Track and open Cal.com
           if (typeof window.gtag !== "undefined") {
             window.gtag("event", "schedule_call_clicked", {
               event_category: "Provider",
@@ -1032,10 +1075,9 @@
             });
           }
           window.open("https://cal.com/usrad/15min", "_blank");
-          closeModal();
+          closeModal(true);
         } else if (option === "analysis") {
           showView("analysisView");
-          // Track
           if (typeof window.gtag !== "undefined") {
             window.gtag("event", "market_analysis_view", {
               event_category: "Provider",
@@ -1044,7 +1086,6 @@
           }
         } else if (option === "guide") {
           showView("guideView");
-          // Track
           if (typeof window.gtag !== "undefined") {
             window.gtag("event", "guide_download_view", {
               event_category: "Provider",
@@ -1084,7 +1125,6 @@
         const data = Object.fromEntries(formData.entries());
 
         try {
-          // TODO: Replace with your actual API endpoint
           const response = await fetch("/api/market-analysis", {
             method: "POST",
             headers: {
@@ -1098,7 +1138,6 @@
           });
 
           if (response.ok) {
-            // Track conversion
             if (typeof window.gtag !== "undefined") {
               window.gtag("event", "market_analysis_requested", {
                 event_category: "Provider",
@@ -1107,13 +1146,17 @@
               });
             }
 
-            // Show success
             const successMsg = document.getElementById("successMessage");
             if (successMsg) {
               successMsg.textContent =
                 "We've sent your personalized market analysis to your email. You should receive it within 24 hours.";
             }
             showView("successView");
+
+            // ✅ Show success for 3 seconds, then close with conversion cookie
+            setTimeout(() => {
+              closeModal(true);
+            }, 3000);
           } else {
             alert(
               "Something went wrong. Please try again or contact us directly."
@@ -1156,7 +1199,6 @@
         const data = Object.fromEntries(formData.entries());
 
         try {
-          // TODO: Replace with your actual API endpoint
           const response = await fetch("/api/guide-download", {
             method: "POST",
             headers: {
@@ -1170,7 +1212,6 @@
           });
 
           if (response.ok) {
-            // Track conversion
             if (typeof window.gtag !== "undefined") {
               window.gtag("event", "guide_download_requested", {
                 event_category: "Provider",
@@ -1179,13 +1220,17 @@
               });
             }
 
-            // Show success
             const successMsg = document.getElementById("successMessage");
             if (successMsg) {
               successMsg.textContent =
                 "Success! Check your email for the download link to your Cash-Pay Imaging Guide. It should arrive within a few minutes.";
             }
             showView("successView");
+
+            // ✅ Show success for 3 seconds, then close with conversion cookie
+            setTimeout(() => {
+              closeModal(true);
+            }, 3000);
           } else {
             alert(
               "Something went wrong. Please try again or contact us directly."
@@ -1209,5 +1254,21 @@
         }
       });
     }
-  });
+
+    // ✅ NEW: Phone number formatting
+    const phoneInputs = document.querySelectorAll('input[type="tel"]');
+    phoneInputs.forEach((input) => {
+      input.addEventListener("input", (e) => {
+        formatPhoneNumber(e.target as HTMLInputElement);
+      });
+
+      // Also format on paste
+      input.addEventListener("paste", (e) => {
+        setTimeout(() => {
+          formatPhoneNumber(e.target as HTMLInputElement);
+        }, 10);
+      });
+    });
+    // ✅ END NEW BLOCK
+  }); // ← Closes DOMContentLoaded
 </script>
