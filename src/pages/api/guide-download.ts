@@ -116,7 +116,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     console.log("✅ Saved to database:", guideDownload.id);
 
-    // Step 2: Generate PDF URL from Supabase Storage
+    // Step 2: Generate branded PDF download URL
     const baseUrl = import.meta.env.PUBLIC_SITE_URL || 'http://localhost:4321';
     const pdfUrl = `${baseUrl}/guides/playbook?download=true`;
 
@@ -164,28 +164,14 @@ export const POST: APIRoute = async ({ request }) => {
                 Thanks for your interest in cash-pay imaging! Your playbook is ready for download:
               </p>
 
-              <!-- NEW: Two options -->
+              <!-- Download Button -->
               <table width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;">
                 <tr>
                   <td align="center">
-                    <table cellpadding="0" cellspacing="0" style="display:inline-block;">
-                      <tr>
-                        <!-- Primary: Download -->
-                        <td style="padding-right:8px;">
-                          <a href="${pdfUrl}" 
-                            style="display:inline-block;background-color:#2563eb;color:#ffffff;text-decoration:none;padding:16px 32px;border-radius:6px;font-size:16px;font-weight:bold;">
-                            📥 Download Playbook
-                          </a>
-                        </td>
-                        <!-- Secondary: Preview -->
-                        <td style="padding-left:8px;">
-                          <a href="${baseUrl}/guides/playbook?download=false" 
-                            style="display:inline-block;background-color:#ffffff;color:#2563eb;text-decoration:none;padding:16px 32px;border-radius:6px;font-size:16px;font-weight:600;border:2px solid #2563eb;">
-                            👁️ Preview Online
-                          </a>
-                        </td>
-                      </tr>
-                    </table>
+                    <a href="${pdfUrl}" 
+                       style="display:inline-block;background-color:#2563eb;color:#ffffff;text-decoration:none;padding:16px 32px;border-radius:6px;font-size:16px;font-weight:bold;">
+                      📥 Download Your Playbook
+                    </a>
                   </td>
                 </tr>
               </table>
@@ -278,7 +264,215 @@ export const POST: APIRoute = async ({ request }) => {
 
     console.log("✅ Email sent:", emailData?.id);
 
-    // Step 4: Update database with email sent status
+    // Step 4: Send notification email to support team
+    try {
+      await resend.emails.send({
+        from: `USRad Notifications <${fromEmail}>`,
+        to: "support@usrad.com",
+        subject: `🎯 New Guide Download: ${name}`,
+        html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin:0;padding:0;background-color:#f3f4f6;font-family:Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f3f4f6;padding:20px 0;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);margin:0 auto;">
+          
+          <!-- Header -->
+          <tr>
+            <td style="padding:24px 40px;background-color:#2563eb;border-radius:8px 8px 0 0;">
+              <h1 style="margin:0;font-size:24px;color:#ffffff;font-weight:bold;">
+                🎯 New Guide Download
+              </h1>
+              <p style="margin:8px 0 0;font-size:14px;color:#bfdbfe;">
+                ${new Date().toLocaleString("en-US", { 
+                  dateStyle: "full", 
+                  timeStyle: "short" 
+                })}
+              </p>
+            </td>
+          </tr>
+
+          <!-- Lead Info -->
+          <tr>
+            <td style="padding:32px 40px;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding:0 0 24px;">
+                    <h2 style="margin:0 0 16px;font-size:18px;color:#1f2937;">
+                      Lead Information
+                    </h2>
+                  </td>
+                </tr>
+                
+                <!-- Name -->
+                <tr>
+                  <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;">Name:</td>
+                        <td style="font-size:16px;color:#1f2937;font-weight:600;">${name}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                
+                <!-- Email -->
+                <tr>
+                  <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;">Email:</td>
+                        <td style="font-size:16px;color:#2563eb;">
+                          <a href="mailto:${email}" style="color:#2563eb;text-decoration:none;">${email}</a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                
+                <!-- Phone -->
+                <tr>
+                  <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;">Phone:</td>
+                        <td style="font-size:16px;color:#1f2937;">
+                          ${phone ? `<a href="tel:${phone}" style="color:#2563eb;text-decoration:none;">${phone}</a>` : '<span style="color:#9ca3af;">Not provided</span>'}
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                
+                <!-- Facility Type -->
+                <tr>
+                  <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;">Facility Type:</td>
+                        <td style="font-size:16px;color:#1f2937;text-transform:capitalize;">${facilityType.replace("-", " ")}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                
+                <!-- Source -->
+                <tr>
+                  <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;">Source:</td>
+                        <td style="font-size:16px;color:#1f2937;text-transform:capitalize;">${source || "exit_modal"}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                
+                <!-- Lead Score -->
+                <tr>
+                  <td style="padding:12px 0;">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;">Initial Score:</td>
+                        <td>
+                          <span style="display:inline-block;padding:4px 12px;background-color:#fef3c7;color:#92400e;border-radius:4px;font-size:14px;font-weight:600;">
+                            20 points (Grade D - COLD)
+                          </span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Action Buttons -->
+          <tr>
+            <td style="padding:0 40px 32px;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding:0 0 16px;">
+                    <h3 style="margin:0;font-size:16px;color:#1f2937;">Quick Actions:</h3>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <table cellpadding="0" cellspacing="0">
+                      <tr>
+                        <!-- Email Button -->
+                        <td style="padding-right:8px;">
+                          <a href="mailto:${email}?subject=Following up on your USRad playbook download&body=Hi ${firstName},%0D%0A%0D%0AI saw you downloaded our Cash-Pay Imaging Playbook. " 
+                             style="display:inline-block;background-color:#2563eb;color:#ffffff;text-decoration:none;padding:12px 24px;border-radius:6px;font-size:14px;font-weight:600;">
+                            📧 Send Email
+                          </a>
+                        </td>
+                        <!-- Call Button -->
+                        <td style="padding-left:8px;">
+                          ${phone ? `
+                          <a href="tel:${phone}" 
+                             style="display:inline-block;background-color:#10b981;color:#ffffff;text-decoration:none;padding:12px 24px;border-radius:6px;font-size:14px;font-weight:600;">
+                            📞 Call Now
+                          </a>
+                          ` : ''}
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Dashboard Link -->
+          <tr>
+            <td style="padding:0 40px 32px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f9fafb;border-radius:6px;padding:16px;">
+                <tr>
+                  <td align="center">
+                    <p style="margin:0 0 12px;font-size:14px;color:#6b7280;">
+                      View full lead details in your dashboard:
+                    </p>
+                    <a href="${baseUrl}/admin/leads" 
+                       style="display:inline-block;background-color:#ffffff;color:#2563eb;text-decoration:none;padding:10px 20px;border-radius:6px;font-size:14px;font-weight:600;border:2px solid #2563eb;">
+                      View Dashboard →
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding:20px 40px;background-color:#f9fafb;border-top:1px solid #e5e7eb;border-radius:0 0 8px 8px;">
+              <p style="margin:0;font-size:12px;color:#6b7280;text-align:center;">
+                This is an automated notification from your USRad lead capture system.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+        `,
+      });
+      console.log("✅ Notification email sent to support@usrad.com");
+    } catch (notificationError) {
+      console.error("⚠️ Failed to send notification email:", notificationError);
+      // Don't throw - user email already sent successfully
+    }
+
+    // Step 5: Update database with email sent status
     await supabase
       .from("guide_downloads")
       .update({
@@ -288,7 +482,7 @@ export const POST: APIRoute = async ({ request }) => {
       })
       .eq("id", guideDownload.id);
 
-    // Step 5: Update or create lead score
+    // Step 6: Update or create lead score
     await updateLeadScore(email, "guide_download");
 
     console.log("🎉 Guide download process complete");
