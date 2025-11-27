@@ -164,14 +164,28 @@ export const POST: APIRoute = async ({ request }) => {
                 Thanks for your interest in cash-pay imaging! Your playbook is ready for download:
               </p>
 
-              <!-- Download Button -->
+              <!-- Two Button Options -->
               <table width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;">
                 <tr>
                   <td align="center">
-                    <a href="${pdfUrl}" 
-                       style="display:inline-block;background-color:#2563eb;color:#ffffff;text-decoration:none;padding:16px 32px;border-radius:6px;font-size:16px;font-weight:bold;">
-                      📥 Download Your Playbook
-                    </a>
+                    <table cellpadding="0" cellspacing="0" style="display:inline-block;">
+                      <tr>
+                        <!-- Primary: Download -->
+                        <td style="padding-right:8px;">
+                          <a href="${pdfUrl}" 
+                             style="display:inline-block;background-color:#2563eb;color:#ffffff;text-decoration:none;padding:16px 32px;border-radius:6px;font-size:16px;font-weight:bold;">
+                            📥 Download Playbook
+                          </a>
+                        </td>
+                        <!-- Secondary: Preview -->
+                        <td style="padding-left:8px;">
+                          <a href="${baseUrl}/guides/playbook?download=false" 
+                             style="display:inline-block;background-color:#ffffff;color:#2563eb;text-decoration:none;padding:16px 32px;border-radius:6px;font-size:16px;font-weight:600;border:2px solid #2563eb;">
+                            👁️ Preview Online
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
               </table>
