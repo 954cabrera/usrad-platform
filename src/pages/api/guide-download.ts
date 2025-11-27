@@ -306,7 +306,8 @@ export const POST: APIRoute = async ({ request }) => {
               <p style="margin:8px 0 0;font-size:14px;color:#bfdbfe;">
                 ${new Date().toLocaleString("en-US", { 
                   dateStyle: "full", 
-                  timeStyle: "short" 
+                  timeStyle: "short",
+                  timeZone: "America/New_York"
                 })}
               </p>
             </td>
