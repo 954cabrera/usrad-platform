@@ -118,7 +118,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Step 2: Generate branded PDF download URL
     const baseUrl = import.meta.env.PUBLIC_SITE_URL || 'http://localhost:4321';
-    const pdfUrl = `${baseUrl}/guides/playbook?download=true`;
+    const pdfUrl = `${baseUrl}/guides/playbook?download=true&v=2`;
 
     console.log("📄 PDF URL:", pdfUrl);
 
