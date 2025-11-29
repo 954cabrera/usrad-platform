@@ -89,7 +89,7 @@ export const POST: APIRoute = async ({ request }) => {
         phone: phone || null,
         facility_type: facilityType,
         source: source || "exit_modal",
-        guide_type: "cash-pay-imaging-playbook",
+        guide_type: "cash-pay-imaging-decision",
         page_url: request.headers.get("referer") || null,
         user_agent: request.headers.get("user-agent") || null,
         referrer: request.headers.get("referer") || null,
@@ -129,7 +129,7 @@ export const POST: APIRoute = async ({ request }) => {
     const { data: emailData, error: emailError } = await resend.emails.send({
       from: `USRad Guides <${fromEmail}>`,
       to: email,
-      subject: "Your Cash-Pay Imaging Playbook is Ready",
+      subject: "Your Cash-Pay Imaging Decision Guide is Ready",
       html: `
 <!DOCTYPE html>
 <html>
@@ -148,7 +148,7 @@ export const POST: APIRoute = async ({ request }) => {
           <tr>
             <td style="padding:40px 40px 20px;text-align:center;">
               <h1 style="margin:0;font-size:24px;color:#1f2937;font-weight:bold;">
-                Your Cash-Pay Imaging Playbook is Ready
+                Your Cash-Pay Imaging Decision Guide is Ready
               </h1>
             </td>
           </tr>
@@ -161,7 +161,7 @@ export const POST: APIRoute = async ({ request }) => {
               </p>
               
               <p style="margin:0 0 16px;font-size:16px;color:#374151;line-height:1.5;">
-                Thanks for your interest in cash-pay imaging! Your playbook is ready for download:
+                Thanks for your interest in cash-pay imaging! Your executive guide is ready for download:
               </p>
 
               <!-- Two Button Options -->
@@ -174,7 +174,7 @@ export const POST: APIRoute = async ({ request }) => {
                         <td style="padding-right:8px;">
                           <a href="${pdfUrl}" 
                              style="display:inline-block;background-color:#2563eb;color:#ffffff;text-decoration:none;padding:16px 32px;border-radius:6px;font-size:16px;font-weight:bold;">
-                            📥 Download Playbook
+                            📥 Download Guide
                           </a>
                         </td>
                         <!-- Secondary: Preview -->
@@ -195,10 +195,10 @@ export const POST: APIRoute = async ({ request }) => {
               </p>
 
               <ul style="margin:0 0 24px;padding-left:20px;color:#374151;font-size:16px;line-height:1.8;">
-                <li>Market opportunity analysis ($200K-600K revenue potential)</li>
-                <li>Economics comparison (insurance vs. cash-pay)</li>
-                <li>Two implementation paths (independent vs. partnership)</li>
-                <li>Real AnciCare network results (1,200 centers, $180M delivered)</li>
+                <li>Should you build your own cash-pay program or partner with a network?</li>
+                <li>Real economics: What centers actually earn from cash-pay patients</li>
+                <li>The AnciCare case study: How 1,200+ centers built a $180M network</li>
+                <li>Hidden costs and realistic timelines for both paths</li>
               </ul>
 
               <p style="margin:0 0 16px;font-size:16px;color:#374151;line-height:1.5;">
@@ -223,24 +223,45 @@ export const POST: APIRoute = async ({ request }) => {
 
               <p style="margin:24px 0 0;font-size:16px;color:#374151;line-height:1.5;">
                 Best,<br>
-                <strong>USRad Provider Success Team</strong>
+                <strong style="color:#1f2937;">USRad Provider Success Team</strong>
               </p>
             </td>
           </tr>
 
           <!-- Footer -->
           <tr>
-            <td style="padding:20px 40px;background-color:#f9fafb;border-top:1px solid #e5e7eb;border-radius:0 0 8px 8px;">
-              <p style="margin:0 0 8px;font-size:14px;color:#6b7280;text-align:center;">
-                USRad | Connecting Patients to Quality Imaging
-              </p>
-              <p style="margin:0;font-size:12px;color:#9ca3af;text-align:center;">
-                1234 Healthcare Blvd, Fort Lauderdale, FL 33301
-              </p>
-              <p style="margin:8px 0 0;font-size:12px;color:#9ca3af;text-align:center;">
-                <a href="https://usrad.com/privacy" style="color:#2563eb;text-decoration:none;">Privacy Policy</a> | 
-                <a href="https://usrad.com/contact" style="color:#2563eb;text-decoration:none;">Contact Us</a>
-              </p>
+            <td style="padding:32px 40px;background-color:#f9fafb;border-top:1px solid #e5e7eb;border-radius:0 0 8px 8px;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td align="center" style="padding-bottom:16px;">
+                    <p style="margin:0;font-size:14px;color:#6b7280;font-weight:600;">
+                      USRad | Connecting Patients to Quality Imaging
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding-bottom:16px;">
+                    <p style="margin:0;font-size:12px;color:#9ca3af;">
+                      1234 Healthcare Blvd, Fort Lauderdale, FL 33301
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <table cellpadding="0" cellspacing="0" style="display:inline-block;">
+                      <tr>
+                        <td style="padding:0 8px;">
+                          <a href="${baseUrl}/privacy" style="color:#2563eb;text-decoration:none;font-size:12px;">Privacy Policy</a>
+                        </td>
+                        <td style="padding:0 8px;color:#d1d5db;">|</td>
+                        <td style="padding:0 8px;">
+                          <a href="${baseUrl}/contact" style="color:#2563eb;text-decoration:none;font-size:12px;">Contact Us</a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 
@@ -254,14 +275,7 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     if (emailError) {
-      console.error("❌ Email error:", emailError);
-
-      // Update database with failure status
-      await supabase
-        .from("guide_downloads")
-        .update({ status: "failed" })
-        .eq("id", guideDownload.id);
-
+      console.error("❌ Email send error:", emailError);
       return new Response(
         JSON.stringify({
           success: false,
@@ -276,14 +290,14 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    console.log("✅ Email sent:", emailData?.id);
+    console.log("✅ Email sent successfully:", emailData?.id);
 
-    // Step 4: Send notification email to support team
+    // Step 4: Send notification to sales team
     try {
       await resend.emails.send({
-        from: `USRad Notifications <${fromEmail}>`,
+        from: `USRad Lead Alerts <${fromEmail}>`,
         to: "support@usrad.com",
-        subject: `🎯 New Guide Download: ${name}`,
+        subject: `🔔 New Guide Download: ${name} (${facilityType})`,
         html: `
 <!DOCTYPE html>
 <html>
@@ -299,38 +313,28 @@ export const POST: APIRoute = async ({ request }) => {
           
           <!-- Header -->
           <tr>
-            <td style="padding:24px 40px;background-color:#2563eb;border-radius:8px 8px 0 0;">
+            <td style="padding:32px 40px 24px;background-color:#2563eb;border-radius:8px 8px 0 0;">
               <h1 style="margin:0;font-size:24px;color:#ffffff;font-weight:bold;">
-                🎯 New Guide Download
+                🔔 New Guide Download
               </h1>
-              <p style="margin:8px 0 0;font-size:14px;color:#bfdbfe;">
-                ${new Date().toLocaleString("en-US", { 
-                  dateStyle: "full", 
-                  timeStyle: "short",
-                  timeZone: "America/New_York"
-                })}
-              </p>
             </td>
           </tr>
 
-          <!-- Lead Info -->
+          <!-- Body -->
           <tr>
             <td style="padding:32px 40px;">
-              <table width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td style="padding:0 0 24px;">
-                    <h2 style="margin:0 0 16px;font-size:18px;color:#1f2937;">
-                      Lead Information
-                    </h2>
-                  </td>
-                </tr>
-                
+              <p style="margin:0 0 24px;font-size:16px;color:#374151;line-height:1.5;">
+                Someone just downloaded the Cash-Pay Imaging Decision Guide:
+              </p>
+
+              <!-- Lead Details -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e5e7eb;border-radius:6px;overflow:hidden;">
                 <!-- Name -->
                 <tr>
                   <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;">Name:</td>
+                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;padding-left:16px;">Name:</td>
                         <td style="font-size:16px;color:#1f2937;font-weight:600;">${name}</td>
                       </tr>
                     </table>
@@ -342,8 +346,8 @@ export const POST: APIRoute = async ({ request }) => {
                   <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;">Email:</td>
-                        <td style="font-size:16px;color:#2563eb;">
+                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;padding-left:16px;">Email:</td>
+                        <td style="font-size:16px;color:#1f2937;">
                           <a href="mailto:${email}" style="color:#2563eb;text-decoration:none;">${email}</a>
                         </td>
                       </tr>
@@ -352,26 +356,28 @@ export const POST: APIRoute = async ({ request }) => {
                 </tr>
                 
                 <!-- Phone -->
+                ${phone ? `
                 <tr>
                   <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;">Phone:</td>
+                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;padding-left:16px;">Phone:</td>
                         <td style="font-size:16px;color:#1f2937;">
-                          ${phone ? `<a href="tel:${phone}" style="color:#2563eb;text-decoration:none;">${phone}</a>` : '<span style="color:#9ca3af;">Not provided</span>'}
+                          <a href="tel:${phone}" style="color:#2563eb;text-decoration:none;">${phone}</a>
                         </td>
                       </tr>
                     </table>
                   </td>
                 </tr>
+                ` : ''}
                 
                 <!-- Facility Type -->
                 <tr>
                   <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;">Facility Type:</td>
-                        <td style="font-size:16px;color:#1f2937;text-transform:capitalize;">${facilityType.replace("-", " ")}</td>
+                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;padding-left:16px;">Facility Type:</td>
+                        <td style="font-size:16px;color:#1f2937;text-transform:capitalize;">${facilityType.replace('-', ' ')}</td>
                       </tr>
                     </table>
                   </td>
@@ -382,7 +388,7 @@ export const POST: APIRoute = async ({ request }) => {
                   <td style="padding:12px 0;border-bottom:1px solid #e5e7eb;">
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;">Source:</td>
+                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;padding-left:16px;">Source:</td>
                         <td style="font-size:16px;color:#1f2937;text-transform:capitalize;">${source || "exit_modal"}</td>
                       </tr>
                     </table>
@@ -394,7 +400,7 @@ export const POST: APIRoute = async ({ request }) => {
                   <td style="padding:12px 0;">
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;">Initial Score:</td>
+                        <td style="width:140px;font-size:14px;color:#6b7280;font-weight:600;padding-left:16px;">Initial Score:</td>
                         <td>
                           <span style="display:inline-block;padding:4px 12px;background-color:#fef3c7;color:#92400e;border-radius:4px;font-size:14px;font-weight:600;">
                             20 points (Grade D - COLD)
@@ -423,7 +429,7 @@ export const POST: APIRoute = async ({ request }) => {
                       <tr>
                         <!-- Email Button -->
                         <td style="padding-right:8px;">
-                          <a href="mailto:${email}?subject=Following up on your USRad playbook download&body=Hi ${firstName},%0D%0A%0D%0AI saw you downloaded our Cash-Pay Imaging Playbook. " 
+                          <a href="mailto:${email}?subject=Following up on your USRad guide download&body=Hi ${firstName},%0D%0A%0D%0AI saw you downloaded our Cash-Pay Imaging Decision Guide. " 
                              style="display:inline-block;background-color:#2563eb;color:#ffffff;text-decoration:none;padding:12px 24px;border-radius:6px;font-size:14px;font-weight:600;">
                             📧 Send Email
                           </a>
@@ -508,7 +514,7 @@ export const POST: APIRoute = async ({ request }) => {
         message: "Guide download link sent to email",
         data: {
           email,
-          guideName: "The Complete Cash-Pay Imaging Playbook",
+          guideName: "The Cash-Pay Imaging Decision",
         },
       }),
       {
