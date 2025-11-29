@@ -86,16 +86,27 @@
           <div class="option-arrow">→</div>
         </button>
 
-        <!-- Option 2: Market Analysis -->
-        <button class="option-card" data-option="analysis">
-          <div class="option-icon">📊</div>
+        <!-- Option 2: Market Analysis (DISABLED - Coming Soon) -->
+        <button
+          class="option-card"
+          data-option="analysis"
+          disabled
+          style="opacity: 0.6; cursor: not-allowed; pointer-events: none;"
+        >
+          <div class="option-icon" style="opacity: 0.5;">📊</div>
           <div class="option-content">
-            <div class="option-title">Get Your Market Analysis</div>
+            <div class="option-title">
+              Get Your Market Analysis
+              <span
+                style="display: inline-block; background: #f59e0b; color: white; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.5rem; border-radius: 4px; margin-left: 0.5rem; vertical-align: middle;"
+                >Coming Soon</span
+              >
+            </div>
             <div class="option-description">
               Personalized competitor insights for your area
             </div>
           </div>
-          <div class="option-arrow">→</div>
+          <div class="option-arrow" style="opacity: 0.5;">→</div>
         </button>
 
         <!-- Option 3: PDF Guide -->
@@ -902,6 +913,32 @@
       font-size: 16px;
       padding: 14px 20px;
     }
+  }
+
+  /* Coming Soon Badge */
+  .coming-soon-badge {
+    display: inline-block;
+    background: #f59e0b;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  /* Disabled state for option card */
+  .option-card:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .option-card:disabled:hover {
+    transform: none;
+    box-shadow: none;
+    background: inherit;
   }
 </style>
 

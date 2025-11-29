@@ -6,8 +6,8 @@ export const GET: APIRoute = async ({ url, request }) => {
     // Check if they want to download or preview
     const download = url.searchParams.get("download") === "true";
     
-    // Get PDF from Supabase Storage
-    const pdfUrl = `${import.meta.env.PUBLIC_SUPABASE_URL}/storage/v1/object/public/guides/download-guide.pdf`;
+    // Get PDF from Supabase Storage - UPDATED FILE
+    const pdfUrl = `${import.meta.env.PUBLIC_SUPABASE_URL}/storage/v1/object/public/guides/executive-overview.pdf`;
     
     console.log(`📥 Playbook request - Download: ${download}`);
     
@@ -29,10 +29,10 @@ export const GET: APIRoute = async ({ url, request }) => {
     
     console.log(`✅ PDF fetched successfully (${pdfBuffer.byteLength} bytes)`);
     
-    // Determine Content-Disposition based on download parameter
+    // Determine Content-Disposition with NEW FILENAME
     const disposition = download 
-      ? 'attachment; filename="USRad-Cash-Pay-Imaging-Playbook.pdf"'  // Forces download
-      : 'inline; filename="USRad-Cash-Pay-Imaging-Playbook.pdf"';     // Opens in browser
+      ? 'attachment; filename="The-Cash-Pay-Imaging-Decision.pdf"'  // Forces download
+      : 'inline; filename="The-Cash-Pay-Imaging-Decision.pdf"';     // Opens in browser
     
     // Optional: Track download/preview (add to database)
     // You could add tracking here to record downloads in Supabase
