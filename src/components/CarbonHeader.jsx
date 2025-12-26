@@ -1,3 +1,16 @@
+// ============================================================================
+// ⚠️  SOURCE OF TRUTH: Changes here must be synced to Remix
+// ============================================================================
+//
+// Synced file: app/components/pbs/PBSHeader.tsx (Remix booking app)
+//
+// After making changes:
+// 1. Update PBSHeader.tsx in Remix to match
+// 2. Update "Last synced" date in both files
+//
+//  Last synced: 2025-12-26
+// ============================================================================
+
 import React, { useEffect, useRef, useState } from "react";
 
 // Add CSS animation for smooth dropdown appearance
@@ -19,7 +32,7 @@ const dropdownStyles = `
 `;
 
 // ✅ Environment-aware Remix URL for login redirects
- const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
+const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
 
 export default function CarbonHeader({ isHeroPage = false }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -30,10 +43,10 @@ export default function CarbonHeader({ isHeroPage = false }) {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       // Set scrolled state for desktop transition
       setIsScrolled(currentScrollY > 50);
-      
+
       // Mobile auto-hide logic
       if (window.innerWidth < 768) {
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
@@ -47,19 +60,19 @@ export default function CarbonHeader({ isHeroPage = false }) {
         // Desktop - always visible
         setIsVisible(true);
       }
-      
+
       setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
   useEffect(() => {
     if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
   }, [mobileMenuOpen]);
 
@@ -68,36 +81,38 @@ export default function CarbonHeader({ isHeroPage = false }) {
     if (isHeroPage && !isScrolled) {
       // Transparent header for hero sections
       return {
-        background: 'bg-transparent',
-        textColor: 'text-white',
-        hoverColor: 'hover:text-white/80',
-        logoFilter: 'brightness-0 invert',
-        betaBg: 'bg-white/20',
-        betaText: 'text-white',
-        buttonBg: 'bg-white/10 border-white/30',
-        buttonText: 'text-white',
-        buttonHover: 'hover:bg-white/20',
+        background: "bg-transparent",
+        textColor: "text-white",
+        hoverColor: "hover:text-white/80",
+        logoFilter: "brightness-0 invert",
+        betaBg: "bg-white/20",
+        betaText: "text-white",
+        buttonBg: "bg-white/10 border-white/30",
+        buttonText: "text-white",
+        buttonHover: "hover:bg-white/20",
         // B2B link styles for transparent header
-        b2bText: 'text-white/60',
-        b2bHover: 'hover:text-white/80',
-        b2bDivider: 'text-white/30'
+        b2bText: "text-white/60",
+        b2bHover: "hover:text-white/80",
+        b2bDivider: "text-white/30",
       };
     } else {
       // White header (default or after scroll)
       return {
-        background: isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm' : 'bg-white',
-        textColor: 'text-gray-700',
-        hoverColor: 'hover:text-[#003087]',
-        logoFilter: '',
-        betaBg: 'bg-[#cc9933]',
-        betaText: 'text-white',
-        buttonBg: 'bg-[#003087]',
-        buttonText: 'text-white',
-        buttonHover: 'hover:bg-[#002266]',
+        background: isScrolled
+          ? "bg-white/95 backdrop-blur-sm shadow-sm"
+          : "bg-white",
+        textColor: "text-gray-700",
+        hoverColor: "hover:text-[#003087]",
+        logoFilter: "",
+        betaBg: "bg-[#cc9933]",
+        betaText: "text-white",
+        buttonBg: "bg-[#003087]",
+        buttonText: "text-white",
+        buttonHover: "hover:bg-[#002266]",
         // B2B link styles for white header
-        b2bText: 'text-gray-400',
-        b2bHover: 'hover:text-gray-600',
-        b2bDivider: 'text-gray-300'
+        b2bText: "text-gray-400",
+        b2bHover: "hover:text-gray-600",
+        b2bDivider: "text-gray-300",
       };
     }
   };
@@ -387,8 +402,8 @@ function LoginDropdown({ isHeroPage, isScrolled }) {
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const loginOptions = [
@@ -437,8 +452,11 @@ function LoginDropdown({ isHeroPage, isScrolled }) {
   ];
 
   // Determine text color based on hero page and scroll state
-  const textColor = (isHeroPage && !isScrolled) ? 'text-white hover:text-white/80' : 'text-gray-700 hover:text-[#003087]';
-  const iconColor = (isHeroPage && !isScrolled) ? 'text-white' : 'text-gray-500';
+  const textColor =
+    isHeroPage && !isScrolled
+      ? "text-white hover:text-white/80"
+      : "text-gray-700 hover:text-[#003087]";
+  const iconColor = isHeroPage && !isScrolled ? "text-white" : "text-gray-500";
 
   return (
     <div className="relative" ref={dropdownRef}>
