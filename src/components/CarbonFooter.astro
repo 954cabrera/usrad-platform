@@ -3,6 +3,10 @@
 const { hideNewsletter = false } = Astro.props;
 const currentYear = new Date().getFullYear();
 
+// ✅ Environment-aware Remix URL (same pattern as index.astro)
+const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
+
+
 // Service areas - expand as needed
 const serviceAreas = [
   "Miami",
@@ -228,8 +232,9 @@ const serviceAreas = [
             </a>
           </li>
           <li>
+            <!-- ✅ UPDATED: Points to Remix app with environment-aware URL -->
             <a
-              href="/my-bookings"
+              href={`${REMIX_URL}/pbs/my-bookings`}
               class="text-gray-600 hover:text-[#003087] transition flex items-center gap-2"
             >
               <span>My Bookings</span>
