@@ -18,6 +18,9 @@ const dropdownStyles = `
   }
 `;
 
+// ✅ Environment-aware Remix URL for login redirects
+ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
+
 export default function CarbonHeader({ isHeroPage = false }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -390,7 +393,7 @@ function LoginDropdown({ isHeroPage, isScrolled }) {
 
   const loginOptions = [
     {
-      href: "/login/patientlogin",
+      href: `${REMIX_URL}/patient/login`,
       title: "Patient Portal",
       subtitle: "View results & book scans",
       icon: (
@@ -404,7 +407,7 @@ function LoginDropdown({ isHeroPage, isScrolled }) {
       bgColor: "bg-[#003087]/10",
     },
     {
-      href: "https://usrad-portal.vercel.app/login",
+      href: `${REMIX_URL}/login`,
       title: "Imaging Center",
       subtitle: "Manage facility & reports",
       icon: (
@@ -527,7 +530,7 @@ function MobileLoginSection({ onClose }) {
 
   const loginOptions = [
     {
-      href: "/login/patientlogin",
+      href: `${REMIX_URL}/patient/login`,
       title: "Patient Portal",
       subtitle: "View results & book scans",
       icon: (
@@ -541,7 +544,7 @@ function MobileLoginSection({ onClose }) {
       bgColor: "bg-[#003087]/10",
     },
     {
-      href: "https://usrad-portal.vercel.app/login",
+      href: `${REMIX_URL}/login`,
       title: "Imaging Center",
       subtitle: "Manage facility & reports",
       icon: (
