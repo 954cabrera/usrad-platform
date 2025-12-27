@@ -1,4 +1,4 @@
-// src/pages/api/subscribe-waitlist.js
+// src/pages/api/subscribe-newsletter.js
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 
@@ -13,6 +13,7 @@ export async function POST({ request }) {
   console.log('🚨🚨🚨 NEWSLETTER API CALLED! 🚨🚨🚨');
   console.log('Environment variables check:');
   console.log('- RESEND_API_KEY exists:', !!import.meta.env.RESEND_API_KEY);
+  console.log('- RESEND_API_KEY length:', import.meta.env.RESEND_API_KEY?.length || 0);
   console.log('- NOTIFICATION_EMAIL:', import.meta.env.NOTIFICATION_EMAIL);
   console.log('- PUBLIC_SUPABASE_URL exists:', !!import.meta.env.PUBLIC_SUPABASE_URL);
   
@@ -107,8 +108,9 @@ export async function POST({ request }) {
     }
 
     // Send notification to YOU (the admin)
+    console.log('📧 Attempting to send admin notification email...');
     try {
-      await resend.emails.send({
+      const adminEmailResult = await resend.emails.send({
         from: 'Newsletter <newsletter@send.usrad.com>',
         to: import.meta.env.NOTIFICATION_EMAIL,
         subject: '🎉 New Newsletter Signup - USRad',
@@ -123,24 +125,27 @@ export async function POST({ request }) {
           </div>
         `
       });
+      console.log('✅ Admin notification sent:', JSON.stringify(adminEmailResult));
     } catch (adminEmailError) {
-      console.error('Admin notification error:', adminEmailError);
+      console.error('❌ Admin notification error:', adminEmailError);
+      console.error('Admin email error details:', JSON.stringify(adminEmailError, null, 2));
       // Continue even if admin notification fails
     }
 
     // Send PREMIUM welcome email to the subscriber
+    console.log('📧 Attempting to send welcome email to subscriber...');
     try {
-      await resend.emails.send({
+      const welcomeEmailResult = await resend.emails.send({
         from: 'USRad Healthcare Insights <hello@send.usrad.com>',
         to: email,
-        subject: '🎯 Welcome to USRad Healthcare Insights!',
+        subject: '💡 Your First Healthcare Savings Tip (Plus Welcome to USRad!)',
         html: `
           <!DOCTYPE html>
           <html lang="en">
           <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Welcome to USRad Healthcare Insights</title>
+            <title>Your First Healthcare Savings Tip</title>
           </head>
           <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
             
@@ -154,11 +159,8 @@ export async function POST({ request }) {
                     <!-- Hero Header with Gradient -->
                     <tr>
                       <td style="background: linear-gradient(135deg, #003087 0%, #0047ab 50%, #005bc5 100%); padding: 50px 40px; text-align: center; position: relative;">
-                        <!-- Decorative elements -->
-                        <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: rgba(204, 153, 51, 0.1); border-radius: 50%; filter: blur(60px);"></div>
-                        
-                        <h1 style="color: #ffffff; font-size: 36px; font-weight: 800; margin: 0 0 12px; line-height: 1.2; letter-spacing: -0.5px;">
-                          🎯 You're In!
+                        <h1 style="color: #ffffff; font-size: 32px; font-weight: 800; margin: 0 0 12px; line-height: 1.2; letter-spacing: -0.5px;">
+                          💡 Your First Savings Tip
                         </h1>
                         <p style="color: rgba(255, 255, 255, 0.9); font-size: 18px; margin: 0; font-weight: 500;">
                           Welcome to Healthcare Insights by USRad
@@ -176,65 +178,46 @@ export async function POST({ request }) {
                         </p>
                         
                         <p style="color: #4b5563; font-size: 17px; line-height: 1.7; margin: 0 0 32px;">
-                          Thanks for subscribing! You're now part of a community that's saving thousands on medical imaging while staying informed about healthcare innovations.
+                          Thanks for subscribing! Let's skip the fluff and get straight to your first money-saving insight:
                         </p>
                         
-                        <!-- Feature Grid -->
-                        <table role="presentation" style="width: 100%; margin: 0 0 36px;">
+                        <!-- FEATURED TIP - The Real Cost Article -->
+                        <table role="presentation" style="width: 100%; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 20px; padding: 32px; margin: 0 0 32px; border: 2px solid #f59e0b;">
                           <tr>
-                            <td style="padding: 0;">
-                              
-                              <!-- Feature 1 -->
-                              <table role="presentation" style="width: 100%; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 16px; padding: 24px; margin: 0 0 16px; border-left: 4px solid #003087;">
-                                <tr>
-                                  <td style="width: 48px; vertical-align: top; padding-right: 16px;">
-                                    <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #003087 0%, #0047ab 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0, 48, 135, 0.2);">
-                                      <span style="font-size: 24px;">💡</span>
-                                    </div>
-                                  </td>
-                                  <td style="vertical-align: top;">
-                                    <h3 style="color: #003087; font-size: 18px; font-weight: 700; margin: 0 0 8px;">Weekly Healthcare Tips</h3>
-                                    <p style="color: #4b5563; font-size: 15px; line-height: 1.6; margin: 0;">
-                                      Expert insights on reducing medical costs and understanding your imaging options
-                                    </p>
-                                  </td>
-                                </tr>
-                              </table>
-                              
-                              <!-- Feature 2 -->
-                              <table role="presentation" style="width: 100%; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 16px; padding: 24px; margin: 0 0 16px; border-left: 4px solid #cc9933;">
-                                <tr>
-                                  <td style="width: 48px; vertical-align: top; padding-right: 16px;">
-                                    <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #cc9933 0%, #b38829 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(204, 153, 51, 0.3);">
-                                      <span style="font-size: 24px;">💰</span>
-                                    </div>
-                                  </td>
-                                  <td style="vertical-align: top;">
-                                    <h3 style="color: #92400e; font-size: 18px; font-weight: 700; margin: 0 0 8px;">Exclusive Savings</h3>
-                                    <p style="color: #4b5563; font-size: 15px; line-height: 1.6; margin: 0;">
-                                      Early access to promotions and strategies to save up to 70% on imaging scans
-                                    </p>
-                                  </td>
-                                </tr>
-                              </table>
-                              
-                              <!-- Feature 3 -->
-                              <table role="presentation" style="width: 100%; background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border-radius: 16px; padding: 24px; margin: 0; border-left: 4px solid #10b981;">
-                                <tr>
-                                  <td style="width: 48px; vertical-align: top; padding-right: 16px;">
-                                    <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">
-                                      <span style="font-size: 24px;">🏥</span>
-                                    </div>
-                                  </td>
-                                  <td style="vertical-align: top;">
-                                    <h3 style="color: #065f46; font-size: 18px; font-weight: 700; margin: 0 0 8px;">Expert Guidance</h3>
-                                      <p style="color: #4b5563; font-size: 15px; line-height: 1.6; margin: 0;">
-                                        Founded by healthcare innovators focused on making medical imaging affordable
-                                      </p>
-                                  </td>
-                                </tr>
-                              </table>
-                              
+                            <td>
+                              <p style="color: #92400e; font-size: 13px; font-weight: 700; margin: 0 0 12px; text-transform: uppercase; letter-spacing: 1.5px;">
+                                💰 THIS MONTH'S TIP
+                              </p>
+                              <h2 style="color: #78350f; font-size: 24px; font-weight: 800; margin: 0 0 16px; line-height: 1.3;">
+                                The Real Cost of an MRI: What Hospitals Don't Want You to Know
+                              </h2>
+                              <p style="color: #92400e; font-size: 16px; line-height: 1.7; margin: 0 0 20px;">
+                                Here's something most people don't realize: <strong>the exact same MRI scan</strong> can cost $3,000 at a hospital or $260 at an independent imaging center. Same machine. Same quality. Board-certified radiologists either way.
+                              </p>
+                              <p style="color: #92400e; font-size: 16px; line-height: 1.7; margin: 0 0 20px;">
+                                The difference? Hospital overhead, facility fees, and a billing system designed for insurance—not for you.
+                              </p>
+                              <p style="color: #92400e; font-size: 16px; line-height: 1.7; margin: 0 0 24px;">
+                                <strong>The takeaway:</strong> Always ask for cash-pay pricing at independent imaging centers before using your insurance. You might save thousands.
+                              </p>
+                              <a href="https://usrad-platform.vercel.app/blog/real-cost-of-mri" style="display: inline-block; background: linear-gradient(135deg, #003087 0%, #0047ab 100%); color: #ffffff; font-size: 16px; font-weight: 700; padding: 14px 28px; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 15px rgba(0, 48, 135, 0.3);">
+                                Read the Full Article →
+                              </a>
+                            </td>
+                          </tr>
+                        </table>
+                        
+                        <!-- Quick Stats Box -->
+                        <table role="presentation" style="width: 100%; margin: 0 0 32px;">
+                          <tr>
+                            <td style="background: #f0f9ff; border-radius: 16px; padding: 24px; text-align: center; width: 48%;">
+                              <p style="color: #003087; font-size: 36px; font-weight: 800; margin: 0;">70%</p>
+                              <p style="color: #4b5563; font-size: 14px; margin: 8px 0 0;">Average savings vs. hospitals</p>
+                            </td>
+                            <td style="width: 4%;"></td>
+                            <td style="background: #f0f9ff; border-radius: 16px; padding: 24px; text-align: center; width: 48%;">
+                              <p style="color: #003087; font-size: 36px; font-weight: 800; margin: 0;">$260</p>
+                              <p style="color: #4b5563; font-size: 14px; margin: 8px 0 0;">MRI scans starting at</p>
                             </td>
                           </tr>
                         </table>
@@ -244,32 +227,14 @@ export async function POST({ request }) {
                           <tr>
                             <td style="text-align: center;">
                               <h3 style="color: #ffffff; font-size: 22px; font-weight: 700; margin: 0 0 12px;">
-                                Need an MRI Right Now?
+                                Need a Scan Now?
                               </h3>
                               <p style="color: rgba(255, 255, 255, 0.9); font-size: 16px; line-height: 1.6; margin: 0 0 24px;">
-                                Don't wait. Get same-day appointments at prices 70% lower than hospitals.
+                                Skip the hospital markup. Get transparent pricing in seconds.
                               </p>
-                              <a href="https://usrad.com" style="display: inline-block; background: linear-gradient(135deg, #cc9933 0%, #b38829 100%); color: #ffffff; font-size: 17px; font-weight: 700; padding: 16px 40px; border-radius: 50px; text-decoration: none; box-shadow: 0 8px 20px rgba(204, 153, 51, 0.3); transition: all 0.3s;">
-                                Book Your Scan Now →
+                              <a href="https://usrad-platform.vercel.app" style="display: inline-block; background: linear-gradient(135deg, #cc9933 0%, #b38829 100%); color: #ffffff; font-size: 17px; font-weight: 700; padding: 16px 40px; border-radius: 50px; text-decoration: none; box-shadow: 0 8px 20px rgba(204, 153, 51, 0.3);">
+                                Find Pricing Near You →
                               </a>
-                            </td>
-                          </tr>
-                        </table>
-                        
-                        <!-- Pricing Highlight -->
-                        <table role="presentation" style="width: 100%; background: linear-gradient(to right, #fef3c7, #fde68a, #fef3c7); border-radius: 16px; padding: 28px; margin: 0 0 32px; border: 2px solid #f59e0b;">
-                          <tr>
-                            <td style="text-align: center;">
-                              <p style="color: #92400e; font-size: 15px; font-weight: 600; margin: 0 0 8px; text-transform: uppercase; letter-spacing: 1px;">
-                                Transparent Pricing
-                              </p>
-                              <p style="color: #78350f; font-size: 16px; margin: 0;">
-                                MRI scans starting at just 
-                                <span style="color: #b45309; font-size: 32px; font-weight: 900; display: inline-block; margin: 0 6px;">$260</span>
-                              </p>
-                              <p style="color: #92400e; font-size: 14px; margin: 12px 0 0; line-height: 1.6;">
-                                ✓ No insurance required • ✓ Results in 24-48 hours • ✓ Board-certified radiologists
-                              </p>
                             </td>
                           </tr>
                         </table>
@@ -279,31 +244,18 @@ export async function POST({ request }) {
                           <h3 style="color: #1f2937; font-size: 20px; font-weight: 700; margin: 0 0 16px; text-align: center;">
                             📬 What to Expect
                           </h3>
-                          <ul style="color: #4b5563; font-size: 15px; line-height: 2; margin: 0; padding-left: 24px;">
-                            <li style="margin-bottom: 8px;">Weekly healthcare tips delivered every Monday</li>
-                            <li style="margin-bottom: 8px;">Cost-saving strategies for medical imaging</li>
-                            <li style="margin-bottom: 8px;">Updates on new locations and services</li>
-                            <li style="margin-bottom: 0;">Patient stories and success cases</li>
-                          </ul>
-                        </div>
-                        
-                        <!-- Social Proof -->
-                        <div style="text-align: center; margin: 0 0 24px;">
-                          <p style="color: #6b7280; font-size: 14px; font-style: italic; margin: 0;">
-                            "USRad saved me over $2,400 on my MRI. The process was seamless!"
-                          </p>
-                          <p style="color: #9ca3af; font-size: 13px; margin: 8px 0 0;">
-                            — Sarah M., Miami, FL ⭐⭐⭐⭐⭐
+                          <p style="color: #4b5563; font-size: 15px; line-height: 1.8; margin: 0; text-align: center;">
+                            Once a month, you'll get one actionable healthcare tip—no fluff, no spam. Just practical ways to save money and navigate the healthcare system smarter.
                           </p>
                         </div>
                         
                         <!-- Closing -->
                         <p style="color: #4b5563; font-size: 16px; line-height: 1.7; margin: 0;">
-                          We're excited to have you here. If you have any questions, just reply to this email – we read every message.
+                          Questions? Just reply to this email—we read every message.
                         </p>
                         
                         <p style="color: #1f2937; font-size: 16px; font-weight: 600; margin: 24px 0 0;">
-                          To your health,<br>
+                          To your health (and your wallet),<br>
                           <span style="color: #003087; font-weight: 700;">The USRad Team</span>
                         </p>
                         
@@ -321,27 +273,14 @@ export async function POST({ request }) {
                     <tr>
                       <td style="padding: 36px 40px; text-align: center; background: #f9fafb;">
                         
-                        <!-- Social Icons -->
-                        <div style="margin: 0 0 20px;">
-                          <a href="https://linkedin.com/company/usrad" style="display: inline-block; margin: 0 8px;">
-                            <img src="https://img.icons8.com/fluency/48/linkedin.png" alt="LinkedIn" width="32" height="32" style="border-radius: 8px;">
-                          </a>
-                          <a href="https://twitter.com/usrad" style="display: inline-block; margin: 0 8px;">
-                            <img src="https://img.icons8.com/fluency/48/twitter.png" alt="Twitter" width="32" height="32" style="border-radius: 8px;">
-                          </a>
-                          <a href="https://facebook.com/usrad" style="display: inline-block; margin: 0 8px;">
-                            <img src="https://img.icons8.com/fluency/48/facebook.png" alt="Facebook" width="32" height="32" style="border-radius: 8px;">
-                          </a>
-                        </div>
-                        
                         <p style="color: #6b7280; font-size: 14px; line-height: 1.6; margin: 0 0 12px;">
-                          <strong>USRad</strong> • Making medical imaging affordable and accessible
+                          <strong>USRad</strong> • Making medical imaging affordable for 90 million Americans
                         </p>
                         
                         <p style="color: #9ca3af; font-size: 13px; line-height: 1.6; margin: 0;">
-                          <a href="https://usrad.com" style="color: #003087; text-decoration: none; font-weight: 600;">Visit Website</a> • 
-                          <a href="https://usrad.com/blog" style="color: #003087; text-decoration: none; font-weight: 600;">Read Blog</a> • 
-                          <a href="https://usrad.com/contact" style="color: #003087; text-decoration: none; font-weight: 600;">Contact Us</a>
+                          <a href="https://usrad-platform.vercel.app" style="color: #003087; text-decoration: none; font-weight: 600;">Visit Website</a> • 
+                          <a href="https://usrad-platform.vercel.app/blog" style="color: #003087; text-decoration: none; font-weight: 600;">More Tips</a> • 
+                          <a href="https://usrad-platform.vercel.app/contact" style="color: #003087; text-decoration: none; font-weight: 600;">Contact Us</a>
                         </p>
                         
                       </td>
@@ -355,12 +294,12 @@ export async function POST({ request }) {
                       <td style="text-align: center; padding: 0 20px;">
                         <p style="color: #9ca3af; font-size: 12px; line-height: 1.6; margin: 0;">
                           © 2025 USRad. All rights reserved.<br>
-                          <a href="https://usrad.com/privacy" style="color: #6b7280; text-decoration: underline;">Privacy Policy</a> • 
-                          <a href="https://usrad.com/terms" style="color: #6b7280; text-decoration: underline;">Terms</a> • 
-                          <a href="https://usrad.com/unsubscribe" style="color: #6b7280; text-decoration: underline;">Unsubscribe</a>
+                          <a href="https://usrad-platform.vercel.app/privacy" style="color: #6b7280; text-decoration: underline;">Privacy Policy</a> • 
+                          <a href="https://usrad-platform.vercel.app/terms" style="color: #6b7280; text-decoration: underline;">Terms</a> • 
+                          <a href="https://usrad-platform.vercel.app/unsubscribe" style="color: #6b7280; text-decoration: underline;">Unsubscribe</a>
                         </p>
                         <p style="color: #d1d5db; font-size: 11px; margin: 12px 0 0;">
-                          You're receiving this because you subscribed to USRad Healthcare Insights at ${email}
+                          You're receiving this because you subscribed at ${email}
                         </p>
                       </td>
                     </tr>
@@ -374,15 +313,17 @@ export async function POST({ request }) {
           </html>
         `
       });
+      console.log('✅ Welcome email sent:', JSON.stringify(welcomeEmailResult));
     } catch (emailError) {
-      console.error('Welcome email error:', emailError);
+      console.error('❌ Welcome email error:', emailError);
+      console.error('Welcome email error details:', JSON.stringify(emailError, null, 2));
       // Continue even if welcome email fails - subscriber is saved
     }
 
     return new Response(
       JSON.stringify({ 
         success: true, 
-        message: 'Welcome! Check your email for confirmation.' 
+        message: 'Welcome! Check your email for your first healthcare tip.' 
       }), 
       { 
         status: 200,

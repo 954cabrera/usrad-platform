@@ -209,7 +209,7 @@ const categories = [
         <div class="flex flex-wrap items-center justify-center gap-6 text-sm">
           <div class="flex items-center gap-2 text-gray-600">
             <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span class="font-medium">Updated Weekly</span>
+            <span class="font-medium">Updated Monthly</span>
           </div>
           <div class="flex items-center gap-2 text-gray-600">
             <svg
@@ -502,7 +502,7 @@ const categories = [
             Stay Informed on Healthcare Costs
           </h2>
           <p class="text-lg text-blue-100 mb-8">
-            Get weekly insights on medical imaging costs, patient guides, and
+            Get monthly insights on medical imaging costs, patient guides, and
             healthcare transparency delivered to your inbox.
           </p>
 
@@ -598,8 +598,8 @@ const categories = [
           try {
             console.log("📧 Subscribing email:", email);
 
-            // Send to API - using the existing /api/subscribe-waitlist endpoint
-            const response = await fetch("/api/subscribe-waitlist", {
+            // Send to API - using the existing /api/subscribe-newsletter endpoint
+            const response = await fetch("/api/subscribe-newsletter", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

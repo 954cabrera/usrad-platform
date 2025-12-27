@@ -113,7 +113,7 @@ const serviceAreas = [
       <div class="relative z-10 max-w-2xl mx-auto text-center">
         <h3 class="text-2xl md:text-3xl font-bold mb-2">Never Miss an Update</h3>
         <p class="text-white/90 text-base md:text-lg mb-6">
-          Get weekly insights on healthcare savings and medical imaging tips delivered to your inbox
+          Get monthly insights on healthcare savings and medical imaging tips delivered to your inbox
         </p>
 
         <!-- Newsletter form -->
@@ -504,8 +504,8 @@ const serviceAreas = [
         try {
           console.log("📧 Subscribing email:", email);
 
-          // Send to API - using the existing /api/subscribe-waitlist endpoint
-          const response = await fetch("/api/subscribe-waitlist", {
+          // Send to API - using the existing /api/subscribe-newsletter endpoint
+          const response = await fetch("/api/subscribe-newsletter", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
