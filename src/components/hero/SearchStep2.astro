@@ -34,7 +34,7 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
   data-aos="fade-up"
   data-aos-delay="300"
 >
-  <form action={`${remixUrl}/pbs/search`} method="GET">
+  <form id="hero-search-form" action={`${remixUrl}/pbs/search`} method="GET">
     <!-- Compact Horizontal Row -->
     <div
       class="bg-white/90 backdrop-blur-md border-2 border-white/60 shadow-lg rounded-xl overflow-hidden"
@@ -834,6 +834,12 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
       const form = document.getElementById("hero-search-form");
       if (form) {
         form.addEventListener("submit", (e) => {
+          // ✅ Show loading overlay IMMEDIATELY
+          if (window.SearchLoadingOverlay) {
+            const procedureName = procedureHidden?.value || "MRI";
+            window.SearchLoadingOverlay.show(procedureName, "25");
+          }
+
           if (DEBUG)
             console.log("SearchStep2: Form submitting", {
               cpt: cptHidden && cptHidden.value,

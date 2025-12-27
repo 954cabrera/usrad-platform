@@ -9,6 +9,7 @@ import SearchStep1 from "./SearchStep1.astro";
 import SearchStep2 from "./SearchStep2.astro";
 import SearchDropdown from "./search/SearchDropdown.astro";
 import MobileSearchModal from "./MobileSearchModal.astro";
+import SearchLoadingOverlay from "./SearchLoadingOverlay.astro";
 
 interface Props {
   remixUrl: string;
@@ -41,6 +42,12 @@ const { remixUrl } = Astro.props;
     </div>
   </div>
 </section>
+
+<!-- ✅ OUTSIDE section for proper z-index (overlay needs to cover everything) -->
+<SearchLoadingOverlay />
+
+<!-- ✅ Script can go here or in your layout's head -->
+<script is:inline src="/js/search-transition.js"></script>33
 
 <!-- Mobile Search Modal - Moved outside section for proper z-index stacking -->
 <MobileSearchModal />
