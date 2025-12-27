@@ -1,0 +1,344 @@
+---
+// SearchLoadingOverlay.astro
+// Enterprise-grade loading overlay that appears INSTANTLY when user clicks "Find Centers"
+// This prevents the "frozen page" feeling during cross-origin navigation
+---
+
+<!-- Full-screen loading overlay - hidden by default -->
+<div
+  id="search-loading-overlay"
+  class="fixed inset-0 z-[999999] hidden"
+  aria-hidden="true"
+  role="status"
+  aria-live="polite"
+>
+  <!-- Backdrop with blur -->
+  <div class="absolute inset-0 bg-white/95 backdrop-blur-sm"></div>
+
+  <!-- Loading content -->
+  <div
+    class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4"
+  >
+    <!-- USRad Logo -->
+    <div class="mb-8 animate-pulse">
+      <img
+        src="/logo/USRad-Logo-final-rev.png"
+        alt="USRad"
+        class="h-12 w-auto"
+      />
+    </div>
+
+    <!-- Animated progress indicator -->
+    <div class="w-full max-w-md mb-8">
+      <!-- Progress bar container -->
+      <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+        <div
+          id="search-progress-bar"
+          class="h-full bg-gradient-to-r from-[#003087] to-[#00CED1] rounded-full transition-all duration-500 ease-out"
+          style="width: 0%"
+        >
+        </div>
+      </div>
+
+      <!-- Progress steps -->
+      <div class="flex justify-between mt-3 text-xs text-gray-500">
+        <span id="step-1" class="flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-[#003087]"></span>
+          Searching
+        </span>
+        <span id="step-2" class="flex items-center gap-1 opacity-50">
+          <span class="w-2 h-2 rounded-full bg-gray-300"></span>
+          Finding centers
+        </span>
+        <span id="step-3" class="flex items-center gap-1 opacity-50">
+          <span class="w-2 h-2 rounded-full bg-gray-300"></span>
+          Comparing prices
+        </span>
+      </div>
+    </div>
+
+    <!-- Dynamic status message -->
+    <div class="text-center mb-8">
+      <h2 id="loading-title" class="text-2xl font-bold text-gray-900 mb-2">
+        Finding the best prices near you...
+      </h2>
+      <p id="loading-subtitle" class="text-gray-600">
+        Searching <span
+          id="loading-procedure"
+          class="font-medium text-[#003087]">MRI</span
+        >
+        centers within <span id="loading-radius" class="font-medium"
+          >25 miles</span
+        >
+      </p>
+    </div>
+
+    <!-- Skeleton preview of what's coming -->
+    <div
+      class="w-full max-w-2xl bg-white rounded-xl shadow-lg p-6 border border-gray-100"
+    >
+      <div class="flex items-start gap-4 animate-pulse">
+        <!-- Facility icon skeleton -->
+        <div class="w-16 h-16 bg-gray-200 rounded-lg flex-shrink-0"></div>
+
+        <!-- Content skeleton -->
+        <div class="flex-1 space-y-3">
+          <div class="h-5 bg-gray-200 rounded w-3/4"></div>
+          <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+          <div class="flex gap-2">
+            <div class="h-6 bg-green-100 rounded-full w-20"></div>
+            <div class="h-6 bg-blue-100 rounded-full w-24"></div>
+          </div>
+        </div>
+
+        <!-- Price skeleton -->
+        <div class="text-right space-y-2">
+          <div class="h-8 bg-gray-200 rounded w-24 ml-auto"></div>
+          <div class="h-4 bg-gray-200 rounded w-16 ml-auto"></div>
+        </div>
+      </div>
+
+      <!-- More results hint -->
+      <div
+        class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-center gap-2 text-sm text-gray-500"
+      >
+        <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+        <span>Loading more centers...</span>
+      </div>
+    </div>
+
+    <!-- Trust signals -->
+    <div class="mt-8 flex flex-wrap justify-center gap-6 text-sm text-gray-500">
+      <div class="flex items-center gap-2">
+        <svg
+          class="w-5 h-5 text-green-500"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd"></path>
+        </svg>
+        <span>Save up to 70%</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <svg
+          class="w-5 h-5 text-green-500"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd"></path>
+        </svg>
+        <span>1,500+ centers</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <svg
+          class="w-5 h-5 text-green-500"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd"></path>
+        </svg>
+        <span>No insurance needed</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // SearchLoadingOverlay Controller
+  window.SearchLoadingOverlay = {
+    overlay: null,
+    progressBar: null,
+    progressInterval: null,
+    currentProgress: 0,
+
+    init() {
+      this.overlay = document.getElementById("search-loading-overlay");
+      this.progressBar = document.getElementById("search-progress-bar");
+    },
+
+    show(procedureName = "MRI", radius = "25") {
+      if (!this.overlay) this.init();
+
+      // Update dynamic content
+      const procEl = document.getElementById("loading-procedure");
+      const radiusEl = document.getElementById("loading-radius");
+      if (procEl) procEl.textContent = procedureName;
+      if (radiusEl) radiusEl.textContent = radius + " miles";
+
+      // Show overlay
+      this.overlay.classList.remove("hidden");
+      this.overlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+
+      // Start progress animation
+      this.startProgress();
+    },
+
+    hide() {
+      if (!this.overlay) return;
+
+      this.overlay.classList.add("hidden");
+      this.overlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+
+      this.stopProgress();
+    },
+
+    startProgress() {
+      this.currentProgress = 0;
+
+      // Simulate realistic loading progress
+      const stages = [
+        {
+          target: 25,
+          duration: 800,
+          step: 1,
+          title: "Locating imaging centers...",
+          subtitle: "Searching nearby facilities",
+        },
+        {
+          target: 50,
+          duration: 1500,
+          step: 2,
+          title: "Comparing prices...",
+          subtitle: "Finding the best deals",
+        },
+        {
+          target: 75,
+          duration: 2000,
+          step: 3,
+          title: "Almost ready...",
+          subtitle: "Preparing your results",
+        },
+        {
+          target: 90,
+          duration: 3000,
+          step: 3,
+          title: "Finalizing...",
+          subtitle: "Just a moment more",
+        },
+      ];
+
+      let stageIndex = 0;
+
+      const updateProgress = () => {
+        if (stageIndex >= stages.length) return;
+
+        const stage = stages[stageIndex];
+
+        // Update step indicators
+        this.updateSteps(stage.step);
+
+        // Update titles
+        const titleEl = document.getElementById("loading-title");
+        const subtitleEl = document.getElementById("loading-subtitle");
+        if (titleEl) titleEl.textContent = stage.title;
+
+        // Animate progress bar
+        const increment =
+          (stage.target - this.currentProgress) / (stage.duration / 50);
+
+        this.progressInterval = setInterval(() => {
+          this.currentProgress += increment;
+
+          if (this.currentProgress >= stage.target) {
+            this.currentProgress = stage.target;
+            clearInterval(this.progressInterval);
+            stageIndex++;
+
+            // Move to next stage after a brief pause
+            setTimeout(updateProgress, 200);
+          }
+
+          if (this.progressBar) {
+            this.progressBar.style.width = this.currentProgress + "%";
+          }
+        }, 50);
+      };
+
+      updateProgress();
+    },
+
+    updateSteps(activeStep) {
+      for (let i = 1; i <= 3; i++) {
+        const stepEl = document.getElementById(`step-${i}`);
+        if (!stepEl) continue;
+
+        const dot = stepEl.querySelector("span");
+
+        if (i < activeStep) {
+          // Completed
+          stepEl.classList.remove("opacity-50");
+          if (dot) dot.classList.replace("bg-gray-300", "bg-green-500");
+        } else if (i === activeStep) {
+          // Active
+          stepEl.classList.remove("opacity-50");
+          if (dot) dot.classList.replace("bg-gray-300", "bg-[#003087]");
+        } else {
+          // Pending
+          stepEl.classList.add("opacity-50");
+        }
+      }
+    },
+
+    stopProgress() {
+      if (this.progressInterval) {
+        clearInterval(this.progressInterval);
+        this.progressInterval = null;
+      }
+      this.currentProgress = 0;
+      if (this.progressBar) {
+        this.progressBar.style.width = "0%";
+      }
+    },
+  };
+
+  // Auto-init on page load
+  document.addEventListener("DOMContentLoaded", () => {
+    window.SearchLoadingOverlay.init();
+  });
+
+  // Also init on Astro page transitions
+  document.addEventListener("astro:page-load", () => {
+    window.SearchLoadingOverlay.init();
+  });
+</script>
+
+<style>
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  #search-loading-overlay .animate-pulse > div {
+    background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+</style>
