@@ -9,9 +9,26 @@ import { buildUniversalIndex, type ProcedureIndexEntry, BODY_PART_ALIASES } from
 // ======================================================
 // QUERY ALIAS EXPANSION
 // ======================================================
-// Converts "elbow" → "elbow upper extremity arm" before matching
+// ======================================================
+// QUERY ALIAS EXPANSION
+// ======================================================
+// Converts "elbow" -> "elbow upper extremity arm" before matching
+// Also handles common variations like "xray" -> "xray x-ray x ray"
 function expandQueryWithAliases(query: string): string {
-  const q = query.toLowerCase();
+  let q = query.toLowerCase();
+  
+  // Handle X-Ray variations - expand "xray" to include all forms
+  if (q === 'xray' || q === 'x-ray' || q === 'x ray') {
+    q = 'xray x-ray x ray';
+  } else if (q.startsWith('xray ') || q.includes(' xray')) {
+    q = q.replace(/\bxray\b/g, 'xray x-ray x ray');
+  } else if (q.startsWith('x-ray ') || q.includes(' x-ray')) {
+    q = q.replace(/\bx-ray\b/g, 'xray x-ray x ray');
+  } else if (q.startsWith('x ray ') || q.includes(' x ray')) {
+    q = q.replace(/\bx ray\b/g, 'xray x-ray x ray');
+  }
+  
+  // Expand body part aliases
   for (const [key, aliases] of Object.entries(BODY_PART_ALIASES)) {
     if (q.includes(key)) return [q, ...aliases].join(" ");
   }
@@ -34,7 +51,7 @@ function detectIntent(input: string): "cpt" | "modality" | "bodyPart" | "mixed" 
   if (/^\d{5}$/.test(normalized)) return "cpt";
   
   // Modality keywords
-  if (/^(mri|ct|xray|x-ray|ultrasound|us)$/i.test(normalized)) return "modality";
+  if (/^(mri|ct|xray|x-ray|x ray|ultrasound|us)$/i.test(normalized)) return "modality";
   
   // Common body parts
   if (/^(brain|chest|abdomen|knee|shoulder|neck|leg|foot|spine|pelvis|head|heart|liver|kidney)$/i.test(normalized)) {
@@ -52,10 +69,16 @@ function getMatchScore(entry: ProcedureIndexEntry, query: string): number {
   if (entry.cpt === q) return 120;
   
   // Direct substring match in searchable text
+  if // Direct substring match in searchable text
   if (s.includes(q)) return 100;
   
+  // Handle xray variations - check if normalized query matches
+  const qNoHyphen = q.replace(/-/g, '').replace(/\s+/g, '');
+  const sNoHyphen = s.replace(/-/g, '').replace(/\s+/g, '');
+  if (sNoHyphen.includes(qNoHyphen)) return 95;
+  
   // Tag match
-  if (entry.tags.some(t => t.includes(q))) return 90;
+  if (entry.tags.some(t => t.includes(q) || t.replace(/-/g, '').includes(qNoHyphen))) return 90;
   
   // Body part match
   if (entry.bodyPart.toLowerCase().includes(q)) return 80;
@@ -102,29 +125,6 @@ export function searchUniversalProcedures(query: string, limit = 8): ProcedureIn
   return results;
 }
 
-
-
-  // Build index fresh each time to ensure it has latest data
-  const index = buildUniversalIndex();
-  
-  if (index.length === 0) {
-    console.warn('âš ï¸ Universal index is empty');
-    return [];
-  }
-
-  const intent = detectIntent(q);
-
-  const results = index
-    .map(entry => ({
-      ...entry,
-      score: getMatchScore(entry, q)
-    }))
-    .filter(e => e.score > 0)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, limit);
-
-  return results;
-}
 
 // Optional: group by modality for display
 export function groupResultsByModality(results: ProcedureIndexEntry[]): Record<string, ProcedureIndexEntry[]> {

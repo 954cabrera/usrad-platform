@@ -225,6 +225,32 @@ export function normalizeProcedureName(name: string): string {
 }
 
 /**
+ * Normalize X-Ray variations to a canonical form
+ * Converts: "x-ray", "x ray", "xray" all to "xray"
+ * This ensures all X-Ray search variations match correctly
+ * 
+ * @param text - Text to normalize
+ * @returns Text with X-Ray variations normalized to "xray"
+ */
+function normalizeXRayText(text: string): string {
+  return text
+    .replace(/x-ray/gi, 'xray')
+    .replace(/x ray/gi, 'xray');
+}
+
+/**
+ * Enhanced normalization that handles both general text and X-Ray synonyms
+ * Use this for search matching to ensure "xray", "x-ray", and "x ray" all match
+ * 
+ * @param text - Text to normalize
+ * @returns Fully normalized text ready for comparison
+ */
+function normalizeForSearch(text: string): string {
+  const basicNormalized = normalizeProcedureName(text);
+  return normalizeXRayText(basicNormalized);
+}
+
+/**
  * Search procedures by query string
  * Searches across CPT codes, names, categories, body parts, and aliases
  * 
@@ -242,7 +268,8 @@ export function searchProcedures(query: string, limit: number = 10): ProcedureMe
     return [];
   }
 
-  const normalizedQuery = normalizeProcedureName(query);
+  // Use normalizeForSearch to handle X-Ray synonyms
+  const normalizedQuery = normalizeForSearch(query);
   const queryTokens = normalizedQuery.split(' ').filter(t => t.length > 0);
 
   // Score each procedure based on match quality
@@ -259,7 +286,8 @@ export function searchProcedures(query: string, limit: number = 10): ProcedureMe
       score += 500;
     }
 
-    const normalizedName = normalizeProcedureName(procedure.name);
+    // Use normalizeForSearch for all text comparisons to handle X-Ray synonyms
+    const normalizedName = normalizeForSearch(procedure.name);
 
     // Exact name match
     if (normalizedName === normalizedQuery) {
@@ -286,7 +314,7 @@ export function searchProcedures(query: string, limit: number = 10): ProcedureMe
 
     // Category match
     if (procedure.category) {
-      const normalizedCategory = normalizeProcedureName(procedure.category);
+      const normalizedCategory = normalizeForSearch(procedure.category);
       if (normalizedCategory.includes(normalizedQuery)) {
         score += 100;
       }
@@ -299,7 +327,7 @@ export function searchProcedures(query: string, limit: number = 10): ProcedureMe
 
     // Body part match
     if (procedure.bodyPart) {
-      const normalizedBodyPart = normalizeProcedureName(procedure.bodyPart);
+      const normalizedBodyPart = normalizeForSearch(procedure.bodyPart);
       if (normalizedBodyPart.includes(normalizedQuery)) {
         score += 100;
       }
@@ -310,18 +338,24 @@ export function searchProcedures(query: string, limit: number = 10): ProcedureMe
       });
     }
 
-    // Modality match
+    // Modality match - critical for X-Ray searches
     if (procedure.modality) {
-      const normalizedModality = normalizeProcedureName(procedure.modality);
+      const normalizedModality = normalizeForSearch(procedure.modality);
       if (normalizedModality.includes(normalizedQuery)) {
         score += 150;
       }
+      // Also check if query tokens match modality
+      queryTokens.forEach(token => {
+        if (normalizedModality.includes(token)) {
+          score += 75;
+        }
+      });
     }
 
     // Alias matches
     if (procedure.aliases && Array.isArray(procedure.aliases)) {
       procedure.aliases.forEach(alias => {
-        const normalizedAlias = normalizeProcedureName(alias);
+        const normalizedAlias = normalizeForSearch(alias);
         if (normalizedAlias === normalizedQuery) {
           score += 600;
         } else if (normalizedAlias.includes(normalizedQuery)) {
@@ -337,7 +371,7 @@ export function searchProcedures(query: string, limit: number = 10): ProcedureMe
 
     // Use case and description matches (lower priority)
     if (procedure.useCase) {
-      const normalizedUseCase = normalizeProcedureName(procedure.useCase);
+      const normalizedUseCase = normalizeForSearch(procedure.useCase);
       queryTokens.forEach(token => {
         if (normalizedUseCase.includes(token)) {
           score += 10;
@@ -346,7 +380,7 @@ export function searchProcedures(query: string, limit: number = 10): ProcedureMe
     }
 
     if (procedure.description) {
-      const normalizedDescription = normalizeProcedureName(procedure.description);
+      const normalizedDescription = normalizeForSearch(procedure.description);
       queryTokens.forEach(token => {
         if (normalizedDescription.includes(token)) {
           score += 5;
