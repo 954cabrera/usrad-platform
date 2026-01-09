@@ -1,8 +1,7 @@
 ---
-// index-carbon.astro - Complete working version built from v2
+// index.astro - Optimized version
 import CarbonLayout from "../layouts/CarbonLayout.astro";
 import NetworkMapPinsCarbon from "../components/NetworkMapPinsCarbon.astro";
-import AOSInit from "../components/AOSInit.astro";
 import SocialProofBar from "../components/SocialProofBar.astro";
 import HowItWorksSection from "../components/HowItWorksSection.astro";
 import PricingSection from "../components/PricingSection.astro";
@@ -15,15 +14,6 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
 ---
 
 <CarbonLayout title="USRad - MRI Scans in 48 Hours, 70% Less" isHeroPage={true}>
-  <meta name="remix-url" content={REMIX_URL} />
-
-  <!-- Preload blog images for faster rendering -->
-  <link rel="preload" as="image" href="/images/blog/trust-duo.webp" />
-  <link rel="preload" as="image" href="/images/blog/tech-patient.webp" />
-  <link rel="preload" as="image" href="/images/blog/cost-comparison.webp" />
-
-  <!-- <AOSInit /> -->
-
   <!-- PROGRESSIVE DISCLOSURE HERO SECTION -->
   <HeroSection remixUrl={REMIX_URL} />
 
@@ -39,20 +29,15 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
   <PricingSection />
 
   <!-- Locations Map Section -->
-  <section class="py-16 sm:py-24 px-4 sm:px-6 bg-white" data-aos="fade-up">
+  <section class="py-16 sm:py-24 px-4 sm:px-6 bg-white">
     <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
+      <div class="text-center mb-16 animate-on-scroll">
         <h2
           class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-gray-900"
-          data-aos="fade-up"
         >
           1,500+ locations nationwide
         </h2>
-        <p
-          class="text-2xl text-gray-600"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
+        <p class="text-2xl text-gray-600">
           Quality imaging centers competing for your business
         </p>
       </div>
@@ -63,6 +48,31 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
   <!-- About Section -->
   <AboutSection />
 
-  <!-- NEW: Blog Preview Section -->
+  <!-- Blog Preview Section -->
   <BlogPreviewSection />
 </CarbonLayout>
+
+<style>
+  /* CSS-only scroll animations - no JS dependency */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Optional: Use Intersection Observer via CSS if you want scroll-triggered animations */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-on-scroll {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+</style>

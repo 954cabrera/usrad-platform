@@ -20,14 +20,12 @@ const { remixUrl } = Astro.props;
 
 <script type="module">
   await import("/js/procedure-data.js");
-  // Procedure data loaded - always silent in production
 </script>
 
 <section
   id="hero-section"
-  class="relative pt-40 pb-24 px-4 sm:px-6 bg-[#003087] text-white overflow-visible"
+  class="relative pt-40 pb-24 px-4 sm:px-6 bg-[#003087] text-white overflow-visible hero-animate"
   style="margin-top: -32px;"
-  data-aos="fade-up"
 >
   <HeroBackground />
 
@@ -43,18 +41,16 @@ const { remixUrl } = Astro.props;
   </div>
 </section>
 
-<!-- ✅ OUTSIDE section for proper z-index (overlay needs to cover everything) -->
+<!-- OUTSIDE section for proper z-index (overlay needs to cover everything) -->
 <SearchLoadingOverlay />
 
-<!-- ✅ Script can go here or in your layout's head -->
-<script is:inline src="/js/search-transition.js"></script>33
+<!-- Script loaded externally -->
+<script is:inline src="/js/search-transition.js"></script>
 
 <!-- Mobile Search Modal - Moved outside section for proper z-index stacking -->
 <MobileSearchModal />
-<!-- ✅ OUTSIDE section -->
 
 <!-- DROPDOWN PORTAL - Positioned outside hero section for proper z-index stacking -->
-<!-- This prevents the SocialProofBar from covering the dropdown -->
 <SearchDropdown />
 
 <div
@@ -110,7 +106,7 @@ const { remixUrl } = Astro.props;
   }
 
   // Debug flag - set to false for production
-  const DEBUG = false; // Legacy debug flag
+  const DEBUG = false;
 
   import {
     USE_NEW_PROCEDURE_ENGINE,
@@ -123,7 +119,7 @@ const { remixUrl } = Astro.props;
     getIndexStats,
   } from "../../lib/procedure-resolver";
 
-  // ✅ CRITICAL: Expose searchManager to window for other components
+  // CRITICAL: Expose searchManager to window for other components
   window.searchManager = searchManager;
   window.isMobileViewport = () => window.innerWidth < 768;
 
@@ -153,9 +149,7 @@ const { remixUrl } = Astro.props;
         popularProcs = allProcs;
       }
 
-      // ✅ CRITICAL: Pass raw nested objects, NOT flattened arrays
-      // SearchManager.flattenProcedures() expects this structure:
-      // { brain: { procedures: [...] }, knee: { procedures: [...] } }
+      // CRITICAL: Pass raw nested objects, NOT flattened arrays
       searchManager.initialize(
         lib.MRI || {},
         lib.CT || {},
@@ -251,5 +245,27 @@ const { remixUrl } = Astro.props;
   #search-backdrop:not(.hidden) {
     opacity: 1;
     pointer-events: auto;
+  }
+
+  /* CSS-only hero animation */
+  .hero-animate {
+    animation: heroFadeIn 0.5s ease-out;
+  }
+
+  @keyframes heroFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-animate {
+      animation: none;
+    }
   }
 </style>
