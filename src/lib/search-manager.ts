@@ -148,11 +148,11 @@ class SearchManager {
       }
       
       // Use New Engine results for UI
-      this.state.searchResults = newEngineResults.slice(0, 20);
+      this.state.searchResults = newEngineResults.slice(0, 50);
     } else {
       // Legacy Engine is active
       const legacyResults = this.performLegacySearch(query);
-      this.state.searchResults = legacyResults.slice(0, 20);
+      this.state.searchResults = legacyResults.slice(0, 50);
     }
 
     console.log('SearchManager: Search', {
@@ -170,7 +170,7 @@ class SearchManager {
     }
 
     // Call New Engine search
-    const newEngineResults = newEngineSearch(query, 20);
+    const newEngineResults = newEngineSearch(query, 50);
 
     // Map New Engine ProcedureMetadata to UI Procedure shape
     return newEngineResults.map(proc => ({
