@@ -2,6 +2,8 @@
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://usrad-platform.vercel.app';
+
 const supabase = createClient(
   import.meta.env.PUBLIC_SUPABASE_URL,
   import.meta.env.SUPABASE_SERVICE_ROLE_KEY
@@ -200,7 +202,7 @@ export async function POST({ request }) {
                               <p style="color: #92400e; font-size: 16px; line-height: 1.7; margin: 0 0 24px;">
                                 <strong>The takeaway:</strong> Always ask for cash-pay pricing at independent imaging centers before using your insurance. You might save thousands.
                               </p>
-                              <a href="https://usrad-platform.vercel.app/blog/real-cost-of-mri" style="display: inline-block; background: linear-gradient(135deg, #003087 0%, #0047ab 100%); color: #ffffff; font-size: 16px; font-weight: 700; padding: 14px 28px; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 15px rgba(0, 48, 135, 0.3);">
+                              <a href="${SITE_URL}/blog/real-cost-of-mri" style="display: inline-block; background: linear-gradient(135deg, #003087 0%, #0047ab 100%); color: #ffffff; font-size: 16px; font-weight: 700; padding: 14px 28px; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 15px rgba(0, 48, 135, 0.3);">
                                 Read the Full Article →
                               </a>
                             </td>
@@ -232,7 +234,7 @@ export async function POST({ request }) {
                               <p style="color: rgba(255, 255, 255, 0.9); font-size: 16px; line-height: 1.6; margin: 0 0 24px;">
                                 Skip the hospital markup. Get transparent pricing in seconds.
                               </p>
-                              <a href="https://usrad-platform.vercel.app" style="display: inline-block; background: linear-gradient(135deg, #cc9933 0%, #b38829 100%); color: #ffffff; font-size: 17px; font-weight: 700; padding: 16px 40px; border-radius: 50px; text-decoration: none; box-shadow: 0 8px 20px rgba(204, 153, 51, 0.3);">
+                              <a href="${SITE_URL}" style="display: inline-block; background: linear-gradient(135deg, #cc9933 0%, #b38829 100%); color: #ffffff; font-size: 17px; font-weight: 700; padding: 16px 40px; border-radius: 50px; text-decoration: none; box-shadow: 0 8px 20px rgba(204, 153, 51, 0.3);">
                                 Find Pricing Near You →
                               </a>
                             </td>
@@ -278,9 +280,9 @@ export async function POST({ request }) {
                         </p>
                         
                         <p style="color: #9ca3af; font-size: 13px; line-height: 1.6; margin: 0;">
-                          <a href="https://usrad-platform.vercel.app" style="color: #003087; text-decoration: none; font-weight: 600;">Visit Website</a> • 
-                          <a href="https://usrad-platform.vercel.app/blog" style="color: #003087; text-decoration: none; font-weight: 600;">More Tips</a> • 
-                          <a href="https://usrad-platform.vercel.app/contact" style="color: #003087; text-decoration: none; font-weight: 600;">Contact Us</a>
+                          <a href="${SITE_URL}" style="color: #003087; text-decoration: none; font-weight: 600;">Visit Website</a> • 
+                          <a href="${SITE_URL}/blog" style="color: #003087; text-decoration: none; font-weight: 600;">More Tips</a> • 
+                          <a href="${SITE_URL}/contact" style="color: #003087; text-decoration: none; font-weight: 600;">Contact Us</a>
                         </p>
                         
                       </td>
@@ -294,9 +296,9 @@ export async function POST({ request }) {
                       <td style="text-align: center; padding: 0 20px;">
                         <p style="color: #9ca3af; font-size: 12px; line-height: 1.6; margin: 0;">
                           © 2025 USRad. All rights reserved.<br>
-                          <a href="https://usrad-platform.vercel.app/privacy" style="color: #6b7280; text-decoration: underline;">Privacy Policy</a> • 
-                          <a href="https://usrad-platform.vercel.app/terms" style="color: #6b7280; text-decoration: underline;">Terms</a> • 
-                          <a href="https://usrad-platform.vercel.app/unsubscribe" style="color: #6b7280; text-decoration: underline;">Unsubscribe</a>
+                          <a href="${SITE_URL}/privacy" style="color: #6b7280; text-decoration: underline;">Privacy Policy</a> • 
+                          <a href="${SITE_URL}/terms" style="color: #6b7280; text-decoration: underline;">Terms</a> • 
+                          <a href="${SITE_URL}/unsubscribe" style="color: #6b7280; text-decoration: underline;">Unsubscribe</a>
                         </p>
                         <p style="color: #d1d5db; font-size: 11px; margin: 12px 0 0;">
                           You're receiving this because you subscribed at ${email}

@@ -1,4 +1,5 @@
 ---
+const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://usrad-portal.vercel.app';
 // src/components/provider/ConsultationCTA.astro
 // OPTIMIZED VERSION - Enhanced Visual Hierarchy & Conversion Focus
 ---
@@ -172,7 +173,7 @@
         <div class="cta-buttons-stack" data-aos="fade-up" data-aos-delay="600">
           <!-- Primary: Join Now - MUCH MORE PROMINENT -->
           <a
-            href="https://usrad-portal.vercel.app/signup"
+            href={`${REMIX_URL}/signup`}
             class="btn-primary-large"
           >
             <div class="btn-shine"></div>

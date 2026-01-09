@@ -1,6 +1,7 @@
 // src/pages/api/provider-consultation.js
 import { Resend } from 'resend';
 
+const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://usrad-portal.vercel.app';
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export const POST = async ({ request }) => {
@@ -476,7 +477,7 @@ export const POST = async ({ request }) => {
           <!-- CTA Button -->
           <tr>
             <td style="padding: 0 30px 30px 30px; text-align: center;">
-              <a href="https://usrad-portal.vercel.app/signup" style="display: inline-block; background: linear-gradient(135deg, #cc9933 0%, #b8861f 100%); color: white; text-decoration: none; padding: 16px 40px; border-radius: 8px; font-weight: 700; font-size: 18px; box-shadow: 0 4px 15px rgba(204, 153, 51, 0.3);">
+              <a href="${REMIX_URL}/signup" style="display: inline-block; background: linear-gradient(135deg, #cc9933 0%, #b8861f 100%); color: white; text-decoration: none; padding: 16px 40px; border-radius: 8px; font-weight: 700; font-size: 18px; box-shadow: 0 4px 15px rgba(204, 153, 51, 0.3);">
                 Complete Your Signup →
               </a>
             </td>

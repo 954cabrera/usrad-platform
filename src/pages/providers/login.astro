@@ -2,6 +2,8 @@
 // src/pages/providers/login.astro
 import ProviderLayout from "../../layouts/ProviderLayout.astro";
 export const prerender = false;
+const REMIX_URL =
+  import.meta.env.PUBLIC_REMIX_URL || "https://usrad-portal.vercel.app";
 ---
 
 <ProviderLayout title="Provider Login">
@@ -52,7 +54,9 @@ export const prerender = false;
 
         <div class="login-footer">
           <p>
-            Don't have an account? <a href="https://usrad-portal.vercel.app/signup">Join our network</a
+            Don't have an account? <a href={`${REMIX_URL}/signup`}
+              >Join our network</a
+            >
             >
           </p>
           <a href="/providers/forgot-password">Forgot password?</a>

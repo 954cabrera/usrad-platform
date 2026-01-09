@@ -2,6 +2,8 @@
 // Email verification page for providers - Magic Link version
 // File: /src/pages/providers/check-email.astro
 export const prerender = false;
+const REMIX_URL =
+  import.meta.env.PUBLIC_REMIX_URL || "https://usrad-portal.vercel.app";
 ---
 
 <html lang="en">
@@ -359,7 +361,7 @@ export const prerender = false;
         </div>
       </div>
 
-      <a href="https://usrad-portal.vercel.app/signup" class="back-link">
+      <a href={`${REMIX_URL}/signup`} class="back-link">
         <svg
           width="16"
           height="16"

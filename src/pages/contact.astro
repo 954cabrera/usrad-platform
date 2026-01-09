@@ -4,6 +4,8 @@ import AOSInit from "../components/AOSInit.astro";
 import ContactHero from "../components/ContactHero.astro";
 
 export const prerender = true;
+const REMIX_URL =
+  import.meta.env.PUBLIC_REMIX_URL || "https://usrad-portal.vercel.app";
 ---
 
 <CarbonLayout title="Contact USRad - Get Answers in Minutes" isHeroPage={false}>
@@ -671,7 +673,7 @@ export const prerender = true;
             delivered over 168,000 appointments
           </p>
           <a
-            href="https://usrad-portal.vercel.app/signup"
+            href={`${REMIX_URL}/signup`}
             class="inline-block bg-[#003087] hover:bg-[#002266] text-white px-10 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg"
           >
             Join our network →
