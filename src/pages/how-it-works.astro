@@ -857,9 +857,11 @@ export const prerender = true;
           <!-- Immediately -->
           <div class="timeline-item" data-aos="fade-up">
             <div class="flex gap-6">
-              <div class="timeline-marker bg-green-500">
+              <div
+                class="timeline-marker bg-green-500 flex items-center justify-center"
+              >
                 <svg
-                  class="w-6 h-6"
+                  class="w-6 h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -871,15 +873,16 @@ export const prerender = true;
                     d="M5 13l4 4L19 7"></path>
                 </svg>
               </div>
+
               <div class="flex-1">
                 <h3 class="text-2xl font-bold mb-2">Immediately</h3>
                 <p class="text-white/80 mb-4">
                   Confirmation sent to your email and phone with all details
                 </p>
-                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                  <p class="text-sm">✉️ Email confirmation with directions</p>
-                  <p class="text-sm mt-2">📱 Text reminder 24 hours before</p>
-                  <p class="text-sm mt-2">📄 Pre-visit instructions</p>
+                <div class="space-y-2 text-sm text-white/80">
+                  <p>• Email confirmation with directions</p>
+                  <p>• Text reminder 24 hours before</p>
+                  <p>• Pre-visit instructions</p>
                 </div>
               </div>
             </div>
@@ -888,25 +891,33 @@ export const prerender = true;
           <!-- Day of Scan -->
           <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
             <div class="flex gap-6">
-              <div class="timeline-marker bg-teal-500">
-                <span class="text-xl">🏥</span>
+              <div
+                class="timeline-marker bg-green-500/70 flex items-center justify-center"
+              >
+                <img
+                  src="/images/icons/schedule.svg"
+                  alt="Scheduled scan"
+                  class="w-6 h-6 brightness-0 invert opacity-90"
+                />
               </div>
+
               <div class="flex-1">
                 <h3 class="text-2xl font-bold mb-2">Day of Your Scan</h3>
                 <p class="text-white/80 mb-4">
                   Simple check-in, comfortable experience, professional care
                 </p>
+
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div class="text-center p-4 bg-white/10 rounded-lg">
-                    <p class="text-3xl mb-2">5 min</p>
+                    <p class="text-3xl mb-1">5 min</p>
                     <p class="text-sm text-white/70">Check-in time</p>
                   </div>
                   <div class="text-center p-4 bg-white/10 rounded-lg">
-                    <p class="text-3xl mb-2">20-45 min</p>
+                    <p class="text-3xl mb-1">20–45 min</p>
                     <p class="text-sm text-white/70">Scan duration</p>
                   </div>
                   <div class="text-center p-4 bg-white/10 rounded-lg">
-                    <p class="text-3xl mb-2">0 min</p>
+                    <p class="text-3xl mb-1">0 min</p>
                     <p class="text-sm text-white/70">Wait for results</p>
                   </div>
                 </div>
@@ -914,23 +925,35 @@ export const prerender = true;
             </div>
           </div>
 
-          <!-- 24-48 Hours -->
+          <!-- 24–48 Hours -->
           <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
             <div class="flex gap-6">
-              <div class="timeline-marker bg-[#cc9933]">
-                <span class="text-xl">📊</span>
+              <div
+                class="timeline-marker bg-white/10 border border-white/10 flex items-center justify-center"
+              >
+                <img
+                  src="/images/icons/medical-record.svg"
+                  alt="Radiology results"
+                  class="w-8 h-8 brightness-0 invert opacity-80"
+                />
               </div>
+
               <div class="flex-1">
-                <h3 class="text-2xl font-bold mb-2">24-48 Hours Later</h3>
+                <h3 class="text-2xl font-bold mb-2">24–48 Hours Later</h3>
                 <p class="text-white/80 mb-4">
                   Board-certified radiologist reviews and results delivered
                 </p>
+
                 <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6">
                   <div class="flex items-center gap-4 mb-4">
                     <div
-                      class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center"
+                      class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center border border-white/10"
                     >
-                      <span class="text-2xl">👨‍⚕️</span>
+                      <img
+                        src="/images/icons/medical-professional.svg"
+                        alt="Radiologist"
+                        class="w-6 h-6 brightness-0 invert opacity-80"
+                      />
                     </div>
                     <div>
                       <p class="font-semibold">
@@ -941,6 +964,7 @@ export const prerender = true;
                       </p>
                     </div>
                   </div>
+
                   <p class="text-sm text-white/80">
                     Results sent directly to you and your doctor
                   </p>
