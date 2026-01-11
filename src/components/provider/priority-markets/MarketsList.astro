@@ -15,13 +15,55 @@
       <h4 class="text-sm text-[#cc9933] uppercase tracking-wider">
         Tier 1 Markets
       </h4>
-      <div class="bg-[#cc9933]/10 rounded-lg p-3 border border-[#cc9933]/30">
-        <div class="font-medium text-white">Florida</div>
-        <div class="text-xs text-[#cc9933]">HQ • Miami-Ft. Lauderdale</div>
+      <div
+        class="bg-[#cc9933]/10 rounded-lg p-3 border border-[#cc9933]/30 cursor-pointer hover:bg-[#cc9933]/20 transition-colors group"
+        data-market="miami"
+      >
+        <div class="flex justify-between items-start">
+          <div>
+            <div class="font-medium text-white">Florida</div>
+            <div class="text-xs text-[#cc9933]">HQ • Miami-Ft. Lauderdale</div>
+          </div>
+          <div class="flex items-center gap-1">
+            <span
+              class="text-[10px] text-[#cc9933] opacity-0 group-hover:opacity-100 transition-opacity"
+              >View Analysis →</span
+            >
+            <span class="relative flex h-2 w-2">
+              <span
+                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#cc9933] opacity-75"
+              ></span>
+              <span
+                class="relative inline-flex rounded-full h-2 w-2 bg-[#cc9933]"
+              ></span>
+            </span>
+          </div>
+        </div>
       </div>
-      <div class="bg-[#cc9933]/10 rounded-lg p-3 border border-[#cc9933]/30">
-        <div class="font-medium text-white">Texas</div>
-        <div class="text-xs text-gray-400">Houston • Dallas • Austin</div>
+      <div
+        class="bg-[#cc9933]/10 rounded-lg p-3 border border-[#cc9933]/30 cursor-pointer hover:bg-[#cc9933]/20 transition-colors group"
+        data-market="dallas"
+      >
+        <div class="flex justify-between items-start">
+          <div>
+            <div class="font-medium text-white">Texas</div>
+            <div class="text-xs text-gray-400">Houston • Dallas • Austin</div>
+          </div>
+          <div class="flex items-center gap-1">
+            <span
+              class="text-[10px] text-[#cc9933] opacity-0 group-hover:opacity-100 transition-opacity"
+              >View Analysis →</span
+            >
+            <span class="relative flex h-2 w-2">
+              <span
+                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#cc9933] opacity-75"
+              ></span>
+              <span
+                class="relative inline-flex rounded-full h-2 w-2 bg-[#cc9933]"
+              ></span>
+            </span>
+          </div>
+        </div>
       </div>
       <div class="bg-[#cc9933]/10 rounded-lg p-3 border border-[#cc9933]/30">
         <div class="font-medium text-white">California</div>
@@ -50,9 +92,30 @@
         <div class="font-medium text-white">Ohio</div>
         <div class="text-xs text-gray-400">Cleveland • Columbus</div>
       </div>
-      <div class="bg-white/5 rounded-lg p-3 border border-gray-700">
-        <div class="font-medium text-white">Georgia</div>
-        <div class="text-xs text-gray-400">Atlanta Metro</div>
+      <div
+        class="bg-white/5 rounded-lg p-3 border border-gray-700 cursor-pointer hover:bg-white/10 transition-colors group"
+        data-market="atlanta"
+      >
+        <div class="flex justify-between items-start">
+          <div>
+            <div class="font-medium text-white">Georgia</div>
+            <div class="text-xs text-gray-400">Atlanta Metro</div>
+          </div>
+          <div class="flex items-center gap-1">
+            <span
+              class="text-[10px] text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity"
+              >View Analysis →</span
+            >
+            <span class="relative flex h-2 w-2">
+              <span
+                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"
+              ></span>
+              <span
+                class="relative inline-flex rounded-full h-2 w-2 bg-blue-400"
+              ></span>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -67,3 +130,19 @@
     </div>
   </div>
 </div>
+
+<script>
+  // MarketScope integration - dispatch event when market is clicked
+  document.querySelectorAll("[data-market]").forEach((card) => {
+    card.addEventListener("click", () => {
+      const market = card.dataset.market;
+      if (market) {
+        window.dispatchEvent(
+          new CustomEvent("usrad:selectMarket", {
+            detail: { market },
+          })
+        );
+      }
+    });
+  });
+</script>

@@ -1,16 +1,17 @@
 ---
 // MarketScopeShowcase.astro
 // Showcases USRad MarketScope™ intelligence features for prospective providers
+// Supports dynamic market switching from PriorityMarketsMap
+const REMIX_URL =
+  import.meta.env.PUBLIC_REMIX_URL || "https://usrad-portal.vercel.app";
 ---
 
 <section id="market-analysis" class="marketscope-section">
-  <!-- Decorative background elements -->
   <div class="bg-pattern"></div>
   <div class="gradient-orb gradient-orb-1"></div>
   <div class="gradient-orb gradient-orb-2"></div>
 
   <div class="container">
-    <!-- Section Header -->
     <div class="section-header" data-aos="fade-up">
       <span class="badge">Intelligence Platform</span>
       <h2>USRad MarketScope<sup>™</sup></h2>
@@ -20,9 +21,7 @@
       </p>
     </div>
 
-    <!-- Main Feature Showcase -->
     <div class="showcase-grid">
-      <!-- Left Column: Interactive Preview -->
       <div class="preview-column" data-aos="fade-right" data-aos-delay="100">
         <div class="preview-window">
           <div class="window-header">
@@ -32,10 +31,48 @@
               <span class="dot green"></span>
             </div>
             <span class="window-title">MarketScope™ Analysis</span>
+            <span class="sample-badge">Sample Data</span>
+          </div>
+
+          <div class="market-header-bar">
+            <div class="market-info">
+              <span class="network-badge">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                Multi-Center Network
+              </span>
+              <h3 class="market-title" id="market-title">
+                Miami Advanced Imaging
+              </h3>
+              <p class="market-address" id="market-address">
+                1234 Biscayne Blvd, Miami, FL 33132
+              </p>
+              <span class="powered-by-badge"
+                >Powered by USRad MarketScope™</span
+              >
+            </div>
+            <div class="market-selector">
+              <label for="market-select" class="sr-only">Select Market</label>
+              <select id="market-select" class="market-dropdown">
+                <option value="miami" selected>Miami, FL</option>
+                <option value="dallas">Dallas, TX</option>
+                <option value="phoenix">Phoenix, AZ</option>
+                <option value="denver">Denver, CO</option>
+                <option value="atlanta">Atlanta, GA</option>
+              </select>
+            </div>
           </div>
 
           <div class="window-content">
-            <!-- Tab Navigation -->
             <div class="preview-tabs">
               <button class="tab active" data-tab="market">
                 <svg
@@ -86,23 +123,26 @@
             <!-- Market Reality Panel -->
             <div class="tab-panel active" id="panel-market">
               <div class="panel-header">
-                <h4>Market Reality - Sample Area</h4>
-                <span class="powered-by">Powered by USRad MarketScope™</span>
+                <h4>
+                  Market Reality - <span id="market-area-name">Miami, FL</span> Area
+                </h4>
               </div>
 
               <div class="metrics-row">
                 <div class="metric-card highlight-blue">
-                  <span class="metric-value">165</span>
+                  <span class="metric-value" id="total-competitors">165</span>
                   <span class="metric-label">Total Competitors</span>
                   <span class="metric-sublabel">10 mile radius</span>
                 </div>
                 <div class="metric-card highlight-purple">
-                  <span class="metric-value">27</span>
+                  <span class="metric-value" id="mri-competitors">27</span>
                   <span class="metric-label">MRI Competitors</span>
                   <span class="metric-sublabel">10 mile radius</span>
                 </div>
                 <div class="metric-card highlight-amber">
-                  <span class="metric-value-text">Very High</span>
+                  <span class="metric-value-text" id="market-density"
+                    >Very High</span
+                  >
                   <span class="metric-label">Market Density</span>
                   <span class="metric-sublabel">Competitive positioning</span>
                 </div>
@@ -114,76 +154,57 @@
                   <div class="modality-item">
                     <span class="modality-name">MRI</span>
                     <div class="bar-container">
-                      <div class="bar" style="width: 24%"></div>
+                      <div class="bar" id="bar-mri" style="width: 24%"></div>
                     </div>
-                    <span class="modality-count">27</span>
+                    <span class="modality-count" id="count-mri">27</span>
                   </div>
                   <div class="modality-item">
                     <span class="modality-name">CT</span>
                     <div class="bar-container">
-                      <div class="bar bar-ct" style="width: 22%"></div>
+                      <div class="bar bar-ct" id="bar-ct" style="width: 22%">
+                      </div>
                     </div>
-                    <span class="modality-count">25</span>
+                    <span class="modality-count" id="count-ct">25</span>
                   </div>
                   <div class="modality-item">
                     <span class="modality-name">Ultrasound</span>
                     <div class="bar-container">
-                      <div class="bar bar-us" style="width: 8%"></div>
+                      <div class="bar bar-us" id="bar-us" style="width: 8%">
+                      </div>
                     </div>
-                    <span class="modality-count">9</span>
+                    <span class="modality-count" id="count-us">9</span>
                   </div>
                   <div class="modality-item">
                     <span class="modality-name">X-Ray</span>
                     <div class="bar-container">
-                      <div class="bar bar-xray" style="width: 100%"></div>
+                      <div
+                        class="bar bar-xray"
+                        id="bar-xray"
+                        style="width: 100%"
+                      >
+                      </div>
                     </div>
-                    <span class="modality-count">113</span>
+                    <span class="modality-count" id="count-xray">113</span>
                   </div>
                 </div>
               </div>
 
               <div class="competitor-preview">
                 <h5>Top Nearby Competitors</h5>
-                <div class="competitor-list">
-                  <div class="competitor-item">
-                    <span class="rank">1</span>
-                    <div class="competitor-info">
-                      <span class="name">Regional Medical Imaging</span>
-                      <span class="services">MRI, CT Scan</span>
-                    </div>
-                    <span class="distance">2.4 mi</span>
-                  </div>
-                  <div class="competitor-item">
-                    <span class="rank">2</span>
-                    <div class="competitor-info">
-                      <span class="name">Advanced Diagnostic Center</span>
-                      <span class="services">MRI, CT, Ultrasound</span>
-                    </div>
-                    <span class="distance">2.6 mi</span>
-                  </div>
-                  <div class="competitor-item">
-                    <span class="rank">3</span>
-                    <div class="competitor-info">
-                      <span class="name">Metro Imaging Associates</span>
-                      <span class="services">MRI, Ultrasound</span>
-                    </div>
-                    <span class="distance">2.7 mi</span>
-                  </div>
-                </div>
+                <div class="competitor-list" id="competitor-list"></div>
               </div>
             </div>
 
             <!-- Economics Panel -->
             <div class="tab-panel" id="panel-economics">
-              <div class="panel-header">
-                <h4>Economic Analysis</h4>
-                <span class="powered-by">Medicare + Market Pricing</span>
-              </div>
+              <div class="panel-header"><h4>Economic Analysis</h4></div>
 
               <div class="pricing-cards">
                 <div class="pricing-card">
                   <span class="pricing-label">Medicare Baseline</span>
-                  <span class="pricing-value">$201.65</span>
+                  <span class="pricing-value" id="medicare-baseline"
+                    >$201.65</span
+                  >
                   <span class="pricing-detail">100% Medicare Rate</span>
                   <span class="pricing-code"
                     >MRI Brain w/o Contrast (70551)</span
@@ -191,13 +212,17 @@
                 </div>
                 <div class="pricing-card">
                   <span class="pricing-label">Workers' Comp</span>
-                  <span class="pricing-value">$371</span>
-                  <span class="pricing-detail">184% of Medicare</span>
+                  <span class="pricing-value" id="workers-comp">$371</span>
+                  <span class="pricing-detail" id="workers-comp-pct"
+                    >184% of Medicare</span
+                  >
                   <span class="pricing-code">Regional standard rate</span>
                 </div>
                 <div class="pricing-card highlight">
                   <span class="pricing-label">Market Opportunity</span>
-                  <span class="pricing-value">$277-$429</span>
+                  <span class="pricing-value" id="market-opportunity"
+                    >$277-$429</span
+                  >
                   <span class="pricing-detail">Cash Market Range</span>
                   <span class="pricing-code">Competitive positioning</span>
                 </div>
@@ -215,29 +240,7 @@
                       <th>Premium 180%</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>70551 - MRI Brain w/o</td>
-                      <td>$201.65</td>
-                      <td class="highlight-cell">$242</td>
-                      <td>$302</td>
-                      <td>$363</td>
-                    </tr>
-                    <tr>
-                      <td>72148 - MRI Lumbar</td>
-                      <td>$192</td>
-                      <td class="highlight-cell">$230</td>
-                      <td>$288</td>
-                      <td>$346</td>
-                    </tr>
-                    <tr>
-                      <td>73721 - MRI Knee w/o</td>
-                      <td>$171</td>
-                      <td class="highlight-cell">$205</td>
-                      <td>$257</td>
-                      <td>$308</td>
-                    </tr>
-                  </tbody>
+                  <tbody id="pricing-table-body"></tbody>
                 </table>
               </div>
             </div>
@@ -246,13 +249,16 @@
             <div class="tab-panel" id="panel-strategy">
               <div class="panel-header">
                 <h4>Pricing Strategy Recommendations</h4>
-                <span class="powered-by">AI-Powered Analysis</span>
               </div>
 
               <div class="strategy-cards">
-                <div class="strategy-card recommended">
-                  <div class="strategy-badge">
-                    Recommended for High Competition
+                <div class="strategy-card" id="volume-strategy-card">
+                  <div
+                    class="strategy-badge"
+                    id="volume-badge"
+                    style="display: none;"
+                  >
+                    Recommended for Your Market
                   </div>
                   <h5>Volume Strategy</h5>
                   <span class="strategy-range">120-130% Medicare</span>
@@ -265,7 +271,14 @@
                     <span class="volume-value">80-120 scans/month</span>
                   </div>
                 </div>
-                <div class="strategy-card">
+                <div class="strategy-card" id="premium-strategy-card">
+                  <div
+                    class="strategy-badge"
+                    id="premium-badge"
+                    style="display: none;"
+                  >
+                    Recommended for Your Market
+                  </div>
                   <h5>Premium Strategy</h5>
                   <span class="strategy-range">180-200% Medicare</span>
                   <p>
@@ -280,7 +293,7 @@
                 </div>
               </div>
 
-              <div class="market-recommendation">
+              <div class="market-recommendation" id="market-recommendation">
                 <svg
                   width="20"
                   height="20"
@@ -295,14 +308,24 @@
                   <path d="M12 16v-4M12 8h.01"></path>
                 </svg>
                 <div class="recommendation-content">
-                  <strong>For this market:</strong> With 165 competitors and Very
-                  High market density, consider a <span class="highlight"
-                    >120-150% Medicare</span
+                  <strong>For <span id="rec-market-name">Miami</span>:</strong>
+                  With <span id="rec-competitors">165</span> competitors and <span
+                    id="rec-density">Very High</span
+                  > market density, consider a <span
+                    class="highlight"
+                    id="rec-strategy">120-150% Medicare</span
                   > pricing strategy.
                 </div>
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="preview-cta">
+          <p>
+            This is sample data. <strong>See your actual market analysis</strong
+            > during onboarding.
+          </p>
         </div>
       </div>
 
@@ -398,12 +421,27 @@
         </div>
 
         <div class="cta-block">
+          <div class="guarantee-badge">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <path d="M9 12l2 2 4-4"></path>
+            </svg>
+            <span>10-Day Payment Guarantee</span>
+          </div>
           <p class="cta-text">
-            <strong>Free with network membership.</strong> Get complete market intelligence
-            for your facility during onboarding.
+            Set your prices with confidence using MarketScope data.
+            <strong>Get paid in 10 days, guaranteed</strong> — the rates you set
+            are exactly what you'll receive, automatically.
           </p>
-          <a href="#priority-markets" class="cta-button">
-            Apply for Priority Markets
+          <a href={`${REMIX_URL}/signup`} class="cta-button">
+            Join the Network
             <svg
               width="20"
               height="20"
@@ -451,7 +489,6 @@
     background: linear-gradient(180deg, #0a0f1a 0%, #111827 50%, #0a0f1a 100%);
     overflow: hidden;
   }
-
   .bg-pattern {
     position: absolute;
     inset: 0;
@@ -463,14 +500,12 @@
     background-size: 40px 40px;
     opacity: 0.5;
   }
-
   .gradient-orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(100px);
     opacity: 0.3;
   }
-
   .gradient-orb-1 {
     width: 600px;
     height: 600px;
@@ -478,7 +513,6 @@
     top: -200px;
     left: -200px;
   }
-
   .gradient-orb-2 {
     width: 500px;
     height: 500px;
@@ -486,7 +520,6 @@
     bottom: -150px;
     right: -150px;
   }
-
   .container {
     max-width: 1400px;
     margin: 0 auto;
@@ -494,12 +527,10 @@
     position: relative;
     z-index: 1;
   }
-
   .section-header {
     text-align: center;
     margin-bottom: 4rem;
   }
-
   .badge {
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -513,7 +544,6 @@
     text-transform: uppercase;
     margin-bottom: 1rem;
   }
-
   .section-header h2 {
     font-family: "Inter", system-ui, sans-serif;
     font-size: clamp(2.5rem, 5vw, 3.5rem);
@@ -522,12 +552,10 @@
     margin: 0 0 1rem;
     letter-spacing: -0.02em;
   }
-
   .section-header h2 sup {
     font-size: 0.5em;
     color: #f59e0b;
   }
-
   .subtitle {
     font-size: 1.25rem;
     color: #9ca3af;
@@ -535,15 +563,12 @@
     margin: 0 auto;
     line-height: 1.6;
   }
-
   .showcase-grid {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     gap: 4rem;
     align-items: start;
   }
-
-  /* Preview Window Styles */
   .preview-window {
     background: #1f2937;
     border-radius: 16px;
@@ -554,7 +579,6 @@
       0 25px 50px -12px rgba(0, 0, 0, 0.5),
       0 0 100px rgba(99, 102, 241, 0.1);
   }
-
   .window-header {
     display: flex;
     align-items: center;
@@ -563,18 +587,15 @@
     background: #111827;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
-
   .window-dots {
     display: flex;
     gap: 0.5rem;
   }
-
   .dot {
     width: 12px;
     height: 12px;
     border-radius: 50%;
   }
-
   .dot.red {
     background: #ef4444;
   }
@@ -584,17 +605,114 @@
   .dot.green {
     background: #22c55e;
   }
-
   .window-title {
     color: #9ca3af;
     font-size: 0.875rem;
     font-weight: 500;
+    flex: 1;
   }
-
+  .sample-badge {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.15);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+  }
+  .market-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(135deg, #1e3a5f 0%, #1e40af 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .market-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .network-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.15);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    width: fit-content;
+    margin-bottom: 0.5rem;
+  }
+  .network-badge svg {
+    stroke: #4ade80;
+  }
+  .market-title {
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    transition: opacity 0.3s ease;
+  }
+  .market-address {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    margin: 0;
+    transition: opacity 0.3s ease;
+  }
+  .powered-by-badge {
+    font-size: 0.625rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.5rem;
+  }
+  .market-selector {
+    flex-shrink: 0;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+  .market-dropdown {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 0.5rem 2rem 0.5rem 0.75rem;
+    color: #ffffff;
+    font-size: 0.875rem;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    transition: all 0.2s;
+  }
+  .market-dropdown:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+  .market-dropdown:focus {
+    outline: none;
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.3);
+  }
+  .market-dropdown option {
+    background: #1f2937;
+    color: #ffffff;
+  }
   .window-content {
     padding: 0;
   }
-
   .preview-tabs {
     display: flex;
     gap: 0;
@@ -602,7 +720,6 @@
     padding: 0.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
-
   .tab {
     display: flex;
     align-items: center;
@@ -617,73 +734,65 @@
     border-radius: 8px;
     transition: all 0.2s;
   }
-
   .tab:hover {
     color: #d1d5db;
     background: rgba(255, 255, 255, 0.05);
   }
-
   .tab.active {
     color: #ffffff;
     background: rgba(99, 102, 241, 0.2);
   }
-
   .tab svg {
     opacity: 0.7;
   }
-
   .tab.active svg {
     opacity: 1;
     stroke: #a5b4fc;
   }
-
   .tab-panel {
     display: none;
     padding: 1.5rem;
   }
-
   .tab-panel.active {
     display: block;
+    animation: fadeIn 0.3s ease;
   }
-
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
   .panel-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
   }
-
   .panel-header h4 {
     color: #ffffff;
     font-size: 1.125rem;
     font-weight: 600;
     margin: 0;
   }
-
-  .powered-by {
-    font-size: 0.75rem;
-    color: #6b7280;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 0.25rem 0.75rem;
-    border-radius: 100px;
-  }
-
-  /* Metrics Row */
   .metrics-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     margin-bottom: 1.5rem;
   }
-
   .metric-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     padding: 1rem;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
   }
-
   .metric-value {
     display: block;
     font-size: 2rem;
@@ -691,8 +800,8 @@
     color: #ffffff;
     line-height: 1;
     margin-bottom: 0.25rem;
+    transition: all 0.3s ease;
   }
-
   .metric-value-text {
     display: block;
     font-size: 1.125rem;
@@ -700,21 +809,19 @@
     color: #f59e0b;
     line-height: 1.2;
     margin-bottom: 0.25rem;
+    transition: all 0.3s ease;
   }
-
   .metric-label {
     display: block;
     font-size: 0.75rem;
     color: #9ca3af;
     margin-bottom: 0.25rem;
   }
-
   .metric-sublabel {
     display: block;
     font-size: 0.625rem;
     color: #6b7280;
   }
-
   .highlight-blue .metric-value {
     color: #60a5fa;
   }
@@ -724,12 +831,9 @@
   .highlight-amber .metric-value-text {
     color: #fbbf24;
   }
-
-  /* Modality Breakdown */
   .modality-breakdown {
     margin-bottom: 1.5rem;
   }
-
   .modality-breakdown h5 {
     color: #9ca3af;
     font-size: 0.75rem;
@@ -738,39 +842,33 @@
     letter-spacing: 0.05em;
     margin: 0 0 1rem;
   }
-
   .modality-bars {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
-
   .modality-item {
     display: grid;
     grid-template-columns: 80px 1fr 40px;
     align-items: center;
     gap: 1rem;
   }
-
   .modality-name {
     color: #d1d5db;
     font-size: 0.875rem;
   }
-
   .bar-container {
     height: 8px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 4px;
     overflow: hidden;
   }
-
   .bar {
     height: 100%;
     background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
     border-radius: 4px;
-    transition: width 1s ease-out;
+    transition: width 0.6s ease-out;
   }
-
   .bar-ct {
     background: linear-gradient(90deg, #8b5cf6 0%, #a78bfa 100%);
   }
@@ -780,15 +878,13 @@
   .bar-xray {
     background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%);
   }
-
   .modality-count {
     color: #9ca3af;
     font-size: 0.875rem;
     text-align: right;
     font-weight: 600;
+    transition: all 0.3s ease;
   }
-
-  /* Competitor Preview */
   .competitor-preview h5 {
     color: #9ca3af;
     font-size: 0.75rem;
@@ -797,13 +893,57 @@
     letter-spacing: 0.05em;
     margin: 0 0 1rem;
   }
-
   .competitor-list {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
-
+  .competitor-list :global(.competitor-item) {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+  }
+  .competitor-list :global(.rank) {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(99, 102, 241, 0.2);
+    color: #a5b4fc;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 50%;
+  }
+  .competitor-list :global(.competitor-info) {
+    flex: 1;
+    min-width: 0;
+  }
+  .competitor-list :global(.competitor-info .name) {
+    display: block;
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .competitor-list :global(.competitor-info .services) {
+    display: block;
+    color: #9ca3af;
+    font-size: 0.75rem;
+  }
+  .competitor-list :global(.distance) {
+    color: #60a5fa;
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
   .competitor-item {
     display: flex;
     align-items: center;
@@ -812,8 +952,8 @@
     background: rgba(255, 255, 255, 0.03);
     border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
   }
-
   .rank {
     width: 24px;
     height: 24px;
@@ -826,12 +966,10 @@
     font-weight: 600;
     border-radius: 50%;
   }
-
   .competitor-info {
     flex: 1;
     min-width: 0;
   }
-
   .competitor-info .name {
     display: block;
     color: #ffffff;
@@ -841,72 +979,61 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
   .competitor-info .services {
     display: block;
-    color: #6b7280;
+    color: #9ca3af;
     font-size: 0.75rem;
   }
-
   .distance {
     color: #60a5fa;
     font-size: 0.875rem;
     font-weight: 600;
     white-space: nowrap;
   }
-
-  /* Economics Panel */
   .pricing-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     margin-bottom: 1.5rem;
   }
-
   .pricing-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     padding: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
-
   .pricing-card.highlight {
     background: rgba(34, 197, 94, 0.1);
     border-color: rgba(34, 197, 94, 0.3);
   }
-
   .pricing-label {
     display: block;
     font-size: 0.75rem;
     color: #9ca3af;
     margin-bottom: 0.5rem;
   }
-
   .pricing-value {
     display: block;
     font-size: 1.5rem;
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 0.25rem;
+    transition: all 0.3s ease;
   }
-
   .pricing-card.highlight .pricing-value {
     color: #4ade80;
   }
-
   .pricing-detail {
     display: block;
     font-size: 0.75rem;
     color: #60a5fa;
     margin-bottom: 0.25rem;
   }
-
   .pricing-code {
     display: block;
     font-size: 0.625rem;
     color: #6b7280;
   }
-
   .pricing-table-preview h5 {
     color: #9ca3af;
     font-size: 0.75rem;
@@ -915,52 +1042,48 @@
     letter-spacing: 0.05em;
     margin: 0 0 1rem;
   }
-
   .pricing-table-preview table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
   }
-
   .pricing-table-preview th {
     text-align: left;
     padding: 0.75rem 0.5rem;
-    color: #6b7280;
-    font-weight: 500;
+    color: #9ca3af;
+    font-weight: 600;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
-
-  .pricing-table-preview td {
+  .pricing-table-preview :global(tbody tr td) {
     padding: 0.75rem 0.5rem;
-    color: #d1d5db;
+    color: #ffffff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
-
-  .highlight-cell {
+  .pricing-table-preview :global(tbody tr td:first-child) {
+    color: #ffffff;
+    font-weight: 500;
+  }
+  .pricing-table-preview :global(.highlight-cell) {
     color: #4ade80 !important;
     font-weight: 600;
   }
-
-  /* Strategy Panel */
   .strategy-cards {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     margin-bottom: 1.5rem;
   }
-
   .strategy-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     padding: 1.25rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
   }
-
   .strategy-card.recommended {
     background: rgba(34, 197, 94, 0.1);
     border-color: rgba(34, 197, 94, 0.3);
   }
-
   .strategy-badge {
     font-size: 0.625rem;
     font-weight: 600;
@@ -969,14 +1092,12 @@
     color: #4ade80;
     margin-bottom: 0.75rem;
   }
-
   .strategy-card h5 {
     color: #ffffff;
     font-size: 1rem;
     font-weight: 600;
     margin: 0 0 0.25rem;
   }
-
   .strategy-range {
     display: block;
     color: #60a5fa;
@@ -984,14 +1105,12 @@
     font-weight: 600;
     margin-bottom: 0.75rem;
   }
-
   .strategy-card p {
     color: #9ca3af;
     font-size: 0.75rem;
     line-height: 1.5;
     margin: 0 0 1rem;
   }
-
   .expected-volume {
     display: flex;
     justify-content: space-between;
@@ -999,18 +1118,15 @@
     padding-top: 0.75rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
-
   .volume-label {
     color: #6b7280;
     font-size: 0.75rem;
   }
-
   .volume-value {
     color: #ffffff;
     font-size: 0.875rem;
     font-weight: 600;
   }
-
   .market-recommendation {
     display: flex;
     gap: 1rem;
@@ -1019,35 +1135,41 @@
     border: 1px solid rgba(59, 130, 246, 0.3);
     border-radius: 12px;
   }
-
   .market-recommendation svg {
     flex-shrink: 0;
     stroke: #60a5fa;
   }
-
   .recommendation-content {
     color: #d1d5db;
     font-size: 0.875rem;
     line-height: 1.5;
   }
-
   .recommendation-content .highlight {
     color: #4ade80;
     font-weight: 600;
   }
-
-  /* Features Column */
+  .preview-cta {
+    text-align: center;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  .preview-cta p {
+    color: #9ca3af;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+  .preview-cta strong {
+    color: #fbbf24;
+  }
   .features-column {
     display: flex;
     flex-direction: column;
     gap: 2rem;
   }
-
   .feature-block {
     display: flex;
     gap: 1.5rem;
   }
-
   .feature-icon {
     flex-shrink: 0;
     width: 56px;
@@ -1059,43 +1181,35 @@
     border: 1px solid rgba(59, 130, 246, 0.3);
     border-radius: 16px;
   }
-
   .feature-icon svg {
     stroke: #60a5fa;
   }
-
   .feature-icon.icon-green {
     background: rgba(34, 197, 94, 0.2);
     border-color: rgba(34, 197, 94, 0.3);
   }
-
   .feature-icon.icon-green svg {
     stroke: #4ade80;
   }
-
   .feature-icon.icon-purple {
     background: rgba(139, 92, 246, 0.2);
     border-color: rgba(139, 92, 246, 0.3);
   }
-
   .feature-icon.icon-purple svg {
     stroke: #a78bfa;
   }
-
   .feature-content h3 {
     color: #ffffff;
     font-size: 1.25rem;
     font-weight: 600;
     margin: 0 0 0.5rem;
   }
-
   .feature-content p {
     color: #9ca3af;
     font-size: 0.9375rem;
     line-height: 1.6;
     margin: 0 0 1rem;
   }
-
   .feature-list {
     list-style: none;
     padding: 0;
@@ -1104,7 +1218,6 @@
     flex-direction: column;
     gap: 0.5rem;
   }
-
   .feature-list li {
     display: flex;
     align-items: center;
@@ -1112,7 +1225,6 @@
     color: #d1d5db;
     font-size: 0.875rem;
   }
-
   .feature-list li::before {
     content: "";
     width: 6px;
@@ -1121,7 +1233,6 @@
     border-radius: 50%;
     flex-shrink: 0;
   }
-
   .cta-block {
     margin-top: 1rem;
     padding: 1.5rem;
@@ -1133,18 +1244,31 @@
     border: 1px solid rgba(99, 102, 241, 0.3);
     border-radius: 16px;
   }
-
+  .guarantee-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 100px;
+    color: #4ade80;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .guarantee-badge svg {
+    stroke: #4ade80;
+  }
   .cta-text {
     color: #d1d5db;
     font-size: 0.9375rem;
     line-height: 1.6;
     margin: 0 0 1.25rem;
   }
-
   .cta-text strong {
     color: #ffffff;
   }
-
   .cta-button {
     display: inline-flex;
     align-items: center;
@@ -1159,13 +1283,10 @@
     transition: all 0.3s;
     box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
   }
-
   .cta-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
   }
-
-  /* Stats Bar */
   .stats-bar {
     display: flex;
     justify-content: center;
@@ -1177,11 +1298,9 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
   }
-
   .stat-item {
     text-align: center;
   }
-
   .stat-number {
     display: block;
     font-size: 1.75rem;
@@ -1189,62 +1308,59 @@
     color: #ffffff;
     margin-bottom: 0.25rem;
   }
-
   .stat-label {
     color: #9ca3af;
     font-size: 0.875rem;
   }
-
   .stat-divider {
     width: 1px;
     height: 40px;
     background: rgba(255, 255, 255, 0.2);
   }
-
-  /* Responsive */
   @media (max-width: 1024px) {
     .showcase-grid {
       grid-template-columns: 1fr;
       gap: 3rem;
     }
-
     .preview-column {
       order: 2;
     }
-
     .features-column {
       order: 1;
     }
   }
-
   @media (max-width: 768px) {
     .marketscope-section {
       padding: 4rem 0;
     }
-
+    .market-header-bar {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .market-selector {
+      width: 100%;
+    }
+    .market-dropdown {
+      width: 100%;
+    }
     .metrics-row,
     .pricing-cards {
       grid-template-columns: 1fr;
     }
-
     .strategy-cards {
       grid-template-columns: 1fr;
     }
-
     .stats-bar {
       flex-direction: column;
       gap: 1.5rem;
     }
-
     .stat-divider {
       width: 60px;
       height: 1px;
     }
-
     .preview-tabs {
       flex-wrap: wrap;
     }
-
     .pricing-table-preview {
       overflow-x: auto;
     }
@@ -1252,20 +1368,435 @@
 </style>
 
 <script>
-  // Tab switching functionality
+  // Market data for different cities
+  const marketData = {
+    miami: {
+      city: "Miami",
+      state: "FL",
+      facilityName: "Miami Advanced Imaging",
+      address: "1234 Biscayne Blvd, Miami, FL 33132",
+      totalCompetitors: 165,
+      mriCompetitors: 27,
+      density: "Very High",
+      modalities: { mri: 27, ct: 25, us: 9, xray: 113 },
+      medicare: "$202",
+      workersComp: "$371",
+      workersCompPct: "184% of Medicare",
+      marketOpp: "$277-$429",
+      recommendedStrategy: "volume",
+      strategyRange: "120-150% Medicare",
+      competitors: [
+        {
+          name: "GCRB-MRI University of Miami",
+          services: "MRI",
+          distance: "2.4 mi",
+        },
+        {
+          name: "Partners in Imaging INC",
+          services: "Breast MRI, CT Scan, MRI, PET/PET-CT",
+          distance: "2.6 mi",
+        },
+        {
+          name: "Baptist Outpatient Services - Brickell",
+          services: "Breast MRI, CT Scan, MRI, Ultrasound",
+          distance: "2.7 mi",
+        },
+      ],
+      pricing: [
+        {
+          code: "70551",
+          name: "MRI Brain w/o",
+          medicare: "$202",
+          vol: "$242",
+          bal: "$302",
+          prem: "$363",
+        },
+        {
+          code: "72148",
+          name: "MRI Lumbar",
+          medicare: "$192",
+          vol: "$230",
+          bal: "$288",
+          prem: "$346",
+        },
+        {
+          code: "73721",
+          name: "MRI Knee w/o",
+          medicare: "$171",
+          vol: "$205",
+          bal: "$257",
+          prem: "$308",
+        },
+      ],
+    },
+    dallas: {
+      city: "Dallas",
+      state: "TX",
+      facilityName: "Dallas Diagnostic Imaging",
+      address: "5500 Preston Rd, Dallas, TX 75205",
+      totalCompetitors: 142,
+      mriCompetitors: 31,
+      density: "High",
+      modalities: { mri: 31, ct: 28, us: 15, xray: 98 },
+      medicare: "$195",
+      workersComp: "$352",
+      workersCompPct: "180% of Medicare",
+      marketOpp: "$254-$390",
+      recommendedStrategy: "volume",
+      strategyRange: "120-140% Medicare",
+      competitors: [
+        {
+          name: "Texas Health Presbyterian",
+          services: "MRI, CT Scan",
+          distance: "1.8 mi",
+        },
+        {
+          name: "Baylor Scott & White Imaging",
+          services: "MRI, CT, Ultrasound, X-Ray",
+          distance: "2.1 mi",
+        },
+        {
+          name: "Dallas Radiology Associates",
+          services: "MRI, CT Scan, PET",
+          distance: "2.9 mi",
+        },
+      ],
+      pricing: [
+        {
+          code: "70551",
+          name: "MRI Brain w/o",
+          medicare: "$195",
+          vol: "$234",
+          bal: "$293",
+          prem: "$352",
+        },
+        {
+          code: "72148",
+          name: "MRI Lumbar",
+          medicare: "$186",
+          vol: "$223",
+          bal: "$279",
+          prem: "$335",
+        },
+        {
+          code: "73721",
+          name: "MRI Knee w/o",
+          medicare: "$165",
+          vol: "$198",
+          bal: "$248",
+          prem: "$297",
+        },
+      ],
+    },
+    phoenix: {
+      city: "Phoenix",
+      state: "AZ",
+      facilityName: "Phoenix Imaging Center",
+      address: "3300 N Central Ave, Phoenix, AZ 85012",
+      totalCompetitors: 89,
+      mriCompetitors: 18,
+      density: "Moderate",
+      modalities: { mri: 18, ct: 22, us: 12, xray: 67 },
+      medicare: "$189",
+      workersComp: "$340",
+      workersCompPct: "180% of Medicare",
+      marketOpp: "$284-$435",
+      recommendedStrategy: "balanced",
+      strategyRange: "140-160% Medicare",
+      competitors: [
+        {
+          name: "Banner Health Imaging",
+          services: "MRI, CT Scan, Ultrasound",
+          distance: "1.5 mi",
+        },
+        {
+          name: "Phoenix Children's Radiology",
+          services: "MRI, CT, X-Ray",
+          distance: "2.3 mi",
+        },
+        {
+          name: "Southwest Diagnostic Imaging",
+          services: "MRI, CT Scan",
+          distance: "3.1 mi",
+        },
+      ],
+      pricing: [
+        {
+          code: "70551",
+          name: "MRI Brain w/o",
+          medicare: "$189",
+          vol: "$227",
+          bal: "$284",
+          prem: "$341",
+        },
+        {
+          code: "72148",
+          name: "MRI Lumbar",
+          medicare: "$180",
+          vol: "$216",
+          bal: "$270",
+          prem: "$324",
+        },
+        {
+          code: "73721",
+          name: "MRI Knee w/o",
+          medicare: "$160",
+          vol: "$192",
+          bal: "$240",
+          prem: "$288",
+        },
+      ],
+    },
+    denver: {
+      city: "Denver",
+      state: "CO",
+      facilityName: "Denver Radiology Group",
+      address: "1601 E 19th Ave, Denver, CO 80218",
+      totalCompetitors: 67,
+      mriCompetitors: 14,
+      density: "Moderate",
+      modalities: { mri: 14, ct: 18, us: 8, xray: 52 },
+      medicare: "$199",
+      workersComp: "$378",
+      workersCompPct: "190% of Medicare",
+      marketOpp: "$298-$457",
+      recommendedStrategy: "balanced",
+      strategyRange: "150-170% Medicare",
+      competitors: [
+        {
+          name: "UCHealth Radiology",
+          services: "MRI, CT Scan, PET",
+          distance: "1.2 mi",
+        },
+        {
+          name: "Denver Health Imaging",
+          services: "MRI, CT, Ultrasound",
+          distance: "1.9 mi",
+        },
+        {
+          name: "Colorado Imaging Associates",
+          services: "MRI, X-Ray",
+          distance: "2.8 mi",
+        },
+      ],
+      pricing: [
+        {
+          code: "70551",
+          name: "MRI Brain w/o",
+          medicare: "$199",
+          vol: "$238",
+          bal: "$298",
+          prem: "$358",
+        },
+        {
+          code: "72148",
+          name: "MRI Lumbar",
+          medicare: "$189",
+          vol: "$227",
+          bal: "$284",
+          prem: "$340",
+        },
+        {
+          code: "73721",
+          name: "MRI Knee w/o",
+          medicare: "$168",
+          vol: "$202",
+          bal: "$252",
+          prem: "$302",
+        },
+      ],
+    },
+    atlanta: {
+      city: "Atlanta",
+      state: "GA",
+      facilityName: "Atlanta Medical Imaging",
+      address: "550 Peachtree St NE, Atlanta, GA 30308",
+      totalCompetitors: 38,
+      mriCompetitors: 8,
+      density: "Low",
+      modalities: { mri: 8, ct: 12, us: 6, xray: 28 },
+      medicare: "$193",
+      workersComp: "$385",
+      workersCompPct: "200% of Medicare",
+      marketOpp: "$327-$500",
+      recommendedStrategy: "premium",
+      strategyRange: "170-200% Medicare",
+      competitors: [
+        {
+          name: "Emory Healthcare Imaging",
+          services: "MRI, CT Scan, PET",
+          distance: "2.0 mi",
+        },
+        {
+          name: "Piedmont Radiology",
+          services: "MRI, CT, Ultrasound",
+          distance: "2.7 mi",
+        },
+        {
+          name: "Northside Hospital Imaging",
+          services: "MRI, X-Ray",
+          distance: "3.5 mi",
+        },
+      ],
+      pricing: [
+        {
+          code: "70551",
+          name: "MRI Brain w/o",
+          medicare: "$193",
+          vol: "$231",
+          bal: "$289",
+          prem: "$347",
+        },
+        {
+          code: "72148",
+          name: "MRI Lumbar",
+          medicare: "$183",
+          vol: "$220",
+          bal: "$275",
+          prem: "$329",
+        },
+        {
+          code: "73721",
+          name: "MRI Knee w/o",
+          medicare: "$163",
+          vol: "$196",
+          bal: "$245",
+          prem: "$293",
+        },
+      ],
+    },
+  };
+
+  function updateMarketDisplay(marketKey) {
+    const data = marketData[marketKey];
+    if (!data) return;
+
+    // Update header
+    document.getElementById("market-title").textContent = data.facilityName;
+    document.getElementById("market-address").textContent = data.address;
+
+    // Update Market Reality panel
+    document.getElementById("market-area-name").textContent =
+      `${data.city}, ${data.state}`;
+    document.getElementById("total-competitors").textContent =
+      data.totalCompetitors;
+    document.getElementById("mri-competitors").textContent =
+      data.mriCompetitors;
+    document.getElementById("market-density").textContent = data.density;
+
+    // Update modality bars
+    const maxModality = Math.max(
+      data.modalities.mri,
+      data.modalities.ct,
+      data.modalities.us,
+      data.modalities.xray
+    );
+    document.getElementById("bar-mri").style.width =
+      `${(data.modalities.mri / maxModality) * 100}%`;
+    document.getElementById("bar-ct").style.width =
+      `${(data.modalities.ct / maxModality) * 100}%`;
+    document.getElementById("bar-us").style.width =
+      `${(data.modalities.us / maxModality) * 100}%`;
+    document.getElementById("bar-xray").style.width =
+      `${(data.modalities.xray / maxModality) * 100}%`;
+
+    document.getElementById("count-mri").textContent = data.modalities.mri;
+    document.getElementById("count-ct").textContent = data.modalities.ct;
+    document.getElementById("count-us").textContent = data.modalities.us;
+    document.getElementById("count-xray").textContent = data.modalities.xray;
+
+    // Update competitors list
+    const competitorList = document.getElementById("competitor-list");
+    competitorList.innerHTML = data.competitors
+      .map(
+        (comp, i) => `
+      <div class="competitor-item">
+        <span class="rank">${i + 1}</span>
+        <div class="competitor-info">
+          <span class="name">${comp.name}</span>
+          <span class="services">${comp.services}</span>
+        </div>
+        <span class="distance">${comp.distance}</span>
+      </div>
+    `
+      )
+      .join("");
+
+    // Update Economics panel
+    document.getElementById("medicare-baseline").textContent = data.medicare;
+    document.getElementById("workers-comp").textContent = data.workersComp;
+    document.getElementById("workers-comp-pct").textContent =
+      data.workersCompPct;
+    document.getElementById("market-opportunity").textContent = data.marketOpp;
+
+    // Update pricing table
+    const pricingBody = document.getElementById("pricing-table-body");
+    const highlightCol =
+      data.recommendedStrategy === "premium" ? "prem" : "vol";
+    pricingBody.innerHTML = data.pricing
+      .map(
+        (proc) => `
+      <tr>
+        <td>${proc.code} - ${proc.name}</td>
+        <td>${proc.medicare}</td>
+        <td class="${highlightCol === "vol" ? "highlight-cell" : ""}">${proc.vol}</td>
+        <td class="${data.recommendedStrategy === "balanced" ? "highlight-cell" : ""}">${proc.bal}</td>
+        <td class="${highlightCol === "prem" ? "highlight-cell" : ""}">${proc.prem}</td>
+      </tr>
+    `
+      )
+      .join("");
+
+    // Update Strategy panel
+    const volumeCard = document.getElementById("volume-strategy-card");
+    const premiumCard = document.getElementById("premium-strategy-card");
+    const volumeBadge = document.getElementById("volume-badge");
+    const premiumBadge = document.getElementById("premium-badge");
+
+    volumeCard.classList.remove("recommended");
+    premiumCard.classList.remove("recommended");
+    volumeBadge.style.display = "none";
+    premiumBadge.style.display = "none";
+
+    if (
+      data.recommendedStrategy === "volume" ||
+      data.recommendedStrategy === "balanced"
+    ) {
+      volumeCard.classList.add("recommended");
+      volumeBadge.style.display = "block";
+    }
+    if (data.recommendedStrategy === "premium") {
+      premiumCard.classList.add("recommended");
+      premiumBadge.style.display = "block";
+    }
+
+    // Update recommendation
+    document.getElementById("rec-market-name").textContent = data.city;
+    document.getElementById("rec-competitors").textContent =
+      data.totalCompetitors;
+    document.getElementById("rec-density").textContent = data.density;
+    document.getElementById("rec-strategy").textContent = data.strategyRange;
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
+    // Initialize with Miami
+    updateMarketDisplay("miami");
+
+    // Market selector change handler
+    const marketSelect = document.getElementById("market-select");
+    marketSelect.addEventListener("change", (e) => {
+      updateMarketDisplay(e.target.value);
+    });
+
+    // Tab switching functionality
     const tabs = document.querySelectorAll(".tab");
     const panels = document.querySelectorAll(".tab-panel");
 
     tabs.forEach((tab) => {
       tab.addEventListener("click", () => {
         const targetTab = tab.getAttribute("data-tab");
-
-        // Update active tab
         tabs.forEach((t) => t.classList.remove("active"));
         tab.classList.add("active");
-
-        // Update active panel
         panels.forEach((panel) => {
           panel.classList.remove("active");
           if (panel.id === `panel-${targetTab}`) {
@@ -1275,26 +1806,36 @@
       });
     });
 
-    // Animate bars on scroll into view
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const bars = entry.target.querySelectorAll(".bar");
-            bars.forEach((bar, index) => {
-              setTimeout(() => {
-                bar.style.width = bar.style.width;
-              }, index * 100);
-            });
-          }
+    // Listen for market selection from the Priority Markets Map
+    window.addEventListener("usrad:selectMarket", (e) => {
+      const marketKey = e.detail?.market?.toLowerCase();
+      if (marketKey && marketData[marketKey]) {
+        marketSelect.value = marketKey;
+        updateMarketDisplay(marketKey);
+        document.getElementById("market-analysis").scrollIntoView({
+          behavior: "smooth",
+          block: "start",
         });
-      },
-      { threshold: 0.5 }
-    );
+      }
+    });
 
-    const modalitySection = document.querySelector(".modality-breakdown");
-    if (modalitySection) {
-      observer.observe(modalitySection);
-    }
+    // Expose global function for direct calls from map or other components
+    window.USRadMarketScope = {
+      selectMarket: (marketKey) => {
+        const key = marketKey.toLowerCase();
+        if (marketData[key]) {
+          marketSelect.value = key;
+          updateMarketDisplay(key);
+          document.getElementById("market-analysis").scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      },
+      // Get available markets
+      getMarkets: () => Object.keys(marketData),
+      // Check if a market exists
+      hasMarket: (key) => !!marketData[key?.toLowerCase()],
+    };
   });
 </script>
