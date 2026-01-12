@@ -125,7 +125,6 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Step 3: Send emails via Remix API (branded templates)
     const firstName = name.split(" ")[0];
-    const pdfUrl = `${baseUrl}/guides/playbook?download=true&v=2`;
     
     let emailData: { id?: string } | null = null;
 
