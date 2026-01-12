@@ -2,6 +2,7 @@ import { Resend } from 'resend';
 import { createClient } from '@supabase/supabase-js';
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
+const REMIX_API_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://app.usrad.com';
 
 const supabase = createClient(
   import.meta.env.PUBLIC_SUPABASE_URL,
@@ -78,53 +79,66 @@ export async function POST({ request }) {
       console.error('❌ Database error:', dbError);
     }
 
-    // 2. Send auto-reply to customer
-    console.log('\n📤 Sending customer email...');
+    // 2. Send emails via Remix API (branded templates)
+    console.log('\n📤 Sending emails via Remix API...');
     let customerEmailSent = false;
-    try {
-      const customerResult = await resend.emails.send({
-        from: 'USRad Support <support@send.usrad.com>',
-        to: email,
-        subject: 'Thanks for contacting USRad - We\'ll respond within 2 hours',
-        html: getCustomerEmailTemplate({ fullName, topic, referenceId })
-      });
-      console.log('✅ Customer email sent successfully!');
-      console.log('   Email ID:', customerResult.id);
-      customerEmailSent = true;
-    } catch (error) {
-      console.error('❌ Customer email FAILED:', error.message);
-      throw error;
-    }
-
-    // 3. Send notification to admin
-    console.log('\n📤 Sending admin notification...');
-    console.log('   From: USRad Contact Form <notifications@send.usrad.com>');
-    console.log('   To:', import.meta.env.SUPPORT_EMAIL);
-    
     let adminEmailSent = false;
+    
     try {
-      const adminResult = await resend.emails.send({
-        from: 'USRad Contact Form <notifications@send.usrad.com>',
-        to: import.meta.env.SUPPORT_EMAIL,
-        subject: `🔔 New Contact - ${topic || 'General Inquiry'}`,
-        html: getAdminEmailTemplate({ 
-          fullName, 
-          email,
-          phone, 
-          topic, 
-          message, 
-          zipCode,
-          referenceId,
-          source,
-          userAgent
-        })
+      const emailResponse = await fetch(`${REMIX_API_URL}/api/marketing-email`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'contact',
+          data: {
+            firstName,
+            lastName,
+            email,
+            phone,
+            topic,
+            message,
+            referenceId,
+          },
+        }),
       });
-      console.log('✅ Admin email sent successfully!');
-      console.log('   Email ID:', adminResult.id);
-      adminEmailSent = true;
+
+      if (emailResponse.ok) {
+        const result = await emailResponse.json();
+        console.log('✅ Emails sent via Remix API');
+        console.log('   Customer Email ID:', result.customerEmailId);
+        console.log('   Admin Email ID:', result.adminEmailId);
+        customerEmailSent = !!result.customerEmailId;
+        adminEmailSent = !!result.adminEmailId;
+      } else {
+        console.error('❌ Remix API failed:', emailResponse.status);
+        // Fallback to direct Resend
+        console.log('📤 Falling back to direct email...');
+        const customerResult = await resend.emails.send({
+          from: 'USRad Support <support@send.usrad.com>',
+          to: email,
+          subject: 'Thanks for contacting USRad - We\'ll respond within 2 hours',
+          html: getCustomerEmailTemplate({ fullName, topic, referenceId })
+        });
+        customerEmailSent = true;
+        console.log('✅ Fallback customer email sent:', customerResult.id);
+      }
     } catch (error) {
-      console.error('❌ Admin email FAILED!');
-      console.error('   Error:', error.message);
+      console.error('❌ Email sending failed:', error.message);
+      // Fallback to direct Resend
+      try {
+        console.log('📤 Falling back to direct email...');
+        const customerResult = await resend.emails.send({
+          from: 'USRad Support <support@send.usrad.com>',
+          to: email,
+          subject: 'Thanks for contacting USRad - We\'ll respond within 2 hours',
+          html: getCustomerEmailTemplate({ fullName, topic, referenceId })
+        });
+        customerEmailSent = true;
+        console.log('✅ Fallback customer email sent:', customerResult.id);
+      } catch (fallbackError) {
+        console.error('❌ Fallback also failed:', fallbackError.message);
+        throw fallbackError;
+      }
     }
 
     console.log('\n📊 Summary:');
