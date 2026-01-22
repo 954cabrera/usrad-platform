@@ -10,7 +10,7 @@ export const prerender = true;
 
   <!-- Hero Section - Full Screen with Gradient Background -->
   <section
-    class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0a0e27] via-[#003087] to-black"
+    class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0a0e27] via-[#003087] to-[#001a4d]"
   >
     <!-- Animated Background Elements -->
     <div class="absolute inset-0 opacity-30">
@@ -25,88 +25,117 @@ export const prerender = true;
     </div>
 
     <!-- Particle System -->
-    
+
     <div class="relative z-10 max-w-7xl mx-auto px-6 py-32">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <!-- Image Column -->
-        <div class="relative" data-aos="fade-right">
-          <div class="relative inline-block">
-            <!-- Glow Effect Behind Image -->
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-[#cc9933] to-[#FFA500] opacity-50 blur-2xl scale-110"
-            >
-            </div>
+      <div class="grid lg:grid-cols-2 gap-16 items-center"></div>
 
-            <img
-              src="/images/michael.jpg"
-              alt="Michael Cabrera"
-              class="relative w-full max-w-md mx-auto rounded-2xl shadow-2xl border-2 border-[#cc9933]/20"
+      <!-- Image Column -->
+      <div
+        class="relative lg:justify-self-start justify-self-center"
+        data-aos="fade-right"
+      >
+        <div class="relative inline-block">
+          <!-- Glow Effect Behind Image -->
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-[#cc9933] to-[#FFA500] opacity-35 blur-3xl scale-105"
+          >
+          </div>
+
+          <picture>
+            <source
+              srcset="/images/mac-website-sm-profile.webp"
+              type="image/webp"
             />
+            <img
+              src="/images/mac-website-sm-profile.png"
+              alt="Michael Cabrera"
+              width="480"
+              height="480"
+              class="relative w-[380px] max-w-full rounded-2xl shadow-2xl border border-[#cc9933]/20 lg:mx-0 mx-auto"
+              style="aspect-ratio: 4 / 5; object-fit: cover;"
+              loading="eager"
+              decoding="async"
+            />
+          </picture>
 
-            <!-- Floating Badge -->
-            <div
-              class="absolute -bottom-6 -right-6 bg-gradient-to-r from-[#003087] to-[#0052cc] text-white px-6 py-3 rounded-full shadow-xl"
-            >
-              <span class="font-bold">MIT Birthing of Giants</span>
-            </div>
+          <!-- Floating Badge -->
+          <div
+            class="absolute -bottom-6 -right-6 bg-gradient-to-r from-[#003087] to-[#0052cc] text-white px-6 py-3 rounded-full shadow-xl"
+          >
+            <span class="font-bold">MIT Birthing of Giants</span>
           </div>
         </div>
+      </div>
 
-        <!-- Bio Column -->
-        <div class="space-y-8 text-white" data-aos="fade-left">
-          <div>
-            <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold mb-4">
-              Michael<br />
-              <span
-                class="text-transparent bg-clip-text bg-gradient-to-r from-[#cc9933] to-[#FFA500]"
-              >
-                Cabrera
-              </span>
-            </h1>
-            <p class="text-2xl text-[#cc9933] font-light">Founder & CEO</p>
-          </div>
-
-          <p class="text-xl leading-relaxed text-gray-300">
-            Healthcare entrepreneur who previously led a national imaging
-            network to a successful exit with a publicly traded company.
-            Selected for MIT's prestigious "Birthing of Giants" program. Now
-            focused on expanding access to affordable, high-quality imaging
-            through systems built on empathy, simplicity, and trust.
-          </p>
-
-          <div class="flex flex-wrap gap-4">
-            <a
-              href="https://www.linkedin.com/in/usradfl/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group inline-flex items-center gap-3 bg-gradient-to-r from-[#cc9933] to-[#FFA500] text-white px-8 py-4 rounded-xl font-bold hover:shadow-2xl transition-all transform hover:scale-105"
+      <!-- Bio Column -->
+      <div class="space-y-6 text-white" data-aos="fade-left">
+        <div>
+          <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold mb-2">
+            Michael<br />
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-[#cc9933] to-[#FFA500]"
             >
-              <span>Connect on LinkedIn</span>
-              <svg
-                class="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                ></path>
-              </svg>
-            </a>
-          </div>
+              Cabrera
+            </span>
+          </h1>
+          <p class="text-2xl text-[#cc9933] font-light mt-1">Co-Founder & CEO</p>
+        </div>
 
-          <a href="/docs/founder-presskit.pdf" download="USRad-Founder-Press-Kit.pdf" class="group inline-flex items-center gap-3 border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all">
-  <span>Download Press Kit</span>
-  <svg class="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
-  </svg>
-</a>
-</div>
-</div>
-</section>
+        <p class="text-xl leading-relaxed text-gray-300">
+          Healthcare entrepreneur who previously led a national imaging network
+          to a successful exit with a publicly traded company. Selected for
+          MIT's prestigious "Birthing of Giants" program. Now focused on
+          expanding access to affordable, high-quality imaging through systems
+          built on empathy, simplicity, and trust.
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="https://www.linkedin.com/in/usradfl/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group inline-flex items-center gap-3 bg-gradient-to-r from-[#cc9933] to-[#FFA500] text-white px-8 py-4 rounded-xl font-bold hover:shadow-2xl transition-all transform hover:scale-105"
+          >
+            <span>Connect on LinkedIn</span>
+            <svg
+              class="w-5 h-5 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              ></path>
+            </svg>
+          </a>
+        </div>
+
+        <a
+          href="/docs/founder-presskit.pdf"
+          download="USRad-Founder-Press-Kit.pdf"
+          class="group inline-flex items-center gap-3 border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all"
+        >
+          <span>Download Press Kit</span>
+          <svg
+            class="w-5 h-5 group-hover:translate-y-1 transition-transform"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- Impact Counter Section -->
   <section class="py-24 bg-gradient-to-b from-black to-[#0a0e27] text-white">
@@ -381,15 +410,29 @@ export const prerender = true;
         of medical imaging
       </p>
       <div class="flex flex-wrap gap-6 justify-center">
-  <a href="https://www.linkedin.com/in/usradfl/" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 bg-gradient-to-r from-[#cc9933] to-[#FFA500] text-white px-10 py-5 rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:scale-105">
-    <span>Connect on LinkedIn</span>
-    <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-    </svg>
-  </a>
-</div>
-</div>
-</section>
+        <a
+          href="https://www.linkedin.com/in/usradfl/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group inline-flex items-center gap-3 bg-gradient-to-r from-[#cc9933] to-[#FFA500] text-white px-10 py-5 rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:scale-105"
+        >
+          <span>Connect on LinkedIn</span>
+          <svg
+            class="w-6 h-6 group-hover:translate-x-1 transition-transform"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
 </CarbonLayout>
 
 <style>
@@ -484,7 +527,7 @@ export const prerender = true;
           if (index !== otherIndex) {
             const distance = Math.hypot(
               particle.x - otherParticle.x,
-              particle.y - otherParticle.y
+              particle.y - otherParticle.y,
             );
             if (distance < 100) {
               ctx.beginPath();
@@ -539,7 +582,7 @@ export const prerender = true;
       },
       {
         threshold: 0.5,
-      }
+      },
     );
 
     observer.observe(counter);
