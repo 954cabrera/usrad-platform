@@ -36,15 +36,26 @@ export const prerender = true;
           <div class="relative inline-block">
             <!-- Warm Glow Effect Behind Image -->
             <div
-              class="absolute inset-0 bg-gradient-to-r from-[#cc9933] to-rose-400 opacity-40 blur-2xl scale-110"
+              class="absolute inset-0 bg-gradient-to-r from-[#cc9933] to-rose-400 opacity-25 blur-xl scale-110"
             >
             </div>
 
-            <img
-              src="/images/donna-2.webp"
-              alt="Donna Cabrera"
-              class="relative w-full max-w-md mx-auto rounded-2xl shadow-2xl border-2 border-[#cc9933]/20"
-            />
+            <picture>
+              <source
+                srcset="/images/donna-website-sm-profile.webp"
+                type="image/webp"
+              />
+              <img
+                src="/images/donna-website-sm-profile.png"
+                alt="Donna Cabrera, Co-Founder & Patient Advocacy Advisor"
+                width="480"
+                height="600"
+                class="relative w-full max-w-md mx-auto rounded-2xl shadow-2xl border border-[#cc9933]/20"
+                style="aspect-ratio: 4 / 5; object-fit: cover;"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
 
             <!-- Floating Badge -->
             <div
