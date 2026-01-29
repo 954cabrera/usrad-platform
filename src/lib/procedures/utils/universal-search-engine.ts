@@ -69,7 +69,6 @@ function getMatchScore(entry: ProcedureIndexEntry, query: string): number {
   if (entry.cpt === q) return 120;
   
   // Direct substring match in searchable text
-  if // Direct substring match in searchable text
   if (s.includes(q)) return 100;
   
   // Handle xray variations - check if normalized query matches

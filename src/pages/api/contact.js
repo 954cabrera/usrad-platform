@@ -9,9 +9,188 @@ const supabase = createClient(
   import.meta.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
+// ============================================
+// BOT PROTECTION FUNCTIONS
+// ============================================
+
+// Get real client IP (handles Cloudflare/Vercel proxies)
+function getClientIP(request) {
+  const cfIP = request.headers.get("cf-connecting-ip");
+  if (cfIP) return cfIP;
+  
+  const realIP = request.headers.get("x-real-ip");
+  if (realIP) return realIP;
+  
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) return forwarded.split(",")[0].trim();
+  
+  return "unknown";
+}
+
+// Rate limiting (5 submissions per hour per IP)
+const rateLimitStore = new Map();
+
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, data] of rateLimitStore.entries()) {
+    if (data.resetTime < now) rateLimitStore.delete(ip);
+  }
+}, 3600000);
+
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const limit = 5;
+  const window = 3600000;
+  const record = rateLimitStore.get(ip);
+
+  if (!record || record.resetTime < now) {
+    rateLimitStore.set(ip, { count: 1, resetTime: now + window });
+    return { allowed: true, remaining: limit - 1 };
+  }
+
+  if (record.count >= limit) {
+    return { allowed: false, remaining: 0 };
+  }
+
+  record.count += 1;
+  return { allowed: true, remaining: limit - record.count };
+}
+
+// Gibberish detection
+function isGibberish(text, fieldType = 'name') {
+  if (!text || text.length < 3) return false;
+
+  if (fieldType === 'message') {
+    const repeatingChars = text.match(/(.)\1{8,}/g) || [];
+    const consonantClusters = text.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{10,}/g) || [];
+    return repeatingChars.length > 0 || consonantClusters.length > 0;
+  }
+
+  const vowels = text.match(/[aeiouAEIOU]/g) || [];
+  const vowelRatio = vowels.length / text.length;
+  const consonantClusters = text.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{5,}/g) || [];
+  const repeatingChars = text.match(/(.)\1{4,}/g) || [];
+  const upperCount = (text.match(/[A-Z]/g) || []).length;
+  const lowerCount = (text.match(/[a-z]/g) || []).length;
+  const totalLetters = upperCount + lowerCount;
+  const hasRandomCasing = totalLetters > 0 && upperCount > 0 && lowerCount > 0 &&
+    upperCount / totalLetters > 0.3 && upperCount / totalLetters < 0.7;
+
+  const hasLowVowelRatio = vowelRatio < 0.15 && text.length > 10;
+  const hasExcessiveConsonants = consonantClusters.length > 0;
+  const hasRepeatingChars = repeatingChars.length > 0;
+
+  return hasLowVowelRatio || hasExcessiveConsonants || hasRepeatingChars || hasRandomCasing;
+}
+
+// Email validation
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// Phone validation
+function isValidPhone(phone) {
+  if (!phone) return true;
+  return phone.replace(/\D/g, "").length === 10;
+}
+
+// Timing validation
+function isValidSubmissionTime(formLoadTime, submissionTime) {
+  const timeDiff = (submissionTime - formLoadTime) / 1000;
+  return timeDiff >= 2 && timeDiff <= 7200;
+}
+
 export async function POST({ request }) {
   try {
-    const { firstName, lastName, email, phone, topic, message, zipCode } = await request.json();
+    // Get client IP
+    const ip = getClientIP(request);
+
+    // Check rate limit
+    const rateLimit = checkRateLimit(ip);
+    if (!rateLimit.allowed) {
+      console.log(`[BOT-DETECTED] Rate limit exceeded from IP ${ip}`);
+      return new Response(
+        JSON.stringify({ error: "Too many submissions. Please try again later." }),
+        { status: 429, headers: { "Content-Type": "application/json", "X-RateLimit-Remaining": "0" } }
+      );
+    }
+
+    // Parse body
+    const body = await request.json();
+    const { firstName, lastName, email, phone, topic, message, zipCode, formLoadTime, submissionTime } = body;
+
+    // Check honeypot fields
+    if (body.website || body.company || body.email_confirm) {
+      console.log(`[BOT-DETECTED] Honeypot triggered from IP ${ip}`);
+      const fakeRef = Date.now().toString(36).toUpperCase();
+      return new Response(
+        JSON.stringify({ success: true, referenceId: fakeRef, message: "Message sent successfully" }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Check timing
+    if (formLoadTime && submissionTime && !isValidSubmissionTime(parseInt(formLoadTime), parseInt(submissionTime))) {
+      console.log(`[BOT-DETECTED] Invalid timing from IP ${ip}`);
+      return new Response(
+        JSON.stringify({ error: "Invalid submission timing" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate email
+    if (email && !isValidEmail(email)) {
+      console.log(`[BOT-DETECTED] Invalid email from IP ${ip}: ${email}`);
+      return new Response(
+        JSON.stringify({ error: "Invalid email address" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate phone
+    if (phone && !isValidPhone(phone)) {
+      console.log(`[BOT-DETECTED] Invalid phone from IP ${ip}`);
+      return new Response(
+        JSON.stringify({ error: "Invalid phone number" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Check for gibberish in names
+    if (firstName && isGibberish(firstName, 'name')) {
+      console.log(`[BOT-DETECTED] Gibberish firstName from IP ${ip}`);
+      return new Response(
+        JSON.stringify({ error: "Invalid input detected" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    if (lastName && isGibberish(lastName, 'name')) {
+      console.log(`[BOT-DETECTED] Gibberish lastName from IP ${ip}`);
+      return new Response(
+        JSON.stringify({ error: "Invalid input detected" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Check message for extreme gibberish (but don't block)
+    if (message && isGibberish(message, 'message')) {
+      console.log(`[SUSPICIOUS] Potential gibberish in message from IP ${ip} - accepting`);
+    }
+
+    // Check field lengths
+    if ((firstName && firstName.length > 50) || (lastName && lastName.length > 50) ||
+        (email && email.length > 100) || (message && message.length > 2000)) {
+      console.log(`[BOT-DETECTED] Field length exceeded from IP ${ip}`);
+      return new Response(
+        JSON.stringify({ error: "Field length exceeded" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // All checks passed
+    console.log(`[VALID-SUBMISSION] Contact form from IP ${ip}`, { email, topic });
+
     const fullName = `${firstName} ${lastName}`.trim();
 
     console.log('📧 === Contact Form Submission ===');
@@ -61,7 +240,8 @@ export async function POST({ request }) {
             metadata: { 
               reference_id: referenceId,
               source: source,
-              user_agent: userAgent
+              user_agent: userAgent,
+              ip_address: ip
             }
           }
         ])
@@ -158,7 +338,13 @@ export async function POST({ request }) {
           adminEmailConfigured: !!import.meta.env.SUPPORT_EMAIL
         }
       }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
+      { 
+        status: 200, 
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-RateLimit-Remaining': rateLimit.remaining.toString()
+        } 
+      }
     );
 
   } catch (error) {
@@ -211,6 +397,8 @@ function getPriorityColor(topic) {
 }
 
 function getCustomerEmailTemplate({ fullName, topic, referenceId }) {
+  const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://usrad.com';
+  
   return `
     <!DOCTYPE html>
     <html>
@@ -272,7 +460,7 @@ function getCustomerEmailTemplate({ fullName, topic, referenceId }) {
                   <table width="100%" cellpadding="0" cellspacing="0" style="margin: 0 0 30px;">
                     <tr>
                       <td>
-                        <a href="https://usrad.com/how-it-works" style="display: block; background-color: #f9fafb; padding: 16px 20px; border-radius: 8px; text-decoration: none; border: 1px solid #e5e7eb; margin-bottom: 12px;">
+                        <a href="${SITE_URL}/how-it-works" style="display: block; background-color: #f9fafb; padding: 16px 20px; border-radius: 8px; text-decoration: none; border: 1px solid #e5e7eb; margin-bottom: 12px;">
                           <span style="font-size: 20px; margin-right: 8px;">💻</span>
                           <span style="color: #003087; font-weight: 600; font-size: 15px;">How USRad Works</span>
                         </a>
@@ -280,7 +468,7 @@ function getCustomerEmailTemplate({ fullName, topic, referenceId }) {
                     </tr>
                     <tr>
                       <td>
-                        <a href="https://usrad.com/what-is-an-mri" style="display: block; background-color: #f9fafb; padding: 16px 20px; border-radius: 8px; text-decoration: none; border: 1px solid #e5e7eb; margin-bottom: 12px;">
+                        <a href="${SITE_URL}/education/what-is-an-mri" style="display: block; background-color: #f9fafb; padding: 16px 20px; border-radius: 8px; text-decoration: none; border: 1px solid #e5e7eb; margin-bottom: 12px;">
                           <span style="font-size: 20px; margin-right: 8px;">🧠</span>
                           <span style="color: #003087; font-weight: 600; font-size: 15px;">Learn About MRI Scans</span>
                         </a>
@@ -288,7 +476,7 @@ function getCustomerEmailTemplate({ fullName, topic, referenceId }) {
                     </tr>
                     <tr>
                       <td>
-                        <a href="https://usrad.com/#book-scan" style="display: block; background-color: #f9fafb; padding: 16px 20px; border-radius: 8px; text-decoration: none; border: 1px solid #e5e7eb; margin-bottom: 12px;">
+                        <a href="${SITE_URL}/#book-scan" style="display: block; background-color: #f9fafb; padding: 16px 20px; border-radius: 8px; text-decoration: none; border: 1px solid #e5e7eb; margin-bottom: 12px;">
                           <span style="font-size: 20px; margin-right: 8px;">🔍</span>
                           <span style="color: #003087; font-weight: 600; font-size: 15px;">Find Imaging Centers</span>
                         </a>

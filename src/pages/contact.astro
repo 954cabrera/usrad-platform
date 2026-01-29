@@ -212,6 +212,34 @@ const REMIX_URL =
         data-aos-delay="200"
       >
         <form id="contactForm" class="space-y-6">
+          <!-- HONEYPOT FIELDS - Hidden from humans, visible to bots -->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true">
+            <input
+              type="text"
+              name="website"
+              id="website"
+              tabindex="-1"
+              autocomplete="off"
+            />
+            <input
+              type="text"
+              name="company"
+              id="company"
+              tabindex="-1"
+              autocomplete="off"
+            />
+            <input
+              type="email"
+              name="email_confirm"
+              id="email_confirm"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
+
+          <!-- Hidden timestamp field -->
+          <input type="hidden" id="formLoadTime" name="formLoadTime" />
+
           <!-- Name Fields -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -779,66 +807,111 @@ const REMIX_URL =
       </style>
 
       <script>
-        // Form validation and submission
+        // ============================================
+        // ANTI-BOT PROTECTION LAYER 1: FORM INITIALIZATION
+        // ============================================
         const contactForm = document.getElementById("contactForm");
         const submitBtn = document.getElementById("submitBtn");
         const successMessage = document.getElementById("successMessage");
 
-        // ↓↓↓ ADD THIS PHONE FORMATTING CODE HERE ↓↓↓
-        // Phone number formatting
-        const phoneInput = document.getElementById("phone");
+        // Record form load time for timing-based validation
+        const formLoadTime = Date.now();
+        document.getElementById("formLoadTime").value = formLoadTime.toString();
 
-        phoneInput.addEventListener("input", (e) => {
-          // Remove all non-digit characters
-          let value = e.target.value.replace(/\D/g, "");
+        // ============================================
+        // ANTI-BOT PROTECTION LAYER 2: GIBBERISH DETECTION
+        // ============================================
+        function isGibberish(text, fieldType = "text") {
+          if (!text || text.length < 3) return false;
 
-          // Limit to 10 digits
-          value = value.substring(0, 10);
-
-          // Format as (XXX) XXX-XXXX
-          if (value.length >= 6) {
-            e.target.value = `(${value.substring(0, 3)}) ${value.substring(3, 6)}-${value.substring(6)}`;
-          } else if (value.length >= 3) {
-            e.target.value = `(${value.substring(0, 3)}) ${value.substring(3)}`;
-          } else if (value.length > 0) {
-            e.target.value = `(${value}`;
-          } else {
-            e.target.value = "";
+          // For message fields, be more lenient (users often write minimal messages like "price MRI knee")
+          if (fieldType === "message") {
+            // Only check for extreme gibberish patterns
+            const repeatingChars = text.match(/(.)\1{8,}/g) || []; // 8+ repeated chars
+            const consonantClusters =
+              text.match(
+                /[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{10,}/g,
+              ) || []; // 10+ consonants
+            return repeatingChars.length > 0 || consonantClusters.length > 0;
           }
-        });
-        // ↑↑↑ END OF PHONE FORMATTING CODE ↑↑↑
 
-        // Real-time validation
+          // For name fields, apply strict validation
+          // Calculate vowel ratio (gibberish typically has low vowel ratio)
+          const vowels = text.match(/[aeiouAEIOU]/g) || [];
+          const vowelRatio = vowels.length / text.length;
+
+          // Check for excessive consonant clusters
+          const consonantClusters =
+            text.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]{5,}/g) ||
+            [];
+
+          // Check for repeating character patterns
+          const repeatingChars = text.match(/(.)\1{4,}/g) || [];
+
+          // Check for random case mixing (common in bot submissions)
+          const upperCount = (text.match(/[A-Z]/g) || []).length;
+          const lowerCount = (text.match(/[a-z]/g) || []).length;
+          const hasRandomCasing =
+            upperCount > 0 &&
+            lowerCount > 0 &&
+            upperCount / text.length > 0.3 &&
+            upperCount / text.length < 0.7;
+
+          // Gibberish indicators
+          const hasLowVowelRatio = vowelRatio < 0.15;
+          const hasExcessiveConsonants = consonantClusters.length > 0;
+          const hasRepeatingChars = repeatingChars.length > 0;
+
+          return (
+            hasLowVowelRatio ||
+            hasExcessiveConsonants ||
+            hasRepeatingChars ||
+            hasRandomCasing
+          );
+        }
+
+        // ============================================
+        // ANTI-BOT PROTECTION LAYER 3: FIELD VALIDATION
+        // ============================================
         function validateField(field) {
-          const errorDiv = field.parentNode.querySelector(".error-message");
+          const errorDiv = field.parentElement.querySelector(".error-message");
           let isValid = true;
           let message = "";
 
-          // Remove previous error styling
+          // Clear previous errors
           field.classList.remove("border-red-500");
           errorDiv.classList.add("hidden");
+          errorDiv.textContent = "";
 
-          // Check if required field is empty
-          if (field.hasAttribute("required") && !field.value.trim()) {
+          // Skip validation for optional empty fields
+          if (!field.required && !field.value.trim()) {
+            return true;
+          }
+
+          // Required field check
+          if (field.required && !field.value.trim()) {
             isValid = false;
             message = "This field is required";
           }
-
           // Email validation
-          if (field.type === "email" && field.value) {
+          else if (field.type === "email") {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(field.value)) {
               isValid = false;
               message = "Please enter a valid email address";
             }
           }
-
-          // Phone validation (optional but if provided, should be valid 10-digit US number)
-          if (field.type === "tel" && field.value) {
-            // Remove formatting to get just digits
+          // Gibberish detection for text fields
+          else if (field.type === "text" || field.tagName === "TEXTAREA") {
+            const fieldType = field.tagName === "TEXTAREA" ? "message" : "text";
+            if (isGibberish(field.value, fieldType)) {
+              isValid = false;
+              message = "Please enter valid information";
+            }
+          }
+          // Phone validation
+          else if (field.type === "tel" && field.value) {
             const digitsOnly = field.value.replace(/\D/g, "");
-
-            // Check if it's exactly 10 digits
             if (digitsOnly.length > 0 && digitsOnly.length !== 10) {
               isValid = false;
               message = "Please enter a valid 10-digit phone number";
@@ -854,11 +927,20 @@ const REMIX_URL =
           return isValid;
         }
 
-        // Add event listeners for real-time validation
+        // Add real-time validation
         const formFields = contactForm.querySelectorAll(
-          "input, select, textarea"
+          "input, select, textarea",
         );
         formFields.forEach((field) => {
+          // Skip honeypot fields
+          if (
+            field.name === "website" ||
+            field.name === "company" ||
+            field.name === "email_confirm"
+          ) {
+            return;
+          }
+
           field.addEventListener("blur", () => validateField(field));
           field.addEventListener("input", () => {
             if (field.classList.contains("border-red-500")) {
@@ -867,13 +949,71 @@ const REMIX_URL =
           });
         });
 
-        // Form submission
+        // Format phone number as user types
+        const phoneInput = document.getElementById("phone");
+        phoneInput.addEventListener("input", (e) => {
+          let value = e.target.value.replace(/\D/g, "");
+          if (value.length > 0) {
+            if (value.length <= 3) {
+              value = `(${value}`;
+            } else if (value.length <= 6) {
+              value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+            } else {
+              value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+            }
+          }
+          e.target.value = value;
+        });
+
+        // ============================================
+        // ANTI-BOT PROTECTION LAYER 4: FORM SUBMISSION
+        // ============================================
         contactForm.addEventListener("submit", async (e) => {
           e.preventDefault();
+
+          // Check honeypot fields
+          const honeypotWebsite = document.getElementById("website").value;
+          const honeypotCompany = document.getElementById("company").value;
+          const honeypotEmailConfirm =
+            document.getElementById("email_confirm").value;
+
+          if (honeypotWebsite || honeypotCompany || honeypotEmailConfirm) {
+            console.log("Bot detected: honeypot field filled");
+            // Silently fail for bots
+            submitBtn.disabled = true;
+            submitBtn.querySelector(".submit-text").textContent =
+              "Message sent!";
+            setTimeout(() => {
+              contactForm.reset();
+              submitBtn.disabled = false;
+              submitBtn.querySelector(".submit-text").textContent =
+                "Send message →";
+            }, 2000);
+            return;
+          }
+
+          // Check submission timing (minimum 2 seconds)
+          const submissionTime = Date.now();
+          const timeDiff = (submissionTime - formLoadTime) / 1000;
+
+          if (timeDiff < 2) {
+            alert(
+              "Please take a moment to review your message before submitting.",
+            );
+            return;
+          }
 
           // Validate all fields
           let isFormValid = true;
           formFields.forEach((field) => {
+            // Skip honeypot fields
+            if (
+              field.name === "website" ||
+              field.name === "company" ||
+              field.name === "email_confirm"
+            ) {
+              return;
+            }
             if (!validateField(field)) {
               isFormValid = false;
             }
@@ -892,22 +1032,24 @@ const REMIX_URL =
             // Get form data
             const firstName = document.getElementById("firstName").value;
             const lastName = document.getElementById("lastName").value;
-
-            // Get and clean phone number (remove formatting)
             const phoneValue = document.getElementById("phone").value;
             const phoneClean = phoneValue
               ? phoneValue.replace(/\D/g, "")
               : null;
 
             const formData = {
-              firstName: firstName, // ← Changed
-              lastName: lastName, // ← Changed
+              firstName: firstName,
+              lastName: lastName,
               email: document.getElementById("email").value,
               phone: phoneClean,
               topic: document.getElementById("topic").value,
               message: document.getElementById("message").value,
               zipCode: null,
+              // Anti-bot metadata
+              formLoadTime: formLoadTime,
+              submissionTime: submissionTime,
             };
+
             // Send to API
             const response = await fetch("/api/contact", {
               method: "POST",
@@ -927,7 +1069,6 @@ const REMIX_URL =
             contactForm.style.display = "none";
             successMessage.classList.remove("hidden");
 
-            // Scroll to success message smoothly AFTER a brief delay
             setTimeout(() => {
               successMessage.scrollIntoView({
                 behavior: "smooth",
@@ -935,95 +1076,83 @@ const REMIX_URL =
               });
             }, 100);
 
-            // Get user's name for personalization
             const userName = document.getElementById("firstName").value;
 
-            // Update success message with animation
             successMessage.innerHTML = `
-  <div class="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-300 rounded-2xl p-8 text-center animate-fade-in">
-    <!-- Animated Check Icon -->
-    <div class="mx-auto w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-6 animate-scale-in">
-      <svg class="w-12 h-12 text-white animate-check" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+<div class="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-300 rounded-2xl p-8 text-center animate-fade-in">
+  <div class="mx-auto w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-6 animate-scale-in">
+    <svg class="w-12 h-12 text-white animate-check" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+    </svg>
+  </div>
+  
+  <h3 class="text-3xl font-bold text-gray-900 mb-3">
+    Thank you${userName ? ", " + userName : ""}! 🎉
+  </h3>
+  
+  <p class="text-xl text-gray-700 mb-6">
+    Your message has been sent successfully!
+  </p>
+  
+  <div class="bg-white rounded-xl p-6 mb-6 shadow-sm border border-green-200">
+    <div class="flex items-center justify-center mb-4">
+      <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
       </svg>
+      <p class="text-gray-900 font-semibold">We'll respond within 2 hours</p>
     </div>
-    
-    <!-- Success Heading -->
-    <h3 class="text-3xl font-bold text-gray-900 mb-3">
-      Thank you${userName ? ", " + userName : ""}! 🎉
-    </h3>
-    
-    <!-- Main Message -->
-    <p class="text-xl text-gray-700 mb-6">
-      Your message has been sent successfully!
-    </p>
-    
-    <!-- Info Box -->
-    <div class="bg-white rounded-xl p-6 mb-6 shadow-sm border border-green-200">
-      <div class="flex items-center justify-center mb-4">
-        <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-        <p class="text-gray-900 font-semibold">We'll respond within 2 hours</p>
-      </div>
-      <p class="text-sm text-gray-600">
-        During business hours (8AM-8PM EST)
-      </p>
-    </div>
-    
-    <!-- Reference ID -->
-    ${
-      result.referenceId
-        ? `
-      <div class="bg-gray-50 rounded-lg p-4 mb-6">
-        <p class="text-xs text-gray-500 mb-1">Reference Number:</p>
-        <p class="text-sm font-mono font-bold text-gray-700">${result.referenceId}</p>
-      </div>
-    `
-        : ""
-    }
-    
-    <!-- Check Email Reminder -->
-    <div class="flex items-center justify-center text-sm text-gray-600 mb-6">
-      <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-      </svg>
-      <span>Check your email for confirmation</span>
-    </div>
-    
-    <!-- Quick Actions -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <a href="/"
-        class="inline-block text-white px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105"
-        style="background-color: #003087;"
-        onmouseover="this.style.backgroundColor='#002266'"
-        onmouseout="this.style.backgroundColor='#003087'"
-      >
-        ← Back to Home
-      </a>
-      
-        <a href="tel:8008772324"
-        class="inline-block text-white px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105"
-        style="background-color: #10b981;"
-        onmouseover="this.style.backgroundColor='#059669'"
-        onmouseout="this.style.backgroundColor='#10b981'"
-      >
-        📞 Call Us Now
-      </a>
-    </div>
-    
-    <!-- Need immediate help -->
-    <p class="text-xs text-gray-500 mt-6">
-      Need immediate assistance? Call us at <a href="tel:8008772324" class="text-blue-600 hover:underline font-semibold">(800) USRad-24</a>
+    <p class="text-sm text-gray-600">
+      During business hours (8AM-8PM EST)
     </p>
   </div>
+  
+  ${
+    result.referenceId
+      ? `
+    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+      <p class="text-xs text-gray-500 mb-1">Reference Number:</p>
+      <p class="text-sm font-mono font-bold text-gray-700">${result.referenceId}</p>
+    </div>
+  `
+      : ""
+  }
+  
+  <div class="flex items-center justify-center text-sm text-gray-600 mb-6">
+    <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+    </svg>
+    <span>Check your email for confirmation</span>
+  </div>
+  
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <a href="/"
+      class="inline-block text-white px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105"
+      style="background-color: #003087;"
+      onmouseover="this.style.backgroundColor='#002266'"
+      onmouseout="this.style.backgroundColor='#003087'"
+    >
+      ← Back to Home
+    </a>
+    
+    <a href="tel:8668772324"
+      class="inline-block text-white px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105"
+      style="background-color: #10b981;"
+      onmouseover="this.style.backgroundColor='#059669'"
+      onmouseout="this.style.backgroundColor='#10b981'"
+    >
+      📞 Call Us Now
+    </a>
+  </div>
+  
+  <p class="text-xs text-gray-500 mt-6">
+    Need immediate assistance? Call us at <a href="tel:8668772324" class="text-blue-600 hover:underline font-semibold">(866) USRad-24</a>
+  </p>
+</div>
 `;
-
-            // Smooth scroll to success message
           } catch (error) {
             console.error("Form submission error:", error);
             alert(
-              "Sorry, there was an error sending your message. Please try again."
+              "Sorry, there was an error sending your message. Please try again or call us at (866) USRad-24.",
             );
           } finally {
             // Reset button state
@@ -1033,16 +1162,15 @@ const REMIX_URL =
           }
         });
 
-        // Chat function (placeholder)
+        // Chat function
         function startChat() {
-          // Implement chat widget integration
           console.log("Starting chat...");
           alert(
-            "Chat feature coming soon! Please call (800) USRad-24 for immediate assistance."
+            "Chat feature coming soon! Please call (866) USRad-24 for immediate assistance.",
           );
         }
 
-        // Smooth scroll enhancement
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
           anchor.addEventListener("click", function (e) {
             e.preventDefault();
