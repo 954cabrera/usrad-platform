@@ -199,7 +199,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
                 href="/"
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${styles.buttonBg} ${styles.buttonText} ${styles.buttonHover}`}
               >
-                Book scan
+                Book Scan
               </a>
             </div>
 
@@ -323,7 +323,7 @@ export default function CarbonHeader({ isHeroPage = false }) {
                 className="block w-full bg-[#003087] text-white px-4 py-3 rounded-lg text-center font-medium hover:bg-[#002266] transition"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Book scan
+                Book Scan
               </a>
             </div>
 
