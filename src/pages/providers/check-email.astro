@@ -1,6 +1,7 @@
 ---
 // Email verification page for providers - Magic Link version
 // File: /src/pages/providers/check-email.astro
+import BrandLogo from "../../components/brand/BrandLogo.astro";
 export const prerender = false;
 const REMIX_URL =
   import.meta.env.PUBLIC_REMIX_URL || "https://usrad-portal.vercel.app";
@@ -302,7 +303,7 @@ const REMIX_URL =
 
   <body>
     <div class="verification-container">
-      <img src="/logo/USRad-Logo-final.png" alt="USRad" class="logo" />
+      <BrandLogo branding="md" class="mx-auto mb-8" />
 
       <div class="email-icon">✉️</div>
 

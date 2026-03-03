@@ -1,6 +1,7 @@
 ---
 // src/components/dashboard/PatientAdvocateLayout.astro
 // Patient Advocate Dashboard Layout - Optimized for frontline customer service
+import BrandSymbol from "../brand/BrandSymbol.astro";
 
 interface Props {
   title?: string;
@@ -26,11 +27,7 @@ const { title = "Patient Advocate Dashboard", user } = Astro.props;
         <!-- Logo Section -->
         <div class="p-6 border-b border-emerald-600">
           <div class="flex items-center">
-            <img
-              src="/logo/usrad-logo.png"
-              alt="USRad Logo"
-              class="w-10 h-10 rounded-lg animate-float mr-3"
-            />
+            <BrandSymbol variant="white" size="lg" class="rounded-lg animate-float mr-3" />
             <div>
               <div class="text-white font-bold text-lg font-manrope">USRad</div>
               <div class="text-emerald-200 text-xs">Patient Advocate Suite</div>

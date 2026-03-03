@@ -1,0 +1,88 @@
+---
+/**
+ * BrandSymbol — USRad symbol mark only (no wordmark).
+ *
+ * USRad Cross-Repo Brand Logo Contract v1.2
+ * Canonical path: /images/logo/brand/
+ *
+ * Props:
+ *   variant   – "primary" | "white" | "navy" | "black"
+ *                navy and black are aliases that resolve to primary.
+ *   size      – "sm" | "md" | "lg" | "xl"
+ *   branding  – "sm" | "md" | "lg" | "xl"
+ *   alt       – alt text override
+ *   class     – additional classes
+ *
+ * size and branding are mutually exclusive.
+ * If both are provided, branding wins and a dev warning is emitted.
+ */
+
+export interface Props {
+  variant?: "primary" | "white" | "navy" | "black";
+  size?: "sm" | "md" | "lg" | "xl";
+  branding?: "sm" | "md" | "lg" | "xl";
+  alt?: string;
+  class?: string;
+}
+
+const {
+  variant = "primary",
+  size,
+  branding,
+  alt = "USRad",
+  class: className,
+} = Astro.props;
+
+// ── §3 Variant → file mapping ───────────────────────────────────────
+// navy and black are aliases that resolve to the primary asset.
+const variantMap: Record<string, string> = {
+  primary: "/images/logo/brand/usrad-symbol.svg",
+  white:   "/images/logo/brand/usrad-symbol-white.svg",
+  navy:    "/images/logo/brand/usrad-symbol.svg",
+  black:   "/images/logo/brand/usrad-symbol.svg",
+};
+
+const src = variantMap[variant] ?? variantMap.primary;
+
+// ── §3 Size tokens (square) ────────────────────────────────────────
+const sizeMap: Record<string, string> = {
+  sm: "w-7 h-7",   // 28px
+  md: "w-8 h-8",   // 32px
+  lg: "w-10 h-10", // 40px
+  xl: "w-16 h-16", // 64px
+};
+
+// ── §4 Branding tokens (width-driven) ───────────────────────────────
+const brandingMap: Record<string, string> = {
+  sm: "max-w-[120px] h-auto w-full",  // 120px
+  md: "max-w-[160px] h-auto w-full",  // 160px
+  lg: "max-w-[200px] h-auto w-full",  // 200px
+  xl: "max-w-[280px] h-auto w-full",  // 280px
+};
+
+// ── Mutual exclusivity: size vs branding ────────────────────────────
+if (size && branding && import.meta.env.DEV) {
+  console.warn(
+    `[BrandSymbol] Both "size" and "branding" were provided. "branding" takes precedence. Remove "size" to silence this warning.`
+  );
+}
+
+let tokenClasses: string;
+if (branding) {
+  tokenClasses = brandingMap[branding] ?? brandingMap.md;
+} else if (size) {
+  tokenClasses = sizeMap[size] ?? sizeMap.lg;
+} else {
+  tokenClasses = sizeMap.lg; // default: 40px square
+}
+
+// ── Assemble classes ────────────────────────────────────────────────
+const classes = [
+  "select-none",
+  "object-contain",
+  tokenClasses,
+  className,
+].filter(Boolean).join(" ");
+---
+
+<img src={src} alt={alt} class={classes} />

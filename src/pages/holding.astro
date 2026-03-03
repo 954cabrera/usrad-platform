@@ -2,6 +2,7 @@
 // src/pages/holding.astro - A test page to verify domain is working
 // Access at: usrad.com/holding
 // Delete this file when ready to go live
+import BrandLogo from "../components/brand/BrandLogo.astro";
 ---
 
 <!doctype html>
@@ -109,11 +110,7 @@
   </head>
   <body>
     <div class="container">
-      <img
-        src="/logo/USRad-Logo-final-white-text.png"
-        alt="USRad"
-        class="logo"
-      />
+      <BrandLogo variant="white" branding="xl" />
       <p class="tagline">Radiology Services Reimagined</p>
 
       <p class="message">
