@@ -22,7 +22,8 @@
     "db:studio": "drizzle-kit studio",
     "type-check": "astro check",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.astro",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "lint:logo": "grep -R \"<img\" src/ --include=\"*.astro\" --include=\"*.jsx\" --include=\"*.tsx\" | grep -v \"src/components/brand/\" | grep -v \"/x[a-z].*\\.astro\" | grep -E \"usrad-logo|usrad-symbol|/logo/USRad|/logo/usrad\" && exit 1 || exit 0"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
