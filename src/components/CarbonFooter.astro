@@ -12,6 +12,7 @@
 //  Last synced: 2025-12-26
 // ============================================================================
 
+import BrandLogo from './brand/BrandLogo.astro';
 const { hideNewsletter = false } = Astro.props;
 const currentYear = new Date().getFullYear();
 
@@ -157,11 +158,7 @@ const serviceAreas = [
       <div class="lg:col-span-2">
         <div class="flex items-center mb-4">
           <a href="/">
-            <img
-              src="/logo/USRad-Logo-final-rev.png"
-              alt="USRad"
-              class="h-10 w-auto"
-            />
+            <BrandLogo size="footer" />
           </a>
         </div>
         <p class="text-gray-600 mb-6 pr-4">
