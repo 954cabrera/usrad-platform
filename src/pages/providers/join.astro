@@ -7,6 +7,7 @@ export const prerender = false;
 import "../../styles/providers/signup-base.css";
 import "../../styles/providers/signup-form.css";
 import "../../styles/providers/signup-mobile.css";
+import BrandLogo from "../../components/brand/BrandLogo.astro";
 ---
 
 <html lang="en">
@@ -55,11 +56,7 @@ import "../../styles/providers/signup-mobile.css";
 
         <div class="brand-content">
           <!-- USRad Network Logo -->
-          <img
-            src="/logo/USRad-Logo-final.png"
-            alt="USRad Network"
-            class="network-logo"
-          />
+          <BrandLogo branding="lg" alt="USRad Network" />
 
           <!-- Revenue Banner -->
           <div class="revenue-banner">

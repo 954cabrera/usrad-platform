@@ -2,6 +2,7 @@
 // SearchLoadingOverlay.astro
 // Enterprise-grade loading overlay that appears INSTANTLY when user clicks "Find Centers"
 // This prevents the "frozen page" feeling during cross-origin navigation
+import BrandLogo from "../brand/BrandLogo.astro";
 ---
 
 <!-- Full-screen loading overlay - hidden by default -->
@@ -21,11 +22,7 @@
   >
     <!-- USRad Logo -->
     <div class="mb-8 animate-pulse">
-      <img
-        src="/logo/USRad-Logo-final-rev.png"
-        alt="USRad"
-        class="h-12 w-auto"
-      />
+      <BrandLogo size="header" />
     </div>
 
     <!-- Animated progress indicator -->

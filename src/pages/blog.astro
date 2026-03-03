@@ -1,6 +1,7 @@
 ---
 import CarbonLayout from "../layouts/CarbonLayout.astro";
 import AOSInit from "../components/AOSInit.astro";
+import BrandSymbol from "../components/brand/BrandSymbol.astro";
 
 export const prerender = true;
 
@@ -423,10 +424,9 @@ const categories = [
 
                   <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
                     {post.author === "USRad Healthcare Team" ? (
-                      <img
-                        src="/logo/usrad-logo.png"
-                        alt="USRad"
-                        class="w-10 h-10 rounded-full ring-2 ring-gray-100"
+                      <BrandSymbol
+                        size="lg"
+                        class="rounded-full ring-2 ring-gray-100"
                       />
                     ) : post.author.includes("Donna") ? (
                       <img
