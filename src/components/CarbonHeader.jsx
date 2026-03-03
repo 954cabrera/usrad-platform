@@ -12,6 +12,7 @@
 // ============================================================================
 
 import React, { useEffect, useRef, useState } from "react";
+import { BrandLogo } from "./brand/BrandLogo";
 
 // Add CSS animation for smooth dropdown appearance
 const dropdownStyles = `
@@ -84,7 +85,6 @@ export default function CarbonHeader({ isHeroPage = false }) {
         background: "bg-transparent",
         textColor: "text-white",
         hoverColor: "hover:text-white/80",
-        logoFilter: "brightness-0 invert",
         betaBg: "bg-white/20",
         betaText: "text-white",
         buttonBg: "bg-white/10 border-white/30",
@@ -103,7 +103,6 @@ export default function CarbonHeader({ isHeroPage = false }) {
           : "bg-white",
         textColor: "text-gray-700",
         hoverColor: "hover:text-[#003087]",
-        logoFilter: "",
         betaBg: "bg-[#cc9933]",
         betaText: "text-white",
         buttonBg: "bg-[#003087]",
@@ -135,10 +134,10 @@ export default function CarbonHeader({ isHeroPage = false }) {
             {/* Logo */}
             <div className="flex items-center">
               <a href="/" className="flex items-center">
-                <img
-                  src="/logo/USRad-Logo-final-rev.png"
+                <BrandLogo
+                  variant={isHeroPage && !isScrolled ? "white" : "primary"}
+                  className="h-10 w-auto transition-all duration-300"
                   alt="USRad Logo"
-                  className={`h-10 w-auto transition-all duration-300 ${styles.logoFilter}`}
                 />
               </a>
             </div>
@@ -468,10 +467,6 @@ function LoginDropdown({ isHeroPage, isScrolled }) {
           src="/images/icons/lock.svg"
           alt="Sign in"
           className={`w-4 h-4 transition-all duration-300 ${iconColor}`}
-          style={{
-            filter:
-              isHeroPage && !isScrolled ? "brightness(0) invert(1)" : "none",
-          }}
         />
         Sign in
         <svg

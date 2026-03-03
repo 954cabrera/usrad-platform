@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { BrandLogo } from "./brand/BrandLogo";
 
 // Apple-Style Desktop Login Dropdown Component
 function AppleStyleLoginDropdown() {
@@ -449,10 +450,10 @@ export default function PatientHeader({ showStickyBar = true }) {
             {/* === Mobile: Logo + Hamburger === */}
             <div className="flex items-center justify-between w-full md:hidden">
               <a href="/" className="flex items-center pt-1">
-                <img
-                  src="/logo/USRad-Logo-final.png"
-                  alt="USRad Logo"
+                <BrandLogo
+                  variant="primary"
                   className="h-10"
+                  alt="USRad Logo"
                 />
               </a>
               <button
@@ -475,10 +476,10 @@ export default function PatientHeader({ showStickyBar = true }) {
             {/* === Desktop: Logo + Nav === */}
             <div className="hidden md:flex w-full items-center justify-between">
               <a href="/" className="flex items-center">
-                <img
-                  src="/logo/USRad-Logo-final.png"
-                  alt="USRad Logo"
+                <BrandLogo
+                  variant="primary"
                   className="h-12"
+                  alt="USRad Logo"
                 />
               </a>
               <nav className="flex justify-center space-x-6 md:space-x-8 lg:space-x-10 text-sm md:text-base font-medium text-[#003087]">
