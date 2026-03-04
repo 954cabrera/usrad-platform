@@ -1,13 +1,15 @@
 ---
 /**
  * HeroHeadline.astro
- * 
+ *
  * Three-line headline with animated SVG underline
  */
 ---
 
 <div class="mb-8 sm:mb-12" data-aos="fade-up" data-aos-delay="100">
-  <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 leading-tight">
+  <h1
+    class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 leading-tight"
+  >
     <div class="text-white mb-2">Same Radiologists.</div>
     <div class="text-white mb-2">Same Scanners.</div>
     <div class="relative inline-block">
@@ -29,16 +31,18 @@
             attributeName="d"
             values="M0,10 Q100,5 200,10 T400,10; M0,10 Q100,15 200,10 T400,10; M0,10 Q100,5 200,10 T400,10"
             dur="3s"
-            repeatCount="indefinite"
-          />
+            repeatCount="indefinite"></animate>
         </path>
       </svg>
     </div>
     <span class="text-[#cc9933]">.</span>
   </h1>
 
-  <p class="text-xl sm:text-2xl md:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="200">
-    Book in minutes. Get scanned this week.<br />
+  <p
+    class="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto"
+    data-aos="fade-up"
+    data-aos-delay="200"
+  >
     Pay hundreds, not thousands.
   </p>
 </div>
