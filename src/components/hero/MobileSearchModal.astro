@@ -78,7 +78,7 @@
             id="mobile-search-title"
             class="text-lg font-semibold text-gray-900"
           >
-            Which scan do you need?
+            Find your scan
           </h2>
         </div>
       </div>
@@ -157,7 +157,7 @@
       <div id="mobile-search-section" class="hidden px-4 py-3">
         <div class="mb-3">
           <h3 class="text-sm font-semibold text-gray-700">
-            <span id="mobile-results-count">0</span> Results
+            <span id="mobile-results-count">0 Results</span>
           </h3>
         </div>
         <div id="mobile-search-list" class="space-y-2"></div>
@@ -502,7 +502,17 @@
       emptyState?.classList.add("hidden");
       searchSection?.classList.remove("hidden");
 
-      if (resultsCount) resultsCount.textContent = results.length.toString();
+      // Contextual results label: "MRI Procedures (50)" instead of generic "50 Results"
+      if (resultsCount) {
+        const modalities = [
+          ...new Set(results.map((r) => r.modality).filter(Boolean)),
+        ];
+        if (modalities.length === 1) {
+          resultsCount.textContent = `${modalities[0]} Procedures (${results.length})`;
+        } else {
+          resultsCount.textContent = `${results.length} Procedures`;
+        }
+      }
 
       searchList.innerHTML = renderGroupedResults(results, query);
       attachResultHandlers();
