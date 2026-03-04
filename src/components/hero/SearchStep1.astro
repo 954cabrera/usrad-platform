@@ -4,22 +4,21 @@
  *
  * Search input component (Step 1 of the hero search flow)
  *
+ * ✅ UNIVERSAL MODAL REFACTOR
+ * All viewports now open the search modal on focus.
+ * The inline dropdown is no longer the default for desktop.
+ * The search bar in the hero acts as a visual entry point only.
+ *
  * FEATURES:
- * 1. Search input with real-time search
- * 2. Focus handler that opens dropdown (desktop) or modal (mobile)
- * 3. Mobile detection (< 768px)
- * 4. Integration with SearchManager
- * 5. Smooth transitions when switching steps
+ * 1. Search input as visual entry point
+ * 2. Focus handler opens universal search modal on ALL viewports
+ * 3. Integration with SearchManager
+ * 4. Smooth transitions when switching steps
  *
- * MOBILE BEHAVIOR:
- * - Focus → blur input immediately → open modal
- * - Prevents keyboard from showing
- *
- * DESKTOP BEHAVIOR:
- * - Focus → open dropdown
- * - Input → search with 200ms debounce
- * - Escape → close dropdown
- * - Click outside → close dropdown
+ * BEHAVIOR (ALL VIEWPORTS):
+ * - Focus → blur input immediately → open search modal
+ * - Find button → open search modal
+ * - Modal handles all search interaction
  *
  * DEPENDENCIES:
  * - window.searchManager (provided by HeroSection.astro initialization)
@@ -48,7 +47,7 @@
         class="flex-1 px-6 py-4 sm:py-5 text-base sm:text-lg text-gray-900 placeholder-gray-500 bg-transparent focus:outline-none focus:ring-2 focus:ring-[#003087]/20 transition-all"
         aria-label="Search for medical procedures"
         aria-autocomplete="list"
-        aria-controls="search-dropdown"
+        aria-controls="mobile-search-modal"
         aria-expanded="false"
       />
 
@@ -114,7 +113,6 @@
 <script>
   const DEBUG = false;
 
-  let searchTimeout = null;
   let isSubscribed = false;
 
   function initializeSearchStep1() {
@@ -136,57 +134,36 @@
     if (DEBUG) console.log("SearchStep1: initializing");
 
     /**
-     * Focus handler — opens dropdown or mobile modal
+     * Focus handler — UNIVERSAL: always opens modal on all viewports
      */
     searchInput.addEventListener("focus", () => {
-      const isMobile = window.innerWidth < 768;
       const currentState = window.searchManager.getState();
 
       if (DEBUG)
         console.log("[SearchStep1] focus:", {
           step: currentState.currentStep,
-          isMobile,
         });
 
       // Only open on Step 1
       if (currentState.currentStep !== 1) return;
 
-      if (isMobile && window.mobileSearchModal) {
-        searchInput.blur(); // prevent keyboard
+      // Universal modal — all viewports
+      if (window.mobileSearchModal) {
+        searchInput.blur(); // prevent keyboard on mobile, remove focus on desktop
         window.mobileSearchModal.open();
-      } else {
-        window.searchManager.openDropdown();
       }
     });
 
     /**
-     * Input handler — desktop search
-     */
-    searchInput.addEventListener("input", (e) => {
-      const isMobile = window.innerWidth < 768;
-      if (isMobile) return;
-
-      const query = e.target.value.trim();
-
-      clearTimeout(searchTimeout);
-      window.searchManager.openDropdown();
-
-      searchTimeout = setTimeout(() => {
-        window.searchManager.search(query);
-        if (DEBUG) console.log("[SearchStep1] search:", query);
-      }, 200);
-    });
-
-    /**
-     * Find button (desktop)
+     * Find button — opens modal on all viewports
      */
     if (findButton) {
       findButton.addEventListener("click", () => {
-        const query = searchInput.value.trim();
-        if (query.length >= 2) {
-          window.searchManager.search(query);
-        } else {
-          window.searchManager.openDropdown();
+        const currentState = window.searchManager.getState();
+        if (currentState.currentStep !== 1) return;
+
+        if (window.mobileSearchModal) {
+          window.mobileSearchModal.open();
         }
       });
     }
@@ -217,7 +194,7 @@
         // Update aria
         searchInput.setAttribute(
           "aria-expanded",
-          state.isDropdownOpen ? "true" : "false"
+          state.isDropdownOpen ? "true" : "false",
         );
 
         // Toggle step visibility

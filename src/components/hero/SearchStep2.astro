@@ -544,7 +544,7 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
 
       const changeBtn = document.getElementById("change-procedure-button");
       const changeBtnMobile = document.getElementById(
-        "change-procedure-button-mobile"
+        "change-procedure-button-mobile",
       );
 
       const zipInput = document.getElementById("hero-zip-input");
@@ -552,28 +552,28 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
 
       const detectBtn = document.getElementById("hero-detect-location");
       const detectBtnMobile = document.getElementById(
-        "hero-detect-location-mobile"
+        "hero-detect-location-mobile",
       );
 
       const locationIcon = document.getElementById("location-icon");
       const locationIconMobile = document.getElementById(
-        "location-icon-mobile"
+        "location-icon-mobile",
       );
       const locationLoading = document.getElementById("location-loading");
       const locationLoadingMobile = document.getElementById(
-        "location-loading-mobile"
+        "location-loading-mobile",
       );
 
       const submitBtn = document.getElementById("hero-search-button");
       const submitBtnMobile = document.getElementById(
-        "hero-search-button-mobile"
+        "hero-search-button-mobile",
       );
 
       const procedureDisplay = document.getElementById(
-        "selected-procedure-display"
+        "selected-procedure-display",
       );
       const procedureDisplayMobile = document.getElementById(
-        "selected-procedure-display-mobile"
+        "selected-procedure-display-mobile",
       );
 
       const cptHidden = document.getElementById("cpt-code-hidden");
@@ -582,7 +582,7 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
       // Phase 2: Get references to dual-identity hidden fields
       const bodyPartKeyHidden = document.getElementById("bodypart-key-hidden");
       const displayLabelHidden = document.getElementById(
-        "display-label-hidden"
+        "display-label-hidden",
       );
 
       const zipHint = document.getElementById("zip-hint");
@@ -636,28 +636,15 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
           step1.classList.remove("hidden");
           step1.classList.add("fade-in-step");
 
-          // Set state to Step 1 BEFORE focusing to avoid race conditions
+          // Set state to Step 1 BEFORE opening modal to avoid race conditions
           searchManager.setState({ currentStep: 1 });
 
-          const searchInput = document.getElementById("hero-search-input");
-
-          // Focus the input (this will trigger modal or dropdown based on screen size)
-          if (searchInput) {
-            searchInput.focus();
-          }
-
-          const isMobile = window.innerWidth < 768;
-          if (!isMobile) {
-            searchManager.openDropdown();
+          // Universal modal — open directly (no focus on hero input to avoid stutter)
+          if (window.mobileSearchModal) {
+            window.mobileSearchModal.open();
             if (DEBUG) {
               console.log(
-                "[SearchStep2] Transitioned to Step 1 with dropdown open (desktop)"
-              );
-            }
-          } else {
-            if (DEBUG) {
-              console.log(
-                "[SearchStep2] Transitioned to Step 1, modal will open via focus (mobile)"
+                "[SearchStep2] Transitioned to Step 1 with search modal open",
               );
             }
           }
@@ -908,7 +895,7 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
               if (checkmarkDesktop) {
                 checkmarkDesktop.setAttribute(
                   "data-last-procedure",
-                  currentProcedure
+                  currentProcedure,
                 );
                 checkmarkDesktop.classList.remove("checkmark-pulse");
                 void checkmarkDesktop.offsetWidth;
@@ -921,7 +908,7 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
               if (checkmarkMobile) {
                 checkmarkMobile.setAttribute(
                   "data-last-procedure",
-                  currentProcedure
+                  currentProcedure,
                 );
                 checkmarkMobile.classList.remove("checkmark-pulse");
                 void checkmarkMobile.offsetWidth;
