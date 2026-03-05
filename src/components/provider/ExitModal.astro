@@ -19,51 +19,69 @@
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle
-            cx="32"
-            cy="32"
-            r="30"
-            fill="#FEF3C7"
-            stroke="#F59E0B"
-            stroke-width="2"></circle>
+          <rect
+            x="10"
+            y="6"
+            width="36"
+            height="46"
+            rx="4"
+            fill="#E8EDF5"
+            stroke="#003087"
+            stroke-width="2"></rect>
+          <rect
+            x="16"
+            y="6"
+            width="36"
+            height="46"
+            rx="4"
+            fill="#EEF2FA"
+            stroke="#003087"
+            stroke-width="2"></rect>
           <path
-            d="M32 20v16M32 44h.01"
-            stroke="#F59E0B"
-            stroke-width="4"
+            d="M24 20h16M24 28h16M24 36h10"
+            stroke="#003087"
+            stroke-width="2.5"
             stroke-linecap="round"></path>
+          <circle cx="46" cy="46" r="10" fill="#cc9933"></circle>
+          <path
+            d="M46 41v5.5l3 3"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
         </svg>
       </div>
 
       <!-- Heading -->
-      <h2 class="modal-title">Wait! You're About to Miss Out</h2>
-      <p class="modal-subtitle">Just like centers did with AnciCare</p>
+      <h2 class="modal-title">Before You Go</h2>
+      <p class="modal-subtitle">Get the complete decision framework — free</p>
 
       <!-- Content -->
       <p class="modal-description">
-        When we launched AnciCare, early adopters captured <strong
-          class="highlight">3x more market share</strong
-        > than those who waited.
+        <em>The Cash-Pay Imaging Decision</em> — written by USRad founder Michael
+        Cabrera — walks through the real economics of building a cash-pay program
+        independently versus joining an established network.
       </p>
 
-      <!-- Stats -->
+      <!-- Stats from the ebook -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-value">3-5</div>
-          <div class="stat-label">Centers per market</div>
+          <div class="stat-value">$0</div>
+          <div class="stat-label">Network path upfront cost</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value">35%</div>
-          <div class="stat-label">Higher volume for early joiners</div>
+          <div class="stat-value">60–90</div>
+          <div class="stat-label">Days to first revenue</div>
         </div>
       </div>
 
-      <!-- Proven History -->
+      <!-- What's inside -->
       <div class="proven-box">
-        <div class="proven-icon">👑</div>
+        <div class="proven-icon">📖</div>
         <div class="proven-text">
-          <strong>Proven History:</strong> Our first 100 AnciCare centers averaged
-          <strong class="highlight-gold">$476K more revenue</strong> over 8 years
-          than later joiners.
+          Covers the <strong>$2–4B cash-pay market opportunity</strong>, the
+          two-path decision framework, and why 65–75% of independent programs
+          struggle in year one.
         </div>
       </div>
 
@@ -74,48 +92,25 @@
 
       <!-- CTA Options -->
       <div class="cta-options">
-        <!-- Option 1: Schedule Call -->
-        <button class="option-card" data-option="schedule">
-          <div class="option-icon">📞</div>
+        <!-- Option 1: Download Ebook (PRIMARY) -->
+        <button class="option-card option-card-primary" data-option="guide">
+          <div class="option-icon">📥</div>
           <div class="option-content">
-            <div class="option-title">Schedule a Quick Call</div>
+            <div class="option-title">Get the Free Ebook</div>
             <div class="option-description">
-              15-min onboarding session with our team
+              The Cash-Pay Imaging Decision — by Michael Cabrera
             </div>
           </div>
           <div class="option-arrow">→</div>
         </button>
 
-        <!-- Option 2: Market Analysis (DISABLED - Coming Soon) -->
-        <button
-          class="option-card"
-          data-option="analysis"
-          disabled
-          style="opacity: 0.6; cursor: not-allowed; pointer-events: none;"
-        >
-          <div class="option-icon" style="opacity: 0.5;">📊</div>
+        <!-- Option 2: Schedule Call -->
+        <button class="option-card" data-option="schedule">
+          <div class="option-icon">📞</div>
           <div class="option-content">
-            <div class="option-title">
-              Get Your Market Analysis
-              <span
-                style="display: inline-block; background: #f59e0b; color: white; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.5rem; border-radius: 4px; margin-left: 0.5rem; vertical-align: middle;"
-                >Coming Soon</span
-              >
-            </div>
+            <div class="option-title">Schedule a Quick Call</div>
             <div class="option-description">
-              Personalized competitor insights for your area
-            </div>
-          </div>
-          <div class="option-arrow" style="opacity: 0.5;">→</div>
-        </button>
-
-        <!-- Option 3: PDF Guide -->
-        <button class="option-card" data-option="guide">
-          <div class="option-icon">📄</div>
-          <div class="option-content">
-            <div class="option-title">Download Our Guide</div>
-            <div class="option-description">
-              The Complete Cash-Pay Imaging Playbook
+              15-min conversation with our team
             </div>
           </div>
           <div class="option-arrow">→</div>
@@ -123,13 +118,12 @@
       </div>
 
       <button class="btn-secondary" id="riskWaitingBtn">
-        I'll risk waiting
+        No thanks, continue browsing
       </button>
 
       <!-- Fine print -->
       <p class="modal-footer">
-        ⏱️ Takes less than 5 minutes · 📞 Early access benefits · ❌ Cancel
-        anytime
+        🔒 No spam · 📄 Instant email delivery · ❌ Unsubscribe anytime
       </p>
     </div>
 
@@ -275,17 +269,22 @@
         </svg>
       </div>
 
-      <h2 class="modal-title">Download Your Free Guide</h2>
+      <h2 class="modal-title">Download Your Free Ebook</h2>
       <p class="modal-description">
-        The Complete Cash-Pay Imaging Playbook: Proven strategies from centers
-        generating $500K+ in annual cash-pay revenue.
+        <em>The Cash-Pay Imaging Decision</em> by Michael Cabrera. The complete framework
+        for evaluating whether to build independently or join an established network
+        — with real economics, not estimates.
       </p>
 
       <div class="guide-features">
-        <div class="feature-item">✓ Market positioning strategies</div>
-        <div class="feature-item">✓ Pricing optimization framework</div>
-        <div class="feature-item">✓ Patient acquisition tactics</div>
-        <div class="feature-item">✓ ROI calculation tools</div>
+        <div class="feature-item">✓ The $2–4B cash-pay market opportunity</div>
+        <div class="feature-item">
+          ✓ Independent vs. network path comparison
+        </div>
+        <div class="feature-item">
+          ✓ Why 65–75% of independent programs struggle
+        </div>
+        <div class="feature-item">✓ Decision framework with your numbers</div>
       </div>
 
       <form id="guideForm" class="lead-form">
@@ -478,18 +477,23 @@
 
   .back-button {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 16px;
+    left: 16px;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 8px 16px;
+    padding: 12px 24px;
     border-radius: 8px;
     font-size: 14px;
     cursor: pointer;
     color: rgba(255, 255, 255, 0.9);
     transition: all 0.2s ease;
+    min-width: 90px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .back-button:hover {
@@ -625,6 +629,16 @@
     transition: all 0.3s ease;
     text-align: left;
     width: 100%;
+  }
+
+  .option-card-primary {
+    border-color: rgba(204, 153, 51, 0.5);
+    background: rgba(204, 153, 51, 0.08);
+  }
+
+  .option-card-primary:hover {
+    border-color: rgba(204, 153, 51, 0.9);
+    background: rgba(204, 153, 51, 0.15);
   }
 
   .option-card:hover {
@@ -949,7 +963,7 @@
 
   function hasSeenModal() {
     const hasDismissed = document.cookie.includes(
-      `exitModalDismissed_${currentPath}=true`
+      `exitModalDismissed_${currentPath}=true`,
     );
     const hasConverted = document.cookie.includes("exitModalConverted=true");
     return hasDismissed || hasConverted;
@@ -985,7 +999,7 @@
       } else {
         document.cookie = `exitModalDismissed_${currentPath}=true; max-age=${7 * 24 * 60 * 60}; path=/`;
         console.log(
-          "⏸️ Dismissal cookie set - modal suppressed for 7 days on this page"
+          "⏸️ Dismissal cookie set - modal suppressed for 7 days on this page",
         );
       }
     }
@@ -1151,7 +1165,7 @@
         e.preventDefault();
 
         const submitBtn = analysisForm.querySelector(
-          'button[type="submit"]'
+          'button[type="submit"]',
         ) as HTMLButtonElement;
         if (submitBtn) {
           submitBtn.disabled = true;
@@ -1196,7 +1210,7 @@
             }, 3000);
           } else {
             alert(
-              "Something went wrong. Please try again or contact us directly."
+              "Something went wrong. Please try again or contact us directly.",
             );
             if (submitBtn) {
               submitBtn.disabled = false;
@@ -1207,7 +1221,7 @@
         } catch (error) {
           console.error("Error:", error);
           alert(
-            "Something went wrong. Please try again or contact us directly."
+            "Something went wrong. Please try again or contact us directly.",
           );
           if (submitBtn) {
             submitBtn.disabled = false;
@@ -1225,7 +1239,7 @@
         e.preventDefault();
 
         const submitBtn = guideForm.querySelector(
-          'button[type="submit"]'
+          'button[type="submit"]',
         ) as HTMLButtonElement;
         if (submitBtn) {
           submitBtn.disabled = true;
@@ -1270,7 +1284,7 @@
             }, 3000);
           } else {
             alert(
-              "Something went wrong. Please try again or contact us directly."
+              "Something went wrong. Please try again or contact us directly.",
             );
             if (submitBtn) {
               submitBtn.disabled = false;
@@ -1281,7 +1295,7 @@
         } catch (error) {
           console.error("Error:", error);
           alert(
-            "Something went wrong. Please try again or contact us directly."
+            "Something went wrong. Please try again or contact us directly.",
           );
           if (submitBtn) {
             submitBtn.disabled = false;

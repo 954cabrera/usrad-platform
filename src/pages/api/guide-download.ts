@@ -118,8 +118,7 @@ export const POST: APIRoute = async ({ request }) => {
     console.log("✅ Saved to database:", guideDownload.id);
 
     // Step 2: Generate branded PDF download URL
-    const baseUrl = import.meta.env.PUBLIC_SITE_URL || 'http://localhost:4321';
-    const pdfUrl = `${baseUrl}/guides/playbook?download=true&v=2`;
+    const pdfUrl = 'https://skpxihbmwdswmcajnhut.supabase.co/storage/v1/object/public/guides/cash-pay-imaging-decision.pdf';
 
     console.log("📄 PDF URL:", pdfUrl);
 
