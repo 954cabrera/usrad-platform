@@ -1,0 +1,466 @@
+---
+// src/components/provider/ReferralWorkflow.astro
+// Priority 1 — "How Patient Referrals Work"
+// Placement: between GuaranteeSection and PriorityMarketsMap
+// Answers clinical legitimacy questions for medical directors & credentialing coordinators
+---
+
+<section
+  id="how-referrals-work"
+  class="relative py-20 sm:py-28 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-slate-900 via-[#003087] to-black"
+>
+  <!-- Background orbs — matching HeroSection pattern, hidden on mobile -->
+  <div
+    class="hidden sm:block absolute top-20 -left-20 w-80 h-80 bg-[#cc9933]/10 rounded-full blur-3xl animate-float"
+  >
+  </div>
+  <div
+    class="hidden sm:block absolute bottom-20 -right-20 w-96 h-96 bg-[#003087]/30 rounded-full blur-3xl animate-float-delayed"
+  >
+  </div>
+
+  <div class="relative z-10 max-w-6xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-14 sm:mb-20" data-aos="fade-up">
+      <div
+        class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 sm:py-3 mb-6"
+      >
+        <div class="w-2 h-2 bg-[#cc9933] rounded-full animate-pulse"></div>
+        <span
+          class="text-white/90 text-xs sm:text-sm font-semibold tracking-wide uppercase"
+        >
+          Clinical Legitimacy
+        </span>
+      </div>
+      <h2
+        class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5 leading-tight"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Every Patient Arrives
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-[#cc9933] to-[#FFA500]"
+        >
+          Pre-Qualified
+        </span>
+      </h2>
+      <p
+        class="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        Here is exactly how a patient moves from a physician order to your imaging suite.
+      </p>
+    </div>
+
+    <!-- 5-Step Flow -->
+    <div class="relative">
+      <!-- Connecting line (desktop only) -->
+      <div
+        class="hidden lg:block absolute top-[3.25rem] left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-[#cc9933]/40 to-transparent"
+      >
+      </div>
+
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8"
+      >
+        <!-- Step 1 — Physician Order -->
+        <div
+          class="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#cc9933]/40 hover:bg-white/8 transition-all duration-300"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <!-- Step Number Badge -->
+          <div
+            class="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 bg-gradient-to-br from-[#003087] to-[#004299] text-white rounded-full flex items-center justify-center font-bold text-base shadow-lg border-2 border-[#cc9933]/30 z-10"
+          >
+            1
+          </div>
+
+          <!-- Icon -->
+          <div
+            class="w-14 h-14 bg-[#E8EDF5]/10 rounded-xl border border-white/10 flex items-center justify-center mx-auto mt-4 mb-4"
+          >
+            <svg
+              class="w-7 h-7 text-[#cc9933]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+            </svg>
+          </div>
+
+          <h3
+            class="text-white font-bold text-center text-sm sm:text-base mb-2"
+          >
+            Physician Issues Order
+          </h3>
+          <p
+            class="text-gray-400 text-xs sm:text-sm text-center leading-relaxed"
+          >
+            A licensed physician issues a diagnostic imaging order for the
+            patient.
+          </p>
+        </div>
+
+        <!-- Step 2 — Patient Submits -->
+        <div
+          class="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#cc9933]/40 hover:bg-white/8 transition-all duration-300"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <div
+            class="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 bg-gradient-to-br from-[#003087] to-[#004299] text-white rounded-full flex items-center justify-center font-bold text-base shadow-lg border-2 border-[#cc9933]/30 z-10"
+          >
+            2
+          </div>
+
+          <div
+            class="w-14 h-14 bg-[#E8EDF5]/10 rounded-xl border border-white/10 flex items-center justify-center mx-auto mt-4 mb-4"
+          >
+            <svg
+              class="w-7 h-7 text-[#cc9933]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+              ></path>
+            </svg>
+          </div>
+
+          <h3
+            class="text-white font-bold text-center text-sm sm:text-base mb-2"
+          >
+            Patient Submits Order
+          </h3>
+          <p
+            class="text-gray-400 text-xs sm:text-sm text-center leading-relaxed"
+          >
+            The patient submits their physician order through the USRad booking
+            system.
+          </p>
+        </div>
+
+        <!-- Step 3 — USRad Verifies (highlighted) -->
+        <div
+          class="relative bg-[#cc9933]/10 backdrop-blur-sm border border-[#cc9933]/30 rounded-2xl p-6 hover:border-[#cc9933]/60 hover:bg-[#cc9933]/15 transition-all duration-300"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          <div
+            class="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 bg-gradient-to-br from-[#cc9933] to-[#b8861f] text-white rounded-full flex items-center justify-center font-bold text-base shadow-lg z-10"
+          >
+            3
+          </div>
+
+          <div
+            class="w-14 h-14 bg-[#cc9933]/20 rounded-xl border border-[#cc9933]/30 flex items-center justify-center mx-auto mt-4 mb-4"
+          >
+            <svg
+              class="w-7 h-7 text-[#cc9933]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+              ></path>
+            </svg>
+          </div>
+
+          <h3
+            class="text-[#cc9933] font-bold text-center text-sm sm:text-base mb-2"
+          >
+            USRad Verifies
+          </h3>
+          <p
+            class="text-gray-300 text-xs sm:text-sm text-center leading-relaxed"
+          >
+            USRad verifies the physician order, exam type, and patient
+            eligibility
+            <span class="text-[#cc9933] font-semibold">
+              before scheduling.</span
+            >
+          </p>
+        </div>
+
+        <!-- Step 4 — Center Performs Study -->
+        <div
+          class="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#cc9933]/40 hover:bg-white/8 transition-all duration-300"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          <div
+            class="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 bg-gradient-to-br from-[#003087] to-[#004299] text-white rounded-full flex items-center justify-center font-bold text-base shadow-lg border-2 border-[#cc9933]/30 z-10"
+          >
+            4
+          </div>
+
+          <div
+            class="w-14 h-14 bg-[#E8EDF5]/10 rounded-xl border border-white/10 flex items-center justify-center mx-auto mt-4 mb-4"
+          >
+            <svg
+              class="w-7 h-7 text-[#cc9933]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+              ></path>
+            </svg>
+          </div>
+
+          <h3
+            class="text-white font-bold text-center text-sm sm:text-base mb-2"
+          >
+            Center Performs Study
+          </h3>
+          <p
+            class="text-gray-400 text-xs sm:text-sm text-center leading-relaxed"
+          >
+            Your imaging center performs the study under your own standard
+            clinical protocols.
+          </p>
+        </div>
+
+        <!-- Step 5 — Radiologist Reports -->
+        <div
+          class="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#22c55e]/40 hover:bg-white/8 transition-all duration-300"
+          data-aos="fade-up"
+          data-aos-delay="500"
+        >
+          <div
+            class="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 bg-gradient-to-br from-[#22c55e] to-[#16a34a] text-white rounded-full flex items-center justify-center font-bold text-base shadow-lg z-10"
+          >
+            5
+          </div>
+
+          <div
+            class="w-14 h-14 bg-[#22c55e]/10 rounded-xl border border-[#22c55e]/20 flex items-center justify-center mx-auto mt-4 mb-4"
+          >
+            <svg
+              class="w-7 h-7 text-[#22c55e]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+            </svg>
+          </div>
+
+          <h3
+            class="text-white font-bold text-center text-sm sm:text-base mb-2"
+          >
+            Radiologist Reports
+          </h3>
+          <p
+            class="text-gray-400 text-xs sm:text-sm text-center leading-relaxed"
+          >
+            Your radiologist issues the report. Clinical control remains
+            entirely with your center.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clinical Control Statement + HIPAA Callout -->
+    <div
+      class="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-2 gap-6"
+      data-aos="fade-up"
+      data-aos-delay="200"
+    >
+      <!-- Clinical Control -->
+      <div
+        class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8"
+      >
+        <div class="flex items-start gap-4">
+          <div
+            class="w-12 h-12 bg-[#22c55e]/10 rounded-xl border border-[#22c55e]/20 flex items-center justify-center flex-shrink-0 mt-0.5"
+          >
+            <svg
+              class="w-6 h-6 text-[#22c55e]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <h4 class="text-white font-bold text-base sm:text-lg mb-2">
+              Your Clinical Authority Is Unchanged
+            </h4>
+            <p class="text-gray-300 text-sm leading-relaxed">
+              Participating imaging centers maintain full clinical authority
+              over how studies are performed and interpreted. USRad is
+              infrastructure — not clinical oversight.
+            </p>
+            <ul class="mt-4 space-y-2">
+              <li class="flex items-center gap-2 text-sm text-gray-300">
+                <svg
+                  class="w-4 h-4 text-[#22c55e] flex-shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                You set your own protocols and scheduling
+              </li>
+              <li class="flex items-center gap-2 text-sm text-gray-300">
+                <svg
+                  class="w-4 h-4 text-[#22c55e] flex-shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                Your radiologists interpret every study
+              </li>
+              <li class="flex items-center gap-2 text-sm text-gray-300">
+                <svg
+                  class="w-4 h-4 text-[#22c55e] flex-shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                No third-party clinical oversight
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- HIPAA Compliance -->
+      <div
+        class="bg-[#cc9933]/10 backdrop-blur-sm border border-[#cc9933]/30 rounded-2xl p-6 sm:p-8"
+      >
+        <div class="flex items-start gap-4">
+          <div
+            class="w-12 h-12 bg-[#cc9933]/20 rounded-xl border border-[#cc9933]/30 flex items-center justify-center flex-shrink-0 mt-0.5"
+          >
+            <svg
+              class="w-6 h-6 text-[#cc9933]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <h4 class="text-[#cc9933] font-bold text-base sm:text-lg mb-2">
+              HIPAA Compliance
+            </h4>
+            <p class="text-gray-300 text-sm leading-relaxed">
+              USRad requires a valid physician order for all diagnostic imaging
+              studies and operates as a HIPAA Business Associate with
+              participating imaging centers. All patient data is handled in
+              compliance with federal healthcare privacy regulations.
+            </p>
+            <ul class="mt-4 space-y-2">
+              <li class="flex items-center gap-2 text-sm text-gray-300">
+                <svg
+                  class="w-4 h-4 text-[#cc9933] flex-shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                Business Associate Agreement (BAA) executed at credentialing
+              </li>
+              <li class="flex items-center gap-2 text-sm text-gray-300">
+                <svg
+                  class="w-4 h-4 text-[#cc9933] flex-shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                Valid physician order required for every study
+              </li>
+              <li class="flex items-center gap-2 text-sm text-gray-300">
+                <svg
+                  class="w-4 h-4 text-[#cc9933] flex-shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                Your center never handles member financial data
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bridge to next section -->
+    <div
+      class="mt-10 sm:mt-12 text-center"
+      data-aos="fade-up"
+      data-aos-delay="300"
+    >
+      <p class="text-gray-400 text-sm sm:text-base">
+        Have more clinical or compliance questions?
+        <a
+          href="/provider/faq#physician-order"
+          class="text-[#cc9933] hover:text-[#FFA500] font-semibold underline underline-offset-2 transition-colors duration-200"
+        >
+          See our full clinical FAQ →
+        </a>
+      </p>
+    </div>
+  </div>
+</section>
