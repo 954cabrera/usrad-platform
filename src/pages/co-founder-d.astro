@@ -29,14 +29,17 @@ export const prerender = true;
     <!-- Heartbeat Animation Canvas -->
     <canvas id="heartbeat-canvas" class="absolute inset-0 opacity-10"></canvas>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-6 py-32">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+    <div class="relative z-10 max-w-6xl mx-auto px-6 py-32">
+      <div class="grid lg:grid-cols-2 gap-20 items-center">
         <!-- Image Column -->
-        <div class="relative" data-aos="fade-right">
+        <div
+          class="relative lg:justify-self-start justify-self-center lg:-translate-y-8"
+          data-aos="fade-right"
+        >
           <div class="relative inline-block">
             <!-- Warm Glow Effect Behind Image -->
             <div
-              class="absolute inset-0 bg-gradient-to-r from-[#cc9933] to-rose-400 opacity-25 blur-xl scale-110"
+              class="absolute inset-0 bg-gradient-to-r from-[#cc9933] to-rose-400 opacity-25 blur-3xl scale-110"
             >
             </div>
 
@@ -50,8 +53,8 @@ export const prerender = true;
                 alt="Donna Cabrera, Co-Founder & Patient Advocacy Advisor"
                 width="480"
                 height="600"
-                class="relative w-full max-w-md mx-auto rounded-2xl shadow-2xl border border-[#cc9933]/20"
-                style="aspect-ratio: 4 / 5; object-fit: cover;"
+                class="relative w-[380px] lg:w-[440px] max-w-full rounded-2xl lg:mx-0 mx-auto"
+                style="aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.12);"
                 loading="eager"
                 decoding="async"
               />
@@ -67,22 +70,32 @@ export const prerender = true;
         </div>
 
         <!-- Bio Column -->
-        <div class="space-y-8 text-white" data-aos="fade-left">
-          <div>
-            <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold mb-4">
+        <div class="space-y-8 text-white relative" data-aos="fade-left">
+          <!-- Background depth gradient behind text -->
+          <div class="absolute -inset-8 bg-radial-glow pointer-events-none">
+          </div>
+
+          <div class="relative">
+            <h1
+              class="text-6xl md:text-7xl lg:text-8xl font-bold mb-2 tracking-tight leading-[0.95]"
+            >
               Donna<br />
               <span
-                class="text-transparent bg-clip-text bg-gradient-to-r from-[#cc9933] to-rose-400"
+                class="text-transparent bg-clip-text bg-gradient-to-r from-[#cc9933] to-[#FFA500]"
               >
                 Cabrera
               </span>
             </h1>
-            <p class="text-2xl text-[#cc9933] font-light">
+            <p class="text-2xl text-[#cc9933] font-light mt-3 tracking-wide">
               Co-Founder & Patient Advocacy Advisor
             </p>
+            <div
+              class="w-12 h-[2px] bg-gradient-to-r from-[#cc9933] to-transparent mt-4"
+            >
+            </div>
           </div>
 
-          <p class="text-xl leading-relaxed text-gray-300">
+          <p class="text-xl leading-relaxed text-gray-300 relative">
             Donna Cabrera's work in medical imaging began in the early 1990s,
             redefining the patient experience from the ground up. As co-founder
             of our original imaging venture and architect of the groundbreaking
@@ -90,7 +103,7 @@ export const prerender = true;
             vision as a trusted advisor at USRad.
           </p>
 
-          <div class="flex flex-wrap gap-4">
+          <div class="flex flex-wrap gap-4 relative">
             <a
               href="#legacy"
               class="group inline-flex items-center gap-3 bg-gradient-to-r from-rose-500 to-rose-600 text-white px-8 py-4 rounded-xl font-bold hover:shadow-2xl transition-all transform hover:scale-105"
@@ -507,9 +520,45 @@ export const prerender = true;
       animation: float-delayed 6s ease-in-out infinite;
       animation-delay: 3s;
     }
+
+    /* Background depth gradient behind bio column */
+    .bg-radial-glow {
+      background: radial-gradient(
+        ellipse at 30% 50%,
+        rgba(0, 48, 135, 0.35) 0%,
+        transparent 70%
+      );
+      border-radius: 2rem;
+      pointer-events: none;
+    }
+
+    /* Parallax portrait on desktop */
+    @media (min-width: 1024px) {
+      .parallax-portrait {
+        will-change: transform;
+        transition: transform 0.1s linear;
+      }
+    }
   </style>
 
   <script>
+    // Subtle parallax on portrait (desktop only)
+    function setupParallax() {
+      if (window.innerWidth < 1024) return;
+      const portrait = document.querySelector('[data-aos="fade-right"]');
+      if (!portrait) return;
+      window.addEventListener(
+        "scroll",
+        () => {
+          const scrollY = window.scrollY;
+          const offset = scrollY * 0.08;
+          portrait.style.transform = `translateY(calc(-2rem - ${offset}px))`;
+        },
+        { passive: true },
+      );
+    }
+
+    document.addEventListener("DOMContentLoaded", setupParallax);
     // Heartbeat Animation Canvas
     const canvas = document.getElementById("heartbeat-canvas");
     if (canvas) {
