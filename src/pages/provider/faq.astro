@@ -2995,6 +2995,15 @@ import AOSInit from "../../components/AOSInit.astro";
       if (visibleCountEl)
         visibleCountEl.textContent = faqItems.length.toString();
 
+      // Initialize: ensure all categories are visible on load
+      // This prevents AOS or stale inline styles from hiding categories before filtering
+      faqCategories.forEach((cat) => {
+        (cat as HTMLElement).style.display = "block";
+        cat.querySelectorAll("[data-aos]").forEach((el) => {
+          el.classList.add("aos-animate");
+        });
+      });
+
       function updateCounts() {
         const visible = document.querySelectorAll(
           '.faq-item:not([style*="display: none"])',
@@ -3027,8 +3036,10 @@ import AOSInit from "../../components/AOSInit.astro";
               cat.getAttribute("data-category") === category
             ) {
               catElement.style.display = "block";
-              // Trigger AOS animation
-              catElement.classList.add("aos-animate");
+              // Force AOS to show all items inside this category
+              catElement.querySelectorAll("[data-aos]").forEach((el) => {
+                el.classList.add("aos-animate");
+              });
             } else {
               catElement.style.display = "none";
             }
