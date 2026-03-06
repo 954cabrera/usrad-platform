@@ -2,70 +2,28 @@
 // src/components/EmployerConsultationForm.astro
 ---
 
-<div class="consultation-form">
-  <form id="employerConsultationForm" class="form">
-    <!-- Company Information -->
-    <div class="form-section">
-      <h3 class="section-title">Company Information</h3>
-
-      <div class="form-group">
-        <label for="companyName" class="form-label">Company Name *</label>
-        <input
-          type="text"
-          id="companyName"
-          name="companyName"
-          class="form-input"
-          required
-          placeholder="Enter your company name"
-        />
+<div class="employer-form-wrapper" id="employerFormWrapper">
+  <!-- ─── STAGE 1: Short Lead Form ─── -->
+  <div id="formStage">
+    <div class="form-header">
+      <div class="form-badge">
+        <span class="badge-dot"></span>
+        <span>Free 30-Minute Executive Briefing</span>
       </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="industry" class="form-label">Industry</label>
-          <select id="industry" name="industry" class="form-select">
-            <option value="">Select your industry</option>
-            <option value="technology">Technology</option>
-            <option value="healthcare">Healthcare</option>
-            <option value="manufacturing">Manufacturing</option>
-            <option value="finance">Finance & Banking</option>
-            <option value="retail">Retail</option>
-            <option value="education">Education</option>
-            <option value="government">Government</option>
-            <option value="nonprofit">Non-Profit</option>
-            <option value="construction">Construction</option>
-            <option value="transportation">Transportation</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="companySize" class="form-label">Company Size *</label>
-          <select
-            id="companySize"
-            name="companySize"
-            class="form-select"
-            required
-          >
-            <option value="">Select company size</option>
-            <option value="1-50">1-50 employees</option>
-            <option value="51-200">51-200 employees</option>
-            <option value="201-500">201-500 employees</option>
-            <option value="501-1000">501-1000 employees</option>
-            <option value="1001-5000">1,001-5,000 employees</option>
-            <option value="5000+">5,000+ employees</option>
-          </select>
-        </div>
-      </div>
+      <h3 class="form-title">Request Your Briefing</h3>
+      <p class="form-subtitle">
+        Speak directly with Michael Cabrera, USRad founder, about reducing your
+        imaging costs 50–70%.
+      </p>
     </div>
 
-    <!-- Contact Information -->
-    <div class="form-section">
-      <h3 class="section-title">Your Information</h3>
-
+    <form id="employerConsultationForm" class="form" novalidate>
+      <!-- Row: First + Last -->
       <div class="form-row">
         <div class="form-group">
-          <label for="firstName" class="form-label">First Name *</label>
+          <label for="firstName" class="form-label"
+            >First Name <span class="required">*</span></label
+          >
           <input
             type="text"
             id="firstName"
@@ -73,11 +31,13 @@
             class="form-input"
             required
             placeholder="First name"
+            autocomplete="given-name"
           />
         </div>
-
         <div class="form-group">
-          <label for="lastName" class="form-label">Last Name *</label>
+          <label for="lastName" class="form-label"
+            >Last Name <span class="required">*</span></label
+          >
           <input
             type="text"
             id="lastName"
@@ -85,37 +45,82 @@
             class="form-input"
             required
             placeholder="Last name"
+            autocomplete="family-name"
           />
         </div>
       </div>
 
+      <!-- Job Title -->
       <div class="form-group">
-        <label for="jobTitle" class="form-label">Job Title *</label>
+        <label for="jobTitle" class="form-label"
+          >Job Title <span class="required">*</span></label
+        >
         <input
           type="text"
           id="jobTitle"
           name="jobTitle"
           class="form-input"
           required
-          placeholder="e.g., HR Director, Benefits Manager"
+          placeholder="e.g., VP Benefits, HR Director, CFO"
+          autocomplete="organization-title"
         />
       </div>
 
+      <!-- Company -->
+      <div class="form-group">
+        <label for="companyName" class="form-label"
+          >Company <span class="required">*</span></label
+        >
+        <input
+          type="text"
+          id="companyName"
+          name="companyName"
+          class="form-input"
+          required
+          placeholder="Your company name"
+          autocomplete="organization"
+        />
+      </div>
+
+      <!-- Company Size -->
+      <div class="form-group">
+        <label for="companySize" class="form-label"
+          >Company Size <span class="required">*</span></label
+        >
+        <select
+          id="companySize"
+          name="companySize"
+          class="form-select"
+          required
+        >
+          <option value="">Select employee count</option>
+          <option value="500-1000">500–1,000 employees</option>
+          <option value="1001-5000">1,001–5,000 employees</option>
+          <option value="5001-10000">5,001–10,000 employees</option>
+          <option value="10000+">10,000+ employees</option>
+        </select>
+      </div>
+
+      <!-- Row: Email + Phone -->
       <div class="form-row">
         <div class="form-group">
-          <label for="email" class="form-label">Business Email *</label>
+          <label for="email" class="form-label"
+            >Business Email <span class="required">*</span></label
+          >
           <input
             type="email"
             id="email"
             name="email"
             class="form-input"
             required
-            placeholder="your.email@company.com"
+            placeholder="you@company.com"
+            autocomplete="work email"
           />
         </div>
-
         <div class="form-group">
-          <label for="phone" class="form-label">Phone Number *</label>
+          <label for="phone" class="form-label"
+            >Phone <span class="required">*</span></label
+          >
           <input
             type="tel"
             id="phone"
@@ -123,462 +128,532 @@
             class="form-input"
             required
             placeholder="(555) 123-4567"
-            title="Please enter a 10-digit phone number"
+            autocomplete="tel"
           />
-          <small class="form-help-text">Format: (555) 123-4567</small>
-        </div>
-      </div>
-    </div>
-
-    <!-- Current Benefits Information -->
-    <div class="form-section">
-      <h3 class="section-title">Current Benefits Information</h3>
-
-      <div class="form-group">
-        <label for="currentProvider" class="form-label"
-          >Current Health Insurance Provider</label
-        >
-        <input
-          type="text"
-          id="currentProvider"
-          name="currentProvider"
-          class="form-input"
-          placeholder="e.g., Blue Cross Blue Shield, Aetna, UnitedHealth"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="imagingChallenges" class="form-label"
-          >Current Imaging Cost Challenges</label
-        >
-        <div class="checkbox-group">
-          <label class="checkbox-option">
-            <input
-              type="checkbox"
-              name="imagingChallenges"
-              value="high-costs"
-            />
-            <span class="checkbox-custom"></span>
-            <span>High out-of-pocket costs for employees</span>
-          </label>
-          <label class="checkbox-option">
-            <input
-              type="checkbox"
-              name="imagingChallenges"
-              value="limited-access"
-            />
-            <span class="checkbox-custom"></span>
-            <span>Limited access to imaging centers</span>
-          </label>
-          <label class="checkbox-option">
-            <input
-              type="checkbox"
-              name="imagingChallenges"
-              value="long-wait-times"
-            />
-            <span class="checkbox-custom"></span>
-            <span>Long wait times for appointments</span>
-          </label>
-          <label class="checkbox-option">
-            <input
-              type="checkbox"
-              name="imagingChallenges"
-              value="budget-concerns"
-            />
-            <span class="checkbox-custom"></span>
-            <span>Rising healthcare costs impacting budget</span>
-          </label>
-          <label class="checkbox-option">
-            <input
-              type="checkbox"
-              name="imagingChallenges"
-              value="transparency"
-            />
-            <span class="checkbox-custom"></span>
-            <span>Lack of price transparency</span>
-          </label>
         </div>
       </div>
 
+      <!-- Timeline (optional) -->
       <div class="form-group">
-        <label for="annualBudget" class="form-label"
-          >Approximate Annual Healthcare Benefits Budget</label
+        <label for="timeline" class="form-label"
+          >Implementation Timeline <span class="optional">(optional)</span
+          ></label
         >
-        <select id="annualBudget" name="annualBudget" class="form-select">
-          <option value="">Select budget range (optional)</option>
-          <option value="under-100k">Under $100,000</option>
-          <option value="100k-500k">$100,000 - $500,000</option>
-          <option value="500k-1m">$500,000 - $1,000,000</option>
-          <option value="1m-5m">$1,000,000 - $5,000,000</option>
-          <option value="over-5m">Over $5,000,000</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Additional Information -->
-    <div class="form-section">
-      <h3 class="section-title">Additional Information</h3>
-
-      <div class="form-group">
-        <label for="specificNeeds" class="form-label"
-          >Specific Questions or Topics to Discuss</label
-        >
-        <textarea
-          id="specificNeeds"
-          name="specificNeeds"
-          class="form-textarea"
-          rows="4"
-          placeholder="Let us know what specific aspects of our imaging benefits you'd like to learn about (cost savings, implementation process, employee experience, etc.)"
-        ></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="timeline" class="form-label">Implementation Timeline</label>
         <select id="timeline" name="timeline" class="form-select">
-          <option value="">When are you looking to implement? (optional)</option
-          >
+          <option value="">When are you looking to implement?</option>
           <option value="immediate">Immediately</option>
-          <option value="1-3-months">1-3 months</option>
-          <option value="3-6-months">3-6 months</option>
-          <option value="6-12-months">6-12 months</option>
+          <option value="1-3-months">1–3 months</option>
+          <option value="3-6-months">3–6 months</option>
+          <option value="6-12-months">6–12 months</option>
           <option value="exploring">Just exploring options</option>
         </select>
       </div>
-    </div>
 
-    <!-- Submit Button -->
-    <div class="form-submit">
-      <button type="submit" class="submit-btn">
-        <span class="btn-text">Request Consultation</span>
-        <span class="btn-icon">🚀</span>
-      </button>
-      <p class="submit-note">
-        You'll receive a calendar link to schedule your time with Michael
-      </p>
-    </div>
-  </form>
-
-  <!-- Success Message (hidden by default) -->
-  <div id="successMessage" class="success-message" style="display: none;">
-    <div class="success-content">
-      <div class="success-icon">✅</div>
-      <h3>Request Received!</h3>
-      <p>
-        Thank you for your interest in USRad. Check your email for a calendar
-        link to schedule your consultation with Michael Cabrera.
-      </p>
-      <div class="next-steps">
-        <h4>What happens next:</h4>
-        <ul>
-          <li>Check your email for the calendar link</li>
-          <li>Choose a time that works best for you</li>
-          <li>Michael will prepare a custom ROI analysis for your company</li>
-        </ul>
+      <!-- Error Message -->
+      <div id="formError" class="form-error" style="display:none;">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="10"></circle><line
+            x1="12"
+            y1="8"
+            x2="12"
+            y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <span id="formErrorMsg">Something went wrong. Please try again.</span>
       </div>
+
+      <!-- Submit -->
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span class="btn-text">Request Executive Briefing</span>
+        <svg
+          class="btn-arrow"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+      </button>
+
+      <p class="submit-note">
+        No sales team. You'll schedule directly with Michael Cabrera, USRad
+        Founder &amp; President.
+      </p>
+    </form>
+  </div>
+
+  <!-- ─── STAGE 2: Confirmation + Inline Calendly ─── -->
+  <div id="schedulingStage" style="display:none;">
+    <!-- Two-column layout -->
+    <div class="scheduling-grid">
+      <!-- LEFT: Confirmation Panel -->
+      <div class="confirmation-panel">
+        <!-- Status indicators -->
+        <div class="status-steps">
+          <div class="status-step completed">
+            <div class="status-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <span>Request received</span>
+          </div>
+          <div class="status-step completed">
+            <div class="status-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <span>Savings analysis being prepared</span>
+          </div>
+          <div class="status-step active">
+            <div class="status-icon pulse-dot"></div>
+            <span>Choose your briefing time</span>
+          </div>
+        </div>
+
+        <!-- Personalized message -->
+        <div class="confirmation-message">
+          <h3 class="confirmation-title">
+            Consultation Request<br />Received
+          </h3>
+          <p class="confirmation-body">
+            Thank you, <strong id="confirmFirstName">there</strong>. We'll
+            prepare a quick analysis of potential imaging savings for <strong
+              id="confirmCompany">your organization</strong
+            >
+            before our discussion.
+          </p>
+          <p class="confirmation-subtext">
+            Select a time below for your <strong
+              >30-minute executive briefing</strong
+            >.
+          </p>
+        </div>
+
+        <!-- What we'll cover -->
+        <div class="agenda-box">
+          <p class="agenda-label">What we'll cover</p>
+          <ul class="agenda-list">
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+              Imaging cost reduction strategies for your workforce
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+              USRad national network overview
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+              30-day implementation path
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+              Integration with your existing TPA/benefits platform
+            </li>
+          </ul>
+        </div>
+
+        <!-- Founder card -->
+        <div class="founder-card">
+          <div class="founder-avatar">MC</div>
+          <div>
+            <p class="founder-name">Michael Cabrera</p>
+            <p class="founder-title">President &amp; Founder, USRad</p>
+            <p class="founder-note">
+              Founded the managed imaging category · 168,000+ cases managed
+            </p>
+          </div>
+        </div>
+
+        <!-- Reassurance -->
+        <p class="reassurance">
+          No preparation required. We'll walk you through exactly how USRad
+          reduces imaging costs 50–70%.
+        </p>
+      </div>
+
+      <!-- RIGHT: Floating Calendly Card -->
+      <div class="calendly-card" id="calendlyCard">
+        <p class="calendly-label">Select a time for your briefing</p>
+        <!-- Calendly inline widget -->
+        <div
+          class="calendly-inline-widget"
+          data-url="https://calendly.com/mcabrera-usrad/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=003087"
+          style="min-width:280px;height:660px;"
+        >
+        </div>
+        <script
+          src="https://assets.calendly.com/assets/external/widget.js"
+          async></script>
+      </div>
+    </div>
+
+    <!-- Fail-safe: shown only if API failed but we still reveal scheduler -->
+    <div id="apiFailNotice" style="display:none;" class="api-fail-notice">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <circle cx="12" cy="12" r="10"></circle><line
+          x1="12"
+          y1="8"
+          x2="12"
+          y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <span
+        >There was an issue submitting your form. Your briefing is still
+        available — please book below and we'll follow up directly.</span
+      >
     </div>
   </div>
 </div>
 
 <script>
-  // Form submission handler
-  document
-    .getElementById("employerConsultationForm")
-    .addEventListener("submit", async function (e) {
-      e.preventDefault();
+  const form = document.getElementById("employerConsultationForm");
+  const formStage = document.getElementById("formStage");
+  const schedulingStage = document.getElementById("schedulingStage");
+  const submitBtn = document.getElementById("submitBtn");
+  const formError = document.getElementById("formError");
+  const formErrorMsg = document.getElementById("formErrorMsg");
+  const apiFailNotice = document.getElementById("apiFailNotice");
 
-      // Validate phone number has exactly 10 digits
-      const phoneInput = document.getElementById("phone");
-      const phoneDigits = phoneInput.value.replace(/\D/g, "");
+  // Phone auto-format
+  document.getElementById("phone")?.addEventListener("input", function (e) {
+    const digits = e.target.value.replace(/\D/g, "").slice(0, 10);
+    if (digits.length >= 7) {
+      e.target.value = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+    } else if (digits.length >= 4) {
+      e.target.value = `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+    } else if (digits.length >= 1) {
+      e.target.value = `(${digits}`;
+    }
+  });
 
-      if (phoneDigits.length !== 10) {
-        alert("Please enter a valid 10-digit phone number");
-        phoneInput.focus();
-        return;
-      }
+  function showSchedulingStage(apiSucceeded) {
+    // Populate personalized fields
+    const firstName = document.getElementById("firstName")?.value?.trim() || "";
+    const company = document.getElementById("companyName")?.value?.trim() || "";
+    if (firstName)
+      document.getElementById("confirmFirstName").textContent = firstName;
+    if (company)
+      document.getElementById("confirmCompany").textContent = company;
 
-      // Show loading state
-      const submitBtn = document.querySelector(".submit-btn");
-      const originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML =
-        '<span class="btn-text">Submitting...</span><span class="btn-icon">⏳</span>';
-      submitBtn.disabled = true;
+    // Hide form
+    formStage.style.display = "none";
 
-      try {
-        // Gather form data
-        const formData = new FormData(this);
-        const data = {};
+    // Show scheduling stage
+    schedulingStage.style.display = "block";
+    schedulingStage.style.opacity = "0";
 
-        // Convert FormData to object, handling checkboxes specially
-        formData.forEach((value, key) => {
-          if (key === "imagingChallenges") {
-            if (!data[key]) data[key] = [];
-            data[key].push(value);
-          } else {
-            data[key] = value;
-          }
-        });
+    // If API failed, show fail notice
+    if (!apiSucceeded) {
+      apiFailNotice.style.display = "flex";
+    }
 
-        console.log("📋 Submitting form data:", data);
-
-        // Send to API
-        const response = await fetch("/api/employer-consultation", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
-
-        console.log("📊 Response status:", response.status);
-
-        const result = await response.json();
-        console.log("✅ Response result:", result);
-
-        if (!response.ok) {
-          throw new Error(result.error || "Submission failed");
-        }
-
-        // Hide form and show success message
-        document.querySelector(".consultation-form .form").style.display =
-          "none";
-        document.getElementById("successMessage").style.display = "block";
-
-        // Scroll to success message
-        document.getElementById("successMessage").scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      } catch (error) {
-        console.error("❌ Detailed submission error:", error);
-        console.error("Error message:", error.message);
-        console.error("Error stack:", error.stack);
-
-        alert(
-          "There was an error submitting your consultation request. Please check the browser console for details or contact us directly at mcabrera@usrad.com"
-        );
-
-        // Re-enable button
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
-      }
+    // Staggered reveal: confirmation panel fades in first
+    requestAnimationFrame(() => {
+      schedulingStage.style.transition = "opacity 0.5s ease";
+      schedulingStage.style.opacity = "1";
     });
 
-  // Phone number formatting - only accept exactly 10 digits
-  document.getElementById("phone").addEventListener("input", function (e) {
-    // Remove all non-digits
-    let value = e.target.value.replace(/\D/g, "");
+    // Calendly card fades in after 800ms
+    const calendlyCard = document.getElementById("calendlyCard");
+    calendlyCard.style.opacity = "0";
+    calendlyCard.style.transform = "translateY(16px)";
+    setTimeout(() => {
+      calendlyCard.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+      calendlyCard.style.opacity = "1";
+      calendlyCard.style.transform = "translateY(0)";
+    }, 800);
 
-    // Limit to 10 digits
-    if (value.length > 10) {
-      value = value.slice(0, 10);
+    // Scroll to top of the stage
+    schedulingStage.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    // Dispatch event so parent page can expand the layout
+    window.dispatchEvent(new CustomEvent("usrad:schedulingReady"));
+  }
+
+  form?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    formError.style.display = "none";
+
+    // Validate phone
+    const phoneDigits = document
+      .getElementById("phone")
+      .value.replace(/\D/g, "");
+    if (phoneDigits.length !== 10) {
+      formErrorMsg.textContent = "Please enter a valid 10-digit phone number.";
+      formError.style.display = "flex";
+      document.getElementById("phone").focus();
+      return;
     }
 
-    // Format as (XXX) XXX-XXXX
-    if (value.length >= 6) {
-      value = value.replace(/(\d{3})(\d{3})(\d{0,4})/, "($1) $2-$3");
-    } else if (value.length >= 3) {
-      value = value.replace(/(\d{3})(\d{0,3})/, "($1) $2");
-    }
+    // Loading state
+    submitBtn.disabled = true;
+    submitBtn.querySelector(".btn-text").textContent = "Submitting...";
+    submitBtn.querySelector(".btn-arrow").style.display = "none";
 
-    e.target.value = value;
+    // Collect form data
+    const formData = new FormData(form);
+    const data = {};
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
+
+    // Add derived fields for compatibility with existing API
+    data.industry = "not-disclosed";
+    data.imagingChallenges = [];
+    data.annualBudget = "not-disclosed";
+    data.specificNeeds = "";
+
+    try {
+      const response = await fetch("/api/employer-consultation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error("API error");
+
+      // SUCCESS — lead captured, show scheduling
+      showSchedulingStage(true);
+    } catch (err) {
+      // FAIL-SAFE — show scheduler anyway, show fail notice
+      console.error("Employer consultation API error:", err);
+      showSchedulingStage(false);
+    }
   });
 </script>
 
 <style>
-  .consultation-form {
+  /* ── Wrapper ── */
+  .employer-form-wrapper {
     width: 100%;
+  }
+
+  /* ── Form Stage ── */
+  .form-header {
+    margin-bottom: 28px;
+  }
+
+  .form-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f0f7ff;
+    border: 1px solid #c3dafe;
+    color: #003087;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 100px;
+    margin-bottom: 14px;
+  }
+
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: blink 1.8s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  .form-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #003087;
+    margin: 0 0 6px;
+  }
+
+  .form-subtitle {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+    line-height: 1.5;
   }
 
   .form {
     display: flex;
     flex-direction: column;
-    gap: 32px;
-  }
-
-  .form-section {
-    background: #fafbfc;
-    padding: 24px;
-    border-radius: 12px;
-    border: 1px solid #e1e8ed;
-  }
-
-  .section-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #003087;
-    margin-bottom: 20px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #cc9933;
+    gap: 18px;
   }
 
   .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 14px;
   }
 
   .form-group {
-    margin-bottom: 20px;
-  }
-
-  .form-group:last-child {
-    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
   .form-label {
-    display: block;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 600;
     color: #003087;
-    margin-bottom: 6px;
-    font-size: 14px;
   }
 
-  .form-help-text {
-    display: block;
-    margin-top: 4px;
-    font-size: 12px;
-    color: #666;
-    font-style: italic;
+  .required {
+    color: #cc3333;
+  }
+  .optional {
+    color: #888;
+    font-weight: 400;
   }
 
   .form-input,
-  .form-select,
-  .form-textarea {
+  .form-select {
     width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e1e8ed;
+    padding: 11px 14px;
+    border: 1.5px solid #dde3ed;
     border-radius: 8px;
-    font-size: 16px;
-    background: white;
-    transition: all 0.3s ease;
+    font-size: 15px;
+    color: #1a1a2e;
+    background: #fff;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
     font-family: inherit;
+    box-sizing: border-box;
   }
 
   .form-input:focus,
-  .form-select:focus,
-  .form-textarea:focus {
+  .form-select:focus {
     outline: none;
     border-color: #cc9933;
-    box-shadow: 0 0 0 3px rgba(204, 153, 51, 0.1);
+    box-shadow: 0 0 0 3px rgba(204, 153, 51, 0.12);
   }
 
-  .form-textarea {
-    resize: vertical;
-    min-height: 100px;
+  .form-input::placeholder {
+    color: #aab;
   }
 
-  .radio-group,
-  .checkbox-group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .radio-option,
-  .checkbox-option {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    cursor: pointer;
-    padding: 12px;
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
-  }
-
-  .radio-option:hover,
-  .checkbox-option:hover {
-    background-color: #f8f9fa;
-  }
-
-  .radio-custom,
-  .checkbox-custom {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #cc9933;
-    border-radius: 50%;
-    position: relative;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .checkbox-custom {
-    border-radius: 4px;
-  }
-
-  .radio-option input[type="radio"],
-  .checkbox-option input[type="checkbox"] {
-    display: none;
-  }
-
-  .radio-option input[type="radio"]:checked + .radio-custom::after {
-    content: "";
-    width: 10px;
-    height: 10px;
-    background-color: #cc9933;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .checkbox-option input[type="checkbox"]:checked + .checkbox-custom::after {
-    content: "✓";
-    color: white;
-    background-color: #cc9933;
-    border-radius: 4px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  .form-error {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: bold;
-  }
-
-  .radio-text,
-  .checkbox-text {
-    flex: 1;
-  }
-
-  .radio-text strong {
-    display: block;
-    color: #003087;
-    margin-bottom: 2px;
-  }
-
-  .radio-text small {
-    color: #666;
+    gap: 8px;
+    background: #fff5f5;
+    border: 1px solid #fecaca;
+    color: #dc2626;
     font-size: 13px;
-  }
-
-  .form-submit {
-    text-align: center;
-    padding-top: 20px;
+    padding: 10px 14px;
+    border-radius: 8px;
   }
 
   .submit-btn {
-    background: linear-gradient(135deg, #cc9933 0%, #b8861f 100%);
-    color: white;
-    border: none;
-    padding: 16px 32px;
-    border-radius: 12px;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 15px rgba(204, 153, 51, 0.3);
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #cc9933 0%, #b8861f 100%);
+    color: #fff;
+    border: none;
+    padding: 15px 28px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(204, 153, 51, 0.35);
+    width: 100%;
+    font-family: inherit;
   }
 
-  .submit-btn:hover {
+  .submit-btn:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(204, 153, 51, 0.4);
+    box-shadow: 0 6px 22px rgba(204, 153, 51, 0.45);
   }
 
   .submit-btn:disabled {
@@ -588,107 +663,258 @@
   }
 
   .submit-note {
-    margin-top: 12px;
-    font-size: 14px;
-    color: #666;
-  }
-
-  /* Success Message */
-  .success-message {
-    background: white;
-    border-radius: 16px;
-    padding: 40px;
+    font-size: 12px;
+    color: #888;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 48, 135, 0.1);
-    border: 2px solid #22c55e;
+    margin: 0;
+    line-height: 1.5;
   }
 
-  .success-icon {
-    font-size: 48px;
-    margin-bottom: 16px;
+  /* ── Scheduling Stage ── */
+  .scheduling-grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 40px;
+    align-items: start;
   }
 
-  .success-content h3 {
+  /* ── Confirmation Panel (left) ── */
+  .confirmation-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 4px;
+  }
+
+  .status-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .status-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #555;
+  }
+
+  .status-step.completed {
+    color: #16a34a;
+  }
+  .status-step.active {
     color: #003087;
-    font-size: 24px;
-    margin-bottom: 12px;
+    font-weight: 600;
   }
 
-  .success-content > p {
-    color: #666;
-    font-size: 16px;
-    margin-bottom: 24px;
+  .status-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #dcfce7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #16a34a;
   }
 
-  .next-steps {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: left;
-    max-width: 400px;
-    margin: 0 auto;
+  .status-step.active .status-icon {
+    background: #003087;
   }
 
-  .next-steps h4 {
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    animation: blink 1.4s ease-in-out infinite;
+  }
+
+  .confirmation-message {
+    border-left: 3px solid #cc9933;
+    padding-left: 16px;
+  }
+
+  .confirmation-title {
+    font-size: 22px;
+    font-weight: 700;
     color: #003087;
-    margin-bottom: 12px;
-    font-size: 16px;
+    line-height: 1.25;
+    margin: 0 0 10px;
   }
 
-  .next-steps ul {
+  .confirmation-body {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.6;
+    margin: 0 0 8px;
+  }
+
+  .confirmation-subtext {
+    font-size: 14px;
+    color: #333;
+    margin: 0;
+  }
+
+  .agenda-box {
+    background: #f8f9fc;
+    border: 1px solid #e8ecf4;
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+
+  .agenda-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #888;
+    margin: 0 0 10px;
+  }
+
+  .agenda-list {
     list-style: none;
     padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
-  .next-steps li {
-    padding: 4px 0;
-    color: #666;
-    position: relative;
-    padding-left: 20px;
+  .agenda-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: #333;
+    line-height: 1.45;
   }
 
-  .next-steps li::before {
-    content: "→";
-    position: absolute;
-    left: 0;
+  .agenda-list li svg {
     color: #cc9933;
-    font-weight: bold;
+    flex-shrink: 0;
+    margin-top: 2px;
   }
 
-  /* Mobile Responsive */
+  .founder-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #fff;
+    border: 1px solid #e8ecf4;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .founder-avatar {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #003087 0%, #0050c8 100%);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .founder-card > div {
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+
+  .founder-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #003087;
+    margin: 0 0 2px;
+  }
+
+  .founder-title {
+    font-size: 12px;
+    color: #555;
+    margin: 0 0 3px;
+  }
+
+  .founder-note {
+    font-size: 11px;
+    color: #888;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .reassurance {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.5;
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* ── Calendly Card (right) ── */
+  .calendly-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow:
+      0 8px 32px rgba(0, 48, 135, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.04);
+    padding: 20px 20px 12px;
+    border: 1px solid #e8ecf4;
+  }
+
+  .calendly-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #003087;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 14px;
+  }
+
+  /* ── API Fail Notice ── */
+  .api-fail-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    color: #92400e;
+    font-size: 13px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .api-fail-notice svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── Mobile Responsive ── */
   @media (max-width: 768px) {
     .form-row {
       grid-template-columns: 1fr;
-      gap: 0;
     }
 
-    .form-section {
-      padding: 20px;
+    .scheduling-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .calendly-card {
+      padding: 16px;
     }
 
     .form-input,
-    .form-select,
-    .form-textarea {
-      font-size: 16px; /* Prevents zoom on iOS */
-    }
-
-    .submit-btn {
-      width: 100%;
-      padding: 16px;
-    }
-
-    .success-message {
-      padding: 30px 20px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .consultation-form {
-      margin: 0 -5px;
-    }
-
-    .form-section {
-      padding: 16px;
+    .form-select {
+      font-size: 16px; /* Prevent iOS zoom */
     }
   }
 </style>
