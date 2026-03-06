@@ -102,10 +102,8 @@ import AOSInit from "../../components/AOSInit.astro";
           <div
             class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
           >
-            <div class="text-4xl font-bold text-[#cc9933]">48hrs</div>
-            <div class="text-sm text-gray-200 mt-2">
-              Average Onboarding Time
-            </div>
+            <div class="text-4xl font-bold text-[#cc9933]">2-3 Wks</div>
+            <div class="text-sm text-gray-200 mt-2">Standard Credentialing</div>
           </div>
           <div
             class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
@@ -117,7 +115,7 @@ import AOSInit from "../../components/AOSInit.astro";
             class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
           >
             <div class="text-4xl font-bold text-[#cc9933]">10 Days</div>
-            <div class="text-sm text-gray-200 mt-2">Payment Guarantee</div>
+            <div class="text-sm text-gray-200 mt-2">Disbursement Guarantee</div>
           </div>
         </div>
       </div>
@@ -297,6 +295,27 @@ import AOSInit from "../../components/AOSInit.astro";
               Technical
             </span>
           </button>
+          <button
+            class="category-button px-8 py-4 bg-white text-[#003087] border-2 border-gray-200 rounded-full font-semibold hover:border-[#cc9933] hover:text-[#cc9933] hover:shadow-lg transition-all transform hover:scale-105"
+            data-category="clinical"
+          >
+            <span class="flex items-center gap-2">
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                ></path>
+              </svg>
+              Clinical & Compliance
+            </span>
+          </button>
         </div>
       </div>
 
@@ -304,9 +323,9 @@ import AOSInit from "../../components/AOSInit.astro";
       <div class="text-center mb-8">
         <p class="text-sm text-gray-600">
           Showing <span id="visible-count" class="font-semibold text-[#003087]"
-            >12</span
+            >18</span
           > of <span id="total-count" class="font-semibold text-[#003087]"
-            >12</span
+            >18</span
           > questions
         </p>
       </div>
@@ -314,7 +333,7 @@ import AOSInit from "../../components/AOSInit.astro";
   </section>
 
   <!-- FAQ Content Section - Enhanced Cards -->
-  <section class="py-16 bg-white">
+  <section class="py-16 bg-white" id="faq-content">
     <div class="max-w-6xl mx-auto px-6">
       <!-- Joining USRad FAQs -->
       <div class="faq-category mb-20" data-category="joining">
@@ -789,6 +808,82 @@ import AOSInit from "../../components/AOSInit.astro";
                       <strong>Our Model:</strong> We only generate revenue when we
                       successfully bring patients to your center. It's completely
                       risk-free for imaging centers.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ: Contract Terms -->
+        <div
+          id="contract-terms"
+          class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <div class="faq-accordion">
+            <button
+              class="faq-accordion-button w-full p-8 text-left focus:outline-none flex justify-between items-center group"
+            >
+              <h3
+                class="text-2xl font-bold text-[#003087] pr-6 group-hover:text-[#cc9933] transition-colors"
+              >
+                What are the contract terms and length of commitment?
+              </h3>
+              <div class="flex-shrink-0">
+                <div
+                  class="w-12 h-12 rounded-full bg-[#cc9933]/10 flex items-center justify-center group-hover:bg-[#cc9933] transition-all"
+                >
+                  <svg
+                    class="icon-plus w-6 h-6 text-[#cc9933] group-hover:text-white transition-colors"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                  </svg>
+                  <svg
+                    class="icon-minus w-6 h-6 text-white hidden"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M18 12H6"></path>
+                  </svg>
+                </div>
+              </div>
+            </button>
+            <div
+              class="faq-accordion-content"
+              style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;"
+            >
+              <div class="p-8 pt-0 bg-gradient-to-b from-gray-50 to-white">
+                <div class="border-l-4 border-[#cc9933] pl-6">
+                  <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    Contract terms are provided during the digital onboarding
+                    process and available to review before signing. There is no
+                    long-term volume commitment required. Centers may adjust
+                    their availability and participation at any time through the
+                    provider portal.
+                  </p>
+                  <div
+                    class="p-6 bg-green-50 rounded-xl border-l-4 border-green-600"
+                  >
+                    <p class="text-gray-800 font-semibold text-green-800">
+                      ✓ No long-term volume commitment — adjust participation
+                      anytime through your provider portal
                     </p>
                   </div>
                 </div>
@@ -2319,6 +2414,404 @@ import AOSInit from "../../components/AOSInit.astro";
         </div>
       </div>
 
+      <!-- Clinical & Compliance FAQs -->
+      <div class="faq-category mb-20" data-category="clinical">
+        <div class="flex items-center gap-4 mb-10" data-aos="fade-up">
+          <div class="w-12 h-1 bg-[#cc9933] rounded"></div>
+          <h2 class="text-4xl font-bold text-[#003087]">
+            Clinical & Compliance
+          </h2>
+          <div class="flex-1 h-1 bg-gray-200 rounded"></div>
+        </div>
+
+        <!-- FAQ: Physician Order -->
+        <div
+          id="physician-order"
+          class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
+          data-aos="fade-up"
+          data-aos-delay="50"
+        >
+          <div class="faq-accordion">
+            <button
+              class="faq-accordion-button w-full p-8 text-left focus:outline-none flex justify-between items-center group"
+            >
+              <h3
+                class="text-2xl font-bold text-[#003087] pr-6 group-hover:text-[#cc9933] transition-colors"
+              >
+                Does a valid physician order come through before a patient is
+                scheduled?
+              </h3>
+              <div class="flex-shrink-0">
+                <div
+                  class="w-12 h-12 rounded-full bg-[#cc9933]/10 flex items-center justify-center group-hover:bg-[#cc9933] transition-all"
+                >
+                  <svg
+                    class="icon-plus w-6 h-6 text-[#cc9933] group-hover:text-white transition-colors"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                  </svg>
+                  <svg
+                    class="icon-minus w-6 h-6 text-white hidden"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M18 12H6"></path>
+                  </svg>
+                </div>
+              </div>
+            </button>
+            <div
+              class="faq-accordion-content"
+              style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;"
+            >
+              <div class="p-8 pt-0 bg-gradient-to-b from-gray-50 to-white">
+                <div class="border-l-4 border-[#cc9933] pl-6">
+                  <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    Yes — always. USRad requires a valid physician order before
+                    any patient is scheduled at your facility. During our
+                    verification step, we confirm the ordering physician, the
+                    prescribed exam type, and patient eligibility. No order, no
+                    appointment. This is non-negotiable in our process and
+                    mirrors the clinical intake standards your center already
+                    operates under.
+                  </p>
+                  <div
+                    class="p-6 bg-[#003087]/5 rounded-xl border-l-4 border-[#003087]"
+                  >
+                    <p class="text-gray-800 font-semibold">
+                      Physician order verified before every scheduling event —
+                      exam type, ordering provider, and patient eligibility
+                      confirmed before your facility receives the appointment.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ: HIPAA Compliance -->
+        <div
+          id="hipaa-compliance"
+          class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <div class="faq-accordion">
+            <button
+              class="faq-accordion-button w-full p-8 text-left focus:outline-none flex justify-between items-center group"
+            >
+              <h3
+                class="text-2xl font-bold text-[#003087] pr-6 group-hover:text-[#cc9933] transition-colors"
+              >
+                Who handles the HIPAA Business Associate Agreement?
+              </h3>
+              <div class="flex-shrink-0">
+                <div
+                  class="w-12 h-12 rounded-full bg-[#cc9933]/10 flex items-center justify-center group-hover:bg-[#cc9933] transition-all"
+                >
+                  <svg
+                    class="icon-plus w-6 h-6 text-[#cc9933] group-hover:text-white transition-colors"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                  </svg>
+                  <svg
+                    class="icon-minus w-6 h-6 text-white hidden"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M18 12H6"></path>
+                  </svg>
+                </div>
+              </div>
+            </button>
+            <div
+              class="faq-accordion-content"
+              style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;"
+            >
+              <div class="p-8 pt-0 bg-gradient-to-b from-gray-50 to-white">
+                <div class="border-l-4 border-[#cc9933] pl-6">
+                  <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    USRad operates as a HIPAA Business Associate and a BAA is
+                    executed as part of the credentialing process — before your
+                    center receives any patient. The agreement is included in
+                    your digital onboarding packet and covers all patient data
+                    handled by USRad on your behalf. Your center never handles
+                    USRad member financial data, and USRad never accesses your
+                    clinical records or systems.
+                  </p>
+                  <div
+                    class="p-6 bg-blue-50 rounded-xl border-l-4 border-[#003087]"
+                  >
+                    <p class="text-gray-800">
+                      <strong>Compliance note:</strong> The BAA is executed at credentialing,
+                      not after your first patient. Your compliance team can review
+                      it before you sign.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ: Payer Contracts -->
+        <div
+          id="payer-contracts"
+          class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
+          data-aos="fade-up"
+          data-aos-delay="150"
+        >
+          <div class="faq-accordion">
+            <button
+              class="faq-accordion-button w-full p-8 text-left focus:outline-none flex justify-between items-center group"
+            >
+              <h3
+                class="text-2xl font-bold text-[#003087] pr-6 group-hover:text-[#cc9933] transition-colors"
+              >
+                Does joining USRad affect our existing payer contracts?
+              </h3>
+              <div class="flex-shrink-0">
+                <div
+                  class="w-12 h-12 rounded-full bg-[#cc9933]/10 flex items-center justify-center group-hover:bg-[#cc9933] transition-all"
+                >
+                  <svg
+                    class="icon-plus w-6 h-6 text-[#cc9933] group-hover:text-white transition-colors"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                  </svg>
+                  <svg
+                    class="icon-minus w-6 h-6 text-white hidden"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M18 12H6"></path>
+                  </svg>
+                </div>
+              </div>
+            </button>
+            <div
+              class="faq-accordion-content"
+              style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;"
+            >
+              <div class="p-8 pt-0 bg-gradient-to-b from-gray-50 to-white">
+                <div class="border-l-4 border-[#cc9933] pl-6">
+                  <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    No. USRad operates in the cash-pay segment — patients arrive
+                    with a physician order and have already arranged their own
+                    payment through the USRad platform. These patients are not
+                    billed through your existing payer relationships. There is
+                    no overlap with your insurance contracts, no balance
+                    billing, and no claims filing on your end. Your payer
+                    agreements remain completely independent.
+                  </p>
+                  <div
+                    class="p-6 bg-green-50 rounded-xl border-l-4 border-green-600"
+                  >
+                    <p class="text-gray-800 font-semibold text-green-800">
+                      ✓ Zero impact on existing payer contracts or credentialing
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ: No-Show Policy -->
+        <div
+          id="no-show-policy"
+          class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <div class="faq-accordion">
+            <button
+              class="faq-accordion-button w-full p-8 text-left focus:outline-none flex justify-between items-center group"
+            >
+              <h3
+                class="text-2xl font-bold text-[#003087] pr-6 group-hover:text-[#cc9933] transition-colors"
+              >
+                What happens if a USRad patient no-shows?
+              </h3>
+              <div class="flex-shrink-0">
+                <div
+                  class="w-12 h-12 rounded-full bg-[#cc9933]/10 flex items-center justify-center group-hover:bg-[#cc9933] transition-all"
+                >
+                  <svg
+                    class="icon-plus w-6 h-6 text-[#cc9933] group-hover:text-white transition-colors"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                  </svg>
+                  <svg
+                    class="icon-minus w-6 h-6 text-white hidden"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M18 12H6"></path>
+                  </svg>
+                </div>
+              </div>
+            </button>
+            <div
+              class="faq-accordion-content"
+              style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;"
+            >
+              <div class="p-8 pt-0 bg-gradient-to-b from-gray-50 to-white">
+                <div class="border-l-4 border-[#cc9933] pl-6">
+                  <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    USRad patients pre-arrange their own payment before their
+                    appointment is confirmed at your facility. This structure
+                    produces a 96% show rate across our network — significantly
+                    above the industry average for self-pay patients. In the
+                    rare case of a no-show, your center is not exposed to a
+                    collections situation. The appointment slot simply becomes
+                    available again.
+                  </p>
+                  <div class="p-6 bg-[#cc9933]/10 rounded-xl">
+                    <p class="text-gray-800">
+                      <strong>96% show rate</strong> — because patients pre-arrange
+                      their own payment before the appointment is confirmed at your
+                      facility.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- FAQ: Supported Modalities -->
+        <div
+          id="modalities"
+          class="faq-item bg-white rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden mb-6 hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl"
+          data-aos="fade-up"
+          data-aos-delay="250"
+        >
+          <div class="faq-accordion">
+            <button
+              class="faq-accordion-button w-full p-8 text-left focus:outline-none flex justify-between items-center group"
+            >
+              <h3
+                class="text-2xl font-bold text-[#003087] pr-6 group-hover:text-[#cc9933] transition-colors"
+              >
+                Which imaging modalities does USRad support?
+              </h3>
+              <div class="flex-shrink-0">
+                <div
+                  class="w-12 h-12 rounded-full bg-[#cc9933]/10 flex items-center justify-center group-hover:bg-[#cc9933] transition-all"
+                >
+                  <svg
+                    class="icon-plus w-6 h-6 text-[#cc9933] group-hover:text-white transition-colors"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                  </svg>
+                  <svg
+                    class="icon-minus w-6 h-6 text-white hidden"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M18 12H6"></path>
+                  </svg>
+                </div>
+              </div>
+            </button>
+            <div
+              class="faq-accordion-content"
+              style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;"
+            >
+              <div class="p-8 pt-0 bg-gradient-to-b from-gray-50 to-white">
+                <div class="border-l-4 border-[#cc9933] pl-6">
+                  <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    USRad currently supports MRI, CT, X-ray, and ultrasound at
+                    participating ACR-accredited facilities. Additional
+                    modalities may be confirmed during onboarding based on your
+                    center's equipment and accreditation.
+                  </p>
+                  <div
+                    class="p-6 bg-blue-50 rounded-xl border-l-4 border-[#003087]"
+                  >
+                    <p class="text-gray-800">
+                      <strong>ACR accreditation required.</strong> Specific modality
+                      availability is confirmed during the credentialing process.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- CTA Section - Enhanced -->
       <div class="mt-20 relative overflow-hidden">
         <div
@@ -2447,306 +2940,337 @@ import AOSInit from "../../components/AOSInit.astro";
       </div>
     </div>
   </section>
-</CarbonLayout>
 
-<script>
-  // Enhanced FAQ Accordion with smooth animations
-  document.addEventListener("DOMContentLoaded", () => {
-    const accordionButtons = document.querySelectorAll(".faq-accordion-button");
+  <script>
+    // Enhanced FAQ Accordion with smooth animations
+    document.addEventListener("DOMContentLoaded", () => {
+      const accordionButtons = document.querySelectorAll(
+        ".faq-accordion-button",
+      );
 
-    accordionButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const content = button.nextElementSibling as HTMLElement;
-        const iconPlus = button.querySelector(".icon-plus");
-        const iconMinus = button.querySelector(".icon-minus");
-        const isOpen =
-          content.style.maxHeight && content.style.maxHeight !== "0px";
+      accordionButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const content = button.nextElementSibling as HTMLElement;
+          const iconPlus = button.querySelector(".icon-plus");
+          const iconMinus = button.querySelector(".icon-minus");
+          const isOpen =
+            content.style.maxHeight && content.style.maxHeight !== "0px";
 
-        // Close all other accordions with smooth transition
-        document.querySelectorAll(".faq-accordion-content").forEach((item) => {
-          (item as HTMLElement).style.maxHeight = "0";
-        });
-        document
-          .querySelectorAll(".icon-plus")
-          .forEach((icon) => icon.classList.remove("hidden"));
-        document
-          .querySelectorAll(".icon-minus")
-          .forEach((icon) => icon.classList.add("hidden"));
+          // Close all other accordions with smooth transition
+          document
+            .querySelectorAll(".faq-accordion-content")
+            .forEach((item) => {
+              (item as HTMLElement).style.maxHeight = "0";
+            });
+          document
+            .querySelectorAll(".icon-plus")
+            .forEach((icon) => icon.classList.remove("hidden"));
+          document
+            .querySelectorAll(".icon-minus")
+            .forEach((icon) => icon.classList.add("hidden"));
 
-        // Toggle current accordion
-        if (!isOpen) {
-          content.style.maxHeight = content.scrollHeight + 50 + "px";
-          iconPlus?.classList.add("hidden");
-          iconMinus?.classList.remove("hidden");
+          // Toggle current accordion
+          if (!isOpen) {
+            content.style.maxHeight = content.scrollHeight + 50 + "px";
+            iconPlus?.classList.add("hidden");
+            iconMinus?.classList.remove("hidden");
 
-          // Smooth scroll to opened item
-          setTimeout(() => {
-            button.scrollIntoView({ behavior: "smooth", block: "nearest" });
-          }, 300);
-        }
-      });
-    });
-
-    // Enhanced Category filtering with count updates
-    const categoryButtons = document.querySelectorAll(".category-button");
-    const faqCategories = document.querySelectorAll(".faq-category");
-    const faqItems = document.querySelectorAll(".faq-item");
-    const visibleCountEl = document.getElementById("visible-count");
-    const totalCountEl = document.getElementById("total-count");
-
-    // Set initial counts
-    if (totalCountEl) totalCountEl.textContent = faqItems.length.toString();
-    if (visibleCountEl) visibleCountEl.textContent = faqItems.length.toString();
-
-    function updateCounts() {
-      const visible = document.querySelectorAll(
-        '.faq-item:not([style*="display: none"])'
-      ).length;
-      if (visibleCountEl) visibleCountEl.textContent = visible.toString();
-    }
-
-    categoryButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const category = button.getAttribute("data-category");
-
-        // Update active button with animation
-        categoryButtons.forEach((btn) => {
-          btn.classList.remove("active", "bg-[#003087]", "text-white");
-          btn.classList.add(
-            "bg-white",
-            "text-[#003087]",
-            "border-2",
-            "border-gray-200"
-          );
-        });
-        button.classList.add("active", "bg-[#003087]", "text-white");
-        button.classList.remove("bg-white", "border-2", "border-gray-200");
-
-        // Filter FAQs with fade effect
-        faqCategories.forEach((cat) => {
-          const catElement = cat as HTMLElement;
-          if (
-            category === "all" ||
-            cat.getAttribute("data-category") === category
-          ) {
-            catElement.style.display = "block";
-            // Trigger AOS animation
-            catElement.classList.add("aos-animate");
-          } else {
-            catElement.style.display = "none";
+            // Smooth scroll to opened item
+            setTimeout(() => {
+              button.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }, 300);
           }
         });
+      });
+
+      // Enhanced Category filtering with count updates
+      const categoryButtons = document.querySelectorAll(".category-button");
+      const faqCategories = document.querySelectorAll(".faq-category");
+      const faqItems = document.querySelectorAll(".faq-item");
+      const visibleCountEl = document.getElementById("visible-count");
+      const totalCountEl = document.getElementById("total-count");
+
+      // Set initial counts
+      if (totalCountEl) totalCountEl.textContent = faqItems.length.toString();
+      if (visibleCountEl)
+        visibleCountEl.textContent = faqItems.length.toString();
+
+      function updateCounts() {
+        const visible = document.querySelectorAll(
+          '.faq-item:not([style*="display: none"])',
+        ).length;
+        if (visibleCountEl) visibleCountEl.textContent = visible.toString();
+      }
+
+      categoryButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const category = button.getAttribute("data-category");
+
+          // Update active button with animation
+          categoryButtons.forEach((btn) => {
+            btn.classList.remove("active", "bg-[#003087]", "text-white");
+            btn.classList.add(
+              "bg-white",
+              "text-[#003087]",
+              "border-2",
+              "border-gray-200",
+            );
+          });
+          button.classList.add("active", "bg-[#003087]", "text-white");
+          button.classList.remove("bg-white", "border-2", "border-gray-200");
+
+          // Filter FAQs with fade effect
+          faqCategories.forEach((cat) => {
+            const catElement = cat as HTMLElement;
+            if (
+              category === "all" ||
+              cat.getAttribute("data-category") === category
+            ) {
+              catElement.style.display = "block";
+              // Trigger AOS animation
+              catElement.classList.add("aos-animate");
+            } else {
+              catElement.style.display = "none";
+            }
+          });
+
+          updateCounts();
+
+          // Scroll to FAQ results after DOM updates settle
+          setTimeout(() => {
+            const faqContent = document.getElementById("faq-content");
+            if (faqContent) {
+              const offset = 20;
+              const top =
+                faqContent.getBoundingClientRect().top +
+                window.scrollY -
+                offset;
+              window.scrollTo({ top, behavior: "smooth" });
+            }
+          }, 0);
+        });
+      });
+
+      // Enhanced Search with real-time results count
+      const searchInput = document.getElementById(
+        "faq-search",
+      ) as HTMLInputElement;
+      const searchResultsCount = document.getElementById(
+        "search-results-count",
+      ) as HTMLElement;
+
+      searchInput?.addEventListener("input", (e) => {
+        const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+        const allFaqItems = document.querySelectorAll(".faq-item");
+        let visibleCount = 0;
+
+        allFaqItems.forEach((item) => {
+          const question =
+            item.querySelector("h3")?.textContent?.toLowerCase() || "";
+          const answer =
+            item
+              .querySelector(".faq-accordion-content")
+              ?.textContent?.toLowerCase() || "";
+
+          if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+            (item as HTMLElement).style.display = "block";
+            visibleCount++;
+          } else {
+            (item as HTMLElement).style.display = "none";
+          }
+        });
+
+        // Show all categories when searching
+        if (searchTerm) {
+          faqCategories.forEach((cat) => {
+            (cat as HTMLElement).style.display = "block";
+          });
+
+          // Update search results message
+          if (searchResultsCount) {
+            if (visibleCount === 0) {
+              searchResultsCount.textContent = `No results found for "${searchTerm}"`;
+              searchResultsCount.className = "text-red-600";
+            } else {
+              searchResultsCount.textContent = `Found ${visibleCount} result${visibleCount !== 1 ? "s" : ""} for "${searchTerm}"`;
+              searchResultsCount.className = "text-green-600 font-semibold";
+            }
+          }
+        } else {
+          if (searchResultsCount) searchResultsCount.textContent = "";
+          // Reset to active category filter
+          const activeButton = document.querySelector(
+            ".category-button.active",
+          );
+          activeButton?.dispatchEvent(new Event("click"));
+        }
 
         updateCounts();
       });
-    });
 
-    // Enhanced Search with real-time results count
-    const searchInput = document.getElementById(
-      "faq-search"
-    ) as HTMLInputElement;
-    const searchResultsCount = document.getElementById(
-      "search-results-count"
-    ) as HTMLElement;
-
-    searchInput?.addEventListener("input", (e) => {
-      const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
-      const allFaqItems = document.querySelectorAll(".faq-item");
-      let visibleCount = 0;
-
-      allFaqItems.forEach((item) => {
-        const question =
-          item.querySelector("h3")?.textContent?.toLowerCase() || "";
-        const answer =
-          item
-            .querySelector(".faq-accordion-content")
-            ?.textContent?.toLowerCase() || "";
-
-        if (question.includes(searchTerm) || answer.includes(searchTerm)) {
-          (item as HTMLElement).style.display = "block";
-          visibleCount++;
-        } else {
-          (item as HTMLElement).style.display = "none";
+      // Keyboard navigation
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "/" && e.target !== searchInput) {
+          e.preventDefault();
+          searchInput?.focus();
         }
       });
-
-      // Show all categories when searching
-      if (searchTerm) {
-        faqCategories.forEach((cat) => {
-          (cat as HTMLElement).style.display = "block";
-        });
-
-        // Update search results message
-        if (searchResultsCount) {
-          if (visibleCount === 0) {
-            searchResultsCount.textContent = `No results found for "${searchTerm}"`;
-            searchResultsCount.className = "text-red-600";
-          } else {
-            searchResultsCount.textContent = `Found ${visibleCount} result${visibleCount !== 1 ? "s" : ""} for "${searchTerm}"`;
-            searchResultsCount.className = "text-green-600 font-semibold";
-          }
-        }
-      } else {
-        if (searchResultsCount) searchResultsCount.textContent = "";
-        // Reset to active category filter
-        const activeButton = document.querySelector(".category-button.active");
-        activeButton?.dispatchEvent(new Event("click"));
-      }
-
-      updateCounts();
     });
+  </script>
 
-    // Keyboard navigation
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "/" && e.target !== searchInput) {
-        e.preventDefault();
-        searchInput?.focus();
-      }
-    });
-  });
-</script>
+  <!-- NEW: Deep Linking Script -->
+  <script>
+    // Handle deep linking to specific FAQs with smooth scroll and highlight
+    document.addEventListener("DOMContentLoaded", () => {
+      // Check if there's a hash in the URL (e.g., #costs)
+      const hash = window.location.hash;
 
-<!-- NEW: Deep Linking Script -->
-<script>
-  // Handle deep linking to specific FAQs with smooth scroll and highlight
-  document.addEventListener("DOMContentLoaded", () => {
-    // Check if there's a hash in the URL (e.g., #costs)
-    const hash = window.location.hash;
+      if (hash) {
+        // Small delay to let page load and AOS animations start
+        setTimeout(() => {
+          const targetElement = document.querySelector(hash);
 
-    if (hash) {
-      // Small delay to let page load and AOS animations start
-      setTimeout(() => {
-        const targetElement = document.querySelector(hash);
+          if (targetElement) {
+            // Smooth scroll to element
+            targetElement.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
 
-        if (targetElement) {
-          // Smooth scroll to element
-          targetElement.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
+            // Add highlight effect
+            targetElement.style.transition = "all 0.5s ease";
+            targetElement.style.backgroundColor = "#fffbeb";
+            targetElement.style.borderColor = "#cc9933";
+            targetElement.style.transform = "scale(1.02)";
+            targetElement.style.boxShadow =
+              "0 10px 40px rgba(204, 153, 51, 0.3)";
 
-          // Add highlight effect
-          targetElement.style.transition = "all 0.5s ease";
-          targetElement.style.backgroundColor = "#fffbeb";
-          targetElement.style.borderColor = "#cc9933";
-          targetElement.style.transform = "scale(1.02)";
-          targetElement.style.boxShadow = "0 10px 40px rgba(204, 153, 51, 0.3)";
-
-          // Auto-open the accordion if it's closed
-          const accordionButton = targetElement.querySelector(
-            ".faq-accordion-button"
-          );
-          if (accordionButton) {
-            // Check if not already open
-            const content = accordionButton.nextElementSibling as HTMLElement;
-            if (!content.style.maxHeight || content.style.maxHeight === "0px") {
-              accordionButton.click();
+            // Auto-open the accordion if it's closed
+            const accordionButton = targetElement.querySelector(
+              ".faq-accordion-button",
+            );
+            if (accordionButton) {
+              // Check if not already open
+              const content = accordionButton.nextElementSibling as HTMLElement;
+              if (
+                !content.style.maxHeight ||
+                content.style.maxHeight === "0px"
+              ) {
+                accordionButton.click();
+              }
             }
+
+            // Remove highlight after 3 seconds
+            setTimeout(() => {
+              targetElement.style.backgroundColor = "";
+              targetElement.style.borderColor = "";
+              targetElement.style.transform = "";
+              targetElement.style.boxShadow = "";
+            }, 3000);
           }
-
-          // Remove highlight after 3 seconds
-          setTimeout(() => {
-            targetElement.style.backgroundColor = "";
-            targetElement.style.borderColor = "";
-            targetElement.style.transform = "";
-            targetElement.style.boxShadow = "";
-          }, 3000);
-        }
-      }, 800);
-    }
-  });
-
-  // Also handle clicks from internal links (like from ConsultationCTA)
-  document.querySelectorAll('a[href*="#"]').forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const href = link.getAttribute("href");
-      if (href && href.includes("#")) {
-        const hashPart = href.split("#")[1];
-        const targetElement = document.getElementById(hashPart);
-
-        if (targetElement && window.location.pathname === href.split("#")[0]) {
-          e.preventDefault();
-
-          // Update URL without page jump
-          history.pushState(null, "", `#${hashPart}`);
-
-          // Smooth scroll
-          targetElement.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-
-          // Highlight effect
-          targetElement.style.transition = "all 0.5s ease";
-          targetElement.style.backgroundColor = "#fffbeb";
-          targetElement.style.borderColor = "#cc9933";
-          targetElement.style.transform = "scale(1.02)";
-          targetElement.style.boxShadow = "0 10px 40px rgba(204, 153, 51, 0.3)";
-
-          // Auto-open accordion
-          const accordionButton = targetElement.querySelector(
-            ".faq-accordion-button"
-          );
-          if (accordionButton) {
-            const content = accordionButton.nextElementSibling as HTMLElement;
-            if (!content.style.maxHeight || content.style.maxHeight === "0px") {
-              accordionButton.click();
-            }
-          }
-
-          setTimeout(() => {
-            targetElement.style.backgroundColor = "";
-            targetElement.style.borderColor = "";
-            targetElement.style.transform = "";
-            targetElement.style.boxShadow = "";
-          }, 3000);
-        }
+        }, 800);
       }
     });
-  });
-</script>
 
-<style>
-  .category-button.active {
-    background-color: #003087;
-    color: white;
-  }
+    // Also handle clicks from internal links (like from ConsultationCTA)
+    document.querySelectorAll('a[href*="#"]').forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const href = link.getAttribute("href");
+        if (href && href.includes("#")) {
+          const hashPart = href.split("#")[1];
+          const targetElement = document.getElementById(hashPart);
 
-  @keyframes pulse {
-    0%,
-    100% {
-      opacity: 0.1;
+          if (
+            targetElement &&
+            window.location.pathname === href.split("#")[0]
+          ) {
+            e.preventDefault();
+
+            // Update URL without page jump
+            history.pushState(null, "", `#${hashPart}`);
+
+            // Smooth scroll
+            targetElement.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+
+            // Highlight effect
+            targetElement.style.transition = "all 0.5s ease";
+            targetElement.style.backgroundColor = "#fffbeb";
+            targetElement.style.borderColor = "#cc9933";
+            targetElement.style.transform = "scale(1.02)";
+            targetElement.style.boxShadow =
+              "0 10px 40px rgba(204, 153, 51, 0.3)";
+
+            // Auto-open accordion
+            const accordionButton = targetElement.querySelector(
+              ".faq-accordion-button",
+            );
+            if (accordionButton) {
+              const content = accordionButton.nextElementSibling as HTMLElement;
+              if (
+                !content.style.maxHeight ||
+                content.style.maxHeight === "0px"
+              ) {
+                accordionButton.click();
+              }
+            }
+
+            setTimeout(() => {
+              targetElement.style.backgroundColor = "";
+              targetElement.style.borderColor = "";
+              targetElement.style.transform = "";
+              targetElement.style.boxShadow = "";
+            }, 3000);
+          }
+        }
+      });
+    });
+  </script>
+
+  <style>
+    .category-button.active {
+      background-color: #003087;
+      color: white;
     }
-    50% {
-      opacity: 0.2;
+
+    @keyframes pulse {
+      0%,
+      100% {
+        opacity: 0.1;
+      }
+      50% {
+        opacity: 0.2;
+      }
     }
-  }
 
-  .animate-pulse {
-    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
+    .animate-pulse {
+      animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
 
-  /* Smooth scroll behavior */
-  html {
-    scroll-behavior: smooth;
-  }
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
 
-  /* Custom scrollbar for FAQ content */
-  .faq-accordion-content::-webkit-scrollbar {
-    width: 6px;
-  }
+    /* Custom scrollbar for FAQ content */
+    .faq-accordion-content::-webkit-scrollbar {
+      width: 6px;
+    }
 
-  .faq-accordion-content::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-  }
+    .faq-accordion-content::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
 
-  .faq-accordion-content::-webkit-scrollbar-thumb {
-    background: #cc9933;
-    border-radius: 10px;
-  }
+    .faq-accordion-content::-webkit-scrollbar-thumb {
+      background: #cc9933;
+      border-radius: 10px;
+    }
 
-  .faq-accordion-content::-webkit-scrollbar-thumb:hover {
-    background: #b8861f;
-  }
-</style>
+    .faq-accordion-content::-webkit-scrollbar-thumb:hover {
+      background: #b8861f;
+    }
+  </style>
+</CarbonLayout>
