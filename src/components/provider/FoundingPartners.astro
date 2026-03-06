@@ -1,0 +1,197 @@
+---
+const REMIX_URL =
+  import.meta.env.PUBLIC_REMIX_URL || "https://usrad-portal.vercel.app";
+// FoundingPartners.astro
+// Placeholder component — holds the testimonial position in the provider page
+// journey until founding partners are onboarded and can speak on record.
+//
+// TO REPLACE WITH REAL TESTIMONIALS:
+// 1. Remove the three placeholder benefit cards
+// 2. Replace with attributed provider quote cards (name, title, center, quote)
+// 3. Keep the section header, statement strip, and CTA block unchanged
+---
+
+<!-- Founding Partners / Testimonial Placeholder -->
+<section class="py-24 px-4 sm:px-6 bg-gray-50">
+  <div class="max-w-6xl mx-auto">
+    <!-- Section header -->
+    <div class="text-center mb-16" data-aos="fade-up">
+      <div
+        class="inline-flex items-center gap-2 bg-[#cc9933]/10 px-5 py-2.5 rounded-full mb-6"
+      >
+        <span class="w-2 h-2 bg-[#cc9933] rounded-full animate-pulse"></span>
+        <span
+          class="text-[#cc9933] font-semibold text-sm tracking-wide uppercase"
+          >Founding Partner Program</span
+        >
+      </div>
+      <h2 class="text-4xl md:text-5xl font-bold text-[#003087] mb-4">
+        Join at the Ground Floor
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        USRad is currently onboarding founding imaging center partners in
+        priority U.S. markets. Founding partners receive advantages that will
+        not be available once the network reaches scale.
+      </p>
+    </div>
+
+    <!-- Three founding partner benefit cards -->
+    <!-- Replace with attributed provider quotes when available -->
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      <!-- Card 1 — Priority Volume -->
+      <div
+        class="bg-white rounded-2xl shadow-lg border-2 border-transparent hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl p-8"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div
+          class="w-14 h-14 bg-[#E8EDF5] rounded-2xl border border-gray-200 flex items-center justify-center mb-6"
+        >
+          <svg
+            class="w-7 h-7 text-[#003087]"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-[#003087] mb-3">
+          Priority Patient Volume
+        </h3>
+        <p class="text-gray-600 leading-relaxed">
+          Founding partners receive first allocation of patient volume in their
+          market as the network activates. Early partners set the floor — not
+          the ceiling.
+        </p>
+      </div>
+
+      <!-- Card 2 — Market Intelligence -->
+      <div
+        class="bg-white rounded-2xl shadow-lg border-2 border-transparent hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl p-8"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <div
+          class="w-14 h-14 bg-[#E8EDF5] rounded-2xl border border-gray-200 flex items-center justify-center mb-6"
+        >
+          <svg
+            class="w-7 h-7 text-[#003087]"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+            ></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-[#003087] mb-3">
+          Enhanced Market Analysis
+        </h3>
+        <p class="text-gray-600 leading-relaxed">
+          Founding partners receive detailed MarketScope™ analysis for their
+          specific market — demand data, competitive positioning, and volume
+          projections — before going live.
+        </p>
+      </div>
+
+      <!-- Card 3 — Leadership Access -->
+      <div
+        class="bg-white rounded-2xl shadow-lg border-2 border-transparent hover:border-[#cc9933] transition-all duration-300 hover:shadow-2xl p-8"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <div
+          class="w-14 h-14 bg-[#E8EDF5] rounded-2xl border border-gray-200 flex items-center justify-center mb-6"
+        >
+          <svg
+            class="w-7 h-7 text-[#003087]"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
+            ></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-[#003087] mb-3">
+          Direct Leadership Access
+        </h3>
+        <p class="text-gray-600 leading-relaxed">
+          Founding partners work directly with the USRad leadership team during
+          the launch phase — direct line to Michael Cabrera and the network
+          operations team throughout onboarding.
+        </p>
+      </div>
+    </div>
+
+    <!-- Statement strip -->
+    <div
+      class="bg-gradient-to-r from-[#003087] to-[#0052cc] rounded-2xl p-8 md:p-10 text-white text-center mb-12"
+      data-aos="fade-up"
+      data-aos-delay="100"
+    >
+      <div
+        class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-5 py-2 mb-6"
+      >
+        <span class="relative flex h-2.5 w-2.5">
+          <span
+            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#cc9933] opacity-75"
+          ></span>
+          <span
+            class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#cc9933]"
+          ></span>
+        </span>
+        <span class="text-sm font-medium text-white"
+          >Now enrolling in priority markets</span
+        >
+      </div>
+      <p
+        class="text-2xl md:text-3xl font-bold mb-4 max-w-3xl mx-auto leading-snug"
+      >
+        Founding partner slots are limited per market by design.
+      </p>
+      <p class="text-lg text-blue-100 max-w-2xl mx-auto">
+        Once a market reaches capacity, standard partner terms apply. Centers
+        that join now set the terms that later entrants accept.
+      </p>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center" data-aos="fade-up">
+      <a
+        href={`${REMIX_URL}/signup`}
+        class="inline-flex items-center gap-3 bg-gradient-to-r from-[#cc9933] to-[#FFA500] text-[#003087] px-12 py-5 rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:scale-105 shadow-lg"
+      >
+        <span>Apply as a Founding Partner</span>
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </a>
+      <p class="text-gray-500 mt-4 text-sm">
+        $0 to join · No volume commitments · Cancel anytime
+      </p>
+    </div>
+  </div>
+</section>
