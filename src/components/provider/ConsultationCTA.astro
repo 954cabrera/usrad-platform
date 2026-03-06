@@ -1,5 +1,6 @@
 ---
-const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://usrad-portal.vercel.app';
+const REMIX_URL =
+  import.meta.env.PUBLIC_REMIX_URL || "https://usrad-portal.vercel.app";
 // src/components/provider/ConsultationCTA.astro
 // OPTIMIZED VERSION - Enhanced Visual Hierarchy & Conversion Focus
 ---
@@ -172,10 +173,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://usrad-portal.verc
         <!-- ENHANCED: CTA Buttons with Stronger Visual Hierarchy -->
         <div class="cta-buttons-stack" data-aos="fade-up" data-aos-delay="600">
           <!-- Primary: Join Now - MUCH MORE PROMINENT -->
-          <a
-            href={`${REMIX_URL}/signup`}
-            class="btn-primary-large"
-          >
+          <a href={`${REMIX_URL}/signup`} class="btn-primary-large">
             <div class="btn-shine"></div>
             <span class="btn-content">
               <svg
@@ -234,11 +232,10 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://usrad-portal.verc
                 <span>Tell Us About Your Centers</span>
               </a>
 
-              <a
-                href="https://cal.com/usrad/15min"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                id="cal-book-quick-call"
                 class="btn-secondary"
+                type="button"
               >
                 <svg
                   class="btn-icon"
@@ -256,7 +253,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://usrad-portal.verc
                   ></path>
                 </svg>
                 <span>Book a Quick Call</span>
-              </a>
+              </button>
             </div>
             <p class="routing-note">
               <svg
@@ -1138,3 +1135,51 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://usrad-portal.verc
     }
   }
 </style>
+
+<script>
+  // Cal.com popup embed for "Book a Quick Call"
+  (function (C, A, L) {
+    let p = function (a, ar) {
+      a.q.push(ar);
+    };
+    let d = C.document;
+    C.Cal =
+      C.Cal ||
+      function () {
+        let cal = C.Cal;
+        let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement("script")).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api = function () {
+            p(api, arguments);
+          };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === "string") {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ["initNamespace", namespace]);
+          } else p(cal, ar);
+          return;
+        }
+        p(cal, ar);
+      };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  Cal("init", "15min", { origin: "https://cal.com" });
+  Cal.ns["15min"]("ui", {
+    hideEventTypeDetails: false,
+    layout: "month_view",
+  });
+
+  document
+    .getElementById("cal-book-quick-call")
+    .addEventListener("click", function () {
+      Cal.ns["15min"]("modal", { calLink: "usrad/15min" });
+    });
+</script>

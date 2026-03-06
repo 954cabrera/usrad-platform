@@ -315,7 +315,7 @@
 
         // Hide form and show success message
         document.querySelector(
-          ".provider-consultation-form .form"
+          ".provider-consultation-form .form",
         ).style.display = "none";
         const successMessage = document.getElementById("successMessage");
         successMessage.style.display = "block";
@@ -333,7 +333,7 @@
               <li>We'll prepare custom pricing for your organization</li>
             </ul>
             <div style="margin-top: 20px; text-align: center;">
-              <a href="${result.calendarLink || "https://cal.com/mcabrera-usrad/provider-consultation"}" 
+              <a href="${result.calendarLink || "https://cal.com/usrad/15min"}" 
                  target="_blank"
                  style="display: inline-block; background: linear-gradient(135deg, #cc9933 0%, #b8861f 100%); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
                 📅 Schedule Time with Michael Now
@@ -367,7 +367,7 @@
         console.error("Error message:", error.message);
 
         alert(
-          "There was an error submitting your request. Please try again or contact us directly at providers@usrad.com"
+          "There was an error submitting your request. Please try again or contact us directly at providers@usrad.com",
         );
 
         // Re-enable button
