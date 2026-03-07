@@ -474,8 +474,34 @@
   if (_urlParams.get("continue") === "1") {
     const _fn = _urlParams.get("fn");
     const _co = _urlParams.get("co");
+    const _em = _urlParams.get("em");
+    const _ph = _urlParams.get("ph");
     if (_fn) document.getElementById("confirmFirstName").textContent = _fn;
     if (_co) document.getElementById("confirmCompany").textContent = _co;
+
+    // Pre-fill Calendly widget with exec's details
+    const _calendlyWidget = document.querySelector(".calendly-inline-widget");
+    if (_calendlyWidget) {
+      const _fullName = _fn
+        ? _urlParams.get("ln")
+          ? `${_fn} ${_urlParams.get("ln")}`
+          : _fn
+        : "";
+      const _baseUrl = "https://calendly.com/mcabrera-usrad/30min";
+      const _params = new URLSearchParams({
+        hide_event_type_details: "1",
+        hide_gdpr_banner: "1",
+        primary_color: "003087",
+      });
+      if (_fullName) _params.set("name", _fullName);
+      if (_em) _params.set("email", _em);
+      if (_ph) _params.set("a1", _ph);
+      _calendlyWidget.setAttribute(
+        "data-url",
+        `${_baseUrl}?${_params.toString()}`,
+      );
+    }
+
     // Dispatch early so schedule.astro can expand layout before reveal
     window.dispatchEvent(new CustomEvent("usrad:schedulingReady"));
     showSchedulingStage(true);
