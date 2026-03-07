@@ -395,6 +395,26 @@ export const prerender = true;
 
   <!-- Layout Expansion Script: fires when form signals scheduling is ready -->
   <script>
+    function expandToScheduler() {
+      const leftCol = document.getElementById("leftInfoColumn");
+      if (!leftCol || leftCol.style.display === "none") return;
+      leftCol.style.transition = "opacity 0.3s ease";
+      leftCol.style.opacity = "0";
+      setTimeout(() => {
+        leftCol.style.display = "none";
+        const formCardOuter = document.getElementById("formCardOuter");
+        if (formCardOuter) formCardOuter.style.gridColumn = "1 / -1";
+        const formCard = document.getElementById("formCard");
+        if (formCard) {
+          formCard.style.background = "transparent";
+          formCard.style.boxShadow = "none";
+          formCard.style.border = "none";
+          formCard.style.padding = "0";
+          formCard.style.borderRadius = "0";
+        }
+      }, 320);
+    }
+
     window.addEventListener("usrad:schedulingReady", () => {
       // 1. Fade out the left info column
       const leftCol = document.getElementById("leftInfoColumn");
@@ -422,5 +442,14 @@ export const prerender = true;
         }, 320);
       }
     });
+
+    // Handle ?continue=1 on page load — bypasses event timing race
+    if (new URLSearchParams(window.location.search).get("continue") === "1") {
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", expandToScheduler);
+      } else {
+        expandToScheduler();
+      }
+    }
   </script>
 </CarbonLayout>
