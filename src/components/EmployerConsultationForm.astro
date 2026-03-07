@@ -493,9 +493,9 @@
         hide_gdpr_banner: "1",
         primary_color: "003087",
       });
-      if (_fullName) _params.set("name", _fullName);
+      if (_fullName) _params.set("name", _fullName.replace(/\+/g, " "));
       if (_em) _params.set("email", _em);
-      if (_ph) _params.set("a1", _ph);
+      if (_ph) _params.set("a2", _ph.replace(/\+/g, " "));
       _calendlyWidget.setAttribute(
         "data-url",
         `${_baseUrl}?${_params.toString()}`,
