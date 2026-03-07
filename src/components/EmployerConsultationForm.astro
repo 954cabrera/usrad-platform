@@ -419,11 +419,32 @@
   function showSchedulingStage(apiSucceeded) {
     // Populate personalized fields
     const firstName = document.getElementById("firstName")?.value?.trim() || "";
+    const lastName = document.getElementById("lastName")?.value?.trim() || "";
     const company = document.getElementById("companyName")?.value?.trim() || "";
+    const email = document.getElementById("email")?.value?.trim() || "";
+    const phone = document.getElementById("phone")?.value?.trim() || "";
     if (firstName)
       document.getElementById("confirmFirstName").textContent = firstName;
     if (company)
       document.getElementById("confirmCompany").textContent = company;
+
+    // Pre-fill Calendly with form data before widget initializes
+    const _widget = document.querySelector(".calendly-inline-widget");
+    if (_widget) {
+      const _fullName = lastName ? `${firstName} ${lastName}` : firstName;
+      const _p = new URLSearchParams({
+        hide_event_type_details: "1",
+        hide_gdpr_banner: "1",
+        primary_color: "003087",
+      });
+      if (_fullName) _p.set("name", _fullName);
+      if (email) _p.set("email", email);
+      if (phone) _p.set("a2", phone);
+      _widget.setAttribute(
+        "data-url",
+        `https://calendly.com/mcabrera-usrad/30min?${_p.toString()}`,
+      );
+    }
 
     // Hide form
     formStage.style.display = "none";
