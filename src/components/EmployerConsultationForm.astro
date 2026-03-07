@@ -596,9 +596,9 @@
       hide_gdpr_banner: "1",
       primary_color: "003087",
     });
-    if (name) params.set("name", name);
+    if (name) params.set("name", name.replace(/\+/g, " ").trim());
     if (email) params.set("email", email);
-    if (phone) params.set("a1", phone.replace(/\D/g, ""));
+    // Phone cannot be prefilled via Calendly URL params
 
     const calendlyUrl =
       "https://calendly.com/mcabrera-usrad/30min?" + params.toString();
