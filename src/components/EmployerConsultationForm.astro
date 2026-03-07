@@ -324,7 +324,19 @@
 
         <!-- Founder card -->
         <div class="founder-card">
-          <div class="founder-avatar">MC</div>
+          <div class="founder-avatar" id="founderAvatar">
+            <img
+              src="/images/mac-website-sm-profile.webp"
+              alt="Michael Cabrera"
+              style="width:40px;height:40px;border-radius:50%;object-fit:cover;display:block;"
+              onerror="this.style.display='none';document.getElementById('founderInitials').style.display='flex';"
+            />
+            <span
+              id="founderInitials"
+              style="display:none;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#003087 0%,#0050c8 100%);color:#fff;font-size:13px;font-weight:700;align-items:center;justify-content:center;"
+              >MC</span
+            >
+          </div>
           <div>
             <p class="founder-name">Michael Cabrera</p>
             <p class="founder-title">President &amp; Founder, USRad</p>
@@ -458,7 +470,12 @@
   }
 
   // ?continue=1 — skip form, show scheduler directly (email CTA return flow)
-  if (new URLSearchParams(window.location.search).get("continue") === "1") {
+  const _urlParams = new URLSearchParams(window.location.search);
+  if (_urlParams.get("continue") === "1") {
+    const _fn = _urlParams.get("fn");
+    const _co = _urlParams.get("co");
+    if (_fn) document.getElementById("confirmFirstName").textContent = _fn;
+    if (_co) document.getElementById("confirmCompany").textContent = _co;
     showSchedulingStage(true);
   }
 
