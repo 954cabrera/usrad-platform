@@ -388,6 +388,44 @@
 </div>
 
 <script>
+  const CALENDLY_BASE = "https://calendly.com/mcabrera-usrad/30min";
+  const CALENDLY_SCRIPT =
+    "https://assets.calendly.com/assets/external/widget.js";
+
+  function buildCalendlyUrl(name, email, phone) {
+    const p = new URLSearchParams({
+      hide_event_type_details: "1",
+      hide_gdpr_banner: "1",
+      primary_color: "003087",
+    });
+    if (name) p.set("name", name);
+    if (email) p.set("email", email);
+    if (phone) p.set("a2", phone);
+    return `${CALENDLY_BASE}?${p.toString()}`;
+  }
+
+  function injectCalendly(name, email, phone) {
+    const container = document.getElementById("calendlyContainer");
+    if (!container) return;
+    // Clear any previous instance
+    container.innerHTML = "";
+    // Build widget div
+    const widget = document.createElement("div");
+    widget.className = "calendly-inline-widget";
+    widget.setAttribute("data-url", buildCalendlyUrl(name, email, phone));
+    widget.style.minWidth = "280px";
+    widget.style.height = "660px";
+    container.appendChild(widget);
+    // Inject script fresh — remove old one first
+    const oldScript = document.getElementById("calendlyScript");
+    if (oldScript) oldScript.remove();
+    const script = document.createElement("script");
+    script.id = "calendlyScript";
+    script.src = CALENDLY_SCRIPT;
+    script.async = true;
+    document.body.appendChild(script);
+  }
+
   const form = document.getElementById("employerConsultationForm");
   const formStage = document.getElementById("formStage");
   const schedulingStage = document.getElementById("schedulingStage");
@@ -408,7 +446,7 @@
     }
   });
 
-  function showSchedulingStage(apiSucceeded) {
+  function showSchedulingStage(apiSucceeded, skipCalendlyInit) {
     // Populate personalized fields
     const firstName = document.getElementById("firstName")?.value?.trim() || "";
     const lastName = document.getElementById("lastName")?.value?.trim() || "";
@@ -420,9 +458,11 @@
     if (company)
       document.getElementById("confirmCompany").textContent = company;
 
-    // Initialize Calendly dynamically with prefill data
-    const _fullName = lastName ? `${firstName} ${lastName}` : firstName;
-    initCalendly(_fullName, email, phone);
+    // Initialize Calendly only if not already done (e.g. continue=1 path does it first)
+    if (!skipCalendlyInit) {
+      const _fullName = lastName ? `${firstName} ${lastName}` : firstName;
+      initCalendly(_fullName, email, phone);
+    }
 
     // Hide form
     formStage.style.display = "none";
@@ -487,7 +527,7 @@
 
     // Dispatch early so schedule.astro can expand layout before reveal
     window.dispatchEvent(new CustomEvent("usrad:schedulingReady"));
-    showSchedulingStage(true);
+    showSchedulingStage(true, true);
   }
 
   form?.addEventListener("submit", async function (e) {
