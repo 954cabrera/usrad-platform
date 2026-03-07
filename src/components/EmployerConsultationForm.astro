@@ -460,8 +460,11 @@
 
     // Initialize Calendly only if not already done (e.g. continue=1 path does it first)
     if (!skipCalendlyInit) {
-      const _fullName = lastName ? `${firstName} ${lastName}` : firstName;
-      initCalendly(_fullName, email, phone);
+      const _fullName = (
+        lastName ? `${firstName} ${lastName}` : firstName
+      ).replace(/\+/g, " ");
+      const _phone = phone.replace(/\+/g, " ");
+      initCalendly(_fullName, email, _phone);
     }
 
     // Hide form
@@ -492,11 +495,14 @@
       calendlyCard.style.transform = "translateY(0)";
     }, 800);
 
-    // Scroll to scheduling stage
+    // Scroll to scheduling stage with navbar offset
     setTimeout(() => {
-      document
-        .getElementById("calendlyCard")
-        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      const target = document.getElementById("schedulingStage");
+      if (target) {
+        const top =
+          target.getBoundingClientRect().top + window.scrollY - 88 - 24;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
     }, 400);
 
     // Dispatch event so parent page can expand the layout
@@ -592,7 +598,7 @@
     });
     if (name) params.set("name", name);
     if (email) params.set("email", email);
-    if (phone) params.set("a2", phone);
+    if (phone) params.set("a1", phone.replace(/\D/g, ""));
 
     const calendlyUrl =
       "https://calendly.com/mcabrera-usrad/30min?" + params.toString();
