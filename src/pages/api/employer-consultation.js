@@ -121,7 +121,7 @@ export const POST = async ({ request }) => {
           from: 'USRad Employer Consultations <noreply@send.usrad.com>',
           to: 'mcabrera@usrad.com',
           subject: `🎯 New Employer Consultation Lead - ${data.companyName}`,
-          html: `<div style="font-family: Arial, sans-serif;"><h2>New Employer Lead</h2><p><strong>${data.firstName} ${data.lastName}</strong> from <strong>${data.companyName}</strong></p><p>Email: ${data.email}</p><p>Phone: ${data.phone || 'Not provided'}</p></div>`
+          html: `<div style="font-family: Arial, sans-serif; max-width: 600px;"><h2 style="color: #003087;">New Employer Consultation Lead</h2><p><strong>${data.firstName} ${data.lastName}</strong> — ${data.jobTitle || 'Executive'} at <strong>${data.companyName}</strong></p><p>📧 ${data.email} &nbsp;|&nbsp; 📞 ${data.phone || 'Not provided'}</p><p>Company Size: ${data.companySize || 'Not specified'} &nbsp;|&nbsp; Timeline: ${data.timeline || 'Not specified'}</p><p style="margin-top: 24px;"><a href="https://usrad.com/employer/schedule?continue=1" style="background: #003087; color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">Choose Your 30-Minute Briefing Time</a></p><p style="color: #888; font-size: 12px;">Ref: ${referenceId}</p></div>`
         });
         console.log('✅ Fallback admin email sent');
       }
@@ -133,7 +133,7 @@ export const POST = async ({ request }) => {
           from: 'USRad Employer Consultations <noreply@send.usrad.com>',
           to: 'mcabrera@usrad.com',
           subject: `🎯 New Employer Consultation Lead - ${data.companyName}`,
-          html: `<div style="font-family: Arial, sans-serif;"><h2>New Employer Lead</h2><p><strong>${data.firstName} ${data.lastName}</strong> from <strong>${data.companyName}</strong></p><p>Email: ${data.email}</p><p>Phone: ${data.phone || 'Not provided'}</p></div>`
+          html: `<div style="font-family: Arial, sans-serif; max-width: 600px;"><h2 style="color: #003087;">New Employer Consultation Lead</h2><p><strong>${data.firstName} ${data.lastName}</strong> — ${data.jobTitle || 'Executive'} at <strong>${data.companyName}</strong></p><p>📧 ${data.email} &nbsp;|&nbsp; 📞 ${data.phone || 'Not provided'}</p><p>Company Size: ${data.companySize || 'Not specified'} &nbsp;|&nbsp; Timeline: ${data.timeline || 'Not specified'}</p><p style="margin-top: 24px;"><a href="https://usrad.com/employer/schedule?continue=1" style="background: #003087; color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">Choose Your 30-Minute Briefing Time</a></p><p style="color: #888; font-size: 12px;">Ref: ${referenceId}</p></div>`
         });
         console.log('✅ Fallback admin email sent');
       } catch (fallbackError) {

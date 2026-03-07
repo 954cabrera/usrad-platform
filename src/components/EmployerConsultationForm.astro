@@ -441,11 +441,25 @@
       calendlyCard.style.transform = "translateY(0)";
     }, 800);
 
-    // Scroll to top of the stage
-    schedulingStage.scrollIntoView({ behavior: "smooth", block: "start" });
+    // Scroll to top of the stage with navbar offset
+    setTimeout(() => {
+      const navbarHeight = 88;
+      const clearance = 24;
+      const top =
+        schedulingStage.getBoundingClientRect().top +
+        window.scrollY -
+        navbarHeight -
+        clearance;
+      window.scrollTo({ top, behavior: "smooth" });
+    }, 400);
 
     // Dispatch event so parent page can expand the layout
     window.dispatchEvent(new CustomEvent("usrad:schedulingReady"));
+  }
+
+  // ?continue=1 — skip form, show scheduler directly (email CTA return flow)
+  if (new URLSearchParams(window.location.search).get("continue") === "1") {
+    showSchedulingStage(true);
   }
 
   form?.addEventListener("submit", async function (e) {
