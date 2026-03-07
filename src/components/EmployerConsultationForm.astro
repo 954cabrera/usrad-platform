@@ -476,6 +476,8 @@
     const _co = _urlParams.get("co");
     if (_fn) document.getElementById("confirmFirstName").textContent = _fn;
     if (_co) document.getElementById("confirmCompany").textContent = _co;
+    // Dispatch early so schedule.astro can expand layout before reveal
+    window.dispatchEvent(new CustomEvent("usrad:schedulingReady"));
     showSchedulingStage(true);
   }
 
