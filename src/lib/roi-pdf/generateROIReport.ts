@@ -1062,7 +1062,7 @@ function buildHTML(d: ROIData): string {
      ════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="running-header">
-    <img src="https://usrad-portal.vercel.app/images/logo/USRad-Logo-final-white-text.png"
+    <img src="https://usrad.com/images/logo/brand/usrad-logo-gold-white-text.svg"
          alt="USRad"
          style="height: 28pt; width: auto; display: block;" />
     <span class="section-label">Savings Breakdown</span>
@@ -1186,7 +1186,7 @@ function buildHTML(d: ROIData): string {
      ════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="running-header">
-    <img src="https://usrad-portal.vercel.app/images/logo/USRad-Logo-final-white-text.png"
+    <img src="https://usrad.com/images/logo/brand/usrad-logo-gold-white-text.svg"
          alt="USRad"
          style="height: 28pt; width: auto; display: block;" />
     <span class="section-label">ROI Timeline &amp; Financial Projection</span>
@@ -1288,7 +1288,7 @@ function buildHTML(d: ROIData): string {
      ════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="running-header">
-    <img src="https://usrad-portal.vercel.app/images/logo/USRad-Logo-final-white-text.png"
+    <img src="https://usrad.com/images/logo/brand/usrad-logo-gold-white-text.svg"
          alt="USRad"
          style="height: 28pt; width: auto; display: block;" />
     <span class="section-label">Operational Model &amp; Implementation</span>
@@ -1406,7 +1406,7 @@ function buildHTML(d: ROIData): string {
      ════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="running-header">
-    <img src="https://usrad-portal.vercel.app/images/logo/USRad-Logo-final-white-text.png"
+    <img src="https://usrad.com/images/logo/brand/usrad-logo-gold-white-text.svg"
          alt="USRad"
          style="height: 28pt; width: auto; display: block;" />
     <span class="section-label">Executive Next Steps</span>
