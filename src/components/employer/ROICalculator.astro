@@ -347,10 +347,12 @@ const { class: className = "" } = Astro.props;
             clip-rule="evenodd"></path>
         </svg>
       </div>
-      <h3 class="text-xl font-bold text-gray-900 mb-2">Report on its way!</h3>
+      <h3 class="text-xl font-bold text-gray-900 mb-2">
+        Your report downloaded!
+      </h3>
       <p class="text-gray-600 text-sm mb-6">
-        Check your inbox for your custom savings analysis and the Employer
-        Implementation Guide.
+        Check your downloads for your custom ROI analysis. We've also emailed
+        you the Employer Implementation Guide.
       </p>
       <a
         href="/employer/schedule"
@@ -393,8 +395,8 @@ const { class: className = "" } = Astro.props;
         Download Your Custom ROI Report
       </h2>
       <p class="text-sm text-gray-500 mb-5">
-        We'll send a personalized savings analysis based on your numbers plus
-        the Employer Implementation Guide.
+        Your custom ROI report will download instantly. We'll also email you the
+        Employer Implementation Guide.
       </p>
 
       <form id="roi-form" class="space-y-4" novalidate>
@@ -703,7 +705,9 @@ const { class: className = "" } = Astro.props;
     btnSpinner.classList.remove("hidden");
 
     try {
-      const res = await fetch("/api/employer-guide-download", {
+      // Fire guide download in background — PDF is the primary deliverable
+      // and must not be blocked by guide download success/failure
+      fetch("/api/employer-guide-download", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -716,10 +720,39 @@ const { class: className = "" } = Astro.props;
             projectedSavings: currentSavings,
           },
         }),
+      }).catch(() => {}); // non-blocking — failure is silent
+
+      // Generate and download custom ROI PDF report
+      const totalEmployees = parseInput("total-employees");
+      const wcScans = parseInput("wc-scans");
+      const healthScans = parseInput("health-scans");
+      const avgCost = parseInput("avg-cost");
+
+      const pdfRes = await fetch("/api/employer-roi-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          companyName: company,
+          contactName: name,
+          contactEmail: email,
+          totalEmployees,
+          wcScans,
+          healthScans,
+          avgCost,
+        }),
       });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Something went wrong.");
+      if (pdfRes.ok) {
+        const blob = await pdfRes.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `USRad-ROI-Report-${company.replace(/\s+/g, "-")}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
 
       // Show success
       document.getElementById("roi-modal-form")?.classList.add("hidden");
