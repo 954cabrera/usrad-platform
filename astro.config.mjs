@@ -10,7 +10,10 @@ export default defineConfig({
   output: 'server',
 
   // Use Vercel adapter for deployment
-  adapter: vercel(),
+  adapter: vercel({
+    maxDuration: 30,
+    memory: 1024,
+  }),
 
   // Local development server configuration
   server: {
