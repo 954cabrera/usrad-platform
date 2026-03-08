@@ -39,11 +39,12 @@ export const POST: APIRoute = async ({ request }) => {
       (Number(avgCost || 2400) - 350);
 
     const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+      process.env.SUPABASE_URL || "",
+      process.env.SUPABASE_SERVICE_ROLE_KEY || ""
+    );
 
-    await supabase.from("employer_leads").insert({
+    try {
+      await supabase.from("employer_leads").insert({
       company_name:      companyName,
       contact_name:      contactName || null,
       contact_email:     contactEmail,
@@ -55,6 +56,9 @@ export const POST: APIRoute = async ({ request }) => {
       source:            "roi_calculator",
       created_at:        new Date().toISOString(),
     });
+    } catch (dbError) {
+      console.error("Supabase insert failed (non-fatal):", dbError);
+    }
 
     // ── Fire admin alert via Remix — non-blocking ──
     const firstName = contactName?.split(" ")[0] || "there";
