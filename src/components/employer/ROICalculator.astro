@@ -716,8 +716,8 @@ const { class: className = "" } = Astro.props;
           company,
           source: "roi-calculator",
           roiData: {
-            employees: currentEmployees,
-            projectedSavings: currentSavings,
+            employees: currentEmployees.toLocaleString(),
+            projectedSavings: `$${currentSavings.toLocaleString()}`,
           },
         }),
       }).catch(() => {}); // non-blocking — failure is silent
