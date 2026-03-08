@@ -69,14 +69,11 @@ export const POST: APIRoute = async ({ request }) => {
     const firstName = name.split(" ")[0];
 
     // Format ROI values for email display (if provided from calculator)
-    const hasRoi = roiData?.projectedSavings > 0;
-    const formattedSavings = hasRoi
-      ? `$${Number(roiData.projectedSavings).toLocaleString()}`
+    const hasRoi = !!(roiData?.projectedSavings);
+    const formattedSavings = hasRoi ? String(roiData.projectedSavings) : null;
+    const formattedEmployees = hasRoi && roiData?.employees
+      ? String(roiData.employees)
       : null;
-    const formattedEmployees =
-      hasRoi && roiData?.employees
-        ? Number(roiData.employees).toLocaleString()
-        : null;
 
     let emailData: { id?: string } | null = null;
 
