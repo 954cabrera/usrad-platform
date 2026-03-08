@@ -84,7 +84,7 @@ function fmt(n: number): string {
 }
 
 function fmtShort(n: number): string {
-  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(2)}M`;
+  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000)     return `$${Math.round(n / 1000)}K`;
   return `$${n}`;
 }
@@ -131,7 +131,7 @@ function buildHTML(d: ROIData): string {
   /* ── Page structure ── */
   .page {
     width: 8.5in;
-    min-height: 11in;
+    height: 11in;
     position: relative;
     overflow: hidden;
     page-break-after: always;
@@ -999,6 +999,7 @@ function buildHTML(d: ROIData): string {
   </div>
 
   <div class="content">
+    <div class="section-label-gold">Financial Impact Summary</div>
     <div class="section-title">Your Imaging Savings Opportunity</div>
     <div class="section-subtitle">
       Based on ${d.companyName}'s workforce profile and current imaging spend, USRad projects the following
@@ -1061,13 +1062,14 @@ function buildHTML(d: ROIData): string {
      ════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="running-header">
-    <img src="https://usrad.com/images/logo/brand/usrad-logo-gold-white-text.svg"
+    <img src="https://usrad-portal.vercel.app/images/logo/USRad-Logo-final-white-text.png"
          alt="USRad"
          style="height: 28pt; width: auto; display: block;" />
     <span class="section-label">Savings Breakdown</span>
   </div>
 
   <div class="content">
+    <div class="section-label-gold">Savings Breakdown</div>
     <div class="section-title">Workers' Comp vs. Employee Health Benefits</div>
     <div class="section-subtitle">
       USRad is the only solution that addresses both populations through a single integrated platform,
@@ -1184,13 +1186,14 @@ function buildHTML(d: ROIData): string {
      ════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="running-header">
-    <img src="https://usrad.com/images/logo/brand/usrad-logo-gold-white-text.svg"
+    <img src="https://usrad-portal.vercel.app/images/logo/USRad-Logo-final-white-text.png"
          alt="USRad"
          style="height: 28pt; width: auto; display: block;" />
     <span class="section-label">ROI Timeline &amp; Financial Projection</span>
   </div>
 
   <div class="content">
+    <div class="section-label-gold">ROI Timeline</div>
     <div class="section-title">When You See Results — Month by Month</div>
     <div class="section-subtitle">
       Savings begin immediately. The timeline below shows how and when each layer of financial impact accrues for ${d.companyName}.
@@ -1285,13 +1288,14 @@ function buildHTML(d: ROIData): string {
      ════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="running-header">
-    <img src="https://usrad.com/images/logo/brand/usrad-logo-gold-white-text.svg"
+    <img src="https://usrad-portal.vercel.app/images/logo/USRad-Logo-final-white-text.png"
          alt="USRad"
          style="height: 28pt; width: auto; display: block;" />
     <span class="section-label">Operational Model &amp; Implementation</span>
   </div>
 
   <div class="content">
+    <div class="section-label-gold">The Operational Model</div>
     <div class="section-title">How USRad Delivers These Results</div>
     <div class="section-subtitle">
       The same model that transformed workers' comp imaging for 168,000+ claimants — now available for your entire workforce.
@@ -1402,13 +1406,14 @@ function buildHTML(d: ROIData): string {
      ════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="running-header">
-    <img src="https://usrad.com/images/logo/brand/usrad-logo-gold-white-text.svg"
+    <img src="https://usrad-portal.vercel.app/images/logo/USRad-Logo-final-white-text.png"
          alt="USRad"
          style="height: 28pt; width: auto; display: block;" />
     <span class="section-label">Executive Next Steps</span>
   </div>
 
   <div class="content">
+    <div class="section-label-gold">Next Steps</div>
     <div class="section-title">Your Path to Immediate Savings</div>
     <div class="section-subtitle">
       Implementing USRad requires no budget approval for setup, no IT project, and no disruption to your current
@@ -1416,7 +1421,7 @@ function buildHTML(d: ROIData): string {
     </div>
 
     <!-- 3-step next steps -->
-    <div class="next-steps">
+    <div class="next-steps" style="margin-bottom:10pt;">
       <div class="next-step step1">
         <div class="step-num">1</div>
         <div class="step-body">
@@ -1447,7 +1452,7 @@ function buildHTML(d: ROIData): string {
     </div>
 
     <!-- CTA block -->
-    <div class="cta-block">
+    <div class="cta-block" style="margin-bottom:10pt;">
       <div class="cta-title">Schedule Your Executive Briefing</div>
       <div class="cta-sub">
         30 minutes directly with Michael Cabrera — no sales team, no middlemen.<br>
@@ -1457,7 +1462,7 @@ function buildHTML(d: ROIData): string {
     </div>
 
     <!-- Founder quote -->
-    <div class="founder-quote">
+    <div class="founder-quote" style="margin-bottom:10pt;">
       <blockquote>
         "I built this business on relationships, not transactions. When you schedule a consultation, you are getting
         me directly — not a sales team. I will personally analyze your situation, show you the real savings potential,
@@ -1483,7 +1488,7 @@ function buildHTML(d: ROIData): string {
       </div>
     </div>
 
-    <p class="footnote" style="margin-top:10pt; text-align:center;">
+    <p class="footnote" style="margin-top:6pt; text-align:center;">
       Prepared exclusively for ${d.companyName} on ${d.generatedDate}. Confidential Employer Analysis.
       Figures are projections based on stated workforce size and current scan pricing; actual results depend on utilization patterns.
     </p>
