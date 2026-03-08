@@ -93,32 +93,31 @@ export const POST: APIRoute = async ({ request }) => {
     if (!remixUrl) {
       console.error("[ROI] Admin notification SKIPPED — PUBLIC_REMIX_URL is not set in environment");
     } else {
-      fetch(`${remixUrl}/api/marketing-email`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          type: "employer-roi-report",
-          data: {
-            firstName,
-            name:             contactName || contactEmail,
-            email:            contactEmail,
-            company:          companyName,
-            projectedSavings: `$${annualSavings.toLocaleString()}`,
-            employees:        Number(totalEmployees).toLocaleString(),
-          },
-        }),
-      })
-      .then(res => {
+      try {
+        const res = await fetch(`${remixUrl}/api/marketing-email`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "employer-roi-report",
+            data: {
+              firstName,
+              name:             contactName || contactEmail,
+              email:            contactEmail,
+              company:          companyName,
+              projectedSavings: `$${annualSavings.toLocaleString()}`,
+              employees:        Number(totalEmployees).toLocaleString(),
+            },
+          }),
+        });
         console.log("[ROI] Admin notification response:", res.status, res.statusText);
         if (!res.ok) {
-          res.text().then(body => console.error("[ROI] Admin notification error body:", body));
+          const body = await res.text();
+          console.error("[ROI] Admin notification error body:", body);
         }
-      })
-      .catch(err => {
+      } catch (err) {
         console.error("[ROI] Admin notification fetch failed:", err);
-      });
+      }
     }
-
     return pdfResponse;
 
   } catch (error) {
