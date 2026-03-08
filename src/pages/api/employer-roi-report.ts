@@ -33,18 +33,29 @@ export const POST: APIRoute = async ({ request }) => {
       avgCost:        Number(avgCost    || 2400),
     });
 
-    // ── Save lead to Supabase ──
+    // ── Stream PDF to browser first ──
+    const pdfFilename = `USRad-ROI-Report-${companyName.replace(/\s+/g, "-")}.pdf`;
+    const pdfResponse = new Response(pdfBytes, {
+      status: 200,
+      headers: {
+        "Content-Type":        "application/pdf",
+        "Content-Disposition": `attachment; filename="${pdfFilename}"`,
+        "Content-Length":      String(pdfBytes.length),
+      },
+    });
+
+    // ── Save lead to Supabase (non-blocking, after PDF ready) ──
     const annualSavings =
       (Number(wcScans || 0) + Number(healthScans || 0)) *
       (Number(avgCost || 2400) - 350);
 
-    const supabase = createClient(
-      process.env.SUPABASE_URL || "",
-      process.env.SUPABASE_SERVICE_ROLE_KEY || ""
-    );
-
-    try {
-      await supabase.from("employer_leads").insert({
+    if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      try {
+        const supabase = createClient(
+          process.env.SUPABASE_URL,
+          process.env.SUPABASE_SERVICE_ROLE_KEY
+        );
+        await supabase.from("employer_leads").insert({
       company_name:      companyName,
       contact_name:      contactName || null,
       contact_email:     contactEmail,
@@ -57,8 +68,11 @@ export const POST: APIRoute = async ({ request }) => {
       created_at:        new Date().toISOString(),
     });
     } catch (dbError) {
-      console.error("Supabase insert failed (non-fatal):", dbError);
-    }
+          console.error("Supabase insert failed (non-fatal):", dbError);
+        }
+      } else {
+        console.warn("Supabase env vars missing — skipping lead insert");
+      }
 
     // ── Fire admin alert via Remix — non-blocking ──
     const firstName = contactName?.split(" ")[0] || "there";
@@ -79,17 +93,7 @@ export const POST: APIRoute = async ({ request }) => {
       }),
     }).catch(() => {}); // non-blocking — don't let email failure block PDF delivery
 
-    // ── Stream PDF to browser ──
-    const pdfFilename = `USRad-ROI-Report-${companyName.replace(/\s+/g, "-")}.pdf`;
-
-    return new Response(pdfBytes, {
-      status: 200,
-      headers: {
-        "Content-Type":        "application/pdf",
-        "Content-Disposition": `attachment; filename="${pdfFilename}"`,
-        "Content-Length":      String(pdfBytes.length),
-      },
-    });
+    return pdfResponse;
 
   } catch (error) {
     console.error("ROI PDF generation error:", error);
