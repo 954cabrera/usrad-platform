@@ -889,6 +889,28 @@ function buildHTML(d: ROIData): string {
   .spacer-12 { height: 12pt; }
   .spacer-16 { height: 16pt; }
 
+  /* ── Page break controls ── */
+  .callout,
+  .stat-card,
+  .stat-cards,
+  .col-card,
+  .two-col,
+  .timeline-item,
+  .impl-card,
+  .impl-cards,
+  .next-step,
+  .founder-quote,
+  .contact-row,
+  .compliance-row,
+  .projection-row,
+  .cover-savings-hero,
+  .cover-stats,
+  .cover-inputs,
+  .hero-savings {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
 </style>
 </head>
 <body>
