@@ -84,7 +84,7 @@ function fmt(n: number): string {
 }
 
 function fmtShort(n: number): string {
-  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(2)}M`;
   if (n >= 1_000)     return `$${Math.round(n / 1000)}K`;
   return `$${n}`;
 }
@@ -999,7 +999,6 @@ function buildHTML(d: ROIData): string {
   </div>
 
   <div class="content">
-    <div class="section-label-gold">Financial Impact Summary</div>
     <div class="section-title">Your Imaging Savings Opportunity</div>
     <div class="section-subtitle">
       Based on ${d.companyName}'s workforce profile and current imaging spend, USRad projects the following
@@ -1062,14 +1061,13 @@ function buildHTML(d: ROIData): string {
      ════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="running-header">
-    <img src="https://usrad-portal.vercel.app/images/logo/USRad-Logo-final-white-text.png"
+    <img src="https://usrad.com/images/logo/brand/usrad-logo-gold-white-text.svg"
          alt="USRad"
          style="height: 28pt; width: auto; display: block;" />
     <span class="section-label">Savings Breakdown</span>
   </div>
 
   <div class="content">
-    <div class="section-label-gold">Savings Breakdown</div>
     <div class="section-title">Workers' Comp vs. Employee Health Benefits</div>
     <div class="section-subtitle">
       USRad is the only solution that addresses both populations through a single integrated platform,
@@ -1186,14 +1184,13 @@ function buildHTML(d: ROIData): string {
      ════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="running-header">
-    <img src="https://usrad-portal.vercel.app/images/logo/USRad-Logo-final-white-text.png"
+    <img src="https://usrad.com/images/logo/brand/usrad-logo-gold-white-text.svg"
          alt="USRad"
          style="height: 28pt; width: auto; display: block;" />
     <span class="section-label">ROI Timeline &amp; Financial Projection</span>
   </div>
 
   <div class="content">
-    <div class="section-label-gold">ROI Timeline</div>
     <div class="section-title">When You See Results — Month by Month</div>
     <div class="section-subtitle">
       Savings begin immediately. The timeline below shows how and when each layer of financial impact accrues for ${d.companyName}.
@@ -1288,14 +1285,13 @@ function buildHTML(d: ROIData): string {
      ════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="running-header">
-    <img src="https://usrad-portal.vercel.app/images/logo/USRad-Logo-final-white-text.png"
+    <img src="https://usrad.com/images/logo/brand/usrad-logo-gold-white-text.svg"
          alt="USRad"
          style="height: 28pt; width: auto; display: block;" />
     <span class="section-label">Operational Model &amp; Implementation</span>
   </div>
 
   <div class="content">
-    <div class="section-label-gold">The Operational Model</div>
     <div class="section-title">How USRad Delivers These Results</div>
     <div class="section-subtitle">
       The same model that transformed workers' comp imaging for 168,000+ claimants — now available for your entire workforce.
@@ -1406,14 +1402,13 @@ function buildHTML(d: ROIData): string {
      ════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="running-header">
-    <img src="https://usrad-portal.vercel.app/images/logo/USRad-Logo-final-white-text.png"
+    <img src="https://usrad.com/images/logo/brand/usrad-logo-gold-white-text.svg"
          alt="USRad"
          style="height: 28pt; width: auto; display: block;" />
     <span class="section-label">Executive Next Steps</span>
   </div>
 
   <div class="content">
-    <div class="section-label-gold">Next Steps</div>
     <div class="section-title">Your Path to Immediate Savings</div>
     <div class="section-subtitle">
       Implementing USRad requires no budget approval for setup, no IT project, and no disruption to your current
