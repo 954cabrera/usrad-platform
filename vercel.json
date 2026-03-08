@@ -4,5 +4,11 @@
       "path": "/api/cron/check-follow-ups",
       "schedule": "0 9 * * *"
     }
-  ]
+  ],
+  "functions": {
+    "src/pages/api/employer-roi-report.ts": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  }
 }
