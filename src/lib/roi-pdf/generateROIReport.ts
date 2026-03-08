@@ -262,7 +262,7 @@ function buildCostBreakdownPage(doc: PDFDocument, d: ROIData, bold: PDFFont, reg
   // WC Card header
   drawRect(page, lcx, y - 192, COL_W, 200, BRAND.navyLight);
   drawRect(page, lcx, y + 8,   COL_W, 4, BRAND.navy);
-  drawText(page, "🏗  WORKERS' COMP IMAGING", lcx + 12, y - 10, bold, 9, BRAND.navy);
+  drawText(page, "WORKERS' COMP IMAGING", lcx + 12, y - 10, bold, 9, BRAND.navy);
 
   const wcRows = [
     ["Annual WC Scans",     `${d.wcScans.toLocaleString()}`],
@@ -283,7 +283,7 @@ function buildCostBreakdownPage(doc: PDFDocument, d: ROIData, bold: PDFFont, reg
   // Health card header
   drawRect(page, rcx, y - 192, COL_W, 200, rgb(0.96, 0.99, 0.96));
   drawRect(page, rcx, y + 8,   COL_W, 4, BRAND.green);
-  drawText(page, "👥  EMPLOYEE HEALTH PLAN", rcx + 12, y - 10, bold, 9, BRAND.green);
+  drawText(page, "EMPLOYEE HEALTH PLAN", rcx + 12, y - 10, bold, 9, BRAND.green);
 
   const hRows = [
     ["Annual Health Scans",  `${d.healthScans.toLocaleString()}`],
@@ -457,7 +457,7 @@ function buildImplementationPage(doc: PDFDocument, d: ROIData, bold: PDFFont, re
   ];
   compliance.forEach(([label, desc], i) => {
     if (i % 2 === 0) drawRect(page, MARGIN, y - 8, PAGE_W - MARGIN * 2, 24, rgb(0.96, 0.97, 0.99));
-    drawText(page, "✓", MARGIN + 8, y, bold, 10, BRAND.green);
+    drawText(page, "[+]", MARGIN + 8, y, bold, 8, BRAND.green);
     drawText(page, label, MARGIN + 24, y, bold, 9, BRAND.darkGray);
     drawText(page, desc,  MARGIN + 180, y, regular, 8, BRAND.midGray);
     y -= 28;
