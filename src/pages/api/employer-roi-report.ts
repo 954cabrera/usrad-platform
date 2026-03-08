@@ -1,13 +1,7 @@
 // src/pages/api/employer-roi-report.ts
 import type { APIRoute } from "astro";
-import { execFile } from "child_process";
-import { promisify } from "util";
-import { readFile, unlink } from "fs/promises";
-import { tmpdir } from "os";
-import { join } from "path";
 import { createClient } from "@supabase/supabase-js";
-
-const execFileAsync = promisify(execFile);
+import { generateROIReport } from "../../lib/roi-pdf/generateROIReport";
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -29,23 +23,17 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    const outputPath = join(tmpdir(), `usrad-roi-${Date.now()}.pdf`);
-    const scriptPath = join(process.cwd(), "src/lib/roi-pdf/generate_roi_report.py");
+    // ── Generate PDF in-process — no Python, no subprocess ──
+    const pdfBytes = await generateROIReport({
+      companyName,
+      contactName,
+      totalEmployees: Number(totalEmployees),
+      wcScans:        Number(wcScans    || 0),
+      healthScans:    Number(healthScans || 0),
+      avgCost:        Number(avgCost    || 2400),
+    });
 
-    const pythonPath = process.env.PYTHON_PATH || join(process.cwd(), ".venv/bin/python3");
-    await execFileAsync(pythonPath, [
-      scriptPath,
-      "--company",      companyName,
-      "--employees",    String(totalEmployees),
-      "--wc-scans",     String(wcScans || 0),
-      "--health-scans", String(healthScans || 0),
-      "--avg-cost",     String(avgCost || 2400),
-      "--output",       outputPath,
-    ]);
-
-    const pdfBuffer = await readFile(outputPath);
-    await unlink(outputPath).catch(() => {});
-
+    // ── Save lead to Supabase ──
     const annualSavings =
       (Number(wcScans || 0) + Number(healthScans || 0)) *
       (Number(avgCost || 2400) - 350);
@@ -60,18 +48,17 @@ export const POST: APIRoute = async ({ request }) => {
       contact_name:      contactName || null,
       contact_email:     contactEmail,
       total_employees:   Number(totalEmployees),
-      wc_scans:          Number(wcScans || 0),
+      wc_scans:          Number(wcScans    || 0),
       health_scans:      Number(healthScans || 0),
-      avg_cost_per_scan: Number(avgCost || 2400),
+      avg_cost_per_scan: Number(avgCost    || 2400),
       annual_savings:    annualSavings,
       source:            "roi_calculator",
       created_at:        new Date().toISOString(),
     });
 
-    const pdfFilename = `USRad-ROI-Report-${companyName.replace(/\s+/g, "-")}.pdf`;
+    // ── Fire admin alert via Remix — non-blocking ──
     const firstName = contactName?.split(" ")[0] || "there";
 
-    // Fire admin alert through Remix email system — non-blocking
     fetch(`${import.meta.env.PUBLIC_REMIX_URL}/api/marketing-email`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -79,21 +66,24 @@ export const POST: APIRoute = async ({ request }) => {
         type: "employer-roi-report",
         data: {
           firstName,
-          name: contactName || contactEmail,
-          email: contactEmail,
-          company: companyName,
+          name:             contactName || contactEmail,
+          email:            contactEmail,
+          company:          companyName,
           projectedSavings: `$${annualSavings.toLocaleString()}`,
-          employees: Number(totalEmployees).toLocaleString(),
+          employees:        Number(totalEmployees).toLocaleString(),
         },
       }),
-    }).catch(() => {}); // non-blocking
+    }).catch(() => {}); // non-blocking — don't let email failure block PDF delivery
 
-    return new Response(pdfBuffer, {
+    // ── Stream PDF to browser ──
+    const pdfFilename = `USRad-ROI-Report-${companyName.replace(/\s+/g, "-")}.pdf`;
+
+    return new Response(pdfBytes, {
       status: 200,
       headers: {
         "Content-Type":        "application/pdf",
         "Content-Disposition": `attachment; filename="${pdfFilename}"`,
-        "Content-Length":      String(pdfBuffer.length),
+        "Content-Length":      String(pdfBytes.length),
       },
     });
 
