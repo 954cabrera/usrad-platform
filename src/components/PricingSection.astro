@@ -16,7 +16,7 @@
         Clear, upfront pricing
       </h2>
       <p class="text-2xl text-gray-600" data-aos="fade-up" data-aos-delay="100">
-        No insurance? No problem. Save up to 70% vs hospital prices.
+        Know the price before you schedule. No insurance required.
       </p>
     </div>
 
@@ -27,6 +27,17 @@
         >
           Typical MRI Price Comparison
         </p>
+
+        <!-- One price. One bill. callout -->
+        <div class="mb-8">
+          <p class="text-2xl font-semibold text-gray-900 mb-2">
+            One price. One bill.
+          </p>
+          <p class="text-base text-gray-500 max-w-md mx-auto leading-relaxed">
+            Most hospitals send two separate MRI bills — one from the hospital
+            and one from the radiologist. USRad pricing includes both.
+          </p>
+        </div>
 
         <!-- Side-by-side comparison -->
         <div
@@ -55,89 +66,99 @@
           <div
             class="w-full sm:w-48 bg-[#003087] border border-[#003087] rounded-2xl px-6 py-5 text-center shadow-lg"
           >
-            <p
-              class="text-sm font-medium text-white/70 uppercase tracking-wide mb-2"
-            >
+            <p class="text-sm font-medium text-white/70 tracking-wide mb-2">
               USRad MRI
             </p>
             <p class="text-4xl font-bold text-white">$260</p>
+            <p class="text-xs text-white/60 mt-1">Starting price</p>
           </div>
         </div>
 
-        <p class="text-base text-gray-400 mt-4">
-          Save up to 92% vs typical hospital pricing
+        <p class="text-sm text-gray-500 mt-4">
+          Example comparison based on national hospital pricing data.<br />
+          Actual prices vary by exam type and location.<br />
+          Average hospital MRI pricing derived from national billing datasets.
         </p>
-      </div>
 
-      <div class="grid md:grid-cols-3 gap-8 sm:gap-12 mb-12 sm:mb-16">
-        <div data-aos="fade-up" data-aos-delay="300" class="group">
-          <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-            <img
-              src="/images/icons/flash.svg"
-              alt="Fast booking"
-              class="flex-shrink-0 w-16 h-16 filter-brand-blue group-hover:scale-110 transition-transform duration-300"
-            />
+        <div class="grid md:grid-cols-3 gap-8 sm:gap-12 mb-12 sm:mb-16">
+          <div data-aos="fade-up" data-aos-delay="300" class="group">
+            <div
+              class="w-20 h-20 mx-auto mb-6 flex items-center justify-center"
+            >
+              <img
+                src="/images/icons/flash.svg"
+                alt="Fast booking"
+                class="flex-shrink-0 w-16 h-16 filter-brand-blue group-hover:scale-110 transition-transform duration-300"
+              />
+            </div>
+            <h3 class="font-semibold text-xl text-gray-900 mb-3">
+              48-hour booking
+            </h3>
+            <p class="text-base text-gray-600">
+              Get scanned this week, not next month
+            </p>
           </div>
-          <h3 class="font-semibold text-xl text-gray-900 mb-3">
-            48-hour booking
-          </h3>
-          <p class="text-base text-gray-600">
-            Get scanned this week, not next month
+
+          <div data-aos="fade-up" data-aos-delay="400" class="group">
+            <div
+              class="w-20 h-20 mx-auto mb-6 flex items-center justify-center"
+            >
+              <img
+                src="/images/icons/protection2.svg"
+                alt="Upfront pricing"
+                class="flex-shrink-0 w-16 h-16 filter-brand-blue group-hover:scale-110 transition-transform duration-300"
+              />
+            </div>
+            <h3 class="font-semibold text-xl text-gray-900 mb-3">
+              Upfront pricing
+            </h3>
+            <p class="text-base text-gray-600">No surprises, no hidden fees</p>
+          </div>
+
+          <div data-aos="fade-up" data-aos-delay="500" class="group">
+            <div
+              class="w-20 h-20 mx-auto mb-6 flex items-center justify-center"
+            >
+              <img
+                src="/images/icons/no-insurance.svg"
+                alt="No insurance needed"
+                class="flex-shrink-0 w-16 h-16 filter-brand-blue group-hover:scale-110 transition-transform duration-300"
+              />
+            </div>
+            <h3 class="font-semibold text-xl text-gray-900 mb-3">
+              No insurance needed
+            </h3>
+            <p class="text-base text-gray-600">
+              Same quality care, direct pricing
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 px-8 py-6 text-center rounded-2xl">
+          <p class="text-sm text-gray-500 mb-4">
+            All scans performed at ACR-accredited imaging centers
           </p>
+          <button
+            type="button"
+            onclick="document.getElementById('hero-section').scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(function() { document.getElementById('hero-section').focus(); }, 800);"
+            class="inline-block bg-[#003087] text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-medium hover:bg-[#002266] transition cursor-pointer"
+          >
+            See prices in your area →
+          </button>
         </div>
-
-        <div data-aos="fade-up" data-aos-delay="400" class="group">
-          <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-            <img
-              src="/images/icons/protection2.svg"
-              alt="Upfront pricing"
-              class="flex-shrink-0 w-16 h-16 filter-brand-blue group-hover:scale-110 transition-transform duration-300"
-            />
-          </div>
-          <h3 class="font-semibold text-xl text-gray-900 mb-3">
-            Upfront pricing
-          </h3>
-          <p class="text-base text-gray-600">No surprises, no hidden fees</p>
-        </div>
-
-        <div data-aos="fade-up" data-aos-delay="500" class="group">
-          <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-            <img
-              src="/images/icons/no-insurance.svg"
-              alt="No insurance needed"
-              class="flex-shrink-0 w-16 h-16 filter-brand-blue group-hover:scale-110 transition-transform duration-300"
-            />
-          </div>
-          <h3 class="font-semibold text-xl text-gray-900 mb-3">
-            No insurance needed
-          </h3>
-          <p class="text-base text-gray-600">
-            Same quality care, direct pricing
-          </p>
-        </div>
-      </div>
-
-      <div class="bg-gray-50 px-8 py-6 text-center rounded-2xl">
-        <button
-          type="button"
-          onclick="document.getElementById('hero-section').scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(function() { document.getElementById('hero-section').focus(); }, 800);"
-          class="inline-block bg-[#003087] text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-medium hover:bg-[#002266] transition cursor-pointer"
-        >
-          See prices in your area →
-        </button>
       </div>
     </div>
   </div>
-</section>
 
-<style>
-  .filter-brand-blue {
-    filter: brightness(0) saturate(100%) invert(13%) sepia(94%) saturate(4107%)
-      hue-rotate(216deg) brightness(94%) contrast(101%);
-  }
-  .group:hover .filter-brand-blue {
-    filter: brightness(0) saturate(100%) invert(13%) sepia(94%) saturate(4107%)
-      hue-rotate(216deg) brightness(94%) contrast(101%)
-      drop-shadow(0 4px 6px rgba(0, 48, 135, 0.1));
-  }
-</style>
+  <style>
+    .filter-brand-blue {
+      filter: brightness(0) saturate(100%) invert(13%) sepia(94%)
+        saturate(4107%) hue-rotate(216deg) brightness(94%) contrast(101%);
+    }
+    .group:hover .filter-brand-blue {
+      filter: brightness(0) saturate(100%) invert(13%) sepia(94%)
+        saturate(4107%) hue-rotate(216deg) brightness(94%) contrast(101%)
+        drop-shadow(0 4px 6px rgba(0, 48, 135, 0.1));
+    }
+  </style>
+</section>
