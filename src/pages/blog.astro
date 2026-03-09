@@ -356,7 +356,7 @@ const categories = [
             <div
               class="flex items-center gap-2 text-[#003087] font-semibold group-hover:gap-4 transition-all"
             >
-              Read Article
+              Read the full breakdown
               <svg
                 class="w-5 h-5"
                 fill="none"
@@ -548,13 +548,13 @@ const categories = [
     if (typeof window !== "undefined") {
       const initNewsletter = () => {
         const button = document.getElementById(
-          "blog-newsletter-button"
+          "blog-newsletter-button",
         ) as HTMLButtonElement | null;
         const emailInput = document.getElementById(
-          "blog-newsletter-email"
+          "blog-newsletter-email",
         ) as HTMLInputElement | null;
         const message = document.getElementById(
-          "blog-newsletter-message"
+          "blog-newsletter-message",
         ) as HTMLElement | null;
 
         if (!button || !emailInput || !message) return;
@@ -626,7 +626,7 @@ const categories = [
               // Also save to localStorage as backup
               try {
                 const subscribers = JSON.parse(
-                  localStorage.getItem("newsletter-subscribers") || "[]"
+                  localStorage.getItem("newsletter-subscribers") || "[]",
                 );
                 subscribers.push({
                   email,
@@ -635,7 +635,7 @@ const categories = [
                 });
                 localStorage.setItem(
                   "newsletter-subscribers",
-                  JSON.stringify(subscribers)
+                  JSON.stringify(subscribers),
                 );
               } catch (storageError) {
                 console.warn("localStorage not available:", storageError);
@@ -948,7 +948,7 @@ const categories = [
       // Function to show/hide articles based on current count
       function updateArticleVisibility() {
         const visibleArticles = Array.from(articles).filter(
-          (article) => article.style.display !== "none"
+          (article) => article.style.display !== "none",
         );
 
         visibleArticles.forEach((article, index) => {
@@ -987,14 +987,14 @@ const categories = [
               "bg-gray-50",
               "text-gray-700",
               "border",
-              "border-gray-200"
+              "border-gray-200",
             );
           });
           button.classList.remove(
             "bg-gray-50",
             "text-gray-700",
             "border",
-            "border-gray-200"
+            "border-gray-200",
           );
           button.classList.add("bg-[#003087]", "text-white", "shadow-md");
 
