@@ -188,7 +188,8 @@
     </div>
     <!-- Scroll fade — indicates additional content below -->
     <div
-      class="pointer-events-none absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-b from-transparent to-white"
+      id="modal-scroll-fade"
+      class="pointer-events-none absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-b from-transparent to-white transition-opacity duration-200"
       aria-hidden="true"
     >
     </div>
@@ -665,6 +666,32 @@
 
   // Re-initialize on Astro page transitions
   document.addEventListener("astro:page-load", initMobileModal);
+
+  // Intelligent scroll fade — hides when user reaches bottom of exam list
+  function initScrollFade() {
+    const container = document.getElementById("mobile-modal-results");
+    const fade = document.getElementById("modal-scroll-fade");
+
+    if (!container || !fade) return;
+
+    function updateFade() {
+      const atBottom =
+        container.scrollTop + container.clientHeight >=
+        container.scrollHeight - 1;
+      fade.style.opacity = atBottom ? "0" : "1";
+    }
+
+    container.addEventListener("scroll", updateFade);
+    updateFade();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initScrollFade);
+  } else {
+    initScrollFade();
+  }
+
+  document.addEventListener("astro:page-load", initScrollFade);
 </script>
 
 <style>
