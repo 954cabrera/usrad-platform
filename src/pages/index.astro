@@ -9,6 +9,7 @@ import AboutSection from "../components/AboutSection.astro";
 import BlogPreviewSection from "../components/BlogPreviewSection.astro";
 import HeroSection from "../components/hero/HeroSection.astro";
 import BrowseAllModal from "../components/BrowseAllModal.astro";
+import WhyLessCostSection from "../components/WhyLessCostSection.astro";
 
 const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
 ---
@@ -21,6 +22,9 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
 
   <!-- Social Proof Bar -->
   <SocialProofBar />
+
+  <!-- Why Imaging Costs Less Section -->
+  <WhyLessCostSection />
 
   <!-- How It Works Section -->
   <HowItWorksSection />
