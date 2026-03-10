@@ -26,22 +26,117 @@ export const prerender = true;
     <!-- Content -->
     <div class="relative z-10 max-w-7xl mx-auto">
       <div class="max-w-5xl">
-        <h1
-          class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 text-white leading-tight"
-          data-aos="fade-up"
-        >
-          The Story Behind<br />
-          <span class="text-[#cc9933]">USRad</span>
+        <h1 class="mb-8" data-aos="fade-up">
+          <span class="block text-2xl sm:text-3xl font-medium text-white/80 tracking-wide mb-3">
+            The Story Behind
+          </span>
+          <span class="block text-7xl sm:text-8xl md:text-9xl font-bold text-[#B08A4A] leading-none tracking-tight">
+            USRad
+          </span>
         </h1>
         <p
-          class="text-xl md:text-2xl text-gray-100 leading-relaxed"
+          class="text-xl md:text-2xl text-gray-100 leading-relaxed max-w-2xl"
           data-aos="fade-up"
           data-aos-delay="200"
         >
-          How a Workers' Compensation crisis in 1994 led to a healthcare model
-          that saved $246 million and is now evolving to serve 90 million
-          Americans.
+          A healthcare model born in the 1990s that saved $246 million &mdash;
+          now rebuilt to serve 90 million Americans.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founders Documentary Hero -->
+  <section class="py-16 px-4 sm:px-6 bg-white border-b border-gray-100">
+    <div class="max-w-6xl mx-auto">
+
+      <!-- Documentary Label -->
+      <div class="mb-10" data-aos="fade-up">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[#B08A4A]">
+          1994 &mdash; The Founding Moment
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-0 items-stretch min-h-[580px]">
+
+        <!-- Left: Founders Photo -->
+        <div class="relative flex flex-col" data-aos="fade-right">
+          <figure class="flex-1 flex flex-col">
+            <div class="flex-1 overflow-hidden rounded-md shadow-md">
+              <img
+                src="/images/founders_restored.webp"
+                alt="USRad founding team — Michael and Donna Cabrera inside a diagnostic imaging center, mid-1990s"
+                class="w-full h-full object-cover object-[center_15%]"
+                loading="eager"
+                width="1000"
+                height="1300"
+              />
+            </div>
+            <figcaption class="mt-4 pl-1">
+              <div class="flex items-start gap-3">
+                <div class="w-px h-10 bg-[#cc9933] flex-shrink-0 mt-1"></div>
+                <div>
+                  <p class="text-sm font-semibold text-gray-900 tracking-wide">USRad founding team &mdash; Michael &amp; Donna Cabrera</p>
+                  <p class="text-xs text-gray-400 mt-0.5 tracking-wider uppercase">Diagnostic imaging center &mdash; mid-1990s</p>
+                </div>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- Right: Headline + Narrative -->
+        <div
+          class="flex flex-col justify-center md:pl-16 pt-10 md:pt-0"
+          data-aos="fade-left"
+          data-aos-delay="150"
+        >
+          <p class="text-xs font-semibold uppercase tracking-widest text-[#cc9933] mb-5">
+            The Origin
+          </p>
+
+          <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+            30 Years.<br />
+            Two Companies.<br />
+            <span class="text-[#003087]">One Mission.</span>
+          </h2>
+
+          <div class="h-px w-16 bg-gradient-to-r from-[#cc9933] to-transparent mb-8"></div>
+
+          <div class="space-y-5 text-lg text-gray-600 leading-relaxed">
+            <p>
+              In the 1990s, we built one of the first nationwide diagnostic
+              imaging networks &mdash; connecting employers, injured workers,
+              and imaging centers in a model that had never existed before.
+            </p>
+            <p>
+              <span class="font-semibold text-gray-900">The result:</span> 168,000 patients
+              served. $246 million saved. A proven playbook.
+            </p>
+            <p>
+              Today, we&rsquo;re rebuilding that model &mdash; this time for
+              the 90 million Americans who deserve affordable imaging and
+              don&rsquo;t have insurance to cover it.
+            </p>
+          </div>
+
+          <div class="mt-10 flex items-center gap-8">
+            <div class="text-center">
+              <p class="text-4xl font-bold text-[#B08A4A]">1994</p>
+              <p class="text-xs text-gray-400 mt-1.5 uppercase tracking-wider">Founded</p>
+            </div>
+            <div class="w-px h-12 bg-gray-200"></div>
+            <div class="text-center">
+              <p class="text-4xl font-bold text-gray-900">$246M</p>
+              <p class="text-xs text-gray-400 mt-1.5 uppercase tracking-wider">Saved</p>
+            </div>
+            <div class="w-px h-12 bg-gray-200"></div>
+            <div class="text-center">
+              <p class="text-4xl font-bold text-[#003087]">168K</p>
+              <p class="text-xs text-gray-400 mt-1.5 uppercase tracking-wider">Patients</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -52,7 +147,17 @@ export const prerender = true;
       <div class="grid md:grid-cols-2 gap-12 items-start">
         <!-- Left Column: Narrative -->
         <div data-aos="fade-up">
-          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <!-- Chapter label -->
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[#B08A4A] mb-4">
+            The Breakthrough
+          </p>
+          <!-- Bridge sentence -->
+          <p class="text-lg text-gray-400 italic mb-3">
+            The idea was simple. But the impact was enormous.
+          </p>
+          <h2
+            class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 text-left"
+          >
             How We Made Medical Imaging Affordable and Accessible
           </h2>
 
@@ -114,19 +219,19 @@ export const prerender = true;
               </p>
             </div>
             <div>
-              <p class="text-4xl font-bold text-gray-900">$246M</p>
+              <p class="text-4xl font-bold text-[#003087]">$246M</p>
               <p class="text-sm text-gray-400 mt-1">
                 Patient savings delivered
               </p>
             </div>
             <div>
-              <p class="text-4xl font-bold text-gray-900">168,244</p>
+              <p class="text-4xl font-bold text-[#003087]">168,244</p>
               <p class="text-sm text-gray-400 mt-1">Patients served</p>
             </div>
           </div>
           <div class="mt-10 pt-6 border-t border-gray-200">
             <p class="text-xs text-gray-400 leading-relaxed">
-              Created by the founder of AnciCare, one of the first nationwide
+              Created by the co-founder of AnciCare, one of the first nationwide
               diagnostic imaging networks.
             </p>
           </div>
@@ -188,20 +293,18 @@ export const prerender = true;
 
       <!-- The Timeline -->
       <div class="relative">
-        <!-- Center Path -->
+        <!-- Center Path — glowing gold gradient -->
         <div
-          class="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent transform -translate-x-1/2"
+          class="absolute left-1/2 top-0 bottom-0 w-0.5 transform -translate-x-1/2"
+          style="background: linear-gradient(to bottom, transparent, rgba(176,138,74,0.6) 20%, rgba(176,138,74,0.3) 70%, transparent);"
         >
         </div>
 
-        <!-- 1993: The Discovery -->
+        <!-- 1993: The Discovery — ACT 1 ANCHOR -->
         <div class="relative flex items-center mb-32" data-aos="fade-right">
           <div class="w-full md:w-1/2 text-right pr-8 md:pr-16">
             <div class="inline-block">
-              <span
-                class="text-[#cc9933] text-7xl md:text-8xl font-bold opacity-20"
-                >1993</span
-              >
+              <span class="text-[#cc9933] text-8xl md:text-9xl font-bold opacity-60">1993</span>
               <h3 class="text-3xl font-bold text-white mt-4 mb-3">
                 The Discovery
               </h3>
@@ -209,9 +312,7 @@ export const prerender = true;
                 14-day waits. Empty imaging centers. A broken system begging for
                 disruption.
               </p>
-              <div
-                class="mt-6 inline-flex items-center gap-4 bg-[#cc9933]/20 px-6 py-3 rounded-full"
-              >
+              <div class="mt-6 inline-flex items-center gap-4 bg-[#cc9933]/20 px-6 py-3 rounded-full">
                 <span class="text-4xl font-bold text-[#cc9933]">14</span>
                 <span class="text-white/80">days average wait</span>
               </div>
@@ -231,61 +332,39 @@ export const prerender = true;
           <div class="hidden md:block w-1/2"></div>
         </div>
 
-        <!-- 1994: AnciCare Launch -->
+        <!-- 1994: AnciCare Launch — ACT 1 ANCHOR -->
         <div class="relative flex items-center mb-32" data-aos="fade-left">
           <div class="hidden md:block w-1/2"></div>
           <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
-            <div
-              class="w-24 h-24 bg-gray-900 rounded-full border-4 border-[#cc9933] flex items-center justify-center group hover:bg-gray-800 transition-all duration-300"
-            >
-              <img
-                src="/images/icons/social.svg"
-                alt="Network Launch"
-                class="w-12 h-12 filter-gold group-hover:scale-110 transition-transform duration-300"
-              />
+            <div class="w-24 h-24 bg-gray-900 rounded-full border-4 border-[#cc9933] flex items-center justify-center group hover:bg-gray-800 transition-all duration-300">
+              <img src="/images/icons/social.svg" alt="Network Launch" class="w-12 h-12 filter-gold group-hover:scale-110 transition-transform duration-300" />
             </div>
           </div>
           <div class="w-full md:w-1/2 pl-8 md:pl-16">
-            <span
-              class="text-[#cc9933] text-7xl md:text-8xl font-bold opacity-20"
-              >1994</span
-            >
-            <h3 class="text-3xl font-bold text-white mt-4 mb-3">
-              AnciCare Launches
-            </h3>
+            <span class="text-[#cc9933] text-8xl md:text-9xl font-bold opacity-60">1994</span>
+            <h3 class="text-3xl font-bold text-white mt-4 mb-3">AnciCare Launches</h3>
             <p class="text-gray-300 text-lg max-w-md">
-              America's first imaging network. Direct contracts. Volume
-              guarantees. Prices plummet.
+              America's first imaging network. Direct contracts. Volume guarantees. Prices plummet.
             </p>
-            <div
-              class="mt-6 inline-flex items-center gap-4 bg-[#cc9933]/20 px-6 py-3 rounded-full"
-            >
+            <div class="mt-6 inline-flex items-center gap-4 bg-[#cc9933]/20 px-6 py-3 rounded-full">
               <span class="text-4xl font-bold text-[#cc9933]">50%</span>
               <span class="text-white/80">cost reduction</span>
             </div>
           </div>
         </div>
 
-        <!-- 1999: Scale -->
-        <div class="relative flex items-center mb-32" data-aos="fade-right">
+        <!-- 1999: Scale — supporting year, visually subdued -->
+        <div class="relative flex items-center mb-24" data-aos="fade-right">
           <div class="w-full md:w-1/2 text-right pr-8 md:pr-16">
-            <div class="inline-block">
-              <span
-                class="text-[#cc9933] text-7xl md:text-8xl font-bold opacity-20"
-                >1999</span
-              >
-              <h3 class="text-3xl font-bold text-white mt-4 mb-3">
-                Explosive Growth
-              </h3>
-              <p class="text-gray-300 text-lg max-w-md ml-auto">
-                National expansion. Major employers on board, including many
-                Fortune 500 companies. The model works at scale.
+            <div class="inline-block opacity-70">
+              <span class="text-[#cc9933]/40 text-5xl md:text-6xl font-bold">1999</span>
+              <h3 class="text-2xl font-semibold text-white/80 mt-3 mb-2">Explosive Growth</h3>
+              <p class="text-gray-400 text-base max-w-md ml-auto">
+                National expansion. Major employers on board, including many Fortune 500 companies. The model works at scale.
               </p>
-              <div
-                class="mt-6 inline-flex items-center gap-4 bg-[#cc9933]/20 px-6 py-3 rounded-full"
-              >
-                <span class="text-4xl font-bold text-[#cc9933]">168K</span>
-                <span class="text-white/80">workers served</span>
+              <div class="mt-4 inline-flex items-center gap-3 bg-[#cc9933]/10 px-4 py-2 rounded-full">
+                <span class="text-2xl font-bold text-[#cc9933]/70">168K</span>
+                <span class="text-white/60 text-sm">workers served</span>
               </div>
             </div>
           </div>
@@ -303,37 +382,23 @@ export const prerender = true;
           <div class="hidden md:block w-1/2"></div>
         </div>
 
-        <!-- 2002: The Exit -->
-        <div class="relative flex items-center mb-32" data-aos="fade-left">
+        <!-- 2002: The Exit — supporting year, visually subdued -->
+        <div class="relative flex items-center mb-24" data-aos="fade-left">
           <div class="hidden md:block w-1/2"></div>
           <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
-            <div
-              class="w-24 h-24 bg-gray-900 rounded-full border-4 border-[#cc9933] flex items-center justify-center group hover:bg-gray-800 transition-all duration-300"
-            >
-              <img
-                src="/images/icons/hand-shake.svg"
-                alt="Mission Accomplished"
-                class="w-12 h-12 filter-gold group-hover:scale-110 transition-transform duration-300"
-              />
+            <div class="w-16 h-16 bg-gray-900 rounded-full border-2 border-[#cc9933]/40 flex items-center justify-center group hover:bg-gray-800 transition-all duration-300">
+              <img src="/images/icons/hand-shake.svg" alt="Mission Accomplished" class="w-8 h-8 filter-gold opacity-60 group-hover:scale-110 transition-transform duration-300" />
             </div>
           </div>
-          <div class="w-full md:w-1/2 pl-8 md:pl-16">
-            <span
-              class="text-[#cc9933] text-7xl md:text-8xl font-bold opacity-20"
-              >2002</span
-            >
-            <h3 class="text-3xl font-bold text-white mt-4 mb-3">
-              Mission Accomplished?
-            </h3>
-            <p class="text-gray-300 text-lg max-w-md">
-              AnciCare sold. $246 million saved. Time to celebrate... or so we
-              thought.
+          <div class="w-full md:w-1/2 pl-8 md:pl-16 opacity-70">
+            <span class="text-[#cc9933]/40 text-5xl md:text-6xl font-bold">2002</span>
+            <h3 class="text-2xl font-semibold text-white/80 mt-3 mb-2">Mission Accomplished?</h3>
+            <p class="text-gray-400 text-base max-w-md">
+              AnciCare sold. $246 million saved. Time to celebrate... or so we thought.
             </p>
-            <div
-              class="mt-6 inline-flex items-center gap-4 bg-[#cc9933]/20 px-6 py-3 rounded-full"
-            >
-              <span class="text-4xl font-bold text-[#cc9933]">$246M</span>
-              <span class="text-white/80">total saved</span>
+            <div class="mt-4 inline-flex items-center gap-3 bg-[#cc9933]/10 px-4 py-2 rounded-full">
+              <span class="text-2xl font-bold text-[#cc9933]/70">$246M</span>
+              <span class="text-white/60 text-sm">total saved</span>
             </div>
           </div>
         </div>
@@ -362,13 +427,11 @@ export const prerender = true;
           </div>
         </div>
 
-        <!-- 2024: USRad Born -->
-        <div class="relative flex items-center mb-32" data-aos="fade-right">
+        <!-- 2025: USRad Born — ACT 3 ANCHOR, dramatic reveal -->
+        <div class="relative flex items-center mb-32 mt-32" data-aos="fade-right">
           <div class="w-full md:w-1/2 text-right pr-8 md:pr-16">
             <div class="inline-block">
-              <span class="text-white/20 text-7xl md:text-8xl font-bold"
-                >2025</span
-              >
+              <span class="text-white text-8xl md:text-9xl font-bold opacity-80">2025</span>
               <h3 class="text-3xl font-bold text-white mt-4 mb-3">
                 USRad is Born
               </h3>
@@ -376,9 +439,12 @@ export const prerender = true;
                 Same expertise. New mission. Direct to consumer. No insurance
                 required.
               </p>
-              <div
-                class="mt-6 inline-flex items-center gap-4 bg-[#003087]/20 px-6 py-3 rounded-full"
-              >
+              <div class="mt-6 inline-flex items-center gap-4 bg-[#003087]/20 px-6 py-3 rounded-full">
+                <span class="text-4xl font-bold text-white/60">$260</span>
+                <span class="text-white/80">MRI starting price</span>
+              </div>
+            </div>
+          </div>
                 <span class="text-4xl font-bold text-white/30">$260</span>
                 <span class="text-white/80">MRI starting price</span>
               </div>
@@ -398,7 +464,7 @@ export const prerender = true;
           <div class="hidden md:block w-1/2"></div>
         </div>
 
-        <!-- 2025: The Revolution -->
+        <!-- 2025: Built for Patients — final node, full brightness -->
         <div class="relative flex items-center" data-aos="fade-left">
           <div class="hidden md:block w-1/2"></div>
           <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
@@ -407,26 +473,24 @@ export const prerender = true;
             >
               <img
                 src="/images/icons/flag.svg"
-                alt="Revolution Begins"
+                alt="Built for Patients"
                 class="w-12 h-12 filter-gold group-hover:scale-110 transition-transform duration-300"
               />
             </div>
           </div>
           <div class="w-full md:w-1/2 pl-8 md:pl-16">
-            <span class="text-white/20 text-7xl md:text-8xl font-bold"
-              >2025</span
-            >
+            <span class="text-white text-7xl md:text-8xl font-bold opacity-100">2025</span>
             <h3 class="text-3xl font-bold text-white mt-4 mb-3">
-              The Revolution Begins
+              Built for Patients
             </h3>
             <p class="text-gray-300 text-lg max-w-md">
-              Nationwide launch. 60-second booking. Transparent pricing.
-              Healthcare reimagined.
+              Nationwide launch. 60-second booking. Transparent
+              pricing. Healthcare reimagined.
             </p>
             <div
               class="mt-6 inline-flex items-center gap-4 bg-[#003087]/20 px-6 py-3 rounded-full"
             >
-              <span class="text-4xl font-bold text-white/30">90 Million</span>
+              <span class="text-4xl font-bold text-white">90 Million</span>
               <span class="text-white/80">Americans to serve</span>
             </div>
           </div>
@@ -508,95 +572,22 @@ export const prerender = true;
     class="py-24 px-4 sm:px-6 bg-gradient-to-br from-white to-gray-50 overflow-hidden"
   >
     <div class="max-w-6xl mx-auto">
-      <!-- Premium Header -->
-      <div class="text-center mb-20" data-aos="fade-up">
-        <div
-          class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-6"
-        >
-          <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-          Our Proven Track Record
-        </div>
-        <h1
-          class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-gray-900 leading-tight"
-        >
-          How We Saved<br />
-          <span
-            class="text-6xl md:text-7xl lg:text-8xl bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-clip-text text-transparent"
-            >$246 Million</span
-          >
-        </h1>
-        <p
-          class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
-        >
-          20 years ago, we revolutionized healthcare for 168,244 American
-          workers. Here's exactly how we did it.
+      <!-- Case Study Header -->
+      <div class="text-center mb-24" data-aos="fade-up">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[#B08A4A] mb-6">
+          Case Study
         </p>
-      </div>
-
-      <!-- Photo Grid Introduction -->
-      <div class="grid md:grid-cols-3 gap-8 mb-24">
-        <div
-          class="relative rounded-2xl overflow-hidden shadow-2xl group"
-          data-aos="fade-up"
-        >
-          <img
-            src="/images/website/parcel_worker.webp"
-            alt="Construction worker"
-            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-          <div
-            class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6"
-          >
-            <div class="text-white">
-              <h3 class="text-2xl font-bold mb-2">The Workers</h3>
-              <p class="text-sm opacity-90">
-                168,224 injured Americans waiting for care
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div
-          class="relative rounded-2xl overflow-hidden shadow-2xl group"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          <img
-            src="/images/website/about_solution.webp"
-            alt="MRI machine"
-            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-          <div
-            class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6"
-          >
-            <div class="text-white">
-              <h3 class="text-2xl font-bold mb-2">The Solution</h3>
-              <p class="text-sm opacity-90">
-                Direct access to quality imaging centers
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div
-          class="relative rounded-2xl overflow-hidden shadow-2xl group"
-          data-aos="fade-up"
-          data-aos-delay="400"
-        >
-          <img
-            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=90"
-            alt="Happy professional"
-            class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-          <div
-            class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6"
-          >
-            <div class="text-white">
-              <h3 class="text-2xl font-bold mb-2">The Impact</h3>
-              <p class="text-sm opacity-90">Lives changed, families saved</p>
-            </div>
-          </div>
-        </div>
+        <p class="text-2xl md:text-3xl font-medium text-gray-500 mb-3">
+          How a Nationwide Imaging Network Saved
+        </p>
+        <h1 class="text-7xl md:text-8xl lg:text-9xl font-bold leading-none mb-6">
+          <span class="bg-gradient-to-r from-[#FFD700] via-[#cc9933] to-[#B08A4A] bg-clip-text text-transparent">
+            $246 Million
+          </span>
+        </h1>
+        <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
+          168,244 workers received faster diagnosis through a direct-contract imaging model.
+        </p>
       </div>
 
       <!-- Timeline with Photos -->
@@ -679,7 +670,7 @@ export const prerender = true;
             <div class="flex items-center gap-2 mb-2">
               <span
                 class="inline-block bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full tracking-wide shadow-sm"
-                >Our Revolution</span
+                >The AnciCare Model</span
               >
               <span
                 class="inline-block bg-[#fefbf5] text-[#cc9933] border border-[#cc9933] text-sm font-semibold px-3 py-1 rounded-full tracking-wide shadow-sm"
@@ -853,90 +844,103 @@ export const prerender = true;
         </div>
       </div>
 
-      <!-- OPTION 4: The Mission Statement (My Favorite) -->
-      <div class="relative overflow-hidden">
-        <div class="max-w-4xl mx-auto py-20 px-6">
-          <div class="text-center mb-12">
-            <div class="story-arc usrad-era inline-flex mb-8">
-              <span>A New Chapter Begins</span>
-            </div>
-            <h2 class="text-5xl font-bold text-gray-900 mb-6">
-              This Time, It's Different
+      <!-- THE NEXT ERA: Mission Pillars -->
+      <div class="relative overflow-hidden bg-white">
+        <div class="max-w-5xl mx-auto py-24 px-6">
+
+          <!-- Chapter label + headline -->
+          <div class="text-center mb-16" data-aos="fade-up">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[#B08A4A] mb-5">
+              The Next Era
+            </p>
+            <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+              This Time, It&rsquo;s Different
             </h2>
+            <div class="h-0.5 w-16 bg-[#B08A4A] mx-auto mt-2 opacity-60"></div>
           </div>
 
-          <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
-              <div class="flex items-start gap-4">
-                <div
-                  class="w-12 h-12 bg-[#cc9933] bg-opacity-20 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <span class="text-xl font-bold text-[#cc9933]">1</span>
-                </div>
-                <div>
-                  <h4 class="font-semibold text-lg text-gray-900">
-                    We're Not Starting from Scratch
-                  </h4>
-                  <p class="text-gray-600">
-                    Battle-tested playbook ready to deploy nationwide.
-                  </p>
-                </div>
-              </div>
+          <!-- Three mission pillars -->
+          <div class="grid md:grid-cols-3 gap-8 mb-16">
 
-              <div class="flex items-start gap-4">
-                <div
-                  class="w-12 h-12 bg-[#003087] bg-opacity-20 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <span class="text-xl font-bold text-[#003087]">2</span>
-                </div>
-                <div>
-                  <h4 class="font-semibold text-lg text-gray-900">
-                    We're Not Serving Insurance Companies
-                  </h4>
-                  <p class="text-gray-600">
-                    Direct to consumer. Your health, your choice, your savings.
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex items-start gap-4">
-                <div
-                  class="w-12 h-12 bg-green-600 bg-opacity-20 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <span class="text-xl font-bold text-green-600">3</span>
-                </div>
-                <div>
-                  <h4 class="font-semibold text-lg text-gray-900">
-                    We're Not Asking Permission
-                  </h4>
-                  <p class="text-gray-600">
-                    No insurance approvals. No networks. No gatekeepers.
-                  </p>
-                </div>
-              </div>
-            </div>
-
+            <!-- Pillar 1 -->
             <div
-              class="bg-gradient-to-br from-[#003087] to-[#002266] rounded-3xl p-8 text-white"
+              class="border-t-2 border-[#B08A4A] pt-8"
+              data-aos="fade-up"
+              data-aos-delay="100"
             >
-              <h3 class="text-2xl font-bold mb-4">My Promise to You</h3>
-              <p class="text-lg opacity-90 leading-relaxed">
-                "We built AnciCare to save employers money. We built USRad to
-                save lives. Same proven model, bigger mission, personal
-                commitment."
+              <p class="text-xs font-semibold uppercase tracking-widest text-[#B08A4A] mb-3">
+                Built on Experience
               </p>
-              <div class="mt-6">
-                <img
-                  src="/images/signature.png"
-                  alt="Michael Cabrera"
-                  class="h-16 opacity-80"
-                />
-                <p class="text-sm opacity-70 mt-2">
-                  Michael Cabrera, Founder & CEO
-                </p>
-              </div>
+              <h4 class="text-xl font-bold text-gray-900 mb-3">
+                We&rsquo;re Not Starting from Scratch
+              </h4>
+              <p class="text-gray-600 leading-relaxed">
+                A battle-tested model already proven at national scale — ready to deploy for patients.
+              </p>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div
+              class="border-t-2 border-[#003087] pt-8"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <p class="text-xs font-semibold uppercase tracking-widest text-[#003087] mb-3">
+                Direct to Patients
+              </p>
+              <h4 class="text-xl font-bold text-gray-900 mb-3">
+                We&rsquo;re Not Serving Insurance Companies
+              </h4>
+              <p class="text-gray-600 leading-relaxed">
+                Your health, your choice, your savings. No middlemen. No conflicts of interest.
+              </p>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div
+              class="border-t-2 border-gray-300 pt-8"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
+                No Permission Required
+              </p>
+              <h4 class="text-xl font-bold text-gray-900 mb-3">
+                We&rsquo;re Not Asking Permission
+              </h4>
+              <p class="text-gray-600 leading-relaxed">
+                No insurance approvals. No referral networks. No gatekeepers between you and your scan.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Founder promise — institutional letter feel -->
+          <div
+            class="bg-gradient-to-br from-[#003087] to-[#002266] rounded-2xl p-10 md:p-12 text-white"
+            data-aos="fade-up"
+            data-aos-delay="150"
+          >
+            <h3 class="text-xl font-semibold mb-5 opacity-70 uppercase tracking-widest text-sm">
+              My Promise to You
+            </h3>
+            <p class="text-xl md:text-2xl leading-relaxed opacity-90 max-w-3xl">
+              &ldquo;We built AnciCare to save employers money. We built USRad to
+              save lives. Same proven model, bigger mission, personal
+              commitment.&rdquo;
+            </p>
+            <div class="mt-8 pt-6 border-t border-white/20 flex items-center gap-4">
+              <img
+                src="/images/signature.png"
+                alt="Michael Cabrera signature"
+                class="h-12 opacity-75"
+              />
+              <p class="text-sm opacity-60 tracking-wide">
+                Michael Cabrera &mdash; Founder &amp; CEO
+              </p>
             </div>
           </div>
+
         </div>
       </div>
 
@@ -1081,106 +1085,11 @@ export const prerender = true;
         </div>
       </section>
 
-      <!-- What Makes USRad Different -->
-      <section class="py-20 px-4 sm:px-6 bg-white">
-        <div class="max-w-6xl mx-auto">
-          <h2
-            class="text-4xl md:text-5xl font-bold text-gray-900 mb-16 text-center"
-            data-aos="fade-up"
-          >
-            What Makes USRad Different
-          </h2>
-
-          <div class="grid md:grid-cols-3 gap-8">
-            <!-- Experience -->
-            <div
-              class="text-center p-8 bg-gradient-to-br from-gray-50 to-white rounded-2xl hover:shadow-xl transition-all"
-              data-aos="zoom-in"
-              data-aos-delay="100"
-            >
-              <div
-                class="w-20 h-20 mx-auto mb-6 bg-gray-100 rounded-2xl flex items-center justify-center"
-              >
-                <img
-                  src="/images/icons/trophy.svg"
-                  alt="Proven success"
-                  class="w-14 h-14"
-                />
-              </div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-4">
-                We've Done This Before
-              </h3>
-              <p class="text-lg text-gray-600 mb-6">
-                Not our first rodeo. We know exactly what works because we've
-                already built it, scaled it, and sold it.
-              </p>
-              <div class="mt-6 text-5xl font-bold text-[#cc9933]">
-                30+ Years
-              </div>
-              <p class="text-sm text-gray-600">Of proven success</p>
-            </div>
-
-            <!-- Technology -->
-            <div
-              class="text-center p-8 bg-gradient-to-br from-[#fefbf5] to-white rounded-2xl hover:shadow-xl transition-all"
-              data-aos="zoom-in"
-              data-aos-delay="200"
-            >
-              <div
-                class="w-20 h-20 mx-auto mb-6 bg-[#fefbf5] rounded-2xl flex items-center justify-center"
-              >
-                <img
-                  src="/images/icons/smartphone.svg"
-                  alt="Modern technology"
-                  class="w-14 h-14"
-                />
-              </div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-4">
-                Modern Technology
-              </h3>
-              <p class="text-lg text-gray-600 mb-6">
-                What took phone calls and faxes in 1994 now happens instantly
-                online. Same proven model, exponentially more powerful.
-              </p>
-              <div class="mt-6 text-5xl font-bold text-[#003087]">
-                60 Seconds
-              </div>
-              <p class="text-sm text-gray-600">To book your scan</p>
-            </div>
-
-            <!-- Mission -->
-            <div
-              class="text-center p-8 bg-gradient-to-br from-gray-50 to-white rounded-2xl hover:shadow-xl transition-all"
-              data-aos="zoom-in"
-              data-aos-delay="300"
-            >
-              <div
-                class="w-20 h-20 mx-auto mb-6 bg-gray-100 rounded-2xl flex items-center justify-center"
-              >
-                <img
-                  src="/images/icons/consumer-protection.svg"
-                  alt="Bigger mission"
-                  class="w-14 h-14"
-                />
-              </div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-4">
-                Bigger Mission
-              </h3>
-              <p class="text-lg text-gray-600 mb-6">
-                We're not serving insurance companies this time. We're serving
-                you—the 90 million Americans who deserve better.
-              </p>
-              <div class="mt-6 text-5xl font-bold text-[#cc9933]">90M</div>
-              <p class="text-sm text-gray-600">Americans to serve</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Final CTA -->
+      <!-- Narrative Bridge + Final CTA -->
       <section
         class="py-24 px-4 sm:px-6 bg-gradient-to-br from-[#003087] to-[#002266] text-white relative overflow-hidden"
       >
+        <!-- Subtle dot grid background -->
         <div class="absolute inset-0">
           <div
             class="absolute inset-0 opacity-5"
@@ -1189,35 +1098,62 @@ export const prerender = true;
           </div>
         </div>
 
-        <div class="max-w-6xl mx-auto text-center relative z-10">
-          <h2
-            class="text-4xl sm:text-5xl md:text-6xl font-bold mb-8"
+        <!-- Ambient glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#cc9933] opacity-5 blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+
+          <!-- Eyebrow -->
+          <p
+            class="text-xs font-semibold uppercase tracking-[0.2em] text-[#B08A4A] mb-10"
             data-aos="fade-up"
           >
-            Ready to Join the Revolution?
-          </h2>
+            The Same Team. A Bigger Mission.
+          </p>
 
-          <p
-            class="text-2xl mb-12 opacity-90 max-w-3xl mx-auto"
+          <!-- Narrative bridge lines -->
+          <div
+            class="space-y-2 mb-12"
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            We've spent 30 years perfecting this model. Now it's your turn to
-            benefit.
-          </p>
+            <p class="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight">
+              We built the network once
+            </p>
+            <p class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
+              <span class="text-[#B08A4A]">to save employers money.</span>
+            </p>
+            <p class="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight pt-4">
+              Now we&rsquo;re rebuilding it
+            </p>
+            <p class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
+              <span class="text-[#B08A4A]">to save patients.</span>
+            </p>
+          </div>
 
-          <div
-            class="flex flex-col sm:flex-row gap-6 justify-center items-center"
+          <!-- Supporting line -->
+          <p
+            class="text-xl text-white/70 max-w-2xl mx-auto mb-14 leading-relaxed"
             data-aos="fade-up"
             data-aos-delay="200"
           >
+            USRad is bringing affordable diagnostic imaging to the
+            90 million Americans who need it most.
+          </p>
+
+          <!-- CTA -->
+          <div
+            class="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
             <a
               href="/"
-              class="group relative bg-gradient-to-r from-[#cc9933] to-yellow-400 text-[#003087] px-12 py-5 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl inline-flex items-center gap-3"
+              class="group bg-gradient-to-r from-[#cc9933] to-[#B08A4A] text-[#003087] px-12 py-5 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl inline-flex items-center gap-3"
             >
-              <span class="relative z-10">Find Your Scan</span>
+              <span>Find Your Scan</span>
               <svg
-                class="w-6 h-6 group-hover:translate-x-1 transition-transform relative z-10"
+                class="w-6 h-6 group-hover:translate-x-1 transition-transform"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -1232,11 +1168,12 @@ export const prerender = true;
 
             <a
               href="/how-it-works"
-              class="group border-2 border-white text-white hover:bg-white hover:text-[#003087] px-12 py-5 rounded-xl font-bold text-lg transition-all duration-300 inline-flex items-center gap-2"
+              class="group border-2 border-white/40 text-white hover:bg-white hover:text-[#003087] px-12 py-5 rounded-xl font-bold text-lg transition-all duration-300 inline-flex items-center gap-2"
             >
               <span>See How It Works</span>
             </a>
           </div>
+
         </div>
       </section>
     </div>
