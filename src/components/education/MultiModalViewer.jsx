@@ -343,8 +343,8 @@ const MultiModalViewer = () => {
               onClick={() => handleModalityClick(key)}
               className={`flex-1 min-w-0 px-4 py-4 text-center transition-all duration-200 ${
                 activeModality === key
-                  ? `bg-${config.color}-600 text-white shadow-lg`
-                  : 'bg-white text-gray-700 hover:bg-gray-50'
+                  ? `bg-[#003087] text-white shadow-lg`
+                  : "bg-white text-gray-700 hover:bg-gray-50"
               }`}
             >
               <div className="text-2xl mb-1">{config.icon}</div>
@@ -354,7 +354,7 @@ const MultiModalViewer = () => {
           ))}
         </div>
       </div>
-      
+
       <div className="flex flex-col xl:flex-row">
         {/* Main Viewer */}
         <div className="flex-1 p-6">
@@ -363,22 +363,31 @@ const MultiModalViewer = () => {
               {currentConfig.fullName} Viewer
             </h3>
             <p className="text-gray-600">T1-weighted axial brain imaging</p>
-            <p className="text-sm text-gray-500 mt-1">Anonymized patient data for educational purposes</p>
+            <p className="text-sm text-gray-500 mt-1">
+              Anonymized patient data for educational purposes
+            </p>
             {currentConfig.scanInfo && (
               <div className="mt-2 text-xs text-gray-500 space-y-0.5">
-                <p>Source: {currentConfig.scanInfo.source} | Dataset: {currentConfig.scanInfo.status}</p>
-                <p>Acquisition: {currentConfig.scanInfo.field} MRI, {currentConfig.scanInfo.sliceThickness} {currentConfig.scanInfo.acquisition} slices</p>
+                <p>
+                  Source: {currentConfig.scanInfo.source} | Dataset:{" "}
+                  {currentConfig.scanInfo.status}
+                </p>
+                <p>
+                  Acquisition: {currentConfig.scanInfo.field} MRI,{" "}
+                  {currentConfig.scanInfo.sliceThickness}{" "}
+                  {currentConfig.scanInfo.acquisition} slices
+                </p>
               </div>
             )}
-            {imageLoadError && activeModality === 'mri' && (
+            {imageLoadError && activeModality === "mri" && (
               <p className="text-red-600 text-sm mt-2">
                 ⚠️ Unable to load image. Please check image path.
               </p>
             )}
           </div>
-          
+
           {/* CSS-Based Image Viewer for Better Performance */}
-          <div 
+          <div
             ref={containerRef}
             className="relative bg-black rounded-xl overflow-hidden aspect-square select-none mb-4"
             onWheel={handleWheel}
@@ -395,19 +404,21 @@ const MultiModalViewer = () => {
               <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-20">
                 <div className="text-center">
                   <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-white mb-4"></div>
-                  <p className="text-white">Loading images for smooth playback...</p>
+                  <p className="text-white">
+                    Loading images for smooth playback...
+                  </p>
                 </div>
               </div>
             )}
-            
+
             {/* Image Display with CSS Transforms */}
             {imagesLoaded && (
-              <div 
+              <div
                 className="relative w-full h-full flex items-center justify-center"
                 style={{
                   transform: `scale(${zoom})`,
-                  transformOrigin: 'center',
-                  transition: isDragging ? 'none' : 'transform 0.3s ease',
+                  transformOrigin: "center",
+                  transition: isDragging ? "none" : "transform 0.3s ease",
                 }}
               >
                 {/* Use CSS layers for smooth transitions */}
@@ -421,17 +432,19 @@ const MultiModalViewer = () => {
                       opacity: currentSlice === parseInt(slice) ? 1 : 0,
                       transform: `translate(${pan.x}px, ${pan.y}px)`,
                       filter: `brightness(${brightness / 100}) contrast(${contrast / 100})`,
-                      transition: isPlaying ? 'opacity 0.05s linear' : 'opacity 0.15s ease-in-out',
-                      willChange: 'opacity',
-                      backfaceVisibility: 'hidden',
-                      WebkitBackfaceVisibility: 'hidden',
-                      imageRendering: isMobile ? 'crisp-edges' : 'high-quality',
+                      transition: isPlaying
+                        ? "opacity 0.05s linear"
+                        : "opacity 0.15s ease-in-out",
+                      willChange: "opacity",
+                      backfaceVisibility: "hidden",
+                      WebkitBackfaceVisibility: "hidden",
+                      imageRendering: isMobile ? "crisp-edges" : "high-quality",
                     }}
                   />
                 ))}
               </div>
             )}
-            
+
             {/* Responsive Annotations Overlay */}
             {showAnnotations && imagesLoaded && (
               <>
@@ -440,8 +453,12 @@ const MultiModalViewer = () => {
                   <div className="absolute bottom-2 left-2 right-2 bg-black/75 backdrop-blur-sm text-white px-3 py-2 rounded-lg pointer-events-none">
                     <div className="flex justify-between items-center">
                       <div className="flex-1">
-                        <div className="text-xs font-medium truncate">{currentAnatomy?.name}</div>
-                        <div className="text-xs text-gray-300 truncate">{currentAnatomy?.function}</div>
+                        <div className="text-xs font-medium truncate">
+                          {currentAnatomy?.name}
+                        </div>
+                        <div className="text-xs text-gray-300 truncate">
+                          {currentAnatomy?.function}
+                        </div>
                       </div>
                       <div className="text-xs text-gray-400 ml-2 whitespace-nowrap">
                         {currentSlice}/{currentConfig.totalSlices}
@@ -459,25 +476,31 @@ const MultiModalViewer = () => {
                         </div>
                       </div>
                     )}
-                    
+
                     {/* Bottom Left - Main anatomy focus (MOVED FROM TOP LEFT) */}
                     {currentAnatomy && (
                       <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-sm text-white p-3 rounded-lg pointer-events-none max-w-[250px]">
                         <div className="text-sm font-medium text-white mb-1">
                           Learning Focus: {currentAnatomy.name}
                         </div>
-                        <div className="text-xs text-gray-300">{currentAnatomy.function}</div>
-                        <div className="text-xs text-gray-400 mt-1">{currentAnatomy.intensity}</div>
+                        <div className="text-xs text-gray-300">
+                          {currentAnatomy.function}
+                        </div>
+                        <div className="text-xs text-gray-400 mt-1">
+                          {currentAnatomy.intensity}
+                        </div>
                         <div className="text-xs text-gray-500 mt-2 pt-2 border-t border-gray-600">
-                          Source: {currentConfig.scanInfo?.source || 'OASIS-1 Dataset'}
+                          Source:{" "}
+                          {currentConfig.scanInfo?.source || "OASIS-1 Dataset"}
                         </div>
                       </div>
                     )}
-                    
+
                     {/* Bottom Right - Technical Information */}
                     <div className="absolute bottom-4 right-4 bg-black/70 backdrop-blur-sm text-white px-3 py-2 rounded-lg pointer-events-none">
                       <div className="text-xs sm:text-sm font-medium">
-                        {currentConfig.name} - T1-weighted - Slice {currentSlice}/{currentConfig.totalSlices}
+                        {currentConfig.name} - T1-weighted - Slice{" "}
+                        {currentSlice}/{currentConfig.totalSlices}
                       </div>
                       <div className="text-xs text-gray-300">Anonymized</div>
                     </div>
@@ -485,7 +508,7 @@ const MultiModalViewer = () => {
                 )}
               </>
             )}
-            
+
             {/* Drag Indicator */}
             {isDragging && (
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg pointer-events-none">
@@ -493,7 +516,7 @@ const MultiModalViewer = () => {
               </div>
             )}
           </div>
-          
+
           {/* Quick Controls */}
           <div className="flex items-center justify-center gap-4">
             <button
@@ -503,21 +526,25 @@ const MultiModalViewer = () => {
             >
               ←
             </button>
-            
+
             <button
               onClick={() => setIsPlaying(!isPlaying)}
               className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-                isPlaying 
-                  ? 'bg-red-600 hover:bg-red-700 text-white' 
-                  : 'bg-blue-600 hover:bg-blue-700 text-white'
+                isPlaying
+                  ? "bg-red-600 hover:bg-red-700 text-white"
+                  : "bg-[#003087] hover:bg-[#002070] text-white"
               }`}
               disabled={!imagesLoaded}
             >
-              {isPlaying ? 'Pause' : 'Play'}
+              {isPlaying ? "Pause" : "Play"}
             </button>
-            
+
             <button
-              onClick={() => setCurrentSlice(Math.min(currentConfig.totalSlices, currentSlice + 1))}
+              onClick={() =>
+                setCurrentSlice(
+                  Math.min(currentConfig.totalSlices, currentSlice + 1),
+                )
+              }
               className="p-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
               disabled={currentSlice === currentConfig.totalSlices}
             >
@@ -525,7 +552,7 @@ const MultiModalViewer = () => {
             </button>
           </div>
         </div>
-        
+
         {/* Control Panel */}
         <div className="w-full xl:w-80 bg-gray-50 p-6 space-y-6">
           {/* Slice Navigation */}
@@ -542,21 +569,27 @@ const MultiModalViewer = () => {
               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
             />
           </div>
-          
+
           {/* Anatomy Info */}
           {currentAnatomy && (
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 mb-2">Current Structure</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">
+                Current Structure
+              </h4>
               <p className="text-blue-700 font-medium">{currentAnatomy.name}</p>
-              <p className="text-gray-600 text-sm mt-1">{currentAnatomy.function}</p>
-              <p className="text-gray-500 text-xs mt-2">{currentAnatomy.intensity}</p>
+              <p className="text-gray-600 text-sm mt-1">
+                {currentAnatomy.function}
+              </p>
+              <p className="text-gray-500 text-xs mt-2">
+                {currentAnatomy.intensity}
+              </p>
             </div>
           )}
-          
+
           {/* Imaging Controls */}
           <div>
             <h4 className="font-semibold text-gray-900 mb-3">Image Controls</h4>
-            
+
             <div className="space-y-4">
               <div>
                 <label className="block text-gray-600 text-sm mb-1">
@@ -571,7 +604,7 @@ const MultiModalViewer = () => {
                   className="w-full"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-gray-600 text-sm mb-1">
                   Contrast ({contrast}%)
@@ -585,7 +618,7 @@ const MultiModalViewer = () => {
                   className="w-full"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-gray-600 text-sm mb-1">
                   Zoom ({Math.round(zoom * 100)}%)
@@ -600,7 +633,7 @@ const MultiModalViewer = () => {
                   className="w-full"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-gray-600 text-sm mb-1">
                   Animation Speed
@@ -619,7 +652,7 @@ const MultiModalViewer = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Modality Info */}
           <div className="bg-white border border-gray-200 rounded-lg p-4">
             <h4 className="font-semibold text-gray-900 mb-3">
@@ -634,51 +667,64 @@ const MultiModalViewer = () => {
               ))}
             </ul>
           </div>
-          
+
           {/* Common Uses */}
           <div className="bg-white border border-gray-200 rounded-lg p-4">
             <h4 className="font-semibold text-gray-900 mb-3">Common Uses</h4>
             <div className="grid grid-cols-1 gap-2">
               {currentConfig.commonUses.map((use, index) => (
-                <div key={index} className="text-sm text-gray-700 bg-gray-50 px-3 py-2 rounded">
+                <div
+                  key={index}
+                  className="text-sm text-gray-700 bg-gray-50 px-3 py-2 rounded"
+                >
                   {use}
                 </div>
               ))}
             </div>
           </div>
-          
+
           {/* Scan Information */}
           {currentConfig.scanInfo && (
             <div className="bg-gray-100 border border-gray-200 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 mb-2">Scan Information</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">
+                Scan Information
+              </h4>
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Field Strength:</span>
-                  <span className="text-gray-800">{currentConfig.scanInfo.field}</span>
+                  <span className="text-gray-800">
+                    {currentConfig.scanInfo.field}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Slice Thickness:</span>
-                  <span className="text-gray-800">{currentConfig.scanInfo.sliceThickness}</span>
+                  <span className="text-gray-800">
+                    {currentConfig.scanInfo.sliceThickness}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Orientation:</span>
-                  <span className="text-gray-800">{currentConfig.scanInfo.acquisition}</span>
+                  <span className="text-gray-800">
+                    {currentConfig.scanInfo.acquisition}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Dataset:</span>
-                  <span className="text-gray-800">{currentConfig.scanInfo.status}</span>
+                  <span className="text-gray-800">
+                    {currentConfig.scanInfo.status}
+                  </span>
                 </div>
               </div>
               {currentConfig.scanInfo.educationalNote && (
-      <div className="mt-3 pt-3 border-t border-gray-200">
-        <p className="text-xs text-gray-500 italic">
-          {currentConfig.scanInfo.educationalNote}
-        </p>
-      </div>
-    )}
-  </div>
-)}
-          
+                <div className="mt-3 pt-3 border-t border-gray-200">
+                  <p className="text-xs text-gray-500 italic">
+                    {currentConfig.scanInfo.educationalNote}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Options */}
           <div className="space-y-3">
             <label className="flex items-center">
@@ -691,7 +737,7 @@ const MultiModalViewer = () => {
               <span className="text-gray-700 text-sm">Show Annotations</span>
             </label>
           </div>
-          
+
           {/* Reset */}
           <button
             onClick={() => {
@@ -699,59 +745,88 @@ const MultiModalViewer = () => {
               setContrast(100);
               setZoom(1);
               setPan({ x: 0, y: 0 });
-              setCurrentSlice(25);  // Changed to 25
+              setCurrentSlice(25); // Changed to 25
             }}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition-colors font-medium"
+            className="w-full bg-[#003087] hover:bg-[#002070] text-white py-3 rounded-lg transition-colors font-medium"
           >
             Reset View
           </button>
         </div>
       </div>
-      
+
       {/* Instructions */}
       <div className="bg-gray-100 px-6 py-4 text-sm text-gray-600">
         <div className="flex flex-wrap gap-4 justify-center">
-          <span>🖱️ <strong>Scroll:</strong> Navigate slices</span>
-          <span>🖱️ <strong>Drag:</strong> Precise control</span>
-          <span>📱 <strong>Touch:</strong> Swipe up/down</span>
-          <span>⌨️ <strong>Keyboard:</strong> Arrow keys</span>
+          <span>
+            🖱️ <strong>Scroll:</strong> Navigate slices
+          </span>
+          <span>
+            🖱️ <strong>Drag:</strong> Precise control
+          </span>
+          <span>
+            📱 <strong>Touch:</strong> Swipe up/down
+          </span>
+          <span>
+            ⌨️ <strong>Keyboard:</strong> Arrow keys
+          </span>
         </div>
         <div className="text-xs text-gray-500 mt-2 text-center">
-          Data courtesy of The Cancer Imaging Archive (TCIA) | For educational demonstration only
+          Data courtesy of The Cancer Imaging Archive (TCIA) | For educational
+          demonstration only
         </div>
       </div>
-      
+
       {/* Coming Soon Modal */}
       {showComingSoon && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div 
+          <div
             ref={modalRef}
             className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center transform transition-all"
-            style={{ 
-              position: 'relative',
-              maxHeight: '90vh',
-              overflowY: 'auto'
+            style={{
+              position: "relative",
+              maxHeight: "90vh",
+              overflowY: "auto",
             }}
           >
             <div className="mb-6">
               <div className="mx-auto w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                <svg className="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  className="w-10 h-10 text-[#003087]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Coming Soon!</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                Coming Soon!
+              </h3>
               <p className="text-gray-600 mb-6">
-                We're working hard to bring you additional imaging modalities. CT, Ultrasound, and PET viewers will be available in the near future.
+                We're working hard to bring you additional imaging modalities.
+                CT, Ultrasound, and PET viewers will be available in the near
+                future.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <button
                   onClick={() => setShowComingSoon(false)}
-                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+                  className="px-6 py-3 bg-[#003087] hover:bg-[#002070] text-white rounded-lg font-medium transition-colors"
                 >
                   Back to MRI Viewer
                 </button>
                 <button
-                  onClick={() => window.open('mailto:info@usradiology.com?subject=Interest%20in%20Additional%20Imaging%20Modalities', '_blank')}
+                  onClick={() =>
+                    window.open(
+                      "mailto:info@usradiology.com?subject=Interest%20in%20Additional%20Imaging%20Modalities",
+                      "_blank",
+                    )
+                  }
                   className="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-medium transition-colors"
                 >
                   Notify Me
@@ -761,13 +836,13 @@ const MultiModalViewer = () => {
           </div>
         </div>
       )}
-      
+
       <style>{`
         .slider::-webkit-slider-thumb {
           appearance: none;
           width: 16px;
           height: 16px;
-          background: #3B82F6;
+          background: #003087;
           cursor: pointer;
           border-radius: 50%;
         }
@@ -775,7 +850,7 @@ const MultiModalViewer = () => {
         .slider::-moz-range-thumb {
           width: 16px;
           height: 16px;
-          background: #3B82F6;
+          background: #003087;
           cursor: pointer;
           border-radius: 50%;
           border: none;

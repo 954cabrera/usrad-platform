@@ -1,0 +1,146 @@
+---
+// member-rights.astro - USRad Member Bill of Rights
+// Governance document surfacing member protections on the marketing site.
+import CarbonLayout from "../layouts/CarbonLayout.astro";
+
+const effectiveDate = "December 2025";
+
+const rights = [
+  {
+    number: 1,
+    title: "Transparent Pricing",
+    description:
+      "View clear, upfront pricing before booking. The price displayed prior to payment represents the full cost of the imaging service, with no hidden fees or surprise charges.",
+  },
+  {
+    number: 2,
+    title: "Informed Scheduling",
+    description:
+      "Review your appointment details — including facility location, date, time, and any preparation requirements — before confirming your imaging appointment.",
+  },
+  {
+    number: 3,
+    title: "Timely Communication",
+    description:
+      "Receive prompt updates regarding your booking status, appointment confirmations, and any changes to your scheduled service.",
+  },
+  {
+    number: 4,
+    title: "Access to Records",
+    description:
+      "Obtain documentation related to your booking, authorization code, and payment receipts through your Member Portal.",
+  },
+  {
+    number: 5,
+    title: "Quality Imaging",
+    description:
+      "Receive imaging services at accredited facilities staffed by licensed technologists and interpreted by board-certified radiologists.",
+  },
+  {
+    number: 6,
+    title: "Privacy and Security",
+    description:
+      "Have your personal and medical information protected in accordance with applicable privacy standards and handled with appropriate safeguards.",
+  },
+  {
+    number: 7,
+    title: "Secure Payment Processing",
+    description:
+      "Have payment handled through industry-standard secure systems. USRad does not store your card details.",
+  },
+  {
+    number: 8,
+    title: "Respectful Service",
+    description:
+      "Be treated with professionalism and dignity at every point of contact — from booking through imaging and follow-up.",
+  },
+  {
+    number: 9,
+    title: "Right to Raise Concerns",
+    description:
+      "If you believe your rights under this document have not been upheld, you may contact USRad Support to request a review of your experience. Our team will investigate concerns related to scheduling, billing, or service coordination and work toward a prompt resolution.",
+  },
+];
+---
+
+<CarbonLayout
+  title="Member Bill of Rights | USRad"
+  description="Your rights as a USRad member — transparent pricing, secure payments, quality imaging, and respectful care coordination."
+  isHeroPage={false}
+>
+  <!-- Hero -->
+  <section
+    class="bg-gradient-to-br from-[#003087] via-[#0A2F6B] to-[#001F4D] text-white py-20 sm:py-28 relative overflow-hidden"
+  >
+    <div class="absolute inset-0 opacity-10">
+      <div
+        class="absolute top-20 left-10 w-64 h-64 bg-white rounded-full blur-3xl"
+      >
+      </div>
+      <div
+        class="absolute bottom-10 right-20 w-96 h-96 bg-white rounded-full blur-3xl"
+      >
+      </div>
+    </div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
+      <div
+        class="inline-block bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6"
+      >
+        <span class="text-sm font-medium">Member Protections</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
+        Member Bill of Rights
+      </h1>
+      <p class="text-xl sm:text-2xl text-blue-100 max-w-2xl mx-auto">
+        As a USRad member, you are entitled to the following protections
+        throughout your imaging experience.
+      </p>
+    </div>
+  </section>
+
+  <!-- Rights List -->
+  <section class="py-16 sm:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <div class="space-y-8">
+        {
+          rights.map((right) => (
+            <div class="flex gap-5">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#003087]/10 flex items-center justify-center">
+                <span class="text-sm font-semibold text-[#003087]">
+                  {right.number}
+                </span>
+              </div>
+              <div class="min-w-0">
+                <h2 class="text-base font-semibold text-gray-900">
+                  {right.title}
+                </h2>
+                <p class="text-sm text-gray-600 leading-relaxed mt-1">
+                  {right.description}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Institutional Footer -->
+      <div class="mt-12 pt-8 border-t border-gray-200">
+        <p class="text-sm text-gray-400 leading-relaxed">
+          This document reflects USRad's commitment to member care and service
+          standards. For questions or concerns, contact us at{" "}
+          <a href="tel:18668772324" class="text-[#003087] hover:underline"
+            >1-866-USRad-24</a
+          >{" "}
+          or{" "}
+          <a
+            href="mailto:support@usrad.com"
+            class="text-[#003087] hover:underline">support@usrad.com</a
+          >.
+        </p>
+        <p class="text-xs text-gray-400 mt-3">
+          Effective Date: {effectiveDate}
+        </p>
+      </div>
+    </div>
+  </section>
+</CarbonLayout>
