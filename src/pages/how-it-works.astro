@@ -6,1457 +6,2197 @@ export const prerender = true;
 ---
 
 <CarbonLayout
-  title="How USRad Works - Your Journey to Affordable Medical Imaging"
+  title="How USRad Works — Guided Imaging in Four Steps"
   isHeroPage={false}
 >
   <AOSInit />
 
-  <!-- Interactive Hero with Journey Path -->
+  <!-- ============================================================
+    HERO — Process-first
+  ============================================================ -->
   <section
-    class="relative pt-32 pb-20 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-slate-900 via-[#003087] to-teal-900"
+    class="relative pt-28 pb-16 px-4 sm:px-6 overflow-hidden bg-gradient-to-br from-slate-900 via-[#003087] to-[#001a4d]"
+    style="background-image: linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0) 38%), linear-gradient(to bottom right, #0f172a, #003087, #001a4d);"
   >
-    <!-- Animated Journey Path Background -->
-    <div class="absolute inset-0 opacity-20">
-      <svg
-        class="w-full h-full"
-        viewBox="0 0 1200 600"
-        preserveAspectRatio="none"
+    <!-- Subtle grid -->
+    <div
+      class="absolute inset-0 opacity-[0.07]"
+      style="background-image: linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px); background-size: 60px 60px;"
+    >
+    </div>
+
+    <!-- Ambient glows -->
+    <div
+      class="absolute top-0 right-0 w-[700px] h-[700px] rounded-full blur-[140px] opacity-20 pointer-events-none"
+      style="background: radial-gradient(circle, #00CED1, transparent 70%);"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[100px] opacity-15 pointer-events-none"
+      style="background: radial-gradient(circle, #C4982A, transparent 70%);"
+    >
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto text-center">
+      <!-- Eyebrow -->
+      <div
+        class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2.5 mb-8"
+        data-aos="fade-down"
       >
-        <path
-          id="journey-path"
-          d="M 0,300 Q 300,100 600,300 T 1200,300"
-          stroke="#00CED1"
-          stroke-width="3"
-          fill="none"
-          stroke-dasharray="5,5"
-          class="animate-dash"></path>
-        <!-- Animated dots along path -->
-        <circle r="8" fill="#00CED1" class="journey-dot-1">
-          <animateMotion dur="10s" repeatCount="indefinite">
-            <mpath href="#journey-path"></mpath>
-          </animateMotion>
-        </circle>
-        <circle r="6" fill="#40E0D0" class="journey-dot-2">
-          <animateMotion dur="10s" begin="2s" repeatCount="indefinite">
-            <mpath href="#journey-path"></mpath>
-          </animateMotion>
-        </circle>
-        <circle r="7" fill="#00CED1" class="journey-dot-3">
-          <animateMotion dur="10s" begin="4s" repeatCount="indefinite">
-            <mpath href="#journey-path"></mpath>
-          </animateMotion>
-        </circle>
-      </svg>
-    </div>
-
-    <!-- Floating Elements -->
-    <div
-      class="absolute top-20 right-10 w-64 h-64 bg-teal-500/20 rounded-full blur-3xl animate-float"
-    >
-    </div>
-    <div
-      class="absolute bottom-10 left-20 w-96 h-96 bg-[#003087]/30 rounded-full blur-3xl animate-float-delayed"
-    >
-    </div>
-
-    <div class="relative z-10 max-w-7xl mx-auto">
-      <div class="text-center">
-        <!-- Interactive Badge -->
-        <div
-          class="inline-flex items-center gap-2 bg-teal-500/20 backdrop-blur-sm rounded-full px-6 py-3 mb-8 cursor-pointer hover:bg-teal-500/30 transition-all"
-          data-aos="fade-down"
+        <span class="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></span>
+        <span class="text-sm font-semibold text-teal-100 tracking-wide"
+          >Guided Imaging by USRad</span
         >
-          <span class="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></span>
-          <span class="text-teal-100 text-sm font-medium"
-            >Interactive Journey Guide</span
-          >
+      </div>
+
+      <!-- Headline -->
+      <h1
+        class="text-5xl sm:text-6xl md:text-7xl font-black text-white mb-7 leading-[1.05] tracking-tight"
+        data-aos="fade-up"
+      >
+        How USRad Works
+      </h1>
+
+      <!-- Step bar — PRIMARY visual anchor -->
+      <div
+        class="inline-flex justify-center items-center gap-2 sm:gap-3 flex-wrap mb-8 px-6 py-3 rounded-2xl step-bar-glass"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <button class="hero-step active" data-step="1">
+          <span class="step-num">1</span>
+          <span class="step-lbl">Search</span>
+        </button>
+        <svg
+          class="step-arrow"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          ><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"
+          ></path></svg
+        >
+        <button class="hero-step" data-step="2">
+          <span class="step-num">2</span>
+          <span class="step-lbl">Compare</span>
+        </button>
+        <svg
+          class="step-arrow"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          ><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"
+          ></path></svg
+        >
+        <button class="hero-step" data-step="3">
+          <span class="step-num">3</span>
+          <span class="step-lbl">Request</span>
+        </button>
+        <svg
+          class="step-arrow"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          ><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"
+          ></path></svg
+        >
+        <button class="hero-step" data-step="4">
+          <span class="step-num">✓</span>
+          <span class="step-lbl">Done</span>
+        </button>
+      </div>
+
+      <!-- Subheads -->
+      <p
+        class="text-xl md:text-2xl text-white/75 max-w-2xl mx-auto mb-3 leading-relaxed"
+        data-aos="fade-up"
+        data-aos-delay="150"
+      >
+        Four guided steps to transparent medical imaging.<br
+          class="hidden sm:block"
+        />No insurance required. No billing surprises.
+      </p>
+      <p
+        class="text-base text-white/45 max-w-xl mx-auto mb-10"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        USRad coordinates the process behind the scenes — so you focus entirely
+        on your health.
+      </p>
+
+      <!-- CTA -->
+      <div data-aos="fade-up" data-aos-delay="250">
+        <a
+          href="/#hero-search"
+          class="inline-flex items-center gap-2 bg-[#C4982A] hover:bg-[#b8891f] text-white font-bold px-8 py-4 rounded-xl text-lg transition-all transform hover:scale-105 shadow-2xl shadow-[#C4982A]/30"
+        >
+          Find Centers Near You
           <svg
-            class="w-4 h-4 text-teal-300"
+            class="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-          >
-            <path
+            stroke-width="2.5"
+            ><path
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2"
-              d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-          </svg>
-        </div>
-
-        <h1
-          class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 text-white leading-tight tracking-tight"
-          data-aos="fade-up"
-        >
-          Your Journey to
-          <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300 drop-shadow-lg"
+              d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg
           >
-            Affordable Imaging
-          </span>
-        </h1>
-
-        <p
-          class="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-12 leading-relaxed"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          Four simple steps. Zero confusion. Total transparency. Let's walk
-          through your path to answers.
+        </a>
+        <p class="text-xs text-white/35 mt-3 tracking-wide">
+          No account needed · Free search · HIPAA compliant
         </p>
-
-        <!-- Journey Preview -->
-        <div
-          class="flex justify-center items-center gap-4 flex-wrap"
-          data-aos="fade-up"
-          data-aos-delay="300"
-        >
-          <div class="journey-step-preview active" data-step="1">
-            <span class="step-number">1</span>
-            <span class="step-label">Search</span>
-          </div>
-          <div class="journey-connector"></div>
-          <div class="journey-step-preview" data-step="2">
-            <span class="step-number">2</span>
-            <span class="step-label">Compare</span>
-          </div>
-          <div class="journey-connector"></div>
-          <div class="journey-step-preview" data-step="3">
-            <span class="step-number">3</span>
-            <span class="step-label">Book</span>
-          </div>
-          <div class="journey-connector"></div>
-          <div class="journey-step-preview" data-step="4">
-            <span class="step-number">✓</span>
-            <span class="step-label">Done</span>
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- Fixed Progress Sidebar (Desktop) -->
-  <div
-    class="fixed left-8 top-1/2 transform -translate-y-1/2 z-50 hidden lg:block"
-  >
-    <div class="bg-white/10 backdrop-blur-md rounded-full p-4">
-      <div class="space-y-6">
-        <div class="progress-node active" data-section="search">
-          <span class="node-icon">🔍</span>
-          <span class="node-tooltip">Search</span>
-        </div>
-        <div class="progress-connector"></div>
-        <div class="progress-node" data-section="compare">
-          <span class="node-icon">⚖️</span>
-          <span class="node-tooltip">Compare</span>
-        </div>
-        <div class="progress-connector"></div>
-        <div class="progress-node" data-section="book">
-          <span class="node-icon">📅</span>
-          <span class="node-tooltip">Book</span>
-        </div>
-        <div class="progress-connector"></div>
-        <div class="progress-node" data-section="complete">
-          <span class="node-icon">✅</span>
-          <span class="node-tooltip">Complete</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Step 1: Search - Interactive Demo -->
-  <section
-    id="search-section"
-    class="py-24 px-4 sm:px-6 bg-gradient-to-br from-white to-teal-50/30 relative overflow-hidden"
-  >
-    <div class="absolute inset-0 opacity-5">
-      <div
-        class="absolute inset-0"
-        style="background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(0,206,209,.1) 35px, rgba(0,206,209,.1) 70px);"
-      >
-      </div>
-    </div>
-
-    <div class="max-w-7xl mx-auto relative z-10">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div data-aos="fade-right">
-          <div
-            class="inline-flex items-center gap-2 bg-teal-100 text-teal-800 rounded-full px-4 py-2 mb-6"
-          >
-            <span class="text-lg font-bold">Step 1</span>
-            <span class="w-1 h-1 bg-teal-600 rounded-full"></span>
-            <span class="text-sm font-medium">15 seconds</span>
-          </div>
-
-          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Start with Your ZIP Code
-          </h2>
-
-          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-            No phone calls. No waiting on hold. Just enter your location and
-            instantly see every quality imaging center near you.
-          </p>
-
-          <!-- Interactive CTA -->
-          <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
-            <p class="text-lg text-gray-700 mb-6 text-center">
-              Ready to see real prices in your area?
-            </p>
-
-            <a
-              href="/#hero-search"
-              class="block w-full bg-teal-500 hover:bg-teal-600 text-white px-6 py-4 rounded-lg font-semibold text-lg text-center transition-all transform hover:scale-105 shadow-lg"
-            >
-              Find Centers Near You →
-            </a>
-
-            <p class="text-xs text-gray-500 mt-4 text-center">
-              💡 Search by your location to see actual prices instantly
-            </p>
-          </div>
-
-          <!-- What happens -->
-          <div class="space-y-4">
-            <div class="flex items-start gap-3">
-              <div
-                class="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1"
-              >
-                <span class="text-teal-600 text-xs">✓</span>
+  <!-- ============================================================
+    STICKY WALKTHROUGH — 4 Steps (left scroll / right sticky)
+  ============================================================ -->
+  <section id="walkthrough" class="bg-white relative">
+    <div class="max-w-[1400px] mx-auto">
+      <div class="walkthrough-layout">
+        <!-- ── LEFT: scrolling narrative ── -->
+        <div class="walkthrough-narrative">
+          <!-- STEP 1 -->
+          <div class="walk-step" id="walk-1">
+            <div class="walk-inner">
+              <div class="walk-step-chip">
+                <span class="chip-num chip-blue">1</span>
+                <span class="chip-label">Search · Under 30 seconds</span>
               </div>
-              <p class="text-gray-700">Instantly see all available centers</p>
-            </div>
-            <div class="flex items-start gap-3">
-              <div
-                class="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1"
-              >
-                <span class="text-teal-600 text-xs">✓</span>
-              </div>
-              <p class="text-gray-700">Real prices displayed upfront</p>
-            </div>
-            <div class="flex items-start gap-3">
-              <div
-                class="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1"
-              >
-                <span class="text-teal-600 text-xs">✓</span>
-              </div>
-              <p class="text-gray-700">Filter by distance, price, or rating</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="relative" data-aos="fade-left">
-          <!-- Interactive Map Visualization -->
-          <div
-            class="bg-white rounded-2xl shadow-2xl p-8 relative overflow-hidden"
-          >
-            <div class="absolute top-4 right-4">
-              <span
-                class="bg-green-100 text-green-700 text-xs font-medium px-3 py-1 rounded-full"
-                >Live Demo</span
-              >
-            </div>
-
-            <!-- Simulated search interface -->
-            <div class="mb-6">
-              <div class="text-xs text-gray-500 mb-2">
-                Showing results for: MRI Lumbar Spine • ZIP: 33025
-              </div>
-              <div
-                class="h-56 bg-gradient-to-br from-blue-50 to-teal-50 rounded-lg relative overflow-hidden"
-              >
-                <!-- Map styling -->
-                <div class="absolute inset-0 opacity-10">
-                  <div
-                    class="absolute top-10 left-10 w-32 h-32 border-2 border-gray-300 rounded-full"
-                  >
-                  </div>
-                  <div
-                    class="absolute bottom-10 right-10 w-24 h-24 border-2 border-gray-300 rounded-full"
-                  >
-                  </div>
-                </div>
-
-                <!-- Your location -->
-                <div
-                  class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                >
-                  <div class="w-4 h-4 bg-blue-500 rounded-full animate-pulse">
-                  </div>
-                  <div
-                    class="text-xs bg-blue-500 text-white rounded px-2 py-1 mt-1 font-medium"
-                  >
-                    You
-                  </div>
-                </div>
-
-                <!-- Animated pins with center names -->
-                <div
-                  class="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2"
-                >
-                  <div class="map-pin animate-bounce-slow">📍</div>
-                  <div class="text-xs bg-white rounded px-2 py-1 shadow mt-1">
-                    <span class="font-semibold text-teal-600">$260</span>
-                    <span class="block text-gray-500">2.3 mi</span>
-                  </div>
-                </div>
-                <div
-                  class="absolute top-1/2 left-3/4 transform -translate-x-1/2 -translate-y-1/2"
-                >
-                  <div class="map-pin animate-bounce-slow animation-delay-200">
-                    📍
-                  </div>
-                  <div class="text-xs bg-white rounded px-2 py-1 shadow mt-1">
-                    <span class="font-semibold text-gray-700">$310</span>
-                    <span class="block text-gray-500">3.7 mi</span>
-                  </div>
-                </div>
-                <div
-                  class="absolute bottom-1/4 right-1/4 transform translate-x-1/2 -translate-y-1/2"
-                >
-                  <div class="map-pin animate-bounce-slow animation-delay-400">
-                    📍
-                  </div>
-                  <div class="text-xs bg-white rounded px-2 py-1 shadow mt-1">
-                    <span class="font-semibold text-gray-700">$295</span>
-                    <span class="block text-gray-500">4.1 mi</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Map legend -->
-              <div
-                class="flex items-center justify-between mt-3 text-xs text-gray-600"
-              >
-                <span>📍 Imaging Centers</span>
-                <span class="text-green-600 font-medium"
-                  >✓ All centers MRI-ready</span
-                >
-              </div>
-            </div>
-
-            <!-- Results preview -->
-            <div class="space-y-3">
-              <div
-                class="bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors cursor-pointer"
-              >
-                <div class="flex justify-between items-start">
-                  <div>
-                    <p class="font-medium text-gray-900">
-                      Imaging Center of Miami
-                    </p>
-                    <p class="text-sm text-gray-600">
-                      2.3 miles • 4.9★ • Next appt: Tomorrow 10am
-                    </p>
-                  </div>
-                  <div class="text-right">
-                    <span class="text-xl font-bold text-teal-600">$260</span>
-                    <span class="text-xs text-gray-500 block">MRI Lumbar</span>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors cursor-pointer"
-              >
-                <div class="flex justify-between items-start">
-                  <div>
-                    <p class="font-medium text-gray-900">
-                      Advanced Diagnostics
-                    </p>
-                    <p class="text-sm text-gray-600">
-                      3.7 miles • 4.8★ • Next appt: Today 3pm
-                    </p>
-                  </div>
-                  <div class="text-right">
-                    <span class="text-xl font-bold text-gray-700">$295</span>
-                    <span class="text-xs text-gray-500 block">MRI Lumbar</span>
-                  </div>
-                </div>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 opacity-60">
-                <div class="flex justify-between items-start">
-                  <div>
-                    <p class="font-medium text-gray-900">
-                      Premium Medical Imaging
-                    </p>
-                    <p class="text-sm text-gray-600">
-                      4.1 miles • 4.7★ • Next appt: Thursday
-                    </p>
-                  </div>
-                  <div class="text-right">
-                    <span class="text-xl font-bold text-gray-700">$310</span>
-                    <span class="text-xs text-gray-500 block">MRI Lumbar</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Floating feature cards -->
-          <div
-            class="absolute -top-4 -right-4 bg-white rounded-lg shadow-lg p-3 transform rotate-3 hover:rotate-0 transition-transform"
-          >
-            <p class="text-sm font-medium text-gray-900">No Login Required</p>
-          </div>
-          <div
-            class="absolute -bottom-4 -left-4 bg-white rounded-lg shadow-lg p-3 transform -rotate-3 hover:rotate-0 transition-transform"
-          >
-            <p class="text-sm font-medium text-gray-900">100% Free Search</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Step 2: Compare - Interactive Comparison Tool -->
-  <section
-    id="compare-section"
-    class="py-24 px-4 sm:px-6 bg-white relative overflow-hidden"
-  >
-    <div class="absolute inset-0 opacity-5">
-      <div
-        class="absolute inset-0"
-        style="background-image: radial-gradient(circle at 2px 2px, #00CED1 1px, transparent 1px); background-size: 24px 24px;"
-      >
-      </div>
-    </div>
-
-    <div class="max-w-7xl mx-auto relative z-10">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div class="order-2 lg:order-1" data-aos="fade-right">
-          <!-- Interactive Comparison Tool -->
-          <div
-            class="bg-gradient-to-br from-teal-50 to-white rounded-2xl shadow-xl p-6"
-          >
-            <h3 class="font-semibold text-gray-900 mb-4">
-              Compare Your Options
-            </h3>
-
-            <!-- Comparison Cards -->
-            <div class="space-y-4">
-              <!-- Option 1 -->
-              <div
-                class="comparison-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-teal-500 transition-all"
-                onclick="selectOption(this)"
-              >
-                <div class="flex items-start justify-between mb-3">
-                  <div>
-                    <h4 class="font-medium text-gray-900">
-                      Miami Medical Imaging
-                    </h4>
-                    <p class="text-xs text-gray-500 mt-1">
-                      MRI Lumbar Spine (CPT: 72148)
-                    </p>
-                  </div>
-                  <span class="text-2xl font-bold text-teal-600">$260</span>
-                </div>
-                <div class="grid grid-cols-3 gap-4 text-sm">
-                  <div>
-                    <p class="text-gray-500">Distance</p>
-                    <p class="font-medium">2.3 mi</p>
-                  </div>
-                  <div>
-                    <p class="text-gray-500">Wait Time</p>
-                    <p class="font-medium text-green-600">Tomorrow</p>
-                  </div>
-                  <div>
-                    <p class="text-gray-500">Rating</p>
-                    <p class="font-medium">4.9★</p>
-                  </div>
-                </div>
-                <div class="mt-3 flex gap-2">
-                  <span class="tag bg-green-100 text-green-700">Best Price</span
-                  >
-                  <span class="tag bg-blue-100 text-blue-700">Closest</span>
-                </div>
-              </div>
-
-              <!-- Option 2 -->
-              <div
-                class="comparison-card border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:border-teal-500 transition-all"
-                onclick="selectOption(this)"
-              >
-                <div class="flex items-start justify-between mb-3">
-                  <div>
-                    <h4 class="font-medium text-gray-900">
-                      Diagnostic Partners
-                    </h4>
-                    <p class="text-xs text-gray-500 mt-1">
-                      MRI Lumbar Spine (CPT: 72148)
-                    </p>
-                  </div>
-                  <span class="text-2xl font-bold text-gray-700">$340</span>
-                </div>
-                <div class="grid grid-cols-3 gap-4 text-sm">
-                  <div>
-                    <p class="text-gray-500">Distance</p>
-                    <p class="font-medium">5.1 mi</p>
-                  </div>
-                  <div>
-                    <p class="text-gray-500">Wait Time</p>
-                    <p class="font-medium">3 days</p>
-                  </div>
-                  <div>
-                    <p class="text-gray-500">Rating</p>
-                    <p class="font-medium">4.7★</p>
-                  </div>
-                </div>
-                <div class="mt-3 flex gap-2">
-                  <span class="tag bg-purple-100 text-purple-700"
-                    >Premium Service</span
-                  >
-                </div>
-              </div>
-
-              <!-- Hospital Comparison -->
-              <div class="border-2 border-red-200 rounded-lg p-4 opacity-75">
-                <div class="flex items-start justify-between mb-3">
-                  <div>
-                    <h4 class="font-medium text-gray-600">Hospital of Miami</h4>
-                    <p class="text-xs text-gray-500 mt-1">MRI Lumbar Spine</p>
-                  </div>
-                  <span class="text-2xl font-bold text-red-600 line-through"
-                    >$3,200</span
-                  >
-                </div>
-                <div class="grid grid-cols-3 gap-4 text-sm">
-                  <div>
-                    <p class="text-gray-500">Distance</p>
-                    <p class="font-medium text-gray-600">8.2 mi</p>
-                  </div>
-                  <div>
-                    <p class="text-gray-500">Wait Time</p>
-                    <p class="font-medium text-red-600">2 weeks</p>
-                  </div>
-                  <div>
-                    <p class="text-gray-500">Rating</p>
-                    <p class="font-medium text-gray-600">3.2★</p>
-                  </div>
-                </div>
-                <div class="mt-3">
-                  <span class="tag bg-red-100 text-red-700"
-                    >Traditional Route</span
-                  >
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-6 bg-teal-50 rounded-lg p-4">
-              <p class="text-sm text-teal-800">
-                <span class="font-semibold">You save $2,940</span> by choosing USRad
-                network
+              <h2 class="walk-h2">
+                Choose Your Scan.<br />Enter Your ZIP Code.
+              </h2>
+              <p class="walk-p">
+                No phone calls. No referral required to search. Select your
+                procedure from our curated list, enter your location, and
+                instantly see imaging centers near you — with real,
+                all-inclusive prices displayed upfront.
               </p>
+              <ul class="walk-list">
+                <li>
+                  <span class="wl-check">✓</span><span
+                    >MRI, CT, X-ray and more — browse from one search</span
+                  >
+                </li>
+                <li>
+                  <span class="wl-check">✓</span><span
+                    >Medicare-anchored, all-inclusive pricing — no hidden fees</span
+                  >
+                </li>
+                <li>
+                  <span class="wl-check">✓</span><span
+                    >Map and list views — filter by distance or network tier</span
+                  >
+                </li>
+                <li>
+                  <span class="wl-check">✓</span><span
+                    >Completely anonymous — no login required to search</span
+                  >
+                </li>
+              </ul>
             </div>
           </div>
-        </div>
 
-        <div class="order-1 lg:order-2" data-aos="fade-left">
-          <div
-            class="inline-flex items-center gap-2 bg-teal-100 text-teal-800 rounded-full px-4 py-2 mb-6"
-          >
-            <span class="text-lg font-bold">Step 2</span>
-            <span class="w-1 h-1 bg-teal-600 rounded-full"></span>
-            <span class="text-sm font-medium">45 seconds</span>
-          </div>
-
-          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Compare with Complete Transparency
-          </h2>
-
-          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-            See everything upfront: prices, wait times, ratings, and reviews. No
-            hidden fees. No surprises. Just facts.
-          </p>
-
-          <!-- Comparison Features -->
-          <div class="grid grid-cols-2 gap-6 mb-8">
-            <div
-              class="text-center p-4 bg-gray-50 rounded-xl hover:shadow-md transition-shadow"
-            >
-              <div class="text-3xl mb-2">💰</div>
-              <h3 class="font-semibold text-gray-900">Real Prices</h3>
-              <p class="text-sm text-gray-600 mt-1">
-                Exact costs, no estimates
+          <!-- STEP 2 -->
+          <div class="walk-step" id="walk-2">
+            <div class="walk-inner">
+              <div class="walk-step-chip">
+                <span class="chip-num chip-blue">2</span>
+                <span class="chip-label">Compare · Complete transparency</span>
+              </div>
+              <h2 class="walk-h2">Compare with<br />Complete Transparency</h2>
+              <p class="walk-p">
+                See everything upfront: all-inclusive prices, network status,
+                distance, and availability. No hidden fees. No billing
+                surprises. Results include two tiers — so you always have
+                options.
               </p>
-            </div>
-            <div
-              class="text-center p-4 bg-gray-50 rounded-xl hover:shadow-md transition-shadow"
-            >
-              <div class="text-3xl mb-2">⏱️</div>
-              <h3 class="font-semibold text-gray-900">Live Availability</h3>
-              <p class="text-sm text-gray-600 mt-1">
-                Real-time appointment slots
-              </p>
-            </div>
-            <div
-              class="text-center p-4 bg-gray-50 rounded-xl hover:shadow-md transition-shadow"
-            >
-              <div class="text-3xl mb-2">⭐</div>
-              <h3 class="font-semibold text-gray-900">Patient Reviews</h3>
-              <p class="text-sm text-gray-600 mt-1">From real patients</p>
-            </div>
-            <div
-              class="text-center p-4 bg-gray-50 rounded-xl hover:shadow-md transition-shadow"
-            >
-              <div class="text-3xl mb-2">🏆</div>
-              <h3 class="font-semibold text-gray-900">Quality Scores</h3>
-              <p class="text-sm text-gray-600 mt-1">ACR accreditation status</p>
-            </div>
-          </div>
-
-          <!-- Pro tip -->
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p class="text-sm text-blue-800">
-              <span class="font-semibold">💡 Pro tip:</span> Sort by "Best Value"
-              to find the perfect balance of price, distance, and quality.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Step 3: Book - Interactive Booking Flow -->
-  <section
-    id="book-section"
-    class="py-24 px-4 sm:px-6 bg-gradient-to-br from-teal-50/50 to-white relative overflow-hidden"
-  >
-    <div
-      class="absolute top-0 right-0 w-96 h-96 bg-teal-100/30 rounded-full blur-3xl"
-    >
-    </div>
-    <div
-      class="absolute bottom-0 left-0 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl"
-    >
-    </div>
-
-    <div class="max-w-7xl mx-auto relative z-10">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div data-aos="fade-right">
-          <div
-            class="inline-flex items-center gap-2 bg-teal-100 text-teal-800 rounded-full px-4 py-2 mb-6"
-          >
-            <span class="text-lg font-bold">Step 3</span>
-            <span class="w-1 h-1 bg-teal-600 rounded-full"></span>
-            <span class="text-sm font-medium">60 seconds</span>
-          </div>
-
-          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Book in Under a Minute
-          </h2>
-
-          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-            Select your appointment time, enter basic information, and you're
-            done. Instant confirmation sent to your email and phone.
-          </p>
-
-          <!-- Booking Steps -->
-          <div class="space-y-6">
-            <div class="flex gap-4">
-              <div
-                class="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0"
-              >
-                <span class="text-teal-600 font-bold">1</span>
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-900 mb-1">Pick Your Time</h3>
-                <p class="text-gray-600">
-                  See all available slots, choose what works for you
-                </p>
-              </div>
-            </div>
-
-            <div class="flex gap-4">
-              <div
-                class="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0"
-              >
-                <span class="text-teal-600 font-bold">2</span>
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-900 mb-1">
-                  Enter Basic Info
-                </h3>
-                <p class="text-gray-600">
-                  Name, contact, and doctor information
-                </p>
-              </div>
-            </div>
-
-            <div class="flex gap-4">
-              <div
-                class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0"
-              >
-                <span class="text-green-600 font-bold">✓</span>
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-900 mb-1">
-                  Instant Confirmation
-                </h3>
-                <p class="text-gray-600">
-                  Get your appointment details immediately
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Security Badge -->
-          <div
-            class="mt-8 inline-flex items-center gap-3 bg-gray-100 rounded-lg px-4 py-3"
-          >
-            <svg
-              class="w-5 h-5 text-gray-600"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clip-rule="evenodd"></path>
-            </svg>
-            <span class="text-sm text-gray-700"
-              >Your information is secure and HIPAA compliant</span
-            >
-          </div>
-        </div>
-
-        <div data-aos="fade-left">
-          <!-- Interactive Calendar Demo -->
-          <div class="bg-white rounded-2xl shadow-2xl p-6">
-            <h3 class="font-semibold text-gray-900 mb-4">
-              Select Your Appointment
-            </h3>
-
-            <!-- Calendar Grid -->
-            <div class="mb-6">
-              <div class="flex items-center justify-between mb-4">
-                <h4 class="font-medium text-gray-700">December 2024</h4>
-                <span
-                  class="text-xs bg-teal-100 text-teal-700 px-3 py-1 rounded-full"
-                  >MRI Lumbar Spine</span
-                >
-              </div>
-              <div class="grid grid-cols-7 gap-1 text-center text-sm mb-2">
-                <div class="text-gray-500">Sun</div>
-                <div class="text-gray-500">Mon</div>
-                <div class="text-gray-500">Tue</div>
-                <div class="text-gray-500">Wed</div>
-                <div class="text-gray-500">Thu</div>
-                <div class="text-gray-500">Fri</div>
-                <div class="text-gray-500">Sat</div>
-              </div>
-              <div class="grid grid-cols-7 gap-1">
-                <!-- Calendar days -->
-                <div class="calendar-day text-gray-400">28</div>
-                <div class="calendar-day text-gray-400">29</div>
-                <div class="calendar-day text-gray-400">30</div>
-                <div class="calendar-day">1</div>
-                <div class="calendar-day available">2</div>
-                <div class="calendar-day available selected">3</div>
-                <div class="calendar-day">4</div>
-                <div class="calendar-day">5</div>
-                <div class="calendar-day available">6</div>
-                <div class="calendar-day available">7</div>
-                <div class="calendar-day available">8</div>
-                <div class="calendar-day available">9</div>
-                <div class="calendar-day">10</div>
-                <div class="calendar-day">11</div>
-              </div>
-            </div>
-
-            <!-- Time Slots -->
-            <div class="mb-6">
-              <p class="text-sm font-medium text-gray-700 mb-3">
-                Available times for Dec 3:
-              </p>
-              <div class="grid grid-cols-3 gap-2">
-                <button class="time-slot">9:00 AM</button>
-                <button class="time-slot selected">10:30 AM</button>
-                <button class="time-slot">11:00 AM</button>
-                <button class="time-slot">2:00 PM</button>
-                <button class="time-slot">3:30 PM</button>
-                <button class="time-slot">4:00 PM</button>
-              </div>
-            </div>
-
-            <!-- Confirmation Preview -->
-            <div class="bg-teal-50 rounded-lg p-4">
-              <p class="text-sm font-medium text-teal-900 mb-2">
-                Your appointment:
-              </p>
-              <p class="text-lg font-semibold text-teal-700">
-                December 3, 2024 at 10:30 AM
-              </p>
-              <p class="text-sm text-teal-600 mt-1">Miami Medical Imaging</p>
-              <div
-                class="flex items-center justify-between mt-3 pt-3 border-t border-teal-200"
-              >
+              <ul class="walk-list">
+                <li>
+                  <span class="wl-check">✓</span><span
+                    ><strong>USRad Network Partners</strong> — available for immediate
+                    online booking</span
+                  >
+                </li>
+                <li>
+                  <span class="wl-check">✓</span><span
+                    ><strong>Discovery Network</strong> — ACR-accredited facilities;
+                    register interest as network expands</span
+                  >
+                </li>
+                <li>
+                  <span class="wl-check">✓</span><span
+                    >Facility names shown at city level — full details revealed
+                    after booking</span
+                  >
+                </li>
+                <li>
+                  <span class="wl-check">✓</span><span
+                    >Payment collected only after your appointment is confirmed</span
+                  >
+                </li>
+              </ul>
+              <div class="walk-callout">
+                <span class="text-lg">🌐</span>
                 <div>
-                  <p class="text-xs text-teal-700">MRI Lumbar Spine</p>
-                  <p class="text-lg font-bold text-teal-800">$260</p>
-                </div>
-                <div class="text-right">
-                  <p class="text-xs text-teal-700">You save</p>
-                  <p class="text-lg font-bold text-green-700">$2,940</p>
-                </div>
-              </div>
-            </div>
-
-            <button
-              class="w-full mt-4 bg-teal-500 hover:bg-teal-600 text-white py-3 rounded-lg font-semibold transition-colors"
-            >
-              Confirm Appointment →
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Step 4: Complete - What Happens Next -->
-  <section
-    id="complete-section"
-    class="py-24 px-4 sm:px-6 bg-gradient-to-br from-gray-900 via-gray-800 to-[#003087] text-white relative overflow-hidden"
-  >
-    <div class="absolute inset-0 opacity-10">
-      <div
-        class="absolute inset-0"
-        style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 1px); background-size: 40px 40px;"
-      >
-      </div>
-    </div>
-
-    <div class="max-w-6xl mx-auto relative z-10">
-      <div class="text-center mb-16">
-        <div
-          class="inline-flex items-center gap-2 bg-green-500/20 backdrop-blur-sm rounded-full px-6 py-3 mb-8"
-          data-aos="fade-down"
-        >
-          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-          <span class="text-green-100 text-sm font-medium">You're all set!</span
-          >
-        </div>
-
-        <h2
-          class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
-          data-aos="fade-up"
-        >
-          What Happens Next?
-        </h2>
-        <p
-          class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          From confirmation to results, we've got you covered every step of the
-          way
-        </p>
-      </div>
-
-      <!-- Timeline -->
-      <div class="max-w-4xl mx-auto">
-        <div class="space-y-12">
-          <!-- Immediately -->
-          <div class="timeline-item" data-aos="fade-up">
-            <div class="flex gap-6">
-              <div
-                class="timeline-marker bg-green-500 flex items-center justify-center"
-              >
-                <svg
-                  class="w-6 h-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 13l4 4L19 7"></path>
-                </svg>
-              </div>
-
-              <div class="flex-1">
-                <h3 class="text-2xl font-bold mb-2">Immediately</h3>
-                <p class="text-white/80 mb-4">
-                  Confirmation sent to your email and phone with all details
-                </p>
-                <div class="space-y-2 text-sm text-white/80">
-                  <p>• Email confirmation with directions</p>
-                  <p>• Text reminder 24 hours before</p>
-                  <p>• Pre-visit instructions</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Day of Scan -->
-          <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
-            <div class="flex gap-6">
-              <div
-                class="timeline-marker bg-green-500/70 flex items-center justify-center"
-              >
-                <img
-                  src="/images/icons/schedule.svg"
-                  alt="Scheduled scan"
-                  class="w-6 h-6 brightness-0 invert opacity-90"
-                />
-              </div>
-
-              <div class="flex-1">
-                <h3 class="text-2xl font-bold mb-2">Day of Your Scan</h3>
-                <p class="text-white/80 mb-4">
-                  Simple check-in, comfortable experience, professional care
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div class="text-center p-4 bg-white/10 rounded-lg">
-                    <p class="text-3xl mb-1">5 min</p>
-                    <p class="text-sm text-white/70">Check-in time</p>
-                  </div>
-                  <div class="text-center p-4 bg-white/10 rounded-lg">
-                    <p class="text-3xl mb-1">20–45 min</p>
-                    <p class="text-sm text-white/70">Scan duration</p>
-                  </div>
-                  <div class="text-center p-4 bg-white/10 rounded-lg">
-                    <p class="text-3xl mb-1">0 min</p>
-                    <p class="text-sm text-white/70">Wait for results</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 24–48 Hours -->
-          <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
-            <div class="flex gap-6">
-              <div
-                class="timeline-marker bg-white/10 border border-white/10 flex items-center justify-center"
-              >
-                <img
-                  src="/images/icons/medical-record.svg"
-                  alt="Radiology results"
-                  class="w-8 h-8 brightness-0 invert opacity-80"
-                />
-              </div>
-
-              <div class="flex-1">
-                <h3 class="text-2xl font-bold mb-2">24–48 Hours Later</h3>
-                <p class="text-white/80 mb-4">
-                  Board-certified radiologist reviews and results delivered
-                </p>
-
-                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-                  <div class="flex items-center gap-4 mb-4">
-                    <div
-                      class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center border border-white/10"
-                    >
-                      <img
-                        src="/images/icons/medical-professional.svg"
-                        alt="Radiologist"
-                        class="w-6 h-6 brightness-0 invert opacity-80"
-                      />
-                    </div>
-                    <div>
-                      <p class="font-semibold">
-                        Dr. Board-Certified Radiologist
-                      </p>
-                      <p class="text-sm text-white/70">
-                        Reviews every scan personally
-                      </p>
-                    </div>
-                  </div>
-
-                  <p class="text-sm text-white/80">
-                    Results sent directly to you and your doctor
+                  <p class="font-semibold text-gray-900 text-sm mb-1">
+                    About the Discovery Network
+                  </p>
+                  <p class="text-sm text-gray-600">
+                    USRad displays 27,000+ ACR-accredited facilities nationwide
+                    so members always see options — even before a center has
+                    joined our contracted network. Discovery Network centers
+                    allow you to register interest, feeding our provider
+                    recruitment directly.
                   </p>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- STEP 3 -->
+          <div class="walk-step" id="walk-3">
+            <div class="walk-inner">
+              <div class="walk-step-chip">
+                <span class="chip-num chip-blue">3</span>
+                <span class="chip-label">Request · Guided 6-step form</span>
+              </div>
+              <h2 class="walk-h2">Submit Your<br />Booking Request</h2>
+              <p class="walk-p">
+                No payment required today. Our guided form collects your
+                preferences and USRad handles the coordination. You submit a
+                request — we secure the appointment.
+              </p>
+              <div class="mini-steps">
+                <div class="mini-step">
+                  <span class="mini-num mini-navy">1</span><div>
+                    <p class="font-semibold text-sm text-gray-900">
+                      Verify Email
+                    </p><p class="text-sm text-gray-500">
+                      One-time secure link — no password needed
+                    </p>
+                  </div>
+                </div>
+                <div class="mini-step">
+                  <span class="mini-num mini-navy">2</span><div>
+                    <p class="font-semibold text-sm text-gray-900">
+                      Member Information
+                    </p><p class="text-sm text-gray-500">
+                      Name, contact, DOB — encrypted &amp; HIPAA-compliant
+                    </p>
+                  </div>
+                </div>
+                <div class="mini-step">
+                  <span class="mini-num mini-navy">3</span><div>
+                    <p class="font-semibold text-sm text-gray-900">
+                      Appointment Preferences
+                    </p><p class="text-sm text-gray-500">
+                      Two preferred dates + flexible scheduling option
+                    </p>
+                  </div>
+                </div>
+                <div class="mini-step">
+                  <span class="mini-num mini-navy">4</span><div>
+                    <p class="font-semibold text-sm text-gray-900">
+                      Safety &amp; Prep
+                    </p><p class="text-sm text-gray-500">
+                      MRI safety screening shared with your imaging center
+                    </p>
+                  </div>
+                </div>
+                <div class="mini-step">
+                  <span class="mini-num mini-navy">5</span><div>
+                    <p class="font-semibold text-sm text-gray-900">
+                      Doctor's Order (Rx)
+                    </p><p class="text-sm text-gray-500">
+                      Upload now or submit later via your Member Portal
+                    </p>
+                  </div>
+                </div>
+                <div class="mini-step">
+                  <span class="mini-num mini-green">✓</span><div>
+                    <p class="font-semibold text-sm text-gray-900">
+                      Review &amp; Submit
+                    </p><p class="text-sm text-gray-500">
+                      Confirm everything — no payment at this step
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="walk-callout walk-callout-navy">
+                <span class="text-xl">🛡️</span>
+                <div>
+                  <p class="font-bold text-white text-sm mb-1">
+                    Reserve First. Pay Later.
+                  </p>
+                  <p class="text-sm text-white/80">
+                    As a USRad Member, you never pay at the front desk. Your
+                    all-inclusive rate is collected only after your appointment
+                    is confirmed — via a secure payment link sent directly to
+                    you.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4 -->
+          <div class="walk-step" id="walk-4">
+            <div class="walk-inner">
+              <div class="walk-step-chip">
+                <span class="chip-num chip-green">✓</span>
+                <span class="chip-label chip-label-green"
+                  >Done · You're all set</span
+                >
+              </div>
+              <h2 class="walk-h2">USRad Secures<br />Your Appointment</h2>
+              <p class="walk-p">
+                The moment you submit, USRad's coordination layer activates. You
+                receive a Booking ID and our team begins working with the
+                imaging center on your behalf.
+              </p>
+              <ul class="walk-list">
+                <li>
+                  <span class="wl-check wl-green">✓</span><span
+                    ><strong>Immediately</strong> — Booking ID + confirmation email
+                    sent</span
+                  >
+                </li>
+                <li>
+                  <span class="wl-check wl-green">✓</span><span
+                    ><strong>Within 4 hours</strong> — USRad coordinates with imaging
+                    center</span
+                  >
+                </li>
+                <li>
+                  <span class="wl-check wl-green">✓</span><span
+                    ><strong>Appointment confirmed</strong> — Facility details revealed
+                    + secure payment link</span
+                  >
+                </li>
+                <li>
+                  <span class="wl-check wl-green">✓</span><span
+                    ><strong>Scan day</strong> — 5 min check-in · 20–45 min scan
+                    · Zero payment at facility</span
+                  >
+                </li>
+                <li>
+                  <span class="wl-check wl-green">✓</span><span
+                    ><strong>24–48 hours</strong> — Board-certified radiologist report
+                    sent to you and your doctor</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- /narrative -->
+
+        <!-- ── RIGHT: sticky 3D screenshot panel ── -->
+        <div class="walkthrough-sticky-col" id="sticky-col">
+          <div class="sticky-panel" id="sticky-panel">
+            <!-- Progress dots -->
+            <div class="sticky-dots">
+              <button
+                class="sdot active"
+                data-target="1"
+                aria-label="Step 1 — Search"></button>
+              <button class="sdot" data-target="2" aria-label="Step 2 — Compare"
+              ></button>
+              <button class="sdot" data-target="3" aria-label="Step 3 — Request"
+              ></button>
+              <button class="sdot" data-target="4" aria-label="Step 4 — Done"
+              ></button>
+            </div>
+
+            <!-- Step label -->
+            <div class="sticky-step-label" id="sticky-label">
+              <span class="ssl-num">Step 1</span>
+              <span class="ssl-title" id="ssl-title">Search</span>
+            </div>
+
+            <!-- 3D Screen wrapper — perspective set here -->
+            <div class="screen-stage">
+              <!--
+                ═══════════════════════════════════════════════════
+                SCREENSHOT SWAP SYSTEM
+                ═══════════════════════════════════════════════════
+                Each .screen-card is shown when its step is active.
+
+                TO REPLACE A SCREEN WITH A REAL SCREENSHOT:
+                  1. Remove the .screen-sim div inside the .screen-body
+                  2. Add: <img src="/images/hiw/step[N]-[name].png"
+                               alt="descriptive alt text"
+                               class="w-full h-full object-cover object-top" />
+                  3. Recommended crop: 1200×800px, no browser chrome,
+                     zoom UI to 110–115% before cropping, clean demo data
+
+                SCREENSHOT SOURCES (from your walkthrough session):
+                  Screen 1 → Search modal (procedure selection)
+                  Screen 2 → PBS search results page
+                  Screen 3 → Booking form — Member Information (post-verification)
+                  Screen 4 → My Bookings / tracking page
+                ═══════════════════════════════════════════════════
+              -->
+
+              <!-- SCREEN 1: Search -->
+              <div class="screen-card active" id="sc-1">
+                <div class="screen-device">
+                  <div class="screen-chrome">
+                    <div class="chrome-dots">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <div class="chrome-bar">usrad.com</div>
+                  </div>
+                  <div class="screen-body">
+                    <img
+                      src="/images/hiw/step1-final.png"
+                      alt="USRad procedure search modal showing MRI Knee options"
+                      class="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                </div>
+                <div class="screen-shadow"></div>
+                <div class="screen-glow"></div>
+              </div>
+
+              <!-- SCREEN 2: Compare -->
+              <div class="screen-card" id="sc-2">
+                <div class="screen-device">
+                  <div class="screen-chrome">
+                    <div class="chrome-dots">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <div class="chrome-bar">usrad.com/pbs/search</div>
+                  </div>
+                  <div class="screen-body">
+                    <img
+                      src="/images/hiw/step2-final.png"
+                      alt="USRad search results showing $267.30 pricing with Request Appointment button"
+                      class="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                </div>
+                <div class="screen-shadow"></div>
+                <div class="screen-glow"></div>
+              </div>
+
+              <!-- SCREEN 3: Request -->
+              <div class="screen-card" id="sc-3">
+                <div class="screen-device">
+                  <div class="screen-chrome">
+                    <div class="chrome-dots">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <div class="chrome-bar">usrad.com/pbs/book</div>
+                  </div>
+                  <div class="screen-body">
+                    <img
+                      src="/images/hiw/step3-final.png"
+                      alt="USRad booking form Member Information with verified email and $267.30 booking summary"
+                      class="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                </div>
+                <div class="screen-shadow"></div>
+                <div class="screen-glow"></div>
+              </div>
+
+              <!-- SCREEN 4: Done / Tracking -->
+              <div class="screen-card" id="sc-4">
+                <div class="screen-device">
+                  <div class="screen-chrome">
+                    <div class="chrome-dots">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <div class="chrome-bar">usrad.com/pbs/my-bookings</div>
+                  </div>
+                  <div class="screen-body">
+                    <img
+                      src="/images/hiw/step4-final.png"
+                      alt="USRad booking tracker showing Booking Submitted and Facility Confirmation in progress"
+                      class="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                </div>
+                <div class="screen-shadow"></div>
+                <div class="screen-glow"></div>
+              </div>
+            </div><!-- /screen-stage -->
+          </div><!-- /sticky-panel -->
+        </div><!-- /sticky col -->
+      </div><!-- /walkthrough-layout -->
+    </div>
+  </section>
+
+  <!-- ============================================================
+    WHY USRAD PRICES ARE LOWER
+  ============================================================ -->
+  <section class="py-20 px-4 sm:px-6 bg-slate-50" data-aos="fade-up">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <p
+          class="text-xs font-bold tracking-[0.2em] text-[#C4982A] uppercase mb-3"
+        >
+          Price Transparency
+        </p>
+        <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+          Why USRad Prices Are Lower
+        </h2>
+        <p class="text-xl text-gray-500 max-w-2xl mx-auto">
+          The scan is identical. The difference is structural — not in quality.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5 mb-10">
+        <div class="bg-white border border-red-100 rounded-2xl p-7">
+          <div class="flex items-center gap-3 mb-5">
+            <div
+              class="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center text-lg"
+            >
+              🏥
+            </div>
+            <div>
+              <p class="font-bold text-gray-900">
+                Traditional Hospital Imaging
+              </p>
+              <p class="text-sm text-red-500 font-semibold">
+                ~$800–$3,200 per scan
+              </p>
+            </div>
+          </div>
+          <div class="space-y-2 text-sm text-gray-500">
+            <p class="flex items-center gap-2">
+              <span class="text-red-400 font-bold">✗</span> Insurance billing layers
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-red-400 font-bold">✗</span> Multiple bills (facility
+              + radiologist)
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-red-400 font-bold">✗</span> Opaque chargemaster pricing
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-red-400 font-bold">✗</span> Self-navigate scheduling
+              &amp; referrals
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-red-400 font-bold">✗</span> Co-pay or balance bill
+              at the desk
+            </p>
+          </div>
+        </div>
+        <div class="bg-[#003087] rounded-2xl p-7 text-white">
+          <div class="flex items-center gap-3 mb-5">
+            <div
+              class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-lg"
+            >
+              🎯
+            </div>
+            <div>
+              <p class="font-bold">USRad Guided Imaging</p>
+              <p class="text-sm text-[#C4982A] font-bold">
+                ~$200–$400 all-inclusive
+              </p>
+            </div>
+          </div>
+          <div class="space-y-2 text-sm text-white/80">
+            <p class="flex items-center gap-2">
+              <span class="text-teal-400 font-bold">✓</span> Medicare-anchored transparent
+              pricing
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-teal-400 font-bold">✓</span> One all-inclusive rate
+              (scan + report)
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-teal-400 font-bold">✓</span> Price shown upfront
+              before you book
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-teal-400 font-bold">✓</span> USRad coordinates everything
+              for you
+            </p>
+            <p class="flex items-center gap-2">
+              <span class="text-teal-400 font-bold">✓</span> Zero payment at the
+              facility — ever
+            </p>
+          </div>
         </div>
       </div>
 
-      <!-- Support CTA -->
-      <div class="text-center mt-16" data-aos="fade-up" data-aos-delay="300">
-        <p class="text-lg text-white/70 mb-6">
-          Questions at any point? We're here to help.
-        </p>
-        <div class="inline-flex gap-4">
-          <a
-            href="/contact"
-            class="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+      <div class="grid md:grid-cols-3 gap-5">
+        <div
+          class="text-center p-6 bg-white rounded-2xl border border-gray-100 shadow-sm"
+        >
+          <div
+            class="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl"
           >
-            Contact Support
-          </a>
-          <a
-            href="tel:1-866-USRad-24"
-            class="bg-teal-500 hover:bg-teal-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+            📊
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">
+            Medicare-Anchored Pricing
+          </h3>
+          <p class="text-sm text-gray-500">
+            Every scan is priced as a percentage of Medicare rates — the same
+            benchmark used across the healthcare industry. Consistent.
+            Transparent. Explainable.
+          </p>
+        </div>
+        <div
+          class="text-center p-6 bg-white rounded-2xl border border-gray-100 shadow-sm"
+        >
+          <div
+            class="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl"
           >
-            Call (866) USRad-24
-          </a>
+            🚫
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">No Insurance Billing</h3>
+          <p class="text-sm text-gray-500">
+            Insurance billing adds administrative layers that inflate prices.
+            USRad removes that complexity entirely with one all-inclusive rate
+            covering scan and radiologist report.
+          </p>
+        </div>
+        <div
+          class="text-center p-6 bg-white rounded-2xl border border-gray-100 shadow-sm"
+        >
+          <div
+            class="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl"
+          >
+            ⚡
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">Direct Coordination</h3>
+          <p class="text-sm text-gray-500">
+            USRad routes members directly to independent imaging centers —
+            operating at far lower overhead than hospital systems — and handles
+            all coordination.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Interactive CTA Section -->
+  <!-- ============================================================
+    GUIDED IMAGING SYSTEM DIAGRAM — Animated infrastructure pipeline
+  ============================================================ -->
   <section
-    class="py-24 px-4 sm:px-6 bg-gradient-to-br from-white to-teal-50 relative overflow-hidden"
+    class="py-20 px-4 sm:px-6 bg-gradient-to-br from-[#001a4d] to-[#003087] text-white overflow-hidden"
+    data-aos="fade-up"
   >
-    <div
-      class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-teal-100/20 rounded-full blur-3xl"
-    >
-    </div>
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <p
+          class="text-xs font-bold tracking-[0.2em] text-[#C4982A] uppercase mb-3"
+        >
+          The System Behind the Journey
+        </p>
+        <h2 class="text-4xl md:text-5xl font-black mb-4">
+          The Guided Imaging System
+        </h2>
+        <p class="text-lg text-white/65 max-w-2xl mx-auto">
+          USRad coordinates the process between patients, physicians, and
+          imaging centers — so you experience a simple guided journey while the
+          system handles everything else.
+        </p>
+      </div>
 
-    <div class="max-w-5xl mx-auto text-center relative z-10">
-      <h2
-        class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-8"
-        data-aos="fade-up"
-      >
-        Ready to Start Your Journey?
-      </h2>
-
-      <p
-        class="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto"
-        data-aos="fade-up"
-        data-aos-delay="100"
-      >
-        Join thousands who've discovered how simple medical imaging should be.
-        No insurance hassles. No surprise bills. Just answers.
-      </p>
-
-      <!-- Interactive Journey Starter -->
-      <div
-        class="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl mx-auto"
-        data-aos="zoom-in"
-        data-aos-delay="200"
-      >
-        <div class="flex items-center justify-between mb-6">
-          <h3 class="text-lg font-semibold text-gray-900">
-            Begin Your Journey
-          </h3>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
-            ></span>
-            <span class="text-xs text-gray-600">Available Now</span>
+      <!-- Pipeline diagram -->
+      <div class="pipeline-wrap">
+        <!-- LAYER 1: Patient -->
+        <div class="pipeline-layer pipeline-layer-patient" data-aos="fade-up">
+          <div class="pipeline-layer-header">
+            <div
+              class="pipeline-icon-wrap bg-[#C4982A]/20 border border-[#C4982A]/40"
+            >
+              <span class="text-xl">👤</span>
+            </div>
+            <div>
+              <p class="pipeline-layer-title">Patient Layer</p>
+              <p class="pipeline-layer-sub">What you experience</p>
+            </div>
+            <div class="pipeline-layer-badge badge-gold">Member</div>
+          </div>
+          <div class="pipeline-nodes">
+            <div class="pipeline-node">
+              <span class="pn-num">1</span>
+              <span class="pn-label">Search a scan</span>
+            </div>
+            <div class="pipeline-connector-h"></div>
+            <div class="pipeline-node">
+              <span class="pn-num">2</span>
+              <span class="pn-label">Compare prices</span>
+            </div>
+            <div class="pipeline-connector-h"></div>
+            <div class="pipeline-node">
+              <span class="pn-num">3</span>
+              <span class="pn-label">Submit request</span>
+            </div>
+            <div class="pipeline-connector-h"></div>
+            <div class="pipeline-node">
+              <span class="pn-num">4</span>
+              <span class="pn-label">Attend your scan</span>
+            </div>
           </div>
         </div>
 
-        <a
-          href="/#hero-search"
-          class="block w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-8 py-4 rounded-xl font-semibold text-lg text-center transition-all transform hover:scale-105 shadow-lg"
+        <!-- Animated flow connector -->
+        <div
+          class="pipeline-flow-connector"
+          data-aos="fade-up"
+          data-aos-delay="80"
         >
-          Start Now →
-        </a>
+          <div class="flow-line">
+            <div class="flow-dot" id="flow-dot-1"></div>
+          </div>
+          <div class="flow-label">USRad activates</div>
+        </div>
 
-        <p class="text-sm text-gray-500 mt-4 text-center">
-          🎉 Special pricing available today
-        </p>
-      </div>
+        <!-- LAYER 2: USRad Engine — EMPHASIZED -->
+        <div
+          class="pipeline-layer pipeline-layer-usrad"
+          data-aos="fade-up"
+          data-aos-delay="120"
+        >
+          <div class="pipeline-usrad-glow"></div>
+          <div class="pipeline-layer-header">
+            <div
+              class="pipeline-icon-wrap bg-teal-400/20 border border-teal-400/50"
+            >
+              <span class="text-xl">⚡</span>
+            </div>
+            <div>
+              <p class="pipeline-layer-title text-teal-300">
+                USRad Guided Imaging Engine
+              </p>
+              <p class="pipeline-layer-sub text-teal-400/70">
+                The coordination layer — invisible to you, working constantly
+              </p>
+            </div>
+            <div class="pipeline-layer-badge badge-teal">Core System</div>
+          </div>
+          <div class="pipeline-engine-grid">
+            <div class="engine-cell">
+              <div class="engine-cell-icon">🔍</div>
+              <p class="engine-cell-title">Price Transparency Engine</p>
+              <p class="engine-cell-desc">
+                Medicare-anchored rates surfaced in real time
+              </p>
+            </div>
+            <div class="engine-cell">
+              <div class="engine-cell-icon">📋</div>
+              <p class="engine-cell-title">Physician Order Verification</p>
+              <p class="engine-cell-desc">
+                Rx reviewed &amp; verified before scheduling begins
+              </p>
+            </div>
+            <div class="engine-cell">
+              <div class="engine-cell-icon">📅</div>
+              <p class="engine-cell-title">Network Scheduling Coordination</p>
+              <p class="engine-cell-desc">
+                Facility contacted &amp; appointment secured on your behalf
+              </p>
+            </div>
+            <div class="engine-cell">
+              <div class="engine-cell-icon">📡</div>
+              <p class="engine-cell-title">Member Navigation</p>
+              <p class="engine-cell-desc">
+                Status updates, reminders, and payment activation
+              </p>
+            </div>
+          </div>
+          <!-- Animated data flow dots across engine -->
+          <div class="engine-flow-track">
+            <div class="engine-flow-dot" style="animation-delay: 0s"></div>
+            <div class="engine-flow-dot" style="animation-delay: 0.8s"></div>
+            <div class="engine-flow-dot" style="animation-delay: 1.6s"></div>
+            <div class="engine-flow-dot" style="animation-delay: 2.4s"></div>
+          </div>
+        </div>
 
-      <!-- Journey Stats -->
-      <div
-        class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-4xl mx-auto"
-        data-aos="fade-up"
-        data-aos-delay="300"
-      >
-        <div class="text-center">
-          <div class="text-3xl font-bold text-teal-600 mb-1">15 sec</div>
-          <p class="text-sm text-gray-600">to find centers</p>
+        <!-- Animated flow connector -->
+        <div
+          class="pipeline-flow-connector"
+          data-aos="fade-up"
+          data-aos-delay="160"
+        >
+          <div class="flow-line">
+            <div class="flow-dot" id="flow-dot-2" style="animation-delay: 0.4s">
+            </div>
+          </div>
+          <div class="flow-label">Results returned</div>
         </div>
-        <div class="text-center">
-          <div class="text-3xl font-bold text-teal-600 mb-1">70%</div>
-          <p class="text-sm text-gray-600">average savings</p>
+
+        <!-- LAYER 3: Imaging Network -->
+        <div
+          class="pipeline-layer pipeline-layer-network"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <div class="pipeline-layer-header">
+            <div class="pipeline-icon-wrap bg-white/10 border border-white/20">
+              <span class="text-xl">🏥</span>
+            </div>
+            <div>
+              <p class="pipeline-layer-title">Imaging Network</p>
+              <p class="pipeline-layer-sub">
+                ACR-accredited facilities + board-certified radiologists
+              </p>
+            </div>
+            <div class="pipeline-layer-badge badge-white">Provider Layer</div>
+          </div>
+          <div class="pipeline-network-grid">
+            <div class="network-cell network-cell-partner">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-base">🏛️</span>
+                <p class="text-sm font-bold">USRad Network Partners</p>
+              </div>
+              <p class="text-xs text-white/55">
+                Contracted &amp; verified — available for immediate booking
+              </p>
+            </div>
+            <div class="network-cell">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-base">🌐</span>
+                <p class="text-sm font-bold">Discovery Network</p>
+              </div>
+              <p class="text-xs text-white/55">
+                27,000+ ACR-accredited facilities — actively expanding
+              </p>
+            </div>
+            <div class="network-cell">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-base">📄</span>
+                <p class="text-sm font-bold">Board-Certified Radiologists</p>
+              </div>
+              <p class="text-xs text-white/55">
+                Results delivered to you and your doctor in 24–48 hrs
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="text-center">
-          <div class="text-3xl font-bold text-teal-600 mb-1">48 hrs</div>
-          <p class="text-sm text-gray-600">typical wait</p>
-        </div>
-        <div class="text-center">
-          <div class="text-3xl font-bold text-teal-600 mb-1">4.9★</div>
-          <p class="text-sm text-gray-600">patient rating</p>
+      </div><!-- /pipeline-wrap -->
+
+      <!-- Guided Imaging definition -->
+      <div class="text-center mt-14" data-aos="fade-up" data-aos-delay="250">
+        <div
+          class="inline-block bg-white/5 border border-white/10 rounded-2xl px-8 py-7 max-w-2xl"
+        >
+          <p class="text-2xl font-black mb-3">What is Guided Imaging?</p>
+          <p class="text-white/65 leading-relaxed">
+            Instead of navigating hospitals, insurance approvals, and billing
+            departments yourself, USRad guides your imaging journey from search
+            to results — coordinating every step behind the scenes.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ============================================================
+    YOUR DOCTOR STAYS IN THE LOOP
+  ============================================================ -->
+  <section class="py-20 px-4 sm:px-6 bg-white" data-aos="fade-up">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <p
+          class="text-xs font-bold tracking-[0.2em] text-[#C4982A] uppercase mb-3"
+        >
+          Medical Legitimacy
+        </p>
+        <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+          Your Doctor Stays in the Loop
+        </h2>
+        <p class="text-xl text-gray-500 max-w-2xl mx-auto">
+          USRad works within your existing care plan — not around it.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5 mb-10">
+        <div
+          class="text-center p-7 bg-slate-50 rounded-2xl border border-slate-100"
+        >
+          <div
+            class="w-16 h-16 bg-[#003087]/8 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl"
+          >
+            👨‍⚕️
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">
+            Any Doctor's Order Accepted
+          </h3>
+          <p class="text-sm text-gray-500">
+            Prescriptions from any licensed physician, NP, or PA are accepted.
+            If your doctor ordered it, it works here.
+          </p>
+        </div>
+        <div
+          class="text-center p-7 bg-slate-50 rounded-2xl border border-slate-100"
+        >
+          <div
+            class="w-16 h-16 bg-[#003087]/8 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl"
+          >
+            🩻
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">
+            Board-Certified Radiologists
+          </h3>
+          <p class="text-sm text-gray-500">
+            Every scan is interpreted by a board-certified radiologist — the
+            same clinical standard as any accredited facility.
+          </p>
+        </div>
+        <div
+          class="text-center p-7 bg-slate-50 rounded-2xl border border-slate-100"
+        >
+          <div
+            class="w-16 h-16 bg-[#003087]/8 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl"
+          >
+            📬
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">
+            Results Sent to Your Doctor
+          </h3>
+          <p class="text-sm text-gray-500">
+            Your radiology report is delivered to both you and your ordering
+            physician within 24–48 hours — your care continues without
+            interruption.
+          </p>
+        </div>
+      </div>
+      <div
+        class="bg-gradient-to-r from-[#003087] to-teal-700 rounded-2xl p-8 text-white text-center"
+      >
+        <p class="text-xl font-bold mb-2">
+          Guided Imaging Means You're Not Alone
+        </p>
+        <p class="text-white/75 max-w-2xl mx-auto text-sm leading-relaxed">
+          Our team verifies prescriptions, coordinates with imaging centers, and
+          ensures your doctor receives the report — so your care continues
+          without interruption.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    WHAT HAPPENS NEXT — timeline
+  ============================================================ -->
+  <section
+    class="py-20 px-4 sm:px-6 bg-gradient-to-br from-slate-900 via-[#001a4d] to-[#003087] text-white"
+    data-aos="fade-up"
+  >
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-14">
+        <div
+          class="inline-flex items-center gap-2 bg-green-500/20 rounded-full px-5 py-2.5 mb-6"
+        >
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          <span class="text-green-100 text-sm font-medium"
+            >Request submitted — you're all set</span
+          >
+        </div>
+        <h2 class="text-4xl md:text-5xl font-black mb-4">What Happens Next?</h2>
+        <p class="text-xl text-white/65 max-w-2xl mx-auto">
+          From the moment you submit, USRad's coordination layer activates.
+          You'll be kept informed at every step.
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        <div class="flex gap-5" data-aos="fade-up">
+          <div class="tl-dot bg-green-500"><span class="text-sm">✓</span></div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2 flex-wrap">
+              <h3 class="text-xl font-bold">Immediately</h3>
+              <span
+                class="tl-badge bg-green-500/20 text-green-300 border-green-500/30"
+                >Right away</span
+              >
+            </div>
+            <div class="tl-card">
+              <p>• Booking ID assigned (e.g., USR-8SJHJTMAB)</p>
+              <p>• Confirmation email sent with request details</p>
+              <p>• Track status anytime via your Member Portal</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-5" data-aos="fade-up" data-aos-delay="50">
+          <div class="tl-dot bg-[#C4982A]"><span class="text-sm">⚡</span></div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2 flex-wrap">
+              <h3 class="text-xl font-bold">USRad Coordinates</h3>
+              <span
+                class="tl-badge bg-yellow-500/20 text-yellow-300 border-yellow-500/30"
+                >Within 4 hours</span
+              >
+            </div>
+            <div class="tl-card">
+              <p>• Prescription reviewed and verified by our team</p>
+              <p>• Imaging center contacted on your behalf</p>
+              <p>• Safety notes and accommodations shared in advance</p>
+              <p>• You don't make a single phone call</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-5" data-aos="fade-up" data-aos-delay="100">
+          <div class="tl-dot bg-teal-500"><span class="text-sm">📅</span></div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2 flex-wrap">
+              <h3 class="text-xl font-bold">Appointment Confirmed</h3>
+              <span
+                class="tl-badge bg-teal-500/20 text-teal-300 border-teal-500/30"
+                >Then payment</span
+              >
+            </div>
+            <div class="tl-card">
+              <p>• Confirmed date, time, and full facility details revealed</p>
+              <p>• Secure payment link for your all-inclusive rate</p>
+              <p>• Text reminder sent 24 hours before your scan</p>
+              <p class="font-semibold text-white">
+                • No payment at the facility — ever
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-5" data-aos="fade-up" data-aos-delay="150">
+          <div class="tl-dot bg-white/15 border border-white/20">
+            <span class="text-sm">🩻</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2 flex-wrap">
+              <h3 class="text-xl font-bold">Day of Your Scan</h3>
+              <span class="tl-badge bg-white/10 text-white/60 border-white/20"
+                >Just show up</span
+              >
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+              {
+                [
+                  ["5 min", "Check-in"],
+                  ["20–45 min", "Scan duration"],
+                  ["$0", "At the facility"],
+                ].map(([num, label]) => (
+                  <div class="bg-white/10 rounded-xl p-4 text-center">
+                    <p class="text-2xl font-black">{num}</p>
+                    <p class="text-xs text-white/55 mt-1">{label}</p>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-5" data-aos="fade-up" data-aos-delay="200">
+          <div class="tl-dot bg-white/10 border border-white/20">
+            <span class="text-sm">📄</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2 flex-wrap">
+              <h3 class="text-xl font-bold">Results Delivered</h3>
+              <span class="tl-badge bg-white/10 text-white/55 border-white/20"
+                >24–48 hours</span
+              >
+            </div>
+            <div class="tl-card">
+              <p>• Board-certified radiologist reviews your scan</p>
+              <p>• Written report delivered to you and your doctor</p>
+              <p>• Results support your continued care plan</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-14">
+        <p class="text-white/50 mb-5 text-sm">
+          Questions at any point? Our Patient Navigators are here.
+        </p>
+        <div class="inline-flex gap-3 flex-wrap justify-center">
+          <a
+            href="/contact"
+            class="bg-white/10 hover:bg-white/20 border border-white/15 text-white px-6 py-3 rounded-xl font-medium transition-all text-sm"
+            >Contact Support</a
+          >
+          <a
+            href="tel:18668577224"
+            class="bg-teal-500 hover:bg-teal-400 text-white px-6 py-3 rounded-xl font-medium transition-all text-sm"
+            >Call (866) USRad-24</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    FINAL CTA
+  ============================================================ -->
+  <section class="py-24 px-4 sm:px-6 bg-gradient-to-br from-white to-slate-50">
+    <div class="max-w-4xl mx-auto text-center">
+      <p
+        class="text-xs font-bold tracking-[0.2em] text-[#C4982A] uppercase mb-4"
+        data-aos="fade-up"
+      >
+        Begin Your Journey
+      </p>
+      <h2
+        class="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 mb-6"
+        data-aos="fade-up"
+        data-aos-delay="50"
+      >
+        Ready to Start?
+      </h2>
+      <p
+        class="text-xl text-gray-500 mb-10 max-w-2xl mx-auto"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Join thousands of members who've discovered how simple affordable
+        imaging can be. No insurance. No surprise bills. Guided every step of
+        the way.
+      </p>
+
+      <div
+        class="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 max-w-md mx-auto mb-12"
+        data-aos="zoom-in"
+        data-aos-delay="150"
+      >
+        <div class="flex items-center justify-between mb-5">
+          <p class="font-bold text-gray-900">Start Your Search</p>
+          <span class="flex items-center gap-1.5 text-xs text-gray-400"
+            ><span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"
+            ></span>Available Now</span
+          >
+        </div>
+        <a
+          href="/#hero-search"
+          class="block w-full bg-[#003087] hover:bg-[#002070] text-white px-8 py-4 rounded-xl font-bold text-lg text-center transition-all transform hover:scale-[1.02] shadow-xl shadow-[#003087]/20"
+        >
+          Find Centers Near You →
+        </a>
+        <p class="text-xs text-gray-400 text-center mt-4">
+          🔓 No account needed · 💰 All-inclusive pricing · 🛡️ HIPAA compliant
+        </p>
+      </div>
+
+      <div
+        class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        {
+          [
+            ["30 sec", "to find centers"],
+            ["70%", "average savings"],
+            ["4 hrs", "coordination time"],
+            ["4.9★", "member rating"],
+          ].map(([num, label]) => (
+            <div class="text-center">
+              <p class="text-3xl font-black text-[#003087] mb-1">{num}</p>
+              <p class="text-sm text-gray-400">{label}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    STYLES
+  ============================================================ -->
   <style>
-    /* Journey Path Animation */
-    @keyframes dash {
-      to {
-        stroke-dashoffset: -10;
-      }
+    /* ─── Hero step bar glass plate ─── */
+    .step-bar-glass {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
-
-    .animate-dash {
-      animation: dash 20s linear infinite;
-    }
-
-    /* Float Animations */
-    @keyframes float {
-      0%,
-      100% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-20px);
-      }
-    }
-
-    @keyframes float-delayed {
-      0%,
-      100% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-15px);
-      }
-    }
-
-    .animate-float {
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .animate-float-delayed {
-      animation: float-delayed 6s ease-in-out infinite;
-      animation-delay: 3s;
-    }
-
-    /* Journey Step Preview */
-    .journey-step-preview {
-      display: flex;
+    .hero-step {
+      display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 20px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
       border-radius: 50px;
-      border: 2px solid transparent;
+      border: 2px solid rgba(255, 255, 255, 0.1);
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
     }
-
-    .journey-step-preview.active {
-      background: rgba(20, 184, 166, 0.2);
-      border-color: rgba(20, 184, 166, 0.5);
+    .hero-step.active {
+      background: rgba(20, 184, 166, 0.25);
+      border-color: rgba(20, 184, 166, 0.55);
     }
-
-    .journey-step-preview:hover {
+    .hero-step:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.14);
       transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.2);
     }
-
-    .step-number {
+    .step-num {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 24px;
-      height: 24px;
-      background: rgba(255, 255, 255, 0.2);
+      width: 26px;
+      height: 26px;
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 50%;
-      font-weight: bold;
-      font-size: 14px;
+      font-weight: 900;
+      font-size: 13px;
+      color: white;
     }
-
-    .step-label {
+    .step-lbl {
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
       color: rgba(255, 255, 255, 0.9);
     }
-
-    .journey-connector {
-      width: 30px;
-      height: 2px;
-      background: linear-gradient(
-        to right,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-      );
-    }
-
-    /* Progress Sidebar */
-    .progress-node {
-      position: relative;
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .progress-node.active {
-      background: #14b8a6;
-      transform: scale(1.2);
-    }
-
-    .progress-node:hover {
-      background: rgba(20, 184, 166, 0.3);
-    }
-
-    .node-icon {
-      font-size: 18px;
-    }
-
-    .node-tooltip {
-      position: absolute;
-      left: 60px;
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 4px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .progress-node:hover .node-tooltip {
-      opacity: 1;
-    }
-
-    .progress-connector {
-      width: 2px;
-      height: 24px;
-      background: rgba(255, 255, 255, 0.2);
-      margin: -8px auto;
-    }
-
-    /* Map Pins Animation */
-    @keyframes bounce-slow {
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
-    }
-
-    .animate-bounce-slow {
-      animation: bounce-slow 3s ease-in-out infinite;
-    }
-
-    .animation-delay-200 {
-      animation-delay: 200ms;
-    }
-
-    .animation-delay-400 {
-      animation-delay: 400ms;
-    }
-
-    /* Comparison Cards */
-    .comparison-card {
-      transition: all 0.3s ease;
-    }
-
-    .comparison-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .comparison-card.selected {
-      border-color: #14b8a6;
-      background: linear-gradient(to br, #f0fdfa, #ffffff);
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 500;
-    }
-
-    /* Calendar Styles */
-    .calendar-day {
-      padding: 8px;
-      text-align: center;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .calendar-day.available {
-      background: #e6fffa;
-      color: #0d9488;
-      font-weight: 500;
-    }
-
-    .calendar-day.available:hover {
-      background: #14b8a6;
-      color: white;
-    }
-
-    .calendar-day.selected {
-      background: #14b8a6;
-      color: white;
-      font-weight: 600;
-    }
-
-    /* Time Slots */
-    .time-slot {
-      padding: 8px 16px;
-      border: 2px solid #e5e7eb;
-      border-radius: 8px;
-      background: white;
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-
-    .time-slot:hover {
-      border-color: #14b8a6;
-      background: #f0fdfa;
-    }
-
-    .time-slot.selected {
-      background: #14b8a6;
-      border-color: #14b8a6;
-      color: white;
-    }
-
-    /* Timeline Markers */
-    .timeline-marker {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
+    .step-arrow {
+      width: 14px;
+      height: 14px;
+      color: rgba(255, 255, 255, 0.25);
       flex-shrink: 0;
     }
 
-    /* Fade In Animation */
-    @keyframes fade-in {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* ─── Walkthrough layout ─── */
+    .walkthrough-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
     }
-
-    .animate-fade-in {
-      animation: fade-in 0.5s ease-out;
-    }
-
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      .journey-step-preview {
-        padding: 6px 12px;
-        font-size: 12px;
+    @media (max-width: 1024px) {
+      .walkthrough-layout {
+        grid-template-columns: 1fr;
       }
-
-      .journey-connector {
-        width: 20px;
-      }
-
-      .progress-sidebar {
+      .walkthrough-sticky-col {
         display: none;
       }
     }
+
+    .walk-step {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 48px 80px 40px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .walk-step:last-child {
+      border-bottom: none;
+    }
+    .walk-inner {
+      max-width: 500px;
+    }
+
+    .walk-step-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .chip-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 900;
+      color: white;
+      flex-shrink: 0;
+    }
+    .chip-blue {
+      background: #003087;
+    }
+    .chip-green {
+      background: #22c55e;
+    }
+    .chip-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #14b8a6;
+      background: #f0fdf4;
+      border: 1px solid #d1fae5;
+      padding: 5px 14px;
+      border-radius: 50px;
+    }
+    .chip-label-green {
+      color: #16a34a;
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+
+    .walk-h2 {
+      font-size: clamp(1.9rem, 2.8vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: #0f172a;
+      margin-bottom: 18px;
+    }
+    .walk-p {
+      font-size: 1.05rem;
+      line-height: 1.72;
+      color: #64748b;
+      margin-bottom: 22px;
+    }
+
+    .walk-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .walk-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.9rem;
+      color: #475569;
+    }
+    .wl-check {
+      color: #14b8a6;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .wl-green {
+      color: #22c55e;
+    }
+
+    .walk-callout {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+    }
+    .walk-callout-navy {
+      background: #003087;
+      border-color: transparent;
+    }
+
+    .mini-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .mini-step {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .mini-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 900;
+      color: white;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .mini-navy {
+      background: #003087;
+    }
+    .mini-green {
+      background: #22c55e;
+    }
+
+    /* ─── Sticky column ─── */
+    .walkthrough-sticky-col {
+      background: #f8fafc;
+      border-left: 1px solid #e2e8f0;
+    }
+    .sticky-panel {
+      position: sticky;
+      top: 76px;
+      padding: 56px 40px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    /* Dots */
+    .sticky-dots {
+      display: flex;
+      gap: 8px;
+    }
+    .sdot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #cbd5e1;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .sdot.active {
+      background: #003087;
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    /* Step label */
+    .sticky-step-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ssl-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      background: #003087;
+      padding: 3px 10px;
+      border-radius: 50px;
+    }
+    .ssl-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    /* ─── 3D Screen stage + breathing glow ─── */
+    .screen-stage {
+      width: 100%;
+      max-width: 420px;
+      perspective: 1400px;
+      position: relative;
+    }
+
+    /* Breathing glow stage — Stripe-style ambient backdrop */
+    .screen-stage::before {
+      content: "";
+      position: absolute;
+      inset: -80px;
+      background: radial-gradient(
+        circle at center,
+        rgba(0, 48, 135, 0.18),
+        transparent 70%
+      );
+      filter: blur(40px);
+      z-index: -1;
+      animation: stageGlow 6s ease-in-out infinite;
+    }
+
+    @keyframes stageGlow {
+      0% {
+        opacity: 0.6;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0.6;
+      }
+    }
+
+    /* Screen cards — crossfade states */
+    .screen-card {
+      display: none;
+      width: 100%;
+      transform-style: preserve-3d;
+      transform: rotateX(4deg) rotateY(-3deg) translateZ(0);
+      transition: transform 0.35s ease;
+      filter: drop-shadow(0 40px 70px rgba(0, 0, 0, 0.16))
+        drop-shadow(0 12px 28px rgba(0, 48, 135, 0.14))
+        drop-shadow(0 2px 6px rgba(0, 0, 0, 0.08));
+    }
+    .screen-card.active {
+      display: block;
+    }
+    .screen-card:hover {
+      transform: rotateX(2deg) rotateY(-1.5deg) translateZ(8px);
+      filter: drop-shadow(0 50px 90px rgba(0, 0, 0, 0.2))
+        drop-shadow(0 16px 36px rgba(0, 48, 135, 0.18))
+        drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
+    }
+
+    /* Crossfade enter / exit animation classes */
+    .sc-enter {
+      animation: scEnter 0.26s ease-out forwards;
+    }
+    .sc-exit {
+      animation: scExit 0.2s ease-in forwards;
+    }
+
+    @keyframes scEnter {
+      from {
+        opacity: 0;
+        transform: rotateX(4deg) rotateY(-3deg) translateY(20px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: rotateX(4deg) rotateY(-3deg) translateY(0) scale(1);
+      }
+    }
+    @keyframes scExit {
+      from {
+        opacity: 1;
+        transform: rotateX(4deg) rotateY(-3deg) translateY(0) scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: rotateX(4deg) rotateY(-3deg) translateY(-20px) scale(0.98);
+      }
+    }
+
+    .screen-device {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #dde3ee;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.04);
+      position: relative;
+    }
+
+    /* Highlight edge — simulates the top-lit edge of a real screen */
+    .screen-device::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.15) 0%,
+        transparent 40%
+      );
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .screen-chrome {
+      background: #edf0f5;
+      border-bottom: 1px solid #dde3ee;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chrome-dots {
+      display: flex;
+      gap: 4px;
+    }
+    .chrome-dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: block;
+    }
+    .chrome-dots span:nth-child(1) {
+      background: #fc7b7b;
+    }
+    .chrome-dots span:nth-child(2) {
+      background: #fbbf24;
+    }
+    .chrome-dots span:nth-child(3) {
+      background: #6ee7b7;
+    }
+    .chrome-bar {
+      flex: 1;
+      background: white;
+      border-radius: 5px;
+      padding: 3px 8px;
+      font-size: 9px;
+      color: #94a3b8;
+      text-align: center;
+      border: 1px solid #e2e8f0;
+    }
+
+    .screen-body {
+      min-height: 300px;
+      overflow: hidden;
+    }
+    .screen-sim {
+      font-family: system-ui, sans-serif;
+    }
+
+    /* Shadow layer beneath device (gives ground shadow on 3D) */
+    .screen-shadow {
+      position: absolute;
+      bottom: -24px;
+      left: 10%;
+      right: 10%;
+      height: 24px;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(0, 0, 0, 0.18) 0%,
+        transparent 70%
+      );
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    /* Ambient glow behind card */
+    .screen-glow {
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(
+        ellipse at 40% 50%,
+        rgba(0, 48, 135, 0.08),
+        transparent 65%
+      );
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* SIM inner elements */
+    .ss-top {
+      padding: 14px 14px 6px;
+      text-align: center;
+    }
+    .ss-eyebrow {
+      font-size: 10px;
+      color: #94a3b8;
+      margin-bottom: 2px;
+    }
+    .ss-sub {
+      font-size: 10px;
+      color: #64748b;
+    }
+    .ss-searchbar {
+      margin: 0 10px 8px;
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #f8fafc;
+    }
+    .ss-section-label {
+      padding: 0 14px 5px;
+      font-size: 9px;
+      font-weight: 700;
+      color: #c4982a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ss-curated {
+      font-size: 8px;
+      color: #94a3b8;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .ss-list {
+      padding: 0 6px 10px;
+    }
+    .ss-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 8px;
+      border-radius: 7px;
+      font-size: 10px;
+      color: #374151;
+      margin-bottom: 1px;
+      cursor: default;
+    }
+    .ss-item-selected {
+      background: #eff6ff;
+    }
+    .ss-tag {
+      font-size: 8px;
+      font-weight: 600;
+      padding: 2px 5px;
+      border-radius: 3px;
+      background: #f1f5f9;
+      color: #64748b;
+      flex-shrink: 0;
+    }
+    .ss-tag-blue {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    /* ─── Timeline ─── */
+    .tl-dot {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+    .tl-badge {
+      font-size: 11px;
+      padding: 3px 12px;
+      border-radius: 50px;
+      border: 1px solid;
+    }
+    .tl-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    /* ─── Pipeline diagram ─── */
+    .pipeline-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .pipeline-layer {
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .pipeline-layer-patient {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .pipeline-layer-network {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* USRad engine — gold-bordered, emphasized */
+    .pipeline-layer-usrad {
+      background: rgba(20, 184, 166, 0.07);
+      border: 1.5px solid rgba(20, 184, 166, 0.35);
+      box-shadow:
+        0 0 60px rgba(20, 184, 166, 0.08),
+        inset 0 1px 0 rgba(20, 184, 166, 0.1);
+    }
+    .pipeline-usrad-glow {
+      position: absolute;
+      inset: -40px;
+      background: radial-gradient(
+        ellipse at 50% 0%,
+        rgba(20, 184, 166, 0.12),
+        transparent 60%
+      );
+      pointer-events: none;
+    }
+
+    .pipeline-layer-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .pipeline-icon-wrap {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .pipeline-layer-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: white;
+    }
+    .pipeline-layer-sub {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.45);
+      margin-top: 1px;
+    }
+    .pipeline-layer-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 50px;
+      margin-left: auto;
+    }
+    .badge-gold {
+      background: rgba(196, 152, 42, 0.2);
+      color: #c4982a;
+      border: 1px solid rgba(196, 152, 42, 0.35);
+    }
+    .badge-teal {
+      background: rgba(20, 184, 166, 0.2);
+      color: #2dd4bf;
+      border: 1px solid rgba(20, 184, 166, 0.4);
+    }
+    .badge-white {
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* Patient nodes row */
+    .pipeline-nodes {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .pipeline-node {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 8px 14px;
+    }
+    .pn-num {
+      width: 20px;
+      height: 20px;
+      background: #c4982a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 900;
+      color: white;
+      flex-shrink: 0;
+    }
+    .pn-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+      white-space: nowrap;
+    }
+    .pipeline-connector-h {
+      width: 20px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.2);
+      flex-shrink: 0;
+      display: none;
+    }
+    @media (min-width: 640px) {
+      .pipeline-connector-h {
+        display: block;
+      }
+    }
+
+    /* Engine grid */
+    .pipeline-engine-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    @media (min-width: 640px) {
+      .pipeline-engine-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    .engine-cell {
+      background: rgba(20, 184, 166, 0.08);
+      border: 1px solid rgba(20, 184, 166, 0.2);
+      border-radius: 12px;
+      padding: 14px 12px;
+    }
+    .engine-cell-icon {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+    .engine-cell-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #2dd4bf;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .engine-cell-desc {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.4;
+    }
+
+    /* Engine animated flow track */
+    .engine-flow-track {
+      position: relative;
+      height: 2px;
+      background: rgba(20, 184, 166, 0.15);
+      border-radius: 1px;
+      margin-top: 14px;
+      overflow: hidden;
+    }
+    .engine-flow-dot {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2dd4bf;
+      box-shadow: 0 0 8px rgba(45, 212, 191, 0.8);
+      animation: engineFlow 3.2s linear infinite;
+    }
+    @keyframes engineFlow {
+      from {
+        left: -10px;
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      to {
+        left: 100%;
+        opacity: 0;
+      }
+    }
+
+    /* Flow connectors between layers */
+    .pipeline-flow-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 0;
+    }
+    .flow-line {
+      width: 2px;
+      height: 32px;
+      background: rgba(20, 184, 166, 0.3);
+      position: relative;
+      overflow: hidden;
+      border-radius: 1px;
+    }
+    .flow-dot {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2dd4bf;
+      box-shadow: 0 0 8px rgba(45, 212, 191, 0.8);
+      animation: flowDown 1.8s ease-in-out infinite;
+    }
+    @keyframes flowDown {
+      from {
+        top: -8px;
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      80% {
+        opacity: 1;
+      }
+      to {
+        top: 100%;
+        opacity: 0;
+      }
+    }
+    .flow-label {
+      font-size: 10px;
+      color: rgba(20, 184, 166, 0.6);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Network grid */
+    .pipeline-network-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    @media (min-width: 640px) {
+      .pipeline-network-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .network-cell {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 14px;
+    }
+    .network-cell-partner {
+      border-color: rgba(196, 152, 42, 0.3);
+      background: rgba(196, 152, 42, 0.05);
+    }
   </style>
 
+  <!-- ============================================================
+    SCRIPT — scroll-driven crossfade + parallax + hero sync
+  ============================================================ -->
   <script>
-    // No longer needed - using real form submission
+    (function () {
+      const STEPS = [1, 2, 3, 4];
+      const LABELS = ["Search", "Compare", "Request", "Done"];
+      let current = 1;
+      let transitioning = false; // scroll-lock flag
 
-    // Option Selection
-    function selectOption(element) {
-      // Remove selected from all
-      document.querySelectorAll(".comparison-card").forEach((card) => {
-        card.classList.remove("selected");
-      });
-      // Add selected to clicked
-      element.classList.add("selected");
-    }
+      /* ── Crossfade transition ── */
+      function showScreen(n) {
+        if (n === current || transitioning) return;
+        transitioning = true;
 
-    // Progress Tracking
-    const sections = ["search", "compare", "book", "complete"];
-    const sectionElements = sections.map((id) =>
-      document.getElementById(`${id}-section`)
-    );
-    const progressNodes = document.querySelectorAll(".progress-node");
-
-    // Intersection Observer for Progress
-    const observerOptions = {
-      threshold: 0.5,
-      rootMargin: "-100px 0px",
-    };
-
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const sectionId = entry.target.id.replace("-section", "");
-          updateProgress(sectionId);
+        const prevEl = document.getElementById(`sc-${current}`);
+        const nextEl = document.getElementById(`sc-${n}`);
+        if (!prevEl || !nextEl) {
+          transitioning = false;
+          return;
         }
-      });
-    }, observerOptions);
 
-    // Observe sections
-    sectionElements.forEach((section) => {
-      if (section) sectionObserver.observe(section);
-    });
+        // Exit: fade prev down
+        prevEl.classList.add("sc-exit");
+        prevEl.addEventListener(
+          "animationend",
+          function onExit() {
+            prevEl.removeEventListener("animationend", onExit);
+            prevEl.classList.remove("active", "sc-exit");
+            prevEl.style.display = "none";
 
-    // Update Progress
-    function updateProgress(currentSection) {
-      progressNodes.forEach((node) => {
-        node.classList.remove("active");
-        if (node.dataset.section === currentSection) {
-          node.classList.add("active");
-        }
-      });
-
-      // Update journey preview
-      document.querySelectorAll(".journey-step-preview").forEach((step) => {
-        step.classList.remove("active");
-        const stepMap = { search: "1", compare: "2", book: "3", complete: "4" };
-        if (step.dataset.step === stepMap[currentSection]) {
-          step.classList.add("active");
-        }
-      });
-    }
-
-    // Progress Node Clicks
-    progressNodes.forEach((node) => {
-      node.addEventListener("click", () => {
-        const targetSection = document.getElementById(
-          `${node.dataset.section}-section`
+            // Enter: show next, fade up
+            nextEl.style.display = "block";
+            nextEl.classList.add("active", "sc-enter");
+            nextEl.addEventListener(
+              "animationend",
+              function onEnter() {
+                nextEl.removeEventListener("animationend", onEnter);
+                nextEl.classList.remove("sc-enter");
+                transitioning = false;
+              },
+              { once: true },
+            );
+          },
+          { once: true },
         );
-        if (targetSection) {
-          targetSection.scrollIntoView({ behavior: "smooth", block: "center" });
+
+        // Update dots, hero bar, step label
+        document
+          .querySelectorAll(".sdot")
+          .forEach((d, i) => d.classList.toggle("active", i + 1 === n));
+        document
+          .querySelectorAll(".hero-step")
+          .forEach((s, i) => s.classList.toggle("active", i + 1 === n));
+        const lbl = document.getElementById("ssl-title");
+        if (lbl) lbl.textContent = LABELS[n - 1];
+        const num = document.querySelector(".ssl-num");
+        if (num) num.textContent = n === 4 ? "Done" : `Step ${n}`;
+
+        current = n;
+      }
+
+      /* ── Scroll-driven swap ── */
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              const n = parseInt(e.target.id.replace("walk-", ""), 10);
+              if (!isNaN(n)) showScreen(n);
+            }
+          });
+        },
+        { threshold: 0.45, rootMargin: "-80px 0px" },
+      );
+      STEPS.forEach((n) => {
+        const el = document.getElementById(`walk-${n}`);
+        if (el) obs.observe(el);
+      });
+
+      /* ── Dot clicks ── */
+      document.querySelectorAll(".sdot").forEach((dot) => {
+        dot.addEventListener("click", () => {
+          const n = parseInt(dot.dataset.target, 10);
+          showScreen(n);
+          const target = document.getElementById(`walk-${n}`);
+          if (target)
+            target.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      });
+
+      /* ── Hero step bar clicks ── */
+      document.querySelectorAll(".hero-step").forEach((step, i) => {
+        step.addEventListener("click", () => {
+          const target = document.getElementById(`walk-${i + 1}`);
+          if (target)
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+      /* ── Mouse parallax on sticky screen stage ── */
+      const stage = document.getElementById("sticky-panel");
+      const activeCard = () => document.querySelector(".screen-card.active");
+      let rafId = null;
+      let targetX = 0,
+        targetY = 0;
+      let currentX = -3,
+        currentY = 4; // matches default tilt
+
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      function animateParallax() {
+        currentX = lerp(currentX, targetX, 0.08);
+        currentY = lerp(currentY, targetY, 0.08);
+        const card = activeCard();
+        if (card) {
+          card.style.transform = `rotateX(${currentY}deg) rotateY(${currentX}deg) translateZ(0)`;
+        }
+        rafId = requestAnimationFrame(animateParallax);
+      }
+
+      if (stage) {
+        stage.addEventListener("mousemove", (e) => {
+          const rect = stage.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width - 0.5) * 7;
+          const y = ((e.clientY - rect.top) / rect.height - 0.5) * 5;
+          targetX = -3 + x; // center around resting -3deg Y
+          targetY = 4 - y; // center around resting  4deg X
+        });
+
+        // Smooth reset on mouse leave
+        stage.addEventListener("mouseleave", () => {
+          targetX = -3;
+          targetY = 4;
+        });
+
+        // Start the parallax RAF loop
+        animateParallax();
+      }
+
+      // Don't animate cards that are in exit animation
+      document.addEventListener("animationstart", (e) => {
+        if (e.target.classList.contains("sc-exit")) {
+          e.target.style.transform = ""; // let CSS animation handle it
         }
       });
-    });
 
-    // Journey Step Preview Clicks
-    document.querySelectorAll(".journey-step-preview").forEach((step) => {
-      step.addEventListener("click", () => {
-        const stepMap = {
-          "1": "search",
-          "2": "compare",
-          "3": "book",
-          "4": "complete",
-        };
-        const targetSection = document.getElementById(
-          `${stepMap[step.dataset.step]}-section`
-        );
-        if (targetSection) {
-          targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      });
-    });
-
-    // Add smooth scrolling to all sections
-    document.addEventListener("DOMContentLoaded", () => {
-      // Set initial progress
-      updateProgress("search");
-    });
+      /* ── Init ── */
+      const first = document.getElementById("sc-1");
+      if (first) {
+        first.style.display = "block";
+        first.classList.add("active");
+      }
+      current = 1;
+    })();
   </script>
 </CarbonLayout>
