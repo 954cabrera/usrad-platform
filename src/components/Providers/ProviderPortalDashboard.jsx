@@ -138,10 +138,16 @@ const ProviderPortalDashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl md:text-3xl font-bold mb-2">
-                Welcome{user?.user_metadata?.contact_name ? `, ${user.user_metadata.contact_name}` : ''}!
+                Welcome
+                {user?.user_metadata?.contact_name
+                  ? `, ${user.user_metadata.contact_name}`
+                  : ""}
+                !
               </h2>
               <p className="text-blue-100 text-lg">
-                {providerData?.legal_name || providerData?.facility_name || 'Your Imaging Center'}
+                {providerData?.legal_name ||
+                  providerData?.facility_name ||
+                  "Your Imaging Center"}
               </p>
             </div>
             <div className="hidden md:block">
@@ -156,7 +162,9 @@ const ProviderPortalDashboard = () => {
         <div className="p-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{progress.status}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                {progress.status}
+              </h3>
               <p className="text-gray-600">{progress.description}</p>
             </div>
             <div className="text-right">
@@ -177,11 +185,11 @@ const ProviderPortalDashboard = () => {
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div
                 className={`h-2 rounded-full transition-all duration-500 ${
-                  progress.color === 'green'
-                    ? 'bg-green-500'
-                    : progress.color === 'yellow'
-                    ? 'bg-yellow-500'
-                    : 'bg-[#003087]'
+                  progress.color === "green"
+                    ? "bg-green-500"
+                    : progress.color === "yellow"
+                      ? "bg-yellow-500"
+                      : "bg-[#003087]"
                 }`}
                 style={{ width: `${(progress.step / progress.total) * 100}%` }}
               ></div>
@@ -192,11 +200,11 @@ const ProviderPortalDashboard = () => {
           <a
             href={progress.actionUrl}
             className={`inline-flex items-center justify-center px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 ${
-              progress.color === 'green'
-                ? 'bg-green-600 text-white hover:bg-green-700'
-                : progress.color === 'yellow'
-                ? 'bg-yellow-500 text-white hover:bg-yellow-600'
-                : 'bg-[#003087] text-white hover:bg-[#002266]'
+              progress.color === "green"
+                ? "bg-green-600 text-white hover:bg-green-700"
+                : progress.color === "yellow"
+                  ? "bg-yellow-500 text-white hover:bg-yellow-600"
+                  : "bg-[#003087] text-white hover:bg-[#002266]"
             }`}
           >
             {progress.action} →
@@ -211,14 +219,14 @@ const ProviderPortalDashboard = () => {
             <div>
               <h3 className="text-xl font-bold mb-2">My Imaging Centers</h3>
               <p className="text-blue-100">
-                {centers.length > 0 
-                  ? `${centers.length} center${centers.length !== 1 ? 's' : ''} registered${
-                      onboardingStatus === 'psa_signed' || onboardingStatus === 'active' 
-                        ? ' and covered under your PSA' 
-                        : ''
+                {centers.length > 0
+                  ? `${centers.length} center${centers.length !== 1 ? "s" : ""} registered${
+                      onboardingStatus === "psa_signed" ||
+                      onboardingStatus === "active"
+                        ? " and covered under your PSA"
+                        : ""
                     }`
-                  : 'Register your imaging centers to join the network'
-                }
+                  : "Register your imaging centers to join the network"}
               </p>
             </div>
             <div className="hidden md:block">
@@ -233,34 +241,44 @@ const ProviderPortalDashboard = () => {
           {centers.length > 0 ? (
             <div className="space-y-4">
               {centers.map((center, index) => (
-                <div key={center.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+                <div
+                  key={center.id}
+                  className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow"
+                >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-3">
-                        <h4 className="text-lg font-semibold text-gray-900">{center.center_name}</h4>
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                          onboardingStatus === 'active' 
-                            ? 'bg-green-100 text-green-700'
-                            : onboardingStatus === 'psa_signed'
-                            ? 'bg-blue-100 text-blue-700'
-                            : onboardingStatus === 'pending_psa'
-                            ? 'bg-yellow-100 text-yellow-700'
-                            : 'bg-gray-100 text-gray-700'
-                        }`}>
-                          {onboardingStatus === 'active' 
-                            ? 'Active in Network'
-                            : onboardingStatus === 'psa_signed'
-                            ? 'PSA Signed'
-                            : onboardingStatus === 'pending_psa'
-                            ? 'PSA Pending'
-                            : 'Registered'}
+                        <h4 className="text-lg font-semibold text-gray-900">
+                          {center.center_name}
+                        </h4>
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-medium ${
+                            onboardingStatus === "active"
+                              ? "bg-green-100 text-green-700"
+                              : onboardingStatus === "psa_signed"
+                                ? "bg-blue-100 text-blue-700"
+                                : onboardingStatus === "pending_psa"
+                                  ? "bg-yellow-100 text-yellow-700"
+                                  : "bg-gray-100 text-gray-700"
+                          }`}
+                        >
+                          {onboardingStatus === "active"
+                            ? "Active in Network"
+                            : onboardingStatus === "psa_signed"
+                              ? "PSA Signed"
+                              : onboardingStatus === "pending_psa"
+                                ? "PSA Pending"
+                                : "Registered"}
                         </span>
                       </div>
 
                       <div className="grid md:grid-cols-2 gap-4 text-sm">
                         <div className="flex items-center gap-2 text-gray-600">
                           <span>📍</span>
-                          <span>{center.address}, {center.city}, {center.state} {center.zip_code}</span>
+                          <span>
+                            {center.address}, {center.city}, {center.state}{" "}
+                            {center.zip_code}
+                          </span>
                         </div>
                         <div className="flex items-center gap-2 text-gray-600">
                           <span>📞</span>
@@ -269,7 +287,11 @@ const ProviderPortalDashboard = () => {
                         <div className="flex items-center gap-2 text-gray-600 md:col-span-2">
                           <span>🔧</span>
                           <span className="font-medium">Equipment:</span>
-                          <span>{Array.isArray(center.equipment) ? center.equipment.join(', ') : center.equipment}</span>
+                          <span>
+                            {Array.isArray(center.equipment)
+                              ? center.equipment.join(", ")
+                              : center.equipment}
+                          </span>
                         </div>
                         {center.contact_name && (
                           <div className="flex items-center gap-2 text-gray-600">
@@ -297,15 +319,20 @@ const ProviderPortalDashboard = () => {
               <div className="w-20 h-20 bg-[#003087]/5 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-3xl text-[#003087]/60">🏥</span>
               </div>
-              <h4 className="text-xl font-semibold text-gray-900 mb-3">Register Your Imaging Centers</h4>
+              <h4 className="text-xl font-semibold text-gray-900 mb-3">
+                Register Your Imaging Centers
+              </h4>
               <p className="text-gray-600 mb-6 max-w-md mx-auto leading-relaxed">
-                Add your imaging center locations, equipment details, and contact information. 
-                Multiple centers can be covered under a single Provider Service Agreement.
+                Add your imaging center locations, equipment details, and
+                contact information. Multiple centers can be covered under a
+                single Provider Service Agreement.
               </p>
-              
+
               {/* Progress Steps Preview */}
               <div className="bg-gray-50 rounded-lg p-4 mb-6 max-w-md mx-auto">
-                <h5 className="font-medium text-gray-900 mb-3">What you'll add:</h5>
+                <h5 className="font-medium text-gray-900 mb-3">
+                  What you'll add:
+                </h5>
                 <div className="space-y-2 text-sm text-gray-600 text-left">
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 bg-[#003087] rounded-full"></span>
@@ -333,9 +360,10 @@ const ProviderPortalDashboard = () => {
                 <span>🏥</span>
                 <span>Start Center Registration</span>
               </a>
-              
+
               <p className="text-sm text-gray-500 mt-4">
-                Takes about 5 minutes • Can add multiple centers • Save progress anytime
+                Takes about 5 minutes • Can add multiple centers • Save progress
+                anytime
               </p>
             </div>
           )}
@@ -343,15 +371,20 @@ const ProviderPortalDashboard = () => {
           {/* Add Center Action */}
           {centers.length > 0 && (
             <div className="mt-6 pt-6 border-t border-gray-200">
-              {onboardingStatus === 'psa_signed' || onboardingStatus === 'active' ? (
+              {onboardingStatus === "psa_signed" ||
+              onboardingStatus === "active" ? (
                 <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                   <div className="flex items-start gap-3">
                     <span className="text-yellow-600 text-lg">⚠️</span>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-yellow-900 mb-2">Adding New Centers</h4>
+                      <h4 className="font-semibold text-yellow-900 mb-2">
+                        Adding New Centers
+                      </h4>
                       <p className="text-yellow-800 text-sm mb-3">
-                        Your PSA covers the {centers.length} center{centers.length !== 1 ? 's' : ''} listed above. 
-                        To add new centers, you'll need to complete an agreement addendum.
+                        Your PSA covers the {centers.length} center
+                        {centers.length !== 1 ? "s" : ""} listed above. To add
+                        new centers, you'll need to complete an agreement
+                        addendum.
                       </p>
                       <button className="text-sm bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition-colors">
                         Request Center Addition →
@@ -359,13 +392,14 @@ const ProviderPortalDashboard = () => {
                     </div>
                   </div>
                 </div>
-              ) : onboardingStatus === 'pending_psa' ? (
+              ) : onboardingStatus === "pending_psa" ? (
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                   <div className="flex items-center gap-3">
                     <span className="text-blue-600 text-lg">ℹ️</span>
                     <div className="flex-1">
                       <p className="text-blue-800 text-sm">
-                        You can still modify your centers before signing the PSA.
+                        You can still modify your centers before signing the
+                        PSA.
                       </p>
                     </div>
                     <a
@@ -400,10 +434,13 @@ const ProviderPortalDashboard = () => {
             <div className="w-12 h-12 bg-[#cc9933]/10 rounded-xl flex items-center justify-center mr-4">
               <span className="text-2xl">📄</span>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900">Provider Service Agreement</h3>
+            <h3 className="text-xl font-semibold text-gray-900">
+              Provider Service Agreement
+            </h3>
           </div>
           <p className="text-gray-600 mb-6">
-            Review the complete agreement terms before starting your onboarding process.
+            Review the complete agreement terms before starting your onboarding
+            process.
           </p>
           <div className="flex flex-col gap-3">
             <button
@@ -428,7 +465,9 @@ const ProviderPortalDashboard = () => {
             <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mr-4">
               <span className="text-2xl">⚙️</span>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900">Account Settings</h3>
+            <h3 className="text-xl font-semibold text-gray-900">
+              Account Settings
+            </h3>
           </div>
           <p className="text-gray-600 mb-6">
             Manage your profile, contact information, and account preferences.
@@ -483,31 +522,43 @@ const ProviderPortalDashboard = () => {
         </div>
 
         {/* PSA Status Card */}
-        <div className={`rounded-2xl shadow-lg border p-6 ${
-          onboardingStatus === 'psa_signed' || onboardingStatus === 'active'
-            ? 'bg-green-50 border-green-200' 
-            : 'bg-blue-50 border-blue-200'
-        }`}>
+        <div
+          className={`rounded-2xl shadow-lg border p-6 ${
+            onboardingStatus === "psa_signed" || onboardingStatus === "active"
+              ? "bg-green-50 border-green-200"
+              : "bg-blue-50 border-blue-200"
+          }`}
+        >
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 ${
-                onboardingStatus === 'psa_signed' || onboardingStatus === 'active'
-                  ? 'bg-green-100 text-green-600' 
-                  : 'bg-blue-100 text-blue-600'
-              }`}>
-                {onboardingStatus === 'psa_signed' || onboardingStatus === 'active' ? '✓' : '📋'}
+              <div
+                className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 ${
+                  onboardingStatus === "psa_signed" ||
+                  onboardingStatus === "active"
+                    ? "bg-green-100 text-green-600"
+                    : "bg-blue-100 text-blue-600"
+                }`}
+              >
+                {onboardingStatus === "psa_signed" ||
+                onboardingStatus === "active"
+                  ? "✓"
+                  : "📋"}
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900">Agreement Status</h4>
+                <h4 className="font-semibold text-gray-900">
+                  Agreement Status
+                </h4>
                 <p className="text-sm text-gray-600">
-                  {onboardingStatus === 'psa_signed' || onboardingStatus === 'active' 
-                    ? 'PSA Signed & Complete' 
-                    : 'Ready for your review'}
+                  {onboardingStatus === "psa_signed" ||
+                  onboardingStatus === "active"
+                    ? "PSA Signed & Complete"
+                    : "Ready for your review"}
                 </p>
               </div>
             </div>
-            {(onboardingStatus === 'not_started' || onboardingStatus === 'pending_psa') && (
-              <button 
+            {(onboardingStatus === "not_started" ||
+              onboardingStatus === "pending_psa") && (
+              <button
                 onClick={() => setShowPSAModal(true)}
                 className="text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
               >
@@ -521,24 +572,32 @@ const ProviderPortalDashboard = () => {
       {/* Status Cards */}
       <div className="grid md:grid-cols-2 gap-6">
         {/* Email Verification */}
-        <div className={`rounded-2xl shadow-lg border p-6 ${
-          user?.email_confirmed_at 
-            ? 'bg-green-50 border-green-200' 
-            : 'bg-yellow-50 border-yellow-200'
-        }`}>
+        <div
+          className={`rounded-2xl shadow-lg border p-6 ${
+            user?.email_confirmed_at
+              ? "bg-green-50 border-green-200"
+              : "bg-yellow-50 border-yellow-200"
+          }`}
+        >
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 ${
-                user?.email_confirmed_at 
-                  ? 'bg-green-100 text-green-600' 
-                  : 'bg-yellow-100 text-yellow-600'
-              }`}>
-                {user?.email_confirmed_at ? '✓' : '⚠️'}
+              <div
+                className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 ${
+                  user?.email_confirmed_at
+                    ? "bg-green-100 text-green-600"
+                    : "bg-yellow-100 text-yellow-600"
+                }`}
+              >
+                {user?.email_confirmed_at ? "✓" : "⚠️"}
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900">Email Verification</h4>
+                <h4 className="font-semibold text-gray-900">
+                  Email Verification
+                </h4>
                 <p className="text-sm text-gray-600">
-                  {user?.email_confirmed_at ? 'Verified' : 'Please verify your email'}
+                  {user?.email_confirmed_at
+                    ? "Verified"
+                    : "Please verify your email"}
                 </p>
               </div>
             </div>
@@ -558,8 +617,12 @@ const ProviderPortalDashboard = () => {
                 🔐
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900">Two-Factor Authentication</h4>
-                <p className="text-sm text-gray-600">Optional but recommended</p>
+                <h4 className="font-semibold text-gray-900">
+                  Two-Factor Authentication
+                </h4>
+                <p className="text-sm text-gray-600">
+                  Optional but recommended
+                </p>
               </div>
             </div>
             <button className="text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
@@ -572,16 +635,20 @@ const ProviderPortalDashboard = () => {
       {/* Recent Activity */}
       {providerData && (
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Recent Activity</h3>
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            Recent Activity
+          </h3>
           <div className="space-y-3">
             <div className="flex items-center text-sm text-gray-600">
               <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-              Account created on {new Date(user?.created_at).toLocaleDateString()}
+              Account created on{" "}
+              {new Date(user?.created_at).toLocaleDateString()}
             </div>
             {providerData.created_at && (
               <div className="flex items-center text-sm text-gray-600">
                 <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                Company information added on {new Date(providerData.created_at).toLocaleDateString()}
+                Company information added on{" "}
+                {new Date(providerData.created_at).toLocaleDateString()}
               </div>
             )}
             <div className="flex items-center text-sm text-gray-600">
@@ -599,15 +666,29 @@ const ProviderPortalDashboard = () => {
             {/* Modal Header */}
             <div className="flex justify-between items-center p-6 border-b border-gray-200">
               <div>
-                <h3 className="text-2xl font-bold text-gray-900">Provider Service Agreement</h3>
-                <p className="text-gray-600 mt-1">Review the complete terms before proceeding</p>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Provider Service Agreement
+                </h3>
+                <p className="text-gray-600 mt-1">
+                  Review the complete terms before proceeding
+                </p>
               </div>
               <button
                 onClick={() => setShowPSAModal(false)}
                 className="text-gray-400 hover:text-gray-600 transition-colors"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
                 </svg>
               </button>
             </div>
@@ -616,67 +697,119 @@ const ProviderPortalDashboard = () => {
             <div className="p-6 overflow-y-auto max-h-[70vh]">
               <div className="prose prose-sm max-w-none">
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                  <h4 className="text-blue-900 font-semibold mb-2">🔍 Agreement Overview</h4>
+                  <h4 className="text-blue-900 font-semibold mb-2">
+                    🔍 Agreement Overview
+                  </h4>
                   <p className="text-blue-800 text-sm">
-                    This preview shows the key terms of our Provider Service Agreement. 
-                    The complete document will be available during the signing process.
+                    This preview shows the key terms of our Provider Service
+                    Agreement. The complete document will be available during
+                    the signing process.
                   </p>
                 </div>
 
                 {/* PSA Content Preview */}
                 <div className="space-y-6">
                   <section>
-                    <h4 className="text-lg font-bold text-gray-900 mb-3">1. Partnership Overview</h4>
+                    <h4 className="text-lg font-bold text-gray-900 mb-3">
+                      1. Partnership Overview
+                    </h4>
                     <p className="text-gray-700 leading-relaxed">
-                      This agreement establishes a healthcare technology partnership between USRad and your imaging center(s). 
-                      We connect patients seeking affordable, quality imaging services with your facility through our digital platform.
+                      This agreement establishes a healthcare technology
+                      partnership between USRad and your imaging center(s). We
+                      connect patients seeking affordable, quality imaging
+                      services with your facility through our digital platform.
                     </p>
                   </section>
 
                   <section>
-                    <h4 className="text-lg font-bold text-gray-900 mb-3">2. Service Standards</h4>
+                    <h4 className="text-lg font-bold text-gray-900 mb-3">
+                      2. Service Standards
+                    </h4>
                     <ul className="text-gray-700 space-y-2 ml-4">
-                      <li>• Maintain current accreditation standards (ACR, IAC, or equivalent)</li>
-                      <li>• Provide quality imaging services to USRad-referred patients</li>
-                      <li>• Honor scheduled appointment times and availability</li>
-                      <li>• Deliver results within agreed timeframes (typically 24-48 hours)</li>
+                      <li>
+                        • Maintain current accreditation standards (ACR, IAC, or
+                        equivalent)
+                      </li>
+                      <li>
+                        • Provide quality imaging services to USRad-referred
+                        patients
+                      </li>
+                      <li>
+                        • Honor scheduled appointment times and availability
+                      </li>
+                      <li>
+                        • Deliver results promptly upon radiologist sign-off
+                      </li>
                     </ul>
                   </section>
 
                   <section>
-                    <h4 className="text-lg font-bold text-gray-900 mb-3">3. Technology & Platform Access</h4>
+                    <h4 className="text-lg font-bold text-gray-900 mb-3">
+                      3. Technology & Platform Access
+                    </h4>
                     <ul className="text-gray-700 space-y-2 ml-4">
-                      <li>• Access to USRad scheduling and patient management platform</li>
-                      <li>• Real-time appointment booking and calendar integration</li>
+                      <li>
+                        • Access to USRad scheduling and patient management
+                        platform
+                      </li>
+                      <li>
+                        • Real-time appointment booking and calendar integration
+                      </li>
                       <li>• Automated reporting and results delivery system</li>
-                      <li>• Provider portal for managing referrals and performance metrics</li>
+                      <li>
+                        • Provider portal for managing referrals and performance
+                        metrics
+                      </li>
                     </ul>
                   </section>
 
                   <section>
-                    <h4 className="text-lg font-bold text-gray-900 mb-3">4. Financial Terms</h4>
+                    <h4 className="text-lg font-bold text-gray-900 mb-3">
+                      4. Financial Terms
+                    </h4>
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <ul className="text-gray-700 space-y-2">
-                        <li>• <strong>Transparent pricing:</strong> Pre-negotiated rates for all procedures</li>
-                        <li>• <strong>Prompt payment:</strong> Guaranteed payment within 15 business days</li>
-                        <li>• <strong>No collection risk:</strong> USRad handles all patient payments</li>
-                        <li>• <strong>Competitive rates:</strong> Market-based pricing that ensures profitability</li>
+                        <li>
+                          • <strong>Transparent pricing:</strong> Pre-negotiated
+                          rates for all procedures
+                        </li>
+                        <li>
+                          • <strong>Prompt payment:</strong> Guaranteed payment
+                          within 15 business days
+                        </li>
+                        <li>
+                          • <strong>No collection risk:</strong> USRad handles
+                          all patient payments
+                        </li>
+                        <li>
+                          • <strong>Competitive rates:</strong> Market-based
+                          pricing that ensures profitability
+                        </li>
                       </ul>
                     </div>
                   </section>
 
                   <section>
-                    <h4 className="text-lg font-bold text-gray-900 mb-3">5. Patient Referral Process</h4>
+                    <h4 className="text-lg font-bold text-gray-900 mb-3">
+                      5. Patient Referral Process
+                    </h4>
                     <p className="text-gray-700 leading-relaxed">
-                      USRad will refer qualified patients to your facility based on location, availability, and service offerings. 
-                      All referrals come with pre-authorization and guaranteed payment.
+                      USRad will refer qualified patients to your facility based
+                      on location, availability, and service offerings. All
+                      referrals come with pre-authorization and guaranteed
+                      payment.
                     </p>
                   </section>
 
                   <section>
-                    <h4 className="text-lg font-bold text-gray-900 mb-3">6. Quality Assurance</h4>
+                    <h4 className="text-lg font-bold text-gray-900 mb-3">
+                      6. Quality Assurance
+                    </h4>
                     <ul className="text-gray-700 space-y-2 ml-4">
-                      <li>• Regular quality reviews and patient satisfaction monitoring</li>
+                      <li>
+                        • Regular quality reviews and patient satisfaction
+                        monitoring
+                      </li>
                       <li>• Continuous improvement collaboration</li>
                       <li>• Performance metrics tracking and reporting</li>
                       <li>• Support for maintaining excellence standards</li>
@@ -684,23 +817,37 @@ const ProviderPortalDashboard = () => {
                   </section>
 
                   <section>
-                    <h4 className="text-lg font-bold text-gray-900 mb-3">7. Agreement Term & Termination</h4>
+                    <h4 className="text-lg font-bold text-gray-900 mb-3">
+                      7. Agreement Term & Termination
+                    </h4>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                       <ul className="text-gray-700 space-y-2">
-                        <li>• <strong>Initial term:</strong> 12 months with automatic renewal</li>
-                        <li>• <strong>Termination:</strong> Either party may terminate with 30-day written notice</li>
-                        <li>• <strong>Transition:</strong> Orderly wind-down of pending appointments</li>
+                        <li>
+                          • <strong>Initial term:</strong> 12 months with
+                          automatic renewal
+                        </li>
+                        <li>
+                          • <strong>Termination:</strong> Either party may
+                          terminate with 30-day written notice
+                        </li>
+                        <li>
+                          • <strong>Transition:</strong> Orderly wind-down of
+                          pending appointments
+                        </li>
                       </ul>
                     </div>
                   </section>
                 </div>
 
                 <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-6">
-                  <h4 className="text-yellow-900 font-semibold mb-2">📋 Next Steps</h4>
+                  <h4 className="text-yellow-900 font-semibold mb-2">
+                    📋 Next Steps
+                  </h4>
                   <p className="text-yellow-800 text-sm">
-                    When you're ready to proceed, complete your onboarding process where you'll register 
-                    your centers and then digitally sign the complete agreement with all specific terms 
-                    and pricing details.
+                    When you're ready to proceed, complete your onboarding
+                    process where you'll register your centers and then
+                    digitally sign the complete agreement with all specific
+                    terms and pricing details.
                   </p>
                 </div>
               </div>
@@ -718,7 +865,9 @@ const ProviderPortalDashboard = () => {
                     📥 Download Complete PDF
                   </a>
                   <span className="text-sm text-gray-400">|</span>
-                  <span className="text-sm text-gray-500">Last updated: January 2025</span>
+                  <span className="text-sm text-gray-500">
+                    Last updated: January 2025
+                  </span>
                 </div>
                 <div className="flex gap-3">
                   <button
@@ -727,7 +876,7 @@ const ProviderPortalDashboard = () => {
                   >
                     Close Preview
                   </button>
-                  {(onboardingStatus === 'not_started') && (
+                  {onboardingStatus === "not_started" && (
                     <a
                       href="/providers/onboard"
                       className="px-6 py-2 bg-[#003087] text-white rounded-lg hover:bg-[#002266] transition-colors"

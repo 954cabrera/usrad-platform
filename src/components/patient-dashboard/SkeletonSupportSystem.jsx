@@ -69,20 +69,24 @@ const SkeletonSupportSystem = () => {
   const faqs = [
     {
       question: "How do I prepare for my MRI scan?",
-      answer: "Remove all metal objects, inform us of any implants, and follow fasting instructions if required. Arrive 15 minutes early."
+      answer:
+        "Remove all metal objects, inform us of any implants, and follow fasting instructions if required. Arrive 15 minutes early.",
     },
     {
       question: "When will my results be available?",
-      answer: "Most results are available within 24-48 hours. You'll receive an email notification when your report is ready."
+      answer:
+        "Your report is delivered directly to your dashboard as soon as it is completed. You'll receive an email notification when it's ready.",
     },
     {
       question: "Can I reschedule my appointment?",
-      answer: "Yes, you can reschedule up to 24 hours before your appointment through your dashboard or by calling us."
+      answer:
+        "Yes, you can reschedule up to 24 hours before your appointment through your dashboard or by calling us.",
     },
     {
       question: "Do you accept my insurance?",
-      answer: "We work with most major insurance providers. Check your specific coverage in the billing section of your dashboard."
-    }
+      answer:
+        "We work with most major insurance providers. Check your specific coverage in the billing section of your dashboard.",
+    },
   ];
 
   return (

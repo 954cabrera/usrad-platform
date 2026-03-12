@@ -16,7 +16,7 @@ const relatedPostSlugs = [
 // Get the full post data automatically from blogPosts.js
 const relatedArticles = getRelatedPosts(
   "first-mri-preparation-guide",
-  relatedPostSlugs
+  relatedPostSlugs,
 );
 ---
 
@@ -1060,8 +1060,8 @@ const relatedArticles = getRelatedPosts(
             </h3>
             <p class="text-sm text-gray-700">
               A radiologist reviews your images and sends a report to your
-              doctor within 24-48 hours. Your doctor will then discuss the
-              results with you. You won't get immediate results at the facility.
+              doctor within a few days · analyzes your scans in detail —
+              typically within a few days depending on the facility
             </p>
           </div>
 
@@ -1123,8 +1123,8 @@ const relatedArticles = getRelatedPosts(
                   Radiologist Reviews Images
                 </p>
                 <p class="text-gray-600">
-                  A specialized doctor analyzes your scans in detail (24-48
-                  hours)
+                  A specialized doctor analyzes your scans in detail and
+                  delivers the report directly to you
                 </p>
               </div>
             </div>
@@ -1287,6 +1287,6 @@ const relatedArticles = getRelatedPosts(
       margin-bottom: 1rem;
     }
   </style>
-  
+
   <NewsletterPopup animationSpeed="slow" />
 </CarbonLayout>

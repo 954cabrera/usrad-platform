@@ -9,7 +9,7 @@ import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.
     document.addEventListener("DOMContentLoaded", () => {
       if (!localStorage.getItem("market_education_completed")) {
         alert(
-          "Please complete Market Education before confirming agreement details."
+          "Please complete Market Education before confirming agreement details.",
         );
         window.location.href = "/dashboard/contract/market-education";
       }
@@ -118,7 +118,7 @@ import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.
           </div>
 
           <div class="text-center">
-            <div class="text-2xl font-bold text-orange-600">24-48hr</div>
+            <div class="text-2xl font-bold text-orange-600">Fast review</div>
             <div class="text-sm text-gray-500">Payment Terms</div>
             <div class="text-xs text-gray-400 mt-1">after service delivery</div>
           </div>
@@ -353,7 +353,7 @@ import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.
       // Check confirmation requirements
       function checkConfirmationRequirements() {
         const allChecked = Array.from(checkboxes).every(
-          (checkbox) => checkbox.checked
+          (checkbox) => checkbox.checked,
         );
         proceedBtn.disabled = !allChecked;
       }
@@ -377,7 +377,7 @@ import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.
                 "authorized",
                 "exhibit_b",
               ],
-            })
+            }),
           );
 
           // Proceed to PSA signing
@@ -393,7 +393,7 @@ import OnboardingStepper from "../../../components/onboarding/OnboardingStepper.
 
         // Update rate display if custom negotiation was submitted
         const negotiationRequest = localStorage.getItem(
-          "contract_negotiation_request"
+          "contract_negotiation_request",
         );
         if (negotiationRequest) {
           const negotiation = JSON.parse(negotiationRequest);
