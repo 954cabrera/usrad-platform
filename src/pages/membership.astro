@@ -1,0 +1,1121 @@
+---
+// src/pages/membership.astro
+// ============================================================================
+// PHASE 1.5 BUILD C — CANONICAL MEMBERSHIP PAGE
+// ============================================================================
+// Purpose: Definitively explains what USRad membership is, what it includes,
+// how it works, and why it exists. This is a membership charter, not a
+// marketing landing page.
+//
+// Tone: Institutional, calm, benefit-led, explanatory.
+// Advisor guidance: 40% identity / 30% benefits / 20% protection / 10% mechanism
+//
+// Sections:
+//   Hero          — What It Means to Be a USRad Member
+//   Section 1     — What a USRad Member Is
+//   Section 2     — What Membership Includes (4-card grid)
+//   Section 3     — The Member Bill of Rights (MemberRightsSummary component)
+//   Section 4     — How Membership Works (4-step flow)
+//   Section 5     — Why Membership Is Free
+//   Section 6     — Why the USRad Network Exists (investor/partner layer)
+//   CTA           — Find Imaging Centers / View Bill of Rights
+// ============================================================================
+
+import CarbonLayout from "../layouts/CarbonLayout.astro";
+import MemberTrustBadge from "../components/trust/MemberTrustBadge.astro";
+import MemberRightsSummary from "../components/trust/MemberRightsSummary.astro";
+---
+
+<CarbonLayout
+  title="USRad Membership — What It Means to Be a USRad Member"
+  description="USRad membership gives every American access to pre-negotiated imaging prices at accredited centers nationwide. Free, instant, no insurance required."
+>
+  <!-- ============================================================
+    HERO SECTION
+  ============================================================ -->
+  <section class="membership-hero">
+    <div class="section-container hero-container">
+      <!-- Eyebrow -->
+      <p class="eyebrow">USRad Membership</p>
+
+      <!-- Headline -->
+      <h1 class="hero-headline">
+        What It Means to Be a<br />
+        <span class="headline-accent">USRad Member</span>
+      </h1>
+
+      <!-- Explanatory paragraph -->
+      <p class="hero-body">
+        USRad membership provides access to pre-negotiated imaging prices at
+        accredited centers across the United States. Membership includes
+        coordination support, secure access to your imaging records, and the
+        full protections of the USRad Member Bill of Rights. Membership is free.
+      </p>
+
+      <!-- Trust badge -->
+      <div class="hero-badge">
+        <MemberTrustBadge
+          variant="banner"
+          showBillOfRights={false}
+          showMembershipLink={false}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    SECTION 1 — WHAT A USRAD MEMBER IS
+  ============================================================ -->
+  <section class="content-section bg-white">
+    <div class="section-container section-two-col">
+      <!-- Left: identity definition -->
+      <div class="identity-text">
+        <p class="section-label">Membership Identity</p>
+        <h2 class="section-heading">What a USRad Member Is</h2>
+        <div class="prose-block">
+          <p>
+            A USRad member is an individual who accesses diagnostic imaging
+            through the USRad network. Membership is not a subscription program
+            or an insurance product. It is the access layer that connects
+            individuals to a coordinated network of accredited imaging centers.
+          </p>
+          <p>
+            USRad negotiates imaging pricing directly with accredited facilities
+            and coordinates scheduling on behalf of members. Members retain full
+            clinical autonomy — the choice of exam, provider, and timing remains
+            entirely theirs.
+          </p>
+          <p>
+            Membership requires no employer program, no insurance contract, and
+            no prior authorization. Any individual can use the USRad network
+            directly.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: three identity principles -->
+      <div class="identity-principles">
+        <div class="principle-card">
+          <div class="principle-icon">
+            <svg fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"
+              ></path>
+            </svg>
+          </div>
+          <h3>Not a subscription</h3>
+          <p>
+            Membership activates automatically when you use the network. There
+            is no enrollment fee, no monthly charge, and no cancellation
+            process.
+          </p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+              ></path>
+            </svg>
+          </div>
+          <h3>Not insurance</h3>
+          <p>
+            USRad membership does not replace or replicate insurance. It
+            provides direct access to pre-negotiated imaging prices for
+            individuals regardless of coverage status.
+          </p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3>Open to everyone</h3>
+          <p>
+            USRad membership is available to any individual seeking affordable
+            diagnostic imaging — uninsured, underinsured, or those managing
+            costs outside their insurance plan.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    SECTION 2 — WHAT MEMBERSHIP INCLUDES
+  ============================================================ -->
+  <section class="content-section bg-gray-50">
+    <div class="section-container">
+      <div class="section-header-centered">
+        <p class="section-label">Member Benefits</p>
+        <h2 class="section-heading">What Membership Includes</h2>
+        <p class="section-subhead">
+          Every USRad member receives the same access, protections, and
+          coordination — regardless of location or coverage status.
+        </p>
+      </div>
+
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon-wrap">
+            <svg
+              class="benefit-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="benefit-title">Pre-Negotiated Imaging Prices</h3>
+          <p class="benefit-body">
+            Access transparent, pre-negotiated pricing at accredited imaging
+            centers nationwide. The price displayed before booking is the full
+            price — no hidden facility fees, no separate radiologist billing.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon-wrap">
+            <svg
+              class="benefit-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="benefit-title">Secure Member Portal</h3>
+          <p class="benefit-body">
+            Track imaging requests, upload prescriptions, receive radiology
+            reports, and manage your appointments through your secure Member
+            Portal — available 24/7.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon-wrap">
+            <svg
+              class="benefit-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="benefit-title">Request Coordination</h3>
+          <p class="benefit-body">
+            USRad coordinates directly with imaging centers on your behalf —
+            confirming availability, managing scheduling, and keeping you
+            informed at every step of the process.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon-wrap">
+            <svg
+              class="benefit-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="benefit-title">Member Navigator Support</h3>
+          <p class="benefit-body">
+            USRad Member Navigators are available to assist with questions about
+            your imaging request, facility options, prescription requirements,
+            and appointment status.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    SECTION 3 — THE MEMBER BILL OF RIGHTS
+  ============================================================ -->
+  <MemberRightsSummary />
+
+  <!-- ============================================================
+    SECTION 4 — HOW MEMBERSHIP WORKS
+  ============================================================ -->
+  <section class="content-section bg-white">
+    <div class="section-container">
+      <div class="section-header-centered">
+        <p class="section-label">Membership Mechanics</p>
+        <h2 class="section-heading">How Membership Works</h2>
+        <p class="section-subhead">
+          USRad membership activates automatically through platform use. There
+          is no separate sign-up process.
+        </p>
+      </div>
+
+      <div class="steps-flow">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3 class="step-title">Search for an imaging exam</h3>
+            <p class="step-body">
+              Enter your exam type and location to see pre-negotiated member
+              pricing at accredited imaging centers near you.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-connector" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3 class="step-title">Submit a request</h3>
+            <p class="step-body">
+              Complete your imaging request with appointment preferences,
+              physician information, and any required documentation.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-connector" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+
+        <div class="step-item step-item-accent">
+          <div class="step-number step-number-accent">3</div>
+          <div class="step-content">
+            <h3 class="step-title">Membership activates automatically</h3>
+            <p class="step-body">
+              Your USRad Member ID is assigned and your membership becomes
+              active. Your Member Portal is ready and all Bill of Rights
+              protections apply immediately.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-connector" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3 class="step-title">USRad coordinates the appointment</h3>
+            <p class="step-body">
+              USRad contacts the imaging center, confirms availability, and
+              keeps you updated. You pay only after your appointment is
+              confirmed — never at the front desk.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    SECTION 5 — WHY MEMBERSHIP IS FREE
+  ============================================================ -->
+  <section class="content-section bg-[#003087]">
+    <div class="section-container">
+      <div class="free-section-inner">
+        <div class="free-section-text">
+          <p class="section-label-light">Membership Model</p>
+          <h2 class="section-heading-light">Why Membership Is Free</h2>
+          <div class="prose-block-light">
+            <p>
+              USRad membership is free because it is not a product — it is the
+              access mechanism for the USRad network.
+            </p>
+            <p>
+              USRad negotiates imaging pricing directly with accredited
+              facilities at the network level. Those negotiated prices are made
+              available to members as a function of network participation, not
+              as a paid benefit.
+            </p>
+            <p>
+              Membership enables coordination, transparency, and protection.
+              None of those things require a subscription fee to deliver. They
+              require a well-structured network — which USRad has built.
+            </p>
+          </div>
+        </div>
+
+        <div class="free-section-stat">
+          <div class="stat-card">
+            <p class="stat-number">$0</p>
+            <p class="stat-label">Membership cost</p>
+            <div class="stat-divider"></div>
+            <p class="stat-sub">
+              Always free. No credit card. No enrollment. No cancellation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    SECTION 6 — WHY THE USRAD NETWORK EXISTS
+    Institutional layer — communicates platform vision to sophisticated readers
+  ============================================================ -->
+  <section class="content-section bg-white">
+    <div class="section-container">
+      <div class="network-section">
+        <p class="section-label">Platform Purpose</p>
+        <h2 class="section-heading">Why the USRad Network Exists</h2>
+
+        <div class="network-body">
+          <p class="network-lead">
+            Healthcare pricing for diagnostic imaging is often opaque and
+            inconsistent. Two individuals receiving the same MRI can be charged
+            dramatically different amounts depending on where the exam is
+            performed and how it is billed.
+          </p>
+          <p>
+            USRad was created to address this directly — by building a
+            coordinated imaging network designed for transparency, access, and
+            consistency.
+          </p>
+        </div>
+
+        <div class="network-pillars">
+          <div class="pillar">
+            <svg class="pillar-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <p>See clear imaging prices before scheduling</p>
+          </div>
+          <div class="pillar">
+            <svg class="pillar-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <p>Access a nationwide network of accredited imaging centers</p>
+          </div>
+          <div class="pillar">
+            <svg class="pillar-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <p>Receive coordinated appointment support</p>
+          </div>
+          <div class="pillar">
+            <svg class="pillar-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <p>Obtain radiology reports securely through the Member Portal</p>
+          </div>
+        </div>
+
+        <div class="network-footer">
+          <p>
+            Membership allows individuals to access this network directly —
+            without requiring employer programs, insurance contracts, or complex
+            referral systems.
+          </p>
+          <p class="network-mission">
+            USRad is building a nationwide diagnostic imaging access network
+            designed for transparency, coordination, and affordability.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+    FINAL CTA SECTION
+  ============================================================ -->
+  <section class="cta-section">
+    <div class="section-container cta-inner">
+      <div class="cta-shield" aria-hidden="true">
+        <svg fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"
+          ></path>
+        </svg>
+      </div>
+
+      <h2 class="cta-heading">Ready to use your membership?</h2>
+      <p class="cta-body">
+        Membership activates automatically when you submit your first imaging
+        request. No enrollment required.
+      </p>
+
+      <div class="cta-buttons">
+        <a href="/" class="cta-primary">
+          Find Imaging Centers Near You
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+        <button id="cta-mbor-trigger" type="button" class="cta-secondary">
+          View the Member Bill of Rights
+        </button>
+      </div>
+    </div>
+  </section>
+</CarbonLayout>
+
+<style>
+  /* ============================================================
+     LAYOUT UTILITIES
+  ============================================================ */
+  .section-container {
+    max-width: 64rem; /* 1024px */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .content-section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  /* ============================================================
+     HERO
+  ============================================================ */
+  .membership-hero {
+    background: linear-gradient(160deg, #001a4d 0%, #003087 60%, #004299 100%);
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .membership-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23cc9933' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .hero-container {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #cc9933;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-headline {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .headline-accent {
+    color: #cc9933;
+  }
+
+  .hero-body {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 38rem;
+    margin: 0 auto 2.5rem;
+  }
+
+  .hero-badge {
+    max-width: 42rem;
+    margin: 0 auto;
+  }
+
+  /* ============================================================
+     SECTION TYPOGRAPHY
+  ============================================================ */
+  .section-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #cc9933;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .section-label-light {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(204, 153, 51, 0.8);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .section-heading {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .section-heading-light {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .section-subhead {
+    font-size: 1rem;
+    color: #6b7280;
+    max-width: 36rem;
+    line-height: 1.65;
+  }
+
+  .section-header-centered {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-header-centered .section-subhead {
+    margin: 0 auto;
+  }
+
+  .prose-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .prose-block p {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: #374151;
+  }
+
+  .prose-block-light {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .prose-block-light p {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* ============================================================
+     SECTION 1 — TWO COLUMN IDENTITY
+  ============================================================ */
+  .section-two-col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-two-col {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+
+  .identity-principles {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .principle-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-left: 3px solid #003087;
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.25rem 1.25rem 1.125rem;
+  }
+
+  .principle-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #003087;
+    margin-bottom: 0.625rem;
+  }
+
+  .principle-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .principle-card h3 {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.375rem;
+  }
+
+  .principle-card p {
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: #6b7280;
+  }
+
+  /* ============================================================
+     SECTION 2 — BENEFITS GRID
+  ============================================================ */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .benefits-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .benefits-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .benefit-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .benefit-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 48, 135, 0.08);
+  }
+
+  .benefit-icon-wrap {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: rgba(0, 48, 135, 0.06);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .benefit-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #003087;
+  }
+
+  .benefit-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .benefit-body {
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    color: #6b7280;
+  }
+
+  /* ============================================================
+     SECTION 4 — HOW MEMBERSHIP WORKS (STEPS)
+  ============================================================ */
+  .steps-flow {
+    max-width: 36rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step-item {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+  }
+
+  .step-item-accent {
+    background: rgba(0, 48, 135, 0.04);
+    border-color: rgba(0, 48, 135, 0.2);
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    background: #003087;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    margin-top: 0.125rem;
+  }
+
+  .step-number-accent {
+    background: #cc9933;
+  }
+
+  .step-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.375rem;
+  }
+
+  .step-body {
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    color: #6b7280;
+  }
+
+  .step-connector {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #d1d5db;
+    margin: 0.375rem 0;
+  }
+
+  .step-connector svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ============================================================
+     SECTION 5 — WHY MEMBERSHIP IS FREE
+  ============================================================ */
+  .free-section-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .free-section-inner {
+      grid-template-columns: 1fr auto;
+    }
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(204, 153, 51, 0.3);
+    border-radius: 1rem;
+    padding: 2rem 2.5rem;
+    text-align: center;
+    min-width: 14rem;
+  }
+
+  .stat-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #cc9933;
+    line-height: 1;
+    margin-bottom: 0.375rem;
+    letter-spacing: -0.03em;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 1rem;
+  }
+
+  .stat-divider {
+    width: 2rem;
+    height: 1px;
+    background: rgba(204, 153, 51, 0.3);
+    margin: 0.75rem auto 1rem;
+  }
+
+  .stat-sub {
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.5);
+    max-width: 11rem;
+  }
+
+  /* ============================================================
+     SECTION 6 — WHY THE NETWORK EXISTS
+  ============================================================ */
+  .network-section {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+
+  .network-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    margin-bottom: 2rem;
+  }
+
+  .network-lead {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: #374151;
+    font-weight: 400;
+  }
+
+  .network-body p {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: #6b7280;
+  }
+
+  .network-pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    padding-left: 0.25rem;
+  }
+
+  .pillar {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .pillar-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+    color: #003087;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  .pillar p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: #374151;
+  }
+
+  .network-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .network-footer p {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: #6b7280;
+  }
+
+  .network-mission {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    color: #003087 !important;
+    font-style: italic;
+  }
+
+  /* ============================================================
+     CTA SECTION
+  ============================================================ */
+  .cta-section {
+    background: linear-gradient(135deg, #f9fafb 0%, #eef2f9 100%);
+    border-top: 1px solid #e5e7eb;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .cta-inner {
+    text-align: center;
+  }
+
+  .cta-shield {
+    width: 3rem;
+    height: 3rem;
+    color: #003087;
+    margin: 0 auto 1.25rem;
+  }
+
+  .cta-shield svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .cta-heading {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .cta-body {
+    font-size: 1rem;
+    color: #6b7280;
+    max-width: 28rem;
+    margin: 0 auto 2rem;
+    line-height: 1.65;
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  @media (min-width: 480px) {
+    .cta-buttons {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #003087;
+    color: #ffffff;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition:
+      background 0.15s ease,
+      transform 0.15s ease;
+  }
+
+  .cta-primary:hover {
+    background: #00205c;
+    transform: translateY(-1px);
+  }
+
+  .cta-primary svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    color: #003087;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.5rem;
+    border: 1.5px solid #003087;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    font-family: inherit;
+  }
+
+  .cta-secondary:hover {
+    background: rgba(0, 48, 135, 0.05);
+  }
+</style>
+
+<script>
+  // ============================================================
+  // CTA Bill of Rights trigger — opens the MemberRightsSummary modal
+  // from the page footer CTA, reusing the same modal already on page
+  // ============================================================
+  const ctaTrigger = document.getElementById("cta-mbor-trigger");
+  const mborModal = document.getElementById("mbor-modal");
+
+  if (ctaTrigger && mborModal) {
+    ctaTrigger.addEventListener("click", () => {
+      mborModal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    });
+  }
+</script>

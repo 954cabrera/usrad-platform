@@ -21,10 +21,7 @@ interface Props {
   showBillOfRights?: boolean;
 }
 
-const {
-  variant = "inline",
-  showBillOfRights = true,
-} = Astro.props;
+const { variant = "inline", showBillOfRights = true, showMembershipLink = true } = Astro.props;
 ---
 
 {variant === "inline" && (
@@ -35,7 +32,7 @@ const {
       <svg class="badge-shield" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"/>
       </svg>
-      <span class="badge-label">USRad Member</span>
+      <a href="/membership" class="badge-label badge-label-link">USRad Member</a>
       <span class="badge-divider" aria-hidden="true">·</span>
       <span class="badge-sub">Free membership included</span>
       <span class="badge-dot" aria-hidden="true"></span>
@@ -85,13 +82,18 @@ const {
       </ul>
     </div>
 
-    {showBillOfRights && (
-      <div class="banner-footer">
-        <a href="/member-rights" class="bor-link">
-          View the USRad Member Bill of Rights →
+    <div class="banner-footer">
+      {showMembershipLink && (
+        <a href="/membership" class="bor-link">
+          Learn about USRad membership →
         </a>
-      </div>
-    )}
+      )}
+      {showBillOfRights && (
+        <a href="/member-rights" class="bor-link">
+          View the Member Bill of Rights →
+        </a>
+      )}
+    </div>
   </div>
 )}
 
@@ -124,10 +126,20 @@ const {
     flex-shrink: 0;
   }
 
-  .badge-label {
-    color: #ffffff;
+ .badge-label {
+    color: #ffffff !important;
     font-weight: 600;
     letter-spacing: 0.01em;
+  }
+
+  .badge-label-link {
+    text-decoration: none;
+    color: #ffffff !important;
+  }
+  .badge-label-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    color: #ffffff !important;
   }
 
   .badge-divider {
@@ -243,6 +255,9 @@ const {
   .banner-footer {
     border-top: 1px solid rgba(204, 153, 51, 0.2);
     padding: 0.625rem 1.25rem;
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
   }
 
   .bor-link {
