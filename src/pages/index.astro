@@ -9,6 +9,7 @@ import AboutSection from "../components/AboutSection.astro";
 import BlogPreviewSection from "../components/BlogPreviewSection.astro";
 import HeroSection from "../components/hero/HeroSection.astro";
 import BrowseAllModal from "../components/BrowseAllModal.astro";
+import MemberTrustBadge from "../components/trust/MemberTrustBadge.astro";
 import WhyLessCostSection from "../components/WhyLessCostSection.astro";
 import CredibilitySection from "../components/CredibilitySection.astro";
 
@@ -18,6 +19,11 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
 <CarbonLayout title="USRad - MRI Scans in 48 Hours, 70% Less" isHeroPage={true}>
   <!-- PROGRESSIVE DISCLOSURE HERO SECTION -->
   <HeroSection remixUrl={REMIX_URL} />
+
+  <!-- Member Trust Badge — inline pill below hero -->
+  <div class="flex justify-center py-4 -mt-4 relative z-10">
+    <MemberTrustBadge variant="inline" />
+  </div>
 
   <BrowseAllModal />
 
@@ -35,6 +41,11 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
 
   <!-- Pricing Section -->
   <PricingSection />
+
+  <!-- Member Trust Badge — banner above locations -->
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 mb-10">
+    <MemberTrustBadge variant="banner" />
+  </div>
 
   <!-- Locations Map Section -->
   <section class="py-16 sm:py-24 px-4 sm:px-6 bg-white">

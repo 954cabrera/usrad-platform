@@ -1,0 +1,260 @@
+---
+// src/components/trust/MemberTrustBadge.astro
+// ============================================================================
+// MEMBER TRUST BADGE — Phase 1.5 Build B
+// ============================================================================
+// A compact, reusable membership trust signal for insertion across the
+// marketing site. Reinforces that booking through USRad activates free
+// membership and the protections that come with it.
+//
+// Props:
+//   variant: "inline" | "banner"
+//     - "inline"  → Single-line pill badge. Use in hero section, pricing section.
+//     - "banner"  → Compact card with three trust points. Use above CTAs.
+//
+//   showBillOfRights: boolean (default: true)
+//     - Shows/hides the Bill of Rights link line
+// ============================================================================
+
+interface Props {
+  variant?: "inline" | "banner";
+  showBillOfRights?: boolean;
+}
+
+const {
+  variant = "inline",
+  showBillOfRights = true,
+} = Astro.props;
+---
+
+{variant === "inline" && (
+  <!-- Inline pill badge — hero and pricing placement -->
+  <div class="member-trust-badge-inline">
+    <div class="badge-pill">
+      <!-- Shield icon -->
+      <svg class="badge-shield" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"/>
+      </svg>
+      <span class="badge-label">USRad Member</span>
+      <span class="badge-divider" aria-hidden="true">·</span>
+      <span class="badge-sub">Free membership included</span>
+      <span class="badge-dot" aria-hidden="true"></span>
+      <span class="badge-free">$0</span>
+    </div>
+  </div>
+)}
+
+{variant === "banner" && (
+  <!-- Banner card — above primary CTAs -->
+  <div class="member-trust-badge-banner">
+    <!-- Top accent line -->
+    <div class="banner-accent" aria-hidden="true"></div>
+
+    <div class="banner-inner">
+      <!-- Left: Shield + identity -->
+      <div class="banner-identity">
+        <svg class="banner-shield" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"/>
+        </svg>
+        <div>
+          <p class="banner-title">USRad Member</p>
+          <p class="banner-subtitle">Free · Instant · No insurance needed</p>
+        </div>
+      </div>
+
+      <!-- Right: Three trust points -->
+      <ul class="banner-points" role="list">
+        <li class="banner-point">
+          <svg class="point-check" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+          </svg>
+          <span>Pre-negotiated member pricing</span>
+        </li>
+        <li class="banner-point">
+          <svg class="point-check" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+          </svg>
+          <span>Instant access upon booking</span>
+        </li>
+        <li class="banner-point">
+          <svg class="point-check" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+          </svg>
+          <span>Protected by Member Bill of Rights</span>
+        </li>
+      </ul>
+    </div>
+
+    {showBillOfRights && (
+      <div class="banner-footer">
+        <a href="/member-rights" class="bor-link">
+          View the USRad Member Bill of Rights →
+        </a>
+      </div>
+    )}
+  </div>
+)}
+
+<style>
+  /* ============================================================
+     INLINE PILL VARIANT
+     ============================================================ */
+  .member-trust-badge-inline {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #003087;
+    border: 1px solid rgba(204, 153, 51, 0.5);
+    border-radius: 9999px;
+    padding: 0.4rem 1.1rem;
+    font-size: 0.8125rem; /* 13px */
+    font-family: inherit;
+  }
+
+  .badge-shield {
+    width: 1rem;
+    height: 1rem;
+    color: #cc9933;
+    flex-shrink: 0;
+  }
+
+  .badge-label {
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .badge-divider {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.75rem;
+  }
+
+  .badge-sub {
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 400;
+  }
+
+  .badge-dot {
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(204, 153, 51, 0.6);
+  }
+
+  .badge-free {
+    color: #cc9933;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  /* ============================================================
+     BANNER CARD VARIANT
+     ============================================================ */
+  .member-trust-badge-banner {
+    background: #003087;
+    border: 1px solid rgba(204, 153, 51, 0.5);
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+  .banner-accent {
+    height: 3px;
+    background: linear-gradient(90deg, #cc9933, #e6b84a, #cc9933);
+  }
+
+  .banner-inner {
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  @media (min-width: 640px) {
+    .banner-inner {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+  }
+
+  .banner-identity {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+  }
+
+  .banner-shield {
+    width: 1.75rem;
+    height: 1.75rem;
+    color: #cc9933;
+    flex-shrink: 0;
+  }
+
+  .banner-title {
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+
+  .banner-subtitle {
+    color: rgba(204, 153, 51, 0.85);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    margin-top: 0.125rem;
+  }
+
+  .banner-points {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .banner-point {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+
+  .point-check {
+    width: 0.875rem;
+    height: 0.875rem;
+    color: #cc9933;
+    flex-shrink: 0;
+  }
+
+  .banner-footer {
+    border-top: 1px solid rgba(204, 153, 51, 0.2);
+    padding: 0.625rem 1.25rem;
+  }
+
+  .bor-link {
+    font-size: 0.7rem;
+    color: rgba(204, 153, 51, 0.75);
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: color 0.15s ease;
+  }
+
+  .bor-link:hover {
+    color: #cc9933;
+  }
+</style>
