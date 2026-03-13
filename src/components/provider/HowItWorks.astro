@@ -1,5 +1,6 @@
 ---
-const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://usrad-portal.vercel.app';
+const REMIX_URL =
+  import.meta.env.PUBLIC_REMIX_URL || "https://usrad-portal.vercel.app";
 // src/components/provider/HowItWorks.astro
 // Comprehensive "How It Works" section with timeline tooltip
 ---
@@ -12,15 +13,15 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://usrad-portal.verc
         <span
           class="bg-[#cc9933]/10 text-[#cc9933] px-4 py-2 rounded-full text-sm font-semibold"
         >
-          Simple Process
+          Provider Portal
         </span>
       </div>
       <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-        Three Steps to More Revenue
+        How Assignments Flow Through Your Portal
       </h2>
       <p class="section-subtitle">
-        Most centers are live within 2-3 weeks
-        <span class="tooltip-wrapper">
+        Every assignment represents a patient who has already agreed to the
+        price <span class="tooltip-wrapper">
           <svg class="info-icon" viewBox="0 0 20 20" fill="currentColor">
             <path
               fill-rule="evenodd"
@@ -348,7 +349,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://usrad-portal.verc
         href={`${REMIX_URL}/signup`}
         class="inline-flex items-center gap-3 bg-gradient-to-r from-[#003087] to-[#004299] hover:from-[#002266] hover:to-[#003087] text-white font-bold px-10 py-5 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl group"
       >
-        <span class="text-lg">Get Started Now</span>
+        <span class="text-lg">Begin Provider Onboarding</span>
         <svg
           class="w-6 h-6 transform group-hover:translate-x-1 transition-transform"
           fill="none"
