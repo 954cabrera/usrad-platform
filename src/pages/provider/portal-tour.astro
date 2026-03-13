@@ -816,6 +816,10 @@ export const prerender = true;
                   </div>
                 </div>
                 <div class="phiw-screen-shadow"></div>
+                <div class="phiw-step-badge">
+                  <span class="phiw-step-badge-label">Step 1</span>
+                  <span class="phiw-step-badge-status">Onboarding</span>
+                </div>
               </div>
 
               <!-- ─────────────────────────────────────────────
@@ -843,6 +847,10 @@ export const prerender = true;
                   </div>
                 </div>
                 <div class="phiw-screen-shadow"></div>
+                <div class="phiw-step-badge">
+                  <span class="phiw-step-badge-label">Step 2</span>
+                  <span class="phiw-step-badge-status">Credentialing</span>
+                </div>
               </div>
 
               <!-- ─────────────────────────────────────────────
@@ -869,6 +877,10 @@ export const prerender = true;
                   </div>
                 </div>
                 <div class="phiw-screen-shadow"></div>
+                <div class="phiw-step-badge">
+                  <span class="phiw-step-badge-label">Step 3</span>
+                  <span class="phiw-step-badge-status">Pending Activation</span>
+                </div>
               </div>
 
               <!-- ─────────────────────────────────────────────
@@ -895,6 +907,12 @@ export const prerender = true;
                   </div>
                 </div>
                 <div class="phiw-screen-shadow"></div>
+                <div class="phiw-step-badge">
+                  <span class="phiw-step-badge-label">Step 4</span>
+                  <span class="phiw-step-badge-status"
+                    >Fulfillment Complete</span
+                  >
+                </div>
               </div>
             </div><!-- /screen stage -->
           </div>
@@ -1496,17 +1514,23 @@ export const prerender = true;
       perspective: 1400px;
       position: relative;
     }
-    /* Subtle navy ambient under screen — not an orb §3.5 */
+    /* Depth stage — layered ambient glow §3.5 */
     .phiw-screen-stage::before {
       content: "";
       position: absolute;
-      inset: -50px;
-      background: radial-gradient(
-        circle at 50% 60%,
-        rgba(0, 48, 135, 0.08),
-        transparent 68%
-      );
-      filter: blur(24px);
+      inset: -80px;
+      background:
+        radial-gradient(
+          circle at 50% 55%,
+          rgba(0, 48, 135, 0.1),
+          transparent 60%
+        ),
+        radial-gradient(
+          circle at 50% 80%,
+          rgba(204, 153, 51, 0.04),
+          transparent 55%
+        );
+      filter: blur(32px);
       z-index: -1;
       pointer-events: none;
     }
@@ -1541,21 +1565,21 @@ export const prerender = true;
     @keyframes phiwEnter {
       from {
         opacity: 0;
-        transform: rotateX(4deg) rotateY(-3deg) translateY(16px);
+        transform: rotateX(4deg) rotateY(-3deg) translateY(16px) scale(0.98);
       }
       to {
         opacity: 1;
-        transform: rotateX(4deg) rotateY(-3deg) translateY(0);
+        transform: rotateX(4deg) rotateY(-3deg) translateY(0) scale(1);
       }
     }
     @keyframes phiwExit {
       from {
         opacity: 1;
-        transform: rotateX(4deg) rotateY(-3deg) translateY(0);
+        transform: rotateX(4deg) rotateY(-3deg) translateY(0) scale(1);
       }
       to {
         opacity: 0;
-        transform: rotateX(4deg) rotateY(-3deg) translateY(-16px);
+        transform: rotateX(4deg) rotateY(-3deg) translateY(-16px) scale(0.98);
       }
     }
 
@@ -1621,6 +1645,34 @@ export const prerender = true;
       filter: blur(14px);
       border-radius: 50%;
       z-index: -1;
+    }
+
+    /* Step status badge overlay */
+    .phiw-step-badge {
+      position: absolute;
+      bottom: -10px;
+      right: -10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #003087;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 5px 12px 5px 8px;
+      box-shadow: 0 4px 12px rgba(0, 48, 135, 0.25);
+      z-index: 10;
+    }
+    .phiw-step-badge-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .phiw-step-badge-status {
+      font-size: 11px;
+      font-weight: 700;
+      color: #cc9933;
     }
 
     /* ── Onboarding dashboard mockup (Screen 1) ── */
