@@ -1,0 +1,303 @@
+---
+// src/components/provider/ProviderSpineNav.astro
+// Phase 3 — Sticky left-side spine navigation
+// Signals platform documentation feel to technical audiences.
+// Hidden on mobile. Appears after hero scrolls out of view.
+// Active section highlighted in gold. Inactive in muted navy.
+// z-40 — sits below CarbonHeader, above page content.
+---
+
+<nav id="provider-spine" aria-label="Page sections" class="spine-nav">
+  <ul class="spine-list">
+    <li>
+      <button class="spine-item" data-target="scanner-utilization">
+        <span class="spine-number">01</span>
+        <span class="spine-label">Revenue Opportunity</span>
+        <span class="spine-indicator"></span>
+      </button>
+    </li>
+    <li>
+      <button class="spine-item" data-target="how-referrals-work">
+        <span class="spine-number">02</span>
+        <span class="spine-label">Referral Sources</span>
+        <span class="spine-indicator"></span>
+      </button>
+    </li>
+    <li>
+      <button class="spine-item" data-target="assignment-flow">
+        <span class="spine-number">03</span>
+        <span class="spine-label">Assignment Flow</span>
+        <span class="spine-indicator"></span>
+      </button>
+    </li>
+    <li>
+      <button class="spine-item" data-target="how-it-works">
+        <span class="spine-number">04</span>
+        <span class="spine-label">Provider Portal</span>
+        <span class="spine-indicator"></span>
+      </button>
+    </li>
+    <li>
+      <button class="spine-item" data-target="priority-markets">
+        <span class="spine-number">05</span>
+        <span class="spine-label">National Network</span>
+        <span class="spine-indicator"></span>
+      </button>
+    </li>
+    <li>
+      <button class="spine-item" data-target="ancicare-story">
+        <span class="spine-number">06</span>
+        <span class="spine-label">Track Record</span>
+        <span class="spine-indicator"></span>
+      </button>
+    </li>
+    <li>
+      <button class="spine-item" data-target="founding-partners">
+        <span class="spine-number">07</span>
+        <span class="spine-label">Founding Centers</span>
+        <span class="spine-indicator"></span>
+      </button>
+    </li>
+  </ul>
+</nav>
+
+<style>
+  .spine-nav {
+    position: fixed;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 40;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+
+    /* Hide on anything below xl breakpoint */
+    display: none;
+  }
+
+  /* Only show on xl screens and up */
+  @media (min-width: 1280px) {
+    .spine-nav {
+      display: block;
+    }
+  }
+
+  .spine-nav.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .spine-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .spine-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
+    text-align: left;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  /* Vertical connecting line between items */
+  .spine-list li:not(:last-child) .spine-item::after {
+    content: "";
+    position: absolute;
+    left: 11px;
+    top: calc(100% + 3px);
+    width: 1px;
+    height: 8px;
+    background: rgba(0, 48, 135, 0.15);
+  }
+
+  .spine-number {
+    font-size: 10px;
+    font-weight: 700;
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    color: rgba(0, 48, 135, 0.35);
+    letter-spacing: 0.05em;
+    width: 24px;
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+    line-height: 1;
+  }
+
+  .spine-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(0, 48, 135, 0.4);
+    white-space: nowrap;
+    transition: color 0.2s ease;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      color 0.2s ease;
+    pointer-events: none;
+  }
+
+  /* Show label on hover of the entire nav */
+  .spine-nav:hover .spine-label {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .spine-indicator {
+    width: 3px;
+    height: 16px;
+    border-radius: 999px;
+    background: rgba(0, 48, 135, 0.15);
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+    order: -1; /* sits before the number */
+  }
+
+  /* Hover state */
+  .spine-item:hover .spine-number {
+    color: rgba(0, 48, 135, 0.7);
+  }
+
+  .spine-item:hover .spine-label {
+    color: rgba(0, 48, 135, 0.7);
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .spine-item:hover .spine-indicator {
+    background: rgba(0, 48, 135, 0.35);
+    height: 20px;
+  }
+
+  /* Active state — gold highlight */
+  .spine-item.active .spine-number {
+    color: #cc9933;
+    font-weight: 800;
+  }
+
+  .spine-item.active .spine-label {
+    color: #cc9933;
+    font-weight: 600;
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .spine-item.active .spine-indicator {
+    background: #cc9933;
+    height: 24px;
+    box-shadow: 0 0 8px rgba(204, 153, 51, 0.4);
+  }
+
+  /* Done state — sections already scrolled past */
+  .spine-item.done .spine-number {
+    color: rgba(0, 48, 135, 0.55);
+  }
+
+  .spine-item.done .spine-indicator {
+    background: rgba(0, 48, 135, 0.25);
+  }
+</style>
+
+<script>
+  (function () {
+    const nav = document.getElementById("provider-spine");
+    if (!nav) return;
+
+    const SECTIONS = [
+      "scanner-utilization",
+      "how-referrals-work",
+      "assignment-flow",
+      "how-it-works",
+      "priority-markets",
+      "ancicare-story",
+      "founding-partners",
+    ];
+
+    // Show spine only after hero scrolls out of view (~400px)
+    const showThreshold = 400;
+
+    function updateVisibility() {
+      if (window.scrollY > showThreshold) {
+        nav.classList.add("visible");
+      } else {
+        nav.classList.remove("visible");
+      }
+    }
+
+    // Smooth scroll to section on click
+    nav.querySelectorAll(".spine-item").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.target;
+        const el = document.getElementById(target);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+
+    // IntersectionObserver — track which section is in view
+    let activeSection = null;
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            activeSection = entry.target.id;
+            updateActiveState();
+          }
+        });
+      },
+      {
+        threshold: 0.25,
+        rootMargin: "-80px 0px -40% 0px",
+      },
+    );
+
+    SECTIONS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+
+    function updateActiveState() {
+      const activeIndex = SECTIONS.indexOf(activeSection);
+      nav.querySelectorAll(".spine-item").forEach((btn, i) => {
+        btn.classList.remove("active", "done");
+        if (i === activeIndex) {
+          btn.classList.add("active");
+        } else if (i < activeIndex) {
+          btn.classList.add("done");
+        }
+      });
+    }
+
+    // Scroll listener — throttled
+    let ticking = false;
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateVisibility();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+
+    // Initial state
+    updateVisibility();
+  })();
+</script>
