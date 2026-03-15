@@ -204,292 +204,286 @@ export const prerender = true;
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Interactive Viewer Section -->
-      <section
-        id="viewer-section"
-        class="bg-gradient-to-br from-gray-50 to-white py-32 px-4 sm:px-6"
-      >
-        <div class="max-w-7xl mx-auto">
-          <div class="text-center mb-12" data-aos="fade-up">
-            <h2
-              class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight"
-            >
-              Explore MRI Technology
-            </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Interactive viewers showing real MRI, CT, and other medical
-              imaging. See what your doctor sees.
-            </p>
-          </div>
-
-          <!-- The Viewer with Loading State -->
-          <div data-aos="zoom-in" class="min-h-[600px] relative">
-            <!-- Loading skeleton -->
-            <div
-              class="animate-pulse bg-gray-200 rounded-lg h-[600px] absolute inset-0"
-              id="viewer-skeleton"
-            >
-              <div class="flex items-center justify-center h-full">
-                <div class="text-center">
-                  <div
-                    class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#003087]"
-                  >
-                  </div>
-                  <p class="text-gray-600 mt-4">
-                    Loading interactive viewer...
-                  </p>
-                </div>
-              </div>
-            </div>
-            <MultiModalViewer client:load />
-            <!-- Attribution -->
-            <p class="text-center text-xs text-gray-500 mt-6">
-              MRI imaging data provided by OASIS-1 (Open Access Series of
-              Imaging Studies)
-              <a
-                href="https://www.oasis-brains.org"
-                class="text-blue-600 hover:underline"
-                target="_blank"
-              >
-                Learn more
-              </a>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Human Impact Section -->
-      <section
-        class="py-32 px-4 sm:px-6 bg-gradient-to-br from-white via-blue-50 to-white"
-      >
-        <div class="max-w-6xl mx-auto">
-          <div class="text-center mb-16" data-aos="fade-up">
-            <h2
-              class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
-            >
-              Why Every Day Matters
-            </h2>
-            <p
-              class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
-            >
-              For serious conditions, early detection can mean the difference
-              between simple treatment and life-threatening complications.
-            </p>
-          </div>
-
-          <!-- Impact Stories Grid -->
-          <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-8" data-aos="fade-right">
-              <div class="flex items-start gap-4">
-                <div
-                  class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <img
-                    src="/images/icons/calendar_with_x.svg"
-                    alt="Long wait times"
-                    class="w-8 h-8"
-                    style="filter: invert(27%) sepia(51%) saturate(7063%) hue-rotate(347deg) brightness(94%) contrast(97%);"
-                  />
-                </div>
-                <div>
-                  <h3 class="text-xl font-semibold text-gray-900 mb-2">
-                    14 Days Average Wait
-                  </h3>
-                  <p class="text-gray-600 leading-relaxed">
-                    At hospitals. Pain without answers. Anxiety building.
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex items-start gap-4">
-                <div
-                  class="w-12 h-12 bg-red-200 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <img
-                    src="/images/icons/medicalcost.svg"
-                    alt="High medical costs"
-                    class="w-8 h-8"
-                    style="filter: invert(10%) sepia(100%) saturate(7063%) hue-rotate(347deg) brightness(70%) contrast(97%);"
-                  />
-                </div>
-                <div>
-                  <h3 class="text-xl font-semibold text-gray-900 mb-2">
-                    $3,200 Average Cost
-                  </h3>
-                  <p class="text-gray-600 leading-relaxed">
-                    Hospital pricing. Forcing people to delay or skip care
-                    entirely.
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex items-start gap-4 relative">
-                <div
-                  class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 relative z-10"
-                >
-                  <img
-                    src="/images/icons/speed.svg"
-                    alt="Fast service"
-                    class="w-8 h-8"
-                    style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
-                  />
-                </div>
-                <div class="relative z-10">
-                  <h3 class="text-xl font-semibold text-gray-900 mb-2 relative">
-                    <span class="highlight-text">48 Hours with USRad</span>
-                  </h3>
-                  <p class="text-gray-600 relative leading-relaxed">
-                    <span class="highlight-text-2 inline-block">
-                      Fast appointments. Clear pricing. Peace of mind.
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="relative rounded-3xl overflow-hidden shadow-2xl"
-              data-aos="fade-left"
-            >
-              <img
-                src="/images/education/goodnews.webp"
-                alt="Patient receiving good news from doctor about MRI results"
-                class="w-full h-96 object-cover"
-              />
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8"
-              >
-                <div class="text-white">
-                  <p class="text-3xl font-bold mb-2">$260 vs $3,200</p>
-                  <p class="text-lg opacity-90">
-                    Same scan. Same quality. Life-changing difference.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- The USRad Difference -->
-      <section
-        class="py-24 px-4 sm:px-6 bg-gradient-to-br from-[#003087] to-[#002266] text-white"
-      >
-        <div class="max-w-6xl mx-auto">
-          <div class="text-center mb-16" data-aos="fade-up">
-            <h2
-              class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
-            >
-              MRI Expertise You Can Trust.<br />
-              <span class="text-[#cc9933]">From Day One.</span>
-            </h2>
-          </div>
-
-          <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div class="text-center" data-aos="zoom-in">
-              <img
-                src="/images/icons/market.png"
-                alt="Performance Growth"
-                class="w-20 h-20 mx-auto mb-4 filter brightness-0 invert"
-              />
-              <h3 class="text-2xl font-bold mb-3">168,224 MRIs Performed</h3>
-              <p class="text-white/80 leading-relaxed">
-                Our leadership team has overseen hundreds of thousands of MRI
-                scans. We know what quality looks like.
-              </p>
-            </div>
-
-            <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
-              <img
-                src="/images/icons/license.png"
-                alt="Board Certified"
-                class="w-20 h-20 mx-auto mb-4 filter brightness-0 invert"
-              />
-              <h3 class="text-2xl font-bold mb-3">
-                Board-Certified Radiologists
-              </h3>
-              <p class="text-white/80 leading-relaxed">
-                Every scan reviewed by qualified specialists. Same radiologists
-                hospitals use, without the hospital markup.
-              </p>
-            </div>
-
-            <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
-              <img
-                src="/images/icons/shield.png"
-                alt="Peace of Mind"
-                class="w-20 h-20 mx-auto mb-4 filter brightness-0 invert"
-              />
-              <h3 class="text-2xl font-bold mb-3 whitespace-nowrap">
-                Your Peace of Mind
-              </h3>
-              <p class="text-white/80 leading-relaxed">
-                Clear explanations. Comfortable experience. Results delivered
-                directly to you. Healthcare how it should be.
-              </p>
-            </div>
-          </div>
-
-          <div class="text-center mt-16" data-aos="fade-up">
-            <p class="text-lg text-white/70">
-              ACR accredited facilities • Same-day appointments • Proven
-              expertise
-            </p>
-            <p class="text-sm text-white/50 mt-4">
-              <span class="font-semibold">4.9★</span> average rating from our imaging
-              centers
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- What to Expect During Your MRI -->
-      <WhatToExpectSplitScreen />
-
-      <!-- Divider -->
-      <div class="py-8">
-        <hr class="max-w-xs mx-auto border-gray-300" />
+  <!-- Interactive Viewer Section -->
+  <section
+    id="viewer-section"
+    class="bg-gradient-to-br from-gray-50 to-white py-32 px-4 sm:px-6"
+  >
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12" data-aos="fade-up">
+        <h2
+          class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight"
+        >
+          Explore MRI Technology
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Interactive viewers showing real MRI, CT, and other medical imaging.
+          See what your doctor sees.
+        </p>
       </div>
 
-      <!-- Final CTA -->
-      <section class="py-32 px-4 sm:px-6 bg-white">
-        <div class="max-w-4xl mx-auto text-center">
-          <h2
-            class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8 leading-tight"
-            data-aos="fade-up"
-          >
-            Ready to Get Answers?
-          </h2>
-
-          <p
-            class="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            Quality MRI scans from $260. No insurance required. Book your
-            appointment in under 60 seconds.
-          </p>
-
+      <!-- The Viewer with Loading State -->
+      <div data-aos="zoom-in" class="min-h-[600px] relative">
+        <!-- Loading skeleton -->
+        <div
+          class="animate-pulse bg-gray-200 rounded-lg h-[600px] absolute inset-0"
+          id="viewer-skeleton"
+        >
+          <div class="flex items-center justify-center h-full">
+            <div class="text-center">
+              <div
+                class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#003087]"
+              >
+              </div>
+              <p class="text-gray-600 mt-4">Loading interactive viewer...</p>
+            </div>
+          </div>
+        </div>
+        <MultiModalViewer client:load />
+        <!-- Attribution -->
+        <p class="text-center text-xs text-gray-500 mt-6">
+          MRI imaging data provided by OASIS-1 (Open Access Series of Imaging
+          Studies)
           <a
-            href="/"
-            class="bg-[#003087] text-white px-8 py-4 rounded-xl
-          font-semibold text-lg hover:bg-[#002266] hover:shadow-lg
-          transition-all transform hover:scale-105 inline-block"
+            href="https://www.oasis-brains.org"
+            class="text-blue-600 hover:underline"
+            target="_blank"
           >
-            Find Centers Near You →
+            Learn more
           </a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Human Impact Section -->
+  <section
+    class="py-32 px-4 sm:px-6 bg-gradient-to-br from-white via-blue-50 to-white"
+  >
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2
+          class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
+        >
+          Why Every Day Matters
+        </h2>
+        <p
+          class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+        >
+          For serious conditions, early detection can mean the difference
+          between simple treatment and life-threatening complications.
+        </p>
+      </div>
+
+      <!-- Impact Stories Grid -->
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-8" data-aos="fade-right">
+          <div class="flex items-start gap-4">
+            <div
+              class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <img
+                src="/images/icons/calendar_with_x.svg"
+                alt="Long wait times"
+                class="w-8 h-8"
+                style="filter: invert(27%) sepia(51%) saturate(7063%) hue-rotate(347deg) brightness(94%) contrast(97%);"
+              />
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                14 Days Average Wait
+              </h3>
+              <p class="text-gray-600 leading-relaxed">
+                At hospitals. Pain without answers. Anxiety building.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div
+              class="w-12 h-12 bg-red-200 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <img
+                src="/images/icons/medicalcost.svg"
+                alt="High medical costs"
+                class="w-8 h-8"
+                style="filter: invert(10%) sepia(100%) saturate(7063%) hue-rotate(347deg) brightness(70%) contrast(97%);"
+              />
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                $3,200 Average Cost
+              </h3>
+              <p class="text-gray-600 leading-relaxed">
+                Hospital pricing. Forcing people to delay or skip care entirely.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 relative">
+            <div
+              class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 relative z-10"
+            >
+              <img
+                src="/images/icons/speed.svg"
+                alt="Fast service"
+                class="w-8 h-8"
+                style="filter: invert(13%) sepia(94%) saturate(7498%) hue-rotate(222deg) brightness(97%) contrast(113%);"
+              />
+            </div>
+            <div class="relative z-10">
+              <h3 class="text-xl font-semibold text-gray-900 mb-2 relative">
+                <span class="highlight-text">48 Hours with USRad</span>
+              </h3>
+              <p class="text-gray-600 relative leading-relaxed">
+                <span class="highlight-text-2 inline-block">
+                  Fast appointments. Clear pricing. Peace of mind.
+                </span>
+              </p>
+            </div>
+          </div>
         </div>
 
-        <p
-          class="text-sm text-gray-500 mt-6 text-center"
-          data-aos="fade-up"
-          data-aos-delay="300"
+        <div
+          class="relative rounded-3xl overflow-hidden shadow-2xl"
+          data-aos="fade-left"
         >
-          Join thousands who've already saved on medical imaging
-        </p>
-      </section>
+          <img
+            src="/images/education/goodnews.webp"
+            alt="Patient receiving good news from doctor about MRI results"
+            class="w-full h-96 object-cover"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8"
+          >
+            <div class="text-white">
+              <p class="text-3xl font-bold mb-2">$260 vs $3,200</p>
+              <p class="text-lg opacity-90">
+                Same scan. Same quality. Life-changing difference.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <!-- The USRad Difference -->
+  <section
+    class="py-24 px-4 sm:px-6 bg-gradient-to-br from-[#003087] to-[#002266] text-white"
+  >
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2
+          class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+        >
+          MRI Expertise You Can Trust.<br />
+          <span class="text-[#cc9933]">From Day One.</span>
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="text-center" data-aos="zoom-in">
+          <img
+            src="/images/icons/market.png"
+            alt="Performance Growth"
+            class="w-20 h-20 mx-auto mb-4 filter brightness-0 invert"
+          />
+          <h3 class="text-2xl font-bold mb-3">168,224 MRIs Performed</h3>
+          <p class="text-white/80 leading-relaxed">
+            Our leadership team has overseen hundreds of thousands of MRI scans.
+            We know what quality looks like.
+          </p>
+        </div>
+
+        <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
+          <img
+            src="/images/icons/license.png"
+            alt="Board Certified"
+            class="w-20 h-20 mx-auto mb-4 filter brightness-0 invert"
+          />
+          <h3 class="text-2xl font-bold mb-3">Board-Certified Radiologists</h3>
+          <p class="text-white/80 leading-relaxed">
+            Every scan reviewed by qualified specialists. Same radiologists
+            hospitals use, without the hospital markup.
+          </p>
+        </div>
+
+        <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
+          <img
+            src="/images/icons/shield.png"
+            alt="Peace of Mind"
+            class="w-20 h-20 mx-auto mb-4 filter brightness-0 invert"
+          />
+          <h3 class="text-2xl font-bold mb-3 whitespace-nowrap">
+            Your Peace of Mind
+          </h3>
+          <p class="text-white/80 leading-relaxed">
+            Clear explanations. Comfortable experience. Results delivered
+            directly to you. Healthcare how it should be.
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center mt-16" data-aos="fade-up">
+        <p class="text-lg text-white/70">
+          ACR accredited facilities • Same-day appointments • Proven expertise
+        </p>
+        <p class="text-sm text-white/50 mt-4">
+          <span class="font-semibold">4.9★</span> average rating from our imaging
+          centers
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What to Expect During Your MRI -->
+  <WhatToExpectSplitScreen />
+
+  <!-- Divider -->
+  <div class="py-8">
+    <hr class="max-w-xs mx-auto border-gray-300" />
+  </div>
+
+  <!-- Final CTA -->
+  <section class="py-32 px-4 sm:px-6 bg-white">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2
+        class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8 leading-tight"
+        data-aos="fade-up"
+      >
+        Ready to Get Answers?
+      </h2>
+
+      <p
+        class="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        Quality MRI scans from $260. No insurance required. Book your
+        appointment in under 60 seconds.
+      </p>
+
+      <a
+        href="/"
+        class="bg-[#003087] text-white px-8 py-4 rounded-xl
+          font-semibold text-lg hover:bg-[#002266] hover:shadow-lg
+          transition-all transform hover:scale-105 inline-block"
+      >
+        Find Centers Near You →
+      </a>
+    </div>
+
+    <p
+      class="text-sm text-gray-500 mt-6 text-center"
+      data-aos="fade-up"
+      data-aos-delay="300"
+    >
+      Join thousands who've already saved on medical imaging
+    </p>
   </section>
 </CarbonLayout>
 
