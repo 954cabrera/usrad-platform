@@ -15,7 +15,6 @@ const MultiModalViewer = () => {
   const [showAnnotations, setShowAnnotations] = useState(true);
   const [imageLoadError, setImageLoadError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [showComingSoon, setShowComingSoon] = useState(false);
   const [preloadedImages, setPreloadedImages] = useState({});
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -56,36 +55,6 @@ const MultiModalViewer = () => {
         educationalNote: 'Anatomical labels represent approximate regions for educational purposes. Individual anatomy varies.'
       }
     },
-    ct: {
-      name: 'CT',
-      fullName: 'Computed Tomography',
-      icon: '💀',
-      color: 'red',
-      totalSlices: 25,
-      description: 'Fast imaging with excellent bone detail',
-      benefits: ['Rapid acquisition', 'Excellent bone detail', 'Emergency imaging'],
-      commonUses: ['Bone fractures', 'Chest imaging', 'Abdominal pain', 'Trauma evaluation']
-    },
-    ultrasound: {
-      name: 'Ultrasound',
-      fullName: 'Ultrasound Imaging',
-      icon: '👶',
-      color: 'green',
-      totalSlices: 20,
-      description: 'Real-time imaging with no radiation',
-      benefits: ['Real-time imaging', 'No radiation', 'Portable technology'],
-      commonUses: ['Pregnancy monitoring', 'Heart evaluation', 'Abdominal organs', 'Blood flow assessment']
-    },
-    pet: {
-      name: 'PET',
-      fullName: 'Positron Emission Tomography',
-      icon: '⚡',
-      color: 'purple',
-      totalSlices: 22,
-      description: 'Functional imaging showing metabolism',
-      benefits: ['Functional information', 'Cancer detection', 'Metabolic activity'],
-      commonUses: ['Cancer staging', 'Brain function', 'Heart metabolism', 'Infection detection']
-    }
   };
   
   // Anatomy data
@@ -155,9 +124,6 @@ const MultiModalViewer = () => {
         intensity: "T1: CSF prominent" 
       }
     ],
-    ct: [],
-    ultrasound: [],
-    pet: []
   };
   
   // Add the helper function HERE - right after anatomyData
@@ -334,24 +300,16 @@ const MultiModalViewer = () => {
   
   return (
     <div className="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden">
-      {/* Modality Tabs */}
-      <div className="bg-gray-100 border-b border-gray-200">
-        <div className="flex flex-wrap">
-          {Object.entries(modalityConfig).map(([key, config]) => (
-            <button
-              key={key}
-              onClick={() => handleModalityClick(key)}
-              className={`flex-1 min-w-0 px-4 py-4 text-center transition-all duration-200 ${
-                activeModality === key
-                  ? `bg-[#003087] text-white shadow-lg`
-                  : "bg-white text-gray-700 hover:bg-gray-50"
-              }`}
-            >
-              <div className="text-2xl mb-1">{config.icon}</div>
-              <div className="font-semibold text-sm">{config.name}</div>
-              <div className="text-xs opacity-75">{config.description}</div>
-            </button>
-          ))}
+      {/* Viewer Header */}
+      <div className="bg-[#003087] px-6 py-4">
+        <div className="flex items-center gap-3">
+          <span className="text-2xl">🧠</span>
+          <div>
+            <div className="font-semibold text-white text-sm">MRI</div>
+            <div className="text-xs text-white/75">
+              T1-weighted brain imaging
+            </div>
+          </div>
         </div>
       </div>
 
@@ -775,67 +733,6 @@ const MultiModalViewer = () => {
           demonstration only
         </div>
       </div>
-
-      {/* Coming Soon Modal */}
-      {showComingSoon && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div
-            ref={modalRef}
-            className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center transform transition-all"
-            style={{
-              position: "relative",
-              maxHeight: "90vh",
-              overflowY: "auto",
-            }}
-          >
-            <div className="mb-6">
-              <div className="mx-auto w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                <svg
-                  className="w-10 h-10 text-[#003087]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                Coming Soon!
-              </h3>
-              <p className="text-gray-600 mb-6">
-                We're working hard to bring you additional imaging modalities.
-                CT, Ultrasound, and PET viewers will be available in the near
-                future.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <button
-                  onClick={() => setShowComingSoon(false)}
-                  className="px-6 py-3 bg-[#003087] hover:bg-[#002070] text-white rounded-lg font-medium transition-colors"
-                >
-                  Back to MRI Viewer
-                </button>
-                <button
-                  onClick={() =>
-                    window.open(
-                      "mailto:info@usradiology.com?subject=Interest%20in%20Additional%20Imaging%20Modalities",
-                      "_blank",
-                    )
-                  }
-                  className="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-medium transition-colors"
-                >
-                  Notify Me
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       <style>{`
         .slider::-webkit-slider-thumb {

@@ -19,6 +19,8 @@ const {
   isHeroPage = false,
   hideNewsletter = false,
 } = Astro.props;
+
+const ga4Id = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID || "G-60JBC6WVCW";
 ---
 
 <!doctype html>
@@ -62,8 +64,14 @@ const {
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
     <!-- Open Graph defaults -->
-    <meta property="og:title" content="USRad — National Diagnostic Imaging Access Infrastructure" />
-    <meta property="og:description" content="Access high-quality medical imaging nationwide with transparent pricing and infrastructure-grade reliability." />
+    <meta
+      property="og:title"
+      content="USRad — National Diagnostic Imaging Access Infrastructure"
+    />
+    <meta
+      property="og:description"
+      content="Access high-quality medical imaging nationwide with transparent pricing and infrastructure-grade reliability."
+    />
     <meta property="og:image" content="https://usrad.com/og-default.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -76,6 +84,25 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+    <!-- Google Analytics 4 -->
+    <script
+      async
+      src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
+      is:inline></script>
+    <script define:vars={{ ga4Id }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", ga4Id, {
+        anonymize_ip: true,
+        linker: {
+          domains: ["usrad.com", "app.usrad.com"],
+        },
+      });
+    </script>
   </head>
 
   <body class="font-inter text-gray-900 bg-white antialiased">
