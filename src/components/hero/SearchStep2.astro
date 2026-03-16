@@ -827,6 +827,30 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
             window.SearchLoadingOverlay.show(procedureName, "25");
           }
 
+          // ✅ GA4 Analytics — hero_search_submitted
+          // Fires before form submits — never blocks submission
+          try {
+            const zipValue =
+              (zipInput && zipInput.value) ||
+              (zipInputMobile && zipInputMobile.value) ||
+              "";
+            const procedureValue = procedureHidden?.value || "";
+            if (typeof window.trackMarketingEvent === "function") {
+              window.trackMarketingEvent("hero_search_submitted", {
+                procedure_type: procedureValue,
+                zip_code: zipValue,
+              });
+            } else if (typeof gtag === "function") {
+              gtag("event", "hero_search_submitted", {
+                app_surface: "marketing",
+                procedure_type: procedureValue,
+                zip_code: zipValue,
+              });
+            }
+          } catch (_) {
+            // Never block form submission
+          }
+
           if (DEBUG)
             console.log("SearchStep2: Form submitting", {
               cpt: cptHidden && cptHidden.value,
