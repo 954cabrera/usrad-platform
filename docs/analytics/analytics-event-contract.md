@@ -94,6 +94,8 @@ Tracked on the Astro marketing site (usrad.com). All fire client-side via `track
 
 **Strategic use:** The primary marketing → product handoff event. Conversion rate from visitor_landed to this event is the homepage's most important metric.
 
+**Implementation note:** In `CarbonLayout.astro`, the GA4 config script uses `define:vars` which causes Astro to wrap it in an IIFE. Always use `window.gtag = function()` and `window.dataLayer` — never `function gtag()` — to ensure gtag is accessible in the global scope across all components.
+
 ---
 
 ### trust_content_view
@@ -592,6 +594,7 @@ Tracked in the Remix onboarding and portal systems. Fire via `trackProductEvent(
 |---|---|---|
 | 1.0 | March 2026 | Initial contract — 26 events across 2 funnels |
 | 1.1 | March 2026 | Corrected provider_page_view and provider_cta_clicked file reference from imaging-centers.astro to provider.astro. Added content_page_view event for blog surfaces (blog.astro + blog/[slug].astro). Total: 27 events. |
+| 1.2 | March 2026 | Added window.gtag scope implementation note to hero_search_submitted. hero_search_submitted confirmed firing in GA4 Realtime. |
 
 ---
 
