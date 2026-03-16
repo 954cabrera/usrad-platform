@@ -51,7 +51,10 @@ export const prerender = true;
   </section>
 
   <!-- Founders Documentary Hero -->
-  <section class="py-16 px-4 sm:px-6 bg-white border-b border-gray-100">
+  <section
+    id="founders-photo"
+    class="py-16 px-4 sm:px-6 bg-white border-b border-gray-100"
+  >
     <div class="max-w-6xl mx-auto">
       <!-- Documentary Label -->
       <div class="mb-10" data-aos="fade-up">
@@ -266,6 +269,7 @@ export const prerender = true;
 
   <!-- REVOLUTIONARY TIMELINE SECTION -->
   <section
+    id="timeline"
     class="relative py-32 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 overflow-hidden"
   >
     <!-- Animated Background -->
@@ -640,6 +644,7 @@ export const prerender = true;
 
   <!-- NEW PREMIUM SAVINGS SECTION -->
   <section
+    id="case-study-246m"
     class="py-24 px-4 sm:px-6 bg-gradient-to-br from-white to-gray-50 overflow-hidden"
   >
     <div class="max-w-6xl mx-auto">
@@ -1005,6 +1010,7 @@ export const prerender = true;
 
           <!-- Founder promise — institutional letter feel -->
           <div
+            id="founder-promise"
             class="bg-gradient-to-br from-[#003087] to-[#002266] rounded-2xl p-10 md:p-12 text-white"
             data-aos="fade-up"
             data-aos-delay="150"
@@ -1299,3 +1305,49 @@ export const prerender = true;
     }
   </style>
 </CarbonLayout>
+
+<script>
+  // ✅ Analytics — trust_content_view
+  // Fires when patient scrolls into view of key trust sections on About page
+  // Uses IntersectionObserver — fires once per section per page load
+  // See /docs/analytics/analytics-event-contract.md
+
+  const trustSections = [
+    { id: "founders-photo", section: "founder_photo" },
+    { id: "timeline", section: "timeline" },
+    { id: "case-study-246m", section: "case_study_246m" },
+    { id: "founder-promise", section: "founder_promise" },
+  ];
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const match = trustSections.find((s) => s.id === entry.target.id);
+          if (match) {
+            try {
+              const g = (window as any).gtag;
+              if (typeof g === "function") {
+                g("event", "trust_content_view", {
+                  app_surface: "marketing",
+                  section: match.section,
+                });
+              }
+            } catch (_) {
+              // Never block UX
+            }
+            observer.unobserve(entry.target); // Fire once per section
+          }
+        }
+      });
+    },
+    { threshold: 0.4 },
+  );
+
+  document.addEventListener("DOMContentLoaded", () => {
+    trustSections.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+  });
+</script>
