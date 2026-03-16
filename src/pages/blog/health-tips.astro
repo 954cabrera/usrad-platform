@@ -1269,5 +1269,19 @@ const relatedArticles = getRelatedPosts("health-tips", relatedPostSlugs);
     }
   </style>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const g = window.gtag;
+        if (typeof g === 'function') {
+          g('event', 'content_page_view', {
+            app_surface: 'marketing',
+            content_type: 'blog_article',
+            content_slug: 'health-tips',
+          });
+        }
+      } catch (_) {}
+    });
+  </script>
   <NewsletterPopup animationSpeed="slow" />
 </CarbonLayout>

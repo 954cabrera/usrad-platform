@@ -1032,4 +1032,19 @@ const categories = [
       });
     });
   </script>
+
+  <script>
+    // ✅ Analytics — content_page_view (blog index)
+    document.addEventListener("DOMContentLoaded", () => {
+      try {
+        const g = (window as any).gtag;
+        if (typeof g === "function") {
+          g("event", "content_page_view", {
+            app_surface: "marketing",
+            content_type: "blog_index",
+          });
+        }
+      } catch (_) {}
+    });
+  </script>
 </CarbonLayout>

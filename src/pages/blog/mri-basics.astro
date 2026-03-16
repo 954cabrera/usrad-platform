@@ -1372,5 +1372,19 @@ const relatedArticles = getRelatedPosts("mri-basics", relatedPostSlugs);
     }
   </style>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const g = window.gtag;
+        if (typeof g === 'function') {
+          g('event', 'content_page_view', {
+            app_surface: 'marketing',
+            content_type: 'blog_article',
+            content_slug: 'mri-basics',
+          });
+        }
+      } catch (_) {}
+    });
+  </script>
   <NewsletterPopup animationSpeed="slow" />
 </CarbonLayout>

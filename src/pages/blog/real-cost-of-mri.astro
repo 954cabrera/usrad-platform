@@ -1087,5 +1087,19 @@ const relatedArticles = getRelatedPosts("real-cost-of-mri", relatedPostSlugs);
     }
   </style>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const g = window.gtag;
+        if (typeof g === 'function') {
+          g('event', 'content_page_view', {
+            app_surface: 'marketing',
+            content_type: 'blog_article',
+            content_slug: 'real-cost-of-mri',
+          });
+        }
+      } catch (_) {}
+    });
+  </script>
   <NewsletterPopup animationSpeed="slow" />
 </CarbonLayout>
