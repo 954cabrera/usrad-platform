@@ -231,9 +231,9 @@ Tracked in the Remix application (app.usrad.com). Fire via `trackProductEvent()`
 
 **Definition:** Patient submits a procedure search in PBS Search.
 **Fires from:** `app/routes/pbs.search.tsx` — loader Phase 8, fire-and-forget (`trackSearch` stub expansion)
-**Destination:** GA4 + Supabase `analytics_events`
+**Destination:** GA4 only — see architecture note below
+**Fires client-side:** `useEffect` after `isHydrated=true` and `results` available
 **Mark as conversion:** Yes
-**CRITICAL:** Must remain fire-and-forget. Never block UX. Analytics failure = LOW RISK per engineering report.
 
 | Parameter | Required | Example |
 |---|---|---|
@@ -249,6 +249,8 @@ Tracked in the Remix application (app.usrad.com). Fire via `trackProductEvent()`
 | `radius_miles` | No | `25` |
 
 **Strategic use:** The single most important event in the system. Captures real patient demand signals. Powers the marketplace intelligence dashboard and provider recruitment engine.
+
+**Architecture note:** GA4 only — do not write to `analytics_events`. The `pbs_search_analytics` table is the canonical demand intelligence source and already captures richer search data (CPT codes, lat/lng, result counts, device type, session metadata). Writing a duplicate record to `analytics_events` would create two sources of truth. GA4 event is emitted for funnel tracking and attribution only.
 
 ---
 
@@ -567,7 +569,7 @@ Tracked in the Remix onboarding and portal systems. Fire via `trackProductEvent(
 | provider_page_view | ✓ | — |
 | provider_cta_clicked | ✓ | — |
 | phone_click | ✓ | — |
-| procedure_search | ✓ | ✓ |
+| procedure_search | ✓ | — (pbs_search_analytics) |
 | search_results_view | ✓ | — |
 | pricing_view | ✓ | — |
 | facility_view | ✓ | — |
@@ -595,6 +597,7 @@ Tracked in the Remix onboarding and portal systems. Fire via `trackProductEvent(
 | 1.0 | March 2026 | Initial contract — 26 events across 2 funnels |
 | 1.1 | March 2026 | Corrected provider_page_view and provider_cta_clicked file reference from imaging-centers.astro to provider.astro. Added content_page_view event for blog surfaces (blog.astro + blog/[slug].astro). Total: 27 events. |
 | 1.2 | March 2026 | Added window.gtag scope implementation note to hero_search_submitted. hero_search_submitted confirmed firing in GA4 Realtime. |
+| 1.3 | March 2026 | Updated procedure_search to GA4 only. pbs_search_analytics confirmed as canonical demand intelligence table. Both hero_search_submitted and procedure_search confirmed firing in GA4 Realtime in same cross-domain session. |
 
 ---
 
