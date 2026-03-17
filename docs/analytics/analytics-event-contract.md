@@ -396,19 +396,26 @@ Tracked in the Remix application (app.usrad.com). Fire via `trackProductEvent()`
 
 ### scan_completed
 
-**Definition:** Provider confirms imaging study completion in the fulfillment workflow.
-**Fires from:** Fulfillment workflow server action (to be determined by fulfillment route)
+**Definition:** CSR staff approves a fulfillment report, atomically transitioning booking_status to completed. This is the terminal marketplace transaction event.
+**Fires from:** `app/routes/staff.csr.booking.$id.tsx` — `approve_fulfillment` action, after atomic completion transaction succeeds (Step 2: `booking_status = completed` + `completed_at` set)
 **Destination:** Supabase `analytics_events` (primary) + GA4 (secondary)
 **Mark as conversion:** Yes
+**Implementation note:** Supabase fires server-side via `recordBusinessEvent` immediately after `booking_status = completed` write succeeds — authoritative and immune to client-side failures. GA4 fires client-side via dedicated `useEffect` on `fulfillmentFetcher.data` success. Page revalidation may interrupt GA4 network flush in some cases — Supabase is the ground truth for this event. GA4 firing confirmed via interceptor test.
 
 | Parameter | Required | Example |
 |---|---|---|
-| `app_surface` | Yes | `provider_portal` |
+| `app_surface` | Yes | `fulfillment` |
 | `procedure_type` | Yes | `MRI Brain Without Contrast` |
 | `facility_id` | Yes | Internal UUID |
-| `city` | Yes | `Tampa` |
+| `booking_id` | Yes | UUID from `appointment_requests` |
+| `city` | Yes | `Orlando` |
+| `state` | Yes | `FL` |
 
-**Strategic use:** The ultimate marketplace transaction event — equivalent to Airbnb's "stay completed." Powers scan_completed count in investor reporting.
+**metadata fields:** `booking_ref` (USR-xxx), `assignment_type`, `completed_by` (CSR email), `report_id`
+
+**Idempotency:** Guaranteed by existing `completed_at IS NULL` guard in Step 2 of the atomic transaction. The DB update only succeeds once — `scan_completed` cannot double-fire.
+
+**Strategic use:** The ultimate marketplace transaction event — equivalent to Airbnb's "stay completed." Completes the full lifecycle: visitor → search → booking → scan_completed. Powers scan_completed count in investor reporting and disbursement clock tracking.
 
 ---
 
@@ -578,7 +585,7 @@ Tracked in the Remix onboarding and portal systems. Fire via `trackProductEvent(
 | member_account_created | ✓ | ✓ |
 | booking_submitted | ✓ | ✓ |
 | member_portal_accessed | ✓ | — |
-| scan_completed | ✓ | ✓ |
+| scan_completed | ✓ | ✓ (authoritative) |
 | provider_onboarding_started | ✓ | ✓ |
 | org_setup_completed | ✓ | — |
 | facility_profile_submitted | ✓ | — |
@@ -598,6 +605,7 @@ Tracked in the Remix onboarding and portal systems. Fire via `trackProductEvent(
 | 1.1 | March 2026 | Corrected provider_page_view and provider_cta_clicked file reference from imaging-centers.astro to provider.astro. Added content_page_view event for blog surfaces (blog.astro + blog/[slug].astro). Total: 27 events. |
 | 1.2 | March 2026 | Added window.gtag scope implementation note to hero_search_submitted. hero_search_submitted confirmed firing in GA4 Realtime. |
 | 1.3 | March 2026 | Updated procedure_search to GA4 only. pbs_search_analytics confirmed as canonical demand intelligence table. Both hero_search_submitted and procedure_search confirmed firing in GA4 Realtime in same cross-domain session. |
+| 1.4 | March 2026 | scan_completed fully instrumented. Authoritative source: staff.csr.booking.$id.tsx atomic completion transaction. Supabase confirmed — booking_id, procedure_type, city, state, metadata captured. GA4 confirmed firing via interceptor test. Full lifecycle visitor → scan_completed now measured. |
 
 ---
 
