@@ -1,0 +1,2137 @@
+---
+// src/pages/provider/recommendation-engine.astro
+// USRad — How the Recommendation Engine Works
+// Design Contract: Institutional light theme
+// §7.1 No gradients on content surfaces
+// §7.3 Hero: flat bg-[#003087]
+// §8.1 Gold: B2B recruitment CTA only
+// §8.3 Gold max 2 per viewport
+// §15.2 Transitions ≤300ms, ease-in-out or ease-out
+// §15.3 No pulse/bounce/scale-on-hover/parallax/infinite
+// §15.8 prefers-reduced-motion respected
+// §3.5 No backdrop-blur, bg-white/*, border-white/* on light surfaces
+// §2.5 No blue-*, indigo-*, purple-*, pink-*, slate-* tokens
+
+import CarbonLayout from "../../layouts/CarbonLayout.astro";
+export const prerender = true;
+---
+
+<CarbonLayout
+  title="How USRad Recommends Imaging Centers | Provider Intelligence"
+  isHeroPage={false}
+  hideNewsletter={true}
+>
+  <!-- Back link -->
+  <div class="bg-[#003087] pt-20 pb-0 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <a
+        href="/provider"
+        class="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm font-medium transition-colors duration-200 group"
+      >
+        <svg
+          class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-200"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back to Provider Overview
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+    HERO — flat bg-[#003087] §7.3
+  ════════════════════════════════════════════════════ -->
+  <section
+    class="relative pt-24 pb-20 px-4 sm:px-6 overflow-hidden bg-[#003087]"
+  >
+    <!-- Static dot texture §3.5 — static, not animated -->
+    <div
+      class="absolute inset-0 opacity-[0.05] pointer-events-none select-none"
+      aria-hidden="true"
+      style="background-image: radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px); background-size: 32px 32px;"
+    >
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto text-center">
+      <!-- Eyebrow -->
+      <div
+        class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-5 py-2 mb-10"
+      >
+        <span class="w-2 h-2 rounded-full bg-[#C9A24D]"></span>
+        <span
+          class="text-sm font-semibold text-white/80 tracking-widest uppercase"
+          >USRad Intelligence Layer</span
+        >
+      </div>
+
+      <h1 class="pre-h1">
+        How USRad Decides<br />
+        <span class="text-white/50 font-normal">Which Center Patients See.</span
+        >
+      </h1>
+
+      <p class="text-lg text-white/55 max-w-2xl mx-auto mb-10 leading-relaxed">
+        Every recommendation is driven by measurable performance — not
+        contracts, relationships, or guesswork. Understand the system. Then
+        compete to win inside it.
+      </p>
+
+      <!-- Section nav pills -->
+      <div class="flex flex-wrap justify-center gap-2 mb-4">
+        {
+          [
+            { id: "pre-system", label: "The System" },
+            { id: "pre-factors", label: "Scoring Factors" },
+            { id: "pre-patient", label: "Patient View" },
+            { id: "pre-fairness", label: "Competitive Tiers" },
+            { id: "pre-position", label: "Your Position" },
+            { id: "pre-founding", label: "Founding Advantage" },
+          ].map((s) => (
+            <button class="pre-pill" data-goto={s.id}>
+              {s.label}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+    STICKY NAV BAR — bg-[#003087]
+  ════════════════════════════════════════════════════ -->
+  <div class="pre-stickybar" role="navigation" aria-label="Section progress">
+    <div class="pre-stickybar-inner">
+      {
+        [
+          { id: "pre-system", label: "System" },
+          { id: "pre-factors", label: "Scoring" },
+          { id: "pre-patient", label: "Patient View" },
+          { id: "pre-fairness", label: "Tiers" },
+          { id: "pre-position", label: "Your Position" },
+          { id: "pre-founding", label: "Founding" },
+        ].map((s, i) => (
+          <button
+            class={`pre-snav-item ${i === 0 ? "pre-snav-active" : ""}`}
+            data-section={s.id}
+          >
+            {s.label}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Bridge -->
+  <div class="bg-white border-b border-gray-100 py-5 px-4 sm:px-6 text-center">
+    <p class="text-sm text-gray-500 max-w-2xl mx-auto">
+      Patients don't choose imaging centers. The USRad system does — based on
+      performance. Here's exactly how that works, and how to earn the top
+      position in your market.
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+    MAIN LAYOUT — Scrolling narrative + persistent right panel
+  ════════════════════════════════════════════════════ -->
+  <div class="pre-layout bg-gray-50">
+    <!-- ── LEFT: Scrolling narrative ── -->
+    <div class="pre-narrative">
+      <!-- ─────────────────────────────────
+        SECTION 1: THE SYSTEM
+        Three-layer platform diagram
+      ────────────────────────────────── -->
+      <div class="pre-section" id="pre-system" data-section="0">
+        <div class="pre-section-inner">
+          <div class="pre-eyebrow">
+            <span class="pre-eyebrow-num">01</span>
+            <span class="pre-eyebrow-label">The Intelligence Layer</span>
+          </div>
+
+          <h2 class="pre-h2">Patients Don't Choose.<br />The System Does.</h2>
+          <p class="pre-body">
+            When a patient searches for imaging on USRad, they see a ranked list
+            of centers. The top result carries a recommendation. That
+            recommendation is determined by a composite score — calculated from
+            five measurable performance signals — not by who signed up first or
+            who pays more.
+          </p>
+
+          <!-- Three-layer diagram -->
+          <div
+            class="pre-diagram"
+            aria-label="Three-layer platform architecture"
+          >
+            <div class="pre-layer pre-layer-patient">
+              <div class="pre-layer-icon">
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="pre-layer-content">
+                <p class="pre-layer-title">Patient Layer</p>
+                <p class="pre-layer-sub">
+                  Searches for imaging · generates demand signals · books
+                  appointment
+                </p>
+              </div>
+            </div>
+
+            <div class="pre-layer-arrow" aria-hidden="true">
+              <div class="pre-arrow-line"></div>
+              <svg
+                class="w-4 h-4 text-[#003087]"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </div>
+
+            <div class="pre-layer pre-layer-usrad">
+              <div class="pre-layer-icon pre-layer-icon-navy">
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2"
+                  ></path>
+                </svg>
+              </div>
+              <div class="pre-layer-content">
+                <p class="pre-layer-title pre-layer-title-navy">
+                  USRad Intelligence Layer
+                </p>
+                <p class="pre-layer-sub">
+                  Scoring engine · pricing intelligence · demand signals · "Best
+                  Fit For You" routing
+                </p>
+              </div>
+            </div>
+
+            <div class="pre-layer-arrow" aria-hidden="true">
+              <div class="pre-arrow-line"></div>
+              <svg
+                class="w-4 h-4 text-[#003087]"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </div>
+
+            <div class="pre-layer pre-layer-provider">
+              <div class="pre-layer-icon">
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                  ></path>
+                </svg>
+              </div>
+              <div class="pre-layer-content">
+                <p class="pre-layer-title">Provider Layer</p>
+                <p class="pre-layer-sub">
+                  ACR-accredited centers · competitive pricing · appointment
+                  availability · experience ratings
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-[#003087] rounded-xl p-5 flex gap-3 mt-6">
+            <span class="text-base flex-shrink-0 mt-0.5">💡</span>
+            <div>
+              <p class="text-sm font-semibold text-white mb-1">
+                The Key Insight
+              </p>
+              <p class="text-sm text-white/70 leading-relaxed">
+                USRad is not simply connecting patients and imaging centers. It
+                is the intelligence layer between them. That layer is where the
+                platform creates value — and where provider performance
+                determines patient volume.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────
+        SECTION 2: SCORING FACTORS
+        Five factors, each with detail card
+      ────────────────────────────────── -->
+      <div class="pre-section" id="pre-factors" data-section="1">
+        <div class="pre-section-inner">
+          <div class="pre-eyebrow">
+            <span class="pre-eyebrow-num">02</span>
+            <span class="pre-eyebrow-label">Five Performance Signals</span>
+          </div>
+
+          <h2 class="pre-h2">What the System<br />Measures.</h2>
+          <p class="pre-body">
+            Five factors influence recommendation placement. Each is measurable,
+            improvable, and within your control. Price is the strongest signal.
+            Every factor compounds.
+          </p>
+
+          <div class="space-y-3">
+            <!-- Factor 1: Price -->
+            <div class="pre-factor pre-factor-lead" data-factor="0">
+              <div class="pre-factor-header">
+                <div class="pre-factor-icon pre-factor-icon-lead">
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-3">
+                    <p class="pre-factor-title">Price Competitiveness</p>
+                    <span class="pre-factor-badge pre-factor-badge-lead"
+                      >Strongest Signal</span
+                    >
+                  </div>
+                  <p class="pre-factor-sub">
+                    How your cash-pay rate compares to local market pricing
+                  </p>
+                </div>
+              </div>
+              <p class="pre-factor-body">
+                Centers priced competitively within their local market receive
+                the strongest positive signal. The benchmark is your regional
+                market — not a national average. A center priced at $267 in a
+                $310 market earns meaningfully better placement than the same
+                rate in a $250 market.
+              </p>
+            </div>
+
+            <!-- Factor 2: Proximity -->
+            <div class="pre-factor" data-factor="1">
+              <div class="pre-factor-header">
+                <div class="pre-factor-icon">
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    ></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <p class="pre-factor-title">Geographic Proximity</p>
+                  <p class="pre-factor-sub">
+                    Distance from the patient's search location
+                  </p>
+                </div>
+              </div>
+              <p class="pre-factor-body">
+                Proximity is measured relative to the patient's search ZIP.
+                Closer centers score higher — but proximity is weighted against
+                market density. A center 8 miles away in a rural market may
+                score equivalently to one 2 miles away in a dense urban area.
+              </p>
+            </div>
+
+            <!-- Factor 3: Availability -->
+            <div class="pre-factor" data-factor="2">
+              <div class="pre-factor-header">
+                <div class="pre-factor-icon">
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <p class="pre-factor-title">Appointment Availability</p>
+                  <p class="pre-factor-sub">
+                    Historical scheduling performance — how quickly patients get
+                    scheduled
+                  </p>
+                </div>
+              </div>
+              <p class="pre-factor-body">
+                USRad does not have real-time access to your calendar — and
+                doesn't need it. The system evaluates your historical scheduling
+                turnaround: how long, on average, between assignment receipt and
+                patient appointment. Consistent, fast scheduling earns a strong
+                signal. This rewards operational reliability — not just open
+                slots. A center that schedules predictably and rarely cancels
+                outperforms one with more capacity but inconsistent
+                follow-through.
+              </p>
+            </div>
+
+            <!-- Factor 4: Experience -->
+            <div class="pre-factor" data-factor="3">
+              <div class="pre-factor-header">
+                <div class="pre-factor-icon">
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <p class="pre-factor-title">Patient Experience</p>
+                  <p class="pre-factor-sub">
+                    Aggregate satisfaction from verified USRad patients
+                  </p>
+                </div>
+              </div>
+              <p class="pre-factor-body">
+                Ratings are collected post-appointment from verified USRad
+                patients only — not self-reported or third-party reviews. Scores
+                are weighted by recency and volume. A minimum threshold of
+                verified ratings is required before experience scores influence
+                placement — so new centers are never penalized for having no
+                history. You start clean and build a signal the system trusts
+                over time.
+              </p>
+            </div>
+
+            <!-- Factor 5: Accreditation -->
+            <div class="pre-factor" data-factor="4">
+              <div class="pre-factor-header">
+                <div class="pre-factor-icon">
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <p class="pre-factor-title">Clinical Accreditation</p>
+                  <p class="pre-factor-sub">
+                    ACR accreditation status — required for network
+                    participation
+                  </p>
+                </div>
+              </div>
+              <p class="pre-factor-body">
+                ACR accreditation is required to join the USRad network. It also
+                contributes a baseline quality signal to the composite score.
+                Accreditation confirms the clinical quality standard that
+                patients expect — it is the floor, not the ceiling, of quality
+                signaling.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────
+        SECTION 3: PATIENT VIEW (Full-width reveal)
+        Handled as its own section outside the two-col layout
+      ────────────────────────────────── -->
+      <div
+        class="pre-section pre-section-flush"
+        id="pre-patient"
+        data-section="2"
+      >
+        <div class="pre-section-inner">
+          <div class="pre-eyebrow">
+            <span class="pre-eyebrow-num">03</span>
+            <span class="pre-eyebrow-label">What Patients See</span>
+          </div>
+
+          <h2 class="pre-h2">This Is What Happens<br />When You Win.</h2>
+          <p class="pre-body">
+            When a patient searches for imaging, one center earns the primary
+            recommendation. This is the exact format they see — your performance
+            score translated into patient confidence.
+          </p>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────
+        SECTION 4: FAIRNESS / TIERS
+      ────────────────────────────────── -->
+      <div class="pre-section" id="pre-fairness" data-section="3">
+        <div class="pre-section-inner">
+          <div class="pre-eyebrow">
+            <span class="pre-eyebrow-num">04</span>
+            <span class="pre-eyebrow-label">How Competition Works</span>
+          </div>
+
+          <h2 class="pre-h2">Consistent Performers<br />Win More Often.</h2>
+          <p class="pre-body">
+            Recommendation exposure is distributed across high-performing
+            centers in each market — not concentrated in a single winner.
+            Centers that maintain competitive performance across all signals
+            receive the highest frequency of recommendations. And performance
+            can always improve, which means your position can always rise.
+          </p>
+
+          <!-- Tier visualization -->
+          <div class="pre-tiers">
+            <div class="pre-tier-row">
+              <div class="pre-tier-bar">
+                <div class="pre-tier-fill pre-tier-fill-1"></div>
+              </div>
+              <div class="pre-tier-text">
+                <p class="pre-tier-label">Top performers</p>
+                <p class="pre-tier-sub">
+                  Highest recommendation frequency in their market
+                </p>
+              </div>
+            </div>
+            <div class="pre-tier-row">
+              <div class="pre-tier-bar">
+                <div class="pre-tier-fill pre-tier-fill-2"></div>
+              </div>
+              <div class="pre-tier-text">
+                <p class="pre-tier-label">Strong competitors</p>
+                <p class="pre-tier-sub">
+                  Regular recommendation exposure — steady patient volume
+                </p>
+              </div>
+            </div>
+            <div class="pre-tier-row">
+              <div class="pre-tier-bar">
+                <div class="pre-tier-fill pre-tier-fill-3"></div>
+              </div>
+              <div class="pre-tier-text">
+                <p class="pre-tier-label">Active participants</p>
+                <p class="pre-tier-sub">
+                  Periodic exposure — volume grows as performance improves
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-[#E8EDF5] border border-[#003087]/15 border-l-4 border-l-[#003087] rounded-xl p-4 flex gap-3 mt-6"
+          >
+            <span class="text-base mt-0.5 flex-shrink-0">⚖️</span>
+            <div>
+              <p class="text-sm font-semibold text-gray-900 mb-1">
+                Designed to Reward Improvement
+              </p>
+              <p class="text-sm text-gray-600">
+                Close competitors within the same performance tier rotate
+                recommendations. A center with a slightly lower score still
+                receives patient exposure — and improving performance moves you
+                up. The system rewards consistent quality, not just early entry.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────
+        SECTION 5: YOUR POSITION
+        Performance → visibility → volume
+      ────────────────────────────────── -->
+      <div class="pre-section" id="pre-position" data-section="4">
+        <div class="pre-section-inner">
+          <div class="pre-eyebrow">
+            <span class="pre-eyebrow-num">05</span>
+            <span class="pre-eyebrow-label">Performance → Volume</span>
+          </div>
+
+          <h2 class="pre-h2">Performance Determines<br />Everything.</h2>
+          <p class="pre-body">
+            Every signal feeds directly into recommendation frequency, which
+            determines patient volume. This is not theoretical — it is the
+            mechanics of how USRad distributes demand across the network.
+          </p>
+
+          <!-- Performance chain -->
+          <div class="pre-chain">
+            {
+              [
+                {
+                  icon: "📊",
+                  title: "Score Improves",
+                  sub: "Price, availability, experience signals strengthen",
+                },
+                {
+                  icon: "🎯",
+                  title: "Placement Rises",
+                  sub: "Higher composite score = more frequent recommendation",
+                },
+                {
+                  icon: "👁️",
+                  title: "Visibility Increases",
+                  sub: "More patients see your center as their top match",
+                },
+                {
+                  icon: "📅",
+                  title: "Volume Grows",
+                  sub: "More assignments routed to your scanner",
+                },
+              ].map((item, i) => (
+                <div class="pre-chain-item">
+                  <div class="pre-chain-icon">{item.icon}</div>
+                  <div class="pre-chain-text">
+                    <p class="pre-chain-title">{item.title}</p>
+                    <p class="pre-chain-sub">{item.sub}</p>
+                  </div>
+                  {i < 3 && (
+                    <div class="pre-chain-arrow" aria-hidden="true">
+                      →
+                    </div>
+                  )}
+                </div>
+              ))
+            }
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 mt-6 mb-6">
+            {
+              [
+                { n: "Price", d: "Strongest single lever" },
+                { n: "Speed", d: "Scheduling reliability" },
+                { n: "Quality", d: "Patient experience" },
+              ].map((m) => (
+                <div class="bg-white border border-gray-200 rounded-xl p-4 text-center shadow-sm">
+                  <p class="text-sm font-bold text-[#003087] mb-1">{m.n}</p>
+                  <p class="text-xs text-gray-500">{m.d}</p>
+                </div>
+              ))
+            }
+          </div>
+          <div
+            class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm mt-6"
+          >
+            <p
+              class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4"
+            >
+              How to Improve Your Position
+            </p>
+            <div class="space-y-3">
+              <div class="flex gap-3 items-start">
+                <span
+                  class="text-xs font-bold text-[#003087] bg-[#E8EDF5] rounded-lg w-8 h-8 flex items-center justify-center flex-shrink-0 mt-0.5"
+                  >01</span
+                >
+                <div>
+                  <p class="text-sm font-semibold text-gray-900">
+                    Lower your price relative to your local market
+                  </p>
+                  <p class="text-xs text-gray-500 mt-0.5">
+                    The benchmark is regional, not national. Know where you
+                    stand.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span
+                  class="text-xs font-bold text-[#003087] bg-[#E8EDF5] rounded-lg w-8 h-8 flex items-center justify-center flex-shrink-0 mt-0.5"
+                  >02</span
+                >
+                <div>
+                  <p class="text-sm font-semibold text-gray-900">
+                    Improve scheduling turnaround
+                  </p>
+                  <p class="text-xs text-gray-500 mt-0.5">
+                    Faster, more consistent scheduling earns a stronger signal
+                    over time.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span
+                  class="text-xs font-bold text-[#003087] bg-[#E8EDF5] rounded-lg w-8 h-8 flex items-center justify-center flex-shrink-0 mt-0.5"
+                  >03</span
+                >
+                <div>
+                  <p class="text-sm font-semibold text-gray-900">
+                    Deliver a high-quality patient experience
+                  </p>
+                  <p class="text-xs text-gray-500 mt-0.5">
+                    Verified ratings accumulate and compound — every appointment
+                    counts.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span
+                  class="text-xs font-bold text-[#003087] bg-[#E8EDF5] rounded-lg w-8 h-8 flex items-center justify-center flex-shrink-0 mt-0.5"
+                  >04</span
+                >
+                <div>
+                  <p class="text-sm font-semibold text-gray-900">
+                    Maintain consistent operational performance
+                  </p>
+                  <p class="text-xs text-gray-500 mt-0.5">
+                    Reliability across all signals is more valuable than
+                    excelling in one.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────
+        SECTION 6: FOUNDING ADVANTAGE
+      ────────────────────────────────── -->
+      <div class="pre-section" id="pre-founding" data-section="5">
+        <div class="pre-section-inner">
+          <div class="pre-eyebrow">
+            <span class="pre-eyebrow-num">06</span>
+            <span class="pre-eyebrow-label">Founding Advantage</span>
+          </div>
+
+          <h2 class="pre-h2">First In Locks<br />Market Position.</h2>
+          <p class="pre-body">
+            Founding centers that price competitively at launch establish the
+            performance baseline in their market. That baseline becomes the
+            benchmark that later entrants are measured against. Before
+            competition is fully established, your performance defines the
+            market. The advantage is structural — not a promotion, not a
+            preference, not temporary favoritism.
+          </p>
+
+          <div class="space-y-3 mb-6">
+            {
+              [
+                {
+                  title: "Establish the price floor",
+                  sub: "Your rate becomes the market benchmark. Later entrants price against you.",
+                },
+                {
+                  title: "Accumulate performance data first",
+                  sub: "Scheduling history and patient ratings build before competitors enter your market.",
+                },
+                {
+                  title: "Position established at launch",
+                  sub: "When the recommendation engine goes live, founding centers begin from a stronger starting position.",
+                },
+              ].map((item) => (
+                <div class="flex gap-3 items-start">
+                  <div class="w-5 h-5 rounded-full bg-[#003087] flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg
+                      class="w-3 h-3 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="3"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-semibold text-gray-900">
+                      {item.title}
+                    </p>
+                    <p class="text-xs text-gray-500 mt-0.5">{item.sub}</p>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
+            <p
+              class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3"
+            >
+              Market Capacity
+            </p>
+            <div class="pre-capacity-bar mb-3">
+              <div class="pre-capacity-fill" style="width: 40%"></div>
+              <div class="pre-capacity-label">2 of 5 founding slots filled</div>
+            </div>
+            <p class="text-xs text-gray-500">
+              Once a market reaches founding capacity, standard partner terms
+              apply and performance-based competition determines placement from
+              day one.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div><!-- /narrative -->
+
+    <!-- ── RIGHT: Persistent scoring panel ── -->
+    <div class="pre-sticky-col" id="pre-sticky-col">
+      <div class="pre-sticky-panel" id="pre-sticky-panel">
+        <!-- Panel header -->
+        <div class="pre-panel-header">
+          <div class="pre-panel-title">Composite Score</div>
+          <div class="pre-panel-subtitle">Midtown Imaging · Orlando, FL</div>
+        </div>
+
+        <!-- Score ring -->
+        <div
+          class="pre-score-ring-wrap"
+          role="img"
+          aria-label="Composite score"
+        >
+          <svg class="pre-score-svg" viewBox="0 0 120 120" aria-hidden="true">
+            <circle
+              class="pre-score-track"
+              cx="60"
+              cy="60"
+              r="50"
+              fill="none"
+              stroke-width="8"></circle>
+            <circle
+              class="pre-score-arc"
+              cx="60"
+              cy="60"
+              r="50"
+              fill="none"
+              stroke-width="8"
+              stroke-linecap="round"
+              id="pre-score-arc"
+              style="stroke-dasharray: 314; stroke-dashoffset: 314; transform: rotate(-90deg); transform-origin: 60px 60px;"
+            ></circle>
+          </svg>
+          <div class="pre-score-center">
+            <span class="pre-score-num" id="pre-score-num">0</span>
+            <span class="pre-score-label">score</span>
+          </div>
+        </div>
+
+        <!-- Factor bars -->
+        <div class="pre-factor-bars">
+          <div class="pre-fbar" id="pre-fbar-0">
+            <div class="pre-fbar-header">
+              <span class="pre-fbar-name">Price</span>
+              <span class="pre-fbar-status" id="pre-fbar-status-0">—</span>
+            </div>
+            <div class="pre-fbar-track">
+              <div
+                class="pre-fbar-fill pre-fbar-fill-lead"
+                id="pre-fbar-fill-0"
+                style="width:0%"
+              >
+              </div>
+            </div>
+          </div>
+          <div class="pre-fbar" id="pre-fbar-1">
+            <div class="pre-fbar-header">
+              <span class="pre-fbar-name">Proximity</span>
+              <span class="pre-fbar-status" id="pre-fbar-status-1">—</span>
+            </div>
+            <div class="pre-fbar-track">
+              <div class="pre-fbar-fill" id="pre-fbar-fill-1" style="width:0%">
+              </div>
+            </div>
+          </div>
+          <div class="pre-fbar" id="pre-fbar-2">
+            <div class="pre-fbar-header">
+              <span class="pre-fbar-name">Availability</span>
+              <span class="pre-fbar-status" id="pre-fbar-status-2">—</span>
+            </div>
+            <div class="pre-fbar-track">
+              <div class="pre-fbar-fill" id="pre-fbar-fill-2" style="width:0%">
+              </div>
+            </div>
+          </div>
+          <div class="pre-fbar" id="pre-fbar-3">
+            <div class="pre-fbar-header">
+              <span class="pre-fbar-name">Experience</span>
+              <span class="pre-fbar-status" id="pre-fbar-status-3">—</span>
+            </div>
+            <div class="pre-fbar-track">
+              <div class="pre-fbar-fill" id="pre-fbar-fill-3" style="width:0%">
+              </div>
+            </div>
+          </div>
+          <div class="pre-fbar" id="pre-fbar-4">
+            <div class="pre-fbar-header">
+              <span class="pre-fbar-name">Accreditation</span>
+              <span class="pre-fbar-status" id="pre-fbar-status-4">—</span>
+            </div>
+            <div class="pre-fbar-track">
+              <div class="pre-fbar-fill" id="pre-fbar-fill-4" style="width:0%">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recommendation badge — hidden until score high enough -->
+        <div class="pre-rec-badge" id="pre-rec-badge" aria-hidden="true">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+            ></path>
+          </svg>
+          <span>USRad Recommended</span>
+        </div>
+
+        <!-- Panel footer — context note -->
+        <p class="pre-panel-note" id="pre-panel-note">
+          Scroll through the factors to see how each signal builds your score.
+        </p>
+      </div>
+    </div><!-- /sticky col -->
+  </div><!-- /pre-layout -->
+
+  <!-- ═══════════════════════════════════════════════════
+    FULL-WIDTH PATIENT VIEW REVEAL
+    §7.1 bg-white — not a gradient surface
+  ════════════════════════════════════════════════════ -->
+  <section
+    class="pre-reveal-section bg-white border-t border-b border-gray-200"
+    aria-label="Patient search result preview"
+  >
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-20">
+      <div class="text-center mb-14">
+        <p
+          class="text-xs font-bold tracking-[0.18em] uppercase text-[#003087] mb-3"
+        >
+          The Patient Experience
+        </p>
+        <h2 class="text-4xl font-bold text-gray-900 mb-4 leading-tight">
+          What a Patient Sees<br />When You're the Answer.
+        </h2>
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto">
+          Your performance score translates directly into this — the primary
+          recommendation that patients see when searching for imaging in your
+          market.
+        </p>
+      </div>
+
+      <!-- Mock search result -->
+      <div class="max-w-2xl mx-auto">
+        <!-- Recommended card -->
+        <div class="pre-result-card pre-result-card-top">
+          <div class="pre-result-badge">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+            USRad Recommended
+          </div>
+
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-xl font-bold text-gray-900">
+                Midtown Imaging Center
+              </h3>
+              <p class="text-sm text-gray-500">Orlando, FL · 2.4 miles away</p>
+            </div>
+            <div class="text-right">
+              <p class="text-2xl font-bold text-[#003087]">$267.30</p>
+              <p class="text-xs text-gray-400">MRI Knee · All-inclusive</p>
+            </div>
+          </div>
+
+          <div class="pre-result-confidence">
+            <span class="pre-result-confidence-label"
+              >Recommendation confidence</span
+            >
+            <div class="pre-result-conf-bar">
+              <div class="pre-result-conf-fill"></div>
+            </div>
+            <span class="pre-result-confidence-val">92%</span>
+          </div>
+
+          <div class="pre-result-reasons">
+            <p
+              class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2"
+            >
+              Why this center ranks highest
+            </p>
+            {
+              [
+                "Competitive price in your area",
+                "2.4 miles from your location",
+                "Average scheduling time: 2 days",
+                "4.8★ patient satisfaction",
+                "ACR-accredited facility",
+              ].map((r) => (
+                <div class="flex items-center gap-2 py-1">
+                  <div class="w-4 h-4 rounded-full bg-green-50 border border-green-200 flex items-center justify-center flex-shrink-0">
+                    <svg
+                      class="w-2.5 h-2.5 text-green-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="3"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <span class="text-sm text-gray-700">{r}</span>
+                </div>
+              ))
+            }
+          </div>
+
+          <button
+            class="pre-result-cta"
+            disabled
+            aria-label="Request appointment (demo)"
+            >Request Appointment →</button
+          >
+        </div>
+
+        <!-- Other options -->
+        <div class="mt-4">
+          <p
+            class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3"
+          >
+            Other Options Nearby
+          </p>
+          <div class="space-y-2">
+            {
+              [
+                { name: "Orlando Imaging Center", price: "$289", conf: "84%" },
+                { name: "Central Florida MRI", price: "$295", conf: "79%" },
+                { name: "Lakeview Imaging", price: "$310", conf: "72%" },
+              ].map((r) => (
+                <div class="pre-result-other">
+                  <span class="pre-result-other-name">{r.name}</span>
+                  <span class="pre-result-other-price">{r.price}</span>
+                  <div class="pre-result-other-conf-wrap">
+                    <div class="pre-result-other-conf-bar">
+                      <div
+                        class="pre-result-other-conf-fill"
+                        style={`width: ${r.conf}`}
+                      />
+                    </div>
+                    <span class="pre-result-other-conf-val">{r.conf}</span>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <p class="text-xs text-gray-400 text-center mt-6">
+          This is a representative example. Actual results vary by market and
+          performance signals.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+    FINAL CTA — flat bg-[#003087] §7.3
+    Gold CTA §8.1 — B2B recruitment context
+  ════════════════════════════════════════════════════ -->
+  <section class="bg-[#003087] py-24 px-4 sm:px-6">
+    <div class="max-w-3xl mx-auto text-center">
+      <div
+        class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-5 py-2 mb-8"
+      >
+        <span class="w-2 h-2 rounded-full bg-[#C9A24D]"></span>
+        <span
+          class="text-sm font-semibold text-white/80 tracking-wider uppercase"
+          >Now Enrolling</span
+        >
+      </div>
+      <h2 class="text-4xl font-bold text-white mb-5 leading-tight">
+        Founding Centers Establish<br />Position Before the Market Fills.
+      </h2>
+      <p class="text-lg text-white/70 mb-5 max-w-2xl mx-auto leading-relaxed">
+        In the early market, positioning is not earned.<br />
+        It is established. The first centers in each market define the standard others
+        must compete against.
+      </p>
+      <p class="text-base text-white/55 mb-4 max-w-2xl mx-auto leading-relaxed">
+        Once that standard is set, visibility is driven by performance — not
+        entry timing. New centers don't shape the market. They compete within
+        it.
+      </p>
+      <p class="text-sm text-white/35 mb-10 max-w-2xl mx-auto">
+        Founding slots are limited by design.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="https://app.usrad.com/signup"
+          class="inline-flex items-center gap-2 bg-[#C9A24D] hover:bg-[#b8901f] text-white font-semibold px-8 py-4 rounded-lg transition-colors duration-200"
+        >
+          Establish Your Position
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            stroke-width="2.5"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+        </a>
+        <a
+          href="/provider"
+          class="text-white/40 hover:text-white font-medium text-sm border-b border-white/20 hover:border-white/55 pb-px transition-colors duration-200"
+        >
+          Back to Provider Overview
+        </a>
+      </div>
+      <p class="text-xs text-white/25 mt-4">
+        No volume commitments · ACR-accredited centers · $0 to join
+      </p>
+    </div>
+  </section>
+</CarbonLayout>
+
+<!-- ═══════════════════════════════════════════════════
+    STYLES
+    §15.2 All transitions ≤300ms
+    §15.3 No pulse/bounce/infinite
+    §15.8 prefers-reduced-motion
+  ════════════════════════════════════════════════════ -->
+<style>
+  /* ── Typography ── */
+  .pre-h1 {
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    color: white;
+    margin-bottom: 24px;
+  }
+  .pre-h2 {
+    font-size: clamp(1.9rem, 2.8vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #111827;
+    margin-bottom: 16px;
+  }
+  .pre-body {
+    font-size: 1rem;
+    line-height: 1.72;
+    color: #6b7280;
+    margin-bottom: 24px;
+  }
+
+  /* ── Hero pills ── */
+  .pre-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+    transition: background 200ms ease-in-out;
+  }
+  .pre-pill:hover {
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  /* ── Sticky nav bar ── */
+  .pre-stickybar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: #003087;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .pre-stickybar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .pre-stickybar-inner::-webkit-scrollbar {
+    display: none;
+  }
+  .pre-snav-item {
+    flex-shrink: 0;
+    padding: 14px 20px;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.45);
+    border-bottom: 2px solid transparent;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+    transition:
+      color 200ms ease-in-out,
+      border-color 200ms ease-in-out;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .pre-snav-item:hover {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .pre-snav-active {
+    color: white !important;
+    border-bottom-color: #c9a24d !important;
+  }
+
+  /* ── Two-column layout ── */
+  .pre-layout {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  @media (max-width: 1100px) {
+    .pre-layout {
+      grid-template-columns: 1fr;
+    }
+    .pre-sticky-col {
+      display: none;
+    }
+  }
+
+  /* ── Section panels ── */
+  .pre-section {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 80px 48px 80px 40px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .pre-section:last-child {
+    border-bottom: none;
+  }
+  .pre-section-flush {
+    min-height: auto;
+    padding-bottom: 40px;
+  }
+  .pre-section-inner {
+    max-width: 520px;
+    width: 100%;
+  }
+
+  /* ── Eyebrow ── */
+  .pre-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .pre-eyebrow-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #003087;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .pre-eyebrow-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #003087;
+    background: #e8edf5;
+    border: 1px solid rgba(0, 48, 135, 0.15);
+    padding: 4px 12px;
+    border-radius: 50px;
+  }
+
+  /* ── Three-layer diagram ── */
+  .pre-diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 24px;
+  }
+  .pre-layer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+  .pre-layer-usrad {
+    background: #003087;
+    border-color: #003087;
+  }
+  .pre-layer-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #e8edf5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #003087;
+  }
+  .pre-layer-icon-navy {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+  }
+  .pre-layer-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 2px;
+  }
+  .pre-layer-title-navy {
+    color: white;
+  }
+  .pre-layer-sub {
+    font-size: 11px;
+    color: #9ca3af;
+    line-height: 1.4;
+  }
+  .pre-layer-usrad .pre-layer-sub {
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .pre-layer-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3px 0;
+    gap: 2px;
+  }
+  .pre-arrow-line {
+    width: 2px;
+    height: 12px;
+    background: #d1d5db;
+  }
+
+  /* ── Factor cards ── */
+  .pre-factor {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition:
+      border-color 250ms ease-in-out,
+      box-shadow 250ms ease-in-out;
+  }
+  .pre-factor.pre-factor-active,
+  .pre-factor:hover {
+    border-color: #003087;
+    box-shadow: 0 0 0 3px rgba(0, 48, 135, 0.08);
+  }
+  .pre-factor-lead {
+    border-left: 3px solid #c9a24d;
+  }
+  .pre-factor-lead.pre-factor-active,
+  .pre-factor-lead:hover {
+    border-left-color: #c9a24d;
+    border-color: #c9a24d;
+    box-shadow: 0 0 0 3px rgba(201, 162, 77, 0.1);
+  }
+  .pre-factor-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .pre-factor-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: #e8edf5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #003087;
+  }
+  .pre-factor-icon-lead {
+    background: rgba(201, 162, 77, 0.12);
+    color: #c9a24d;
+  }
+  .pre-factor-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111827;
+  }
+  .pre-factor-sub {
+    font-size: 11px;
+    color: #9ca3af;
+    margin-top: 2px;
+  }
+  .pre-factor-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .pre-factor-badge-lead {
+    background: rgba(201, 162, 77, 0.12);
+    color: #b8901f;
+    border: 1px solid rgba(201, 162, 77, 0.3);
+  }
+  .pre-factor-body {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.65;
+    padding-left: 48px;
+  }
+
+  /* ── Tier bars ── */
+  .pre-tiers {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .pre-tier-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .pre-tier-bar {
+    width: 120px;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .pre-tier-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 600ms ease-out;
+  }
+  .pre-tier-fill-1 {
+    background: #003087;
+    width: 75%;
+  }
+  .pre-tier-fill-2 {
+    background: #003087;
+    opacity: 0.6;
+    width: 50%;
+  }
+  .pre-tier-fill-3 {
+    background: #003087;
+    opacity: 0.3;
+    width: 28%;
+  }
+  .pre-tier-text {
+  }
+  .pre-tier-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+  }
+  .pre-tier-sub {
+    font-size: 11px;
+    color: #9ca3af;
+  }
+
+  /* ── Performance chain ── */
+  .pre-chain {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 24px;
+  }
+  @media (min-width: 640px) {
+    .pre-chain {
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+  }
+  .pre-chain-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pre-chain-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .pre-chain-text {
+  }
+  .pre-chain-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #111827;
+  }
+  .pre-chain-sub {
+    font-size: 10px;
+    color: #9ca3af;
+    line-height: 1.3;
+  }
+  .pre-chain-arrow {
+    font-size: 18px;
+    color: #003087;
+    font-weight: 700;
+    flex-shrink: 0;
+    display: none;
+  }
+  @media (min-width: 640px) {
+    .pre-chain-arrow {
+      display: block;
+    }
+  }
+
+  /* ── Capacity bar ── */
+  .pre-capacity-bar {
+    width: 100%;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .pre-capacity-fill {
+    height: 100%;
+    background: #003087;
+    border-radius: 4px;
+    transition: width 600ms ease-out;
+  }
+  .pre-capacity-label {
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 4px;
+  }
+
+  /* ── Sticky panel ── */
+  .pre-sticky-col {
+    position: relative;
+  }
+  .pre-sticky-panel {
+    position: sticky;
+    top: 108px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    margin: 32px 24px 32px 0;
+    padding: 24px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+  }
+  .pre-panel-header {
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .pre-panel-title {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #9ca3af;
+    margin-bottom: 4px;
+  }
+  .pre-panel-subtitle {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  /* Score ring */
+  .pre-score-ring-wrap {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+  }
+  .pre-score-svg {
+    width: 120px;
+    height: 120px;
+  }
+  .pre-score-track {
+    stroke: #f3f4f6;
+  }
+  .pre-score-arc {
+    stroke: #003087;
+    transition:
+      stroke-dashoffset 600ms ease-out,
+      stroke 300ms ease-in-out;
+  }
+  .pre-score-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .pre-score-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    transition: color 300ms ease-in-out;
+  }
+  .pre-score-label {
+    font-size: 10px;
+    color: #9ca3af;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Factor bars */
+  .pre-factor-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .pre-fbar {
+  }
+  .pre-fbar-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .pre-fbar-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+  }
+  .pre-fbar-status {
+    font-size: 11px;
+    font-weight: 600;
+    color: #d1d5db;
+    transition: color 300ms ease-in-out;
+  }
+  .pre-fbar-track {
+    width: 100%;
+    height: 6px;
+    background: #f3f4f6;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .pre-fbar-fill {
+    height: 100%;
+    background: #003087;
+    border-radius: 3px;
+    transition: width 600ms ease-out;
+  }
+  .pre-fbar-fill-lead {
+    background: #c9a24d;
+  }
+
+  /* Recommendation badge */
+  .pre-rec-badge {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #e8edf5;
+    border: 1px solid rgba(0, 48, 135, 0.2);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #003087;
+  }
+  .pre-rec-badge.pre-rec-visible {
+    display: flex;
+  }
+  .pre-panel-note {
+    font-size: 11px;
+    color: #9ca3af;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ── Full-width patient reveal ── */
+  .pre-result-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  }
+  .pre-result-card-top {
+    border-color: #c9a24d;
+    border-width: 2px;
+    box-shadow:
+      0 8px 32px rgba(201, 162, 77, 0.15),
+      0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+  .pre-result-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(201, 162, 77, 0.1);
+    border: 1px solid rgba(201, 162, 77, 0.3);
+    border-radius: 50px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #b8901f;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+  }
+  .pre-result-confidence {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .pre-result-confidence-label {
+    font-size: 11px;
+    color: #9ca3af;
+    flex-shrink: 0;
+  }
+  .pre-result-conf-bar {
+    flex: 1;
+    height: 6px;
+    background: #f3f4f6;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .pre-result-conf-fill {
+    height: 100%;
+    width: 92%;
+    background: #003087;
+    border-radius: 3px;
+  }
+  .pre-result-confidence-val {
+    font-size: 12px;
+    font-weight: 700;
+    color: #003087;
+    flex-shrink: 0;
+  }
+  .pre-result-reasons {
+    background: #f9fafb;
+    border: 1px solid #f3f4f6;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+  }
+  .pre-result-cta {
+    width: 100%;
+    background: #003087;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  .pre-result-other {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .pre-result-other-name {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+  }
+  .pre-result-other-price {
+    font-size: 13px;
+    font-weight: 700;
+    color: #003087;
+    flex-shrink: 0;
+  }
+  .pre-result-other-conf-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .pre-result-other-conf-bar {
+    width: 60px;
+    height: 4px;
+    background: #f3f4f6;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .pre-result-other-conf-fill {
+    height: 100%;
+    background: #003087;
+    opacity: 0.4;
+    border-radius: 2px;
+  }
+  .pre-result-other-conf-val {
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    width: 30px;
+    text-align: right;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .pre-section {
+      padding: 60px 20px;
+      min-height: auto;
+    }
+  }
+
+  /* §15.8 */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+
+<!-- ═══════════════════════════════════════════════════
+    SCRIPT
+    Scroll-driven — IntersectionObserver
+    Scoring simulator — CSS transitions only
+    §15.2 All transitions ≤300ms (CSS handles easing)
+    §15.3 No parallax, no infinite loops
+  ════════════════════════════════════════════════════ -->
+<script>
+  (function () {
+    "use strict";
+
+    // ── Factor configuration (public model only — no exact weights) ──
+    const FACTORS = [
+      {
+        id: 0,
+        name: "Price",
+        fill: 88,
+        label: "Competitive",
+        section: "pre-factors",
+      },
+      {
+        id: 1,
+        name: "Proximity",
+        fill: 76,
+        label: "2.4 mi away",
+        section: "pre-factors",
+      },
+      {
+        id: 2,
+        name: "Availability",
+        fill: 82,
+        label: "2-day avg",
+        section: "pre-factors",
+      },
+      {
+        id: 3,
+        name: "Experience",
+        fill: 93,
+        label: "4.8★",
+        section: "pre-factors",
+      },
+      {
+        id: 4,
+        name: "Accreditation",
+        fill: 100,
+        label: "ACR ✓",
+        section: "pre-factors",
+      },
+    ];
+
+    // Target score: 92 — displayed without any formula context
+    const TARGET_SCORE = 92;
+
+    // ── State ──
+    let activeSection = 0;
+    let activeFactors = 0; // how many factor bars are filled
+    let currentScore = 0;
+    let scoreRaf = null;
+
+    // ── DOM refs ──
+    const scoreNumEl = document.getElementById("pre-score-num");
+    const scoreArcEl = document.getElementById("pre-score-arc");
+    const recBadgeEl = document.getElementById("pre-rec-badge");
+    const panelNoteEl = document.getElementById("pre-panel-note");
+    const CIRCUM = 314; // 2π × 50
+
+    // ── Update score arc ──
+    function updateArc(score) {
+      if (!scoreArcEl) return;
+      const pct = score / 100;
+      const offset = CIRCUM - CIRCUM * pct;
+      scoreArcEl.style.strokeDashoffset = offset;
+      // Color: navy below 70, gold at 90+
+      scoreArcEl.style.stroke = score >= 90 ? "#C9A24D" : "#003087";
+    }
+
+    // ── Animate score number ──
+    function animateScore(target) {
+      if (scoreRaf) cancelAnimationFrame(scoreRaf);
+      const start = currentScore;
+      const diff = target - start;
+      const duration = 600;
+      const startTime = performance.now();
+
+      function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // ease-out
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const val = Math.round(start + diff * eased);
+        if (scoreNumEl) scoreNumEl.textContent = val;
+        updateArc(val);
+        if (progress < 1) {
+          scoreRaf = requestAnimationFrame(step);
+        } else {
+          currentScore = target;
+          scoreRaf = null;
+        }
+      }
+      scoreRaf = requestAnimationFrame(step);
+    }
+
+    // ── Set factor bar state ──
+    function setFactor(id, active) {
+      const fillEl = document.getElementById("pre-fbar-fill-" + id);
+      const statusEl = document.getElementById("pre-fbar-status-" + id);
+      if (!fillEl || !statusEl) return;
+
+      if (active) {
+        fillEl.style.width = FACTORS[id].fill + "%";
+        statusEl.textContent = FACTORS[id].label;
+        statusEl.style.color = id === 0 ? "#b8901f" : "#003087";
+      } else {
+        fillEl.style.width = "0%";
+        statusEl.textContent = "—";
+        statusEl.style.color = "";
+      }
+    }
+
+    // ── Apply state for a given number of active factors ──
+    function applyFactors(n) {
+      if (n === activeFactors) return;
+      activeFactors = n;
+
+      for (let i = 0; i < 5; i++) {
+        setFactor(i, i < n);
+      }
+
+      // Score: each factor contributes a visible increment
+      // Price (dominant) → large jump; each subsequent adds meaningfully
+      const scores = [0, 38, 55, 70, 83, TARGET_SCORE];
+      const target = scores[Math.min(n, 5)];
+      animateScore(target);
+
+      // Recommendation badge
+      if (n >= 5) {
+        recBadgeEl && recBadgeEl.classList.add("pre-rec-visible");
+        recBadgeEl && recBadgeEl.removeAttribute("aria-hidden");
+        if (panelNoteEl)
+          panelNoteEl.textContent =
+            "This center earns the primary recommendation in its market.";
+      } else {
+        recBadgeEl && recBadgeEl.classList.remove("pre-rec-visible");
+        recBadgeEl && recBadgeEl.setAttribute("aria-hidden", "true");
+        if (panelNoteEl) {
+          const remaining = 5 - n;
+          panelNoteEl.textContent =
+            n === 0
+              ? "Scroll through the factors to see how each signal builds your score."
+              : remaining +
+                " factor" +
+                (remaining > 1 ? "s" : "") +
+                " remaining.";
+        }
+      }
+    }
+
+    // ── Active factor card highlight ──
+    function highlightFactor(idx) {
+      document.querySelectorAll(".pre-factor").forEach(function (el, i) {
+        if (i === idx) {
+          el.classList.add("pre-factor-active");
+        } else {
+          el.classList.remove("pre-factor-active");
+        }
+      });
+    }
+
+    // ── Section nav active state ──
+    const SECTION_IDS = [
+      "pre-system",
+      "pre-factors",
+      "pre-patient",
+      "pre-fairness",
+      "pre-position",
+      "pre-founding",
+    ];
+    function setNavActive(id) {
+      document.querySelectorAll(".pre-snav-item").forEach(function (el) {
+        const active = el.dataset.section === id;
+        el.classList.toggle("pre-snav-active", active);
+      });
+    }
+
+    // ── Intersection Observer for sections ──
+    const sectionObs = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          const id = e.target.id;
+          const idx = parseInt(e.target.dataset.section || "0", 10);
+
+          setNavActive(id);
+          activeSection = idx;
+
+          // Simulator logic based on which section is in view
+          if (id === "pre-system" && activeFactors === 0) {
+            applyFactors(0);
+          } else if (id === "pre-factors") {
+            // Will be handled by factor-level observer below
+            // Start with 1 factor filled to prompt curiosity
+            if (activeFactors === 0) applyFactors(1);
+          } else if (
+            id === "pre-patient" ||
+            id === "pre-fairness" ||
+            id === "pre-position" ||
+            id === "pre-founding"
+          ) {
+            applyFactors(5);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "-80px 0px" },
+    );
+
+    SECTION_IDS.forEach(function (id) {
+      const el = document.getElementById(id);
+      if (el) sectionObs.observe(el);
+    });
+
+    // ── Intersection Observer for individual factor cards ──
+    // Each factor card entering view fills that factor in the panel
+    const factorObs = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          const idx = parseInt(e.target.dataset.factor || "0", 10);
+          // Fill all factors up to and including this one
+          applyFactors(idx + 1);
+          highlightFactor(idx);
+        });
+      },
+      { threshold: 0.5, rootMargin: "-60px 0px" },
+    );
+
+    document
+      .querySelectorAll(".pre-factor[data-factor]")
+      .forEach(function (el) {
+        factorObs.observe(el);
+      });
+
+    // ── Pill / nav scroll-to ──
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    document.querySelectorAll(".pre-pill[data-goto]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        scrollToSection(btn.dataset.goto);
+      });
+    });
+
+    document
+      .querySelectorAll(".pre-snav-item[data-section]")
+      .forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          scrollToSection(btn.dataset.section);
+        });
+      });
+  })();
+</script>
