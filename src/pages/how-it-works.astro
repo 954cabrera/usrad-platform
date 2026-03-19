@@ -79,7 +79,7 @@ export const prerender = true;
         >
         <button class="hero-step" data-step="2">
           <span class="step-num">2</span>
-          <span class="step-lbl">Compare</span>
+          <span class="step-lbl">Recommended</span>
         </button>
         <svg
           class="step-arrow"
@@ -167,7 +167,7 @@ export const prerender = true;
       <span class="wps-connector"></span>
       <button class="wps-step" data-goto="2">
         <span class="wps-indicator"></span>
-        <span class="wps-label">Compare</span>
+        <span class="wps-label">Recommended</span>
       </button>
       <span class="wps-connector"></span>
       <button class="wps-step" data-goto="3">
@@ -231,20 +231,24 @@ export const prerender = true;
             <div class="walk-inner">
               <div class="walk-step-chip">
                 <span class="chip-num chip-blue">2</span>
-                <span class="chip-label">Compare · Complete transparency</span>
+                <span class="chip-label"
+                  >Recommended · Ranked by performance</span
+                >
               </div>
-              <h2 class="walk-h2">Compare with<br />Complete Transparency</h2>
+              <h2 class="walk-h2">
+                Your Best Option,<br />Ranked and Explained
+              </h2>
               <p class="walk-p">
-                See everything upfront: all-inclusive prices, network status,
-                distance, and availability. No hidden fees. No billing
-                surprises. Results include two tiers — so you always have
-                options.
+                USRad's recommendation engine evaluates every imaging center in
+                your area and selects the top-ranked provider — based on price,
+                proximity, and verified quality. This is the best overall option
+                available, presented first with full transparency.
               </p>
               <ul class="walk-list">
                 <li>
                   <span class="wl-check">✓</span><span
-                    ><strong>USRad Network Partners</strong> — available for immediate
-                    online booking</span
+                    ><strong>USRad Network Partners</strong> — ranked by price, proximity,
+                    and ACR accreditation so the best option appears first</span
                   >
                 </li>
                 <li>
@@ -429,7 +433,7 @@ export const prerender = true;
                 class="sdot active"
                 data-target="1"
                 aria-label="Step 1 — Search"></button>
-              <button class="sdot" data-target="2" aria-label="Step 2 — Compare"
+              <button class="sdot" data-target="2" aria-label="Step 2 — Recommended"
               ></button>
               <button class="sdot" data-target="3" aria-label="Step 3 — Request"
               ></button>
@@ -456,7 +460,7 @@ export const prerender = true;
                   2. Add: <img src="/images/hiw/step[N]-[name].png"
                                alt="descriptive alt text"
                                class="w-full h-full object-cover object-top" />
-                  3. Recommended crop: 1200×800px, no browser chrome,
+                  3. Change crop: 1200×800px, no browser chrome,
                      zoom UI to 110–115% before cropping, clean demo data
 
                 SCREENSHOT SOURCES (from your walkthrough session):
@@ -488,7 +492,7 @@ export const prerender = true;
                 <div class="screen-glow"></div>
               </div>
 
-              <!-- SCREEN 2: Compare -->
+              <!-- SCREEN 2: Recommended -->
               <div class="screen-card" id="sc-2">
                 <div class="screen-device">
                   <div class="screen-chrome">
@@ -757,7 +761,7 @@ export const prerender = true;
             <div class="pipeline-connector-h"></div>
             <div class="pipeline-node">
               <span class="pn-num">2</span>
-              <span class="pn-label">Compare prices</span>
+              <span class="pn-label">Recommended prices</span>
             </div>
             <div class="pipeline-connector-h"></div>
             <div class="pipeline-node">
@@ -2173,7 +2177,7 @@ export const prerender = true;
   <script>
     (function () {
       const STEPS = [1, 2, 3, 4];
-      const LABELS = ["Search", "Compare", "Request", "Appointment Secured"];
+      const LABELS = ["Search", "Recommended", "Request", "Appointment Secured"];
       let current = 1;
       let transitioning = false; // scroll-lock flag
 
