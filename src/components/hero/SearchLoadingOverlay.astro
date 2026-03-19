@@ -45,11 +45,11 @@ import BrandLogo from "../brand/BrandLogo.astro";
         </span>
         <span id="step-2" class="flex items-center gap-1 opacity-50">
           <span class="w-2 h-2 rounded-full bg-gray-300"></span>
-          Finding centers
+          Evaluating providers
         </span>
         <span id="step-3" class="flex items-center gap-1 opacity-50">
           <span class="w-2 h-2 rounded-full bg-gray-300"></span>
-          Comparing prices
+          Selecting best match
         </span>
       </div>
     </div>
@@ -57,14 +57,14 @@ import BrandLogo from "../brand/BrandLogo.astro";
     <!-- Dynamic status message -->
     <div class="text-center mb-8">
       <h2 id="loading-title" class="text-2xl font-bold text-gray-900 mb-2">
-        Finding the best prices near you...
+        Identifying your best option...
       </h2>
       <p id="loading-subtitle" class="text-gray-600">
-        Searching <span
+        Evaluating <span
           id="loading-procedure"
           class="font-medium text-[#003087]">MRI</span
         >
-        centers within <span id="loading-radius" class="font-medium"
+        providers within <span id="loading-radius" class="font-medium"
           >25 miles</span
         >
       </p>
@@ -113,7 +113,7 @@ import BrandLogo from "../brand/BrandLogo.astro";
             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
           ></path>
         </svg>
-        <span>Loading more centers...</span>
+        <span>Ranking providers by price, proximity, and quality...</span>
       </div>
     </div>
 
@@ -212,28 +212,28 @@ import BrandLogo from "../brand/BrandLogo.astro";
           target: 25,
           duration: 800,
           step: 1,
-          title: "Locating imaging centers...",
-          subtitle: "Searching nearby facilities",
+          title: "Evaluating providers in your area...",
+          subtitle: "Scanning nearby facilities",
         },
         {
           target: 50,
           duration: 1500,
           step: 2,
-          title: "Comparing prices...",
-          subtitle: "Finding the best deals",
+          title: "Ranking by price, proximity, and quality...",
+          subtitle: "Identifying your top-ranked option",
         },
         {
           target: 75,
           duration: 2000,
           step: 3,
-          title: "Almost ready...",
-          subtitle: "Preparing your results",
+          title: "Your best match is ready...",
+          subtitle: "Preparing your recommendation",
         },
         {
           target: 90,
           duration: 3000,
           step: 3,
-          title: "Finalizing...",
+          title: "Almost there...",
           subtitle: "Just a moment more",
         },
       ];
