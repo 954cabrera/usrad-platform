@@ -129,8 +129,8 @@
               <div class="node-title text-gray-900">USRad Network Layer</div>
               <div class="node-desc">
                 Order verified. Transparent pricing established. Assignment
-                routed to the right participating center based on availability,
-                accreditation, and proximity.
+                routed to the highest-performing participating center based on
+                price, proximity, and verified clinical quality.
               </div>
             </div>
             <div class="node-badge bg-[#cc9933]/10 text-[#cc9933]">
@@ -426,115 +426,120 @@
         Your front desk schedules the patient. Your team performs the study.
         USRad handles verification, pricing, coordination, and payment.
       </p>
-    <a
-      href="/provider/portal-tour" class="inline-flex items-center gap-2 mt-8
+      <a
+        href="/provider/portal-tour"
+        class="inline-flex items-center gap-2 mt-8
       text-[#cc9933] hover:text-[#e8b84b] text-sm font-semibold
-      transition-colors duration-200 group" > See the portal in action
-      <span class="group-hover:translate-x-1 transition-transform duration-200"
-        >→</span
+      transition-colors duration-200 group"
       >
+        See the portal in action
+        <span
+          class="group-hover:translate-x-1 transition-transform duration-200"
+          >→</span
+        >
+      </a>
     </div>
   </div>
-</section>
 
-<style>
-  .flow-node-wrapper {
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
-
-  .flow-node {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    width: 100%;
-    max-width: 640px;
-    padding: 20px 24px;
-    border-radius: 16px;
-    border-width: 2px;
-    border-style: solid;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 1;
-  }
-
-  .flow-node:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
-  }
-
-  .node-icon-wrap {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .node-content {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .node-step {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 4px;
-  }
-
-  .node-title {
-    font-size: 17px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    line-height: 1.3;
-  }
-
-  .node-desc {
-    font-size: 14px;
-    color: #6b7280;
-    line-height: 1.6;
-  }
-
-  .node-badge {
-    font-size: 11px;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 999px;
-    white-space: nowrap;
-    align-self: flex-start;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .flow-arrow {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 6px 0;
-    position: relative;
-    z-index: 1;
-  }
-
-  @media (max-width: 640px) {
-    .flow-node {
-      flex-wrap: wrap;
-      gap: 12px;
+  <style>
+    .flow-node-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
     }
 
-    .node-badge {
-      align-self: auto;
-      margin-top: 0;
+    .flow-node {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      width: 100%;
+      max-width: 640px;
+      padding: 20px 24px;
+      border-radius: 16px;
+      border-width: 2px;
+      border-style: solid;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .flow-node:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+    }
+
+    .node-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .node-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .node-step {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
     }
 
     .node-title {
-      font-size: 16px;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      line-height: 1.3;
     }
-  }
-</style>
+
+    .node-desc {
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .node-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      align-self: flex-start;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .flow-arrow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 640px) {
+      .flow-node {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .node-badge {
+        align-self: auto;
+        margin-top: 0;
+      }
+
+      .node-title {
+        font-size: 16px;
+      }
+    }
+  </style>
+</section>

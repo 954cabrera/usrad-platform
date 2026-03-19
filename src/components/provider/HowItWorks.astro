@@ -276,11 +276,12 @@ const REMIX_URL =
 
         <!-- Content -->
         <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">
-          Receive Patients
+          Receive Assignments
         </h3>
         <p class="text-gray-600 text-center mb-6 leading-relaxed">
-          Once approved, patients start booking appointments. You receive
-          notifications and can track everything in your dashboard.
+          Once approved, patient assignments are routed to your center based on
+          price, proximity, and verified clinical quality. You receive
+          notifications and track everything in your dashboard.
         </p>
 
         <!-- Features List -->
@@ -367,106 +368,111 @@ const REMIX_URL =
         Join the network in minutes • No credit card required
       </p>
       <a
-      href="/provider/portal-tour" class="inline-flex items-center gap-2 mt-4
+        href="/provider/portal-tour"
+        class="inline-flex items-center gap-2 mt-4
       text-[#003087] hover:text-[#cc9933] text-sm font-medium transition-colors
-      duration-200 group" > Take the portal tour
-      <span class="group-hover:translate-x-1 transition-transform duration-200"
-        >→</span
+      duration-200 group"
       >
+        Take the portal tour
+        <span
+          class="group-hover:translate-x-1 transition-transform duration-200"
+          >→</span
+        >
+      </a>
     </div>
   </div>
-</section>
 
-<style>
-  .section-subtitle {
-    @apply text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  /* Tooltip Styles */
-  .tooltip-wrapper {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    cursor: help;
-  }
-
-  .info-icon {
-    width: 18px;
-    height: 18px;
-    color: #cc9933;
-    transition: transform 0.2s ease;
-  }
-
-  .tooltip-wrapper:hover .info-icon {
-    transform: scale(1.1);
-  }
-
-  .tooltip-text {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-8px);
-    background: linear-gradient(135deg, #003087 0%, #004299 100%);
-    color: white;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition:
-      opacity 0.3s ease,
-      transform 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 48, 135, 0.3);
-    z-index: 1000;
-  }
-
-  /* Tooltip arrow */
-  .tooltip-text::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-top-color: #003087;
-  }
-
-  .tooltip-wrapper:hover .tooltip-text {
-    opacity: 1;
-    transform: translateX(-50%) translateY(-12px);
-  }
-
-  /* Mobile adjustments */
-  @media (max-width: 640px) {
-    .tooltip-text {
-      white-space: normal;
-      max-width: 200px;
-      text-align: center;
-      font-size: 12px;
-      padding: 8px 12px;
-    }
-  }
-
-  /* Step Cards */
-  .step-card {
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-  }
-
-  .step-card:hover {
-    border-color: #cc9933;
-  }
-
-  /* Mobile Responsiveness */
-  @media (max-width: 768px) {
+  <style>
     .section-subtitle {
-      flex-direction: column;
-      gap: 12px;
+      @apply text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
-  }
-</style>
+
+    /* Tooltip Styles */
+    .tooltip-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: help;
+    }
+
+    .info-icon {
+      width: 18px;
+      height: 18px;
+      color: #cc9933;
+      transition: transform 0.2s ease;
+    }
+
+    .tooltip-wrapper:hover .info-icon {
+      transform: scale(1.1);
+    }
+
+    .tooltip-text {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: linear-gradient(135deg, #003087 0%, #004299 100%);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 48, 135, 0.3);
+      z-index: 1000;
+    }
+
+    /* Tooltip arrow */
+    .tooltip-text::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: #003087;
+    }
+
+    .tooltip-wrapper:hover .tooltip-text {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-12px);
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 640px) {
+      .tooltip-text {
+        white-space: normal;
+        max-width: 200px;
+        text-align: center;
+        font-size: 12px;
+        padding: 8px 12px;
+      }
+    }
+
+    /* Step Cards */
+    .step-card {
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .step-card:hover {
+      border-color: #cc9933;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .section-subtitle {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
+</section>
