@@ -14,7 +14,27 @@ const REMIX_API_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
-    const { name, email, company, source, roiData } = data;
+    const { name, email, company, source, roiData, website_url, form_start } = data;
+
+    // ── Anti-bot: honeypot ──
+    if (website_url) {
+      console.log("[Guide] Honeypot triggered — bot blocked:", { email, company });
+      return new Response(JSON.stringify({ success: true, message: "Guide sent to your inbox" }), { status: 200, headers: { "Content-Type": "application/json" } });
+    }
+
+    // ── Anti-bot: timing check ──
+    const elapsed = form_start ? Date.now() - Number(form_start) : 99999;
+    if (elapsed < 3000) {
+      console.log("[Guide] Timing check failed:", elapsed, "ms");
+      return new Response(JSON.stringify({ success: true, message: "Guide sent to your inbox" }), { status: 200, headers: { "Content-Type": "application/json" } });
+    }
+
+    // ── Anti-bot: free email domain block ──
+    const FREE_EMAIL_DOMAINS = ["gmail.com","yahoo.com","hotmail.com","outlook.com","aol.com","icloud.com","protonmail.com","mail.com","ymail.com","live.com"];
+    const emailDomain = email?.split("@")[1]?.toLowerCase();
+    if (FREE_EMAIL_DOMAINS.includes(emailDomain)) {
+      return new Response(JSON.stringify({ success: false, message: "Please use your work email address." }), { status: 400, headers: { "Content-Type": "application/json" } });
+    }
 
     // Validate required fields
     if (!name || !email || !company) {

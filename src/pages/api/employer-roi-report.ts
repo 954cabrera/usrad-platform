@@ -17,7 +17,41 @@ export const POST: APIRoute = async ({ request }) => {
       wcScans,
       healthScans,
       avgCost,
+      website_url,
+      form_start,
     } = body;
+
+    // ── Anti-bot: honeypot (bots fill hidden fields; humans don't) ──
+    if (website_url) {
+      console.log("[ROI] Honeypot triggered — bot submission blocked:", { contactEmail, companyName });
+      return new Response(
+        JSON.stringify({ success: true }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // ── Anti-bot: timing check (real users take > 3s to fill a form) ──
+    const elapsed = form_start ? Date.now() - Number(form_start) : 99999;
+    if (elapsed < 3000) {
+      console.log("[ROI] Timing check failed — submission too fast:", elapsed, "ms");
+      return new Response(
+        JSON.stringify({ success: true }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // ── Anti-bot: block free/consumer email domains ──
+    const FREE_EMAIL_DOMAINS = [
+      "gmail.com","yahoo.com","hotmail.com","outlook.com","aol.com",
+      "icloud.com","protonmail.com","mail.com","ymail.com","live.com",
+    ];
+    const emailDomain = contactEmail?.split("@")[1]?.toLowerCase();
+    if (FREE_EMAIL_DOMAINS.includes(emailDomain)) {
+      return new Response(
+        JSON.stringify({ error: "Please use your work email address." }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
 
     // ── Validation ──
     if (!companyName || !contactEmail || !totalEmployees) {

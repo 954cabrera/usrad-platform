@@ -400,6 +400,20 @@ const { class: className = "" } = Astro.props;
       </p>
 
       <form id="roi-form" class="space-y-4" novalidate>
+        <input type="hidden" id="roi-form-start" name="form_start" value="" />
+        <div
+          style="position:absolute;left:-9999px;top:-9999px;"
+          aria-hidden="true"
+        >
+          <input
+            type="text"
+            id="roi-website-url"
+            name="website_url"
+            tabindex="-1"
+            autocomplete="off"
+            placeholder="https://yourcompany.com"
+          />
+        </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1.5">
             Full Name <span class="text-red-500">*</span>
@@ -637,6 +651,12 @@ const { class: className = "" } = Astro.props;
     const modal = document.getElementById("roi-modal");
     if (!modal) return;
 
+    // Anti-bot: stamp the time the modal was opened
+    const roiFormStart = document.getElementById(
+      "roi-form-start",
+    ) as HTMLInputElement;
+    if (roiFormStart) roiFormStart.value = Date.now().toString();
+
     // Sync modal savings display
     const modalSavings = document.getElementById("modal-savings-display");
     const modalCtx = document.getElementById("modal-context-display");
@@ -697,6 +717,30 @@ const { class: className = "" } = Astro.props;
       errorEl.classList.remove("hidden");
       return;
     }
+    const FREE_DOMAINS = [
+      "gmail.com",
+      "yahoo.com",
+      "hotmail.com",
+      "outlook.com",
+      "aol.com",
+      "icloud.com",
+      "protonmail.com",
+      "mail.com",
+      "ymail.com",
+      "live.com",
+    ];
+    if (FREE_DOMAINS.includes(email.split("@")[1]?.toLowerCase())) {
+      errorEl.textContent = "Please use your work email address.";
+      errorEl.classList.remove("hidden");
+      return;
+    }
+
+    const roiWebsiteUrl = (
+      document.getElementById("roi-website-url") as HTMLInputElement
+    ).value;
+    const roiFormStart = (
+      document.getElementById("roi-form-start") as HTMLInputElement
+    ).value;
 
     // Loading state
     submitBtn.disabled = true;
@@ -715,6 +759,8 @@ const { class: className = "" } = Astro.props;
           email,
           company,
           source: "roi-calculator",
+          website_url: roiWebsiteUrl,
+          form_start: roiFormStart,
           roiData: {
             employees: currentEmployees.toLocaleString(),
             projectedSavings: `$${currentSavings.toLocaleString()}`,
@@ -739,6 +785,8 @@ const { class: className = "" } = Astro.props;
           wcScans,
           healthScans,
           avgCost,
+          website_url: roiWebsiteUrl,
+          form_start: roiFormStart,
         }),
       });
 
