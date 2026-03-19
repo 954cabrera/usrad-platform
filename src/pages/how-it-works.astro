@@ -66,7 +66,7 @@ export const prerender = true;
       >
         <button class="hero-step active" data-step="1">
           <span class="step-num">1</span>
-          <span class="step-lbl">Search</span>
+          <span class="step-lbl">Tell Us</span>
         </button>
         <svg
           class="step-arrow"
@@ -134,7 +134,7 @@ export const prerender = true;
           href="/#hero-search"
           class="inline-flex items-center gap-2 bg-[#C4982A] hover:bg-[#b8891f] text-white font-bold px-8 py-4 rounded-xl text-lg transition-all transform hover:scale-105 shadow-2xl shadow-[#C4982A]/30"
         >
-          Find Centers Near You
+          Get Your Best Match
           <svg
             class="w-5 h-5"
             fill="none"
@@ -148,7 +148,7 @@ export const prerender = true;
           >
         </a>
         <p class="text-xs text-white/35 mt-3 tracking-wide">
-          No account needed · Free search · HIPAA compliant
+          No account needed · Instant recommendation · HIPAA compliant
         </p>
       </div>
     </div>
@@ -190,21 +190,23 @@ export const prerender = true;
             <div class="walk-inner">
               <div class="walk-step-chip">
                 <span class="chip-num chip-blue">1</span>
-                <span class="chip-label">Search · Under 30 seconds</span>
+                <span class="chip-label"
+                  >Tell Us · 30 seconds to get matched</span
+                >
               </div>
               <h2 class="walk-h2">
-                Choose Your Scan.<br />Enter Your ZIP Code.
+                Tell Us Your Scan.<br />Enter Your ZIP Code.
               </h2>
               <p class="walk-p">
-                No phone calls. No referral required to search. Select your
-                procedure from our curated list, enter your location, and
-                instantly see imaging centers near you — with real,
-                all-inclusive prices displayed upfront.
+                No phone calls. No referral required. Tell us your procedure,
+                enter your location, and USRad instantly identifies the best
+                imaging center for you — with all-inclusive pricing displayed
+                upfront.
               </p>
               <ul class="walk-list">
                 <li>
                   <span class="wl-check">✓</span><span
-                    >MRI, CT, X-ray and more — browse from one search</span
+                    >MRI, CT, X-ray and more — all from one request</span
                   >
                 </li>
                 <li>
@@ -214,12 +216,12 @@ export const prerender = true;
                 </li>
                 <li>
                   <span class="wl-check">✓</span><span
-                    >Map and list views — filter by distance or network tier</span
+                    >Map and list views — ranked by distance, price, and quality</span
                   >
                 </li>
                 <li>
                   <span class="wl-check">✓</span><span
-                    >Completely anonymous — no login required to search</span
+                    >Completely anonymous — no login required</span
                   >
                 </li>
               </ul>
@@ -276,11 +278,11 @@ export const prerender = true;
                     About the Discovery Network
                   </p>
                   <p class="text-sm text-gray-600">
-                    USRad displays 27,000+ ACR-accredited facilities nationwide
-                    so members always see options — even before a center has
-                    joined our contracted network. Discovery Network centers
-                    allow you to register interest, feeding our provider
-                    recruitment directly.
+                    USRad evaluates 27,000+ ACR-accredited facilities nationwide
+                    so the recommendation engine always has coverage — even
+                    before a center has joined our contracted network. Discovery
+                    Network centers allow you to register interest, feeding our
+                    provider recruitment directly.
                   </p>
                 </div>
               </div>
@@ -433,8 +435,10 @@ export const prerender = true;
                 class="sdot active"
                 data-target="1"
                 aria-label="Step 1 — Search"></button>
-              <button class="sdot" data-target="2" aria-label="Step 2 — Recommended"
-              ></button>
+              <button
+                class="sdot"
+                data-target="2"
+                aria-label="Step 2 — Recommended"></button>
               <button class="sdot" data-target="3" aria-label="Step 3 — Request"
               ></button>
               <button class="sdot" data-target="4" aria-label="Step 4 — Done"
@@ -505,7 +509,7 @@ export const prerender = true;
                   <div class="screen-body flex items-center justify-center p-2">
                     <img
                       src="/images/hiw/step2-final.png"
-                      alt="USRad search results showing $267.30 pricing with Request Appointment button"
+                      alt="USRad recommendation showing $267.30 pricing with Request Appointment button"
                       class="w-full max-w-[600px] object-contain"
                     />
                   </div>
@@ -921,8 +925,8 @@ export const prerender = true;
           <p class="text-2xl font-black mb-3">What is Guided Imaging?</p>
           <p class="text-white/65 leading-relaxed">
             Instead of navigating hospitals, insurance approvals, and billing
-            departments yourself, USRad guides your imaging journey from search
-            to results — coordinating every step behind the scenes.
+            departments yourself, USRad identifies the best imaging center for
+            you and coordinates every step behind the scenes.
           </p>
         </div>
       </div>
@@ -1198,7 +1202,7 @@ export const prerender = true;
         data-aos-delay="150"
       >
         <div class="flex items-center justify-between mb-5">
-          <p class="font-bold text-gray-900">Start Your Search</p>
+          <p class="font-bold text-gray-900">Get Your Recommendation</p>
           <span class="flex items-center gap-1.5 text-xs text-gray-400"
             ><span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"
             ></span>Available Now</span
@@ -1208,7 +1212,7 @@ export const prerender = true;
           href="/#hero-search"
           class="block w-full bg-[#003087] hover:bg-[#002070] text-white px-8 py-4 rounded-xl font-bold text-lg text-center transition-all transform hover:scale-[1.02] shadow-xl shadow-[#003087]/20"
         >
-          Find Centers Near You →
+          Get Your Best Match →
         </a>
         <p class="text-xs text-gray-400 text-center mt-4">
           🔓 No account needed · 💰 All-inclusive pricing · 🛡️ HIPAA compliant
@@ -1222,7 +1226,7 @@ export const prerender = true;
       >
         {
           [
-            ["30 sec", "to find centers"],
+            ["30 sec", "to get matched"],
             ["70%", "average savings"],
             ["4 hrs", "coordination time"],
             ["4.9★", "member rating"],
@@ -2177,7 +2181,12 @@ export const prerender = true;
   <script>
     (function () {
       const STEPS = [1, 2, 3, 4];
-      const LABELS = ["Search", "Recommended", "Request", "Appointment Secured"];
+      const LABELS = [
+        "Search",
+        "Recommended",
+        "Request",
+        "Appointment Secured",
+      ];
       let current = 1;
       let transitioning = false; // scroll-lock flag
 
