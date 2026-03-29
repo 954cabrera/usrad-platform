@@ -289,7 +289,7 @@ const { title, showBackToMain = true } = Astro.props;
                   ✉️ providers@usrad.com
                 </a>
               </li>
-              <li class="text-gray-500 text-xs">Mon-Fri 8AM-6PM EST</li>
+              <li class="text-gray-500 text-xs">Mon-Fri 9AM-5PM EST</li>
               <li class="text-gray-500 text-xs">Average response: 30 min</li>
             </ul>
           </div>
@@ -331,7 +331,7 @@ const { title, showBackToMain = true } = Astro.props;
           const { createClient } = await import("@supabase/supabase-js");
           const supabase = createClient(
             import.meta.env.PUBLIC_SUPABASE_URL,
-            import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+            import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
           );
 
           await supabase.auth.signOut();
