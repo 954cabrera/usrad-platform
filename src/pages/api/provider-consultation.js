@@ -79,8 +79,8 @@ export const POST = async ({ request }) => {
     // Converts centerCount string to number for VIP detection
     const centerCountNum = (() => {
       if (data.centerCount === '1') return 1;
-      if (data.centerCount === '2-5') return 3;
-      if (data.centerCount === '6-10') return 8;
+      if (data.centerCount === '3-5') return 3;
+      if (data.centerCount === '6-9') return 8;
       if (data.centerCount === '10-20') return 15;
       if (data.centerCount === '21-50') return 35;
       if (data.centerCount === '50+') return 60;
@@ -122,7 +122,7 @@ export const POST = async ({ request }) => {
         // Fallback to direct Resend (simple notification)
         await resend.emails.send({
           from: 'USRad Provider Network <providers@send.usrad.com>',
-          to: import.meta.env.MCABRERA_EMAIL || 'mcabrera@usrad.com',
+          to: import.meta.env.PROVIDERS_EMAIL || 'providers@usrad.com',
           subject: isVIP 
             ? `🎯 HIGH VALUE LEAD - ${data.centerCount} Centers - ${data.organizationName}`
             : `📋 New Provider Inquiry - ${data.centerCount} Centers - ${data.organizationName}`,
@@ -136,7 +136,7 @@ export const POST = async ({ request }) => {
       try {
         await resend.emails.send({
           from: 'USRad Provider Network <providers@send.usrad.com>',
-          to: import.meta.env.MCABRERA_EMAIL || 'mcabrera@usrad.com',
+          to: import.meta.env.PROVIDERS_EMAIL || 'providers@usrad.com',
           subject: isVIP 
             ? `🎯 HIGH VALUE LEAD - ${data.centerCount} Centers - ${data.organizationName}`
             : `📋 New Provider Inquiry - ${data.centerCount} Centers - ${data.organizationName}`,
