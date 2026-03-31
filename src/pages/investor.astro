@@ -47,18 +47,18 @@ export const prerender = true;
           data-aos="fade-down"
         >
           <span class="animate-pulse mr-2">●</span>
-          Series A Opening Q1 2026
+          Series A — Now Open
         </div>
 
         <h1
           class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 md:mb-6"
           data-aos="fade-up"
         >
-          Invest in Healthcare's
+          Built Before. Scaled to 1,200 Centers.
           <span
             class="block text-transparent bg-clip-text bg-gradient-to-r from-[#cc9933] to-yellow-300"
           >
-            Next Transformation
+            Doing It Again.
           </span>
         </h1>
 
@@ -67,9 +67,9 @@ export const prerender = true;
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          USRad is building the infrastructure to deliver affordable medical
-          imaging to 90 million underserved Americans. Join proven operators
-          scaling a $100B+ opportunity.
+          Founder of AnciCare (acquired by a public company) is building the
+          infrastructure layer for diagnostic imaging — bringing a proven model
+          to a $100B+ market serving 90 million underserved Americans.
         </p>
 
         <div
@@ -77,11 +77,11 @@ export const prerender = true;
           data-aos="fade-up"
           data-aos-delay="200"
         >
-          <a
-            href="/contact-carbon"
-            class="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-[#cc9933] text-gray-900 font-bold rounded-full hover:bg-yellow-400 transition transform hover:scale-105 text-sm md:text-base"
+          <button
+            onclick="openInvestorModal()"
+            class="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-[#cc9933] text-gray-900 font-bold rounded-full hover:bg-yellow-400 transition transform hover:scale-105 text-sm md:text-base cursor-pointer"
           >
-            Schedule Investor Call
+            Schedule Investor Briefing
             <svg
               class="ml-2 w-4 md:w-5 h-4 md:h-5"
               fill="none"
@@ -94,10 +94,11 @@ export const prerender = true;
                 stroke-width="2"
                 d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
             </svg>
-          </a>
+          </button>
 
           <a
-            href="#deck"
+            href="/docs/usrad-investor-overview.pdf"
+            download
             class="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-900 transition transform hover:scale-105 text-sm md:text-base"
           >
             <svg
@@ -113,9 +114,18 @@ export const prerender = true;
                 d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
               ></path>
             </svg>
-            Download Deck
+            View Investor Overview
           </a>
         </div>
+
+        <!-- Scarcity / trust line -->
+        <p
+          class="mt-4 text-sm text-gray-400 tracking-wide"
+          data-aos="fade-up"
+          data-aos-delay="250"
+        >
+          Private investor briefings — limited availability
+        </p>
       </div>
 
       <!-- Live metrics -->
@@ -172,6 +182,169 @@ export const prerender = true;
           d="M0 120V60C240 20 480 20 720 60C960 100 1200 100 1440 60V120H0Z"
           fill="white"></path>
       </svg>
+    </div>
+  </section>
+
+  <!-- Founder Section — MOVED ABOVE MARKET (Founder leads the narrative) -->
+  <section class="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section label -->
+      <p
+        class="text-sm uppercase tracking-wider text-[#cc9933] mb-4"
+        data-aos="fade-up"
+      >
+        Founder &amp; Track Record
+      </p>
+
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <!-- LEFT: EDITORIAL NARRATIVE -->
+        <div data-aos="fade-right">
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Built by the Founder Who Already Solved This Once
+          </h2>
+
+          <!-- Gold divider -->
+          <div
+            class="w-24 h-[3px] bg-gradient-to-r from-[#cc9933] to-yellow-400 mb-8"
+          >
+          </div>
+
+          <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
+            <p>
+              Michael Cabrera is the founder of <span
+                class="font-semibold text-gray-900">AnciCare PPO</span
+              > — the first national diagnostic imaging network focused on reducing
+              costs and improving access.
+            </p>
+            <p>
+              He built the network to over <span
+                class="font-semibold text-gray-900">1,200 imaging centers</span
+              >, scaled it to <span class="font-semibold text-gray-900"
+                >$20M in annual revenue</span
+              >, and successfully exited to a public company.
+            </p>
+            <p class="text-xl font-medium text-gray-900">
+              USRad is not a new idea.
+            </p>
+            <p>
+              It is the evolution of that model — rebuilt with modern
+              infrastructure to scale nationally and serve a significantly
+              larger market.
+            </p>
+          </div>
+
+          <!-- Strategic positioning block -->
+          <div
+            class="mt-10 bg-[#003087]/5 border border-[#003087]/10 rounded-xl p-6"
+          >
+            <p class="text-lg font-medium text-gray-900 leading-relaxed">
+              USRad transforms a traditional network into an infrastructure
+              layer — one that actively directs patient demand based on
+              performance, not relationships.
+            </p>
+          </div>
+
+          <!-- Quote -->
+          <blockquote class="mt-10 border-l-4 border-[#cc9933] pl-6 py-2">
+            <p class="text-xl font-medium text-gray-900 italic leading-relaxed">
+              "I've seen firsthand how broken the imaging market is — and how
+              powerful it becomes when you fix it.
+            </p>
+            <p class="text-xl font-medium text-gray-900 italic mt-2">
+              USRad is the next version of that system, built to scale
+              nationally."
+            </p>
+            <cite
+              class="block mt-4 text-sm md:text-base text-gray-600 not-italic"
+            >
+              — Michael Cabrera, Founder &amp; CEO
+            </cite>
+          </blockquote>
+
+          <!-- Credibility strip -->
+          <div class="flex flex-wrap gap-6 mt-6 text-sm text-gray-500">
+            <span>30+ Years in Healthcare</span>
+            <span>·</span>
+            <span>Built First National Imaging Network</span>
+            <span>·</span>
+            <span>Successful Exit to Public Company</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: PROOF PANEL -->
+        <div class="space-y-6" data-aos="fade-left">
+          <!-- Metrics Card -->
+          <div
+            class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100"
+          >
+            <h3 class="text-xl font-semibold text-gray-900 mb-6">
+              Proven Track Record
+            </h3>
+            <div class="grid grid-cols-2 gap-6">
+              <div>
+                <div class="text-3xl font-bold text-[#003087]">$20M+</div>
+                <div class="text-sm text-gray-600 mt-1">Revenue Built</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold text-[#003087]">1,200+</div>
+                <div class="text-sm text-gray-600 mt-1">Centers Networked</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold text-[#003087]">3,000+</div>
+                <div class="text-sm text-gray-600 mt-1">Radiologists</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold text-[#003087]">Exit</div>
+                <div class="text-sm text-gray-600 mt-1">
+                  Public Company Acquisition
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Why This Matters card -->
+          <div class="bg-gray-900 text-white rounded-2xl p-6">
+            <h4 class="text-lg font-semibold mb-4">Why This Matters</h4>
+            <ul class="space-y-3 text-gray-300 text-sm leading-relaxed">
+              <li>
+                · First national imaging network built and scaled from zero
+              </li>
+              <li>· Deep provider relationships across major markets</li>
+              <li>· Proven ability to execute, grow, and exit</li>
+              <li>
+                · Rebuilding the model with modern infrastructure at 10× scale
+              </li>
+            </ul>
+          </div>
+
+          <!-- Platform screenshot -->
+          <div
+            class="relative rounded-2xl overflow-hidden shadow-xl border border-gray-100"
+          >
+            <div class="bg-gray-900 rounded-t-lg p-2">
+              <div class="flex items-center gap-2 px-2">
+                <div class="flex gap-1.5">
+                  <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div class="flex-1 flex justify-center">
+                  <div
+                    class="bg-gray-800 rounded px-4 py-1 text-xs text-gray-400"
+                  >
+                    app.usrad.com
+                  </div>
+                </div>
+              </div>
+            </div>
+            <img
+              src="/images/usrad-platform-dashboard.png"
+              alt="USRad Platform Dashboard showing real-time appointment management"
+              class="w-full h-auto"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -297,208 +470,6 @@ export const prerender = true;
     </div>
   </section>
 
-  <!-- Founder Section -->
-  <section class="py-12 md:py-20 bg-gradient-to-br from-gray-50 to-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
-        <div data-aos="fade-right">
-          <h2
-            class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6"
-          >
-            Founded by a Proven Operator
-          </h2>
-          <div class="space-y-4 md:space-y-6">
-            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-              <span class="font-semibold">Michael Cabrera</span> previously founded
-              <span class="font-semibold">AnciCare PPO</span>, the first
-              national diagnostic imaging network focused on workers'
-              compensation.
-            </p>
-
-            <div class="grid grid-cols-2 gap-4 md:gap-6">
-              <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm">
-                <div class="text-2xl md:text-3xl font-bold text-[#003087] mb-1">
-                  $20M
-                </div>
-                <div class="text-sm md:text-base text-gray-600">
-                  Annual Revenue
-                </div>
-              </div>
-              <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm">
-                <div class="text-2xl md:text-3xl font-bold text-[#003087] mb-1">
-                  1,200+
-                </div>
-                <div class="text-sm md:text-base text-gray-600">
-                  Partner Centers
-                </div>
-              </div>
-              <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm">
-                <div class="text-2xl md:text-3xl font-bold text-[#003087] mb-1">
-                  3,000+
-                </div>
-                <div class="text-sm md:text-base text-gray-600">
-                  Radiologists
-                </div>
-              </div>
-              <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm">
-                <div class="text-2xl md:text-3xl font-bold text-[#003087] mb-1">
-                  Acquired
-                </div>
-                <div class="text-sm md:text-base text-gray-600">
-                  By Public Co.
-                </div>
-              </div>
-            </div>
-
-            <blockquote class="border-l-4 border-[#cc9933] pl-4 md:pl-6 py-2">
-              <p class="text-lg md:text-xl font-medium text-gray-900 italic">
-                "USRad is the continuation of a 25-year vision to make specialty
-                diagnostics accessible for all."
-              </p>
-              <cite class="text-sm md:text-base text-gray-600 not-italic"
-                >— Michael Cabrera, Founder & CEO</cite
-              >
-            </blockquote>
-          </div>
-        </div>
-
-        <div class="relative" data-aos="fade-left">
-          <!-- Main container for the angled presentation -->
-          <div class="relative px-8 py-12">
-            <!-- Angled laptop/screen container -->
-            <div
-              class="relative transform-gpu transition-transform duration-500 hover:scale-105"
-              style="transform: perspective(1200px) rotateY(-8deg) rotateX(3deg);"
-            >
-              <!-- Browser/laptop frame -->
-              <div class="bg-gray-900 rounded-t-lg p-2">
-                <div class="flex items-center gap-2 px-2">
-                  <div class="flex gap-1.5">
-                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                  </div>
-                  <div class="flex-1 flex justify-center">
-                    <div
-                      class="bg-gray-800 rounded px-4 py-1 text-xs text-gray-400"
-                    >
-                      dashboard.usrad.com
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Screenshot container -->
-              <div
-                class="relative bg-white rounded-b-lg shadow-2xl overflow-hidden"
-              >
-                <img
-                  src="/images/usrad-platform-dashboard.png"
-                  alt="USRad Platform Dashboard showing real-time appointment management"
-                  class="w-full h-auto"
-                />
-
-                <!-- Subtle overlay gradient for depth -->
-                <div
-                  class="absolute inset-0 bg-gradient-to-tr from-transparent via-transparent to-white/10 pointer-events-none"
-                >
-                </div>
-              </div>
-
-              <!-- Shadow for 3D effect -->
-              <div
-                class="absolute -bottom-4 left-8 right-8 h-8 bg-black/20 blur-xl rounded-full"
-                style="transform: translateZ(-10px) scaleX(0.9);"
-              >
-              </div>
-            </div>
-
-            <!-- Floating metric badges -->
-            <div
-              class="absolute -top-2 -right-2 bg-white rounded-xl shadow-xl p-4 transform rotate-3 hover:rotate-0 transition-transform duration-300"
-              data-aos="zoom-in"
-              data-aos-delay="400"
-            >
-              <div class="flex items-center gap-2">
-                <div
-                  class="w-10 h-10 bg-[#cc9933]/10 rounded-lg flex items-center justify-center"
-                >
-                  <svg
-                    class="w-5 h-5 text-[#cc9933]"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    ></path>
-                  </svg>
-                </div>
-                <div>
-                  <div class="text-2xl font-bold text-[#cc9933]">$47K</div>
-                  <div class="text-xs text-gray-600">Weekly Revenue</div>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="absolute -bottom-2 -left-2 bg-white rounded-xl shadow-xl p-4 transform -rotate-3 hover:rotate-0 transition-transform duration-300"
-              data-aos="zoom-in"
-              data-aos-delay="500"
-            >
-              <div class="flex items-center gap-2">
-                <div
-                  class="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center"
-                >
-                  <svg
-                    class="w-5 h-5 text-green-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <div class="text-2xl font-bold text-green-600">98</div>
-                  <div class="text-xs text-gray-600">Completed Scans</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Platform caption -->
-            <div
-              class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full mt-4"
-            >
-              <div
-                class="bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg"
-              >
-                Live Platform Demo
-              </div>
-            </div>
-          </div>
-
-          <!-- Background glow effects -->
-          <div
-            class="absolute -top-6 -right-6 w-24 md:w-32 h-24 md:h-32 bg-[#cc9933] rounded-full opacity-20 blur-2xl"
-          >
-          </div>
-          <div
-            class="absolute -bottom-6 -left-6 w-32 md:w-40 h-32 md:h-40 bg-[#003087] rounded-full opacity-20 blur-2xl"
-          >
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Platform Mechanics -->
   <section class="py-12 md:py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -507,14 +478,14 @@ export const prerender = true;
           class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 md:mb-4"
           data-aos="fade-up"
         >
-          How USRad Works
+          How USRad Creates Value
         </h2>
         <p
           class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto"
           data-aos="fade-up"
           data-aos-delay="50"
         >
-          A technology-enabled managed care platform with operational excellence
+          Four structural advantages that compound with scale
         </p>
       </div>
 
@@ -543,11 +514,12 @@ export const prerender = true;
             <h3
               class="text-lg md:text-xl font-semibold text-gray-900 mb-2 md:mb-3"
             >
-              Credentialed Network
+              Supply Aggregation at Scale
             </h3>
             <p class="text-sm md:text-base text-gray-600">
-              Only high-field MRI/CT facilities meeting strict quality and
-              accreditation standards
+              ACR-accredited facilities recruited and credentialed into a
+              proprietary network — supply that competitors cannot quickly
+              replicate
             </p>
           </div>
         </div>
@@ -576,11 +548,12 @@ export const prerender = true;
             <h3
               class="text-lg md:text-xl font-semibold text-gray-900 mb-2 md:mb-3"
             >
-              Transparent Pricing
+              Price Compression Engine
             </h3>
             <p class="text-sm md:text-base text-gray-600">
-              Flat-rate, upfront pricing includes both technical and
-              professional components
+              Flat-rate upfront pricing drives systematic cost reduction across
+              markets — creating a price benchmark competitors are measured
+              against
             </p>
           </div>
         </div>
@@ -609,11 +582,12 @@ export const prerender = true;
             <h3
               class="text-lg md:text-xl font-semibold text-gray-900 mb-2 md:mb-3"
             >
-              Expert Radiologists
+              Quality Standardization Layer
             </h3>
             <p class="text-sm md:text-base text-gray-600">
-              All studies interpreted by subspecialized, board-certified
-              radiologists
+              Subspecialized board-certified radiologists across all network
+              centers establish a quality floor that protects the platform's
+              reliability signal
             </p>
           </div>
         </div>
@@ -641,10 +615,12 @@ export const prerender = true;
             <h3
               class="text-lg md:text-xl font-semibold text-gray-900 mb-2 md:mb-3"
             >
-              Digital Platform
+              Automated Demand Routing
             </h3>
             <p class="text-sm md:text-base text-gray-600">
-              Seamless scheduling and direct report delivery to patients
+              Patient demand is systematically matched and routed to network
+              providers — creating a scalable allocation engine that improves
+              with volume
             </p>
           </div>
         </div>
@@ -662,14 +638,16 @@ export const prerender = true;
           class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4"
           data-aos="fade-up"
         >
-          Our Revenue Strategy
+          Capital-Efficient Revenue Model
         </h2>
         <p
           class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto"
           data-aos="fade-up"
           data-aos-delay="50"
         >
-          Built for sustainable growth and market expansion
+          USRad collects patient payments upfront and pays providers on a 10-day
+          cycle — creating positive working capital and capital-efficient growth
+          from day one.
         </p>
       </div>
 
@@ -681,35 +659,39 @@ export const prerender = true;
         <div class="grid md:grid-cols-3 gap-6 md:gap-8 text-center">
           <div>
             <div class="text-3xl md:text-4xl font-bold text-[#cc9933] mb-2">
-              Platform Fees
+              Transaction Margin
             </div>
             <p class="text-sm md:text-base text-blue-100">
-              Service coordination and technology enablement
+              Margin earned on every imaging order placed through the platform —
+              no insurance, no denial, no friction
             </p>
           </div>
           <div>
             <div class="text-3xl md:text-4xl font-bold text-[#cc9933] mb-2">
-              Network Growth
+              Employer Programs
             </div>
             <p class="text-sm md:text-base text-blue-100">
-              Expanding partnerships and geographic reach
+              Contracted imaging benefits for self-insured employer groups —
+              high volume, predictable revenue, capital-light expansion
             </p>
           </div>
           <div>
             <div class="text-3xl md:text-4xl font-bold text-[#cc9933] mb-2">
-              Vertical Integration
+              Data Intelligence
             </div>
             <p class="text-sm md:text-base text-blue-100">
-              Adding complementary healthcare services
+              Proprietary pricing and performance data across 43,600+
+              procedure-market combinations — a platform layer competitors
+              cannot replicate
             </p>
           </div>
         </div>
 
         <div class="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-white/20">
           <p class="text-lg md:text-xl text-center font-medium">
-            <span class="text-[#cc9933]">USRad earns margin on efficiency</span
-            >—not denial or volume. Our platform replaces billing complexity and
-            insurance friction with speed, scale, and clarity.
+            <span class="text-[#cc9933]">USRad earns margin on efficiency</span>
+            — not denial or volume. Patient pays upfront. Provider paid on day 10.
+            The float is structural, not incidental.
           </p>
         </div>
       </div>
@@ -731,7 +713,17 @@ export const prerender = true;
           data-aos="fade-up"
           data-aos-delay="50"
         >
-          Focused execution: Dominate core imaging before strategic expansion
+          Deliberate sequencing: Establish dominance in imaging, then expand
+          from a position of structural advantage.
+        </p>
+        <p
+          class="text-base md:text-lg text-gray-600 max-w-2xl mx-auto mt-4"
+          data-aos="fade-up"
+          data-aos-delay="75"
+        >
+          Each phase builds on the previous — increasing efficiency,
+          strengthening network effects, and expanding the platform's economic
+          advantage.
         </p>
       </div>
 
@@ -771,10 +763,12 @@ export const prerender = true;
               </svg>
               <div>
                 <p class="font-semibold text-gray-900 text-sm md:text-base">
-                  National Imaging Network
+                  National Supply Density
                 </p>
                 <p class="text-xs md:text-sm text-gray-600">
-                  Scale to 500+ centers across major metros
+                  Build high-density coverage across major metropolitan markets
+                  — creating a network advantage that improves matching
+                  efficiency and pricing power.
                 </p>
               </div>
             </div>
@@ -793,10 +787,12 @@ export const prerender = true;
               </svg>
               <div>
                 <p class="font-semibold text-gray-900 text-sm md:text-base">
-                  Technology Platform
+                  Demand Aggregation Engine
                 </p>
                 <p class="text-xs md:text-sm text-gray-600">
-                  Build scalable infrastructure for rapid growth
+                  Consolidate patient demand through a unified platform —
+                  increasing volume concentration and strengthening routing
+                  precision across the network.
                 </p>
               </div>
             </div>
@@ -815,10 +811,12 @@ export const prerender = true;
               </svg>
               <div>
                 <p class="font-semibold text-gray-900 text-sm md:text-base">
-                  Market Penetration
+                  Market Standardization
                 </p>
                 <p class="text-xs md:text-sm text-gray-600">
-                  Capture 5% of self-pay imaging market
+                  Establish USRad pricing and fulfillment as the benchmark for
+                  self-pay imaging — shifting market expectations toward
+                  transparent, fixed-rate care.
                 </p>
               </div>
             </div>
@@ -860,10 +858,12 @@ export const prerender = true;
               </svg>
               <div>
                 <p class="font-semibold text-gray-900 text-sm md:text-base">
-                  Adjacent Verticals
+                  Adjacency Expansion
                 </p>
                 <p class="text-xs md:text-sm text-gray-600">
-                  Labs, mobile diagnostics, therapy services
+                  Extend the platform into adjacent diagnostic categories using
+                  the existing provider network and demand infrastructure —
+                  entering new markets with built-in advantage.
                 </p>
               </div>
             </div>
@@ -882,10 +882,12 @@ export const prerender = true;
               </svg>
               <div>
                 <p class="font-semibold text-gray-900 text-sm md:text-base">
-                  Full Care Continuum
+                  Care Continuum Integration
                 </p>
                 <p class="text-xs md:text-sm text-gray-600">
-                  From diagnosis to treatment coordination
+                  Expand from diagnostic access into coordinated care pathways —
+                  positioning USRad as the entry point into downstream
+                  healthcare services.
                 </p>
               </div>
             </div>
@@ -904,10 +906,12 @@ export const prerender = true;
               </svg>
               <div>
                 <p class="font-semibold text-gray-900 text-sm md:text-base">
-                  Payor Mix
+                  Multi-Payor Penetration
                 </p>
                 <p class="text-xs md:text-sm text-gray-600">
-                  Expand into other payor mix businesses
+                  Expand beyond self-pay into employer-sponsored and other payor
+                  models — increasing volume, retention, and lifetime value per
+                  patient.
                 </p>
               </div>
             </div>
@@ -920,9 +924,10 @@ export const prerender = true;
         data-aos="fade-up"
       >
         <p class="text-base md:text-lg text-gray-700">
-          <span class="font-semibold">Core Philosophy:</span> Excel at one vertical
-          before expanding. Build unassailable market position in imaging, then leverage
-          infrastructure for adjacent opportunities.
+          <span class="font-semibold">Core Philosophy:</span> USRad does not expand
+          to grow. It expands after establishing structural dominance — leveraging
+          existing supply, demand, and pricing infrastructure to enter adjacent markets
+          with compounding advantage.
         </p>
       </div>
     </div>
@@ -1339,8 +1344,9 @@ export const prerender = true;
               d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
           </svg>
           <span class="font-semibold text-gray-900 text-sm md:text-base"
-            >Perfect timing: Proven model + Modern tech + Market demand =
-            Exponential growth</span
+            >The window is open now. Price transparency laws, the underinsured
+            gap, and independent center displacement have created conditions
+            that didn't exist five years ago.</span
           >
         </div>
       </div>
@@ -1348,24 +1354,27 @@ export const prerender = true;
   </section>
 
   <!-- CTA Section -->
-  <section
-    id="deck"
-    class="py-12 md:py-20 bg-gradient-to-br from-gray-900 to-[#003087]"
-  >
+  <section class="py-12 md:py-20 bg-gradient-to-br from-gray-900 to-[#003087]">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2
         class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 md:mb-6"
         data-aos="fade-up"
       >
-        Join Our Mission
+        Ready to Learn More?
       </h2>
       <p
-        class="text-lg md:text-xl text-gray-300 mb-8 md:mb-12"
+        class="text-lg md:text-xl text-gray-300 mb-2 md:mb-4"
         data-aos="fade-up"
         data-aos-delay="50"
       >
-        Partner with a proven team, a growing network, and a model built to
-        scale nationally
+        Partner with a proven team building infrastructure that lasts.
+      </p>
+      <p
+        class="text-sm text-gray-400 mb-8 md:mb-12 tracking-wide"
+        data-aos="fade-up"
+        data-aos-delay="75"
+      >
+        Private investor briefings — limited availability
       </p>
 
       <div
@@ -1373,11 +1382,12 @@ export const prerender = true;
         data-aos="fade-up"
         data-aos-delay="100"
       >
-        <a
-          href="/contact-carbon"
-          class="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-[#cc9933] text-gray-900 font-bold rounded-full hover:bg-yellow-400 transition transform hover:scale-105 text-sm md:text-base"
+        <!-- PRIMARY: Cal.com modal -->
+        <button
+          onclick="openInvestorModal()"
+          class="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-[#cc9933] text-gray-900 font-bold rounded-full hover:bg-yellow-400 transition transform hover:scale-105 text-sm md:text-base cursor-pointer"
         >
-          Book an Intro Call
+          Schedule Investor Briefing
           <svg
             class="ml-2 w-4 md:w-5 h-4 md:h-5"
             fill="none"
@@ -1390,10 +1400,11 @@ export const prerender = true;
               stroke-width="2"
               d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
           </svg>
-        </a>
+        </button>
 
+        <!-- SECONDARY: Direct PDF download -->
         <a
-          href="/downloads/usrad-investor-deck.pdf"
+          href="/docs/usrad-investor-overview.pdf"
           download
           class="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-transparent border-2 border-[#cc9933] text-[#cc9933] font-semibold rounded-full hover:bg-[#cc9933] hover:text-gray-900 transition transform hover:scale-105 text-sm md:text-base"
         >
@@ -1410,34 +1421,23 @@ export const prerender = true;
               d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
             ></path>
           </svg>
-          Download Investor Deck
+          View Investor Overview
         </a>
       </div>
 
-      <!-- Trust signals -->
       <div
-        class="mt-12
-          md:mt-16
-          pt-8
-          md:pt-12
-          border-t
-          border-white
-          20"
+        class="mt-12 md:mt-16 pt-8 md:pt-12 border-t border-white/20"
         data-aos="fade-up"
         data-aos-delay="200"
       >
-        <p class="text-xs md:text-sm text-gray-400 mb-4">
-          Backed by healthcare industry leaders
+        <p class="text-xs md:text-sm text-gray-500 italic">
+          For qualified investors only. Materials are confidential and not for
+          redistribution.
         </p>
-        <div class="flex flex-wrap justify-center gap-6 md:gap-8 opacity-50">
-          <!-- Add investor/advisor logos here when available -->
-        </div>
       </div>
 
       <style>
-        /* Additional CSS for mobile optimization */
         @media (max-width: 640px) {
-          /* Ensure text doesn't overflow on small screens */
           p,
           h1,
           h2,
@@ -1448,19 +1448,14 @@ export const prerender = true;
             word-wrap: break-word;
             overflow-wrap: break-word;
           }
-
-          /* Prevent horizontal scroll */
           body {
             overflow-x: hidden;
           }
-
-          /* Ensure cards don't overflow */
           .rounded-2xl {
             max-width: 100%;
           }
         }
 
-        /* Additional animations */
         @keyframes float {
           0%,
           100% {
@@ -1470,30 +1465,172 @@ export const prerender = true;
             transform: translateY(-10px);
           }
         }
-
         .animate-float {
           animation: float 3s ease-in-out infinite;
         }
 
-        /* 3D Transform Support */
         .transform-gpu {
           transform-style: preserve-3d;
           will-change: transform;
         }
 
-        /* Smooth transitions for hover effects */
-        .transition-transform {
-          transition-property: transform;
-          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* For browsers that support backdrop filters */
         @supports (backdrop-filter: blur(10px)) {
           .backdrop-blur-xl {
             backdrop-filter: blur(20px);
           }
         }
+
+        /* Modal animation */
+        #investor-cal-modal:not(.hidden) {
+          animation: modalFadeIn 0.2s ease-out;
+        }
+        @keyframes modalFadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
       </style>
     </div>
   </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CAL.COM INVESTOR BRIEFING MODAL
+  ════════════════════════════════════════════════════════ -->
+  <div
+    id="investor-cal-modal"
+    class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-[9999] flex items-center justify-center p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Schedule Investor Briefing"
+  >
+    <div
+      class="bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col"
+    >
+      <!-- Modal header -->
+      <div
+        class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-[#003087]"
+      >
+        <div>
+          <h2 class="text-white font-bold text-lg">
+            Schedule Investor Briefing
+          </h2>
+          <p class="text-blue-200 text-sm">
+            Private conversations — limited availability
+          </p>
+        </div>
+        <button
+          id="close-investor-modal"
+          class="text-white/60 hover:text-white transition-colors rounded-lg p-1"
+          aria-label="Close"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <!-- Cal.com embed container -->
+      <div class="flex-1 overflow-y-auto">
+        <div id="cal-embed-container" class="w-full min-h-[500px]"></div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    // ── Cal.com lazy loader ─────────────────────────────────────────────
+    let calLoaded = false;
+
+    function loadCal() {
+      if (calLoaded) return;
+      calLoaded = true;
+
+      (function (C, A, L) {
+        let p = function (a, ar) {
+          a.q.push(ar);
+        };
+        let d = C.document;
+        C.Cal =
+          C.Cal ||
+          function () {
+            let cal = C.Cal;
+            let ar = arguments;
+            if (!cal.loaded) {
+              cal.ns = {};
+              cal.q = cal.q || [];
+              d.head.appendChild(d.createElement("script")).src = A;
+              cal.loaded = true;
+            }
+            if (ar[0] === L) {
+              const api = function () {
+                p(api, arguments);
+              };
+              const namespace = ar[1];
+              api.q = api.q || [];
+              if (typeof namespace === "string") {
+                cal.ns[namespace] = cal.ns[namespace] || api;
+                p(cal.ns[namespace], ar);
+                p(cal, ["initNamespace", namespace]);
+              } else p(cal, ar);
+              return;
+            }
+            p(cal, ar);
+          };
+      })(window, "https://app.cal.com/embed/embed.js", "init");
+
+      Cal("init", "investor-briefing", { origin: "https://cal.com" });
+
+      Cal.ns["investor-briefing"]("inline", {
+        elementOrSelector: "#cal-embed-container",
+        config: { layout: "month_view", theme: "light" },
+        calLink: "usrad/investor-briefing",
+      });
+
+      Cal.ns["investor-briefing"]("ui", {
+        styles: { branding: { brandColor: "#003087" } },
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+    }
+
+    // ── Modal open / close ──────────────────────────────────────────────
+    function openInvestorModal() {
+      const modal = document.getElementById("investor-cal-modal");
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden"; // prevent background scroll
+      loadCal(); // lazy — only fires on first open
+    }
+
+    function closeInvestorModal() {
+      document.getElementById("investor-cal-modal").classList.add("hidden");
+      document.body.style.overflow = "";
+    }
+
+    // Close button
+    document
+      .getElementById("close-investor-modal")
+      .addEventListener("click", closeInvestorModal);
+
+    // Click outside modal to close
+    document
+      .getElementById("investor-cal-modal")
+      .addEventListener("click", function (e) {
+        if (e.target === this) closeInvestorModal();
+      });
+
+    // Escape key to close
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeInvestorModal();
+    });
+  </script>
 </CarbonLayout>
