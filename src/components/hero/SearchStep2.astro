@@ -34,7 +34,12 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
   data-aos="fade-up"
   data-aos-delay="300"
 >
-  <form id="hero-search-form" action={`${remixUrl}/pbs/search`} method="GET">
+  <form
+    id="hero-search-form"
+    action={`${remixUrl}/pbs/search`}
+    method="GET"
+    data-remix-url={remixUrl}
+  >
     <!-- Compact Horizontal Row -->
     <div
       class="bg-white/90 backdrop-blur-md border-2 border-white/60 shadow-lg rounded-xl overflow-hidden"
@@ -865,8 +870,7 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
 
           try {
             const remixBase =
-              document.querySelector('meta[name="remix-url"]')?.content ||
-              "http://localhost:5173";
+              form.getAttribute("data-remix-url") || "http://localhost:5173";
             const res = await fetch(
               `${remixBase}/api/validate-zip?zip=${zipValue}`,
               {
