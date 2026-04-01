@@ -217,8 +217,8 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
               >
               </p>
               <p class="text-xs text-gray-500 mt-1 leading-snug">
-                USRad secures the best price — no payment until your
-                appointment is confirmed.
+                USRad secures the best price — no payment until your appointment
+                is confirmed.
               </p>
             </div>
 
@@ -820,20 +820,76 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
 
       const form = document.getElementById("hero-search-form");
       if (form) {
-        form.addEventListener("submit", (e) => {
-          // ✅ Show loading overlay IMMEDIATELY
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          // ── Stage 1: Format validation ──────────────────────────────────
+          const zipValue =
+            (zipInput && zipInput.value) ||
+            (zipInputMobile && zipInputMobile.value) ||
+            "";
+
+          const showZipError = (message) => {
+            if (zipHint) {
+              zipHint.textContent = message;
+              zipHint.classList.add("text-red-600");
+              zipHint.classList.remove("text-gray-500", "text-green-600");
+            }
+            if (zipInput) {
+              zipInput.classList.add("border-red-400");
+              zipInput.focus();
+            }
+            if (zipInputMobile) {
+              zipInputMobile.classList.add("border-red-400");
+            }
+          };
+
+          const clearZipError = () => {
+            if (zipInput) zipInput.classList.remove("border-red-400");
+            if (zipInputMobile)
+              zipInputMobile.classList.remove("border-red-400");
+          };
+
+          if (!/^\d{5}$/.test(zipValue)) {
+            showZipError("Please enter a valid U.S. ZIP code.");
+            return;
+          }
+
+          // ── Stage 2: ZIP existence check (server-side via /api/validate-zip) ──
+          // Uses our own zip_codes table — authoritative, no third-party dependency.
+          // Fail-open: if the API route is unreachable, let the form proceed.
           if (window.SearchLoadingOverlay) {
             const procedureName = procedureHidden?.value || "MRI";
             window.SearchLoadingOverlay.show(procedureName, "25");
           }
 
-          // ✅ GA4 Analytics — hero_search_submitted
-          // Fires before form submits — never blocks submission
           try {
-            const zipValue =
-              (zipInput && zipInput.value) ||
-              (zipInputMobile && zipInputMobile.value) ||
-              "";
+            const res = await fetch(`/api/validate-zip?zip=${zipValue}`, {
+              signal: AbortSignal.timeout(4000),
+            });
+
+            if (res.ok) {
+              const data = await res.json();
+              if (!data.valid) {
+                if (window.SearchLoadingOverlay)
+                  window.SearchLoadingOverlay.hide();
+                showZipError("Please enter a valid U.S. ZIP code.");
+                return;
+              }
+              clearZipError();
+            }
+            // If res not ok — fail open, let form proceed
+          } catch (_) {
+            // Network error or timeout — fail open
+            if (DEBUG)
+              console.log(
+                "SearchStep2: ZIP validation API unreachable — failing open",
+              );
+          }
+
+          // ── GA4 Analytics ────────────────────────────────────────────────
+          // Fires after validation passes — never blocks submission
+          try {
             const procedureValue = procedureHidden?.value || "";
             if (typeof window.trackMarketingEvent === "function") {
               window.trackMarketingEvent("hero_search_submitted", {
@@ -857,11 +913,12 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
               procedure: procedureHidden && procedureHidden.value,
               bodyPartKey: bodyPartKeyHidden && bodyPartKeyHidden.value,
               displayLabel: displayLabelHidden && displayLabelHidden.value,
-              zip:
-                (zipInput && zipInput.value) ||
-                (zipInputMobile && zipInputMobile.value),
+              zip: zipValue,
               action: form.action,
             });
+
+          // ── Submit ───────────────────────────────────────────────────────
+          form.submit();
         });
       }
 
