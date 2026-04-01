@@ -864,9 +864,15 @@ const remixUrl = import.meta.env.PUBLIC_REMIX_URL;
           }
 
           try {
-            const res = await fetch(`/api/validate-zip?zip=${zipValue}`, {
-              signal: AbortSignal.timeout(4000),
-            });
+            const remixBase =
+              document.querySelector('meta[name="remix-url"]')?.content ||
+              "http://localhost:5173";
+            const res = await fetch(
+              `${remixBase}/api/validate-zip?zip=${zipValue}`,
+              {
+                signal: AbortSignal.timeout(4000),
+              },
+            );
 
             if (res.ok) {
               const data = await res.json();
