@@ -4,7 +4,7 @@
 // Public page at /provider/network-map
 //
 // Design Contract:
-//   §7.3  Hero: flat bg-[#003087] — NO gradients
+//   §7.3  Hero: flat bg-[#003087] — NO gradients on content surfaces
 //   §8.1  Gold (#C9A24D): B2B recruitment CTA only
 //   §8.3  Gold max 2 elements per viewport
 //   §2.5  No blue-*, indigo-*, purple-*, pink-*, slate-* tokens
@@ -15,7 +15,7 @@
 //
 // Cross-app bridge:
 //   Map iframe → ${REMIX_URL}/provider/market-map?embed=true
-//   CTA links  → ${REMIX_URL}/providers/signup
+//   CTA links  → ${REMIX_URL}/signup
 //
 // Page family:
 //   /provider              — Provider overview
@@ -68,7 +68,6 @@ export const prerender = true;
   <section
     class="relative pt-24 pb-16 px-4 sm:px-6 overflow-hidden bg-[#003087]"
   >
-    <!-- Static dot texture -->
     <div
       class="absolute inset-0 opacity-[0.05] pointer-events-none select-none"
       aria-hidden="true"
@@ -77,20 +76,17 @@ export const prerender = true;
     </div>
 
     <div class="relative z-10 max-w-6xl mx-auto">
-      <!-- Eyebrow — bg-white/10 border-white/20 permitted on §4.5 navy surface -->
       <div
         class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-5 py-2 mb-10"
       >
         <span class="w-2 h-2 rounded-full bg-[#C9A24D]"></span>
         <span
           class="text-sm font-semibold text-white/80 tracking-widest uppercase"
+          >USRad Network Intelligence</span
         >
-          USRad Network Intelligence
-        </span>
       </div>
 
       <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <!-- Left: headline + copy + CTA -->
         <div>
           <h1
             class="text-5xl sm:text-6xl font-bold text-white leading-[1.08] tracking-tight mb-6"
@@ -100,18 +96,18 @@ export const prerender = true;
           </h1>
 
           <p class="text-lg text-white/55 mb-8 max-w-md leading-relaxed">
-            USRad is accepting provider applications nationally and activating
-            markets on a rolling basis. Explore where the network is building —
-            and where your opportunity is still open.
+            Some markets are already forming. Others are still unclaimed.<br />
+            <span class="text-white/40 text-base"
+              >The difference is timing — not eligibility.</span
+            >
           </p>
 
-          <!-- How to use — three steps -->
           <div class="flex items-center gap-0 mb-10 flex-wrap">
             {
               [
                 { n: "1", label: "Select your state" },
-                { n: "2", label: "Choose modality" },
-                { n: "3", label: "Claim your market" },
+                { n: "2", label: "Define your service" },
+                { n: "3", label: "Evaluate your territory" },
               ].map((s, i) => (
                 <div class="flex items-center">
                   <div class="flex items-center gap-2 bg-white/10 border border-white/15 rounded-lg px-3 py-2">
@@ -133,10 +129,7 @@ export const prerender = true;
           </div>
 
           <div class="flex items-center gap-4 flex-wrap">
-            <!--
-              Gold CTA — §8.1 B2B recruitment context
-              Max 2 gold elements this viewport (§8.3) — this is #1
-            -->
+            <!-- Gold CTA #1 — §8.1 B2B recruitment. Max 2 gold per viewport §8.3 -->
             <a
               href={`${REMIX_URL}/signup`}
               class="inline-flex items-center gap-2 bg-[#C9A24D] hover:bg-[#b8901f] text-white font-semibold px-8 py-3.5 rounded-lg transition-colors duration-200"
@@ -170,7 +163,7 @@ export const prerender = true;
           </p>
         </div>
 
-        <!-- Right: stat cluster — bg-white/10 on navy §4.5 permits -->
+        <!-- Stat cluster — bg-white/10 on navy §4.5 permits -->
         <div class="hidden lg:grid grid-cols-2 gap-3">
           {
             [
@@ -203,38 +196,169 @@ export const prerender = true;
   </section>
 
   <!-- ═══════════════════════════════════════════════════
-    BRIDGE — context line between hero and map
+    TOP FRAMING SECTION
+    Guides provider before they interact with the map.
+    Two-column: context copy left, map legend right.
+    bg-white §3.3 — no gradients on content surface §7.1
   ════════════════════════════════════════════════════ -->
-  <div class="bg-white border-b border-gray-100 py-4 px-4 sm:px-6">
-    <div
-      class="max-w-6xl mx-auto flex items-center justify-between flex-wrap gap-3"
-    >
-      <p class="text-sm text-gray-500 max-w-xl">
-        Select your state and modality below. Click any cluster to see how many
-        ACR-accredited centers are in your area — and whether a USRad partner
-        has already claimed that territory.
-      </p>
-      <a
-        href={`${REMIX_URL}/signup`}
-        class="text-[#003087] hover:text-[#002266] font-medium text-sm border-b border-[#003087]/25 hover:border-[#003087]/55 pb-px transition-colors duration-200 whitespace-nowrap"
-      >
-        Accepting applications nationally →
-      </a>
+  <section class="bg-white border-b border-gray-200 py-12 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <!-- Left: context copy -->
+        <div>
+          <div
+            class="inline-flex items-center gap-2 bg-[#E8EDF5] border border-[#003087]/15 rounded-full px-4 py-1.5 mb-5"
+          >
+            <span class="w-1.5 h-1.5 rounded-full bg-[#003087]"></span>
+            <span
+              class="text-xs font-semibold text-[#003087] tracking-widest uppercase"
+              >Market Intelligence</span
+            >
+          </div>
+
+          <h2
+            class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-4"
+          >
+            Your Market, Visualized
+          </h2>
+
+          <p class="text-gray-600 leading-relaxed mb-6 max-w-lg">
+            Each cluster represents real imaging centers already operating in
+            your region. This is not a simulation — it is the current market
+            landscape.
+          </p>
+
+          <ul class="space-y-3 mb-6">
+            {
+              [
+                "Click any cluster to inspect your opportunity",
+                "See how many centers are already active in your area",
+                "Identify whether your market is still unclaimed",
+              ].map((item) => (
+                <li class="flex items-start gap-3">
+                  <span class="w-5 h-5 rounded-full bg-[#E8EDF5] flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg
+                      class="w-3 h-3 text-[#003087]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      stroke-width="3"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </span>
+                  <span class="text-sm text-gray-700">{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+
+          <p class="text-xs text-gray-400 italic">
+            Early providers define the market. Later providers compete within
+            it.
+          </p>
+        </div>
+
+        <!-- Right: map legend -->
+        <div class="lg:pt-2">
+          <p
+            class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-4"
+          >
+            How to read the map
+          </p>
+
+          <div
+            class="bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4"
+          >
+            <div class="flex items-start gap-4">
+              <div
+                class="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+                style="background: #1E3A5F; opacity: 0.88; border: 1.5px solid #2D5A8E;"
+              >
+                <span class="text-white text-xs font-bold" style="opacity: 1;"
+                  >24</span
+                >
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-gray-900 mb-0.5">
+                  Navy cluster — Available market density
+                </p>
+                <p class="text-xs text-gray-500 leading-relaxed">
+                  Count of ACR-accredited centers offering your selected
+                  modality. Click to reveal the full opportunity signal.
+                </p>
+              </div>
+            </div>
+
+            <div class="border-t border-gray-200"></div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 pt-0.5">
+                <svg
+                  width="22"
+                  height="28"
+                  viewBox="0 0 12 15"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M 6 14.5 C 6 14.5 1 10 1 6 A 5 5 0 1 1 11 6 C 11 10 6 14.5 6 14.5 Z"
+                    fill="#CC9933"
+                    stroke="white"
+                    stroke-width="1"></path>
+                  <circle cx="6" cy="6" r="3.2" fill="white" opacity="0.95"
+                  ></circle>
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-gray-900 mb-0.5">
+                  Gold marker — USRad contracted provider
+                </p>
+                <p class="text-xs text-gray-500 leading-relaxed">
+                  A credentialed USRad partner is active here and receiving
+                  patient referrals.
+                </p>
+              </div>
+            </div>
+
+            <div class="border-t border-gray-200"></div>
+
+            <div class="flex items-start gap-4">
+              <div
+                class="w-9 h-9 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center flex-shrink-0"
+              >
+                <span class="text-gray-400 text-base font-light leading-none"
+                  >?</span
+                >
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-gray-900 mb-0.5">
+                  No gold presence — Open market opportunity
+                </p>
+                <p class="text-xs text-gray-500 leading-relaxed">
+                  No USRad partner has claimed this territory. Your market may
+                  still be available.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
   <!-- ═══════════════════════════════════════════════════
-    MAP SECTION — iframe embed
-    The interactive map lives in Remix at /provider/market-map
-    Embedded here via iframe using the cross-app bridge pattern
-    established in PBS Search (embed=true param)
+    MAP SECTION — iframe embed — UNCHANGED
+    MapView logic, clustering, API calls not modified here.
   ════════════════════════════════════════════════════ -->
-  <section class="bg-gray-50" id="market-map">
+  <section class="bg-gray-50 border-b border-gray-200" id="market-map">
     <div
       class="relative w-full"
       style="height: calc(100vh - 80px); min-height: 600px;"
     >
-      <!-- Loading state — shown until iframe loads -->
       <div
         id="map-loader"
         class="absolute inset-0 flex items-center justify-center bg-gray-50 z-10"
@@ -250,7 +374,6 @@ export const prerender = true;
         </div>
       </div>
 
-      <!-- iframe — full height, embed mode -->
       <iframe
         id="market-map-iframe"
         src={`${REMIX_URL}/provider/market-map?embed=true`}
@@ -265,12 +388,20 @@ export const prerender = true;
     </div>
   </section>
 
+  <!-- Authority line — map to context bridge -->
+  <div class="bg-white border-b border-gray-100 py-5 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto text-center">
+      <p class="text-sm text-gray-500 italic">
+        This is the same intelligence layer used to expand the USRad network.
+      </p>
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════════════════════════
-    CONTEXT SECTION — below the map
-    Explains the three visual states so providers understand
-    what they're seeing before clicking Apply
+    CONTEXT SECTION — below map
+    Explains three visual states — bg-white border-b §3.3
   ════════════════════════════════════════════════════ -->
-  <section class="bg-white border-t border-gray-100 py-16 px-4 sm:px-6">
+  <section class="bg-white border-b border-gray-100 py-16 px-4 sm:px-6">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-12">
         <h2 class="text-3xl font-bold text-gray-900 mb-3">
@@ -282,12 +413,11 @@ export const prerender = true;
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <!-- Gold pin -->
         <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
           <div class="flex items-center gap-3 mb-4">
             <svg
-              width="24"
-              height="30"
+              width="32"
+              height="40"
               viewBox="0 0 12 15"
               xmlns="http://www.w3.org/2000/svg"
               class="flex-shrink-0"
@@ -312,14 +442,13 @@ export const prerender = true;
           </p>
         </div>
 
-        <!-- Navy cluster -->
         <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
           <div class="flex items-center gap-3 mb-4">
             <div
-              class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+              class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
               style="background: #1E3A5F; opacity: 0.88;"
             >
-              <span class="text-white text-xs font-bold">47</span>
+              <span class="text-white text-sm font-bold">47</span>
             </div>
             <h3 class="text-base font-semibold text-gray-900">
               Navy cluster — Your opportunity
@@ -332,7 +461,6 @@ export const prerender = true;
           </p>
         </div>
 
-        <!-- No pin -->
         <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
           <div class="flex items-center gap-3 mb-4">
             <div
@@ -357,23 +485,40 @@ export const prerender = true;
   </section>
 
   <!-- ═══════════════════════════════════════════════════
-    FOOTER CTA — flat bg-[#003087] §7.3
-    Gold CTA — §8.1 B2B recruitment context, #2 gold in viewport
+    BOTTOM CONVERSION SECTION
+    flat bg-[#003087] §7.3
+    Gold CTA #2 — §8.1 B2B context, max 2 per viewport §8.3
   ════════════════════════════════════════════════════ -->
+  <!-- Bridge — insight to action -->
+  <div class="bg-gray-50 border-b border-gray-200 py-6 px-4 sm:px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="text-gray-600 text-base">
+        If your market is still open, you're early.<br />
+        <span class="text-gray-400 text-sm">That's where the advantage is.</span
+        >
+      </p>
+    </div>
+  </div>
+
   <section class="bg-[#003087] py-16 px-4 sm:px-6 text-center">
     <div class="max-w-2xl mx-auto">
       <p
         class="text-white/55 text-sm mb-2 tracking-widest uppercase font-semibold"
       >
-        Ready to claim your market?
+        Ready to claim your position?
       </p>
+
       <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
-        Apply to join USRad
+        Apply to Join USRad
       </h2>
+
       <p class="text-white/55 mb-8 leading-relaxed">
-        Accepting applications nationally. Markets activate on a rolling basis —
-        Florida is live now. Your market may be next.
+        If your market is still open, now is the time to establish your presence
+        before benchmarks are set. Markets activate on a rolling basis — Florida
+        is live now. Your market may be next.
       </p>
+
+      <!-- Gold CTA #2 — §8.1 B2B recruitment context -->
       <a
         href={`${REMIX_URL}/signup`}
         class="inline-flex items-center gap-2 bg-[#C9A24D] hover:bg-[#b8901f] text-white font-semibold px-10 py-4 rounded-lg transition-colors duration-200 text-base"
@@ -393,15 +538,15 @@ export const prerender = true;
             d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
         </svg>
       </a>
+
       <p class="text-white/25 text-xs mt-4">
-        No commitment required · ACR accreditation required · No credit card
+        No commitment required · ACR accreditation required · 10-day payment
+        model
       </p>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════
-    STYLES — spinner only, no other animation (§15.3)
-  ════════════════════════════════════════════════════ -->
+  <!-- Spinner only — no other animation §15.3 -->
   <style>
     @keyframes spin {
       to {

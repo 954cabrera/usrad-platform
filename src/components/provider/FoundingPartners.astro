@@ -281,29 +281,40 @@ const REMIX_URL =
       </p>
     </div>
 
-    <!-- CTA -->
-    <div class="text-center" data-aos="fade-up">
-      <a
-        href={`${REMIX_URL}/signup`}
-        class="inline-flex items-center gap-3 bg-[#cc9933] text-[#003087] px-12 py-5 rounded-xl font-bold text-lg hover:shadow-2xl transition-all shadow-lg"
-      >
-        <span>Establish Your Position</span>
-        <svg
-          class="w-5 h-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2.5"
-            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-        </svg>
-      </a>
-      <p class="text-gray-500 mt-4 text-sm">
-        $0 to join · No volume commitments · ACR-accredited centers
+    <!-- Scarcity validation callout — routes to network map before applying -->
+    <div
+      class="max-w-2xl mx-auto mb-10 bg-white border border-gray-200 rounded-xl p-6"
+      data-aos="fade-up"
+    >
+      <p class="text-gray-700 text-sm leading-relaxed mb-3">
+        Markets are forming quickly. Some are already active — others are still
+        unclaimed. Before you apply, take a moment to see what your market
+        actually looks like.
       </p>
-    </div>
+      <a
+      href="/provider/network-map" class="inline-flex items-center gap-1.5
+      text-[#003087] font-semibold text-sm hover:text-[#002266]
+      transition-colors duration-200 border-b border-[#003087]/25
+      hover:border-[#003087]/55 pb-px" > Check Market Availability →
+    </a>
   </div>
+
+  <!-- CTA -->
+  <div class="text-center" data-aos="fade-up">
+    <a
+    href={`${REMIX_URL}/signup`}
+    class="inline-flex items-center gap-3 bg-[#cc9933] text-[#003087] px-12 py-5
+    rounded-xl font-bold text-lg hover:shadow-2xl transition-all shadow-lg" >
+    <span>Establish Your Position</span>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2.5"
+        d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+    </svg>
+  </a>
+  <p class="text-gray-500 mt-4 text-sm">
+    $0 to join · No volume commitments · ACR-accredited centers
+  </p>
 </section>
