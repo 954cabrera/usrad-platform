@@ -1,0 +1,417 @@
+---
+// src/pages/provider/network-map.astro
+// USRad — Provider Network Map
+// Public page at /provider/network-map
+//
+// Design Contract:
+//   §7.3  Hero: flat bg-[#003087] — NO gradients
+//   §8.1  Gold (#C9A24D): B2B recruitment CTA only
+//   §8.3  Gold max 2 elements per viewport
+//   §2.5  No blue-*, indigo-*, purple-*, pink-*, slate-* tokens
+//   §3.5  No backdrop-blur, bg-white/*, border-white/* on light surfaces
+//   §15.2 Transitions ≤300ms, ease-in-out or ease-out only
+//   §15.3 No animate-pulse, bounce, scale-on-hover, parallax, infinite loops
+//   §15.8 prefers-reduced-motion respected
+//
+// Cross-app bridge:
+//   Map iframe → ${REMIX_URL}/provider/market-map?embed=true
+//   CTA links  → ${REMIX_URL}/providers/signup
+//
+// Page family:
+//   /provider              — Provider overview
+//   /provider/portal-tour  — 4-step lifecycle walkthrough
+//   /provider/smartmatch   — Recommendation engine explainer
+//   /provider/network-map  — This page — market opportunity map
+
+import CarbonLayout from "../../layouts/CarbonLayout.astro";
+
+const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL ?? "https://app.usrad.com";
+
+export const prerender = true;
+---
+
+<CarbonLayout
+  title="USRad Provider Network Map — Find Your Market"
+  isHeroPage={false}
+  hideNewsletter={true}
+>
+  <!-- ═══════════════════════════════════════════════════
+    BACK LINK — matches portal-tour and smartmatch pattern
+  ════════════════════════════════════════════════════ -->
+  <div class="bg-[#003087] pt-20 pb-0 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <a
+        href="/provider"
+        class="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm font-medium transition-colors duration-200 group"
+      >
+        <svg
+          class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-200"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back to Provider Overview
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+    HERO — flat bg-[#003087] §7.3
+    Static dot texture — not animated §3.5 §15.3
+  ════════════════════════════════════════════════════ -->
+  <section
+    class="relative pt-24 pb-16 px-4 sm:px-6 overflow-hidden bg-[#003087]"
+  >
+    <!-- Static dot texture -->
+    <div
+      class="absolute inset-0 opacity-[0.05] pointer-events-none select-none"
+      aria-hidden="true"
+      style="background-image: radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px); background-size: 32px 32px;"
+    >
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto">
+      <!-- Eyebrow — bg-white/10 border-white/20 permitted on §4.5 navy surface -->
+      <div
+        class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-5 py-2 mb-10"
+      >
+        <span class="w-2 h-2 rounded-full bg-[#C9A24D]"></span>
+        <span
+          class="text-sm font-semibold text-white/80 tracking-widest uppercase"
+        >
+          USRad Network Intelligence
+        </span>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Left: headline + copy + CTA -->
+        <div>
+          <h1
+            class="text-5xl sm:text-6xl font-bold text-white leading-[1.08] tracking-tight mb-6"
+          >
+            See Your Market.<br />
+            <span class="text-white/55 font-normal">Claim Your Position.</span>
+          </h1>
+
+          <p class="text-lg text-white/55 mb-8 max-w-md leading-relaxed">
+            USRad is accepting provider applications nationally and activating
+            markets on a rolling basis. Explore where the network is building —
+            and where your opportunity is still open.
+          </p>
+
+          <!-- How to use — three steps -->
+          <div class="flex items-center gap-0 mb-10 flex-wrap">
+            {
+              [
+                { n: "1", label: "Select your state" },
+                { n: "2", label: "Choose modality" },
+                { n: "3", label: "Claim your market" },
+              ].map((s, i) => (
+                <div class="flex items-center">
+                  <div class="flex items-center gap-2 bg-white/10 border border-white/15 rounded-lg px-3 py-2">
+                    <span class="w-5 h-5 rounded-full bg-white/20 text-white text-xs font-bold flex items-center justify-center leading-none">
+                      {s.n}
+                    </span>
+                    <span class="text-sm text-white/70 font-medium">
+                      {s.label}
+                    </span>
+                  </div>
+                  {i < 2 && (
+                    <span class="text-white/20 px-2 text-sm select-none">
+                      ›
+                    </span>
+                  )}
+                </div>
+              ))
+            }
+          </div>
+
+          <div class="flex items-center gap-4 flex-wrap">
+            <!--
+              Gold CTA — §8.1 B2B recruitment context
+              Max 2 gold elements this viewport (§8.3) — this is #1
+            -->
+            <a
+              href={`${REMIX_URL}/signup`}
+              class="inline-flex items-center gap-2 bg-[#C9A24D] hover:bg-[#b8901f] text-white font-semibold px-8 py-3.5 rounded-lg transition-colors duration-200"
+            >
+              Apply to Join USRad
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </a>
+            <a
+              href="/provider/portal-tour"
+              class="text-white/55 hover:text-white font-medium text-sm border-b border-white/20 hover:border-white/55 pb-px transition-colors duration-200"
+            >
+              See how it works →
+            </a>
+          </div>
+
+          <p class="text-xs text-white/25 mt-3">
+            No commitment required · ACR accreditation required · Activating by
+            market
+          </p>
+        </div>
+
+        <!-- Right: stat cluster — bg-white/10 on navy §4.5 permits -->
+        <div class="hidden lg:grid grid-cols-2 gap-3">
+          {
+            [
+              {
+                num: "26,900+",
+                label: "ACR-accredited centers in our national dataset",
+              },
+              {
+                num: "50",
+                label: "States — accepting applications nationwide",
+              },
+              {
+                num: "FL",
+                label: "First active market — now onboarding providers",
+              },
+              {
+                num: "3–6 wks",
+                label: "Average credentialing window to go live",
+              },
+            ].map((s) => (
+              <div class="bg-white/10 border border-white/15 rounded-xl p-5">
+                <p class="text-2xl font-bold text-white mb-1">{s.num}</p>
+                <p class="text-xs text-white/45 leading-snug">{s.label}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+    BRIDGE — context line between hero and map
+  ════════════════════════════════════════════════════ -->
+  <div class="bg-white border-b border-gray-100 py-4 px-4 sm:px-6">
+    <div
+      class="max-w-6xl mx-auto flex items-center justify-between flex-wrap gap-3"
+    >
+      <p class="text-sm text-gray-500 max-w-xl">
+        Select your state and modality below. Click any cluster to see how many
+        ACR-accredited centers are in your area — and whether a USRad partner
+        has already claimed that territory.
+      </p>
+      <a
+        href={`${REMIX_URL}/signup`}
+        class="text-[#003087] hover:text-[#002266] font-medium text-sm border-b border-[#003087]/25 hover:border-[#003087]/55 pb-px transition-colors duration-200 whitespace-nowrap"
+      >
+        Accepting applications nationally →
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+    MAP SECTION — iframe embed
+    The interactive map lives in Remix at /provider/market-map
+    Embedded here via iframe using the cross-app bridge pattern
+    established in PBS Search (embed=true param)
+  ════════════════════════════════════════════════════ -->
+  <section class="bg-gray-50" id="market-map">
+    <div
+      class="relative w-full"
+      style="height: calc(100vh - 80px); min-height: 600px;"
+    >
+      <!-- Loading state — shown until iframe loads -->
+      <div
+        id="map-loader"
+        class="absolute inset-0 flex items-center justify-center bg-gray-50 z-10"
+        aria-hidden="true"
+      >
+        <div class="text-center">
+          <div
+            class="w-8 h-8 border-2 border-[#003087] border-t-transparent rounded-full mx-auto mb-3"
+            style="animation: spin 0.8s linear infinite;"
+          >
+          </div>
+          <p class="text-sm text-gray-500">Loading market map…</p>
+        </div>
+      </div>
+
+      <!-- iframe — full height, embed mode -->
+      <iframe
+        id="market-map-iframe"
+        src={`${REMIX_URL}/provider/market-map?embed=true`}
+        width="100%"
+        height="100%"
+        frameborder="0"
+        title="USRad Provider Network Map"
+        loading="lazy"
+        style="display: block; border: none;"
+        onload="document.getElementById('map-loader').style.display='none';"
+      ></iframe>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+    CONTEXT SECTION — below the map
+    Explains the three visual states so providers understand
+    what they're seeing before clicking Apply
+  ════════════════════════════════════════════════════ -->
+  <section class="bg-white border-t border-gray-100 py-16 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-3">
+          What the map is telling you
+        </h2>
+        <p class="text-gray-500 max-w-xl mx-auto">
+          Every element on this map has meaning. Here's how to read it.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Gold pin -->
+        <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <svg
+              width="24"
+              height="30"
+              viewBox="0 0 12 15"
+              xmlns="http://www.w3.org/2000/svg"
+              class="flex-shrink-0"
+            >
+              <path
+                d="M 6 14.5 C 6 14.5 1 10 1 6 A 5 5 0 1 1 11 6 C 11 10 6 14.5 6 14.5 Z"
+                fill="#CC9933"
+                stroke="white"
+                stroke-width="1"></path>
+              <circle cx="6" cy="6" r="3.2" fill="white" opacity="0.95"
+              ></circle>
+            </svg>
+            <h3 class="text-base font-semibold text-gray-900">
+              Gold pin — Market taken
+            </h3>
+          </div>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            A contracted USRad partner is active in this area. They have
+            completed credentialing and are receiving patient referrals. This
+            market already has coverage — but adjacent territories may still be
+            open.
+          </p>
+        </div>
+
+        <!-- Navy cluster -->
+        <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div
+              class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+              style="background: #1E3A5F; opacity: 0.88;"
+            >
+              <span class="text-white text-xs font-bold">47</span>
+            </div>
+            <h3 class="text-base font-semibold text-gray-900">
+              Navy cluster — Your opportunity
+            </h3>
+          </div>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            Each number represents ACR-accredited centers offering your selected
+            modality. These are the centers in your potential market — and the
+            patients they serve represent your pipeline once you join USRad.
+          </p>
+        </div>
+
+        <!-- No pin -->
+        <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div
+              class="w-8 h-8 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center flex-shrink-0"
+            >
+              <span class="text-gray-400 text-lg font-light leading-none"
+                >+</span
+              >
+            </div>
+            <h3 class="text-base font-semibold text-gray-900">
+              No gold pin — Market open
+            </h3>
+          </div>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            No USRad partner has claimed this territory yet. Click the cluster
+            to see the exact opportunity signal — how many centers, how much
+            demand, and whether you would be the first provider in this region.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+    FOOTER CTA — flat bg-[#003087] §7.3
+    Gold CTA — §8.1 B2B recruitment context, #2 gold in viewport
+  ════════════════════════════════════════════════════ -->
+  <section class="bg-[#003087] py-16 px-4 sm:px-6 text-center">
+    <div class="max-w-2xl mx-auto">
+      <p
+        class="text-white/55 text-sm mb-2 tracking-widest uppercase font-semibold"
+      >
+        Ready to claim your market?
+      </p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+        Apply to join USRad
+      </h2>
+      <p class="text-white/55 mb-8 leading-relaxed">
+        Accepting applications nationally. Markets activate on a rolling basis —
+        Florida is live now. Your market may be next.
+      </p>
+      <a
+        href={`${REMIX_URL}/signup`}
+        class="inline-flex items-center gap-2 bg-[#C9A24D] hover:bg-[#b8901f] text-white font-semibold px-10 py-4 rounded-lg transition-colors duration-200 text-base"
+      >
+        Begin Provider Application
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          stroke-width="2.5"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+      </a>
+      <p class="text-white/25 text-xs mt-4">
+        No commitment required · ACR accreditation required · No credit card
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+    STYLES — spinner only, no other animation (§15.3)
+  ════════════════════════════════════════════════════ -->
+  <style>
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</CarbonLayout>
