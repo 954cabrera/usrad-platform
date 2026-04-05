@@ -134,25 +134,40 @@ export const prerender = true;
           </p>
 
           <!-- Step nav — static; drives scroll only -->
-          <div class="flex items-center gap-0 mb-10 flex-wrap">
+          <div
+            class="flex flex-col mb-10"
+            style="border-left: 1px solid rgba(255,255,255,0.12); padding-left: 16px;"
+          >
             {
               [
-                { n: "1", label: "Apply" },
-                { n: "2", label: "Credential" },
-                { n: "3", label: "Receive Patients" },
-                { n: "✓", label: "Scan & Get Paid" },
+                { n: "1", label: "Apply", opacity: "0.55", weight: "400" },
+                { n: "2", label: "Credential", opacity: "0.70", weight: "400" },
+                {
+                  n: "3",
+                  label: "Receive Patients",
+                  opacity: "0.85",
+                  weight: "400",
+                },
+                {
+                  n: "✓",
+                  label: "Scan & Get Paid",
+                  opacity: "1.0",
+                  weight: "600",
+                },
               ].map((s, i) => (
-                <div class="flex items-center">
-                  <button class="phiw-hstep" data-step={i + 1}>
-                    <span class="phiw-hstep-badge">{s.n}</span>
-                    <span class="phiw-hstep-lbl">{s.label}</span>
-                  </button>
-                  {i < 3 && (
-                    <span class="text-white/20 px-1 text-sm select-none">
-                      ›
-                    </span>
-                  )}
-                </div>
+                <button
+                  class="phiw-hstep inline-flex items-center gap-3 text-left w-fit py-2"
+                  data-step={i + 1}
+                  style={`opacity: ${s.opacity};`}
+                >
+                  <span class="phiw-hstep-badge flex-shrink-0">{s.n}</span>
+                  <span
+                    class="phiw-hstep-lbl"
+                    style={`font-weight: ${s.weight};`}
+                  >
+                    {s.label}
+                  </span>
+                </button>
               ))
             }
           </div>

@@ -102,18 +102,42 @@ export const prerender = true;
             >
           </p>
 
-          <div class="flex flex-col gap-3 mb-10">
+          <div
+            class="flex flex-col mb-10"
+            style="border-left: 1px solid rgba(255,255,255,0.12); padding-left: 16px;"
+          >
             {
               [
-                { n: "1", label: "Select your state" },
-                { n: "2", label: "Define your service" },
-                { n: "3", label: "Evaluate your territory" },
+                {
+                  n: "1",
+                  label: "Select your state",
+                  opacity: "0.55",
+                  weight: "400",
+                },
+                {
+                  n: "2",
+                  label: "Define your service",
+                  opacity: "0.70",
+                  weight: "400",
+                },
+                {
+                  n: "3",
+                  label: "Evaluate your territory",
+                  opacity: "0.90",
+                  weight: "600",
+                },
               ].map((s) => (
-                <div class="flex items-center gap-3">
-                  <span class="w-6 h-6 rounded-full bg-white/20 text-white text-xs font-bold flex items-center justify-center leading-none flex-shrink-0">
+                <div class="flex items-center gap-3 py-2">
+                  <span
+                    class="w-5 h-5 rounded-full bg-white/15 text-white text-xs font-bold flex items-center justify-center leading-none flex-shrink-0"
+                    style={`opacity: ${s.opacity};`}
+                  >
                     {s.n}
                   </span>
-                  <span class="text-sm text-white/70 font-medium">
+                  <span
+                    class="text-sm"
+                    style={`color: rgba(255,255,255,${s.opacity}); font-weight: ${s.weight};`}
+                  >
                     {s.label}
                   </span>
                 </div>
