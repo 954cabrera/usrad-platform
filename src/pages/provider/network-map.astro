@@ -102,27 +102,20 @@ export const prerender = true;
             >
           </p>
 
-          <div class="flex items-center gap-0 mb-10 flex-wrap">
+          <div class="flex flex-col gap-3 mb-10">
             {
               [
                 { n: "1", label: "Select your state" },
                 { n: "2", label: "Define your service" },
                 { n: "3", label: "Evaluate your territory" },
-              ].map((s, i) => (
-                <div class="flex items-center">
-                  <div class="flex items-center gap-2 bg-white/10 border border-white/15 rounded-lg px-3 py-2">
-                    <span class="w-5 h-5 rounded-full bg-white/20 text-white text-xs font-bold flex items-center justify-center leading-none">
-                      {s.n}
-                    </span>
-                    <span class="text-sm text-white/70 font-medium">
-                      {s.label}
-                    </span>
-                  </div>
-                  {i < 2 && (
-                    <span class="text-white/20 px-2 text-sm select-none">
-                      ›
-                    </span>
-                  )}
+              ].map((s) => (
+                <div class="flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-full bg-white/20 text-white text-xs font-bold flex items-center justify-center leading-none flex-shrink-0">
+                    {s.n}
+                  </span>
+                  <span class="text-sm text-white/70 font-medium">
+                    {s.label}
+                  </span>
                 </div>
               ))
             }
