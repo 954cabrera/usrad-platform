@@ -103,20 +103,22 @@ export const prerender = true;
           </p>
 
           <div class="usrad-step-rail mb-10">
-            {
-              [
-                { n: "1", label: "Select your state" },
-                { n: "2", label: "Define your service" },
-                { n: "3", label: "Evaluate your territory", highlight: true },
-              ].map((s) => (
-                <div
-                  class={`usrad-step-item ${s.highlight ? "is-active" : ""}`}
-                >
-                  <span class="usrad-step-dot">{s.n}</span>
-                  <span class="usrad-step-text">{s.label}</span>
-                </div>
-              ))
-            }
+            <div class="usrad-step-item">
+              <span class="usrad-step-dot">1</span>
+              <span class="usrad-step-text">Select your state</span>
+            </div>
+            <div class="usrad-step-item">
+              <span class="usrad-step-dot">2</span>
+              <span class="usrad-step-text">Define your service</span>
+            </div>
+            <button
+              class="usrad-step-item usrad-step-btn is-active"
+              onclick="window.scrollToMap()"
+              aria-label="Scroll to market map"
+            >
+              <span class="usrad-step-dot">3</span>
+              <span class="usrad-step-text">Evaluate your territory</span>
+            </button>
           </div>
 
           <div class="flex items-center gap-4 flex-wrap">
@@ -601,5 +603,26 @@ export const prerender = true;
     .usrad-step-item.is-active .usrad-step-text {
       color: white;
     }
+    .usrad-step-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+    .usrad-step-btn:hover {
+      opacity: 1 !important;
+    }
   </style>
+
+  <!-- Phase 2.9: Step 3 → map scroll + hint trigger -->
+  <script>
+    window.scrollToMap = function () {
+      const el = document.getElementById("market-map");
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent("usrad:map-focus"));
+      }, 600);
+    };
+  </script>
 </CarbonLayout>
