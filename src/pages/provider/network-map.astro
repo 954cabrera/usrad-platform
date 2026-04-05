@@ -102,44 +102,18 @@ export const prerender = true;
             >
           </p>
 
-          <div
-            class="flex flex-col mb-10"
-            style="border-left: 1px solid rgba(255,255,255,0.12); padding-left: 16px;"
-          >
+          <div class="usrad-step-rail mb-10">
             {
               [
-                {
-                  n: "1",
-                  label: "Select your state",
-                  opacity: "0.55",
-                  weight: "400",
-                },
-                {
-                  n: "2",
-                  label: "Define your service",
-                  opacity: "0.70",
-                  weight: "400",
-                },
-                {
-                  n: "3",
-                  label: "Evaluate your territory",
-                  opacity: "0.90",
-                  weight: "600",
-                },
+                { n: "1", label: "Select your state" },
+                { n: "2", label: "Define your service" },
+                { n: "3", label: "Evaluate your territory", highlight: true },
               ].map((s) => (
-                <div class="flex items-center gap-3 py-2">
-                  <span
-                    class="w-5 h-5 rounded-full bg-white/15 text-white text-xs font-bold flex items-center justify-center leading-none flex-shrink-0"
-                    style={`opacity: ${s.opacity};`}
-                  >
-                    {s.n}
-                  </span>
-                  <span
-                    class="text-sm"
-                    style={`color: rgba(255,255,255,${s.opacity}); font-weight: ${s.weight};`}
-                  >
-                    {s.label}
-                  </span>
+                <div
+                  class={`usrad-step-item ${s.highlight ? "is-active" : ""}`}
+                >
+                  <span class="usrad-step-dot">{s.n}</span>
+                  <span class="usrad-step-text">{s.label}</span>
                 </div>
               ))
             }
@@ -574,6 +548,58 @@ export const prerender = true;
       * {
         animation-duration: 0.01ms !important;
       }
+    }
+
+    /* ── USRad Step Rail ── */
+    .usrad-step-rail {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-left: 18px;
+    }
+    .usrad-step-rail::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 4px;
+      bottom: 4px;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .usrad-step-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.7;
+      transition: opacity 200ms ease;
+    }
+    .usrad-step-item.is-active {
+      opacity: 1;
+    }
+    .usrad-step-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .usrad-step-item.is-active .usrad-step-dot {
+      background: #c9a24d;
+    }
+    .usrad-step-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.75);
+    }
+    .usrad-step-item.is-active .usrad-step-text {
+      color: white;
     }
   </style>
 </CarbonLayout>

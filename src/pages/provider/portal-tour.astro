@@ -133,40 +133,21 @@ export const prerender = true;
             delays. Guaranteed disbursement within 10 business days.
           </p>
 
-          <!-- Step nav — static; drives scroll only -->
-          <div
-            class="flex flex-col mb-10"
-            style="border-left: 1px solid rgba(255,255,255,0.12); padding-left: 16px;"
-          >
+          <!-- Step nav — interactive; drives scroll to step -->
+          <div class="usrad-step-rail mb-10">
             {
               [
-                { n: "1", label: "Apply", opacity: "0.55", weight: "400" },
-                { n: "2", label: "Credential", opacity: "0.70", weight: "400" },
-                {
-                  n: "3",
-                  label: "Receive Patients",
-                  opacity: "0.85",
-                  weight: "400",
-                },
-                {
-                  n: "✓",
-                  label: "Scan & Get Paid",
-                  opacity: "1.0",
-                  weight: "600",
-                },
+                { n: "1", label: "Apply" },
+                { n: "2", label: "Credential" },
+                { n: "3", label: "Receive Patients" },
+                { n: "✓", label: "Scan & Get Paid", highlight: true },
               ].map((s, i) => (
                 <button
-                  class="phiw-hstep inline-flex items-center gap-3 text-left w-fit py-2"
+                  class={`usrad-step-item usrad-step-btn ${s.highlight ? "is-active" : ""}`}
                   data-step={i + 1}
-                  style={`opacity: ${s.opacity};`}
                 >
-                  <span class="phiw-hstep-badge flex-shrink-0">{s.n}</span>
-                  <span
-                    class="phiw-hstep-lbl"
-                    style={`font-weight: ${s.weight};`}
-                  >
-                    {s.label}
-                  </span>
+                  <span class="usrad-step-dot">{s.n}</span>
+                  <span class="usrad-step-text">{s.label}</span>
                 </button>
               ))
             }
@@ -1158,6 +1139,67 @@ export const prerender = true;
     §3.5  No backdrop-blur, bg-white/*, border-white/* on light surfaces
   ═══════════════════════════════════════════════════════════════════ -->
   <style>
+    /* ── USRad Step Rail — shared design system component ── */
+    .usrad-step-rail {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-left: 18px;
+    }
+    .usrad-step-rail::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 4px;
+      bottom: 4px;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .usrad-step-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.7;
+      transition: opacity 200ms ease;
+    }
+    .usrad-step-item.is-active {
+      opacity: 1;
+    }
+    .usrad-step-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .usrad-step-item.is-active .usrad-step-dot {
+      background: #c9a24d;
+    }
+    .usrad-step-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.75);
+    }
+    .usrad-step-item.is-active .usrad-step-text {
+      color: white;
+    }
+    .usrad-step-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+    .usrad-step-btn:hover {
+      opacity: 1;
+    }
+
     /* ── Hero step buttons ── */
     .phiw-hstep {
       display: inline-flex;
