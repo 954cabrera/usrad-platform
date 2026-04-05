@@ -121,6 +121,10 @@ export const prerender = true;
             </button>
           </div>
 
+          <p class="text-sm text-white/40 mt-2 mb-8">
+            Click any cluster to reveal real market conditions
+          </p>
+
           <div class="flex items-center gap-4 flex-wrap">
             <!-- Gold CTA #1 — §8.1 B2B recruitment. Max 2 gold per viewport §8.3 -->
             <a
@@ -621,7 +625,10 @@ export const prerender = true;
       if (!el) return;
       el.scrollIntoView({ behavior: "smooth", block: "start" });
       setTimeout(() => {
-        window.dispatchEvent(new CustomEvent("usrad:map-focus"));
+        const iframe = document.getElementById("market-map-iframe");
+        if (iframe && iframe.contentWindow) {
+          iframe.contentWindow.postMessage({ type: "usrad:map-focus" }, "*");
+        }
       }, 600);
     };
   </script>
