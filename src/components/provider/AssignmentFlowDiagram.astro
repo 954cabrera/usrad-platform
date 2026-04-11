@@ -528,17 +528,51 @@
 
     @media (max-width: 640px) {
       .flow-node {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         gap: 12px;
+        padding: 14px 16px;
+        align-items: center;
+      }
+
+      .node-icon-wrap {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        flex-shrink: 0;
+      }
+
+      .node-content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .node-step {
+        display: inline;
+        margin-right: 6px;
       }
 
       .node-badge {
-        align-self: auto;
-        margin-top: 0;
+        display: inline;
+        font-size: 10px;
+        padding: 2px 8px;
+        margin-left: 4px;
+        vertical-align: middle;
       }
 
+      /* Badge moved inline — hide the standalone badge on mobile */
+      .flow-node .node-badge {
+        display: none;
+      }
+
+      /* Instead, show step + badge inline inside node-content via a wrapper */
       .node-title {
-        font-size: 16px;
+        font-size: 15px;
+        margin-bottom: 3px;
+      }
+
+      .node-desc {
+        font-size: 13px;
+        line-height: 1.5;
       }
     }
   </style>
