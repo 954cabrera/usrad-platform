@@ -60,6 +60,8 @@ export const prerender = true;
   - No pre-normalization dark patterns in the marketing page
   ═══════════════════════════════════════════════════════════════════
 */
+
+const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://app.usrad.com';
 ---
 
 <CarbonLayout
@@ -168,7 +170,7 @@ export const prerender = true;
               Not on a payment surface (§8.2 compliant).
             -->
             <a
-              href="https://app.usrad.com/signup?source=portal-tour"
+              href={`${REMIX_URL}/signup?source=portal-tour`}
               class="inline-flex items-center gap-2 bg-[#C9A24D] hover:bg-[#b8901f] text-white font-semibold px-8 py-3.5 rounded-lg transition-colors duration-200"
             >
               Begin Provider Onboarding
@@ -1106,7 +1108,7 @@ export const prerender = true;
       <div class="flex items-center justify-center gap-4 flex-wrap mb-10">
         <!-- White button on navy — inverted primary §6.1 -->
         <a
-          href="https://app.usrad.com/signup?source=portal-tour"
+          href={`${REMIX_URL}/signup?source=portal-tour`}
           class="inline-flex items-center gap-2 bg-white hover:bg-gray-100 text-[#003087] font-semibold px-8 py-3.5 rounded-lg transition-colors duration-200"
         >
           Begin Provider Onboarding

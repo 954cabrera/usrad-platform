@@ -1,6 +1,8 @@
 ---
 // ExitValueSection.astro
 // Placed after ScannerUtilization, before ReferralWorkflow
+
+const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://app.usrad.com';
 ---
 
 <section class="py-20 bg-[#EEF3FB]" id="exit-value">
@@ -154,7 +156,7 @@
     <!-- CTA -->
     <div class="text-center" data-aos="fade-up" data-aos-delay="300">
       <a
-        href="https://app.usrad.com/signup?source=provider"
+        href={`${REMIX_URL}/signup?source=provider`}
         class="inline-flex items-center gap-2 bg-[#cc9933] hover:bg-[#b8851e] text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors duration-200 shadow-lg"
       >
         Join the Network

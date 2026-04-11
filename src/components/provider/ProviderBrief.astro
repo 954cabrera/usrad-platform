@@ -3,6 +3,8 @@
 // Phase 3 — Provider Opportunity Brief download section
 // Surfaces the PDF with preview, key contents summary, and download CTA.
 // Positioned after ConsultationCTA, before FAQSection.
+
+const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://app.usrad.com';
 ---
 
 <section id="provider-brief" class="py-20 sm:py-24 px-4 sm:px-6 bg-gray-50">
@@ -202,7 +204,7 @@
           </a>
 
           <a
-            href="https://app.usrad.com/signup?source=provider"
+            href={`${REMIX_URL}/signup?source=provider`}
             class="group inline-flex items-center justify-center gap-2 border-2 border-[#003087] text-[#003087] px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-[#003087] hover:text-white transition-all duration-200"
           >
             Begin Provider Onboarding
