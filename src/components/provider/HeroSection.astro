@@ -1,5 +1,6 @@
 ---
-const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://usrad-portal.vercel.app';
+const REMIX_URL =
+  import.meta.env.PUBLIC_REMIX_URL || "https://usrad-portal.vercel.app";
 // HeroSection.astro - Main hero section with floating orbs
 ---
 
@@ -68,7 +69,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://usrad-portal.verc
         data-aos-delay="300"
       >
         <a
-          href={`${REMIX_URL}/signup`}
+          href={`${REMIX_URL}/signup?source=provider`}
           class="group bg-gradient-to-r from-[#cc9933] to-[#FFA500] text-[#003087] px-8 py-4 min-h-[48px] rounded-xl font-bold text-base sm:text-lg hover:shadow-2xl transition-all transform hover:scale-105 inline-flex items-center justify-center gap-3 shadow-lg"
         >
           <span>Join the Network</span>

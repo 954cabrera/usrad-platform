@@ -168,7 +168,7 @@ export const prerender = true;
               Not on a payment surface (§8.2 compliant).
             -->
             <a
-              href="https://app.usrad.com/signup"
+              href="https://app.usrad.com/signup?source=portal-tour"
               class="inline-flex items-center gap-2 bg-[#C9A24D] hover:bg-[#b8901f] text-white font-semibold px-8 py-3.5 rounded-lg transition-colors duration-200"
             >
               Begin Provider Onboarding
@@ -1097,55 +1097,58 @@ export const prerender = true;
         Your market position is determined before onboarding begins.
       </p>
       <a
-      href="/provider/network-map" class="text-white/55 hover:text-white text-sm
-      underline mb-8 inline-block transition-colors duration-200" > Evaluate your territory →
-    </div>
-    <div class="flex items-center justify-center gap-4 flex-wrap mb-10">
-      <!-- White button on navy — inverted primary §6.1 -->
-      <a
-        href="https://app.usrad.com/signup"
-        class="inline-flex items-center gap-2 bg-white hover:bg-gray-100 text-[#003087] font-semibold px-8 py-3.5 rounded-lg transition-colors duration-200"
+        href="/provider/network-map"
+        class="text-white/55 hover:text-white text-sm
+      underline mb-8 inline-block transition-colors duration-200"
       >
-        Begin Provider Onboarding
-        <svg
-          class="w-4 h-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          stroke-width="2.5"
-          aria-hidden="true"
+        Evaluate your territory →
+      </a>
+      <div class="flex items-center justify-center gap-4 flex-wrap mb-10">
+        <!-- White button on navy — inverted primary §6.1 -->
+        <a
+          href="https://app.usrad.com/signup?source=portal-tour"
+          class="inline-flex items-center gap-2 bg-white hover:bg-gray-100 text-[#003087] font-semibold px-8 py-3.5 rounded-lg transition-colors duration-200"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-        </svg>
-      </a>
-      <a
-        href="/provider#consultation"
-        class="text-white/55 hover:text-white font-medium text-sm border-b border-white/20 hover:border-white/55 pb-px transition-colors duration-200"
-      >
-        Talk to Our Team
-      </a>
-    </div>
-    <div class="grid grid-cols-3 gap-6 max-w-md mx-auto">
-      {
-        [
-          ["10 days", "Disbursement guarantee"],
-          ["$0", "Upfront cost"],
-          ["2–3 wks", "To your first patient"],
-        ].map(([n, l]) => (
-          <div class="text-center">
-            <p class="text-2xl font-bold text-white mb-1">{n}</p>
-            <p class="text-xs text-white/35">{l}</p>
-          </div>
-        ))
-      }
+          Begin Provider Onboarding
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            stroke-width="2.5"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+        </a>
+        <a
+          href="/provider#consultation"
+          class="text-white/55 hover:text-white font-medium text-sm border-b border-white/20 hover:border-white/55 pb-px transition-colors duration-200"
+        >
+          Talk to Our Team
+        </a>
+      </div>
+      <div class="grid grid-cols-3 gap-6 max-w-md mx-auto">
+        {
+          [
+            ["10 days", "Disbursement guarantee"],
+            ["$0", "Upfront cost"],
+            ["2–3 wks", "To your first patient"],
+          ].map(([n, l]) => (
+            <div class="text-center">
+              <p class="text-2xl font-bold text-white mb-1">{n}</p>
+              <p class="text-xs text-white/35">{l}</p>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </section>
-</CarbonLayout>
 
-<!-- ═══════════════════════════════════════════════════════════════
+  <!-- ═══════════════════════════════════════════════════════════════
     STYLES
     §15.2 All transitions ≤300ms, ease-in-out or ease-out
     §15.3 No pulse, bounce, scale-on-hover, parallax, infinite loops
@@ -1153,951 +1156,952 @@ export const prerender = true;
     §7.1  No gradients (except: hero dot pattern is static background-image, not CSS gradient element)
     §3.5  No backdrop-blur, bg-white/*, border-white/* on light surfaces
   ═══════════════════════════════════════════════════════════════════ -->
-<style>
-  /* ── USRad Step Rail — shared design system component ── */
-  .usrad-step-rail {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding-left: 18px;
-  }
-  .usrad-step-rail::before {
-    content: "";
-    position: absolute;
-    left: 8px;
-    top: 4px;
-    bottom: 4px;
-    width: 1px;
-    background: rgba(255, 255, 255, 0.12);
-  }
-  .usrad-step-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    opacity: 0.7;
-    transition: opacity 200ms ease;
-  }
-  .usrad-step-item.is-active {
-    opacity: 1;
-  }
-  .usrad-step-dot {
-    width: 22px;
-    height: 22px;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 700;
-    color: white;
-    flex-shrink: 0;
-  }
-  .usrad-step-item.is-active .usrad-step-dot {
-    background: #c9a24d;
-  }
-  .usrad-step-text {
-    font-size: 13px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.75);
-  }
-  .usrad-step-item.is-active .usrad-step-text {
-    color: white;
-  }
-  .usrad-step-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-  }
-  .usrad-step-btn:hover {
-    opacity: 1;
-  }
-
-  /* ── Hero step buttons ── */
-  .phiw-hstep {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 8px 14px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 200ms ease-in-out;
-  }
-  .phiw-hstep:hover {
-    background: rgba(255, 255, 255, 0.18);
-  }
-  .phiw-hstep-badge {
-    width: 22px;
-    height: 22px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 700;
-    color: white;
-  }
-  .phiw-hstep-lbl {
-    font-size: 12px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-  /* ── Metric bar ── */
-  .phiw-metric-bar {
-    position: sticky;
-    top: 0;
-    z-index: 30;
-    background: #003087;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  .phiw-metric-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .phiw-metric-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  .phiw-metric-item:last-child {
-    border-right: none;
-  }
-  .phiw-metric-val {
-    font-size: 12px;
-    font-weight: 800;
-    color: white;
-  }
-  .phiw-metric-lbl {
-    font-size: 11px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.45);
-  }
-
-  /* ── Progress strip ── */
-  .phiw-progress-bar {
-    position: sticky;
-    top: 64px;
-    z-index: 25;
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 16px 40px;
-    display: flex;
-    align-items: center;
-    gap: 0;
-  }
-  .phiw-ps {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 6px 12px;
-    border-radius: 8px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: background 150ms ease-in-out;
-  }
-  .phiw-ps:hover {
-    background: #f3f4f6;
-  }
-  .phiw-ps-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    border: 2px solid #d1d5db;
-    background: transparent;
-    transition: all 200ms ease-in-out;
-    flex-shrink: 0;
-  }
-  .phiw-ps-lbl {
-    font-size: 12px;
-    font-weight: 500;
-    color: #9ca3af;
-    transition: color 200ms ease-in-out;
-    white-space: nowrap;
-  }
-  .phiw-ps-line {
-    flex: 1;
-    max-width: 40px;
-    height: 1px;
-    background: #e5e7eb;
-    flex-shrink: 0;
-  }
-  .phiw-ps.phiw-ps-active .phiw-ps-dot {
-    background: #003087;
-    border-color: #003087;
-    box-shadow: 0 0 0 3px rgba(0, 48, 135, 0.12);
-  }
-  .phiw-ps.phiw-ps-active .phiw-ps-lbl {
-    color: #003087;
-    font-weight: 700;
-  }
-  .phiw-ps.phiw-ps-done .phiw-ps-dot {
-    background: #16a34a;
-    border-color: #16a34a;
-  }
-  .phiw-ps.phiw-ps-done .phiw-ps-lbl {
-    color: #6b7280;
-  }
-
-  /* ── Walk layout ── */
-  .phiw-walk-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  @media (max-width: 1024px) {
-    .phiw-walk-layout {
-      grid-template-columns: 1fr;
+  <style>
+    /* ── USRad Step Rail — shared design system component ── */
+    .usrad-step-rail {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-left: 18px;
     }
-    .phiw-sticky-col {
-      display: none;
+    .usrad-step-rail::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 4px;
+      bottom: 4px;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.12);
     }
-  }
-
-  /* Step panels */
-  .phiw-step {
-    min-height: 88vh;
-    display: flex;
-    align-items: center;
-    padding: 80px 48px 80px 40px;
-    border-bottom: 1px solid #f3f4f6;
-  }
-  .phiw-step:last-child {
-    border-bottom: none;
-  }
-  .phiw-step-inner {
-    max-width: 500px;
-  }
-
-  /* Chip */
-  .phiw-chip {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  .phiw-chip-num {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: #003087;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 700;
-    color: white;
-    flex-shrink: 0;
-  }
-  .phiw-chip-green {
-    background: #16a34a;
-  }
-  .phiw-chip-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: #003087;
-    background: #e8edf5;
-    border: 1px solid rgba(0, 48, 135, 0.15);
-    padding: 4px 12px;
-    border-radius: 50px;
-  }
-  .phiw-chip-green-label {
-    color: #16a34a;
-    background: #f0fdf4;
-    border-color: #bbf7d0;
-  }
-
-  .phiw-h2 {
-    font-size: clamp(1.9rem, 2.6vw, 2.5rem);
-    font-weight: 700;
-    line-height: 1.1;
-    color: #111827;
-    letter-spacing: -0.02em;
-    margin-bottom: 16px;
-  }
-  .phiw-p {
-    font-size: 1rem;
-    line-height: 1.72;
-    color: #6b7280;
-    margin-bottom: 24px;
-  }
-
-  /* Checklist */
-  .phiw-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .phiw-list li {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-  }
-  .phiw-check {
-    width: 20px;
-    height: 20px;
-    border-radius: 6px;
-    background: #f0fdf4;
-    border: 1px solid #bbf7d0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    font-weight: 700;
-    color: #16a34a;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  /* Timeline */
-  .phiw-timeline {
-    display: flex;
-    flex-direction: column;
-  }
-  .phiw-tl-row {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .phiw-tl-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    margin-top: 3px;
-  }
-  .phiw-tl-line {
-    width: 2px;
-    height: 18px;
-    background: #e5e7eb;
-    margin-left: 5px;
-  }
-
-  /* Credential status */
-  .phiw-cred-icon {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 9px;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-  .phiw-cred-icon-done {
-    background: #16a34a;
-    color: white;
-  }
-  .phiw-cred-icon-active {
-    background: #fef3c7;
-    color: #d97706;
-    border: 1px solid #fcd34d;
-  }
-  .phiw-cred-icon-pending {
-    background: #f3f4f6;
-    color: #9ca3af;
-    border: 1px solid #e5e7eb;
-  }
-  .phiw-cred-text-done {
-    color: #374151;
-  }
-  .phiw-cred-text-active {
-    color: #d97706;
-    font-weight: 600;
-  }
-  .phiw-cred-text-pending {
-    color: #9ca3af;
-  }
-
-  /* ── Sticky col ── */
-  .phiw-sticky-col {
-    background: #f9fafb;
-    border-left: 1px solid #e5e7eb;
-  }
-  .phiw-sticky-panel {
-    position: sticky;
-    top: 91px;
-    padding: 48px 36px 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
-  /* Dots */
-  .phiw-dots {
-    display: flex;
-    gap: 6px;
-  }
-  .phiw-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #d1d5db;
-    border: none;
-    cursor: pointer;
-    transition: all 200ms ease-in-out;
-  }
-  .phiw-dot.phiw-dot-active {
-    background: #003087;
-    width: 20px;
-    border-radius: 3.5px;
-  }
-
-  /* Step label */
-  .phiw-sticky-label {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
-  .phiw-ssl-num {
-    font-size: 11px;
-    font-weight: 700;
-    color: white;
-    background: #003087;
-    padding: 2px 10px;
-    border-radius: 50px;
-  }
-  .phiw-ssl-title {
-    font-size: 12px;
-    font-weight: 600;
-    color: #6b7280;
-  }
-
-  /* ── Screen stage ── */
-  .phiw-screen-stage {
-    width: 100%;
-    max-width: 510px;
-    perspective: 1400px;
-    position: relative;
-  }
-  /* Depth stage — layered ambient glow §3.5 */
-  .phiw-screen-stage::before {
-    content: "";
-    position: absolute;
-    inset: -80px;
-    background:
-      radial-gradient(
-        circle at 50% 55%,
-        rgba(0, 48, 135, 0.1),
-        transparent 60%
-      ),
-      radial-gradient(
-        circle at 50% 80%,
-        rgba(204, 153, 51, 0.04),
-        transparent 55%
-      );
-    filter: blur(32px);
-    z-index: -1;
-    pointer-events: none;
-  }
-
-  .phiw-screen {
-    display: none;
-    width: 100%;
-    transform-style: preserve-3d;
-    transform: rotateX(4deg) rotateY(-3deg) translateZ(0);
-    filter: drop-shadow(0 28px 40px rgba(0, 0, 0, 0.09))
-      drop-shadow(0 6px 16px rgba(0, 48, 135, 0.07))
-      drop-shadow(0 2px 4px rgba(0, 0, 0, 0.04));
-  }
-  .phiw-screen.active {
-    display: block;
-  }
-
-  /* Hover — §15.4 transition-shadow, NOT transform scale (§15.3 prohibited) */
-  .phiw-screen.active:hover {
-    transform: rotateX(2deg) rotateY(-1.5deg) translateZ(6px);
-    filter: drop-shadow(0 36px 52px rgba(0, 0, 0, 0.12))
-      drop-shadow(0 10px 24px rgba(0, 48, 135, 0.09));
-  }
-
-  /* Crossfade — §15.2 ≤300ms, ease-out */
-  .phiw-sc-enter {
-    animation: phiwEnter 280ms ease-out forwards;
-  }
-  .phiw-sc-exit {
-    animation: phiwExit 200ms ease-in forwards;
-  }
-  @keyframes phiwEnter {
-    from {
-      opacity: 0;
-      transform: rotateX(4deg) rotateY(-3deg) translateY(16px) scale(0.98);
+    .usrad-step-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.7;
+      transition: opacity 200ms ease;
     }
-    to {
+    .usrad-step-item.is-active {
       opacity: 1;
-      transform: rotateX(4deg) rotateY(-3deg) translateY(0) scale(1);
     }
-  }
-  @keyframes phiwExit {
-    from {
+    .usrad-step-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .usrad-step-item.is-active .usrad-step-dot {
+      background: #c9a24d;
+    }
+    .usrad-step-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.75);
+    }
+    .usrad-step-item.is-active .usrad-step-text {
+      color: white;
+    }
+    .usrad-step-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+    .usrad-step-btn:hover {
       opacity: 1;
-      transform: rotateX(4deg) rotateY(-3deg) translateY(0) scale(1);
     }
-    to {
-      opacity: 0;
-      transform: rotateX(4deg) rotateY(-3deg) translateY(-16px) scale(0.98);
+
+    /* ── Hero step buttons ── */
+    .phiw-hstep {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 200ms ease-in-out;
     }
-  }
-
-  /* Device shell */
-  .phiw-device {
-    background: white;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid #e5e7eb;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  }
-  /* Chrome */
-  .phiw-chrome {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 14px;
-    background: #f9fafb;
-    border-bottom: 1px solid #e5e7eb;
-  }
-  .phiw-chrome-dots {
-    display: flex;
-    gap: 5px;
-  }
-  .phiw-chrome-dots span {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-  }
-  .phiw-chrome-dots span:nth-child(1) {
-    background: #ff5f57;
-  }
-  .phiw-chrome-dots span:nth-child(2) {
-    background: #ffbc2e;
-  }
-  .phiw-chrome-dots span:nth-child(3) {
-    background: #28c840;
-  }
-  .phiw-chrome-bar {
-    flex: 1;
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 5px;
-    padding: 3px 10px;
-    font-family: ui-monospace, monospace;
-    font-size: 9px;
-    color: #9ca3af;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .phiw-screen-body {
-    height: 425px;
-    overflow: hidden;
-  }
-  .phiw-screen-shadow {
-    position: absolute;
-    bottom: -14px;
-    left: 12%;
-    right: 12%;
-    height: 28px;
-    background: rgba(0, 0, 0, 0.07);
-    filter: blur(14px);
-    border-radius: 50%;
-    z-index: -1;
-  }
-
-  /* Step status badge overlay */
-  .phiw-step-badge {
-    position: absolute;
-    bottom: -10px;
-    right: -10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: #003087;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 20px;
-    padding: 5px 12px 5px 8px;
-    box-shadow: 0 4px 12px rgba(0, 48, 135, 0.25);
-    z-index: 10;
-  }
-  .phiw-step-badge-label {
-    font-size: 10px;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.5);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  .phiw-step-badge-status {
-    font-size: 11px;
-    font-weight: 700;
-    color: #cc9933;
-  }
-
-  /* ── Onboarding dashboard mockup (Screen 1) ── */
-  .phiw-mock {
-    display: flex;
-  }
-  .phiw-mock-stacked {
-    flex-direction: column;
-    height: 360px;
-  }
-  .phiw-mock-portal {
-    height: 360px;
-  }
-
-  /* Navy hero banner — post-Phase-A normalization */
-  .phiw-mock-hero-banner {
-    background: #003087;
-    padding: 16px 14px;
-    flex-shrink: 0;
-  }
-  .phiw-mock-hero-greeting {
-    font-size: 13px;
-    font-weight: 700;
-    color: white;
-  }
-  .phiw-mock-hero-sub {
-    font-size: 9px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.55);
-    margin-top: 1px;
-  }
-
-  /* CircularProgress ring */
-  .phiw-mock-ring {
-    position: relative;
-    width: 44px;
-    height: 44px;
-    flex-shrink: 0;
-  }
-  .phiw-ring-svg {
-    width: 44px;
-    height: 44px;
-    transform: rotate(-90deg);
-  }
-  .phiw-ring-pct {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 9px;
-    font-weight: 800;
-    color: white;
-  }
-
-  /* 4 StepCards grid — post-Phase-A: bg-white, navy badges */
-  .phiw-mock-step-grid {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-    padding: 10px;
-    background: #f9fafb;
-    overflow: hidden;
-  }
-  .phiw-mock-step-card {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 8px 10px;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  }
-  .phiw-step-active {
-    border-color: #003087;
-    border-left: 3px solid #003087;
-  }
-  .phiw-step-locked {
-    opacity: 0.5;
-  }
-  .phiw-mock-step-badge-num {
-    width: 20px;
-    height: 20px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 9px;
-    font-weight: 800;
-    flex-shrink: 0;
-  }
-  .phiw-badge-done {
-    background: #16a34a;
-    color: white;
-  }
-  .phiw-badge-active {
-    background: #003087;
-    color: white;
-  }
-  .phiw-badge-locked {
-    background: #f3f4f6;
-    color: #9ca3af;
-    border: 1px solid #e5e7eb;
-  }
-  .phiw-mock-step-title {
-    font-size: 10px;
-    font-weight: 600;
-    color: #111827;
-  }
-
-  /* ── Portal sidebar §4.5 ── */
-  .phiw-mock-sidebar {
-    width: 90px;
-    flex-shrink: 0;
-    background: #003087;
-    padding: 12px 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .phiw-mock-logo {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 10px;
-    font-weight: 800;
-    color: white;
-  }
-  .phiw-mock-logomark {
-    width: 14px;
-    height: 14px;
-    border-radius: 3px;
-    background: white;
-    opacity: 0.9;
-  }
-  .phiw-mock-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-  .phiw-mock-nav-item {
-    font-size: 9px;
-    font-weight: 500;
-    padding: 4px 6px;
-    border-radius: 4px;
-    color: rgba(255, 255, 255, 0.65);
-    transition: background 150ms ease-in-out;
-  }
-  /* Active nav: bg-white/20 text-white §4.5 — permitted on navy surface -->*/
-  .phiw-mock-nav-active {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    font-weight: 700;
-  }
-  .phiw-mock-nav-muted {
-    color: rgba(255, 255, 255, 0.3);
-  }
-  .phiw-mock-nav-done {
-    color: #86efac;
-  }
-
-  /* bg-gray-50 content / bg-white card §3.3 §5.1 */
-  .phiw-mock-content {
-    flex: 1;
-    background: #f9fafb;
-    padding: 10px;
-    overflow: hidden;
-  }
-  .phiw-mock-card {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 12px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  }
-  .phiw-mock-title {
-    font-size: 12px;
-    font-weight: 700;
-    color: #111827;
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .phiw-progress-bar {
-      padding: 10px 16px;
-      overflow-x: auto;
+    .phiw-hstep:hover {
+      background: rgba(255, 255, 255, 0.18);
     }
-  }
-  @media (max-width: 480px) {
-    .phiw-ps-lbl {
-      display: none;
+    .phiw-hstep-badge {
+      width: 22px;
+      height: 22px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
     }
-    .phiw-ps-line {
-      max-width: 12px;
+    .phiw-hstep-lbl {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* ── Metric bar ── */
+    .phiw-metric-bar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: #003087;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .phiw-metric-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
     }
     .phiw-metric-item {
-      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .phiw-metric-item:last-child {
+      border-right: none;
+    }
+    .phiw-metric-val {
+      font-size: 12px;
+      font-weight: 800;
+      color: white;
     }
     .phiw-metric-lbl {
-      display: none;
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.45);
     }
+
+    /* ── Progress strip ── */
+    .phiw-progress-bar {
+      position: sticky;
+      top: 64px;
+      z-index: 25;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .phiw-ps {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background 150ms ease-in-out;
+    }
+    .phiw-ps:hover {
+      background: #f3f4f6;
+    }
+    .phiw-ps-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 2px solid #d1d5db;
+      background: transparent;
+      transition: all 200ms ease-in-out;
+      flex-shrink: 0;
+    }
+    .phiw-ps-lbl {
+      font-size: 12px;
+      font-weight: 500;
+      color: #9ca3af;
+      transition: color 200ms ease-in-out;
+      white-space: nowrap;
+    }
+    .phiw-ps-line {
+      flex: 1;
+      max-width: 40px;
+      height: 1px;
+      background: #e5e7eb;
+      flex-shrink: 0;
+    }
+    .phiw-ps.phiw-ps-active .phiw-ps-dot {
+      background: #003087;
+      border-color: #003087;
+      box-shadow: 0 0 0 3px rgba(0, 48, 135, 0.12);
+    }
+    .phiw-ps.phiw-ps-active .phiw-ps-lbl {
+      color: #003087;
+      font-weight: 700;
+    }
+    .phiw-ps.phiw-ps-done .phiw-ps-dot {
+      background: #16a34a;
+      border-color: #16a34a;
+    }
+    .phiw-ps.phiw-ps-done .phiw-ps-lbl {
+      color: #6b7280;
+    }
+
+    /* ── Walk layout ── */
+    .phiw-walk-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 1024px) {
+      .phiw-walk-layout {
+        grid-template-columns: 1fr;
+      }
+      .phiw-sticky-col {
+        display: none;
+      }
+    }
+
+    /* Step panels */
     .phiw-step {
-      padding: 48px 20px;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 48px 80px 40px;
+      border-bottom: 1px solid #f3f4f6;
     }
-  }
-
-  /* §15.8 Accessibility */
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
+    .phiw-step:last-child {
+      border-bottom: none;
     }
-  }
-</style>
+    .phiw-step-inner {
+      max-width: 500px;
+    }
 
-<!-- ═══════════════════════════════════════════════════════════════
+    /* Chip */
+    .phiw-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .phiw-chip-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #003087;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .phiw-chip-green {
+      background: #16a34a;
+    }
+    .phiw-chip-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #003087;
+      background: #e8edf5;
+      border: 1px solid rgba(0, 48, 135, 0.15);
+      padding: 4px 12px;
+      border-radius: 50px;
+    }
+    .phiw-chip-green-label {
+      color: #16a34a;
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+
+    .phiw-h2 {
+      font-size: clamp(1.9rem, 2.6vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: #111827;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .phiw-p {
+      font-size: 1rem;
+      line-height: 1.72;
+      color: #6b7280;
+      margin-bottom: 24px;
+    }
+
+    /* Checklist */
+    .phiw-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .phiw-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .phiw-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #16a34a;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Timeline */
+    .phiw-timeline {
+      display: flex;
+      flex-direction: column;
+    }
+    .phiw-tl-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .phiw-tl-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .phiw-tl-line {
+      width: 2px;
+      height: 18px;
+      background: #e5e7eb;
+      margin-left: 5px;
+    }
+
+    /* Credential status */
+    .phiw-cred-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .phiw-cred-icon-done {
+      background: #16a34a;
+      color: white;
+    }
+    .phiw-cred-icon-active {
+      background: #fef3c7;
+      color: #d97706;
+      border: 1px solid #fcd34d;
+    }
+    .phiw-cred-icon-pending {
+      background: #f3f4f6;
+      color: #9ca3af;
+      border: 1px solid #e5e7eb;
+    }
+    .phiw-cred-text-done {
+      color: #374151;
+    }
+    .phiw-cred-text-active {
+      color: #d97706;
+      font-weight: 600;
+    }
+    .phiw-cred-text-pending {
+      color: #9ca3af;
+    }
+
+    /* ── Sticky col ── */
+    .phiw-sticky-col {
+      background: #f9fafb;
+      border-left: 1px solid #e5e7eb;
+    }
+    .phiw-sticky-panel {
+      position: sticky;
+      top: 91px;
+      padding: 48px 36px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Dots */
+    .phiw-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .phiw-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #d1d5db;
+      border: none;
+      cursor: pointer;
+      transition: all 200ms ease-in-out;
+    }
+    .phiw-dot.phiw-dot-active {
+      background: #003087;
+      width: 20px;
+      border-radius: 3.5px;
+    }
+
+    /* Step label */
+    .phiw-sticky-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .phiw-ssl-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      background: #003087;
+      padding: 2px 10px;
+      border-radius: 50px;
+    }
+    .phiw-ssl-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7280;
+    }
+
+    /* ── Screen stage ── */
+    .phiw-screen-stage {
+      width: 100%;
+      max-width: 510px;
+      perspective: 1400px;
+      position: relative;
+    }
+    /* Depth stage — layered ambient glow §3.5 */
+    .phiw-screen-stage::before {
+      content: "";
+      position: absolute;
+      inset: -80px;
+      background:
+        radial-gradient(
+          circle at 50% 55%,
+          rgba(0, 48, 135, 0.1),
+          transparent 60%
+        ),
+        radial-gradient(
+          circle at 50% 80%,
+          rgba(204, 153, 51, 0.04),
+          transparent 55%
+        );
+      filter: blur(32px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .phiw-screen {
+      display: none;
+      width: 100%;
+      transform-style: preserve-3d;
+      transform: rotateX(4deg) rotateY(-3deg) translateZ(0);
+      filter: drop-shadow(0 28px 40px rgba(0, 0, 0, 0.09))
+        drop-shadow(0 6px 16px rgba(0, 48, 135, 0.07))
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.04));
+    }
+    .phiw-screen.active {
+      display: block;
+    }
+
+    /* Hover — §15.4 transition-shadow, NOT transform scale (§15.3 prohibited) */
+    .phiw-screen.active:hover {
+      transform: rotateX(2deg) rotateY(-1.5deg) translateZ(6px);
+      filter: drop-shadow(0 36px 52px rgba(0, 0, 0, 0.12))
+        drop-shadow(0 10px 24px rgba(0, 48, 135, 0.09));
+    }
+
+    /* Crossfade — §15.2 ≤300ms, ease-out */
+    .phiw-sc-enter {
+      animation: phiwEnter 280ms ease-out forwards;
+    }
+    .phiw-sc-exit {
+      animation: phiwExit 200ms ease-in forwards;
+    }
+    @keyframes phiwEnter {
+      from {
+        opacity: 0;
+        transform: rotateX(4deg) rotateY(-3deg) translateY(16px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: rotateX(4deg) rotateY(-3deg) translateY(0) scale(1);
+      }
+    }
+    @keyframes phiwExit {
+      from {
+        opacity: 1;
+        transform: rotateX(4deg) rotateY(-3deg) translateY(0) scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: rotateX(4deg) rotateY(-3deg) translateY(-16px) scale(0.98);
+      }
+    }
+
+    /* Device shell */
+    .phiw-device {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #e5e7eb;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+    /* Chrome */
+    .phiw-chrome {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .phiw-chrome-dots {
+      display: flex;
+      gap: 5px;
+    }
+    .phiw-chrome-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .phiw-chrome-dots span:nth-child(1) {
+      background: #ff5f57;
+    }
+    .phiw-chrome-dots span:nth-child(2) {
+      background: #ffbc2e;
+    }
+    .phiw-chrome-dots span:nth-child(3) {
+      background: #28c840;
+    }
+    .phiw-chrome-bar {
+      flex: 1;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 5px;
+      padding: 3px 10px;
+      font-family: ui-monospace, monospace;
+      font-size: 9px;
+      color: #9ca3af;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .phiw-screen-body {
+      height: 425px;
+      overflow: hidden;
+    }
+    .phiw-screen-shadow {
+      position: absolute;
+      bottom: -14px;
+      left: 12%;
+      right: 12%;
+      height: 28px;
+      background: rgba(0, 0, 0, 0.07);
+      filter: blur(14px);
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    /* Step status badge overlay */
+    .phiw-step-badge {
+      position: absolute;
+      bottom: -10px;
+      right: -10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #003087;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 5px 12px 5px 8px;
+      box-shadow: 0 4px 12px rgba(0, 48, 135, 0.25);
+      z-index: 10;
+    }
+    .phiw-step-badge-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .phiw-step-badge-status {
+      font-size: 11px;
+      font-weight: 700;
+      color: #cc9933;
+    }
+
+    /* ── Onboarding dashboard mockup (Screen 1) ── */
+    .phiw-mock {
+      display: flex;
+    }
+    .phiw-mock-stacked {
+      flex-direction: column;
+      height: 360px;
+    }
+    .phiw-mock-portal {
+      height: 360px;
+    }
+
+    /* Navy hero banner — post-Phase-A normalization */
+    .phiw-mock-hero-banner {
+      background: #003087;
+      padding: 16px 14px;
+      flex-shrink: 0;
+    }
+    .phiw-mock-hero-greeting {
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+    }
+    .phiw-mock-hero-sub {
+      font-size: 9px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.55);
+      margin-top: 1px;
+    }
+
+    /* CircularProgress ring */
+    .phiw-mock-ring {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+    }
+    .phiw-ring-svg {
+      width: 44px;
+      height: 44px;
+      transform: rotate(-90deg);
+    }
+    .phiw-ring-pct {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 800;
+      color: white;
+    }
+
+    /* 4 StepCards grid — post-Phase-A: bg-white, navy badges */
+    .phiw-mock-step-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      padding: 10px;
+      background: #f9fafb;
+      overflow: hidden;
+    }
+    .phiw-mock-step-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    .phiw-step-active {
+      border-color: #003087;
+      border-left: 3px solid #003087;
+    }
+    .phiw-step-locked {
+      opacity: 0.5;
+    }
+    .phiw-mock-step-badge-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .phiw-badge-done {
+      background: #16a34a;
+      color: white;
+    }
+    .phiw-badge-active {
+      background: #003087;
+      color: white;
+    }
+    .phiw-badge-locked {
+      background: #f3f4f6;
+      color: #9ca3af;
+      border: 1px solid #e5e7eb;
+    }
+    .phiw-mock-step-title {
+      font-size: 10px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    /* ── Portal sidebar §4.5 ── */
+    .phiw-mock-sidebar {
+      width: 90px;
+      flex-shrink: 0;
+      background: #003087;
+      padding: 12px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .phiw-mock-logo {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 800;
+      color: white;
+    }
+    .phiw-mock-logomark {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      background: white;
+      opacity: 0.9;
+    }
+    .phiw-mock-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .phiw-mock-nav-item {
+      font-size: 9px;
+      font-weight: 500;
+      padding: 4px 6px;
+      border-radius: 4px;
+      color: rgba(255, 255, 255, 0.65);
+      transition: background 150ms ease-in-out;
+    }
+    /* Active nav: bg-white/20 text-white §4.5 — permitted on navy surface -->*/
+    .phiw-mock-nav-active {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-weight: 700;
+    }
+    .phiw-mock-nav-muted {
+      color: rgba(255, 255, 255, 0.3);
+    }
+    .phiw-mock-nav-done {
+      color: #86efac;
+    }
+
+    /* bg-gray-50 content / bg-white card §3.3 §5.1 */
+    .phiw-mock-content {
+      flex: 1;
+      background: #f9fafb;
+      padding: 10px;
+      overflow: hidden;
+    }
+    .phiw-mock-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 12px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+    .phiw-mock-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .phiw-progress-bar {
+        padding: 10px 16px;
+        overflow-x: auto;
+      }
+    }
+    @media (max-width: 480px) {
+      .phiw-ps-lbl {
+        display: none;
+      }
+      .phiw-ps-line {
+        max-width: 12px;
+      }
+      .phiw-metric-item {
+        padding: 10px 12px;
+      }
+      .phiw-metric-lbl {
+        display: none;
+      }
+      .phiw-step {
+        padding: 48px 20px;
+      }
+    }
+
+    /* §15.8 Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+
+  <!-- ═══════════════════════════════════════════════════════════════
     SCRIPT
     Scroll-driven — no parallax §15.3
     All transitions ≤300ms §15.2
   ═══════════════════════════════════════════════════════════════════ -->
-<script>
-  (function () {
-    const LABELS = [
-      "Apply",
-      "Credential",
-      "Receive Patients",
-      "Scan & Get Paid",
-    ];
-    const STEPNUM = ["Step 1", "Step 2", "Step 3", "Step 4"];
-    let current = 1;
-    let transitioning = false;
+  <script>
+    (function () {
+      const LABELS = [
+        "Apply",
+        "Credential",
+        "Receive Patients",
+        "Scan & Get Paid",
+      ];
+      const STEPNUM = ["Step 1", "Step 2", "Step 3", "Step 4"];
+      let current = 1;
+      let transitioning = false;
 
-    function showScreen(n) {
-      if (n === current || transitioning) return;
-      transitioning = true;
+      function showScreen(n) {
+        if (n === current || transitioning) return;
+        transitioning = true;
 
-      const prevEl = document.getElementById("phiw-sc-" + current);
-      const nextEl = document.getElementById("phiw-sc-" + n);
-      if (!prevEl || !nextEl) {
-        transitioning = false;
-        return;
+        const prevEl = document.getElementById("phiw-sc-" + current);
+        const nextEl = document.getElementById("phiw-sc-" + n);
+        if (!prevEl || !nextEl) {
+          transitioning = false;
+          return;
+        }
+
+        prevEl.classList.add("phiw-sc-exit");
+        prevEl.addEventListener(
+          "animationend",
+          function onExit() {
+            prevEl.removeEventListener("animationend", onExit);
+            prevEl.classList.remove("active", "phiw-sc-exit");
+            prevEl.style.display = "none";
+
+            nextEl.style.display = "block";
+            nextEl.classList.add("active", "phiw-sc-enter");
+            nextEl.addEventListener(
+              "animationend",
+              function onEnter() {
+                nextEl.removeEventListener("animationend", onEnter);
+                nextEl.classList.remove("phiw-sc-enter");
+                transitioning = false;
+              },
+              { once: true },
+            );
+          },
+          { once: true },
+        );
+
+        // Dots
+        document.querySelectorAll(".phiw-dot").forEach(function (d, i) {
+          d.classList.toggle("phiw-dot-active", i + 1 === n);
+          d.setAttribute("aria-selected", String(i + 1 === n));
+        });
+
+        // Hero step bar highlight
+        document.querySelectorAll(".phiw-hstep").forEach(function (s, i) {
+          s.style.background =
+            i + 1 === n ? "rgba(255,255,255,0.22)" : "rgba(255,255,255,0.10)";
+        });
+
+        // Step label
+        var t = document.getElementById("phiw-ssl-title");
+        var num = document.getElementById("phiw-ssl-num");
+        if (t) t.textContent = LABELS[n - 1];
+        if (num) num.textContent = STEPNUM[n - 1];
+
+        // Progress strip
+        document.querySelectorAll(".phiw-ps").forEach(function (el, i) {
+          var s = i + 1;
+          el.classList.remove("phiw-ps-active", "phiw-ps-done");
+          if (s === n) el.classList.add("phiw-ps-active");
+          else if (s < n) el.classList.add("phiw-ps-done");
+        });
+
+        current = n;
       }
 
-      prevEl.classList.add("phiw-sc-exit");
-      prevEl.addEventListener(
-        "animationend",
-        function onExit() {
-          prevEl.removeEventListener("animationend", onExit);
-          prevEl.classList.remove("active", "phiw-sc-exit");
-          prevEl.style.display = "none";
-
-          nextEl.style.display = "block";
-          nextEl.classList.add("active", "phiw-sc-enter");
-          nextEl.addEventListener(
-            "animationend",
-            function onEnter() {
-              nextEl.removeEventListener("animationend", onEnter);
-              nextEl.classList.remove("phiw-sc-enter");
-              transitioning = false;
-            },
-            { once: true },
-          );
+      // Scroll-driven IntersectionObserver — no parallax
+      var obs = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              var n = parseInt(e.target.id.replace("phiw-", ""), 10);
+              if (!isNaN(n) && n >= 1 && n <= 4) showScreen(n);
+            }
+          });
         },
-        { once: true },
+        { threshold: 0.45, rootMargin: "-80px 0px" },
       );
 
-      // Dots
-      document.querySelectorAll(".phiw-dot").forEach(function (d, i) {
-        d.classList.toggle("phiw-dot-active", i + 1 === n);
-        d.setAttribute("aria-selected", String(i + 1 === n));
+      [1, 2, 3, 4].forEach(function (n) {
+        var el = document.getElementById("phiw-" + n);
+        if (el) obs.observe(el);
       });
 
-      // Hero step bar highlight
-      document.querySelectorAll(".phiw-hstep").forEach(function (s, i) {
-        s.style.background =
-          i + 1 === n ? "rgba(255,255,255,0.22)" : "rgba(255,255,255,0.10)";
-      });
-
-      // Step label
-      var t = document.getElementById("phiw-ssl-title");
-      var num = document.getElementById("phiw-ssl-num");
-      if (t) t.textContent = LABELS[n - 1];
-      if (num) num.textContent = STEPNUM[n - 1];
-
-      // Progress strip
-      document.querySelectorAll(".phiw-ps").forEach(function (el, i) {
-        var s = i + 1;
-        el.classList.remove("phiw-ps-active", "phiw-ps-done");
-        if (s === n) el.classList.add("phiw-ps-active");
-        else if (s < n) el.classList.add("phiw-ps-done");
-      });
-
-      current = n;
-    }
-
-    // Scroll-driven IntersectionObserver — no parallax
-    var obs = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            var n = parseInt(e.target.id.replace("phiw-", ""), 10);
-            if (!isNaN(n) && n >= 1 && n <= 4) showScreen(n);
-          }
+      // Dot clicks
+      document.querySelectorAll(".phiw-dot").forEach(function (dot) {
+        dot.addEventListener("click", function () {
+          var n = parseInt(dot.dataset.target, 10);
+          showScreen(n);
+          var target = document.getElementById("phiw-" + n);
+          if (target)
+            target.scrollIntoView({ behavior: "smooth", block: "center" });
         });
-      },
-      { threshold: 0.45, rootMargin: "-80px 0px" },
-    );
-
-    [1, 2, 3, 4].forEach(function (n) {
-      var el = document.getElementById("phiw-" + n);
-      if (el) obs.observe(el);
-    });
-
-    // Dot clicks
-    document.querySelectorAll(".phiw-dot").forEach(function (dot) {
-      dot.addEventListener("click", function () {
-        var n = parseInt(dot.dataset.target, 10);
-        showScreen(n);
-        var target = document.getElementById("phiw-" + n);
-        if (target)
-          target.scrollIntoView({ behavior: "smooth", block: "center" });
       });
-    });
 
-    // Progress strip clicks
-    document.querySelectorAll(".phiw-ps").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var n = parseInt(btn.dataset.goto, 10);
-        var target = document.getElementById("phiw-" + n);
-        if (target)
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Progress strip clicks
+      document.querySelectorAll(".phiw-ps").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var n = parseInt(btn.dataset.goto, 10);
+          var target = document.getElementById("phiw-" + n);
+          if (target)
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
       });
-    });
 
-    // Hero step bar clicks
-    document.querySelectorAll(".phiw-hstep").forEach(function (step, i) {
-      step.addEventListener("click", function () {
-        var target = document.getElementById("phiw-" + (i + 1));
-        if (target)
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Hero step bar clicks
+      document.querySelectorAll(".phiw-hstep").forEach(function (step, i) {
+        step.addEventListener("click", function () {
+          var target = document.getElementById("phiw-" + (i + 1));
+          if (target)
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
       });
-    });
 
-    // Init first screen
-    var first = document.getElementById("phiw-sc-1");
-    if (first) {
-      first.style.display = "block";
-      first.classList.add("active");
-    }
-  })();
-</script>
+      // Init first screen
+      var first = document.getElementById("phiw-sc-1");
+      if (first) {
+        first.style.display = "block";
+        first.classList.add("active");
+      }
+    })();
+  </script>
+</CarbonLayout>

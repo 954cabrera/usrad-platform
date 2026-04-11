@@ -1,10 +1,11 @@
 ---
-const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || 'https://usrad-portal.vercel.app';
+const REMIX_URL =
+  import.meta.env.PUBLIC_REMIX_URL || "https://usrad-portal.vercel.app";
 // src/components/provider/priority-markets/SimpleLinks.astro
 ---
 
 <a
-  href={`${REMIX_URL}/signup`}
+  href={`${REMIX_URL}/signup?source=provider`}
   class="bg-gradient-to-r from-[#cc9933] to-[#FFA500] text-[#003087] px-8 py-4 rounded-lg font-bold hover:shadow-2xl transition-all inline-flex items-center gap-2"
   >Apply for These Priority Markets →</a
 >
