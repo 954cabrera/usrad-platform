@@ -343,8 +343,7 @@ export const prerender = true;
               </div>
               <div>
                 <p class="text-sm font-semibold text-gray-900 mb-0.5">
-                  Silver marker — Activating Provider (Credentialing in
-                  Progress)
+                  Silver marker — Activating Provider
                 </p>
                 <p class="text-xs text-gray-500 leading-relaxed">
                   A provider has committed to this region and is completing
@@ -491,7 +490,7 @@ export const prerender = true;
               ></circle>
             </svg>
             <h3 class="text-base font-semibold text-gray-900">
-              Silver pin — Activating Provider (Credentialing in Progress)
+              Silver pin — Activating Provider
             </h3>
           </div>
           <p class="text-sm text-gray-600 leading-relaxed">
@@ -577,7 +576,27 @@ export const prerender = true;
         is live now. Your market may be next.
       </p>
 
-      href={`${REMIX_URL}/signup?source=map`}
+      <!-- Gold CTA #2 — §8.1 B2B recruitment context -->
+      <a
+        href={`${REMIX_URL}/signup?source=map`}
+        class="inline-flex items-center gap-2 bg-[#C9A24D] hover:bg-[#b8901f] text-white font-semibold px-10 py-4 rounded-lg transition-colors duration-200 text-base"
+      >
+        Begin Provider Application
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          stroke-width="2.5"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+      </a>
+
       <p class="text-white/25 text-xs mt-4">
         No commitment required · ACR accreditation required · 10-day payment
         model
