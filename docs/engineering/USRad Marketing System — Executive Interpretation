@@ -1,0 +1,399 @@
+# USRad Marketing System — Executive Interpretation
+
+> **Classification** · Confidential — Internal Strategic Document
+> **Prepared** · April 12 2026
+> **Source** · Marketing System Engineering Intelligence Report v2 (2026-04-12)
+
+---
+
+## Table of Contents
+
+| # | Section |
+|---|---------|
+| 1 | [System Role in the Platform](#1-system-role-in-the-platform) |
+| 2 | [Core System Identity](#2-core-system-identity) |
+| 3 | [Patient Acquisition Engine (PBS Entry)](#3-patient-acquisition-engine-pbs-entry) |
+| 4 | [Provider Acquisition Engine (Network Map)](#4-provider-acquisition-engine-network-map) |
+| 5 | [SmartMatch — The Decision Engine](#5-smartmatch--the-decision-engine) |
+| 6 | [Portal Tour — Pre-Sales System](#6-portal-tour--pre-sales-system) |
+| 7 | [Employer Acquisition Engine](#7-employer-acquisition-engine) |
+| 8 | [Conversion System Analysis](#8-conversion-system-analysis) |
+| 9 | [System Strengths](#9-system-strengths) |
+| 10 | [System Weaknesses](#10-system-weaknesses) |
+| 11 | [Growth & Scaling Implications](#11-growth--scaling-implications) |
+| 12 | [Cross-App Dependency Risk](#12-cross-app-dependency-risk) |
+| 13 | [Strategic Recommendations](#13-strategic-recommendations) |
+| 14 | [Final Executive Summary](#14-final-executive-summary) |
+
+---
+
+## 1. System Role in the Platform
+
+The marketing site is not where USRad gets its brand in front of people. It is where USRad closes the gap between a person with a medical need and the platform that serves it — and simultaneously where the platform recruits the supply that makes serving that need possible.
+
+It is the entry layer of the entire business. Every patient who books an MRI, every imaging center that joins the network, and every employer who signs an enterprise agreement begins their relationship with USRad here. The platform downstream — the booking engine, the provider portal, the payment system — only generates revenue if this system delivers the right person to the right entry point at the right moment.
+
+It feeds three distinct downstream systems, each with a different economic model:
+
+The **Patient Booking System** is the primary revenue engine. Every patient who completes a search on the homepage and arrives at the Remix booking flow is a potential per-scan transaction. The marketing site's job in this pipeline is to get a qualified patient to that handoff point with enough price transparency and procedural clarity that they complete the booking without hesitation.
+
+The **Provider Network** is the supply engine. Without contracted imaging centers, there are no results for patients to choose from. The marketing site's provider acquisition funnel — the landing page, the network map, the SmartMatch explainer, the portal tour — is the top of a pipeline that ends with a signed Provider Services Agreement and an active facility in the network. Every new provider who joins through this system expands USRad's geographic coverage and increases the probability of a patient finding a qualified result in their market.
+
+The **Employer Pipeline** is the B2B engine. Enterprise employers represent contracted volume — a single employer agreement can generate dozens of bookings per month. The employer funnel's job is to capture a qualified business lead, provide enough evidence of ROI to warrant an executive conversation, and route that lead to a scheduled consultation.
+
+The marketing site is the only system in the USRad platform that simultaneously serves all three of these pipelines. Its health directly determines the growth rate of the entire business.
+
+---
+
+## 2. Core System Identity
+
+The marketing site is a **multi-sided acquisition engine**. Most companies build a website and call it marketing. USRad has built something architecturally distinct: a system that operates different conversion machines simultaneously for audiences with fundamentally different motivations, decision timelines, and information needs — all from the same codebase.
+
+This distinction matters because it changes how the system should be evaluated, invested in, and maintained. A website is a communication tool. An acquisition engine is a growth system. The difference is whether the architecture is designed around content or around conversion outcomes.
+
+What the marketing system actually does:
+
+**Demand generation** for the patient audience. When an uninsured patient searches for "MRI cost near me" and lands on USRad, the system's job is to reduce the cognitive distance between "this looks interesting" and "I'm searching for my procedure." Every element of the homepage — the headline, the search interface, the pricing callouts, the trust signals — is calibrated to move the patient to that one action. The SmartMatch branding, the animated loading overlay, the procedure-grouped search results — these are not decoration. They are conversion architecture.
+
+**Supply formation** for the provider audience. The provider funnel is not advertising the platform to imaging centers — it is actively constructing a geographic network one facility at a time. The Network Map page exists to show a specific imaging center operator that their territory is either already occupied or still available. That is not a marketing message. That is a real-time market signal designed to trigger a specific decision: apply before the window closes.
+
+**Decision engineering** for both audiences. SmartMatch™ as a concept — applied to both patients and providers — is a decision simplification system. It tells patients "we've already evaluated your options and here is the best one." It tells providers "here is exactly how you will be ranked and what drives that ranking." In both cases, it converts an ambiguous choice into a guided commitment. That is the work of a decision engine, not a marketing page.
+
+---
+
+## 3. Patient Acquisition Engine (PBS Entry)
+
+The patient acquisition funnel begins with a search interface and ends with a browser navigation to the Remix application. Everything in between is a carefully engineered sequence designed to get a medically anxious, cost-sensitive patient to complete a single action: submit a procedure and ZIP code.
+
+### How the Pipeline Works
+
+The patient types or speaks a procedure — "brain MRI," "knee scan," "chest CT" — and the system resolves that natural-language input into a precise CPT code through a scored matching algorithm. The procedure library contains 195 procedures across seven modalities. The resolution prioritizes exact codes, then name matches, then semantic tokens. This deterministic resolution is the first critical dependency of the entire patient funnel: a wrong CPT code produces wrong providers, wrong pricing, and a booking that can't complete.
+
+Once the patient selects their procedure, they enter a ZIP code. A five-digit regex validates it client-side; a server-side call against the Medicare locality database validates it for coverage. The system fails open — a ZIP that can't be validated still passes through to the Remix search rather than blocking the patient. This is the correct architectural choice for a medical platform serving a population that may have inconsistent familiarity with their own ZIP codes.
+
+The form then navigates the patient to the Remix application with five query parameters: the CPT code, the ZIP, the procedure display name, the body part key, and the display label. These five parameters are the entirety of the handoff contract. Remix's PBS search page reads them, queries the contracted network and discovery database, enriches results with pricing, ranks contracted providers, and renders results. If any of these five parameters is missing or renamed, the patient sees no results.
+
+The loading overlay between search submission and Remix page load shows a four-stage progress sequence — analyzing, ranking, preparing results, almost ready. This is simulated progress with no connection to actual backend state. Its function is purely psychological: to create the impression that intelligent computation is happening on the patient's behalf, reducing the anxiety of waiting and building confidence in the result quality before the patient sees a single provider card.
+
+### Where Conversion Is Won
+
+Conversion in this funnel is won at the moment a patient types a procedure name and the search dropdown shows relevant, named procedures grouped by modality. The act of recognizing "Brain MRI" or "Knee MRI — Without Contrast" in a dropdown — seeing their specific medical need reflected back with apparent precision — converts a skeptical visitor into an engaged one. The search experience resolves the patient's primary anxiety: "does this platform actually know what I need?" The SmartMatch branding on the search interface reinforces that the system is doing something intelligent, not just running a keyword search.
+
+### Where Friction Exists
+
+The transition from the Astro search to the Remix results page is the highest-risk moment in the patient funnel. It requires a full browser navigation. The patient leaves the marketing site and arrives at a different application. The loading overlay masks this transition, but any failure at this boundary — a broken URL, a missing query parameter, a Remix downtime event — returns a patient who was ready to book to a confusing error state with no recovery path. The system has no fallback for a failed handoff.
+
+On mobile, the search experience is a modal — the correct pattern for small screens — but the search experience remains the bottleneck. A patient on a phone who wants to book an MRI must correctly identify their procedure from a grouped list, enter a five-digit ZIP code, and navigate through an overlay before being sent to a different application. Each step is a potential exit.
+
+---
+
+## 4. Provider Acquisition Engine (Network Map)
+
+The Network Map page is not a map. It is a provider recruitment engine that uses geographic visualization as a persuasion mechanism.
+
+### What It Actually Does
+
+The page's strategic purpose is to make a specific type of person — an imaging center owner or administrator — feel that a decision they have been deferring is becoming urgent. It accomplishes this through a single, powerful mechanism: showing them where their competitors are, where the market is open, and where the window to secure a founding position is closing.
+
+The pin system is the core of this mechanism. Gold pins mark active USRad partners — facilities already receiving patients, already earning revenue from the network. Silver pins mark facilities in credentialing — competitors who have already applied and are in process. Navy clusters show the density of ACR-accredited imaging centers in each market — the total potential competition. Dashed circles show open territory — markets with no USRad presence yet, where a founding advantage is still available.
+
+A provider looking at this map is not reading facility data. They are reading a market signal. "This market is taken. This adjacent market is closing. This one is still open." The map's job is not to inform — it is to create urgency by making the consequences of inaction visible in geographic terms.
+
+### The Strategic Logic
+
+This approach works because it exploits a real dynamic in the imaging center business: geographic exclusivity, or at least geographic advantage. An imaging center that is the first USRad partner in a market receives the best search placement in that market. A second or third partner in the same market competes on the three-signal ranking algorithm. First mover advantage is real, and the network map makes that advantage visible and finite.
+
+The combination of live map data (served from the Remix application via iframe) with urgency-framing copy — "founding slots limited," "3-6 weeks to credential" — converts what might otherwise be a passive information page into a decision trigger. The provider doesn't just learn about the network; they see their specific market, assess its availability, and face a clear choice: apply now or lose positioning.
+
+### The Astro/Remix Integration
+
+The actual map rendering is handled by the Remix application, embedded as an iframe. This architecture means the map can show live, accurate provider network data without requiring a data pipeline into the Astro codebase. It is the correct architectural decision for a system where the provider network data changes frequently. The tradeoff is dependency: if the Remix application has an outage, the most persuasive element of the most important provider acquisition page shows nothing.
+
+---
+
+## 5. SmartMatch — The Decision Engine
+
+SmartMatch™ is the most strategically valuable branding concept in the USRad platform, and it is doing two different but complementary jobs simultaneously.
+
+### For Patients
+
+For patients, SmartMatch™ resolves the fundamental anxiety of using a marketplace: "How do I know which provider is actually best for me?" The answer the brand provides is: you don't have to evaluate them — the system has already done that. SmartMatch identifies your best option. The patient's role is to confirm, not to choose.
+
+This is the psychology of the recommendation system. When Netflix shows you a movie "because you watched X," you experience that as curation, not advertising. SmartMatch™ on a search results page performs the same function: it converts a list of providers into a recommendation with a rationale. The patient experience shifts from "I am choosing between eight imaging centers" to "the system is showing me the best option, and I can confirm or adjust."
+
+The commercial effect of this is significant: patients who receive a recommendation are more likely to select it than patients who receive an undifferentiated list. The Primary Recommendation card — gold border, "Recommended" badge, SmartMatch confidence score — is designed to make the default choice obvious and trustworthy.
+
+### For Providers
+
+For providers, SmartMatch™ addresses the primary objection to joining a marketplace: "Will the system be fair to me, or will it favor whoever pays more?" The SmartMatch explainer page answers this question with a five-factor scoring model: price competitiveness, proximity, availability, patient experience, and accreditation. The provider can see exactly what drives their ranking and exactly what they can do to improve it.
+
+This transparency is strategically powerful. A provider who understands the ranking system is a provider who believes they can compete within it. The alternative — an opaque algorithm with unexplained outcomes — creates distrust and reduces network quality by attracting providers who game metrics rather than deliver quality care.
+
+### Why This Is a Strategic Asset
+
+SmartMatch™ appears in 18 or more files across the codebase, spanning the patient search experience, the provider explainer page, the FAQ, the membership page, and the how-it-works section. This degree of integration means the brand has become load-bearing infrastructure for the platform's value proposition on both sides of the marketplace. It is the mechanism through which USRad explains its core function — connecting patients with the best available imaging option at transparent pricing — without requiring a detailed explanation of the underlying system. The brand does the interpretive work.
+
+---
+
+## 6. Portal Tour — Pre-Sales System
+
+The portal tour page answers the question every serious provider asks before committing to a new business relationship: "What am I actually signing up for?"
+
+The page is structured as a scrollable walkthrough of the real provider experience — application, credentialing, patient reception, and payment — with authentic detail drawn from the actual platform engineering. The onboarding steps it describes match the real onboarding flow. The Go-Live Requirements panel it shows matches the real provider portal dashboard. The terminology it uses matches the platform's own terminology layer.
+
+This authenticity is the page's primary conversion mechanism. A provider who reaches the portal tour and scrolls through all four steps has, in effect, previewed the product. They know what the application form asks for. They know the credentialing timeline. They know how patients arrive and what privacy controls are in place. They know what the payment process looks like. When they click "Begin Provider Onboarding," they are not making a leap of faith. They are confirming a decision they have already effectively made.
+
+The strategic value of this approach is that it moves objection resolution from the sales process to the marketing system. A provider who would have had questions about the onboarding process, the patient privacy model, or the payment timeline has those questions answered before they ever speak to a USRad representative. This reduces the burden on any human sales or support function and increases the conversion rate of providers who reach the signup page.
+
+The portal tour also functions as a quality filter. A provider who reads the full walkthrough and still applies is a provider who understands what the commitment involves. They are less likely to drop off during credentialing, less likely to be surprised by the platform's requirements, and more likely to become a high-performing network partner.
+
+---
+
+## 7. Employer Acquisition Engine
+
+The employer funnel operates on a longer sales cycle than either the patient or provider funnels, and its architecture reflects this reality. It is not designed to convert on a single visit. It is designed to qualify, score, and route high-value leads toward a scheduled consultation.
+
+### Funnel Structure
+
+The employer landing page establishes the value proposition with surgical precision: hospital MRI costs $3,200; USRad costs $420; here is a composite case study showing a mid-size employer reducing imaging spend from $3.3 million to $1.8 million annually while cutting turnaround time by 18 days. This is not aspirational messaging. It is a business case delivered in the first scroll.
+
+The ROI calculator converts the abstract value proposition into a company-specific number. An HR director entering their employee count and estimated imaging volume receives a personalized savings projection — a tangible figure they can take to a budget conversation. The ROI report generator takes this further: it produces a PDF with the company's specific numbers, branded and formatted for executive review. This artifact can be shared in a leadership meeting without the USRad team being in the room.
+
+The gated implementation guide — requiring a work email address, rejecting free email domains, and blocking submissions that arrive in under three seconds — is a lead quality filter. A person who provides their work email and downloads a 30-day implementation timeline is expressing qualified intent. The system records this as a 20-point intent score increase in Supabase. A lead that then schedules a consultation has accumulated multiple intent signals across multiple visits — the scoring layer creates a prioritized lead queue without any manual qualification work.
+
+### Conversion Logic
+
+The employer funnel is designed for a buying committee dynamic. The person who downloads the implementation guide may not be the person who signs the contract. The ROI calculator output can be shared. The case study can be forwarded. Each piece of content is designed to travel through an organization independently, building the internal case for USRad before the sales conversation begins. This is B2B demand generation functioning correctly.
+
+---
+
+## 8. Conversion System Analysis
+
+### Where Conversion Is Strong
+
+The patient funnel's search-to-Remix handoff is architecturally tight. The five-parameter query construction is deterministic, the loading overlay bridges the application boundary gracefully, and the SmartMatch branding creates favorable expectations before the patient sees results. The critical conversion moment — procedure selection — is handled by a purpose-built search engine with relevance scoring, not a generic dropdown. This is a meaningful investment in the most important moment in the patient funnel.
+
+The provider funnel's three-page persuasion sequence — network map, SmartMatch explainer, portal tour — is genuinely differentiated acquisition architecture. Most marketplace platforms send a cold email with a pitch deck. USRad has built three distinct tools, each addressing a specific provider objection, that together walk a prospect from awareness to decision without requiring any human sales intervention. This is scalable acquisition infrastructure.
+
+The employer funnel's lead scoring system transforms passive downloads into a prioritized pipeline. Most B2B marketing systems count form submissions and call them leads. USRad's system scores behavior across multiple actions, enabling sales to focus on leads that have demonstrated sustained intent rather than one-time curiosity.
+
+### Where Conversion Leaks
+
+The most significant conversion leak is the dual provider funnel. The `/provider` pages use one design language (CarbonLayout, Inter font, white background, navy and gold palette). The `/imaging-center` pages use a different design language (PartnerPageLayout, Manrope font, cream background). Both target the same audience: imaging center operators considering joining the USRad network. A provider who encounters both will experience the brand as inconsistent. More damaging, the two funnels likely split attribution, dilute SEO authority for "imaging center partnership" queries, and create internal confusion about which funnel to invest in.
+
+The non-functional chat widget is a credibility problem at scale. A "Need help?" button on every page that does nothing is a trust failure. For a patient who is anxious about medical cost and is making a significant financial decision, discovering that a support channel doesn't work creates doubt about the platform's operational quality. This is not a minor UX issue — it is an active conversion impediment.
+
+The employer schedule page uses the deprecated layout with a different font and background than the employer landing page it follows. A prospect who completes the ROI calculator on the employer page and clicks through to schedule a consultation encounters a visually inconsistent interface. This is not catastrophic, but in a B2B context where credibility signals matter, it undermines the polished impression the rest of the funnel creates.
+
+### Intentional vs Accidental Friction
+
+The search-to-Remix navigation is intentional friction — it requires a full page load, but the loading overlay transforms that latency into a perceived value moment. This is good friction that should not be eliminated.
+
+The gated employer implementation guide is intentional friction — requiring a work email filters out non-qualified leads. This is good friction that should not be eliminated.
+
+The magic link email verification in the booking flow is intentional friction — it establishes email ownership before committing a patient to a booking. This is good friction with room for UX improvement.
+
+The dual provider funnel is accidental friction — it was not designed, it accumulated. The non-functional chat widget is accidental friction — it was scaffolded and never connected. The employer schedule layout inconsistency is accidental friction — it is technical debt creating a business problem.
+
+---
+
+## 9. System Strengths
+
+### Three-Pipeline Architecture with Clean Separation
+
+The system serves patient acquisition, provider recruitment, and employer capture from a single codebase without any pipeline contaminating another. A patient landing on the homepage does not encounter provider recruitment messaging. A provider navigating the SmartMatch explainer does not encounter employer ROI content. The audience-specific routing is clean, and the conversion paths are distinct. This is harder to achieve than it appears and represents disciplined product architecture.
+
+### Provider Urgency Engine
+
+The Network Map's territorial scarcity signaling — gold pins for active partners, silver for credentialing, dashed circles for open territory — is a genuinely effective recruitment mechanism. It converts abstract network membership into a concrete, geographic competitive decision. Most marketplace platforms describe their value with words. This system shows providers their specific market, in real time, and lets them draw their own conclusions about urgency. This approach scales: the more providers join, the more occupied territory appears on the map, which makes the remaining open territory more valuable and the urgency signal stronger.
+
+### SmartMatch as Cross-Audience Brand Infrastructure
+
+SmartMatch™ operates as a single brand concept that simultaneously justifies the patient experience ("the system chose this for me") and the provider value proposition ("here is exactly how the system ranks you"). Most marketplace brands have to explain their algorithm twice, in different terms, for different audiences. SmartMatch™ does it once. The brand is doing structural work across 18 or more files, and it is doing it consistently.
+
+### Minimal React Footprint on Marketing Pages
+
+The search orchestration runs entirely in vanilla JavaScript. React hydration on marketing pages is limited to the navigation header. This is architecturally disciplined — Astro's island architecture is being used correctly, with React only where interactivity requires it. The result is fast initial load times on the pages most responsible for first impressions: the homepage and the provider landing page.
+
+### Source Attribution from Day One
+
+Every provider CTA includes a source parameter that flows into the Remix signup flow. This means conversion data — which page drove the signup — is available from the first provider application. Most platforms retrofit attribution tracking after growth makes it necessary. Building it into the CTA architecture from the start means attribution data is complete, not sampled.
+
+### Employer Lead Scoring Infrastructure
+
+The Supabase-backed intent scoring system, while simple, is the right architecture for B2B lead management at an early stage. It prioritizes leads by demonstrated behavior rather than form submissions, which means the first employer conversations USRad has will be with the most serious prospects. This is a significant operational advantage for a small sales team.
+
+### Portal Tour as Scalable Sales Replacement
+
+The portal tour page reduces the information asymmetry that typically requires human sales involvement to resolve. A provider who completes the tour has been through a product demonstration without requiring a USRad team member. This is the correct design for a marketplace that needs to recruit hundreds or thousands of providers at scale — the sales process cannot be linear if the network is to grow geometrically.
+
+### Cross-Domain Analytics Continuity
+
+The GA4 configuration includes cross-domain linking between `usrad.com` and `app.usrad.com`. This means patient journeys can be tracked from the first homepage visit through search, booking, and confirmation without session breaks. The data produced by this configuration is commercially valuable — it enables attribution modeling that connects specific marketing content to completed bookings and revenue.
+
+---
+
+## 10. System Weaknesses
+
+### HIGH · No Sitemap or Robots File — 15+ Months Unfixed
+
+This is the most consequential unfixed issue in the system. Without a sitemap, search engine crawlers must discover pages through link traversal — a process that is both slower and less reliable than directed crawling. More critically, without a robots file, test pages, debug API endpoints, provider portal pages, and administrative interfaces are indexable. A search engine that indexes these pages wastes crawl budget, may expose internal data in search results, and will not correctly prioritize the high-value marketing pages that generate patient and provider traffic. This is a foundational SEO gap that has been flagged since the first audit and remains unresolved.
+
+**Business consequence:** Every week without a sitemap is a week of delayed search engine discovery for new pages. The three new provider pages — network map, SmartMatch, portal tour — may not be indexed for weeks or months after launch. Provider traffic that should be arriving organically is not.
+
+### HIGH · Header/Footer Sync Is 15+ Months Stale
+
+The CarbonHeader and CarbonFooter on the marketing site must match the equivalent header and footer in the Remix application. They last synced in December 2025. Any navigation changes, link additions, or login URL updates made in the Remix application since then are not reflected in the marketing site — and vice versa. A patient who navigates from the Remix booking flow back to the marketing site, or from the marketing site into Remix, encounters potentially different navigation. This is not a minor visual inconsistency — it erodes the impression that these are parts of a single, coherent platform.
+
+**Business consequence:** Every navigation change in one application creates drift in the other. This gap compounds over time and becomes progressively more expensive to resolve.
+
+### HIGH · Debug APIs in Production Expose Internal Data
+
+Three API endpoints — `/api/debug-data`, `/api/debug-facilities`, and `/api/test` — are accessible in the production environment without authentication. These endpoints expose internal facility and platform data to anyone who knows or can discover the URL. This is a security exposure that creates competitive intelligence risk, potential data privacy issues, and audit liability.
+
+**Business consequence:** Competitor scraping, unauthorized access to facility data, and potential HIPAA-adjacent exposure if patient-related data is accessible through these endpoints.
+
+### MEDIUM · Dual Provider Funnel Dilutes Authority and Confuses Audience
+
+Two separate provider acquisition funnels — the `/provider` family and the `/imaging-center` family — target the same audience with different design languages, different copy strategies, and different conversion paths. This creates internal competition for SEO authority on provider-related queries, splits conversion data across two pipelines, and requires maintaining two sets of pages that serve the same purpose.
+
+**Business consequence:** SEO authority for "imaging center partnership" and related queries is split across two URL structures. Neither funnel is as authoritative as a unified funnel would be. Provider prospects who encounter both may perceive brand inconsistency.
+
+### MEDIUM · Static Fake Data on the Provider Teaser
+
+The `MarketOpportunityTeaser` component on the provider landing page shows "5 USRad partners" and "520 MRI centers mapped" as static numbers. These do not reflect the live network. A provider who sees these numbers on the landing page and then explores the network map — which shows the real, live network data — will notice the discrepancy. In a context where the entire provider funnel is designed around credibility and transparency, showing fake numbers on the entry page is a meaningful trust risk.
+
+### MEDIUM · Non-Functional Chat Widget on Every Page
+
+The "Need help?" chat bubble appears in the bottom right of every CarbonLayout page. It has no backend. It does nothing when clicked. This is worse than not having a chat widget — it actively signals to patients and providers that the platform's support infrastructure is cosmetic.
+
+### LOW · Global Lottie Load on Every Page
+
+Roughly 250KB of animation library is loaded on every CarbonLayout page, including pages that use no animations. This is a performance tax paid by every visitor to every marketing page. On mobile devices with slower connections, this is a meaningful contributor to slow page load times that directly affects conversion rates.
+
+---
+
+## 11. Growth & Scaling Implications
+
+### Early Stage (0–100 Providers)
+
+At this stage, the marketing system's provider funnel is the most important growth lever in the business. The network map is sparsely populated, which means the territory urgency signal is weak — there are few gold and silver pins to create the impression of scarcity. The conversion mechanism depends more on the SmartMatch explainer and the portal tour than on territorial competitive pressure.
+
+On the patient side, the search results from a sparse network will frequently return only discovery providers (ACR-listed facilities, not contracted). This is the correct fallback behavior — patients still see relevant results. But the conversion rate from search to booking will be lower than at network maturity, because discovery providers can't be booked through USRad. The marketing system is doing its job by generating patient demand; the constraint is supply-side.
+
+The employer funnel is operating in its highest-leverage mode at this stage. A single employer agreement can generate disproportionate booking volume on a sparse network. The implementation guide gating and lead scoring infrastructure is appropriately calibrated for early-stage B2B sales.
+
+### Mid Stage (100–1,000 Providers)
+
+The network map becomes significantly more persuasive as the pin density increases. Markets with 5–10 gold pins are visually compelling urgency signals to providers considering adjacent territories. The SmartMatch ranking system becomes more consequential to providers because they can observe — through their booking volume — whether their pricing and availability choices are producing the expected ranking outcomes.
+
+On the patient side, the search-to-booking conversion rate improves as contracted network coverage expands. More patients in more markets find contracted providers in their search results, and the primary recommendation card becomes the most common outcome rather than a discovery-heavy result page.
+
+At this stage, the dual provider funnel becomes a material problem. With significant traffic arriving at both `/provider` and `/imaging-center`, the SEO authority split and brand inconsistency are no longer minor issues — they are measurable conversion losses.
+
+### Scale Stage (1,000+ Providers)
+
+At full network maturity, the marketing system faces a different challenge: differentiation within coverage. When most major markets have multiple contracted providers, the patient experience must increasingly justify why USRad's results are better than simply searching Google for "MRI near me." The SmartMatch brand and the recommendation architecture become the primary differentiation — the platform's argument is "we've already evaluated your options, and here is the best one" rather than "we have providers in your area."
+
+The provider acquisition funnel at this stage shifts from urgency-based ("apply before the market closes") to performance-based ("here is what high-performing providers in your market are earning"). The network map continues to work but its messaging needs to evolve — scarcity signals give way to competitive positioning signals.
+
+The employer funnel's value proposition strengthens at scale as network coverage enables USRad to serve employer populations nationally rather than regionally. The implementation guide and ROI calculator become more persuasive as the case studies can reference a broader geographic base.
+
+---
+
+## 12. Cross-App Dependency Risk
+
+The USRad platform is architecturally split between two applications: the Astro marketing site and the Remix booking/portal application. This split is appropriate — it allows each application to be optimized for its specific role. But the coupling between them creates a specific category of risk that requires active management.
+
+### The Query Parameter Contract
+
+The patient conversion funnel depends on five URL parameters passing correctly from the Astro search form to the Remix search results page. These parameters encode the patient's procedure selection, their ZIP code, and display metadata. If any parameter is renamed, removed, or reformatted in either application, the handoff breaks — the patient arrives at a Remix page that cannot build a valid search query, and the search returns no results.
+
+This is not a theoretical risk. It is a brittle contract between two codebases that are developed and deployed independently, by developers who may not be coordinating changes at the parameter level. There is no automated test that validates this contract, no schema that documents it as a shared interface, and no deployment gate that would catch a parameter mismatch before it reaches production.
+
+### The Header/Footer Sync Problem
+
+The navigation headers and footers on the Astro site and the Remix application are separate implementations that are supposed to be kept in sync manually. They last synced in December 2025. This is not just a visual consistency issue — it is a governance problem. There is no defined process for keeping them aligned, no automated check that flags drift, and no ownership assigned to maintaining the sync. The gap will continue to widen unless a deliberate decision is made to either unify the components or establish a formal sync process.
+
+### The REMIX_URL Variable
+
+Twenty or more files in the Astro codebase reference the Remix application's base URL through a single environment variable. If this variable is misconfigured in any deployment environment — staging, preview, production — every cross-app link and API call fails simultaneously. This is appropriate centralization in theory, but it creates a single point of failure that is not guarded by any validation layer. A deployment with a missing or incorrect `PUBLIC_REMIX_URL` would silently break patient search, provider signup, and employer email delivery at once.
+
+### The Network Map Iframe
+
+The most visually impactful element of the provider acquisition funnel — the live network map — is served by the Remix application as an embedded iframe. If the Remix application has a deployment issue, a route change, or a performance degradation, the most persuasive element of the most important provider page shows a loading spinner indefinitely. There is no fallback, no static screenshot, and no error state that would preserve the page's conversion function during a Remix outage.
+
+---
+
+## 13. Strategic Recommendations
+
+### 1 · Install sitemap.xml and robots.txt This Week
+
+This is the highest-leverage, lowest-effort SEO improvement available. Installing `@astrojs/sitemap` takes hours. Not having it has been costing organic search discovery for 15+ months. Every new page — the network map, the SmartMatch explainer, the portal tour — is being discovered by search engines through link traversal rather than direct declaration. The robots file is equally critical: without it, debug pages, test pages, and provider portal pages are indexable and consuming crawl budget. This should have been done before the v2 audit. It must be done now.
+
+### 2 · Consolidate the Dual Provider Funnel
+
+The `/imaging-center` pages should be deprecated and redirected to their `/provider` equivalents. Two funnels targeting the same audience with different design systems is a dilution of SEO authority, brand coherence, and development investment. The unified `/provider` funnel with its coordinated persuasion sequence — landing page, network map, SmartMatch, portal tour — is architecturally superior. The `/imaging-center` pages should serve as 301 redirects, not competing destinations.
+
+### 3 · Replace the Non-Functional Chat Widget
+
+Either connect the chat widget to a real support channel — even a simple email-to-support fallback — or remove it entirely. A placeholder that does nothing is worse than nothing. On a platform where patients are making healthcare decisions and providers are evaluating a business commitment, a broken support signal actively undermines the credibility the funnel is designed to build.
+
+### 4 · Fix the Static Fake Data on the Provider Teaser
+
+Update the `MarketOpportunityTeaser` component to display live network statistics from the database, or remove the specific numbers entirely and replace them with qualitative statements that don't require accuracy. Showing "5 USRad partners" to a provider who then sees hundreds of pins on the live network map is a credibility gap that happens at the top of the funnel.
+
+### 5 · Formalize the Query Parameter Contract Between Astro and Remix
+
+Document the five search parameters as a versioned API contract. Create an automated test — even a simple end-to-end check — that validates the patient handoff works correctly after any deployment to either application. The patient conversion funnel depends entirely on this contract. Its current informal status is disproportionate to its commercial importance.
+
+### 6 · Establish a Header/Footer Sync Process
+
+Either extract the shared navigation components into a shared package that both applications consume, or establish a quarterly sync review process with assigned ownership. The current approach — sync when someone remembers — guarantees continued drift. At minimum, create a documented checklist of the elements that must match and assign someone to verify it after any navigation change in either codebase.
+
+### 7 · Remove Debug Endpoints from Production
+
+The three debug API endpoints should be gated behind authentication or removed from the production deployment immediately. This is a security and competitive intelligence risk that requires no architectural decision — only a deletion or an auth gate. It should be resolved in the next deployment.
+
+### 8 · Move Lottie to On-Demand Loading
+
+250KB of animation library loading on every CarbonLayout page — including pages with no animations — is a performance tax with a straightforward solution: load Lottie only on pages that use it. This change improves Core Web Vitals scores on every marketing page and reduces the payload cost for every patient and provider who visits the site. Better page speed scores also directly influence search ranking.
+
+### 9 · Add Dynamic Open Graph Tags to CarbonLayout
+
+Social sharing from any USRad page currently shows the same title and description — the generic homepage metadata hardcoded in CarbonLayout. When a patient shares a specific procedure page, or a provider shares the SmartMatch explainer on LinkedIn, the social preview shows the wrong content. Astro's per-page metadata system makes this straightforward to fix. Dynamic OG tags are particularly high-value for the provider acquisition pages, which are likely to be shared by imaging center operators evaluating the network.
+
+### 10 · Build a Network Map Fallback for Remix Outages
+
+The network map iframe should have a graceful degradation state — a static screenshot of the map with a "Live map temporarily unavailable" message — that displays when the Remix application cannot be reached. Currently, a Remix outage during peak provider acquisition hours shows the most important element of the most important provider page as an empty loading state. A static fallback preserves the page's conversion function and the provider's experience.
+
+---
+
+## 14. Final Executive Summary
+
+- **What this system really is:** Not a website. A three-sided acquisition engine that simultaneously drives patient demand, recruits imaging center supply, and captures employer B2B leads from a single, coherent codebase. Its health is the primary determinant of USRad's growth rate.
+
+- **The patient funnel is technically sound and conversion-optimized:** The procedure search engine, the SmartMatch branding, and the clean five-parameter Remix handoff form a well-designed patient acquisition pipeline. The loading overlay, the grouped procedure results, and the recommendation architecture are all working as intended.
+
+- **The provider funnel is strategically sophisticated:** The network map's territorial urgency signaling, the SmartMatch explainer's transparency architecture, and the portal tour's pre-sales function together constitute a provider acquisition system that can scale without proportional sales headcount. This is a meaningful competitive advantage.
+
+- **The employer funnel is built correctly for a long sales cycle:** Lead scoring by demonstrated behavior, personalized ROI calculation, and gated content with quality filtering are all appropriate for the B2B buying dynamic. The funnel is doing the right things.
+
+- **The most critical unfixed issue is foundational SEO:** No sitemap, no robots file, no canonical tags, no structured data — and this has been the case for 15+ months. Every new provider acquisition page is underdiscoverable. Every marketing investment in traffic generation is partially wasted by organic infrastructure gaps that require hours to fix.
+
+- **The dual provider funnel is the most significant structural weakness:** Two funnels targeting the same audience with different design systems and different URLs is diluting SEO authority, splitting conversion data, and creating brand inconsistency at the top of the most important acquisition funnel. Consolidation should be treated as a Q2 priority.
+
+- **Three security items require immediate resolution:** Debug API endpoints are accessible in production, the network map uses a wildcard postMessage origin, and test pages are likely indexed. These are not performance issues or design debates — they are security and data exposure risks.
+
+- **The SmartMatch brand is load-bearing infrastructure:** It unifies the platform's value proposition across both patient and provider audiences, appears in critical conversion moments throughout both funnels, and does the interpretive work that converts a marketplace into a recommendation system. It should be protected, consistently applied, and invested in.
+
+- **The header/footer sync gap is a governance failure, not just a technical one:** 15+ months without synchronization between the marketing site's navigation and the Remix application's navigation represents a process gap — no one owns it, no one is checking it, and no deployment process catches it. This requires a structural fix, not a one-time update.
+
+- **The system is architecturally ready to scale:** The three-pipeline structure, the minimal React footprint, the source attribution tracking, and the analytics cross-domain linking are all correct foundations for growth. The gaps are operational and SEO-related — they are fixable in weeks, not months. Fix the sitemap, consolidate the funnels, remove the debug endpoints, and the marketing system becomes a genuinely strong acquisition engine for a platform that is already architecturally sound.
+
+---
+
+*End of Interpretation*
+
+*Prepared from Marketing System Engineering Intelligence Report v2 · 2026-04-12*
+*Confidential — For Internal Use and Authorized Investors Only*

@@ -408,12 +408,12 @@ function LoginDropdown({ isHeroPage, isScrolled }) {
   const loginOptions = [
     {
       href: `${REMIX_URL}/patient/login`,
-      title: "Patient Portal",
+      title: "Member Portal",
       subtitle: "View results & book scans",
       icon: (
         <img
           src="/images/icons/patient.svg"
-          alt="Patient Portal"
+          alt="Member Portal"
           className="w-5 h-5"
         />
       ),
@@ -544,12 +544,12 @@ function MobileLoginSection({ onClose }) {
   const loginOptions = [
     {
       href: `${REMIX_URL}/patient/login`,
-      title: "Patient Portal",
+      title: "Member Portal",
       subtitle: "View results & book scans",
       icon: (
         <img
           src="/images/icons/patient.svg"
-          alt="Patient Portal"
+          alt="Member Portal"
           className="w-5 h-5"
         />
       ),
