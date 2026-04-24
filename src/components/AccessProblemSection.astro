@@ -1,0 +1,81 @@
+---
+/**
+ * AccessProblemSection.astro
+ *
+ * The "why" moment on the homepage. Positioned between SocialProofBar and
+ * WhyLessCostSection — after trust stats, before the price explanation.
+ *
+ * Strategic intent:
+ *   The hero and social-proof bar establish WHAT USRad offers. WhyLessCost
+ *   explains HOW the price works. This section answers WHY this matters —
+ *   naming the access problem before the mechanics of the solution.
+ *
+ *   This is the strategic reframe vs. "quality-only" competitors (Covera):
+ *   quality is meaningless if the patient can't access or afford the scan.
+ *
+ * Design notes:
+ *   - Editorial register, not a feature block. Single column, generous air.
+ *   - Flat white surface (design contract §7.1, no gradients).
+ *   - No gold (§8.1 reserves gold for B2B recruitment CTAs; this is patient-facing).
+ *   - Uses the same eyebrow treatment as about.astro chapter labels, but in navy.
+ *   - Motion is restrained: one fade-up per paragraph via AOS, ≤300ms (§15.2).
+ *   - Thesis line gets a subtle left rule and deeper weight — the visual anchor.
+ */
+---
+
+<section class="py-24 sm:py-32 px-4 sm:px-6 bg-white">
+  <div class="max-w-3xl mx-auto">
+    <!-- Editorial eyebrow -->
+    <div class="text-center mb-10" data-aos="fade-up">
+      <p
+        class="text-xs font-semibold uppercase tracking-[0.2em] text-[#003087] mb-3"
+      >
+        The Problem We Solve
+      </p>
+      <div class="w-12 h-[2px] bg-[#003087]/30 mx-auto"></div>
+    </div>
+
+    <!-- Headline -->
+    <h2
+      class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-10 leading-[1.1] text-center"
+      data-aos="fade-up"
+      data-aos-delay="100"
+    >
+      Imaging shouldn't be<br class="hidden sm:block" /> this hard to access.
+    </h2>
+
+    <!-- Body narrative -->
+    <div class="space-y-7 text-lg sm:text-xl text-gray-600 leading-relaxed">
+      <p data-aos="fade-up" data-aos-delay="150">
+        A scan is never just a scan. It determines diagnoses, treatment plans,
+        outcomes.
+      </p>
+
+      <p data-aos="fade-up" data-aos-delay="200">
+        But for millions of Americans, the challenge isn't quality &mdash; it's
+        access. Delayed imaging. Unclear pricing. No simple way to find and book
+        the right provider.
+      </p>
+
+      <p data-aos="fade-up" data-aos-delay="250">
+        The result isn't just inconvenience. It's missed diagnoses, delayed
+        care, and worse outcomes.
+      </p>
+    </div>
+
+    <!-- Thesis / resolution line — visually distinct, the emotional pivot -->
+    <div
+      class="mt-14 pl-6 border-l-2 border-[#003087]"
+      data-aos="fade-up"
+      data-aos-delay="300"
+    >
+      <p class="text-xl sm:text-2xl font-semibold text-gray-900 leading-snug">
+        USRad exists to close that gap.
+      </p>
+      <p class="text-base text-gray-500 mt-3 leading-relaxed">
+        The right imaging center, at a transparent price, with a clear path to
+        the appointment.
+      </p>
+    </div>
+  </div>
+</section>

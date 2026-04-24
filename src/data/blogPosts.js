@@ -16,6 +16,17 @@ export const featuredPost = {
 
 export const blogPosts = [
   {
+    title: "The Biggest Diagnostic Error Isn't a Misread Scan. It's the Scan That Never Happens.",
+    excerpt:
+      "Quality-measurement vendors are right that radiology isn't a commodity. But for millions of Americans, the real diagnostic failure is never getting imaged at all. A founder's essay on the access problem in medical imaging.",
+    author: "Michael Cabrera, Co-Founder & President",
+    date: "April 24, 2026",
+    readTime: "8 min read",
+    category: "Industry Perspective",
+    image: "/images/blog/power-in-the-hands.webp",
+    slug: "the-scan-that-never-happens",
+  },
+  {
     title: "Uninsured? Here's How to Get Quality Medical Imaging for 70% Less",
     excerpt:
       "If you're uninsured or have a high deductible, here's how to save hundreds—sometimes thousands—on your next MRI, CT scan, or ultrasound.",
@@ -132,6 +143,7 @@ export const categories = [
   { name: "Patient Guide", count: 4 },
   { name: "Cost & Savings", count: 3 },
   { name: "Health & Wellness", count: 2 },
+  { name: "Industry Perspective", count: 1 },
   { name: "Innovation", count: 1 },
   { name: "Healthcare Policy", count: 1 },
 ];
