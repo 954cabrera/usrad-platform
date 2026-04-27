@@ -342,35 +342,33 @@ const categories = [
               <img
                 src="/images/michael.webp"
                 alt={featuredPost.author}
-                class="w-14 h-14 rounded-full ring-2 ring-blue-100"
+                class="w-14 h-14 rounded-full object-cover ring-2 ring-blue-100"
               />
-              <div>
-                <p class="font-semibold text-gray-900">{featuredPost.author}</p>
-                <div class="flex items-center gap-3 text-sm text-gray-500 mt-1">
-                  <span>{featuredPost.date}</span>
-                  <span>•</span>
-                  <span>{featuredPost.readTime}</span>
-                </div>
+              <p class="font-semibold text-gray-900">{featuredPost.author}</p>
+              <div class="flex items-center gap-3 text-sm text-gray-500 mt-1">
+                <span>{featuredPost.date}</span>
+                <span>•</span>
+                <span>{featuredPost.readTime}</span>
               </div>
             </div>
+          </div>
 
-            <div
-              class="flex items-center gap-2 text-[#003087] font-semibold group-hover:gap-4 transition-all"
+          <div
+            class="flex items-center gap-2 text-[#003087] font-semibold group-hover:gap-4 transition-all"
+          >
+            Read the full breakdown
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              Read the full breakdown
-              <svg
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-              </svg>
-            </div>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
           </div>
         </div>
       </a>
@@ -431,15 +429,15 @@ const categories = [
                       />
                     ) : post.author.includes("Donna") ? (
                       <img
-                        src="/images/donna-2.webp"
+                        src="/images/donna-website-sm-profile.webp"
                         alt={post.author}
-                        class="w-10 h-10 rounded-full ring-2 ring-gray-100"
+                        class="w-14 h-14 rounded-full object-cover ring-2 ring-blue-100"
                       />
                     ) : post.author.includes("Michael") ? (
                       <img
                         src="/images/michael.webp"
                         alt={post.author}
-                        class="w-10 h-10 rounded-full ring-2 ring-gray-100"
+                        class="w-14 h-14 rounded-full object-cover ring-2 ring-blue-100"
                       />
                     ) : (
                       <img
@@ -902,150 +900,149 @@ const categories = [
       </div>
     </div>
   </section>
+</CarbonLayout>
 
-  <style>
-    .line-clamp-3 {
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @keyframes blob {
+    0%,
+    100% {
+      transform: translate(0px, 0px) scale(1);
     }
-
-    @keyframes blob {
-      0%,
-      100% {
-        transform: translate(0px, 0px) scale(1);
-      }
-      33% {
-        transform: translate(30px, -50px) scale(1.1);
-      }
-      66% {
-        transform: translate(-20px, 20px) scale(0.9);
-      }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
     }
-
-    .animate-blob {
-      animation: blob 7s infinite;
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
     }
+  }
 
-    .animation-delay-2000 {
-      animation-delay: 2s;
-    }
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
 
-    .animation-delay-4000 {
-      animation-delay: 4s;
-    }
-  </style>
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const categoryButtons = document.querySelectorAll("[data-category-btn]");
-      const articles = document.querySelectorAll("[data-article-category]");
-      const loadMoreBtn = document.getElementById("load-more-btn");
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+</style>
 
-      let articlesPerPage = 6;
-      let currentlyVisible = articlesPerPage;
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const categoryButtons = document.querySelectorAll("[data-category-btn]");
+    const articles = document.querySelectorAll("[data-article-category]");
+    const loadMoreBtn = document.getElementById("load-more-btn");
 
-      // Function to show/hide articles based on current count
-      function updateArticleVisibility() {
-        const visibleArticles = Array.from(articles).filter(
-          (article) => article.style.display !== "none",
-        );
+    let articlesPerPage = 6;
+    let currentlyVisible = articlesPerPage;
 
-        visibleArticles.forEach((article, index) => {
-          if (index < currentlyVisible) {
-            article.classList.remove("hidden");
-          } else {
-            article.classList.add("hidden");
-          }
-        });
+    // Function to show/hide articles based on current count
+    function updateArticleVisibility() {
+      const visibleArticles = Array.from(articles).filter(
+        (article) => article.style.display !== "none",
+      );
 
-        // Hide load more button if all visible articles are shown
-        if (currentlyVisible >= visibleArticles.length) {
-          loadMoreBtn?.classList.add("hidden");
+      visibleArticles.forEach((article, index) => {
+        if (index < currentlyVisible) {
+          article.classList.remove("hidden");
         } else {
-          loadMoreBtn?.classList.remove("hidden");
+          article.classList.add("hidden");
         }
-      }
-
-      // Initial setup - hide articles beyond the first 6
-      updateArticleVisibility();
-
-      // Load More button functionality
-      loadMoreBtn?.addEventListener("click", () => {
-        currentlyVisible += articlesPerPage;
-        updateArticleVisibility();
       });
 
-      // Category filter functionality
-      categoryButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const selectedCategory = button.dataset.categoryBtn;
+      // Hide load more button if all visible articles are shown
+      if (currentlyVisible >= visibleArticles.length) {
+        loadMoreBtn?.classList.add("hidden");
+      } else {
+        loadMoreBtn?.classList.remove("hidden");
+      }
+    }
 
-          categoryButtons.forEach((btn) => {
-            btn.classList.remove("bg-[#003087]", "text-white", "shadow-md");
-            btn.classList.add(
-              "bg-gray-50",
-              "text-gray-700",
-              "border",
-              "border-gray-200",
-            );
-          });
-          button.classList.remove(
+    // Initial setup - hide articles beyond the first 6
+    updateArticleVisibility();
+
+    // Load More button functionality
+    loadMoreBtn?.addEventListener("click", () => {
+      currentlyVisible += articlesPerPage;
+      updateArticleVisibility();
+    });
+
+    // Category filter functionality
+    categoryButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const selectedCategory = button.dataset.categoryBtn;
+
+        categoryButtons.forEach((btn) => {
+          btn.classList.remove("bg-[#003087]", "text-white", "shadow-md");
+          btn.classList.add(
             "bg-gray-50",
             "text-gray-700",
             "border",
             "border-gray-200",
           );
-          button.classList.add("bg-[#003087]", "text-white", "shadow-md");
+        });
+        button.classList.remove(
+          "bg-gray-50",
+          "text-gray-700",
+          "border",
+          "border-gray-200",
+        );
+        button.classList.add("bg-[#003087]", "text-white", "shadow-md");
 
-          // Filter articles by category
-          articles.forEach((article) => {
-            const articleCategory = article.dataset.articleCategory;
-            if (
-              selectedCategory === "All Posts" ||
-              articleCategory === selectedCategory
-            ) {
-              article.style.display = "block";
-            } else {
-              article.style.display = "none";
-            }
-          });
-
-          // Reset pagination when category changes
-          currentlyVisible = articlesPerPage;
-          updateArticleVisibility();
-
-          // Smooth scroll to articles section
-          const articlesSection = document.getElementById("articles-section");
-          if (articlesSection) {
-            const offset = 100; // Adjust this value to control how much space above the section
-            const elementPosition = articlesSection.getBoundingClientRect().top;
-            const offsetPosition =
-              elementPosition + window.pageYOffset - offset;
-
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: "smooth",
-            });
+        // Filter articles by category
+        articles.forEach((article) => {
+          const articleCategory = article.dataset.articleCategory;
+          if (
+            selectedCategory === "All Posts" ||
+            articleCategory === selectedCategory
+          ) {
+            article.style.display = "block";
+          } else {
+            article.style.display = "none";
           }
         });
-      });
-    });
-  </script>
 
-  <script>
-    // ✅ Analytics — content_page_view (blog index)
-    document.addEventListener("DOMContentLoaded", () => {
-      try {
-        const g = (window as any).gtag;
-        if (typeof g === "function") {
-          g("event", "content_page_view", {
-            app_surface: "marketing",
-            content_type: "blog_index",
+        // Reset pagination when category changes
+        currentlyVisible = articlesPerPage;
+        updateArticleVisibility();
+
+        // Smooth scroll to articles section
+        const articlesSection = document.getElementById("articles-section");
+        if (articlesSection) {
+          const offset = 100; // Adjust this value to control how much space above the section
+          const elementPosition = articlesSection.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
           });
         }
-      } catch (_) {}
+      });
     });
-  </script>
-</CarbonLayout>
+  });
+</script>
+
+<script>
+  // ✅ Analytics — content_page_view (blog index)
+  document.addEventListener("DOMContentLoaded", () => {
+    try {
+      const g = (window as any).gtag;
+      if (typeof g === "function") {
+        g("event", "content_page_view", {
+          app_surface: "marketing",
+          content_type: "blog_index",
+        });
+      }
+    } catch (_) {}
+  });
+</script>
