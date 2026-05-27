@@ -1,0 +1,192 @@
+USRad
+
+The Business Card → /connect System
+A complete reference for the marketing system that turns a scanned QR code into a routed digital conversation.
+Owner: Michael Cabrera, Founder & CEO
+Audience: USRad team — engineering, marketing, ops
+Status: Shipped — May 2026
+Related documents: usrad_connect_page_strategy.docx, USRad_Dual-Color_Brand_Strategy.md
+
+1. What this is
+A two-part marketing system that bridges the offline-to-online handoff: a premium printed business card and a digital landing system at usrad.com/connect that receives the QR scan and routes the visitor to the right destination.
+The system exists because USRad's audience is fragmented. A single card may be handed to a radiologist, a CFO at a self-funded employer, a benefits broker, a VC partner, or a health plan executive — at the same conference, in the same week. Each of those people has a different question. The business card cannot answer six different questions at once. The /connect page can.
+The one-sentence version
+The business card establishes trust through physical quality; /connect translates that trust into the right next step for whoever scanned it.
+2. The business cards
+2.1 What was produced
+Two print-ready PDFs, one per founder:
+    • Michael Cabrera — Founder & CEO
+    • Donna Cabrera — Co-Founder & Chief Member Advocate
+Both cards are physically identical in layout and material specification. Only the named individual differs.
+2.2 Design specifications
+Attribute
+Value
+Dimensions
+3.5" × 2" (US standard)
+Bleed
+0.125" all sides
+Front
+Navy field, gold accent rule, USRad wordmark, brand statement
+Back
+White field, name + title, contact details, QR code routing to usrad.com/connect
+Navy
+#003087 (Pantone 286 C)
+Gold
+#cc9933
+Typography
+Inter (primary), serif accent on the wordmark
+Brand statement
+"Building the nationwide marketplace for diagnostic imaging."
+2.3 Production decisions pending
+As of this writing, sample packs from two vendors are being evaluated before production order placement:
+    • Moo (Luxe stock — multi-layer construction, premium tactile feel)
+    • Jukebox (uncoated cotton stock — softer hand, more artisanal feel)
+Both vendors received the same PDF spec. Final vendor selection is held until physical samples can be compared in hand.
+3. The /connect system
+3.1 What it does
+Every QR code on every USRad business card routes to usrad.com/connect. That page does exactly one thing: it asks the visitor who they are, then sends them to the right place.
+The page is deliberately small. It is a routing layer, not a destination. The destination is whatever existing canonical landing page best matches the visitor's audience type. /connect's job is to make sure that handoff happens within fifteen seconds of the scan.
+3.2 The six audience tracks
+Audience
+Who they are
+Where they go
+Provider
+Imaging center owner, radiologist, ops lead
+/provider?source=connect-provider
+Payor
+Health plan, network development, medical director
+/partner?source=connect-payor
+Employer
+Self-funded plan sponsor, HR, benefits, CFO
+/employer?source=connect-employer
+Broker
+Benefits advisor, third-party administrator
+/employer?source=connect-broker
+Investor
+VC, family office, strategic acquirer
+/investor?source=connect-investor
+Other
+Press, general inquiry, anything else
+/contact?source=connect-other
+Why payor routes to /partner
+USRad is itself the payor to imaging providers. Health plans are not customers — they are potential partnership counterparties. The /partner page already handles partner segmentation; we added "Health Plans & Payors" as a first-class category there so payor visitors find themselves named.
+3.3 The page flow
+There are two layers to the system, both intentionally short:
+Layer 1 — /connect (the picker)
+    • Navy hero band with USRad wordmark, gold accent rule, and the brand statement verbatim from the card
+    • One-sentence prompt: "Tell us who you are and we'll point you to what's most relevant."
+    • Six tappable cards in a single-column mobile / 2-column desktop grid
+    • Each card shows the audience label plus a one-line sub-label so identification is unambiguous
+Layer 2 — /connect/[audience] (the bridge)
+    • Same navy hero band so visual continuity holds across the transition
+    • A short acknowledgment ("Welcome. You're looking at USRad as…") that confirms the visitor was seen
+    • A one-paragraph value proposition specific to that audience
+    • A proof line (where applicable) that grounds USRad's credibility — usually the AnciCare PPO history
+    • One primary CTA button leading to the canonical landing page
+    • A small "That's not me — show me the options" back link
+Total time on /connect plus /connect/[audience] before the visitor reaches a substantive landing page: under thirty seconds for a focused reader.
+4. How it was built
+4.1 Technical stack
+The /connect system lives inside the existing usrad.com Astro 5.7.4 SSR application deployed on Vercel. It uses CarbonLayout (the primary marketing layout), Tailwind CSS, and the brand's design tokens. No new dependencies were added.
+4.2 File map
+Thirteen files total — six pages, four components, one data file, one layout enhancement, one /partner edit.
+Pages (seven)
+src/pages/connect.astro                 — the picker
+src/pages/connect/provider.astro        — provider bridge
+src/pages/connect/payor.astro           — payor bridge
+src/pages/connect/employer.astro        — employer bridge
+src/pages/connect/broker.astro          — broker bridge
+src/pages/connect/investor.astro        — investor bridge
+src/pages/connect/other.astro           — other / general inquiry bridge
+Components (four)
+src/components/connect/ConnectHero.astro      — navy brand band
+src/components/connect/AudiencePicker.astro   — six-option grid (on /connect)
+src/components/connect/AudienceLayout.astro   — shared bridge page chrome
+src/components/connect/ConnectCTA.astro       — primary CTA button
+Data (one)
+src/data/connectAudiences.ts            — single source of truth for all six audiences
+Layout enhancement (one)
+src/layouts/CarbonLayout.astro          — added named <slot name="head" />
+Side edit (one)
+src/pages/partner.astro                 — added Health Plans & Payors category
+4.3 The data file pattern
+All copy for all six audiences lives in one TypeScript file: connectAudiences.ts. Each audience is a typed object containing its picker label, sub-label, page headline, acknowledgment, body paragraph, proof line, and CTA configuration.
+How to update copy
+All audience copy is in src/data/connectAudiences.ts. Editing that one file updates both the picker labels on /connect and the page copy on /connect/[audience]. No template editing required.
+4.4 The CarbonLayout enhancement
+CarbonLayout previously had no mechanism for pages to inject content into <head>. This caused a workaround during /connect development: noindex was being injected via inline JavaScript after page load, which is fragile and crawler-visible only after JS execution.
+As part of this work, CarbonLayout received a named slot at the end of <head>:
+<slot name="head" />
+Any page using CarbonLayout can now inject head content cleanly. The /connect pages use this for both robots noindex and canonical URLs. Other pages on the site can adopt the same pattern when needed (page-specific OG tags, JSON-LD, hreflang, and so on).
+5. Analytics
+5.1 What's measured
+Three GA4 events fire across the /connect system, all routed through the existing Google Analytics 4 property (G-60JBC6WVCW). All events carry the app_surface: "marketing" tag for consistency with the rest of the site's event contract.
+Event
+Fires when
+Parameters
+audience_selected
+Visitor taps an audience card on /connect
+audience: provider | payor | employer | broker | investor | other
+cta_clicked
+Visitor taps the primary CTA on /connect/[audience]
+audience, cta_label
+page_bounce
+Visitor leaves /connect without selecting any audience
+page: connect
+5.2 Source attribution
+Every audience CTA passes a source parameter to its destination page, e.g., /provider?source=connect-provider. Downstream Remix signup flows preserve this attribution, so a provider who scans a card, taps Provider on /connect, lands on /provider, and eventually signs up will carry the connect-provider attribution all the way through to the database.
+5.3 Key metrics to watch
+    • Picker conversion rate: audience_selected events ÷ /connect pageviews. Healthy target ≥80%. Lower means the picker is unclear or the page is mis-loading.
+    • Audience mix: the distribution of selections across the six tracks. Confirms whether the audience hypothesis is right. Surprises here are interesting — if Investor outpaces Provider in raw selections, that's signal.
+    • Bridge-to-destination CTR: cta_clicked events ÷ /connect/[audience] pageviews, per audience. Healthy target ≥70%. Lower for any specific audience suggests their bridge page copy needs work.
+    • Bounce rate: page_bounce events ÷ /connect pageviews. Should be low. Spikes correlate with low-quality scan sources or QR codes that ended up somewhere unexpected.
+6. Brand and design rules
+The /connect system follows the existing USRad dual-color brand strategy. The full document lives in the project knowledge folder. The key constraints that apply to /connect specifically:
+    • Navy dominant. Hero band, primary CTAs, link colors, focus rings — all navy (#003087).
+    • Gold as accent only. Used for thin rules under brand statements, accent borders on proof callouts, and small visual punctuation. Never used for CTAs (per design contract §8.1) and never used on payment surfaces.
+    • Inter throughout. Site continuity wins over card continuity. The wordmark on the card uses a serif accent; the wordmark on /connect uses Inter Bold.
+    • No imagery, no Lottie, no stock photos. The page must feel like signal, not decoration. Whitespace is part of the design.
+    • Tap targets ≥56px. Audience cards on mobile are approximately 88px tall, well above the floor.
+    • No animations beyond color transitions. Per design contract §15.3: no animate-pulse, bounce, scale-on-hover, parallax, or infinite loops. Hover and focus states use ≤300ms color transitions only.
+7. Maintenance
+7.1 Common tasks
+Updating audience copy
+Edit src/data/connectAudiences.ts. The file is structured as one object per audience with named fields (headline, body, proofLine, cta, etc.). Save and commit. Both the /connect picker and the relevant bridge page pick up the change automatically.
+Adding a new audience track
+    • Step 1: Add a new entry to CONNECT_AUDIENCES in src/data/connectAudiences.ts.
+    • Step 2: Add the new audience ID to the AUDIENCE_ORDER array (this controls the picker's display order).
+    • Step 3: Add the new ID to the AudienceId union type at the top of the file.
+    • Step 4: Create src/pages/connect/[newaudience].astro by copying any existing bridge page and changing the audience reference.
+TypeScript will catch errors if the union type and the data object disagree, so the addition is safe at build time.
+Changing a CTA destination
+Edit the cta.href field for the relevant audience in connectAudiences.ts. Maintain the ?source=connect-{audience} query parameter convention so attribution stays intact.
+Retiring the /connect system
+If /connect is ever retired, the rollback is clean: delete src/pages/connect.astro, the src/pages/connect/ directory, the src/components/connect/ directory, and src/data/connectAudiences.ts. The CarbonLayout slot enhancement and the /partner Health Plans & Payors addition both have independent value and should be left in place.
+7.2 Things not to break
+    • The brand statement on /connect must remain verbatim from the business card. "Building the nationwide marketplace for diagnostic imaging." Do not paraphrase, shorten, or split. This is the explicit promise the card made and the page is here to confirm.
+    • All seven pages must remain noindex. These pages exist for QR scanners, not search traffic. Search-indexing /connect would dilute the brand promise.
+    • The QR codes on printed cards must continue to resolve to usrad.com/connect. If /connect ever moves, redirect from /connect to the new location at the web server level so already-printed cards keep working.
+    • GA4 event names are part of the contract. Renaming audience_selected, cta_clicked, or page_bounce breaks any saved reports or dashboards built on top of them. If a rename is needed, dual-fire the old and new event for a month first.
+8. Open items and known limitations
+8.1 Acknowledged limitations
+    • Broker routes to /employer as a temporary stopgap. There is no dedicated /broker page yet. Brokers and employers share enough vocabulary that the employer page won't feel wrong to a broker, but a dedicated broker landing page is the better long-term answer.
+    • Payor routes to /partner, but /partner uses the older site design language. When a payor scanning a premium navy-and-gold card lands on /partner, the visual continuity breaks slightly. /partner should be brought into design-contract conformance in a separate pass.
+    • The global Lottie loader still loads on /connect (~250KB). This is a pre-existing performance issue across all CarbonLayout pages (engineering report H3) and is not specific to /connect. Out of scope for this work but worth fixing globally.
+8.2 Future enhancements worth considering
+    • Dedicated broker page. Once volume warrants it. Update src/data/connectAudiences.ts to route there instead of /employer.
+    • Per-card QR codes. Currently every card routes to /connect. A future iteration could give each card a unique QR (e.g., /connect?ref=michael) for per-card attribution — "how many leads came from Michael's cards vs Donna's?"
+    • Geographic detection on /connect. If we know the scan happened at a specific conference, the picker could lead with the audience most likely to attend that conference.
+    • OG tag specificity per /connect page. The new CarbonLayout head slot makes per-page OG possible. Useful if /connect URLs ever get shared on LinkedIn or similar.
+9. Strategic context
+The premise behind this system is that the business card is the only physical artifact USRad will hand to a sophisticated counterparty before they form an opinion of the company. A premium card costs roughly two dollars to produce. The first impression it creates is worth orders of magnitude more than that — but only if the digital experience on the other side of the QR code matches the physical quality of the card.
+A cheap card with a generic homepage on the other side reads as inconsistent. A premium card with a generic homepage on the other side is worse — the contrast itself becomes the message: "we cared about the prop, not the substance."
+The /connect system exists to prevent that mismatch. It ensures that the same precision and intentionality that went into the card carries through into the first thirty seconds of the digital experience. After those thirty seconds, the visitor is on a real landing page — /provider, /employer, /investor, /partner — that does the substantive convincing work.
+Strategic bottom line
+The business card buys you trust. The /connect page keeps it. Every existing landing page on usrad.com can then do its job, which is to convert that trust into action.
+10. Document references
+This documentation is part of a small set of strategic and engineering documents covering the USRad marketing system. For full context:
+    • usrad_connect_page_strategy.docx — the original strategic brief for /connect (the why and the what)
+    • USRad_Dual-Color_Brand_Strategy.md — navy/gold deployment rules across all USRad surfaces
+    • USRad_Marketing_System_Engineering_Intelligence_Report_v2.md — comprehensive engineering audit of the usrad.com codebase
+    • USRad_Provider_Systems_Unified_Engineering_Intelligence_Report.md — provider portal and Remix integration
+All four are in the project folder. This document is the operational sibling — it covers what was built, how it works, and how to keep it working.
