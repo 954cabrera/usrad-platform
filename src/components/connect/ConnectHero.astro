@@ -1,0 +1,56 @@
+---
+// ──────────────────────────────────────────────────────────────────────────
+// ConnectHero.astro
+//
+// Brand-reinforcement top section. Confirms continuity with the physical
+// business card the visitor just scanned. Used on /connect and the six
+// per-audience pages at /connect/[audience].
+//
+// Design intent (per strategic brief):
+//   - Navy dominant, gold accent (matches card)
+//   - The brand statement appears VERBATIM from the card
+//   - "The page should breathe" — generous whitespace, low density
+//   - No hero imagery, no stock photography
+// ──────────────────────────────────────────────────────────────────────────
+
+export interface Props {
+  /**
+   * Optional context line shown below the brand statement.
+   * On /connect this is the "Tell us who you are" prompt.
+   * On per-audience pages this is typically omitted (the audience headline takes over below).
+   */
+  contextLine?: string;
+}
+
+const { contextLine } = Astro.props;
+---
+
+<section class="bg-[#003087] text-white">
+  <div class="max-w-3xl mx-auto px-6 sm:px-8 pt-12 pb-10 sm:pt-16 sm:pb-14">
+    <!-- Wordmark -->
+    <div class="mb-5">
+      <span
+        class="text-3xl sm:text-4xl font-bold tracking-tight text-white"
+        aria-label="USRad"
+      >
+        USRad
+      </span>
+    </div>
+
+    <!-- Thin gold rule (brand accent, per dual-color strategy §4.1) -->
+    <div class="w-12 h-px bg-[#cc9933] mb-5" aria-hidden="true"></div>
+
+    <!-- Brand statement — VERBATIM from the business card. Do not edit. -->
+    <p class="text-lg sm:text-xl text-white/90 font-medium leading-snug">
+      Building the nationwide marketplace for diagnostic imaging.
+    </p>
+
+    {
+      contextLine && (
+        <p class="mt-5 text-base text-white/70 leading-relaxed">
+          {contextLine}
+        </p>
+      )
+    }
+  </div>
+</section>

@@ -1,0 +1,31 @@
+---
+// ──────────────────────────────────────────────────────────────────────────
+// /connect/payor — the payor track.
+//
+// Short bridge page. See /connect.astro and the strategic brief for full
+// pattern documentation. All six tracks share the same shape.
+// ──────────────────────────────────────────────────────────────────────────
+
+import CarbonLayout from "../../layouts/CarbonLayout.astro";
+import ConnectHero from "../../components/connect/ConnectHero.astro";
+import AudienceLayout from "../../components/connect/AudienceLayout.astro";
+import { CONNECT_AUDIENCES } from "../../data/connectAudiences";
+
+const audience = CONNECT_AUDIENCES.payor;
+
+export const prerender = true;
+---
+
+<CarbonLayout
+  title={audience.metaTitle}
+  description={audience.body}
+  hideNewsletter={true}
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href={`https://usrad.com/connect/${audience.id}`} />
+  </Fragment>
+
+  <ConnectHero />
+  <AudienceLayout audience={audience} />
+</CarbonLayout>

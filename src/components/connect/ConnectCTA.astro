@@ -1,0 +1,67 @@
+---
+// ──────────────────────────────────────────────────────────────────────────
+// ConnectCTA.astro
+//
+// The single next-action button on each /connect/[audience] page.
+// Navy primary button (matches site design contract §8.1: gold is for B2B
+// recruitment CTA only; this is an internal navigation handoff, not a
+// recruitment moment).
+//
+// Fires GA4 'cta_clicked' event before navigation. Progressive enhancement:
+// the anchor works without JS; we just lose the event.
+// ──────────────────────────────────────────────────────────────────────────
+
+import type { ConnectAudience } from "../../data/connectAudiences";
+
+export interface Props {
+  audience: ConnectAudience;
+}
+
+const { audience } = Astro.props;
+const { label, href, eventLabel } = audience.cta;
+---
+
+<a
+  href={href}
+  data-audience={audience.id}
+  data-cta-label={eventLabel}
+  class="connect-cta inline-flex items-center justify-center w-full sm:w-auto bg-[#003087] hover:bg-[#002266] text-white font-semibold px-6 sm:px-8 py-4 rounded-xl transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003087] focus-visible:ring-offset-2 text-base sm:text-lg"
+>
+  <span>{label}</span>
+  <svg
+    class="ml-2 w-5 h-5 flex-shrink-0"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+  </svg>
+</a>
+
+<script>
+  document
+    .querySelectorAll<HTMLAnchorElement>(".connect-cta")
+    .forEach((cta) => {
+      cta.addEventListener("click", () => {
+        const audience = cta.dataset.audience;
+        const ctaLabel = cta.dataset.ctaLabel;
+        if (!audience || !ctaLabel) return;
+
+        // @ts-ignore — gtag is global from GA4 script loaded in CarbonLayout
+        if (typeof window.gtag === "function") {
+          // @ts-ignore
+          window.gtag("event", "cta_clicked", {
+            app_surface: "marketing",
+            audience: audience,
+            cta_label: ctaLabel,
+            event_category: "connect_page",
+          });
+        }
+      });
+    });
+</script>

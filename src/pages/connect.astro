@@ -1,0 +1,37 @@
+---
+// ──────────────────────────────────────────────────────────────────────────
+// /connect — the routing layer for the USRad business card system.
+//
+// Every QR code printed on every USRad business card routes here. The
+// page's job is to translate the tactile real-world trust signal of a
+// premium card into a digital first impression that:
+//   1. Confirms the brand promise made on the card
+//   2. Identifies the visitor's audience type
+//   3. Routes them to the right destination
+//
+// Strategic brief: see project knowledge.
+// ──────────────────────────────────────────────────────────────────────────
+
+import CarbonLayout from "../layouts/CarbonLayout.astro";
+import ConnectHero from "../components/connect/ConnectHero.astro";
+import AudiencePicker from "../components/connect/AudiencePicker.astro";
+
+export const prerender = true;
+---
+
+<CarbonLayout
+  title="USRad · Building the nationwide marketplace for diagnostic imaging."
+  description="USRad routes the right person to the right place. Tell us who you are."
+  hideNewsletter={true}
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href="https://usrad.com/connect" />
+  </Fragment>
+
+  <ConnectHero
+    contextLine="You scanned the card. Welcome. Tell us who you are and we'll point you to what's most relevant."
+  />
+
+  <AudiencePicker />
+</CarbonLayout>

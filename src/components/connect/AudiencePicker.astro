@@ -1,0 +1,133 @@
+---
+// ──────────────────────────────────────────────────────────────────────────
+// AudiencePicker.astro
+//
+// The six-option grid on /connect. The single interactive element of the
+// page. Each option is a real anchor (works without JS) wrapped in a small
+// script that fires GA4 'audience_selected' before navigation.
+//
+// Mobile-first design (per strategic brief):
+//   - Tap targets well above 56px (cards are ~88px tall on mobile)
+//   - Single column on mobile, 2-col on sm+, 3-col on lg+
+//   - All audiences clearly differentiated from each other
+//   - Progressive enhancement: links work without JS
+// ──────────────────────────────────────────────────────────────────────────
+
+import { CONNECT_AUDIENCES, AUDIENCE_ORDER } from "../../data/connectAudiences";
+
+const audiences = AUDIENCE_ORDER.map((id) => CONNECT_AUDIENCES[id]);
+---
+
+<section class="bg-white">
+  <div class="max-w-3xl mx-auto px-6 sm:px-8 py-10 sm:py-14">
+    <h2
+      class="text-base font-semibold text-gray-500 uppercase tracking-wide mb-6"
+    >
+      I'm a&hellip;
+    </h2>
+
+    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4" role="list">
+      {
+        audiences.map((audience) => (
+          <li>
+            <a
+              href={`/connect/${audience.id}`}
+              data-audience={audience.id}
+              class="connect-audience-link group block w-full rounded-xl border-2 border-gray-200 bg-white px-5 py-4 sm:py-5 transition-colors duration-200 hover:border-[#003087] hover:bg-[#E8EDF5] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003087] focus-visible:ring-offset-2"
+            >
+              <div class="flex items-center justify-between gap-4">
+                <div class="min-w-0">
+                  <p class="text-base sm:text-lg font-semibold text-gray-900">
+                    {audience.pickerLabel}
+                  </p>
+                  <p class="mt-1 text-sm text-gray-500 leading-snug">
+                    {audience.pickerSublabel}
+                  </p>
+                </div>
+                <svg
+                  class="flex-shrink-0 w-5 h-5 text-gray-400 transition-colors group-hover:text-[#003087]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  // GA4 audience_selected event firing.
+  // Fires before navigation so the event is recorded even though we then
+  // immediately navigate. Uses 'beacon' transport via gtag's send_to logic.
+  //
+  // Progressive enhancement: if this script fails or is blocked, the
+  // <a href> links still work — visitor still gets to the right page,
+  // we just lose the event.
+  document
+    .querySelectorAll<HTMLAnchorElement>(".connect-audience-link")
+    .forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const audience = link.dataset.audience;
+        if (!audience) return;
+
+        // gtag is loaded globally by CarbonLayout
+        // @ts-ignore — gtag is a global from the GA4 script
+        if (typeof window.gtag === "function") {
+          // @ts-ignore
+          window.gtag("event", "audience_selected", {
+            app_surface: "marketing",
+            audience: audience,
+            event_category: "connect_page",
+          });
+        }
+      });
+    });
+
+  // page_bounce event — fires if visitor leaves /connect without clicking
+  // any audience option within 5 seconds. Helps measure picker effectiveness.
+  let interacted = false;
+  let bounceFired = false;
+
+  document
+    .querySelectorAll<HTMLAnchorElement>(".connect-audience-link")
+    .forEach((link) => {
+      link.addEventListener("click", () => {
+        interacted = true;
+      });
+    });
+
+  setTimeout(() => {
+    if (!interacted && !bounceFired) {
+      // Visitor still on page after 5s without selecting — not a bounce yet,
+      // but we arm the beforeunload handler to catch a fast close.
+    }
+  }, 5000);
+
+  // Fire bounce on unload if visitor never interacted
+  window.addEventListener("beforeunload", () => {
+    if (!interacted && !bounceFired) {
+      bounceFired = true;
+      // @ts-ignore
+      if (typeof window.gtag === "function") {
+        // @ts-ignore
+        window.gtag("event", "page_bounce", {
+          app_surface: "marketing",
+          page: "connect",
+          event_category: "connect_page",
+        });
+      }
+    }
+  });
+</script>

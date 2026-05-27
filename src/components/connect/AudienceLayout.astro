@@ -1,0 +1,84 @@
+---
+// ──────────────────────────────────────────────────────────────────────────
+// AudienceLayout.astro
+//
+// Shared layout for the six /connect/[audience] pages.
+// Renders the acknowledgment → headline → body → proof line → CTA flow.
+//
+// The page above this is the ConnectHero (brand reinforcement). Below this
+// is just a small back link.
+// ──────────────────────────────────────────────────────────────────────────
+
+import type { ConnectAudience } from "../../data/connectAudiences";
+import ConnectCTA from "./ConnectCTA.astro";
+
+export interface Props {
+  audience: ConnectAudience;
+}
+
+const { audience } = Astro.props;
+---
+
+<main>
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 sm:px-8 py-10 sm:py-14">
+      <!-- Acknowledgment — short, audience-affirming greeting -->
+      <p
+        class="text-sm font-medium text-[#cc9933] uppercase tracking-wide mb-3"
+      >
+        {audience.acknowledgment}
+      </p>
+
+      <!-- Headline -->
+      <h1
+        class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-6"
+      >
+        {audience.headline}
+      </h1>
+
+      <!-- Body -->
+      <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-6">
+        {audience.body}
+      </p>
+
+      <!-- Proof line, if present -->
+      {
+        audience.proofLine && (
+          <div class="border-l-2 border-[#cc9933] pl-4 py-1 mb-8">
+            <p class="text-sm sm:text-base text-gray-600 leading-relaxed italic">
+              {audience.proofLine}
+            </p>
+          </div>
+        )
+      }
+
+      <!-- Primary CTA -->
+      <div class="mt-8">
+        <ConnectCTA audience={audience} />
+      </div>
+
+      <!-- Back link to picker -->
+      <div class="mt-10 pt-6 border-t border-gray-200">
+        <a
+          href="/connect"
+          class="inline-flex items-center text-sm text-gray-500 hover:text-[#003087] transition-colors"
+        >
+          <svg
+            class="w-4 h-4 mr-1.5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"></path>
+          </svg>
+          That's not me &mdash; show me the options
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
