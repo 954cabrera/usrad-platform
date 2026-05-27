@@ -103,6 +103,25 @@ const ga4Id = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID || "G-60JBC6WVCW";
         },
       });
     </script>
+
+    <!--
+      Per-page <head> injection slot.
+ 
+      Use from any page that consumes CarbonLayout to inject page-specific
+      meta tags (noindex, canonical, page-specific OG, JSON-LD, etc.):
+ 
+        <CarbonLayout title="..." description="...">
+          <Fragment slot="head">
+            <meta name="robots" content="noindex, nofollow" />
+            <link rel="canonical" href="https://usrad.com/..." />
+          </Fragment>
+          ...page content...
+        </CarbonLayout>
+ 
+      Positioned at end of <head> so per-page tags come AFTER layout defaults,
+      letting pages override og:title etc. when needed.
+    -->
+    <slot name="head" />
   </head>
 
   <body class="font-inter text-gray-900 bg-white antialiased">
