@@ -213,7 +213,7 @@ export const POST: APIRoute = async ({ request }) => {
                     Best,<br>
                     <strong style="color: #111827; font-size: 14px;">Michael Cabrera</strong><br>
                     President &amp; Founder, USRad<br>
-                    <span style="color: #9ca3af; font-size: 12px;">Founded AnciCare · Served 168,000+ claimants · Acquired by CorVel (NYSE: CVL)</span>
+                    <span style="color: #9ca3af; font-size: 12px;">Founded AnciCare · Served 168,000+ claimants · Acquired by CorVel (NASDAQ: CRVL)</span>
                   </p>
                 </div>
 

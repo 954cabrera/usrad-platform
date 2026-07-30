@@ -482,7 +482,9 @@ same page, same claim, 12.5% apart.
 | --- | --- | --- |
 | "acquired by CorVel Corporation (**NASDAQ: CRVL**)" | `CarbonFooter.astro:219` | **All 49 CarbonLayout pages** |
 | "CorVel (**NASDAQ: CRVL**) still uses our AnciCare model" | `employer/AnciCareLegacy.astro:74` | /employer |
-| "Acquired by CorVel Corporation (**NYSE: CVL**)" | `imaging-center/index.astro:63` | ~~/imaging-center~~ ✅ removed `383458c` — **`CVL` now has 0 occurrences repo-wide** |
+| "Acquired by CorVel Corporation (**NYSE: CVL**)" | `imaging-center/index.astro:63` | ~~/imaging-center~~ ✅ removed `383458c` — ~~**`CVL` now has 0 occurrences repo-wide**~~ **FALSE, corrected 2026-07-30** |
+| "Acquired by CorVel (**NYSE: CVL**)" | `src/pages/api/employer-guide-download.ts:216` | employer guide signature block — **survived `383458c`**; corrected 2026-07-30 |
+| "Acquired by CorVel (**NYSE: CVL**)" *(prescribed as house format)* | `docs/md/CREDIBILITY_GUIDELINES.md:49, 88, 132, 138` | style guide — **upstream source of every instance above**; corrected 2026-07-30. See CFO register FD-EXT-007 |
 | "**NYSE-Listed** Acquisition" *(headline)* directly above "CorVel Corporation (**NASDAQ: CRVL**)" *(subline)* | `provider/TrustBar.astro:110, 113` | **/provider** — ⚠️ **still live** |
 | "muster for Fortune 500 clients and **NYSE** acquisition" | `employer/ExecutiveFAQ.astro:290` | **/employer** — ⚠️ **still live** |
 | "**NYSE**-listed acquisition" | `ProofSection.astro:87` | *(orphaned — not rendered)* |
@@ -1000,7 +1002,7 @@ imaging centers"* claim (L114) outright and a pre-existing dead link to `/manage
 | Claim | Cluster | Was |
 | --- | --- | --- |
 | **$240 Million+** "in volume" / "in revenue" | C2, U5 | 9 locations |
-| **NYSE: CVL** | C3 | 1 location — `CRVL` is now the only ticker on the site |
+| ~~**NYSE: CVL**~~ | C3 | ~~1 location — `CRVL` is now the only ticker on the site~~ **FALSE — removed from this table 2026-07-30.** `383458c` eliminated 1 of 4 occurrences. Two more lived in `docs/md/CREDIBILITY_GUIDELINES.md` (which *prescribed* the ticker) and one in the live `src/pages/api/employer-guide-download.ts:216`. All corrected 2026-07-30; see the C3 table above. The `.astro`-scoped grep behind this row could not have found either file. |
 | **payment within 15 days** | C7 | 5 locations |
 | **65%** "Average Unfilled Appointment Slots" *(live)* | C8, U8 | 1 location; one orphaned copy survives in `provider/Test.astro` |
 | **"successful for 8 years"** | C15 | 1 location |

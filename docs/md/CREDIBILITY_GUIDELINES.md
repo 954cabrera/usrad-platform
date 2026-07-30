@@ -33,7 +33,9 @@ This document outlines the strategic approach for mentioning AnciCare and CorVel
 - **Language**: "Successful healthcare exit" dominates
 
 #### Imaging Center Pages (`/imaging-center/*`)
-- **Volume Correction**: $240M not $400M
+> **This funnel was retired in `383458c`. These pages no longer exist.** Section left in
+> place for history; it governs nothing.
+- **Volume**: no figure is prescribed — see the note under Achievement-Focused Language
 - **Strategy**: Hero banner for immediate credibility
 - **Focus**: Recruitment and partnership benefits
 
@@ -46,7 +48,7 @@ This document outlines the strategic approach for mentioning AnciCare and CorVel
 
 #### Homepage
 - **Placement**: Hero banner recommended
-- **Format**: "Acquired by CorVel (NYSE: CVL)"
+- **Format**: "Acquired by CorVel (NASDAQ: CRVL)"
 - **Purpose**: Immediate credibility for first-time visitors
 
 #### About Page
@@ -61,7 +63,7 @@ This document outlines the strategic approach for mentioning AnciCare and CorVel
 ## Approved Alternative Phrases
 
 ### Instead of "CorVel"
-- "NYSE-listed company"
+- "NASDAQ-listed company"
 - "Successful healthcare exit"
 - "Publicly-traded acquisition"
 - "Enterprise validation"
@@ -76,16 +78,19 @@ This document outlines the strategic approach for mentioning AnciCare and CorVel
 
 ### Achievement-Focused Language
 - "400K+ patients served"
-- "$240M+ volume delivered to imaging centers"
-- "$400M+ total savings (medical + indemnity)"
 - "1,200+ centers recruited"
 - "8 years building (1994-2002)"
+
+> **Volume and savings figures are not prescribed here.** The volume figure is an open
+> question — the live provider funnel carries both `$180M+` and `$160M+`, and which is
+> correct is unresolved. `$400M+` total savings is withdrawn from approved language.
+> Do not substitute another value. Obtain the figure before publishing one.
 
 ## Best Practices
 
 ### DO:
 - ✅ Use factual, verifiable statements
-- ✅ Include NYSE ticker (CVL) with CorVel mentions
+- ✅ Include NASDAQ ticker (CRVL) with CorVel mentions
 - ✅ Focus on what the acquisition represents
 - ✅ Vary language to avoid repetition
 - ✅ Consider page audience sensitivity
@@ -123,19 +128,23 @@ Before publishing any page:
 - [ ] No implied current relationships
 - [ ] Achievement-focused messaging
 - [ ] Appropriate to audience sensitivity
-- [ ] Volume figures correct ($240M to centers)
+- [ ] No volume or total-savings figure published without a sourced value
 
 ## Example Implementations
 
-### Good Example (Homepage Hero):
+### ~~Good Example~~ Do Not Copy (Homepage Hero):
 ```
-🏆 PROVEN TRACK RECORD: $400M+ saved • 400K+ patients served • Acquired by CorVel (NYSE: CVL)
+🏆 PROVEN TRACK RECORD: $400M+ saved • 400K+ patients served • Acquired by CorVel (NASDAQ: CRVL)
 ```
+> **Superseded 2026-07-30 — ticker corrected above, but do not use this line.** `$400M+`
+> is withdrawn from approved language. `400K+` conflicts with the `168,000+` figure used
+> elsewhere on the site and is an open question. Only the ticker in this example is
+> currently correct. No replacement copy is offered here — obtain sourced figures first.
 
 ### Good Example (About Page):
 ```
 Through AnciCare (1994-2002), we revolutionized medical imaging access. 
-Our success led to acquisition by CorVel Corporation (NYSE: CVL), 
+Our success led to acquisition by CorVel Corporation (NASDAQ: CRVL), 
 validating our innovative approach.
 ```
 
@@ -169,6 +178,9 @@ All trademarks are property of their respective owners.
 
 ---
 
-**Last Updated**: [Current Date]
-**Approved By**: [Leadership Team]
-**Next Review**: [Quarterly]
+**Created**: 2025-07-12 (`09fd0fd`)
+**Last Updated**: 2026-07-30 — CorVel ticker corrected to `NASDAQ: CRVL`; `$400M+` total
+savings and `$240M+` volume withdrawn from approved language.
+**Approved By**: not approved. This document was published with unfilled placeholders and
+has never been through the review process it specifies above.
+**Next Review**: due — it prescribed an incorrect ticker for over a year.
