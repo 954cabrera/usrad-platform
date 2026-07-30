@@ -77,14 +77,19 @@ This document outlines the strategic approach for mentioning AnciCare and CorVel
 - "Our track record"
 
 ### Achievement-Focused Language
-- "400K+ patients served"
 - "1,200+ centers recruited"
 - "8 years building (1994-2002)"
 
-> **Volume and savings figures are not prescribed here.** The volume figure is an open
-> question — the live provider funnel carries both `$180M+` and `$160M+`, and which is
-> correct is unresolved. `$400M+` total savings is withdrawn from approved language.
-> Do not substitute another value. Obtain the figure before publishing one.
+> **Volume, savings and patient-count figures are not prescribed here.** All three are
+> disputed and none may be published without a sourced value.
+>
+> - **Volume** — the live provider funnel carries both `$180M+` and `$160M+`; which is
+>   correct is unresolved.
+> - **Total savings** — `$400M+` is withdrawn from approved language.
+> - **Patients served** — `400K+` is withdrawn. Do **not** substitute `168,000+`: that
+>   figure is itself unresolved three ways across the site.
+>
+> Do not substitute another value for any of the three. Obtain the figure first.
 
 ## Best Practices
 
@@ -128,18 +133,17 @@ Before publishing any page:
 - [ ] No implied current relationships
 - [ ] Achievement-focused messaging
 - [ ] Appropriate to audience sensitivity
-- [ ] No volume or total-savings figure published without a sourced value
+- [ ] No volume, total-savings or patient-count figure published without a sourced value
 
 ## Example Implementations
 
-### ~~Good Example~~ Do Not Copy (Homepage Hero):
-```
-🏆 PROVEN TRACK RECORD: $400M+ saved • 400K+ patients served • Acquired by CorVel (NASDAQ: CRVL)
-```
-> **Superseded 2026-07-30 — ticker corrected above, but do not use this line.** `$400M+`
-> is withdrawn from approved language. `400K+` conflicts with the `168,000+` figure used
-> elsewhere on the site and is an open question. Only the ticker in this example is
-> currently correct. No replacement copy is offered here — obtain sourced figures first.
+### Homepage Hero — example withdrawn 2026-07-30
+
+> The former example here read `$400M+ saved • 400K+ patients served • Acquired by
+> CorVel`. Both figures are withdrawn from approved language and the example is removed
+> rather than corrected, since the only element of it that was accurate is the ticker,
+> already given above. **No replacement copy is offered.** A hero claim of this kind
+> needs sourced figures, which do not currently exist for savings or patient count.
 
 ### Good Example (About Page):
 ```
@@ -179,8 +183,9 @@ All trademarks are property of their respective owners.
 ---
 
 **Created**: 2025-07-12 (`09fd0fd`)
-**Last Updated**: 2026-07-30 — CorVel ticker corrected to `NASDAQ: CRVL`; `$400M+` total
-savings and `$240M+` volume withdrawn from approved language.
+**Last Updated**: 2026-07-30 — CorVel ticker corrected to `NASDAQ: CRVL` and `NYSE-Listed`
+to `NASDAQ-Listed`; `$400M+` total savings, `$240M+` volume and `400K+` patients served all
+withdrawn from approved language. No replacement figures substituted.
 **Approved By**: not approved. This document was published with unfilled placeholders and
 has never been through the review process it specifies above.
 **Next Review**: due — it prescribed an incorrect ticker for over a year.
