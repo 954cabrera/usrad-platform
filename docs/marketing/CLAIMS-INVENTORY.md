@@ -36,13 +36,22 @@ savings"** — nowhere else on the site), `HeroPatientIntro`, `HeroSection.astro
 `hero/HeroSection.astro`), `HomeTrustIndicators`, `HowItWorksSteps`, `MfgTabs`, `NetworkMap.astro`,
 `NetworkMapPins`, `NetworkMapPinsCarbonV2`, `OurBusinessModel`, `PatientBookingFlow.jsx`,
 `PromiseBanner`, `ProofSection`, `ProviderSearchInterface.jsx`, `RevenueFlywheel.jsx`,
-`employer/PartnerMfgGrid`, `imaging/HeroImagingCenter`, `provider/Test.astro`,
-`search/ProcedureSearchModal-v2`, `ui/Accordion`.
+`employer/PartnerMfgGrid`, ~~`imaging/HeroImagingCenter`~~ *(deleted in `383458c`)*,
+`provider/Test.astro`, `search/ProcedureSearchModal-v2`, `ui/Accordion`.
+
+Two of these matter more after `383458c`, because they are now the **last surviving copies** of
+figures the removal was expected to eliminate: `provider/Test.astro` holds the only remaining
+**65%** "Average Unfilled Appointment Slots" (C8) and `ProofSection` holds a **400,000+** (C1) and
+an unqualified **"NYSE-listed acquisition"** (C3). None are rendered, but re-importing any of them
+would reopen a cluster this document records as reduced.
 
 **Route note:** routes are written in full. `/blog/*` denotes individual blog posts.
-Earlier revisions of this document used `/imaging-center` as shorthand for the imaging-center funnel;
-that was never a real route and returned 404. All occurrences now use the live
-`/imaging-center` path.
+Earlier revisions of this document used `/ic` as shorthand for the imaging-center funnel;
+that was never a real route and returned 404. All occurrences use the `/imaging-center` path.
+**As of `383458c` (2026-07-30) the entire `/imaging-center` funnel has been removed** and none of
+those routes resolve — see *Deprecated funnel* below. Rows referencing them are retained as
+history and marked ✅ **RESOLVED**, or ⚠️ **PARTIAL** where the same claim also lives on a
+surviving route.
 
 ---
 
@@ -57,7 +66,7 @@ identical and near-identical values sit adjacent).
 | "$100B+ market serving 90 million underserved Americans" | `src/pages/investor.astro:69` | /investor | N |
 | "$100B+" / "market opportunity with proven leadership" | `src/pages/investor.astro:427` | /investor | N |
 | "Tap into a $100B+ market with massive untapped potential" | `src/pages/partner.astro:91` | /partner | N |
-| "the $90+ billion imaging market" | `src/pages/imaging-center/model.astro:86` | /imaging-center/model | N |
+| "the $90+ billion imaging market" | `src/pages/imaging-center/model.astro:86` | /imaging-center/model — ✅ **RESOLVED** `383458c` | N |
 | "$2.8B" / "Addressable Market" | `src/components/provider/priority-markets/MarketStats.astro:27` | /provider | N |
 | "The $2–4B cash-pay market opportunity" | `src/components/provider/ExitModal.astro:82, 280` | /provider | N |
 | "$246 million in verified savings — delivered across a national network" | `src/pages/about.astro:716` | /about | N |
@@ -66,8 +75,8 @@ identical and near-identical values sit adjacent).
 | "helped deliver over $246 million in patient savings" | `src/components/AboutSection.astro:12` | / | N |
 | "generating roughly $246 million in documented savings" | `src/pages/blog/the-scan-that-never-happens.astro:300` | /blog/the-scan-that-never-happens | N |
 | "$246M+" | `src/pages/about.astro:1152` | /about | N |
-| "delivered $240 Million+ in volume" | `src/pages/imaging-center/index.astro:148, 325, 420, 704, 1229` | /imaging-center | N |
-| "$240M+ volume delivered" | `src/pages/imaging-center/index.astro:63, 187, 619, 1279` | /imaging-center | N |
+| "delivered $240 Million+ in volume" | `src/pages/imaging-center/index.astro:148, 325, 420, 704, 1229` | /imaging-center — ✅ **RESOLVED** `383458c` | N |
+| "$240M+ volume delivered" | `src/pages/imaging-center/index.astro:63, 187, 619, 1279` | /imaging-center — ✅ **RESOLVED** `383458c` | N |
 | "delivering $180M+ in imaging revenue over 10 years" | `src/pages/providers/join.astro:63` | /providers/join | N |
 | "$180+ Million" | `src/pages/providers/join.astro:68, 411`, `src/pages/providers/verified.astro:685` | /providers/join, /providers/verified | N |
 | "We delivered $180M+ to imaging centers through AnciCare" | `src/pages/provider/consultation.astro:194, 267` | /provider/consultation | N |
@@ -80,7 +89,7 @@ identical and near-identical values sit adjacent).
 | "$95M medical + $151M productivity" | `src/pages/about.astro:948` | /about | N |
 | "Building Accessible Imaging for 90 million Americans." | `src/components/CarbonFooter.astro:166` | **All 49 CarbonLayout pages** | **Y (49)** |
 | "90 million Americans who are uninsured or underinsured" | `src/pages/faq.astro:231` | /faq | N |
-| "90 million uninsured and underinsured patients" | `src/pages/imaging-center/index.astro:159, 1295` | /imaging-center | N |
+| "90 million uninsured and underinsured patients" | `src/pages/imaging-center/index.astro:159, 1295` | /imaging-center — ✅ **RESOLVED** `383458c` | N |
 | "90 Million" | `src/pages/about.astro:590` | /about | N |
 | "90 million Americans still need what we built." | `src/pages/about.astro:1157` | /about | N |
 | "USRad is bringing diagnostic imaging to the 90 million Americans who need it most." | `src/pages/about.astro:1307` | /about | N |
@@ -103,8 +112,8 @@ identical and near-identical values sit adjacent).
 | "A 1.5T MRI costs $800K–$2M" | `src/pages/provider/portal-tour.astro:946`, `src/pages/provider-how-it-works-1.astro:1015` | /provider/portal-tour, /provider-how-it-works-1 | N |
 | "$646,000" / "$637,500" / "$204,000" / "$175,000" / "$136,000" / "$76,500" | `src/components/employer/ROICalculator.astro:204, 226, 195, 162, 239, 251` | /employer | N |
 | "Up to $2M more" (exit value uplift) | `src/components/provider/ExitValueSection.astro:132` | /provider | N |
-| "400,000+ patient visits generated for partners" | `src/pages/imaging-center/index.astro:360, 415, 532, 1018` | /imaging-center | N |
-| "managed 400,000+ appointments" | `src/pages/imaging-center/index.astro:956` | /imaging-center | N |
+| "400,000+ patient visits generated for partners" | `src/pages/imaging-center/index.astro:360, 415, 532, 1018` | /imaging-center — ✅ **RESOLVED** `383458c` | N |
+| "managed 400,000+ appointments" | `src/pages/imaging-center/index.astro:956` | /imaging-center — ✅ **RESOLVED** `383458c` | N |
 | **"168,244"** / "Patients served across our prior imaging network" | `src/components/SocialProofBar.astro:18` | / | N |
 | **"168,244"** / "People reached" | `src/pages/about.astro:279` | /about | N |
 | **"168,224 Faster Recoveries"** | `src/pages/about.astro:882` | /about | N |
@@ -122,7 +131,7 @@ identical and near-identical values sit adjacent).
 | "168,000+ patients" | `src/components/provider/AnciCareStory.astro:155` | /provider | N |
 | "delivered 168,000+ patient visits" | `src/components/provider/FAQSection.astro:96` | /provider | N |
 | "delivered over 168,000 appointments" | `src/pages/contact.astro:707` | /contact | N |
-| "access to 50,000+ self-pay patients" | `src/pages/imaging-center/calculator.astro:19, 263` | /imaging-center/calculator | N |
+| "access to 50,000+ self-pay patients" | `src/pages/imaging-center/calculator.astro:19, 263` | /imaging-center/calculator — ✅ **RESOLVED** `383458c` | N |
 | "helped over 50,000 patients save millions" | `src/pages/blog/cost-saving-tips.astro:1099` | /blog/cost-saving-tips | N |
 | "$45,000+" (untreated-injury total cost) | `src/components/employer/CostAnalysis.astro:156` | /employer | N |
 | "43,600+ Medicare pricing records across 113 localities" | `src/components/provider/MarketScopeShowcase.astro:382, 463` | /provider | N |
@@ -133,7 +142,7 @@ identical and near-identical values sit adjacent).
 | **"26,900+"** / "ACR-accredited centers in our national dataset" | `src/pages/provider/network-map.astro:168` | /provider/network-map | N |
 | "15,000+" / "Facilities Analyzed" | `src/components/provider/MarketScopeShowcase.astro:473` | /provider | N |
 | "roughly 15,000 accredited imaging centers in the United States" | `src/pages/blog/the-scan-that-never-happens.astro:255` | /blog/the-scan-that-never-happens | N |
-| "$11,250" / "$135,000" (calculator revenue projection) | `src/pages/imaging-center/calculator.astro:228, 234, 240` | /imaging-center/calculator | N |
+| "$11,250" / "$135,000" (calculator revenue projection) | `src/pages/imaging-center/calculator.astro:228, 234, 240` | /imaging-center/calculator — ✅ **RESOLVED** `383458c` | N |
 | "$6,500 average [deductible]" | `src/components/employer/AnciCareLegacy.astro:45`, `src/components/employer/IndustryData.astro:48`, `src/components/employer/EmployerCaseExample.astro:139` | /employer | N |
 | "a $7,500 family deductible" | `src/pages/blog/the-scan-that-never-happens.astro:189` | /blog/the-scan-that-never-happens | N |
 | "$5,000+ [deductible]" | `src/pages/blog/uninsured-imaging-guide.astro:405` | /blog/uninsured-imaging-guide | N |
@@ -162,7 +171,7 @@ identical and near-identical values sit adjacent).
 | **"1,500+ locations nationwide"** | `src/pages/index.astro:66` | / | N |
 | **"1,500"** / "Premium Centers Joining" | `src/components/NetworkMapPinsCarbon.astro:284` | / | N |
 | "1,500+ centers" | `src/components/hero/SearchLoadingOverlay.astro:239` | / | N |
-| "1,236%" growth rate / Inc. 500 | `src/pages/about.astro:1148`, `src/pages/imaging-center/experience.astro:138, 508, 514` | /about, /imaging-center/experience | N |
+| "1,236%" growth rate / Inc. 500 | `src/pages/about.astro:1148`, `src/pages/imaging-center/experience.astro:138, 508, 514` | /about, /imaging-center/experience — ⚠️ **PARTIAL** `383458c`; still live: `src/pages/about.astro:1148` | N |
 | "1,200+ imaging centers" (AnciCare network size) | `src/components/SocialProofBar.astro:30`, `src/components/AboutSection.astro:12` | / | N |
 | "1,200+" / "Imaging centers in our historical network" | `src/pages/provider/portal-tour.astro:211, 1060` | /provider/portal-tour | N |
 | "1,200+ Centers Successfully Recruited" | `src/components/provider/TrustBar.astro:78` | /provider | N |
@@ -171,8 +180,8 @@ identical and near-identical values sit adjacent).
 | "1,200+" | `src/components/provider/ProvenSuccess.astro:17` | /provider | N |
 | "more than 1,200 contracted imaging centers" | `src/pages/blog/the-scan-that-never-happens.astro:300` | /blog/the-scan-that-never-happens | N |
 | "across 1,200+ facilities" | `src/pages/about.astro:1017, 269` | /about | N |
-| "recruited 1,200+ imaging centers (1994-2002)" | `src/pages/imaging-center/index.astro:63, 148, 176, 248, 323, 410, 470, 690, 698, 769, 833, 895, 1073, 1090, 1109, 1158, 1174, 1229, 1274` | /imaging-center | N |
-| "growing from concept to 1,200+ centers" | `src/pages/imaging-center/experience.astro:116, 128, 196, 542, 549, 646` | /imaging-center/experience | N |
+| "recruited 1,200+ imaging centers (1994-2002)" | `src/pages/imaging-center/index.astro:63, 148, 176, 248, 323, 410, 470, 690, 698, 769, 833, 895, 1073, 1090, 1109, 1158, 1174, 1229, 1274` | /imaging-center — ✅ **RESOLVED** `383458c` | N |
+| "growing from concept to 1,200+ centers" | `src/pages/imaging-center/experience.astro:116, 128, 196, 542, 549, 646` | /imaging-center/experience — ✅ **RESOLVED** `383458c` | N |
 | "We've implemented this exact model 1,200+ times through AnciCare" | `src/components/employer/ExecutiveFAQ.astro:76` | /employer | N |
 | "Built Before. Scaled to 1,200 Centers." / "1,200 imaging centers" | `src/pages/investor.astro:56, 221, 289` | /investor | N |
 | "Facility fee: $1,200" / "$1,200" | `src/pages/blog/real-cost-of-mri.astro:242, 274` | /blog/real-cost-of-mri | N |
@@ -185,7 +194,7 @@ identical and near-identical values sit adjacent).
 | "$680 a month for a silver plan" | `src/pages/blog/the-scan-that-never-happens.astro:195` | /blog/the-scan-that-never-happens | N |
 | "520 MRI centers mapped" | `src/components/provider/MarketOpportunityTeaser.astro:284` | /provider | N |
 | **"$640"** / "USRad Network MRI · Independent accredited centers" | `src/components/employer/ROIStatPanel.astro:49` | /employer | N |
-| "$600" / "USRad Rate" (calculator max) | `src/pages/imaging-center/calculator.astro:97` | /imaging-center/calculator | N |
+| "$600" / "USRad Rate" (calculator max) | `src/pages/imaging-center/calculator.astro:97` | /imaging-center/calculator — ✅ **RESOLVED** `383458c` | N |
 | "$500" (insurance estimate vs $2,500 actual) | `src/pages/blog/cost-saving-tips.astro:685` | /blog/cost-saving-tips | N |
 | **"$475 transparent pricing"** (AnciCare-era solution panel) | `src/pages/about.astro:845` | /about | N |
 | **"USRad $420"** | `src/pages/employer/implementation-guide.astro:74, 379`, `src/components/employer/EmployerCaseExample.astro:204` | /employer, /employer/implementation-guide | N |
@@ -195,7 +204,7 @@ identical and near-identical values sit adjacent).
 | "$371" / "184% of Medicare" (workers' comp rate) | `src/components/provider/MarketScopeShowcase.astro:215` | /provider | N |
 | **"$350"** / "USRad Network" (ROI calculator) | `src/components/employer/ROICalculator.astro:123` | /employer | N |
 | "Imaging costs up 312% while quality stayed flat" | `src/components/employer/AnciCareLegacy.astro:59` | /employer | N |
-| "$300" / "Guaranteed payment per scan" | `src/pages/imaging-center/calculator.astro:103, 131, 311, 347, 364` | /imaging-center/calculator | N |
+| "$300" / "Guaranteed payment per scan" | `src/pages/imaging-center/calculator.astro:103, 131, 311, 347, 364` | /imaging-center/calculator — ✅ **RESOLVED** `383458c` | N |
 | "Avg. contracted rate ~$300/scan" | `src/pages/provider-how-it-works-1.astro:1093` | /provider-how-it-works-1 | N |
 | "$277-$429" (market opportunity range) | `src/components/provider/MarketScopeShowcase.astro:224` | /provider | N |
 | "A center priced at $267 in a $310 market … the same rate in a $250 market" | `src/pages/provider/smartmatch.astro:348` | /provider/smartmatch | N |
@@ -204,10 +213,10 @@ identical and near-identical values sit adjacent).
 | "~$200–$400 all-inclusive" (USRad) | `src/pages/how-it-works.astro:638` | /how-it-works | N |
 | "$201.65" / "100% Medicare Rate" | `src/components/provider/MarketScopeShowcase.astro:206, 208` | /provider | N |
 | "CT scans from $199" / "Ultrasounds from $149" | `src/pages/blog/uninsured-imaging-guide.astro:852, 853` | /blog/uninsured-imaging-guide | N |
-| "~$195" (net per scan after costs) | `src/pages/imaging-center/calculator.astro:328` | /imaging-center/calculator | N |
+| "~$195" (net per scan after costs) | `src/pages/imaging-center/calculator.astro:328` | /imaging-center/calculator — ✅ **RESOLVED** `383458c` | N |
 | "Screening mammograms from $99" | `src/pages/blog/preventive-care-checklist.astro:560` | /blog/preventive-care-checklist | N |
 | "113" / "Geographic Localities" | `src/components/provider/MarketScopeShowcase.astro:465` | /provider | N |
-| "100% payment collection" / "100% collection rate" | `src/pages/imaging-center/index.astro:610, 619, 1229`, `src/pages/imaging-center/calculator.astro:32, 351`, `src/components/provider/priority-markets/MarketStats.astro:47` | /imaging-center, /imaging-center/calculator, /provider | N |
+| "100% payment collection" / "100% collection rate" | `src/pages/imaging-center/index.astro:610, 619, 1229`, `src/pages/imaging-center/calculator.astro:32, 351`, `src/components/provider/priority-markets/MarketStats.astro:47` | /imaging-center, /imaging-center/calculator, /provider — ⚠️ **PARTIAL** `383458c`; still live: `src/components/provider/priority-markets/MarketStats.astro:47` | N |
 | "100% upfront collection guaranteed" | `src/pages/built-usrad.astro:345` | /built-usrad | N |
 | "100%" / "Contracted rate paid" | `src/pages/provider/portal-tour.astro:748`, `src/pages/provider-how-it-works-1.astro:702` | /provider/portal-tour, /provider-how-it-works-1 | N |
 | "100% Money-Back Guarantee" | `src/pages/patient-promise.astro:83` | /patient-promise | N |
@@ -218,10 +227,10 @@ identical and near-identical values sit adjacent).
 | **"98% satisfaction across 168,000+ imaging services"** | `src/components/employer/ExecutiveFAQ.astro:129` | /employer | N |
 | "97% Cost Reduction" | `src/components/employer/CostAnalysis.astro:226` | /employer | N |
 | **"96% show rate across our network"** | `src/components/provider/FAQSection.astro:369, 379`, `src/components/provider/GuaranteeSection.astro:62`, `src/components/provider/ScannerUtilization.astro:414`, `src/pages/provider/faq.astro:2721, 2729`, `src/pages/built-usrad.astro:339` | /provider, /provider/faq, /built-usrad | N |
-| "96% patient show rate" / "Proven 96% success rate" / "96% approval rate" | `src/pages/imaging-center/index.astro:277, 378, 576, 786, 850, 1229` | /imaging-center | N |
+| "96% patient show rate" / "Proven 96% success rate" / "96% approval rate" | `src/pages/imaging-center/index.astro:277, 378, 576, 786, 850, 1229` | /imaging-center — ✅ **RESOLVED** `383458c` | N |
 | "95% of questions are answered in the FAQ below" | `src/components/provider/ConsultationCTA.astro:313` | /provider | N |
 | "(90% off hospital price!)" | `src/pages/blog/cost-saving-tips.astro:266` | /blog/cost-saving-tips | N |
-| "~85%" (utilization assumption) | `src/pages/imaging-center/calculator.astro:214, 315` | /imaging-center/calculator | N |
+| "~85%" (utilization assumption) | `src/pages/imaging-center/calculator.astro:214, 315` | /imaging-center/calculator — ✅ **RESOLVED** `383458c` | N |
 | "84% savings" / "84% less" | `src/pages/blog/price-transparency-healthcare.astro:507`, `src/pages/blog/uninsured-imaging-guide.astro:878` | /blog/price-transparency-healthcare, /blog/uninsured-imaging-guide | N |
 | **"80%"** / "Cost Savings" | `src/pages/careers.astro:271` | /careers | N |
 | **"80%"** / "Cost Reduction" | `src/pages/investor.astro:156` | /investor | N |
@@ -247,7 +256,7 @@ identical and near-identical values sit adjacent).
 | "67% avg. savings" | `src/components/HowItWorksSection.astro:98` | / | N |
 | "67% skip necessary imaging due to high deductibles" | `src/components/employer/EmployerHero.astro:46`, `src/components/employer/IndustryData.astro:32`, `src/components/employer/EmployerCaseExample.astro:138` | /employer | N |
 | "why 65–75% of independent programs struggle in year one" | `src/components/provider/ExitModal.astro:82, 284` | /provider | N |
-| **"65%"** / "Average Unfilled Appointment Slots" | `src/components/imaging/NetworkMap.astro:33` | /imaging-center | N |
+| **"65%"** / "Average Unfilled Appointment Slots" | `src/components/imaging/NetworkMap.astro:33` | /imaging-center — ✅ **RESOLVED** `383458c` | N |
 | "63% reduction year one" | `src/components/employer/EmployerCaseExample.astro:214` | /employer | N |
 | "typically 60–70% less than hospital-based imaging" | `src/components/WhyLessCostSection.astro:47` | / | N |
 | "At 60% utilization you're paying full carrying costs for 40% downtime" | `src/pages/provider/portal-tour.astro:946`, `src/pages/provider-how-it-works-1.astro:1015` | /provider/portal-tour, /provider-how-it-works-1 | N |
@@ -279,9 +288,9 @@ identical and near-identical values sit adjacent).
 | "Insurance billing: 45–90 day cycles" | `src/pages/provider/portal-tour.astro:966`, `src/pages/provider-how-it-works-1.astro:1035` | /provider/portal-tour, /provider-how-it-works-1 | N |
 | "Month 3: 40-60% total imaging cost reduction visible" | `src/components/employer/ExecutiveFAQ.astro:172` | /employer | N |
 | **"40%"** / "More Scans Per Month" | `src/components/provider/priority-markets/MarketStats.astro:41` | /provider | N |
-| "typically see 20-40% volume increases" | `src/pages/imaging-center/index.astro:265, 525, 1036, 1192`, `src/components/provider/FAQSection.astro:96` | /imaging-center, /provider | N |
+| "typically see 20-40% volume increases" | `src/pages/imaging-center/index.astro:265, 525, 1036, 1192`, `src/components/provider/FAQSection.astro:96` | /imaging-center, /provider — ⚠️ **PARTIAL** `383458c`; still live: `src/components/provider/FAQSection.astro:96` | N |
 | "Up to 37% of patients experience anxiety before an MRI" | `src/pages/blog/managing-mri-anxiety.astro:133, 145` | /blog/managing-mri-anxiety | N |
-| **"35%"** / "Typical Slot Utilization" | `src/components/provider/priority-markets/MarketStats.astro:21`, `src/components/imaging/NetworkMap.astro:28` | /provider, /imaging-center | N |
+| **"35%"** / "Typical Slot Utilization" | `src/components/provider/priority-markets/MarketStats.astro:21`, `src/components/imaging/NetworkMap.astro:28` | /provider, /imaging-center — ⚠️ **PARTIAL** `383458c`; still live: `src/components/provider/priority-markets/MarketStats.astro:21` | N |
 | "Under 30 seconds" / "30 seconds to get matched" | `src/components/HowItWorksSection.astro:58, 233`, `src/pages/how-it-works.astro:194` | /, /how-it-works | N |
 | "30 Years" / "Healthcare experience" | `src/pages/contact.astro:38` | /contact | N |
 | "30 years of network-building" / "30 years of proven success" | `src/pages/about.astro:533`, `src/components/provider/AnciCareStory.astro:306` | /about, /provider | N |
@@ -293,7 +302,7 @@ identical and near-identical values sit adjacent).
 | "30-minute briefing with USRad founder Michael Cabrera" | `src/components/employer/EmployerHero.astro:133`, `src/components/employer/ROICalculator.astro:360`, `src/pages/employer/schedule.astro:224` | /employer, /employer/schedule | N |
 | "Patients who price-shop save an average of 30%" | `src/pages/blog/price-transparency-healthcare.astro:656, 660` | /blog/price-transparency-healthcare | N |
 | "costs rise 30% slower than opaque markets" | `src/pages/blog/price-transparency-healthcare.astro:575` | /blog/price-transparency-healthcare | N |
-| "30-70% below hospital rates" / "30-70% less" | `src/pages/imaging-center/model.astro:356, 480` | /imaging-center/model | N |
+| "30-70% below hospital rates" / "30-70% less" | `src/pages/imaging-center/model.astro:356, 480` | /imaging-center/model — ✅ **RESOLVED** `383458c` | N |
 | "30-80%" (investor savings range) | `src/pages/investor.astro:459` | /investor | N |
 | "30-40% of people with NO back pain have disc herniations" | `src/pages/blog/understanding-mri-results.astro:814` | /blog/understanding-mri-results | N |
 | "Prices vary by 300-400% for the same scan" | `src/pages/blog/cost-saving-tips.astro:133`, `src/pages/blog/mri-basics.astro:994` | /blog/cost-saving-tips, /blog/mri-basics | N |
@@ -305,15 +314,15 @@ identical and near-identical values sit adjacent).
 | **"about 10 minutes"** / "Apply · ~10 minutes online" | `src/components/provider/ConsultationCTA.astro:197`, `src/pages/provider/portal-tour.astro:311`, `src/pages/provider-how-it-works-1.astro:270` | /provider, /provider/portal-tour, /provider-how-it-works-1 | N |
 | **"Apply · Takes 5 minutes"** / "Step 1 in under 8 minutes" | `src/pages/provider-how-it-works.astro:241, 270` | /provider-how-it-works | N |
 | **"about 15 minutes"** (sign everything online) | `src/components/provider/FAQSection.astro:45` | /provider | N |
-| "Submit network credentialing application (15 minutes)" | `src/pages/imaging-center/implementation.astro:273` | /imaging-center/implementation | N |
-| "Complete our online application (5 minutes)" | `src/pages/imaging-center/faq.astro:255` | /imaging-center/faq | N |
+| "Submit network credentialing application (15 minutes)" | `src/pages/imaging-center/implementation.astro:273` | /imaging-center/implementation — ✅ **RESOLVED** `383458c` | N |
+| "Complete our online application (5 minutes)" | `src/pages/imaging-center/faq.astro:255` | /imaging-center/faq — ✅ **RESOLVED** `383458c` | N |
 | "in just 20 minutes" | `src/pages/provider/faq.astro:413` | /provider/faq | N |
 | "20-45 minutes" (scan duration) | `src/components/education/WhatToExpect_SplitScreen.astro:92`, `src/pages/how-it-works.astro:414`, `src/pages/education/what-is-an-mri.astro:687` | /education/what-is-an-mri, /how-it-works | N |
 | "Most MRI scans take 15-45 minutes" | `src/pages/faq.astro:856` | /faq | N |
 | "18+ days faster return-to-work" / "+18 days" | `src/components/employer/DualSolution.astro:134`, `src/components/employer/CostAnalysis.astro:44`, `src/components/employer/IndustryData.astro:108` | /employer | N |
 | "18-day faster RTW" | `src/pages/employer/implementation-guide.astro:73, 374` | /employer/implementation-guide | N |
 | "Hospital prices dropped 18% in markets with strong price transparency" | `src/pages/blog/price-transparency-healthcare.astro:686, 690` | /blog/price-transparency-healthcare | N |
-| **"payment within 15 days"** | `src/pages/imaging-center/benefits.astro:191`, `src/pages/imaging-center/faq.astro:536, 690`, `src/pages/imaging-center/index.astro:610`, `src/pages/imaging-center/model.astro:765` | /imaging-center/benefits, /imaging-center/faq, /imaging-center, /imaging-center/model | N |
+| **"payment within 15 days"** | `src/pages/imaging-center/benefits.astro:191`, `src/pages/imaging-center/faq.astro:536, 690`, `src/pages/imaging-center/index.astro:610`, `src/pages/imaging-center/model.astro:765` | /imaging-center/benefits, /imaging-center/faq, /imaging-center, /imaging-center/model — ✅ **RESOLVED** `383458c` | N |
 | "15 scans/day" (full capacity) | `src/components/provider/ScannerUtilization.astro:62` | /provider | N |
 | "no-show rate is typically below 5% … industry average of 15-20%" | `src/pages/provider/faq.astro:1825` | /provider/faq | N |
 | **"14 Days Average Wait"** (hospital, today) | `src/pages/education/what-is-an-mri.astro:278` | /education/what-is-an-mri | N |
@@ -328,15 +337,15 @@ identical and near-identical values sit adjacent).
 | "you wait 60-90 days" (traditional networks) | `src/pages/provider/faq.astro:1148` | /provider/faq | N |
 | "10 years" (AnciCare duration) | `src/pages/providers/join.astro:63` | /providers/join | N |
 | "nearly a decade with AnciCare" | `src/components/provider/GuaranteeSection.astro:135` | /provider | N |
-| "successful for 8 years" | `src/pages/imaging-center/index.astro:569` | /imaging-center | N |
-| "(1994-2002)" | `src/pages/imaging-center/index.astro:63, 323, 375` | /imaging-center | N |
+| "successful for 8 years" | `src/pages/imaging-center/index.astro:569` | /imaging-center — ✅ **RESOLVED** `383458c` | N |
+| "(1994-2002)" | `src/pages/imaging-center/index.astro:63, 323, 375` | /imaging-center — ✅ **RESOLVED** `383458c` | N |
 | "10 years of imaging center partnerships" | `src/components/ProviderSearchSection.jsx:10` | /search-results | N |
 | "10 States Opening 2026" | `src/components/NetworkMapPinsCarbon.astro:296` | / | N |
 | "10–15% or more of your overall volume" | `src/components/provider/ExitValueSection.astro:57` | /provider | N |
 | "10x scale" / "10× scale" | `src/pages/investor.astro:314, 1080` | /investor | N |
 | "5–7x EBITDA" | `src/components/provider/ExitValueSection.astro:38` | /provider | N |
 | "About 5% of patients stop mid-scan … approximately 80% successfully complete" | `src/pages/blog/managing-mri-anxiety.astro:982` | /blog/managing-mri-anxiety | N |
-| "No-show rates … typically less than 5%" | `src/pages/imaging-center/faq.astro:838` | /imaging-center/faq | N |
+| "No-show rates … typically less than 5%" | `src/pages/imaging-center/faq.astro:838` | /imaging-center/faq — ✅ **RESOLVED** `383458c` | N |
 | "Claustrophobia affects about 5-10% of the population" | `src/pages/blog/managing-mri-anxiety.astro:133` | /blog/managing-mri-anxiety | N |
 | "4.9★" / "Average patient satisfaction" | `src/components/SocialProofBar.astro:36` | / | N |
 | "4.9★" / "Customer rating" | `src/pages/contact.astro:56` | /contact | N |
@@ -344,46 +353,46 @@ identical and near-identical values sit adjacent).
 | **"Within 4 hours"** (USRad coordination) | `src/components/HowItWorksSection.astro:190`, `src/pages/how-it-works.astro:402, 1070, 1231` | /, /how-it-works | N |
 | "advanced 3T scanners" | `src/pages/faq.astro:1372` | /faq | N |
 | **"3–6 wks"** / "Average credentialing window to go live" | `src/pages/provider/network-map.astro:180` | /provider/network-map | N |
-| **"2-3 weeks"** (credentialing / time to first patient) | `src/components/provider/FAQSection.astro:45, 63`, `src/components/provider/HowItWorks.astro:239`, `src/pages/provider/portal-tour.astro:214, 402, 1094, 1141`, `src/pages/provider-how-it-works-1.astro:181, 359, 1135, 1172`, `src/pages/provider/consultation.astro:129`, `src/pages/imaging-center/index.astro:769, 778, 1065, 1174`, `src/pages/imaging-center/faq.astro:267`, `src/pages/imaging-center/implementation.astro:173, 871` | /provider, /provider/portal-tour, /provider-how-it-works-1, /provider/consultation, /imaging-center, /imaging-center/faq, /imaging-center/implementation | N |
-| "2-3 business days" (application review) | `src/pages/imaging-center/index.astro:850` | /imaging-center | N |
+| **"2-3 weeks"** (credentialing / time to first patient) | `src/components/provider/FAQSection.astro:45, 63`, `src/components/provider/HowItWorks.astro:239`, `src/pages/provider/portal-tour.astro:214, 402, 1094, 1141`, `src/pages/provider-how-it-works-1.astro:181, 359, 1135, 1172`, `src/pages/provider/consultation.astro:129`, `src/pages/imaging-center/index.astro:769, 778, 1065, 1174`, `src/pages/imaging-center/faq.astro:267`, `src/pages/imaging-center/implementation.astro:173, 871` | /provider, /provider/portal-tour, /provider-how-it-works-1, /provider/consultation, /imaging-center, /imaging-center/faq, /imaging-center/implementation — ⚠️ **PARTIAL** `383458c`; still live: `src/components/provider/FAQSection.astro:45, 63`, `src/components/provider/HowItWorks.astro:239`, `src/pages/provider/portal-tour.astro:214, 402, 1094, 1141`, `src/pages/provider-how-it-works-1.astro:181, 359, 1135, 1172`, `src/pages/provider/consultation.astro:129` | N |
+| "2-3 business days" (application review) | `src/pages/imaging-center/index.astro:850` | /imaging-center — ✅ **RESOLVED** `383458c` | N |
 | "<2 hour response guaranteed" / "<2hrs · Response guarantee" | `src/components/ContactHero.astro:45, 162`, `src/pages/contact.astro:44, 140` | /contact | N |
 | "We'll respond within 2 hours during business hours" | `src/pages/contact.astro:204, 370, 1110` | /contact | N |
 | "2-3 minute response time" (live chat) | `src/pages/contact.astro:173` | /contact | N |
-| "Typically less than 2 minute wait time" | `src/pages/imaging-center/support.astro:334` | /imaging-center/support | N |
-| "Email support with responses within 2 hours" | `src/pages/imaging-center/faq.astro:1053`, `src/pages/imaging-center/support.astro:282, 460, 861` | /imaging-center/faq, /imaging-center/support | N |
+| "Typically less than 2 minute wait time" | `src/pages/imaging-center/support.astro:334` | /imaging-center/support — ✅ **RESOLVED** `383458c` | N |
+| "Email support with responses within 2 hours" | `src/pages/imaging-center/faq.astro:1053`, `src/pages/imaging-center/support.astro:282, 460, 861` | /imaging-center/faq, /imaging-center/support — ✅ **RESOLVED** `383458c` | N |
 | "Email support responds within 1 hour during business hours" | `src/pages/provider/faq.astro:2406` | /provider/faq | N |
 | "sign in under 2 minutes" (DocuSeal) | `src/pages/provider/portal-tour.astro:347`, `src/pages/provider-how-it-works-1.astro:304` | /provider/portal-tour, /provider-how-it-works-1 | N |
 | "Create your account in 2 minutes" / "Complete Signup (60 seconds)" | `src/components/provider/ConsultationCTA.astro:311`, `src/pages/providers/join.astro:434` | /provider, /providers/join | N |
 | "Average scheduling time: 2 days" | `src/pages/provider/smartmatch.astro:1034` | /provider/smartmatch | N |
 | "Most appointments are available within 1–3 days." | `src/components/FAQHome.astro:82`, `src/components/ui/Accordion.astro:10` | *(orphaned — not rendered)* | N |
 | "24hr" / "Result Turnaround" | `src/pages/careers.astro:283`, `src/pages/partner.astro:209` | /careers, /partner | N |
-| "We'll get back to you within 24 hours" | `src/components/ProviderConsultationForm.astro:238`, `src/pages/provider/consultation.astro:58, 156`, `src/components/provider/ExitModal.astro:238, 384`, `src/pages/imaging-center/calculator.astro:569` | /provider/consultation, /provider, /imaging-center/calculator | N |
+| "We'll get back to you within 24 hours" | `src/components/ProviderConsultationForm.astro:238`, `src/pages/provider/consultation.astro:58, 156`, `src/components/provider/ExitModal.astro:238, 384`, `src/pages/imaging-center/calculator.astro:569` | /provider/consultation, /provider, /imaging-center/calculator — ⚠️ **PARTIAL** `383458c`; still live: `src/components/ProviderConsultationForm.astro:238`, `src/pages/provider/consultation.astro:58, 156`, `src/components/provider/ExitModal.astro:238, 384` | N |
 | "Payment is due within 24 hours of scheduling." | `src/pages/faq.astro:325`, `src/pages/patient-promise.astro:497` | /faq, /patient-promise | N |
 | "24-hour cancellation policy" | `src/pages/faq.astro:460, 467, 473, 478`, `src/pages/patient-promise.astro:715, 729, 811` | /faq, /patient-promise | N |
 | "PSA signed electronically — countersigned within 24 hours" | `src/pages/provider-how-it-works.astro:306` | /provider-how-it-works | N |
-| "24/7 technical assistance" / "24/7 network support" | `src/pages/imaging-center/benefits.astro:865`, `src/pages/imaging-center/implementation.astro:429, 630`, `src/pages/imaging-center/faq.astro:1052`, `src/pages/imaging-center/model.astro:234` | /imaging-center/benefits, /imaging-center/implementation, /imaging-center/faq, /imaging-center/model | N |
+| "24/7 technical assistance" / "24/7 network support" | `src/pages/imaging-center/benefits.astro:865`, `src/pages/imaging-center/implementation.astro:429, 630`, `src/pages/imaging-center/faq.astro:1052`, `src/pages/imaging-center/model.astro:234` | /imaging-center/benefits, /imaging-center/implementation, /imaging-center/faq, /imaging-center/model — ✅ **RESOLVED** `383458c` | N |
 | "Member Portal — available 24/7" | `src/pages/membership.astro:209`, `src/pages/faq.astro:410` | /membership, /faq | N |
 | "5–10 business days" (report delivery) | `src/pages/faq.astro:573` | /faq | N |
-| "3-5 days" (results) | `src/pages/blog/mri-basics.astro:1109`, `src/pages/imaging-center/index.astro:1053` | /blog/mri-basics, /imaging-center | N |
+| "3-5 days" (results) | `src/pages/blog/mri-basics.astro:1109`, `src/pages/imaging-center/index.astro:1053` | /blog/mri-basics, /imaging-center — ⚠️ **PARTIAL** `383458c`; still live: `src/pages/blog/mri-basics.astro:1109` | N |
 | "$0 to join · No volume commitments" | `src/components/provider/ExitValueSection.astro:176`, `src/components/provider/FoundingPartners.astro:326`, `src/pages/provider/smartmatch.astro:1167` | /provider, /provider/smartmatch | N |
 | "$0 Setup" / "$0 Monthly" | `src/components/provider/FAQSection.astro:158, 171` | /provider | N |
 | "$0" / "Marketing or acquisition cost" / "Billing overhead" | `src/pages/provider/portal-tour.astro:209, 239, 746, 1140`, `src/pages/provider-how-it-works-1.astro:179, 206, 700, 1171` | /provider/portal-tour, /provider-how-it-works-1 | N |
 | "$0" / "At the facility" | `src/pages/how-it-works.astro:1119` | /how-it-works | N |
 | "one of the first nationwide diagnostic imaging networks" | `src/components/AboutSection.astro:23`, `src/pages/about.astro:132, 285` | /, /about | N |
 | "Founded by medical imaging executives who previously built and sold AnciCare PPO, a nationwide imaging network acquired by CorVel Corporation (NASDAQ: CRVL)." | `src/components/CarbonFooter.astro:219` | **All 49 CarbonLayout pages** | **Y (49)** |
-| "Acquired by CorVel Corporation (NYSE: CVL)" | `src/pages/imaging-center/index.astro:63` | /imaging-center | N |
+| "Acquired by CorVel Corporation (NYSE: CVL)" | `src/pages/imaging-center/index.astro:63` | /imaging-center — ✅ **RESOLVED** `383458c` | N |
 | "CorVel (NASDAQ: CRVL) still uses our AnciCare model today—20+ years later" | `src/components/employer/AnciCareLegacy.astro:22, 74` | /employer | N |
 | "the first national diagnostic imaging network focused on reducing costs and improving access" | `src/pages/investor.astro:216, 268, 309` | /investor | N |
-| "created and scaled the first nationwide imaging network of its kind" | `src/pages/imaging-center/experience.astro:116` | /imaging-center/experience | N |
+| "created and scaled the first nationwide imaging network of its kind" | `src/pages/imaging-center/experience.astro:116` | /imaging-center/experience — ✅ **RESOLVED** `383458c` | N |
 | "First managed imaging network" | `src/components/employer/AnciCareLegacy.astro:117`, `src/pages/employer/implementation-guide.astro:315` | /employer, /employer/implementation-guide | N |
 | "Founded the managed imaging category" | `src/components/EmployerConsultationForm.astro:343`, `src/components/employer/FinalCTA.astro:101` | /employer/schedule, /employer | N |
 | "America's first imaging network. Direct contracts." | `src/pages/about.astro:419` | /about | N |
 | "Building America's first [national cash-pay imaging network]" | `src/components/NetworkMapPinsCarbon.astro:376` | / | N |
-| "launched first transparent pricing model in diagnostic imaging" / "First Mover" | `src/pages/imaging-center/experience.astro:438, 444` | /imaging-center/experience | N |
+| "launched first transparent pricing model in diagnostic imaging" / "First Mover" | `src/pages/imaging-center/experience.astro:438, 444` | /imaging-center/experience — ✅ **RESOLVED** `383458c` | N |
 | "FL" / "First active market — now onboarding providers" | `src/pages/provider/network-map.astro:177` | /provider/network-map | N |
 | "First In Locks Market Position." | `src/pages/provider/smartmatch.astro:760` | /provider/smartmatch | N |
 | "Building the nationwide marketplace for diagnostic imaging." | `src/components/connect/ConnectHero.astro:45` | **/connect + 6 audience pages** | **Y (7)** |
-| "Join our nationwide network of premium imaging centers" | `src/components/Footer.astro:114` | **11 /imaging-center + /news pages** | **Y (11)** |
+| "Join our nationwide network of premium imaging centers" | `src/components/Footer.astro:114` | **11 /imaging-center + /news pages** — ✅ **RESOLVED** `383458c`; the entire "For Imaging Centers" footer column was deleted, so this claim renders nowhere | **Y (was 11, now 0)** |
 | "✓ ACR-accredited imaging centers nationwide" | `src/components/hero/HeroSection.astro:58` | / | N |
 | "Trusted by accredited imaging centers nationwide" | `src/components/CredibilitySection.astro:14` | / | N |
 | "Trusted by Imaging Centers Nationwide" | `src/pages/provider/consultation.astro:263` | /provider/consultation | N |
@@ -392,14 +401,14 @@ identical and near-identical values sit adjacent).
 | "Trusted by the World's Leading Imaging Manufacturers" | `src/components/employer/PartnerMfgGrid.astro:14`, `src/components/MfgTabs.astro:14` | *(orphaned — not rendered)* | N |
 | "Join 10,000+ subscribers" | `src/components/NewsletterPopup.astro:165` | **12 blog pages** | **Y (12)** |
 | "Join 10,000+ Subscribers" | `src/pages/blog.astro:499` | /blog | N |
-| "Inc. 500 Fastest Growing" / "#210" | `src/pages/co-founder-m.astro:363, 364`, `src/pages/imaging-center/experience.astro:215` | /co-founder-m, /imaging-center/experience | N |
+| "Inc. 500 Fastest Growing" / "#210" | `src/pages/co-founder-m.astro:363, 364`, `src/pages/imaging-center/experience.astro:215` | /co-founder-m, /imaging-center/experience — ⚠️ **PARTIAL** `383458c`; still live: `src/pages/co-founder-m.astro:363, 364` | N |
 | "Selected for MIT's exclusive 'Birthing of Giants' entrepreneurship program" | `src/pages/co-founder-m.astro:336` | /co-founder-m | N |
 | "Text resizable up to 200% without breaking" | `src/pages/accessibility.astro:235` | /accessibility | N |
-| "Scaled to 400+ imaging centers nationwide" (1990s milestone) | `src/pages/imaging-center/experience.astro:474` | /imaging-center/experience | N |
-| "Applying proven methodology to serve 90+ million" | `src/pages/imaging-center/experience.astro:578` | /imaging-center/experience | N |
-| "Coming Summer 2025: Advanced analytics platform" | `src/pages/imaging-center/benefits.astro:694`, `src/pages/imaging-center/faq.astro:910`, `src/pages/imaging-center/implementation.astro:505` | /imaging-center/benefits, /imaging-center/faq, /imaging-center/implementation | N |
-| "Providers joining … before December 2025 receive priority access" | `src/pages/imaging-center/benefits.astro:821` | /imaging-center/benefits | N |
-| "The partner portal (coming Fall 2025)" | `src/pages/imaging-center/faq.astro:980` | /imaging-center/faq | N |
+| "Scaled to 400+ imaging centers nationwide" (1990s milestone) | `src/pages/imaging-center/experience.astro:474` | /imaging-center/experience — ✅ **RESOLVED** `383458c` | N |
+| "Applying proven methodology to serve 90+ million" | `src/pages/imaging-center/experience.astro:578` | /imaging-center/experience — ✅ **RESOLVED** `383458c` | N |
+| "Coming Summer 2025: Advanced analytics platform" | `src/pages/imaging-center/benefits.astro:694`, `src/pages/imaging-center/faq.astro:910`, `src/pages/imaging-center/implementation.astro:505` | /imaging-center/benefits, /imaging-center/faq, /imaging-center/implementation — ✅ **RESOLVED** `383458c` | N |
+| "Providers joining … before December 2025 receive priority access" | `src/pages/imaging-center/benefits.astro:821` | /imaging-center/benefits — ✅ **RESOLVED** `383458c` | N |
+| "The partner portal (coming Fall 2025)" | `src/pages/imaging-center/faq.astro:980` | /imaging-center/faq — ✅ **RESOLVED** `383458c` | N |
 | "CT, Ultrasound, and PET viewers coming in 2026." | `src/pages/education/what-is-an-mri.astro:238` | /education/what-is-an-mri | N |
 | "Phase 1: Core Domination · 2025-2026" / "Phase 2: Strategic Expansion · 2027+" | `src/pages/investor.astro:743, 746, 838, 841` | /investor | N |
 | "13% increase in cancer detection rate (Swedish study, 2023)" | `src/pages/blog/future-ai-medical-imaging.astro:327` | /blog/future-ai-medical-imaging | N |
@@ -431,11 +440,21 @@ Same claim, different values, live on the site simultaneously.
 | **168,000** | `about.astro:137, 234` — "168,000 patients served" | /about |
 | **168,000** | `blog/the-scan-that-never-happens.astro:300` — founder essay, "served 168,000 patients" | /blog/the-scan-that-never-happens |
 | **168,000+** | 9 employer components + 2 provider components + `contact.astro:707` | /employer, /employer/schedule, /employer/implementation-guide, /provider, /contact |
-| **400,000+** | `imaging-center/index.astro:360, 415, 532, 1018, 956` — "patient visits" / "appointments" | /imaging-center |
+| **400,000+** | `imaging-center/index.astro:360, 415, 532, 1018, 956` — "patient visits" / "appointments" | ~~/imaging-center~~ ✅ removed `383458c` |
+| **400,000+** | `ProviderSearchSection.jsx:852` — "guided 400,000+ patients through their imaging journey" | **/search-results** — ⚠️ **still live** |
+| **400,000+** | `ProofSection.astro:59` | *(orphaned — not rendered)* |
 
 **/about alone renders 168,244 *and* 168,224 *and* 168,000** — three values for the same
 figure on one page. The digit transposition (244 vs 224) is a distinct defect from the
 rounding (168,000 vs 168,000+); a 400,000+ figure is 2.4× larger and framed as "visits."
+
+> **⚠️ NOT CLOSED by `383458c`.** Removing `/imaging-center` eliminated its five 400,000+
+> instances, but **400,000+ survives on a live route**: `ProviderSearchSection.jsx:852` renders
+> "guided **400,000+** patients" on **/search-results**. Earlier revisions of this cluster listed
+> `/imaging-center` as the only source of 400,000+ — that was incomplete. The 2.4× outlier is
+> therefore still public, and it now says *patients* rather than *visits*, which removes the
+> unit-mismatch defence that U6 recorded. The 168,244 / 168,224 / 168,000 spread on **/about**
+> is untouched and remains the highest-priority defect in this cluster.
 
 ### C2 — AnciCare volume/savings delivered: **$246M** vs **$240M+** vs **$180M+** vs **$160M+**
 
@@ -443,7 +462,7 @@ rounding (168,000 vs 168,000+); a 400,000+ figure is 2.4× larger and framed as 
 | --- | --- | --- | --- |
 | **$246 million** | "patient savings" / "documented savings" / "verified savings" | `about.astro:48, 716`, `SocialProofBar.astro:24`, `AboutSection.astro:12`, `blog/the-scan-that-never-happens.astro:300` | /about, **/**, /blog/the-scan-that-never-happens |
 | **$246M+** | (with a plus sign, nowhere else) | `about.astro:1152` | /about |
-| **$240 Million+** | "in volume" / "in revenue" | `imaging-center/index.astro:63, 148, 187, 325, 420, 619, 704, 1229, 1279` | /imaging-center |
+| **$240 Million+** | "in volume" / "in revenue" | `imaging-center/index.astro:63, 148, 187, 325, 420, 619, 704, 1229, 1279` | ~~/imaging-center~~ ✅ removed `383458c` — **0 occurrences remain repo-wide** |
 | **$180M+** | "Volume Delivered" / "imaging revenue over 10 years" | `provider/AnciCareStory.astro:152`, `provider/ProvenSuccess.astro:22`, `providers/join.astro:63, 68, 411`, `provider/consultation.astro:194, 267`, `providers/verified.astro:685` | /provider, /providers/join, /provider/consultation, /providers/verified |
 | **$160M+** | "Delivered in Volume" / "Delivered in imaging volume" | `provider/TrustBar.astro:80`, `provider/portal-tour.astro:1062` | /provider, /provider/portal-tour |
 | **$400 Million+** | "in healthcare savings" | `FoundersSection.astro:17` | *(orphaned — not rendered)* |
@@ -451,15 +470,33 @@ rounding (168,000 vs 168,000+); a 400,000+ figure is 2.4× larger and framed as 
 **`/provider` renders both `$180M+` (AnciCareStory, ProvenSuccess) and `$160M+` (TrustBar)** —
 same page, same claim, 12.5% apart.
 
+> **⚠️ REDUCED, NOT CLOSED by `383458c`.** The `$240 Million+` value is fully eliminated — zero
+> occurrences remain anywhere in the repo. The cluster drops from five competing values to four
+> ($246M, $180M+, $160M+, and the orphaned $400M+). **The core defect is untouched and lives
+> entirely in the /provider funnel:** `/provider` still renders `$180M+` and `$160M+` on the same
+> page. `$246M` vs `$180M+` remains the largest live gap.
+
 ### C3 — CorVel exchange and ticker: **NASDAQ: CRVL** vs **NYSE: CVL**
 
 | Value | Location | Page |
 | --- | --- | --- |
 | "acquired by CorVel Corporation (**NASDAQ: CRVL**)" | `CarbonFooter.astro:219` | **All 49 CarbonLayout pages** |
 | "CorVel (**NASDAQ: CRVL**) still uses our AnciCare model" | `employer/AnciCareLegacy.astro:74` | /employer |
-| "Acquired by CorVel Corporation (**NYSE: CVL**)" | `imaging-center/index.astro:63` | /imaging-center |
+| "Acquired by CorVel Corporation (**NYSE: CVL**)" | `imaging-center/index.astro:63` | ~~/imaging-center~~ ✅ removed `383458c` — **`CVL` now has 0 occurrences repo-wide** |
+| "**NYSE-Listed** Acquisition" *(headline)* directly above "CorVel Corporation (**NASDAQ: CRVL**)" *(subline)* | `provider/TrustBar.astro:110, 113` | **/provider** — ⚠️ **still live** |
+| "muster for Fortune 500 clients and **NYSE** acquisition" | `employer/ExecutiveFAQ.astro:290` | **/employer** — ⚠️ **still live** |
+| "**NYSE**-listed acquisition" | `ProofSection.astro:87` | *(orphaned — not rendered)* |
 
 One exchange listing and ticker is wrong. The `/imaging-center` variant conflicts with the sitewide footer.
+
+> **⚠️ TICKER CLOSED, EXCHANGE STILL OPEN after `383458c`.** The **ticker** half of this cluster is
+> resolved: `CVL` is gone from the repo entirely and `CRVL` is now the only ticker the site prints.
+> The **exchange** half is not, and removing `/imaging-center` exposed a sharper instance than the
+> one it deleted: **`provider/TrustBar.astro` renders "NYSE-Listed Acquisition" as a headline with
+> "CorVel Corporation (NASDAQ: CRVL)" as the subline directly beneath it — the same card, on
+> /provider, contradicting itself in two adjacent lines.** `/employer` repeats "NYSE acquisition"
+> at `ExecutiveFAQ.astro:290`. Earlier revisions of this cluster tracked only the ticker string and
+> so did not record these. **This is now a live /provider-funnel contradiction.**
 
 ### C4 — USRad MRI price: **$260** vs **$350** vs **$420** vs **$475** vs **$640**
 
@@ -474,17 +511,22 @@ One exchange listing and ticker is wrong. The `/imaging-center` variant conflict
 | **~$200–$400** | `how-it-works.astro:638` ("all-inclusive") | /how-it-works |
 | **$475** | `about.astro:845` ("$475 transparent pricing") | /about |
 | **$395** | `blog/cost-saving-tips.astro:263` (knee MRI) | /blog/cost-saving-tips |
-| **$300** | `imaging-center/calculator.astro:103, 131, 311, 347, 364` (guaranteed payment to center) | /imaging-center/calculator |
+| **$300** | `imaging-center/calculator.astro:103, 131, 311, 347, 364` (guaranteed payment to center) | ~~/imaging-center/calculator~~ ✅ removed `383458c` |
 
 **`/employer` renders four different USRad MRI prices** — $260, $350, $420 and $640 — in four
 sibling components on one scroll. $640 is 2.5× $260.
+
+> **⚠️ NOT MATERIALLY CHANGED by `383458c`.** Only the `$300` row was removed, and it was always
+> the odd one out — a payment *to the center*, not a price *to the patient* (see U7). **The actual
+> defect is untouched: /employer still renders $260, $350, $420 and $640 on one scroll.** This
+> cluster is a /employer problem and the removal does not touch it.
 
 ### C5 — Network size: **1,000+** vs **1,200+** vs **1,500+** vs **26,900+** vs **27,000+**
 
 | Value | Label | Location | Page |
 | --- | --- | --- | --- |
 | **1,000+** | "Partner Centers" | `careers.astro:277`, `investor.astro:164` | /careers, /investor |
-| **1,200+** | AnciCare historical network | ~40 locations | /, /about, /provider, /imaging-center/*, /investor, /employer |
+| **1,200+** | AnciCare historical network | ~40 locations → **35 after `383458c`** | /, /about, /provider, ~~/imaging-center/*~~, /investor, /employer |
 | **1,500+** | "locations nationwide" | `index.astro:66` | **/** |
 | **1,500** | "Premium Centers **Joining**" | `NetworkMapPinsCarbon.astro:284` | **/** |
 | **1,500+** | "centers" | `hero/SearchLoadingOverlay.astro:239` | **/** |
@@ -495,6 +537,13 @@ sibling components on one scroll. $640 is 2.5× $260.
 
 `26,900+` and `27,000+` describe the same ACR dataset with different rounding on adjacent
 pages. `1,000+ Partner Centers` (careers/investor) contradicts `1,500+ locations` (homepage).
+
+> **⚠️ ESSENTIALLY UNCHANGED by `383458c`.** **No value in this cluster was eliminated.** The
+> removal only reduced the number of duplicate `1,200+` copies (~40 → 35); `1,200+` still renders
+> on /, /about, /provider, /investor and /employer. Every contradiction here survives intact:
+> `1,000+` vs `1,500+` (careers/investor vs homepage) and `26,900+` vs `27,000+` (the same ACR
+> dataset rounded two ways on adjacent pages). This cluster was listed as an expected beneficiary
+> of the removal; **it is not** — its contradictions never depended on the imaging-center funnel.
 
 ### C6 — Satisfaction / rating: **4.9★** vs **98%** vs **92%**
 
@@ -507,14 +556,25 @@ pages. `1,000+ Partner Centers` (careers/investor) contradicts `1,500+ locations
 
 **`/employer` renders 98% and 92% satisfaction** for the same track record.
 
-### C7 — Provider payment window: **10 days** vs **15 days**
+### C7 — Provider payment window: **10 days** vs **15 days** — ✅ **RESOLVED in `383458c`**
 
 | Value | Location | Page |
 | --- | --- | --- |
 | **10 days** "guaranteed" | 8 `provider/` components + `/provider/portal-tour`, `/provider-how-it-works`, `/provider-how-it-works-1`, `/provider/consultation`, `/investor`, `/built-usrad` | /provider funnel |
-| **15 days** "guaranteed" | `imaging-center/benefits.astro:191`, `imaging-center/faq.astro:536, 690`, `imaging-center/index.astro:610`, `imaging-center/model.astro:765` | /imaging-center funnel |
+| **15 days** "guaranteed" | `imaging-center/benefits.astro:191`, `imaging-center/faq.astro:536, 690`, `imaging-center/index.astro:610`, `imaging-center/model.astro:765` | ~~/imaging-center funnel~~ ✅ removed `383458c` |
 
 Two provider-recruitment funnels promise different payment terms for the same program.
+
+> **✅ FULLY CLOSED.** The `15 days` figure existed **only** in the imaging-center funnel. After
+> `383458c` the site states a single payment window — **10 days** — with zero public occurrences
+> of a 15-day promise. This is the one cluster the removal closes outright, because it was the
+> only contradiction whose two sides mapped exactly onto the two funnels.
+>
+> **One out-of-scope survivor, flagged not counted:** `Providers/ProviderPortalDashboard.jsx:778`
+> renders "within **15 business days**". That file is in the authenticated provider portal, which
+> *Scope and method* excludes from this inventory (behind login, mock/skeleton data). It is not a
+> public marketing claim, so C7 closes — but if that dashboard ever surfaces real payment terms to
+> signed-in providers, it will contradict the public 10-day guarantee. Worth a separate ticket.
 
 ### C8 — Scanner utilization: **35%** vs **53%**; unused capacity **65%** vs **47%**
 
@@ -523,20 +583,40 @@ Two provider-recruitment funnels promise different payment terms for the same pr
 | **35%** "Typical Slot Utilization" | `provider/priority-markets/MarketStats.astro:21` | **/provider** |
 | **53%** "Typical utilization · 8 scans/day" | `provider/ScannerUtilization.astro:89` | **/provider** |
 | **47%** "Unused capacity · 7 scans/day" | `provider/ScannerUtilization.astro:108` | **/provider** |
-| **35%** "Typical Slot Utilization" / **65%** "Average Unfilled Appointment Slots" | `imaging/NetworkMap.astro:28, 33` | /imaging-center |
+| **35%** "Typical Slot Utilization" / **65%** "Average Unfilled Appointment Slots" | `imaging/NetworkMap.astro:28, 33` | ~~/imaging-center~~ ✅ removed `383458c` |
+| **35%** / **65%** "Average Unfilled Appointment Slots" | `provider/Test.astro:597, 617` | *(orphaned — not rendered; last surviving copy of 65%)* |
 | **60% utilization / 40% downtime** | `provider/portal-tour.astro:946`, `provider-how-it-works-1.astro:1015` | /provider/portal-tour, /provider-how-it-works-1 |
 
 **`/provider` renders 35% and 53% typical utilization** in two components. Three different
 downtime figures across the provider funnel: 65%, 47%, 40%.
 
+> **⚠️ HALF CLOSED by `383458c` — the 65% half, not the 35% half.**
+>
+> - **65% is no longer rendered anywhere.** `imaging/NetworkMap.astro` was its only live source.
+>   The one surviving copy is `provider/Test.astro:617`, which is orphaned (imported by no page).
+>   Live downtime figures drop from three (65%, 47%, 40%) to two (**47%, 40%**) — still a
+>   contradiction, both inside the /provider funnel.
+> - **35% survives and the headline defect is fully live.** `provider/priority-markets/MarketStats.astro:21`
+>   still renders **35%** "Typical Slot Utilization" while `provider/ScannerUtilization.astro:89`
+>   renders **53%** — *the same page, /provider, two components, 18 points apart*.
+>
+> This cluster was listed as an expected close on the strength of the 35%/65% pair. Only 65%
+> resolves; **the 35% vs 53% contradiction never depended on the imaging-center funnel and remains
+> open in /provider.**
+
 ### C9 — Credentialing window: **2–3 weeks** vs **3–6 weeks**
 
 | Value | Location | Page |
 | --- | --- | --- |
-| **2–3 weeks** | 18 locations across `/provider`, `/provider/portal-tour`, `/provider-how-it-works-1`, `/provider/consultation`, `/imaging-center`, `/imaging-center/faq`, `/imaging-center/implementation` | provider + imaging-center funnels |
-| **3–6 wks** "Average credentialing window to go live" | `provider/network-map.astro:180` | /provider/network-map |
+| **2–3 weeks** | 18 locations → **8 after `383458c`**, across `/provider`, `/provider/portal-tour`, `/provider-how-it-works-1`, `/provider/consultation`, ~~`/imaging-center`~~, ~~`/imaging-center/faq`~~, ~~`/imaging-center/implementation`~~ | provider funnel |
+| **3–6 wks** "Average credentialing window to go live" | `provider/network-map.astro:180` | /provider/network-map — ⚠️ **still live** |
 
 `/provider/network-map` is the only page giving 3–6 weeks; every other provider page says 2–3.
+
+> **⚠️ NOT CLOSED by `383458c`.** The removal halved the duplicate copies of the 2–3 week figure
+> (18 → 8) but **eliminated no value**. Both sides of the contradiction were always in the
+> /provider funnel: `/provider/network-map` says **3–6 weeks** while every other provider page says
+> **2–3 weeks**. Fewer places to fix, same defect.
 
 ### C10 — Provider application time: **2 min** vs **5 min** vs **8 min** vs **10 min** vs **15 min** vs **20 min**
 
@@ -550,9 +630,14 @@ downtime figures across the provider funnel: 65%, 47%, 40%.
 | **~10 minutes** "Apply · ~10 minutes online" | `provider/portal-tour.astro:311`, `provider-how-it-works-1.astro:270` | /provider/portal-tour, /provider-how-it-works-1 |
 | **5 minutes** "Apply · Takes 5 minutes" / **under 8 minutes** "Step 1" | `provider-how-it-works.astro:241, 270` | /provider-how-it-works |
 | **20 minutes** | `provider/faq.astro:413` | /provider/faq |
-| **5 minutes** / **15 minutes** | `imaging-center/faq.astro:255`, `imaging-center/implementation.astro:273` | /imaging-center/faq, /imaging-center/implementation |
+| **5 minutes** / **15 minutes** | `imaging-center/faq.astro:255`, `imaging-center/implementation.astro:273` | ~~/imaging-center/faq, /imaging-center/implementation~~ ✅ removed `383458c` |
 
 **`/provider` alone gives five different durations** (2, 5, 10, 15, 20 min) for onboarding.
+
+> **⚠️ NOT CLOSED by `383458c`.** The imaging-center row is gone, but both of its values (5 min,
+> 15 min) were already duplicated inside the /provider funnel, so **no value was eliminated**.
+> **/provider alone still gives five different durations** — 2, 5, 10, 15 and 20 minutes — for the
+> same onboarding step. Entirely a /provider-funnel defect.
 
 ### C11 — Appointment availability: **within 48 hours** vs **48–72 hours** vs **same-day** vs **1–3 days**
 
@@ -582,43 +667,68 @@ downtime figures across the provider funnel: 65%, 47%, 40%.
 | **80%** "Cost Reduction" | `investor.astro:156` | /investor |
 | **up to 80% less** | `faq.astro:197` | /faq |
 | **50–70%** | employer funnel (11 locations) | /employer, /employer/schedule, /employer/implementation-guide |
-| **30–70%** | `imaging-center/model.astro:356, 480` | /imaging-center/model |
+| **30–70%** | `imaging-center/model.astro:356, 480` | ~~/imaging-center/model~~ ✅ removed `383458c` |
 | **30–80%** | `investor.astro:459` | /investor |
 | **50–80%** | `blog/uninsured-imaging-guide.astro:147, 158, 854` | /blog/uninsured-imaging-guide |
 
 **`/` renders three different savings figures** (70%, 67%, 60–70%) plus the footer's "up to 70%".
 **`/investor` renders both "80% Cost Reduction" and "30-80%".**
 
+> **⚠️ NOT CLOSED by `383458c`.** Only the `30–70%` variant was removed. The headline defects are
+> untouched: **/** renders 70%, 67% and 60–70% plus the footer's "up to 70%"; **/investor** renders
+> both "80% Cost Reduction" and "30–80%". Neither depends on the imaging-center funnel.
+
 ### C13 — Show rate / no-show rate
 
 | Value | Location | Page |
 | --- | --- | --- |
-| **96% show rate** | `provider/FAQSection.astro:369, 379`, `provider/GuaranteeSection.astro:62`, `provider/ScannerUtilization.astro:414`, `provider/faq.astro:2721`, `built-usrad.astro:339`, `imaging-center/index.astro` (6 locations) | /provider, /provider/faq, /built-usrad, /imaging-center |
-| **no-show rate below 5%** (implies ≤95% show) | `provider/faq.astro:1825` | **/provider/faq** |
-| **No-show rates … less than 5%** | `imaging-center/faq.astro:838` | /imaging-center/faq |
+| **96% show rate** | `provider/FAQSection.astro:369, 379`, `provider/GuaranteeSection.astro:62`, `provider/ScannerUtilization.astro:414`, `provider/faq.astro:2721`, `built-usrad.astro:339`, ~~`imaging-center/index.astro` (6 locations)~~ ✅ removed `383458c` | /provider, /provider/faq, /built-usrad |
+| **no-show rate below 5%** (implies ≤95% show) | `provider/faq.astro:1825` | **/provider/faq** — ⚠️ **still live** |
+| **No-show rates … less than 5%** | `imaging-center/faq.astro:838` | ~~/imaging-center/faq~~ ✅ removed `383458c` |
 
 **`/provider/faq` states 96% show rate and "below 5%" no-show rate** — mutually exclusive at
 the boundary.
+
+> **⚠️ NOT CLOSED by `383458c`.** Six duplicate copies of 96% and one copy of the <5% no-show
+> claim were removed, but **the contradiction is self-contained inside `/provider/faq`**, which
+> still states a **96% show rate** and a **below-5% no-show rate** — mutually exclusive at the
+> boundary. Unaffected by the removal.
 
 ### C14 — Volume increase for partner centers: **20–40%** vs **40%**
 
 | Value | Location | Page |
 | --- | --- | --- |
-| **20-40% volume increases** | `provider/FAQSection.astro:96`; `imaging-center/index.astro:265, 525, 1036, 1192` | **/provider**, /imaging-center |
-| **40%** "More Scans Per Month" | `provider/priority-markets/MarketStats.astro:41` | **/provider** |
+| **20-40% volume increases** | `provider/FAQSection.astro:96`; ~~`imaging-center/index.astro:265, 525, 1036, 1192`~~ ✅ removed `383458c` | **/provider** |
+| **40%** "More Scans Per Month" | `provider/priority-markets/MarketStats.astro:41` | **/provider** — ⚠️ **still live** |
 
 `/provider` presents 40% as a point estimate in one component and as a range ceiling in another.
+
+> **⚠️ NOT CLOSED by `383458c`.** Four duplicate copies removed; **both sides of the contradiction
+> live on /provider** — `FAQSection.astro:96` gives 20–40% as a range while
+> `priority-markets/MarketStats.astro:41` gives 40% as a point estimate. Unaffected.
 
 ### C15 — AnciCare operating duration: **8 years** vs **nearly a decade** vs **10 years** vs **1994-2002**
 
 | Value | Location | Page |
 | --- | --- | --- |
-| **1994-2002** (8 years) | `imaging-center/index.astro:63, 323, 375` | /imaging-center |
-| **"successful for 8 years"** | `imaging-center/index.astro:569` | /imaging-center |
-| **"nearly a decade with AnciCare"** | `provider/GuaranteeSection.astro:135` | /provider |
-| **"over 10 years"** | `providers/join.astro:63` | /providers/join |
-| **"10 years of imaging center partnerships"** | `ProviderSearchSection.jsx:10` | /search-results |
+| **1994-2002** (8 years) | `imaging-center/index.astro:63, 323, 375` | ~~/imaging-center~~ ✅ removed `383458c` |
+| **1994-2002** (8 years) | `provider/AnciCareStory.astro:58, 68`, `provider/ProvenSuccess.astro:19` | **/provider** — ⚠️ **still live** |
+| **"successful for 8 years"** | `imaging-center/index.astro:569` | ~~/imaging-center~~ ✅ removed `383458c` — **0 occurrences of this phrasing remain** |
+| **"nearly a decade with AnciCare"** | `provider/GuaranteeSection.astro:137` | /provider — ⚠️ **still live** |
+| **"over 10 years"** | `providers/join.astro:65` | /providers/join — ⚠️ **still live** |
+| **"10 years of imaging center partnerships"** | `ProviderSearchSection.jsx:10` | /search-results — ⚠️ **still live** |
 | **"In 1994 … Over the following years"** | `blog/the-scan-that-never-happens.astro:294, 300` | /blog/the-scan-that-never-happens |
+
+> **⚠️ NOT CLOSED by `383458c` — and this cluster was mis-sourced.** Earlier revisions recorded
+> `1994-2002` as living only in `imaging-center/index.astro`. **It does not:** it also renders on
+> **/provider** at `provider/AnciCareStory.astro:58, 68` and `provider/ProvenSuccess.astro:19`, both
+> of which survive. Only the phrase *"successful for 8 years"* is fully eliminated.
+>
+> The live contradiction is therefore intact and sits inside the /provider funnel: **/provider
+> renders `1994-2002` (8 years) and "nearly a decade with AnciCare" simultaneously**, while
+> /providers/join says "over 10 years" and /search-results says "10 years". Note the direction —
+> `2002 − 1994 = 8`, so "nearly a decade" overstates and "over 10 years" contradicts the date range
+> the same funnel prints.
 
 ---
 
@@ -631,14 +741,20 @@ every page in the count.
 | --- | --- | --- | --- |
 | **`src/components/CarbonFooter.astro`** | **49** | • "Building Accessible Imaging for **90 million Americans**" (L166)<br>• "Join thousands who've saved **up to 70%** on medical imaging" (L54)<br>• "built and sold AnciCare PPO, a **nationwide** imaging network acquired by **CorVel Corporation (NASDAQ: CRVL)**" (L219) | **49 pages** — /, /about, /faq, /how-it-works, /membership, /employer, /provider, /investor, /contact, /careers, /partner, /patient-promise, /member-rights, /education/what-is-an-mri, /search-results, /privacy, /terms, /sms-terms, /accessibility, /blog + 12 blog posts, /connect + 6 audience pages, /provider/consultation, /provider/faq, /provider/network-map, /provider/portal-tour, /provider/smartmatch, /provider-how-it-works, /employer/schedule, /employer/implementation-guide, /co-founder-d, /co-founder-m |
 | **`src/components/NewsletterPopup.astro`** | **12** | • "**Save up to 70%** on medical imaging" (L86)<br>• "Join **10,000+** subscribers" (L165) | **12 blog posts** — cost-saving-tips, first-mri-preparation-guide, future-ai-medical-imaging, health-tips, managing-mri-anxiety, mri-basics, preventive-care-checklist, price-transparency-healthcare, real-cost-of-mri, the-scan-that-never-happens, understanding-mri-results, uninsured-imaging-guide |
-| **`src/components/Footer.astro`** | **11** | • "Join our **nationwide** network of premium imaging centers" (L114) | **11 pages** — /imaging-center/apply, /imaging-center/benefits, /imaging-center/calculator, /imaging-center/coming-soon, /imaging-center/experience, /imaging-center/faq, /imaging-center/implementation, /imaging-center, /imaging-center/model, /imaging-center/support, /news |
+| **`src/components/Footer.astro`** | ~~11~~ → **1** | ~~• "Join our **nationwide** network of premium imaging centers" (L114)~~ ✅ **claim deleted in `383458c`** — the whole "For Imaging Centers" column was removed, so this component now carries **no quantified claim** | ~~10 /imaging-center pages~~ + **/news** only |
 | **`src/components/connect/ConnectHero.astro`** | **7** | • "Building the **nationwide** marketplace for diagnostic imaging." (L45) | **7 pages** — /connect, /connect/broker, /connect/employer, /connect/investor, /connect/other, /connect/payor, /connect/provider |
 
 **Nothing else is shared.** Every other claim-bearing component renders on exactly one page —
 this is why the site can hold contradictory values so easily. The employer funnel (16
-single-use components on `/employer`), the provider funnel (21 single-use components on
-`/provider`), and the imaging-center funnel each maintain independent copies of the same
-underlying facts with no shared source.
+single-use components on `/employer`) and the provider funnel (21 single-use components on
+`/provider`) each maintain independent copies of the same underlying facts with no shared
+source. ~~and the imaging-center funnel~~ — **removed in `383458c`**; one of the three
+duplicate-copy funnels is now gone, but the employer/provider duplication that produces most
+live contradictions is unchanged.
+
+> **Side effect of `383458c` worth tracking:** `Footer.astro` dropped from 11 pages to 1 (/news),
+> and `src/layouts/MainPatientLayout.astro` and `src/layouts/PartnerLayout.astro` are now
+> **orphaned layouts** — no page imports either. They are dead code but carry no claims.
 
 **Highest-leverage consolidation targets** (claims repeated verbatim across many *unshared*
 components, where a shared component or a single data module would eliminate the drift):
@@ -646,11 +762,11 @@ components, where a shared component or a single data module would eliminate the
 | Claim | Independent copies | Files |
 | --- | --- | --- |
 | AnciCare patients served | **18** | `SocialProofBar`, `about.astro` ×6, `education/what-is-an-mri` ×2, `provider/ProvenSuccess`, `provider/AnciCareStory`, `provider/FAQSection`, `employer/*` ×6, `EmployerConsultationForm`, `employer/schedule` ×2, `employer/implementation-guide` ×2, `contact.astro`, `blog/the-scan-that-never-happens` |
-| "1,200+ centers" | **~40** | across `/`, `/about`, `/provider`, `/imaging-center`, `/imaging-center/experience`, `/investor`, `/employer`, `/provider/portal-tour` |
+| "1,200+ centers" | ~~**~40**~~ → **35** | across `/`, `/about`, `/provider`, ~~`/imaging-center`~~, ~~`/imaging-center/experience`~~, `/investor`, `/employer`, `/provider/portal-tour` |
 | "$3,200 hospital MRI" | **10** | `PricingSection`, `employer/EmployerHero`, `employer/ROIStatPanel`, `employer/CostAnalysis` ×2, `education/what-is-an-mri` ×3, `about.astro`, `how-it-works`, `employer/implementation-guide` ×2, `blog/uninsured-imaging-guide` |
 | "$260 starting price" | **15** | see table row above |
 | "10-day payment guarantee" | **20** | across `/provider` (8 components), `/provider/portal-tour`, `/provider-how-it-works`, `/provider-how-it-works-1`, `/provider/consultation`, `/investor`, `/built-usrad` |
-| "2–3 weeks credentialing" | **18** | across `/provider`, `/provider/portal-tour`, `/provider-how-it-works-1`, `/provider/consultation`, `/imaging-center`, `/imaging-center/faq`, `/imaging-center/implementation` |
+| "2–3 weeks credentialing" | ~~**18**~~ → **8** | across `/provider`, `/provider/portal-tour`, `/provider-how-it-works-1`, `/provider/consultation`, ~~`/imaging-center`~~, ~~`/imaging-center/faq`~~, ~~`/imaging-center/implementation`~~ |
 
 ---
 
@@ -706,7 +822,7 @@ than the *current* claim (48–72 hours).
 | Figure | Measure asserted | Location |
 | --- | --- | --- |
 | **$246 million** | *patient savings* / *documented savings* | `about.astro`, `SocialProofBar`, `AboutSection`, `blog/the-scan-that-never-happens` |
-| **$240 Million+** | *volume delivered* — and, at `imaging-center/index.astro:325`, *"revenue"* | `imaging-center/index.astro` |
+| **$240 Million+** | *volume delivered* — and, at `imaging-center/index.astro:325`, *"revenue"* | ~~`imaging-center/index.astro`~~ ✅ removed `383458c` |
 | **$180M+** | *volume delivered* — and, at `providers/join.astro:63`, *"imaging revenue"* | `provider/AnciCareStory`, `providers/join`, `provider/consultation` |
 | **$160M+** | *volume delivered* | `provider/TrustBar`, `provider/portal-tour` |
 | **$20M+** | *annual revenue* / *"Revenue Built"* | `investor.astro:223, 285, 985` |
@@ -717,6 +833,11 @@ labels $240M+ as "revenue" while `:148` labels the same number "volume"; `provid
 labels $180M+ "imaging revenue" while `provider/AnciCareStory` labels it "Volume Delivered."
 `/investor` puts annual revenue at $20M — irreconcilable with $180–240M of *revenue* over 8–10 years
 unless the larger figures are gross volume, which most pages do not say.
+
+> **⚠️ REDUCED, NOT CLOSED by `383458c`.** The $240M+ volume/revenue pivot is gone. **The identical
+> pivot survives one funnel over:** `providers/join.astro:65` calls $180M+ "imaging **revenue**"
+> while `provider/AnciCareStory` calls the same figure "**Volume** Delivered". The $20M annual
+> revenue vs $180M cumulative reconciliation problem on /investor is untouched.
 
 ### U6 — "Patients" vs "claimants" vs "cases" vs "visits" vs "appointments" vs "MRIs performed"
 
@@ -732,10 +853,17 @@ The ~168,000 figure is labelled six different ways depending on funnel:
 | "patient visits" | /provider (`FAQSection`) | encounters |
 | "appointments" | /contact (`:707`) | bookings |
 | "**MRIs Performed**" | /education/what-is-an-mri (`:375`) | **scans** |
-| **400,000+ "patient visits" / "appointments"** | /imaging-center | encounters — 2.4× the patient figure |
+| **400,000+ "patient visits" / "appointments"** | ~~/imaging-center~~ ✅ removed `383458c` | encounters — 2.4× the patient figure |
+| **400,000+ "patients"** | **/search-results** (`ProviderSearchSection.jsx:852`) — ⚠️ **still live** | **people — directly contradicts 168,224** |
 
 "168,224 MRIs Performed" is the outlier: it converts a *people* count into a *procedure*
 count at 1:1, while `/imaging-center` separately claims 400,000+ visits for the same network.
+
+> **⚠️ WORSENED IN KIND by `383458c`, not resolved.** While `/imaging-center` was live, the 400,000+
+> figure was at least labelled *visits* / *appointments* — a different unit from the 168,224
+> *patients*, which is what this section documented. That framing is now gone, but the figure is
+> not: **/search-results still renders "guided 400,000+ patients"** — the same unit as 168,224, so
+> the two are now a direct numeric contradiction with no unit difference to explain the gap. See C1.
 
 ### U7 — Per-scan economics: **$300 contracted rate** vs **$375 net margin** vs **$375 disbursement**
 
@@ -744,19 +872,30 @@ count at 1:1, while `/imaging-center` separately claims 400,000+ visits for the 
 | "Avg. **contracted rate** ~$300/scan" | gross rate | `provider-how-it-works-1.astro:1093` | /provider-how-it-works-1 |
 | "Avg. **net margin** $375/scan" | margin after costs | `provider/portal-tour.astro:1024` | /provider/portal-tour |
 | "$375" (per-scan disbursement) | payment to center | `provider/ProviderBrief.astro:69`, `provider/ScannerUtilization.astro:134` | /provider |
-| "$300" / "Guaranteed payment per scan", "~$45/scan" + "~$25/scan" costs → "~$195" net | gross and net broken out | `imaging-center/calculator.astro:103, 319, 323, 328` | /imaging-center/calculator |
+| "$300" / "Guaranteed payment per scan", "~$45/scan" + "~$25/scan" costs → "~$195" net | gross and net broken out | `imaging-center/calculator.astro:103, 319, 323, 328` | ~~/imaging-center/calculator~~ ✅ removed `383458c` |
 
 `/provider/portal-tour` and `/provider-how-it-works-1` are near-identical pages, yet one calls
 $300 the contracted rate and the other calls $375 the *net margin* — a net margin above the
 sibling page's gross rate. `/imaging-center/calculator` puts the same center's net at ~$195.
 
+> **⚠️ NOT CLOSED by `383458c`.** The ~$195 net figure is gone, and with it the only page that
+> broke per-scan economics into gross and net. **The core absurdity is untouched and entirely
+> inside the /provider funnel:** `provider-how-it-works-1.astro:1093` calls **$300** the *contracted
+> rate* while its near-identical sibling `provider/portal-tour.astro:1024` calls **$375** the *net
+> margin* — a net margin $75 **above** the sibling page's gross rate. Removing the calculator
+> actually removed the only cost breakdown that made the numbers checkable.
+
 ### U8 — Utilization measured per-slot vs per-scan-day vs per-scanner-hour
 
-`35%` "Typical Slot Utilization" (MarketStats, imaging/NetworkMap), `53%` "Typical utilization
-· 8 scans/day" (ScannerUtilization), and `60% utilization` on a "1.5T MRI costs $800K–$2M"
-carrying-cost basis (portal-tour, provider-how-it-works-1) are three different denominators
-presented without units. The paired downtime figures — 65%, 47%, 40% — inherit the same
-ambiguity.
+`35%` "Typical Slot Utilization" (MarketStats, ~~imaging/NetworkMap~~ ✅ removed `383458c`), `53%`
+"Typical utilization · 8 scans/day" (ScannerUtilization), and `60% utilization` on a "1.5T MRI
+costs $800K–$2M" carrying-cost basis (portal-tour, provider-how-it-works-1) are three different
+denominators presented without units. The paired downtime figures — ~~65%~~, 47%, 40% — inherit
+the same ambiguity.
+
+> **⚠️ PARTIALLY REDUCED by `383458c`.** The 65% denominator is no longer rendered. **All three
+> utilization denominators (35%, 53%, 60%) and both remaining downtime figures (47%, 40%) survive
+> in the /provider funnel**, still presented without units. See C8.
 
 ### U9 — Time-bound claims whose window has passed
 
@@ -764,13 +903,19 @@ As of 2026-07-30 these read as current commitments but describe past dates:
 
 | Claim | Location | Page |
 | --- | --- | --- |
-| "**Coming Summer 2025**: Advanced analytics platform" | `imaging-center/benefits.astro:694`, `imaging-center/implementation.astro:505` | /imaging-center/benefits, /imaging-center/implementation |
-| "Web-based portal access (**coming Summer 2025**)" | `imaging-center/faq.astro:910` | /imaging-center/faq |
-| "The partner portal (**coming Fall 2025**)" | `imaging-center/faq.astro:980` | /imaging-center/faq |
-| "Providers joining … **before December 2025** receive priority access" | `imaging-center/benefits.astro:821` | /imaging-center/benefits |
-| "CT, Ultrasound, and PET viewers **coming in 2026**" | `education/what-is-an-mri.astro:238` | /education/what-is-an-mri |
-| "**10 States Opening 2026**" | `NetworkMapPinsCarbon.astro:296` | **/** |
-| "Phase 1: Core Domination · **2025-2026**" | `investor.astro:743, 746` | /investor |
+| "**Coming Summer 2025**: Advanced analytics platform" | `imaging-center/benefits.astro:694`, `imaging-center/implementation.astro:505` | ~~/imaging-center/benefits, /imaging-center/implementation~~ ✅ removed `383458c` |
+| "Web-based portal access (**coming Summer 2025**)" | `imaging-center/faq.astro:910` | ~~/imaging-center/faq~~ ✅ removed `383458c` |
+| "The partner portal (**coming Fall 2025**)" | `imaging-center/faq.astro:980` | ~~/imaging-center/faq~~ ✅ removed `383458c` |
+| "Providers joining … **before December 2025** receive priority access" | `imaging-center/benefits.astro:821` | ~~/imaging-center/benefits~~ ✅ removed `383458c` |
+| "CT, Ultrasound, and PET viewers **coming in 2026**" | `education/what-is-an-mri.astro:238` | /education/what-is-an-mri — ⚠️ **still live** |
+| "**10 States Opening 2026**" | `NetworkMapPinsCarbon.astro:296` | **/** — ⚠️ **still live** |
+| "Phase 1: Core Domination · **2025-2026**" | `investor.astro:743, 746` | /investor — ⚠️ **still live** |
+
+> **✅ SUBSTANTIALLY REDUCED by `383458c`.** **All four expired-window claims are gone** — every
+> 2025-dated promise ("Summer 2025", "Fall 2025", "before December 2025") lived exclusively in the
+> imaging-center funnel. The three survivors are all **2026**-dated and therefore still plausibly
+> current as of 2026-07-30, though "Phase 1 · 2025-2026" and "10 States Opening 2026" both expire
+> within five months and should be re-dated before year end.
 
 ### U10 — Geographic scope: **Florida-only** vs **all 50 states** vs **nationwide**
 
@@ -781,12 +926,17 @@ As of 2026-07-30 these read as current commitments but describe past dates:
 | "**50**" / "States — accepting applications nationwide" | `provider/network-map.astro:172` | /provider/network-map |
 | "**10 States** Opening 2026" | `NetworkMapPinsCarbon.astro:296` | / |
 | "1,500+ locations **nationwide**" | `index.astro:66` | / |
-| "**nationwide**" (unqualified) | `CarbonFooter.astro:219` (49 pages), `Footer.astro:114` (11 pages), `ConnectHero.astro:45` (7 pages), `hero/HeroSection.astro:58`, `CredibilitySection.astro:14`, `BrowseAllModal.astro:271`, `membership.astro:185, 451, 479`, `provider/consultation.astro:263` | 49 / 11 / 7 / various |
+| "**nationwide**" (unqualified) | `CarbonFooter.astro:219` (49 pages), ~~`Footer.astro:114` (11 pages)~~ ✅ removed `383458c`, `ConnectHero.astro:45` (7 pages), `hero/HeroSection.astro:58`, `CredibilitySection.astro:14`, `BrowseAllModal.astro:271`, `membership.astro:185, 451, 479`, `provider/consultation.astro:263` | 49 / ~~11~~ / 7 / various |
 | "licensed in **all 50 states**" | `employer/ExecutiveFAQ.astro:278` | /employer |
 | "**Expanding daily across all 50 states**" | `AboutVision.astro:52` | *(orphaned)* |
 
 "Nationwide" appears on all 49 CarbonLayout pages; `/faq` is the only page that scopes coverage
 to Florida. `/provider/network-map` renders "FL — first active market" and "50 states" side by side.
+
+> **⚠️ MARGINALLY REDUCED by `383458c`.** Deleting the footer column removed one unqualified
+> "nationwide" from 11 pages. **The defect is unchanged:** "nationwide" still renders on all 49
+> CarbonLayout pages, and `/provider/network-map` still shows "FL — first active market" beside
+> "50 states — accepting applications nationwide".
 
 ---
 
@@ -824,6 +974,87 @@ L743 flags the absence of `robots.txt`, which remains unaddressed.
 
 ---
 
+## Deprecated funnel — ✅ RESOLVED in `383458c` (2026-07-30)
+
+> **Status: removed.** The `/imaging-center` funnel was confirmed 100% deprecated and deleted in
+> commit **`383458c`** — *"chore(pages): remove deprecated /imaging-center funnel — 16 files"*.
+> All 12 routes are gone from the build manifest (169 → 157 route entries); the build is green.
+>
+> This section is retained as history, not as an open finding. Rows above referencing these files
+> are retained and marked, not deleted.
+
+**Removed — 16 files:**
+
+| Path | Files | Note |
+| --- | --- | --- |
+| `src/pages/imaging-center/` | 13 | 12 routes + `_index.astro.backup` |
+| `src/components/imaging/` | 2 | `NetworkMap.astro` (imported only by `imaging-center/index.astro`), `HeroImagingCenter.astro` (imported by nothing) |
+| `src/layouts/PartnerPageLayout.astro` | 1 | consumed only by 8 imaging-center pages |
+
+Also removed: the sitewide **"For Imaging Centers" footer column** (`Footer.astro:110-123`), which
+was the only live inbound reference. This deleted the *"Join our nationwide network of premium
+imaging centers"* claim (L114) outright and a pre-existing dead link to `/managed-care`.
+
+**Claims eliminated repo-wide (0 occurrences remain):**
+
+| Claim | Cluster | Was |
+| --- | --- | --- |
+| **$240 Million+** "in volume" / "in revenue" | C2, U5 | 9 locations |
+| **NYSE: CVL** | C3 | 1 location — `CRVL` is now the only ticker on the site |
+| **payment within 15 days** | C7 | 5 locations |
+| **65%** "Average Unfilled Appointment Slots" *(live)* | C8, U8 | 1 location; one orphaned copy survives in `provider/Test.astro` |
+| **"successful for 8 years"** | C15 | 1 location |
+| **Summer 2025 / Fall 2025 / December 2025** promises | U9 | 4 locations — every expired-window claim on the site |
+| **~$195** net per scan, **30–70%** savings, **$300** payment-per-scan | U7, C12, C4 | calculator-only figures |
+
+### Cluster outcomes
+
+| Cluster | Outcome | Where it still lives |
+| --- | --- | --- |
+| **C7** — payment window | ✅ **FULLY CLOSED** | — (one authenticated-portal survivor, out of scope) |
+| **C3** — CorVel ticker | ✅ **ticker closed** / ⚠️ **exchange open** | `provider/TrustBar.astro:110,113` prints "NYSE-Listed" above "NASDAQ: CRVL"; `employer/ExecutiveFAQ.astro:290` |
+| **U9** — expired windows | ✅ **substantially closed** (4 of 7) | 3 remaining are 2026-dated, not yet expired |
+| **C8** — utilization | ⚠️ **half** — 65% closed, 35% open | `MarketStats.astro:21` (35%) vs `ScannerUtilization.astro:89` (53%), same page |
+| **C2** — volume/savings | ⚠️ **reduced** — one of five values gone | `/provider` renders $180M+ **and** $160M+ |
+| **U5 / U7 / U8 / U6** | ⚠️ **reduced** | all survivors in `/provider` |
+| **C1** — patients served | ❌ **not closed** | **400,000+ still live at `ProviderSearchSection.jsx:852` (/search-results)**; 168,244/168,224/168,000 on /about |
+| **C15** — AnciCare duration | ❌ **not closed** *(cluster was mis-sourced)* | `1994-2002` also lives at `provider/AnciCareStory.astro:58,68` + `provider/ProvenSuccess.astro:19` |
+| **C9, C10, C13, C14** | ❌ **duplicates reduced, defect unchanged** | both sides were always inside `/provider` |
+| **C5, C4, C12, U10** | ❌ **essentially unaffected** | no value eliminated; defects are on `/`, `/about`, `/employer`, `/investor` |
+| **C6, C11, U1–U4** | — untouched | never involved the imaging-center funnel |
+
+**The pattern:** the removal cleanly closes contradictions whose two sides mapped onto the two
+funnels (C7 outright, C3's ticker, U9). It does **not** close contradictions that were already
+self-contained inside `/provider` — which is most of them. **Nine clusters now have both
+contradicting values living in the provider funnel**, several on a single page: `/provider`
+(C2 $180M/$160M, C3 NYSE/NASDAQ, C8 35%/53%, C14 20-40%/40%, C15 1994-2002/"nearly a decade"),
+`/provider/faq` (C13 96%/<5%), and the `portal-tour` vs `provider-how-it-works-1` sibling pair
+(U7 $300 gross vs $375 net). Consolidating the provider funnel is now the highest-leverage
+remaining work; the imaging-center removal did not touch it.
+
+**Two clusters need attention that this removal did not provide:**
+
+1. **C1 is the priority.** `400,000+` is still public at **/search-results**, and it now reads
+   "400,000+ **patients**" — the same unit as the 168,224 figure, so the unit mismatch that
+   previously softened it is gone. Earlier revisions listed `/imaging-center` as its only source.
+2. **C3 got sharper, not softer.** `provider/TrustBar.astro` renders "NYSE-Listed Acquisition"
+   with "CorVel Corporation (NASDAQ: CRVL)" on the line directly beneath it.
+
+**Verified at removal:** 12 live routes before / 0 after; 1 live inbound reference (footer), ruled
+on before removal; 0 redirects (`astro.config.mjs` has no redirects block, `vercel.json` is crons
+only); 0 sitemap impact (no sitemap integration, no `public/sitemap.xml`); 0 header/nav references;
+0 hits for any `/ic` path repo-wide; build green before and after; prerendered pages 45 → 45.
+
+**Recovery path is git history** — the files were deleted, not relocated. To read one:
+`git show 383458c^:src/pages/imaging-center/index.astro`.
+
+**Left in place deliberately:** `/images/website/imaging-center-hero-fallback.webp` (still used by
+`about.astro:857`), the `.imaging-centers-btn` CSS class (unrelated), and slide text in
+`usrad-end-card.html`. **Now orphaned by this change:** the three
+`public/videos/imaging-center-hero.*` files, and the `MainPatientLayout` / `PartnerLayout` layouts.
+
+---
+
 ## Coverage note
 
 495 `.astro`/`.jsx` files scanned; **77 live public routes** and **157 components** evaluated,
@@ -832,3 +1063,12 @@ instances covering every dollar figure, percentage, count, duration, ratio and s
 visitor-facing text on the live marketing site, excluding the categories listed under *Scope
 and method*. Claims appearing verbatim in many locations are consolidated to one row with all
 file:line references.
+
+**Post-`383458c` restatement (2026-07-30):** the imaging-center removal takes the site to **65
+live public routes** (77 − 12) and **155 components** (157 − 2). Of the ~250 claim rows, **35 are
+now fully resolved** (every file they cited is deleted) and **8 are partial** (the claim survives
+on a route outside the removed funnel — all 8 survivors are in `/provider`, `/about`,
+`/co-founder-m` or `/blog`). Counts elsewhere in this document that were taken before the removal
+are annotated inline with their new values rather than overwritten, so the deltas stay auditable.
+The figures above are otherwise unchanged, because the removal deleted duplicate copies of claims
+rather than unique ones — which is precisely why so few clusters closed.
