@@ -14,11 +14,43 @@ yarn-error.log*
 pnpm-debug.log*
 *.log
 
+# ---------------------------------------------------------------------------
 # Environment variables
+#
+# `.env.*` is a catch-all: it covers .env.local, .env.production, .env.staging,
+# .env.development, .env.backup*, and any future variant. The single negation
+# below re-includes the tracked public template.
+#
+# Keep `!.env.example` AFTER `.env.*`, and do not add any later rule that
+# matches `.env.example` — a negation cannot be re-negated by a later pattern.
+# ---------------------------------------------------------------------------
 .env
-.env.local
-.env.*.local
-.env.production
+.env.*
+!.env.example
+
+# Credential material must never be committed.
+# Google / OAuth service-account and client-secret files
+*service-account*.json
+*service_account*.json
+*credential*.json
+credentials.json
+client_secret*.json
+client-secret*.json
+*-key.json
+*_key.json
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+private.key
+id_rsa
+id_ed25519
+
+# Local provider / deployment state
+.gcloud/
+.firebase/
 
 # Database migrations (optional - you might want to keep these)
 drizzle/
@@ -37,8 +69,8 @@ create-user*.js
 # OS files
 Thumbs.db
 .vercel
-.env.local
-.env
+# `*.env` catches files that END in .env (e.g. prod.env); the .env.* rule above
+# catches files that START with .env. Both are needed.
 *.env
 usrad-medicare-pricing/
 check-structure.cjs
@@ -48,7 +80,6 @@ node
 logo-sizing-context-report-astro.md
 .venv/
 
-# env backups and scratch (do not commit)
-.env.backup-preseparation
-.env.backup*
+# scratch (do not commit)
+# Note: .env.backup* variants are covered by the `.env.*` rule above.
 supabase/.temp/
