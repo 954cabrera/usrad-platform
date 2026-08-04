@@ -277,6 +277,53 @@ const { class: className = "" } = Astro.props;
           </div>
         </div>
       </details>
+
+      <details
+        class="group bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow"
+        data-aos="fade-up"
+        data-aos-delay="500"
+      >
+        <summary
+          class="px-4 sm:px-6 py-3 sm:py-4 cursor-pointer flex justify-between items-center"
+        >
+          <span class="font-semibold text-base sm:text-lg text-gray-900 pr-2"
+            >"When do we pay USRad?"</span
+          >
+          <svg
+            class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </summary>
+        <div class="px-4 sm:px-6 pb-3 sm:pb-4">
+          <div
+            class="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700"
+          >
+            <p>
+              • <strong>Funded before scheduling</strong> - your funds are in place
+              before any member is routed to an imaging center
+            </p>
+            <p>
+              • <strong>No claims, no invoicing cycle</strong> - imaging centers are
+              paid by USRad on a fixed schedule, not by your plan
+            </p>
+          </div>
+          <div class="mt-3 sm:mt-4 p-2 sm:p-3 bg-green-50 rounded-lg">
+            <p class="text-xs sm:text-sm text-green-800">
+              <strong>Prefunded model:</strong> USRad routes only funded assignments
+              — there is no accounts receivable between your plan and the imaging
+              center
+            </p>
+          </div>
+        </div>
+      </details>
     </div>
   </div>
 </section>

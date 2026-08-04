@@ -84,7 +84,7 @@ export const CONNECT_AUDIENCES: Record<AudienceId, ConnectAudience> = {
     headline: "For employers and self-funded plans.",
     acknowledgment:
       "Welcome. You're looking at USRad as a way to lower imaging spend while maintaining member access.",
-    body: "USRad gives self-funded employers transparent, contracted prices on diagnostic imaging at ACR-accredited centers nationwide. Members pay published rates with no surprise billing; employers see imaging spend drop without redesigning their benefits stack. The model plugs into existing TPA and broker relationships.",
+    body: "USRad gives self-funded employers transparent, contracted prices on diagnostic imaging at ACR-accredited centers nationwide. Members pay published rates with no surprise billing; employers see imaging spend drop without redesigning their benefits stack.",
     proofLine:
       "AnciCare PPO managed imaging for the workers' compensation industry on the same architecture — transparent pricing, contracted centers, predictable cost.",
     cta: {
