@@ -1335,7 +1335,6 @@ function buildHTML(d: ROIData): string {
           <li>Review historical imaging spend data</li>
           <li>Map existing WC &amp; health plan workflows</li>
           <li>Identify implementation stakeholders</li>
-          <li>Finalize TPA integration requirements</li>
         </ul>
       </div>
       <div class="impl-card">
@@ -1343,7 +1342,6 @@ function buildHTML(d: ROIData): string {
         <div class="week-title">Technical Setup</div>
         <ul>
           <li>Configure employer portal &amp; booking</li>
-          <li>Coordinate with benefits platform / TPA</li>
           <li>Establish claims billing &amp; reporting feeds</li>
           <li>Complete integration testing &amp; validation</li>
           <li>Activate network in employee geography</li>

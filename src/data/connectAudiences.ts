@@ -102,7 +102,7 @@ export const CONNECT_AUDIENCES: Record<AudienceId, ConnectAudience> = {
     headline: "For brokers and TPAs.",
     acknowledgment:
       "Welcome. You're looking at USRad as a product to recommend to your employer clients.",
-    body: "USRad is a transparent-price imaging layer brokers and TPAs can introduce to self-funded employer clients. The platform reduces imaging spend, improves member experience, and integrates with existing benefits architecture. Co-branded materials and broker support are available.",
+    body: "USRad is a transparent-price imaging layer brokers and TPAs can introduce to self-funded employer clients. The platform reduces imaging spend and improves member experience. Co-branded materials and broker support are available.",
     proofLine:
       "Designed for the broker channel: clean economics to present to a CFO, simple onboarding, and direct broker support from the founding team.",
     cta: {
