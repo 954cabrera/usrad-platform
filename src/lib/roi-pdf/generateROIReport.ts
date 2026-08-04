@@ -1368,16 +1368,6 @@ function buildHTML(d: ROIData): string {
 
     <div class="compliance-row">
       <span class="c-check">✓</span>
-      <span class="c-label">Licensed All 50 States</span>
-      <span class="c-desc">Workers' comp imaging approved in every jurisdiction</span>
-    </div>
-    <div class="compliance-row">
-      <span class="c-check">✓</span>
-      <span class="c-label">TPA Integration</span>
-      <span class="c-desc">Works with Sedgwick, Gallagher Bassett, ESIS, Broadspire + all major TPAs</span>
-    </div>
-    <div class="compliance-row">
-      <span class="c-check">✓</span>
       <span class="c-label">Zero Network Conflicts</span>
       <span class="c-desc">Supplemental overlay — enhances, never replaces, existing coverage or carrier relationships</span>
     </div>
