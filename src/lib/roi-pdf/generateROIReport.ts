@@ -1368,16 +1368,6 @@ function buildHTML(d: ROIData): string {
 
     <div class="compliance-row">
       <span class="c-check">✓</span>
-      <span class="c-label">ERISA Compliant</span>
-      <span class="c-desc">Structured as a permissible supplemental benefit — no plan amendments required</span>
-    </div>
-    <div class="compliance-row">
-      <span class="c-check">✓</span>
-      <span class="c-label">HIPAA / SOC 2 Type II</span>
-      <span class="c-desc">Full data security certification maintained; full PHI handling protocols</span>
-    </div>
-    <div class="compliance-row">
-      <span class="c-check">✓</span>
       <span class="c-label">Licensed All 50 States</span>
       <span class="c-desc">Workers' comp imaging approved in every jurisdiction</span>
     </div>
