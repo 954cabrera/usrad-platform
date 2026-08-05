@@ -53,25 +53,13 @@ const { class: className = "" } = Astro.props;
             </div>
             <div>
               <label class="block text-sm font-medium mb-2"
-                >Annual WC Imaging Scans</label
+                >Annual Imaging Scans</label
               >
               <input
                 type="text"
                 inputmode="numeric"
-                id="wc-scans"
-                value="120"
-                class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-green-400 text-base"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-medium mb-2"
-                >Annual Employee Health Scans</label
-              >
-              <input
-                type="text"
-                inputmode="numeric"
-                id="health-scans"
-                value="380"
+                id="total-scans"
+                value="500"
                 class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-green-400 text-base"
               />
             </div>
@@ -186,77 +174,27 @@ const { class: className = "" } = Astro.props;
               </p>
             </div>
 
-            <!-- WC / Health split -->
-            <div class="grid grid-cols-2 gap-3 sm:gap-4">
-              <div class="bg-white/10 rounded-lg p-3 sm:p-4 text-center">
-                <p
-                  class="text-xl sm:text-2xl font-bold text-blue-400 break-words"
-                  id="wc-savings"
-                >
-                  $204,000
-                </p>
-                <p class="text-xs text-gray-400">WC Savings</p>
-              </div>
-              <div class="bg-white/10 rounded-lg p-3 sm:p-4 text-center">
-                <p
-                  class="text-xl sm:text-2xl font-bold text-green-400 break-words"
-                  id="health-savings"
-                >
-                  $646,000
-                </p>
-                <p class="text-xs text-gray-400">Health Plan Savings</p>
-              </div>
-            </div>
-
-            <!-- Savings Waterfall Breakdown -->
+            <!-- Spend before / after -->
             <div
               class="bg-white/5 rounded-xl p-4 sm:p-5 border border-white/10"
             >
-              <p
-                class="text-xs text-gray-400 uppercase tracking-wider mb-3 font-semibold"
-              >
-                What Drives These Savings
-              </p>
               <div class="space-y-2.5 text-sm">
                 <div class="flex justify-between items-center">
                   <span class="text-gray-300"
-                    >Direct Imaging Price Reduction</span
-                  >
-                  <span class="font-semibold text-white" id="price-savings"
-                    >$637,500</span
-                  >
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-1.5">
-                  <div
-                    class="bg-green-400 h-1.5 rounded-full"
-                    style="width:75%"
-                  >
-                  </div>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-300">Faster Return-to-Work (WC)</span>
-                  <span class="font-semibold text-white" id="rtw-savings"
-                    >$136,000</span
-                  >
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-1.5">
-                  <div class="bg-blue-400 h-1.5 rounded-full" style="width:16%">
-                  </div>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-300">Improved Imaging Utilization</span
+                    >Current annual imaging spend</span
                   >
                   <span
                     class="font-semibold text-white"
-                    id="utilization-savings">$76,500</span
+                    id="current-spend-line">$1,200,000</span
                   >
                 </div>
-                <div class="w-full bg-gray-700 rounded-full h-1.5">
-                  <div
-                    class="bg-yellow-400 h-1.5 rounded-full"
-                    style="width:9%"
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-300"
+                    >Estimated annual spend with USRad</span
                   >
-                  </div>
+                  <span class="font-semibold text-white" id="usrad-spend-line"
+                    >$175,000</span
+                  >
                 </div>
               </div>
             </div>
@@ -577,38 +515,21 @@ const { class: className = "" } = Astro.props;
   // ─── Main calculator ──────────────────────────────────────────────────────
   function updateCalculator() {
     const totalEmployees = parseInput("total-employees");
-    const wcScans = parseInput("wc-scans");
-    const healthScans = parseInput("health-scans");
+    const totalScans = parseInput("total-scans");
     const avgCost = parseInput("avg-cost");
 
-    const totalScans = wcScans + healthScans;
     const currentSpend = totalScans * avgCost;
     const usradCost = totalScans * 350;
     const savings = Math.max(0, currentSpend - usradCost);
     const savingsPercent =
       currentSpend > 0 ? Math.round((savings / currentSpend) * 100) : 0;
 
-    // Waterfall breakdown
-    const priceSavings = Math.round(savings * 0.75);
-    const rtwSavings = Math.round(savings * 0.16);
-    const utilizationSavings = savings - priceSavings - rtwSavings;
-
-    // WC / health split
-    const wcSavings = Math.max(0, wcScans * avgCost - wcScans * 350);
-    const healthSavings = Math.max(
-      0,
-      healthScans * avgCost - healthScans * 350,
-    );
-
     // ── Animate numbers ──
     animateValue("current-spend", 0, currentSpend, "$", "", 600);
     animateValue("usrad-cost", 0, usradCost, "$", "", 600);
     animateValue("annual-savings", 0, savings, "$", "", 900);
-    animateValue("wc-savings", 0, wcSavings, "$", "", 600);
-    animateValue("health-savings", 0, healthSavings, "$", "", 600);
-    animateValue("price-savings", 0, priceSavings, "$", "", 700);
-    animateValue("rtw-savings", 0, rtwSavings, "$", "", 700);
-    animateValue("utilization-savings", 0, utilizationSavings, "$", "", 700);
+    animateValue("current-spend-line", 0, currentSpend, "$", "", 700);
+    animateValue("usrad-spend-line", 0, usradCost, "$", "", 700);
 
     // ── Savings percent (no animation, text) ──
     const pctEl = document.getElementById("savings-percent");
@@ -770,8 +691,7 @@ const { class: className = "" } = Astro.props;
 
       // Generate and download custom ROI PDF report
       const totalEmployees = parseInput("total-employees");
-      const wcScans = parseInput("wc-scans");
-      const healthScans = parseInput("health-scans");
+      const totalScans = parseInput("total-scans");
       const avgCost = parseInput("avg-cost");
 
       const pdfRes = await fetch("/api/employer-roi-report", {
@@ -782,8 +702,7 @@ const { class: className = "" } = Astro.props;
           contactName: name,
           contactEmail: email,
           totalEmployees,
-          wcScans,
-          healthScans,
+          totalScans,
           avgCost,
           website_url: roiWebsiteUrl,
           form_start: roiFormStart,
@@ -818,8 +737,7 @@ const { class: className = "" } = Astro.props;
 
   // ─── Event listeners (comma formatting handles input + calls updateCalculator) ──
   attachCommaFormatter("total-employees");
-  attachCommaFormatter("wc-scans");
-  attachCommaFormatter("health-scans");
+  attachCommaFormatter("total-scans");
   attachCommaFormatter("avg-cost");
 
   // Initial render

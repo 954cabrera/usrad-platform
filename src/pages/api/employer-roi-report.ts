@@ -14,8 +14,7 @@ export const POST: APIRoute = async ({ request }) => {
       contactName,
       contactEmail,
       totalEmployees,
-      wcScans,
-      healthScans,
+      totalScans,
       avgCost,
       website_url,
       form_start,
@@ -69,8 +68,7 @@ export const POST: APIRoute = async ({ request }) => {
       companyName,
       contactName,
       totalEmployees:  Number(totalEmployees),
-      wcScans:         Number(wcScans     || 0),
-      healthScans:     Number(healthScans  || 0),
+      totalScans:      Number(totalScans   || 0),
       avgCost:         Number(avgCost     || 2400),
     });
 
@@ -88,8 +86,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // ── Calculate savings for lead record ──
     const annualSavings =
-      (Number(wcScans || 0) + Number(healthScans || 0)) *
-      (Number(avgCost || 2400) - 350);
+      Number(totalScans || 0) * (Number(avgCost || 2400) - 350);
 
     // ── Supabase lead insert (non-blocking) ──
     if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
@@ -103,8 +100,7 @@ export const POST: APIRoute = async ({ request }) => {
           contact_name:      contactName || null,
           contact_email:     contactEmail,
           total_employees:   Number(totalEmployees),
-          wc_scans:          Number(wcScans    || 0),
-          health_scans:      Number(healthScans || 0),
+          health_scans:      Number(totalScans || 0),
           avg_cost_per_scan: Number(avgCost    || 2400),
           annual_savings:    annualSavings,
           source:            "roi_calculator",
