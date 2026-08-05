@@ -132,7 +132,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
           <p class="text-lg text-white/55 mb-8 max-w-md leading-relaxed">
             USRad routes fully funded assignments directly to your
             scanner. No marketing spend, no billing complexity, no prior auth
-            delays. Guaranteed disbursement within 10 business days.
+            delays. Paid within 10 business days of fulfillment.
           </p>
 
           <!-- Step nav — interactive; drives scroll to step -->
@@ -205,7 +205,10 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
         <div class="hidden lg:grid grid-cols-2 gap-3">
           {
             [
-              { num: "10 days", label: "Guaranteed disbursement window" },
+              {
+                num: "10 business days",
+                label: "From fulfillment — guaranteed disbursement window",
+              },
               { num: "$0", label: "Marketing or acquisition cost" },
               {
                 num: "1,200+",
@@ -235,7 +238,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
     <div class="phiw-metric-inner">
       {
         [
-          { v: "10-Day", l: "Payment Guarantee" },
+          { v: "10 business days from fulfillment", l: "Payment Guarantee" },
           { v: "$0", l: "Marketing Cost" },
           { v: "HIPAA", l: "Compliant Platform" },
           { v: "✓", l: "Accreditation Required" },
@@ -667,18 +670,19 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
               <div class="phiw-chip">
                 <span class="phiw-chip-num phiw-chip-green">✓</span>
                 <span class="phiw-chip-label phiw-chip-green-label"
-                  >Scan &amp; Get Paid · 10-day disbursement</span
+                  >Scan &amp; Get Paid · 10 business days from fulfillment</span
                 >
               </div>
               <h2 class="phiw-h2">
-                Scan the Patient.<br />Get Paid in 10 Days.
+                Scan the Patient.<br />Get Paid in 10 Business Days.
               </h2>
               <p class="phiw-p">
                 Perform the exam. Your radiologist generates a signed report —
                 upload it through the Fulfillment Report panel in one step.
-                USRad's system verifies it automatically and initiates
-                disbursement within 10 business days. No invoicing, no billing
-                staff, no collections calls. The revenue lands in your account.
+                USRad's system verifies it automatically — paid within 10
+                business days of fulfillment, the date you complete the scan and
+                upload the final signed report. No invoicing, no billing staff,
+                no collections calls. The revenue lands in your account.
               </p>
 
               <!-- Real fulfillment steps from bookings.$id upload_report action -->
@@ -712,7 +716,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
                     {
                       n: "✓",
                       title: "Fulfillment Complete — disbursement initiated",
-                      sub: "Payment released within 10 business days",
+                      sub: "Payment released within 10 business days of fulfillment",
                       green: true,
                     },
                   ].map((item) => (
@@ -744,7 +748,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
                   {
                     [
                       { n: "$0", l: "Billing overhead" },
-                      { n: "10", l: "Day guarantee" },
+                      { n: "10", l: "Business days from fulfillment" },
                       { n: "100%", l: "Contracted rate paid" },
                     ].map((m) => (
                       <div class="text-center px-3">
@@ -907,7 +911,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
                   <div class="phiw-screen-body">
                     <img
                       src="/images/provider/portal/pstep4.png"
-                      alt="USRad Provider Portal — Fulfillment Complete status with 10-day disbursement confirmation"
+                      alt="USRad Provider Portal — Fulfillment Complete status with 10 business days disbursement confirmation"
                       class="w-full h-full object-cover object-top"
                     />
                   </div>
@@ -989,7 +993,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
           <div class="space-y-2">
             {
               [
-                "10-day disbursement guaranteed",
+                "10 business days from fulfillment",
                 "Zero prior auth or denials",
                 "Assignments funded before routing",
                 "$0 marketing cost to you",
@@ -1058,7 +1062,10 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
           [
             { n: "30 Years", l: "Imaging industry experience" },
             { n: "1,200+", l: "Imaging centers historically contracted" },
-            { n: "10 Days", l: "Guaranteed payment disbursement" },
+            {
+              n: "10 business days",
+              l: "From fulfillment — guaranteed payment disbursement",
+            },
             { n: "$160M+", l: "Delivered in imaging volume" },
           ].map(({ n, l }) => (
             <div class="text-center">
@@ -1136,7 +1143,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
       <div class="grid grid-cols-3 gap-6 max-w-md mx-auto">
         {
           [
-            ["10 days", "Disbursement guarantee"],
+            ["10 days", "From fulfillment — disbursement guarantee"],
             ["$0", "Upfront cost"],
             ["2–3 wks", "To your first patient"],
           ].map(([n, l]) => (
