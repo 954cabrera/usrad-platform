@@ -21,17 +21,17 @@ const { class: className = "" } = Astro.props;
       data-aos="fade-up"
       data-aos-delay="100"
     >
-      <div>
+      <div class="flex flex-col">
         <p
           class="text-xs sm:text-sm text-gray-500 uppercase tracking-wide mb-2"
         >
-          Average Hospital MRI
+          Hospital outpatient MRI
         </p>
-        <p class="text-4xl sm:text-5xl font-bold text-gray-900">$3,200</p>
+        <p class="flex-1 text-4xl sm:text-5xl font-bold text-gray-900">$1,800–$3,200</p>
         <p class="text-xs text-gray-400 mt-2">Hospital outpatient billing</p>
       </div>
 
-      <div class="relative">
+      <div class="relative flex flex-col">
         <!-- Dividers on desktop -->
         <div
           class="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 w-px h-12 bg-gray-200"
@@ -46,18 +46,18 @@ const { class: className = "" } = Astro.props;
         >
           USRad Network MRI
         </p>
-        <p class="text-4xl sm:text-5xl font-bold text-[#003087]">$640</p>
+        <p class="flex-1 text-4xl sm:text-5xl font-bold text-[#003087]">$260–$475</p>
         <p class="text-xs text-gray-400 mt-2">Independent accredited centers</p>
       </div>
 
-      <div>
+      <div class="flex flex-col">
         <p
           class="text-xs sm:text-sm text-gray-500 uppercase tracking-wide mb-2"
         >
           Typical Employer Savings
         </p>
-        <p class="text-4xl sm:text-5xl font-bold text-[#cc9933]">60–80%</p>
-        <p class="text-xs text-gray-400 mt-2">Across all imaging modalities</p>
+        <p class="flex-1 text-4xl sm:text-5xl font-bold text-[#cc9933]">75–90%</p>
+        <p class="text-xs text-gray-400 mt-2">For a plain MRI</p>
       </div>
     </div>
 

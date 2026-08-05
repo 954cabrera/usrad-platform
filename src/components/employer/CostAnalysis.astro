@@ -6,7 +6,10 @@ const { class: className = "" } = Astro.props;
 ---
 
 <!-- The Real Cost Section - Mobile Optimized -->
-<section class={`py-16 sm:py-24 px-4 sm:px-6 bg-white ${className}`}>
+<section
+  id="cost-analysis"
+  class={`py-16 sm:py-24 px-4 sm:px-6 bg-white ${className}`}
+>
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-12 sm:mb-16">
       <h2
@@ -62,10 +65,6 @@ const { class: className = "" } = Astro.props;
             </h3>
             <div class="space-y-3 text-sm sm:text-base">
               <div class="flex justify-between items-center">
-                <span class="text-gray-700">Medicare Rate (baseline)</span>
-                <span class="font-semibold">$450</span>
-              </div>
-              <div class="flex justify-between items-center">
                 <span class="text-gray-700">Imaging Center Rate</span>
                 <span class="font-semibold">$600</span>
               </div>
@@ -76,13 +75,20 @@ const { class: className = "" } = Astro.props;
               <div class="pt-3 border-t">
                 <div class="flex justify-between items-center">
                   <span class="font-semibold text-gray-900"
-                    >Hospital Markup</span
+                    >Hospital markup vs. imaging center</span
                   >
-                  <span class="font-bold text-red-600">711%</span>
+                  <span class="font-bold text-red-600">5.3×</span>
                 </div>
               </div>
             </div>
           </div>
+
+          <p class="text-xs text-gray-500 max-w-xl">
+            Hospital and imaging center rates shown are representative cash-pay
+            prices for a plain MRI without a negotiated contract. Actual prices
+            vary by market and facility. USRad network pricing reflects
+            contracted rates that vary by market.
+          </p>
         </div>
       </div>
 
