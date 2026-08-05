@@ -285,10 +285,10 @@ const { class: className = "" } = Astro.props;
         </svg>
       </div>
       <h3 class="text-xl font-bold text-gray-900 mb-2">
-        Your report downloaded!
+        Thanks — we have your figures.
       </h3>
       <p class="text-gray-600 text-sm mb-6">
-        Check your downloads for your custom ROI analysis. We've also emailed
+        Michael will review them personally and follow up. We've also emailed
         you the Employer Implementation Guide.
       </p>
       <a
@@ -329,11 +329,11 @@ const { class: className = "" } = Astro.props;
       </div>
 
       <h2 class="text-xl font-bold text-gray-900 mb-1">
-        Download Your Custom ROI Report
+        See Your Imaging Savings
       </h2>
       <p class="text-sm text-gray-500 mb-5">
-        Your custom ROI report will download instantly. We'll also email you the
-        Employer Implementation Guide.
+        Enter your figures and Michael will review your savings personally.
+        We'll also email you the Employer Implementation Guide.
       </p>
 
       <form id="roi-form" class="space-y-4" novalidate>
@@ -688,12 +688,12 @@ const { class: className = "" } = Astro.props;
         }),
       }).catch(() => {}); // non-blocking — failure is silent
 
-      // Generate and download custom ROI PDF report
+      // Record the lead with the figures the visitor entered
       const totalEmployees = parseInput("total-employees");
       const totalScans = parseInput("total-scans");
       const avgCost = parseInput("avg-cost");
 
-      const pdfRes = await fetch("/api/employer-roi-report", {
+      const leadRes = await fetch("/api/employer-roi-report", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -708,16 +708,16 @@ const { class: className = "" } = Astro.props;
         }),
       });
 
-      if (pdfRes.ok) {
-        const blob = await pdfRes.blob();
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `USRad-ROI-Report-${company.replace(/\s+/g, "-")}.pdf`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+      if (!leadRes.ok) {
+        const data = await leadRes.json().catch(() => ({}) as any);
+        errorEl.textContent =
+          data.error || "Something went wrong. Please try again.";
+        errorEl.classList.remove("hidden");
+        submitBtn.disabled = false;
+        btnText.textContent = "Send Me the Report";
+        btnArrow.classList.remove("hidden");
+        btnSpinner.classList.add("hidden");
+        return;
       }
 
       // Show success
