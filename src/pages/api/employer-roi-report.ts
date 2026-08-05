@@ -100,7 +100,7 @@ export const POST: APIRoute = async ({ request }) => {
           contact_name:      contactName || null,
           contact_email:     contactEmail,
           total_employees:   Number(totalEmployees),
-          health_scans:      Number(totalScans || 0),
+          total_scans:       Number(totalScans || 0),
           avg_cost_per_scan: Number(avgCost    || 2400),
           annual_savings:    annualSavings,
           source:            "roi_calculator",
