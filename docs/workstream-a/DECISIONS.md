@@ -1,0 +1,165 @@
+# DECISIONS — Workstream A
+
+**Append-only. Never rewrite a line. To reverse a decision, append a new one that supersedes it.**
+
+Format: `DATE · DECISION · AUTHORITY`
+
+One line per decision, not per action. Commits go in the tracker; this file answers "what did we decide, and when" when the scope and the tracker disagree.
+
+---
+
+## August 3, 2026
+
+```
+2026-08-03 · Workstream A opened. Corrective, not creative. Every addition
+             measured against that sentence. · SCOPE preamble
+2026-08-03 · Governing split adopted: SHIP (fix now) vs HOLD (remove the
+             claim, do not replace with a placeholder). · SCOPE
+2026-08-03 · Provider economics APPROVED: $225–$400 per-scan reimbursement ·
+             $75 USRad fee · $300–$475 published price · 15–25 scans/month ·
+             $3,400–$10,000 monthly add. · FOUNDER
+2026-08-03 · "Per-scan reimbursement," never "net margin." USRad cannot know
+             a center's net margin. · SCOPE standing rule 1
+2026-08-03 · Plain MRI only. No "average across modality mix" anywhere. ·
+             SCOPE standing rule 2
+2026-08-03 · 15–25 scans/month is the SINGLE volume basis. No artifact may
+             imply a different one. · SCOPE standing rule 3
+2026-08-03 · Rate-setting copy confirmed ACCURATE, no change required.
+             MarketScope strategy panel, FoundingPartners routing preference,
+             HowItWorks "Set your pricing," ConsultationCTA "You Choose Your
+             Rate." Market-varying rates are the model. · SCOPE §5.5
+2026-08-03 · Workers' comp: availability claims removed; architecture
+             retained with future-expansion label. · SCOPE §2.4
+2026-08-03 · Employer funding-account amounts: none may be published. Concept
+             without operational parameters. · SCOPE §5.4
+2026-08-03 · Editorial standard: every public statement traces to documented
+             history, implemented capability, executed agreement, or approved
+             founder policy. Outlives Workstream A. · SCOPE
+```
+
+## August 5, 2026
+
+```
+2026-08-05 · Column rename wc_scans → total_scans executed in all three
+             Supabase projects. No commit exists. · TRACKER §6
+2026-08-05 · AnciCare figures retained at 168,000+ and 50–70% pending
+             Workstream B. ⚠️ CONFLICTS WITH SCOPE §4.1, which directs
+             150,000+ and "over $150 million." UNRESOLVED. · TRACKER §4
+2026-08-05 · "Rate contradiction" recorded as an open item — that under one
+             rate, price cannot be a routing input. ⚠️ ERROR. Contradicted
+             SCOPE §5.5, decided two days earlier. See 2026-08-06 below. ·
+             TRACKER §8d
+```
+
+## August 6, 2026
+
+```
+2026-08-06 · Rate contradiction STRUCK. Centers set their own percentage;
+             price is a genuine routing input; "one rate" means one rate
+             across funding lanes. Restores SCOPE §5.5. Second time this
+             item has been mis-scoped. · FOUNDER + PBS Engineering Ref V4
+2026-08-06 · Ranking weights are CONFIDENTIAL. Sayable: patients see a
+             center's price alongside others; price is one factor with
+             proximity and accreditation. Not sayable: any weight or
+             ordering detail. · FOUNDER
+2026-08-06 · Batch 4G committed (ab04ab1) — provider hero rewritten.
+             ⚠️ EXCEEDS SCOPE §1.1, which authorized one line
+             (HeroSection:61 pre-paid → pre-funded). Headline replacement,
+             two new benefit cards, and the referrer-introduction argument
+             are additions, not corrections. RECORDED AS EXCEPTION —
+             awaiting founder ratification. · CLAUDE, unratified
+2026-08-06 · "Cash-pay" barred: names the wrong counterparty. Replacement
+             term UNRESOLVED — scope §3.1 says pre-funded, Aug 6 discussion
+             says self-pay. Possible two-level reading: pre-funded =
+             mechanism, self-pay = population. · PENDING FOUNDER
+2026-08-06 · Exit-value valuation table (5–7x→7–9x, $5–7M→$7–9M) removed as
+             unsourced projection. Underlying payor-mix insight retained,
+             moved to founder voice. Section-level removal is a structural
+             decision not covered by scope. · PENDING FOUNDER
+2026-08-06 · No-show claim (<5% vs 15–20% industry) removed. Research shows
+             MRI no-shows near 5%, not 15–20%; USRad has no operating data.
+             · FOUNDER, with sources logged
+2026-08-06 · Market-size figures approved for use with placement
+             restriction: never in the same visual unit as a CTA. Derived
+             headcounts barred. · FOUNDER
+2026-08-06 · No flow diagram in the hero. AssignmentFlowDiagram already
+             exists; a second requires deciding which model the page tells.
+             · FOUNDER
+2026-08-06 · Provider nav not modified. CarbonHeader.jsx is global across 49
+             pages and synced to PBSHeader.tsx in the Remix app. · CLAUDE
+2026-08-06 · No logo descriptor exists in the repo. Mockups invented it.
+             Nothing to change. · CC verification
+2026-08-06 · Batch 4E dissolved into 4H (same component). Batch 4C-R folded
+             into 4H-b. PBS-SRCH-F-002 moved to defect track. · CLAUDE
+2026-08-06 · Batch 4H REWRITTEN against scope. Original framing removed
+             approved figures ($37,500, 15–25 scans, $5K–$10K) as unsourced.
+             Scope §5.1 specifies CORRECTIONS to these, and 15–25 is an
+             approved figure. Corrected framing: conform to approved values,
+             remove only what has no approval. · FOUNDER caught the drift
+2026-08-06 · Standing rule 16 added: before removing any figure, check
+             APPROVED-FIGURES.md. If an approved value exists, conform to it.
+             Removal is correct only when nothing is approved. · CLAUDE
+2026-08-06 · SCOPE.md, TRACKER.md, APPROVED-FIGURES.md, and DECISIONS.md to
+             be committed to docs/workstream-a/ and added to project
+             knowledge. Root cause of the 4H drift was the scope living
+             outside every context that governs work against it. · FOUNDER
+2026-08-06 · Provider hero (4G, ab04ab1) RATIFIED. Supersedes SCOPE §1.1,
+             which authorized one line. · FOUNDER
+2026-08-06 · Batch 4I (resequencing) WITHDRAWN. TrustBar, ProvenSuccess,
+             ProviderSpineNav, NetworkBuilding, MarketOpportunityTeaser are
+             all on the Repositioning v2 leave-as-written list. · CLAUDE            
+2026-08-06 · D5 RETAINED. Cash-pay remains a commercial lane;
+             employer-funded is the primary commercial target; pre-funded
+             is the platform identity. Addendum B §1.6/§1.7 substitutions
+             stand (headers and footers only). · FOUNDER + ADVISOR
+2026-08-06 · CLARIFICATION: "Cash-pay" refers to a commercial LANE, not
+             the payment conduit. USRad remains the exclusive payment
+             conduit for all assignments regardless of funding source.
+             Basis: PSA Article IV / Exhibit A — Provider looks solely to
+             USRad for payment. · FOUNDER + ADVISOR
+2026-08-06 · Claude's proposal to bar "cash-pay" sitewide is OVERRULED.
+             Market vocabulary follows provider categories; legal
+             architecture defines payment mechanics. The two need not
+             match. · FOUNDER + ADVISOR
+2026-08-06 · PRINCIPLE: Internal language describes how USRad operates.
+             External language describes the world the customer already
+             understands. Engineering says funding authority; the PSA says
+             assignment types and payment conduits; providers say cash-pay
+             and payor mix. Keeping these distinct makes the system
+             clearer, not less consistent. · ADVISOR
+2026-08-06 · ExitValueSection REMOVED. No EBITDA multiples, no valuation
+             table, no enterprise value projections anywhere on the
+             provider surface. Underlying insight retained for later
+             reintroduction as founder experience. The provider page
+             answers "should I participate," not "how should I sell my
+             business." · FOUNDER + ADVISOR
+2026-08-06 · AnciCare figures RESOLVED to Addendum B §1.9: 150,000+
+             patients, over $150 million provider volume, AnciCare
+             1994–2002. The Aug 5 tracker note retaining 168,000+ and
+             $160M+ was drift, not a decision. · FOUNDER
+2026-08-06 · Phone number RESOLVED to (866) USRad24 per Addendum B §2.8
+             and SCOPE §3.6. Tracker "unverified" note is stale. · FOUNDER
+```
+
+---
+
+## Open decisions awaiting founder
+
+| # | Decision | Blocks |
+|---|---|---|
+| 6 | 96% patient show rate: source or remove | 4H-c |
+| 8 | Market-size section — in scope only if it serves §4.3 mission-statement fix | Placement |
+
+## Resolved — August 6, 2026
+
+Original numbering retained. Resolutions are recorded as dated entries in the
+register above; this table is the index, not the authority.
+
+| # | Decision | Resolution |
+|---|---|---|
+| ~~1~~ | ~~Ratify or reverse the 4G scope exception~~ | **RATIFIED.** Supersedes SCOPE §1.1 · FOUNDER |
+| ~~2~~ | ~~Cash-pay replacement: pre-funded, self-pay, or both at different levels~~ | **D5 RETAINED.** Cash-pay is a lane; pre-funded is the identity; employer-funded is the primary target · FOUNDER + ADVISOR |
+| ~~3~~ | ~~AnciCare figures: scope's 150,000+ / $150M, or tracker's 168,000+ / $160M~~ | **Addendum B §1.9.** 150,000+ patients, over $150 million, AnciCare 1994–2002 · FOUNDER |
+| ~~4~~ | ~~ExitValueSection: correct in place, or remove the section~~ | **REMOVED.** Valuation projections barred on the provider surface · FOUNDER + ADVISOR |
+| ~~5~~ | ~~Phone number: (866) per scope, or (888) as currently published~~ | **(866) USRad24** per Addendum B §2.8 and SCOPE §3.6 · FOUNDER |
+| ~~7~~ | ~~Provider page resequencing (4I) — not corrective; in or out of Workstream A~~ | **WITHDRAWN.** Components are on the Repositioning v2 leave-as-written list · CLAUDE |
