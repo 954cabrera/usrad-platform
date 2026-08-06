@@ -139,6 +139,70 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              $160M+ was drift, not a decision. · FOUNDER
 2026-08-06 · Phone number RESOLVED to (866) USRad24 per Addendum B §2.8
              and SCOPE §3.6. Tracker "unverified" note is stale. · FOUNDER
+2026-08-06 · Batch 4H-b STOPPED at survey. The five-target list from
+             Addendum B §1.9 was incomplete — 35 additional live src/
+             instances found. Standing rule "re-sweep, never work from
+             an existing list" held. · CC
+2026-08-06 · docs/marketing/CLAIMS-INVENTORY.md surfaced (generated
+             2026-07-30, 495 files scanned). Pre-existing and not
+             previously referenced in workstream-a. It is the worklist
+             for all figure conformance. Do not build fresh sweeps
+             where it already inventories the cluster. · CC
+2026-08-06 · "400,000+ patients" is an ERROR. Not a rounding, not a
+             different unit, not a different population. To be REMOVED
+             wherever it appears, not conformed to 150,000+. Live at
+             ProviderSearchSection.jsx:701 ("400K+") and :852
+             ("400,000+") on /search-results; orphaned at
+             FoundersSection.astro:67. Cluster C1. · FOUNDER
+2026-08-06 · OPEN: "$400 Million+ in healthcare savings"
+             (FoundersSection.astro:17, orphaned) is a DISTINCT claim
+             from the 400,000+ patient count — different unit, not
+             covered by the removal decision above. Requires its own
+             ruling. · CLAUDE
+2026-08-06 · OPEN: CLAIMS-INVENTORY cluster C1 records THREE live
+             values for AnciCare patients served on /about alone —
+             168,244 (:279), 168,224 (:883, :965), 168,000 (:137,
+             :234). The 244/224 transposition is a distinct defect
+             from the rounding. Not in the Addendum B §1.9 target
+             list. · CLAUDE
+2026-08-06 · OPEN: cluster C2 records four live values for AnciCare
+             volume/savings — $246M, $180M+, $160M+, and $400M+
+             (orphaned) — across different framings ("patient
+             savings" vs "volume delivered"). Addendum B §1.9
+             approved "over $150 million in provider volume," which
+             may not be the same claim as "$246 million in patient
+             savings." Requires founder ruling before conformance. ·
+             CLAUDE
+2026-08-06 · CLAIMS-INVENTORY.md line numbers have DRIFTED since
+             2026-07-30 — 168,224 cited at about.astro:882/:964,
+             actually at :883/:965. It also cites a ProofSection.astro
+             that does not exist in the repo. Use it as a worklist for
+             WHICH claims and WHICH clusters; locate every target by
+             content and report the actual line. · CC
+2026-08-06 · CLUSTER C2 RESOLVED — TWO DISTINCT CLAIMS, not one.
+             (a) PROVIDER VOLUME: dollars routed to imaging centers.
+             Approved value "over $150 million," rounded down from
+             $180M per Addendum B §1.9. $180M+ and $160M+ instances
+             conform to this.
+             (b) CLIENT SAVINGS: dollars AnciCare saved its workers'
+             comp carrier clients against hospital-billed
+             alternatives. $246 million. STAYS AS-IS.
+             These are different quantities on opposite sides of the
+             transaction and are simultaneously true. $246M must NEVER
+             be conformed to $150M. Any future sweep treating them as
+             one figure is in error. · FOUNDER
+2026-08-06 · "Verified results" label REMOVED wherever it accompanies
+             the provider volume figure. Nothing on the site
+             establishes what verified means or who verified it; the
+             figure is founder-attested. Known instance:
+             ProvenSuccess.astro sub-line under the volume tile. Sweep
+             for others. · FOUNDER
+2026-08-06 · OPEN: FoundersSection.astro is orphaned (imported by no
+             live page) and holds BOTH remaining suspect claims —
+             400K+ patients at :67 and $400 Million+ savings at :17.
+             Deleting the component may be cleaner than editing two
+             claims in a file nothing renders. Requires founder
+             ruling. · CLAUDE
 ```
 
 ---
@@ -149,6 +213,10 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 |---|---|---|
 | 6 | 96% patient show rate: source or remove | 4H-c |
 | 8 | Market-size section — in scope only if it serves §4.3 mission-statement fix | Placement |
+| 9 | $400 Million+ savings claim (orphaned) — remove or retain? | `FoundersSection` |
+| 10 | /about three-value spread — 168,244 / 168,224 / 168,000 | Cluster C1 |
+| 11 | $246M patient savings vs $150M provider volume — same claim or two? | Cluster C2 |
+| 12 | `FoundersSection.astro` — delete component or edit the two claims? | orphaned, both claims |
 
 ## Resolved — August 6, 2026
 
