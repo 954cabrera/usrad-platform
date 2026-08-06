@@ -200,6 +200,8 @@ Approved for accuracy. **Placement is restricted** — see rule below.
 | **85% / 50–70% / 40–60%** savings | ROI PDF | Four rates for one program. Must be qualified to the modeled comparison |
 | **EBITDA multiples, valuation ranges, enterprise value projections** | `ExitValueSection` (removed) | BARRED on the provider surface. Founder acquisition experience may be stated qualitatively in first person. No arithmetic. |
 | **"Verified results"** as a label on the provider volume figure | `ProvenSuccess.astro:24` | Nothing establishes what verified means or who verified it. The figure is founder-attested. Remove the label; the figure stays |
+| **99.8%** satisfaction / resolution rate | `about.astro:1210`, `contact.astro:51`, `ContactHero.astro:176` | Same defect as the barred 92% — no instrument, no N. Live on /about and /contact |
+| **1,236%** growth achieved | `about.astro:1148` | No basis, no period stated, no baseline |
 
 ---
 

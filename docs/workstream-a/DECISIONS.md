@@ -219,6 +219,49 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              across lines. Standing rule reaffirmed: locate by
              content, report the actual line, and never treat a
              supplied list as complete. · CC
+2026-08-06 · $246M BENEFICIARY CONFIRMED: savings to AnciCare's
+             WORKERS' COMP CARRIER CLIENTS, not to patients. Live
+             copy at SocialProofBar.astro and AboutSection.astro
+             labels it "patient savings" — WRONG BENEFICIARY, same
+             error class C2 exists to prevent. The figure is
+             approved; the framing is not. Copy correction required.
+             · FOUNDER
+2026-08-06 · "Verified savings" at about.astro:717 — same objection
+             as "Verified results" on the volume figure. Nothing
+             establishes what verified means or who verified it, and
+             the figure is an estimate. Remove the word; the figure
+             stays. · FOUNDER
+2026-08-06 · FoundersSection.astro ARCHIVED. Orphaned (imported by
+             no live page) and held both remaining suspect claims:
+             400K+ patients at :67, ruled an error, and $400
+             Million+ savings at :17, which appears nowhere else on
+             the site and has no basis. Archiving closes #9 and #12
+             together. Moved to archived-api/ per the existing
+             archive precedent — no rename, history preserved, out
+             of scope for all future sweeps. · FOUNDER
+2026-08-06 · SUPERSEDES the FoundersSection entry immediately above,
+             which named only two of five claims and described the
+             move as matching archive precedent on suffix
+             convention. It does not. · CC
+2026-08-06 · FoundersSection.astro ARCHIVED. Orphaned (zero imports,
+             confirmed by grep). Held FIVE unsupported claims, not
+             two: $400 Million+ healthcare savings (:17), 1,236%
+             Growth Achieved (:35), $400M+ Value Created (:39), 400K+
+             Patients Served (:67, ruled an error), 99.8% Satisfaction
+             Rate (:71). Archiving moots all five in this file and
+             closes #9 and #12. Moved to archived-api/ with no
+             suffix — note this DIFFERS from the existing convention,
+             where all 15 archived files carry .bak or .OLD. ·
+             FOUNDER
+2026-08-06 · ARCHIVING DID NOT CLOSE 1,236% OR 99.8%. Both survive
+             on live routes: 1,236% at about.astro:1148; 99.8% at
+             about.astro:1210, contact.astro:51, and
+             ContactHero.astro:176. 99.8% is the same defect class
+             as the barred 92% satisfaction figure — no instrument,
+             no N. Neither has a basis. OPEN. · CC
+2026-08-06 · FounderCard.astro is newly orphaned by this move — it
+             was imported only by FoundersSection. Disposition
+             open; harmless where it sits. · CC
 ```
 
 ---
@@ -229,8 +272,11 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 |---|---|---|
 | 6 | 96% patient show rate: source or remove | 4H-c |
 | 8 | Market-size section — in scope only if it serves §4.3 mission-statement fix | Placement |
-| 9 | $400 Million+ savings claim (orphaned) — remove or retain? | `FoundersSection` |
-| 12 | `FoundersSection.astro` — delete component or edit the two claims? | orphaned, both claims |
+| 13 | "Patient savings" → carrier framing — `SocialProofBar:27`, `AboutSection:15` | homepage |
+| 14 | "Verified savings" — `about.astro:717` | remove the word |
+| 15 | 1,236% Growth Achieved — `about.astro:1148` | no basis |
+| 16 | 99.8% Satisfaction/Resolution Rate — `about:1210`, `contact:51`, `ContactHero:176` | same class as barred 92% |
+| 17 | `FounderCard.astro` newly orphaned — archive or leave? | low priority |
 
 ## Resolved — August 6, 2026
 
@@ -246,4 +292,6 @@ register above; this table is the index, not the authority.
 | ~~5~~ | ~~Phone number: (866) per scope, or (888) as currently published~~ | **(866) USRad24** per Addendum B §2.8 and SCOPE §3.6 · FOUNDER |
 | ~~7~~ | ~~Provider page resequencing (4I) — not corrective; in or out of Workstream A~~ | **WITHDRAWN.** Components are on the Repositioning v2 leave-as-written list · CLAUDE |
 | ~~10~~ | ~~/about three-value spread — 168,244 / 168,224 / 168,000~~ | **ALWAYS AN ESTIMATE.** Six-figure variants are false precision; 150,000+ stands · FOUNDER |
+| ~~9~~ | ~~$400 Million+ savings claim (orphaned) — remove or retain?~~ | **ARCHIVED with the component.** $400 Million+ has no basis and appears nowhere else · FOUNDER |
 | ~~11~~ | ~~$246M patient savings vs $150M provider volume — same claim or two?~~ | **TWO DISTINCT CLAIMS.** Provider volume conforms to over $150M; $246M client savings stands · FOUNDER |
+| ~~12~~ | ~~`FoundersSection.astro` — delete component or edit the two claims?~~ | **ARCHIVE, do not edit.** `git mv` to `archived-api/` · FOUNDER |
