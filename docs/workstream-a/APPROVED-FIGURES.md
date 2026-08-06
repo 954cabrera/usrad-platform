@@ -109,6 +109,37 @@ Market-varying rates are the model, not a violation of it.
 
 *All five paths and line references verified against the working tree on August 6, 2026.*
 
+### AnciCare client savings — $246 million. APPROVED.
+
+**A DIFFERENT QUANTITY from provider volume above.** Dollars AnciCare saved its workers' compensation carrier clients against hospital-billed alternatives — opposite side of the transaction, different beneficiary. Both figures are simultaneously true.
+
+> ⚠️ **NEVER conform $246M to $150M.** A grep over AnciCare dollar figures will read $246M as a stale variant of $180M/$160M. **It is not.** Provider volume is what USRad paid *out to centers*; client savings is what clients did *not pay* to hospitals.
+
+**Basis:** the figure is an estimate, not a count — as is the patient figure. Present as a round number with a qualifier. Do not restate at higher precision.
+
+**Verified locations — 14 live instances**, located by content against the working tree on August 6, 2026:
+
+| File | Line(s) | Renders on | Text |
+|---|---|---|---|
+| `src/components/AboutSection.astro` | 14–15 | `/` | "helped deliver over $246 million in **patient savings**" |
+| `src/components/SocialProofBar.astro` | 25, 27 | `/` | "$246 Million" / "**Patient savings** delivered" |
+| `src/pages/about.astro` | 49 | `/about` | "A model that saved $246 million" |
+| `src/pages/about.astro` | 156 | `/about` | `$246M` |
+| `src/pages/about.astro` | 275 | `/about` | `$246M` |
+| `src/pages/about.astro` | 713 | `/about` | "$246 Million" (h1) |
+| `src/pages/about.astro` | 717 | `/about` | "$246 million in **verified** savings" |
+| `src/pages/about.astro` | 946 | `/about` | `$246M` |
+| `src/pages/about.astro` | 1152 | `/about` | `$246M+` — the only `+` variant |
+| `src/pages/blog/the-scan-that-never-happens.astro` | 306 | blog post | "roughly $246 million in documented savings" |
+| `src/pages/press-kit.html` | 221, 240, 258, 270 | `/press-kit` | "$246 million in documented savings" ×2, `$246M` ×2 |
+
+Not claims, do not touch: `about.astro:693` and `:1387` are anchor ids (`case-study-246m`).
+
+**⚠️ Two open questions this register cannot settle:**
+
+1. **Beneficiary mismatch.** The approved framing is *client* savings — workers' compensation **carriers**. But `AboutSection.astro:15` and `SocialProofBar.astro:27` both label the figure "**patient** savings," and `about.astro:49` says "a model that saved." Under the C2 logic — different beneficiary means a different claim — these labels may misattribute who was saved. Needs a founder ruling before any conformance pass.
+2. **`about.astro:717` calls it "verified savings."** The August 6 ruling removed "Verified results" from the provider volume figure because nothing establishes what verified means or who verified it. The same objection applies to this label on a different figure.
+
 ### Document-verified (Florida Trend, March 2000, p. 48)
 
 Independent third-party corroboration, added to the register August 6:
@@ -168,6 +199,7 @@ Approved for accuracy. **Placement is restricted** — see rule below.
 | **711%** hospital markup | ROI PDF p3 | Unsourced |
 | **85% / 50–70% / 40–60%** savings | ROI PDF | Four rates for one program. Must be qualified to the modeled comparison |
 | **EBITDA multiples, valuation ranges, enterprise value projections** | `ExitValueSection` (removed) | BARRED on the provider surface. Founder acquisition experience may be stated qualitatively in first person. No arithmetic. |
+| **"Verified results"** as a label on the provider volume figure | `ProvenSuccess.astro:24` | Nothing establishes what verified means or who verified it. The figure is founder-attested. Remove the label; the figure stays |
 
 ---
 

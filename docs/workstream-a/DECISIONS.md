@@ -203,6 +203,22 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              Deleting the component may be cleaner than editing two
              claims in a file nothing renders. Requires founder
              ruling. · CLAUDE
+2026-08-06 · ROW #10 RESOLVED. The AnciCare patient count was ALWAYS
+             AN ESTIMATE. 168,244 and 168,224 are false precision —
+             six significant figures on a number never counted. The
+             244/224 transposition is two typos of an approximation,
+             not a data discrepancy. This strengthens the approved
+             150,000+ : an estimate stated as a round number with a
+             plus sign is defensible at a precision the six-figure
+             versions never were. · FOUNDER
+2026-08-06 · CITATION DRIFT, second consecutive batch. The $246M
+             location list supplied to CC was wrong in five of six
+             line numbers and short by eight instances — including
+             four on /press-kit, a live route, and two that a grep
+             for "$246 million" missed because the figure wraps
+             across lines. Standing rule reaffirmed: locate by
+             content, report the actual line, and never treat a
+             supplied list as complete. · CC
 ```
 
 ---
@@ -214,8 +230,6 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 | 6 | 96% patient show rate: source or remove | 4H-c |
 | 8 | Market-size section — in scope only if it serves §4.3 mission-statement fix | Placement |
 | 9 | $400 Million+ savings claim (orphaned) — remove or retain? | `FoundersSection` |
-| 10 | /about three-value spread — 168,244 / 168,224 / 168,000 | Cluster C1 |
-| 11 | $246M patient savings vs $150M provider volume — same claim or two? | Cluster C2 |
 | 12 | `FoundersSection.astro` — delete component or edit the two claims? | orphaned, both claims |
 
 ## Resolved — August 6, 2026
@@ -231,3 +245,5 @@ register above; this table is the index, not the authority.
 | ~~4~~ | ~~ExitValueSection: correct in place, or remove the section~~ | **REMOVED.** Valuation projections barred on the provider surface · FOUNDER + ADVISOR |
 | ~~5~~ | ~~Phone number: (866) per scope, or (888) as currently published~~ | **(866) USRad24** per Addendum B §2.8 and SCOPE §3.6 · FOUNDER |
 | ~~7~~ | ~~Provider page resequencing (4I) — not corrective; in or out of Workstream A~~ | **WITHDRAWN.** Components are on the Repositioning v2 leave-as-written list · CLAUDE |
+| ~~10~~ | ~~/about three-value spread — 168,244 / 168,224 / 168,000~~ | **ALWAYS AN ESTIMATE.** Six-figure variants are false precision; 150,000+ stands · FOUNDER |
+| ~~11~~ | ~~$246M patient savings vs $150M provider volume — same claim or two?~~ | **TWO DISTINCT CLAIMS.** Provider volume conforms to over $150M; $246M client savings stands · FOUNDER |
