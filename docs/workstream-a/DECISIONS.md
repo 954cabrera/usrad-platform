@@ -289,6 +289,170 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              and 390. · FOUNDER
 ```
 
+## August 7, 2026
+
+```
+2026-08-07 · HISTORICAL EVIDENCE STANDARD ADOPTED. Historical
+             quantitative claims publish only when supported by a
+             contemporaneous source or a clearly defensible primary
+             record. Founder recollection may support QUALITATIVE
+             history; it does not, by itself, authorise newly
+             DERIVED quantitative claims.
+             This standard would have prevented every figure removed
+             in this workstream: 400,000 cases · 168,000 / 168,224 /
+             168,244 · $246M · $95M · $151M · 3.2M work days · and
+             the proposed 40,000/year. Each was arithmetic on
+             recollection.
+             Also to be recorded in README.md alongside THE RULE and
+             THE LANGUAGE PRINCIPLE. · FOUNDER + ADVISOR
+2026-08-07 · CLUSTER C2a CLOSED. Provider volume conformed to the
+             approved value. Batch 4H-c2, commit e1a6119 — 16
+             changes across 12 files. Five notations eliminated:
+             $180M · $180M+ · $180+ Million · $160M · $160M+.
+             "Verified results" label removed from
+             ProvenSuccess.astro. ROI PDF phone corrected to (866).
+             Verified by re-sweep, build exit 0, direct PDF
+             generation, and screenshots. · FOUNDER
+2026-08-07 · BATCH 4H-d CLOSED. Every tel: href on the marketing
+             surface normalised to tel:1-866-877-2324. Commit
+             8a577a1 — 17 changes across 12 files. Three links
+             displayed "USRad-24" while dialling a different number;
+             eight used alphanumeric tel: URIs which are not valid
+             RFC 3966; two live routes advertised placeholder
+             numbers USRad does not own, one of them the page a
+             provider reaches immediately after signing a PSA. ·
+             FOUNDER
+2026-08-07 · #19 RESOLVED. ROI PDF phone reads (866) USRad24 at
+             generateROIReport.ts:1431, corrected in e1a6119 and
+             confirmed in a generated PDF. · CC
+2026-08-07 · STANDING RULE 18 AMENDED — canonical and compact forms.
+             Each approved figure has ONE canonical prose form and
+             ONE approved compact display form. Both are named
+             explicitly in APPROVED-FIGURES.md. No third form.
+             Provider volume — canonical "over $150 million" ·
+             compact "$150M+"
+             Patient count — canonical "more than 150,000
+             patients" · compact "150,000+"
+             COMPACT IS PERMITTED IN: stat tiles, charts, badges,
+             and similarly constrained UI.
+             NARRATIVE PROSE USES CANONICAL.
+             This supersedes the 2026-08-06 formulation, which
+             demanded one literal notation everywhere and thereby
+             made natural prose ("more than 150,000 patients") a
+             technical violation. It is controlled typography, not
+             inconsistency. · FOUNDER + ADVISOR
+2026-08-07 · D6 DISSOLVED, not excepted. The three bare-150,000
+             instances are correct under the amended rule 18:
+             contact.astro:709 and press-kit.html:220 are canonical
+             prose form; about.astro:883 is a headline noun phrase
+             where the compact form's plus adds noise. No carve-out
+             required. · FOUNDER
+2026-08-07 · TENURE CLUSTER IS NOT HOMOGENEOUS. Two distinct claims:
+             (a) COMPANY OPERATING WINDOW — "30 Years" in stat tiles
+                 and headings beside AnciCare figures. Conforms to
+                 "AnciCare 1994–2002" per Addendum B §1.9.
+                 "30 Years of AnciCare Success" incorrectly expands
+                 an eight-year company history.
+             (b) FOUNDER CAREER SPAN — first-person or signed
+                 statements. EVALUATED SEPARATELY, not automatically
+                 conformed. AnciCare ran eight years; the founder's
+                 career is longer. "I've spent more than thirty
+                 years building systems" is biographical and is a
+                 different claim.
+             Known (b): AnciCareStory:306 (signed pull-quote),
+             co-founder-d:401, blog/the-scan-that-never-happens:339.
+             TEST: first person or signed attribution → do not
+             conform. Do not force them into one figure because a
+             grep matched the same words. · FOUNDER + ADVISOR
+2026-08-07 · ⚠️ $246 MILLION REVERSED — BARRED PENDING A PRIMARY
+             SOURCE. This SUPERSEDES the 2026-08-06 entries
+             approving it as client savings and the do-not-conform
+             warning attached to it.
+             BASIS: the founder located the source analysis. $246M
+             is not a documented result. It is arithmetic built on
+             400,000 CASES — a figure this register already rules AN
+             ERROR (2026-08-06). The source computes $226M medical
+             and $359M indemnity savings, each as 400,000 × an
+             assumed per-case value, for $585M total. The site's
+             $246M and its $95M / $151M decomposition are scaled
+             variants of the same calculation. The multiplicand is
+             void, so every figure derived from it is void.
+             The indemnity half additionally rests on an ESTIMATED
+             $170 average daily wage, an 8-day saving derived from
+             two attested ranges, and an assumption that every
+             claimant was out of work. It cannot be rebuilt at any
+             case count.
+             That $246M appeared in prior marketing material
+             establishes that the company USED the claim, not that
+             the claim was SUBSTANTIATED.
+             REMOVE sitewide. Do not reword. Do not label
+             "estimated." Do not rescale to 150,000.
+             CONDITIONAL: reversible by a later dated entry if a
+             contemporaneous primary source supporting the
+             calculation is located. · FOUNDER + ADVISOR
+2026-08-07 · ALSO BARRED, same 400,000 base: $95M medical savings ·
+             $151M productivity saved · 3.2M work days · $585M
+             total · $544M productivity. Live at about.astro:927
+             and :946-949. Closes D7 by removal rather than
+             definition.
+             The decomposition is not merely added precision — it
+             CHANGES WHAT SAVINGS MEANS. The approved definition was
+             savings against hospital-billed alternatives;
+             productivity saved and work-days recovered are a
+             materially different claim. · FOUNDER + ADVISOR
+2026-08-07 · ~40,000 MRIs PER YEAR — CONSIDERED AND DECLINED.
+             Derived from ~$20M final-year revenue ÷ ~$500 average
+             per scan. Both inputs are founder recollection.
+             DO NOT PUBLISH. Disclosing the arithmetic does not
+             improve the underlying evidence; it only makes the
+             derivation visible. And an approved figure loses its
+             explanatory framing on the third rewrite — which is
+             precisely how 400,000 became 168,000 became 168,224.
+             Useful as internal context. Not a public claim.
+             Recorded so it is not proposed again. · FOUNDER +
+             ADVISOR
+2026-08-07 · WHAT REPLACES $246M. Three better-sourced claims:
+             (a) PRICING SPREAD — Florida Trend (March 2000, p.48)
+                 documents a market MRI near $1,000 against
+                 AnciCare's $450–500 to the carrier. A RATE, not a
+                 total — no case-count dependency.
+             (b) NAMED CLIENTS — CNA and Winn-Dixie, same source,
+                 third-party reported.
+             (c) TRAJECTORY — 800 facilities / 40 states (March
+                 2000) and 1,200 at the CorVel sale (2013). Both
+                 document-verified; state together.
+             The indemnity story may be told as NARRATIVE without a
+             figure: faster imaging shortens the claim. "Two weeks
+             down to two or three days" is qualitative history and
+             is permitted under the evidence standard.
+             These get STRONGER as the questionable figures come
+             out. Founded 1994 · reached 1,200+ centers · major
+             national payors used it · MRI economics far below
+             prevailing rates · acquired by CorVel. That is the
+             proof. · FOUNDER + ADVISOR
+2026-08-07 · #13 and #14 SUPERSEDED by the $246M reversal. The
+             "patient savings" beneficiary question and the
+             "verified savings" wording both attach to a figure now
+             being removed. about.astro:49 likewise. Reframing is
+             moot; removal replaces it. · CC
+2026-08-07 · OUT-OF-SCOPE RESIDUE from 4H-d: four live src/ files
+             carry non-approved tel: values —
+             FacilityManager.jsx:500, dashboard/contract/
+             terms.astro:531, project.html:1197, and
+             CenterCard.jsx:121 (dynamic, correct). All behind-login
+             or dead-route surfaces. The 4H-d commit message's
+             "every tel: href" is true of the marketing surface, not
+             of src/ as a whole. Belongs to repo hygiene. · CC
+2026-08-07 · STANDING RULE 19: the historical evidence standard is
+             a standing rule, not only a figure test. Historical
+             quantitative claims publish only when supported by a
+             contemporaneous source or a defensible primary record.
+             Founder recollection supports qualitative history; it
+             does not authorise derived quantitative claims.
+             Numbered here so TRACKER §7 can carry it with the
+             others. · FOUNDER + ADVISOR
+```
+
 ---
 
 ## Open decisions awaiting founder
@@ -297,18 +461,17 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 |---|---|---|
 | 6 | 96% patient show rate: source or remove | 4H-c |
 | 8 | Market-size section — in scope only if it serves §4.3 mission-statement fix | Placement |
-| 13 | "Patient savings" → carrier framing — `SocialProofBar:27`, `AboutSection:15` | homepage |
-| 14 | "Verified savings" — `about.astro:717` | remove the word |
 | 15 | 1,236% Growth Achieved — `about.astro:1148` | no basis |
 | 16 | 99.8% Satisfaction/Resolution Rate — `about:1210`, `contact:51`, `ContactHero:176` | same class as barred 92% |
 | 17 | `FounderCard.astro` newly orphaned — archive or leave? | low priority |
 | 18 | Satisfaction rate — 92% / 98% / 99.8%, no source for any | three variants |
-| 19 | ROI PDF phone (888) vs resolved (866) | `generateROIReport.ts:1431` |
+| 22 | $246M removal — /about and homepage need section rewrites, not find-and-replace | two-pass batch |
 
-## Resolved — August 6, 2026
+## Resolved — August 6–7, 2026
 
 Original numbering retained. Resolutions are recorded as dated entries in the
-register above; this table is the index, not the authority.
+register above; this table is the index, not the authority. A row here can itself
+be superseded by a later dated entry — see #11.
 
 | # | Decision | Resolution |
 |---|---|---|
@@ -320,5 +483,8 @@ register above; this table is the index, not the authority.
 | ~~7~~ | ~~Provider page resequencing (4I) — not corrective; in or out of Workstream A~~ | **WITHDRAWN.** Components are on the Repositioning v2 leave-as-written list · CLAUDE |
 | ~~10~~ | ~~/about three-value spread — 168,244 / 168,224 / 168,000~~ | **ALWAYS AN ESTIMATE.** Six-figure variants are false precision; 150,000+ stands · FOUNDER |
 | ~~9~~ | ~~$400 Million+ savings claim (orphaned) — remove or retain?~~ | **ARCHIVED with the component.** $400 Million+ has no basis and appears nowhere else · FOUNDER |
-| ~~11~~ | ~~$246M patient savings vs $150M provider volume — same claim or two?~~ | **TWO DISTINCT CLAIMS.** Provider volume conforms to over $150M; $246M client savings stands · FOUNDER |
+| ~~11~~ | ~~$246M patient savings vs $150M provider volume — same claim or two?~~ | **TWO DISTINCT CLAIMS.** Provider volume conforms to over $150M; $246M client savings stands · FOUNDER — ⚠️ **the $246M half is SUPERSEDED 2026-08-07: reversed and barred pending a primary source.** The two-distinct-claims finding stands; the approval it carried does not |
 | ~~12~~ | ~~`FoundersSection.astro` — delete component or edit the two claims?~~ | **ARCHIVE, do not edit.** `git mv` to `archived-api/` · FOUNDER |
+| ~~13~~ | ~~"Patient savings" → carrier framing — `SocialProofBar:27`, `AboutSection:15`~~ | **SUPERSEDED 2026-08-07 by the $246M reversal.** The beneficiary question attaches to a figure now barred; removal replaces reframing. `about.astro:49` likewise · CC |
+| ~~14~~ | ~~"Verified savings" — `about.astro:717`~~ | **SUPERSEDED 2026-08-07 by the $246M reversal.** The wording attaches to a figure now barred; removal replaces reframing · CC |
+| ~~19~~ | ~~ROI PDF phone (888) vs resolved (866)~~ | **RESOLVED.** `generateROIReport.ts:1431` reads (866) USRad24, corrected in `e1a6119` and confirmed in a generated PDF · CC |

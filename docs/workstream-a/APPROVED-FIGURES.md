@@ -2,7 +2,7 @@
 
 **U.S. Radiology of Florida, LLC**
 **Source of authority:** Workstream A Scope of Work, August 3, 2026 — *Approved Provider Economics*
-**Last amended:** August 6, 2026
+**Last amended:** August 7, 2026
 
 ---
 
@@ -22,6 +22,25 @@ This register exists because approved figures are the most easily lost item in a
 >
 > If an approved value exists, the action is **conform to it** — not delete.
 > Removal is correct only when nothing has been approved and no source exists.
+
+---
+
+## THE HISTORICAL EVIDENCE STANDARD — adopted August 7, 2026
+
+**The test every historical figure in this register must pass.**
+
+> Historical quantitative claims publish only when supported by a
+> contemporaneous source or a clearly defensible primary record.
+> Founder recollection may support qualitative history. It does not,
+> by itself, authorise newly derived quantitative claims.
+
+Recollection is admissible for *what happened*. It is not admissible as an input to arithmetic that produces a new published number.
+
+**This standard would have prevented every figure removed in this workstream:** 400,000 cases · 168,000 / 168,224 / 168,244 · $246M · $95M · $151M · 3.2M work days · and the proposed ~40,000/year. Each was arithmetic on recollection.
+
+Note the interaction with THE RULE above. The rule says *conform, do not delete, when an approved value exists*. This standard governs whether a value may be approved at all. A figure that fails the evidence standard has no approved value to conform to — removal is then the correct action, not a violation of the rule. §6 records which figures are in that state.
+
+*Recorded August 7, 2026 · FOUNDER + ADVISOR. Also in `README.md` alongside THE RULE and THE LANGUAGE PRINCIPLE.*
 
 ---
 
@@ -86,9 +105,11 @@ Market-varying rates are the model, not a violation of it.
 
 ---
 
-## 4. ANCICARE HISTORICAL — RESOLVED August 6, 2026
+## 4. ANCICARE HISTORICAL — RESOLVED August 6, 2026 · AMENDED August 7, 2026
 
 **Resolved to Addendum B §1.9.** The Aug 5 tracker note retaining 168,000+ and $160M+ was drift, not a decision. · FOUNDER
+
+**Amended August 7:** the $246 million client-savings figure is **reversed and barred** pending a primary source; standing rule 18 now names a canonical and a compact form per figure; and tenure is recorded as two distinct claims. · FOUNDER + ADVISOR
 
 | Fact | Approved value | Notes |
 |---|---|---|
@@ -97,65 +118,89 @@ Market-varying rates are the model, not a violation of it.
 | Tenure | **AnciCare 1994–2002** | Replaces "30 Years" |
 | Centers recruited | **1,200+** | Documented, stays precise. Unchanged |
 
-### ⚠️ NOTATION RULE — standing rule 18
+### ⚠️ NOTATION RULE — amended standing rule 18
 
-**150,000+ publishes in that notation only.** No `150K`, no `150K+`, no other abbreviation. The same applies to every approved figure: one notation sitewide.
+Each approved figure has **one canonical prose form** and **one approved compact display form**. Both are named explicitly below. **No third form.**
 
-This exists because the abbreviated forms are what the Batch 4H-c1 sweep initially missed — a pattern matching only comma-formatted variants cannot see `168K`. Six instances survived the first pass and were caught by the PDF render, not the grep. See standing rules 17 and 18 in `TRACKER.md` §7.
+| Fact | Canonical prose form | Approved compact form |
+|---|---|---|
+| Patients served | **more than 150,000 patients** | **150,000+** |
+| Provider volume | **over $150 million** | **$150M+** |
+| Tenure — company window | **AnciCare, 1994–2002** | **1994–2002** |
+| Centers recruited | **more than 1,200 imaging centers** | **1,200+** |
+
+**Compact is permitted in:** stat tiles, charts, badges, and similarly constrained UI.
+**Narrative prose uses canonical.**
+
+Still barred at any width: `150K`, `150K+`, `168K`, `$180M`, `$160M+`, or any form not in the table above.
+
+**Why this was amended (2026-08-07).** The August 6 formulation demanded one literal notation everywhere, which made natural prose — "more than 150,000 patients" — a technical violation of the rule written to protect that very figure. Controlled typography is not inconsistency. The abbreviation ban survives intact: what rule 18 bars is an *unapproved* form, not a *second approved* one.
+
+The original hazard stands. Abbreviated forms are what the Batch 4H-c1 sweep initially missed — a pattern matching only comma-formatted variants cannot see `168K`. Six instances survived the first pass and were caught by the PDF render, not the grep. See standing rules 17 and 18 in `TRACKER.md` §7.
 
 ### Conformance status
 
 | Fact | Status |
 |---|---|
-| **Patients served → 150,000+** | ✅ **CONFORMED** 2026-08-06, Batch 4H-c1 (`37eb600`). Verified by dual-pattern re-sweep, build exit 0, direct PDF generation, JSON-LD parse, and screenshots at 1440/390 |
-| Provider volume → over $150 million | ⬜ **outstanding** — `$180M` / `$160M+` still live |
-| Tenure → AnciCare 1994–2002 | ⬜ **outstanding** — "30 Years" still live |
+| **Patients served → 150,000+** | ✅ **CONFORMED** 2026-08-06, Batch 4H-c1 (`37eb600`). Verified by dual-pattern re-sweep, build exit 0, direct PDF generation, JSON-LD parse, and screenshots at 1440/390. Cluster C1 closed |
+| **Provider volume → over $150 million** | ✅ **CONFORMED** 2026-08-06, Batch 4H-c2 (`e1a6119`) — 16 changes across 12 files. Five notations eliminated: `$180M` · `$180M+` · `$180+ Million` · `$160M` · `$160M+`. "Verified results" label removed from `ProvenSuccess.astro`; ROI PDF phone corrected to (866). Verified by re-sweep, build exit 0, direct PDF generation, and screenshots. **Cluster C2a closed** |
+| Tenure → AnciCare 1994–2002 | ⬜ **outstanding** — and it is **two claims, not one**. See the split immediately below |
 | Centers recruited → 1,200+ | ✅ unchanged by design |
 
-**Still to conform** — verified live at the time of the 4H-c1 commit; locate by content, line numbers drift:
+#### ⚠️ Tenure is TWO claims — do not conform by grep
 
-| File | Figure |
-|---|---|
-| `src/components/provider/TrustBar.astro` | `$160M+` → **over $150 million** |
-| `src/components/provider/ProvenSuccess.astro` | `$180M` → **over $150 million** |
-| `src/components/provider/AnciCareStory.astro` | `$180M+`, `30 Years` |
-| `src/pages/provider/portal-tour.astro` | `$160M+`, `30 Years` |
-| `src/pages/provider/consultation.astro` | `$180M+` ×2 |
-| `src/pages/providers/join.astro` | `$180M+` |
-| `src/pages/about.astro`, `src/pages/contact.astro` | `30 Years` |
+*Recorded 2026-08-07 · FOUNDER + ADVISOR.*
+
+**(a) COMPANY OPERATING WINDOW.** "30 Years" in stat tiles and headings standing beside AnciCare figures. **Conforms to AnciCare 1994–2002** per Addendum B §1.9. "30 Years of AnciCare Success" incorrectly expands an eight-year company history.
+
+**(b) FOUNDER CAREER SPAN.** First-person or signed statements. **Evaluated separately — not automatically conformed.** AnciCare ran eight years; the founder's career is longer. "I've spent more than thirty years building systems" is biographical, and is a different claim.
+
+> **TEST: first person or signed attribution → do not conform.**
+> Do not force these into one figure because a grep matched the same words.
+
+Known **(b)** instances: `AnciCareStory.astro:306` (signed pull-quote), `co-founder-d.astro:401`, `blog/the-scan-that-never-happens.astro:339`.
+
+Four notation variants are in play, and a pattern matching only `30 Years` sees 9 of 16 live instances: `30 Years` · `30+ years` · `three decades` · `thirty years`. Locate by content; line numbers drift.
 
 *Patient-count conformance covered `AnciCareLegacy`, `CredibilityBar`, and `FinalCTA` in full; those three carry no remaining C1 instance.*
 
-### AnciCare client savings — $246 million. APPROVED.
+### AnciCare client savings — $246 million. ⚠️ REVERSED.
 
-**A DIFFERENT QUANTITY from provider volume above.** Dollars AnciCare saved its workers' compensation carrier clients against hospital-billed alternatives — opposite side of the transaction, different beneficiary. Both figures are simultaneously true.
+> **$246 million — REVERSED 2026-08-07, BARRED pending a primary source. See §6.**
 
-> ⚠️ **NEVER conform $246M to $150M.** A grep over AnciCare dollar figures will read $246M as a stale variant of $180M/$160M. **It is not.** Provider volume is what USRad paid *out to centers*; client savings is what clients did *not pay* to hospitals.
+The August 6 approval of this figure as *client savings* is **void**, and so is the do-not-conform warning attached to it. That warning existed to stop $246M being conformed to $150M. There is no longer a figure to protect.
 
-**Basis:** the figure is an estimate, not a count — as is the patient figure. Present as a round number with a qualifier. Do not restate at higher precision.
+**Basis for the reversal.** The founder located the source analysis. $246M is not a documented result — it is arithmetic built on **400,000 cases**, a figure this register already ruled AN ERROR on 2026-08-06. The source computes $226M medical and $359M indemnity savings, each as 400,000 × an assumed per-case value, for $585M total. The site's $246M and its $95M / $151M decomposition are scaled variants of the same calculation. **The multiplicand is void, so every figure derived from it is void.**
 
-**Verified locations — 14 live instances**, located by content against the working tree on August 6, 2026:
+The indemnity half additionally rests on an estimated $170 average daily wage, an 8-day saving derived from two attested ranges, and an assumption that every claimant was out of work. It cannot be rebuilt at any case count.
+
+That $246M appeared in prior marketing material establishes that the company **used** the claim, not that the claim was **substantiated**.
+
+**REMOVE sitewide.** Do not reword. Do not label "estimated." Do not rescale to 150,000. **Conditional:** reversible by a later dated entry in `DECISIONS.md` if a contemporaneous primary source supporting the calculation is located.
+
+Open item **#22** — /about and the homepage need section rewrites, not find-and-replace. Two-pass batch.
+
+#### Removal worklist — 14 live instances, re-verified by content 2026-08-07
+
+Retained as an execution aid for #22, not as an approval. Line numbers drift; locate by content.
 
 | File | Line(s) | Renders on | Text |
 |---|---|---|---|
-| `src/components/AboutSection.astro` | 14–15 | `/` | "helped deliver over $246 million in **patient savings**" |
-| `src/components/SocialProofBar.astro` | 25, 27 | `/` | "$246 Million" / "**Patient savings** delivered" |
+| `src/components/AboutSection.astro` | 14–15 | `/` | "helped deliver over $246 million in patient savings" — **wraps across lines; a grep for `$246 million` misses it** |
+| `src/components/SocialProofBar.astro` | 25, 27 | `/` | "$246 Million" / "Patient savings delivered" |
 | `src/pages/about.astro` | 49 | `/about` | "A model that saved $246 million" |
 | `src/pages/about.astro` | 156 | `/about` | `$246M` |
 | `src/pages/about.astro` | 275 | `/about` | `$246M` |
 | `src/pages/about.astro` | 713 | `/about` | "$246 Million" (h1) |
-| `src/pages/about.astro` | 717 | `/about` | "$246 million in **verified** savings" |
-| `src/pages/about.astro` | 946 | `/about` | `$246M` |
+| `src/pages/about.astro` | 717 | `/about` | "$246 million in verified savings" |
+| `src/pages/about.astro` | 946 | `/about` | `$246M` — the "Combined total" tile; see the barred decomposition at `:927` and `:949` |
 | `src/pages/about.astro` | 1152 | `/about` | `$246M+` — the only `+` variant |
 | `src/pages/blog/the-scan-that-never-happens.astro` | 306 | blog post | "roughly $246 million in documented savings" |
 | `src/pages/press-kit.html` | 221, 240, 258, 270 | `/press-kit` | "$246 million in documented savings" ×2, `$246M` ×2 |
 
-Not claims, do not touch: `about.astro:693` and `:1387` are anchor ids (`case-study-246m`).
+Not claims, do not touch: `about.astro:693` and `:1387` are anchor ids (`case-study-246m`). Removing the section they anchor is a separate decision belonging to #22.
 
-**⚠️ Two open questions this register cannot settle:**
-
-1. **Beneficiary mismatch.** The approved framing is *client* savings — workers' compensation **carriers**. But `AboutSection.astro:15` and `SocialProofBar.astro:27` both label the figure "**patient** savings," and `about.astro:49` says "a model that saved." Under the C2 logic — different beneficiary means a different claim — these labels may misattribute who was saved. Needs a founder ruling before any conformance pass.
-2. **`about.astro:717` calls it "verified savings."** The August 6 ruling removed "Verified results" from the provider volume figure because nothing establishes what verified means or who verified it. The same objection applies to this label on a different figure.
+**Superseded by this reversal:** open items #13 ("patient savings" beneficiary framing) and #14 ("verified savings" wording), plus `about.astro:49`. Both questions attach to a figure now being removed. Reframing is moot.
 
 ### Document-verified (Florida Trend, March 2000, p. 48)
 
@@ -219,6 +264,30 @@ Approved for accuracy. **Placement is restricted** — see rule below.
 | **"Verified results"** as a label on the provider volume figure | `ProvenSuccess.astro:24` | Nothing establishes what verified means or who verified it. The figure is founder-attested. Remove the label; the figure stays |
 | **99.8%** satisfaction / resolution rate | `about.astro:1210`, `contact.astro:51`, `ContactHero.astro:176` | Same defect as the barred 92% — no instrument, no N. Live on /about and /contact |
 | **1,236%** growth achieved | `about.astro:1148` | No basis, no period stated, no baseline |
+
+### Added August 7, 2026 — the 400,000-case derivation family
+
+All five share one void multiplicand. See the HISTORICAL EVIDENCE STANDARD at the top of this file and `DECISIONS.md`, 2026-08-07.
+
+| Figure | Where it appears | Why |
+|---|---|---|
+| **$246 million** client savings | `about.astro` ×7, `press-kit.html` ×4, `SocialProofBar:25`, `AboutSection:14`, `blog/the-scan-that-never-happens:306` | Arithmetic on 400,000 cases, already ruled an error. **Reverses the 2026-08-06 approval.** Conditional — reversible if a contemporaneous primary source is located |
+| **$95M medical / $151M productivity / 3.2M work days** | `about.astro:927`, `:946-949` | Same base. Also changes what "savings" means — productivity recovered is not hospital-billing avoidance |
+| **$585M total / $544M productivity** | source analysis only | Same base. Recorded so they are not reintroduced |
+| **400,000 cases** as a multiplicand | any derivation | Ruled an error 2026-08-06. Anything computed from it is void |
+| **~40,000 MRIs/year** | not published | Considered and declined. $20M ÷ $500, both recollection. Disclosing the arithmetic does not improve the evidence |
+
+### What replaces $246M — better-sourced, none case-count dependent
+
+Recorded 2026-08-07 · FOUNDER + ADVISOR. These get **stronger** as the questionable figures come out.
+
+- **(a) PRICING SPREAD.** Florida Trend (March 2000, p. 48) documents a market MRI near $1,000 against AnciCare's $450–500 to the carrier. A **rate**, not a total — no case-count dependency.
+- **(b) NAMED CLIENTS.** CNA and Winn-Dixie, same source, third-party reported.
+- **(c) TRAJECTORY.** 800 facilities / 40 states (March 2000) and 1,200 at the CorVel sale (2013). Both document-verified; **state together**, per the presentation rule in §4.
+
+The indemnity story may be told as **narrative without a figure**: faster imaging shortens the claim. "Two weeks down to two or three days" is qualitative history and is permitted under the evidence standard.
+
+The proof is: founded 1994 · reached 1,200+ centers · major national payors used it · MRI economics far below prevailing rates · acquired by CorVel.
 
 ---
 

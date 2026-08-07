@@ -4,8 +4,8 @@ REF: https://claude.ai/chat/a6ccdfd4-8a07-4ae8-b2b2-d0de7c23d80b
 
 **Rewritten August 6, 2026. Supersedes the August 5 version, which was current at commit 21.**
 
-Branch: `workstream-a-marketing` · Current HEAD: `ab04ab1` · Rollback for whole workstream: `b86e06e`
-Origin: `21bd949` — branch is 1 ahead, unpushed. `main` at `be2dd14`, unchanged since July 30.
+Branch: `workstream-a-marketing` · Current HEAD: `8a577a1` · Rollback for whole workstream: `b86e06e`
+Origin: `8a577a1` — **pushed, in sync.** `main` at `be2dd14`, unchanged since July 30.
 
 ---
 
@@ -50,6 +50,9 @@ Origin: `21bd949` — branch is 1 ahead, unpushed. `main` at `be2dd14`, unchange
 | 36 | DOC-3 | C2 row resolved; $246M client savings approved as a distinct figure | `6c1d543` |
 | 37 | DOC-4 + Archive move 5 | $246M beneficiary confirmed; `FoundersSection.astro` archived | `18ca190` |
 | 38 | **Batch 4H-c1** | **AnciCare patient count conformed to 150,000+ — 38 instances, 20 files, six notations** | **`37eb600`** |
+| 39 | DOC-5 | Cluster C1 closed; standing rules 17–18 added | `7207218` |
+| 40 | **Batch 4H-c2** | **Provider volume conformed to over $150 million — 16 changes, 12 files, five notations. "Verified results" label removed; ROI PDF phone → (866). Cluster C2a** | **`e1a6119`** |
+| 41 | **Batch 4H-d** | **Every `tel:` href on the marketing surface normalised to `tel:1-866-877-2324` — 17 changes, 12 files** | **`8a577a1`** |
 
 > **Action:** commits 22–31 were never logged. Fill from `git log --oneline ec80d3f..21bd949` and confirm labels against commit messages before this document is filed. `ec80d3f` is the last pre-4C reference point recorded in session notes.
 
@@ -63,7 +66,9 @@ h 4D-a)
 6ee8c21 marketing: replace patient-as-payer funding language with fully funded assignment framing per PSA (Batch 4C)  
 lines 1-6/6 (END)
 
-**Not run:** Batch 3D · Batch 2 (positioning) · Batch 4F · **Batch 4H** · Batch 4I · Batch 5A/5B · Batch 6
+**Not run:** Batch 3D · Batch 2 (positioning) · Batch 4F · Batch 5A/5B · Batch 6. *(Batch 4I withdrawn — see `DECISIONS.md` 2026-08-06.)*
+
+**Batch 4H — partially run.** 4H-c1 (`37eb600`), 4H-c2 (`e1a6119`), and 4H-d (`8a577a1`) are committed. 4H-b stopped at survey and is **superseded by the cluster batches**: the vocabulary work it was scoped to do was overtaken by C1 and C2a, which re-swept the same surface by content rather than from its incomplete five-target list. 4H-a (read-only survey) and the remaining 4H-c claim removals in §8e are still open.
 
 ---
 
@@ -205,6 +210,30 @@ The Vercel preview at `usrad-platform-4utvivnde` predates 4D-a. It renders "Get 
 
 **Standing rule added:** confirm the preview SHA before any visual review. See §7 rule 13.
 
+### 5d. Wrong premise — the $246 million savings figure (August 6–7)
+
+**Same class as §5b, and recorded separately for the same reason.** The verification gates catch briefing errors. They do not catch wrong premises. §5b was caught by the founder; so was this.
+
+**What was believed.** That $246 million was a documented AnciCare result — dollars saved for workers' compensation carrier clients against hospital-billed alternatives. On that basis it was approved on August 6 as a figure distinct from provider volume, and a standing warning was attached telling every future sweep **never** to conform it to $150M.
+
+**What is actually true.** The founder located the source analysis on August 7. $246M is not a result. It is arithmetic on **400,000 cases** — a multiplicand this register had *already ruled an error* on August 6, in a decision recorded eight entries above the one approving $246M. The source computes $226M medical and $359M indemnity, each as 400,000 × an assumed per-case value, for $585M. The site's $246M and its $95M / $151M split are scaled variants of that same calculation.
+
+**Why no gate could have caught it.** Every gate in §7 tests execution: does the file say what the batch said it would, does the build pass, did the line number drift, is the figure approved before you delete it. Not one of them asks *how did this figure come to be approved*. The verification was sound and the answer was wrong, because the error was upstream of everything being verified.
+
+**Two structural lessons, both recorded rather than fixed by a new gate:**
+
+1. **Rule 16 has a blind side.** "Before removing any figure, check `APPROVED-FIGURES.md`" makes approval a defence against deletion. It creates no test for entering the register. A figure that gets in on a wrong premise is then *protected* by the rule — and in this case the protection was explicit, in the form of a never-conform warning. The fix is the HISTORICAL EVIDENCE STANDARD, which is an entry test, and it lives in `APPROVED-FIGURES.md` above §1.
+2. **A ruling does not propagate to figures derived from it.** 400,000 was ruled an error on August 6. Nothing in the process asked what else had been computed from it. Both rulings sit in the same day's register block. When a base figure is voided, the derived figures must be swept for by hand — there is no mechanism that does it.
+
+**Consequences, recorded:**
+
+- The August 6 approval is **reversed**; $246M is barred pending a primary source (`APPROVED-FIGURES.md` §6).
+- The never-conform warning is **void** — it protected a figure that should not have been in the register.
+- $95M / $151M / 3.2M work days / $585M / $544M are barred on the same base.
+- A proposed ~40,000 MRIs/year was declined under the new standard before it ever shipped — the first figure the standard stopped on the way in rather than on the way out.
+- Open items #13 and #14 are superseded: both asked how to reword a figure now being removed.
+- Removal is a **two-pass batch (#22)**. /about and the homepage need section rewrites; find-and-replace would leave headings and tiles with nothing under them — the same failure recorded in §4 under "whole sections deleted rather than repaired."
+
 ---
 
 ## 6. THE COLUMN RENAME — no commit to point at
@@ -249,7 +278,13 @@ Recorded here because there is no git history for it and `schema_migrations` is 
 16. **Before removing any figure, check `APPROVED-FIGURES.md`.** If an approved value exists, the action is to conform to it, not delete it. Removal is correct only when nothing is approved and no source exists. *(Added Aug 6 — a batch was scoped to remove $37,500/month, 15–25 scans/month, and $5K–$10K as unsupported projections. All three were founder-approved on August 3.)*
 
 17. **Sweep for ABBREVIATED and FORMATTED variants, not only the canonical form.** *(Added Aug 6 — Batch 4H-c1.)* `168K` / `168K+` are the same claim as `168,000+` and were missed by a pattern matching comma-formatted variants only. Applies to every figure — `1.2K`, `$150M` vs `$150 million`, `1,200` vs `1.2K`. Found by the PDF render, not the sweep.
-18. **Notation is conformed along with value.** *(Added Aug 6 — Batch 4H-c1.)* Approved figures publish in ONE notation sitewide. No abbreviated forms.
+18. **Notation is conformed along with value — canonical form plus one approved compact form.** *(Added Aug 6 — Batch 4H-c1. **Amended Aug 7.**)* Each approved figure has ONE canonical prose form and ONE approved compact display form, both named explicitly in `APPROVED-FIGURES.md`. **No third form.** Compact is permitted in stat tiles, charts, badges, and similarly constrained UI; **narrative prose uses canonical**. Provider volume — canonical "over $150 million" · compact `$150M+`. Patient count — canonical "more than 150,000 patients" · compact `150,000+`.
+
+    *Why amended:* the Aug 6 formulation demanded one literal notation everywhere, which made natural prose ("more than 150,000 patients") a technical violation of the rule written to protect that figure. Controlled typography is not inconsistency. The abbreviation ban is unchanged — what rule 18 bars is an *unapproved* form, not a *second approved* one.
+
+19. **THE HISTORICAL EVIDENCE STANDARD.** *(Added Aug 7 — see §5d.)* Historical quantitative claims publish only when supported by a contemporaneous source or a defensible primary record. Founder recollection supports qualitative history; it does **not** authorise derived quantitative claims.
+
+    This is a standing rule, not only a figure test. Rule 16 protects approved figures from deletion; it says nothing about how a figure got approved. Rule 19 is the entry test that rule 16 assumes. A figure failing it has no approved value to conform to, so removal is correct rather than a rule-16 violation. Full text and the barred derivation family: `APPROVED-FIGURES.md`, above §1 and in §6.
 
 **Standing rule, unchanged:** re-sweep, never work from an existing list. Every remaining deferred item in this document should be re-grepped before it is scoped.
 
@@ -369,7 +404,7 @@ Current order: SpineNav → Hero → TrustBar → Guarantee → ScannerUtilizati
 
 - `AssignmentFlowDiagram` Step 2 says assignments route to the "highest-performing" participating center. The actual basis is price, proximity, and accreditation — not performance.
 - **Marketplace → network sweep.** 18 instances. **One exception:** `AssignmentFlowDiagram.astro:41` — "USRad is not a booking marketplace" uses the word correctly as contrast. Preserve it.
-- **$160M+ vs $246M.** Two AnciCare dollar figures. `TrustBar:80` and `portal-tour:1069` say $160M+; `AboutSection.astro:14` says "over $246…". Reconcile.
+- **~~$160M+ vs $246M.~~ CLOSED — both halves moot.** `$160M+` conformed to **over $150 million** in Batch 4H-c2 (`e1a6119`), closing cluster C2a. `$246M` was **reversed and barred** 2026-08-07 pending a primary source, so there is no second figure to reconcile it against. Removal is open item #22, a two-pass batch. See `DECISIONS.md` 2026-08-07 and `APPROVED-FIGURES.md` §6.
 - **1,200 vs 1,200+.** 27 locations across the repo, seven of them without the plus. All move together when Workstream B lands.
 - **Market-size section.** 28M uninsured (CDC 2025), 67% of covered workers in self-funded plans (KFF 2025), average single deductible $1,886 rising to $2,631 at firms of 10–199 (KFF 2025). Own section, no CTA inside it. **KFF's denominator is covered workers, not covered lives** — that percentage must never be multiplied against a population.
 - **Exit-value argument in founder voice.** Near AnciCareStory or in consultation. No multiples, no projection.
@@ -439,7 +474,16 @@ Current order: SpineNav → Hero → TrustBar → Guarantee → ScannerUtilizati
 
 ## 14. WORKSTREAM B — deferred
 
-- AnciCare figures review: 1,200+ centers, 168,000+ cases, 50–70% cost reduction, $160M+ / $246M.
+- **AnciCare figures review — mostly settled ahead of Workstream B.** Current status, per `DECISIONS.md` and `APPROVED-FIGURES.md` §4:
+
+| Figure | Status |
+|---|---|
+| Patients served → **150,000+** | ✅ conformed, Batch 4H-c1 (`37eb600`). Cluster C1 closed. Supersedes the old 168,000+ |
+| Provider volume → **over $150 million** | ✅ conformed, Batch 4H-c2 (`e1a6119`). Cluster C2a closed. Supersedes $160M+ / $180M |
+| **$246M** client savings | ⛔ **BARRED** 2026-08-07 — arithmetic on 400,000 cases, already ruled an error. Removal is open item #22. Conditional on a primary source surfacing |
+| Centers recruited → **1,200+** | ✅ unchanged by design. Document-verified |
+| **50–70%** cost reduction | ⬜ **still under review** — the only figure in this list Workstream B still owns |
+| Tenure → **AnciCare 1994–2002** | ⬜ outstanding, and it is two claims — company window vs founder career span. See §4 of the figures register |
 - **Florida Trend** — Koller, Lynn. "The Image of Success." March 2000, p. 48. Document-verifies: 1994 founding, 1999 revenue of $13.16M (corroborating the audited figure independently), CNA and Winn-Dixie as named clients, 800 facilities across 40 states as of March 2000, Donna as co-founder, and a market MRI cost near $1,000 against AnciCare's $450–500 to the carrier. **The $18M figure remains barred** — this article identifies it as a projection for 2000, not a result.
 - The 800 (2000) and 1,200 (2013) network waypoints must be stated together, not left for a reader to reconcile.
 - The historical take rate (~$100 per scan on $450–500) is public in that article. A positioning decision, not a disclosure decision: a center owner can work out what the founder's last network charged and will reasonably ask what USRad charges.

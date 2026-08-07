@@ -31,6 +31,21 @@ overruled on this basis.*
 
 ---
 
+## THE HISTORICAL EVIDENCE STANDARD
+
+> Historical quantitative claims publish only when supported by a
+> contemporaneous source or a clearly defensible primary record.
+> Founder recollection may support qualitative history. It does not,
+> by itself, authorise newly derived quantitative claims.
+
+Recollection is admissible for what happened. It is not admissible as
+an input to arithmetic that produces a new published number.
+
+*Recorded August 7, 2026, after the $246 million savings figure was
+traced to a calculation built on a case count already ruled an error.*
+
+---
+
 ## THE FOUR LIVE FILES
 
 Everything in this folder that is not in `source/` is current authority.
