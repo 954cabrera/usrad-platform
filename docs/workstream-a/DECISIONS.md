@@ -453,6 +453,310 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              others. · FOUNDER + ADVISOR
 ```
 
+## August 7, 2026 — AnciCare source discovery
+
+```
+2026-08-07 · SOURCE CORPUS ESTABLISHED. 36 contemporaneous
+             documents located: 27 in the first tranche (457pp) and
+             9 federal tax returns. Every one created 1994–2002.
+             Zero later reconstructions. Many carry Bates stamps
+             from a legal discovery production.
+             STORED OUTSIDE THE REPOSITORY at
+             ~/Documents/ancicare/business_proofs — they contain
+             federal tax filings and shareholder schedules.
+             docs/ancicare_proof/ is gitignored permanently as a
+             guard against recreation. The register cites them by
+             filename, date, page and figure. The documents
+             themselves are never committed. · FOUNDER + ADVISOR
+2026-08-07 · ⚠️ 1,200+ CONTRACTED FACILITIES — SUBSTANTIATED.
+             March 2002 Management Meeting packet, three
+             independent statements in one document:
+             p.3 narrative — "Number of contracted facilities=1228"
+             p.13 table stamped 4/16/02 — 43 states, Current
+                  column sums EXACTLY to 1,228
+             p.50 — "1,228 Contracted Providers" = 1,093 MRI/CT/BS
+                  + 135 EMG/NCV
+             Dated 30 days before the 16 May 2002 asset purchase
+             agreement. Contemporaneous primary evidence.
+             CANONICAL: "1,228 contracted imaging facilities in 43
+             states, April 2002." COMPACT: "1,200+ centers."
+             The register's prior approval was founder-attested; it
+             is now documented, and the documented figure is
+             stronger than the rounded one. · FOUNDER
+2026-08-07 · DISTINCTION THE DOCUMENTS DRAW: "contracted
+             facilities" (1,228, Apr 2002) is not "participating
+             centers" (664, Oct 1999 — those that actually received
+             referrals in the period). Not interchangeable. Copy
+             must not blur them. · CC
+2026-08-07 · ⚠️ "OVER $150 MILLION PROVIDER VOLUME" — RETIRED AND
+             REPLACED. Contradicted by a complete, unbroken
+             eight-year series of federal Form 1120S filings, one
+             EIN (65-0475972):
+               1994    $716,689      1998  $8,838,533
+               1995  $3,300,768      1999 $10,375,038
+               1996  $5,519,378      2000 $11,717,897
+               1997  $7,747,148      2001 $12,264,132
+               TOTAL $60,479,583
+             1998 and 1999 corroborated to the dollar by E&Y
+             audited statements. The 1996 return's Statement 2
+             labels this line, in the taxpayer's own words,
+             "MEDICAL CENTER COSTS."
+             APPROVED REPLACEMENT —
+             CANONICAL: "More than $60 million paid to imaging
+             centers from 1994 through 2001"
+             COMPACT: "$60M+ paid to imaging centers"
+             Say PAID TO IMAGING CENTERS, not "provider volume."
+             The former is what the filings show and is plainer to
+             read.
+             This cumulative figure IS permitted under the evidence
+             standard: complete series, one metric, one source
+             class, no interpolation.
+             DO NOT add the 2002 YTD $2,659,545.60 — different
+             source class, three months only. The eight-year tax
+             series stands alone. · FOUNDER + ADVISOR
+2026-08-07 · ⚠️ "150,000+ PATIENTS" — RETIRED. NOT REPLACED IN
+             KIND. No document in 36 sources counts PEOPLE. Every
+             count across the corpus is EVENTS — referrals,
+             procedures, orders, files. No patient identifier, no
+             de-duplication statement, no studies-per-patient
+             ratio. A person with an MRI and a follow-up CT appears
+             twice in every table and nothing permits collapsing
+             that. E&Y's revenue note confirms the accounting spine
+             is per-service: "Service revenue is recognized on the
+             date the medical imaging service is performed."
+             This is a HARDER LIMIT than missing years: complete
+             1994–2002 coverage of these same reports would still
+             not yield a patient count. The records were never kept
+             that way.
+             DO NOT substitute a procedure count into the same
+             slot. That invites the reader to treat them as
+             equivalent. Decide what each component is proving:
+               network scale → 1,228 contracted facilities
+               throughput → a documented annual procedure count,
+                 CALLED PROCEDURES
+               neither → remove the stat
+             NEVER convert procedures, referrals, orders or files
+             into patients. · FOUNDER + ADVISOR
+2026-08-07 · APPROVED — DOCUMENTED ANNUAL PROCEDURE COUNTS. March
+             2002 Management packet p.7, "Procedures (Net)" —
+             modality counts less cancellations, twelve months each:
+               2000  33,855        2001  38,452
+               2002 Jan–Mar 8,396 (PARTIAL — do not annualize)
+             Use only where THROUGHPUT is the subject. Always the
+             word "procedures." Never summed across years — three
+             different metrics are in play across the corpus
+             ("Volume" 1996–99, "Procedures (Net)" 2000–02,
+             "Referrals") and they disagree where periods overlap.
+             · FOUNDER
+2026-08-07 · METRICS CANNOT BE SUMMED ACROSS THE CORPUS.
+             1996–99 "Volume" (modality counts, cancellation
+             treatment unstated) · 2000–02 "Procedures (Net)" (net
+             of cancellations, includes EMG/NCV) · 1999 and 2001
+             "Referrals" (Q1–Q3 only). Q1–Q3 2001 shows 27,931
+             referrals against 29,603 Net Procedures for the same
+             nine months. 1994 and 1995 have no activity count at
+             all. No lifetime activity total is constructible. · CC
+2026-08-07 · NO CUMULATIVE SAVINGS FIGURE EXISTS. Across 36
+             documents and ~500 pages, AnciCare never computed one.
+             Savings were reported per client, per month, to
+             adjusters. Eight years of filings, audited statements,
+             banker memoranda, board packs and press coverage never
+             roll them up. This is independent confirmation of the
+             $246M reversal: the claim has no counterpart in the
+             operating record. · CC
+2026-08-07 · 400,000 — PROBABLE ORIGIN IDENTIFIED. Two documents
+             state that ALL U.S. diagnostic imaging centers
+             performed ~510,000 / 510,571 procedures PER WEEK
+             (Corp Overview 9-2000; CIM Feb 2000). An industry-wide
+             denominator sitting pages away from AnciCare's own
+             volume tables in the same decks. Recorded so the error
+             is not repeated from the same source. · CC
+2026-08-07 · $18M BARRING FURTHER CORROBORATED. Peak documented
+             gross receipts are $16,001,938 (2001). The company
+             never reached $18M in any filed year. The 1999 PPM's
+             "18.3" sits in a column headed est. · CC
+2026-08-07 · NEWLY DOCUMENT-VERIFIED, available for use:
+             (a) Founded 3 January 1994 — founder letter 23 Sep
+                 1994; date of incorporation on all nine returns
+             (b) Donna Cabrera co-founder — same letter, "my wife
+                 and I"
+             (c) Acquired by CorVel — Asset Purchase Agreement
+                 among CorVel Corporation, Corvel Healthcare
+                 Corporation, AnciCare PPO Inc. and Michael and
+                 Donna Cabrera, dated 16 May 2002. Greenberg
+                 Traurig closing letter 31 July 2002
+             (d) 50%+ savings vs the Florida WC fee schedule —
+                 founder letter Sept 1994 and Genesis Publishing
+                 trade article Nov 1994; "up to 70%" per CIM Feb
+                 2000
+             (e) 90% of referrals scheduled within two to three
+                 days — South Florida Business Journal, 5 Feb 1999,
+                 third-party published
+             (f) Named clients — Winn-Dixie (1994 letter), CNA
+                 (Corp Overview 2000), plus ~40 others including
+                 Liberty Mutual, Zurich American, USF&G, Crawford &
+                 Company, Gallagher & Bassett, USPS
+             (g) Inc. 500 rank #210 (1999) — Inc. letter and
+                 certificate
+             (h) Per-scan economics — $418–460 billed, $336–353
+                 paid to the center (Corp Overview p.16)
+             (i) 818 centers / 38 states (Sept 2000); 783 (Feb
+                 2000); 608 / 33 states (Feb 1999)
+             ⚠️ Corp Overview, CIM, valuation and partner tables are
+             marked CONFIDENTIAL. CNA is confirmed only by a
+             confidential document. Public confirmation for named
+             clients comes from the trade articles. · FOUNDER
+2026-08-07 · STANDING RULE 20: read scanned documents VISUALLY, not
+             via OCR text layer. The 1,228 figure was missed on a
+             first pass because page 3 renders as "facilities^ 228"
+             — leading digit lost to a stray character — and the
+             state table extracts as unheaded bare integers. Nine
+             tax returns had ZERO text layer. Use the text layer
+             only to locate candidate pages; read figures from
+             rendered images; write ILLEGIBLE rather than guess. ·
+             CC
+2026-08-07 · UNRECONCILED, recorded not resolved:
+             (a) 1998 revenue — E&Y audited $11,005,691 vs tax 1c
+                 $10,822,115. Difference $183,576, identical on the
+                 gross-profit line, with COGS matching to the
+                 dollar. Entire variance sits on revenue.
+             (b) 1999 activity — Corp Overview 30,760 vs Referral
+                 Patterns 23,494 (Q1–Q3) vs the Mar 2002 table's
+                 prior-year MRI implying 25,514. Three figures.
+                 A $1.3M revenue reallocation across four prior
+                 years is documented in the 3Q2001 report.
+             (c) Referral Patterns internal conflict — 23,482 (p.1)
+                 vs 23,494 (pp.2–3); FL 19,247 vs 19,219.
+             None is marketing-relevant; all are recorded so nobody
+             reconciles them from memory later. · CC
+2026-08-07 · GAPS IN THE RECORD: no 2002 tax return of any kind —
+             no full-year, short-year, or final — and no return in
+             the folder has "Final return" checked. Given the May
+             2002 sale, a final or short-year return should exist;
+             the Greenberg Traurig closing binder may reference it.
+             1996 page 1 is missing, so 1996 gross receipts and
+             gross profit are undocumented in the tax set. · CC
+2026-08-07 · CONSEQUENCE FOR THE SITE: two conformances completed
+             2026-08-06 must now be redone. Batch 4H-c1 conformed
+             38 instances to "150,000+ patients" — RETIRED. Batch
+             4H-c2 conformed 16 changes to "over $150 million" —
+             REPLACED. Both were correct against the register as it
+             stood; the evidence changed. Opens #24 and #25. ·
+             FOUNDER
+2026-08-07 · CORPUS NOW 38 DOCUMENTS. Two previously cited but
+             unfiled sources have been added to
+             ~/Documents/ancicare/business_proofs and read:
+             (a) Greenberg Traurig closing letter, Arthur L.
+                 Gallagher, 31 July 2002, to Michael and Donna
+                 Cabrera. Subject line reads: "Asset Purchase
+                 Agreement among CorVel Corporation, Corvel
+                 Healthcare Corporation, AnciCare PPO, Inc. and
+                 Michael and Donna Cabrera, dated as of May 16,
+                 2002." Transmits two bound sets of executed
+                 closing documents. cc: Ira N. Rosner.
+                 → The CorVel acquisition is DOCUMENT-VERIFIED.
+             (b) Koller, Lynn. "The Image of Success." Florida
+                 Trend, March 2000, p.48.
+                 → Its contents are DOCUMENT-VERIFIED, and are
+                 additionally corroborated by documents already in
+                 the corpus.
+             Neither is committed to git. · FOUNDER
+2026-08-07 · FLORIDA TREND — CONFIRMED CONTENTS. Founded 1994 by
+             Michael and Donna Cabrera as Managed Care Network
+             Inc., renamed AnciCare PPO · 800 imaging facilities,
+             145 in Florida, in 40 states · CNA and Winn-Dixie
+             named as clients · a typical MRI with interpretation
+             around $1,000 against AnciCare's $450–500 to the
+             insurance company · AnciCare takes about $100 from
+             that fee · $13 million in 1999 revenues, matching the
+             audited $13,159,059.
+             NEW, not previously recorded: startup capital about
+             $75,000 from family and friends · home office six
+             months, then 1,300 sq ft with five employees, then
+             6,000 sq ft with 40 employees in 1998 · profit
+             margins in the 5–6% range. · FOUNDER
+2026-08-07 · ⚠️ TWO DIFFERENT $60 MILLION FIGURES EXIST. They will
+             be conflated unless this is stated explicitly.
+             (a) BARRED — "$60 million by 2002" is a REVENUE
+                 PROJECTION made in March 2000. Florida Trend p.48:
+                 "By 2002, he expects a whopping $60 million."
+                 Same class as the barred $18M projection, from the
+                 same paragraph of the same article. Actual peak
+                 documented gross receipts were $16,001,938 (2001).
+                 The company never approached $60M in revenue.
+             (b) APPROVED — "$60M+ paid to imaging centers" is the
+                 sum of COST OF GOODS SOLD across eight filed Forms
+                 1120S, 1994–2001, totalling $60,479,583. A
+                 documented expense line, not revenue, labelled
+                 "MEDICAL CENTER COSTS" by the taxpayer.
+             These are opposite sides of the income statement and
+             differ by a factor of nearly four in what they
+             measure. Any copy using (b) must say PAID TO IMAGING
+             CENTERS. Never "$60 million in revenue." Never "$60
+             million business." · FOUNDER
+2026-08-07 · "PROFITABLE FROM THE FIRST YEAR" — ATTRIBUTED QUOTE,
+             NOT A VERIFIED FACT. Florida Trend p.48 reports:
+             "Cabrera says that AnciCare was profitable from the
+             first year, and his current profit margins are in the
+             5% to 6% range."
+             The audited record shows a 1998 OPERATING LOSS of
+             $19,703 (E&Y), and the 1997 valuation reports 1998
+             operating income of $80,000 against unaudited
+             management figures.
+             The quote is not contradicted as stated — it concerns
+             the first year and is attributed to the founder — but
+             it may NOT be cited as a document-verified
+             profitability claim, and "profitable every year"
+             would be false. If used at all, use it as an
+             attributed 2000 quote. · FOUNDER
+2026-08-07 · STATE COUNT — TWO DOCUMENTED VALUES, BOTH CORRECT AT
+             THEIR DATES. 40 states (Florida Trend, March 2000) ·
+             38 states (Corp Overview, September 2000) · 43 states
+             (March 2002 Management packet, April 2002 table).
+             Not a contradiction: facilities terminate and states
+             drop. Always state the count WITH ITS DATE. Do not
+             pick one and present it as the figure. · CC
+2026-08-07 · ⚠️ THE 2013 WAYPOINT IS NOT ANCICARE. TRACKER §14's
+             instruction to "state the 800 (2000) and 1,200 (2013)
+             waypoints together" is STRUCK. The 2013 Radiology
+             Business article concerned a separate venture the
+             founder began and abandoned after standing-up costs
+             exceeded expectation. AnciCare was sold in May 2002
+             per the Greenberg Traurig closing letter; a 2013
+             AnciCare figure cannot exist.
+             CORRECTED PAIR, both document-verified:
+               800 facilities / 145 in Florida / 40 states
+                 (Florida Trend, March 2000)
+               1,228 contracted facilities / 43 states
+                 (Management packet, April 2002)
+             State together as a trajectory, each with its date. ·
+             FOUNDER
+2026-08-07 · 50–70% COST REDUCTION — SUBSTANTIATED, moved out of
+             Workstream B review. Sources: founder letter 23 Sept
+             1994 ("saving 50% or more") · Genesis Publishing trade
+             article Nov 1994 ("generally by more than 50%", "well
+             over 50% of the state of Florida workers'
+             compensation fee schedule for all MRI") · Florida
+             Trend March 2000 ($450–500 against ~$1,000, roughly
+             half) · CIM Feb 2000 ("up to 70% discounts").
+             Bracketed by four contemporaneous sources, three of
+             them third-party published.
+             CANONICAL: "50% or more below the Florida workers'
+             compensation fee schedule." The 70% upper bound comes
+             from a confidential document — use the 50%+ floor in
+             public copy. · FOUNDER
+2026-08-07 · CC deleted its own scratchpad copies of the tax
+             filings, created during the discovery batch to render
+             files that carried no extension. Not in the brief;
+             correct judgment. Renderable duplicates of
+             confidential filings must not persist in temp
+             directories.
+             STANDING RULE 21: any working copy made of a
+             confidential source document is deleted at the end of
+             the batch that created it, and the deletion is
+             reported. · CC
+```
+
 ---
 
 ## Open decisions awaiting founder
@@ -466,6 +770,9 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 | 17 | `FounderCard.astro` newly orphaned — archive or leave? | low priority |
 | 18 | Satisfaction rate — 92% / 98% / 99.8%, no source for any | three variants |
 | 22 | $246M removal — /about and homepage need section rewrites, not find-and-replace | two-pass batch |
+| 24 | Retire "150,000+ patients" sitewide — 38 instances, per-component decision on what proves what | 4H-c1 reversal |
+| 25 | Replace "over $150 million" with "$60M+ paid to imaging centers" — 13 instances | 4H-c2 reversal |
+| 26 | Locate the 2002 final or short-year tax return | evidence gap |
 
 ## Resolved — August 6–7, 2026
 

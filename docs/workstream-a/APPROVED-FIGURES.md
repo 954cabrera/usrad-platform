@@ -105,47 +105,153 @@ Market-varying rates are the model, not a violation of it.
 
 ---
 
-## 4. ANCICARE HISTORICAL — RESOLVED August 6, 2026 · AMENDED August 7, 2026
+## 4. ANCICARE HISTORICAL — RESOLVED Aug 6 · AMENDED Aug 7 · **RESTRUCTURED Aug 7 on documentary evidence**
 
 **Resolved to Addendum B §1.9.** The Aug 5 tracker note retaining 168,000+ and $160M+ was drift, not a decision. · FOUNDER
 
 **Amended August 7:** the $246 million client-savings figure is **reversed and barred** pending a primary source; standing rule 18 now names a canonical and a compact form per figure; and tenure is recorded as two distinct claims. · FOUNDER + ADVISOR
 
-| Fact | Approved value | Notes |
+**Restructured August 7** on a corpus of 36 contemporaneous documents. Two figures previously approved on founder attestation are **retired**; one is **substantiated and strengthened**; several new figures are **document-verified**. See §4a, §4b, §4c below.
+
+### 📁 SOURCE LOCATION
+
+The 36 source documents are **held outside this repository** at `~/Documents/ancicare/business_proofs`. They contain federal tax filings and shareholder schedules and are **never committed**. `docs/ancicare_proof/` is permanently gitignored as a guard against recreation inside the repo. Every figure below cites its source by **filename, date and page**; verify against the documents at that path.
+
+---
+
+### §4a. APPROVED — DOCUMENT-VERIFIED
+
+Evidence class: **CP** = contemporaneous primary (created 1994–2002 in the ordinary course) · **CT** = contemporaneous third-party (auditor, press, IRS-filed, publisher).
+
+| Figure | Canonical prose form | Compact form | Source document · date · page | Class |
+|---|---|---|---|---|
+| **Paid to imaging centers** | **more than $60 million paid to imaging centers from 1994 through 2001** | **$60M+ paid to imaging centers** | Nine Forms 1120S, EIN 65-0475972, tax years 1994–2001; 1998 & 1999 corroborated by E&Y audited statements, 3 May 2000 | **CT** |
+| **Contracted facilities** | **1,228 contracted imaging facilities in 43 states, April 2002** | **1,200+ centers** | `Management Meeting March 2002` — p.3 narrative, p.13 table (stamped 4/16/02), p.50 pie | **CP** |
+| **Founding** | **founded 3 January 1994** | **1994** | Founder letter 23 Sep 1994; item D on all nine tax returns | **CP / CT** |
+| **1999 revenue** | **$13,159,059 in 1999 service revenue** | **$13.2M (1999)** | E&Y Financial Statements 1999, Statements p.3; Form 1120S 1999 line 1c; `Corp Overview 9-2000` p.16 | **CT** |
+| **Per-scan economics** | **$418–460 billed per procedure, $336–353 paid to the center** | **~$420–460 / ~$336–353** | `Corp Overview 9-2000` p.16, "Average Per Procedure" | **CP** |
+| **Annual procedures 2000** | **33,855 procedures in 2000** | **33,855 procedures** | `Management Meeting March 2002` p.7, "Procedures (Net)", 12 months | **CP** |
+| **Annual procedures 2001** | **38,452 procedures in 2001** | **38,452 procedures** | `Management Meeting March 2002` p.7, "Procedures (Net)", 12 months | **CP** |
+| **Savings vs WC fee schedule** | **50% or more below the Florida workers' compensation fee schedule** | **50%+ savings** | Four contemporaneous sources: founder letter 23 Sep 1994 (*"saving 50% or more"*); Genesis Publishing Nov 1994 (*"well over 50% of the state of Florida workers' compensation fee schedule for all MRI"*); `florida-trend-2000-03-p48.jpg` ($450–500 vs ~$1,000); CIM Feb 2000 (*"up to 70% discounts"*). ⚠️ **Use the 50%+ floor in public copy** — the 70% upper bound comes from a confidential document | **CP / CT** |
+| **Scheduling speed** | **90% of referrals scheduled within two to three days** | **90% in 2–3 days** | *South Florida Business Journal*, 5 Feb 1999 | **CT** |
+| **Inc. 500** | **ranked #210 on the 1999 Inc. 500** | **Inc. 500 #210** | *Inc.* letter 6 Oct 1999 + certificate | **CT** |
+| **Named clients** | **Winn-Dixie, CNA, Liberty Mutual, Zurich American, USF&G, Crawford & Company, Gallagher & Bassett, USPS** and ~30 others | — | Founder letter Table A (Aug 1994); Genesis article Nov 1994; `Corp Overview 9-2000` top-11 client slide | **CP / CT** |
+| **Acquisition** | **acquired by CorVel, May 2002** | **acquired by CorVel** | ✅ **`greenberg-traurig-closing-letter-2002-07-31.pdf`** — Arthur L. Gallagher to Michael and Donna Cabrera, 31 Jul 2002, transmitting executed closing documents for the *"Asset Purchase Agreement among CorVel Corporation, Corvel Healthcare Corporation, AnciCare PPO, Inc. and Michael and Donna Cabrera, dated as of May 16, 2002"* | **CP** |
+| **Co-founder** | **co-founded by Michael and Donna Cabrera** | — | Founder letter 23 Sep 1994, *"my wife and I"*; `florida-trend-2000-03-p48.jpg` | **CP / CT** |
+| **Network waypoints** | **608 centers / 33 states (Feb 1999) · 783 (Feb 2000) · 800 / 145 in Florida / 40 states (Mar 2000) · 818 / 38 states (Sept 2000) · 1,228 / 43 states (Apr 2002)** | — | SFBJ 5 Feb 1999; CIM Feb 2000; `florida-trend-2000-03-p48.jpg`; `Corp Overview 9-2000`; `Management Meeting March 2002` | **CP / CT** |
+| **Network trajectory pair** | **800 facilities, 145 in Florida, across 40 states (March 2000), reaching 1,228 contracted facilities in 43 states by April 2002** | — | `florida-trend-2000-03-p48.jpg`; `Management Meeting March 2002` pp.3/13/50 | **CT / CP** |
+| **Pricing spread** | **$450–500 to the insurance company against a typical $1,000 MRI with interpretation** | **$450–500 vs ~$1,000** | `florida-trend-2000-03-p48.jpg`. AnciCare's own take from that fee was about $100 | **CT** |
+| **Startup capital** | **started on about $75,000 from family and friends** | **~$75,000 startup capital** | `florida-trend-2000-03-p48.jpg` | **CT** |
+
+**Compact is permitted in** stat tiles, charts, badges and similarly constrained UI. **Narrative prose uses canonical.** No third form — standing rule 18.
+
+#### The eight-year payments series, in full
+
+| Tax year | Cost of goods sold | | Tax year | Cost of goods sold |
+|---|---|---|---|---|
+| 1994 | $716,689 | | 1998 | $8,838,533 |
+| 1995 | $3,300,768 | | 1999 | $10,375,038 |
+| 1996 | $5,519,378 | | 2000 | $11,717,897 |
+| 1997 | $7,747,148 | | 2001 | $12,264,132 |
+| | | | **TOTAL** | **$60,479,583** |
+
+The 1996 return's Statement 2 names this line in the taxpayer's own words: **`MEDICAL CENTER COSTS`**.
+
+**Say "paid to imaging centers," not "provider volume."** The former is what the filings show and reads plainly.
+
+> ### ⚠️ TWO DIFFERENT $60 MILLION FIGURES EXIST — do not conflate them
+>
+> **APPROVED (this row):** *$60M+ **paid to imaging centers*** — the sum of cost of goods sold across eight filed Forms 1120S, $60,479,583. An **expense** line, labelled `MEDICAL CENTER COSTS` by the taxpayer.
+>
+> **BARRED (§6):** *"$60 million by 2002"* — a **revenue projection** made in March 2000 (*Florida Trend* p.48: "By 2002, he expects a whopping $60 million"), from the same paragraph as the barred $18M. Peak documented gross receipts were **$16,001,938 (2001)**. The company never approached $60M in revenue.
+>
+> These sit on **opposite sides of the income statement** and differ by nearly a factor of four in what they measure. Copy using the approved figure must say **"paid to imaging centers."** Never "$60 million in revenue." Never "a $60 million business."
+
+**This cumulative total is permitted under the HISTORICAL EVIDENCE STANDARD** — complete unbroken series, one metric, one source class, no interpolation. It is the only cumulative figure in this register that qualifies.
+
+⚠️ **Do not add the 2002 YTD figure** of $2,659,545.60. Different source class (management income statement, not a filing) and three months only. **The eight-year tax series stands alone.**
+
+#### ⚠️ Not everything in the Florida Trend article is approved
+
+The article is now in the corpus and its contents are document-verified **as reportage** — but two items in it are projections or attributed opinion, not results, and are **barred**:
+
+| In the article | Status |
+|---|---|
+| *"By 2002, he expects a whopping $60 million"* | ⛔ **BARRED** — revenue projection. See §6 and the callout above |
+| *"$18 million"* for 2000 | ⛔ **BARRED** — projection. See §6 |
+| *"Cabrera says that AnciCare was profitable from the first year, and his current profit margins are in the 5% to 6% range"* | ⚠️ **ATTRIBUTED QUOTE, NOT A VERIFIED FACT.** The audited record shows a **1998 operating loss of $19,703** (E&Y). The quote is not contradicted *as stated* — it concerns the first year and is attributed to the founder — but it may not be cited as a document-verified profitability claim, and **"profitable every year" would be false.** If used at all, use it as an attributed 2000 quote |
+
+#### ⚠️ State counts — always publish the count with its date
+
+**40 states** (Florida Trend, March 2000) · **38 states** (Corp Overview, September 2000) · **43 states** (Management packet, April 2002). These do not contradict each other — facilities terminate and states drop out. **Never pick one and present it as "the" figure.**
+
+#### ⚠️ "Contracted facilities" ≠ "participating centers"
+
+The documents draw this distinction and copy must not blur it. **Contracted facilities** = under contract (1,228, April 2002). **Participating centers** = those that actually received referrals in the period (664, October 1999). Not interchangeable.
+
+#### ⚠️ Confidentiality of the sources
+
+`Corp Overview 9-2000`, the CIM, the Pinnacle valuation and the partner tables are all marked **CONFIDENTIAL** or **STRICTLY CONFIDENTIAL**. **CNA is confirmed only by a confidential document.** Public confirmation for named clients comes from the Genesis Publishing (Nov 1994) and *South Florida Business Journal* (Feb 1999) articles, in which the founder named clients on the record.
+
+---
+
+### §4b. RETIRED — evidence contradicts, or cannot support
+
+| Retired figure | Why | Replacement |
 |---|---|---|
-| Patients served | **150,000+** | ✅ **CONFORMED 2026-08-06** (Batch 4H-c1, `37eb600`) — 38 instances across 20 files. Replaces six notations: 168,000 · 168,000+ · 168,224 · 168,244 · 168K · 168K+ |
-| Provider volume | **over $150 million** | Replaces $160M+ and $180M |
-| Tenure | **AnciCare 1994–2002** | Replaces "30 Years" |
-| Centers recruited | **1,200+** | Documented, stays precise. Unchanged |
+| **"over $150 million provider volume"** | Contradicted by a complete eight-year Form 1120S series totalling **$60,479,583**, with 1998 and 1999 tied to the dollar to E&Y audited statements. The gap is not a documentation gap — the filings are complete for 1994–2001 | ✅ **REPLACED** by "more than $60 million paid to imaging centers from 1994 through 2001." See §4a |
+| **"150,000+ patients"** | **No document in the corpus counts people.** See §4c | ❌ **NOT REPLACED IN KIND.** Do not substitute a procedure count into the same slot |
 
-### ⚠️ NOTATION RULE — amended standing rule 18
+Both figures were conformed sitewide on 2026-08-06 — Batch 4H-c1 (38 instances) and Batch 4H-c2 (16 changes). **Both batches were correct against the register as it then stood; the evidence changed underneath them.** Reversal is tracked as open items **#24** and **#25**.
 
-Each approved figure has **one canonical prose form** and **one approved compact display form**. Both are named explicitly below. **No third form.**
+Still barred at any width, unchanged: `150K`, `150K+`, `168K`, `168,000`, `$180M`, `$160M+`, `$150M+`.
 
-| Fact | Canonical prose form | Approved compact form |
+---
+
+### §4c. THE PATIENT-COUNT LIMIT
+
+> **No procedure, referral, order or file count may be presented as a patient count. Ever.**
+
+This is **not a gap in the records — it is a property of them.** Every count across all 36 documents is a count of **events**: referrals, procedures, orders, files, studies. There is no patient identifier, no de-duplication statement, and no studies-per-patient ratio anywhere in the corpus. A person who had an MRI and a follow-up CT appears **twice** in every table in the folder, and nothing on any page permits collapsing that.
+
+E&Y's revenue-recognition note confirms the accounting spine is per-service: *"Service revenue is recognized on the date the medical imaging service is performed."*
+
+Complete 1994–2002 coverage of these same reports **would still not yield a patient count.** The records were never kept that way.
+
+**When a component currently shows a patient stat, decide what it is actually proving:**
+
+| What the component proves | Use |
+|---|---|
+| Network scale | **1,228 contracted facilities** |
+| Throughput | **a documented annual procedure count — and call it procedures** |
+| Neither | **remove the stat** |
+
+**Never convert procedures, referrals, orders or files into patients.**
+
+#### Annual activity — approved counts, and why they cannot be summed
+
+| Year | Metric, as the source names it | Value |
 |---|---|---|
-| Patients served | **more than 150,000 patients** | **150,000+** |
-| Provider volume | **over $150 million** | **$150M+** |
-| Tenure — company window | **AnciCare, 1994–2002** | **1994–2002** |
-| Centers recruited | **more than 1,200 imaging centers** | **1,200+** |
+| 1996–1999 | **"Volume"** (modality counts; cancellation treatment unstated) | 15,623 · 23,031 · 26,307 · 30,760 |
+| 2000 | **"Procedures (Net)"** (net of cancellations, includes EMG/NCV) | **33,855** |
+| 2001 | **"Procedures (Net)"** | **38,452** |
+| 2002 Jan–Mar | **"Procedures (Net)"** — **PARTIAL, do not annualize** | 8,396 |
+| 1999 Q1–Q3 | **"Referrals"** | 23,494 |
+| 2001 Q1–Q3 | **"Referrals"** | 27,931 |
+| 1994, 1995 | **no activity count of any kind** | — |
 
-**Compact is permitted in:** stat tiles, charts, badges, and similarly constrained UI.
-**Narrative prose uses canonical.**
+**Three different metrics are in play and they disagree where periods overlap** — Q1–Q3 2001 shows 27,931 referrals against 29,603 Net Procedures for the same nine months. **No lifetime activity total is constructible.** Use a single year, name its metric, and never add across rows.
 
-Still barred at any width: `150K`, `150K+`, `168K`, `$180M`, `$160M+`, or any form not in the table above.
+---
 
-**Why this was amended (2026-08-07).** The August 6 formulation demanded one literal notation everywhere, which made natural prose — "more than 150,000 patients" — a technical violation of the rule written to protect that very figure. Controlled typography is not inconsistency. The abbreviation ban survives intact: what rule 18 bars is an *unapproved* form, not a *second approved* one.
-
-The original hazard stands. Abbreviated forms are what the Batch 4H-c1 sweep initially missed — a pattern matching only comma-formatted variants cannot see `168K`. Six instances survived the first pass and were caught by the PDF render, not the grep. See standing rules 17 and 18 in `TRACKER.md` §7.
-
-### Conformance status
+### Conformance status — superseded 2026-08-07
 
 | Fact | Status |
 |---|---|
-| **Patients served → 150,000+** | ✅ **CONFORMED** 2026-08-06, Batch 4H-c1 (`37eb600`). Verified by dual-pattern re-sweep, build exit 0, direct PDF generation, JSON-LD parse, and screenshots at 1440/390. Cluster C1 closed |
-| **Provider volume → over $150 million** | ✅ **CONFORMED** 2026-08-06, Batch 4H-c2 (`e1a6119`) — 16 changes across 12 files. Five notations eliminated: `$180M` · `$180M+` · `$180+ Million` · `$160M` · `$160M+`. "Verified results" label removed from `ProvenSuccess.astro`; ROI PDF phone corrected to (866). Verified by re-sweep, build exit 0, direct PDF generation, and screenshots. **Cluster C2a closed** |
+| ~~Patients served → 150,000+~~ | ⛔ **RETIRED** 2026-08-07 — see §4b. The 4H-c1 conformance (`37eb600`, 38 instances) must be undone. Open item **#24** |
+| ~~Provider volume → over $150 million~~ | ⛔ **REPLACED** 2026-08-07 by "$60M+ paid to imaging centers" — see §4a/§4b. The 4H-c2 conformance (`e1a6119`, 16 changes) must be redone. Open item **#25** |
+| **Contracted facilities → 1,228 / 1,200+** | ✅ **SUBSTANTIATED** 2026-08-07, three ways in one contemporaneous document. Sitewide `1,200+` copy stands and is now documented |
 | Tenure → AnciCare 1994–2002 | ⬜ **outstanding** — and it is **two claims, not one**. See the split immediately below |
-| Centers recruited → 1,200+ | ✅ unchanged by design |
 
 #### ⚠️ Tenure is TWO claims — do not conform by grep
 
@@ -271,11 +377,18 @@ All five share one void multiplicand. See the HISTORICAL EVIDENCE STANDARD at th
 
 | Figure | Where it appears | Why |
 |---|---|---|
-| **$246 million** client savings | `about.astro` ×7, `press-kit.html` ×4, `SocialProofBar:25`, `AboutSection:14`, `blog/the-scan-that-never-happens:306` | Arithmetic on 400,000 cases, already ruled an error. **Reverses the 2026-08-06 approval.** Conditional — reversible if a contemporaneous primary source is located |
+| **$246 million** client savings | `about.astro` ×7, `press-kit.html` ×4, `SocialProofBar:25`, `AboutSection:14`, `blog/the-scan-that-never-happens:306` | Arithmetic on 400,000 cases, already ruled an error. **Reverses the 2026-08-06 approval.** Conditional — reversible if a contemporaneous primary source is located. **⚠️ INDEPENDENTLY CONFIRMED 2026-08-07: no cumulative savings figure exists anywhere in the 36-document source corpus.** AnciCare reported savings per client, per month, to adjusters; eight years of tax filings, audited statements, banker memoranda, board packs and press coverage never roll them up. The claim has no counterpart in the operating record |
 | **$95M medical / $151M productivity / 3.2M work days** | `about.astro:927`, `:946-949` | Same base. Also changes what "savings" means — productivity recovered is not hospital-billing avoidance |
 | **$585M total / $544M productivity** | source analysis only | Same base. Recorded so they are not reintroduced |
 | **400,000 cases** as a multiplicand | any derivation | Ruled an error 2026-08-06. Anything computed from it is void |
 | **~40,000 MRIs/year** | not published | Considered and declined. $20M ÷ $500, both recollection. Disclosing the arithmetic does not improve the evidence |
+
+### Added August 7, 2026 — projections from the Florida Trend article
+
+| Figure | Where it appears | Why |
+|---|---|---|
+| **"$60 million by 2002"** as revenue | Florida Trend, March 2000, p.48 — *"By 2002, he expects a whopping $60 million."* | A projection, never achieved. Peak documented gross receipts $16,001,938 (2001). ⚠️ **DO NOT CONFUSE with the approved "$60M+ paid to imaging centers"** — that is cost of goods sold across eight filed returns, an **expense** line, not revenue. See §4a |
+| **$18M** AnciCare revenue | Florida Trend, same paragraph; 1999 PPM `est` column | Already barred. A projection, not a result. Reaffirmed Aug 7: never reached in any filed year |
 
 ### What replaces $246M — better-sourced, none case-count dependent
 

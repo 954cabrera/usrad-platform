@@ -53,6 +53,8 @@ Origin: `8a577a1` — **pushed, in sync.** `main` at `be2dd14`, unchanged since 
 | 39 | DOC-5 | Cluster C1 closed; standing rules 17–18 added | `7207218` |
 | 40 | **Batch 4H-c2** | **Provider volume conformed to over $150 million — 16 changes, 12 files, five notations. "Verified results" label removed; ROI PDF phone → (866). Cluster C2a** | **`e1a6119`** |
 | 41 | **Batch 4H-d** | **Every `tel:` href on the marketing surface normalised to `tel:1-866-877-2324` — 17 changes, 12 files** | **`8a577a1`** |
+| 42 | DOC-6 | Historical evidence standard adopted; $246M approval reversed and barred; rule 18 amended; tenure split | `3f42843` |
+| 43 | **DOC-7** | **AnciCare source corpus establishes the record — 1,228 facilities substantiated; "over $150 million" and "150,000+ patients" retired; corpus moved out of the repo and gitignored; rule 20** | **TBD** |
 
 > **Action:** commits 22–31 were never logged. Fill from `git log --oneline ec80d3f..21bd949` and confirm labels against commit messages before this document is filed. `ec80d3f` is the last pre-4C reference point recorded in session notes.
 
@@ -234,6 +236,25 @@ The Vercel preview at `usrad-platform-4utvivnde` predates 4D-a. It renders "Get 
 - Open items #13 and #14 are superseded: both asked how to reword a figure now being removed.
 - Removal is a **two-pass batch (#22)**. /about and the homepage need section rewrites; find-and-replace would leave headings and tiles with nothing under them — the same failure recorded in §4 under "whole sections deleted rather than repaired."
 
+### 5e. The AnciCare source corpus — evidence supersedes attestation (August 7)
+
+**This is not a process failure, and it is recorded separately from §5a–§5d for that reason.** §5a is briefing errors; §5b and §5d are wrong premises. This is neither. Two conformance batches were executed correctly against the register as it stood, verified by every gate in §7, and committed. Then the underlying evidence arrived and changed the answer.
+
+**What happened.** 36 contemporaneous documents were located and read — 27 in a first tranche (457 pages) plus nine federal tax returns. Every one was created 1994–2002; there are **zero later reconstructions**, and many carry Bates stamps from a legal discovery production. They are held **outside this repository** at `~/Documents/ancicare/business_proofs` because they contain federal tax filings and shareholder schedules; `docs/ancicare_proof/` is permanently gitignored.
+
+**What it reversed:**
+
+| Batch | Commit | What it did | Now |
+|---|---|---|---|
+| **4H-c1** | `37eb600` | Conformed 38 instances to "150,000+ patients" | ⛔ **RETIRED.** No document in the corpus counts people. Open item **#24** |
+| **4H-c2** | `e1a6119` | Conformed 16 changes to "over $150 million provider volume" | ⛔ **REPLACED** by "$60M+ paid to imaging centers." Open item **#25** |
+
+**What it substantiated.** `1,200+ centers` had been carried on founder attestation. It is now documented three independent ways inside one board packet dated 30 days before the sale: p.3 `Number of contracted facilities=1228`, a 43-state table on p.13 whose Current column sums exactly to 1,228, and a p.50 pie reading `1,228 Contracted Providers` (1,093 + 135). **The documented figure is stronger than the rounded one.**
+
+**Why no gate caught it, and why that is the correct outcome.** Every gate in §7 tests execution against the register. None of them can test whether the register itself is right. Rule 19 — the historical evidence standard — is the entry test, and it worked exactly as intended here: it is what made "founder-attested" an insufficient basis and sent someone to look for the documents. **The register improving on contact with evidence is the system working, not failing.** The cost is two conformance passes that must be redone, which is the price of having had the figures wrong for less time.
+
+**One process lesson does fall out** — recorded as standing rule 20. The 1,228 figure was missed on the first pass over the same document because the sweep trusted an OCR text layer that had dropped a digit. Scanned documents must be read visually.
+
 ---
 
 ## 6. THE COLUMN RENAME — no commit to point at
@@ -285,6 +306,10 @@ Recorded here because there is no git history for it and `schema_migrations` is 
 19. **THE HISTORICAL EVIDENCE STANDARD.** *(Added Aug 7 — see §5d.)* Historical quantitative claims publish only when supported by a contemporaneous source or a defensible primary record. Founder recollection supports qualitative history; it does **not** authorise derived quantitative claims.
 
     This is a standing rule, not only a figure test. Rule 16 protects approved figures from deletion; it says nothing about how a figure got approved. Rule 19 is the entry test that rule 16 assumes. A figure failing it has no approved value to conform to, so removal is correct rather than a rule-16 violation. Full text and the barred derivation family: `APPROVED-FIGURES.md`, above §1 and in §6.
+
+20. **Read scanned documents VISUALLY, not via the OCR text layer.** *(Added Aug 7 — see §5e.)* The `1,228 contracted facilities` figure was missed on a first pass because page 3 of the March 2002 packet renders in the text layer as `facilities^ 228` — the leading digit lost to a stray character — and the accompanying 43-state table extracts as an unheaded column of bare integers. Nine federal tax returns had a text layer of **zero characters**. **Use the text layer only to locate candidate pages; read every figure from a rendered image; write ILLEGIBLE rather than guess.** A misread digit in a filing is worse than a missing year.
+
+21. **Any working copy of a confidential source document is deleted at the end of the batch that created it, and the deletion is reported.** *(Added Aug 7.)* The discovery batches required copying nine federal tax returns into a scratchpad to render them — they carried no file extension. Renderable duplicates of confidential filings must not persist in temp directories after the batch that needed them.
 
 **Standing rule, unchanged:** re-sweep, never work from an existing list. Every remaining deferred item in this document should be re-grepped before it is scoped.
 
@@ -474,18 +499,23 @@ Current order: SpineNav → Hero → TrustBar → Guarantee → ScannerUtilizati
 
 ## 14. WORKSTREAM B — deferred
 
-- **AnciCare figures review — mostly settled ahead of Workstream B.** Current status, per `DECISIONS.md` and `APPROVED-FIGURES.md` §4:
+- **AnciCare figures review — LARGELY CLOSED by the August 7 source discovery.** Most of what was deferred to Workstream B has now been settled on documentary evidence. Current status, per `DECISIONS.md` and `APPROVED-FIGURES.md` §4a–§4c:
 
 | Figure | Status |
 |---|---|
-| Patients served → **150,000+** | ✅ conformed, Batch 4H-c1 (`37eb600`). Cluster C1 closed. Supersedes the old 168,000+ |
-| Provider volume → **over $150 million** | ✅ conformed, Batch 4H-c2 (`e1a6119`). Cluster C2a closed. Supersedes $160M+ / $180M |
-| **$246M** client savings | ⛔ **BARRED** 2026-08-07 — arithmetic on 400,000 cases, already ruled an error. Removal is open item #22. Conditional on a primary source surfacing |
-| Centers recruited → **1,200+** | ✅ unchanged by design. Document-verified |
-| **50–70%** cost reduction | ⬜ **still under review** — the only figure in this list Workstream B still owns |
-| Tenure → **AnciCare 1994–2002** | ⬜ outstanding, and it is two claims — company window vs founder career span. See §4 of the figures register |
-- **Florida Trend** — Koller, Lynn. "The Image of Success." March 2000, p. 48. Document-verifies: 1994 founding, 1999 revenue of $13.16M (corroborating the audited figure independently), CNA and Winn-Dixie as named clients, 800 facilities across 40 states as of March 2000, Donna as co-founder, and a market MRI cost near $1,000 against AnciCare's $450–500 to the carrier. **The $18M figure remains barred** — this article identifies it as a projection for 2000, not a result.
-- The 800 (2000) and 1,200 (2013) network waypoints must be stated together, not left for a reader to reconcile.
+| **Paid to imaging centers → $60M+ (1994–2001)** | ✅ **DOCUMENT-VERIFIED.** Complete eight-year Form 1120S series, $60,479,583; 1998 and 1999 tied to the dollar to E&Y audited statements. **Replaces "over $150 million."** Site conformance is open item **#25** |
+| **Contracted facilities → 1,228 / 1,200+** | ✅ **DOCUMENT-VERIFIED** three ways in the March 2002 board packet, April 2002. No longer founder-attested |
+| ~~Patients served → 150,000+~~ | ⛔ **RETIRED 2026-08-07.** No document in the 36-source corpus counts people; every count is events. **Not replaceable in kind** — see §4c. Site reversal is open item **#24** |
+| **$246M** client savings | ⛔ **BARRED** 2026-08-07 — arithmetic on 400,000 cases, already ruled an error. **No cumulative savings figure exists anywhere in the corpus.** Removal is open item #22 |
+| **50–70%** cost reduction | ✅ **SUBSTANTIATED and ruled 2026-08-07 · FOUNDER** — moved out of Workstream B review. Four contemporaneous sources, three third-party published: founder letter Sept 1994 · Genesis Publishing Nov 1994 · Florida Trend Mar 2000 · CIM Feb 2000. **Canonical: "50% or more below the Florida workers' compensation fee schedule."** Use the 50%+ floor publicly — the 70% bound is from a confidential document |
+| Tenure → **AnciCare 1994–2002** | ⬜ **outstanding** — the only substantive AnciCare item still open. Two claims: company window vs founder career span. See §4 of the figures register |
+| **1999 revenue $13,159,059** | ✅ verified three ways — E&Y audited, Form 1120S, Corp Overview |
+| **Per-scan economics $418–460 / $336–353** | ✅ document-verified, `Corp Overview 9-2000` p.16. New to the register |
+| **Annual procedures 33,855 (2000) · 38,452 (2001)** | ✅ document-verified. **Never summed across years** — three incompatible metrics across the corpus |
+
+- **Florida Trend** — Koller, Lynn. "The Image of Success." March 2000, p. 48. ✅ **NOW IN THE CORPUS** as `florida-trend-2000-03-p48.jpg` (added 2026-08-07); its contents are document-verified and independently corroborated by documents already held. Verifies: 1994 founding by Michael and Donna Cabrera as Managed Care Network Inc. renamed AnciCare PPO · 800 facilities, 145 in Florida, 40 states · CNA and Winn-Dixie as clients · $450–500 to the insurer against a typical ~$1,000 MRI, AnciCare taking ~$100 · $13M 1999 revenue, matching the audited $13,159,059 · startup capital ~$75,000 · 5–6% profit margins. ⛔ **Two figures in the article remain BARRED as projections: $18M, and "$60 million by 2002."** Peak documented gross receipts are $16,001,938 (2001). ⚠️ *"Profitable from the first year"* is an **attributed quote, not a verified fact** — E&Y shows a 1998 operating loss of $19,703.
+- ~~The 800 (2000) and 1,200 (2013) network waypoints must be stated together, not left for a reader to reconcile.~~ **STRUCK 2026-08-07 · FOUNDER.** The 2013 waypoint is **not AnciCare** — the 2013 *Radiology Business* article concerned a separate venture the founder began and abandoned after standing-up costs exceeded expectation. AnciCare was sold in May 2002 per the Greenberg Traurig closing letter, so a 2013 AnciCare figure cannot exist. **CORRECTED PAIR, both document-verified:** *800 facilities / 145 in Florida / 40 states* (Florida Trend, March 2000) → *1,228 contracted facilities / 43 states* (Management packet, April 2002). State together as a trajectory, **each with its date**. See `DECISIONS.md` 2026-08-07.
+- **Remaining for Workstream B:** the tenure split, and locating the 2002 final or short-year tax return (open item **#26**). Everything else in this section is now closed.
 - The historical take rate (~$100 per scan on $450–500) is public in that article. A positioning decision, not a disclosure decision: a center owner can work out what the founder's last network charged and will reasonably ask what USRad charges.
 - **Source register needed** for the market-size figures, with refresh triggers: KFF EHBS republishes each fall; the Commonwealth Fund biennial lands November 2026; CDC's HDHP definition changes for the 2026 plan year, which will move that figure for definitional reasons alone.
 
