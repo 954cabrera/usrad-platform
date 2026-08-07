@@ -1264,7 +1264,7 @@ function buildHTML(d: ROIData): string {
     <div class="section-label-gold">The Operational Model</div>
     <div class="section-title">How USRad Delivers These Results</div>
     <div class="section-subtitle">
-      The same model that transformed workers' comp imaging for 168,000+ claimants — now available for your entire workforce.
+      The same model that transformed workers' comp imaging for 150,000+ claimants — now available for your entire workforce.
     </div>
 
     <!-- 4 heritage stats -->
@@ -1276,7 +1276,7 @@ function buildHTML(d: ROIData): string {
       </div>
       <div class="stat-card navy">
         <div class="label">Cases Managed</div>
-        <div class="value">168K+</div>
+        <div class="value">150,000+</div>
         <div class="sub">Under the AnciCare model</div>
       </div>
       <div class="stat-card green">
@@ -1413,7 +1413,7 @@ function buildHTML(d: ROIData): string {
         and guide you through implementation. That is how I have always done business."
       </blockquote>
       <div class="attribution">— Michael Cabrera, President &amp; Founder, USRad</div>
-      <div class="attribution-sub">Founded the managed imaging category with AnciCare (acquired by CorVel, NASDAQ: CRVL) · 168,000+ cases managed</div>
+      <div class="attribution-sub">Founded the managed imaging category with AnciCare (acquired by CorVel, NASDAQ: CRVL) · 150,000+ cases managed</div>
     </div>
 
     <!-- Contact row -->
