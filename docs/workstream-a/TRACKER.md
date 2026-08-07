@@ -313,7 +313,7 @@ Recorded here because there is no git history for it and `schema_migrations` is 
 
 21. **Any working copy of a confidential source document is deleted at the end of the batch that created it, and the deletion is reported.** *(Added Aug 7.)* The discovery batches required copying nine federal tax returns into a scratchpad to render them — they carried no file extension. Renderable duplicates of confidential filings must not persist in temp directories after the batch that needed them.
 
-**Standing rule, unchanged:** re-sweep, never work from an existing list. Every remaining deferred item in this document should be re-grepped before it is scoped.
+22. **Re-sweep, never work from an existing list.** Every deferred item should be re-grepped before it is scoped. *(Unnumbered since inception; numbered Aug 7 after catching four consecutive undercounts — 4H-b, the $246M citations, FoundersSection, and #25.)*
 
 ---
 

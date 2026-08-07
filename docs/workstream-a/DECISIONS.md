@@ -814,6 +814,16 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              Zero consumers confirmed by grep before the change;
              zero occurrences of the old key after. Both mirrors
              byte-identical post-edit. · FOUNDER
+2026-08-07 · CORRECTION to the entry two above: it cites "standing
+             rule 11" for re-sweep. Rule 11 is two-pass batches for
+             anything needing new copy. The re-sweep rule was
+             UNNUMBERED at the end of TRACKER §7 when that entry
+             was written. It is now STANDING RULE 22, promoted
+             verbatim. The ruling on how counts are stated is
+             unaffected; only the cross-reference was wrong.
+             Numbering it also fixes an oddity: the workstream's
+             most-invoked rule, which caught all four undercounts,
+             was the only one in §7 without a number. · CC
 ```
 
 ---
