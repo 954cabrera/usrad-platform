@@ -4,8 +4,8 @@ REF: https://claude.ai/chat/a6ccdfd4-8a07-4ae8-b2b2-d0de7c23d80b
 
 **Rewritten August 6, 2026. Supersedes the August 5 version, which was current at commit 21.**
 
-Branch: `workstream-a-marketing` · Current HEAD: `8a577a1` · Rollback for whole workstream: `b86e06e`
-Origin: `8a577a1` — **pushed, in sync.** `main` at `be2dd14`, unchanged since July 30.
+Branch: `workstream-a-marketing` · Current HEAD: `99ba3d5` · Rollback for whole workstream: `b86e06e`
+Origin: `de20004` — **branch is 1 ahead (4H-c3), unpushed.** `main` at `be2dd14`, unchanged since July 30.
 
 ---
 
@@ -54,7 +54,9 @@ Origin: `8a577a1` — **pushed, in sync.** `main` at `be2dd14`, unchanged since 
 | 40 | **Batch 4H-c2** | **Provider volume conformed to over $150 million — 16 changes, 12 files, five notations. "Verified results" label removed; ROI PDF phone → (866). Cluster C2a** | **`e1a6119`** |
 | 41 | **Batch 4H-d** | **Every `tel:` href on the marketing surface normalised to `tel:1-866-877-2324` — 17 changes, 12 files** | **`8a577a1`** |
 | 42 | DOC-6 | Historical evidence standard adopted; $246M approval reversed and barred; rule 18 amended; tenure split | `3f42843` |
-| 43 | **DOC-7** | **AnciCare source corpus establishes the record — 1,228 facilities substantiated; "over $150 million" and "150,000+ patients" retired; corpus moved out of the repo and gitignored; rule 20** | **TBD** |
+| 43 | **DOC-7** | **AnciCare source corpus establishes the record — 1,228 facilities substantiated; "over $150 million" and "150,000+ patients" retired; corpus moved out of the repo and gitignored; rules 20–21** | **`de20004`** |
+| 44 | **Batch 4H-c3** | **Provider volume figure replaced with documented payments to imaging centers — 14 instances, 11 files. Label changed with the figure; config key renamed. Closes #25** | **`99ba3d5`** |
+| 45 | DOC-8 | #25 closed; fourth consecutive undercount recorded; duration-claim finding opens #27 | **TBD** |
 
 > **Action:** commits 22–31 were never logged. Fill from `git log --oneline ec80d3f..21bd949` and confirm labels against commit messages before this document is filed. `ec80d3f` is the last pre-4C reference point recorded in session notes.
 
@@ -358,6 +360,13 @@ Fifteen unaudited claims survive in the generated report, plus two structural pr
 | `health_scans` column | Vestigial. Drop, rename, or leave. |
 | The PAT at `~/.supabase/access-token` | Grants full DDL on all three projects as postgres superuser, independent of `.env`. Removing production credentials from `.env` does not enforce the isolation it appears to. Options: move it out of the container, scope it per-project, or gate by process. |
 | MarketScope Strategy tab scope | **Resolved Aug 6** — see §8e. |
+
+**Layout defects surfaced during Batch 4H-c3 verification — both PRE-EXISTING, neither caused by that batch. → defect track.**
+
+| Item | Measurement | Status |
+|---|---|---|
+| **`/provider` horizontal page overflow at 390px** | `document.documentElement.scrollWidth 475 > clientWidth 390`. Also present at 768px. **Measured on the unmodified tree before any 4H-c3 edit**, and unchanged after. The other four provider-surface routes have no h-scroll at either width | Pre-existing. Not a copy issue — something in the page is 85px wider than the viewport. Defect track |
+| **`ProvenSuccess` 390px tile asymmetry** | Tile heights `65 · 50 · 65`. The middle tile carries two elements (value + label) where tiles 1 and 3 carry three (value + label + sub-line: "1994-2002", "Still thriving today"). At 1440px the grid stretches all three to 70 and the asymmetry disappears | Structural, predates the batch — the old `$150M+` / "Value delivered" tile had the identical shortfall. Fix is a sub-line for the middle tile or removing them from the outer two. Defect track |
 
 ### 8d. Deferred by category
 

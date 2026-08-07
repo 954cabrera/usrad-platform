@@ -755,6 +755,65 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              confidential source document is deleted at the end of
              the batch that created it, and the deletion is
              reported. · CC
+2026-08-07 · #25 CLOSED. Batch 4H-c3 — "over $150 million provider
+             volume" replaced with the documented payments figure
+             across 14 instances in 11 files. Canonical prose in 2
+             unconstrained slots; compact "$60M+ paid to imaging
+             centers" in 10 constrained slots plus the config
+             mirror pair. Verified by re-sweep (zero live $150
+             instances), build exit 0, mirror hash match, and
+             screenshots at 1440 and 390. · FOUNDER
+2026-08-07 · #25 WAS 14 INSTANCES, NOT 13. The extra is
+             join.astro:64, prose inside a tooltip — caught by a
+             token sweep, invisible to a tile sweep. FOURTH
+             consecutive cluster where the register's count ran
+             low: 4H-b (5 listed, 35 found), $246M citations (short
+             by 8), FoundersSection (2 listed, 5 found), and now
+             this. Counts in the register are a starting point,
+             never a target list. · CC
+2026-08-07 · COUNTS IN THE REGISTER ARE EVIDENCE, NOT TARGETS.
+             Four out of four cluster counts have been low, each
+             for a different reason: 4H-b listed 5 targets from
+             Addendum B and the sweep found 35; the $246M list was
+             short by 8 because two instances wrapped across lines
+             and a literal grep missed them; FoundersSection named
+             2 of 5 because only two had been surfaced by an
+             earlier pass; #25 said 13 and the surface held 14
+             because one was prose in a tooltip where the rest
+             were tiles.
+             The shape is consistent: the register records what the
+             FINDING sweep saw, and every finding sweep has been
+             narrower than the surface.
+             RULING: register counts are written as "at least N,
+             per the sweep of [date]" — never as a bare number that
+             reads like a target list. Standing rule 11 (re-sweep,
+             never work from an existing list) already governs
+             execution; this governs how the count is stated so it
+             cannot be mistaken for a scope boundary.
+             Applies retroactively in form only — do not restate
+             closed counts, which are now verified by execution. ·
+             FOUNDER
+2026-08-07 · "OVER 10 YEARS" REMOVED from join.astro:64. AnciCare
+             operated January 1994 to May 2002 — eight years — and
+             the documented payments series covers 1994–2001. The
+             phrase was wrong on both readings, independently of
+             the figure beside it. OPEN: sweep for other duration
+             claims — "over N years", "a decade", "N years of" —
+             wherever they describe AnciCare's operating life
+             rather than founder career span. · FOUNDER
+2026-08-07 · $60M DID NOT PREVIOUSLY APPEAR ANYWHERE ON THE SITE.
+             The collision recorded earlier today is PROSPECTIVE,
+             not live — no existing string required adjudication
+             between the barred 2000 revenue projection and the
+             approved payments figure. There are now 12 instances,
+             all created by 4H-c3, all the approved figure. The
+             warning stands for future copy. · CC
+2026-08-07 · CONFIG KEY RENAMED. REVENUE_DELIVERED →
+             PAID_TO_CENTERS in both facilities.config.js mirrors.
+             The old key name was itself the retired abstraction.
+             Zero consumers confirmed by grep before the change;
+             zero occurrences of the old key after. Both mirrors
+             byte-identical post-edit. · FOUNDER
 ```
 
 ---
@@ -771,8 +830,8 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 | 18 | Satisfaction rate — 92% / 98% / 99.8%, no source for any | three variants |
 | 22 | $246M removal — /about and homepage need section rewrites, not find-and-replace | two-pass batch |
 | 24 | Retire "150,000+ patients" sitewide — 38 instances, per-component decision on what proves what | 4H-c1 reversal |
-| 25 | Replace "over $150 million" with "$60M+ paid to imaging centers" — 13 instances | 4H-c2 reversal |
 | 26 | Locate the 2002 final or short-year tax return | evidence gap |
+| 27 | Duration claims — sweep "over N years" / "a decade" describing AnciCare's operating life | eight years, 1994–May 2002 |
 
 ## Resolved — August 6–7, 2026
 
@@ -795,3 +854,4 @@ be superseded by a later dated entry — see #11.
 | ~~13~~ | ~~"Patient savings" → carrier framing — `SocialProofBar:27`, `AboutSection:15`~~ | **SUPERSEDED 2026-08-07 by the $246M reversal.** The beneficiary question attaches to a figure now barred; removal replaces reframing. `about.astro:49` likewise · CC |
 | ~~14~~ | ~~"Verified savings" — `about.astro:717`~~ | **SUPERSEDED 2026-08-07 by the $246M reversal.** The wording attaches to a figure now barred; removal replaces reframing · CC |
 | ~~19~~ | ~~ROI PDF phone (888) vs resolved (866)~~ | **RESOLVED.** `generateROIReport.ts:1431` reads (866) USRad24, corrected in `e1a6119` and confirmed in a generated PDF · CC |
+| ~~25~~ | ~~Replace "over $150 million" with "$60M+ paid to imaging centers"~~ | **CLOSED — 4H-c3 (`99ba3d5`), 14 instances / 11 files.** One more than the register predicted. Verified by re-sweep, build exit 0, mirror hash match, screenshots at 1440/390 · FOUNDER |

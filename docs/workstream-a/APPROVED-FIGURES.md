@@ -125,7 +125,7 @@ Evidence class: **CP** = contemporaneous primary (created 1994–2002 in the ord
 
 | Figure | Canonical prose form | Compact form | Source document · date · page | Class |
 |---|---|---|---|---|
-| **Paid to imaging centers** | **more than $60 million paid to imaging centers from 1994 through 2001** | **$60M+ paid to imaging centers** | Nine Forms 1120S, EIN 65-0475972, tax years 1994–2001; 1998 & 1999 corroborated by E&Y audited statements, 3 May 2000 | **CT** |
+| **Paid to imaging centers** ✅ **CONFORMED** | **more than $60 million paid to imaging centers from 1994 through 2001** | **$60M+ paid to imaging centers** | Nine Forms 1120S, EIN 65-0475972, tax years 1994–2001; 1998 & 1999 corroborated by E&Y audited statements, 3 May 2000 | **CT** |
 | **Contracted facilities** | **1,228 contracted imaging facilities in 43 states, April 2002** | **1,200+ centers** | `Management Meeting March 2002` — p.3 narrative, p.13 table (stamped 4/16/02), p.50 pie | **CP** |
 | **Founding** | **founded 3 January 1994** | **1994** | Founder letter 23 Sep 1994; item D on all nine tax returns | **CP / CT** |
 | **1999 revenue** | **$13,159,059 in 1999 service revenue** | **$13.2M (1999)** | E&Y Financial Statements 1999, Statements p.3; Form 1120S 1999 line 1c; `Corp Overview 9-2000` p.16 | **CT** |
@@ -156,6 +156,20 @@ Evidence class: **CP** = contemporaneous primary (created 1994–2002 in the ord
 | | | | **TOTAL** | **$60,479,583** |
 
 The 1996 return's Statement 2 names this line in the taxpayer's own words: **`MEDICAL CENTER COSTS`**.
+
+#### ✅ CONFORMED SITEWIDE — 2026-08-07, Batch 4H-c3 (`99ba3d5`)
+
+**14 instances across 11 files** — one more than open item #25 predicted. Split as ruled under standing rule 18:
+
+| Form | Count | Where |
+|---|---|---|
+| **Canonical prose** | **2** | `providers/join.astro:64` (tooltip) · `provider/consultation.astro:194` (callout) |
+| **Compact** | **10** | `TrustBar:80` · `ProvenSuccess:22` · `AnciCareStory:153` · `portal-tour:1069` · `consultation:267` · `join:68` · `join:411` · `verified:685` · `QuickStats:29` · `SuccessMetrics:5` |
+| **Config mirror pair** | **2** | `src/scripts/…/facilities.config.js:60` · `public/scripts/…/facilities.config.js:60` — key renamed `REVENUE_DELIVERED` → `PAID_TO_CENTERS`, zero consumers |
+
+**The label changed with the figure.** Seven distinct label strings were replaced: "Value delivered" · "Delivered to Providers" · "Delivered in imaging volume" · "Revenue Delivered" · "Delivered through AnciCare" · "Delivered to imaging centers through AnciCare" · "in Volume". **"Volume" is the retired abstraction and appears nowhere in the replacement copy.**
+
+Verified by re-sweep (zero live `$150` instances across `src/` and `public/`), `npm run build` exit 0, both config mirrors byte-identical (`md5 5d33b0d7…`), and full-page screenshots at 1440px and 390px on all five affected routes.
 
 **Say "paid to imaging centers," not "provider volume."** The former is what the filings show and reads plainly.
 
@@ -199,7 +213,7 @@ The documents draw this distinction and copy must not blur it. **Contracted faci
 
 | Retired figure | Why | Replacement |
 |---|---|---|
-| **"over $150 million provider volume"** | Contradicted by a complete eight-year Form 1120S series totalling **$60,479,583**, with 1998 and 1999 tied to the dollar to E&Y audited statements. The gap is not a documentation gap — the filings are complete for 1994–2001 | ✅ **REPLACED** by "more than $60 million paid to imaging centers from 1994 through 2001." See §4a |
+| **"over $150 million provider volume"** | Contradicted by a complete eight-year Form 1120S series totalling **$60,479,583**, with 1998 and 1999 tied to the dollar to E&Y audited statements. The gap is not a documentation gap — the filings are complete for 1994–2001 | ✅ **REPLACED and CONFORMED 2026-08-07, Batch 4H-c3 (`99ba3d5`)** — 14 instances across 11 files, by "more than $60 million paid to imaging centers from 1994 through 2001." Open item #25 **CLOSED**. See §4a |
 | **"150,000+ patients"** | **No document in the corpus counts people.** See §4c | ❌ **NOT REPLACED IN KIND.** Do not substitute a procedure count into the same slot |
 
 Both figures were conformed sitewide on 2026-08-06 — Batch 4H-c1 (38 instances) and Batch 4H-c2 (16 changes). **Both batches were correct against the register as it then stood; the evidence changed underneath them.** Reversal is tracked as open items **#24** and **#25**.
