@@ -45,6 +45,11 @@ Origin: `21bd949` — branch is 1 ahead, unpushed. `main` at `be2dd14`, unchange
 | 31 | Batch 4D-c | *(fill from git log)* | **TBD** |
 | 32 | Archive move 4 | Test.astro | `21bd949` |
 | 33 | **Batch 4G** | **Provider hero rewrite** | **`ab04ab1`** |
+| 34 | DOC-1 | Aug 6 decisions recorded; workstream-a folder committed | `b4ea85c` |
+| 35 | DOC-2 | 400,000+ ruled an error; CLAIMS-INVENTORY surfaced as worklist | `ee7c102` |
+| 36 | DOC-3 | C2 row resolved; $246M client savings approved as a distinct figure | `6c1d543` |
+| 37 | DOC-4 + Archive move 5 | $246M beneficiary confirmed; `FoundersSection.astro` archived | `18ca190` |
+| 38 | **Batch 4H-c1** | **AnciCare patient count conformed to 150,000+ — 38 instances, 20 files, six notations** | **`37eb600`** |
 
 > **Action:** commits 22–31 were never logged. Fill from `git log --oneline ec80d3f..21bd949` and confirm labels against commit messages before this document is filed. `ec80d3f` is the last pre-4C reference point recorded in session notes.
 
@@ -241,6 +246,10 @@ Recorded here because there is no git history for it and `schema_migrations` is 
 13. **Confirm the preview SHA before any visual review.** *(Added Aug 6 — see §5c.)* Reviewing a stale deployment produces critique of copy already corrected.
 14. **Verify asserted file properties before using them as a gate.** *(Added Aug 6 — see §5a error 11.)* Byte count and checksum are computed; line counts asserted from memory are not. A gate that fails on correct input costs a round trip and erodes the gate's authority.
 15. **Re-read the engineering reference before scoping platform-premised work.** *(Added Aug 6 — see §5b.)* Demo reports and session summaries go stale silently; the reference states its own supersessions.
+16. **Before removing any figure, check `APPROVED-FIGURES.md`.** If an approved value exists, the action is to conform to it, not delete it. Removal is correct only when nothing is approved and no source exists. *(Added Aug 6 — a batch was scoped to remove $37,500/month, 15–25 scans/month, and $5K–$10K as unsupported projections. All three were founder-approved on August 3.)*
+
+17. **Sweep for ABBREVIATED and FORMATTED variants, not only the canonical form.** *(Added Aug 6 — Batch 4H-c1.)* `168K` / `168K+` are the same claim as `168,000+` and were missed by a pattern matching comma-formatted variants only. Applies to every figure — `1.2K`, `$150M` vs `$150 million`, `1,200` vs `1.2K`. Found by the PDF render, not the sweep.
+18. **Notation is conformed along with value.** *(Added Aug 6 — Batch 4H-c1.)* Approved figures publish in ONE notation sitewide. No abbreviated forms.
 
 **Standing rule, unchanged:** re-sweep, never work from an existing list. Every remaining deferred item in this document should be re-grepped before it is scoped.
 

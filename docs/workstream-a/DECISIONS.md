@@ -262,6 +262,31 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 2026-08-06 · FounderCard.astro is newly orphaned by this move — it
              was imported only by FoundersSection. Disposition
              open; harmless where it sits. · CC
+2026-08-06 · OPEN: THIRD satisfaction-rate variant found.
+             ExecutiveFAQ.astro:126 reads "98% satisfaction across
+             150,000+ imaging services." Same defect class as the
+             barred 92% (no instrument, no N) and the 99.8% opened
+             as #16. Three different satisfaction figures live, none
+             with a source. · CC
+2026-08-06 · STANDING RULE 17: sweep for ABBREVIATED and FORMATTED
+             variants, not only the canonical form. 168K / 168K+ are
+             the same claim as 168,000+ and were missed by a pattern
+             matching comma-formatted variants only. Applies to every
+             figure — 1.2K, $150M vs $150 million, 1,200 vs 1.2K.
+             Found by the PDF render, not the sweep. · CC
+2026-08-06 · STANDING RULE 18: notation is conformed along with
+             value. Approved figures publish in ONE notation
+             sitewide. No abbreviated forms. · FOUNDER
+2026-08-06 · ROI PDF footer shows (888) USRad24 against the resolved
+             (866). generateROIReport.ts:1431. Confirmed present in
+             a generated PDF this session. Belongs to the next
+             cluster. · CC
+2026-08-06 · CLUSTER C1 CLOSED. 38 instances across 20 files
+             conformed to 150,000+. Six notations eliminated:
+             168,000 · 168,000+ · 168,224 · 168,244 · 168K · 168K+.
+             Verified by dual-pattern re-sweep, build exit 0, direct
+             PDF generation, JSON-LD parse, and screenshots at 1440
+             and 390. · FOUNDER
 ```
 
 ---
@@ -277,6 +302,8 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 | 15 | 1,236% Growth Achieved — `about.astro:1148` | no basis |
 | 16 | 99.8% Satisfaction/Resolution Rate — `about:1210`, `contact:51`, `ContactHero:176` | same class as barred 92% |
 | 17 | `FounderCard.astro` newly orphaned — archive or leave? | low priority |
+| 18 | Satisfaction rate — 92% / 98% / 99.8%, no source for any | three variants |
+| 19 | ROI PDF phone (888) vs resolved (866) | `generateROIReport.ts:1431` |
 
 ## Resolved — August 6, 2026
 

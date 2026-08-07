@@ -92,22 +92,39 @@ Market-varying rates are the model, not a violation of it.
 
 | Fact | Approved value | Notes |
 |---|---|---|
-| Patients served | **150,000+** | Replaces 168,000+ |
+| Patients served | **150,000+** | ✅ **CONFORMED 2026-08-06** (Batch 4H-c1, `37eb600`) — 38 instances across 20 files. Replaces six notations: 168,000 · 168,000+ · 168,224 · 168,244 · 168K · 168K+ |
 | Provider volume | **over $150 million** | Replaces $160M+ and $180M |
 | Tenure | **AnciCare 1994–2002** | Replaces "30 Years" |
 | Centers recruited | **1,200+** | Documented, stays precise. Unchanged |
 
-**These values must appear identically in all five locations.** Any divergence is a regression:
+### ⚠️ NOTATION RULE — standing rule 18
 
-| File | Line | Currently |
-|---|---|---|
-| `src/components/provider/TrustBar.astro` | 77–80 | `$160M+` → **over $150 million** |
-| `src/components/provider/ProvenSuccess.astro` | 17–29 | `$180M` → **over $150 million** |
-| `src/components/employer/AnciCareLegacy.astro` | 96 | `168,000+` → **150,000+** |
-| `src/components/employer/CredibilityBar.astro` | 26 | `168,000+` → **150,000+** |
-| `src/components/employer/FinalCTA.astro` | 103 | `168,000+` → **150,000+** |
+**150,000+ publishes in that notation only.** No `150K`, no `150K+`, no other abbreviation. The same applies to every approved figure: one notation sitewide.
 
-*All five paths and line references verified against the working tree on August 6, 2026.*
+This exists because the abbreviated forms are what the Batch 4H-c1 sweep initially missed — a pattern matching only comma-formatted variants cannot see `168K`. Six instances survived the first pass and were caught by the PDF render, not the grep. See standing rules 17 and 18 in `TRACKER.md` §7.
+
+### Conformance status
+
+| Fact | Status |
+|---|---|
+| **Patients served → 150,000+** | ✅ **CONFORMED** 2026-08-06, Batch 4H-c1 (`37eb600`). Verified by dual-pattern re-sweep, build exit 0, direct PDF generation, JSON-LD parse, and screenshots at 1440/390 |
+| Provider volume → over $150 million | ⬜ **outstanding** — `$180M` / `$160M+` still live |
+| Tenure → AnciCare 1994–2002 | ⬜ **outstanding** — "30 Years" still live |
+| Centers recruited → 1,200+ | ✅ unchanged by design |
+
+**Still to conform** — verified live at the time of the 4H-c1 commit; locate by content, line numbers drift:
+
+| File | Figure |
+|---|---|
+| `src/components/provider/TrustBar.astro` | `$160M+` → **over $150 million** |
+| `src/components/provider/ProvenSuccess.astro` | `$180M` → **over $150 million** |
+| `src/components/provider/AnciCareStory.astro` | `$180M+`, `30 Years` |
+| `src/pages/provider/portal-tour.astro` | `$160M+`, `30 Years` |
+| `src/pages/provider/consultation.astro` | `$180M+` ×2 |
+| `src/pages/providers/join.astro` | `$180M+` |
+| `src/pages/about.astro`, `src/pages/contact.astro` | `30 Years` |
+
+*Patient-count conformance covered `AnciCareLegacy`, `CredibilityBar`, and `FinalCTA` in full; those three carry no remaining C1 instance.*
 
 ### AnciCare client savings — $246 million. APPROVED.
 
