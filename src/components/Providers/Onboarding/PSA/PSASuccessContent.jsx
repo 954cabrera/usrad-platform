@@ -144,7 +144,7 @@ export default function PSASuccessContent() {
           <h3>Need Help?</h3>
           <p>
             Contact our support team at{" "}
-            <a href="tel:1-800-USRAD">1-800-USRAD</a>
+            <a href="tel:1-866-877-2324">1-866-USRad-24</a>
           </p>
           <div className="card-decoration"></div>
         </div>

@@ -101,7 +101,7 @@ const PatientBookingFlow = ({ facilityId, procedure, cptCode, price }) => {
     id: facilityId,
     name: facilityData?.name || 'Loading facility...',
     address: formatAddress(facilityData),
-    phone: '1-800-USRAD24 (1-800-877-2324)',
+    phone: '1-866-USRad-24 (1-866-877-2324)',
     procedure: procedure || 'MRI Brain without contrast',
     cpt_code: cptCode || '70551',
     usrad_price: parseFloat(price) || 323.63,
