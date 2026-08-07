@@ -824,6 +824,24 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              Numbering it also fixes an oddity: the workstream's
              most-invoked rule, which caught all four undercounts,
              was the only one in §7 without a number. · CC
+2026-08-07 · The CORRECTION entry above says "two above." Appending
+             at the end of the block — required by append-only —
+             placed it four above its target, the COUNTS IN THE
+             REGISTER ARE EVIDENCE entry.
+             CONVENTION: positional references are barred in this
+             file. An entry may only be appended at the end, so any
+             "above/below" pointer is wrong by the time it lands.
+             Name the target by its opening phrase and date
+             instead. · FOUNDER
+2026-08-07 · THE PREFIX PROOF CAUGHT WHAT THE DELETION CHECK COULD
+             NOT. A first attempt at the correction entry inserted
+             it mid-block. Zero lines were removed, so the deletion
+             check passed — but the file was no longer a strict
+             append and the prefix proof failed against two
+             checkpoints. Reverted and re-appended.
+             The two checks are NOT redundant: deletion catches
+             removal, prefix catches insertion. Both must run. ·
+             CC
 ```
 
 ---

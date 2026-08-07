@@ -315,6 +315,8 @@ Recorded here because there is no git history for it and `schema_migrations` is 
 
 22. **Re-sweep, never work from an existing list.** Every deferred item should be re-grepped before it is scoped. *(Unnumbered since inception; numbered Aug 7 after catching four consecutive undercounts — 4H-b, the $246M citations, FoundersSection, and #25.)*
 
+23. **`DECISIONS.md` verification requires BOTH checks.** The deletion check catches removed lines; the fence-aware prefix proof catches mid-block insertion, which removes nothing and passes deletion cleanly. Run both against every historical checkpoint. *(Added Aug 7 — a mid-block insertion passed the deletion check and failed the prefix proof.)*
+
 ---
 
 ## 8. OPEN ITEMS
