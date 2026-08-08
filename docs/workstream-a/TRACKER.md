@@ -61,7 +61,8 @@ Origin: `3ea6619` — pushed 2026-08-07, fast-forward `e31744d..3ea6619`. **Bran
 | 47 | **DOC-9** | **Positional references barred in `DECISIONS.md`; both append-only checks required (rule 23)** | **`3ea6619`** |
 | — | Push | Branch pushed to origin, fast-forward `e31744d..3ea6619` | no commit |
 | 48 | **Batch 4H-f** | **`/search-results` and `ProviderSearchSection` archived — both live 400,000+ instances, `Math.random()` distances, and the ten-year partnership claim retired with the route. Four of five inbound links repointed to the Remix search** | **`5432aeb`** |
-| 49 | DOC-10 | 4H-e survey recorded; #22/#24/#27 merged into a page-by-page rewrite; #28–#31, #33 opened; #32 opened and closed | **TBD** |
+| 49 | DOC-10 | 4H-e survey recorded; #22/#24/#27 merged into a page-by-page rewrite; #28–#31, #33 opened; #32 opened and closed | `1e61066` |
+| 50 | **DOC-11** | **Pricing Policy V1.0 ingested as governing pricing authority. Three approved pricing figures superseded; three never-approved live figures barred; standing rules 24–25 added; §4 and §5 settled; V1.0 §7 assigned to EDS on a functional boundary; #34–#38 opened** | **TBD** |
 
 > **Action:** commits 22–31 were never logged. Fill from `git log --oneline ec80d3f..21bd949` and confirm labels against commit messages before this document is filed. `ec80d3f` is the last pre-4C reference point recorded in session notes.
 
@@ -324,6 +325,12 @@ Recorded here because there is no git history for it and `schema_migrations` is 
 
     **Scope both checks to the fenced register.** The dated entries live inside ` ``` ` fences and are append-only. The tables below sit *outside* the fences and are, by the file's own statement, "the index, not the authority" — amendable, with precedent at #11. A naive whole-file deletion check fails on every legitimate index update: DOC-10 amended rows #22, #24, #27 and #19, and the whole-file check reported four deletions at all eight checkpoints while zero register lines had been touched.
 
+24. **FAIL CLOSED ON PRICING.** *(Added Aug 8 — DOC-11, Pricing Policy V1.0.)* No current USRad transaction price, projected USRad cost, or savings calculation derived from USRad pricing may publish without an authoritative contracted provider rate or a separately ratified modeling methodology. Discovery facilities may display neither price nor savings. **No provider is contracted as of this date and no modeling methodology is ratified, so no such figure may publish today.**
+
+    This rule does not reach documented historical figures, market or hospital comparators sourced independently of USRad pricing, or the AnciCare record.
+
+25. **PRE-LAUNCH GATE.** *(Added Aug 8 — DOC-11.)* Employer demand generation must not begin until the Workstream A employer surface, the Employer Implementation Guide, and the applicable EDS employer-funnel handoffs have been completed and verified.
+
 ---
 
 ## 8. OPEN ITEMS
@@ -454,6 +461,22 @@ Current order: SpineNav → Hero → TrustBar → Guarantee → ScannerUtilizati
 - **Exit-value argument in founder voice.** Near AnciCareStory or in consultation. No multiples, no projection.
 - **Provider hero `<h1>` renders 3 lines at ≤405px, 4 lines at 320px.** Two lines from 410px to 1440px. No overflow or clipping at any width. Deferred; logged by CC to project memory as already-triaged so it does not resurface as a new finding.
 
+### 8h. Pricing Policy V1.0 — opened by DOC-11
+
+Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settled decisions with open implementation** — the policy question is closed; only conformance remains. See `DECISIONS.md` 2026-08-08.
+
+| # | Item | Status |
+|---|---|---|
+| 34 | Provider-surface disclosure of internal modality fee amounts — conformance sweep under settled §4 | settled decision, open implementation |
+| 35 | `MarketScopeShowcase` discovery price and savings display — removal under settled §5 | settled decision, open implementation |
+| 36 | Sitewide 260-dollar family, 35 instances — deferred to the page-by-page sequence | not this batch |
+| 37 | Employer-surface pricing figures (350, 260 to 475, 420) — resolved in the Stage 3 `/employer` pass | Stage 3 |
+| 38 | EDS employer-funnel handoff outstanding — transactional email is delivering retired material until EDS acts. Dependency, not Workstream A work | blocks rule 25 |
+
+**#38 is not Workstream A work.** Per the 2026-08-08 EDS-boundary entry, the boundary is **functional, not repository-based**: `api/pricing/quote.js`, `api/employer-guide-download.ts`, `api/employer-roi-report.ts`, the four admin `medicare-dashboard` routes, `ProviderSearchInterface.jsx` and the patient-dashboard components sit physically in this repo but are EDS-owned. Workstream A documents the defect and the required outcome in a handoff and does not modify these files.
+
+**Housekeeping — DOC-11's own SHA.** Commit-log row 50 (§1) carries `**TBD**`, for the same structural reason DOC-10 did: a commit cannot cite its own hash. **Fill it in the next documentation batch and record the index amendment in `DECISIONS.md`,** as DOC-11 did for DOC-10. Two consecutive batches have now needed this correction — it is a property of the convention, not an oversight.
+
 ---
 
 ## 9. STRUCTURAL ISSUES NOT CAUSED BY THE PIVOT
@@ -504,6 +527,8 @@ Current order: SpineNav → Hero → TrustBar → Guarantee → ScannerUtilizati
 | 5 | **robots.txt** | — | |
 | 6 | **Final audit** | Full re-sweep of every barred and retired figure across `src/` and `public/`, plus a build-output sweep | Rule 22 |
 | 7 | **Merge** | | |
+
+**The `/employer` reconstruction runs in its existing Stage 3 page slot.** *(Recorded 2026-08-08, DOC-11.)* The pricing-figure work opened as #37 — the $350 flat rate, the $260–$475 network range and the $420 per-scan figure — is resolved during the `/employer` pass already sequenced in stage 3 above. **No 4H sub-batch is created for it.** Stage 3's per-page shape is unchanged: survey, then approved copy inline, then edit.
 
 **Carried forward, unscheduled against the above:** 4F (network-map markers · TrustBar unattributed 1,200+ · two HIPAA survivors · credentialing timeline) · 4I (provider page resequencing, `provider.astro` only, run after the rewrite) · 3D (ROI PDF, 15 unaudited claims — **blocked**: the file is parked pending the flat-fee pricing rebuild) · 2 (positioning, re-read before running) · 5A/5B (much absorbed by 1H-e, 1H-f, 3C-calc).
 

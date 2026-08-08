@@ -1030,6 +1030,125 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              checkbox rather than actioning it. · FOUNDER
 ```
 
+## August 8, 2026
+
+```
+2026-08-08 · PRICING POLICY V1.0 IS GOVERNING PRICING AUTHORITY.
+             USRad Pricing Policy V1.0, ratified August 8, 2026,
+             owner USRad Finance / Founder, governs all pricing
+             representations on the marketing surface — employer,
+             patient, ROI and PDF artifacts alike. The master
+             document remains in private corporate records and is
+             not committed to this repository; it is cited by
+             title, ratification date and provision. Canonical
+             formula: Patient / Employer Price = Contracted
+             Provider Rate + Fixed USRad Modality Fee, where the
+             contracted provider rate is the locality-adjusted
+             Medicare amount times the facility's effective
+             contracted Medicare percentage. · FOUNDER
+2026-08-08 · THREE APPROVED PRICING FIGURES SUPERSEDED. Pricing
+             Policy V1.0 replaces the pricing architecture these
+             figures described. APPROVED-FIGURES.md:53, published
+             price 300 to 475 dollars — SUPERSEDED; no published
+             flat price exists under V1.0. APPROVED-FIGURES.md:51,
+             per-scan reimbursement 225 to 400 dollars —
+             SUPERSEDED as a publishable range. APPROVED-FIGURES.md:52,
+             the 75 dollar USRad fee — NARROWED, not deleted: it
+             survives as the MRI modality fee, ceases to be
+             universal across modalities, and is no longer
+             publishable under §4. None of these three figures may
+             be republished in its prior form. · FOUNDER
+2026-08-08 · FIGURES NEVER APPROVED, NOW EXPLICITLY BARRED. The
+             350 dollar flat rate, the 260 to 475 dollar network
+             range, and the 420 dollar per-scan figure appear on
+             the live marketing surface with no entry in this
+             register. All three are barred. The 260 dollar family
+             — 35 instances across blog, education, /about,
+             /contact, /faq and PricingSection — is likewise
+             unapproved. Neither the superseded 300 to 475 range
+             nor the superseded 225 to 400 range appears anywhere
+             in src/: the approved figures were never deployed and
+             the unapproved ones are everywhere. · FOUNDER + CC
+2026-08-08 · STANDING RULE 24 — FAIL CLOSED ON PRICING. No current
+             USRad transaction price, projected USRad cost, or
+             savings calculation derived from USRad pricing may
+             publish without an authoritative contracted provider
+             rate or a separately ratified modeling methodology.
+             Discovery facilities may display neither price nor
+             savings. No provider is contracted as of this date
+             and no modeling methodology is ratified, so no such
+             figure may publish today. This rule does not reach
+             documented historical figures, market or hospital
+             comparators sourced independently of USRad pricing,
+             or the AnciCare record. · FOUNDER
+2026-08-08 · §4 SETTLED — INTERNAL MODALITY FEE AMOUNTS ARE NOT
+             PUBLISHABLE. Public marketing, including provider-
+             facing marketing, may explain the fixed-modality-fee
+             architecture — one contracted provider rate plus
+             USRad's fixed fee by modality — but may not disclose
+             the internal fee dollar amounts. Confidential
+             provider contracting is governed separately and is
+             not restricted by this decision. Existing public copy
+             that discloses fee amounts is an implementation
+             conformance item under a settled decision, not an
+             open policy question. · FOUNDER
+2026-08-08 · §5 SETTLED — DISCOVERY FACILITIES SHOW NO PRICE OR
+             SAVINGS. Discovery exists to show nearby imaging
+             supply that is not contracted and therefore not
+             bookable. No simulated Medicare-based price may be
+             presented as though it were an agreed provider price.
+             MarketScopeShowcase.astro is an implementation
+             conformance item under this settled decision, not an
+             open policy question. · FOUNDER
+2026-08-08 · V1.0 §7 REQUIREMENTS ARE EDS-OWNED, NOT WORKSTREAM A
+             OBLIGATIONS. The policy's implementation requirements
+             — the versioned modality-fee lookup, server-
+             authoritative booking, fail-closed price resolution,
+             quote protection and effective dating — are
+             application behavior and belong to the EDS
+             engineering system. The Workstream A boundary is
+             FUNCTIONAL, NOT REPOSITORY-BASED: files physically in
+             the Astro repo that perform transactional email,
+             database writes, lead scoring or production pricing
+             logic are EDS-owned. Named as EDS, not Workstream A:
+             api/pricing/quote.js, api/employer-guide-download.ts,
+             api/employer-roi-report.ts, the four admin
+             medicare-dashboard routes, ProviderSearchInterface.jsx
+             and the patient-dashboard components. Workstream A
+             documents defects and required outcomes in an EDS
+             handoff and does not modify these files. A future
+             session must not read Pricing Policy V1.0 as
+             authorizing code changes. · FOUNDER
+2026-08-08 · STANDING RULE 25 — PRE-LAUNCH GATE. Employer demand
+             generation must not begin until the Workstream A
+             employer surface, the Employer Implementation Guide,
+             and the applicable EDS employer-funnel handoffs have
+             been completed and verified. · FOUNDER
+2026-08-08 · DOC-10 SHA CORRECTED IN THE INDEX. TRACKER.md:64
+             recorded commit 49 (DOC-10) as "SHA TBD". The actual
+             SHA is 1e61066. Corrected in this batch. Index tables
+             sit outside the fences and are amendable; no register
+             line was altered. · CC
+2026-08-08 · §1 MARKED HISTORICAL; §1a AND §1b CARRY CURRENT PRICING
+             AUTHORITY. With the per-scan reimbursement, the
+             published price and the derived monthly add all
+             superseded, §1 retains almost nothing approved.
+             Rather than delete, §1 is marked HISTORICAL /
+             SUPERSEDED 2026-08-08 and retained for provenance;
+             superseded figures and their history are preserved
+             because the supersession is part of the record. §1a
+             is the governing pricing section. The one surviving
+             figure — 15–25 scans/month — is restated at §1b as
+             current authority, so that no publishable figure sits
+             inside a historical section, and carries an explicit
+             restriction against combination with any per-scan
+             figure to produce a monthly dollar projection absent a
+             separately ratified methodology. Standing rule 2's
+             routing of remaining modality fees to Workstream B is
+             corrected: V1.0 defines them and EDS implements them. ·
+             FOUNDER + ADVISOR
+```
+
 ---
 
 ## Open decisions awaiting founder
@@ -1051,6 +1170,11 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 | 30 | "90 million Americans" — derived headcount class | 2 locations |
 | 31 | Patient counts outside the 150,000 family — `cost-saving-tips:1100`, `real-cost-of-mri:907` | blog routes |
 | 33 | Does Remix read `procedure`? Verify `PatientHeader` param mapping against the adjacent repo | one line if yes |
+| 34 | Provider-surface disclosure of internal modality fee amounts — conformance sweep under settled §4 | settled decision, open implementation |
+| 35 | MarketScopeShowcase discovery price and savings display — removal under settled §5 | settled decision, open implementation |
+| 36 | Sitewide 260-dollar family, 35 instances — deferred to the page-by-page sequence | not this batch |
+| 37 | Employer-surface pricing figures (350, 260 to 475, 420) — resolved in the Stage 3 `/employer` pass | Stage 3 |
+| 38 | EDS employer-funnel handoff outstanding — transactional email is delivering retired material until EDS acts. Dependency, not Workstream A work | blocks rule 25 |
 
 > **#22, #24 and #27 are MERGED, not closed.** They are executed together as one
 > page-by-page rewrite — see the dated entry *"#22, #24 AND #27 MERGE INTO ONE

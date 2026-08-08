@@ -2,7 +2,7 @@
 
 **U.S. Radiology of Florida, LLC**
 **Source of authority:** Workstream A Scope of Work, August 3, 2026 — *Approved Provider Economics*
-**Last amended:** August 7, 2026
+**Last amended:** August 8, 2026 — Pricing Policy V1.0 (DOC-11). §1 no longer clears any price for publication; see §1a.
 
 ---
 
@@ -10,7 +10,7 @@
 
 Every figure below is **cleared for publication**. Anything not listed here is HOLD and must not appear in any public artifact.
 
-This register exists because approved figures are the most easily lost item in any summary. A prohibition ("never say net margin") survives condensation because it reads as a permanent principle. An approved value ("$225–$400 per scan") reads as a transient detail and gets dropped — after which the figure looks unsourced, and the reflex is to delete copy that was already cleared.
+This register exists because approved figures are the most easily lost item in any summary. A prohibition ("never say net margin") survives condensation because it reads as a permanent principle. An approved value ("15–25 scans per month") reads as a transient detail and gets dropped — after which the figure looks unsourced, and the reflex is to delete copy that was already cleared.
 
 **That is not hypothetical.** On August 6 a batch was scoped to remove `$37,500/month`, `15–25 scans/month`, and `$5K–$10K` from the provider surface as unsupported projections. Scope §5.1 had already specified corrections for all three, and 15–25 scans/month is an approved figure. The removal batch would have deleted approved, founder-signed economics.
 
@@ -44,26 +44,104 @@ Note the interaction with THE RULE above. The rule says *conform, do not delete,
 
 ---
 
-## 1. PROVIDER ECONOMICS — approved August 3, 2026
+## 1. PROVIDER ECONOMICS — approved Aug 3 · **⛔ HISTORICAL / SUPERSEDED Aug 8, 2026**
+
+> ### ⛔ THIS SECTION IS HISTORICAL — NOT CURRENT PUBLICATION AUTHORITY
+>
+> **It is retained for provenance.** Nothing in the table below may be published on the strength of this section.
+>
+> **Pricing publication authority is §1a**, governed by **USRad Pricing Policy V1.0, ratified August 8, 2026**.
+>
+> **The figures below were approved August 3, 2026 and superseded August 8, 2026.** They are **preserved, not deleted** — the supersession is part of the record, and a register that erased what it once approved would lose the only evidence of how it got here.
+>
+> **One figure in this table survives** — *Additional volume, **15–25 scans/month***. It is **restated as current authority at §1b and is governed there, not here.** Its row below is a provenance copy only.
 
 | Figure | Approved value | Basis |
 |---|---|---|
-| Per-scan reimbursement to center | **$225–$400** | Plain MRI, global to the center, varies by market |
-| USRad fee | **$75** | Flat, plain MRI |
-| Published price to patient or employer | **$300–$475** | Center reimbursement plus fee |
-| Additional volume | **15–25 scans/month** | Conservative floor. Deliberately underreported |
-| Realistic monthly add to center | **$3,400–$10,000** | 15–25 scans at $225–$400 |
+| ~~Per-scan reimbursement to center~~ | ⛔ ~~**$225–$400**~~ — **SUPERSEDED 2026-08-08** | Superseded as a **publishable range** by Pricing Policy V1.0. The contracted provider rate is the locality-adjusted Medicare amount × the facility's effective contracted Medicare percentage; it is not a published band. Nothing may be republished in this form. See `DECISIONS.md` 2026-08-08 |
+| USRad modality fee — MRI | ⚠️ **NARROWED 2026-08-08 · NOT PUBLISHABLE** | Survives as the **MRI** modality fee under Pricing Policy V1.0. It **ceases to be universal across modalities**, and its dollar amount is **not publishable** under §4. The amount is deliberately omitted from this register — see §1a. Not deleted; narrowed |
+| ~~Published price to patient or employer~~ | ⛔ ~~**$300–$475**~~ — **SUPERSEDED 2026-08-08** | **No published flat price exists under Pricing Policy V1.0.** Price is computed per facility per modality: contracted provider rate + fixed USRad modality fee. There is no band to publish. Nothing may be republished in this form |
+| Additional volume | **15–25 scans/month** | Conservative floor. Deliberately underreported. **⚠️ PROVENANCE COPY — governed at §1b, not here.** Do not publish on the strength of this row |
+| ~~Realistic monthly add to center~~ | ⛔ ~~**$3,400–$10,000**~~ — **SUPERSEDED 2026-08-08** | Arithmetic on the superseded per-scan range: 15–25 scans × $225–$400. The multiplicand is superseded, so the product is too. **The volume basis in the row above survives; this monetisation of it does not.** Not named in the 2026-08-08 supersession entry — swept by hand under the §5d lesson that a ruling does not propagate to figures derived from it |
 
-### Standing rules attached to this table
+**One row in this table survives the supersession.** *Additional volume — 15–25 scans/month* is a volume basis, not a price, and is not derived from one. Pricing Policy V1.0 does not reach it and **standing rule 3 continues to govern**.
+
+**It is not cleared for publication by this section.** It is restated as current authority at **§1b** and governed there, under a restriction against combining it with any per-scan figure. The row above is provenance only. **No figure in §1 is publishable.**
+
+---
+
+## 1a. PRICING AUTHORITY — Pricing Policy V1.0
+
+**Governing document:** USRad Pricing Policy V1.0, ratified **August 8, 2026**. Owner: USRad Finance / Founder.
+
+**The master is held in private corporate and finance records and is not committed to this repository.** It is cited by title, ratification date and provision — never stored, never quoted at length.
+
+### Canonical formula
+
+> **Patient / Employer Price = Contracted Provider Rate + Fixed USRad Modality Fee**
+>
+> where the contracted provider rate is the locality-adjusted Medicare amount × the facility's effective contracted Medicare percentage.
+
+Price is computed **per facility, per modality**. There is no band, no midpoint and no flat rate to publish.
+
+### The modality fee schedule is INTERNAL
+
+Its dollar amounts are held in corporate records and are **deliberately absent from this register.** §4 of the policy bars their disclosure, and this file is the publication authority — a fee amount recorded here would be a fee amount cleared for publication.
+
+Public marketing, **including provider-facing marketing**, may explain the *architecture*: one contracted provider rate plus USRad's fixed fee by modality. It may not state the amounts. Confidential provider contracting is governed separately and is not restricted by this rule.
+
+### FAIL CLOSED — standing rule 24
+
+> No current USRad transaction price, projected USRad cost, or savings calculation derived from USRad pricing may publish without an authoritative contracted provider rate or a separately ratified modeling methodology. **Discovery facilities may display neither price nor savings.**
+
+**No provider is contracted as of this date and no modeling methodology is ratified, so no such figure may publish today.** This is not a transitional caveat — it is the operative state of the register.
+
+Rule 24 does **not** reach documented historical figures, market or hospital comparators sourced independently of USRad pricing, or the AnciCare record in §4.
+
+### What this means for §1
+
+Four of the five figures in the table above are superseded or narrowed. **§1 no longer clears any price for publication.** A future batch reading this section must not treat the surviving volume basis as licence to reconstruct a monthly revenue figure from it — that is exactly what the retired `$3,400–$10,000` row was.
+
+---
+
+## 1b. CURRENT AUTHORITY — SURVIVING VOLUME ASSUMPTION
+
+| Figure | Approved value | Basis |
+|---|---|---|
+| Additional volume | **15–25 scans/month** | Conservative floor. Deliberately underreported. Approved August 3, 2026; survives the August 8, 2026 pricing supersession |
+
+This is a **VOLUME** assumption, not a price. Pricing Policy V1.0 governs pricing representations; this figure makes none, and is not arithmetic on any superseded figure. Its original row remains at §1 for provenance.
+
+> ### ⛔ RESTRICTION — added 2026-08-08
+>
+> This figure **MAY NOT be combined with any per-scan figure to generate a monthly dollar projection** without a separately ratified modeling methodology. That combination is what produced **$3,400–$10,000**, now superseded in §1 (*Realistic monthly add to center*). **Under standing rule 24 no such projection may publish today.**
+
+**Disclosure obligation, carried over from the retired §1 footnote:** wherever this figure appears, copy must state that monthly figures assume 15–25 additional scans per month and that results vary.
+
+---
+
+### Standing rules — govern §1 (historical), §1a and §1b
 
 1. **"Per-scan reimbursement," never "net margin."** USRad cannot know a center's net margin. It knows what it pays.
 2. **Plain MRI only.** No "average across modality mix" language in any artifact. Remaining modality fees are unapproved and belong to Workstream B.
+
+    ⚠️ **Amended 2026-08-08.** The routing in this rule is superseded. Pricing Policy V1.0 §1 defines the full modality fee schedule and §7 assigns its implementation to the EDS engineering system. Remaining modality fees are neither unapproved nor Workstream B's: they are **defined, internal, and not publishable under §4**. Workstream A publishes no modality fee amount for any modality.
 3. **15–25 scans/month is the single volume basis.** No artifact may imply a different one. A figure implying ~100 scans/month violates this rule and must be corrected to the approved basis — not deleted.
 4. **No figure outside this table may be published.** Anything not listed here remains HOLD.
 
-### Required footnote wherever the per-scan range appears
+    ⚠️ **Amended 2026-08-08.** For **pricing** figures this rule is now the weaker of two constraints — appearing in this table is no longer sufficient. Pricing publishes only under §1a and standing rule 24, and as of this date **no** USRad transaction price, projected cost, or USRad-derived savings figure may publish at all. The rule is unchanged for every non-pricing figure in this register.
 
-> Per-scan reimbursement reflects contracted rates for plain MRI and varies by market. Each center sets its own rate, subject to USRad approval, and receives that rate on every assignment. Monthly figures assume 15–25 additional scans per month. Results vary.
+### ~~Required footnote wherever the per-scan range appears~~ — ⛔ RETIRED 2026-08-08
+
+**The footnote has no trigger.** It was required "wherever the per-scan range appears," and no per-scan range publishes under Pricing Policy V1.0. Retired rather than reworded: a footnote qualifying a figure that cannot be published is not a disclosure, it is an invitation to publish the figure.
+
+Retained for the record, not for use:
+
+> ~~Per-scan reimbursement reflects contracted rates for plain MRI and varies by market. Each center sets its own rate, subject to USRad approval, and receives that rate on every assignment. Monthly figures assume 15–25 additional scans per month. Results vary.~~
+
+**One clause survives independently of the retirement.** Wherever the approved volume basis appears, copy must still state that monthly figures assume 15–25 additional scans per month and that results vary. That obligation attaches to the volume figure at §1b, not to the retired price range.
+
+**One sentence in the retired footnote is still true and still governing, and is not a figure:** each center sets its own rate, subject to USRad approval, and receives that rate on every assignment. It is restated at §3 and is unaffected by this retirement.
 
 ### Approved prose — the incremental-volume argument
 
@@ -404,9 +482,9 @@ Approved for accuracy. **Placement is restricted** — see rule below.
 
 | Figure | Where it appears | Why |
 |---|---|---|
-| **$375 net margin per scan** | Provider brief, `ScannerUtilization`, `portal-tour` | USRad cannot know net margin. Correct to $225–$400 per-scan reimbursement |
-| **$37,500/month** | `ScannerUtilization` | Implies ~100 scans/month. Violates standing rule 3. Correct to $3,400–$10,000 |
-| **$5K–$10K monthly add** | Provider brief, `portal-tour` | Superseded by $3,400–$10,000 |
+| **$375 net margin per scan** | Provider brief, `ScannerUtilization`, `portal-tour` | USRad cannot know net margin. ⚠️ **Amended 2026-08-08:** the former correction target — $225–$400 per-scan reimbursement — is itself superseded. **There is no replacement figure. Remove, do not correct** (standing rule 24) |
+| **$37,500/month** | `ScannerUtilization` | Implies ~100 scans/month. Violates standing rule 3. ⚠️ **Amended 2026-08-08:** the former correction target — $3,400–$10,000 — is itself superseded. **Remove, do not correct** |
+| **$5K–$10K monthly add** | Provider brief, `portal-tour` | ⚠️ **Amended 2026-08-08:** previously "superseded by $3,400–$10,000"; that figure is now superseded in turn. **Remove, do not correct** |
 | **$180M / $160M+ provider volume** | Provider brief, `ProvenSuccess:17-29`, `TrustBar:77-80` | Both superseded by Addendum B §1.9 — approved value is **over $150 million**. See §4 |
 | **$18M** AnciCare revenue | — | A projection, not a result. Florida Trend |
 | **92%** satisfaction | removed | No instrument, no N |
