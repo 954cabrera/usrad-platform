@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BrandLogo } from "./brand/BrandLogo";
 
+const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
+
 // Apple-Style Desktop Login Dropdown Component
 function AppleStyleLoginDropdown() {
   const [isOpen, setIsOpen] = useState(false);
@@ -236,13 +238,10 @@ function SearchModal({ isOpen, onClose }) {
 
     try {
       const searchParams = new URLSearchParams({
-        zipCode: searchData.zipCode,
-        procedure: searchData.procedure,
-        state: searchData.state,
-        autoSearch: 'true'
+        zip: searchData.zipCode
       });
 
-      window.location.href = `/search-results?${searchParams.toString()}#results`;
+      window.location.href = `${REMIX_URL}/pbs/search?${searchParams.toString()}`;
     } catch (error) {
       console.error('Search error:', error);
       alert('Search failed. Please try again.');
