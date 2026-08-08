@@ -4,8 +4,8 @@ REF: https://claude.ai/chat/a6ccdfd4-8a07-4ae8-b2b2-d0de7c23d80b
 
 **Rewritten August 6, 2026. Supersedes the August 5 version, which was current at commit 21.**
 
-Branch: `workstream-a-marketing` · Current HEAD: `99ba3d5` · Rollback for whole workstream: `b86e06e`
-Origin: `de20004` — **branch is 1 ahead (4H-c3), unpushed.** `main` at `be2dd14`, unchanged since July 30.
+Branch: `workstream-a-marketing` · Current HEAD: `5432aeb` · Rollback for whole workstream: `b86e06e`
+Origin: `3ea6619` — pushed 2026-08-07, fast-forward `e31744d..3ea6619`. **Branch is 1 ahead (4H-f), unpushed.** `main` at `be2dd14`, unchanged since July 30.
 
 ---
 
@@ -36,13 +36,13 @@ Origin: `de20004` — **branch is 1 ahead (4H-c3), unpushed.** `main` at `be2dd1
 | 20 | Batch 3C-calc | Scan inputs merged across calculator, API, and PDF | `09f5dba` |
 | — | Column rename | `wc_scans` → `total_scans`, all three Supabase projects | no commit — see §6 |
 | 21 | Batch 3C-calc addendum | Calculator subtitle, insert repointed to `total_scans` | `a886ae7` |
-| 22 | Batch 4A | Provider surface survey (read-only) | **TBD** |
-| 23 | Batch 4B | *(fill from git log)* | **TBD** |
-| 24 | Batch 4C | portal-tour lane language | **TBD** |
-| 25–28 | Batch 4D groups B/C/D | Provider surface corrections | **TBD** |
+| 22 | Batch 4A | Provider surface survey (read-only) | **no commit** — read-only by design |
+| 23 | Batch 4B | *(no commit found in `ec80d3f..21bd949`)* | **none found** |
+| 24 | Batch 4C | Patient-as-payer → fully funded assignment framing per PSA | `6ee8c21` |
+| 25–28 | Batch 4D groups B/C/D | Five PSA accreditation bodies, FAQ payer answer sync, unsourced show-rate claims | `9efb4b3` |
 | 29 | Batch 4D-a | Fulfillment trigger on payment promises; unsourced show-rate claims; five-accreditation alignment | `37db11d` |
-| 30 | Batch 4D-b | *(fill from git log)* | **TBD** |
-| 31 | Batch 4D-c | *(fill from git log)* | **TBD** |
+| 30 | Batch 4D-b | Fulfillment trigger on all payment promises in portal tour | `3ce188b` |
+| 31 | Batch 4D-c | Fulfillment trigger on remaining payment promises; service-completion trigger matched to PSA | `9beac26` |
 | 32 | Archive move 4 | Test.astro | `21bd949` |
 | 33 | **Batch 4G** | **Provider hero rewrite** | **`ab04ab1`** |
 | 34 | DOC-1 | Aug 6 decisions recorded; workstream-a folder committed | `b4ea85c` |
@@ -56,7 +56,12 @@ Origin: `de20004` — **branch is 1 ahead (4H-c3), unpushed.** `main` at `be2dd1
 | 42 | DOC-6 | Historical evidence standard adopted; $246M approval reversed and barred; rule 18 amended; tenure split | `3f42843` |
 | 43 | **DOC-7** | **AnciCare source corpus establishes the record — 1,228 facilities substantiated; "over $150 million" and "150,000+ patients" retired; corpus moved out of the repo and gitignored; rules 20–21** | **`de20004`** |
 | 44 | **Batch 4H-c3** | **Provider volume figure replaced with documented payments to imaging centers — 14 instances, 11 files. Label changed with the figure; config key renamed. Closes #25** | **`99ba3d5`** |
-| 45 | DOC-8 | #25 closed; fourth consecutive undercount recorded; duration-claim finding opens #27 | **TBD** |
+| 45 | DOC-8 | #25 closed; fourth consecutive undercount recorded; duration-claim finding opens #27 | `ff68433` |
+| 46 | DOC-8 addendum | Re-sweep rule numbered as standing rule 22; cross-reference corrected | `e31744d` |
+| 47 | **DOC-9** | **Positional references barred in `DECISIONS.md`; both append-only checks required (rule 23)** | **`3ea6619`** |
+| — | Push | Branch pushed to origin, fast-forward `e31744d..3ea6619` | no commit |
+| 48 | **Batch 4H-f** | **`/search-results` and `ProviderSearchSection` archived — both live 400,000+ instances, `Math.random()` distances, and the ten-year partnership claim retired with the route. Four of five inbound links repointed to the Remix search** | **`5432aeb`** |
+| 49 | DOC-10 | 4H-e survey recorded; #22/#24/#27 merged into a page-by-page rewrite; #28–#31, #33 opened; #32 opened and closed | **TBD** |
 
 > **Action:** commits 22–31 were never logged. Fill from `git log --oneline ec80d3f..21bd949` and confirm labels against commit messages before this document is filed. `ec80d3f` is the last pre-4C reference point recorded in session notes.
 
@@ -315,7 +320,9 @@ Recorded here because there is no git history for it and `schema_migrations` is 
 
 22. **Re-sweep, never work from an existing list.** Every deferred item should be re-grepped before it is scoped. *(Unnumbered since inception; numbered Aug 7 after catching four consecutive undercounts — 4H-b, the $246M citations, FoundersSection, and #25.)*
 
-23. **`DECISIONS.md` verification requires BOTH checks.** The deletion check catches removed lines; the fence-aware prefix proof catches mid-block insertion, which removes nothing and passes deletion cleanly. Run both against every historical checkpoint. *(Added Aug 7 — a mid-block insertion passed the deletion check and failed the prefix proof.)*
+23. **`DECISIONS.md` verification requires BOTH checks, run AGAINST FENCED CONTENT ONLY.** The deletion check catches removed lines; the fence-aware prefix proof catches mid-block insertion, which removes nothing and passes deletion cleanly. Run both against every historical checkpoint. *(Added Aug 7 — a mid-block insertion passed the deletion check and failed the prefix proof. **Clarified Aug 7, DOC-10.**)*
+
+    **Scope both checks to the fenced register.** The dated entries live inside ` ``` ` fences and are append-only. The tables below sit *outside* the fences and are, by the file's own statement, "the index, not the authority" — amendable, with precedent at #11. A naive whole-file deletion check fails on every legitimate index update: DOC-10 amended rows #22, #24, #27 and #19, and the whole-file check reported four deletions at all eight checkpoints while zero register lines had been touched.
 
 ---
 
@@ -368,6 +375,7 @@ Fifteen unaudited claims survive in the generated report, plus two structural pr
 | Item | Measurement | Status |
 |---|---|---|
 | **`/provider` horizontal page overflow at 390px** | `document.documentElement.scrollWidth 475 > clientWidth 390`. Also present at 768px. **Measured on the unmodified tree before any 4H-c3 edit**, and unchanged after. The other four provider-surface routes have no h-scroll at either width | Pre-existing. Not a copy issue — something in the page is 85px wider than the viewport. Defect track |
+| **`ProviderSearchSection` displayed hardcoded values as computed results** | "76% Average Savings", "$1,027 Best Deal Found", "1.0s Search Time", "1,500+ center network", and facility distances generated by `Math.random() * 30 + 2` | **MOOT — archived** with `/search-results` in Batch 4H-f (`5432aeb`). Recorded because the pattern, not the file, is the defect: presenting fixed or randomised values in the chrome of a live computation. Check for it wherever a results UI is rebuilt in Remix |
 | **`ProvenSuccess` 390px tile asymmetry** | Tile heights `65 · 50 · 65`. The middle tile carries two elements (value + label) where tiles 1 and 3 carry three (value + label + sub-line: "1994-2002", "Still thriving today"). At 1440px the grid stretches all three to 70 and the asymmetry disappears | Structural, predates the batch — the old `$150M+` / "Value delivered" tile had the identical shortfall. Fix is a sub-line for the middle tile or removing them from the outer two. Defect track |
 
 ### 8d. Deferred by category
@@ -485,23 +493,26 @@ Current order: SpineNav → Hero → TrustBar → Guarantee → ScannerUtilizati
 
 ## 12. REMAINING SEQUENCE
 
-| Batch | Content | Shape |
-|---|---|---|
-| **4H** | Claim consistency across the provider surface | Four sub-batches. 4H-a is read-only and includes the smartmatch confidentiality check |
-| 4F | network-map contracted-provider markers · TrustBar unattributed 1,200+ · two HIPAA survivors · credentialing timeline contradiction | Re-sweep before scoping |
-| 4I | Provider page resequencing | `provider.astro` only. Run after 4H — reordering sections whose claims are about to change means reading twice |
-| 3D | ROI PDF — 15 unaudited claims, page 5 whitespace, cover subheadline | Two-pass; survey first |
-| 2 | Positioning | Re-read before running. Scoped before the employer pivot and before WC deferral was firm — the same staleness that let claims survive earlier sweeps |
-| 4 | Figures + provider brief PDF rebuild | Depends on Workstream B for the AnciCare numbers |
-| 5A / 5B | ROI report inspection and implementation | Much of 5B's original scope was absorbed by 1H-e, 1H-f, and 3C-calc |
-| 6 | Verification | |
+*Replaced 2026-08-07 (DOC-10). The claim-family sequence is superseded: the 4H-e survey showed the patient figure, $246M, tenure, satisfaction and grid structure colliding inside the same components, so the remaining work sequences **by page**, not by claim family.*
+
+| # | Stage | Content | Shape |
+|---|---|---|---|
+| 1 | **4H-f archival** | ✅ **DONE** — `/search-results` and `ProviderSearchSection` archived (`5432aeb`) | Complete |
+| 2 | **Architecture check** | ✅ **DONE** — `generateROIReport.ts` proven unreachable since `39d8c7a`. Closes #32 | Complete. Copy edits to that file stay parked |
+| 3 | **Page-by-page rewrite** | **#22 / #24 / #27 merged.** $246M removal, the 38 retired patient instances, and the tenure cluster resolved together, one page at a time. Order by exposure: `/press-kit` (rebuilt on the documented record) → `/about` → `/` → `/provider` → `/employer` → `/employer/schedule` → `/employer/implementation-guide` → the single-instance routes | Two-pass per page. Survey is done; copy is approved inline before each page is edited |
+| 4 | **Tenure cleanup** | Whatever the page-by-page pass does not reach — 17 instances, five notations, three categories (company life · career span · post-exit attestation) | Re-sweep; rules 17 and 22 |
+| 5 | **robots.txt** | — | |
+| 6 | **Final audit** | Full re-sweep of every barred and retired figure across `src/` and `public/`, plus a build-output sweep | Rule 22 |
+| 7 | **Merge** | | |
+
+**Carried forward, unscheduled against the above:** 4F (network-map markers · TrustBar unattributed 1,200+ · two HIPAA survivors · credentialing timeline) · 4I (provider page resequencing, `provider.astro` only, run after the rewrite) · 3D (ROI PDF, 15 unaudited claims — **blocked**: the file is parked pending the flat-fee pricing rebuild) · 2 (positioning, re-read before running) · 5A/5B (much absorbed by 1H-e, 1H-f, 3C-calc).
 
 ---
 
 ## 13. IMMEDIATE HOUSEKEEPING
 
-- [ ] Fill commit-log SHAs for commits 22–31 from `git log --oneline ec80d3f..21bd949`.
-- [ ] Amend the `Co-Authored-By` trailer off `ab04ab1`. No prior commit carries it; free while unpushed.
+- [x] ~~Fill commit-log SHAs for commits 22–31 from `git log --oneline ec80d3f..21bd949`.~~ **DONE — DOC-10.** 24, 25–28, 30, 31 filled; 22 was read-only by design and 23 has no commit in that range.
+- [ ] ~~Amend the `Co-Authored-By` trailer off `ab04ab1`. No prior commit carries it; free while unpushed.~~ **STRUCK — DOC-10 · FOUNDER.** The premise is stale: `ab04ab1` and the six most recent commits all carry the trailer, and all are pushed. Consistency now runs the other way — keep it. See `DECISIONS.md` 2026-08-07, *"CO-AUTHORED-BY TRAILER — KEEP IT."*
 - [ ] Copy 4G before/after screenshots out of the session scratchpad to durable storage.
 - [ ] Pull a fresh Vercel preview. `usrad-platform-4utvivnde` predates 4D-a (§5c).
 - [ ] Push the branch — 1 commit ahead of origin.

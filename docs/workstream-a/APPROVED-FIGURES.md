@@ -145,6 +145,24 @@ Evidence class: **CP** = contemporaneous primary (created 1994–2002 in the ord
 
 **Compact is permitted in** stat tiles, charts, badges and similarly constrained UI. **Narrative prose uses canonical.** No third form — standing rule 18.
 
+#### ⚠️ A THIRD EVIDENCE CLASS — FA, founder-attested current knowledge
+
+*Added 2026-08-07 · FOUNDER + ADVISOR.*
+
+Classes **CP** and **CT** both describe the 1994–2002 record. This one does not:
+
+| Figure | Canonical prose form | Compact form | Basis | Class |
+|---|---|---|---|---|
+| **Model still in use post-exit** | **CorVel has continued to use the model since acquiring it in May 2002** | **20+ years post-exit** | Founder attestation as to present-day third-party operations. The corpus documents the **sale** (Greenberg Traurig closing letter, 31 Jul 2002); **it says nothing whatever about what the buyer did afterward** | **FA** |
+
+**FA is not a weaker CP — it is a different kind of claim.** CP and CT are verifiable against documents held at `~/Documents/ancicare/business_proofs`. FA is not verifiable there at all, and no amount of corpus work will make it so.
+
+> **ATTRIBUTION REQUIREMENT.** Copy using an FA figure must be attributable or otherwise clearly attested. **It may never be presented as independently documented fact**, and it may not sit inside a run of CP/CT figures in a way that borrows their evidentiary standing.
+
+Six live instances: `AnciCareLegacy:75`, `:87`, `:147` · `CredibilityBar:33` · `schedule:202` · `implementation-guide:322`.
+
+This class also resolves a gap in the tenure split: claims measuring time **elapsed since the 2002 exit** are neither company operating window (a) nor founder career span (b). Do not force them into the two-way test.
+
 #### The eight-year payments series, in full
 
 | Tax year | Cost of goods sold | | Tax year | Cost of goods sold |
@@ -241,6 +259,26 @@ Complete 1994–2002 coverage of these same reports **would still not yield a pa
 | Neither | **remove the stat** |
 
 **Never convert procedures, referrals, orders or files into patients.**
+
+#### ⚠️ NO RELABELING IS PERMITTED — added 2026-08-07 · FOUNDER + ADVISOR
+
+> **The 150,000 number has no basis in ANY unit. Changing its label does not rescue it.**
+
+The Batch 4H-e survey found the figure wearing **eleven unit labels** across its 38 live instances:
+
+**patients · people · claimants · workers · imaging cases · cases managed · imaging services · patient visits · MRIs performed · imaging procedures · appointments** — plus one bare headline noun phrase.
+
+Four are people-units and are barred outright by the limit above. **The other seven do not survive either.** The documented event counts in the corpus are 15,623 · 23,031 · 26,307 · 30,760 (1996–99 "Volume"), 33,855 (2000) and 38,452 (2001) — and this register rules that those three metrics cannot be summed.
+
+Those six years sum to **168,028** — the retired 168,000 / 168,224 / 168,244 family almost exactly. If that is the origin, then `150,000+` was a rounded-down restatement of an impermissible cumulative sum, and Batch 4H-c1 conformed a number that never had a permitted total behind it.
+
+**RULING: each of the 38 instances receives an approved substitute matching what its component actually proves, or is removed.** Relabeling the unit is not an available disposition.
+
+#### ⚠️ The signed-quote carve-out does NOT apply to quantitative figures
+
+`ProvenSuccess.astro:37` is a signed, first-person quote containing "150,000+ patients."
+
+The tenure test — *first person or signed attribution → do not conform* — governs the **duration cluster only**, because the founder's career genuinely exceeds AnciCare's eight years. **There is no equivalent for a retired quantitative figure.** A signed quote saying 150,000+ patients is the same barred people-count as an unsigned tile. Attribution changes who is saying it, not whether the corpus counts people.
 
 #### Annual activity — approved counts, and why they cannot be summed
 

@@ -842,6 +842,192 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              The two checks are NOT redundant: deletion catches
              removal, prefix catches insertion. Both must run. ·
              CC
+2026-08-07 · ⚠️ THE 150,000 NUMBER HAS NO BASIS IN ANY UNIT. The
+             4H-e survey found it wearing ELEVEN unit labels across
+             38 instances: patients · people · claimants · workers ·
+             imaging cases · cases managed · imaging services ·
+             patient visits · MRIs performed · imaging procedures ·
+             appointments, plus one bare headline noun phrase.
+             Four are people-units, barred by §4c. The other seven
+             do not survive either: the documented event counts are
+             15,623 · 23,031 · 26,307 · 30,760 (1996–99 "Volume"),
+             33,855 (2000) and 38,452 (2001), and the register rules
+             these three metrics cannot be summed.
+             Those six years sum to 168,028 — the retired 168,000 /
+             168,224 / 168,244 family almost exactly. If that is the
+             origin, then 150,000+ was a rounded-down restatement of
+             an impermissible cumulative sum, and 4H-c1 conformed a
+             number that never had a permitted total behind it.
+             RULING: NO RELABELING IS PERMITTED on any of the 38.
+             Each instance receives an approved substitute matching
+             the component's purpose, or is removed. · FOUNDER +
+             ADVISOR
+2026-08-07 · ⚠️ THE SIGNED-QUOTE CARVE-OUT DOES NOT APPLY TO
+             QUANTITATIVE FIGURES. ProvenSuccess.astro:37 is a
+             signed first-person quote containing "150,000+
+             patients." The tenure test (first person or signed
+             attribution → do not conform) governs the DURATION
+             cluster only, because the founder's career genuinely
+             exceeds AnciCare's eight years.
+             There is no equivalent for a retired quantitative
+             figure. A signed quote saying 150,000+ patients is the
+             same barred people-count as an unsigned tile.
+             Attribution changes who is saying it, not whether the
+             corpus counts people.
+             Flagged as the single most likely mis-application in
+             pass 2. · FOUNDER
+2026-08-07 · #22, #24 AND #27 MERGE INTO ONE PAGE-BY-PAGE REWRITE.
+             The survey shows the patient figure, $246M, tenure,
+             satisfaction and grid structure colliding in the same
+             components on /about, /press-kit, SocialProofBar and
+             AnciCareStory. Separate claim-by-claim passes would
+             touch the same files three times and ship incoherent
+             intermediate states. Sequence BY PAGE, not by claim
+             family. · FOUNDER + ADVISOR
+2026-08-07 · /search-results ARCHIVED (Batch 4H-f). Carried three
+             already-ruled defects: both live 400,000+ instances
+             (ruled an error 2026-08-06, never removed), fabricated
+             facility distances from Math.random(), and "Search
+             powered by 10 years of imaging center partnerships" —
+             a present-tense USRad claim against a company with no
+             contracted centers. Five inbound links repointed to
+             the Remix search. · FOUNDER + ADVISOR
+2026-08-07 · generateROIReport.ts — COPY EDITS HELD pending an
+             architecture check. CC found zero in-repo importers by
+             a four-way grep, which proves no caller in THIS repo
+             and rules out nothing else: an external worker,
+             deployment hook, adjacent repo, or manual process may
+             call it. Do not edit or retire it until an external
+             caller is ruled in or out. Three patient-claim
+             instances hang on this (:1267, :1279, :1416). · ADVISOR
+2026-08-07 · "20+ YEARS POST-EXIT" — KEEP, as FOUNDER-ATTESTED
+             CURRENT KNOWLEDGE. Six instances assert CorVel still
+             uses the model today. The corpus proves the 2002 sale;
+             it says nothing about what the buyer did afterward.
+             This is a NEW evidence class: founder attestation about
+             present-day third-party operations, distinct from
+             document-verified history. Wording must be attributable
+             or otherwise clearly attested, never presented as
+             independently documented fact.
+             Instances: AnciCareLegacy:75, :87, :147 ·
+             CredibilityBar:33 · schedule:202 ·
+             implementation-guide:322. · FOUNDER + ADVISOR
+2026-08-07 · /press-kit REBUILT, not thinned. After $246M and
+             150,000+ are removed the current page loses most of its
+             substance, and it is the surface written for
+             journalists to quote. Rebuild on the documented record:
+             1,228 contracted facilities in 43 states (April 2002) ·
+             more than $60 million paid to imaging centers,
+             1994–2001 · 1999 revenue $13,159,059 · Inc. 500 #210 ·
+             50%+ below the Florida WC fee schedule · named clients ·
+             the CorVel acquisition, May 2002. · FOUNDER + ADVISOR
+2026-08-07 · TENURE CLUSTER IS 17, NOT 16, AND HAS A FIFTH
+             NOTATION. The register named four variants; the survey
+             found bare "decades" at co-founder-m.astro:309,
+             AboutHero.astro:19, AboutSection.astro:19 and
+             AnciCareLegacy.astro:87. Rule 17 again. · CC
+2026-08-07 · A THIRD DURATION CATEGORY EXISTS. The company-life /
+             career-span split does not cover claims measuring time
+             ELAPSED SINCE THE 2002 EXIT ("20+ years post-exit").
+             Ruled above as founder-attested. Recorded so the
+             two-way split is not applied to them mechanically. · CC
+2026-08-07 · NEW OPEN ITEMS from the 4H-e survey:
+             (a) 4.9★ "Average patient satisfaction",
+                 SocialProofBar.astro:36 — a FOURTH unsourced
+                 satisfaction figure, outside #18's three, in a
+                 notation no percentage sweep catches.
+             (b) 50–70% published where the register requires the
+                 50%+ floor. The 70% bound comes from a document
+                 marked CONFIDENTIAL. Live at AnciCareLegacy:135,
+                 schedule:284, EmployerConsultationForm:338,
+                 DualSolution, about.astro,
+                 generateROIReport:1284. Confidentiality-adjacent,
+                 not copy polish.
+             (c) "90 million Americans" at AnciCareLegacy:87 and
+                 AnciCareStory:280 — same class as the barred
+                 derived headcounts.
+             (d) cost-saving-tips.astro:1100 — "helped over 50,000
+                 patients", a patient count in no register cluster.
+             (e) real-cost-of-mri.astro:907 — "helped thousands of
+                 patients save."
+             (f) contact.astro:709 reuses "fill your empty time
+                 slots" — the volume promise removed from the
+                 provider hero in 4G.
+             (g) 3.2M work days has TWO notations: "3.2M work days"
+                 (:929) and "3.2 million productive work days"
+                 (:971). A sweep for 3.2M sees one of two.
+             · CC
+2026-08-07 · THREE APPROVED CLAIM FAMILIES ARE ENTIRELY UNUSED on
+             the site: Winn-Dixie and CNA as named clients, and the
+             documented procedure counts (33,855 / 38,452). All
+             document-verified, all absent, while a retired figure
+             occupies 38 slots. Relevant to the rewrite — subject to
+             §4c, procedure counts may only be used where throughput
+             is genuinely the subject. · CC
+2026-08-07 · generateROIReport.ts IS UNREACHABLE, and deliberately
+             so. Commit 39d8c7a ("gate employer ROI PDF pending
+             pricing rebuild", Aug 5) deleted the import, the call,
+             the pdfBuffer, and the streaming response, replacing
+             them with gated JSON. No external caller exists:
+             vercel.json is empty, no workflows, no Docker, no
+             scripts, no env vars, and all Remix traffic is
+             outbound. The architecture check is CLOSED — #32
+             resolved. The file is a parked deliverable awaiting
+             the flat-fee pricing rebuild. Standing rule 9 applies
+             whenever it reactivates. · CC
+2026-08-07 · #19's RESOLUTION NEEDS QUALIFYING. It reads "confirmed
+             in a generated PDF." The PDF was real but could not
+             have come through /api/employer-roi-report, which was
+             gated on Aug 5. It was produced by invoking
+             generateROIReport() directly. The phone fix is
+             correct; the surface it verified is not user-
+             reachable. · CC
+2026-08-07 · useGoogleMaps.jsx NEWLY ORPHANED by the
+             /search-results archival. The 4H-f brief asserted it
+             had other consumers; it did not — ProviderSearchSection
+             was its only importer. Same class as FounderCard.astro.
+             Disposition open, harmless where it sits. · CC
+2026-08-07 · STASHES INSPECTED, no action. Two stashes predate this
+             workstream by nine months: stash@{0} on
+             fix-mobile-blur-investigation (3 lines,
+             SearchDropdown.astro, branch alive at its tip) and
+             stash@{1} on feature/ppe-modal-controller-v2 (3 lines,
+             HeroSection.astro, branch DELETED). Both bases diverge
+             from workstream-a-marketing by 360 and 442 commits;
+             both files have since been rewritten, HeroSection by 30
+             commits including the 4G rewrite.
+             ⚠️ stash@{1} is the only ref keeping its base commit
+             13e35a4 alive. Dropping it orphans that commit.
+             Unrelated to Workstream A. Left alone. · CC
+2026-08-07 · /news CARRIES A LIVE 50-STATE CLAIM. A placeholder
+             card reads "USRad Expands Network to 50 States."
+             TRACKER §2 records the 50-state family as having "zero
+             survivors" — it does not. Also on that page: an
+             unfilled <slot name="title" /> template bug. /news uses
+             MainLayout, not CarbonLayout, and its only inbound link
+             is on /news itself. Belongs to the repo hygiene
+             workstream, but the 50-state claim contradicts a
+             closed register item and should be recorded here. · CC
+2026-08-07 · RULE 23 CLARIFIED — both checks run against FENCED
+             CONTENT ONLY. A whole-file deletion check reports
+             missing lines every time the index tables are
+             legitimately amended: this batch moved rows #22, #24,
+             #27 and #19 and the naive check flagged four
+             deletions at every checkpoint. Zero register lines
+             were touched.
+             The dated register lives inside ``` fences and is
+             append-only. The tables below sit OUTSIDE the fences
+             and are, by the file's own statement, "the index, not
+             the authority" — amendable, with precedent at #11.
+             Both the deletion check and the prefix proof are
+             scoped to fenced content. A naive whole-file check
+             fails on every legitimate index update. · CC
+2026-08-07 · CO-AUTHORED-BY TRAILER — KEEP IT. TRACKER §13's
+             housekeeping item ("no prior commit carries it; free
+             while unpushed") is stale: ab04ab1 and the six most
+             recent commits all carry it, and all are pushed.
+             Consistency now runs the other way. Strike the §13
+             checkbox rather than actioning it. · FOUNDER
 ```
 
 ---
@@ -856,10 +1042,20 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 | 16 | 99.8% Satisfaction/Resolution Rate — `about:1210`, `contact:51`, `ContactHero:176` | same class as barred 92% |
 | 17 | `FounderCard.astro` newly orphaned — archive or leave? | low priority |
 | 18 | Satisfaction rate — 92% / 98% / 99.8%, no source for any | three variants |
-| 22 | $246M removal — /about and homepage need section rewrites, not find-and-replace | two-pass batch |
-| 24 | Retire "150,000+ patients" sitewide — 38 instances, per-component decision on what proves what | 4H-c1 reversal |
+| 22 | $246M removal — /about and homepage need section rewrites, not find-and-replace | **MERGED** into the page-by-page rewrite, 2026-08-07. Open |
+| 24 | Retire "150,000+ patients" sitewide — 38 instances, per-component decision on what proves what | **MERGED** into the page-by-page rewrite, 2026-08-07. Open |
 | 26 | Locate the 2002 final or short-year tax return | evidence gap |
-| 27 | Duration claims — sweep "over N years" / "a decade" describing AnciCare's operating life | eight years, 1994–May 2002 |
+| 27 | Duration claims — sweep "over N years" / "a decade" describing AnciCare's operating life | **MERGED** into the page-by-page rewrite, 2026-08-07. Open |
+| 28 | 4.9★ satisfaction — `SocialProofBar:36`, fourth variant | #18 adjacent |
+| 29 | 50–70% published where the 50%+ floor is required — 6 locations | confidentiality |
+| 30 | "90 million Americans" — derived headcount class | 2 locations |
+| 31 | Patient counts outside the 150,000 family — `cost-saving-tips:1100`, `real-cost-of-mri:907` | blog routes |
+| 33 | Does Remix read `procedure`? Verify `PatientHeader` param mapping against the adjacent repo | one line if yes |
+
+> **#22, #24 and #27 are MERGED, not closed.** They are executed together as one
+> page-by-page rewrite — see the dated entry *"#22, #24 AND #27 MERGE INTO ONE
+> PAGE-BY-PAGE REWRITE"*, 2026-08-07. Each remains open until its claims are
+> resolved on every page.
 
 ## Resolved — August 6–7, 2026
 
@@ -881,5 +1077,6 @@ be superseded by a later dated entry — see #11.
 | ~~12~~ | ~~`FoundersSection.astro` — delete component or edit the two claims?~~ | **ARCHIVE, do not edit.** `git mv` to `archived-api/` · FOUNDER |
 | ~~13~~ | ~~"Patient savings" → carrier framing — `SocialProofBar:27`, `AboutSection:15`~~ | **SUPERSEDED 2026-08-07 by the $246M reversal.** The beneficiary question attaches to a figure now barred; removal replaces reframing. `about.astro:49` likewise · CC |
 | ~~14~~ | ~~"Verified savings" — `about.astro:717`~~ | **SUPERSEDED 2026-08-07 by the $246M reversal.** The wording attaches to a figure now barred; removal replaces reframing · CC |
-| ~~19~~ | ~~ROI PDF phone (888) vs resolved (866)~~ | **RESOLVED.** `generateROIReport.ts:1431` reads (866) USRad24, corrected in `e1a6119` and confirmed in a generated PDF · CC |
+| ~~19~~ | ~~ROI PDF phone (888) vs resolved (866)~~ | **RESOLVED.** `generateROIReport.ts:1431` reads (866) USRad24, corrected in `e1a6119` and confirmed in a generated PDF · CC — ⚠️ **QUALIFIED 2026-08-07:** that PDF cannot have come through `/api/employer-roi-report`, gated since `39d8c7a` (Aug 5). It was produced by invoking `generateROIReport()` directly. The fix is correct; the surface it verified is not user-reachable |
 | ~~25~~ | ~~Replace "over $150 million" with "$60M+ paid to imaging centers"~~ | **CLOSED — 4H-c3 (`99ba3d5`), 14 instances / 11 files.** One more than the register predicted. Verified by re-sweep, build exit 0, mirror hash match, screenshots at 1440/390 · FOUNDER |
+| ~~32~~ | ~~`generateROIReport.ts` — external caller or orphaned?~~ | **CLOSED — UNREACHABLE, deliberately.** `39d8c7a` (Aug 5) removed the import, call, buffer and streaming response. No external hook: `vercel.json` empty, no workflows, no Docker, no scripts, no env vars, all Remix traffic outbound. Parked pending the flat-fee pricing rebuild; standing rule 9 applies on reactivation · CC |
