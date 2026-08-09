@@ -4,8 +4,8 @@ REF: https://claude.ai/chat/a6ccdfd4-8a07-4ae8-b2b2-d0de7c23d80b
 
 **Rewritten August 6, 2026. Supersedes the August 5 version, which was current at commit 21.**
 
-Branch: `workstream-a-marketing` · Current HEAD: `8afcf20` · Rollback for whole workstream: `b86e06e`
-Origin: `8afcf20` — pushed 2026-08-09, fast-forward `2ad3c0c..8afcf20`. **Branch and origin are level; nothing unpushed.** `main` at `be2dd14`, unchanged since July 30.
+Branch: `workstream-a-marketing` · Current HEAD: `2defd8b` · Rollback for whole workstream: `b86e06e`
+Origin: `2defd8b` — pushed 2026-08-09, fast-forward `8afcf20..2defd8b`. **Branch and origin are level; nothing unpushed.** `main` at `be2dd14`, unchanged since July 30.
 
 ---
 
@@ -65,7 +65,8 @@ Origin: `8afcf20` — pushed 2026-08-09, fast-forward `2ad3c0c..8afcf20`. **Bran
 | 50 | **DOC-11** | **Pricing Policy V1.0 ingested as governing pricing authority. Three approved pricing figures superseded; three never-approved live figures barred; standing rules 24–25 added; §4 and §5 settled; V1.0 §7 assigned to EDS on a functional boundary; #34–#38 opened** | **`623df8a`** |
 | 51 | **DOC-12** | **August 8 session record. Three employer-funnel positioning decisions; guide revision specification issued to the PDF agent; two read-only surveys recorded (Astro employer funnel, Remix email); `/employer` figure collisions inventoried; client email route resolved as EDS-owned** | **`2ad3c0c`** |
 | 52 | **DOC-13** | **Housekeeping. Employer Implementation Guide approved for production; live-object replacement recorded as an EDS deployment action; rule 25 confirmed still unsatisfied; open-table numbers 20, 21 and 23 recorded as never assigned** | **`8afcf20`** |
-| 53 | **DOC-14** | **Employer Implementation Guide deployed to production by EDS and verified byte-for-byte at the existing public URL; guide component of the EDS handoff closed; rule 25 confirmed not cleared by the deployment; artifact hash recorded as provenance** | **TBD** |
+| 53 | **DOC-14** | **Employer Implementation Guide deployed to production by EDS and verified byte-for-byte at the existing public URL; guide component of the EDS handoff closed; rule 25 confirmed not cleared by the deployment; artifact hash recorded as provenance** | **`2defd8b`** |
+| 54 | **DOC-15** | **Stage 3 employer decisions D1–D13 ruled as one set; Federal Reserve care-avoidance figure entered in `APPROVED-FIGURES` §5; Stage 3 batch sequence approved with batch E as a merge gate; #8, #18, #24, #27, #28, #29, #30 and #37 closed as DECIDED with implementation pending; #42 opened** | **TBD** |
 
 > **Action:** commits 22–31 were never logged. Fill from `git log --oneline ec80d3f..21bd949` and confirm labels against commit messages before this document is filed. `ec80d3f` is the last pre-4C reference point recorded in session notes.
 
@@ -477,11 +478,12 @@ Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settl
 | 34 | Provider-surface disclosure of internal modality fee amounts — conformance sweep under settled §4 | settled decision, open implementation |
 | 35 | `MarketScopeShowcase` discovery price and savings display — removal under settled §5 | settled decision, open implementation |
 | 36 | Sitewide 260-dollar family, 35 instances — deferred to the page-by-page sequence | not this batch |
-| 37 | Employer-surface pricing figures (350, 260 to 475, 420) — resolved in the Stage 3 `/employer` pass | Stage 3 |
+| 37 | Employer-surface pricing figures (350, 260 to 475, 420) — resolved in the Stage 3 `/employer` pass | ✅ **DECIDED — D5**, implementation pending. See §8j |
 | 38 | EDS employer-funnel handoff outstanding — transactional email is delivering retired material until EDS acts. Dependency, not Workstream A work | blocks rule 25 |
 | 39 | `APPROVED-FIGURES.md` §6, the trajectory line under *"What replaces $246M"*, dates the CorVel sale to **2013**; every other entry, including the document-verified §4a acquisition row, dates it to **May 2002** on the Greenberg Traurig closing letter | register defect, not corrected in DOC-12 |
 | 40 | Standing rule 18 does not reach **date forms**. Canonical `founded 3 January 1994` reads as filing language in marketing prose; the register's own §6 positioning line writes `founded 1994`. Ruled for present purposes: **"founded in 1994"** is correct in prose | clarifying amendment to rule 18 |
 | 41 | Line-number citations across the register and the tracker — identify every one, determine which are already stale, and record whether any downstream instruction depends on one. The prospective convention (**cite by section and content**) is settled in `DECISIONS.md` 2026-08-08 and is **not** what this item tracks | audit — convention already settled |
+| 42 | Two classes of bar in §6 — figures barred as **wrong or unsupported** versus claims barred on **contrary evidence**, which have different reopening standards. Marked inline as **BARRED — CONTRARY EVIDENCE** rather than structurally. Revisit whether evidence-based bars need their own §6 subsection **once a second instance exists**. See `DECISIONS.md` 2026-08-09, *"TWO CLASSES OF BAR, DISTINCTION NOTED NOT STRUCTURED"* | structural, deferred on one instance |
 
 **#39, #40 and #41 were opened by DOC-12, not DOC-11.** They continue the numbering here because this is the workstream's single open-item sequence. All three are register-maintenance items surfaced by the Employer Implementation Guide audit — see §8i.
 
@@ -537,6 +539,27 @@ Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settl
 
 **The URL is not taken down.** Per the 2026-08-08 positioning decision, the guide is unlinked from the lead email rather than deleted, and the revised PDF replaces the object at the **same storage URL**, so links already delivered resolve to corrected content.
 
+### 8j. Stage 3 employer decisions D1–D13 — DECIDED, implementation pending
+
+*(Recorded 2026-08-09, DOC-15.)* Thirteen decisions were ruled as one set. See `DECISIONS.md` 2026-08-09, *"STAGE 3 EMPLOYER SURFACE — THIRTEEN DECISIONS CLOSED"* and the D1–D13 entries that follow it.
+
+> ⚠️ **DECIDED IS NOT RESOLVED.** Per D9's ruling-versus-scope distinction, the policy question is closed for each item below; the instances are removed when their surfaces are worked. **Do not mark any of these resolved, and do not expand an apply batch into another surface merely to close one.**
+
+| # | Item | Decision | Status |
+|---|---|---|---|
+| 8 | Market-size section placement | **D11** — `IndustryData` removed as a standalone component, trailing CTA with it | ✅ DECIDED, implementation pending |
+| 18 | Satisfaction rate — 92% / 98% / 99.8% | **D9** — barred sitewide absent documented measurement source and methodology | ✅ DECIDED, implementation pending |
+| 24 | Retire "150,000+ patients" sitewide | **D1** — retired; replacement selective, not mechanical | ✅ DECIDED on this surface, implementation pending |
+| 27 | Duration claims describing AnciCare's operating life | **D2** — 1994 and 1994–2002 kept; "20+ years post-exit" and "30 years" retired | ✅ DECIDED on this surface, implementation pending |
+| 28 | 4.9★ satisfaction, fourth variant | **D9** — same sitewide bar | ✅ DECIDED, implementation pending |
+| 29 | 50–70% published where the 50%+ floor is required | **D4** — closed outright; historical floor form approved, three mis-scoped instances removed | ✅ DECIDED, implementation pending |
+| 30 | "90 million Americans" — derived headcount | **D8** — retired with the other nine market statistics | ✅ DECIDED, implementation pending |
+| 37 | Employer-surface pricing figures (350, 260–475, 420) | **D5** — removed, with the unapproved hospital comparators | ✅ DECIDED, implementation pending |
+
+**Two decisions have no open-item number** because nobody had opened one: **D3** bars the category-founding and "first" claim on evidence, and **D10** removes `EmployerCaseExample` entirely. Both were surfaced by the Stage 3 survey as unadjudicated, not as tracked items.
+
+**D13 is a coordination constraint, not a claim ruling.** The calculator is not closed until EDS removes or replaces the dependent pricing arithmetic and resolves the payload contract. See §12.
+
 ---
 
 ## 9. STRUCTURAL ISSUES NOT CAUSED BY THE PIVOT
@@ -589,6 +612,23 @@ Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settl
 | 7 | **Merge** | | |
 
 **Stage 3 `/employer` is SCOPED AND READY.** *(Recorded 2026-08-08, DOC-12.)* Its survey input is the read-only Astro employer-funnel survey run at HEAD `1e61066`, recorded in `DECISIONS.md` 2026-08-08 — the figure collisions, the `$260` family count, and the client-email route findings are all in the register, so the pass is scoped **from the folder, not from conversation.** Three positioning decisions govern the rewrite: the guide is unlinked from the lead email, the calculator emits no prospective USRad dollar output, and the funnel no longer promises a custom ROI report. The EDS-owned items surfaced by the same survey are **not** in scope — they are #38, a handoff.
+
+### Stage 3 `/employer` — approved batch sequence
+
+*(Recorded 2026-08-09, DOC-15.)* Decisions D1–D13 are closed; see §8j. The apply work runs in this order:
+
+| Batch | Content |
+|---|---|
+| **P2** | ✅ **DONE — DOC-15.** Documentation prerequisite: D1–D13 in the register, the Federal Reserve figure in `APPROVED-FIGURES` §5, this sequence |
+| **A** | Component removals — `EmployerCaseExample` (D10), `IndustryData` (D11) |
+| **B** and **C** | Conformance removals; credibility substitution (D1–D5, D7–D9) |
+| **D** | Problem-statement rebuild (D5, D8) |
+| **E** | Calculator (D6, D13) — **MERGE GATE** |
+| **F**, **G**, **H** | Guide landing page (D12) · `/employer/schedule` · `EmployerConsultationForm` |
+
+> ⛔ **BATCH E IS A MERGE GATE.** Other batches may proceed on the branch while the EDS work is coordinated, but **Stage 3 is NOT closed and NOTHING merges to `main` until E is complete and verified.** Per D13, the calculator closes atomically: Workstream A may prepare the presentation changes, but the batch does not close until EDS removes or replaces the dependent pricing arithmetic and resolves the payload contract. `EmployerConsultationForm` follows the same rule.
+
+**Each batch runs the two-pass workflow** — copy approved inline before any file is opened.
 
 **The `/employer` reconstruction runs in its existing Stage 3 page slot.** *(Recorded 2026-08-08, DOC-11.)* The pricing-figure work opened as #37 — the $350 flat rate, the $260–$475 network range and the $420 per-scan figure — is resolved during the `/employer` pass already sequenced in stage 3 above. **No 4H sub-batch is created for it.** Stage 3's per-page shape is unchanged: survey, then approved copy inline, then edit.
 

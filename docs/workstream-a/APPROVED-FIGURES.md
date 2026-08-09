@@ -223,6 +223,12 @@ Evidence class: **CP** = contemporaneous primary (created 1994–2002 in the ord
 
 **Compact is permitted in** stat tiles, charts, badges and similarly constrained UI. **Narrative prose uses canonical.** No third form — standing rule 18.
 
+> **APPROVED PUBLICATION WORDING — D4, 2026-08-09.** Where the *Savings vs WC fee schedule* figure is published, the form is: **"AnciCare delivered imaging at 50% or more below the Florida workers' compensation fee schedule, 1994–2002."** It is **historical evidence, not a proxy or forecast for USRad performance**, and it may not be repeated mechanically. The 70% upper bound remains barred — it comes from a confidential document.
+
+> **APPROVED DESCRIPTOR — D3, 2026-08-09.** Where AnciCare's business must be described, the approved wording is **"a managed-care imaging carve-out for workers' compensation,"** matching the founder's corrected public wording.
+
+> **DERIVED FORM — D2, 2026-08-09.** **"More than three decades in medical imaging"** is **arithmetically derivable** from the approved *Founding* figure — founded 1994, current year 2026 — and is **not a separate assertion** requiring its own source. It does not create a new approved figure; it restates an approved one. Contrast the barred **"30 years of AnciCare success,"** which expands an eight-year company history.
+
 #### ⚠️ A THIRD EVIDENCE CLASS — FA, founder-attested current knowledge
 
 *Added 2026-08-07 · FOUNDER + ADVISOR.*
@@ -485,12 +491,27 @@ Approved for accuracy. **Placement is restricted** — see rule below.
 |---|---|---|
 | Uninsured, all ages | **28.0 million** (8.3%) | CDC/NHIS, 2025 |
 | Covered workers in self-funded plans | **67%** — 27% at firms of 10–199, 80% at larger firms | KFF EHBS, 2025 |
-| Average single deductible | **$1,886** — $2,631 at firms of 10–199 | KFF EHBS, 2025 |
+| Average single deductible | **$1,886** — $2,631 at firms of 10–199. ⚠️ **D8: use SELECTIVELY** — the single-deductible value **or** the smaller-firm value, whichever serves the argument. **Do not publish both mechanically.** | KFF EHBS, 2025 |
 | HDHP enrollment, privately insured under 65 | **~42%** | CDC, 2023 |
+| Insured adults who went without medical care because they could not afford it | **24%** — among **insured** adults | Federal Reserve SHED, 2025 |
 
 **BARRED — derived headcounts.** "60 million underinsured," "100 million in high-deductible plans," and "74 million HDHP enrollees" are all arithmetic, not published figures. Cite the percentage or the dollar figure instead.
 
 **Trap:** KFF's denominator is **covered workers**, not covered lives. That percentage must never be multiplied against a population. A benefits consultant will catch it.
+
+#### ⛔ RESTRICTION — the Federal Reserve care-avoidance figure is NOT an imaging statistic
+
+*Added 2026-08-09 · FOUNDER + ADVISOR, per D8.*
+
+**Full citation.** Board of Governors of the Federal Reserve System, *Report on the Economic Well-Being of U.S. Households in 2025*, May 2026, "Economic Hardships" section. Survey of Household Economics and Decisionmaking, fielded 17–28 October 2025.
+
+**Approved value: 24%, among INSURED adults.** Companion values, approved but **not preferred** for the employer surface: **26%** among all adults · **45%** among uninsured adults.
+
+⛔ **THIS FIGURE MEASURES MEDICAL CARE GENERALLY, NOT DIAGNOSTIC IMAGING.** The survey instrument does not include imaging as a category. The forms of care measured are dental care, seeing a doctor or specialist, follow-up care, mental health care, and prescription medicine. **The figure must never be positioned so that a reader could interpret it as an imaging-specific statistic** — no "imaging" adjacent to the percentage, and no construction permitting that inference.
+
+**Preferred form for the employer surface: the 24% insured-adult figure**, because it makes the point without implying that lack of insurance is the problem.
+
+**Refresh trigger:** the SHED is fielded each October and published each May.
 
 **Placement rule:** these are market-context figures. They may not appear in the same visual unit as a call to action, or adjacent to any statement about what a center receives. Adjacency implies pipeline.
 
@@ -520,6 +541,7 @@ Approved for accuracy. **Placement is restricted** — see rule below.
 | **"Verified results"** as a label on the provider volume figure | `ProvenSuccess.astro:24` | Nothing establishes what verified means or who verified it. The figure is founder-attested. Remove the label; the figure stays |
 | **99.8%** satisfaction / resolution rate | `about.astro:1210`, `contact.astro:51`, `ContactHero.astro:176` | Same defect as the barred 92% — no instrument, no N. Live on /about and /contact |
 | **1,236%** growth achieved | `about.astro:1148` | No basis, no period stated, no baseline |
+| **Category-founding and "first" claims** — *"created / founded the managed imaging category," "First managed imaging network in the U.S.," "Managed imaging category founders"* | Ten instances across the employer surface, plus two stronger forms | ⛔ **BARRED — CONTRARY EVIDENCE, 2026-08-09** (D3). Research could not establish a defensible priority claim, and surfaced evidence of workers' compensation imaging activity predating or contemporaneous with AnciCare, including **One Call Medical**. Narrowed forms — *"first in Florida," "one of the first"* — were considered and **REJECTED**: they are unverified priority claims that do not solve the evidence problem. **Do not hedge, narrow or qualify.** Approved replacement descriptor at §4a. Reaches the **priority claim only**; other AnciCare figures remain under their own decisions |
 
 ### Added August 7, 2026 — the 400,000-case derivation family
 

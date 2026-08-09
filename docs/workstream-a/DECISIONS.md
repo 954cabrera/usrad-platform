@@ -1423,6 +1423,234 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              that a future session asking whether the live guide
              is the audited one can answer by comparison rather
              than by recollection. · CC
+2026-08-09 · STAGE 3 EMPLOYER SURFACE — THIRTEEN DECISIONS CLOSED.
+             D1 through D13 were ruled together from a decision
+             document covering /employer, /employer/schedule,
+             /employer/implementation-guide and
+             EmployerConsultationForm. They were taken as one set
+             rather than component by component because several
+             rulings govern four or more components across both
+             routes. Recorded individually below. · FOUNDER +
+             ADVISOR
+2026-08-09 · D1 · 150,000 FAMILY RETIRED, REPLACEMENT SELECTIVE.
+             Retire all 150,000+ and 168,000+ people-count
+             variants; do not replace them mechanically. Where
+             historical scale genuinely strengthens the page, use
+             approved documented AnciCare evidence. CredibilityBar
+             retains a scale proof built on the approved 1,228
+             contracted facilities. FinalCTA closes the slot with
+             no substitute statistic. Other instances are
+             evaluated individually. GOVERNING PRINCIPLE: fewer
+             numbers, stronger numbers. Closes #24 on this
+             surface. · FOUNDER
+2026-08-09 · D2 · TENURE AND DURATION. Keep the approved 1994 and
+             1994-2002 forms. Remove "20+ years post-exit" from
+             stat tiles, badges, or any presentation that makes
+             founder attestation look like independently
+             documented evidence; it survives only where the
+             model-longevity point is useful AND founder
+             attribution is explicit in the sentence. Remove
+             IndustryData's "what we've known for 30 years."
+             Retire the generic "30 years of expertise" on
+             /employer/schedule. Prefer objectively anchored
+             language: "Founded AnciCare in 1994" or "more than
+             three decades in medical imaging." The latter is
+             ARITHMETICALLY DERIVABLE from an approved figure —
+             founded 1994, current year 2026 — not a new
+             assertion. Closes #27 on this surface. · FOUNDER
+2026-08-09 · D3 · CATEGORY-FOUNDING CLAIM BARRED ON EVIDENCE.
+             Retire the category-founding and "first" claim
+             wherever it appears; do not hedge, narrow or qualify
+             it. Research could not establish a defensible
+             priority claim and surfaced evidence of workers'
+             compensation imaging activity predating or
+             contemporaneous with AnciCare, including One Call
+             Medical. Narrowed forms — "first in Florida," "one
+             of the first" — were considered and REJECTED as
+             unverified priority claims that do not solve the
+             evidence problem. This is a BAR ON EVIDENCE, not a
+             HOLD on silence: the claim was previously absent
+             from the register in both directions. Ten instances
+             plus two stronger forms ("First managed imaging
+             network in the U.S."). Approved replacement
+             descriptor: "a managed-care imaging carve-out for
+             workers' compensation," matching the founder's
+             corrected public wording. Scope: this reaches the
+             priority claim only; other AnciCare figures remain
+             under their own decisions. · FOUNDER + ADVISOR
+2026-08-09 · D4 · NO PROSPECTIVE USRAD SAVINGS PERCENTAGE. Remove
+             97%, 75-90%, 50-70%, 71%, 85% and every other
+             USRad-derived savings percentage across both routes.
+             Retain the documented AnciCare historical floor ONLY
+             where it genuinely contributes to historical proof:
+             "AnciCare delivered imaging at 50% or more below the
+             Florida workers' compensation fee schedule,
+             1994-2002." Do not repeat it mechanically. It is
+             historical evidence, not a proxy or forecast for
+             USRad performance. Three current 50-70% instances
+             mis-scope it as present-tense USRad employer savings
+             and are removed rather than reframed. Closes #29
+             outright. · FOUNDER
+2026-08-09 · D5 · ALL USRAD PRICES AND UNAPPROVED COMPARATORS
+             REMOVED. USRad prices go as barred 2026-08-08: $350,
+             $260-$475, $420. Unapproved hospital comparators
+             also go: $3,200, $1,800-$3,200, $3,400, $900. DO NOT
+             DELAY STAGE 3 to research or approve a replacement
+             comparator; one may be added later through the normal
+             APPROVED-FIGURES process. Communicate the economic
+             proposition STRUCTURALLY rather than through an
+             unsupported price comparison: transparent pricing
+             known before the appointment, and measurement against
+             actual completed-study economics. Consequence:
+             EmployerHero's value-prop line and CostAnalysis's
+             scenario spine lose both halves and require
+             replacement ARGUMENTS, not replacement figures.
+             Closes #37. · FOUNDER
+2026-08-09 · D6 · CALCULATOR REPOSITIONED AS AN IMAGING SPEND
+             CALCULATOR. The component no longer functions or
+             presents itself as an ROI or savings calculator. It
+             retains the employer-entered inputs and arithmetic
+             derived SOLELY from those inputs. Removed: projected
+             USRad cost, savings dollars, savings percentage,
+             assumed USRad rates, cost-comparison bars, static
+             savings seeds, and all savings-based modal and CTA
+             language. The calculation is followed by the
+             measurement framing ratified for the Employer
+             Implementation Guide, including the principle that
+             USRad would rather show an auditable actual result
+             than publish an unsupported projection. CONTENT AND
+             PRODUCT RULING ONLY — see D13. · FOUNDER
+2026-08-09 · D7 · OUTCOME COMMITMENTS REMOVED, PROCESS PRESERVED.
+             Remove 30 days, 48-hour appointments, 18+ days
+             faster RTW, "Savings begin immediately," and
+             equivalent formulations. Preserve the implementation
+             process using the Phase 1 / Phase 2 / Phase 3
+             structure ratified in the guide, without attaching
+             unsupported durations. CLARIFICATION: process
+             descriptions need not be weakened mechanically with
+             "designed to" or "intended to" where they simply
+             describe how the program works. DECLARATIVE PROCESS
+             LANGUAGE IS ACCEPTABLE. What may not publish is an
+             unsupported timing, access, savings or outcome
+             commitment. · FOUNDER
+2026-08-09 · D8 · A DELIBERATELY SMALL EXTERNAL-EVIDENCE SET.
+             Retire all ten market statistics currently on the
+             surface, including the EBRI 67%, the KFF $6,500, the
+             RAND 12x, the IBI 31%, five unsourced figures, and
+             "90 million Americans" — a derived headcount, the
+             class the register bars. Preserve TWO LEGS, NOT
+             THREE. Leg 1, deductible exposure: the approved KFF
+             EHBS 2025 evidence, used selectively rather than
+             publishing both values mechanically. Leg 2, care
+             avoidance: one new Federal Reserve figure, entered in
+             APPROVED-FIGURES this batch. The approved KFF 67%
+             self-funded figure remains available as market
+             context but is not required. EXPLICITLY NOT
+             MANUFACTURED: a third statistic. There is no equally
+             strong approved evidence for the downstream
+             imaging-cost consequence; that link must be stated as
+             reasoning, not as a cited fact, until such evidence
+             exists. Do not preserve the old three-part section
+             architecture by finding a number to fill the third
+             slot. Closes #30. · FOUNDER
+2026-08-09 · D9 · SATISFACTION-CLAIM FAMILY BARRED SITEWIDE. 92%,
+             98%, 99.8%, 4.9 stars and any equivalent AnciCare or
+             USRad satisfaction metric may not publish unless the
+             underlying measurement source and methodology are
+             documented and approved. Recorded as a SITEWIDE
+             EVIDENTIARY RULING so the issue is not re-adjudicated
+             page by page. Closes #18 and #28 as decisions. THE
+             RULING IS SITEWIDE; THE IMPLEMENTATION IS NOT — do
+             not expand the current apply scope into /about,
+             /contact or SocialProofBar merely to remove those
+             instances. They are removed when their surfaces are
+             worked. · FOUNDER
+2026-08-09 · D10 · EmployerCaseExample REMOVED ENTIRELY. Do not
+             rebuild it as an illustrative or hypothetical case
+             study. USRad has not served an employer from which
+             actual outcomes can be reported, and the component's
+             underlying premise — "documented outcomes from
+             comparable self-insured employers" — cannot be
+             repaired by removing individual figures. D6 now
+             carries the stronger pre-launch argument: establish
+             the baseline, measure completed-study economics,
+             report auditable results. A case-study component may
+             return when a real employer implementation with
+             documented results exists. Removal also closes the
+             last live +73% imaging-utilization instance and a
+             direct standing rule 2 violation — blended averages
+             across modality mix. · FOUNDER
+2026-08-09 · D11 · IndustryData REMOVED AS A STANDALONE
+             COMPONENT. The trailing CTA goes with it, resolving
+             the market-context placement-rule breach. This is NOT
+             a decision to eliminate market evidence: fold the
+             surviving approved external facts into the employer
+             problem narrative where they directly support the
+             argument. Of the component's seven figures, three
+             were stale-vintage and unregistered, three entirely
+             unsourced, and one false on its face. Nothing
+             survived to rebuild around. Closes #8. · FOUNDER
+2026-08-09 · D12 · GUIDE LANDING PAGE REWRITTEN AGAINST THE
+             DEPLOYED DOCUMENT. The deployed 8-page PDF is the
+             SOURCE OF TRUTH for what the landing page may say the
+             guide contains. The page may summarize the guide; it
+             may NOT advertise sections, figures, outcomes,
+             timelines, benchmarks or other material the deployed
+             guide does not contain. Remove the obsolete "We'll
+             send the guide to your inbox immediately" promise and
+             do NOT replace it with another assertion about
+             delivery behavior. Keep the CTA behaviorally neutral.
+             Actual post-submission delivery remains an EDS matter
+             under the employer-funnel handoff. Workstream A may
+             change copy and presentation; it must NOT change
+             /api/employer-guide-download or other EDS-owned
+             behavior. · FOUNDER
+2026-08-09 · D13 · CALCULATOR OWNERSHIP SPLIT, ATOMIC CLOSURE.
+             Ownership remains functional rather than file-based.
+             Workstream A owns the marketing presentation of
+             ROICalculator.astro: copy, markup, presentation,
+             employer-entered inputs, current-spend arithmetic
+             derived solely from those inputs, validation,
+             formatting, animation. EDS owns the two outbound POST
+             contracts, projectedSavings, transactional-email
+             behavior, and any pricing or calculated data
+             transmitted to EDS-owned routes. DO NOT IMPLEMENT D6
+             BY LEAVING THE $350 ASSUMPTION, usradCost, THE
+             SAVINGS ARITHMETIC OR THE projectedSavings
+             TRANSMISSION RUNNING INVISIBLY after their
+             presentation has been removed. Hidden USRad pricing
+             and savings calculations are not part of the approved
+             end state. Workstream A may prepare the presentation
+             changes; the calculator is NOT CLOSED until EDS
+             removes or replaces the dependent pricing arithmetic
+             and resolves the payload contract. One coordinated
+             closure. EmployerConsultationForm follows the same
+             rule. · FOUNDER
+2026-08-09 · STAGE 3 IMPLEMENTATION SEQUENCE APPROVED. P2 (this
+             batch) then A (component removals) then B and C
+             (conformance removals, credibility substitution) then
+             D (problem-statement rebuild) then E (calculator)
+             then F, G and H (guide landing page, /schedule,
+             EmployerConsultationForm). BATCH E IS A MERGE GATE:
+             other batches may proceed on the branch while EDS
+             work is coordinated, but STAGE 3 IS NOT CLOSED AND
+             NOTHING MERGES TO main UNTIL E IS COMPLETE AND
+             VERIFIED. Each batch runs the two-pass workflow with
+             copy approved inline before any file is opened. ·
+             FOUNDER
+2026-08-09 · TWO CLASSES OF BAR, DISTINCTION NOTED NOT
+             STRUCTURED. §6 bars figures because they are wrong
+             or unsupported. D3 bars the category-founding claim
+             because a search was run and produced CONTRARY
+             evidence. The reopening standards differ: an
+             unsupported figure can be un-barred by finding
+             support; a claim contradicted by evidence requires
+             that evidence overturned. Marked inline as BARRED —
+             CONTRARY EVIDENCE rather than by restructuring §6,
+             which is premature on one instance. Logged as open
+             item #42: revisit whether evidence-based bars need
+             their own §6 subsection once a second instance
+             exists. · FOUNDER + CC
 ```
 
 ---
