@@ -1651,6 +1651,17 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              item #42: revisit whether evidence-based bars need
              their own §6 subsection once a second instance
              exists. · FOUNDER + CC
+2026-08-09 · REGISTER CONTRADICTION ON "CASH-PAY" — RECORDED, NOT
+             RESOLVED. DECISIONS.md states the term is barred with
+             "self-pay" as the replacement for the population.
+             APPROVED-FIGURES.md states the earlier proposal to bar
+             it sitewide was overruled on August 6. Two governing
+             documents disagree. Surfaced by the Batch D survey,
+             where the live instance sat inside markup the batch
+             replaces wholesale — so Batch D is not blocked and the
+             question is NOT resolved here. Logged as open item
+             #43. It must be settled before any surface where the
+             term survives is worked. · CC
 ```
 
 ---

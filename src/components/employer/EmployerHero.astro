@@ -20,23 +20,24 @@ const { class: className = "" } = Astro.props;
 
   <div class="relative z-10 max-w-7xl mx-auto">
     <div class="max-w-5xl">
-      <!-- Problem Badge -->
+      <!-- Category Label -->
       <div
-        class="inline-flex items-center gap-2 bg-red-500/20 text-red-300 backdrop-blur-sm rounded-full px-3 sm:px-4 py-1.5 sm:py-2 mb-4 sm:mb-6"
+        class="inline-flex items-center bg-white/10 text-gray-200 backdrop-blur-sm ring-1 ring-white/15 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 mb-4 sm:mb-6"
         data-aos="fade-down"
       >
-        <span class="w-2 h-2 bg-red-400 rounded-full animate-pulse"></span>
-        <span class="text-xs sm:text-sm font-medium"
-          >The Hidden Benefits Crisis</span
+        <span class="text-xs sm:text-sm font-medium tracking-widest"
+          >FOR SELF-FUNDED EMPLOYERS</span
         >
       </div>
 
       <h1
-        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight"
+        class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
         data-aos="fade-up"
       >
-        Your Employees Can't Afford
-        <span class="text-red-400 block">Your Health Plan</span>
+        Your plan pays for imaging.
+        <span class="text-red-400 block">
+          Your employees decide whether to get it.
+        </span>
       </h1>
 
       <p
@@ -44,19 +45,19 @@ const { class: className = "" } = Astro.props;
         data-aos="fade-up"
         data-aos-delay="100"
       >
-        67% skip necessary imaging due to high deductibles. Extended
-        disabilities. Lost productivity. Higher costs for everyone.
+        When a scan feels unaffordable, it gets postponed. The condition
+        doesn't.
       </p>
 
-      <!-- Quick Value Props - Stack on mobile -->
+      <!-- Value Props - Stacked -->
       <div
-        class="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6 text-base sm:text-lg mb-8 sm:mb-10"
+        class="flex flex-col gap-3 sm:gap-4 text-base sm:text-lg mb-8 sm:mb-10 max-w-3xl"
         data-aos="fade-up"
         data-aos-delay="200"
       >
-        <div class="flex items-center gap-2">
+        <div class="flex items-start gap-2">
           <svg
-            class="w-5 h-5 text-green-400 flex-shrink-0"
+            class="w-5 h-5 text-green-400 flex-shrink-0 mt-1"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -65,11 +66,11 @@ const { class: className = "" } = Astro.props;
               d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
               clip-rule="evenodd"></path>
           </svg>
-          <span class="text-gray-200">MRIs from $260 (not $3,200)</span>
+          <span class="text-gray-200">Independent imaging centers</span>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex items-start gap-2">
           <svg
-            class="w-5 h-5 text-green-400 flex-shrink-0"
+            class="w-5 h-5 text-green-400 flex-shrink-0 mt-1"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -78,11 +79,13 @@ const { class: className = "" } = Astro.props;
               d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
               clip-rule="evenodd"></path>
           </svg>
-          <span class="text-gray-200">48-hour appointments</span>
+          <span class="text-gray-200"
+            >One all-inclusive price, known before booking</span
+          >
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex items-start gap-2">
           <svg
-            class="w-5 h-5 text-green-400 flex-shrink-0"
+            class="w-5 h-5 text-green-400 flex-shrink-0 mt-1"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -91,7 +94,10 @@ const { class: className = "" } = Astro.props;
               d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
               clip-rule="evenodd"></path>
           </svg>
-          <span class="text-gray-200">Zero setup cost</span>
+          <span class="text-gray-200"
+            >USRad pays the center directly. Your employee never negotiates a
+            rate.</span
+          >
         </div>
       </div>
 
@@ -102,10 +108,10 @@ const { class: className = "" } = Astro.props;
         data-aos-delay="300"
       >
         <a
-          href="/employer/schedule"
+          href="#roi-calculator"
           class="bg-white hover:bg-gray-100 text-gray-900 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all inline-flex items-center justify-center gap-2 w-full sm:w-auto"
         >
-          Schedule Executive Briefing
+          Calculate Your Imaging Spend
           <svg
             class="w-5 h-5"
             fill="none"
@@ -120,19 +126,12 @@ const { class: className = "" } = Astro.props;
           </svg>
         </a>
         <a
-          href="#roi-calculator"
+          href="/employer/schedule"
           class="bg-transparent hover:bg-white/10 text-white border-2 border-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all w-full sm:w-auto text-center inline-flex items-center justify-center"
         >
-          Calculate Your Savings
+          Schedule Executive Briefing
         </a>
       </div>
-      <p
-        class="text-xs sm:text-sm text-gray-400 mt-3"
-        data-aos="fade-up"
-        data-aos-delay="400"
-      >
-        30-minute briefing with USRad founder Michael Cabrera · No sales team
-      </p>
     </div>
   </div>
 </section>
