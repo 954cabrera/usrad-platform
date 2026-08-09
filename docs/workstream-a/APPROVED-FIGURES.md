@@ -241,6 +241,26 @@ Six live instances: `AnciCareLegacy:75`, `:87`, `:147` · `CredibilityBar:33` ·
 
 This class also resolves a gap in the tenure split: claims measuring time **elapsed since the 2002 exit** are neither company operating window (a) nor founder career span (b). Do not force them into the two-way test.
 
+#### ⚠️ A FOURTH EVIDENCE CLASS — PV, present-day public record
+
+*Added 2026-08-08 · FOUNDER + ADVISOR.*
+
+**CP** and **CT** are dated 1994–2002. **FA** is founder knowledge, not independently verifiable. **PV** is neither: a present-day fact on a public register — an exchange listing, a securities filing — that any reader can verify today, and that carries no dependency on the AnciCare corpus.
+
+**PV covers facts recorded on a public register maintained by a third party** — an exchange listing, a securities filing, a government registry. **It does not cover present-day facts known to the founder but not publicly registered; those remain FA.**
+
+| Figure | Canonical prose form | Compact form | Source · date | Class |
+|---|---|---|---|---|
+| **Acquirer's listing** | **CorVel Corporation (NASDAQ: CRVL)** | — | CorVel Corporation investor disclosure and the Nasdaq listing record; verified 2026-08-08 | **PV** |
+
+**PV requires no attribution** — unlike FA, it is independently checkable. It may sit beside CP/CT figures without borrowing their standing.
+
+> **PERMITTED COMBINED FORM.** The ticker may be published alongside the §4a acquisition entry as: **acquired by CorVel Corporation (NASDAQ: CRVL), May 2002.** This is the acquisition canonical with an approved PV element attached, not a third form of the acquisition claim — standing rule 18 is not engaged. The acquisition's own compact form, **acquired by CorVel**, is unchanged and carries no ticker.
+>
+> **TENSE.** The ticker stands in apposition to the company name. It identifies CorVel; it does **not** assert that CRVL was CorVel's symbol in 2002, for which this register holds no source. Approved as written — do not relitigate the phrasing.
+>
+> ⛔ **NYSE: CVL remains BARRED** — wrong exchange, wrong symbol.
+
 #### The eight-year payments series, in full
 
 | Tax year | Cost of goods sold | | Tax year | Cost of goods sold |

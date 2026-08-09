@@ -4,8 +4,8 @@ REF: https://claude.ai/chat/a6ccdfd4-8a07-4ae8-b2b2-d0de7c23d80b
 
 **Rewritten August 6, 2026. Supersedes the August 5 version, which was current at commit 21.**
 
-Branch: `workstream-a-marketing` · Current HEAD: `5432aeb` · Rollback for whole workstream: `b86e06e`
-Origin: `3ea6619` — pushed 2026-08-07, fast-forward `e31744d..3ea6619`. **Branch is 1 ahead (4H-f), unpushed.** `main` at `be2dd14`, unchanged since July 30.
+Branch: `workstream-a-marketing` · Current HEAD: `623df8a` · Rollback for whole workstream: `b86e06e`
+Origin: `623df8a` — pushed 2026-08-08, fast-forward `1e61066..623df8a`. **Branch and origin are level; nothing unpushed.** `main` at `be2dd14`, unchanged since July 30.
 
 ---
 
@@ -62,7 +62,8 @@ Origin: `3ea6619` — pushed 2026-08-07, fast-forward `e31744d..3ea6619`. **Bran
 | — | Push | Branch pushed to origin, fast-forward `e31744d..3ea6619` | no commit |
 | 48 | **Batch 4H-f** | **`/search-results` and `ProviderSearchSection` archived — both live 400,000+ instances, `Math.random()` distances, and the ten-year partnership claim retired with the route. Four of five inbound links repointed to the Remix search** | **`5432aeb`** |
 | 49 | DOC-10 | 4H-e survey recorded; #22/#24/#27 merged into a page-by-page rewrite; #28–#31, #33 opened; #32 opened and closed | `1e61066` |
-| 50 | **DOC-11** | **Pricing Policy V1.0 ingested as governing pricing authority. Three approved pricing figures superseded; three never-approved live figures barred; standing rules 24–25 added; §4 and §5 settled; V1.0 §7 assigned to EDS on a functional boundary; #34–#38 opened** | **TBD** |
+| 50 | **DOC-11** | **Pricing Policy V1.0 ingested as governing pricing authority. Three approved pricing figures superseded; three never-approved live figures barred; standing rules 24–25 added; §4 and §5 settled; V1.0 §7 assigned to EDS on a functional boundary; #34–#38 opened** | **`623df8a`** |
+| 51 | **DOC-12** | **August 8 session record. Three employer-funnel positioning decisions; guide revision specification issued to the PDF agent; two read-only surveys recorded (Astro employer funnel, Remix email); `/employer` figure collisions inventoried; client email route resolved as EDS-owned** | **TBD** |
 
 > **Action:** commits 22–31 were never logged. Fill from `git log --oneline ec80d3f..21bd949` and confirm labels against commit messages before this document is filed. `ec80d3f` is the last pre-4C reference point recorded in session notes.
 
@@ -472,10 +473,48 @@ Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settl
 | 36 | Sitewide 260-dollar family, 35 instances — deferred to the page-by-page sequence | not this batch |
 | 37 | Employer-surface pricing figures (350, 260 to 475, 420) — resolved in the Stage 3 `/employer` pass | Stage 3 |
 | 38 | EDS employer-funnel handoff outstanding — transactional email is delivering retired material until EDS acts. Dependency, not Workstream A work | blocks rule 25 |
+| 39 | `APPROVED-FIGURES.md` §6, the trajectory line under *"What replaces $246M"*, dates the CorVel sale to **2013**; every other entry, including the document-verified §4a acquisition row, dates it to **May 2002** on the Greenberg Traurig closing letter | register defect, not corrected in DOC-12 |
+| 40 | Standing rule 18 does not reach **date forms**. Canonical `founded 3 January 1994` reads as filing language in marketing prose; the register's own §6 positioning line writes `founded 1994`. Ruled for present purposes: **"founded in 1994"** is correct in prose | clarifying amendment to rule 18 |
+| 41 | Line-number citations across the register and the tracker — identify every one, determine which are already stale, and record whether any downstream instruction depends on one. The prospective convention (**cite by section and content**) is settled in `DECISIONS.md` 2026-08-08 and is **not** what this item tracks | audit — convention already settled |
+
+**#39, #40 and #41 were opened by DOC-12, not DOC-11.** They continue the numbering here because this is the workstream's single open-item sequence. All three are register-maintenance items surfaced by the Employer Implementation Guide audit — see §8i.
+
+**#41 is an audit, not a decision.** The convention it grew out of — **cite by section and content, never by line number** — is already settled in `DECISIONS.md` 2026-08-08, *"LINE-NUMBER CITATIONS IN THE REGISTER GO STALE AND CANNOT BE CORRECTED."* `DECISIONS.md` is append-only, so a line number cited there is frozen at commit while `APPROVED-FIGURES.md` keeps moving beneath it. #41 closes when the sweep is complete, not when a convention is chosen.
 
 **#38 is not Workstream A work.** Per the 2026-08-08 EDS-boundary entry, the boundary is **functional, not repository-based**: `api/pricing/quote.js`, `api/employer-guide-download.ts`, `api/employer-roi-report.ts`, the four admin `medicare-dashboard` routes, `ProviderSearchInterface.jsx` and the patient-dashboard components sit physically in this repo but are EDS-owned. Workstream A documents the defect and the required outcome in a handoff and does not modify these files.
 
-**Housekeeping — DOC-11's own SHA.** Commit-log row 50 (§1) carries `**TBD**`, for the same structural reason DOC-10 did: a commit cannot cite its own hash. **Fill it in the next documentation batch and record the index amendment in `DECISIONS.md`,** as DOC-11 did for DOC-10. Two consecutive batches have now needed this correction — it is a property of the convention, not an oversight.
+**Housekeeping — DOC-11's own SHA.** ✅ **DONE — DOC-12.** Filled as `623df8a`; index amendment recorded in `DECISIONS.md` 2026-08-08. **DOC-12's own row 51 now carries `**TBD**` for the same structural reason** — a commit cannot cite its own hash. Fill it next batch. Three consecutive batches have needed this; it is a property of the convention, not an oversight.
+
+### 8i. Employer Implementation Guide — AUDITED AND CLEARED
+
+**Status: AUDIT COMPLETE. The revised guide passed Workstream A audit; replacement of the live object is pending the founder's authorization.** Recorded 2026-08-08 (DOC-12). See `DECISIONS.md` 2026-08-08, *"GUIDE REVISION SPECIFICATION ISSUED"* and *"AnciCare FACTS IN THE GUIDE SPEC ARE UNVERIFIED"* — both amended in place with the audit result.
+
+**The division of labour is fixed:** Workstream A specifies · the external PDF production agent revises · **Workstream A audits the returned PDF before the live object is replaced.**
+
+| Item | State |
+|---|---|
+| Claim-by-claim revision specification | ✅ written and issued |
+| Five of sixteen pages removed in full — p6 (implementation-never-fails, 168,000+ times), p10 (licensing and accreditation table), p12 (90-day cost reduction), pp13–14 (composite case study) | ✅ confirmed removed; the guide returned at **8 pages** |
+| Case study replaced by **"How Employer Savings Will Be MEASURED"** — method, not result; no projected percentage, no dollar amount | ✅ confirmed in the returned document |
+| Revised PDF returned for Workstream A audit | ✅ returned at **8 pages**; passed after **two correction passes** |
+| Live storage object replaced | ⬜ **CLEARED — pending the founder's authorization** |
+
+**Two authorized deviations from the specification, both improving conformance:**
+
+- **Workers' compensation removed from the document entirely**, rather than corrected in place. Matches the register's framing of WC as history plus future expansion.
+- **Phase 1 / Phase 2 / Phase 3 replacing Week 1 / Week 2–3 / Week 4.** Removes the implied four-week duration.
+
+**Three blockers found at audit and cleared:**
+
+| Blocker | Resolution |
+|---|---|
+| An unapproved ticker | Ticker approved 2026-08-08 as **NASDAQ: CRVL**; the prior form **NYSE: CVL** remains barred — wrong exchange, wrong symbol. See `DECISIONS.md` 2026-08-08, *"NASDAQ: CRVL ADDED TO THE PUBLICATION AUTHORITY."* |
+| A facility count missing its April 2002 anchor | Anchor restored — the canonical form is **1,228 contracted imaging facilities in 43 states, April 2002**. `APPROVED-FIGURES.md` §4a, *"State counts — always publish the count with its date,"* bars presenting any one state count as "the" figure |
+| An unapproved KFF statistic | Removed. *"90% of covered workers … (KFF, 2023)"* is **absent from the register** and two editions stale against the **KFF EHBS 2025** baseline in `APPROVED-FIGURES.md` §5. HOLD under standing rule 4 |
+
+> ✅ **BLOCKER ON SIGN-OFF — CLEARED.** The specification's AnciCare facts — 1,228 facilities / 43 states · more than $60 million paid to imaging centers 1994–2001 · founded 1994 · acquired by CorVel May 2002 — were written from working memory rather than read from `APPROVED-FIGURES.md`. Canonical wording was pulled from §4a and confirmed. **All three defects were in the specification, authored by Workstream A; none originated with the PDF agent.** Standing rule 22 held: re-read, never work from the existing list.
+
+**The URL is not taken down.** Per the 2026-08-08 positioning decision, the guide is unlinked from the lead email rather than deleted, and the revised PDF replaces the object at the **same storage URL**, so links already delivered resolve to corrected content.
 
 ---
 
@@ -527,6 +566,8 @@ Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settl
 | 5 | **robots.txt** | — | |
 | 6 | **Final audit** | Full re-sweep of every barred and retired figure across `src/` and `public/`, plus a build-output sweep | Rule 22 |
 | 7 | **Merge** | | |
+
+**Stage 3 `/employer` is SCOPED AND READY.** *(Recorded 2026-08-08, DOC-12.)* Its survey input is the read-only Astro employer-funnel survey run at HEAD `1e61066`, recorded in `DECISIONS.md` 2026-08-08 — the figure collisions, the `$260` family count, and the client-email route findings are all in the register, so the pass is scoped **from the folder, not from conversation.** Three positioning decisions govern the rewrite: the guide is unlinked from the lead email, the calculator emits no prospective USRad dollar output, and the funnel no longer promises a custom ROI report. The EDS-owned items surfaced by the same survey are **not** in scope — they are #38, a handoff.
 
 **The `/employer` reconstruction runs in its existing Stage 3 page slot.** *(Recorded 2026-08-08, DOC-11.)* The pricing-figure work opened as #37 — the $350 flat rate, the $260–$475 network range and the $420 per-scan figure — is resolved during the `/employer` pass already sequenced in stage 3 above. **No 4H sub-batch is created for it.** Stage 3's per-page shape is unchanged: survey, then approved copy inline, then edit.
 

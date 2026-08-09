@@ -1147,6 +1147,199 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              routing of remaining modality fees to Workstream B is
              corrected: V1.0 defines them and EDS implements them. ·
              FOUNDER + ADVISOR
+2026-08-08 · EMPLOYER FUNNEL — THREE POSITIONING DECISIONS.
+             (a) IMPLEMENTATION GUIDE: unlink from the lead email
+             rather than take the URL down. Stop actively
+             distributing a document carrying retired and
+             unsupported claims, but do not break links already
+             delivered. The revised PDF replaces the object at the
+             SAME storage URL so delivered links resolve to
+             corrected content. (b) CALCULATOR DOLLAR OUTPUT: no
+             prospective USRad dollar output — no projected USRad
+             cost, no savings dollars, no savings percentage, no
+             rate assumption. Arithmetic on figures the visitor
+             entered themselves, such as their own current annual
+             imaging spend, may remain. (c) CUSTOM ROI REPORT: the
+             funnel no longer promises one. Figures plus briefing
+             is the temporary positioning. The report may return
+             after an employer modeling methodology is ratified
+             and the generator is rebuilt against it. · FOUNDER +
+             ADVISOR
+2026-08-08 · GUIDE REVISION SPECIFICATION ISSUED. Workstream A
+             wrote a claim-by-claim revision specification for the
+             Employer Implementation Guide and issued it to the
+             external PDF production agent. Five of sixteen pages
+             removed in full: page 6 (implementation-never-fails,
+             168,000+ times), page 10 (licensing and accreditation
+             table), page 12 (90-day cost reduction), and pages
+             13-14 (composite case study). The case study is
+             replaced by "How Employer Savings Will Be MEASURED" —
+             method, not result, carrying no projected percentage
+             or dollar amount. The revised PDF returns to
+             Workstream A for audit BEFORE the live object is
+             replaced. Workstream A specifies; the PDF agent
+             revises; Workstream A audits. · FOUNDER
+             AUDIT COMPLETE 2026-08-08. The revised guide returned
+             at 8 pages and passed Workstream A audit after two
+             correction passes. Five of sixteen original pages
+             removed. Two authorized deviations from the spec,
+             both improving conformance: workers' compensation
+             removed from the document entirely rather than
+             corrected, matching the register's framing of WC as
+             history plus future expansion; and Phase 1/2/3
+             replacing Week 1 / Week 2-3 / Week 4, removing the
+             implied four-week duration. Three blockers found and
+             cleared: an unapproved ticker, a facility count
+             missing its April 2002 anchor, and an unapproved KFF
+             statistic. CLEARED for replacement of the live object
+             at the same storage URL. · FOUNDER + ADVISOR + CC
+2026-08-08 · AnciCare FACTS IN THE GUIDE SPEC ARE UNVERIFIED
+             AGAINST THE REGISTER. The specification cites 1,228
+             facilities across 43 states, more than $60 million
+             paid to imaging centers 1994-2001, founded 1994, and
+             acquired by CorVel May 2002 — written from working
+             memory, not read from APPROVED-FIGURES. The spec
+             states that the register governs on any disagreement.
+             CONFIRM CANONICAL WORDING AGAINST APPROVED-FIGURES
+             BEFORE THE REVISED PDF IS SIGNED OFF. · CC
+             RESOLVED 2026-08-08. CC pulled canonical wording from
+             APPROVED-FIGURES §4a. Three defects found in the
+             specification itself, all authored by Workstream A,
+             none by the PDF agent: the facility count was cited
+             without its April 2002 anchor, which the register's
+             moving-state-count rule in §4a explicitly bars; the
+             spec instructed substituting a ticker that appears
+             nowhere in the register; and a KFF statistic was
+             carried that is both absent from the register and
+             two editions stale against the §5 KFF EHBS 2025
+             baseline. All three corrected in the final document.
+             The verification requirement worked as intended — it
+             caught specification error, not agent error. · CC
+2026-08-08 · TWO SURVEYS RUN, READ-ONLY, NOT SEPARATELY COMMITTED.
+             An Astro employer-funnel survey at HEAD 1e61066 and a
+             Remix email survey at that repo's main 9ba1ee8. Both
+             are recorded here so Stage 3 can be scoped from the
+             folder rather than from conversation. Key findings
+             below. · CC
+2026-08-08 · /employer CARRIES FOUR SAVINGS PERCENTAGES AND THREE
+             USRAD PER-SCAN FIGURES SIMULTANEOUSLY. Percentages:
+             97% (CostAnalysis), 75-90% (ROIStatPanel,
+             ExecutiveFAQ x2, FinalCTA), 50-70% (AnciCareLegacy,
+             DualSolution), and the calculator's computed 85%.
+             Per-scan: $350 (ROICalculator), $260-$475
+             (ROIStatPanel, ROICalculator), $420
+             (EmployerCaseExample, implementation-guide.astro).
+             Hospital comparators: $3,200 and $1,800-$3,200. The
+             150,000+ family appears in CredibilityBar,
+             ExecutiveFAQ and FinalCTA. CredibilityBar also
+             carries "20+ Years Post-Exit". All resolve in the
+             Stage 3 /employer pass. · CC
+2026-08-08 · THE APPROVED PRICING RANGES WERE NEVER DEPLOYED.
+             Neither $300-$475 nor $225-$400 appears anywhere in
+             src/. The $260 family appears 35 times across blog,
+             education, /about, /contact, /faq and
+             PricingSection. The register approved figures that
+             never shipped while unapproved ones propagated
+             sitewide. Recorded as the reason open item #36 exists.
+             · CC
+2026-08-08 · CLIENT EMAIL ROUTE RESOLVED — IT IS NOT THE ROI TYPE.
+             The prospect email fires from type
+             'employer-guide-download', triggered by Astro at
+             ROICalculator.astro:679, a non-blocking call whose
+             result is discarded. Type 'employer-roi-report' sends
+             an ADMIN notification only. pdfUrl is hardcoded in
+             ASTRO at employer-guide-download.ts:87 and POSTed to
+             Remix, which renders it with no default and no
+             validation. Astro carries a full FALLBACK template at
+             :161-222 that fires whenever Remix errors, with its
+             own hardcoded pdfUrl, its own "Custom ROI Report"
+             subject, and the retired 150,000+ claimants line at
+             :216. Remix's own signature carries 168,000+
+             claimants. The same funnel emits two different
+             retired figures depending on which repo sends.
+             ALL OF THIS IS EDS-OWNED. Workstream A documents; it
+             does not modify. · CC
+2026-08-08 · TRACKER INDEX CORRECTIONS. DOC-11's commit-log row
+             carried TBD; the SHA is 623df8a. The branch-state
+             lines at TRACKER §1 were stale. Both corrected in
+             this batch. Index tables sit outside the fences and
+             are amendable; no register line was altered. · CC
+2026-08-08 · NASDAQ: CRVL ADDED TO THE PUBLICATION AUTHORITY.
+             CorVel Corporation trades as NASDAQ: CRVL,
+             independently verified against CorVel and Nasdaq
+             sources. The register previously carried no exchange
+             symbol, so the ticker was on HOLD under standing rule
+             4. Now approved for publication alongside the
+             canonical acquisition entry. Canonical: acquired by
+             CorVel Corporation (NASDAQ: CRVL), May 2002. The
+             prior barred form NYSE: CVL remains barred — it is
+             the wrong exchange and the wrong symbol. · FOUNDER +
+             ADVISOR
+             TENSE RULED. The combined form gives the ticker in
+             apposition to the company name. That identifies
+             CorVel; it does not assert CRVL was its symbol in
+             2002, which the register holds no source for. The
+             apposition is standard usage and is approved as
+             written. Recorded so a future session does not read
+             the entry as a claim about CorVel's 2002 listing and
+             does not relitigate the phrasing. · FOUNDER +
+             ADVISOR
+2026-08-08 · FOUNDER QUOTE RATIFIED IN REVISED FORM. The quote
+             carried in employer materials is ratified as: "I
+             built this business on relationships, not
+             transactions. When you schedule a consultation, you
+             are getting me directly — not a sales team. I will
+             personally review your situation, walk through how
+             the model would work for your organization, and stay
+             involved through implementation. That is how I have
+             always done business." This supersedes the prior
+             form, which promised to "show you the real savings
+             potential" — a savings promise barred under standing
+             rule 24. · FOUNDER
+2026-08-08 · APPROVED-FIGURES §6 CARRIES A WRONG SALE DATE. The
+             trajectory line under §6 "What replaces $246M" reads
+             "1,200 at the CorVel sale (2013)". Every other entry,
+             including the document-verified acquisition row at
+             :217, dates the sale to May 2002 on the Greenberg
+             Traurig closing letter. That :217 citation is
+             retained deliberately: it sits above the §4a PV
+             insertion point and does not move. The 2013 date is
+             likely contamination from the Radiology Business
+             article the register elsewhere records as referring
+             to a separate venture. This entry was drafted citing
+             §7; the line is in §6, and the section number was
+             corrected before commit. Logged as open item #39;
+             not corrected in this batch. · CC
+2026-08-08 · RULE 18 DOES NOT REACH DATE FORMS — QUESTION LOGGED.
+             APPROVED-FIGURES gives "founded 3 January 1994" as
+             canonical prose and "1994" as compact. Applied
+             literally to marketing prose this produces filing
+             language. The register's own §6 positioning line —
+             "The proof is: founded 1994 · reached 1,200+
+             centers" — writes "founded 1994". Ruled for present
+             purposes: "founded in 1994" is correct in marketing
+             prose. Drafted citing §7; the line is in §6, and the
+             section number was corrected before commit. Logged
+             as open item #40 for a future clarifying amendment
+             to rule 18. · FOUNDER
+2026-08-08 · LINE-NUMBER CITATIONS IN THE REGISTER GO STALE AND
+             CANNOT BE CORRECTED. DECISIONS.md is append-only, so
+             a cited line number is frozen at the moment of
+             commit while APPROVED-FIGURES keeps moving beneath
+             it. DOC-11 cites :51, :52 and :53; those shifted
+             within DOC-11's own batch and are already stale.
+             Future entries cite by SECTION AND CONTENT, not by
+             line number. Prior entries are left as written —
+             correcting them would require superseding entries
+             that would themselves go stale. Logged as open item
+             #41.
+             #41 SCOPE: the prospective rule is settled in this
+             entry and is not what #41 tracks. #41 is the audit —
+             identify every existing line-number citation across
+             the register and the tracker, determine which are
+             already stale, and record whether any downstream
+             instruction depends on one. It closes when that sweep
+             is complete, not when a convention is chosen. · CC
 ```
 
 ---
@@ -1175,6 +1368,9 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 | 36 | Sitewide 260-dollar family, 35 instances — deferred to the page-by-page sequence | not this batch |
 | 37 | Employer-surface pricing figures (350, 260 to 475, 420) — resolved in the Stage 3 `/employer` pass | Stage 3 |
 | 38 | EDS employer-funnel handoff outstanding — transactional email is delivering retired material until EDS acts. Dependency, not Workstream A work | blocks rule 25 |
+| 39 | `APPROVED-FIGURES` §6 dates the CorVel sale to 2013; §4a and the closing letter date it May 2002 | register defect |
+| 40 | Rule 18 does not reach date forms — "founded in 1994" ruled correct for prose | rule 18 amendment |
+| 41 | Audit existing line-number citations for staleness. The cite-by-section convention is already settled | audit only |
 
 > **#22, #24 and #27 are MERGED, not closed.** They are executed together as one
 > page-by-page rewrite — see the dated entry *"#22, #24 AND #27 MERGE INTO ONE
