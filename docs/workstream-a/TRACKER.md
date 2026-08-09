@@ -66,7 +66,8 @@ Origin: `2defd8b` — pushed 2026-08-09, fast-forward `8afcf20..2defd8b`. **Bran
 | 51 | **DOC-12** | **August 8 session record. Three employer-funnel positioning decisions; guide revision specification issued to the PDF agent; two read-only surveys recorded (Astro employer funnel, Remix email); `/employer` figure collisions inventoried; client email route resolved as EDS-owned** | **`2ad3c0c`** |
 | 52 | **DOC-13** | **Housekeeping. Employer Implementation Guide approved for production; live-object replacement recorded as an EDS deployment action; rule 25 confirmed still unsatisfied; open-table numbers 20, 21 and 23 recorded as never assigned** | **`8afcf20`** |
 | 53 | **DOC-14** | **Employer Implementation Guide deployed to production by EDS and verified byte-for-byte at the existing public URL; guide component of the EDS handoff closed; rule 25 confirmed not cleared by the deployment; artifact hash recorded as provenance** | **`2defd8b`** |
-| 54 | **DOC-15** | **Stage 3 employer decisions D1–D13 ruled as one set; Federal Reserve care-avoidance figure entered in `APPROVED-FIGURES` §5; Stage 3 batch sequence approved with batch E as a merge gate; #8, #18, #24, #27, #28, #29, #30 and #37 closed as DECIDED with implementation pending; #42 opened** | **TBD** |
+| 54 | **DOC-15** | **Stage 3 employer decisions D1–D13 ruled as one set; Federal Reserve care-avoidance figure entered in `APPROVED-FIGURES` §5; Stage 3 batch sequence approved with batch E as a merge gate; #8, #18, #24, #27, #28, #29, #30 and #37 closed as DECIDED with implementation pending; #42 opened** | **`6ed4468`** |
+| 55 | **Batch A** | **`EmployerCaseExample` and `IndustryData` removed entire (D10, D11). Fourteen figures left with the first — two more than the decision document inventoried — including the last live §6-barred 73% and a standing rule 2 blended-modality violation. `IndustryData`'s trailing CTA went with it, resolving the §5 placement breach at source. Consumer sweep clean; build exit 0** | **TBD** |
 
 > **Action:** commits 22–31 were never logged. Fill from `git log --oneline ec80d3f..21bd949` and confirm labels against commit messages before this document is filed. `ec80d3f` is the last pre-4C reference point recorded in session notes.
 
@@ -620,13 +621,15 @@ Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settl
 | Batch | Content |
 |---|---|
 | **P2** | ✅ **DONE — DOC-15.** Documentation prerequisite: D1–D13 in the register, the Federal Reserve figure in `APPROVED-FIGURES` §5, this sequence |
-| **A** | Component removals — `EmployerCaseExample` (D10), `IndustryData` (D11) |
-| **B** and **C** | Conformance removals; credibility substitution (D1–D5, D7–D9) |
-| **D** | Problem-statement rebuild (D5, D8) |
+| **A** | ✅ **DONE.** Component removals — `EmployerCaseExample` (D10), `IndustryData` (D11) |
+| **B** and **C** | Conformance removals; credibility substitution (D1–D5, D7–D9) — `Implementation`, `ExecutiveFAQ`, `ROIStatPanel`, `DualSolution`, `FinalCTA`, `CredibilityBar` |
+| **D** | Problem-statement rebuild (D5, D8) — `EmployerHero`, `CostAnalysis` |
 | **E** | Calculator (D6, D13) — **MERGE GATE** |
 | **F**, **G**, **H** | Guide landing page (D12) · `/employer/schedule` · `EmployerConsultationForm` |
 
 > ⛔ **BATCH E IS A MERGE GATE.** Other batches may proceed on the branch while the EDS work is coordinated, but **Stage 3 is NOT closed and NOTHING merges to `main` until E is complete and verified.** Per D13, the calculator closes atomically: Workstream A may prepare the presentation changes, but the batch does not close until EDS removes or replaces the dependent pricing arithmetic and resolves the payload contract. `EmployerConsultationForm` follows the same rule.
+
+**`EmployerHero` and `CostAnalysis` belong to BATCH D, not B/C.** *(Clarified 2026-08-09.)* B/C is **conformance removal from components that survive intact**. Both of these lose their central argument under **D5** and require **replacement copy**, which is batch D's purpose. B/C covers `Implementation`, `ExecutiveFAQ`, `ROIStatPanel`, `DualSolution`, `FinalCTA` and `CredibilityBar`. **The approved sequence is unchanged**; this records which components sit in which batch.
 
 **Each batch runs the two-pass workflow** — copy approved inline before any file is opened.
 
