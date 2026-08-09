@@ -4,8 +4,8 @@ REF: https://claude.ai/chat/a6ccdfd4-8a07-4ae8-b2b2-d0de7c23d80b
 
 **Rewritten August 6, 2026. Supersedes the August 5 version, which was current at commit 21.**
 
-Branch: `workstream-a-marketing` · Current HEAD: `2defd8b` · Rollback for whole workstream: `b86e06e`
-Origin: `2defd8b` — pushed 2026-08-09, fast-forward `8afcf20..2defd8b`. **Branch and origin are level; nothing unpushed.** `main` at `be2dd14`, unchanged since July 30.
+Branch: `workstream-a-marketing` · Current HEAD: `0d396e2` · Rollback for whole workstream: `b86e06e`
+Origin: `0d396e2` — pushed 2026-08-09, fast-forward `2defd8b..0d396e2`. **Branch and origin are level; nothing unpushed.** `main` at `be2dd14`, unchanged since July 30.
 
 ---
 
@@ -68,7 +68,8 @@ Origin: `2defd8b` — pushed 2026-08-09, fast-forward `8afcf20..2defd8b`. **Bran
 | 53 | **DOC-14** | **Employer Implementation Guide deployed to production by EDS and verified byte-for-byte at the existing public URL; guide component of the EDS handoff closed; rule 25 confirmed not cleared by the deployment; artifact hash recorded as provenance** | **`2defd8b`** |
 | 54 | **DOC-15** | **Stage 3 employer decisions D1–D13 ruled as one set; Federal Reserve care-avoidance figure entered in `APPROVED-FIGURES` §5; Stage 3 batch sequence approved with batch E as a merge gate; #8, #18, #24, #27, #28, #29, #30 and #37 closed as DECIDED with implementation pending; #42 opened** | **`6ed4468`** |
 | 55 | **Batch A** | **`EmployerCaseExample` and `IndustryData` removed entire (D10, D11). Fourteen figures left with the first — two more than the decision document inventoried — including the last live §6-barred 73% and a standing rule 2 blended-modality violation. `IndustryData`'s trailing CTA went with it, resolving the §5 placement breach at source. Consumer sweep clean; build exit 0** | **`3a1220f`** |
-| 56 | **Batch D** | **Problem-statement rebuild. `EmployerHero` and `CostAnalysis` rewritten to approved copy (D5, D7, D8). Hero loses the 67%, the $260/$3,200 pairing, and the 48-hour and zero-setup commitments; `CostAnalysis` loses the two-column scenario entire — $600, $3,200, 5.3×, $45,000+, $1,200, 97%, 18+ days, 6-month and the cash-pay disclaimer — replaced by four cited prose beats. #43 opened** | **TBD** |
+| 56 | **Batch D** | **Problem-statement rebuild. `EmployerHero` and `CostAnalysis` rewritten to approved copy (D5, D7, D8). Hero loses the 67%, the $260/$3,200 pairing, and the 48-hour and zero-setup commitments; `CostAnalysis` loses the two-column scenario entire — $600, $3,200, 5.3×, $45,000+, $1,200, 97%, 18+ days, 6-month and the cash-pay disclaimer — replaced by four cited prose beats. #43 opened** | **`0d396e2`** |
+| 57 | **DOC-16** | **Batch B/C rulings B1–B7. B/C rescoped: three of six components do not survive intact. `ROIStatPanel` and `CredibilityBar` removed entire; `ExecutiveFAQ` Q3 removed; `FinalCTA` tile grid, signature and H2 replaced. **Standing rule 26** added — present-tense capability claims require a current operational basis. Accreditation wording deferred; #44 opened** | **TBD** |
 
 > **Action:** commits 22–31 were never logged. Fill from `git log --oneline ec80d3f..21bd949` and confirm labels against commit messages before this document is filed. `ec80d3f` is the last pre-4C reference point recorded in session notes.
 
@@ -331,6 +332,8 @@ Recorded here because there is no git history for it and `schema_migrations` is 
 
     **Scope both checks to the fenced register.** The dated entries live inside ` ``` ` fences and are append-only. The tables below sit *outside* the fences and are, by the file's own statement, "the index, not the authority" — amendable, with precedent at #11. A naive whole-file deletion check fails on every legitimate index update: DOC-10 amended rows #22, #24, #27 and #19, and the whole-file check reported four deletions at all eight checkpoints while zero register lines had been touched.
 
+    ⚠️ **Amended 2026-08-09 (DOC-16).** Rule 23's two checks verify **content, not structure**, and neither detects a consumed fence marker. A deleted fence is not a deleted register line, so the deletion check is blind to it; swallowing trailing content preserves the prefix, so the prefix proof is blind to it. **Two structural checks are therefore part of rule 23, not merely of a batch brief:** (1) the fence count must be **EVEN**, and (2) the **total line delta must EQUAL the fenced-content delta** — a divergence means a fence boundary moved. Discovered when a DOC-16 edit consumed the 2026-08-09 block's closing marker: both rule 23 checks passed at 13 fences while the register silently contained its own index tables.
+
 24. **FAIL CLOSED ON PRICING.** *(Added Aug 8 — DOC-11, Pricing Policy V1.0.)* No current USRad transaction price, projected USRad cost, or savings calculation derived from USRad pricing may publish without an authoritative contracted provider rate or a separately ratified modeling methodology. Discovery facilities may display neither price nor savings. **No provider is contracted as of this date and no modeling methodology is ratified, so no such figure may publish today.**
 
     This rule does not reach documented historical figures, market or hospital comparators sourced independently of USRad pricing, or the AnciCare record.
@@ -338,6 +341,12 @@ Recorded here because there is no git history for it and `schema_migrations` is 
 25. **PRE-LAUNCH GATE.** *(Added Aug 8 — DOC-11.)* Employer demand generation must not begin until the Workstream A employer surface, the Employer Implementation Guide, and the applicable EDS employer-funnel handoffs have been completed and verified.
 
     ⚠️ **Status 2026-08-09 — the GUIDE COMPONENT is closed BY DEPLOYMENT, not merely by approval; the gate is NOT cleared.** The guide is live and verified at the existing public URL. The other two conditions remain open: the `/employer` surface (Stage 3, **surveyed** but not begun, with six blocking open items) and the EDS employer-funnel handoffs (#38 — transactional email, savings payload, production pricing logic). See `DECISIONS.md` 2026-08-09, *"RULE 25 IS NOT CLEARED BY THE GUIDE DEPLOYMENT."*
+
+26. **PRESENT-TENSE CAPABILITY CLAIMS REQUIRE A CURRENT OPERATIONAL BASIS.** *(Added Aug 9 — DOC-16, B5.)* Present-tense claims that USRad **currently possesses, delivers, guarantees, or has demonstrated** a capability require a current operational basis. Where a capability is part of the approved planned model but is **not yet operational**, it may be described only as part of the planned process or program design, **without implying current availability, performance, adoption, or customer experience.**
+
+    This extends rule 7's reach — timing and outcomes — to **capability**, and it catches a defect class numeric sweeps do not: *"24/7 support line,"* *"Real-time quality scoring with member feedback loop,"* *"Same facilities your employees already use,"* *"Legal review included,"* *"Evening and weekend availability at participating centers,"* *"Pilot program option."*
+
+    It also reaches **quantitative claims written in words.** *"Join progressive employers saving millions"* is **removed outright** — it asserts existing employer customers and existing results, and USRad has neither. *"We've done this before, at scale"* survives **only** if explicitly reframed as AnciCare and founder historical experience, never as USRad experience.
 
 ---
 
@@ -487,6 +496,7 @@ Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settl
 | 41 | Line-number citations across the register and the tracker — identify every one, determine which are already stale, and record whether any downstream instruction depends on one. The prospective convention (**cite by section and content**) is settled in `DECISIONS.md` 2026-08-08 and is **not** what this item tracks | audit — convention already settled |
 | 42 | Two classes of bar in §6 — figures barred as **wrong or unsupported** versus claims barred on **contrary evidence**, which have different reopening standards. Marked inline as **BARRED — CONTRARY EVIDENCE** rather than structurally. Revisit whether evidence-based bars need their own §6 subsection **once a second instance exists**. See `DECISIONS.md` 2026-08-09, *"TWO CLASSES OF BAR, DISTINCTION NOTED NOT STRUCTURED"* | structural, deferred on one instance |
 | 43 | **Register contradiction on "cash-pay."** `DECISIONS.md` states the term is barred with *self-pay* as the population replacement; `APPROVED-FIGURES.md` records that the sitewide bar was **overruled on August 6**. Two governing documents disagree. Surfaced by the Batch D survey; the live instance sat inside markup Batch D replaced wholesale, so nothing was blocked and nothing was resolved. **Must be settled before any surface where the term survives is worked.** See `DECISIONS.md` 2026-08-09, *"REGISTER CONTRADICTION ON 'CASH-PAY' — RECORDED, NOT RESOLVED"* | contradiction, blocks surfaces carrying the term |
+| 44 | **Accreditation wording — three live standards across the employer funnel.** `ExecutiveFAQ` states **ACR accreditation is required for all facilities**; a later bullet in the same component describes a broader verification standard covering **licensure, insurance, accreditation and service capability**; the deployed Employer Implementation Guide uses a **third** formulation. ⚠️ **§4 already records that naming ACR alone was wrong** and that the Verified Provider Standard §5.2 recognizes **four** bodies — ACR, IAC, The Joint Commission, RadSite — so the `ExecutiveFAQ` sentence contradicts a decision already taken. ⚠️ **B7 AMENDED, same batch:** because the ACR bullet contradicts a decision already taken rather than differing from one not yet made, **Batch B/C REMOVES it with no replacement** — the D3/D5 rule that a claim with no approved replacement is removed, not substituted. **This does not resolve #44 and authorizes no replacement wording.** No other accreditation formulation may be introduced in B/C. The broader verification bullet and the deployed guide's formulation are untouched and remain this item's subject. See `DECISIONS.md` 2026-08-09, *"B7 · ACCREDITATION WORDING DEFERRED, NOT RESOLVED"* and *"B7 AMENDED — THE ACR BULLET IS REMOVED WITHOUT REPLACEMENT"* | opened by DOC-16; blocks accreditation copy on any surface |
 
 **#39, #40 and #41 were opened by DOC-12, not DOC-11.** They continue the numbering here because this is the workstream's single open-item sequence. All three are register-maintenance items surfaced by the Employer Implementation Guide audit — see §8i.
 
@@ -631,7 +641,18 @@ Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settl
 
 > ⛔ **BATCH E IS A MERGE GATE.** Other batches may proceed on the branch while the EDS work is coordinated, but **Stage 3 is NOT closed and NOTHING merges to `main` until E is complete and verified.** Per D13, the calculator closes atomically: Workstream A may prepare the presentation changes, but the batch does not close until EDS removes or replaces the dependent pricing arithmetic and resolves the payload contract. `EmployerConsultationForm` follows the same rule.
 
-**`EmployerHero` and `CostAnalysis` belong to BATCH D, not B/C.** *(Clarified 2026-08-09.)* B/C is **conformance removal from components that survive intact**. Both of these lose their central argument under **D5** and require **replacement copy**, which is batch D's purpose. B/C covers `Implementation`, `ExecutiveFAQ`, `ROIStatPanel`, `DualSolution`, `FinalCTA` and `CredibilityBar`. **The approved sequence is unchanged**; this records which components sit in which batch.
+**BATCH B/C IS RESCOPED — the "six components surviving intact" premise was wrong.** *(Recorded 2026-08-09, DOC-16.)* The B/C survey showed three of the six do not survive intact, so the batch is **two component removals plus conformance work on four survivors**:
+
+| Shape | Components |
+|---|---|
+| **Removed entire** | `ROIStatPanel` (B1) · `CredibilityBar` (B4) |
+| **Conformance on survivors** | `Implementation` · `DualSolution` · `FinalCTA` (B3 — tile grid, signature and H2) · `ExecutiveFAQ` (B2 — Q3 removed, six accordions become five) |
+
+Standing rule 26 governs the survivors alongside D1–D9.
+
+**Added to B/C scope after the survey:** `ExecutiveFAQ`'s **ACR accreditation bullet is removed with no replacement.** *(DOC-16, B7 as amended.)* The survey found it contradicts §4's existing ruling that naming ACR alone was wrong, so it is not a deferred wording question — a contradicted claim with no approved replacement is removed. **#44 stays open; no replacement accreditation wording is authorized in B/C.**
+
+**`EmployerHero` and `CostAnalysis` belong to BATCH D, not B/C.** *(Clarified 2026-08-09.)* Both lose their central argument under **D5** and require **replacement copy**, which is batch D's purpose. **The approved sequence is unchanged**; this records which components sit in which batch. ⚠️ **This paragraph originally read that "B/C is conformance removal from components that survive intact" and listed all six as such — superseded by the rescope above, DOC-16.** The batch/component split it records is unaffected.
 
 **Each batch runs the two-pass workflow** — copy approved inline before any file is opened.
 

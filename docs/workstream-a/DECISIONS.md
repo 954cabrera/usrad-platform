@@ -1662,6 +1662,149 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              question is NOT resolved here. Logged as open item
              #43. It must be settled before any surface where the
              term survives is worked. · CC
+2026-08-09 · BATCH B/C RESCOPED — THREE OF SIX COMPONENTS DO NOT
+             SURVIVE INTACT. B/C was scoped as conformance removal
+             from components that survive intact. The survey
+             showed that premise false for three of six.
+             ROIStatPanel loses all three stats and both
+             footnotes. ExecutiveFAQ Q3 loses four of five
+             bullets. FinalCTA loses all three tiles. Rulings
+             B1-B7 follow. Recorded before the apply batch runs,
+             per the decisions-first pattern established at
+             DOC-15. · FOUNDER
+2026-08-09 · B1 · ROIStatPanel REMOVED ENTIRELY. Do not rebuild
+             it. All three stats are barred — the $1,800-$3,200
+             hospital comparator and the $260-$475 USRad range
+             under D5, the 75-90% savings figure under D4 — and
+             both footnotes go with them. What would remain is an
+             eyebrow, an empty grid and a pointer to the
+             calculator. A three-stat price comparison with no
+             permissible price and no permissible comparison has
+             no two-stat version. Same reasoning as D11. · FOUNDER
+2026-08-09 · B2 · ExecutiveFAQ Q3 REMOVED ENTIRELY. "What's the
+             actual ROI timeline?" loses four of five bullets to
+             D4 and D7, and its sole survivor is itself an
+             unevidenced outcome claim. The question asks about
+             savings and ROI, which D4 and D6 no longer permit
+             answering. Do not replace it merely to preserve the
+             accordion count. Six accordions become five. ·
+             FOUNDER
+2026-08-09 · B3 · FinalCTA TILE GRID, SIGNATURE AND H2. The
+             three-tile grid — 75-90%, 30 Days, Zero — is removed
+             entire, including its wrapper. The signature sentence
+             is removed under D1 and D3. THE H2 IS ALSO REPLACED:
+             "Your Employees Deserve Affordable Access. / Your
+             Bottom Line Demands It." still implies affordability
+             and financial benefit after D4 and D5 deliberately
+             removed unsupported prospective economics. Approved
+             replacement: "Your Employees Need Better Imaging
+             Access. / Your Plan Needs Better Visibility." The
+             CTA and contact mechanism survive unchanged. ·
+             FOUNDER
+2026-08-09 · B4 · CredibilityBar REMOVED ENTIRELY. A three-stat
+             bar losing two stats. DO NOT CREATE A RULE 18
+             EXCEPTION to preserve a one-stat component. The
+             approved compact form "1,200+ centers" carries no
+             date; the canonical form does not fit a stat tile;
+             rule 18 bars a third form outright. The April 2002
+             anchor is not negotiable, so the scale proof moves to
+             the page narrative, where canonical prose form
+             applies and the date survives naturally. · FOUNDER
+2026-08-09 · B5 · STANDING RULE 26 — PRESENT-TENSE CAPABILITY
+             CLAIMS REQUIRE A CURRENT OPERATIONAL BASIS.
+             Present-tense claims that USRad currently possesses,
+             delivers, guarantees, or has demonstrated a
+             capability require a current operational basis. Where
+             a capability is part of the approved planned model
+             but is not yet operational, it may be described only
+             as part of the planned process or program design,
+             WITHOUT implying current availability, performance,
+             adoption, or customer experience.
+             This extends D7 from timing and outcomes to
+             capability, and it reaches a defect class numeric
+             sweeps do not catch: "24/7 support line," "Real-time
+             quality scoring with member feedback loop," "Same
+             facilities your employees already use," "Legal review
+             included," "Evening and weekend availability at
+             participating centers," "Pilot program option."
+             It also reaches QUANTITATIVE CLAIMS WRITTEN IN WORDS.
+             "Join progressive employers saving millions" is
+             REMOVED OUTRIGHT: it asserts existing employer
+             customers and existing results, and USRad has
+             neither. "We've done this before, at scale" survives
+             ONLY if explicitly reframed as AnciCare and founder
+             historical experience, never as USRad experience. ·
+             FOUNDER
+2026-08-09 · B6 · THE 1,200+ FIGURE IS KEPT; ITS FRAMING IS NOT.
+             ExecutiveFAQ placed an approved historical figure
+             inside a callout answering a question about the
+             reader's own implementation risk, inviting it to be
+             read as capacity USRad has today. The figure is
+             approved and the grammar is past tense; the framing
+             is the defect. Preferred historical form where
+             useful: "Founder track record: By April 2002,
+             AnciCare had contracted 1,228 imaging facilities
+             across 43 states." Do not force that sentence into
+             the FAQ if the surrounding narrative no longer needs
+             it. · FOUNDER
+2026-08-09 · B7 · ACCREDITATION WORDING DEFERRED, NOT RESOLVED.
+             Three accreditation standards are live across the
+             employer funnel: ExecutiveFAQ states ACR
+             accreditation is required for all facilities; a later
+             bullet in the same component describes a broader
+             verification standard covering licensure, insurance,
+             accreditation and service capability; the deployed
+             Employer Implementation Guide uses a third
+             formulation. NOT RESOLVED IN BATCH B/C. No new
+             standard may be introduced during that batch, and the
+             existing sentences are neither rewritten, expanded,
+             softened nor annotated. No open accreditation
+             governance item existed to record this against — the
+             register and tracker carry none — so this entry OPENS
+             one as open item #44. Note for that item: TRACKER §4
+             already records that naming ACR alone was wrong and
+             that the Verified Provider Standard §5.2 recognizes
+             four bodies, so the ExecutiveFAQ sentence contradicts
+             a decision already taken. That is part of what #44
+             must settle, not a reason to act during B/C. ·
+             FOUNDER
+2026-08-09 · RULE 23 AMENDED — IT VERIFIES CONTENT, NOT
+             STRUCTURE. A DOC-16 edit consumed the 2026-08-09
+             block's closing fence marker. For a period the file
+             carried 13 fences, the block never closed, and the
+             index tables sat silently inside the fenced register.
+             BOTH RULE 23 CHECKS PASSED throughout: a fence marker
+             is not a register line, so the deletion check did not
+             see it, and swallowing trailing content preserves the
+             prefix, so the prefix proof did not see it either.
+             What caught it was the even-fence count, which lived
+             in the batch brief rather than in the rule. Two
+             structural checks are now part of rule 23: the fence
+             count must be even, and the total line delta must
+             equal the fenced-content delta. Recorded because the
+             gap outlives this batch — a future brief written
+             without the fence count would have had no defense. ·
+             CC + FOUNDER
+2026-08-09 · B7 AMENDED — THE ACR BULLET IS REMOVED WITHOUT
+             REPLACEMENT. B7 was written believing ExecutiveFAQ's
+             "ACR accreditation required for all facilities" was
+             one of three unsettled formulations. Part 0 found
+             otherwise: TRACKER §4 ALREADY RECORDS THAT NAMING ACR
+             ALONE WAS WRONG, and that the Verified Provider
+             Standard §5.2 recognizes four bodies — ACR, IAC, The
+             Joint Commission, RadSite. The sentence does not
+             differ from a standard not yet chosen; it CONTRADICTS
+             A DECISION ALREADY TAKEN. A contradicted claim is not
+             preserved merely because its replacement wording is
+             unresolved. The guide specification's controlling
+             rule applies: where no approved replacement exists,
+             REMOVE the claim rather than infer a substitute — the
+             same rule followed at D3 and D5. Batch B/C removes
+             the bullet with no replacement. THIS DOES NOT
+             ESTABLISH OR AUTHORIZE REPLACEMENT ACCREDITATION
+             LANGUAGE. #44 remains open, and no other
+             accreditation formulation may be introduced in B/C. ·
+             FOUNDER
 ```
 
 ---
