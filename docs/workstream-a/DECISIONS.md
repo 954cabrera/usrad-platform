@@ -1342,6 +1342,50 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              is complete, not when a convention is chosen. · CC
 ```
 
+## August 9, 2026
+
+```
+2026-08-09 · EMPLOYER IMPLEMENTATION GUIDE APPROVED FOR
+             PRODUCTION. The founder has authorized the audited
+             8-page guide for production deployment at the
+             existing Supabase storage URL. Workstream A treats
+             the guide as editorially and governance-complete.
+             DEPLOYMENT STATUS: approved for production,
+             replacement pending EDS deployment. The replacement
+             of the live storage object is an EDS DEPLOYMENT
+             ACTION, not Workstream A work — recorded explicitly
+             so it cannot fall between the two systems. Workstream
+             A does not perform it and does not treat it as done.
+             This entry records a status change; the prior
+             DOC-12 entry stating that replacement awaited
+             founder authorization is superseded on that point
+             only and is left as committed. · FOUNDER
+2026-08-09 · RULE 25 REMAINS UNSATISFIED. The pre-launch gate has
+             three conditions: the Workstream A employer surface,
+             the Employer Implementation Guide, and the applicable
+             EDS employer-funnel handoffs. Guide approval closes
+             the GUIDE COMPONENT ONLY. The /employer surface is
+             open — it is Stage 3, scoped but not begun. The EDS
+             employer-funnel handoffs are open — they are #38, not
+             yet written. Employer demand generation must not
+             begin. Recorded because "guide approved for
+             production" is easily misread as gate cleared. ·
+             FOUNDER
+2026-08-09 · OPEN-TABLE NUMBERS 20, 21 AND 23 WERE NEVER ASSIGNED.
+             A sweep of all twelve committed checkpoints of
+             DECISIONS.md returns zero occurrences of a row
+             numbered 20, 21 or 23 at any point in the file's
+             history. They are vacant numbers, not lost items.
+             Likely cause: standing rules 20, 21 and 23 were all
+             added 2026-08-07 in one session and the two
+             sequences collided. The gap is intentional going
+             forward. DO NOT interpret it as missing records and
+             DO NOT reuse the numbers — reuse would make the
+             register's history ambiguous at exactly the points
+             where a reader is already looking for something
+             missing. · CC
+```
+
 ---
 
 ## Open decisions awaiting founder

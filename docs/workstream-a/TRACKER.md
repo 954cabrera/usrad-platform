@@ -4,8 +4,8 @@ REF: https://claude.ai/chat/a6ccdfd4-8a07-4ae8-b2b2-d0de7c23d80b
 
 **Rewritten August 6, 2026. Supersedes the August 5 version, which was current at commit 21.**
 
-Branch: `workstream-a-marketing` · Current HEAD: `623df8a` · Rollback for whole workstream: `b86e06e`
-Origin: `623df8a` — pushed 2026-08-08, fast-forward `1e61066..623df8a`. **Branch and origin are level; nothing unpushed.** `main` at `be2dd14`, unchanged since July 30.
+Branch: `workstream-a-marketing` · Current HEAD: `2ad3c0c` · Rollback for whole workstream: `b86e06e`
+Origin: `2ad3c0c` — pushed 2026-08-08, fast-forward `623df8a..2ad3c0c`. **Branch and origin are level; nothing unpushed.** `main` at `be2dd14`, unchanged since July 30.
 
 ---
 
@@ -63,7 +63,8 @@ Origin: `623df8a` — pushed 2026-08-08, fast-forward `1e61066..623df8a`. **Bran
 | 48 | **Batch 4H-f** | **`/search-results` and `ProviderSearchSection` archived — both live 400,000+ instances, `Math.random()` distances, and the ten-year partnership claim retired with the route. Four of five inbound links repointed to the Remix search** | **`5432aeb`** |
 | 49 | DOC-10 | 4H-e survey recorded; #22/#24/#27 merged into a page-by-page rewrite; #28–#31, #33 opened; #32 opened and closed | `1e61066` |
 | 50 | **DOC-11** | **Pricing Policy V1.0 ingested as governing pricing authority. Three approved pricing figures superseded; three never-approved live figures barred; standing rules 24–25 added; §4 and §5 settled; V1.0 §7 assigned to EDS on a functional boundary; #34–#38 opened** | **`623df8a`** |
-| 51 | **DOC-12** | **August 8 session record. Three employer-funnel positioning decisions; guide revision specification issued to the PDF agent; two read-only surveys recorded (Astro employer funnel, Remix email); `/employer` figure collisions inventoried; client email route resolved as EDS-owned** | **TBD** |
+| 51 | **DOC-12** | **August 8 session record. Three employer-funnel positioning decisions; guide revision specification issued to the PDF agent; two read-only surveys recorded (Astro employer funnel, Remix email); `/employer` figure collisions inventoried; client email route resolved as EDS-owned** | **`2ad3c0c`** |
+| 52 | **DOC-13** | **Housekeeping. Employer Implementation Guide approved for production; live-object replacement recorded as an EDS deployment action; rule 25 confirmed still unsatisfied; open-table numbers 20, 21 and 23 recorded as never assigned** | **TBD** |
 
 > **Action:** commits 22–31 were never logged. Fill from `git log --oneline ec80d3f..21bd949` and confirm labels against commit messages before this document is filed. `ec80d3f` is the last pre-4C reference point recorded in session notes.
 
@@ -332,9 +333,13 @@ Recorded here because there is no git history for it and `schema_migrations` is 
 
 25. **PRE-LAUNCH GATE.** *(Added Aug 8 — DOC-11.)* Employer demand generation must not begin until the Workstream A employer surface, the Employer Implementation Guide, and the applicable EDS employer-funnel handoffs have been completed and verified.
 
+    ⚠️ **Status 2026-08-09 — the GUIDE COMPONENT is closed; the gate is NOT cleared.** The other two conditions remain open: the `/employer` surface (Stage 3, scoped but not begun) and the EDS employer-funnel handoffs (#38, not yet written). See `DECISIONS.md` 2026-08-09, *"RULE 25 REMAINS UNSATISFIED."*
+
 ---
 
 ## 8. OPEN ITEMS
+
+> **Numbers 20, 21 and 23 are intentionally vacant.** They were never assigned — a sweep of all twelve committed checkpoints of `DECISIONS.md` finds no open-table row bearing any of them at any point in the file's history. They are not lost items, and the numbers must not be reused. See `DECISIONS.md` 2026-08-09, *"OPEN-TABLE NUMBERS 20, 21 AND 23 WERE NEVER ASSIGNED."*
 
 ### 8a. Batch 3D — the ROI PDF, and it is larger than "remaining WC sections"
 
@@ -485,11 +490,13 @@ Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settl
 
 **Housekeeping — DOC-11's own SHA.** ✅ **DONE — DOC-12.** Filled as `623df8a`; index amendment recorded in `DECISIONS.md` 2026-08-08. **DOC-12's own row 51 now carries `**TBD**` for the same structural reason** — a commit cannot cite its own hash. Fill it next batch. Three consecutive batches have needed this; it is a property of the convention, not an oversight.
 
-### 8i. Employer Implementation Guide — AUDITED AND CLEARED
+### 8i. Employer Implementation Guide — APPROVED FOR PRODUCTION
 
-**Status: AUDIT COMPLETE. The revised guide passed Workstream A audit; replacement of the live object is pending the founder's authorization.** Recorded 2026-08-08 (DOC-12). See `DECISIONS.md` 2026-08-08, *"GUIDE REVISION SPECIFICATION ISSUED"* and *"AnciCare FACTS IN THE GUIDE SPEC ARE UNVERIFIED"* — both amended in place with the audit result.
+**Status: APPROVED FOR PRODUCTION. Replacement of the live Supabase storage object is pending EDS DEPLOYMENT.** Updated 2026-08-09 (DOC-13); supersedes the DOC-12 status, which read *"pending the founder's authorization."* The founder has authorized the audited 8-page guide. Workstream A treats the guide as **editorially and governance-complete**. See `DECISIONS.md` 2026-08-09, *"EMPLOYER IMPLEMENTATION GUIDE APPROVED FOR PRODUCTION."*
 
-**The division of labour is fixed:** Workstream A specifies · the external PDF production agent revises · **Workstream A audits the returned PDF before the live object is replaced.**
+> ⚠️ **THE OBJECT REPLACEMENT IS AN EDS DEPLOYMENT ACTION, NOT WORKSTREAM A WORK.** Recorded explicitly so it cannot fall between the two systems. **Workstream A does not perform it and does not treat it as done.** The guide is approved; the live object is not yet replaced.
+
+**The division of labour is fixed:** Workstream A specifies · the external PDF production agent revises · Workstream A audits the returned PDF · **EDS replaces the live storage object.**
 
 | Item | State |
 |---|---|
@@ -497,7 +504,8 @@ Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settl
 | Five of sixteen pages removed in full — p6 (implementation-never-fails, 168,000+ times), p10 (licensing and accreditation table), p12 (90-day cost reduction), pp13–14 (composite case study) | ✅ confirmed removed; the guide returned at **8 pages** |
 | Case study replaced by **"How Employer Savings Will Be MEASURED"** — method, not result; no projected percentage, no dollar amount | ✅ confirmed in the returned document |
 | Revised PDF returned for Workstream A audit | ✅ returned at **8 pages**; passed after **two correction passes** |
-| Live storage object replaced | ⬜ **CLEARED — pending the founder's authorization** |
+| Founder authorization for production | ✅ **granted 2026-08-09** |
+| Live storage object replaced | ⬜ **pending EDS deployment — not Workstream A work** |
 
 **Two authorized deviations from the specification, both improving conformance:**
 
