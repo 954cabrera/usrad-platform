@@ -4,8 +4,8 @@ REF: https://claude.ai/chat/a6ccdfd4-8a07-4ae8-b2b2-d0de7c23d80b
 
 **Rewritten August 6, 2026. Supersedes the August 5 version, which was current at commit 21.**
 
-Branch: `workstream-a-marketing` · Current HEAD: `2ad3c0c` · Rollback for whole workstream: `b86e06e`
-Origin: `2ad3c0c` — pushed 2026-08-08, fast-forward `623df8a..2ad3c0c`. **Branch and origin are level; nothing unpushed.** `main` at `be2dd14`, unchanged since July 30.
+Branch: `workstream-a-marketing` · Current HEAD: `8afcf20` · Rollback for whole workstream: `b86e06e`
+Origin: `8afcf20` — pushed 2026-08-09, fast-forward `2ad3c0c..8afcf20`. **Branch and origin are level; nothing unpushed.** `main` at `be2dd14`, unchanged since July 30.
 
 ---
 
@@ -64,7 +64,8 @@ Origin: `2ad3c0c` — pushed 2026-08-08, fast-forward `623df8a..2ad3c0c`. **Bran
 | 49 | DOC-10 | 4H-e survey recorded; #22/#24/#27 merged into a page-by-page rewrite; #28–#31, #33 opened; #32 opened and closed | `1e61066` |
 | 50 | **DOC-11** | **Pricing Policy V1.0 ingested as governing pricing authority. Three approved pricing figures superseded; three never-approved live figures barred; standing rules 24–25 added; §4 and §5 settled; V1.0 §7 assigned to EDS on a functional boundary; #34–#38 opened** | **`623df8a`** |
 | 51 | **DOC-12** | **August 8 session record. Three employer-funnel positioning decisions; guide revision specification issued to the PDF agent; two read-only surveys recorded (Astro employer funnel, Remix email); `/employer` figure collisions inventoried; client email route resolved as EDS-owned** | **`2ad3c0c`** |
-| 52 | **DOC-13** | **Housekeeping. Employer Implementation Guide approved for production; live-object replacement recorded as an EDS deployment action; rule 25 confirmed still unsatisfied; open-table numbers 20, 21 and 23 recorded as never assigned** | **TBD** |
+| 52 | **DOC-13** | **Housekeeping. Employer Implementation Guide approved for production; live-object replacement recorded as an EDS deployment action; rule 25 confirmed still unsatisfied; open-table numbers 20, 21 and 23 recorded as never assigned** | **`8afcf20`** |
+| 53 | **DOC-14** | **Employer Implementation Guide deployed to production by EDS and verified byte-for-byte at the existing public URL; guide component of the EDS handoff closed; rule 25 confirmed not cleared by the deployment; artifact hash recorded as provenance** | **TBD** |
 
 > **Action:** commits 22–31 were never logged. Fill from `git log --oneline ec80d3f..21bd949` and confirm labels against commit messages before this document is filed. `ec80d3f` is the last pre-4C reference point recorded in session notes.
 
@@ -333,7 +334,7 @@ Recorded here because there is no git history for it and `schema_migrations` is 
 
 25. **PRE-LAUNCH GATE.** *(Added Aug 8 — DOC-11.)* Employer demand generation must not begin until the Workstream A employer surface, the Employer Implementation Guide, and the applicable EDS employer-funnel handoffs have been completed and verified.
 
-    ⚠️ **Status 2026-08-09 — the GUIDE COMPONENT is closed; the gate is NOT cleared.** The other two conditions remain open: the `/employer` surface (Stage 3, scoped but not begun) and the EDS employer-funnel handoffs (#38, not yet written). See `DECISIONS.md` 2026-08-09, *"RULE 25 REMAINS UNSATISFIED."*
+    ⚠️ **Status 2026-08-09 — the GUIDE COMPONENT is closed BY DEPLOYMENT, not merely by approval; the gate is NOT cleared.** The guide is live and verified at the existing public URL. The other two conditions remain open: the `/employer` surface (Stage 3, **surveyed** but not begun, with six blocking open items) and the EDS employer-funnel handoffs (#38 — transactional email, savings payload, production pricing logic). See `DECISIONS.md` 2026-08-09, *"RULE 25 IS NOT CLEARED BY THE GUIDE DEPLOYMENT."*
 
 ---
 
@@ -490,13 +491,22 @@ Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settl
 
 **Housekeeping — DOC-11's own SHA.** ✅ **DONE — DOC-12.** Filled as `623df8a`; index amendment recorded in `DECISIONS.md` 2026-08-08. **DOC-12's own row 51 now carries `**TBD**` for the same structural reason** — a commit cannot cite its own hash. Fill it next batch. Three consecutive batches have needed this; it is a property of the convention, not an oversight.
 
-### 8i. Employer Implementation Guide — APPROVED FOR PRODUCTION
+### 8i. Employer Implementation Guide — DEPLOYED AND VERIFIED · guide component of the EDS handoff CLOSED
 
-**Status: APPROVED FOR PRODUCTION. Replacement of the live Supabase storage object is pending EDS DEPLOYMENT.** Updated 2026-08-09 (DOC-13); supersedes the DOC-12 status, which read *"pending the founder's authorization."* The founder has authorized the audited 8-page guide. Workstream A treats the guide as **editorially and governance-complete**. See `DECISIONS.md` 2026-08-09, *"EMPLOYER IMPLEMENTATION GUIDE APPROVED FOR PRODUCTION."*
+**Status: DEPLOYED AND VERIFIED. The guide component of the EDS handoff is CLOSED.** Updated 2026-08-09 (DOC-14); supersedes the DOC-13 status, which read *"approved for production, replacement pending EDS deployment."* EDS deployed the Workstream A-approved 8-page guide in place, and the production artifact was verified byte-for-byte against the approved PDF. **The public URL was preserved**, so links already delivered resolve to the corrected document. See `DECISIONS.md` 2026-08-09, *"EMPLOYER IMPLEMENTATION GUIDE DEPLOYED TO PRODUCTION."*
 
-> ⚠️ **THE OBJECT REPLACEMENT IS AN EDS DEPLOYMENT ACTION, NOT WORKSTREAM A WORK.** Recorded explicitly so it cannot fall between the two systems. **Workstream A does not perform it and does not treat it as done.** The guide is approved; the live object is not yet replaced.
+| Verified artifact | Value |
+|---|---|
+| SHA-256 | `a33f10c13f44ff439a89ad370bb446fd8931e3d7a7c4dbfc9191c879f4e496ef` |
+| Size | 61,390 bytes |
+| Pages | 8 |
+| Public URL | preserved — replaced in place, not deleted and recreated |
 
-**The division of labour is fixed:** Workstream A specifies · the external PDF production agent revises · Workstream A audits the returned PDF · **EDS replaces the live storage object.**
+> **The hash is ARTIFACT PROVENANCE, not a publication figure.** It is deliberately **not** in `APPROVED-FIGURES.md`, which governs figures cleared to appear in copy. It exists so a future session can answer *"is the live guide the audited one?"* by comparison rather than recollection.
+
+> ⚠️ **THE REMAINING SECTIONS OF THE EDS HANDOFF ARE OPEN.** No application code was changed and no employer-funnel remediation was performed as part of this deployment. #38 stands.
+
+**The division of labour is closed out:** Workstream A specified · the external PDF production agent revised · Workstream A audited the returned PDF · **EDS deployed the live storage object.**
 
 | Item | State |
 |---|---|
@@ -505,7 +515,10 @@ Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settl
 | Case study replaced by **"How Employer Savings Will Be MEASURED"** — method, not result; no projected percentage, no dollar amount | ✅ confirmed in the returned document |
 | Revised PDF returned for Workstream A audit | ✅ returned at **8 pages**; passed after **two correction passes** |
 | Founder authorization for production | ✅ **granted 2026-08-09** |
-| Live storage object replaced | ⬜ **pending EDS deployment — not Workstream A work** |
+| Live storage object replaced | ✅ **deployed in place by EDS 2026-08-09; public URL preserved** |
+| Production artifact verified byte-for-byte against the approved PDF | ✅ **SHA-256 match, 61,390 bytes, 8 pages** |
+| Guide component of the EDS handoff | ✅ **CLOSED** |
+| Remaining sections of the EDS handoff | ⬜ **OPEN — #38** |
 
 **Two authorized deviations from the specification, both improving conformance:**
 

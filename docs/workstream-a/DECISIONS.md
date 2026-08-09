@@ -1384,6 +1384,45 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              register's history ambiguous at exactly the points
              where a reader is already looking for something
              missing. · CC
+2026-08-09 · EMPLOYER IMPLEMENTATION GUIDE DEPLOYED TO PRODUCTION.
+             The Workstream A-approved 8-page guide was deployed
+             by EDS in place at the existing production object and
+             public URL. The production artifact was verified
+             byte-for-byte against the approved PDF, SHA-256
+             a33f10c13f44ff439a89ad370bb446fd8931e3d7a7c4dbfc9191
+             c879f4e496ef, 61,390 bytes, 8 pages. The object was
+             replaced in place rather than deleted and recreated,
+             so links already delivered to recipients resolve to
+             the corrected document — which was the purpose of the
+             same-URL requirement. The 16-page original is
+             preserved by EDS as a rollback artifact. No
+             application code was changed and no employer-funnel
+             remediation was performed as part of the deployment.
+             THE GUIDE COMPONENT OF THE EDS HANDOFF IS CLOSED. The
+             remaining sections of that handoff are open. · FOUNDER
+             + EDS
+2026-08-09 · RULE 25 IS NOT CLEARED BY THE GUIDE DEPLOYMENT. The
+             pre-launch gate has three conditions. The Employer
+             Implementation Guide component is now closed. The
+             Workstream A /employer surface is OPEN — Stage 3,
+             surveyed but not begun, with six blocking open items
+             and a body of figures the register has never been
+             asked to rule on. The applicable EDS employer-funnel
+             handoffs are OPEN — the transactional email, the
+             savings payload, and production pricing logic.
+             EMPLOYER DEMAND GENERATION MUST NOT BEGIN. Recorded
+             because "guide deployed to production" is the phrase
+             most likely to be misread as gate cleared. · FOUNDER
+2026-08-09 · ARTIFACT HASH IS NOW OF RECORD. No approval hash
+             predated this deployment; the register carried no
+             SHA-256 for any published artifact. It does now, for
+             the guide. This is ARTIFACT PROVENANCE, not a
+             publication figure — it is deliberately not entered
+             in APPROVED-FIGURES, which is the authority for
+             figures cleared to appear in copy. Its purpose is
+             that a future session asking whether the live guide
+             is the audited one can answer by comparison rather
+             than by recollection. · CC
 ```
 
 ---
