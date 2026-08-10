@@ -210,13 +210,7 @@ const { class: className = "" } = Astro.props;
             onclick="openROIModal()"
             class="w-full mt-6 bg-white text-gray-900 px-4 sm:px-6 py-3 sm:py-4 rounded-xl font-bold hover:bg-gray-100 transition-all duration-200 text-base flex items-center justify-center gap-2 hover:scale-[1.01] hover:shadow-lg"
           >
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fill-rule="evenodd"
-                d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
-                clip-rule="evenodd"></path>
-            </svg>
-            Download Your Custom ROI Report
+            Contact USRad
           </button>
         </div>
       </div>
@@ -289,13 +283,9 @@ const { class: className = "" } = Astro.props;
             clip-rule="evenodd"></path>
         </svg>
       </div>
-      <h3 class="text-xl font-bold text-gray-900 mb-2">
-        Thanks — we have your figures.
+      <h3 class="text-xl font-bold text-gray-900 mb-6">
+        Thank you.
       </h3>
-      <p class="text-gray-600 text-sm mb-6">
-        Michael will review them personally and follow up. We've also emailed
-        you the Employer Implementation Guide.
-      </p>
       <a
         href="/employer/schedule"
         class="inline-flex items-center gap-2 bg-[#003087] hover:bg-[#002070] text-white px-6 py-3 rounded-xl font-semibold text-sm transition-all"
@@ -333,13 +323,9 @@ const { class: className = "" } = Astro.props;
         </p>
       </div>
 
-      <h2 class="text-xl font-bold text-gray-900 mb-1">
-        See Your Imaging Savings
+      <h2 class="text-xl font-bold text-gray-900 mb-5">
+        Contact USRad
       </h2>
-      <p class="text-sm text-gray-500 mb-5">
-        Enter your figures and Michael will review your savings personally.
-        We'll also email you the Employer Implementation Guide.
-      </p>
 
       <form id="roi-form" class="space-y-4" novalidate>
         <input type="hidden" id="roi-form-start" name="form_start" value="" />
@@ -404,7 +390,7 @@ const { class: className = "" } = Astro.props;
           id="roi-submit-btn"
           class="w-full bg-[#003087] hover:bg-[#002070] text-white px-6 py-4 rounded-xl font-bold text-base transition-all flex items-center justify-center gap-2"
         >
-          <span id="roi-btn-text">Send My Figures</span>
+          <span id="roi-btn-text">Submit</span>
           <svg
             id="roi-btn-arrow"
             class="w-5 h-5"
@@ -674,8 +660,8 @@ const { class: className = "" } = Astro.props;
     btnSpinner.classList.remove("hidden");
 
     try {
-      // Fire guide download in background — PDF is the primary deliverable
-      // and must not be blocked by guide download success/failure
+      // Fire guide download in background — non-blocking; its
+      // success or failure must not affect the submission outcome
       fetch("/api/employer-guide-download", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -693,7 +679,8 @@ const { class: className = "" } = Astro.props;
         }),
       }).catch(() => {}); // non-blocking — failure is silent
 
-      // Record the lead with the figures the visitor entered
+      // Record the lead with the figures the visitor entered. The response is
+      // checked only for submission success — this route produces no document.
       const totalEmployees = parseInput("total-employees");
       const totalScans = parseInput("total-scans");
       const avgCost = parseInput("avg-cost");
@@ -719,11 +706,12 @@ const { class: className = "" } = Astro.props;
           data.error || "Something went wrong. Please try again.";
         errorEl.classList.remove("hidden");
         submitBtn.disabled = false;
-        btnText.textContent = "Send My Figures";
+        btnText.textContent = "Submit";
         btnArrow.classList.remove("hidden");
         btnSpinner.classList.add("hidden");
         return;
       }
+
 
       // Show success
       document.getElementById("roi-modal-form")?.classList.add("hidden");
@@ -733,7 +721,7 @@ const { class: className = "" } = Astro.props;
         err.message || "Something went wrong. Please try again.";
       errorEl.classList.remove("hidden");
       submitBtn.disabled = false;
-      btnText.textContent = "Send My Figures";
+      btnText.textContent = "Submit";
       btnArrow.classList.remove("hidden");
       btnSpinner.classList.add("hidden");
     }

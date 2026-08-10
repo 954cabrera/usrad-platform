@@ -1,5 +1,7 @@
 // src/pages/api/employer-roi-report.ts
-// PDF generation is gated pending the flat-fee-per-modality pricing rebuild.
+// PDF generation and delivery are removed; this route no longer produces a document.
+// Workstream A: the route stays parked pending the flat-fee-per-modality pricing
+// rebuild — see open item #32 and standing rule 9 on reactivation.
 // This file is intentionally minimal: validate → record lead → notify.
 
 import type { APIRoute } from "astro";
@@ -125,9 +127,9 @@ export const POST: APIRoute = async ({ request }) => {
         console.error("[ROI] Admin notification fetch failed:", err);
       }
     }
-    // ── PDF generation is gated pending the pricing rebuild ──
+
     return new Response(
-      JSON.stringify({ ok: true, gated: true }),
+      JSON.stringify({ success: true }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
 
