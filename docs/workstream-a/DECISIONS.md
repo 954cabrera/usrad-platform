@@ -2365,6 +2365,118 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              gate went stale before it could be written, caught
              only by re-reading approved wording immediately
              before writing it. · CC + FOUNDER
+2026-08-10 · #49 · AnciCareLegacy REMOVED ENTIRELY. The component
+             was omitted from the Stage 3 sequence and had never
+             been surveyed. The full read found that OF TWELVE
+             FIGURES, TWO SURVIVE — 1994 and the CorVel ticker —
+             and both are IDENTIFIERS, NOT PROOFS. Everything
+             functioning as evidence is barred, restricted or
+             unadjudicated.
+             EVERY SECTION FAILS STRUCTURALLY. The four-tile proof
+             grid reduces to one orphaned number under a barred
+             caption. The validation callout becomes a ticker
+             beneath the eyebrow "THE ULTIMATE VALIDATION" with no
+             proposition. All four left-column bullets are
+             statistics — two barred, two unadjudicated. The
+             founders' blockquote breaks MID-SENTENCE: the 90
+             million figure is its pivot, and §4c is explicit that
+             the signed-quote carve-out does not reach
+             quantitative figures.
+             THE COMPONENT'S PURPOSE CANNOT SURVIVE. Its
+             centerpiece is third-party validation, entirely
+             FA-class. D2 permits FA only with explicit founder
+             attribution, which converts "an independent
+             NASDAQ-listed company still uses our model" into "the
+             founders say it does." That is a DIFFERENT ARGUMENT,
+             and the callout is built to present it as documented
+             fact.
+             Same reasoning as D10, D11, B1 and B4: a component
+             whose evidentiary content is barred does not survive
+             in reduced form. Do not rebuild. The seven
+             unadjudicated items leave with it and may be ruled
+             later if the material is ever wanted back. · FOUNDER
+2026-08-10 · DualSolution CARD 1 IS THE PAGE'S APPROVED HOME FOR
+             THE AnciCare ARGUMENT. It carries the documented
+             version: founded 1994 to 2002, 1,228 imaging
+             facilities across 43 states by April 2002, the D3
+             approved descriptor, and the ONLY D4-permitted
+             instance of the historical savings floor in its
+             approved form with period and comparator.
+             THE SURVEY FOUND A DIRECT CONFLICT, now resolved by
+             removal: AnciCareLegacy shipped 50-70% under "Cost
+             reductions delivered" — the barred upper bound from a
+             confidential document, stripped of period and
+             comparator and re-scoped as delivered performance —
+             ONE COMPONENT AWAY from Card 1's approved form on the
+             same page. It also carried both barred forms of the
+             category claim while Card 1 carried the approved
+             descriptor. DO NOT DUPLICATE CARD 1's MATERIAL
+             ELSEWHERE ON THIS SURFACE. · FOUNDER
+2026-08-10 · FOUR AUDIT FINDINGS FROM THE #49 SURVEY, RECORDED
+             RATHER THAN ACTIONED. (1) "20,000+ mid-market
+             companies" was PREVIOUSLY UNINVENTORIED — absent from
+             DECISIONS, TRACKER, APPROVED-FIGURES and
+             CLAIMS-INVENTORY alike. It left with the component,
+             but it existed unrecorded on a live page and no sweep
+             had found it. (2) A FOURTH FA INSTANCE at
+             AnciCareLegacy line 23, SPLIT ACROSS A LINE BREAK and
+             therefore invisible to the grep that built the
+             register's FA list. (3) THE FA INVENTORY IS STALE IN
+             BOTH DIRECTIONS: it omits that live instance and
+             still names CredibilityBar:33, which was deleted in
+             Batch B/C. #52's fifth member. (4) ELEVEN NON-FIGURE
+             PROMOTIONAL CLAIMS demonstrate a class no numeric
+             sweep targets — "Perfect Timing," "self-insurance
+             democratized," "Deductibles destroyed access,"
+             "quality stayed flat," "THE ULTIMATE VALIDATION,"
+             "still the industry standard," "can now transform
+             healthcare access for everyone." Rule 26 reaches some
+             of these; nothing reaches the promotional
+             superlatives. Recorded as an audit finding, logged as
+             open item #53. · FOUNDER + CC
+2026-08-10 · SPLIT PHRASES DEFEAT LITERAL SWEEPS — TWICE IN ONE
+             COMPONENT. "two decades" broke across lines 86-87 and
+             "20+ years" across lines 23-24. Both return ZERO on a
+             literal grep of source AND of built HTML, and both
+             are present as prose. This is why the FA inventory
+             was wrong. Sweeps must read for meaning, not only for
+             strings, and a zero result on a multi-word phrase is
+             not proof of absence. Logged as open item #54. · CC
+2026-08-10 · #30 IS FAR WIDER THAN THE REGISTER RECORDS. The
+             register names two "90 million" locations. A measured
+             sweep during the #49 verification finds FOURTEEN LIVE
+             INSTANCES ACROSS THIRTEEN FILES — partner.astro,
+             about.astro, an investor route, faq.astro,
+             faqbackup.astro, AboutHero.astro, a standalone
+             90milliongraph.html, connectAudiences.ts, and others.
+             ⛔ ONE IS CarbonFooter.astro, THE SITEWIDE FOOTER,
+             WHICH SHIPS ON EVERY PAGE OF THE SITE. A barred
+             derived headcount is therefore on every route while
+             the register believes there are two locations. #30's
+             scope is amended to fourteen; the ruling that the
+             class is barred is unchanged. NOT ACTIONED HERE —
+             recorded so the eventual sweep is scoped correctly. ·
+             CC + FOUNDER
+2026-08-10 · A THIRD SPLIT-PHRASE INSTANCE, OFF-BATCH.
+             co-founder-m.astro carries "over two decades" split
+             across a line break — literal grep zero, normalized
+             match one. It is unsigned and third-person, so it
+             fails the signed-attribution test, and it appears in
+             no register list. It is a TENURE claim, not FA.
+             Recorded against #54 and left in place, out of this
+             batch's scope. Three split-phrase instances have now
+             been found by reading and zero by grepping. · CC
+2026-08-10 · THE RULE 25 GATE STATEMENT IS AMENDED, NOT SILENTLY
+             CORRECTED. TRACKER's rule 25 note states that
+             /employer is unconformed "because AnciCareLegacy was
+             omitted from the sequence (#49)." That half is now
+             CLOSED by this batch. The other half stands: the
+             calculator still publishes rule 24 barred pricing
+             until Batch E. Amended explicitly rather than edited
+             in passing, because silently correcting a gate
+             condition is precisely the class #52 tracks. RULE 25
+             REMAINS IN FORCE AND THE GATE IS NOT CLEARED. ·
+             FOUNDER
 ```
 
 ---

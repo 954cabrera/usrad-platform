@@ -245,6 +245,18 @@ Classes **CP** and **CT** both describe the 1994–2002 record. This one does no
 
 Six live instances: `AnciCareLegacy:75`, `:87`, `:147` · `CredibilityBar:33` · `schedule:202` · `implementation-guide:322`.
 
+> ⚠️ **RE-QUALIFIED 2026-08-10 (#49) — THE SENTENCE ABOVE IS PRESERVED AS A DATED RECORD AND IS NO LONGER AN ACCURATE INVENTORY. TWO LIVE INSTANCES REMAIN: `schedule:202` and `implementation-guide:322`.**
+>
+> **Four of the six named are gone.** `AnciCareLegacy:75`, `:87` and `:147` ceased to exist on 2026-08-10 when the founder ruled the component removed entirely (#49) — the instances were **deleted with their component, not conformed**, and no FA figure was relocated. `CredibilityBar:33` was **already dead when this sentence was current**: the component was deleted in Batch B/C.
+>
+> ⛔ **THE LIST WAS ALSO WRONG BEFORE THIS BATCH, IN THE OTHER DIRECTION.** It omitted a **fourth live instance in `AnciCareLegacy`, at line 23** — *"CorVel still operates it today—20+ years after acquiring us"* — which was **split across a line break** and therefore invisible to a literal grep. The list simultaneously named an instance that had been deleted and missed one that was shipping. **Neither error was caused by the reversal of an underlying decision; the sentence was inaccurate when written.**
+>
+> **This is the fifth member of open item #52, and a distinct failure mode from the first four.** Those concern completion certificates that went stale *after* the fact. This one was never accurate, so a reversal marker attached to it would have marked nothing — which is evidence that #52 should settle on a **checking practice** rather than a marking convention. See `TRACKER.md` #52 and `DECISIONS.md` 2026-08-10, *"FOUR AUDIT FINDINGS FROM THE #49 SURVEY."*
+>
+> **The FA class itself is unchanged.** The attribution requirement, the canonical and compact forms, and the CP/CT/FA/PV distinctions all stand. Only the instance inventory is amended.
+>
+> ⛔ **LOCATE FA INSTANCES BY CONTENT AND BY WHITESPACE-NORMALIZED MATCH, NEVER BY LINE NUMBER. The error above was caused by a literal grep that could not see a phrase split across a line break. See open item #54.**
+
 This class also resolves a gap in the tenure split: claims measuring time **elapsed since the 2002 exit** are neither company operating window (a) nor founder career span (b). Do not force them into the two-way test.
 
 #### ⚠️ A FOURTH EVIDENCE CLASS — PV, present-day public record
