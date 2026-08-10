@@ -426,6 +426,14 @@ Four notation variants are in play, and a pattern matching only `30 Years` sees 
 
 *Patient-count conformance covered `AnciCareLegacy`, `CredibilityBar`, and `FinalCTA` in full; those three carry no remaining C1 instance.*
 
+> ⚠️ **RE-QUALIFIED 2026-08-10 (DOC-19) — READ THE SENTENCE ABOVE AS A RECORD OF WORK DONE, NOT AS PERMISSION.** The sentence is **accurate and is preserved**: Batch 4H-c1 did cover all three components, and no unconformed C1 instance remained. **No fault attaches to it.** What has changed is what is permitted, not what was done.
+>
+> **The conformance it certifies was RETIRED 2026-08-07.** Per §4b, the 150,000 figure **has no basis in ANY unit**, relabeling is **not an available disposition**, and the 4H-c1 conformance **must be undone** — open item **#24**. Every instance that conformance installed is therefore **barred output**, including the two it installed in `AnciCareLegacy` (the prose credit line beneath the founders' quote and the proof-point tile, both labelled *claimants*). `CredibilityBar` and `FinalCTA` **no longer carry instances of any kind** — both were removed in Batch B/C, so their halves of this statement are moot by deletion rather than by conformance.
+>
+> **Nothing here resolves #24 and no component is touched by this amendment.** The `/employer` instances are the subject of the corrective batch at **#49**. A further instance sat in an **EDS-owned** route; it was removed by the production containment hotfix of 2026-08-10, and preserving that removal through reconciliation is binding on the merge batch.
+>
+> **The general defect is open as #52:** this register has no practice for walking back a completion certificate when the decision beneath it is reversed. **Read every other "covered in full" and "CLOSED — N instances" statement in this file the same way until #52 is settled.**
+
 ### AnciCare client savings — $246 million. ⚠️ REVERSED.
 
 > **$246 million — REVERSED 2026-08-07, BARRED pending a primary source. See §6.**

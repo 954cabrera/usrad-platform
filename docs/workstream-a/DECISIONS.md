@@ -2082,6 +2082,206 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              presentation and accessibility cleanup. NOT
              remediated here and Stage 3 is not expanded to reach
              it. · FOUNDER
+2026-08-10 · EDS FINDING 1 CLOSED ON THE PRIMARY PATH. EDS fixed
+             and verified the Remix client delivery email: portal
+             PR #49 merged, production at f180b3a, email verified
+             clean. THE RETIRED FIGURE AND THE PRODUCED-REPORT
+             CLAIM ARE NO LONGER DELIVERED ON THE PRIMARY PATH.
+             Workstream A had been carrying the statement that
+             this defect was live; that statement is now false and
+             is corrected in the index and the tracker. Fenced
+             entries recording it were accurate when written and
+             are not amended.
+             THE ASTRO FALLBACK IS ALSO CONTAINED, BY A DIFFERENT
+             CHANGE. It remains a complete second email
+             implementation and still fires whenever the Remix
+             call returns non-2xx, but its ROI-CONDITIONAL CONTENT
+             WAS REMOVED BY THE PRODUCTION HOTFIX — the
+             projected-savings panel, the custom-ROI-report subject
+             branch, the savings-analysis intro, the
+             composite-case-study bullet and the retired claimant
+             figure in the signature are all gone at main. The
+             Remix fix did not reach it; the hotfix corrected it
+             directly, and both halves of the funnel are now
+             contained.
+             STILL OPEN, and named so the closure is not read as
+             total: the roiData PAYLOAD CONTRACT. Three instances
+             survive at main — the hasRoi test, the formattedSavings
+             derivation, and the forwarded payload — so the figure
+             is TRANSMITTED BUT NEVER RENDERED. Removing the
+             display did not remove the data flow. The D13 atomic
+             closure is also still open. · FOUNDER + EDS
+2026-08-10 · DOC-18's COMMIT MESSAGE CARRIES A WRONG COUNT. It
+             says /employer renders eleven components and the
+             approved sequence covers ten. The measured figures
+             are TWELVE and ELEVEN, and both DECISIONS.md and
+             TRACKER.md record them correctly with a note that the
+             brief said otherwise. The gap described — one
+             component, AnciCareLegacy — is identical either way,
+             so nothing downstream is affected. The message is
+             immutable without a force-push, which is barred.
+             Recorded here so the register and the commit log do
+             not silently disagree. Sixth supplied count corrected
+             at a gate this week; standing rule 22 is what catches
+             them. · CC
+2026-08-10 · #50 — THE CONFORMANCE STATEMENT IS RE-QUALIFIED, NOT
+             DELETED. RULED: the 4H-c1 patient-count conformance
+             statement in APPROVED-FIGURES shall record that the
+             conformance it certifies was retired 2026-08-07, that
+             the instances it installed are barred output pending
+             #24, and that relabeling is not an available
+             disposition under section 4b. THE ORIGINAL STATEMENT
+             IS PRESERVED, not replaced: it was accurate when
+             written and remains accurate about what was done; the
+             re-qualification records only what is now permitted.
+             NO FAULT ATTACHES TO IT. The amendment is written in
+             THIS batch under this ruling, and on that basis #50
+             closes and #49, the AnciCareLegacy corrective batch,
+             is unblocked. THE MISSING MECHANISM REMAINS OPEN —
+             the register still has no general practice for
+             walking back a completion certificate when the work
+             it certifies is undone. Logged as open item #52.
+             ⚠️ RECORDED AS EVIDENCE, NOT ONLY AS A CORRECTION.
+             As first drafted, this entry was itself a COMPLETION
+             CERTIFICATE FOR WORK NEVER DONE — it announced an
+             APPROVED-FIGURES amendment that had not been made,
+             because the gate stopped for approval as instructed.
+             That is the INVERSE of the #50 defect, which is a
+             completion certificate for work since UNDONE. Two
+             instances of the same class, arriving from opposite
+             directions, inside one batch. Independent evidence
+             for #52. Not pretended completed. · CC + FOUNDER
+2026-08-10 · #24 REACHED INTO AN EDS-OWNED FILE — THE INSTANCE IS
+             NOW CONTAINED, THE FINDING STANDS. THE HISTORICAL
+             FINDING, PRESERVED IN FULL: Batch 4H-c1 changed the
+             email signature in the Astro fallback route from the
+             168,000 family to 150,000+, so that route carried a
+             THIRD instance of the retired figure, installed by
+             the same conformance #24 must undo. The route is
+             named EDS-owned in the 2026-08-08 boundary entry, and
+             the boundary is functional: Workstream A documents
+             defects and required outcomes in a handoff and does
+             not modify these files. NO FAULT IN 4H-c1 — it ran
+             2026-08-06, two days before the boundary was drawn,
+             and was correct under the rules then in force. A
+             WORKSTREAM A BATCH REACHED INTO A FILE THAT LATER
+             BECAME EDS-OWNED, AND THE RESIDUE WAS INVISIBLE UNTIL
+             SOMEONE LOOKED. That is the finding, and it is not
+             erased by the symptom being gone.
+             STATUS: the EDS-side instance HAS NOW BEEN REMOVED by
+             the production containment hotfix. #24 is no longer
+             blocked on future EDS action for that instance.
+             THE REMEDY CHANGES — from a HANDOFF to a MERGE
+             RESOLUTION OBLIGATION. Our branch still carries the
+             stale signature line, and main no longer does.
+             Resolving that conflict toward our side would UNDO
+             THE CONTAINMENT and republish the retired figure into
+             a live transactional email. The obligation is binding
+             on the reconciliation batch, rule 2. Recorded because
+             #24 gates #49, and a corrective batch that assumes it
+             owns every instance would stall at this one. · CC
+2026-08-10 · PRODUCTION main MOVED FOR THE FIRST TIME SINCE JULY
+             30. usrad-platform PR #4 merged as 358d615, carrying
+             ef3ba9a and 361b646, under the authorized EDS
+             containment exception. Vercel production is READY on
+             the same SHA and usrad.com serves it.
+             WHAT THE HOTFIX DID, in three files. ROICalculator:
+             the download promise removed end to end — the CTA and
+             its icon, the success-panel report language, the
+             modal heading and subtext, the submit label, and the
+             client-side blob download block. employer-guide-
+             download.ts: the ROI-conditional email content
+             removed — the projected-savings panel, the
+             custom-ROI-report subject branch, the savings-analysis
+             intro, the composite-case-study bullet, and the
+             retired claimant figure from the signature.
+             employer-roi-report.ts: PDF generation and streaming
+             removed, lead capture retained.
+             NO WORKSTREAM A DOCUMENT PREVIOUSLY MENTIONED ANY OF
+             THESE SHAs. The uncommitted entries cite portal PR
+             #49, which is the Remix-side fix, a different change
+             in a different repository. · FOUNDER + EDS
+2026-08-10 · MERGE SAFETY — A FAST-FORWARD IS NO LONGER POSSIBLE.
+             workstream-a-marketing forked from be2dd14 and is now
+             61 commits ahead and 3 behind. Both sides have moved.
+             THREE FILES CONFLICT, each edited by both sides from
+             the common base: ROICalculator.astro,
+             api/employer-guide-download.ts, and
+             api/employer-roi-report.ts. Verified by simulated
+             merge, not assumed.
+             A PREMISE THIS WORKSTREAM HELD WAS WRONG AND IS
+             CORRECTED HERE. The review feared a naive merge would
+             silently overwrite the containment. That describes a
+             copy-over, not a three-way merge. Because both sides
+             edited the same regions from the same base, git
+             CANNOT auto-resolve and HALTS. The containment is not
+             lost silently.
+             THE RISK IS DISPLACED, NOT ABSENT, AND IT IS DEFERRED
+             RATHER THAN IMMEDIATE. The reconciliation merge does
+             not change production: it updates the Workstream A
+             branch, and production remains at main 358d615. The
+             danger is that an incorrect conflict resolution
+             becomes EMBEDDED IN THE BRANCH and is later carried
+             back to production at the eventual Stage 3 merge. One
+             wrong "take ours" would restore Served 150,000+
+             claimants into a live transactional email — not
+             today, but at merge. · FOUNDER + CC
+2026-08-10 · RECONCILIATION RULES — BINDING ON THE MERGE BATCH.
+             1. CONTAINMENT CHANGES FROM PR #4 MUST SURVIVE
+             RECONCILIATION. Any resolution that removes a
+             containment change is wrong by definition.
+             2. api/employer-guide-download.ts's SIGNATURE LINE
+             RESOLVES TOWARD main. main reads "Founded AnciCare ·
+             Acquired by CorVel (NASDAQ: CRVL)". Our branch reads
+             "Served 150,000+ claimants". THE RETIRED CLAIMANT
+             WORDING MAY NEVER BE REINSTATED. This is the single
+             most consequential line in the merge.
+             3. Workstream A PRESENTATION changes remain governed
+             by the Stage 3 decisions. The hotfix is containment,
+             not editorial authority; it does not supersede D1
+             through D13 or B1 through B7 on copy the hotfix did
+             not touch.
+             4. NO WHOLESALE ours OR theirs. Every conflict is
+             resolved hunk by hunk against a stated rule.
+             5. ANY AMBIGUOUS CONFLICT STOPS FOR REVIEW. If a hunk
+             is not clearly containment or clearly presentation,
+             it is reported, not decided.
+             6. THE MERGE BATCH STOPS AFTER RESOLUTION AND BEFORE
+             COMMIT. For each of the three conflicts it reports the
+             main version, the Workstream A version, the proposed
+             resolved version, and the governing rule or decision.
+             It must PROVE that the employer-guide-download.ts
+             resolution preserves the PR #4 containment state and
+             restores none of: Served 150,000+ claimants, the
+             retired report promise, savings-analysis language, the
+             projected-savings panel, or the composite-case-study
+             bullet.
+             7. Verification after resolution: build, the rule 24
+             sweep, and rule 27's built-artifact sweep, since a
+             merge changes shipped output.
+             RECONCILIATION RUNS AS ITS OWN BATCH, AFTER THIS ONE
+             COMMITS, AND BEFORE F, G AND H. · FOUNDER
+2026-08-10 · BATCH E RESCOPED — STILL THE MERGE GATE. EDS
+             containment REDUCED Batch E's scope; IT DID NOT
+             DISCHARGE D13. The download promise and the PDF route
+             are gone upstream. E still owns: the live on-page
+             savings presentation; the $350-derived calculator
+             arithmetic; the related savings and bar geometry and
+             the production-only waterfall and split logic; the
+             remaining projectedSavings payload and data-contract
+             plumbing; and the final calculator CTA and
+             presentation replacing the temporary containment
+             copy. NOTHING FROM STAGE 3 MERGES TO main UNTIL BATCH
+             E CLOSES AND IS VERIFIED WITH EDS. Rule 25 remains in
+             force. · FOUNDER
+2026-08-10 · RULE 24 EXPOSURE REDUCED, NOT CLOSED. The hotfix
+             contained the DOCUMENT PROMISE, not the ON-PAGE
+             FIGURES. At origin/main, ROICalculator still ships
+             $350, 71% and $1,200,000; $260 and $475 are gone. Our
+             branch carries those and more. Do not read the hotfix
+             as closing rule 24 on this surface — Batch E owns
+             what remains, and the exposure is live on production
+             until E closes and merges. · FOUNDER + CC
 ```
 
 ---
@@ -2109,7 +2309,7 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 | 35 | MarketScopeShowcase discovery price and savings display — removal under settled §5 | settled decision, open implementation |
 | 36 | Sitewide 260-dollar family, 35 instances — deferred to the page-by-page sequence | not this batch |
 | 37 | Employer-surface pricing figures (350, 260 to 475, 420) — resolved in the Stage 3 `/employer` pass | Stage 3 |
-| 38 | EDS employer-funnel handoff outstanding — transactional email is delivering retired material until EDS acts. Dependency, not Workstream A work | blocks rule 25 |
+| 38 | EDS employer-funnel handoff — **Finding 1 CLOSED on the primary path 2026-08-10** (Remix client email fixed and verified, portal PR #49, production `f180b3a`). **Still open:** the Astro fallback template, the `roiData` payload contract, the D13 atomic closure. Dependency, not Workstream A work | blocks rule 25 |
 | 39 | `APPROVED-FIGURES` §6 dates the CorVel sale to 2013; §4a and the closing letter date it May 2002 | register defect |
 | 40 | Rule 18 does not reach date forms — "founded in 1994" ruled correct for prose | rule 18 amendment |
 | 41 | Audit existing line-number citations for staleness. The cite-by-section convention is already settled | audit only |
