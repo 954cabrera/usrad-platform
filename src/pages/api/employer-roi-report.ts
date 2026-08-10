@@ -63,36 +63,66 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // ── Calculate savings for lead record ──
+    // ── Calculate savings for the admin notification ──
+    // Retained deliberately. This figure is NO LONGER PERSISTED (annual_savings is
+    // omitted from the insert below, founder-ruled under FD-MKT-002), but it still
+    // feeds `projectedSavings` on the outbound notification, where the portal
+    // template interpolates it at six unguarded sites. Removing it would render the
+    // literal string "undefined" into the admin email, including its subject line.
     const annualSavings =
       Number(totalScans || 0) * (Number(avgCost || 2400) - 350);
 
-    // ── Supabase lead insert (non-blocking) ──
+    // ── Supabase lead insert ──
+    // supabase-js v2 `.insert()` RESOLVES with { data, error } rather than throwing,
+    // so a PostgREST rejection is invisible to try/catch. The result is inspected
+    // explicitly and the outcome tracked, because the response status below depends
+    // on it (FD-MKT-002).
+    let leadPersisted = false;
+
     if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
       try {
         const supabase = createClient(
           process.env.SUPABASE_URL,
           process.env.SUPABASE_SERVICE_ROLE_KEY
         );
-        await supabase.from("employer_leads").insert({
+        const { error: insertError } = await supabase.from("employer_leads").insert({
           company_name:      companyName,
           contact_name:      contactName || null,
           contact_email:     contactEmail,
           total_employees:   Number(totalEmployees),
           total_scans:       Number(totalScans || 0),
           avg_cost_per_scan: Number(avgCost    || 2400),
-          annual_savings:    annualSavings,
           source:            "roi_calculator",
           created_at:        new Date().toISOString(),
         });
+
+        if (insertError) {
+          // Sanitized: code and message only. `details` and `hint` are deliberately
+          // NOT logged — PostgREST can echo submitted row values into them, which
+          // would put lead PII in the logs.
+          console.error("[ROI] Lead persistence FAILED — no row was written:", {
+            code: insertError.code,
+            message: insertError.message,
+          });
+        } else {
+          leadPersisted = true;
+        }
       } catch (dbError) {
-        console.error("Supabase insert failed (non-fatal):", dbError);
+        // Genuinely thrown: network, DNS, TLS, createClient. Also a persistence failure.
+        console.error("[ROI] Lead persistence FAILED — threw before returning a result:", {
+          name: (dbError as Error)?.name,
+          message: (dbError as Error)?.message,
+        });
       }
     } else {
-      console.warn("Supabase env vars missing — skipping lead insert");
+      console.error("[ROI] Lead persistence FAILED — Supabase env vars missing; nothing was recorded");
     }
 
-    // ── Admin email notification (fire-and-forget) ──
+    // ── Admin email notification ──
+    // Attempted UNCONDITIONALLY, including after a persistence failure. This is the
+    // current fallback record of the prospect, so it is never skipped or
+    // short-circuited on the insert's outcome (FD-MKT-002, founder-ruled).
+    let adminNotified = false;
     const firstName = contactName?.split(" ")[0] || "there";
     const remixUrl = process.env.PUBLIC_REMIX_URL ?? import.meta.env.PUBLIC_REMIX_URL;
 
@@ -119,13 +149,32 @@ export const POST: APIRoute = async ({ request }) => {
           }),
         });
         console.log("[ROI] Admin notification response:", res.status, res.statusText);
-        if (!res.ok) {
+        if (res.ok) {
+          adminNotified = true;
+        } else {
           const body = await res.text();
           console.error("[ROI] Admin notification error body:", body);
         }
       } catch (err) {
         console.error("[ROI] Admin notification fetch failed:", err);
       }
+    }
+
+    // ── Response ──
+    // Founder-ruled under FD-MKT-002:
+    //   insert OK                            -> notify -> 200
+    //   insert FAILS, notification SUCCEEDS  -> notify -> 200
+    //   insert FAILS and notification FAILS  -> 500
+    // 500 fires only when BOTH channels failed, i.e. when no record of this
+    // prospect exists anywhere and the submission is genuinely lost.
+    if (!leadPersisted && !adminNotified) {
+      console.error(
+        "[ROI] TOTAL FAILURE — lead was neither persisted nor notified; no record of this prospect exists"
+      );
+      return new Response(
+        JSON.stringify({ error: "Failed to record your request. Please try again." }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      );
     }
 
     return new Response(
