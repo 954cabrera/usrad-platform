@@ -146,13 +146,9 @@ export const POST: APIRoute = async ({ request }) => {
           `
           : "";
 
-        const emailSubject = hasRoi
-          ? `Your Custom ROI Report & Employer Implementation Guide`
-          : `Your Employer Implementation Guide is Ready`;
+        const emailSubject = `Your Employer Implementation Guide is Ready`;
 
-        const introText = hasRoi
-          ? `Based on the numbers you entered in our ROI calculator, we've prepared your custom savings analysis. The Employer Implementation Guide below shows exactly how we achieve these results in 30 days.`
-          : `Thank you for your interest in USRad. Your Employer Implementation Guide is ready to download.`;
+        const introText = `Thank you for your interest in USRad. Your Employer Implementation Guide is ready to download.`;
 
         const fallbackResult = await resend.emails.send({
           from: `USRad <${fromEmail}>`,
@@ -192,7 +188,6 @@ export const POST: APIRoute = async ({ request }) => {
                     <li>WC &amp; health benefits integration workflows</li>
                     <li>Roles &amp; responsibilities breakdown</li>
                     <li>Reporting &amp; analytics setup</li>
-                    <li>Composite case study with real numbers</li>
                   </ul>
                 </div>
 
@@ -213,7 +208,7 @@ export const POST: APIRoute = async ({ request }) => {
                     Best,<br>
                     <strong style="color: #111827; font-size: 14px;">Michael Cabrera</strong><br>
                     President &amp; Founder, USRad<br>
-                    <span style="color: #9ca3af; font-size: 12px;">Founded AnciCare · Served 168,000+ claimants · Acquired by CorVel (NASDAQ: CRVL)</span>
+                    <span style="color: #9ca3af; font-size: 12px;">Founded AnciCare · Acquired by CorVel (NASDAQ: CRVL)</span>
                   </p>
                 </div>
 
