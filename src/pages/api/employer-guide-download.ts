@@ -135,17 +135,6 @@ export const POST: APIRoute = async ({ request }) => {
         const fromEmail =
           import.meta.env.RESEND_FROM_EMAIL || import.meta.env.FROM_EMAIL;
 
-        // ROI panel — only rendered when calculator data is present
-        const roiPanel = hasRoi
-          ? `
-            <div style="background: linear-gradient(135deg, #16a34a, #059669); border-radius: 12px; padding: 20px 24px; margin: 24px 0; text-align: center;">
-              <p style="color: rgba(255,255,255,0.85); font-size: 13px; margin: 0 0 4px 0; font-weight: 500;">Your Projected Year-One Savings</p>
-              <p style="color: white; font-size: 38px; font-weight: 800; margin: 0; letter-spacing: -1px;">${formattedSavings}</p>
-              ${formattedEmployees ? `<p style="color: rgba(255,255,255,0.8); font-size: 13px; margin: 8px 0 0 0;">for a ${formattedEmployees}-employee workforce</p>` : ""}
-            </div>
-          `
-          : "";
-
         const emailSubject = `Your Employer Implementation Guide is Ready`;
 
         const introText = `Thank you for your interest in USRad. Your Employer Implementation Guide is ready to download.`;
@@ -167,8 +156,6 @@ export const POST: APIRoute = async ({ request }) => {
               <div style="border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px; padding: 36px 32px;">
 
                 <h2 style="color: #003087; font-size: 22px; font-weight: 700; margin: 0 0 20px 0;">Hi ${firstName},</h2>
-
-                ${roiPanel}
 
                 <p style="color: #374151; font-size: 15px; line-height: 1.7; margin: 0 0 28px 0;">${introText}</p>
 
