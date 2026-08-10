@@ -1805,6 +1805,118 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              LANGUAGE. #44 remains open, and no other
              accreditation formulation may be introduced in B/C. ·
              FOUNDER
+2026-08-09 · THE VERIFIED PROVIDER STANDARD IS DRAFT, NOT ADOPTED.
+             It is cited by section throughout the tracker and
+             several rulings now depend on it. IT IS EXPLICITLY
+             DRAFT: its effective date is bracketed and
+             unconfirmed, its status line reads "not yet adopted;
+             bracketed items are open decisions," and Appendix B
+             lists ten open decisions before adoption.
+             THE ASYMMETRY THAT GOVERNS ITS USE: copy may be
+             REMOVED on its basis; copy may NOT be APPROVED on its
+             basis. It may inform rulings on existing claims. It
+             may not serve as publication authority. Where it and
+             APPROVED-FIGURES disagree, APPROVED-FIGURES governs.
+             Supplied for context 2026-08-09 and CITED, NEVER
+             STORED, matching the treatment of Pricing Policy V1.0
+             and the AnciCare corpus. Logged as open item #45 —
+             record its adoption status and track the Appendix B
+             decisions that gate dependent rulings, since rulings
+             are accumulating against a document that is not yet
+             adopted. · CC + FOUNDER
+2026-08-09 · B7 FURTHER AMENDED — §5.2 CONFIRMS THE ACR WORDING IS
+             TOO NARROW. The Verified Provider Standard §5.2
+             requires active accreditation from a recognized
+             accrediting body — ACR, IAC, The Joint Commission, or
+             RadSite — covering each advanced imaging modality the
+             facility offers through USRad. ExecutiveFAQ's "ACR
+             accreditation required for all facilities" is
+             therefore too narrow on the draft's own terms,
+             independent of the §4 ruling already recorded.
+             REMOVED WITHOUT REPLACEMENT.
+             Appendix B open decision 3 — "recognized accrediting
+             bodies and modality coverage rules" — is the named
+             upstream dependency. #44 CANNOT CLOSE until that
+             decision is made, and the approved public formulation
+             cannot be written from a draft. · FOUNDER
+2026-08-09 · BOARD-CERTIFICATION CLAIM FAMILY — Q2 BULLET REMOVED,
+             SITEWIDE FAMILY OPENED. Verified Provider Standard
+             §5.7 states board certification is PROVIDER-ATTESTED
+             and that primary-source board verification is
+             DEFERRED to a future version. That does not support
+             "Board-certified radiologists only - no exceptions,"
+             and the stronger replacement "Board-certified
+             radiologist reads are required under the program"
+             WILL NOT BE INFERRED from a draft. The Q2 bullet is
+             removed.
+             THE EXPOSURE IS SITEWIDE, NOT LOCAL. The claim
+             appears in roughly forty places across how-it-works,
+             terms, contact, blog routes and a dozen components.
+             Two escalate it to a guarantee: PromiseBanner and
+             SharedProblemSolution both assert guaranteed
+             board-certified interpretation.
+             TWO FURTHER SECTIONS BAR THE GUARANTEE FORM
+             INDEPENDENTLY. §1.3 states that Verified "is not, and
+             shall not be represented as: a warranty or guarantee
+             of diagnostic quality, interpretation accuracy, or
+             clinical outcomes." §12 excludes full practitioner
+             credentialing, including board primary-source
+             verification, from Version 1.0 deliberately. So the
+             guarantee language does not merely lack support — the
+             standard expressly forbids that representation. #46
+             is a CONTRADICTION, not an evidence gap. NOT resolved
+             here and NOT actioned outside B/C. · FOUNDER
+2026-08-09 · ExecutiveFAQ Q2 REMOVED ENTIRELY. The B/C spec said
+             keep the accordion, on the assumption it lost three
+             of five bullets. It loses FIVE OF FIVE plus its
+             callout: the ACR bullet, the board-certification
+             bullet, three rule 26 capability claims, and the 98%
+             satisfaction callout under D9 and D1. An accordion
+             titled "How do we ensure quality isn't compromised?"
+             with no answer inside it is worse than no accordion.
+             Same ruling as B2 for Q3 and B1 for ROIStatPanel: a
+             component whose entire content is barred does not
+             survive in reduced form. SIX ACCORDIONS BECOME FOUR.
+             Q4 and Q6 remain, and Q6's prefunded-model
+             explanation is the strongest correct content on the
+             surface. · FOUNDER
+2026-08-09 · B/C SCOPE EXTENDED TO Q1'S TWO CAPABILITY CLAIMS.
+             "Zero disruption to existing plans" and "No IT burden
+             - we handle all technical requirements" both fail
+             standing rule 26: the first is an absolute guarantee
+             of an outcome never delivered, the second is
+             present-tense and absolute. Both sit in a component
+             already being edited. REMOVED IN B/C. · FOUNDER
+2026-08-09 · Q4, Q6 AND THE VERIFICATION SENTENCE DEFERRED, NOT
+             APPROVED. Five further present-tense claims fail or
+             arguably fail rule 26 and are NOT resolved in B/C:
+             Q4's "White-label options available for branded
+             experience" and its partnership callout; Q6's two
+             present-tense payment sentences and its callout; and
+             ExecutiveFAQ's "Active network locations complete
+             USRad verification requirements," which belongs to
+             #44. Q6's present tense describes the PREFUNDED MODEL
+             — design rather than demonstrated capability — and is
+             arguably compliant; it deserves a proper ruling, not
+             a passing one. RECORDED SO A FUTURE SWEEP DOES NOT
+             READ THEM AS APPROVED. Logged as open item #47. ·
+             FOUNDER
+2026-08-09 · DualSolution — THREE COPY RULINGS. (a) Card 1 bullet
+             2 is tenseless — "Flat contracted rates in place of
+             variable billing" — and no provider is contracted
+             today, so it reads as a present USRad claim depending
+             on the heading above it. Made explicit: "AnciCare
+             contracted flat rates in place of variable billing."
+             (b) Card 2 body "Breaking down the high-deductible
+             barrier" is a present-tense outcome claim and was not
+             in the B/C spec. Replaced with "Imaging employees can
+             price before they book." (c) THE FRAMING LINE "The
+             program is designed so that:" IS LOAD-BEARING, NOT
+             DECORATIVE. Card 2's surviving bullets state
+             capabilities that are permissible only as program
+             design. Removing the framing line makes them rule 26
+             violations. It may not be removed as styling. ·
+             FOUNDER
 ```
 
 ---
