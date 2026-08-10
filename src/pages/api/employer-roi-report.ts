@@ -1,10 +1,9 @@
 // src/pages/api/employer-roi-report.ts
-// Unchanged architecture — only the PDF generator changes underneath.
-// This file is intentionally minimal: validate → generate → stream → side effects.
+// PDF generation and delivery are removed; this route no longer produces a document.
+// This file is intentionally minimal: validate → record lead → notify.
 
 import type { APIRoute } from "astro";
 import { createClient } from "@supabase/supabase-js";
-import { generateROIReport } from "../../lib/roi-pdf/generateROIReport";
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -62,29 +61,6 @@ export const POST: APIRoute = async ({ request }) => {
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
-
-    // ── Generate PDF ──
-    // generateROIReport now returns a Buffer (Puppeteer output)
-    const pdfBuffer = await generateROIReport({
-      companyName,
-      contactName,
-      totalEmployees:  Number(totalEmployees),
-      wcScans:         Number(wcScans     || 0),
-      healthScans:     Number(healthScans  || 0),
-      avgCost:         Number(avgCost     || 2400),
-    });
-
-    // ── Build response — stream PDF first, side effects after ──
-    const pdfFilename = `USRad-ROI-Report-${companyName.replace(/[^a-zA-Z0-9]/g, "-")}.pdf`;
-
-    const pdfResponse = new Response(pdfBuffer, {
-      status: 200,
-      headers: {
-        "Content-Type":        "application/pdf",
-        "Content-Disposition": `attachment; filename="${pdfFilename}"`,
-        "Content-Length":      String(pdfBuffer.length),
-      },
-    });
 
     // ── Calculate savings for lead record ──
     const annualSavings =
@@ -152,7 +128,11 @@ export const POST: APIRoute = async ({ request }) => {
         console.error("[ROI] Admin notification fetch failed:", err);
       }
     }
-    return pdfResponse;
+
+    return new Response(
+      JSON.stringify({ success: true }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
 
   } catch (error) {
     console.error("ROI PDF generation error:", error);
