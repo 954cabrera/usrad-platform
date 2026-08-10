@@ -4,8 +4,8 @@ REF: https://claude.ai/chat/a6ccdfd4-8a07-4ae8-b2b2-d0de7c23d80b
 
 **Rewritten August 6, 2026. Supersedes the August 5 version, which was current at commit 21.**
 
-Branch: `workstream-a-marketing` · Current HEAD: `32bf4fd` · Rollback for whole workstream: `b86e06e`
-Origin: `32bf4fd` — pushed 2026-08-09, fast-forward `0d396e2..32bf4fd`. **Branch and origin are level; nothing unpushed.** `main` at `be2dd14`, unchanged since July 30.
+Branch: `workstream-a-marketing` · Current HEAD: `1f2d9b5` · Rollback for whole workstream: `b86e06e`
+Origin: `1f2d9b5` — pushed 2026-08-10, fast-forward `32bf4fd..1f2d9b5`. **Branch and origin were level at DOC-17; Batch B/C is uncommitted at the time of writing.** `main` at `be2dd14`, unchanged since July 30.
 
 ---
 
@@ -70,7 +70,8 @@ Origin: `32bf4fd` — pushed 2026-08-09, fast-forward `0d396e2..32bf4fd`. **Bran
 | 55 | **Batch A** | **`EmployerCaseExample` and `IndustryData` removed entire (D10, D11). Fourteen figures left with the first — two more than the decision document inventoried — including the last live §6-barred 73% and a standing rule 2 blended-modality violation. `IndustryData`'s trailing CTA went with it, resolving the §5 placement breach at source. Consumer sweep clean; build exit 0** | **`3a1220f`** |
 | 56 | **Batch D** | **Problem-statement rebuild. `EmployerHero` and `CostAnalysis` rewritten to approved copy (D5, D7, D8). Hero loses the 67%, the $260/$3,200 pairing, and the 48-hour and zero-setup commitments; `CostAnalysis` loses the two-column scenario entire — $600, $3,200, 5.3×, $45,000+, $1,200, 97%, 18+ days, 6-month and the cash-pay disclaimer — replaced by four cited prose beats. #43 opened** | **`0d396e2`** |
 | 57 | **DOC-16** | **Batch B/C rulings B1–B7. B/C rescoped: three of six components do not survive intact. `ROIStatPanel` and `CredibilityBar` removed entire; `ExecutiveFAQ` Q3 removed; `FinalCTA` tile grid, signature and H2 replaced. **Standing rule 26** added — present-tense capability claims require a current operational basis. Accreditation wording deferred; #44 opened** | **`32bf4fd`** |
-| 58 | **DOC-17** | **B/C scope extension. Verified Provider Standard recorded as DRAFT, not adopted — removal authority only, never publication authority. `ExecutiveFAQ` Q2 removed entire (five of five bullets barred); Q1's two capability claims added to scope; three `DualSolution` copy rulings incl. the load-bearing framing line. Six accordions become **four**. #45, #46, #47 opened** | **TBD** |
+| 58 | **DOC-17** | **B/C scope extension. Verified Provider Standard recorded as DRAFT, not adopted — removal authority only, never publication authority. `ExecutiveFAQ` Q2 removed entire (five of five bullets barred); Q1's two capability claims added to scope; three `DualSolution` copy rulings incl. the load-bearing framing line. Six accordions become **four**. #45, #46, #47 opened** | **`1f2d9b5`** |
+| 59 | **Batch B/C** | **Conformance apply. `ROIStatPanel` and `CredibilityBar` deleted (B1, B4); `employer.astro` down to nine components, order unchanged. `Implementation` H2/subhead/three phase heads/closing pair replaced — eleven process bullets untouched, **not twelve as the brief predicted**. `DualSolution` subhead, Card 1 head/body/results box, Card 2 body and two bullets replaced; two bullets removed; framing line added above the list. `FinalCTA` tile grid and founder signature removed entire. `ExecutiveFAQ` Q2 and Q3 removed entire, Q1 down to one bullet, Q5 loses "Legal review included" — **four accordions**. ⚠️ **Shipped-HTML defect found and fixed:** Astro emits HTML comments to the delivered page, so stale `Week 1/2-3/4` and `Proven in Workers' Compensation` labels were live in `/employer` view-source after their visible copy was replaced; comments and the orphaned `#proven-solution` id relabelled** | **TBD** |
 
 > **Action:** commits 22–31 were never logged. Fill from `git log --oneline ec80d3f..21bd949` and confirm labels against commit messages before this document is filed. `ec80d3f` is the last pre-4C reference point recorded in session notes.
 
@@ -638,7 +639,7 @@ Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settl
 |---|---|
 | **P2** | ✅ **DONE — DOC-15.** Documentation prerequisite: D1–D13 in the register, the Federal Reserve figure in `APPROVED-FIGURES` §5, this sequence |
 | **A** | ✅ **DONE.** Component removals — `EmployerCaseExample` (D10), `IndustryData` (D11) |
-| **B** and **C** | Conformance removals; credibility substitution (D1–D5, D7–D9) — `Implementation`, `ExecutiveFAQ`, `ROIStatPanel`, `DualSolution`, `FinalCTA`, `CredibilityBar` |
+| **B** and **C** | ✅ **DONE.** Conformance removals; credibility substitution (D1–D5, D7–D9) — `Implementation`, `ExecutiveFAQ`, `ROIStatPanel`, `DualSolution`, `FinalCTA`, `CredibilityBar`. Applied as rescoped by DOC-16 and extended by DOC-17: two components deleted, four survivors conformed, six accordions to four |
 | **D** | ✅ **DONE.** Problem-statement rebuild (D5, D8) — `EmployerHero`, `CostAnalysis` |
 | **E** | Calculator (D6, D13) — **MERGE GATE** |
 | **F**, **G**, **H** | Guide landing page (D12) · `/employer/schedule` · `EmployerConsultationForm` |
