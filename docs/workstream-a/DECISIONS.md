@@ -2282,6 +2282,89 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              as closing rule 24 on this surface — Batch E owns
              what remains, and the exposure is live on production
              until E closes and merges. · FOUNDER + CC
+2026-08-10 · RECONCILIATION COMPLETE — 89a2eca. origin/main was
+             merged into workstream-a-marketing under the seven
+             reconciliation rules. The branch is now LEVEL WITH
+             PRODUCTION at main 358d615: behind-count zero, 63
+             ahead. The divergence that opened when main moved is
+             closed, and any future movement of main will surface
+             immediately as a non-zero behind-count rather than
+             accumulating unseen.
+             TEN CONFLICT HUNKS across three files — one in
+             api/employer-guide-download.ts, two in
+             api/employer-roi-report.ts, seven in
+             ROICalculator.astro. No wholesale ours or theirs.
+             Production was not touched and remains at 358d615. ·
+             FOUNDER + CC
+2026-08-10 · THE THREE FOUNDER-RATIFIED RESOLUTIONS. (a) HUNK 3.6,
+             the error-handling block — KEEP THE BRANCH FIX. The
+             39d8c7a block, whose commit message names it "fix
+             silent submission failure," was never present on
+             main; the hotfix author was removing a PDF download
+             and the conflict was collateral. Deleting it would
+             have restored a regression neither side intended.
+             Reported as a RULE 5 STOP, resolved provisionally so
+             the build could run, and held uncommitted until the
+             founder decided it. (b) HUNKS 3.1-3.3, the calculator
+             copy — TAKE main's CONTAINMENT COPY. Batch E owns the
+             final CTA and presentation. (c) HUNK 2.1, the header
+             comment — RETAIN BOTH STATEMENTS MERGED. main records
+             the containment, the branch records the
+             register-linked parked state, and both are true;
+             picking either side would have discarded a fact. ·
+             FOUNDER
+2026-08-10 · #24's MERGE OBLIGATION IS DISCHARGED.
+             api/employer-guide-download.ts resolves BYTE-FOR-BYTE
+             IDENTICAL to origin/main — the strongest available
+             form of the rule 6 proof, stronger than the pattern
+             counts the rule asked for. The retired claimant
+             signature did not survive. Verified zero after commit
+             for Served 150,000+, claimants, Custom ROI Report,
+             savings analysis, Projected Year-One Savings and the
+             composite-case-study bullet. Lead capture intact.
+             #24's remedy for that instance was recorded at DOC-19
+             as a MERGE RESOLUTION OBLIGATION rather than a
+             handoff; that obligation is now met. The historical
+             finding stands unchanged: a Workstream A batch
+             reached into a file that later became EDS-owned, two
+             days before the boundary was drawn, and the residue
+             was invisible until someone looked. · FOUNDER + CC
+2026-08-10 · THE 3E-GATE WORDING IS PRESERVED AS HISTORICAL AND
+             PROPOSED COPY FOR BATCH E, NOT CURRENT APPROVED COPY.
+             The branch's Batch 3E-gate calculator copy — the
+             success panel "Thanks — we have your figures. Michael
+             will review them personally and follow up," the modal
+             heading "See Your Imaging Savings," and the submit
+             label "Send My Figures" — was set aside at
+             reconciliation in favour of main's containment copy.
+             SET ASIDE PENDING BATCH E, NOT DISCARDED ON MERIT.
+             Batch E owns the final CTA and presentation and
+             SHOULD HAVE THIS WORDING IN FRONT OF IT, subject to a
+             rule 26 read on "Michael will review them
+             personally," which is a personal-commitment claim,
+             and to rule 24 on "See Your Imaging Savings," which
+             is a savings headline over $350-derived arithmetic.
+             Recorded here because it otherwise exists only in git
+             history at daaa3ee and earlier, where E would not
+             find it. · FOUNDER
+2026-08-10 · #52 GAINS A MEMBER FROM A NEW DIRECTION — WORK DONE
+             AND NOT RECORDED. The reconciliation happened,
+             committed and pushed, and for a period NO WORKSTREAM
+             A DOCUMENT MENTIONED IT: not the merge SHA, not the
+             ten hunks, not the three ratifications. The register
+             recorded the reconciliation RULES at DOC-19 and
+             nothing recording that reconciliation OCCURRED.
+             #52's earlier members are certificates for work since
+             undone and for work never done. This is the third
+             shape: WORK DONE, CORRECTLY, AND ABSENT FROM THE
+             RECORD. Closed by this batch, but the class is what
+             #52 tracks and the gap it leaves is the same — a
+             future session reading the folder would have found
+             rules with no execution. Also logged, from the same
+             class: an APPROVED-FIGURES clause approved at one
+             gate went stale before it could be written, caught
+             only by re-reading approved wording immediately
+             before writing it. · CC + FOUNDER
 ```
 
 ---
