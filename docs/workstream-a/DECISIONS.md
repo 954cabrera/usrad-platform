@@ -1919,6 +1919,171 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              FOUNDER
 ```
 
+## August 10, 2026
+
+```
+2026-08-10 · AnciCareLegacy WAS OMITTED FROM THE STAGE 3 SEQUENCE.
+             /employer rendered TWELVE copy components before Stage
+             3 began. The approved sequence — A, B/C, D, E, F, G, H
+             — covers ELEVEN of them: two under A, six under B/C,
+             two under D, the calculator under E. AnciCareLegacy is
+             in none of them and still ships retired-figure
+             instances after B/C completed. THE SURFACE IS NOT
+             CONFORMED. It gets its OWN SHORT CORRECTIVE BATCH and
+             is NOT folded into F, G or H: folding it would hide an
+             omission inside an unrelated batch and leave the
+             sequence record wrong. Recorded so no future session
+             reads "B/C done" as "/employer conformed." The counts
+             in this entry were measured against the page as it
+             stood before Batch A, not taken from the brief, which
+             said eleven and ten. · FOUNDER
+2026-08-10 · APPROVED-FIGURES CONFORMANCE STATEMENT — NEITHER
+             OVERSTATED NOR AN ESCAPED SWEEP. IT IS A COMPLETION
+             CERTIFICATE FOR WORK SINCE REVERSED. The register
+             states that patient-count conformance covered
+             AnciCareLegacy in full and that it carries no
+             remaining C1 instance. VERIFIED AGAINST SOURCE AND
+             HISTORY, AND THE STATEMENT IS TRUE AS WRITTEN: Batch
+             4H-c1 did cover the component in full, changing both
+             live instances from the 168,000 family to 150,000+ —
+             the prose credit line under the founders' quote and
+             the proof-point tile. Neither hypothesis holds. The
+             register does not overstate the conformance, and
+             "claimants" did not escape a sweep scoped to
+             "patients" — the 4H-e survey named claimants as one of
+             eleven unit labels the figure wears, and 4H-c1 edited
+             those exact instances.
+             THE DEFECT IS STALENESS, NOT ERROR. The conformance
+             this statement certifies was RETIRED 2026-08-07 and
+             must be undone as open item #24, and this register
+             separately rules that the 150,000 figure has no basis
+             in ANY unit and that relabeling is not an available
+             disposition. A reader therefore meets "covered in
+             full, no remaining instance" as reassurance while both
+             instances that conformance installed are barred
+             output. THE CORRECTION THAT FOLLOWS IS NOT A COUNT
+             FIX: the statement must be re-qualified to record that
+             the conformance it certifies has been retired and that
+             the instances it installed are barred pending #24.
+             THE DEFECT CLASS, STATED PLAINLY: a statement that
+             was ACCURATE WHEN WRITTEN, that REMAINS ACCURATE
+             ABOUT WHAT WAS DONE, and that is now MISLEADING ABOUT
+             WHAT IS PERMITTED. Nobody re-qualified it when the
+             underlying figure was retired. NO FAULT ATTACHES TO
+             ITS AUTHOR and it must not be recorded as a false
+             original conformance statement — the reversal
+             arrived after it, and the register carries no
+             mechanism that walks back completion certificates
+             when the work they certify is undone. THAT MISSING
+             MECHANISM IS THE FINDING. Not edited in this batch —
+             APPROVED-FIGURES is the publication authority and
+             this batch is documentation only. The corrective
+             batch must not be the thing that discovers its own
+             authority was wrong. · FOUNDER + CC
+2026-08-10 · STANDING RULE 27 — BUILT-ARTIFACT VERIFICATION.
+             Where the marketing build emits inspectable HTML,
+             verification runs against the BUILT ARTIFACT, not
+             source alone. Discovered in Batch B/C: Astro emits
+             HTML comments into the delivered page, and barred
+             week-based labels plus a superseded card title were
+             live in /employer view-source AFTER the visible copy
+             had been replaced. Source-only verification passed
+             while barred text shipped. This is a DEFECT CLASS,
+             not an instance: every batch that replaces visible
+             copy may leave stale comments, ids, aria-labels, alt
+             text, meta tags or structured data behind. Sweeps
+             must cover the built output for the same patterns
+             they cover in source. · FOUNDER
+2026-08-10 · TWO UNNAMED RULE 26 CANDIDATES IN ExecutiveFAQ Q5.
+             "Data Security - Secure portal-based handling of
+             sensitive health information" and "Direct Contracting
+             - USRad can contract directly with self-funded
+             employers without requiring a carrier network
+             arrangement." Both assert present-tense USRad
+             capability. NEITHER IS NAMED BY #44 OR #47 — they are
+             the residue of #47's inventory being drawn before
+             Q5's bullets were read against rule 26. NOT RESOLVED
+             HERE. They require operational-basis rulings. Logged
+             as open item #48. · FOUNDER
+2026-08-10 · SUPPLIED COUNTS KEEP COMING IN WRONG. The B/C brief
+             said twelve Implementation process bullets; there are
+             eleven. The action was identical either way, but this
+             is the fourth supplied count corrected at a gate this
+             week — checkpoint counts twice, a figure inventory,
+             and now a bullet count. Standing rule 22's re-sweep
+             requirement is what catches these. Recorded so the
+             pattern is visible rather than incidental: counts in
+             a brief are an author's recollection, and CC's
+             measurement governs. AMENDED IN THE SAME ENTRY: this
+             batch's own brief supplied a fifth wrong count — the
+             component and coverage totals for the Stage 3
+             omission, given as eleven and ten, measured as twelve
+             and eleven. The gap it identified was correct. · CC
+2026-08-10 · DOC-18 BUILT-OUTPUT INVENTORY — /employer, THE THREE
+             COMPLETED BATCHES ARE CLEAN. Rule 27's first
+             application. Sixty-six patterns swept against the
+             built page for batches A, D and B/C. NOT ONE HIT
+             TRACES TO ANY COMPONENT THOSE BATCHES EDITED OR
+             DELETED. Every deleted component name, the renamed
+             anchor id, the week labels and every barred phrase
+             return zero. Thirteen patterns are non-zero and all
+             attribute elsewhere: AnciCareLegacy, which no batch
+             covered, carries the retired patient count in two
+             places plus the post-exit pair, the historical
+             reduction range, the deductible average and the
+             derived headcount; the calculator carries the flat
+             rate, the network range, the reduction percentage and
+             the spend default, all of which Batch E is the merge
+             gate for; the sitewide footer carries the derived
+             headcount once. Two are SVG path coordinates and
+             three are the substring "across" — false positives,
+             not claims.
+             TWO FINDINGS THE SWEEP ADDED. First, /employer today
+             publishes a flat per-scan rate, a network range and a
+             derived savings percentage while standing rule 24
+             bars every one of them until a contracted rate or a
+             ratified methodology exists — the exposure is LIVE ON
+             A PUBLISHED PAGE and persists until Batch E runs.
+             Second, rule 27's class is wider than the six
+             instances B/C fixed: the shared marketing layout
+             ships a multi-line internal engineering note into the
+             head of FORTY-THREE OF FORTY-NINE built pages, and
+             that note documents a known accessibility concern and
+             names the attribute causing it. An internal review
+             note is being published sitewide. NEITHER IS
+             REMEDIATED HERE — this part was inventory only. · CC
+2026-08-10 · RULE 23'S STRUCTURAL CHECK BOUNDED. The
+             delta-comparison check added by DOC-16 read "a
+             divergence means a fence boundary moved," without
+             qualification. It fires on every legitimate new dated
+             block: this batch's +124 total against +119 fenced
+             differs by exactly five — the August 10 heading, a
+             blank before it, a blank after the closing fence, and
+             the two fence markers. That divergence is legitimate
+             and was accounted for line by line at the gate.
+             Amended so the exception is explicit and bounded:
+             in-block edits require equal deltas; a new dated
+             block may differ only by its own enumerated
+             structural lines; anything unexplained remains a
+             failure. THE ACCOUNTING IS THE CHECK — a plausible
+             difference is not an accounted one. · FOUNDER + CC
+2026-08-10 · INTERNAL WCAG REVIEW NOTE SHIPS SITEWIDE IN BUILT
+             HTML. CarbonLayout.astro carries a four-line
+             engineering comment that Astro emits into <head> on
+             43 of 49 built pages. It publicly documents a known
+             WCAG 2.1 §1.4.4 concern, names the attribute causing
+             it, and states that a future accessibility pass
+             should evaluate removing it. An internal review note
+             published sitewide. Found by rule 27's first
+             application, which is the class the rule exists to
+             catch — but it is a PRESENTATION AND ACCESSIBILITY
+             matter, not a claim defect, and it is OUT OF STAGE 3
+             SCOPE. Logged as open item #51 for a later
+             presentation and accessibility cleanup. NOT
+             remediated here and Stage 3 is not expanded to reach
+             it. · FOUNDER
+```
+
 ---
 
 ## Open decisions awaiting founder
