@@ -2650,6 +2650,79 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              CC + FOUNDER
 ```
 
+## August 11, 2026
+
+```
+2026-08-11 · BATCH F RESCOPED FROM CONFORMANCE TO REWRITE. The
+             survey found TWELVE OF FIFTEEN contents claims
+             misdescribe the deployed guide. Every section the
+             register records as removed was still advertised,
+             MOST OF THEM TWICE — once in the hero list and once
+             in a card grid describing the same six things. Seven
+             of eight sections lost most or all content under
+             conformance. Five sections removed entirely because
+             each existed primarily to hold barred or obsolete
+             content. THE DEPLOYED 8-PAGE GUIDE IS THE SOLE SOURCE
+             OF TRUTH FOR WHAT THE PAGE MAY SAY IT CONTAINS. The
+             route now supplies its own meta description rather
+             than inheriting the sitewide default. · FOUNDER
+2026-08-11 · D12 EXTENDED ACROSS THE PAGE — NO DELIVERY
+             ASSERTIONS. D12 removed "We'll send the guide to your
+             inbox immediately" BY NAME and barred any replacement
+             assertion. That sentence was STILL LIVE VERBATIM,
+             plus four more: "Get Instant Access," "Guide on its
+             way!", "Check your inbox.", "Send Me the Guide." All
+             five removed. THE PAGE MAY DESCRIBE THE USER'S
+             ACTION; IT MAY NOT CLAIM THE DOWNSTREAM DELIVERY
+             OCCURRED.
+             The mechanism makes this more than wording: the
+             success panel fires on HTTP 200, and the EDS-owned
+             endpoint returns success on its honeypot and timing
+             paths WHILE DELIBERATELY SENDING NOTHING. A success
+             message asserting a delivery designed not to occur.
+             Endpoint untouched; recorded against #38. ·
+             FOUNDER + CC
+2026-08-11 · THE FINE-PRINT BLOCK IS REMOVED WITHOUT REPLACEMENT.
+             "No spam. No sales calls unless you ask. Unsubscribe
+             anytime." Forward CONDUCT commitments and a MECHANISM
+             assertion that no rule reaches and nobody has
+             verified. Rule 26 governs capability, rule 7 governs
+             timing; neither reaches a promise about future
+             contact behavior. Removed rather than requalified. ·
+             FOUNDER
+2026-08-11 · THE ACCREDITATION REMOVAL IN F IS DELIBERATE. The
+             page carried the corrected four-body wording — the
+             right form — but the Verified Provider Standard is a
+             DRAFT (#45), the deployed guide's licensing and
+             accreditation table was REMOVED, and B7 defers the
+             public formulation to #44. Removed with no
+             replacement. THE PAGE NOW CARRIES NO ACCREDITATION
+             LANGUAGE, AND THAT IS INTENDED. #44 and B7 are
+             neither resolved nor superseded. · FOUNDER
+2026-08-11 · FOUR SUPPLIED FACTS WERE CONTRADICTED BY THE
+             REPOSITORY. (1) and (2): de4b5a8, then bb50c74, were
+             recorded as DOC-21's SHA. NEITHER RESOLVES IN THE
+             OBJECT DATABASE. Git verification across all refs
+             established 704f452, confirmed three ways — the
+             commit graph, the commit's own file stat matching row
+             66's description, and the TRACKER's existing
+             references. Row 66 was already correct because the
+             SHA was written from git output rather than from the
+             prompt. (3): these four entries were dated
+             2026-08-10; Batch F ran on the 11th. (4): DOC-21 was
+             recorded as pushed when it was committed and NOT
+             pushed — origin still read e3fbdc0, and the push
+             authorization had been requested and never given.
+             ALL FOUR WERE CAUGHT BEFORE COMMIT, each by checking
+             a supplied fact against the repository rather than
+             accepting it. §1 line 8 was correct throughout and
+             was nearly overwritten with a false push state — in
+             the one section whose purpose is to be the
+             branch-state detector. THE SESSION RECORD DRIFTED
+             AHEAD OF WHAT HAD ACTUALLY HAPPENED; the repository
+             did not. · CC + FOUNDER
+```
+
 ---
 
 ## Open decisions awaiting founder

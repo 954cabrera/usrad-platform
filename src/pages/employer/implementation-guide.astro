@@ -7,6 +7,7 @@ export const prerender = true;
 
 <CarbonLayout
   title="Employer Implementation Guide | USRad for Self-Insured Employers"
+  description="USRad's Employer Implementation Guide explains the implementation process, employee booking flow, responsibilities, reporting, and savings measurement."
   isHeroPage={true}
   hideNewsletter={true}
 >
@@ -27,7 +28,7 @@ export const prerender = true;
 
     <div class="relative z-10 max-w-7xl mx-auto">
       <div class="grid lg:grid-cols-2 gap-10 sm:gap-16 items-center">
-        <!-- Left — PDF Preview + What's Inside -->
+        <!-- Left — What's Inside -->
         <div data-aos="fade-right">
           <!-- Badge -->
           <div
@@ -39,9 +40,7 @@ export const prerender = true;
                 d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
                 clip-rule="evenodd"></path>
             </svg>
-            <span class="text-xs sm:text-sm font-semibold"
-              >Free PDF Download</span
-            >
+            <span class="text-xs sm:text-sm font-semibold">Free download</span>
           </div>
 
           <h1
@@ -57,21 +56,22 @@ export const prerender = true;
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            Everything a self-insured employer needs to reduce imaging costs by
-            75-90% — workflows, timelines, compliance checklist, and a real
-            composite case study.
+            How USRad works with self-funded employers: the implementation
+            process, how employees book imaging, what each side is responsible
+            for, and how savings are measured.
           </p>
 
           <!-- What's inside list -->
           <div class="space-y-3 mb-8" data-aos="fade-up" data-aos-delay="150">
             {
               [
-                "30-day implementation timeline with owner accountability",
-                "Employee health referral workflows, step by step",
-                "Every Verified Provider maintains an active state facility license where required and active accreditation from a recognized accrediting body — ACR, IAC, The Joint Commission, or RadSite — covering each modality offered through USRad.",
-                "Reporting metrics and 90-day performance benchmarks",
-                "Composite case study: $3.3M saved, 18-day faster RTW",
-                "Bar chart: Hospital $3,200 → USRad $420",
+                "Why imaging costs land on self-funded plans",
+                "Where the model came from — AnciCare, 1994 to 2002",
+                "The implementation process, phase by phase",
+                "How employees find and book imaging",
+                "What your team provides and what USRad coordinates",
+                "What USRad reports back",
+                "How savings will be measured",
               ].map((item) => (
                 <div class="flex items-start gap-3">
                   <svg
@@ -90,30 +90,6 @@ export const prerender = true;
               ))
             }
           </div>
-
-          <!-- Credibility strip -->
-          <div
-            class="flex flex-wrap gap-6 text-sm text-gray-400 border-t border-white/10 pt-6"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            <div>
-              <span class="block text-white font-semibold">150,000+</span>
-              Cases managed
-            </div>
-            <div class="w-px bg-white/10"></div>
-            <div>
-              <span class="block text-white font-semibold">Est. 1994</span>
-              Category founders
-            </div>
-            <div class="w-px bg-white/10"></div>
-            <div>
-              <span class="block text-white font-semibold"
-                >CorVel (NASDAQ: CRVL)</span
-              >
-              Acquired our model
-            </div>
-          </div>
         </div>
 
         <!-- Right — Gate Form -->
@@ -122,10 +98,10 @@ export const prerender = true;
             <!-- Form header -->
             <div class="mb-6">
               <h2 class="text-2xl font-bold text-gray-900 mb-1">
-                Get Instant Access
+                Request the guide
               </h2>
               <p class="text-gray-500 text-sm">
-                We'll send the guide to your inbox immediately.
+                Three fields. We'll follow up by email.
               </p>
             </div>
 
@@ -146,11 +122,11 @@ export const prerender = true;
                 </svg>
               </div>
               <h3 class="text-xl font-bold text-gray-900 mb-2">
-                Guide on its way!
+                Thanks — we have your details.
               </h3>
               <p class="text-gray-600 text-sm mb-6">
-                Check your inbox. While you wait — want to speak directly with
-                Michael?
+                We'll follow up by email. If you'd like to talk sooner, you can
+                schedule a 30-minute briefing.
               </p>
               <a
                 href="/employer/schedule"
@@ -242,7 +218,7 @@ export const prerender = true;
                 id="submit-btn"
                 class="w-full bg-[#003087] hover:bg-[#002070] text-white px-6 py-4 rounded-xl font-bold text-base transition-all duration-200 flex items-center justify-center gap-2 mt-2"
               >
-                <span id="btn-text">Send Me the Guide</span>
+                <span id="btn-text">Send my details</span>
                 <svg
                   id="btn-arrow"
                   class="w-5 h-5"
@@ -275,122 +251,9 @@ export const prerender = true;
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
                 </svg>
               </button>
-
-              <p class="text-xs text-gray-400 text-center pt-1">
-                No spam. No sales calls unless you ask. Unsubscribe anytime.
-              </p>
             </form>
           </div>
-
-          <!-- PDF stat preview under form -->
-          <div class="mt-4 grid grid-cols-3 gap-3 text-center">
-            <div class="bg-white/10 backdrop-blur-sm rounded-xl py-3 px-2">
-              <div class="text-lg font-bold text-white">16</div>
-              <div class="text-xs text-gray-400">Pages</div>
-            </div>
-            <div class="bg-white/10 backdrop-blur-sm rounded-xl py-3 px-2">
-              <div class="text-lg font-bold text-white">8</div>
-              <div class="text-xs text-gray-400">Sections</div>
-            </div>
-            <div class="bg-white/10 backdrop-blur-sm rounded-xl py-3 px-2">
-              <div class="text-lg font-bold text-[#cc9933]">Free</div>
-              <div class="text-xs text-gray-400">No cost</div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Social proof / trust band -->
-  <section class="py-10 px-4 sm:px-6 bg-gray-900 border-t border-gray-800">
-    <div class="max-w-5xl mx-auto">
-      <div
-        class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-6 sm:gap-10 text-center text-sm text-gray-400"
-      >
-        <div>
-          <span class="block text-white font-semibold text-base"
-            >From the founders of AnciCare (1994)</span
-          >
-          First managed imaging network in the U.S.
-        </div>
-        <div class="hidden sm:block w-px h-8 bg-gray-700"></div>
-        <div>
-          <span class="block text-white font-semibold text-base"
-            >Acquired by CorVel (NASDAQ: CRVL)</span
-          >
-          Model still operating 20+ years post-exit
-        </div>
-        <div class="hidden sm:block w-px h-8 bg-gray-700"></div>
-        <div>
-          <span class="block text-white font-semibold text-base"
-            >50–70% cost reduction</span
-          >
-          Proven across 150,000+ imaging cases
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- What's inside preview section -->
-  <section class="py-16 sm:py-24 px-4 sm:px-6 bg-white">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12" data-aos="fade-up">
-        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-          A Practical Guide, Not a Sales Brochure
-        </h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-          Built for CFOs, HR directors, and risk managers who need to make the
-          case internally — and get it done.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {
-          [
-            {
-              icon: "📋",
-              title: "30-Day Implementation Timeline",
-              desc: "Week-by-week owner accountability matrix. Know exactly who does what, when — from contract execution through go-live.",
-            },
-            {
-              icon: "🔄",
-              title: "Referral Workflows",
-              desc: "Step-by-step referral flows for employee health plan members.",
-            },
-            {
-              icon: "✅",
-              title: "Compliance Checklist",
-              desc: "Every Verified Provider maintains an active state facility license where required and active accreditation from a recognized accrediting body — ACR, IAC, The Joint Commission, or RadSite — covering each modality offered through USRad.",
-            },
-            {
-              icon: "📊",
-              title: "Reporting & Analytics",
-              desc: "The exact metrics to track, benchmarks to hit by 90 days, and dashboard data feeds available to your BI platform.",
-            },
-            {
-              icon: "🏭",
-              title: "Composite Case Study",
-              desc: "4,800-employee regional logistics company. $5.1M → $1.8M imaging spend. 18 days faster return-to-work. Real numbers.",
-            },
-            {
-              icon: "💰",
-              title: "Cost Comparison Chart",
-              desc: "Hospital outpatient $3,200 · PPO network $1,800 · Freestanding center $900 · USRad $420. Visualized clearly.",
-            },
-          ].map((card) => (
-            <div
-              class="bg-gray-50 rounded-2xl p-6 hover:shadow-md transition-shadow"
-              data-aos="fade-up"
-            >
-              <div class="text-3xl mb-3">{card.icon}</div>
-              <h3 class="font-semibold text-gray-900 text-lg mb-2">
-                {card.title}
-              </h3>
-              <p class="text-gray-600 text-sm leading-relaxed">{card.desc}</p>
-            </div>
-          ))
-        }
       </div>
     </div>
   </section>
@@ -404,8 +267,8 @@ export const prerender = true;
         Ready to make the case to leadership?
       </h2>
       <p class="text-lg text-gray-300 mb-8">
-        Get the implementation guide free — then schedule 30 minutes with
-        Michael if you want to go deeper.
+        Request the guide, or schedule a 30-minute briefing if you'd rather talk
+        it through.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a
@@ -459,7 +322,7 @@ export const prerender = true;
 
     function setLoading(loading: boolean) {
       submitBtn.disabled = loading;
-      btnText.textContent = loading ? "Sending…" : "Send Me the Guide";
+      btnText.textContent = loading ? "Sending…" : "Send my details";
       btnArrow.classList.toggle("hidden", loading);
       btnSpinner.classList.toggle("hidden", !loading);
     }
