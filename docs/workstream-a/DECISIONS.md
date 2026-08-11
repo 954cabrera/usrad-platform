@@ -2477,6 +2477,177 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              condition is precisely the class #52 tracks. RULE 25
              REMAINS IN FORCE AND THE GATE IS NOT CLEARED. ·
              FOUNDER
+2026-08-10 · RECONCILIATION 2 COMPLETE — e3fbdc0. main advanced to
+             d05b97c, PR #5, while the branch was 65 ahead of base
+             358d615. THE BRANCH IS LEVEL WITH PRODUCTION AGAIN:
+             66 ahead, 0 behind. This is the SECOND time main has
+             moved during Stage 3, both on 2026-08-10, and both
+             times the non-zero behind-count surfaced on the first
+             state check that ran. The §1 branch-state discipline
+             recorded at DOC-20 is what caught it.
+             ONE FILE CONFLICTED — api/employer-roi-report.ts —
+             one hunk, resolved under the seven binding rules with
+             one founder ratification. No wholesale ours or
+             theirs. Everything else auto-merged: the branch kept
+             its totalScans destructuring, its parked-route header
+             comment and its annualSavings expression, while
+             taking main's error inspection, sanitized logging,
+             adminNotified tracking and the 500 path. · FOUNDER
+2026-08-10 · PR #5 FIXED A SILENT PRODUCTION DATA LOSS. The
+             employer lead insert named wc_scans, a column ABSENT
+             FROM THE LIVE SCHEMA. PostgREST resolves payload keys
+             before execution, so the unknown key rejected the
+             WHOLE REQUEST ATOMICALLY (PGRST204) — no row written,
+             nine valid fields lost with it. supabase-js resolves
+             to {data, error} rather than throwing, so the
+             enclosing try/catch never fired and the route
+             reported success. EMPLOYER LEADS WERE BEING DROPPED
+             SILENTLY.
+             The defect was PREDICTED during the first
+             reconciliation, when the column-name divergence was
+             noticed while reading a merged file, and ESCALATED TO
+             EDS RATHER THAN DECIDED. PR #5 confirmed the
+             mechanism. Recorded because the finding came from
+             reading a column name during a merge, not from any
+             sweep — no pattern list would have caught it. ·
+             FOUNDER + EDS
+2026-08-10 · health_scans OMITTED — RATIFIED ON THE LIVE SCHEMA.
+             The conflict hunk turned on a fact neither side of
+             this workstream held. main writes health_scans; the
+             branch does not send healthScans at all, because
+             Batch 3C-calc merged the two scan inputs into one.
+             TAKING MAIN'S LINES VERBATIM WOULD HAVE REFERENCED
+             UNDECLARED IDENTIFIERS — a ReferenceError, not a
+             subtle regression. Reported as a RULE 5 STOP and held
+             uncommitted.
+             EDS CONFIRMED THE LIVE SCHEMA: employer_leads
+             .health_scans exists, integer, NULLABLE, no default,
+             ordinal 7, no drift since 2026-08-10. Omitting it
+             stores NULL and violates nothing.
+             RATIFIED TO OMIT. The single-input form no longer
+             captures a WC/health split, and writing 0 or deriving
+             a value WOULD FABRICATE DATA — the same principle
+             that refused a third statistic at D8.
+             ⛔ DURABLE CONSEQUENCE: employer_leads.health_scans
+             NOW HOLDS A MIXED POPULATION. Pre-cutover rows carry
+             the historical split; post-cutover rows carry NULL.
+             IT MUST NEVER BE TREATED AS A COMPLETE POPULATION
+             FIELD. Any analysis over it is bounded at this merge.
+             · FOUNDER + EDS
+2026-08-10 · FD-MKT-002's "COMPONENT BREAKDOWN IS KEPT" WAS
+             OVERTAKEN, NOT WRONG. The ruling was authored against
+             a two-input PRODUCTION file and predates Batch
+             3C-calc's single-input change on this branch. It was
+             CORRECT FOR THE FILE IT GOVERNED. It ceased to be
+             followable when a different file, which it never saw,
+             removed the input it depended on. The FD-MKT-002
+             two-input ruling is NOT reopened.
+             A DISTINCT SHAPE, WORTH NAMING: a ruling authored
+             against production that a later branch change makes
+             unfollowable. Not a statement that went stale, and
+             not one that was wrong when written — one that was
+             true of its own subject and silently ceased to apply
+             to a different one. Cross-referenced to #52, which
+             now spans five shapes. · CC + FOUNDER
+2026-08-10 · THE total_scans SCHEMA QUESTION IS CLOSED, AND BATCH
+             E'S BLOCKER LIST HALVES. Raised during the first
+             reconciliation, escalated to EDS, resolved by PR #5.
+             ⛔ D13'S ATOMIC CLOSURE NOW STANDS ALONE as Batch E's
+             remaining dependency: the $350-derived calculator
+             arithmetic and the projectedSavings payload contract,
+             both EDS-owned, both requiring coordinated execution.
+             BATCH E REMAINS THE MERGE GATE. RULE 25 REMAINS IN
+             FORCE. The rule 24 exposure on /employer — $350 ×2,
+             $260, $475, 71%, $1,200,000 ×2 — is unchanged by the
+             merge and is still Batch E's. · FOUNDER
+2026-08-10 · #55 · CarbonLayout's DEFAULT META DESCRIPTION
+             CONTAINED. The default shipped FOUR DEFECTS IN ONE
+             LINE on twenty routes: a D4 savings percentage AT THE
+             CONFIDENTIAL 70% BOUND, a same-day access commitment
+             under D7's "equivalent formulations," the #46
+             board-certification family, and an UNREGISTERED
+             1,500+ network count.
+             MEASURED RADIUS: 20 of 48 routes — 18 static plus the
+             homepage and /provider/faq, both server-rendered into
+             the function bundle. ALL SIX PROVIDER MARKETING
+             ROUTES, all three employer routes, the homepage,
+             education, five company routes, four legal routes.
+             Contamination is confined to ONE TAG: og:description
+             is a separate hardcoded string, twitter:description
+             does not exist, there is no JSON-LD.
+             CONTAINED BY REPLACEMENT with copy carrying no
+             percentage, timing commitment, network count,
+             accreditation statement, or claim of an
+             already-operating provider network. Option (a) of
+             three. The structural question — whether the layout
+             should permit a silent default at all — is
+             DELIBERATELY LEFT OPEN, logged as #57. · FOUNDER
+2026-08-10 · #56 · "1,500+ LOCATIONS NATIONWIDE" — UNREGISTERED,
+             HIGH PRIORITY, REMOVE SITEWIDE. NINETEEN INSTANCES
+             ACROSS EIGHTEEN FILES. The figure appears in NO
+             REGISTER DOCUMENT, IN ANY FORM — a grep of the whole
+             of docs/workstream-a/ returns nothing.
+             ⛔ IT IS NOT AN INFLATION OF AN APPROVED FIGURE. The
+             approved figure is 1,228 contracted imaging
+             facilities in 43 states, April 2002 — a HISTORICAL
+             AnciCare count, class CP. "1,500+ locations
+             nationwide" is a PRESENT-TENSE CLAIM ABOUT A USRad
+             NETWORK, and USRad has ZERO CONTRACTED PROVIDERS
+             TODAY. Different figure, different entity, different
+             tense.
+             DISPOSITION: REMOVE SITEWIDE, NO NUMERICAL
+             SUBSTITUTE. ⛔ DO NOT REPLACE IT WITH 1,228. That
+             figure is AnciCare history and MUST NOT be repurposed
+             as present USRad network scale.
+             Live instances span the homepage body, HeroSection,
+             three network-map components, a search loading
+             overlay, ui-manager.js and the dashboard skeleton.
+             Containing the layout default reaches ONE OF
+             NINETEEN. NOT ACTIONED HERE. · FOUNDER
+2026-08-10 · #46 SCOPE AMENDED ON MEASUREMENT — FORTY TO
+             SIXTY-SIX. The item recorded "roughly forty"
+             board-certification instances. A measured sweep finds
+             SIXTY-SIX ACROSS THIRTY-NINE FILES, including one in
+             CarbonFooter, which ships on every page, and one in a
+             transactional email template. The ruling is
+             unchanged; only the scope is amended.
+             RECORDED AS FURTHER #52 EVIDENCE RATHER THAN SILENTLY
+             CORRECTED. This is the SECOND scope understatement
+             this session, after #30 was amended from two
+             instances to fourteen. The pattern is now established
+             enough to state plainly: A COUNT IN THE REGISTER IS A
+             MEASUREMENT AT A MOMENT, AND IT DECAYS. RE-MEASURE
+             BEFORE SCOPING ANY BATCH AGAINST ONE. · FOUNDER + CC
+2026-08-10 · THE HOMEPAGE TITLE IS INDEPENDENTLY DEFECTIVE.
+             "USRad - MRI Scans in 48 Hours, 70% Less" carries a
+             D7 access commitment — 48-hour appointments is named
+             in D7's removal list — and the D4 percentage at the
+             confidential bound. The homepage passes it
+             EXPLICITLY, so containing the layout default does not
+             reach it. Corrected in this batch.
+             THE TITLE EXPOSURE WAS TWO PLACES, BOTH NOW CLOSED:
+             the layout default and exactly one route,
+             index.astro. No other route passed it. Verified three
+             ways — the #55 inventory, this batch's Part 2
+             re-verification, and a post-edit sweep returning zero
+             for the old string in src/. UNLIKE THE DESCRIPTION
+             DEFAULT, whose four claim families remain live
+             elsewhere at #46, #56 and #58, THE TITLE DEFECT IS
+             FULLY CLOSED BY THIS BATCH.
+             Recorded because a defect that survives its own
+             containment is the kind a later sweep reports as
+             already fixed. · CC
+2026-08-10 · SIX ROUTE OVERRIDES CARRY THEIR OWN DEFECTS —
+             RECORDED, NOT ACTIONED. Overriding the default did
+             not escape the defect class. blog/uninsured-imaging-
+             guide hand-writes "70% less"; blog/real-cost-of-mri
+             carries $260, named in D5 and #36; membership and
+             patient-promise carry "instant," a timing and
+             capability construction; and four connect/* routes
+             assert an ACR-ACCREDITED network nationwide — the
+             single-body formulation B7 records as wrong, on a
+             draft standard (#45). Logged as open item #58. ·
+             CC + FOUNDER
 ```
 
 ---
