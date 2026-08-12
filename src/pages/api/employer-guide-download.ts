@@ -14,19 +14,39 @@ const REMIX_API_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
-    const { name, email, company, source, roiData, website_url, form_start } = data;
+    const { name, email, company, source, roiData, website_url, form_start, elapsed_ms } = data;
 
     // ── Anti-bot: honeypot ──
     if (website_url) {
       console.log("[Guide] Honeypot triggered — bot blocked:", { email, company });
-      return new Response(JSON.stringify({ success: true, message: "Guide sent to your inbox" }), { status: 200, headers: { "Content-Type": "application/json" } });
+      // 200 keeps the bot from learning it was detected. `delivered: false` is the
+      // truth: nothing was sent. The message field is OMITTED, not replaced — any
+      // replacement would be a second assertion about a delivery that did not occur.
+      return new Response(JSON.stringify({ success: true, delivered: false }), { status: 200, headers: { "Content-Type": "application/json" } });
     }
 
     // ── Anti-bot: timing check ──
-    const elapsed = form_start ? Date.now() - Number(form_start) : 99999;
+    // `elapsed_ms` is computed entirely on the client, so both readings come from
+    // ONE clock and the comparison is skew-free. Preferred whenever present.
+    //
+    // TEMPORARY COMPATIBILITY PATH — the `form_start` branch below subtracts a
+    // client timestamp from a server timestamp, i.e. it compares TWO CLOCKS. A
+    // device running more than ~3s fast is blocked deterministically and silently
+    // on every attempt; a device running slow has the gate disabled entirely. The
+    // branch is retained WITH THAT DEFECT INTACT, by design, solely for the one
+    // unmigrated caller — ROICalculator.astro, which still sends only `form_start`.
+    // BATCH E migrates that caller and removes this branch. Do not "fix" the skew
+    // here: doing so would change behaviour for a caller Batch E has not yet moved.
+    const elapsed =
+      elapsed_ms !== undefined && elapsed_ms !== null
+        ? Number(elapsed_ms)
+        : form_start
+          ? Date.now() - Number(form_start)
+          : 99999;
     if (elapsed < 3000) {
       console.log("[Guide] Timing check failed:", elapsed, "ms");
-      return new Response(JSON.stringify({ success: true, message: "Guide sent to your inbox" }), { status: 200, headers: { "Content-Type": "application/json" } });
+      // Same contract as the honeypot: 200, delivered:false, message omitted.
+      return new Response(JSON.stringify({ success: true, delivered: false }), { status: 200, headers: { "Content-Type": "application/json" } });
     }
 
     // ── Anti-bot: free email domain block ──
@@ -96,6 +116,10 @@ export const POST: APIRoute = async ({ request }) => {
       : null;
 
     let emailData: { id?: string } | null = null;
+    // Set true ONLY by a send path that actually succeeded. `success` means the
+    // request was handled; `delivered` means an email left the building. They are
+    // not the same, and this flag is the only thing entitled to assert the second.
+    let delivered = false;
 
     // Step 2: Send emails via Remix API (branded templates), fallback to Resend
     console.log("📧 Sending emails via Remix API...");
@@ -126,6 +150,7 @@ export const POST: APIRoute = async ({ request }) => {
         const result = await emailResponse.json();
         console.log("✅ Emails sent via Remix API");
         emailData = { id: result.customerEmailId };
+        delivered = true;
       } else {
         throw new Error(`Remix API responded with ${emailResponse.status}`);
       }
@@ -204,10 +229,15 @@ export const POST: APIRoute = async ({ request }) => {
           `,
         });
         emailData = fallbackResult.data;
+        delivered = true;
         console.log("✅ Fallback email sent");
       } catch (fallbackError) {
         console.error("❌ Fallback email also failed:", fallbackError);
-        // Non-fatal — lead is saved, continue
+        // BOTH send paths have now failed and `delivered` stays false.
+        // Deliberately NOT returning here: the lead is captured and must STAY
+        // captured, so the guide_downloads UPDATE and the lead_scores write below
+        // must both still run. The non-2xx is selected at the single return point
+        // at the end of the happy path, after those writes have executed.
       }
     }
 
@@ -262,9 +292,32 @@ export const POST: APIRoute = async ({ request }) => {
 
     console.log("🎉 Employer guide download process complete");
 
+    // ── Single return point. The lead is captured either way; only the status and
+    // the delivery assertion vary. ──
+    //
+    // 502, not 500: both send paths failed against an UPSTREAM service — the Remix
+    // marketing-email API and then Resend. Nothing in this route malfunctioned, and
+    // 500 would say it did. 502 says the dependency did not deliver, which is what
+    // happened and is what the caller needs in order to distinguish this from the
+    // generic outer-catch 500 below.
+    if (!delivered) {
+      console.error(
+        "❌ Guide NOT delivered — Remix and Resend both failed; lead was still captured"
+      );
+      return new Response(
+        JSON.stringify({
+          success: false,
+          delivered: false,
+          message: "We couldn't complete the guide request.",
+        }),
+        { status: 502, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     return new Response(
       JSON.stringify({
         success: true,
+        delivered: true,
         message: "Guide sent to your inbox",
         data: { email, guideName: "Employer Implementation Guide" },
       }),
