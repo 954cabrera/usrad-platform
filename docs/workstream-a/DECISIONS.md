@@ -2754,6 +2754,110 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              Evidence: item #52. · CC + FOUNDER
 ```
 
+## August 12, 2026
+
+```
+2026-08-12 · BATCH G IS A REWRITE AND REMOVAL BATCH, NOT A
+             CONFORMANCE BATCH. /employer/schedule and
+             EmployerConsultationForm were rewritten against what
+             can be supported. Barred and unsupported claim
+             families were REMOVED WITHOUT SUBSTITUTION: no
+             replacement figure, no softened restatement, no
+             smaller number in the same slot. Three sections went
+             entire — the credibility strip, the trust-indicator
+             stats block, and the "A Message From Our President"
+             testimonial — each because it existed primarily to
+             hold barred content, the D10/D11/B1/B2/B4/#49
+             reasoning. Removed across the route and the
+             component: 150,000+ (four instances), the
+             category-founding claim (five), 75-90% (four),
+             50–70% (three), "30 years of expertise" and the
+             "30+ Years Experience" tile, "Est. 1994", the
+             30-day implementation language (three), "Custom ROI
+             analysis," "Detailed savings projection," "Real case
+             studies," "saving millions," "Complimentary
+             Executive Briefing," "No sales team," and the
+             "Calculate Your Savings First" CTA pointing at the
+             Batch E calculator. THE LAST FA INSTANCE IS GONE:
+             schedule:202-203, "Model acquired by CorVel (NASDAQ:
+             CRVL) · Still operating 20+ years later," which a
+             literal grep never found because the phrase broke
+             across a line. The FA class now has ONE live
+             instance left, implementation-guide:322. What
+             replaces the removed argument is the prefunded
+             model stated as a MODEL, not as an operating
+             network — rule 26 bars the present-tense
+             operating-network implication. · FOUNDER
+2026-08-12 · THE FALSE STATUS STEP AND THE FAILURE PATH THAT
+             ASSERTED SUCCESS. EmployerConsultationForm rendered
+             a COMPLETED checkmark reading "Savings analysis
+             being prepared." Nothing in the submit path prepares
+             any analysis; the endpoint inserts a row and sends
+             an email. This is stronger than the ROICalculator
+             class recorded at #52 — not a label offering a
+             deliverable that does not exist, but a status
+             indicator asserting work already done. Removed. ⛔ A
+             SECOND INSTANCE IN THE SAME COMPONENT: on API
+             failure the catch called showSchedulingStage(false),
+             which rendered BOTH completed checkmarks and the
+             "Request Received" heading, THEN a notice saying the
+             submission failed. The page asserted receipt and
+             analysis in the same view that said neither had
+             happened. The failure branch now renders no status
+             steps and no confirmation message at all — only "We
+             couldn't record your request. You can still book a
+             time below," then the scheduler. Verified in a
+             browser with fetch forced to reject: statusSteps
+             display none, confirmationMessage display none, and
+             the string "Request Received" absent from the
+             document. · FOUNDER
+2026-08-12 · BATCH H (EmployerConsultationForm) DISSOLVED INTO G,
+             2026-08-12. The component renders unconditionally at
+             schedule.astro:299 and is not an independent
+             surface. One component cannot carry two batch
+             labels. H is retired as a label; its scope is G's. ·
+             FOUNDER
+2026-08-12 · 2ea4e97 does not resolve in the object database. It
+             was associated with Batch F in conversation only.
+             Batch F's verified commit is 547e106. Recorded as
+             another instance of the conversational-provenance
+             problem at #52; no separate open item. This
+             statement is attributed to NEITHER the founder NOR
+             repository evidence — the repository can confirm
+             only that 2ea4e97 does not resolve and that 547e106
+             is Batch F. The association itself is
+             conversational. · CC
+2026-08-12 · THE PAYLOAD DID NOT MOVE. The four synthetic fields
+             the form sends — industry "not-disclosed",
+             imagingChallenges [], annualBudget "not-disclosed",
+             specificNeeds "" — REMAIN EXACTLY AS THEY WERE, and
+             so does the endpoint, the POST body, the 10-digit
+             phone validation, the submit label and every field,
+             option and placeholder. G is presentation-only on
+             the form. The fields persist into
+             employer_consultations as though collected; that is
+             a data-contract question for EDS, not a copy
+             question, and it does not move until EDS verifies
+             the contract. api/employer-consultation.js performs
+             transactional email and database writes and is
+             EDS-owned under the functional boundary. NOT
+             TOUCHED. · FOUNDER
+2026-08-12 · WHAT G DELIBERATELY DID NOT REACH. CarbonFooter
+             ships "up to 70%" (D4) and "Board-Certified
+             Radiologists" (#46) on every route that does not
+             pass hideNewsletter={true}. /employer/schedule
+             passes it, so both are absent here — CLEAN ONLY
+             INCIDENTALLY, by a layout prop, not by remediation.
+             Opened as #60. The footer's "90 million Americans"
+             (#30) is NOT gated and still ships on this route;
+             confirmed unchanged at one instance. The Calendly
+             privacy and consent findings are #61 and are NOT
+             adjudicated here. The "prefunded imaging network"
+             construction is #62. None of the three was actioned
+             in G; all three are sitewide or counsel questions,
+             not route work. · FOUNDER
+```
+
 ---
 
 ## Open decisions awaiting founder
