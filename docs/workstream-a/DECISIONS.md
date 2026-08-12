@@ -3019,6 +3019,103 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              where a copy defect and a layout defect occupy the
              same element, resolve the copy first; the layout
              question may not survive it. · CC + FOUNDER
+2026-08-12 · BATCH E · D13 ATOMIC CLOSURE SATISFIED. Presentation
+             and arithmetic closed in ONE COMMIT, as D13 requires.
+             Removed together, both ends: the $350 assumption and
+             its literal; usradCost; usradPct and the usrad-bar
+             geometry; currentSavings and every reader; the hero
+             savings card, savings-percent, usrad-cost,
+             usrad-spend-line and the modal projected-savings
+             panel; the pricing disclaimer with its $260–$475
+             range; the "Not included in calculation" block;
+             annualSavings server-side with its log reader and
+             its projectedSavings payload field; and the roiData
+             receiving half in employer-guide-download.ts.
+             PORTAL TOLERANCE FOR AN ABSENT projectedSavings WAS
+             VERIFIED DEPLOYED BEFORE THE SENDER STOPPED — the
+             ordering D13 requires, and the reason nothing renders
+             "undefined" downstream. · FOUNDER
+2026-08-12 · WHAT WAS RETAINED, AND WHY IT IS NOT A PROJECTION.
+             currentSpend = totalScans × avgCost is RETAINED under
+             D6, together with current-bar and bar-current-cost.
+             Every input is the VISITOR'S OWN and the output is
+             their own arithmetic; USRad asserts nothing. What
+             Batch E removed is the PROJECTED USRAD ECONOMICS —
+             the rate, the comparison, the savings and the
+             percentage. The distinction is the whole of D6 and
+             must not be collapsed by a later sweep that sees a
+             dollar figure and assumes a claim. NO SUBSTITUTE
+             FIGURE, HEADING OR COPY WAS INTRODUCED ANYWHERE.
+             roi-context was removed WITHOUT REPLACEMENT — it read
+             "Estimated savings for a N-employee workforce," a
+             savings assertion that outlived its subject — and the
+             results section is left HEADERLESS BY RULING. · FOUNDER
+2026-08-12 · avg_cost_per_scan — SEPARATE RULING, NOT PART OF THE
+             D13 REMOVAL. The insert persisted
+             Number(avgCost || 2400), fabricating a per-scan cost
+             that was never collected. It now persists the ACTUAL
+             value when the visitor supplied one and an EXPLICIT
+             NULL when they did not. Basis is NO-FABRICATED-DATA,
+             following the health_scans precedent — writing a
+             number nobody entered is the same defect whatever the
+             column. EDS verified the live schema before the
+             change: integer, NULLABLE YES, no default, ordinal 8.
+             ⛔ Recorded as its own ruling so that reopening the
+             D13 savings question does not reopen this, and vice
+             versa. · FOUNDER + EDS
+2026-08-12 · F2 · A SHARED GUARD CAN SILENTLY KILL A SURVIVING
+             ELEMENT. The bar guard read
+             if (currentBar && usradBarEl && avgCost > 0).
+             Removing usrad-bar makes usradBarEl null, the guard
+             permanently false, and the RETAINED current-bar write
+             never executes — WITH NO ERROR, NO NULL DEREFERENCE
+             AND NOTHING IN THE CONSOLE. The page would have
+             looked intact while a preserved element quietly
+             stopped updating. ⛔ GUARDS MUST BE RE-READ WHENEVER
+             AN OPERAND IS REMOVED; removing a compared element is
+             not a local edit. Proven by POISONING the element to
+             7% and firing a real input event, then confirming it
+             returned to 100%. Asserting the element still exists
+             would NOT have caught this — only exercising the
+             write did. · CC + FOUNDER
+2026-08-12 · RULE 27 QUALIFIED IN TWO PARTS.
+             (i) BUILT-ARTIFACT VERIFICATION MUST SWEEP COMPILED
+             CLIENT JS, NOT PAGE HTML ALONE. Component scripts
+             compile to /_astro/*.js and an HTML-only sweep
+             reports a FALSE ZERO. ⚠️ Sharper than first recorded:
+             THE OUTPUT LOCATION IS NOT STABLE. Before this batch
+             the calculator arithmetic lived in an external chunk;
+             after it, the script shrank below Astro's inline
+             threshold and moved INTO the page HTML, and the chunk
+             ceased to exist. A sweep pinned to either location
+             alone would have missed it in one of the two builds.
+             SWEEP BOTH, ALWAYS, AND GLOB THE CHUNKS FRESH —
+             hashes change on every build.
+             (ii) SOURCE-COMMENT references documenting removed
+             logic are CLASSIFIED SEPARATELY from executable code
+             and from published-artifact hits. The replacement note
+             in employer-roi-report.ts names $350, projectedSavings
+             and 2400 because a note recording a removal cannot
+             avoid naming what was removed. Zero live code, zero in
+             the artifact. ⛔ COMMENTS ARE NOT TO BE REWORDED TO
+             DEFEAT A SEARCH — that degrades the record to pass a
+             check, which is the inverse of what the check is for.
+             · FOUNDER
+2026-08-12 · TWO OUT-OF-BRIEF REMOVALS, BOTH APPROVED, BOTH
+             FORCED BY THE BATCH. (1) currentEmployees became dead
+             when its only two readers — the modal context display
+             and roiData.employees — were removed; it surfaced as a
+             NEW type-check warning against a previously clean
+             set-diff. (2) The local totalEmployees read inside
+             updateCalculator became dead when roi-context went.
+             Both removed rather than left as code this batch
+             created. ⚠️ CONSEQUENCE RECORDED: the employees INPUT
+             now drives NOTHING VISIBLE on the page. It is
+             RETAINED because it remains a lead-capture POST field
+             — verified in the browser, totalEmployees still
+             transmits to /api/employer-roi-report and still
+             persists to employer_leads.total_employees. It must
+             not be removed as unused. · FOUNDER
 ```
 
 ---

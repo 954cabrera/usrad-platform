@@ -14,7 +14,7 @@ const REMIX_API_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
-    const { name, email, company, source, roiData, website_url, form_start, elapsed_ms } = data;
+    const { name, email, company, source, website_url, form_start, elapsed_ms } = data;
 
     // ── Anti-bot: honeypot ──
     if (website_url) {
@@ -73,7 +73,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    console.log("📄 Employer Guide Download Request:", { name, email, company, source, roiData });
+    console.log("📄 Employer Guide Download Request:", { name, email, company, source });
 
     // Step 1: Save to Supabase
     const { data: guideDownload, error: dbError } = await supabase
@@ -108,12 +108,6 @@ export const POST: APIRoute = async ({ request }) => {
 
     const firstName = name.split(" ")[0];
 
-    // Format ROI values for email display (if provided from calculator)
-    const hasRoi = !!(roiData?.projectedSavings);
-    const formattedSavings = hasRoi ? String(roiData.projectedSavings) : null;
-    const formattedEmployees = hasRoi && roiData?.employees
-      ? String(roiData.employees)
-      : null;
 
     let emailData: { id?: string } | null = null;
     // Set true ONLY by a send path that actually succeeded. `success` means the
@@ -135,13 +129,6 @@ export const POST: APIRoute = async ({ request }) => {
             email,
             company,
             pdfUrl,
-            // Pass ROI data through so branded template can show personalized savings
-            roiData: hasRoi
-              ? {
-                  projectedSavings: formattedSavings,
-                  employees: formattedEmployees,
-                }
-              : null,
           },
         }),
       });
