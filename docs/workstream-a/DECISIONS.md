@@ -2856,6 +2856,121 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              construction is #62. None of the three was actioned
              in G; all three are sitewide or counsel questions,
              not route work. · FOUNDER
+2026-08-12 · BATCH G VERIFIED AT fa4a001. Four files, verified
+             independently from git rather than accepted from the
+             brief: the commit resolves, 323829e is an ancestor,
+             and the stat lists exactly DECISIONS.md, TRACKER.md,
+             EmployerConsultationForm.astro and schedule.astro.
+             Rule 27 build check: 24 assertions, 0 failures. NO
+             PERCENTAGE OF ANY KIND SURVIVES ON THE ROUTE — the
+             residual sweep returns zero for the bare "%"
+             character in rendered text. The failure state was
+             not inferred from the source; it was EXERCISED AT
+             RUNTIME by overriding window.fetch to reject, then
+             reading the result: statusSteps display none,
+             confirmationMessage display none, "Request Received"
+             ABSENT FROM THE DOCUMENT, and the notice text exact.
+             ⛔ THREE REMOVALS BEYOND BRIEF SCOPE, EACH REPORTED
+             RATHER THAN ADAPTED AROUND. (1) The "30 years of
+             expertise" box carried a FOURTH 150,000+ instance and
+             sat outside every named removal section; the step-11
+             zero requirement forced it, so the brief's section
+             list and its own verification gate disagreed. (2)
+             buildCalendlyUrl, CALENDLY_BASE and CALENDLY_SCRIPT
+             were orphaned by removing injectCalendly — its only
+             caller and its only callees — and went with it rather
+             than being left as code this batch made dead. (3) Two
+             script writes to the deleted confirmCompany element
+             WOULD HAVE THROWN TypeError ON null AND BROKEN THE
+             ENTIRE SCHEDULING REVEAL; removing the element
+             without them was not optional. · CC + FOUNDER
+2026-08-12 · EVIDENCE RULE AMENDED — STANDING RULE 8. Visual
+             verification may be EITHER persisted to an
+             established evidence directory OR performed
+             in-session and documented in the batch record where
+             no repository convention exists. Batch G closed under
+             the second form: no screenshot directory exists here
+             and writing image files would have breached its
+             four-path scope. A MISSING CONVENTION IS NOT A
+             MISSING CHECK — the alternative to persistence is
+             documentation, never omission. ✅ RUNTIME
+             INSTRUMENTATION OF A STATE IS STRONGER EVIDENCE THAN
+             AN IMAGE, and is the preferred form wherever a state
+             can be exercised. An image shows a rendering and
+             invites the reader to judge it; instrumentation
+             asserts a fact about the document — display values
+             and content assertions — that can be quoted into the
+             register and re-run. Recorded because Batch G's most
+             important verification, the failure path, could not
+             have been established by a screenshot at all: the
+             defect was that a success state rendered, and the
+             proof is its ABSENCE. · FOUNDER
+2026-08-12 · METHOD FINDING — CONTENT-ANCHORED EDITS ARE REQUIRED
+             ON REDUCTION BATCHES. Batch G removed 362 lines
+             across two files by LINE RANGE. Three structural
+             breaks resulted, all caught before the build and all
+             reported: a lost flex wrapper around the surviving
+             hero tile, a broken </h2> indent, and a Python string
+             concatenation that dropped a closing quote on a class
+             attribute. LINE RANGES SHIFT UNDER THEIR OWN EDITS,
+             and a range computed against the pre-edit file is
+             wrong the moment an earlier range is applied. Editing
+             bottom-up controls the arithmetic but not the
+             off-by-one at a boundary. ⛔ ON ANY BATCH REMOVING
+             SUBSTANTIAL CONTIGUOUS MARKUP, EDITS MUST BE ANCHORED
+             TO CONTENT, NOT TO LINE NUMBERS. This bears directly
+             on BATCH E: a reduction batch on a file carrying a
+             LIVE PAYLOAD CONTRACT, where the same class of slip
+             would not break a wrapper but a data flow, and where
+             the build may not catch it. · CC + FOUNDER
+2026-08-12 · "NATIONWIDE NETWORK" TILE — FINDING ONLY, NOT
+             ADJUDICATED. It survives on /employer/schedule in the
+             hero grid. Its removal was not instructed by Batch G
+             and IT WAS CORRECTLY LEFT IN PLACE. It is two
+             problems in one element: (i) a present-tense
+             capability claim under rule 26, a nationwide network
+             asserted while no provider is contracted, adjacent to
+             open item #62; and (ii) the visual orphan in a
+             sm:grid-cols-3 container now holding one cell,
+             rendering in the first third and wrapping to two
+             lines at 1440px. ⛔ COPY AND LAYOUT RESOLUTION ARE
+             COUPLED. THE GRID IS NOT TO BE RESTYLED
+             INDEPENDENTLY — that would polish an element that may
+             be removed, and would quietly convert a layout fix
+             into an argument for keeping the copy. Both resolve
+             together under the existing rule-26 / network-claim
+             adjudication. /employer/schedule IS NOT RECORDED AS
+             COMPLETE WHILE THIS IS OPEN. Opened as #63. · FOUNDER
+2026-08-12 · STAGE 3 SCOPE — THE PREMISE WAS CHECKED AGAINST THE
+             REGISTER AND THE REGISTER CONTRADICTED IT. It was put
+             to this session that /press-kit had been referred to
+             repeatedly in conversation as following Stage 3, and
+             that the reference did not originate in the register.
+             ⛔ THAT IS NOT WHAT THE REGISTER SAYS. TRACKER §12
+             ROW 3, "Page-by-page rewrite," NAMES /press-kit
+             FIRST, BY EXPOSURE, in an eight-surface order:
+             /press-kit → /about → / → /provider → /employer →
+             /employer/schedule → /employer/implementation-guide →
+             the single-instance routes. It is corroborated by
+             DECISIONS.md 2026-08-07, "/press-kit REBUILT, not
+             thinned," which rules how the surface is to be
+             rebuilt, and by four #24 instances recorded at
+             press-kit.html. /press-kit IS REGISTER-BORNE AND IS
+             PART OF STAGE 3. ⚠️ WHAT IS TRUE IS NARROWER AND
+             DIFFERENT: "Stage 3" DENOTES TWO SCOPES IN ONE
+             SECTION. Row 3 is the eight-surface page-by-page
+             rewrite; the sub-heading "Stage 3 /employer —
+             approved batch sequence" covers ONLY the three
+             /employer* surfaces via P2/A/B–C/D/E/F/G. Reading the
+             batch sequence as the whole of Stage 3 understates it
+             by five surfaces, and that ambiguity — not a phantom
+             reference — is the real defect. Nothing here moves
+             any surface into or out of the merge gate; the gate
+             is Batch E and is unchanged. ✅ RECORDED AS THE
+             INVERSE OF #52: not a conversational claim that
+             entered the record unchecked, but a conversational
+             claim that the record REFUTED when checked. The check
+             is what both cases have in common. · CC + FOUNDER
 ```
 
 ---
