@@ -2721,6 +2721,37 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              branch-state detector. THE SESSION RECORD DRIFTED
              AHEAD OF WHAT HAD ACTUALLY HAPPENED; the repository
              did not. · CC + FOUNDER
+
+             SECOND INSTANCE — 2026-08-12 (DOC-22). The same
+             failure recurred one day later and larger. Six
+             supplied SHAs do not exist in the object database:
+             2ea4e97, db19ed3, 4a45c8d, f5c9f14, and de4b5a8 and
+             bb50c74 already recorded above. Four batches were
+             reported complete that have no commit anywhere
+             across all refs — DOC-22, Batch F-1, Batch G, Batch
+             H — and no register entry either. Batch F was real
+             but reported under a SHA (2ea4e97) that does not
+             resolve; its true SHA is 547e106.
+
+             THE REPOSITORY WAS CLEAN THROUGHOUT. git reflog -20
+             shows twenty entries, every one "commit:" or
+             "commit (merge):". No reset, no rebase, no
+             force-update. Nothing was rewritten and nothing was
+             lost. Four of the six fabricated SHAs and all four
+             phantom batches appear NOWHERE in
+             docs/workstream-a/ — the durable register never
+             accepted any of it. The divergence was
+             conversational state carried forward as fact. The
+             register held; the channel reporting to it did not.
+
+             This entry's own label, DOC-22, was among the
+             batches reported and never committed. It had zero
+             occurrences in the register, so the label was
+             unused and is taken here for this reconciliation.
+             The phantom DOC-22 corresponds to no commit and no
+             work.
+
+             Evidence: item #52. · CC + FOUNDER
 ```
 
 ---
@@ -2768,11 +2799,11 @@ be superseded by a later dated entry — see #11.
 |---|---|---|
 | ~~1~~ | ~~Ratify or reverse the 4G scope exception~~ | **RATIFIED.** Supersedes SCOPE §1.1 · FOUNDER |
 | ~~2~~ | ~~Cash-pay replacement: pre-funded, self-pay, or both at different levels~~ | **D5 RETAINED.** Cash-pay is a lane; pre-funded is the identity; employer-funded is the primary target · FOUNDER + ADVISOR |
-| ~~3~~ | ~~AnciCare figures: scope's 150,000+ / $150M, or tracker's 168,000+ / $160M~~ | **Addendum B §1.9.** 150,000+ patients, over $150 million, AnciCare 1994–2002 · FOUNDER |
+| ~~3~~ | ~~AnciCare figures: scope's 150,000+ / $150M, or tracker's 168,000+ / $160M~~ | **Addendum B §1.9.** 150,000+ patients, over $150 million, AnciCare 1994–2002 · FOUNDER — ⚠️ **SUPERSEDED 2026-08-12 (DOC-22).** The 150,000+ claimant family is RETIRED by D1 (DOC-15). "Over $150 million" is REPLACED by the $60M+ paid-to-imaging-centers figure under closed item #25 (`99ba3d5`). This row records what was ratified 2026-08-06; it is NOT a current approval and neither figure may publish. See `APPROVED-FIGURES.md` |
 | ~~4~~ | ~~ExitValueSection: correct in place, or remove the section~~ | **REMOVED.** Valuation projections barred on the provider surface · FOUNDER + ADVISOR |
 | ~~5~~ | ~~Phone number: (866) per scope, or (888) as currently published~~ | **(866) USRad24** per Addendum B §2.8 and SCOPE §3.6 · FOUNDER |
 | ~~7~~ | ~~Provider page resequencing (4I) — not corrective; in or out of Workstream A~~ | **WITHDRAWN.** Components are on the Repositioning v2 leave-as-written list · CLAUDE |
-| ~~10~~ | ~~/about three-value spread — 168,244 / 168,224 / 168,000~~ | **ALWAYS AN ESTIMATE.** Six-figure variants are false precision; 150,000+ stands · FOUNDER |
+| ~~10~~ | ~~/about three-value spread — 168,244 / 168,224 / 168,000~~ | **ALWAYS AN ESTIMATE.** Six-figure variants are false precision; 150,000+ stands · FOUNDER — ⚠️ **SUPERSEDED 2026-08-12 (DOC-22).** "150,000+ stands" IS NO LONGER TRUE — D1 retires the whole 150,000/168,000 family. The ruling that six-figure variants are false precision survives; the figure that survived it does not. NOT a current approval |
 | ~~9~~ | ~~$400 Million+ savings claim (orphaned) — remove or retain?~~ | **ARCHIVED with the component.** $400 Million+ has no basis and appears nowhere else · FOUNDER |
 | ~~11~~ | ~~$246M patient savings vs $150M provider volume — same claim or two?~~ | **TWO DISTINCT CLAIMS.** Provider volume conforms to over $150M; $246M client savings stands · FOUNDER — ⚠️ **the $246M half is SUPERSEDED 2026-08-07: reversed and barred pending a primary source.** The two-distinct-claims finding stands; the approval it carried does not |
 | ~~12~~ | ~~`FoundersSection.astro` — delete component or edit the two claims?~~ | **ARCHIVE, do not edit.** `git mv` to `archived-api/` · FOUNDER |
