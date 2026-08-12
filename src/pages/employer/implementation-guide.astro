@@ -96,7 +96,7 @@ export const prerender = true;
         <div data-aos="zoom-in" data-aos-delay="200">
           <div class="bg-white rounded-2xl shadow-2xl p-6 sm:p-8">
             <!-- Form header -->
-            <div class="mb-6">
+            <div class="mb-6" id="form-header">
               <h2 class="text-2xl font-bold text-gray-900 mb-1">
                 Request the guide
               </h2>
@@ -146,6 +146,18 @@ export const prerender = true;
                     d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                 </svg>
               </a>
+            </div>
+
+            <!-- Non-delivery state: HTTP 200 with delivered:false. Deliberately
+                 neither the success panel nor the hard-error style, and it makes
+                 no receipt, send, delivery, inbox or follow-up assertion. -->
+            <div id="nondelivery-panel" class="hidden py-8 text-center">
+              <p class="text-gray-700 text-sm">
+                We couldn't complete the guide request.
+              </p>
+              <p class="text-gray-700 text-sm">
+                You can try again or schedule a briefing.
+              </p>
             </div>
 
             <!-- The form -->
@@ -312,6 +324,10 @@ export const prerender = true;
     const successPanel = document.getElementById(
       "success-panel",
     ) as HTMLDivElement;
+    const nondeliveryPanel = document.getElementById(
+      "nondelivery-panel",
+    ) as HTMLDivElement;
+    const formHeader = document.getElementById("form-header") as HTMLDivElement;
     const submitBtn = document.getElementById(
       "submit-btn",
     ) as HTMLButtonElement;
@@ -386,6 +402,12 @@ export const prerender = true;
           document.getElementById("form_start") as HTMLInputElement
         ).value;
 
+        // Both readings come from THIS clock, so the endpoint's timing gate is
+        // skew-free. `form_start` is still sent during the compatibility window
+        // because the endpoint's fallback branch still reads it; Batch E removes
+        // that branch once ROICalculator is migrated.
+        const elapsedMs = Date.now() - Number(form_start);
+
         const res = await fetch("/api/employer-guide-download", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -396,6 +418,7 @@ export const prerender = true;
             source: "employer-implementation-guide",
             website_url,
             form_start,
+            elapsed_ms: elapsedMs,
           }),
         });
 
@@ -407,9 +430,19 @@ export const prerender = true;
           );
         }
 
-        // Show success
+        // `res.ok` means the request was handled; it does NOT mean an email was
+        // sent. The honeypot and timing gates both answer 200. The success panel
+        // is reachable ONLY on an explicit delivery assertion from the endpoint.
         form.classList.add("hidden");
-        successPanel.classList.remove("hidden");
+        if (data.delivered === true) {
+          successPanel.classList.remove("hidden");
+        } else {
+          // The card header carries "We'll follow up by email" — a follow-up
+          // assertion, which 2c bars from this state. It is correct above the
+          // form and correct above the success panel; it is false here.
+          formHeader?.classList.add("hidden");
+          nondeliveryPanel.classList.remove("hidden");
+        }
       } catch (err: any) {
         showError(err.message || "Something went wrong. Please try again.");
         setLoading(false);
