@@ -2971,6 +2971,54 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              entered the record unchecked, but a conversational
              claim that the record REFUTED when checked. The check
              is what both cases have in common. · CC + FOUNDER
+2026-08-12 · BATCH G-1 · "NATIONWIDE NETWORK" TILE REMOVED UNDER
+             RULE 26. The claim has NO CURRENT OPERATIONAL BASIS:
+             USRad has no contracted providers, so a nationwide
+             network is not something the company currently
+             possesses. Rule 26 permits a capability that is part
+             of the approved planned model to be described only
+             as planned, without implying current availability;
+             this tile implied current availability and carried
+             no qualification. REMOVED WITHOUT SUBSTITUTION per
+             founder ruling — no replacement copy, no softened
+             restatement, no smaller claim in the same slot. ⛔
+             THE NOW-EMPTY GRID CONTAINER WAS REMOVED, NOT
+             REFLOWED. The container held exactly one cell after
+             Batch G and was verified to hold nothing else before
+             the edit. Collapsing it to a single column would
+             have polished a slot the copy had just vacated, and
+             would have left a layout arguing for content to fill
+             it. The hero left column now holds its h1 and its
+             paragraph and closes — confirmed in the BUILT
+             HTML, not source, and confirmed at runtime: the
+             column reports exactly two children, both with real
+             height, sm:grid-cols-3 absent from the document, and
+             the two remaining empty divs on the page identified
+             as the pre-existing pulse-dot and the Calendly
+             container. Build exit 0; 20 of 20 artifact
+             assertions pass. "nationwide" case-insensitive
+             returns ONE instance page-wide — CarbonFooter's
+             AnciCare sentence, which is a HISTORICAL statement
+             about a network that did exist and is NOT in scope.
+             #63 CLOSED. ✅ /employer/schedule IS CONFORMED AND
+             CLOSED AS A ROUTE, pending only the Stage 3 merge
+             gate at Batch E. ⚠️ Read that narrowly: the route is
+             closed, the SURFACE PROGRAMME is not — #60, #61,
+             #62 and #64 remain open and none of them is route
+             work. · FOUNDER
+2026-08-12 · THE COUPLING RULE WORKED, AND IT IS WORTH NAMING
+             WHY. DOC-23 recorded the tile as TWO problems in one
+             element — a rule 26 copy claim and a one-cell grid —
+             and barred restyling the grid independently. Had the
+             layout been fixed first, the page would have carried
+             a tidy single-column tile whose only defect was
+             invisible, and the copy question would have lost the
+             thing that made it visible. Removing the copy
+             dissolved the layout problem entirely: there was no
+             grid left to reflow. RECORDED AS A GENERAL SHAPE —
+             where a copy defect and a layout defect occupy the
+             same element, resolve the copy first; the layout
+             question may not survive it. · CC + FOUNDER
 ```
 
 ---
