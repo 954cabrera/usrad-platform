@@ -216,15 +216,22 @@ const REMIX_URL =
                   <span class="pricing-detail" id="workers-comp-pct"
                     >184% of Medicare</span
                   >
-                  <span class="pricing-code">Regional standard rate</span>
+                  <span class="pricing-code"
+                    >Reference only — USRad does not currently route workers'
+                    compensation</span
+                  >
                 </div>
-                <div class="pricing-card highlight">
-                  <span class="pricing-label">Market Opportunity</span>
+                <div class="pricing-card">
+                  <span class="pricing-label">Local Market Range</span>
                   <span class="pricing-value" id="market-opportunity"
                     >$277-$429</span
                   >
-                  <span class="pricing-detail">Cash Market Range</span>
-                  <span class="pricing-code">Competitive positioning</span>
+                  <span class="pricing-detail"
+                    >Cash-pay range in this market</span
+                  >
+                  <span class="pricing-code"
+                    >Market research — not a USRad rate</span
+                  >
                 </div>
               </div>
 
@@ -248,37 +255,19 @@ const REMIX_URL =
             <!-- Strategy Panel -->
             <div class="tab-panel" id="panel-strategy">
               <div class="panel-header">
-                <h4>Pricing Strategy Recommendations</h4>
+                <h4>Rate-Setting Reference Points</h4>
               </div>
 
               <div class="strategy-cards">
                 <div class="strategy-card" id="volume-strategy-card">
-                  <div
-                    class="strategy-badge"
-                    id="volume-badge"
-                    style="display: none;"
-                  >
-                    Recommended for Your Market
-                  </div>
                   <h5>Volume Strategy</h5>
                   <span class="strategy-range">120-130% Medicare</span>
                   <p>
                     Best for markets with 20+ competitors. Drives volume through
                     competitive pricing while maintaining reasonable margins.
                   </p>
-                  <div class="expected-volume">
-                    <span class="volume-label">Expected Volume</span>
-                    <span class="volume-value">80-120 scans/month</span>
-                  </div>
                 </div>
                 <div class="strategy-card" id="premium-strategy-card">
-                  <div
-                    class="strategy-badge"
-                    id="premium-badge"
-                    style="display: none;"
-                  >
-                    Recommended for Your Market
-                  </div>
                   <h5>Premium Strategy</h5>
                   <span class="strategy-range">180-200% Medicare</span>
                   <p>
@@ -286,35 +275,6 @@ const REMIX_URL =
                     competitors). Positions facility as premium service
                     provider.
                   </p>
-                  <div class="expected-volume">
-                    <span class="volume-label">Expected Volume</span>
-                    <span class="volume-value">40-60 scans/month</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="market-recommendation" id="market-recommendation">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
-                  ></path>
-                  <path d="M12 16v-4M12 8h.01"></path>
-                </svg>
-                <div class="recommendation-content">
-                  <strong>For <span id="rec-market-name">Miami</span>:</strong>
-                  With <span id="rec-competitors">165</span> competitors and <span
-                    id="rec-density">Very High</span
-                  > market density, consider a <span
-                    class="highlight"
-                    id="rec-strategy">120-150% Medicare</span
-                  > pricing strategy.
                 </div>
               </div>
             </div>
@@ -380,9 +340,9 @@ const REMIX_URL =
           <div class="feature-content">
             <h3>Medicare Pricing Database</h3>
             <p>
-              Access 43,600+ Medicare pricing records across 113 localities. See
-              exactly what Medicare pays for every CPT code in your specific
-              geographic area.
+              Access 60,277 Medicare pricing records across 109 Medicare
+              localities. See exactly what Medicare pays for every CPT code in
+              your specific geographic area.
             </p>
             <ul class="feature-list">
               <li>Real Medicare reimbursement rates</li>
@@ -408,14 +368,14 @@ const REMIX_URL =
           <div class="feature-content">
             <h3>Strategic Pricing Engine</h3>
             <p>
-              Get AI-powered recommendations based on your specific market
-              conditions. Volume vs. premium strategies with projected scan
-              volumes.
+              The reference points a center uses to set its own rate: Medicare
+              allowable in your locality, the workers' compensation benchmark,
+              and the local market range.
             </p>
             <ul class="feature-list">
               <li>Volume, balanced & premium tiers</li>
-              <li>Competition-based recommendations</li>
-              <li>Revenue projection modeling</li>
+              <li>Competitor density by market</li>
+              <li>Medicare allowable by locality</li>
             </ul>
           </div>
         </div>
@@ -460,23 +420,13 @@ const REMIX_URL =
     <!-- Bottom Stats Bar -->
     <div class="stats-bar" data-aos="fade-up" data-aos-delay="300">
       <div class="stat-item">
-        <span class="stat-number">43,600+</span>
+        <span class="stat-number">60,277</span>
         <span class="stat-label">Medicare Pricing Records</span>
       </div>
       <div class="stat-divider"></div>
       <div class="stat-item">
-        <span class="stat-number">113</span>
-        <span class="stat-label">Geographic Localities</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <span class="stat-number">15,000+</span>
-        <span class="stat-label">Facilities Analyzed</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <span class="stat-number">Real-time</span>
-        <span class="stat-label">Market Updates</span>
+        <span class="stat-number">109</span>
+        <span class="stat-label">Medicare Localities</span>
       </div>
     </div>
   </div>
@@ -1383,8 +1333,7 @@ const REMIX_URL =
       workersComp: "$371",
       workersCompPct: "184% of Medicare",
       marketOpp: "$277-$429",
-      recommendedStrategy: "volume",
-      strategyRange: "120-150% Medicare",
+
       competitors: [
         {
           name: "GCRB-MRI University of Miami",
@@ -1442,8 +1391,7 @@ const REMIX_URL =
       workersComp: "$352",
       workersCompPct: "180% of Medicare",
       marketOpp: "$254-$390",
-      recommendedStrategy: "volume",
-      strategyRange: "120-140% Medicare",
+
       competitors: [
         {
           name: "Texas Health Presbyterian",
@@ -1501,8 +1449,7 @@ const REMIX_URL =
       workersComp: "$340",
       workersCompPct: "180% of Medicare",
       marketOpp: "$284-$435",
-      recommendedStrategy: "balanced",
-      strategyRange: "140-160% Medicare",
+
       competitors: [
         {
           name: "Banner Health Imaging",
@@ -1560,8 +1507,7 @@ const REMIX_URL =
       workersComp: "$378",
       workersCompPct: "190% of Medicare",
       marketOpp: "$298-$457",
-      recommendedStrategy: "balanced",
-      strategyRange: "150-170% Medicare",
+
       competitors: [
         {
           name: "UCHealth Radiology",
@@ -1619,8 +1565,7 @@ const REMIX_URL =
       workersComp: "$385",
       workersCompPct: "200% of Medicare",
       marketOpp: "$327-$500",
-      recommendedStrategy: "premium",
-      strategyRange: "170-200% Medicare",
+
       competitors: [
         {
           name: "Emory Healthcare Imaging",
@@ -1731,51 +1676,19 @@ const REMIX_URL =
 
     // Update pricing table
     const pricingBody = document.getElementById("pricing-table-body");
-    const highlightCol =
-      data.recommendedStrategy === "premium" ? "prem" : "vol";
     pricingBody.innerHTML = data.pricing
       .map(
         (proc) => `
       <tr>
         <td>${proc.code} - ${proc.name}</td>
         <td>${proc.medicare}</td>
-        <td class="${highlightCol === "vol" ? "highlight-cell" : ""}">${proc.vol}</td>
-        <td class="${data.recommendedStrategy === "balanced" ? "highlight-cell" : ""}">${proc.bal}</td>
-        <td class="${highlightCol === "prem" ? "highlight-cell" : ""}">${proc.prem}</td>
+        <td>${proc.vol}</td>
+        <td>${proc.bal}</td>
+        <td>${proc.prem}</td>
       </tr>
     `,
       )
       .join("");
-
-    // Update Strategy panel
-    const volumeCard = document.getElementById("volume-strategy-card");
-    const premiumCard = document.getElementById("premium-strategy-card");
-    const volumeBadge = document.getElementById("volume-badge");
-    const premiumBadge = document.getElementById("premium-badge");
-
-    volumeCard.classList.remove("recommended");
-    premiumCard.classList.remove("recommended");
-    volumeBadge.style.display = "none";
-    premiumBadge.style.display = "none";
-
-    if (
-      data.recommendedStrategy === "volume" ||
-      data.recommendedStrategy === "balanced"
-    ) {
-      volumeCard.classList.add("recommended");
-      volumeBadge.style.display = "block";
-    }
-    if (data.recommendedStrategy === "premium") {
-      premiumCard.classList.add("recommended");
-      premiumBadge.style.display = "block";
-    }
-
-    // Update recommendation
-    document.getElementById("rec-market-name").textContent = data.city;
-    document.getElementById("rec-competitors").textContent =
-      data.totalCompetitors;
-    document.getElementById("rec-density").textContent = data.density;
-    document.getElementById("rec-strategy").textContent = data.strategyRange;
   }
 
   document.addEventListener("DOMContentLoaded", () => {
