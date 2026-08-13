@@ -149,6 +149,34 @@ Ships alongside the tiles. This is what the barred `$375 net margin` figure was 
 
 > **Why incremental volume matters.** When a scanner has open capacity, an additional completed scan adds revenue without a matching increase in equipment, occupancy, or administrative overhead. Each center can evaluate the contribution against its own read fees, staffing, and supply costs.
 
+**Approved placements of the volume basis — 2026-08-13.** 15–25 additional
+scans/month is published in **`ScannerUtilization`** (rebuilt left card) and
+**`FAQSection`** (the volume answer). Neither previously carried it; both are
+new editorial placements, ratified with the qualification that it is a
+deliberately conservative planning basis rather than a forecast or commitment,
+and volume varies by market, modality mix and center. ⛔ **The 2026-08-08
+restriction applies to both: no dollar projection may be derived from this
+figure.**
+
+---
+
+## 1c. MARKETSCOPE DATASET — approved 2026-08-13
+
+| Figure | Approved value | Source |
+|---|---|---|
+| Medicare pricing records | **60,277** | CMS 2026 MPFS implementation record — verification table and build summary |
+| Medicare localities | **109** | Same record; stated consistently throughout |
+
+⛔ **113 localities is SUPERSEDED and was never correct.** `TRACKER.md` §8e's
+"what stays" list retained it; the implementation record says 109. Any artifact
+carrying 113 is a defect.
+
+⛔ **RETIRED, not conformed:** `43,600+` records — a rounded-up restatement of
+the source's approximate `~43,491` for the **2025** dataset, superseded by the
+2026 rebuild. `15,000+ Facilities Analyzed` — no provenance. `Real-time Market
+Updates` — contradicted by the source, which documents an **annual** CMS
+rebuild, and independently barred as the D7-extension capability class.
+
 ---
 
 ## 2. PAYMENT TERMS — approved
@@ -499,7 +527,7 @@ Independent third-party corroboration, added to the register August 6:
 
 **BARRED:** the **$18M** figure. This article identifies it as a *projection* for 2000, not a result. Also barred: $60M by 2002, same reason.
 
-**Presentation rule:** the 800 (2000) and 1,200 (2013) waypoints must be stated together as a trajectory. Never leave a reader to reconcile them.
+**Presentation rule:** the 800 (2000) and 1,200 (2002) waypoints must be stated together as a trajectory. Never leave a reader to reconcile them.
 
 ---
 
@@ -562,6 +590,7 @@ Approved for accuracy. **Placement is restricted** — see rule below.
 | **99.8%** satisfaction / resolution rate | `about.astro:1210`, `contact.astro:51`, `ContactHero.astro:176` | Same defect as the barred 92% — no instrument, no N. Live on /about and /contact |
 | **1,236%** growth achieved | `about.astro:1148` | No basis, no period stated, no baseline |
 | **Category-founding and "first" claims** — *"created / founded the managed imaging category," "First managed imaging network in the U.S.," "Managed imaging category founders"* | Ten instances across the employer surface, plus two stronger forms | ⛔ **BARRED — CONTRARY EVIDENCE, 2026-08-09** (D3). Research could not establish a defensible priority claim, and surfaced evidence of workers' compensation imaging activity predating or contemporaneous with AnciCare, including **One Call Medical**. Narrowed forms — *"first in Florida," "one of the first"* — were considered and **REJECTED**: they are unverified priority claims that do not solve the evidence problem. **Do not hedge, narrow or qualify.** Approved replacement descriptor at §4a. Reaches the **priority claim only**; other AnciCare figures remain under their own decisions |
+| **Any derived national headcount** | class-wide | A percentage multiplied against an independently sourced population denominator. Barred 2026-08-13 unless a governing primary source supports the headcount **and** the methodology. Generalises the §522 covered-workers rule. Reaches `90M` (#30) and the proposed `100M+` HDHP figure |
 
 ### Added August 7, 2026 — the 400,000-case derivation family
 
@@ -588,7 +617,7 @@ Recorded 2026-08-07 · FOUNDER + ADVISOR. These get **stronger** as the question
 
 - **(a) PRICING SPREAD.** Florida Trend (March 2000, p. 48) documents a market MRI near $1,000 against AnciCare's $450–500 to the carrier. A **rate**, not a total — no case-count dependency.
 - **(b) NAMED CLIENTS.** CNA and Winn-Dixie, same source, third-party reported.
-- **(c) TRAJECTORY.** 800 facilities / 40 states (March 2000) and 1,200 at the CorVel sale (2013). Both document-verified; **state together**, per the presentation rule in §4.
+- **(c) TRAJECTORY.** 800 facilities / 40 states (March 2000) and 1,200 at the CorVel sale (**May 2002**). Both document-verified; **state together**, per the presentation rule in §4. *(Corrected 2026-08-13 — #39. The 2013 date contradicted §4a and the closing letter; the primary document governs.)*
 
 The indemnity story may be told as **narrative without a figure**: faster imaging shortens the claim. "Two weeks down to two or three days" is qualitative history and is permitted under the evidence standard.
 

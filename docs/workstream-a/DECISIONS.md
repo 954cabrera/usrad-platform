@@ -3116,6 +3116,154 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              transmits to /api/employer-roi-report and still
              persists to employer_leads.total_employees. It must
              not be removed as unused. · FOUNDER
+2026-08-13 · /provider SURFACE CLOSED. Ten rendered components through
+             evidence remediation plus a whole-page composition
+             review. ExitValueSection and ProviderBrief removed from
+             render; eight components corrected; build exit 0.
+             SEQUENCING: /provider was worked FOURTH in §12 row 3's
+             order but FIRST in practice, ahead of /press-kit,
+             /about and /. Founder prerogative, recorded here
+             because the register did not carry it. Row 3's order
+             is otherwise UNCHANGED and /press-kit remains named
+             first by exposure. · FOUNDER
+2026-08-13 · ProviderBrief CONTAINMENT RATIFIED. <ProviderBrief />
+             commented out of provider.astro; component and PDF
+             PRESERVED. The on-page section reproduced $375 net
+             margin per scan, $5K-$10K and "Guaranteed Monthly
+             Revenue" in HTML, and the button served a PDF carrying
+             the same figures plus "within 10 days of fulfillment"
+             — a 4D-a regression. The HTML was correctable; the
+             PDF was not, being ReportLab-generated outside this
+             repo. Editing only the HTML would have left the page
+             clean while the download served every barred figure in
+             a file explicitly marketed for internal forwarding.
+             CONTAINMENT, NOT RETIREMENT — the Provider Opportunity
+             Brief strategy remains approved for later revision.
+             ⚠️ The PDF REMAINS REACHABLE at its static path;
+             removing the section removed the entrance, not the
+             file. Carried, not actioned. This entry supplies the
+             authority TRACKER 4H-d never had. · FOUNDER
+2026-08-13 · MARKETSCOPE RECOMMENDATION LAYER REMOVED. §3 and §8e
+             pointed opposite ways and the ambiguity is now
+             resolved: USRad MAY present market intelligence and
+             reference points a center uses when setting its rate;
+             USRad MAY NOT present the Strategy tab as recommending
+             a specific Medicare percentage for that center.
+             APPROVED-FIGURES §3 protects the market-based
+             rate-setting model and the underlying strategy and
+             reference data. It does NOT require an automated or
+             center-specific percentage recommendation. TRACKER §8e
+             correctly describes the intended presentation —
+             Medicare allowable, workers' compensation reference,
+             local market range, with no recommended percentage, no
+             projected volume, no algorithm. REMOVED: the
+             market-recommendation block, both "Recommended for
+             Your Market" badges, recommendedStrategy and
+             strategyRange across all five dataset entries, the
+             supporting JS, and the pricing-table column highlight.
+             RETAINED: the 120-130% and 180-200% Medicare tier
+             ranges as protected rate-setting reference points.
+             · FOUNDER + ADVISOR
+2026-08-13 · 15-25 SCANS/MONTH — TWO EDITORIAL PLACEMENTS APPROVED.
+             The §1b volume basis is now published in
+             ScannerUtilization (rebuilt left card) and FAQSection
+             (the rewritten volume answer). Neither component
+             previously carried it, so these are NEW placements,
+             not conformances. Both are subject to their stated
+             qualification — a deliberately conservative planning
+             basis, not a forecast or commitment, with volume
+             varying by market, modality mix and center — and to
+             the §1b restriction of 2026-08-08: NO DOLLAR
+             PROJECTION MAY BE DERIVED FROM THE FIGURE. · FOUNDER
+2026-08-13 · MARKETSCOPE MEDICARE DATASET FIGURES RATIFIED, AND §8e'S
+             113 LOCALITIES SUPERSEDED. Approved and publishable:
+             60,277 Medicare pricing records and 109 Medicare
+             localities, sourced to the archived CMS 2026 Medicare
+             Physician Fee Schedule implementation record. ⛔ §8e's
+             "what stays" list retained "Medicare pricing database
+             (113 localities)" — 113 IS WRONG AND WAS NEVER
+             CORRECT; the implementation record states 109
+             consistently. The register was protecting an error and
+             a session relied on it. The published 43,600+ record
+             count is ALSO retired: it was a rounded-up restatement
+             of the 2025 row, itself written as an approximate
+             ~43,491, and superseded by the 2026 rebuild. REMOVED
+             WITHOUT SUBSTITUTION from the same stat bar: 15,000+
+             Facilities Analyzed (no provenance) and "Real-time
+             Market Updates" — the latter contradicted by the
+             source, which documents an ANNUAL CMS rebuild.
+             · FOUNDER + ADVISOR
+2026-08-13 · #30 — THE 90 MILLION DERIVATION IS NOW ON THE RECORD,
+             AND THE BAR IS REASONED RATHER THAN BARE. The retired
+             headcount appears to have been constructed as
+             ~30M uninsured + ~60M underinsured. THE CONSTRUCTION
+             FAILS ON THREE INDEPENDENT GROUNDS. (1) The ~30M
+             uninsured input is an OLDER ESTIMATE, superseded by
+             the approved CDC/NHIS figure of 28.0M. (2) NO
+             GOVERNING SOURCE HAS BEEN ESTABLISHED FOR THE ~60M
+             UNDERINSURED INPUT. It is not that a different value
+             is correct — it is that no approved source supports
+             this one, and none has been identified. (3) SUMMING
+             THE TWO POPULATIONS LACKS AN APPROVED METHODOLOGY.
+             Uninsured and underinsured are measured by different
+             instruments against different denominators, and no
+             governing source establishes that they may be added.
+             D8 retired the figure on evidence it did not have;
+             this records the construction so the ruling is not
+             relitigated. ⛔ NOTHING IN THIS ENTRY APPROVES A
+             REPLACEMENT VALUE for either input beyond the already
+             approved 28.0M. · FOUNDER
+2026-08-13 · PROSPECTIVE BAR — NO DERIVED NATIONAL HEADCOUNTS. No
+             national headcount, INCLUDING the 100M+ high-deductible
+             figure, may be derived by multiplying a percentage
+             against an independently sourced population
+             denominator unless a governing primary source itself
+             supports that headcount AND that methodology. This
+             GENERALISES the existing rule at TRACKER §522 — "KFF's
+             denominator is covered workers, not covered lives;
+             that percentage must never be multiplied against a
+             population" — from one instrument to the class.
+             Without it the #30 defect regenerates one derivation
+             later. ⛔ NOT APPROVED, NOT ENTERED IN
+             APPROVED-FIGURES: Commonwealth ~45M underinsured and
+             JAMA 58% HDHP share. Both came from web research and
+             require primary-source verification first. 28.0M
+             uninsured (CDC 2025) is UNCHANGED and remains
+             approved. ⚠️ UNRESOLVED: BLS median HDHP deductible
+             $2,750 (2024) versus the register's KFF average single
+             deductible $1,886 / $2,631 (2025). Different
+             instruments, not contradictory — but they read as
+             contradictory side by side and must not be mixed
+             within one artifact. · FOUNDER + ADVISOR
+2026-08-13 · GENERAL EVIDENCE-MAINTENANCE RULE, IN PLACE OF A
+             STATISTIC-SPECIFIC DEADLINE. Population, coverage and
+             benefits statistics must be checked against the latest
+             available source release before reuse in a new or
+             materially revised public artifact. A dated refresh
+             trigger attached to one figure ages badly and reaches
+             only that figure; a standing rule reaches the class.
+             Adopted instead of the proposed November 2026
+             Commonwealth trigger. · FOUNDER
+2026-08-13 · THREE REGISTER DEFECTS CORRECTED, SCOPE DELIBERATELY
+             BOUNDED. (1) #39 RESOLVED: APPROVED-FIGURES §6(c) and
+             §502 dated the CorVel sale to 2013; §4a and the
+             closing letter date it May 2002. Corrected to 2002 —
+             the primary document governs. (2) #35 RELABELLED: the
+             item names MarketScopeShowcase, but no "discovery" or
+             "savings" string exists in that component and §3's own
+             technical basis places the hardcoded-100% behaviour in
+             recommendationEngine.ts. The surface is REMIX/EDS, not
+             Astro. Ruling unchanged; only the surface is
+             corrected. (3) TRACKER §107 records 4H-d committed at
+             8a577a1; the provider-page-remediation working tree
+             did NOT carry it and the change was applied manually
+             on 2026-08-13. Either the commit is not on this branch
+             or it was reverted. ⛔ RECORDED AND BOUNDED — this
+             does NOT open a repository-wide forensic audit. It is
+             noted so that a future session reads §107's committed
+             markers as claims to verify rather than facts. Any
+             wider reconciliation is a separate, scoped decision.
+             · FOUNDER
 ```
 
 ---
@@ -3124,7 +3272,7 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 
 | # | Decision | Blocks |
 |---|---|---|
-| 6 | 96% patient show rate: source or remove | 4H-c |
+| 6 | 96% patient show rate: source or remove | 4H-c. ✅ **CLOSED ON `/provider` 2026-08-13** — verified absent from `GuaranteeSection` and from the whole provider surface. ⛔ **OPEN SITEWIDE — FIVE INSTANCES:** `built-usrad.astro:339` and `built-usrad2.html:327` (both stating "96% show rate" in words), `usrad-end-card.html:251`, `usrad-end-card2.html:324`, `patient-advocate/index.astro:82`. A sixth in `SkeletonAnalyticsSystem.jsx` is mock dashboard data and carries a different disposition. The `.html` files under `src/pages/` are served as **static routes and are publicly reachable**; the duplicate `2` variants may be orphaned and should be checked for inbound links before choosing between correction and archive |
 | 8 | Market-size section — in scope only if it serves §4.3 mission-statement fix | Placement |
 | 15 | 1,236% Growth Achieved — `about.astro:1148` | no basis |
 | 16 | 99.8% Satisfaction/Resolution Rate — `about:1210`, `contact:51`, `ContactHero:176` | same class as barred 92% |
@@ -3136,15 +3284,15 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 | 27 | Duration claims — sweep "over N years" / "a decade" describing AnciCare's operating life | **MERGED** into the page-by-page rewrite, 2026-08-07. Open |
 | 28 | 4.9★ satisfaction — `SocialProofBar:36`, fourth variant | #18 adjacent |
 | 29 | 50–70% published where the 50%+ floor is required — 6 locations | confidentiality |
-| 30 | "90 million Americans" — derived headcount class | 2 locations |
+| 30 | "90 million Americans" — derived headcount class | ⛔ **NOT 2 locations.** See `TRACKER.md` #30 for the measured scope. ✅ **THE SITEWIDE FOOTER INSTANCE IS CLOSED 2026-08-13** — `CarbonFooter:167` was **ungated**, outside the `{!hideNewsletter && …}` block, and therefore shipped on **every route**; removed without substituting a replacement market-size statistic. A **fifteenth instance** outside the scope list was also cleared: `AnciCareStory`'s "90M Americans" card. Remaining instances open. Derivation and prospective bar recorded 2026-08-13 |
 | 31 | Patient counts outside the 150,000 family — `cost-saving-tips:1100`, `real-cost-of-mri:907` | blog routes |
 | 33 | Does Remix read `procedure`? Verify `PatientHeader` param mapping against the adjacent repo | one line if yes |
 | 34 | Provider-surface disclosure of internal modality fee amounts — conformance sweep under settled §4 | settled decision, open implementation |
-| 35 | MarketScopeShowcase discovery price and savings display — removal under settled §5 | settled decision, open implementation |
+| 35 | ~~MarketScopeShowcase~~ **`recommendationEngine.ts`** discovery price and savings display — removal under settled §5 | settled decision, open implementation. ⚠️ **SURFACE RELABELLED 2026-08-13** — no `discovery` or `savings` string exists in `MarketScopeShowcase.astro`; §3's technical basis places the hardcoded-100% behaviour in `recommendationEngine.ts`. **REMIX/EDS, not Astro.** Ruling unchanged |
 | 36 | Sitewide 260-dollar family, 35 instances — deferred to the page-by-page sequence | not this batch |
 | 37 | Employer-surface pricing figures (350, 260 to 475, 420) — resolved in the Stage 3 `/employer` pass | Stage 3 |
 | 38 | EDS employer-funnel handoff — **Finding 1 CLOSED on the primary path 2026-08-10** (Remix client email fixed and verified, portal PR #49, production `f180b3a`). **Still open:** the Astro fallback template, the `roiData` payload contract, the D13 atomic closure. Dependency, not Workstream A work | blocks rule 25 |
-| 39 | `APPROVED-FIGURES` §6 dates the CorVel sale to 2013; §4a and the closing letter date it May 2002 | register defect |
+| ~~39~~ | ~~`APPROVED-FIGURES` §6 dates the CorVel sale to 2013~~ | ✅ **RESOLVED 2026-08-13.** Corrected to 2002 at §6(c) and §502. The closing letter governs |
 | 40 | Rule 18 does not reach date forms — "founded in 1994" ruled correct for prose | rule 18 amendment |
 | 41 | Audit existing line-number citations for staleness. The cite-by-section convention is already settled | audit only |
 

@@ -116,6 +116,17 @@ All three were founder-approved on August 3, and Addendum B §5.1 already specif
 
 If a batch proposes removing a figure, step 2 is not optional.
 
+⛔ **STEPS 1–3 ARE A PRECONDITION FOR SCOPING, NOT A REFERENCE TO CONSULT WHEN A
+QUESTION ARISES.** Recorded 2026-08-13 from a measured instance: a session
+scoped the first part of the `/provider` pass without these files in context and
+produced a **systematic bias toward removal** — it recommended editing a section
+a ratified founder-and-advisor decision had already resolved by removal, and
+recommended deleting the approved 15–25 volume basis. Both were caught only when
+the files were supplied and the work was reconciled against them. **The
+prohibitions survive summarisation; the approvals do not.** A summary of this
+folder carries what is barred and loses what is permitted, which is exactly the
+failure this folder exists to prevent.
+
 ---
 
 ## HOW TO RECORD A DECISION
