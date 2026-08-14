@@ -1,15 +1,31 @@
 ---
 // ============================================================================
-// ⚠️  SOURCE OF TRUTH: Changes here must be synced to Remix
+// CLAIM PARITY WITH: app/components/pbs/PBSFooter.tsx (Remix booking app)
 // ============================================================================
-// 
-// Synced file: app/components/pbs/PBSFooter.tsx (Remix booking app)
-// 
-// After making changes:
-// 1. Update PBSFooter.tsx in Remix to match
-// 2. Update "Last synced" date in both files
 //
-//  Last synced: 2025-12-26
+// These two footers are NOT synchronized. They are separate implementations
+// that intentionally differ, and they are not byte-for-byte copies. Do not
+// try to make them structurally identical.
+//
+// What they maintain is CLAIM PARITY:
+//   Neither footer may publish a marketing or trust claim that has been
+//   removed from the other. When a claim is added, reworded, or retired here,
+//   make the equivalent claim change in PBSFooter.tsx in the same review.
+//   Structure, gating, and styling are deliberately NOT held in parity.
+//
+// Last claim-parity review: 2026-08-14
+//
+// Known intentional divergences (do not "fix" these):
+//   - Gating props: this file accepts hideNewsletter only, and that single
+//     flag gates BOTH the trust banner and the newsletter. Remix accepts
+//     hideNewsletter AND hideTrustBanner separately, so hiding the Remix
+//     newsletter does NOT hide the Remix trust banner.
+//   - Newsletter implementation: inline <script> with DOM handlers here;
+//     React state + fetch in Remix (and a different subscribe endpoint).
+//   - Logo: BrandLogo.astro here; the Remix BrandLogo component there.
+//   - Link handling: site-relative hrefs here; Remix <Link> for internal
+//     routes and MARKETING_SITE_URL for outbound links there.
+//   - Social row: present in Remix, absent here.
 // ============================================================================
 
 import BrandLogo from './brand/BrandLogo.astro';
@@ -47,40 +63,10 @@ const serviceAreas = [
     <!-- Trust Banner -->
     {!hideNewsletter && (
     <div class="text-center mb-12 pb-12 border-b border-gray-200">
-      <h3 class="text-2xl font-bold text-gray-900 mb-3">
+      <h3 class="text-2xl font-bold text-gray-900 mb-6">
         Quality Medical Imaging Scans. No Insurance Required.
       </h3>
-      <p class="text-gray-600 max-w-2xl mx-auto mb-6">
-        Join thousands who've saved up to 70% on medical imaging with
-        transparent, upfront pricing.
-      </p>
       <div class="flex flex-wrap justify-center gap-6 text-sm">
-        <div class="flex items-center gap-2">
-          <svg
-            class="w-5 h-5 text-green-500"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-              clip-rule="evenodd"></path>
-          </svg>
-          <span class="text-gray-700">Board-Certified Radiologists</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <svg
-            class="w-5 h-5 text-green-500"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-              clip-rule="evenodd"></path>
-          </svg>
-          <span class="text-gray-700">Results delivered directly to you</span>
-        </div>
         <div class="flex items-center gap-2">
           <svg
             class="w-5 h-5 text-green-500"
@@ -273,7 +259,6 @@ const serviceAreas = [
               class="text-gray-600 hover:text-[#003087] transition flex items-center gap-2"
             >
               <span>Our Promise</span>
-              <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">Guarantee</span>
             </a>
           </li>
           <li>
