@@ -1,0 +1,811 @@
+# Workstream A — Batch Tracker
+
+REF: https://claude.ai/chat/a6ccdfd4-8a07-4ae8-b2b2-d0de7c23d80b
+
+**Rewritten August 6, 2026. Supersedes the August 5 version, which was current at commit 21.**
+
+Branch: `workstream-a-marketing` · Current HEAD: `704f452` · Rollback for whole workstream: `b86e06e`
+Origin: `704f452` — pushed 2026-08-11, fast-forward `e3fbdc0..704f452`. ✅ **`704f452` (DOC-21) is committed and PUSHED. Branch and origin are level — 0 ahead, 0 behind.** `main` is `d05b97c`; **behind-count 0**. ⚠️ The prior "1 AHEAD / NOT PUSHED" statement was **correct when written and remained correct until the push**; it was nearly overwritten with a false push state before the push had happened. See `DECISIONS.md` 2026-08-11, *"FOUR SUPPLIED FACTS WERE CONTRADICTED BY THE REPOSITORY."*
+
+⚠️ **`main` IS AT `d05b97c`. IT HAS NOW MOVED TWICE ON 2026-08-10** — the first movements since July 30. **(1)** `be2dd14..358d615` via **usrad-platform PR #4** (`ef3ba9a`, `361b646`), the EDS containment hotfix, under the authorized containment exception. **(2)** `358d615..d05b97c` via **PR #5** (`6fd5346`), the FD-MKT-002 employer-lead-persistence hotfix. Vercel production is READY on `d05b97c` and usrad.com serves it. ⛔ **THE BEHIND-COUNT IS THE DETECTOR AND IT WORKED BOTH TIMES** — each movement surfaced as a non-zero `HEAD..origin/main` on the **first state check that ran after it**, before any file was touched. Neither was found by noticing; both were found by counting. **Run the state check before every batch, and stop on a non-zero behind-count.**
+
+✅ **THE BRANCH CONTAINS PRODUCTION. `66` COMMITS AHEAD, `0` BEHIND.** *(Reconciled TWICE on 2026-08-10 — merge `89a2eca` against `358d615`, then merge `e3fbdc0` against `d05b97c`. **Reconciliation 2:** one file conflicted, `api/employer-roi-report.ts`, one hunk, one founder ratification on the live schema. See `DECISIONS.md` 2026-08-10, "RECONCILIATION 2 COMPLETE — e3fbdc0.")* *(Historical, from Reconciliation 1:)* `origin/main` was merged into the branch under the seven reconciliation rules; ten conflict hunks across three files were resolved hunk by hunk with three founder ratifications. **The earlier statement that no fast-forward was available, and that the branch was 3 behind with three files in conflict, was true before that merge and is not true now.** Any future movement of `main` will surface immediately as a non-zero behind-count. See `DECISIONS.md` 2026-08-10, *"RECONCILIATION COMPLETE — 89a2eca."*
+
+---
+
+## 1. COMMIT LOG — authoritative
+
+| # | Batch | Content | SHA |
+|---|---|---|---|
+| — | Setup | Branch creation | `b86e06e` |
+| 1 | Batch 1 | False statements | `b34ae2b` |
+| 2 | Batch 1H-a | HIPAA phase 2 (CC mislabeled "Batch 2") | `479fb8a` |
+| 3 | Batch 1H-b | Sitewide HIPAA/SOC 2 badges | `8635ecb` |
+| 4 | Batch 1H-b addendum | Footer wrapper + fac-modern cleanup (items A, B) | `116fd1e` |
+| 5 | Batch 1H-c | ReferralWorkflow + FAQ + component/page sync + card heading | `4ea6482` |
+| 6 | Batch 1H-d (B–E) | SOC 2 / HIPAA / ERISA on public pages | `33b7ac7` |
+| 7 | Batch 1H-d item A | privacy.astro compliance cards | `0092a82` |
+| 8 | Archive move 1 | usrad-presentation.html + launcher card removal | `a6bf4a1` |
+| 9 | Batch 1H-e | ROI PDF ERISA/SOC 2 + FAQ penetration testing | `ef00c65` |
+| 10 | Batch 1H-f | ROI PDF licensure + TPA integration rows | `399fe3d` |
+| 11 | Batch 1H-g | IntegrationPartners section deleted from /employer | `7c98578` |
+| 12 | Archive move 2 | impact, carbonstyle, launcher pages archived | `f110467` |
+| 13 | Batch 1H-h | TPA / benefits-platform integration claims | `9670e9d` |
+| 14 | Batch 1H-i | Bolt-on FAQ question, referral workflows card, 50-state claim | `5534a2d` |
+| 15 | Archive move 3 | AboutVision + PriorityMarketsMap + 7 subcomponents | `f3fa696` |
+| 16 | Batch 1H-j | Prefunding stated, connectAudiences TPA claim, dangling import | `bc73afa` |
+| 17 | Batch 3A | WC reframed across employer surface (8 files) | `1033054` |
+| 18 | Batch 3A addendum | Duplicate AnciCare attribution, composite source data | `552ac4d` |
+| 19 | Batch 3B | DualSolution → AnciCare attribution, unsourced figures removed | `ae9e5c0` |
+| 20 | Batch 3C-calc | Scan inputs merged across calculator, API, and PDF | `09f5dba` |
+| — | Column rename | `wc_scans` → `total_scans`, all three Supabase projects | no commit — see §6 |
+| 21 | Batch 3C-calc addendum | Calculator subtitle, insert repointed to `total_scans` | `a886ae7` |
+| 22 | Batch 4A | Provider surface survey (read-only) | **no commit** — read-only by design |
+| 23 | Batch 4B | *(no commit found in `ec80d3f..21bd949`)* | **none found** |
+| 24 | Batch 4C | Patient-as-payer → fully funded assignment framing per PSA | `6ee8c21` |
+| 25–28 | Batch 4D groups B/C/D | Five PSA accreditation bodies, FAQ payer answer sync, unsourced show-rate claims | `9efb4b3` |
+| 29 | Batch 4D-a | Fulfillment trigger on payment promises; unsourced show-rate claims; five-accreditation alignment | `37db11d` |
+| 30 | Batch 4D-b | Fulfillment trigger on all payment promises in portal tour | `3ce188b` |
+| 31 | Batch 4D-c | Fulfillment trigger on remaining payment promises; service-completion trigger matched to PSA | `9beac26` |
+| 32 | Archive move 4 | Test.astro | `21bd949` |
+| 33 | **Batch 4G** | **Provider hero rewrite** | **`ab04ab1`** |
+| 34 | DOC-1 | Aug 6 decisions recorded; workstream-a folder committed | `b4ea85c` |
+| 35 | DOC-2 | 400,000+ ruled an error; CLAIMS-INVENTORY surfaced as worklist | `ee7c102` |
+| 36 | DOC-3 | C2 row resolved; $246M client savings approved as a distinct figure | `6c1d543` |
+| 37 | DOC-4 + Archive move 5 | $246M beneficiary confirmed; `FoundersSection.astro` archived | `18ca190` |
+| 38 | **Batch 4H-c1** | **AnciCare patient count conformed to 150,000+ — 38 instances, 20 files, six notations** | **`37eb600`** |
+| 39 | DOC-5 | Cluster C1 closed; standing rules 17–18 added | `7207218` |
+| 40 | **Batch 4H-c2** | **Provider volume conformed to over $150 million — 16 changes, 12 files, five notations. "Verified results" label removed; ROI PDF phone → (866). Cluster C2a** | **`e1a6119`** |
+| 41 | **Batch 4H-d** | **Every `tel:` href on the marketing surface normalised to `tel:1-866-877-2324` — 17 changes, 12 files** | **`8a577a1`** |
+| 42 | DOC-6 | Historical evidence standard adopted; $246M approval reversed and barred; rule 18 amended; tenure split | `3f42843` |
+| 43 | **DOC-7** | **AnciCare source corpus establishes the record — 1,228 facilities substantiated; "over $150 million" and "150,000+ patients" retired; corpus moved out of the repo and gitignored; rules 20–21** | **`de20004`** |
+| 44 | **Batch 4H-c3** | **Provider volume figure replaced with documented payments to imaging centers — 14 instances, 11 files. Label changed with the figure; config key renamed. Closes #25** | **`99ba3d5`** |
+| 45 | DOC-8 | #25 closed; fourth consecutive undercount recorded; duration-claim finding opens #27 | `ff68433` |
+| 46 | DOC-8 addendum | Re-sweep rule numbered as standing rule 22; cross-reference corrected | `e31744d` |
+| 47 | **DOC-9** | **Positional references barred in `DECISIONS.md`; both append-only checks required (rule 23)** | **`3ea6619`** |
+| — | Push | Branch pushed to origin, fast-forward `e31744d..3ea6619` | no commit |
+| 48 | **Batch 4H-f** | **`/search-results` and `ProviderSearchSection` archived — both live 400,000+ instances, `Math.random()` distances, and the ten-year partnership claim retired with the route. Four of five inbound links repointed to the Remix search** | **`5432aeb`** |
+| 49 | DOC-10 | 4H-e survey recorded; #22/#24/#27 merged into a page-by-page rewrite; #28–#31, #33 opened; #32 opened and closed | `1e61066` |
+| 50 | **DOC-11** | **Pricing Policy V1.0 ingested as governing pricing authority. Three approved pricing figures superseded; three never-approved live figures barred; standing rules 24–25 added; §4 and §5 settled; V1.0 §7 assigned to EDS on a functional boundary; #34–#38 opened** | **`623df8a`** |
+| 51 | **DOC-12** | **August 8 session record. Three employer-funnel positioning decisions; guide revision specification issued to the PDF agent; two read-only surveys recorded (Astro employer funnel, Remix email); `/employer` figure collisions inventoried; client email route resolved as EDS-owned** | **`2ad3c0c`** |
+| 52 | **DOC-13** | **Housekeeping. Employer Implementation Guide approved for production; live-object replacement recorded as an EDS deployment action; rule 25 confirmed still unsatisfied; open-table numbers 20, 21 and 23 recorded as never assigned** | **`8afcf20`** |
+| 53 | **DOC-14** | **Employer Implementation Guide deployed to production by EDS and verified byte-for-byte at the existing public URL; guide component of the EDS handoff closed; rule 25 confirmed not cleared by the deployment; artifact hash recorded as provenance** | **`2defd8b`** |
+| 54 | **DOC-15** | **Stage 3 employer decisions D1–D13 ruled as one set; Federal Reserve care-avoidance figure entered in `APPROVED-FIGURES` §5; Stage 3 batch sequence approved with batch E as a merge gate; #8, #18, #24, #27, #28, #29, #30 and #37 closed as DECIDED with implementation pending; #42 opened** | **`6ed4468`** |
+| 55 | **Batch A** | **`EmployerCaseExample` and `IndustryData` removed entire (D10, D11). Fourteen figures left with the first — two more than the decision document inventoried — including the last live §6-barred 73% and a standing rule 2 blended-modality violation. `IndustryData`'s trailing CTA went with it, resolving the §5 placement breach at source. Consumer sweep clean; build exit 0** | **`3a1220f`** |
+| 56 | **Batch D** | **Problem-statement rebuild. `EmployerHero` and `CostAnalysis` rewritten to approved copy (D5, D7, D8). Hero loses the 67%, the $260/$3,200 pairing, and the 48-hour and zero-setup commitments; `CostAnalysis` loses the two-column scenario entire — $600, $3,200, 5.3×, $45,000+, $1,200, 97%, 18+ days, 6-month and the cash-pay disclaimer — replaced by four cited prose beats. #43 opened** | **`0d396e2`** |
+| 57 | **DOC-16** | **Batch B/C rulings B1–B7. B/C rescoped: three of six components do not survive intact. `ROIStatPanel` and `CredibilityBar` removed entire; `ExecutiveFAQ` Q3 removed; `FinalCTA` tile grid, signature and H2 replaced. **Standing rule 26** added — present-tense capability claims require a current operational basis. Accreditation wording deferred; #44 opened** | **`32bf4fd`** |
+| 58 | **DOC-17** | **B/C scope extension. Verified Provider Standard recorded as DRAFT, not adopted — removal authority only, never publication authority. `ExecutiveFAQ` Q2 removed entire (five of five bullets barred); Q1's two capability claims added to scope; three `DualSolution` copy rulings incl. the load-bearing framing line. Six accordions become **four**. #45, #46, #47 opened** | **`1f2d9b5`** |
+| 59 | **Batch B/C** | **Conformance apply. `ROIStatPanel` and `CredibilityBar` deleted (B1, B4); `employer.astro` down to nine components, order unchanged. `Implementation` H2/subhead/three phase heads/closing pair replaced — eleven process bullets untouched, **not twelve as the brief predicted**. `DualSolution` subhead, Card 1 head/body/results box, Card 2 body and two bullets replaced; two bullets removed; framing line added above the list. `FinalCTA` tile grid and founder signature removed entire. `ExecutiveFAQ` Q2 and Q3 removed entire, Q1 down to one bullet, Q5 loses "Legal review included" — **four accordions**. ⚠️ **Shipped-HTML defect found and fixed:** Astro emits HTML comments to the delivered page, so stale `Week 1/2-3/4` and `Proven in Workers' Compensation` labels were live in `/employer` view-source after their visible copy was replaced; comments and the orphaned `#proven-solution` id relabelled** | **`f82430c`** |
+| 60 | **DOC-18** | **Four B/C findings recorded; **standing rule 27** added — built-artifact verification. `AnciCareLegacy` confirmed **omitted from the Stage 3 sequence**: twelve components rendered, eleven covered; it gets its own corrective batch (#49) and `/employer` is **NOT conformed**. The `APPROVED-FIGURES` conformance statement is **true as written but certifies retired work** — re-qualification required, not correction (#50); neither hypothesis in the brief held. Two unnamed rule 26 candidates in Q5 (#48). First rule 27 sweep: **the three completed batches are clean** — no hit traces to any component A, D or B/C touched. Two new exposures found: live rule 24 pricing on `/employer` pending Batch E, and an internal engineering note shipping into 43 of 49 built pages. Fifth wrong supplied count corrected** | **`e213925`** |
+| 61 | **DOC-19** | **Production hotfix recorded; reconciliation rules; #50 resolved. ⛔ **`main` MOVED to `358d615`** — first time since July 30, via PR #4 (`ef3ba9a`, `361b646`) under the authorized containment exception; production serves it. Download promise, ROI PDF route and the Astro fallback's ROI content all removed upstream. ⛔ **NO FAST-FORWARD** — 61 ahead, 3 behind, **three files conflict**, verified by simulated merge; the "silent overwrite" premise corrected — a three-way merge halts, so the risk is a bad resolution embedded in the branch. **Seven binding RECONCILIATION RULES** recorded; reconciliation is its own batch before F/G/H. **Batch E RESCOPED, still the merge gate** — containment reduced its scope, did not discharge D13. **Rule 24 reduced, not closed.** **#50 RESOLVED** — `APPROVED-FIGURES` re-qualified, original sentence byte-identical, **#49 unblocked**. **#52 opened.** #38 still blocks rule 25 via D13/Batch E, not via a live email defect. Three stale uncommitted entries amended in place; entry 3 recorded as **evidence for #52** — a completion certificate for work never done, the inverse defect, inside one batch** | **`daaa3ee`** |
+| 62 | **RECONCILIATION MERGE** | ⛔ **FIRST MERGE IN THIS WORKSTREAM.** `origin/main` merged into the branch under the seven reconciliation rules. **Ten conflict hunks** across three files — one in `api/employer-guide-download.ts`, two in `api/employer-roi-report.ts`, seven in `ROICalculator.astro`; no wholesale *ours* or *theirs*. `employer-guide-download.ts` resolves **byte-for-byte identical to `origin/main`** — the strongest form of the rule 6 proof; the retired claimant signature did not survive. **Three founder-ratified resolutions:** hunk 3.6 keeps the `39d8c7a` silent-submission-failure fix (the **rule 5 stop**, decided by the founder); hunks 3.1–3.3 take main's containment copy; hunk 2.1 retains both header statements merged. Build exit 0; rule 24 and rule 27 sweeps run. **Branch now level with production — 0 behind.** Production untouched at `358d615` | **`89a2eca`** |
+| 63 | **DOC-20** | **Reconciliation recorded. The merge, the ten hunks and the three ratifications entered in the register — they had existed only in the commit message. **#24's merge obligation DISCHARGED**; the item stays open for the `/employer` instances at #49. **3E-gate calculator copy preserved as HISTORICAL AND PROPOSED COPY FOR BATCH E**, not current approved copy, with the rule 26 and rule 24 reads it needs. **#52 gains a third member from a new direction** — work done, correctly, and absent from the record — plus the stale-before-written `APPROVED-FIGURES` clause. §1 corrected to 0 behind; the no-fast-forward statement removed as no longer true** | **`8f69796`** |
+| 64 | **#49 · `AnciCareLegacy` REMOVED** | ⛔ **COMPONENT DELETED ENTIRELY, not reduced** — `git rm src/components/employer/AnciCareLegacy.astro`, import and render call removed from `employer.astro`. **`/employer` now renders SEVEN copy components, measured, down from eight.** The survey that preceded it was the component's **first ever** — it was omitted from the Stage 3 sequence. **Of twelve figures, two survived** (`1994`, the CorVel ticker) **and both are identifiers, not proofs.** Every section failed structurally; the founders' blockquote broke mid-sentence. **Same reasoning as D10, D11, B1, B4.** The seven unadjudicated items left with the component and were NOT ruled. Four audit findings recorded, opening **#53** and **#54**; **#52 gains a fifth member**. ⚠️ **`APPROVED-FIGURES` FA instance list is now invalidated and NOT YET AMENDED** — reported at the gate under the #50 discipline, awaiting approval | **`37487a9`** |
+| 65 | **RECONCILIATION 2** | ⛔ **`main` MOVED A SECOND TIME — `358d615..d05b97c`, PR #5 (`6fd5346`), the FD-MKT-002 employer-lead-persistence hotfix.** Caught by the behind-count on the first state check that ran. `origin/main` merged into the branch under the seven binding rules. **ONE file conflicted — `api/employer-roi-report.ts` — ONE hunk**; everything else auto-merged. **The hunk was a RULE 5 STOP** and turned on a fact neither side of this workstream held: whether `health_scans` is nullable. Taking main's lines verbatim would have referenced **undeclared identifiers**, because Batch 3C-calc merged the two scan inputs into one. **EDS confirmed the live schema — integer, NULLABLE, no default — and the founder RATIFIED omitting it**; writing 0 or deriving a value would fabricate data. ⚠️ **Durable consequence: `employer_leads.health_scans` now holds a MIXED POPULATION.** Production fix survives intact. Build exit 0; no shipped HTML changed. **Branch level with production again — 66 ahead, 0 behind** | **`e3fbdc0`** |
+| 66 | **DOC-21** | **Metadata containment + Reconciliation 2 record. `CarbonLayout`'s DEFAULT META DESCRIPTION CONTAINED (#55)** — it shipped **four defects in one line** on **twenty routes**, including all six provider marketing routes and the homepage. Replaced; the title default replaced with it after re-verifying **zero routes rely on it**. **The homepage title, independently defective and passed explicitly, corrected in `index.astro`.** ⛔ **CONTAINMENT, NOT REMEDIATION** — **#56** (1,500+, nineteen instances, HIGH), **#57** (the silent-default architecture question) and **#58** (six defective route overrides) OPENED and NOT actioned; **#46 scope amended 40 → 66**; the `total_scans` schema question CLOSED, halving Batch E's blockers | **`704f452`** |
+| 67 | **Batch F** | **Guide landing page rewritten against the deployed document (D12).** ⛔ **FIVE SECTIONS REMOVED ENTIRE** — the credibility strip, the fine-print block, the PDF stat tiles, the trust band, and the whole *"A Practical Guide, Not a Sales Brochure"* card grid including its wrapper, h2, subhead and all six cards. **TWELVE OF FIFTEEN contents claims misdescribed the deployed 8-page guide**, most of them advertised twice — once in the hero list, once in the card grid. ⛔ **FIVE DELIVERY ASSERTIONS REMOVED**, including the one D12 named by name: *"We'll send the guide to your inbox immediately,"* still live verbatim. **The route now supplies its own meta description** instead of inheriting DOC-21's default. Accreditation language removed with no replacement and **that is deliberate** — #44 and B7 neither resolved nor superseded. Route **556 → 419 lines**. Build exit 0; 48-pattern source and rule 27 built-artifact sweeps both ZERO. ⚠️ **A stale rule 27 comment naming a removed structure was shipping in view-source and was corrected.** ⚠️ **NO related-resources section exists** — the prompt's sixth structure is not in the file. `api/employer-guide-download.ts`, `CarbonLayout.astro` and `DualSolution.astro` **untouched, verified** | **`547e106`** |
+| 68 | **DOC-22** | **Register reconciliation. Batch F's provenance filled and dated.** Row 67's SHA filled with **`547e106`**, git-verified three ways — resolves as a commit, ancestor of HEAD, subject matches. Batch F's date corrected **2026-08-10 → 2026-08-11** in three places: §12's `DONE` marker and **two** citations inside **#38** — the Batch F findings note and a cross-reference pointing at a `DECISIONS.md` entry that actually lives under the **August 11** heading. ⛔ **SECOND FABRICATION INSTANCE RECORDED, ONE DAY AFTER THE FIRST AND LARGER.** **Six** supplied SHAs do not resolve — `2ea4e97`, `db19ed3`, `4a45c8d`, `f5c9f14`, plus `de4b5a8` and `bb50c74` already recorded at DOC-21 — and **four** batches were reported complete that have **no commit across all refs and no register entry**: DOC-22, Batch F-1, Batch G, Batch H. ✅ **THE REPOSITORY WAS CLEAN THROUGHOUT** — reflog shows twenty consecutive `commit:` / `commit (merge):` entries, **no reset, no rebase, no force-update**; nothing rewritten, nothing lost. **Four of the six SHAs and all four phantom batches appear NOWHERE in `docs/workstream-a/`** — the durable register never accepted any of it. **Resolved rows 3 and 10 re-qualified** against **D1** and **#25**; historical text preserved, neither figure is a current approval. **#59 OPENED** — #34–#41 exist in **both** numbered open-item spaces with divergent text; **NO renumbering** pending a founder ruling. ⚠️ **`DECISIONS.md`'s record of the first instance was NOT edited** — its `2026-08-10` is the record of the misdating, not an instance of it. **No source files touched.** Batch E remains the merge gate; **G is next** | **`323829e`** |
+| 69 | **Batch G** | **`/employer/schedule` and `EmployerConsultationForm` rewritten (D1, D3, D4, D9, D10, rule 26, #24, FA).** ⛔ **THREE SECTIONS REMOVED ENTIRE** — the credibility strip, the trust-indicator stats block, and the *"A Message From Our President"* testimonial; each existed primarily to hold barred content, the D10/D11/B1/B2/B4/#49 reasoning. **Removed without substitution:** `150,000+` **×4** · the category-founding claim **×5** · `75-90%` **×4** · `50–70%` **×3** · *"30 years of expertise"* and the `30+` *"Years Experience"* tile · *"Est. 1994"* · 30-day implementation language ×3 · *"Custom ROI analysis"* · *"Detailed savings projection"* · *"Real case studies"* · *"saving millions"* · *"Complimentary Executive Briefing"* ×2 · *"No sales team"* ×3 · the *"Calculate Your Savings First"* CTA into the Batch E calculator. ⛔ **THE LAST FA INSTANCE IS GONE** — `schedule:202-203`, which **broke across a line** and returned zero on every literal grep (#54). **`implementation-guide:322` is now the only live FA instance.** ⛔ **THE FALSE STATUS STEP REMOVED** — *"Savings analysis being prepared"* shipped as a **completed ✓** for work no code performs; **and the failure path, which rendered both ✓ steps and "Request Received" above a notice saying the submission failed**, now renders no success state at all. **Verified in-browser with `fetch` forced to reject.** ✅ **NO PAYLOAD CHANGES** — the four synthetic fields, the endpoint, the POST body, all eight fields, the 10-digit validation and the submit label are **untouched**; `api/employer-consultation.js` is EDS-owned and was not opened. **Batch H DISSOLVED INTO G.** Build exit 0; **24/24 rule 27 artifact checks pass, zero failures**; every percentage now **absent** from the shipped page. **#60, #61, #62 opened.** ⚠️ `CarbonFooter` untouched — its `90 million` still ships, confirmed unchanged | **`fa4a001`** |
+| 70 | **DOC-23** | **Batch G verified; evidence rule amended; Stage 3 scope read from the register.** `fa4a001` independently verified from git — resolves, four paths, `323829e` an ancestor — and row 69 filled from that verification, not from the brief. **Batch G recorded VERIFIED: 24 assertions, 0 failures, no percentage of any kind surviving on the route, and the failure state exercised at RUNTIME** by overriding `window.fetch`. ⚠️ **Three out-of-scope removals recorded, each reported rather than adapted around** — the *"30 years of expertise"* box (a **fourth** `150,000+` outside every named removal section, forced by the §11 zero requirement), the Calendly dead-code cluster orphaned by removing `injectCalendly`, and two script writes to the deleted `confirmCompany` element that **would have thrown `TypeError` and broken the scheduling reveal**. **Standing rule 8 AMENDED** — two permitted evidence forms; runtime instrumentation preferred over an image where a state can be exercised. **Method finding: content-anchored edits on reduction batches** — G removed 362 lines by line range and produced three structural breaks; **this bears directly on Batch E.** ⛔ **STAGE 3 SCOPE READ DIRECTLY FROM §12 AND THE SESSION'S PREMISE WAS WRONG: `/press-kit` IS in §12 row 3, named FIRST by exposure.** It is register-borne, not conversational. **#63, #64 opened.** No renumbering; no source files touched | **`b55bb72`** |
+| 71 | **Batch G-1** | **`"Nationwide network"` tile REMOVED under rule 26 — no current operational basis, because USRad has no contracted providers.** Removed **without substitution**; ⛔ **the now-empty hero grid container was REMOVED, NOT REFLOWED** — collapsing it to one column would have polished a slot the copy had just vacated. The container was verified by content to hold **exactly one cell and nothing else** before the edit, per DOC-23's content-anchoring method finding. The hero left column now holds its `h1` and its paragraph and closes — **confirmed in the BUILT HTML and at runtime**, not in source: two children, both with real height, `sm:grid-cols-3` absent from the document, and the page's two remaining empty divs identified as the **pre-existing** pulse-dot and Calendly container. Build exit 0; **20/20 artifact assertions pass**. `"nationwide"` case-insensitive returns **ONE** page-wide instance — `CarbonFooter`'s **historical** AnciCare sentence, **not in scope**. ✅ **#63 CLOSED.** ✅ **`/employer/schedule` CONFORMED AND CLOSED AS A ROUTE**, pending only the Stage 3 merge gate at Batch E. ⚠️ **The route is closed; the surface programme is not** — #60, #61, #62 and #64 remain open and none is route work. **No other finding actioned; G remains closed** | **`e1de1e8`** |
+| 72 | **Batch E** | ⛔ **D13 ATOMIC CLOSURE — PRESENTATION AND ARITHMETIC CLOSED IN ONE COMMIT.** Removed both ends together: the **`$350` assumption** and its literal, **`usradCost`**, **`usradPct`** and the `usrad-bar` geometry, **`currentSavings`** and every reader, the hero savings card, `savings-percent`, `usrad-cost`, `usrad-spend-line`, the modal projected-savings panel, the pricing disclaimer with its **`$260–$475`** range, the *"Not included in calculation"* block, **`annualSavings`** server-side with its log reader and its **`projectedSavings`** payload field, and the **`roiData` receiving half** in `employer-guide-download.ts`. ✅ **PORTAL TOLERANCE VERIFIED DEPLOYED BEFORE THE SENDER STOPPED** — the ordering D13 requires. ✅ **RETAINED per D6:** `currentSpend = totalScans × avgCost`, `current-bar`, `bar-current-cost` — **visitor-input arithmetic, not a USRad projection.** ⛔ **NO SUBSTITUTE FIGURE, HEADING OR COPY ANYWHERE**; `roi-context` removed without replacement, results section **headerless by ruling**. ✅ **`avg_cost_per_scan` — SEPARATE RULING:** actual value or **explicit NULL**, `|| 2400` removed on the **no-fabricated-data** basis, health_scans precedent; schema verified integer/nullable YES/no default/ordinal 8. ⚠️ **F2 GUARD FINDING** — `if (currentBar && usradBarEl && …)` would have **silently killed the retained write with no error**; proven by poisoning the element and firing a real input event. ✅ **Lead capture preserved — all six POST fields including `avgCost`**; guide-download POST preserved; **Step 3 delivery contract untouched** (−13 lines, contract intact). Build exit 0; type-check identical to baseline; **strict-zero across HTML *and* compiled JS**, 18/18 tokens | **TBD** |
+| 73 | **Provider Pass** | **`/provider` EVIDENCE REMEDIATION AND COMPOSITION REVIEW — CLOSED 2026-08-13.** Ten rendered components. ⛔ **TWO REMOVED FROM RENDER, COMPONENTS PRESERVED** — `ExitValueSection` (ratified 2026-08-06) and `ProviderBrief` (containment; PDF not rebuildable in-repo). **Removed without substitution:** `$375`/`$37,500`, the 15/8/7 · 53%/47% utilization construction, `80–120`/`40–60`, `150,000+` ×3, `90M` ×2 incl. the **ungated sitewide footer instance**, `20–40%`, `30 Years`, `47 seconds`, `15,000+`, `Real-time`, the category-founding claim, and **five conflicting onboarding durations**. ⛔ **`43,600+` RETIRED, NOT CONFORMED** — it belongs to the **superseded 2025 dataset** (and was a rounded-up restatement of an approximate `~43,491`); **`60,277` is the separately ratified 2026 dataset figure**, not a correction of it. **Conformed:** routing basis to price/proximity/**accreditation** ×2 · `10 days`→`10 business days` · CorVel-era payment evidence date-bound 1994–2001 · modality set to the FAQ-supported four · `113`→`109`. **Rebuilt on approved evidence:** `ScannerUtilization` left card and the `FAQSection` volume answer on the §1b basis; the founder statement **rewritten by the speaker, not trimmed**. ⚠️ **COMPOSITION REVIEW FOUND THREE SELF-CONTRADICTIONS NO COMPONENT-LEVEL PASS WOULD SURFACE** — `HowItWorks` carried two claims corrected one section above it; the footer published the retired 90M on the very page whose most-documented removal was that figure; five onboarding durations across three conversion sections. Build exit 0 | **TBD** |
+
+> **Action:** commits 22–31 were never logged. Fill from `git log --oneline ec80d3f..21bd949` and confirm labels against commit messages before this document is filed. `ec80d3f` is the last pre-4C reference point recorded in session notes.
+
+* ADDED TO THIS REPORT
+21bd949 (origin/workstream-a-marketing) chore: archive unreferenced Test.astro  
+9beac26 marketing: add fulfillment trigger to remaining payment promises, correct service-completion trigger to match PSA (Batch 4D-c)  
+3ce188b marketing: add fulfillment trigger to all payment promises in portal tour (Batch 4D-b)  
+37db11d marketing: add fulfillment trigger to headline payment promises, remove unsourced show-rate claims, align verification language with five accreditation bodies (Batc  
+h 4D-a)  
+9efb4b3 marketing: expand accreditation to all five PSA bodies, sync FAQ payer answer, remove unsourced show-rate claims (Batch 4D groups B, C, D)  
+6ee8c21 marketing: replace patient-as-payer funding language with fully funded assignment framing per PSA (Batch 4C)  
+lines 1-6/6 (END)
+
+**Not run:** Batch 3D · Batch 2 (positioning) · Batch 4F · Batch 5A/5B · Batch 6. *(Batch 4I withdrawn — see `DECISIONS.md` 2026-08-06.)*
+
+**Batch 4H — partially run.** 4H-c1 (`37eb600`) and 4H-c2 (`e1a6119`) are committed. ⚠️ **4H-d is recorded here as committed at `8a577a1`, but `provider-page-remediation` did NOT carry it** — the change was applied manually 2026-08-13. Either the commit is not on this branch or it was reverted. ⛔ **BOUNDED — this does not open a repository-wide forensic audit.** Recorded so a future session treats committed markers in this section as claims to verify, not facts. 4H-b stopped at survey and is **superseded by the cluster batches**: the vocabulary work it was scoped to do was overtaken by C1 and C2a, which re-swept the same surface by content rather than from its incomplete five-target list. 4H-a (read-only survey) and the remaining 4H-c claim removals in §8e are still open.
+
+---
+
+## 2. WHAT IS CLOSED
+
+**HIPAA / BAA.** No executed Business Associate Agreement exists. Every assertion of HIPAA compliance, business-associate status, or an in-place BAA removed from provider copy, employer copy, the FAQ (component and standalone page), the privacy policy, and the onboarding page.
+
+**SOC 2.** No report exists. Zero public-facing survivors.
+
+**ERISA.** Belongs to the plan sponsor, not USRad. `grep -rni "erisa" src/` returns zero.
+
+**TPA / platform integration.** No integrations exist. The four named partners return zero hits repo-wide. "Seamless integration," "already integrated," "we integrate," and "plugs into" all return zero.
+
+**50-state availability.** Zero survivors outside a patient anxiety-management exercise in a blog post.
+
+**Workers' comp as a current offering — website.** Reframed across eight files. WC now appears only as AnciCare history (attributed, dated 1994–2002) or as market data. The ROI calculator, API, and PDF no longer split by population.
+
+> **Amended Aug 6.** A WC *rate benchmark* shown as reference data for a center's own rate-setting is not an offering claim and is retained in MarketScope. It requires a label stating USRad does not currently route workers' compensation. See §8e.
+
+**Unsourced member figures.** The 73% / 92% "Member Impact" strip is gone. `grep -rn "Member Impact" src/` returns zero.
+
+**Illustrative coefficients.** The 0.75 / 0.16 / 0.09 savings waterfall — whose "Faster Return-to-Work (WC)" row applied a WC label to blended savings — is replaced by two lines that trace to entered inputs.
+
+**Provider hero volume promise.** "Fill Empty Slots" removed in 4G. Replaced with channel access, which claims what USRad supplies rather than an outcome on a center's calendar.
+
+Commits 1–15 removed or corrected. Commit 16 was the first to add a claim.
+
+---
+
+## 3. WHAT IS NOW STATED — the affirmative work
+
+**Prefunding, stated for the first time.** `ExecutiveFAQ.astro`, added in Batch 1H-j:
+
+> **"When do we pay USRad?"** • Funded before scheduling — your funds are in place before any member is routed to an imaging center • No claims, no invoicing cycle — imaging centers are paid by USRad on a fixed schedule, not by your plan · Prefunded model: USRad routes only funded assignments — there is no accounts receivable between your plan and the imaging center
+
+That last line is what makes the provider page's "no claim filing" defensible from the employer side. It closes the variant (A) / variant (B) gap the original audit opened.
+
+Confirmed before writing it: prefunding is the model; invoicing with deferred settlement is not offered and will not be entertained.
+
+The employer surface had ZERO payment-timing statements before this — verified by an explicit sweep in Batch 1H-i for "no upfront cost," "pay as you go," "invoice," "billed," "net 30," "deposit," "escrow," and a dozen more. Nothing was retracted to make room.
+
+**"Bolt-on" as the structural frame.** `ExecutiveFAQ`'s TPA question became "Does this bolt on to our existing plan?" — the question a benefits director actually asks, answered directly by the surviving bullets. Note the distinction that governs where each term goes: *bolt-on* answers "does this disturb what we have?" (structural); *prefunded* answers "when does money move?" (timing). Conflating them reopens the funding gap.
+
+**DualSolution reframed, not deleted.** The WC card names AnciCare, dates the work 1994–2002, and labels its figures "AnciCare results:". The 50–70% and 18+ day numbers are unchanged — attribution was the fix, not deletion. "One Partner. Two Populations. Total Control." is retained: one population served historically, one served today.
+
+**Fulfillment as the payment trigger.** 4D-a. Payment promises now read "10 business days of fulfillment — the date you complete the scan and upload the final signed report." Any future copy or artifact that says "10 days" without *business*, or omits the fulfillment definition, is a regression.
+
+**Both funding lanes named on the provider surface.** 4G. Employer plan assignments (primary) and self-pay patient assignments (secondary), both prefunded, USRad as payor in each. Stated with the single contracted rate across lanes.
+
+**The referrer-introduction mechanism.** 4G. An assignment can route a patient from a physician not currently referring to that center. Stated as mechanism only — no conversion rate, no implied share of referrers retained.
+
+---
+
+## 4. DECISIONS MADE
+
+**Accreditation is a participation requirement, not a USRad attribute.** Per the Verified Provider Standard §1.3, USRad verifies accreditation; it does not confer it. §5.2 recognizes four bodies — ACR, IAC, The Joint Commission, RadSite — so naming ACR alone was also wrong. `implementation-guide.astro` now reads: "Every Verified Provider maintains an active state facility license where required and active accreditation from a recognized accrediting body — ACR, IAC, The Joint Commission, or RadSite — covering each modality offered through USRad."
+
+**Monitoring cadence is not claimed.** The Standard's quarterly PSV refresh and monthly exclusion screening are real differentiators but are not yet operating, and the Standard is DRAFT with ten open decisions. Copy states the requirement, not the cadence.
+
+**At-rest encryption is claimed and supportable.** Supabase is the only patient-data store and encrypts at rest by default. This sentence in the privacy policy becomes false if a second store is ever added — a file bucket, an analytics warehouse, a backup target, or third-party AI document extraction (Standard §6.3, gated on the vendor/BAA decision). Nothing will flag it.
+
+**Unsourced figures are deleted, not softened.** The 92% satisfaction score came from founder experience with AnciCare, with no survey behind it. A two-digit percentage tells a reader an instrument and an N exist. Attributing it to AnciCare doesn't work either — AnciCare served claimants through carriers, not health plan members, so the population doesn't match. Deleted with no replacement figure.
+
+**AnciCare figures retained at 168,000+ and 50–70%.** Expected to survive Workstream B review. "More than 150,000" was raised as an alternative; if Workstream B lands there it is a figure change across every instance.
+
+**Whole sections deleted rather than repaired.** IntegrationPartners (117 lines) and the Integration Benefits panel (56 lines) were both removed entirely. In each case, stripping the false parts left a section headed for a claim with nothing under it.
+
+**Deprecated pages are archived, not edited.** `archived-api/` now holds nine files, all verified byte-identical (git classified every move R100) and confirmed absent from build output. `archived-api/` is out of scope for all future sweeps. Content is preserved intact — anything recycled from there still carries claims the live site no longer makes.
+
+### Decisions taken August 6
+
+**4E is dissolved into 4H.** The Strategy panel lives inside `MarketScopeShowcase.astro`, which is also where 4H's removals land. One component cannot carry two batch labels.
+
+**4C-R is folded into 4H-b.** 4G already named both lanes in the hero; 4H-b handles vocabulary sitewide. What remained of 4C-R — `portal-tour.astro:994` and siblings — is vocabulary work.
+
+**PBS-SRCH-F-002 leaves Workstream A.** The 50/30/20 ranking header comment vs 45/30/25 code weights is a code defect, not marketing copy. → defect track.
+
+**The hero carries no flow diagram.** `AssignmentFlowDiagram` already exists on the page. A second diagram requires first deciding which model the page tells — the existing one opens at "Physician Order — Demand Origin," the proposed one at the funding lanes. Both true, different stories. Not part of a hero rewrite.
+
+**The provider nav is not modified.** `CarbonHeader.jsx` is a single React component rendered by `CarbonLayout` across 49 pages, with one prop (`isHeroPage`) that controls colors only. Its header comment marks it as synced to `PBSHeader.tsx` in the Remix booking app. Any nav change is a sitewide decision touching two codebases.
+
+**No logo descriptor exists.** The nav logo is a bare `<img>`. All four brand SVGs and the favicon contain zero text elements. Design mockups reading "IMAGING MARKETPLACE" / "IMAGING NETWORK" next to the wordmark invented that descriptor. Nothing to change; adding one would be a new brand decision.
+
+**Market-size statistics stay out of the hero.** 28M uninsured (CDC 2025), 67% of covered workers in self-funded plans (KFF 2025), average single deductible $1,886 / $2,631 at firms of 10–199 (KFF 2025). All published and citable. Adjacency to a CTA makes them read as pipeline. They get a section of their own with no CTA inside it.
+
+**Exit-value argument moves to founder voice.** The payor-mix insight is sound; the valuation table was not. Attested first-person framing near AnciCareStory or in consultation. No multiples, no projection. See §8e.
+
+---
+
+## 5. CORRECTIONS TO THE RECORD
+
+### 5a. Briefing errors that reached CC
+
+Every one was caught by a verification step before anything committed.
+
+| # | Error | Caught by | Consequence if uncaught |
+|---|---|---|---|
+| 1 | `Footer.astro` briefed as sitewide. Reaches production only via `/news`; the real footer is `CarbonFooter.astro`, already clean. | CC's grep | Sequencing argument was weaker than made |
+| 2 | fac-modern grid briefed as three-card. Actually `lg:grid-cols-4` with four. | Report-before-edit | Wrong deletion decision |
+| 3 | Batch 1H-c specified "retain both true bullets," contradicting 1H-a's third replacement bullet. Delta would have been −64 vs. the stated −10. | Character-delta gate | Cards visibly unequal height |
+| 4 | `privacy.astro` replacement asserted "in transit and at rest," broader than the "all data transmission" it replaced. | CC flagged post-edit | A new false claim introduced while removing three others |
+| 5 | Two of six paths wrong in 1H-h. | Locate-by-content | Batch would have stopped |
+| 6 | `AboutVision.astro` briefed as "the last public 50-state survivor." It renders on no route — unreferenced dead code. | CC's grep | Wrong priority, wrong rationale in a commit message |
+| 7 | Dangling `PriorityMarketsMap` import predicted to break the build. It does not — Astro tree-shakes unused frontmatter imports before Vite resolves paths. | CC tested twice | Wrong understanding of a latent defect |
+| 8 | `DualSolution:93` briefed as live. Deleted in Batch 1. | Pass-1 survey | Wasted scope |
+| 9 | `connectAudiences:87` briefed as a broker-segment claim. It is in the employer segment. | CC quoted the full segment | Understated the exposure |
+| 10 | Batch 3C-calc's item F2 said "make no change beyond F1" while D2 removed the variable the third cover tile reads. | CC followed both exactly and reported the collision | A 500 on every ROI report submission. `npm run build` exits 0 regardless |
+| 11 | **Batch 4G's file-verification gate specified 148 lines. The authored file is 146.** | CC's line-count check | Batch would have stopped on a byte-correct download. Byte count (5398) and md5 both matched — the line count was asserted without counting |
+
+Separately: target lists built from earlier sweeps missed claims repeatedly. `fac-modern.html:222`, the `faq.astro` security cards, `ExecutiveFAQ.astro:215`, `connectAudiences.ts` (never in any prior survey), both orphan pages, and the 73%/92% Member Impact strip.
+
+**Line numbers shift and must not be trusted.** `faq.astro` targets were off by 34 after four earlier deletions in the same file; `ExecutiveFAQ:224` was actually `:221`; the fac-modern card shifted twice. Locate by content, report the actual number found.
+
+### 5b. Wrong premise — the rate model (August 5–6)
+
+**This is a different class of error from §5a and is recorded separately.** The verification steps catch briefing errors. They do not catch wrong premises. This one was caught by the founder.
+
+**What was believed:** that USRad sets one rate per center per modality, that centers do not choose their own percentage, and that price therefore cannot be a routing input. Batch 4E was scoped on that premise, and §8d of the August 5 tracker recorded a "rate contradiction" on that basis.
+
+**What is actually true, per the PBS Search Engineering Reference V4 and the code:**
+
+- Contracted facilities are priced at their own `effective_medicare_percentage` from `facility_rates`. USRad does not set it. The hardcoded-100% behavior applies to **discovery** facilities only, and was remediated for contracted facilities in the FD-PBS-001 work between July 13–15 (`e230fd4`, July 14).
+- Price is a genuine ranking input. `recommendationEngine.ts` weights price, distance, and accreditation, with price the heaviest.
+- "One rate per center per modality" means **one rate across funding lanes** — employer-plan and self-pay assignments hit the same contracted rate. It does not mean one rate across modalities, and it does not mean USRad sets it.
+
+**Source of the error:** a frozen demo report that the V4 reference explicitly marks as outdated ("V3's 'frozen, all-simulated' framing is outdated"), combined with a misread of the one-rate memory line.
+
+**Consequences, recorded:**
+
+- **§8d's "rate contradiction" item is STRUCK.** FoundingPartners' routing-preference card is accurate. "You Choose Your Rate," "Set your prices with confidence," and routing "based on price, proximity, and verified clinical quality" are all true.
+- **§8d's variant (B) structural-change list must be re-read** against this correction before any of it is scoped.
+- Batch 4E shrank to almost nothing and was dissolved into 4H.
+
+**Standing lesson:** re-read the current engineering reference before scoping any batch premised on platform behavior. Demo reports and session summaries go stale; the reference states its own supersessions.
+
+### 5c. Stale deployment preview
+
+The Vercel preview at `usrad-platform-4utvivnde` predates 4D-a. It renders "Get Paid in 10 Days" where the repo says "10 Business Days," and lacks the fulfillment definition. Part of August 6 was spent critiquing copy the repo had already corrected.
+
+**Standing rule added:** confirm the preview SHA before any visual review. See §7 rule 13.
+
+### 5d. Wrong premise — the $246 million savings figure (August 6–7)
+
+**Same class as §5b, and recorded separately for the same reason.** The verification gates catch briefing errors. They do not catch wrong premises. §5b was caught by the founder; so was this.
+
+**What was believed.** That $246 million was a documented AnciCare result — dollars saved for workers' compensation carrier clients against hospital-billed alternatives. On that basis it was approved on August 6 as a figure distinct from provider volume, and a standing warning was attached telling every future sweep **never** to conform it to $150M.
+
+**What is actually true.** The founder located the source analysis on August 7. $246M is not a result. It is arithmetic on **400,000 cases** — a multiplicand this register had *already ruled an error* on August 6, in a decision recorded eight entries above the one approving $246M. The source computes $226M medical and $359M indemnity, each as 400,000 × an assumed per-case value, for $585M. The site's $246M and its $95M / $151M split are scaled variants of that same calculation.
+
+**Why no gate could have caught it.** Every gate in §7 tests execution: does the file say what the batch said it would, does the build pass, did the line number drift, is the figure approved before you delete it. Not one of them asks *how did this figure come to be approved*. The verification was sound and the answer was wrong, because the error was upstream of everything being verified.
+
+**Two structural lessons, both recorded rather than fixed by a new gate:**
+
+1. **Rule 16 has a blind side.** "Before removing any figure, check `APPROVED-FIGURES.md`" makes approval a defence against deletion. It creates no test for entering the register. A figure that gets in on a wrong premise is then *protected* by the rule — and in this case the protection was explicit, in the form of a never-conform warning. The fix is the HISTORICAL EVIDENCE STANDARD, which is an entry test, and it lives in `APPROVED-FIGURES.md` above §1.
+2. **A ruling does not propagate to figures derived from it.** 400,000 was ruled an error on August 6. Nothing in the process asked what else had been computed from it. Both rulings sit in the same day's register block. When a base figure is voided, the derived figures must be swept for by hand — there is no mechanism that does it.
+
+**Consequences, recorded:**
+
+- The August 6 approval is **reversed**; $246M is barred pending a primary source (`APPROVED-FIGURES.md` §6).
+- The never-conform warning is **void** — it protected a figure that should not have been in the register.
+- $95M / $151M / 3.2M work days / $585M / $544M are barred on the same base.
+- A proposed ~40,000 MRIs/year was declined under the new standard before it ever shipped — the first figure the standard stopped on the way in rather than on the way out.
+- Open items #13 and #14 are superseded: both asked how to reword a figure now being removed.
+- Removal is a **two-pass batch (#22)**. /about and the homepage need section rewrites; find-and-replace would leave headings and tiles with nothing under them — the same failure recorded in §4 under "whole sections deleted rather than repaired."
+
+### 5e. The AnciCare source corpus — evidence supersedes attestation (August 7)
+
+**This is not a process failure, and it is recorded separately from §5a–§5d for that reason.** §5a is briefing errors; §5b and §5d are wrong premises. This is neither. Two conformance batches were executed correctly against the register as it stood, verified by every gate in §7, and committed. Then the underlying evidence arrived and changed the answer.
+
+**What happened.** 36 contemporaneous documents were located and read — 27 in a first tranche (457 pages) plus nine federal tax returns. Every one was created 1994–2002; there are **zero later reconstructions**, and many carry Bates stamps from a legal discovery production. They are held **outside this repository** at `~/Documents/ancicare/business_proofs` because they contain federal tax filings and shareholder schedules; `docs/ancicare_proof/` is permanently gitignored.
+
+**What it reversed:**
+
+| Batch | Commit | What it did | Now |
+|---|---|---|---|
+| **4H-c1** | `37eb600` | Conformed 38 instances to "150,000+ patients" | ⛔ **RETIRED.** No document in the corpus counts people. Open item **#24** |
+| **4H-c2** | `e1a6119` | Conformed 16 changes to "over $150 million provider volume" | ⛔ **REPLACED** by "$60M+ paid to imaging centers." Open item **#25** |
+
+**What it substantiated.** `1,200+ centers` had been carried on founder attestation. It is now documented three independent ways inside one board packet dated 30 days before the sale: p.3 `Number of contracted facilities=1228`, a 43-state table on p.13 whose Current column sums exactly to 1,228, and a p.50 pie reading `1,228 Contracted Providers` (1,093 + 135). **The documented figure is stronger than the rounded one.**
+
+**Why no gate caught it, and why that is the correct outcome.** Every gate in §7 tests execution against the register. None of them can test whether the register itself is right. Rule 19 — the historical evidence standard — is the entry test, and it worked exactly as intended here: it is what made "founder-attested" an insufficient basis and sent someone to look for the documents. **The register improving on contact with evidence is the system working, not failing.** The cost is two conformance passes that must be redone, which is the price of having had the figures wrong for less time.
+
+**One process lesson does fall out** — recorded as standing rule 20. The 1,228 figure was missed on the first pass over the same document because the sweep trusted an OCR text layer that had dropped a digit. Scanned documents must be read visually.
+
+---
+
+## 6. THE COLUMN RENAME — no commit to point at
+
+August 5, 2026. `employer_leads.wc_scans` → `total_scans`, executed in all three Supabase projects via the Management API.
+
+| Environment | Project ref | Result |
+|---|---|---|
+| staging-v2 | `cclvubtaevmbzjlynxsi` | ✅ position 6, integer, nullable · 0 rows |
+| production | `skpxihbmwdswmcajnhut` | ✅ position 6, integer, nullable · 2 rows verified intact |
+| demo | `ztrirfjkhtjpnkllxiif` | ✅ position 6, integer, nullable · 0 rows |
+
+**Why it was safe.** Both production rows are founder test submissions carrying the calculator's untouched defaults (5000 / 120 / 380 / 2400), on the macworld.cc domain, with placeholder company names. No customer data exists in that table. Verified by reading both rows before and after the ALTER — every value intact, timestamps unchanged to the millisecond.
+
+Dependency check was clean in all three: zero views referencing either scan column, three indexes (none touching them), one permissive service-role policy with no column references. Demo's zero-drift claim held — byte-identical to production.
+
+`reset_demo.sh` cannot undo it. Neither it nor `seed_demo.sql` references `employer_leads`. Confirmed one level deeper than the script itself.
+
+Recorded here because there is no git history for it and `schema_migrations` is empty (production's migration ledger is blind — flagged in the July 9 demo report as needing its own gated session).
+
+`health_scans` is now vestigial. It exists at position 7 and receives nothing. Left in place deliberately; cleaning it up is optional and costs nothing to defer.
+
+---
+
+## 7. STANDING RULES
+
+1. **Clean-tree gate.** Caught three uncommitted archive moves unrelated to the batch in progress.
+2. **Report-before-edit.** Caught errors 2, 3, 8, and 10.
+3. **Locate by content, not line number.** Caught every shift.
+4. **Stage by explicit path.** `git add .` and `git add -A` never used across 33 commits.
+5. **Independent items with per-item stop.** Lets a batch commit four of five items rather than block on one decision.
+6. **Character-delta and layout gates.** Real proxies for layout risk, not just arithmetic.
+7. **Scope thresholds.** Batch 1H-h's eight-hit ceiling correctly converted a copy batch into a scoping decision when the sweep returned 31.
+8. **Before/after screenshots as verification, not deliverable.** The 48px → 24px Footer measurement confirmed a diagnosis rather than asserting one.
+
+    ⚠️ **AMENDED 2026-08-12 (DOC-23) — TWO PERMITTED FORMS.** Visual verification may be **EITHER** (a) **persisted to an established evidence directory**, **OR** (b) **performed in-session and documented in the batch record** where no repository convention exists. **Batch G closed under form (b):** no screenshot directory exists in this repository and writing image files would have breached its four-path scope. ⛔ **A missing convention is not a missing check** — the alternative to persistence is documentation, never omission. ✅ **RUNTIME INSTRUMENTATION OF A STATE IS STRONGER EVIDENCE THAN AN IMAGE AND IS THE PREFERRED FORM WHERE A STATE CAN BE EXERCISED.** Batch G's failure path was proved by forcing `window.fetch` to reject and then reading `statusSteps` display `none`, `confirmationMessage` display `none`, and `"Request Received"` **absent from the document** — assertions about what the page *is*, which a screenshot can only suggest. An image shows a rendering; instrumentation states a fact.
+9. **`npm run build` exit 0 does NOT verify `generateROIReport.ts`.** Astro never executes `buildHTML()` at build time. Any batch touching that file must actually generate a PDF. This is how error 10 stayed invisible to the build.
+10. **Grep for consumers whenever a batch deletes a field or variable.** Errors 7 and 10 share a shape: remove a definition, leave a reader orphaned.
+
+    ⚠️ **EXTENDED 2026-08-12 (Batch E) — F2, THE SHARED GUARD.** A removed element can **silently disable a SURVIVING one** through a guard they share. `if (currentBar && usradBarEl && avgCost > 0)` — removing `usrad-bar` makes `usradBarEl` null, the guard permanently false, and the **retained `current-bar` write never executes, with no error, no null dereference and nothing in the console.** The page looks intact while a preserved element quietly stops updating. ⛔ **GUARDS MUST BE RE-READ WHENEVER AN OPERAND IS REMOVED** — removing a compared element is not a local edit. Proven by **poisoning** the element to `7%` and firing a real input event, then confirming it returned to `100%`; **asserting the element still existed would NOT have caught it — only exercising the write did.**
+11. **Two-pass batches for anything needing new copy.** Survey first (report only, propose nothing), then apply with approved text inline. Batches 3A, 3B, and 3C-calc all used this; the single-pass attempts are where copy decisions stalled mid-batch.
+12. **Management API: use `curl`, not Python urllib.** urllib triggers a Cloudflare client-fingerprint block returning HTTP 403 code 1010 — indistinguishable from an auth failure.
+13. **Confirm the preview SHA before any visual review.** *(Added Aug 6 — see §5c.)* Reviewing a stale deployment produces critique of copy already corrected.
+14. **Verify asserted file properties before using them as a gate.** *(Added Aug 6 — see §5a error 11.)* Byte count and checksum are computed; line counts asserted from memory are not. A gate that fails on correct input costs a round trip and erodes the gate's authority.
+15. **Re-read the engineering reference before scoping platform-premised work.** *(Added Aug 6 — see §5b.)* Demo reports and session summaries go stale silently; the reference states its own supersessions.
+16. **Before removing any figure, check `APPROVED-FIGURES.md`.** If an approved value exists, the action is to conform to it, not delete it. Removal is correct only when nothing is approved and no source exists. *(Added Aug 6 — a batch was scoped to remove $37,500/month, 15–25 scans/month, and $5K–$10K as unsupported projections. All three were founder-approved on August 3.)*
+
+17. **Sweep for ABBREVIATED and FORMATTED variants, not only the canonical form.** *(Added Aug 6 — Batch 4H-c1.)* `168K` / `168K+` are the same claim as `168,000+` and were missed by a pattern matching comma-formatted variants only. Applies to every figure — `1.2K`, `$150M` vs `$150 million`, `1,200` vs `1.2K`. Found by the PDF render, not the sweep.
+18. **Notation is conformed along with value — canonical form plus one approved compact form.** *(Added Aug 6 — Batch 4H-c1. **Amended Aug 7.**)* Each approved figure has ONE canonical prose form and ONE approved compact display form, both named explicitly in `APPROVED-FIGURES.md`. **No third form.** Compact is permitted in stat tiles, charts, badges, and similarly constrained UI; **narrative prose uses canonical**. Provider volume — canonical "over $150 million" · compact `$150M+`. Patient count — canonical "more than 150,000 patients" · compact `150,000+`.
+
+    *Why amended:* the Aug 6 formulation demanded one literal notation everywhere, which made natural prose ("more than 150,000 patients") a technical violation of the rule written to protect that figure. Controlled typography is not inconsistency. The abbreviation ban is unchanged — what rule 18 bars is an *unapproved* form, not a *second approved* one.
+
+19. **THE HISTORICAL EVIDENCE STANDARD.** *(Added Aug 7 — see §5d.)* Historical quantitative claims publish only when supported by a contemporaneous source or a defensible primary record. Founder recollection supports qualitative history; it does **not** authorise derived quantitative claims.
+
+    This is a standing rule, not only a figure test. Rule 16 protects approved figures from deletion; it says nothing about how a figure got approved. Rule 19 is the entry test that rule 16 assumes. A figure failing it has no approved value to conform to, so removal is correct rather than a rule-16 violation. Full text and the barred derivation family: `APPROVED-FIGURES.md`, above §1 and in §6.
+
+20. **Read scanned documents VISUALLY, not via the OCR text layer.** *(Added Aug 7 — see §5e.)* The `1,228 contracted facilities` figure was missed on a first pass because page 3 of the March 2002 packet renders in the text layer as `facilities^ 228` — the leading digit lost to a stray character — and the accompanying 43-state table extracts as an unheaded column of bare integers. Nine federal tax returns had a text layer of **zero characters**. **Use the text layer only to locate candidate pages; read every figure from a rendered image; write ILLEGIBLE rather than guess.** A misread digit in a filing is worse than a missing year.
+
+21. **Any working copy of a confidential source document is deleted at the end of the batch that created it, and the deletion is reported.** *(Added Aug 7.)* The discovery batches required copying nine federal tax returns into a scratchpad to render them — they carried no file extension. Renderable duplicates of confidential filings must not persist in temp directories after the batch that needed them.
+
+22. **Re-sweep, never work from an existing list.** Every deferred item should be re-grepped before it is scoped. *(Unnumbered since inception; numbered Aug 7 after catching four consecutive undercounts — 4H-b, the $246M citations, FoundersSection, and #25.)*
+
+23. **`DECISIONS.md` verification requires BOTH checks, run AGAINST FENCED CONTENT ONLY.** The deletion check catches removed lines; the fence-aware prefix proof catches mid-block insertion, which removes nothing and passes deletion cleanly. Run both against every historical checkpoint. *(Added Aug 7 — a mid-block insertion passed the deletion check and failed the prefix proof. **Clarified Aug 7, DOC-10.**)*
+
+    **Scope both checks to the fenced register.** The dated entries live inside ` ``` ` fences and are append-only. The tables below sit *outside* the fences and are, by the file's own statement, "the index, not the authority" — amendable, with precedent at #11. A naive whole-file deletion check fails on every legitimate index update: DOC-10 amended rows #22, #24, #27 and #19, and the whole-file check reported four deletions at all eight checkpoints while zero register lines had been touched.
+
+    ⚠️ **Amended 2026-08-09 (DOC-16).** Rule 23's two checks verify **content, not structure**, and neither detects a consumed fence marker. A deleted fence is not a deleted register line, so the deletion check is blind to it; swallowing trailing content preserves the prefix, so the prefix proof is blind to it. **Two structural checks are therefore part of rule 23, not merely of a batch brief:** (1) the fence count must be **EVEN**, and (2) the **total line delta must EQUAL the fenced-content delta** — a divergence means a fence boundary moved. Discovered when a DOC-16 edit consumed the 2026-08-09 block's closing marker: both rule 23 checks passed at 13 fences while the register silently contained its own index tables.
+
+    ⚠️ **Amended 2026-08-10 (DOC-18).** The delta-comparison check as written fires on every legitimate new dated block, because opening one adds non-fenced structural lines. The exception is now explicit and bounded:
+    **(1)** For edits INSIDE an existing fenced block, the total-line delta must EQUAL the fenced-content delta. No exception.
+    **(2)** When a new dated fenced block is INTENTIONALLY created, the two deltas may differ ONLY by the exact non-fenced structural lines that block introduces — the heading, its surrounding blanks, and the two fence markers. **Those lines must be ENUMERATED AND ACCOUNTED FOR INDIVIDUALLY IN THE GATE**, not asserted in aggregate.
+    **(3) Any unexplained divergence remains a structural failure.** A difference that is merely plausible is not accounted for; it must be itemised.
+    Recorded because the unbounded form would have produced a false alarm on every new-day block, the same failure mode the Aug 7 fenced-scoping clarification fixed for the deletion check.
+
+24. **FAIL CLOSED ON PRICING.** *(Added Aug 8 — DOC-11, Pricing Policy V1.0.)* No current USRad transaction price, projected USRad cost, or savings calculation derived from USRad pricing may publish without an authoritative contracted provider rate or a separately ratified modeling methodology. Discovery facilities may display neither price nor savings. **No provider is contracted as of this date and no modeling methodology is ratified, so no such figure may publish today.**
+
+    This rule does not reach documented historical figures, market or hospital comparators sourced independently of USRad pricing, or the AnciCare record.
+
+25. **PRE-LAUNCH GATE.** *(Added Aug 8 — DOC-11.)* Employer demand generation must not begin until the Workstream A employer surface, the Employer Implementation Guide, and the applicable EDS employer-funnel handoffs have been completed and verified.
+
+    ⚠️ **Status 2026-08-09 — the GUIDE COMPONENT is closed BY DEPLOYMENT, not merely by approval; the gate is NOT cleared.** The guide is live and verified at the existing public URL. The other two conditions remain open: the `/employer` surface (Stage 3, **surveyed** but not begun, with six blocking open items) and the EDS employer-funnel handoffs (#38 — transactional email, savings payload, production pricing logic). See `DECISIONS.md` 2026-08-09, *"RULE 25 IS NOT CLEARED BY THE GUIDE DEPLOYMENT."*
+
+    ⚠️ **Status 2026-08-10 — the transactional-email defect is NO LONGER LIVE, and the gate is STILL NOT CLEARED.** Both halves of the funnel are contained: EDS fixed and verified the Remix client delivery email (#38, Finding 1; portal PR #49, production `f180b3a`), and the **production hotfix** (PR #4, `358d615`) removed the Astro fallback's ROI-conditional content, the ROI PDF route and the download promise. **The statement this rule previously carried — that the transactional email is delivering retired material — is no longer true and has been corrected.** Two conditions still fail: **(1)** the `/employer` surface is **not conformed** — A, B/C and D are done, but `AnciCareLegacy` was omitted from the sequence (#49) and the calculator still publishes **rule 24** barred figures (`$350`, `71%`, `$1,200,000` at `main`) until Batch E; **(2)** the `roiData` payload contract and the **D13 atomic closure** remain open, and **Batch E is still the merge gate**. **EMPLOYER DEMAND GENERATION MUST NOT BEGIN.** See `DECISIONS.md` 2026-08-10, *"EDS FINDING 1 CLOSED ON THE PRIMARY PATH,"* *"BATCH E RESCOPED — STILL THE MERGE GATE"* and *"RULE 24 EXPOSURE REDUCED, NOT CLOSED."*
+>
+> ⚠️ **AMENDED 2026-08-10 (#49) — CONDITION (1) IS NOW HALF CLOSED, AND THE GATE IS STILL NOT CLEARED.** The `AnciCareLegacy` half of condition (1) is **CLOSED**: the component was removed entirely rather than conformed, and the clause above naming it as an outstanding omission is **no longer true**. **The other half of condition (1) STANDS UNCHANGED** — the calculator still publishes **rule 24** barred pricing (`$350`, `71%`, `$1,200,000` at `main`) until **Batch E**. **Condition (2) stands unchanged in full.** ⛔ **RULE 25 REMAINS IN FORCE. EMPLOYER DEMAND GENERATION MUST NOT BEGIN.** Recorded as an explicit amendment rather than edited in passing, because **silently correcting a gate condition is precisely the class open item #52 tracks.** See `DECISIONS.md` 2026-08-10, *"THE RULE 25 GATE STATEMENT IS AMENDED, NOT SILENTLY CORRECTED."*
+
+26. **PRESENT-TENSE CAPABILITY CLAIMS REQUIRE A CURRENT OPERATIONAL BASIS.** *(Added Aug 9 — DOC-16, B5.)* Present-tense claims that USRad **currently possesses, delivers, guarantees, or has demonstrated** a capability require a current operational basis. Where a capability is part of the approved planned model but is **not yet operational**, it may be described only as part of the planned process or program design, **without implying current availability, performance, adoption, or customer experience.**
+
+    This extends rule 7's reach — timing and outcomes — to **capability**, and it catches a defect class numeric sweeps do not: *"24/7 support line,"* *"Real-time quality scoring with member feedback loop,"* *"Same facilities your employees already use,"* *"Legal review included,"* *"Evening and weekend availability at participating centers,"* *"Pilot program option."*
+
+    It also reaches **quantitative claims written in words.** *"Join progressive employers saving millions"* is **removed outright** — it asserts existing employer customers and existing results, and USRad has neither. *"We've done this before, at scale"* survives **only** if explicitly reframed as AnciCare and founder historical experience, never as USRad experience.
+
+27. **BUILT-ARTIFACT VERIFICATION.** *(Added Aug 10 — DOC-18.)* Where the marketing build emits inspectable HTML, **verification runs against the BUILT ARTIFACT, not source alone.** Discovered in Batch B/C: Astro emits HTML comments into the delivered page, and barred week-based labels plus a superseded card title were live in `/employer` view-source **after** the visible copy had been replaced. Source-only verification passed while barred text shipped.
+
+    ⚠️ **AMENDED 2026-08-12 (Batch E) — TWO PARTS.**
+    **(i) SWEEP COMPILED CLIENT JS, NOT PAGE HTML ALONE.** Component scripts compile to `/_astro/*.js`, so an HTML-only sweep reports a **FALSE ZERO** on every arithmetic token. ⛔ **AND THE OUTPUT LOCATION IS NOT STABLE.** Before Batch E the calculator arithmetic lived in an external chunk; after it, the script shrank below Astro's inline threshold, moved **into the page HTML**, and the chunk ceased to exist. **A sweep pinned to either location alone would have missed it in one of the two builds. Sweep BOTH, always, and GLOB the chunks fresh — hashes change on every build.** Applies to every component carrying a client script.
+    **(ii) SOURCE COMMENTS DOCUMENTING REMOVED LOGIC ARE CLASSIFIED SEPARATELY** from executable code and from published-artifact hits. Batch E's replacement note in `employer-roi-report.ts` names `$350`, `projectedSavings` and `2400` because **a note recording a removal cannot avoid naming what was removed** — zero live code, zero in the artifact. ⛔ **COMMENTS ARE NOT TO BE REWORDED TO DEFEAT A SEARCH**; that degrades the record to pass a check, which is the inverse of what the check exists for.
+
+    **This is a defect class, not an instance.** Every batch that replaces visible copy may leave stale **comments, ids, aria-labels, alt text, meta tags or structured data** behind. Sweeps must cover the built output for the same patterns they cover in source.
+
+    ⚠️ **The class is wider than the six instances B/C fixed.** DOC-18's inventory found the shared marketing layout shipping a multi-line internal engineering note into the `<head>` of **43 of 49 built pages** — a note that documents a known accessibility concern and names the attribute causing it. Not remediated; see `DECISIONS.md` 2026-08-10, *"DOC-18 BUILT-OUTPUT INVENTORY."*
+
+---
+
+## 8. OPEN ITEMS
+
+> **Numbers 20, 21 and 23 are intentionally vacant.** They were never assigned — a sweep of all twelve committed checkpoints of `DECISIONS.md` finds no open-table row bearing any of them at any point in the file's history. They are not lost items, and the numbers must not be reused. See `DECISIONS.md` 2026-08-09, *"OPEN-TABLE NUMBERS 20, 21 AND 23 WERE NEVER ASSIGNED."*
+
+### 8a. Batch 3D — the ROI PDF, and it is larger than "remaining WC sections"
+
+Fifteen unaudited claims survive in the generated report, plus two structural problems. Nothing in this list has been through any batch.
+
+| Location | Claim | Note |
+|---|---|---|
+| p2 `:1048` | "Actual total savings typically run 20–40% higher" | |
+| p2 `:1047` | "reduced disability duration (avg. 18+ days), lower indemnity and litigation costs" | Repeats the 18+ day figure 3B just attributed on the site |
+| p4 `:1215` | "Average 73% increase in necessary imaging completed" | The same unsourced 73% deleted from DualSolution in 3B |
+| p4 `:1221` | "40–60% total imaging cost reduction visible in claims data" | Contradicts the prefunded model — under prefunding there are no claims |
+| p4 `:1236` | "WC claim severity drops measurably" / "Employee satisfaction scores improve" | |
+| p4 `:1222` | "Documentable for CFO reporting" | |
+| p4 `:1199` | "Savings begin immediately" | |
+| p3 `:1173` | "Hospital outpatient rates are 711% above Medicare baseline" / "USRad eliminates this markup entirely" | |
+| p3 `:1106-1147` | Scan-level table ranges and markup multiples (9–12×, 6–9×, 4–6×) | All hardcoded |
+| p5 `:1301`, `:1318` | "168,000+ claimants" / "50–70% Delivered historically" | Unattributed to AnciCare — the exact defect 3B fixed on the website |
+| p6 `:1465` | "(888) USRad24" | Unverified — CC cannot confirm it is a working number |
+| cover, p6 `:983` | "AnciCare (acquired by CorVel, NASDAQ: CRVL)" | |
+
+**Structural:**
+
+- Page 5 carries ~4.5 inches of whitespace after the 1H-e/1H-f compliance removals dropped that block from five rows to one. Page is fixed height: `11in`.
+- Cover subheadline still reads "Workers' Comp + Employee Health Benefits" — quoted but deliberately unedited in 3C-calc (item F3), awaiting replacement copy.
+
+### 8b. Decided, awaiting a batch
+
+| Item | Decision |
+|---|---|
+| `faq.astro` security cards — "Military-grade encryption," "Complete logging of all data access" | Retain and tighten: drop "military-grade" for the adjacent literal "256-bit"; replace "Complete logging" with "Access logging across the platform" to remove the unfalsifiable absolute. Copy polish, not a false-claims issue. |
+
+### 8c. Undecided
+
+| Item | The question |
+|---|---|
+| ROI PDF section label "Compliance & Integration" | Introduces one row that is neither. Relabel or move the surviving row. |
+| DualSolution spacing — ~108px inside the Health card, 160px below the row at 1440px | Both from the section losing 380px of content. One-line fixes (`items-start`; `mb-0`), both cosmetic. |
+| /employer background seam | Implementation and ExecutiveFAQ now adjacent with identical gradients after the 1H-g deletion. |
+| /employer section order | Now 12 sections, content removed from four. Worth reviewing whole rather than patching seams. |
+| `health_scans` column | Vestigial. Drop, rename, or leave. |
+| The PAT at `~/.supabase/access-token` | Grants full DDL on all three projects as postgres superuser, independent of `.env`. Removing production credentials from `.env` does not enforce the isolation it appears to. Options: move it out of the container, scope it per-project, or gate by process. |
+| MarketScope Strategy tab scope | **Resolved Aug 6** — see §8e. |
+
+**Layout defects surfaced during Batch 4H-c3 verification — both PRE-EXISTING, neither caused by that batch. → defect track.**
+
+| Item | Measurement | Status |
+|---|---|---|
+| **`/provider` horizontal page overflow at 390px** | `document.documentElement.scrollWidth 475 > clientWidth 390`. Also present at 768px. **Measured on the unmodified tree before any 4H-c3 edit**, and unchanged after. The other four provider-surface routes have no h-scroll at either width | Pre-existing. Not a copy issue — something in the page is 85px wider than the viewport. Defect track |
+| **`ProviderSearchSection` displayed hardcoded values as computed results** | "76% Average Savings", "$1,027 Best Deal Found", "1.0s Search Time", "1,500+ center network", and facility distances generated by `Math.random() * 30 + 2` | **MOOT — archived** with `/search-results` in Batch 4H-f (`5432aeb`). Recorded because the pattern, not the file, is the defect: presenting fixed or randomised values in the chrome of a live computation. Check for it wherever a results UI is rebuilt in Remix |
+| **`ProvenSuccess` 390px tile asymmetry** | Tile heights `65 · 50 · 65`. The middle tile carries two elements (value + label) where tiles 1 and 3 carry three (value + label + sub-line: "1994-2002", "Still thriving today"). At 1440px the grid stretches all three to 70 and the asymmetry disappears | Structural, predates the batch — the old `$150M+` / "Value delivered" tile had the identical shortfall. Fix is a sub-line for the middle tile or removing them from the outer two. Defect track |
+
+### 8d. Deferred by category
+
+**Behind login — post-workstream.** `MedicalStatus.jsx:26` and `PortalLayout/Sidebar.jsx:98` carry "SOC 2 Certified." `SkeletonProviderDashboardSystem.jsx:1284,1293` labels WC "Coming Soon" — the one place on the site that states WC accurately, and a useful reference model.
+
+**Unserved.** `.bak` / `.backup` files (7) — a repo decision. Check `.gitignore`. `archived-api/` — nine files, out of scope for all sweeps.
+
+**Counsel, not any copy batch.** `sms-terms.astro:187` — a conduct commitment likely tied to 10DLC registration. Removing it may create exposure.
+
+**Blog.** `blog/future-ai-medical-imaging.astro:798`, `portal-tour.astro:240`.
+
+**~~The rate contradiction.~~ STRUCK August 6.** See §5b. The premise was wrong: centers do set their own percentage, and price is a genuine routing input. FoundingPartners' routing card is accurate and requires no change.
+
+**Components needing structural change under variant (B).** `AssignmentFlowDiagram` (node count, connector geometry), `ScannerUtilization` (two-lane contrast), `ReferralWorkflow` (grid arity), `GuaranteeSection` (2×4 grid under a "no fine print" header), MarketScope strategy panel, FoundingPartners routing card. **Must be re-read against §5b before scoping** — at least the last two entries were premised on the struck rate contradiction. Under variant (A) these are copy edits plus one node label; `AssignmentFlowDiagram:127-139` is already tagged Verification · Pricing · Routing and already positioned before routing.
+
+**The provider brief PDF.** Un-versioned, gated, explicitly marketed for internal forwarding, and the artifact a center still holds six months from now when a payment is late. Everything else on the site can be changed silently. **Escalated Aug 6 to 4H-d** — see §8e.
+
+**Untyped Supabase client.** `createClient` is called without a `<Database>` generic and no generated types file exists. This is why the column rename broke nothing — and also why a future column change won't be caught at build time either. A standing condition, not a defect to fix today.
+
+### 8e. Batch 4H — claim consistency (scoped August 6)
+
+Batch 4G left the provider hero claiming **less** than the sections beneath it. 4H closes that gap.
+
+**4H-a — Survey (read-only).** Does `smartmatch.astro` disclose ranking weights? **Confidentiality check, runs first.** Then a full inventory across the provider surface (main page plus `consultation`, `portal-tour`, `faq`, `network-map`, `smartmatch`) of every claim stating or implying volume, per-scan margin, utilization rate, valuation multiple, or operational performance. The list below is from targeted greps, not an exhaustive sweep.
+
+**4H-b — Vocabulary (mechanical).** Cash-pay → self-pay. Thirteen known instances: `ExitValueSection` ×4, `ExitModal` ×7, `ScannerUtilization` ×1, `smartmatch` ×1. Plus `portal-tour.astro:994` and siblings (ex-4C-R).
+
+**4H-c — Claim removals.**
+
+| Location | Claim | Disposition |
+|---|---|---|
+| `portal-tour` Capacity Math | 15–25 scans/mo · "net margin $375/scan" · $5K–$10K | Remove panel |
+| `ScannerUtilization` | $37,500/mo · 5 scans/day · 53%/47% utilization split | Remove figures |
+| `ExitValueSection` | 5–7x→7–9x · $5–7M→$7–9M · "up to $2M more" · "the kind USRad is designed to generate" | **Remove section entirely** |
+| `FAQSection` (main) | "20–40% volume increases" · "targeting similar results" | Rewrite answer |
+| `faq.astro:1830` | "below 5%" vs "industry average 15–20%" | Remove green box |
+| `MarketScopeShowcase` | Expected Volume 80–120 / 40–60 · "revenue projection modeling" · "projected scan volumes" · Miami 120–150% recommendation | Remove |
+| `GuaranteeSection` | 96% patient show rate | Unattributed — verify or remove |
+
+> ✅ **4H-c EXECUTED ON `/provider` 2026-08-13.** `ScannerUtilization`,
+> `ExitValueSection`, `FAQSection`, `MarketScopeShowcase` and `GuaranteeSection`
+> (#6) are all discharged on this surface. `faq.astro:1830` is **not** — it is
+> off-surface and remains open.
+
+**Two figures currently contradict each other.** `ScannerUtilization` implies ~100 additional scans/month; `portal-tour` and the provider brief say 15–25. Same $375, same "previously idle capacity," roughly 6× apart. Both are unsourced. Both go, rather than standardizing on the smaller invention.
+
+**On the no-show claim.** Research conducted Aug 6: a Canadian national medical-imaging survey puts the average MRI no-show rate near 5%; a U.S. academic study across 2.9M outpatient imaging visits found 2–3%; another found 6.5% overall with MRI among the lowest modalities. One MRI-specific study reported a 17.4% baseline. So 15–20% occurs but is not a defensible industry average — and USRad has no operating data supporting "<5%." The three-step operational answer above the box (reminders, confirmation, accountability, slot reopening) is the stronger argument and needs no statistic. Sources logged for when real USRad data exists.
+
+**MarketScope — what stays.** Medicare pricing database (**109** localities — ⛔ *this line previously said 113, which was wrong and was never correct; corrected 2026-08-13, see `APPROVED-FIGURES.md` §1c*), competitor intelligence, market density classification, **workers' comp rate benchmark**, **market rate range**. All reference data for a decision only the center can make. Three need clarifying labels: the WC benchmark ("reference only — USRad does not currently route workers' compensation"), the market range (market research, not USRad volume; vocabulary fix), and the existing SAMPLE DATA badge and "see your actual market analysis during onboarding" line, which are already correct and should be kept.
+
+**MarketScope Strategy tab — confirmed framing.** The tab presents the three reference points against which a center sets its percentage: Medicare allowable in their locality, the workers' comp benchmark, and the local market range. No projected volume, no recommended percentage, no algorithm.
+
+**4H-d — Provider brief.**
+
+- Comment out `<ProviderBrief />` in `provider.astro`. Do not delete the component. Follow the existing `<!-- Phase 2: … -->` comment precedent.
+- Check for any other link to the PDF — a live URL survives a removed button.
+- The on-page section reproduces the PDF's claims in HTML ($375 net margin per scan, +15–25 scans/month, $5K–$10K monthly revenue add, "Turn Empty Scanner Slots Into Guaranteed Monthly Revenue"), so removal is not merely about the download.
+- PDF rebuild deferred — ReportLab binary, outside the repo.
+
+**PDF defects to fix on rebuild:** "$375 NET MARGIN PER SCAN" · "Guaranteed Monthly Revenue" · "$5K–$10K REALISTIC MONTHLY ADD" · "within 10 days of fulfillment" (missing *business*) · "WHY CASH-PAY IMAGING WORKS" · footer "National Cash-Pay Imaging Infrastructure."
+
+### 8f. Batch 4I — provider page resequencing
+
+`provider.astro` only. No component edits — the file is a composition shell and reordering is moving lines.
+
+Current order: SpineNav → Hero → TrustBar → Guarantee → ScannerUtilization → ExitValue → ReferralWorkflow → AssignmentFlowDiagram → HowItWorks → MarketOpportunityTeaser → MarketScope → AnciCareStory → ProvenSuccess → FoundingPartners → ConsultationCTA → ProviderBrief → FAQ → NetworkBuilding
+
+- **Three consecutive sections explain the same thing.** ReferralWorkflow, AssignmentFlowDiagram (581 lines), and HowItWorks occupy positions 7/8/9 and all describe how an assignment moves from order to payment. Largest structural redundancy on the page.
+- **The FAQ sits after the ask.** Objections are answered post-conversion, and the page closes on a soft aspirational note rather than the CTA.
+- **AnciCare appears four times** — hero credibility line, TrustBar, AnciCareStory, ProvenSuccess. The last two are adjacent and overlapping.
+- ExitValue placement is moot if 4H-c removes it.
+
+### 8g. Other queued items
+
+- `AssignmentFlowDiagram` Step 2 says assignments route to the "highest-performing" participating center. The actual basis is price, proximity, and accreditation — not performance.
+- **Marketplace → network sweep.** 18 instances. **One exception:** `AssignmentFlowDiagram.astro:41` — "USRad is not a booking marketplace" uses the word correctly as contrast. Preserve it.
+- **~~$160M+ vs $246M.~~ CLOSED — both halves moot.** `$160M+` conformed to **over $150 million** in Batch 4H-c2 (`e1a6119`), closing cluster C2a. `$246M` was **reversed and barred** 2026-08-07 pending a primary source, so there is no second figure to reconcile it against. Removal is open item #22, a two-pass batch. See `DECISIONS.md` 2026-08-07 and `APPROVED-FIGURES.md` §6.
+- **1,200 vs 1,200+.** 27 locations across the repo, seven of them without the plus. All move together when Workstream B lands.
+- **Market-size section.** 28M uninsured (CDC 2025), 67% of covered workers in self-funded plans (KFF 2025), average single deductible $1,886 rising to $2,631 at firms of 10–199 (KFF 2025). Own section, no CTA inside it. **KFF's denominator is covered workers, not covered lives** — that percentage must never be multiplied against a population.
+- **Exit-value argument in founder voice.** Near AnciCareStory or in consultation. No multiples, no projection.
+- **Provider hero `<h1>` renders 3 lines at ≤405px, 4 lines at 320px.** Two lines from 410px to 1440px. No overflow or clipping at any width. Deferred; logged by CC to project memory as already-triaged so it does not resurface as a new finding.
+
+### 8h. Pricing Policy V1.0 — opened by DOC-11
+
+Numbering continues the `DECISIONS.md` open table. Items #34 and #35 are **settled decisions with open implementation** — the policy question is closed; only conformance remains. See `DECISIONS.md` 2026-08-08.
+
+| # | Item | Status |
+|---|---|---|
+| 34 | Provider-surface disclosure of internal modality fee amounts — conformance sweep under settled §4 | settled decision, open implementation |
+| 35 | ~~`MarketScopeShowcase`~~ **`recommendationEngine.ts`** discovery price and savings display — removal under settled §5 | settled decision, open implementation. ⚠️ **SURFACE RELABELLED 2026-08-13** — no `discovery` or `savings` string exists in `MarketScopeShowcase.astro`; §3's technical basis places the hardcoded-100% behaviour in `recommendationEngine.ts`. **REMIX/EDS, not Astro.** Ruling unchanged |
+| 36 | Sitewide 260-dollar family, 35 instances — deferred to the page-by-page sequence | not this batch |
+| 37 | Employer-surface pricing figures (350, 260 to 475, 420) — resolved in the Stage 3 `/employer` pass | ✅ **DECIDED — D5**, implementation pending. See §8j |
+| 38 | **EDS employer-funnel handoff — FINDING 1 CLOSED ON THE PRIMARY PATH.** *(2026-08-10.)* EDS fixed and verified the Remix client delivery email — portal **PR #49** merged, production at **`f180b3a`**, email verified clean. **The retired figure and the produced-report claim are no longer delivered on the primary path.** ✅ **The Astro fallback is ALSO contained** — by a different change, the production hotfix (**PR #4**, `358d615`), which removed its projected-savings panel, custom-ROI-report subject branch, savings-analysis intro, composite-case-study bullet and the retired claimant figure. The fallback still exists and still fires on non-2xx; its ROI-conditional content is gone. ✅ The **ROI PDF route** and the **download promise** are contained by the same hotfix. ⚠️ **STILL OPEN: (1)** the `roiData` **payload contract** — three instances survive at `main` (the `hasRoi` test, the `formattedSavings` derivation, the forwarded payload), so the figure is **transmitted but never rendered**; removing the display did not remove the data flow. **(2)** the **D13 atomic closure**. ⛔ **THIS ITEM STILL BLOCKS RULE 25 — but because D13 and Batch E remain open, NOT because the email, the ROI PDF or the fallback containment is live.** All three are contained on production. ⛔ **A merge-resolution obligation attaches:** our branch still carries the stale signature line — see `DECISIONS.md` 2026-08-10, *"#24 REACHED INTO AN EDS-OWNED FILE"* and the reconciliation rules. Dependency, not Workstream A work. See `DECISIONS.md` 2026-08-10, *"EDS FINDING 1 CLOSED ON THE PRIMARY PATH"* and *"PRODUCTION main MOVED FOR THE FIRST TIME SINCE JULY 30"*. ✅ **THE `total_scans` SCHEMA QUESTION IS CLOSED 2026-08-10 (`e3fbdc0`).** Raised during Reconciliation 1 when the column-name divergence was noticed while reading a merged file, **escalated to EDS rather than decided**, and resolved by **PR #5** — which confirmed the mechanism: `wc_scans` was absent from the live schema, PostgREST rejected the whole request atomically, and **employer leads were being dropped silently**. EDS also confirmed `health_scans` is nullable, and the founder ratified omitting it. ⛔ **BATCH E'S BLOCKER LIST HALVES: D13'S ATOMIC CLOSURE NOW STANDS ALONE** — the `$350`-derived calculator arithmetic and the `projectedSavings` payload contract, both EDS-owned, both requiring coordinated execution. **Batch E remains the merge gate and rule 25 remains in force.** See `DECISIONS.md` 2026-08-10, *"THE total_scans SCHEMA QUESTION IS CLOSED, AND BATCH E'S BLOCKER LIST HALVES"*. ⛔ **TWO FURTHER EDS-OWNED DEFECTS FOUND BY BATCH F, RECORDED NOT ACTIONED (2026-08-11).** **(1) THE ENDPOINT RETURNS SUCCESS WHILE DELIBERATELY SENDING NOTHING.** `api/employer-guide-download.ts` returns HTTP 200 with `{success: true, message: "Guide sent to your inbox"}` on **both** its anti-bot paths — the honeypot branch (`website_url` non-empty) and the timing branch (`elapsed < 3000`) — neither of which sends any email. **The literal string `"Guide sent to your inbox"` is a delivery assertion emitted by the endpoint on paths designed not to deliver.** The landing page's success panel fires on HTTP 200, so Batch F's removal of the page's five delivery assertions does not reach this one: the page no longer claims delivery, and the endpoint still does. **(2) THE RESEND FALLBACK ADVERTISES GUIDE CONTENTS THAT NO LONGER EXIST.** Its *"What's inside:"* list carries **four** items, not one: *"30-day implementation timeline"* — **D7 bars the 30-day duration and the deployed guide replaced Week 1/2–3/4 with Phase 1/2/3**; *"WC & health benefits integration workflows"* — ⛔ **workers' compensation was removed from the deployed guide ENTIRELY** as an authorized deviation (§8i), so this advertises a section the guide does not contain, which is **D12's exact prohibition** reaching an EDS-owned surface; plus *"Roles & responsibilities breakdown"* and *"Reporting & analytics setup."* The same template also carries *"schedule a 30-minute briefing directly with me — no sales team, no middlemen,"* a **personal-commitment construction** of the class deferred at the 3E gate. ⛔ **BOTH ARE EDS-OWNED AND WERE NOT MODIFIED.** Workstream A documents the defect and the required outcome. See `DECISIONS.md` 2026-08-11, *"D12 EXTENDED ACROSS THE PAGE — NO DELIVERY ASSERTIONS"* | blocks rule 25 via D13 / Batch E |
+| ~~39~~ | ~~`APPROVED-FIGURES.md` §6, the trajectory line under *"What replaces $246M"*, dates the CorVel sale to **2013**~~ | ✅ **RESOLVED 2026-08-13.** Corrected to **May 2002** at `APPROVED-FIGURES.md` §6(c) and at the §4 presentation rule. The Greenberg Traurig closing letter governs. See `DECISIONS.md` 2026-08-13, *"THREE REGISTER DEFECTS CORRECTED, SCOPE DELIBERATELY BOUNDED"* |
+| 40 | Standing rule 18 does not reach **date forms**. Canonical `founded 3 January 1994` reads as filing language in marketing prose; the register's own §6 positioning line writes `founded 1994`. Ruled for present purposes: **"founded in 1994"** is correct in prose | clarifying amendment to rule 18 |
+| 41 | Line-number citations across the register and the tracker — identify every one, determine which are already stale, and record whether any downstream instruction depends on one. The prospective convention (**cite by section and content**) is settled in `DECISIONS.md` 2026-08-08 and is **not** what this item tracks | audit — convention already settled |
+| 42 | Two classes of bar in §6 — figures barred as **wrong or unsupported** versus claims barred on **contrary evidence**, which have different reopening standards. Marked inline as **BARRED — CONTRARY EVIDENCE** rather than structurally. Revisit whether evidence-based bars need their own §6 subsection **once a second instance exists**. See `DECISIONS.md` 2026-08-09, *"TWO CLASSES OF BAR, DISTINCTION NOTED NOT STRUCTURED"* | structural, deferred on one instance |
+| 43 | **Register contradiction on "cash-pay."** `DECISIONS.md` states the term is barred with *self-pay* as the population replacement; `APPROVED-FIGURES.md` records that the sitewide bar was **overruled on August 6**. Two governing documents disagree. Surfaced by the Batch D survey; the live instance sat inside markup Batch D replaced wholesale, so nothing was blocked and nothing was resolved. **Must be settled before any surface where the term survives is worked.** See `DECISIONS.md` 2026-08-09, *"REGISTER CONTRADICTION ON 'CASH-PAY' — RECORDED, NOT RESOLVED"* | contradiction, blocks surfaces carrying the term |
+| 44 | **Accreditation wording — three live standards across the employer funnel.** `ExecutiveFAQ` states **ACR accreditation is required for all facilities**; a later bullet in the same component describes a broader verification standard covering **licensure, insurance, accreditation and service capability**; the deployed Employer Implementation Guide uses a **third** formulation. ⚠️ **§4 already records that naming ACR alone was wrong** and that the Verified Provider Standard §5.2 recognizes **four** bodies — ACR, IAC, The Joint Commission, RadSite — so the `ExecutiveFAQ` sentence contradicts a decision already taken. ⚠️ **B7 AMENDED, same batch:** because the ACR bullet contradicts a decision already taken rather than differing from one not yet made, **Batch B/C REMOVES it with no replacement** — the D3/D5 rule that a claim with no approved replacement is removed, not substituted. **This does not resolve #44 and authorizes no replacement wording.** No other accreditation formulation may be introduced in B/C. The broader verification bullet and the deployed guide's formulation are untouched and remain this item's subject — the verification bullet also carries a rule 26 present-tense problem, see #47. ⚠️ **CONFIRMED INDEPENDENTLY, DOC-17:** Verified Provider Standard **§5.2** requires accreditation from **any** recognized body — ACR, IAC, The Joint Commission, RadSite — covering each advanced modality offered, so the ACR-only wording is too narrow **on the draft's own terms** as well as under §4. ⛔ **UPSTREAM DEPENDENCY: Appendix B open decision 3**, *"recognized accrediting bodies and modality coverage rules."* **#44 cannot close until that decision is made** — the approved public formulation cannot be written from a draft. See also #45. See `DECISIONS.md` 2026-08-09, *"B7 · ACCREDITATION WORDING DEFERRED, NOT RESOLVED"*, *"B7 AMENDED — THE ACR BULLET IS REMOVED WITHOUT REPLACEMENT"* and *"B7 FURTHER AMENDED — §5.2 CONFIRMS THE ACR WORDING IS TOO NARROW"* | opened by DOC-16; blocked on Appendix B decision 3 |
+| 45 | **Verified Provider Standard — DRAFT, not adopted, not in this repository.** Its effective date is bracketed, its status line reads *"not yet adopted; bracketed items are open decisions,"* and **Appendix B lists ten open decisions** before adoption. **Asymmetry governing its use: copy may be REMOVED on its basis; copy may NOT be APPROVED on its basis.** Where it and `APPROVED-FIGURES.md` disagree, the register governs. **Cited by section, never stored** — same treatment as Pricing Policy V1.0 and the AnciCare corpus. **Track Appendix B's ten decisions as a dependency list:** decision 3 gates **#44**, and the §12 exclusions bear on **#46**. Rulings are accumulating against a document that is not yet adopted | opened by DOC-17; gates #44 and #46 |
+| 46 | **Board-certification claim family — sitewide, and a CONTRADICTION rather than an evidence gap.** Roughly **forty** instances across `how-it-works`, `terms`, `contact`, `member-rights`, blog routes and a dozen components; **two escalate to a guarantee** — `PromiseBanner` and `SharedProblemSolution`. Standard **§5.7** makes board certification **provider-attested**, with primary-source verification **deferred to a future version**. **§1.3** states Verified *"is not, and shall not be represented as: a warranty or guarantee of diagnostic quality, interpretation accuracy, or clinical outcomes,"* and **§12** deliberately excludes practitioner credentialing from Version 1.0. **The standard expressly forbids the guarantee representation.** B/C removes the `ExecutiveFAQ` bullet only; nothing outside B/C is actioned. ⛔ **SCOPE AMENDED ON MEASUREMENT 2026-08-10 (DOC-21) — "ROUGHLY FORTY" IS WRONG. A measured sweep finds SIXTY-SIX INSTANCES ACROSS THIRTY-NINE FILES**, including one in **`CarbonFooter.astro`, which ships on every page**, and one in **`src/emails/welcome-email.html`**, a transactional template. Heaviest: `how-it-works` ×6, `ClinicalTrustSection` ×4, `CredibilitySection` ×4, `blog/mri-basics` ×4, `AssignmentFlowDiagram` ×3, `blog/real-cost-of-mri` ×3. **The ruling is unchanged; only the scope is amended.** Recorded as further **#52** evidence rather than silently corrected — **the second scope understatement of this session**, after #30 went from two to fourteen. **A COUNT IN THE REGISTER IS A MEASUREMENT AT A MOMENT, AND IT DECAYS — RE-MEASURE BEFORE SCOPING ANY BATCH AGAINST ONE.** See `DECISIONS.md` 2026-08-10, *"#46 SCOPE AMENDED ON MEASUREMENT — FORTY TO SIXTY-SIX"* | opened by DOC-17; sitewide, not actioned outside B/C |
+| 47 | **Deferred rule 26 claims — DEFERRED, NOT APPROVED.** Five present-tense claims not resolved in B/C: `ExecutiveFAQ` Q4's *"White-label options available for branded experience"* and its partnership callout; Q6's two present-tense payment sentences and its callout; and *"Active network locations complete USRad verification requirements"* (also #44). **Q6's present tense describes the PREFUNDED MODEL — design rather than demonstrated capability — and is arguably compliant; it deserves a proper ruling, not a passing one.** Recorded so a future sweep does not read them as approved | opened by DOC-17; deferred, not approved |
+| 48 | **Two unnamed rule 26 candidates in `ExecutiveFAQ` Q5.** *"Data Security - Secure portal-based handling of sensitive health information"* and *"Direct Contracting - USRad can contract directly with self-funded employers without requiring a carrier network arrangement."* Both assert **present-tense USRad capability**. **Neither is named by #44 or #47** — they are the residue of #47's inventory being drawn before Q5's non-accreditation bullets were read against rule 26. Surfaced by B/C's read-back, which is why rule 26 requires a read-back and not a grep. Both require **operational-basis rulings**; not resolved and not actioned. See `DECISIONS.md` 2026-08-10, *"TWO UNNAMED RULE 26 CANDIDATES IN ExecutiveFAQ Q5"* | opened by DOC-18; deferred, not approved |
+| 49 | ⛔ **`AnciCareLegacy` CORRECTIVE BATCH — `/employer` IS NOT CONFORMED.** The component was **omitted from the Stage 3 sequence entirely**: `/employer` rendered twelve copy components, the sequence covers eleven, and this is the one it misses. It still ships the **retired 150,000+ patient count in two places** (prose credit line and proof-point tile, both labelled *claimants*), the **20+ years post-exit pair**, the **50-70% historical reduction**, the **$6,500 deductible average** and the **90 million derived headcount**. **Runs as its own short corrective batch — NOT folded into F, G or H**, because folding it would hide an omission inside an unrelated batch and leave the sequence record wrong. ⚠️ **Blocked on #24 and on the `APPROVED-FIGURES` re-qualification below** — the batch must not be the thing that discovers its own authority was wrong. See `DECISIONS.md` 2026-08-10, *"AnciCareLegacy WAS OMITTED FROM THE STAGE 3 SEQUENCE"* | ✅ **RESOLVED 2026-08-10 — BY REMOVAL, NOT BY CONFORMANCE.** Founder ruled the component out entirely; `git rm` plus import and render removal. `/employer` renders **seven** copy components, measured. The survey was the component's first: **of twelve figures, two survived and both are identifiers, not proofs**, and every section failed structurally. **The seven unadjudicated items left with it and were deliberately NOT ruled.** ⚠️ **`/employer` is now conformed for the AnciCare cluster, but #24 is NOT closed sitewide** — see #24. Opened #53 and #54; #52 gains a fifth member. See `DECISIONS.md` 2026-08-10, *"#49 · AnciCareLegacy REMOVED ENTIRELY"* |
+| 50 | **`APPROVED-FIGURES` patient-count conformance statement must be RE-QUALIFIED, not corrected.** The statement that conformance covered `AnciCareLegacy`, `CredibilityBar` and `FinalCTA` in full with no remaining C1 instance is **true as written** — 4H-c1 did edit both instances, from the 168,000 family to 150,000+. **It is a completion certificate for a conformance since RETIRED (2026-08-07, #24)**, and the register separately rules the figure has no basis in **any** unit. A reader meets it as reassurance while the instances it installed are barred. **Neither hypothesis in the DOC-18 brief held**: not overstated, and *claimants* did not escape a patients-scoped sweep. **This is an edit to the publication authority** and was not made in DOC-18, which is documentation only. See `DECISIONS.md` 2026-08-10, *"APPROVED-FIGURES CONFORMANCE STATEMENT — NEITHER OVERSTATED NOR AN ESCAPED SWEEP"* | ✅ **RESOLVED 2026-08-10, DOC-19.** Re-qualified in `APPROVED-FIGURES`, original sentence preserved verbatim. **#49 unblocked.** See `DECISIONS.md` 2026-08-10, *"#50 RESOLVED — THE CONFORMANCE STATEMENT IS RE-QUALIFIED, NOT DELETED"* |
+| 51 | **Internal WCAG review note ships sitewide in built HTML.** `CarbonLayout.astro` carries a four-line engineering comment that Astro emits into `<head>` on **43 of 49 built pages**. It publicly documents a known **WCAG 2.1 §1.4.4** concern, names the attribute causing it (`user-scalable=no`), and states that a future accessibility pass should evaluate removing it. An internal review note published sitewide. Found by **rule 27's first application** — the class the rule exists to catch — **but it is a presentation and accessibility matter, not a claim defect, and it is OUT OF STAGE 3 SCOPE.** Held for a later presentation-and-accessibility cleanup; **Stage 3 is not expanded to reach it.** See `DECISIONS.md` 2026-08-10, *"INTERNAL WCAG REVIEW NOTE SHIPS SITEWIDE IN BUILT HTML"* | opened by DOC-18; out of Stage 3 scope |
+| 52 | **No mechanism for walking back a completion certificate.** `APPROVED-FIGURES` and the tracker both record conformance work as complete — *"covered in full,"* *"carries no remaining instance,"* *"CLOSED — N instances / M files"* — and **nothing walks those statements back when the decision underneath them is reversed.** #50 was one instance, found only because a corrective batch happened to read the source beside the register. **The 4H-c2 provider-volume conformance (`e1a6119`) carries the same shape** and its status row already says it *"must be redone"* (#25) — so the class has at least two members. Needs a general practice: either completion statements carry a reversal marker, or the retirement entry names every certificate it invalidates. **Not a figure question and not surface work.** ⚠️ **THE CLASS NOW HAS FOUR MEMBERS FROM FOUR DIRECTIONS** *(DOC-20)*: **(1)** a certificate for work since **undone** — #50; **(2)** a certificate for work **never done** — DOC-19's #50 entry as first drafted, which announced an `APPROVED-FIGURES` amendment the gate had deliberately stopped short of; **(3)** **work done, correctly, and absent from the record** — the reconciliation merge `89a2eca` was committed and pushed while no document in this folder mentioned it, so a future session would have found reconciliation *rules* with no evidence of execution; **(4)** a clause **approved at one gate that went stale before it could be written**, caught only by re-reading approved wording immediately before writing it. Members 3 and 4 are closed; the class is not. See `DECISIONS.md` 2026-08-10, *"#52 GAINS A MEMBER FROM A NEW DIRECTION — WORK DONE AND NOT RECORDED"*. ⛔ **A FIFTH MEMBER, 2026-08-10 (#49): A COMPLETION CERTIFICATE THAT WAS WRONG WHEN IT WAS WRITTEN.** `APPROVED-FIGURES` §4a's FA statement — *"Six live instances: `AnciCareLegacy:75`, `:87`, `:147` · `CredibilityBar:33` · `schedule:202` · `implementation-guide:322`"* — was **stale in both directions before this batch touched it**: it omitted a live fourth instance at `AnciCareLegacy:23` (split across a line break, so the grep behind the list could not see it) and it named `CredibilityBar:33`, deleted in Batch B/C. **The four earlier members are about certificates going stale AFTER the fact; this one was never accurate.** That is a distinct failure mode and it strengthens the case that #52 settles on a **checking practice** rather than a marking convention — a reversal marker on a certificate that was wrong at birth would have marked nothing. See `DECISIONS.md` 2026-08-10, *"FOUR AUDIT FINDINGS FROM THE #49 SURVEY"* | opened by DOC-19; register-practice defect |
+| 53 | **PROMOTIONAL CLAIMS WITHOUT FIGURES — A CLASS NO NUMERIC SWEEP TARGETS.** The #49 full read found **eleven** assertions in one component carrying no number and therefore invisible to every sweep this workstream has run: *"Perfect Timing," "Bigger Mission," "self-insurance democratized," "no longer just Fortune 500," "Deductibles destroyed access," "Hospital consolidation won," "quality stayed flat," "THE ULTIMATE VALIDATION," "still the industry standard," "transformed workers' comp," "can now transform healthcare access for everyone."* **Rule 26 reaches a subset** — the present-tense USRad capability claims. **Nothing reaches the promotional superlatives or the unsourced causal attributions**, and *"quality stayed flat"* is a quality assertion with no metric, no source and no period. These eleven left with the component and require no action; **the class does not, and it is live on every other surface.** Needs either a rule extension or an accepted decision that promotional framing is out of scope. **Not a figure question.** See `DECISIONS.md` 2026-08-10, *"FOUR AUDIT FINDINGS FROM THE #49 SURVEY"* | opened by #49; sweep-coverage defect |
+| 54 | **SPLIT PHRASES DEFEAT LITERAL SWEEPS — A ZERO RESULT IS NOT PROOF OF ABSENCE.** `AnciCareLegacy` broke **two** multi-word claims across line breaks: *"two decades"* (lines 86–87) and *"20+ years"* (lines 23–24). Both returned **zero** on a literal grep of the source **and** of the built HTML, and both shipped as ordinary prose. **This is the demonstrated cause of the stale FA inventory at #52** — the grep that built the list could not see `AnciCareLegacy:23`. ⚠️ **THE CLASS IS NOT CONFINED TO THE REMOVED COMPONENT.** A whitespace-normalized re-sweep run during #49 found a **third** live split instance: `co-founder-m.astro:308-309`, *"Building and scaling successful healthcare companies for over two⏎ decades"* — literal grep zero, unsigned, third-person, and named in **no** register list. It is a tenure **(b)** founder-career-span claim, not FA, and it is **left in place — out of #49's scope, not adjudicated here.** Sweeps must normalize whitespace and read for meaning. ⛔ **THREE SPLIT-PHRASE INSTANCES HAVE NOW BEEN FOUND BY READING AND ZERO BY GREPPING.** A zero result on a multi-word phrase is not evidence of absence and may not be reported as one. See `DECISIONS.md` 2026-08-10, *"SPLIT PHRASES DEFEAT LITERAL SWEEPS"* and *"A THIRD SPLIT-PHRASE INSTANCE, OFF-BATCH"* | opened by #49; sweep-method defect |
+| 55 | **`CarbonLayout`'s DEFAULT META DESCRIPTION shipped four defects in one line on twenty routes.** *"Get same-day MRI appointments at 70% less than hospital prices. Board-certified radiologists, 1,500+ locations nationwide."* — **(1)** a **D4** savings percentage **at the confidential 70% bound**; **(2)** `same-day`, an access commitment under **D7**'s *"equivalent formulations"*; **(3)** the **#46** board-certification family; **(4)** an **unregistered** `1,500+` network count. **Measured radius: 20 of 48 routes** — 18 static plus the homepage and `/provider/faq`, both server-rendered into the function bundle. **All six provider marketing routes, all three employer routes, the homepage, education, five company and four legal routes.** Contamination confined to **one tag**: `og:description` is a separate hardcoded string, `twitter:description` does not exist, there is no JSON-LD | ✅ **CONTAINED 2026-08-10, DOC-21 — NOT CLOSED.** Default replaced with copy carrying no percentage, timing commitment, network count, accreditation statement, or claim of an already-operating provider network. ⛔ **Containment reaches the inherited default only.** The four underlying families remain live elsewhere: **#56**, **#46**, `same-day` ×8 in `faq.astro`/`patient-promise.astro`, and **#58**. See `DECISIONS.md` 2026-08-10, *"#55 · CarbonLayout's DEFAULT META DESCRIPTION CONTAINED"* |
+| 56 | ⛔ **"1,500+ LOCATIONS NATIONWIDE" — UNREGISTERED, HIGH PRIORITY, REMOVE SITEWIDE. NINETEEN instances across EIGHTEEN files.** The figure appears in **no register document, in any form** — a grep of the whole of `docs/workstream-a/` returns nothing. ⛔ **IT IS NOT AN INFLATION OF AN APPROVED FIGURE.** The approved figure is **1,228 contracted imaging facilities in 43 states, April 2002** — a **historical AnciCare** count, class **CP**. *"1,500+ locations nationwide"* is a **present-tense claim about a USRad network, and USRad has ZERO contracted providers today.** Different figure, different entity, different tense. **DISPOSITION: REMOVE SITEWIDE, NO NUMERICAL SUBSTITUTE.** ⛔ **DO NOT REPLACE IT WITH 1,228** — that figure is AnciCare history and must not be repurposed as present USRad network scale. Live instances span the **homepage body**, `HeroSection`, three network-map components, a search loading overlay, `ui-manager.js` and the dashboard skeleton. **Containing the layout default reached one of nineteen** | opened by #55; **HIGH** — not actioned in DOC-21 |
+| 57 | **Should `CarbonLayout` permit a SILENT description default at all?** DOC-21 took option (a) of three — replace the string — and **deliberately left the structural question open.** The prop stays optional and the meta tag stays unconditional, so **a route that forgets a description still inherits one silently, and the next defective default would repeat #55 exactly.** The alternatives not taken: make `description` **required**, so omission is a build error; or make the tag **conditional**, so omission ships no description rather than a wrong one. **Not a copy question — an architecture question**, and it governs whether #55's class can recur | opened by #55; architecture, deferred by design |
+| 58 | **SIX ROUTE OVERRIDES CARRY THEIR OWN DEFECTS — overriding the default did not escape the defect class.** `blog/uninsured-imaging-guide` hand-writes **"70% less"** (D4, same percentage as the default it overrode); `blog/real-cost-of-mri` carries **$260** (named in **D5** and **#36**); `membership` and `patient-promise` carry **"instant"**, a timing and capability construction that **D7 and rule 26 both approach and neither names**; and four `connect/*` routes assert an **ACR-accredited network nationwide** — the single-body formulation **B7 as amended records as wrong** (the Standard §5.2 recognizes four bodies), on a **draft standard (#45)**. 22 of the 28 overrides are clean | opened by #55; not actioned in DOC-21 |
+| 59 | **TWO NUMBERED OPEN-ITEM SPACES SHARE EIGHT NUMBERS.** `DECISIONS.md` *"Open decisions awaiting founder"* runs **#6–#41**; TRACKER **§8h** runs **#34–#58**. **#34–#41 exist in BOTH with divergent text** — #37's blocks cell reads *"✅ DECIDED — D5, implementation pending"* in TRACKER and *"Stage 3"* in `DECISIONS`; **#38 also differs**. §8h's header says numbering *"continues the `DECISIONS.md` open table,"* **which is false as written**. A citation to *"#38"* is ambiguous. ⛔ **NO RENUMBERING PENDING A RULING** — renumbering breaks every existing cross-reference | governance, founder ruling required |
+| 60 | ⛔ **`CarbonFooter` SHIPS TWO BARRED CLAIMS ON EVERY ROUTE THAT DOES NOT PASS `hideNewsletter={true}`.** `:54` *"Join thousands who've saved **up to 70%** on medical imaging"* — a **D4** savings percentage at the confidential bound — and `:69` *"**Board-Certified Radiologists**"* — the **#46** family. Both sit inside the `{!hideNewsletter && (...)}` block spanning `48–99`. ✅ **`/employer/schedule` is CLEAN of both — but only INCIDENTALLY**, because the route happens to pass `hideNewsletter={true}` for layout reasons. **A layout prop is not remediation**, and any route that omits it publishes both. Confirmed zero in that route's artifact and **not** fixed by Batch G. **Sitewide; shared component; not a route batch.** ⚠️ The same component's `:167` *"Building Accessible Imaging for **90 million Americans**"* (**#30**) is **NOT** gated and ships on every route including this one — confirmed unchanged at one instance | sitewide, shared component |
+| 61 | ⛔ **CALENDLY PRIVACY AND CONSENT — COUNSEL-ROUTED, NOT ADJUDICATED.** `/employer/schedule` embeds `calendly.com/mcabrera-usrad/30min` as an inline widget. **(1) No privacy notice, no terms link and no consent appear anywhere on the route.** **(2)** `hide_gdpr_banner=1` **suppresses Calendly's own GDPR banner** — verified shipping in the built HTML. **(3) Lead PII transits in a URL** to a third-party origin: `name` and `email` are prefilled as query parameters. **(4)** The booking flow exposes a **visitor-controlled free-text field** on a page whose stated agenda is imaging spend and utilisation for a workforce, so a benefits contact describing a named employee's imaging situation is a plausible entry. **A BAA question arises on those facts.** ⛔ **NOT RULED HERE** — recorded for counsel in the manner of `sms-terms:187`. Batch G left the embed, the account, the URL and every parameter **untouched** | counsel-routed, not adjudicated |
+| 62 | **"PREFUNDED IMAGING NETWORK" AS A PRESENT-TENSE OPERATING-NETWORK CLAIM (rule 26).** Batch G wrote *"USRad uses a prefunded imaging **model**"* rather than *"is a prefunded imaging **network**"* precisely because the network formulation asserts a **currently operating** network, and **no provider is contracted as of this date**. ⚠️ **The network construction is the canonical positioning line and is likely published elsewhere in the present tense.** Corrected on this one route only; **a sitewide sweep is needed** for `network` used as a present-tense capability rather than a planned model. **Rule 26 governs; nothing actioned outside G** | sitewide sweep needed |
+| 63 | **"NATIONWIDE NETWORK" TILE — COUPLED COPY AND LAYOUT RESOLUTION. FINDING ONLY, NOT ADJUDICATED.** Survives on `/employer/schedule` in the hero grid after Batch G. **Its removal was not instructed and it was correctly left in place.** It is **two problems in one element**: **(i)** a **present-tense capability claim under rule 26** — a *nationwide network* asserted while **no provider is contracted** — directly adjacent to **#62**, which covers the same construction sitewide; and **(ii)** the **visual orphan** left when G removed two of three cells from a `grid-cols-1 sm:grid-cols-3` container, so one tile now renders in the first third and **wraps to two lines at 1440px**. ⛔ **THE GRID IS NOT TO BE RESTYLED INDEPENDENTLY** — collapsing the columns would polish an element that may be removed outright, and would make the layout fix an argument for keeping the copy. **Both halves resolve together under the existing rule-26 / network-claim adjudication.** ⚠️ **`/employer/schedule` is NOT recorded as complete while this is open** — see §12 ✅ **CLOSED 2026-08-12 — BY REMOVAL, Batch G-1.** The tile was removed under **rule 26** (no current operational basis; no contracted providers), **without substitution**, and **the empty grid container was removed rather than reflowed**. ⛔ **THE COUPLING RULE ABOVE IS WHAT MADE THIS CLEAN, AND THE RECORD SHOULD SAY WHY:** had the layout been fixed first, the page would have carried a tidy single-column tile whose only surviving defect was invisible. **Removing the copy dissolved the layout question entirely — there was no grid left to reflow.** Verified in the built artifact and at runtime. ⚠️ **#62 is UNAFFECTED and remains open** — the sitewide present-tense *network* sweep is not discharged by removing one instance | ✅ **CLOSED — Batch G-1**; #62 still open |
+| 64 | **EDS HANDOFF — SIX ITEMS, APPROVED AND UNSTARTED. A CLASSIFICATION PASS IS REQUIRED BEFORE BATCH E CAN BE SCOPED.** The six are approved but have not begun, and they are **not one kind of work**. Each must first be sorted into exactly one of: **(1) REQUIRED FOR D13 / BATCH E** — the batch cannot close without it; **(2) TECHNICALLY COUPLED TO E** — must move in the same coordinated change but is not itself a D13 condition; **(3) INDEPENDENT EDS REMEDIATION** — real, but neither blocks nor couples to E. ⛔ **Scoping E before this sort is what produces a batch that stalls on a dependency nobody classified.** ⚠️ **Item 2 — the four synthetic persisted fields** (`industry`, `imagingChallenges`, `annualBudget`, `specificNeeds`, written into `employer_consultations` as though collected) — **is ATOMIC under the D13 pattern**: presentation and contract cannot close separately, exactly as the calculator cannot. **Batch G deliberately did not move it** (ruling 8). ⚠️ **Item 6 — the `continue=1` flow** — asks a question the register has not answered: **why does the transactional email generate a parameter the page ignores?** The admin email links to `/employer/schedule?continue=1`, and Batch G removed the `co=` company interpolation the flow was passing. **Recorded as a question, NOT adjudicated**  ✅ **DISPOSITION RECORDED 2026-08-12 (Batch E).** **CLOSED:** item **5** (response contract) by **Step 3** — the false-success 200 is gone, `delivered` is explicit; item **9(:94)** (`avg_cost_per_scan` fabricated default) by Batch E's **separate null ruling**. **REMAIN OPEN:** items **1** (raw `error.message` to an unauthenticated browser), **2** (four synthetic persisted fields), **3** (existing `employer_consultations` rows), **6** (`continue=1`), **10** (historical `employer_leads.annual_savings` rows). **DISPOSITION RECORDED, NOT ACTIONED:** item **4** (Remix `employer-consultation` template audit — prospect-facing, unread, governed by rule 25 not D13) and item **11** (the Astro fallback's contents claims — the retired figure is already gone; what remains is D7/D12, `employer-guide-download.ts:174-175`). ⛔ **Batch E closing does NOT close this item** | classification pass done for E; five items still open |
+
+**#39, #40 and #41 were opened by DOC-12, not DOC-11.** They continue the numbering here because this is the workstream's single open-item sequence. All three are register-maintenance items surfaced by the Employer Implementation Guide audit — see §8i.
+
+**#41 is an audit, not a decision.** The convention it grew out of — **cite by section and content, never by line number** — is already settled in `DECISIONS.md` 2026-08-08, *"LINE-NUMBER CITATIONS IN THE REGISTER GO STALE AND CANNOT BE CORRECTED."* `DECISIONS.md` is append-only, so a line number cited there is frozen at commit while `APPROVED-FIGURES.md` keeps moving beneath it. #41 closes when the sweep is complete, not when a convention is chosen.
+
+**#38 is not Workstream A work.** Per the 2026-08-08 EDS-boundary entry, the boundary is **functional, not repository-based**: `api/pricing/quote.js`, `api/employer-guide-download.ts`, `api/employer-roi-report.ts`, the four admin `medicare-dashboard` routes, `ProviderSearchInterface.jsx` and the patient-dashboard components sit physically in this repo but are EDS-owned. Workstream A documents the defect and the required outcome in a handoff and does not modify these files.
+
+**Housekeeping — DOC-11's own SHA.** ✅ **DONE — DOC-12.** Filled as `623df8a`; index amendment recorded in `DECISIONS.md` 2026-08-08. **DOC-12's own row 51 now carries `**TBD**` for the same structural reason** — a commit cannot cite its own hash. Fill it next batch. Three consecutive batches have needed this; it is a property of the convention, not an oversight.
+
+### 8i. Employer Implementation Guide — DEPLOYED AND VERIFIED · guide component of the EDS handoff CLOSED
+
+**Status: DEPLOYED AND VERIFIED. The guide component of the EDS handoff is CLOSED.** Updated 2026-08-09 (DOC-14); supersedes the DOC-13 status, which read *"approved for production, replacement pending EDS deployment."* EDS deployed the Workstream A-approved 8-page guide in place, and the production artifact was verified byte-for-byte against the approved PDF. **The public URL was preserved**, so links already delivered resolve to the corrected document. See `DECISIONS.md` 2026-08-09, *"EMPLOYER IMPLEMENTATION GUIDE DEPLOYED TO PRODUCTION."*
+
+| Verified artifact | Value |
+|---|---|
+| SHA-256 | `a33f10c13f44ff439a89ad370bb446fd8931e3d7a7c4dbfc9191c879f4e496ef` |
+| Size | 61,390 bytes |
+| Pages | 8 |
+| Public URL | preserved — replaced in place, not deleted and recreated |
+
+> **The hash is ARTIFACT PROVENANCE, not a publication figure.** It is deliberately **not** in `APPROVED-FIGURES.md`, which governs figures cleared to appear in copy. It exists so a future session can answer *"is the live guide the audited one?"* by comparison rather than recollection.
+
+> ⚠️ **THE REMAINING SECTIONS OF THE EDS HANDOFF ARE OPEN.** No application code was changed and no employer-funnel remediation was performed as part of this deployment. #38 stands.
+
+**The division of labour is closed out:** Workstream A specified · the external PDF production agent revised · Workstream A audited the returned PDF · **EDS deployed the live storage object.**
+
+| Item | State |
+|---|---|
+| Claim-by-claim revision specification | ✅ written and issued |
+| Five of sixteen pages removed in full — p6 (implementation-never-fails, 168,000+ times), p10 (licensing and accreditation table), p12 (90-day cost reduction), pp13–14 (composite case study) | ✅ confirmed removed; the guide returned at **8 pages** |
+| Case study replaced by **"How Employer Savings Will Be MEASURED"** — method, not result; no projected percentage, no dollar amount | ✅ confirmed in the returned document |
+| Revised PDF returned for Workstream A audit | ✅ returned at **8 pages**; passed after **two correction passes** |
+| Founder authorization for production | ✅ **granted 2026-08-09** |
+| Live storage object replaced | ✅ **deployed in place by EDS 2026-08-09; public URL preserved** |
+| Production artifact verified byte-for-byte against the approved PDF | ✅ **SHA-256 match, 61,390 bytes, 8 pages** |
+| Guide component of the EDS handoff | ✅ **CLOSED** |
+| Remaining sections of the EDS handoff | ⬜ **OPEN — #38** |
+
+**Two authorized deviations from the specification, both improving conformance:**
+
+- **Workers' compensation removed from the document entirely**, rather than corrected in place. Matches the register's framing of WC as history plus future expansion.
+- **Phase 1 / Phase 2 / Phase 3 replacing Week 1 / Week 2–3 / Week 4.** Removes the implied four-week duration.
+
+**Three blockers found at audit and cleared:**
+
+| Blocker | Resolution |
+|---|---|
+| An unapproved ticker | Ticker approved 2026-08-08 as **NASDAQ: CRVL**; the prior form **NYSE: CVL** remains barred — wrong exchange, wrong symbol. See `DECISIONS.md` 2026-08-08, *"NASDAQ: CRVL ADDED TO THE PUBLICATION AUTHORITY."* |
+| A facility count missing its April 2002 anchor | Anchor restored — the canonical form is **1,228 contracted imaging facilities in 43 states, April 2002**. `APPROVED-FIGURES.md` §4a, *"State counts — always publish the count with its date,"* bars presenting any one state count as "the" figure |
+| An unapproved KFF statistic | Removed. *"90% of covered workers … (KFF, 2023)"* is **absent from the register** and two editions stale against the **KFF EHBS 2025** baseline in `APPROVED-FIGURES.md` §5. HOLD under standing rule 4 |
+
+> ✅ **BLOCKER ON SIGN-OFF — CLEARED.** The specification's AnciCare facts — 1,228 facilities / 43 states · more than $60 million paid to imaging centers 1994–2001 · founded 1994 · acquired by CorVel May 2002 — were written from working memory rather than read from `APPROVED-FIGURES.md`. Canonical wording was pulled from §4a and confirmed. **All three defects were in the specification, authored by Workstream A; none originated with the PDF agent.** Standing rule 22 held: re-read, never work from the existing list.
+
+**The URL is not taken down.** Per the 2026-08-08 positioning decision, the guide is unlinked from the lead email rather than deleted, and the revised PDF replaces the object at the **same storage URL**, so links already delivered resolve to corrected content.
+
+### 8j. Stage 3 employer decisions D1–D13 — DECIDED, implementation pending
+
+*(Recorded 2026-08-09, DOC-15.)* Thirteen decisions were ruled as one set. See `DECISIONS.md` 2026-08-09, *"STAGE 3 EMPLOYER SURFACE — THIRTEEN DECISIONS CLOSED"* and the D1–D13 entries that follow it.
+
+> ⚠️ **DECIDED IS NOT RESOLVED.** Per D9's ruling-versus-scope distinction, the policy question is closed for each item below; the instances are removed when their surfaces are worked. **Do not mark any of these resolved, and do not expand an apply batch into another surface merely to close one.**
+
+| # | Item | Decision | Status |
+|---|---|---|---|
+| 8 | Market-size section placement | **D11** — `IndustryData` removed as a standalone component, trailing CTA with it | ✅ DECIDED, implementation pending |
+| 18 | Satisfaction rate — 92% / 98% / 99.8% | **D9** — barred sitewide absent documented measurement source and methodology | ✅ DECIDED, implementation pending |
+| 24 | Retire "150,000+ patients" sitewide | **D1** — retired; replacement selective, not mechanical | ✅ DECIDED on this surface, implementation pending. ✅ **MERGE OBLIGATION DISCHARGED 2026-08-10 (`89a2eca`)** — the EDS-owned Astro fallback instance is contained and `employer-guide-download.ts` is byte-identical to `origin/main`. **The item stays OPEN for the `/employer` instances at #49.** See `DECISIONS.md` 2026-08-10, *"#24's MERGE OBLIGATION IS DISCHARGED"*. ✅ **BOTH `AnciCareLegacy` INSTANCES REMOVED 2026-08-10 (#49)** — the prose credit line *"served 150,000+ claimants"* and the proof-point tile `150,000+` / *"Claimants served"*, deleted with the component rather than conformed. **The `/employer` page itself now carries ZERO instances of the family, verified in the built artifact.** ⛔ **#24 IS NOT CLOSED SITEWIDE. A measured re-sweep of `src/` and `public/` at this batch finds THIRTY live instances across THIRTEEN files** (excluding two base64 false positives in `bizcards.html` and an unrelated `$168,000` dollar figure in `test-plg.html`): `about.astro` ×8 · `press-kit.html` ×4 · `schedule.astro` ×3 · `generateROIReport.ts` ×3 · `AnciCareStory.astro` ×2 · `what-is-an-mri.astro` ×2 · `implementation-guide.astro` ×2 · `EmployerConsultationForm.astro` · `SocialProofBar.astro` · `FAQSection.astro` · `ProvenSuccess.astro` · `the-scan-that-never-happens.astro` · `contact.astro`. **Five of those sit on `/employer/*` routes** — `schedule` ×3 and `implementation-guide` ×2 — and belong to Batches **F** and **G**; the `generateROIReport.ts` three are in the parked unreachable file at **#32**. The remainder are off-surface and fall to the page-by-page rewrite. **No future session may read "#49 resolved" as "#24 closed."** ✅ **`/provider` INSTANCES CLEARED 2026-08-13** — `AnciCareStory.astro` ×2, `ProvenSuccess.astro`, `FAQSection.astro`. **#24 IS NOT CLOSED SITEWIDE**; the remaining instances are off this surface. |
+| 27 | Duration claims describing AnciCare's operating life | **D2** — 1994 and 1994–2002 kept; "20+ years post-exit" and "30 years" retired | ✅ DECIDED on this surface, implementation pending |
+| 28 | 4.9★ satisfaction, fourth variant | **D9** — same sitewide bar | ✅ DECIDED, implementation pending |
+| 29 | 50–70% published where the 50%+ floor is required | **D4** — closed outright; historical floor form approved, three mis-scoped instances removed | ✅ DECIDED, implementation pending |
+| 30 | "90 million Americans" — derived headcount | **D8** — retired with the other nine market statistics | ✅ DECIDED, implementation pending. ⛔ **SCOPE AMENDED 2026-08-10 (#49) — TWO LOCATIONS WAS WRONG. A MEASURED SWEEP FINDS FOURTEEN LIVE INSTANCES ACROSS THIRTEEN FILES:** `partner.astro` ×2 · `about.astro` ×2 · `investor.astro` ×2 · `careers.astro` ×2 · `faq.astro` · `faqbackup.astro` · `AboutHero.astro` · `90milliongraph.html` · `connectAudiences.ts` · **`CarbonFooter.astro:167`**. ⛔ **THAT LAST ONE IS THE SITEWIDE FOOTER — *"Building Accessible Imaging for 90 million Americans"* SHIPS ON EVERY PAGE OF THE SITE.** A barred derived headcount is therefore live on every route while this row believed there were two locations. **The ruling is unchanged — the class is barred; only the scope is amended.** NOT ACTIONED in #49; recorded so the eventual sweep is scoped correctly. See `DECISIONS.md` 2026-08-10, *"#30 IS FAR WIDER THAN THE REGISTER RECORDS"*. ✅ **THE SITEWIDE FOOTER INSTANCE IS CLOSED 2026-08-13** — `CarbonFooter:167` was **ungated**, outside the `{!hideNewsletter && …}` block, and therefore shipped on **every route**; removed without substituting a replacement market-size statistic. A **fifteenth instance** outside the scope list was also cleared: `AnciCareStory`'s "90M Americans" card. Remaining instances open. Derivation and prospective bar recorded 2026-08-13 |
+| 37 | Employer-surface pricing figures (350, 260–475, 420) | **D5** — removed, with the unapproved hospital comparators | ✅ DECIDED, implementation pending |
+
+**Two decisions have no open-item number** because nobody had opened one: **D3** bars the category-founding and "first" claim on evidence, and **D10** removes `EmployerCaseExample` entirely. Both were surfaced by the Stage 3 survey as unadjudicated, not as tracked items.
+
+**D13 is a coordination constraint, not a claim ruling.** The calculator is not closed until EDS removes or replaces the dependent pricing arithmetic and resolves the payload contract. See §12.
+
+---
+
+## 9. STRUCTURAL ISSUES NOT CAUSED BY THE PIVOT
+
+- The untyped Supabase client (§8d).
+- The PAT scope problem (§8c).
+- `schema_migrations` empty in production — the migration ledger is blind.
+- **`CarbonHeader.jsx` has no per-page variant.** One nav across 49 pages, synced to `PBSHeader.tsx` in the Remix app. Any audience-specific navigation requires a code change touching two codebases.
+- **PBS-SRCH-F-003** (from the engineering reference): the real facility name ships to the client in the search JSON despite display-layer concealment, and the fuzzing is deterministic and reversible. Material to any blinded or comparison-research claim. Defect track.
+
+---
+
+## 10. VOCABULARY RULES
+
+*(Added August 6. These are structural, not stylistic — each one exists because the plain-language reading is factually wrong, which is why they drift back in on rewrites.)*
+
+- **"Cash-pay" is barred.** In provider payor-mix language it specifically means *the patient pays the center*. USRad is the payor in every lane; the patient is never the center's counterparty. Use *self-pay* for the population, and name USRad as payor for the transaction. Will recur in employer-facing copy and in the briefs.
+- **"Net margin" is barred.** USRad cannot know a center's net margin. Use per-scan reimbursement.
+- **Mechanism, not conversion.** "Puts you in front of referrers you aren't seeing today" is true by construction. "Grows your commercial book" is a volume promise in different clothing. No conversion rates, no implied share of referrers retained.
+- **Lane names.** Employer plan assignments (primary) · self-pay patient assignments (secondary). Both are prefunded — *prefunded* names the shared mechanism, not one lane, and therefore cannot be used to distinguish them.
+- **Present tense.** No centers are contracted and no employer volume is flowing. Copy describes what the network is built to do, not what it is doing.
+- **"Network," not "marketplace."** Except as explicit contrast (§8g).
+
+---
+
+## 11. CONFIDENTIALITY LINE — provider-facing
+
+*(Established August 6.)*
+
+**Sayable.** Patients see a center's price alongside other centers when they search. Price is one of the factors determining which center is surfaced first, along with proximity and accreditation.
+
+**Not sayable.** Any weight, percentage, or ordering detail that would permit reconstruction of the ranking.
+
+**Basis.** PBS Search presents contracted centers with Medicare-derived cash prices beside discovery centers — patient-visible, therefore public. The `rankProviders` weighting into a primary SmartMatch plus contenders is proprietary and stays internal.
+
+---
+
+## 12. REMAINING SEQUENCE
+
+*Replaced 2026-08-07 (DOC-10). The claim-family sequence is superseded: the 4H-e survey showed the patient figure, $246M, tenure, satisfaction and grid structure colliding inside the same components, so the remaining work sequences **by page**, not by claim family.*
+
+| # | Stage | Content | Shape |
+|---|---|---|---|
+| 1 | **4H-f archival** | ✅ **DONE** — `/search-results` and `ProviderSearchSection` archived (`5432aeb`) | Complete |
+| 2 | **Architecture check** | ✅ **DONE** — `generateROIReport.ts` proven unreachable since `39d8c7a`. Closes #32. ⚠️ **RE-CONFIRMED 2026-08-12 (Batch E):** the file still carries `usradCost`, `usradPct` and `annualSavings` across ~20 sites and **still has ZERO importers repo-wide**. Classified **dead-or-archived** in Batch E's sweep and **correctly NOT actioned** — it is not a D13 surface and Batch E did not widen to reach it | Complete. Copy edits to that file stay parked |
+| 3 | **Page-by-page rewrite** | **#22 / #24 / #27 merged.** $246M removal, the 38 retired patient instances, and the tenure cluster resolved together, one page at a time. Order by exposure: `/press-kit` (rebuilt on the documented record) → `/about` → `/` → `/provider` → `/employer` → `/employer/schedule` → `/employer/implementation-guide` → the single-instance routes | Two-pass per page. Survey is done; copy is approved inline before each page is edited |
+| 4 | **Tenure cleanup** | Whatever the page-by-page pass does not reach — 17 instances, five notations, three categories (company life · career span · post-exit attestation) | Re-sweep; rules 17 and 22 |
+| 5 | **robots.txt** | — | |
+| 6 | **Final audit** | Full re-sweep of every barred and retired figure across `src/` and `public/`, plus a build-output sweep | Rule 22 |
+| 7 | **Merge** | | |
+
+> ⚠️ **`/provider` WAS COMPLETED FOURTH-IN-ORDER, FIRST-IN-PRACTICE — 2026-08-13.** Worked ahead of `/press-kit`, `/about` and `/`. Founder prerogative, recorded because the register did not carry it. **Row 3's order is otherwise unchanged and `/press-kit` remains named first by exposure.**
+
+**Stage 3 `/employer` is SCOPED AND READY.** *(Recorded 2026-08-08, DOC-12.)* Its survey input is the read-only Astro employer-funnel survey run at HEAD `1e61066`, recorded in `DECISIONS.md` 2026-08-08 — the figure collisions, the `$260` family count, and the client-email route findings are all in the register, so the pass is scoped **from the folder, not from conversation.** Three positioning decisions govern the rewrite: the guide is unlinked from the lead email, the calculator emits no prospective USRad dollar output, and the funnel no longer promises a custom ROI report. The EDS-owned items surfaced by the same survey are **not** in scope — they are #38, a handoff.
+
+### Stage 3 `/employer` — approved batch sequence
+
+*(Recorded 2026-08-09, DOC-15.)* Decisions D1–D13 are closed; see §8j. The apply work runs in this order:
+
+| Batch | Content |
+|---|---|
+| **P2** | ✅ **DONE — DOC-15.** Documentation prerequisite: D1–D13 in the register, the Federal Reserve figure in `APPROVED-FIGURES` §5, this sequence |
+| **A** | ✅ **DONE.** Component removals — `EmployerCaseExample` (D10), `IndustryData` (D11) |
+| **B** and **C** | ✅ **DONE.** Conformance removals; credibility substitution (D1–D5, D7–D9) — `Implementation`, `ExecutiveFAQ`, `ROIStatPanel`, `DualSolution`, `FinalCTA`, `CredibilityBar`. Applied as rescoped by DOC-16 and extended by DOC-17: two components deleted, four survivors conformed, six accordions to four |
+| **D** | ✅ **DONE.** Problem-statement rebuild (D5, D8) — `EmployerHero`, `CostAnalysis` |
+| **RECONCILIATION** | ✅ **DONE — `89a2eca`.** `origin/main` (`358d615`) merged into the branch; **ten hunks** across the three conflicting files resolved under the seven binding rules, with three founder ratifications. `employer-guide-download.ts` byte-identical to `origin/main`. Build exit 0; rule 24 and rule 27 sweeps run. **Branch now 0 behind production** |
+| **RECONCILIATION 2** | ✅ **DONE — `e3fbdc0`.** ⛔ **`main` MOVED A SECOND TIME the same day** — `358d615..d05b97c`, PR #5 (`6fd5346`), the FD-MKT-002 hotfix — and the **behind-count caught it on the first state check that ran**, before any file was touched. **ONE file, ONE hunk**, resolved under the seven binding rules; everything else auto-merged. **The hunk was a RULE 5 STOP**, held uncommitted, and turned on the live schema: EDS confirmed `employer_leads.health_scans` is **integer, NULLABLE, no default**, and the founder **ratified omitting it** — writing 0 or deriving a value would fabricate data. ⚠️ **Durable consequence: that column now holds a MIXED POPULATION**, pre-cutover split vs post-cutover NULL; **never treat it as a complete population field.** Production fix survives intact; build exit 0; **no shipped HTML changed** — the route compiles only into the SSR function bundle. **Branch level with production again — 66 ahead, 0 behind** |
+| **E** | Calculator (D6, D13) — **MERGE GATE. ⛔ RESCOPED 2026-08-10, DOC-19.** Containment reduced its scope; **it did NOT discharge D13.** The download promise and the PDF route are gone upstream. **E still owns:** the live on-page savings presentation · the `$350`-derived calculator arithmetic · the related savings and bar geometry and the production-only waterfall and split logic · the remaining `projectedSavings` payload and data-contract plumbing · the final calculator CTA and presentation replacing the temporary containment copy. ✅ **BLOCKER LIST HALVED 2026-08-10 (`e3fbdc0`)** — the `total_scans` schema question, raised at Reconciliation 1 and escalated to EDS, is **CLOSED by PR #5**. ⛔ **D13'S ATOMIC CLOSURE NOW STANDS ALONE**: the `$350`-derived arithmetic and the `projectedSavings` payload contract, both EDS-owned, both needing coordinated execution. **E IS STILL THE MERGE GATE AND RULE 25 REMAINS IN FORCE.** The rule 24 exposure on `/employer` — `$350` ×2, `$260`, `$475`, `71%`, `$1,200,000` ×2 — is unchanged by either merge and is still E's. ✅ **CLOSED 2026-08-12 — D13 ATOMIC CLOSURE SATISFIED, one commit.** Every figure above is gone; `currentSpend`, `current-bar` and `bar-current-cost` retained per **D6** as visitor-input arithmetic. **No substitute figure, heading or copy introduced.** ⛔ **THE STAGE 3 MERGE GATE IS SATISFIED — AND SATISFYING IT DOES NOT COMPLETE STAGE 3.** §12 **row 3** still carries **five surfaces** — `/press-kit`, `/about`, `/`, `/provider` and the single-instance routes — plus **rows 4, 5, 6 and 7** (tenure cleanup, robots.txt, final audit, merge). **No future session may read "Batch E closed" as "Stage 3 complete"** |
+| **F** | ✅ **DONE 2026-08-11.** Guide landing page (D12) rewritten against the deployed 8-page document. **Five sections removed entire** — credibility strip, fine print, PDF stat tiles, trust band, and the whole card grid with its wrapper, h2, subhead and six cards; each existed primarily to hold barred or obsolete content, the D10/D11/B1/B2/B4/#49 reasoning. **Twelve of fifteen contents claims misdescribed the deployed guide**, most advertised twice. **Five delivery assertions removed**, including the one D12 named by name and which was still live verbatim. The route now **supplies its own meta description**. **Accreditation language removed with no replacement, deliberately** — #44 and B7 stand. Route 556 → 419 lines; build exit 0; both sweeps zero. ⚠️ **#24's two `implementation-guide` instances are closed by this batch**, and the FA instance formerly cited as `implementation-guide:322` left with the trust band — **`schedule:202` is now the LAST live FA instance**, and belongs to G |
+| **G** | ✅ **DONE 2026-08-12.** `/employer/schedule` rewritten with `EmployerConsultationForm`. Credibility strip, stats block and the President's-message testimonial removed entire. **Both items G inherited from F are closed: the last FA instance at `schedule:202-203` is gone** — it broke across a line and no literal grep ever found it (#54) — **and the route's #24 instances are gone.** `150,000+` ×4, category-founding ×5, `75-90%` ×4, `50–70%` ×3, `30 years`/`30+`, `Est. 1994`, 30-day ×3, Custom ROI, savings projection, case studies all removed **without substitution**. The false *"Savings analysis being prepared"* ✓ step removed, and the failure path no longer renders success state. Build exit 0; 24/24 artifact checks pass. ⚠️ **#24 is NOT closed sitewide** — the remaining instances are off this route. **`implementation-guide:322` is now the only live FA instance** |
+| **H** | ⛔ **DISSOLVED INTO G, 2026-08-12 — NOT DONE, NOT COMPLETE, and not a batch any longer.** `EmployerConsultationForm` renders **unconditionally** at `schedule.astro:299` and is **not an independent surface**; one component cannot carry two batch labels. Its scope was executed inside G. **H is retired as a label.** No future session may read this row as an outstanding batch, and none may reopen H to do work that belongs to a route |
+| **AnciCareLegacy** | ⛔ **OMITTED FROM THE SEQUENCE ABOVE — added 2026-08-10, DOC-18.** ✅ **UNBLOCKED 2026-08-10, DOC-19** — #50 resolved. ✅ **DONE 2026-08-10 — THE COMPONENT WAS REMOVED ENTIRELY, NOT CONFORMED.** Founder ruled it out on the survey; `git rm` plus import and render removal from `employer.astro`, which now renders **seven** copy components (measured). Same reasoning as D10, D11, B1, B4. **The omission is now closed and the sequence record is correct: `/employer` had twelve copy components, eleven were covered by A/B-C/D/E, and the twelfth was removed rather than folded into an unrelated batch.** ⚠️ **This does NOT close #24 sitewide — thirty instances remain across thirteen files; see #24.** **NEXT: Batch E**, the calculator and still the merge gate. See open item #49 |
+
+> ⛔ **THE SEQUENCE OMITTED A COMPONENT. `/employer` IS NOT CONFORMED, EVEN THOUGH A, B/C AND D ARE DONE.** *(Recorded 2026-08-10, DOC-18.)* `/employer` rendered **twelve** copy components before Stage 3 began. Batches A, B/C, D and E cover **eleven** of them — two under A, six under B/C, two under D, the calculator under E. **`AnciCareLegacy` is in none of them** and still ships the retired patient count, the post-exit pair, the historical reduction range, the deductible average and the derived headcount. It runs as **its own short corrective batch, not folded into F, G or H** — folding it would hide an omission inside an unrelated batch and leave this record wrong. It is blocked on **#24** and on the `APPROVED-FIGURES` re-qualification at **#50**. **No future session may read "B/C done" as "/employer conformed."**
+>
+> ✅ **UNBLOCKED 2026-08-10 (DOC-19). #49 IS THE NEXT SURFACE WORK, AHEAD OF F.** #50 is resolved — the conformance statement is re-qualified with its original sentence preserved, so the corrective batch no longer risks discovering its own authority was wrong. ⚠️ **One dependency survives and changes the batch's shape:** #24 also reaches an instance of the retired figure inside the **EDS-owned** Astro fallback route, which Workstream A may not modify. So #49 conforms the `/employer` surface, and the EDS-side instance travels with the **#38** handoff. A batch scoped as though it owns every instance will stall at that one. See `DECISIONS.md` 2026-08-10, *"#24 REACHES INTO AN EDS-OWNED FILE."*
+>
+> ✅ **CLOSED 2026-08-10 (#49) — BY REMOVAL. THE STATEMENT ABOVE THAT `/employer` IS NOT CONFORMED WAS TRUE WHEN WRITTEN AND IS NO LONGER TRUE.** The founder ruled the component out entirely rather than conforming it, so the twelfth component is gone and **`/employer` renders seven copy components, measured.** The retired patient count, the post-exit pair, the historical reduction range, the deductible average and the derived headcount all left with it — confirmed zero in the built artifact. **The omission is closed and the sequence record is now correct.** ⚠️ **Read the scope narrowly: `/employer` is conformed for the AnciCare cluster. #24 remains open sitewide with thirty live instances across thirteen files, five of them on `/employer/*` routes belonging to Batches F and G.** The EDS-side dependency described above is unchanged and still travels with **#38**. See `DECISIONS.md` 2026-08-10, *"#49 · AnciCareLegacy REMOVED ENTIRELY."*
+>
+> ⚠️ **A second live exposure on the same page, and it is not an omission but a sequencing consequence.** `/employer` today publishes a flat per-scan rate, a `$260–$475` network range and a derived savings percentage from the calculator. **Standing rule 24 bars every one of them** until a contracted provider rate or a ratified modeling methodology exists. The figures are known and the batch that resolves them is **E, the merge gate** — so the exposure is understood, but it is **live on a published page until E runs**, not merely queued. Found by DOC-18's built-output inventory.
+
+> ⚠️ **`/employer/schedule` IS CONFORMED AT `fa4a001` BUT IS *NOT* CLOSED.** *(Recorded 2026-08-12, DOC-23.)* Batch G removed every barred family the survey found and the artifact confirms 24 of 24 assertions at zero. **One item remains open on the route: the *"Nationwide network"* tile in the hero grid** — see **#63**. Its removal was not instructed by G and it was correctly left in place, but it is **simultaneously a present-tense capability claim under rule 26 (adjacent to #62) and the visual orphan** in a `sm:grid-cols-3` container now holding one cell. ⛔ **COPY AND LAYOUT RESOLVE TOGETHER. The grid may NOT be restyled independently** — restyling would polish an element that may be removed. **No future session may read "Batch G done" as "/employer/schedule closed."**
+>
+> ✅ **SUPERSEDED 2026-08-12 (Batch G-1) — `/employer/schedule` IS NOW CONFORMED AND CLOSED AS A ROUTE. THE STATEMENT ABOVE WAS TRUE WHEN WRITTEN AND IS NO LONGER TRUE.** The one item it named as outstanding — the *"Nationwide network"* tile — was **removed under rule 26 without substitution**, and the empty grid container **removed rather than reflowed**. **#63 is closed.** Build exit 0; 20/20 artifact assertions; verified in the built HTML and at runtime. ⛔ **READ THE SCOPE NARROWLY. "Closed as a route" is not "closed as a surface programme":** the route carries no known open item, but **#60** (`CarbonFooter` sitewide), **#61** (Calendly privacy, counsel-routed), **#62** (the sitewide present-tense *network* sweep, **which removing one instance did not discharge**) and **#64** (the EDS handoff classification) all remain open, and **none of them is route work.** The route also remains behind the **Batch E merge gate** — closed does not mean merged. Recorded as an explicit supersession rather than edited in passing, per **#52**.
+>
+> ⛔ **STAGE 3'S SURFACE LIST IS THIS SECTION'S ROW 3, AND IT IS WIDER THAN THE `/employer` BATCH SEQUENCE.** *(Recorded 2026-08-12, DOC-23 — a READING of the existing text, which is unchanged above.)* Row 3, *"Page-by-page rewrite,"* names **eight** surfaces in order by exposure: **`/press-kit` → `/about` → `/` → `/provider` → `/employer` → `/employer/schedule` → `/employer/implementation-guide` → the single-instance routes.** The sub-heading *"Stage 3 `/employer` — approved batch sequence"* covers **only the three `/employer*` surfaces**, via P2/A/B–C/D/E/F/G. ⚠️ **The label "Stage 3" therefore denotes two different scopes in one section**, and reading the batch sequence as the whole of Stage 3 understates it by five surfaces. ✅ **`/press-kit` IS IN THE REGISTER AND IS NAMED FIRST BY EXPOSURE** — row 3 above, plus `DECISIONS.md` 2026-08-07, *"/press-kit REBUILT, not thinned."* **It is register-borne, not a conversational reference**, and this entry records that the opposite premise — raised in session — was checked against the register and found wrong. **Nothing here adjudicates the sequence or moves any surface into or out of the merge gate**; the gate is Batch E, as stated below, unchanged.
+
+> ⛔ **BATCH E IS A MERGE GATE.** Other batches may proceed on the branch while the EDS work is coordinated, but **Stage 3 is NOT closed and NOTHING merges to `main` until E is complete and verified.** Per D13, the calculator closes atomically: Workstream A may prepare the presentation changes, but the batch does not close until EDS removes or replaces the dependent pricing arithmetic and resolves the payload contract. `EmployerConsultationForm` follows the same rule.
+
+**BATCH B/C IS RESCOPED — the "six components surviving intact" premise was wrong.** *(Recorded 2026-08-09, DOC-16.)* The B/C survey showed three of the six do not survive intact, so the batch is **two component removals plus conformance work on four survivors**:
+
+| Shape | Components |
+|---|---|
+| **Removed entire** | `ROIStatPanel` (B1) · `CredibilityBar` (B4) |
+| **Conformance on survivors** | `Implementation` · `DualSolution` · `FinalCTA` (B3 — tile grid, signature and H2) · `ExecutiveFAQ` (B2 — Q3 removed, six accordions become five) |
+
+Standing rule 26 governs the survivors alongside D1–D9.
+
+**Added to B/C scope after the survey and the Part 0 full-text read** *(DOC-16 B7 as amended, then DOC-17)*:
+
+| Addition | Basis |
+|---|---|
+| `ExecutiveFAQ` **Q2 removed ENTIRE** — five of five bullets and its callout are barred | DOC-17. The B/C spec assumed it lost three of five and said keep the accordion. Same ruling as B2 for Q3 and B1 for `ROIStatPanel` |
+| `ExecutiveFAQ` Q1 — **"Zero disruption to existing plans"** and **"No IT burden — we handle all technical requirements"** removed | Standing rule 26. Both sit in a component already being edited |
+| `DualSolution` — Card 1 bullet 2 made explicitly historical; Card 2 body replaced; **framing line "The program is designed so that:" is load-bearing** and may not be removed as styling | DOC-17. Card 2's surviving bullets are permissible only as program design |
+
+**SIX ACCORDIONS BECOME FOUR.** Q3 goes under B2, Q2 under DOC-17. **Q4 and Q6 remain** — Q6's prefunded-model explanation is the strongest correct content on the surface, though five of its and Q4's claims are **deferred, not approved**: see #47.
+
+**No replacement accreditation wording is authorized in B/C.** #44 stays open and is blocked on Appendix B decision 3; the sitewide board-certification family is #46; neither is actioned outside B/C.
+
+**`EmployerHero` and `CostAnalysis` belong to BATCH D, not B/C.** *(Clarified 2026-08-09.)* Both lose their central argument under **D5** and require **replacement copy**, which is batch D's purpose. **The approved sequence is unchanged**; this records which components sit in which batch. ⚠️ **This paragraph originally read that "B/C is conformance removal from components that survive intact" and listed all six as such — superseded by the rescope above, DOC-16.** The batch/component split it records is unaffected.
+
+**Each batch runs the two-pass workflow** — copy approved inline before any file is opened.
+
+**The `/employer` reconstruction runs in its existing Stage 3 page slot.** *(Recorded 2026-08-08, DOC-11.)* The pricing-figure work opened as #37 — the $350 flat rate, the $260–$475 network range and the $420 per-scan figure — is resolved during the `/employer` pass already sequenced in stage 3 above. **No 4H sub-batch is created for it.** Stage 3's per-page shape is unchanged: survey, then approved copy inline, then edit.
+
+**Carried forward, unscheduled against the above:** 4F (network-map markers · TrustBar unattributed 1,200+ · two HIPAA survivors · credentialing timeline) · 4I (provider page resequencing, `provider.astro` only, run after the rewrite) · 3D (ROI PDF, 15 unaudited claims — **blocked**: the file is parked pending the flat-fee pricing rebuild) · 2 (positioning, re-read before running) · 5A/5B (much absorbed by 1H-e, 1H-f, 3C-calc).
+
+---
+
+## 13. IMMEDIATE HOUSEKEEPING
+
+- [x] ~~Fill commit-log SHAs for commits 22–31 from `git log --oneline ec80d3f..21bd949`.~~ **DONE — DOC-10.** 24, 25–28, 30, 31 filled; 22 was read-only by design and 23 has no commit in that range.
+- [ ] ~~Amend the `Co-Authored-By` trailer off `ab04ab1`. No prior commit carries it; free while unpushed.~~ **STRUCK — DOC-10 · FOUNDER.** The premise is stale: `ab04ab1` and the six most recent commits all carry the trailer, and all are pushed. Consistency now runs the other way — keep it. See `DECISIONS.md` 2026-08-07, *"CO-AUTHORED-BY TRAILER — KEEP IT."*
+- [ ] Copy 4G before/after screenshots out of the session scratchpad to durable storage.
+- [ ] Pull a fresh Vercel preview. `usrad-platform-4utvivnde` predates 4D-a (§5c).
+- [ ] Push the branch — 1 commit ahead of origin.
+- [ ] **`CarbonLayout` imports two components it never renders** — `UtilityBar` (`:4`) and `ProcedureSearchModal` (`:7`). Found by the Batch G tree walk; **recorded, NOT actioned** — `CarbonLayout` is outside G's scope and the file is shared by every route. No claim content is involved; this is dead-import housekeeping only.
+
+---
+
+## 14. WORKSTREAM B — deferred
+
+- **AnciCare figures review — LARGELY CLOSED by the August 7 source discovery.** Most of what was deferred to Workstream B has now been settled on documentary evidence. Current status, per `DECISIONS.md` and `APPROVED-FIGURES.md` §4a–§4c:
+
+| Figure | Status |
+|---|---|
+| **Paid to imaging centers → $60M+ (1994–2001)** | ✅ **DOCUMENT-VERIFIED.** Complete eight-year Form 1120S series, $60,479,583; 1998 and 1999 tied to the dollar to E&Y audited statements. **Replaces "over $150 million."** Site conformance is open item **#25** |
+| **Contracted facilities → 1,228 / 1,200+** | ✅ **DOCUMENT-VERIFIED** three ways in the March 2002 board packet, April 2002. No longer founder-attested |
+| ~~Patients served → 150,000+~~ | ⛔ **RETIRED 2026-08-07.** No document in the 36-source corpus counts people; every count is events. **Not replaceable in kind** — see §4c. Site reversal is open item **#24** |
+| **$246M** client savings | ⛔ **BARRED** 2026-08-07 — arithmetic on 400,000 cases, already ruled an error. **No cumulative savings figure exists anywhere in the corpus.** Removal is open item #22 |
+| **50–70%** cost reduction | ✅ **SUBSTANTIATED and ruled 2026-08-07 · FOUNDER** — moved out of Workstream B review. Four contemporaneous sources, three third-party published: founder letter Sept 1994 · Genesis Publishing Nov 1994 · Florida Trend Mar 2000 · CIM Feb 2000. **Canonical: "50% or more below the Florida workers' compensation fee schedule."** Use the 50%+ floor publicly — the 70% bound is from a confidential document |
+| Tenure → **AnciCare 1994–2002** | ⬜ **outstanding** — the only substantive AnciCare item still open. Two claims: company window vs founder career span. See §4 of the figures register |
+| **1999 revenue $13,159,059** | ✅ verified three ways — E&Y audited, Form 1120S, Corp Overview |
+| **Per-scan economics $418–460 / $336–353** | ✅ document-verified, `Corp Overview 9-2000` p.16. New to the register |
+| **Annual procedures 33,855 (2000) · 38,452 (2001)** | ✅ document-verified. **Never summed across years** — three incompatible metrics across the corpus |
+
+- **Florida Trend** — Koller, Lynn. "The Image of Success." March 2000, p. 48. ✅ **NOW IN THE CORPUS** as `florida-trend-2000-03-p48.jpg` (added 2026-08-07); its contents are document-verified and independently corroborated by documents already held. Verifies: 1994 founding by Michael and Donna Cabrera as Managed Care Network Inc. renamed AnciCare PPO · 800 facilities, 145 in Florida, 40 states · CNA and Winn-Dixie as clients · $450–500 to the insurer against a typical ~$1,000 MRI, AnciCare taking ~$100 · $13M 1999 revenue, matching the audited $13,159,059 · startup capital ~$75,000 · 5–6% profit margins. ⛔ **Two figures in the article remain BARRED as projections: $18M, and "$60 million by 2002."** Peak documented gross receipts are $16,001,938 (2001). ⚠️ *"Profitable from the first year"* is an **attributed quote, not a verified fact** — E&Y shows a 1998 operating loss of $19,703.
+- ~~The 800 (2000) and 1,200 (2013) network waypoints must be stated together, not left for a reader to reconcile.~~ **STRUCK 2026-08-07 · FOUNDER.** The 2013 waypoint is **not AnciCare** — the 2013 *Radiology Business* article concerned a separate venture the founder began and abandoned after standing-up costs exceeded expectation. AnciCare was sold in May 2002 per the Greenberg Traurig closing letter, so a 2013 AnciCare figure cannot exist. **CORRECTED PAIR, both document-verified:** *800 facilities / 145 in Florida / 40 states* (Florida Trend, March 2000) → *1,228 contracted facilities / 43 states* (Management packet, April 2002). State together as a trajectory, **each with its date**. See `DECISIONS.md` 2026-08-07.
+- **Remaining for Workstream B:** the tenure split, and locating the 2002 final or short-year tax return (open item **#26**). Everything else in this section is now closed.
+- The historical take rate (~$100 per scan on $450–500) is public in that article. A positioning decision, not a disclosure decision: a center owner can work out what the founder's last network charged and will reasonably ask what USRad charges.
+- **Source register needed** for the market-size figures, with refresh triggers: KFF EHBS republishes each fall; the Commonwealth Fund biennial lands November 2026; CDC's HDHP definition changes for the 2026 plan year, which will move that figure for definitional reasons alone.
+
+---
+
+## 15. OTHER TRACKS
+
+- **PSA:** §1.7 "Fully Funded Assignment" broadening for employer-prefunded work. **New Aug 6:** the single contracted rate across lanes is now hero-level copy. The PSA must state it explicitly rather than leave it implied by one `effective_medicare_percentage` row per facility.
+- **BAA:** Exhibit C to PSA, single signature, DocuSeal envelope. Four open decisions with counsel.
+- **Counsel:** `sms-terms.astro:187`.
+- **Defect track:** "See Full Cost Analysis" button non-functional · PBS-SRCH-F-002 ranking comment drift (50/30/20 comment vs 45/30/25 code) · PBS-SRCH-F-003 real facility name in client payload.
+- **Supabase:** `health_scans` vestigial column disposition.
+- **Employer agreement set** (Track 4).
+
+---
+
+*Companion documents: Workstream A Scope of Work · USRad Verified Provider Standard v1.0 DRAFT · PSA v6.1→v7.0 Change Analysis · Demo Environment Advisor Status Report (July 9) · Demo Project Completion Report (July 10) · /provider and /employer audits · PBS Search Engineering Reference V4 (2026-Q3).*

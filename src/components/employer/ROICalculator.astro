@@ -16,15 +16,14 @@ const { class: className = "" } = Astro.props;
         class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6"
         data-aos="fade-up"
       >
-        Calculate Your Total Imaging Savings
+        Calculate Your Imaging Spend
       </h2>
       <p
         class="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto"
         data-aos="fade-up"
         data-aos-delay="100"
       >
-        See the combined impact across workers' comp and employee health
-        benefits
+        See what your organization currently spends on diagnostic imaging
       </p>
     </div>
 
@@ -53,25 +52,13 @@ const { class: className = "" } = Astro.props;
             </div>
             <div>
               <label class="block text-sm font-medium mb-2"
-                >Annual WC Imaging Scans</label
+                >Annual Imaging Scans</label
               >
               <input
                 type="text"
                 inputmode="numeric"
-                id="wc-scans"
-                value="120"
-                class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-green-400 text-base"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-medium mb-2"
-                >Annual Employee Health Scans</label
-              >
-              <input
-                type="text"
-                inputmode="numeric"
-                id="health-scans"
-                value="380"
+                id="total-scans"
+                value="500"
                 class="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-green-400 text-base"
               />
             </div>
@@ -117,146 +104,36 @@ const { class: className = "" } = Astro.props;
                   </div>
                 </div>
               </div>
-              <div>
-                <div class="flex justify-between text-xs text-gray-300 mb-1">
-                  <span>USRad Network</span>
-                  <span class="font-semibold text-green-400">$350</span>
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-3">
-                  <div
-                    id="usrad-bar"
-                    class="bg-green-500 h-3 rounded-full transition-all duration-500"
-                    style="width:15%"
-                  >
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
 
         <!-- Results Side -->
         <div>
-          <!-- Personalized context header -->
-          <p id="roi-context" class="text-sm text-gray-400 mb-2 h-5"></p>
-          <h3 class="text-xl sm:text-2xl font-bold mb-6">
-            Your Savings Potential
-          </h3>
-
           <div class="space-y-4">
-            <div class="grid grid-cols-2 gap-3 sm:gap-4">
-              <div class="bg-white/10 rounded-xl p-4 sm:p-5">
-                <p class="text-xs text-gray-300 mb-1">Current Annual Spend</p>
-                <p
-                  class="text-xl sm:text-2xl font-bold text-red-400 break-words"
-                  id="current-spend"
-                >
-                  $1,200,000
-                </p>
-              </div>
-              <div class="bg-white/10 rounded-xl p-4 sm:p-5">
-                <p class="text-xs text-gray-300 mb-1">USRad Annual Cost</p>
-                <p
-                  class="text-xl sm:text-2xl font-bold text-green-400 break-words"
-                  id="usrad-cost"
-                >
-                  $175,000
-                </p>
-              </div>
-            </div>
-
-            <!-- Hero savings card — visually dominant -->
-            <div
-              class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-6 sm:p-8 shadow-xl border border-green-400/20 text-center"
-            >
-              <p class="text-xs sm:text-sm text-white/80 mb-1">
-                Projected Year-One Savings
-              </p>
+            <div class="bg-white/10 rounded-xl p-4 sm:p-5">
+              <p class="text-xs text-gray-300 mb-1">Current Annual Spend</p>
               <p
-                class="text-4xl sm:text-5xl font-bold text-white tracking-tight break-words"
-                id="annual-savings"
+                class="text-xl sm:text-2xl font-bold text-red-400 break-words"
+                id="current-spend"
               >
-                $850,000
-              </p>
-              <p
-                class="text-base sm:text-lg text-white/80 mt-2"
-                id="savings-percent"
-              >
-                71% cost reduction
+                $1,200,000
               </p>
             </div>
 
-            <!-- WC / Health split -->
-            <div class="grid grid-cols-2 gap-3 sm:gap-4">
-              <div class="bg-white/10 rounded-lg p-3 sm:p-4 text-center">
-                <p
-                  class="text-xl sm:text-2xl font-bold text-blue-400 break-words"
-                  id="wc-savings"
-                >
-                  $204,000
-                </p>
-                <p class="text-xs text-gray-400">WC Savings</p>
-              </div>
-              <div class="bg-white/10 rounded-lg p-3 sm:p-4 text-center">
-                <p
-                  class="text-xl sm:text-2xl font-bold text-green-400 break-words"
-                  id="health-savings"
-                >
-                  $646,000
-                </p>
-                <p class="text-xs text-gray-400">Health Plan Savings</p>
-              </div>
-            </div>
-
-            <!-- Savings Waterfall Breakdown -->
+            <!-- Spend before / after -->
             <div
               class="bg-white/5 rounded-xl p-4 sm:p-5 border border-white/10"
             >
-              <p
-                class="text-xs text-gray-400 uppercase tracking-wider mb-3 font-semibold"
-              >
-                What Drives These Savings
-              </p>
               <div class="space-y-2.5 text-sm">
                 <div class="flex justify-between items-center">
                   <span class="text-gray-300"
-                    >Direct Imaging Price Reduction</span
-                  >
-                  <span class="font-semibold text-white" id="price-savings"
-                    >$637,500</span
-                  >
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-1.5">
-                  <div
-                    class="bg-green-400 h-1.5 rounded-full"
-                    style="width:75%"
-                  >
-                  </div>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-300">Faster Return-to-Work (WC)</span>
-                  <span class="font-semibold text-white" id="rtw-savings"
-                    >$136,000</span
-                  >
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-1.5">
-                  <div class="bg-blue-400 h-1.5 rounded-full" style="width:16%">
-                  </div>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-300">Improved Imaging Utilization</span
+                    >Current annual imaging spend</span
                   >
                   <span
                     class="font-semibold text-white"
-                    id="utilization-savings">$76,500</span
+                    id="current-spend-line">$1,200,000</span
                   >
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-1.5">
-                  <div
-                    class="bg-yellow-400 h-1.5 rounded-full"
-                    style="width:9%"
-                  >
-                  </div>
                 </div>
               </div>
             </div>
@@ -273,15 +150,6 @@ const { class: className = "" } = Astro.props;
         </div>
       </div>
 
-      <div
-        class="mt-6 sm:mt-8 p-4 sm:p-6 bg-yellow-500/20 rounded-xl border border-yellow-500/40"
-      >
-        <p class="text-xs sm:text-sm text-yellow-200">
-          <span class="font-semibold">💡 Not included in calculation:</span> Reduced
-          disability duration, lower indemnity costs, improved productivity, and
-          increased employee satisfaction. Actual savings typically 20–40% higher.
-        </p>
-      </div>
     </div>
   </div>
 </section>
@@ -366,21 +234,6 @@ const { class: className = "" } = Astro.props;
 
     <!-- Form state -->
     <div id="roi-modal-form">
-      <!-- Savings summary inside modal -->
-      <div
-        class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl p-4 mb-6 text-white text-center"
-      >
-        <p class="text-xs text-white/80 mb-0.5">
-          Your Projected Year-One Savings
-        </p>
-        <p class="text-3xl font-bold tracking-tight" id="modal-savings-display">
-          $850,000
-        </p>
-        <p class="text-sm text-white/80" id="modal-context-display">
-          for a 5,000-employee workforce
-        </p>
-      </div>
-
       <h2 class="text-xl font-bold text-gray-900 mb-5">
         Contact USRad
       </h2>
@@ -492,8 +345,6 @@ const { class: className = "" } = Astro.props;
 
 <script>
   // ─── State ───────────────────────────────────────────────────────────────
-  let currentSavings = 850000;
-  let currentEmployees = 5000;
   let animationFrames: Record<string, number> = {};
 
   // ─── Comma formatting helpers ─────────────────────────────────────────────
@@ -562,74 +413,30 @@ const { class: className = "" } = Astro.props;
 
   // ─── Main calculator ──────────────────────────────────────────────────────
   function updateCalculator() {
-    const totalEmployees = parseInput("total-employees");
-    const wcScans = parseInput("wc-scans");
-    const healthScans = parseInput("health-scans");
+    const totalScans = parseInput("total-scans");
     const avgCost = parseInput("avg-cost");
 
-    const totalScans = wcScans + healthScans;
     const currentSpend = totalScans * avgCost;
-    const usradCost = totalScans * 350;
-    const savings = Math.max(0, currentSpend - usradCost);
-    const savingsPercent =
-      currentSpend > 0 ? Math.round((savings / currentSpend) * 100) : 0;
-
-    // Waterfall breakdown
-    const priceSavings = Math.round(savings * 0.75);
-    const rtwSavings = Math.round(savings * 0.16);
-    const utilizationSavings = savings - priceSavings - rtwSavings;
-
-    // WC / health split
-    const wcSavings = Math.max(0, wcScans * avgCost - wcScans * 350);
-    const healthSavings = Math.max(
-      0,
-      healthScans * avgCost - healthScans * 350,
-    );
 
     // ── Animate numbers ──
     animateValue("current-spend", 0, currentSpend, "$", "", 600);
-    animateValue("usrad-cost", 0, usradCost, "$", "", 600);
-    animateValue("annual-savings", 0, savings, "$", "", 900);
-    animateValue("wc-savings", 0, wcSavings, "$", "", 600);
-    animateValue("health-savings", 0, healthSavings, "$", "", 600);
-    animateValue("price-savings", 0, priceSavings, "$", "", 700);
-    animateValue("rtw-savings", 0, rtwSavings, "$", "", 700);
-    animateValue("utilization-savings", 0, utilizationSavings, "$", "", 700);
+    animateValue("current-spend-line", 0, currentSpend, "$", "", 700);
 
-    // ── Savings percent (no animation, text) ──
-    const pctEl = document.getElementById("savings-percent");
-    if (pctEl) pctEl.textContent = `${savingsPercent}% cost reduction`;
-
-    // ── Personalized context ──
-    const ctxEl = document.getElementById("roi-context");
-    if (ctxEl && totalEmployees > 0) {
-      ctxEl.textContent = `Estimated savings for a ${totalEmployees.toLocaleString()}-employee workforce`;
-    }
 
     // ── Cost comparison bars ──
     const barCurrentCost = document.getElementById("bar-current-cost");
     if (barCurrentCost)
       barCurrentCost.textContent = `$${avgCost.toLocaleString()}`;
 
+    // `current-bar` is a fixed 100% reference baseline, not a comparison. The
+    // `usradBarEl` operand was dropped from this guard when `usrad-bar` was
+    // removed: leaving it would make the guard permanently false and silently
+    // kill the surviving write, with no error to surface it.
     const currentBar = document.getElementById("current-bar") as HTMLElement;
-    const usradBarEl = document.getElementById("usrad-bar") as HTMLElement;
-    if (currentBar && usradBarEl && avgCost > 0) {
-      const usradPct = Math.max(4, Math.round((350 / avgCost) * 100));
+    if (currentBar && avgCost > 0) {
       currentBar.style.width = "100%";
-      usradBarEl.style.width = `${usradPct}%`;
     }
 
-    // ── Store state for modal ──
-    currentSavings = savings;
-    currentEmployees = totalEmployees;
-
-    // ── Update modal display if open ──
-    const modalSavings = document.getElementById("modal-savings-display");
-    const modalCtx = document.getElementById("modal-context-display");
-    if (modalSavings) modalSavings.textContent = `$${savings.toLocaleString()}`;
-    if (modalCtx && totalEmployees > 0) {
-      modalCtx.textContent = `for a ${totalEmployees.toLocaleString()}-employee workforce`;
-    }
   }
 
   // ─── Modal open/close ─────────────────────────────────────────────────────
@@ -642,15 +449,6 @@ const { class: className = "" } = Astro.props;
       "roi-form-start",
     ) as HTMLInputElement;
     if (roiFormStart) roiFormStart.value = Date.now().toString();
-
-    // Sync modal savings display
-    const modalSavings = document.getElementById("modal-savings-display");
-    const modalCtx = document.getElementById("modal-context-display");
-    if (modalSavings)
-      modalSavings.textContent = `$${currentSavings.toLocaleString()}`;
-    if (modalCtx && currentEmployees > 0) {
-      modalCtx.textContent = `for a ${currentEmployees.toLocaleString()}-employee workforce`;
-    }
 
     modal.classList.remove("hidden");
     document.body.style.overflow = "hidden";
@@ -747,20 +545,16 @@ const { class: className = "" } = Astro.props;
           source: "roi-calculator",
           website_url: roiWebsiteUrl,
           form_start: roiFormStart,
-          roiData: {
-            employees: currentEmployees.toLocaleString(),
-            projectedSavings: `$${currentSavings.toLocaleString()}`,
-          },
         }),
       }).catch(() => {}); // non-blocking — failure is silent
 
-      // Record the lead — the response is not consumed
+      // Record the lead with the figures the visitor entered. The response is
+      // checked only for submission success — this route produces no document.
       const totalEmployees = parseInput("total-employees");
-      const wcScans = parseInput("wc-scans");
-      const healthScans = parseInput("health-scans");
+      const totalScans = parseInput("total-scans");
       const avgCost = parseInput("avg-cost");
 
-      await fetch("/api/employer-roi-report", {
+      const leadRes = await fetch("/api/employer-roi-report", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -768,13 +562,25 @@ const { class: className = "" } = Astro.props;
           contactName: name,
           contactEmail: email,
           totalEmployees,
-          wcScans,
-          healthScans,
+          totalScans,
           avgCost,
           website_url: roiWebsiteUrl,
           form_start: roiFormStart,
         }),
       });
+
+      if (!leadRes.ok) {
+        const data = await leadRes.json().catch(() => ({}) as any);
+        errorEl.textContent =
+          data.error || "Something went wrong. Please try again.";
+        errorEl.classList.remove("hidden");
+        submitBtn.disabled = false;
+        btnText.textContent = "Submit";
+        btnArrow.classList.remove("hidden");
+        btnSpinner.classList.add("hidden");
+        return;
+      }
+
 
       // Show success
       document.getElementById("roi-modal-form")?.classList.add("hidden");
@@ -792,8 +598,7 @@ const { class: className = "" } = Astro.props;
 
   // ─── Event listeners (comma formatting handles input + calls updateCalculator) ──
   attachCommaFormatter("total-employees");
-  attachCommaFormatter("wc-scans");
-  attachCommaFormatter("health-scans");
+  attachCommaFormatter("total-scans");
   attachCommaFormatter("avg-cost");
 
   // Initial render

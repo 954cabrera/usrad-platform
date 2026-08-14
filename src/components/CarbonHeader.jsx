@@ -528,7 +528,7 @@ function LoginDropdown({ isHeroPage, isScrolled }) {
           </div>
           <div className="bg-gray-50 px-5 py-3 border-t border-gray-100">
             <p className="text-xs text-gray-500 text-center">
-              Secure login • HIPAA compliant
+              Secure login
             </p>
           </div>
         </div>
@@ -648,7 +648,7 @@ function MobileLoginSection({ onClose }) {
           ))}
           <div className="pt-2 mt-2 border-t border-gray-200">
             <p className="text-xs text-gray-500 text-center">
-              Secure login • HIPAA compliant
+              Secure login
             </p>
           </div>
         </div>

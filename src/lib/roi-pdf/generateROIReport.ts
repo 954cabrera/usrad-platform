@@ -11,25 +11,15 @@ export interface ROIInputs {
   companyName:    string;
   contactName?:   string;
   totalEmployees: number;
-  wcScans:        number;
-  healthScans:    number;
+  totalScans:     number;
   avgCost:        number;
 }
 
 interface ROIData extends ROIInputs {
-  totalScans:          number;
   currentSpend:        number;
   usradCost:           number;
   annualSavings:       number;
   savingsPct:          number;
-  wcCurrentSpend:      number;
-  wcUsradCost:         number;
-  wcSavings:           number;
-  wcSavingsPct:        number;
-  healthCurrentSpend:  number;
-  healthUsradCost:     number;
-  healthSavings:       number;
-  healthSavingsPct:    number;
   fiveYearSavings:     number;
   threeYearSavings:    number;
   perEmployeeSavings:  number;
@@ -39,24 +29,13 @@ interface ROIData extends ROIInputs {
 // ─── ROI Calculations ─────────────────────────────────────────────────────────
 
 function calculateROI(inputs: ROIInputs): ROIData {
-  const { totalEmployees, wcScans, healthScans, avgCost } = inputs;
+  const { totalEmployees, totalScans, avgCost } = inputs;
   const USRAD_RATE = 350;
 
-  const totalScans          = wcScans + healthScans;
   const currentSpend        = totalScans * avgCost;
   const usradCost           = totalScans * USRAD_RATE;
   const annualSavings       = currentSpend - usradCost;
   const savingsPct          = currentSpend > 0 ? Math.round((annualSavings / currentSpend) * 100) : 0;
-
-  const wcCurrentSpend      = wcScans * avgCost;
-  const wcUsradCost         = wcScans * USRAD_RATE;
-  const wcSavings           = wcCurrentSpend - wcUsradCost;
-  const wcSavingsPct        = wcCurrentSpend > 0 ? Math.round((wcSavings / wcCurrentSpend) * 100) : 0;
-
-  const healthCurrentSpend  = healthScans * avgCost;
-  const healthUsradCost     = healthScans * USRAD_RATE;
-  const healthSavings       = healthCurrentSpend - healthUsradCost;
-  const healthSavingsPct    = healthCurrentSpend > 0 ? Math.round((healthSavings / healthCurrentSpend) * 100) : 0;
 
   const threeYearSavings    = annualSavings * 3;
   const fiveYearSavings     = annualSavings * 5;
@@ -68,9 +47,7 @@ function calculateROI(inputs: ROIInputs): ROIData {
 
   return {
     ...inputs,
-    totalScans, currentSpend, usradCost, annualSavings, savingsPct,
-    wcCurrentSpend, wcUsradCost, wcSavings, wcSavingsPct,
-    healthCurrentSpend, healthUsradCost, healthSavings, healthSavingsPct,
+    currentSpend, usradCost, annualSavings, savingsPct,
     threeYearSavings, fiveYearSavings, perEmployeeSavings, generatedDate,
   };
 }
@@ -314,7 +291,7 @@ function buildHTML(d: ROIData): string {
   /* ── Two-column split ── */
   .two-col {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 12pt;
     margin-bottom: 16pt;
   }
@@ -967,12 +944,12 @@ function buildHTML(d: ROIData): string {
       <div class="ci-value">${d.totalEmployees.toLocaleString()}</div>
     </div>
     <div class="cover-input-item">
-      <div class="ci-label">WC Scans / Year</div>
-      <div class="ci-value">${d.wcScans.toLocaleString()}</div>
+      <div class="ci-label">Annual Imaging Scans</div>
+      <div class="ci-value">${d.totalScans.toLocaleString()}</div>
     </div>
     <div class="cover-input-item">
-      <div class="ci-label">Health Plan Scans / Year</div>
-      <div class="ci-value">${d.healthScans.toLocaleString()}</div>
+      <div class="ci-label">Average Cost / Scan</div>
+      <div class="ci-value">$${d.avgCost.toLocaleString()}</div>
     </div>
   </div>
 
@@ -1070,33 +1047,22 @@ function buildHTML(d: ROIData): string {
 
   <div class="content">
     <div class="section-label-gold">Savings Breakdown</div>
-    <div class="section-title">Workers' Comp vs. Employee Health Benefits</div>
+    <div class="section-title">Where the Savings Come From</div>
     <div class="section-subtitle">
-      USRad is the only solution that addresses both populations through a single integrated platform,
-      delivering measurable savings in each program simultaneously.
+      Your projected imaging spend before and after USRad, based on the volume and cost you entered.
     </div>
 
     <!-- Two-column WC / Health split -->
     <div class="two-col">
-      <div class="col-card wc">
-        <div class="col-title">Workers' Compensation Program</div>
-        <div class="row"><span class="rLabel">Annual WC Scans</span><span class="rValue">${d.wcScans.toLocaleString()}</span></div>
+      <div class="col-card">
+        <div class="col-title">Annual Imaging Savings</div>
+        <div class="row"><span class="rLabel">Annual Imaging Scans</span><span class="rValue">${d.totalScans.toLocaleString()}</span></div>
         <div class="row"><span class="rLabel">Current Cost / Scan</span><span class="rValue">$${d.avgCost.toLocaleString()}</span></div>
-        <div class="row"><span class="rLabel">Current WC Spend</span><span class="rValue">${fmtShort(d.wcCurrentSpend)}</span></div>
+        <div class="row"><span class="rLabel">Current Annual Spend</span><span class="rValue">${fmtShort(d.currentSpend)}</span></div>
         <div class="row"><span class="rLabel">USRad Cost / Scan</span><span class="rValue">$350</span></div>
-        <div class="row"><span class="rLabel">USRad WC Total</span><span class="rValue">${fmtShort(d.wcUsradCost)}</span></div>
-        <div class="row"><span class="rLabel">WC Annual Savings</span><span class="rValue big">${fmtShort(d.wcSavings)}</span></div>
-        <div class="row"><span class="rLabel">Savings Rate</span><span class="rValue big">${d.wcSavingsPct}%</span></div>
-      </div>
-      <div class="col-card health">
-        <div class="col-title">Employee Health Benefits</div>
-        <div class="row"><span class="rLabel">Annual Health Scans</span><span class="rValue">${d.healthScans.toLocaleString()}</span></div>
-        <div class="row"><span class="rLabel">Current Cost / Scan</span><span class="rValue">$${d.avgCost.toLocaleString()}</span></div>
-        <div class="row"><span class="rLabel">Current Health Spend</span><span class="rValue">${fmtShort(d.healthCurrentSpend)}</span></div>
-        <div class="row"><span class="rLabel">USRad Cost / Scan</span><span class="rValue">$350</span></div>
-        <div class="row"><span class="rLabel">USRad Health Total</span><span class="rValue">${fmtShort(d.healthUsradCost)}</span></div>
-        <div class="row"><span class="rLabel">Health Annual Savings</span><span class="rValue big">${fmtShort(d.healthSavings)}</span></div>
-        <div class="row"><span class="rLabel">Savings Rate</span><span class="rValue big">${d.healthSavingsPct}%</span></div>
+        <div class="row"><span class="rLabel">USRad Annual Total</span><span class="rValue">${fmtShort(d.usradCost)}</span></div>
+        <div class="row"><span class="rLabel">Annual Savings</span><span class="rValue big">${fmtShort(d.annualSavings)}</span></div>
+        <div class="row"><span class="rLabel">Savings Rate</span><span class="rValue big">${d.savingsPct}%</span></div>
       </div>
     </div>
 
@@ -1298,7 +1264,7 @@ function buildHTML(d: ROIData): string {
     <div class="section-label-gold">The Operational Model</div>
     <div class="section-title">How USRad Delivers These Results</div>
     <div class="section-subtitle">
-      The same model that transformed workers' comp imaging for 168,000+ claimants — now available for your entire workforce.
+      The same model that transformed workers' comp imaging for 150,000+ claimants — now available for your entire workforce.
     </div>
 
     <!-- 4 heritage stats -->
@@ -1310,7 +1276,7 @@ function buildHTML(d: ROIData): string {
       </div>
       <div class="stat-card navy">
         <div class="label">Cases Managed</div>
-        <div class="value">168K+</div>
+        <div class="value">150,000+</div>
         <div class="sub">Under the AnciCare model</div>
       </div>
       <div class="stat-card green">
@@ -1335,7 +1301,6 @@ function buildHTML(d: ROIData): string {
           <li>Review historical imaging spend data</li>
           <li>Map existing WC &amp; health plan workflows</li>
           <li>Identify implementation stakeholders</li>
-          <li>Finalize TPA integration requirements</li>
         </ul>
       </div>
       <div class="impl-card">
@@ -1343,7 +1308,6 @@ function buildHTML(d: ROIData): string {
         <div class="week-title">Technical Setup</div>
         <ul>
           <li>Configure employer portal &amp; booking</li>
-          <li>Coordinate with benefits platform / TPA</li>
           <li>Establish claims billing &amp; reporting feeds</li>
           <li>Complete integration testing &amp; validation</li>
           <li>Activate network in employee geography</li>
@@ -1366,26 +1330,6 @@ function buildHTML(d: ROIData): string {
     <div class="section-label-gold">Compliance &amp; Integration</div>
     <div class="spacer-8"></div>
 
-    <div class="compliance-row">
-      <span class="c-check">✓</span>
-      <span class="c-label">ERISA Compliant</span>
-      <span class="c-desc">Structured as a permissible supplemental benefit — no plan amendments required</span>
-    </div>
-    <div class="compliance-row">
-      <span class="c-check">✓</span>
-      <span class="c-label">HIPAA / SOC 2 Type II</span>
-      <span class="c-desc">Full data security certification maintained; full PHI handling protocols</span>
-    </div>
-    <div class="compliance-row">
-      <span class="c-check">✓</span>
-      <span class="c-label">Licensed All 50 States</span>
-      <span class="c-desc">Workers' comp imaging approved in every jurisdiction</span>
-    </div>
-    <div class="compliance-row">
-      <span class="c-check">✓</span>
-      <span class="c-label">TPA Integration</span>
-      <span class="c-desc">Works with Sedgwick, Gallagher Bassett, ESIS, Broadspire + all major TPAs</span>
-    </div>
     <div class="compliance-row">
       <span class="c-check">✓</span>
       <span class="c-label">Zero Network Conflicts</span>
@@ -1469,7 +1413,7 @@ function buildHTML(d: ROIData): string {
         and guide you through implementation. That is how I have always done business."
       </blockquote>
       <div class="attribution">— Michael Cabrera, President &amp; Founder, USRad</div>
-      <div class="attribution-sub">Founded the managed imaging category with AnciCare (acquired by CorVel, NASDAQ: CRVL) · 168,000+ cases managed</div>
+      <div class="attribution-sub">Founded the managed imaging category with AnciCare (acquired by CorVel, NASDAQ: CRVL) · 150,000+ cases managed</div>
     </div>
 
     <!-- Contact row -->
@@ -1484,7 +1428,7 @@ function buildHTML(d: ROIData): string {
       </div>
       <div class="contact-cell">
         <div class="c-type">Call Us</div>
-        <div class="c-val">(888) USRad24</div>
+        <div class="c-val">(866) USRad24</div>
       </div>
     </div>
 

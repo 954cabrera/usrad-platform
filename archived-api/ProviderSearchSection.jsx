@@ -852,8 +852,8 @@ const ProviderSearchSection = ({
               Our expert team has guided 400,000+ patients through their imaging journey. Call us for personalized assistance.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="tel:1-800-123-4567" className="bg-[#003087] text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors">
-                Call (800) 123-4567
+              <a href="tel:1-866-877-2324" className="bg-[#003087] text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors">
+                Call (866) USRad-24
               </a>
               <a href="/contact" className="border-2 border-[#cc9933] text-[#cc9933] px-8 py-3 rounded-lg font-semibold hover:bg-[#cc9933] hover:text-white transition-colors">
                 Get Expert Guidance

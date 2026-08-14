@@ -17,7 +17,10 @@ import CredibilitySection from "../components/CredibilitySection.astro";
 const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
 ---
 
-<CarbonLayout title="USRad - MRI Scans in 48 Hours, 70% Less" isHeroPage={true}>
+<CarbonLayout
+  title="USRad — Transparent Imaging for Employers and Patients"
+  isHeroPage={true}
+>
   <!-- PROGRESSIVE DISCLOSURE HERO SECTION -->
   <HeroSection remixUrl={REMIX_URL} />
 
@@ -29,7 +32,8 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
   <BrowseAllModal />
 
   <!-- Social Proof Bar -->
-  <SocialProofBar />
+  <!-- Contained at release gate 2026-08-13 (PR #7): three of four tiles carry retired or unsourced figures — 150,000+ (D1/#24), $246 Million (§6, named at §500), 4.9★ (#28). Component preserved; resolution belongs to the `/` page-by-page rewrite, §12 row 3. -->
+  <!-- <SocialProofBar /> -->
 
   <!-- Access Problem Section — the "why" before the "how" -->
   <AccessProblemSection />

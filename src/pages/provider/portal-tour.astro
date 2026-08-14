@@ -130,9 +130,9 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
             <span class="text-white/55 font-normal">in Four Steps.</span>
           </h1>
           <p class="text-lg text-white/55 mb-8 max-w-md leading-relaxed">
-            USRad routes pre-verified cash-pay patients directly to your
+            USRad routes fully funded assignments directly to your
             scanner. No marketing spend, no billing complexity, no prior auth
-            delays. Guaranteed disbursement within 10 business days.
+            delays. Paid within 10 business days of fulfillment.
           </p>
 
           <!-- Step nav — interactive; drives scroll to step -->
@@ -196,7 +196,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
             </a>
           </div>
           <p class="text-xs text-white/25 mt-3">
-            No credit card required · ACR accreditation required · Live in 2–3
+            No credit card required · accreditation required · Live in 2–3
             weeks
           </p>
         </div>
@@ -205,7 +205,10 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
         <div class="hidden lg:grid grid-cols-2 gap-3">
           {
             [
-              { num: "10 days", label: "Guaranteed disbursement window" },
+              {
+                num: "10 business days",
+                label: "From fulfillment — guaranteed disbursement window",
+              },
               { num: "$0", label: "Marketing or acquisition cost" },
               {
                 num: "1,200+",
@@ -235,10 +238,10 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
     <div class="phiw-metric-inner">
       {
         [
-          { v: "10-Day", l: "Payment Guarantee" },
+          { v: "10 business days from fulfillment", l: "Payment Guarantee" },
           { v: "$0", l: "Marketing Cost" },
           { v: "HIPAA", l: "Compliant Platform" },
-          { v: "ACR", l: "Accreditation Required" },
+          { v: "✓", l: "Accreditation Required" },
           { v: "24/7", l: "Portal Access" },
         ].map((m) => (
           <div class="phiw-metric-item">
@@ -405,7 +408,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
               <h2 class="phiw-h2">We Handle<br />Everything. You Wait.</h2>
               <p class="phiw-p">
                 After your Service Agreement is executed, USRad's operations
-                team manages the full credentialing process — ACR verification,
+                team manages the full credentialing process — accreditation verification,
                 radiologist credentials, insurance, and licensing. Your Go-Live
                 Requirements dashboard tracks every item in real time. No
                 follow-up calls, no chasing documents.
@@ -432,7 +435,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
                       Days 1–3 — Document Verification
                     </p>
                     <p class="text-xs text-gray-500">
-                      ACR accreditation · radiologist credentials · insurance
+                      Accreditation · radiologist credentials · insurance
                       docs · state licensing
                     </p>
                   </div>
@@ -524,16 +527,16 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
               <div class="phiw-chip">
                 <span class="phiw-chip-num">3</span>
                 <span class="phiw-chip-label"
-                  >Receive Patients · Pre-verified cash-pay</span
+                  >Receive Assignments · Funded before routing</span
                 >
               </div>
               <h2 class="phiw-h2">Fill Your Scanner.<br />Not Your Inbox.</h2>
               <p class="phiw-p">
-                Pre-verified cash-pay patients appear directly in your provider
+                Funded assignments appear directly in your provider
                 portal. The physician's order is on file, identity is confirmed,
-                and payment is already secured upstream. Every patient who
-                arrives has already agreed to the price — your front desk
-                schedules them like any other referral. No billing disputes. No
+                and payment is already secured upstream. Every assignment that
+                reaches you is funded before it arrives — your front desk
+                schedules the patient like any other referral. No billing disputes. No
                 prior auth. No collections.
               </p>
 
@@ -608,7 +611,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
                       Ordering physician &amp; NPI on file
                     </p>
                     <p class="text-xs text-gray-500">
-                      Prescription pre-verified — USRad has already confirmed it
+                      Order verified and funding confirmed before the assignment reaches you
                     </p>
                   </div>
                 </li>
@@ -667,18 +670,19 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
               <div class="phiw-chip">
                 <span class="phiw-chip-num phiw-chip-green">✓</span>
                 <span class="phiw-chip-label phiw-chip-green-label"
-                  >Scan &amp; Get Paid · 10-day disbursement</span
+                  >Scan &amp; Get Paid · 10 business days from fulfillment</span
                 >
               </div>
               <h2 class="phiw-h2">
-                Scan the Patient.<br />Get Paid in 10 Days.
+                Scan the Patient.<br />Get Paid in 10 Business Days.
               </h2>
               <p class="phiw-p">
                 Perform the exam. Your radiologist generates a signed report —
                 upload it through the Fulfillment Report panel in one step.
-                USRad's system verifies it automatically and initiates
-                disbursement within 10 business days. No invoicing, no billing
-                staff, no collections calls. The revenue lands in your account.
+                USRad's system verifies it automatically — paid within 10
+                business days of fulfillment, the date you complete the scan and
+                upload the final signed report. No invoicing, no billing staff,
+                no collections calls. The revenue lands in your account.
               </p>
 
               <!-- Real fulfillment steps from bookings.$id upload_report action -->
@@ -712,7 +716,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
                     {
                       n: "✓",
                       title: "Fulfillment Complete — disbursement initiated",
-                      sub: "Payment released within 10 business days",
+                      sub: "Payment released within 10 business days of fulfillment",
                       green: true,
                     },
                   ].map((item) => (
@@ -744,7 +748,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
                   {
                     [
                       { n: "$0", l: "Billing overhead" },
-                      { n: "10", l: "Day guarantee" },
+                      { n: "10", l: "Business days from fulfillment" },
                       { n: "100%", l: "Contracted rate paid" },
                     ].map((m) => (
                       <div class="text-center px-3">
@@ -907,7 +911,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
                   <div class="phiw-screen-body">
                     <img
                       src="/images/provider/portal/pstep4.png"
-                      alt="USRad Provider Portal — Fulfillment Complete status with 10-day disbursement confirmation"
+                      alt="USRad Provider Portal — Fulfillment Complete status with 10 business days disbursement confirmation"
                       class="w-full h-full object-cover object-top"
                     />
                   </div>
@@ -989,9 +993,9 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
           <div class="space-y-2">
             {
               [
-                "10-day disbursement guaranteed",
+                "10 business days from fulfillment",
                 "Zero prior auth or denials",
-                "Cash-pay patients, pre-collected",
+                "Assignments funded before routing",
                 "$0 marketing cost to you",
                 "No billing staff required",
               ].map((item) => (
@@ -1058,8 +1062,11 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
           [
             { n: "30 Years", l: "Imaging industry experience" },
             { n: "1,200+", l: "Imaging centers historically contracted" },
-            { n: "10 Days", l: "Guaranteed payment disbursement" },
-            { n: "$160M+", l: "Delivered in imaging volume" },
+            {
+              n: "10 business days",
+              l: "From fulfillment — guaranteed payment disbursement",
+            },
+            { n: "$60M+", l: "Paid to imaging centers" },
           ].map(({ n, l }) => (
             <div class="text-center">
               <p class="text-2xl font-bold text-[#003087] mb-1">{n}</p>
@@ -1136,7 +1143,7 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
       <div class="grid grid-cols-3 gap-6 max-w-md mx-auto">
         {
           [
-            ["10 days", "Disbursement guarantee"],
+            ["10 days", "From fulfillment — disbursement guarantee"],
             ["$0", "Upfront cost"],
             ["2–3 wks", "To your first patient"],
           ].map(([n, l]) => (

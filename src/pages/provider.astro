@@ -14,7 +14,6 @@ import ReferralWorkflow from "../components/provider/ReferralWorkflow.astro";
 import ScannerUtilization from "../components/provider/ScannerUtilization.astro";
 import ConsultationCTA from "../components/provider/ConsultationCTA.astro";
 import ExitModal from "../components/provider/ExitModal.astro";
-import PriorityMarketsMap from "../components/provider/PriorityMarketsMap.astro";
 import MarketOpportunityTeaser from "../components/provider/MarketOpportunityTeaser.astro";
 import FoundingPartners from "../components/provider/FoundingPartners.astro";
 import AssignmentFlowDiagram from "../components/provider/AssignmentFlowDiagram.astro";
@@ -27,7 +26,7 @@ export const prerender = true;
 ---
 
 <CarbonLayout
-  title="Join USRad Network - 10 Day Payment Guarantee"
+  title="Join USRad Network — Paid in 10 Business Days from Fulfillment"
   isHeroPage={true}
   hideNewsletter={true}
 >
@@ -43,7 +42,8 @@ export const prerender = true;
 
   <ScannerUtilization />
 
-  <ExitValueSection />
+  <!-- Retired 2026-08-06: valuation projections barred on the provider surface. Component preserved. -->
+  <!-- <ExitValueSection /> -->
 
   <ReferralWorkflow />
 
@@ -65,7 +65,8 @@ export const prerender = true;
 
   <ConsultationCTA />
 
-  <ProviderBrief />
+  <!-- Temporarily withheld: component and PDF carry superseded economics. Pending revision, not retired. -->
+  <!-- <ProviderBrief /> -->
 
   <FAQSection />
 

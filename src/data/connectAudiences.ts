@@ -84,7 +84,7 @@ export const CONNECT_AUDIENCES: Record<AudienceId, ConnectAudience> = {
     headline: "For employers and self-funded plans.",
     acknowledgment:
       "Welcome. You're looking at USRad as a way to lower imaging spend while maintaining member access.",
-    body: "USRad gives self-funded employers transparent, contracted prices on diagnostic imaging at ACR-accredited centers nationwide. Members pay published rates with no surprise billing; employers see imaging spend drop without redesigning their benefits stack. The model plugs into existing TPA and broker relationships.",
+    body: "USRad gives self-funded employers transparent, contracted prices on diagnostic imaging at ACR-accredited centers nationwide. Members pay published rates with no surprise billing; employers see imaging spend drop without redesigning their benefits stack.",
     proofLine:
       "AnciCare PPO managed imaging for the workers' compensation industry on the same architecture — transparent pricing, contracted centers, predictable cost.",
     cta: {
@@ -102,7 +102,7 @@ export const CONNECT_AUDIENCES: Record<AudienceId, ConnectAudience> = {
     headline: "For brokers and TPAs.",
     acknowledgment:
       "Welcome. You're looking at USRad as a product to recommend to your employer clients.",
-    body: "USRad is a transparent-price imaging layer brokers and TPAs can introduce to self-funded employer clients. The platform reduces imaging spend, improves member experience, and integrates with existing benefits architecture. Co-branded materials and broker support are available.",
+    body: "USRad is a transparent-price imaging layer brokers and TPAs can introduce to self-funded employer clients. The platform reduces imaging spend and improves member experience. Co-branded materials and broker support are available.",
     proofLine:
       "Designed for the broker channel: clean economics to present to a CFO, simple onboarding, and direct broker support from the founding team.",
     cta: {

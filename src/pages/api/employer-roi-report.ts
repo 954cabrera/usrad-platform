@@ -1,5 +1,7 @@
 // src/pages/api/employer-roi-report.ts
 // PDF generation and delivery are removed; this route no longer produces a document.
+// Workstream A: the route stays parked pending the flat-fee-per-modality pricing
+// rebuild — see open item #32 and standing rule 9 on reactivation.
 // This file is intentionally minimal: validate → record lead → notify.
 
 import type { APIRoute } from "astro";
@@ -13,8 +15,7 @@ export const POST: APIRoute = async ({ request }) => {
       contactName,
       contactEmail,
       totalEmployees,
-      wcScans,
-      healthScans,
+      totalScans,
       avgCost,
       website_url,
       form_start,
@@ -62,15 +63,13 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // ── Calculate savings for the admin notification ──
-    // Retained deliberately. This figure is NO LONGER PERSISTED (annual_savings is
-    // omitted from the insert below, founder-ruled under FD-MKT-002), but it still
-    // feeds `projectedSavings` on the outbound notification, where the portal
-    // template interpolates it at six unguarded sites. Removing it would render the
-    // literal string "undefined" into the admin email, including its subject line.
-    const annualSavings =
-      (Number(wcScans || 0) + Number(healthScans || 0)) *
-      (Number(avgCost || 2400) - 350);
+    // ── The $350-derived savings computation is REMOVED (D13, Batch E) ──
+    // It previously fed `projectedSavings` on the outbound notification. The
+    // earlier note here asserted the computation had to be retained or the portal
+    // template would render the literal string "undefined" at six unguarded
+    // sites; portal tolerance for an absent `projectedSavings` is now VERIFIED
+    // DEPLOYED, so that is no longer true and the assertion has been removed with
+    // the code. No replacement figure is computed, transmitted, or persisted.
 
     // ── Supabase lead insert ──
     // supabase-js v2 `.insert()` RESOLVES with { data, error } rather than throwing,
@@ -90,9 +89,13 @@ export const POST: APIRoute = async ({ request }) => {
           contact_name:      contactName || null,
           contact_email:     contactEmail,
           total_employees:   Number(totalEmployees),
-          total_scans:       Number(wcScans || 0) + Number(healthScans || 0),
-          health_scans:      Number(healthScans || 0),
-          avg_cost_per_scan: Number(avgCost    || 2400),
+          total_scans:       Number(totalScans || 0),
+          // Actual value when the visitor supplied one; explicit NULL when they
+          // did not. The former `|| 2400` fabricated a per-scan cost that was
+          // never collected. SEPARATE RULING from the D13 savings removal above —
+          // basis is no-fabricated-data, following the health_scans precedent.
+          // Schema verified: integer, nullable YES, no default, ordinal 8.
+          avg_cost_per_scan: avgCost != null && avgCost !== "" ? Number(avgCost) : null,
           source:            "roi_calculator",
           created_at:        new Date().toISOString(),
         });
@@ -128,7 +131,7 @@ export const POST: APIRoute = async ({ request }) => {
     const remixUrl = process.env.PUBLIC_REMIX_URL ?? import.meta.env.PUBLIC_REMIX_URL;
 
     console.log("[ROI] Admin notification — PUBLIC_REMIX_URL:", remixUrl ?? "MISSING");
-    console.log("[ROI] Admin notification — lead:", { contactEmail, companyName, annualSavings });
+    console.log("[ROI] Admin notification — lead:", { contactEmail, companyName });
 
     if (!remixUrl) {
       console.error("[ROI] Admin notification SKIPPED — PUBLIC_REMIX_URL is not set in environment");
@@ -144,7 +147,6 @@ export const POST: APIRoute = async ({ request }) => {
               name:             contactName || contactEmail,
               email:            contactEmail,
               company:          companyName,
-              projectedSavings: `$${annualSavings.toLocaleString()}`,
               employees:        Number(totalEmployees).toLocaleString(),
             },
           }),

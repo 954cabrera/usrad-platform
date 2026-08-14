@@ -2,6 +2,8 @@
 import CarbonLayout from "../layouts/CarbonLayout.astro";
 import AOSInit from "../components/AOSInit.astro";
 
+const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "https://app.usrad.com";
+
 export const prerender = true;
 ---
 
@@ -276,7 +278,7 @@ export const prerender = true;
         Start your journey to affordable healthcare.
       </p>
       <a
-        href="/search-results"
+        href={`${REMIX_URL}/pbs/search`}
         class="bg-white text-[#003087] px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition inline-block"
       >
         Find Imaging Centers

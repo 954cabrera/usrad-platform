@@ -6,14 +6,9 @@
   <!-- ─── STAGE 1: Short Lead Form ─── -->
   <div id="formStage">
     <div class="form-header">
-      <div class="form-badge">
-        <span class="badge-dot"></span>
-        <span>Complimentary Executive Briefing</span>
-      </div>
       <h3 class="form-title">Request Your Briefing</h3>
       <p class="form-subtitle">
-        Speak directly with Michael Cabrera, USRad founder, about reducing your
-        imaging costs 50–70%.
+        Speak directly with Michael Cabrera, USRad founder and president.
       </p>
     </div>
 
@@ -186,11 +181,6 @@
           <path d="M5 12h14M12 5l7 7-7 7"></path>
         </svg>
       </button>
-
-      <p class="submit-note">
-        No sales team. You'll schedule directly with Michael Cabrera, USRad
-        Founder &amp; President.
-      </p>
     </form>
   </div>
 
@@ -201,7 +191,7 @@
       <!-- LEFT: Confirmation Panel -->
       <div class="confirmation-panel">
         <!-- Status indicators -->
-        <div class="status-steps">
+        <div class="status-steps" id="statusSteps">
           <div class="status-step completed">
             <div class="status-icon">
               <svg
@@ -218,22 +208,6 @@
             </div>
             <span>Request received</span>
           </div>
-          <div class="status-step completed">
-            <div class="status-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3"
-              >
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            </div>
-            <span>Savings analysis being prepared</span>
-          </div>
           <div class="status-step active">
             <div class="status-icon pulse-dot"></div>
             <span>Choose your briefing time</span>
@@ -241,85 +215,14 @@
         </div>
 
         <!-- Personalized message -->
-        <div class="confirmation-message">
+        <div class="confirmation-message" id="confirmationMessage">
           <h3 class="confirmation-title">
-            Consultation Request<br />Received
+            Request Received
           </h3>
           <p class="confirmation-body">
-            Thank you, <strong id="confirmFirstName">there</strong>. We'll
-            prepare a quick analysis of potential imaging savings for <strong
-              id="confirmCompany">your organization</strong
-            >
-            before our discussion.
+            Thank you, <strong id="confirmFirstName">there</strong>. Select a
+            time below for your 30-minute briefing.
           </p>
-          <p class="confirmation-subtext">
-            Select a time below for your <strong
-              >30-minute executive briefing</strong
-            >.
-          </p>
-        </div>
-
-        <!-- What we'll cover -->
-        <div class="agenda-box">
-          <p class="agenda-label">What we'll cover</p>
-          <ul class="agenda-list">
-            <li>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-              Imaging cost reduction strategies for your workforce
-            </li>
-            <li>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-              USRad national network overview
-            </li>
-            <li>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-              30-day implementation path
-            </li>
-            <li>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-              Integration with your existing TPA/benefits platform
-            </li>
-          </ul>
         </div>
 
         <!-- Founder card -->
@@ -338,19 +241,13 @@
             >
           </div>
           <div>
-            <p class="founder-name">Michael Cabrera</p>
-            <p class="founder-title">President &amp; Founder, USRad</p>
+            <p class="founder-name">Michael Cabrera · President &amp; Founder, USRad</p>
             <p class="founder-note">
-              Founded the managed imaging category · 168,000+ cases managed
+              Previously founded AnciCare, a national imaging network acquired
+              by CorVel Corporation.
             </p>
           </div>
         </div>
-
-        <!-- Reassurance -->
-        <p class="reassurance">
-          No preparation required. We'll walk you through exactly how USRad
-          reduces imaging costs 50–70%.
-        </p>
       </div>
 
       <!-- RIGHT: Floating Calendly Card -->
@@ -380,52 +277,13 @@
         <line x1="12" y1="16" x2="12.01" y2="16"></line>
       </svg>
       <span
-        >There was an issue submitting your form. Your briefing is still
-        available — please book below and we'll follow up directly.</span
+        >We couldn't record your request. You can still book a time below.</span
       >
     </div>
   </div>
 </div>
 
 <script>
-  const CALENDLY_BASE = "https://calendly.com/mcabrera-usrad/30min";
-  const CALENDLY_SCRIPT =
-    "https://assets.calendly.com/assets/external/widget.js";
-
-  function buildCalendlyUrl(name, email, phone) {
-    const p = new URLSearchParams({
-      hide_event_type_details: "1",
-      hide_gdpr_banner: "1",
-      primary_color: "003087",
-    });
-    if (name) p.set("name", name);
-    if (email) p.set("email", email);
-    if (phone) p.set("a2", phone);
-    return `${CALENDLY_BASE}?${p.toString()}`;
-  }
-
-  function injectCalendly(name, email, phone) {
-    const container = document.getElementById("calendlyContainer");
-    if (!container) return;
-    // Clear any previous instance
-    container.innerHTML = "";
-    // Build widget div
-    const widget = document.createElement("div");
-    widget.className = "calendly-inline-widget";
-    widget.setAttribute("data-url", buildCalendlyUrl(name, email, phone));
-    widget.style.minWidth = "280px";
-    widget.style.height = "660px";
-    container.appendChild(widget);
-    // Inject script fresh — remove old one first
-    const oldScript = document.getElementById("calendlyScript");
-    if (oldScript) oldScript.remove();
-    const script = document.createElement("script");
-    script.id = "calendlyScript";
-    script.src = CALENDLY_SCRIPT;
-    script.async = true;
-    document.body.appendChild(script);
-  }
-
   const form = document.getElementById("employerConsultationForm");
   const formStage = document.getElementById("formStage");
   const schedulingStage = document.getElementById("schedulingStage");
@@ -455,8 +313,6 @@
     const phone = document.getElementById("phone")?.value?.trim() || "";
     if (firstName)
       document.getElementById("confirmFirstName").textContent = firstName;
-    if (company)
-      document.getElementById("confirmCompany").textContent = company;
 
     // Initialize Calendly only if not already done (e.g. continue=1 path does it first)
     if (!skipCalendlyInit) {
@@ -474,8 +330,15 @@
     schedulingStage.style.display = "block";
     schedulingStage.style.opacity = "0";
 
-    // If API failed, show fail notice
+    // If the API failed, the request was NOT recorded. Render no success
+    // state at all — no status steps, no "Request Received" — only the
+    // failure notice, then the scheduler.
     if (!apiSucceeded) {
+      const statusSteps = document.getElementById("statusSteps");
+      if (statusSteps) statusSteps.style.display = "none";
+      const confirmationMessage =
+        document.getElementById("confirmationMessage");
+      if (confirmationMessage) confirmationMessage.style.display = "none";
       apiFailNotice.style.display = "flex";
     }
 
@@ -513,11 +376,9 @@
   const _urlParams = new URLSearchParams(window.location.search);
   if (_urlParams.get("continue") === "1") {
     const _fn = _urlParams.get("fn");
-    const _co = _urlParams.get("co");
     const _em = _urlParams.get("em");
     const _ph = _urlParams.get("ph");
     if (_fn) document.getElementById("confirmFirstName").textContent = _fn;
-    if (_co) document.getElementById("confirmCompany").textContent = _co;
 
     // Initialize Calendly dynamically with URL param prefill data
     const _fullName = _fn

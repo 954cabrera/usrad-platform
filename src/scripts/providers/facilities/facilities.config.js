@@ -57,6 +57,6 @@ export const FACILITIES_CONFIG = {
 
   // Stats configuration
   STATS: {
-    REVENUE_DELIVERED: '$180M+'
+    PAID_TO_CENTERS: '$60M+'
   }
 };
