@@ -3400,6 +3400,57 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              gate, none of which has a line-for-line Remix equivalent.
              Provisionally a STANDALONE two-repository containment,
              separate from homepage-remediation. · FOUNDER
+2026-08-14 · P5 FOOTER CONTAINMENT COMPLETE — MERGED, DEPLOYED AND
+             VERIFIED ON BOTH usrad.com AND app.usrad.com. Two-repository
+             claim parity achieved. homepage-remediation synchronized with
+             production main, clean at 0243d91. #60 CLOSED. · FOUNDER
+2026-08-14 · HOMEPAGE GREEN PASS COMMITTED AT de1a121 — FOURTEEN ITEMS
+             ACROSS NINE FILES, WORKING TREE CLEAN. Removed from /:
+             "67% avg. savings," "Within 4 hours," "48-hour booking," the
+             ACR accreditation line, "60–70% less," "Pay hundreds, not
+             thousands.", "Save up to 70%," "1,500+ centers," "30 years of
+             experience," the board-certification guarantee form, the
+             ACR-accredited-nationwide trust line, and FOUR instant/
+             instantly constructions. Verified by built-artifact sweep:
+             "SmartMatch™ will identify" returns zero across dist/.
+             ⛔ / IS NOT YET RELEASABLE — YELLOW and RED remain, including
+             the 70% Less <h1>, the $3,200/$260 comparison, the
+             CredibilitySection, the locations map, and $246M in
+             AboutSection. · FOUNDER
+2026-08-14 · ⛔ GREEN SWEEPS SURFACED FOUR DEFECTS OUTSIDE / THAT THE
+             REGISTER DID NOT CARRY. Opened as #66 (NewsletterPopup, D4 at
+             the confidential bound, LIVE ON TWELVE BLOG ROUTES), #67
+             (ui-manager.js — a #56 variant, a rule-26 "our network"
+             claim, and a "Medicare rates" construction contrary to D14's
+             named comparator), #68 (/how-it-works carries the D7 and
+             instant defects removed from the homepage summary), and #69
+             (six orphaned backup files in src/ contaminating every
+             sweep). ⛔ NONE IS HOMEPAGE WORK AND NONE BLOCKS /. Recorded
+             so they are not rediscovered. · ADVISOR
+2026-08-14 · #54 — FIFTH AND SIXTH MEMBERS. THE FALSE-ZERO FAMILY NOW
+             STANDS AT SIX AND HAS NEVER ONCE BEEN CAUGHT BY THE OBVIOUS
+             GREP. SearchStep1.astro wraps "SmartMatch™ will identify your
+             best option / instantly." after "option";
+             MobileSearchModal.astro wraps the same sentence after "best".
+             BOTH RETURNED ZERO ON A LITERAL FULL-PHRASE SEARCH WHILE
+             RENDERING ON / IN PRODUCTION. ⛔ THEY WERE FOUND BY LOOKING AT
+             A SCREENSHOT OF THE PAGE, NOT BY ANY SWEEP. Method
+             consequence, now mandatory: wildcard the wrap point rather
+             than searching the full phrase (grep "60.70%" catches both
+             dash forms; grep the shortest distinctive token, never the
+             sentence), and READ THE RENDERED PAGE — a built-artifact
+             sweep is necessary and is not sufficient. · ADVISOR
+2026-08-14 · #58 CONFIRMED ON MEASUREMENT — connect/provider STILL SHIPS
+             "ACR-accredited imaging centers nationwide" IN PRODUCTION.
+             Built-artifact sweep of dist/client/ returns
+             connect/provider/index.html for that exact string. The item's
+             scope as written is ACCURATE — recorded because #30, #46 and
+             #60 were each understated on measurement and the counter
+             convention is to report confirmations as well as
+             corrections. ⛔ THE OTHER THREE connect/* ROUTES NAMED BY #58
+             WERE NOT SEPARATELY MEASURED IN THIS SWEEP — the phrase may
+             be wrapped there, and #54 forbids reading their absence from
+             this sweep as evidence. · ADVISOR             
 2026-08-14 · P5 FOOTER CONTAINMENT EXECUTED, MERGED AND LIVE IN BOTH
              REPOSITORIES. The standalone two-repository containment
              provisionally scoped in the entry above was executed as
@@ -3495,6 +3546,32 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              AMENDS the 2026-08-14 entry that recorded its position as open;
              the TRACKER §12 row 3 first-by-exposure argument is on the
              record and was considered. · FOUNDER
+2026-08-14 · "70%" FAMILY — OPTION B RULED. CONTAIN ONE INSTANCE NOW,
+             DO NOT RETIRE THE FAMILY. NewsletterPopup.astro:86 contained
+             because it is a shared component live on twelve blog routes;
+             the <li> removed entire, two clean benefit items retained.
+             ⛔ THIS IS EXPLICIT PARTIAL ACTION ON #65'S FAMILY AND IS NOT
+             A FAMILY RULING. The per-family founder ruling #65 requires
+             (retire / reword / substantiate) HAS NOT BEEN GIVEN and the
+             family remains open. SIX SITES REMAIN, DELIBERATELY
+             UNTOUCHED: CondensedProblemSolution.astro:142,
+             FAQPreview.astro:100, PromiseBanner.astro:215,
+             HomeTrustIndicators.astro:78, and
+             blog/uninsured-imaging-guide.astro:25,267. ⛔ THE LAST OF
+             THESE IS AN ARTICLE TITLE AND REQUIRES EDITORIAL
+             ADJUDICATION, NOT MECHANICAL DELETION — it is republished by
+             BlogPreviewSection's featured card on /, so it is coupled to
+             homepage item Y5 and the two resolve together. ⛔ NO FUTURE
+             SESSION MAY READ #66's CLOSURE AS CLOSURE OF THE "70%"
+             FAMILY. Third recorded instance of partial action on this
+             family, after the two closed incidentally by the GREEN pass
+             at de1a121. · FOUNDER
+2026-08-14 · NewsletterPopup CONTAINMENT SHIPS FROM A STANDALONE BRANCH
+             BASED ON PRODUCTION main, NOT FROM homepage-remediation. The
+             component renders on twelve blog routes and on none of /.
+             Same reasoning as P5: sitewide blast radius does not ride a
+             surface branch. homepage-remediation returns immediately to /
+             YELLOW. · FOUNDER             
 ```
 
 ---
