@@ -3264,6 +3264,50 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              markers as claims to verify rather than facts. Any
              wider reconciliation is a separate, scoped decision.
              · FOUNDER
+ 2026-08-14 · "70%" FAMILY — OPTION B RULED. CONTAIN ONE INSTANCE NOW, DO
+             NOT RETIRE THE FAMILY. NewsletterPopup.astro:86 contained
+             because it is a shared component live on twelve blog routes.
+             ⛔ THIS IS EXPLICIT PARTIAL ACTION ON #65'S FAMILY AND IS NOT
+             A FAMILY RULING. The per-family ruling #65 requires (retire /
+             reword / substantiate) HAS NOT BEEN GIVEN. SIX SITES REMAIN,
+             DELIBERATELY UNTOUCHED: CondensedProblemSolution.astro:142,
+             FAQPreview.astro:100, PromiseBanner.astro:215,
+             HomeTrustIndicators.astro:78, and
+             blog/uninsured-imaging-guide.astro:25,267. ⛔ THE LAST IS AN
+             ARTICLE TITLE REQUIRING EDITORIAL ADJUDICATION, NOT
+             MECHANICAL DELETION — republished by BlogPreviewSection on /,
+             so coupled to homepage item Y5. ⛔ NO FUTURE SESSION MAY READ
+             #66's CLOSURE AS CLOSURE OF THE "70%" FAMILY. Third recorded
+             partial action on this family, after the two closed
+             incidentally by the GREEN pass at de1a121. · FOUNDER
+2026-08-14 · "Join 10,000+ subscribers" CONTAINED IN THE SAME COMMIT —
+             NewsletterPopup.astro:151. A present-tense audience claim at
+             pre-launch, same class as 150,000+ (D1/#24) and #60's "Join
+             thousands who've saved," both removed outright. Text reduced
+             to "Unsubscribe anytime"; the line itself is a courtesy, not
+             a claim. ⛔ FOUND BY LOOKING AT A SCREENSHOT OF THE RENDERED
+             POPUP, NOT BY ANY SWEEP — it sat 65 lines below the string
+             #66 was scoped to, in a file the advisor had read and
+             declared otherwise clean. THE LESSON IS #54's AND IT NOW HAS
+             A SECOND FORM: a sweep finds what it is told to look for, and
+             SCOPING A REVIEW TO A KNOWN DEFECT IS NOT THE SAME AS READING
+             THE COMPONENT. blog.astro:499 publishes the same heading and
+             REMAINS OPEN. · FOUNDER
+2026-08-14 · main MOVED A FOURTH TIME — da8eb85..673fb2a, PR #8
+             (fix/p5-footer-containment). Caught by the standing state
+             check before branching. ⚠️ homepage-remediation was cut from
+             da8eb85 and is now BEHIND main by the P5 merge. It must be
+             reconciled under the seven reconciliation rules before / is
+             released; the two prior merges in this workstream each
+             surfaced conflicts. TRACKER's header state block and HANDOFF
+             §2 both still read da8eb85. · FOUNDER
+2026-08-14 · CarbonFooter 078c0e5 IS COMMENT SYNTAX ONLY — a literal
+             <script> token inside the P5 divergence note replaced with
+             "script block" because it can break Astro parsing. NO CLAIM,
+             NO RENDERED OUTPUT, CLAIM PARITY WITH PBSFooter.tsx
+             UNAFFECTED. Recorded because a commit touching CarbonFooter
+             AFTER P5 closed it will otherwise read as a reopening. ·
+             ADVISOR            
 ```
 
 ## August 14, 2026
