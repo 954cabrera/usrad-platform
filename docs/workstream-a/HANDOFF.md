@@ -358,3 +358,56 @@ Verified against the repository on 2026-08-14, not assumed from the commit count
   description, `tel:` normalisation, and two `connectAudiences` integration
   claims. No structural or behavioural change.
 - **Build passes** on the integrated candidate.
+
+---
+
+## 13. Production Release Checkpoint — 2026-08-14
+
+PR #7 was successfully merged to `main`.
+
+- Merge commit: `da8eb85`
+- Vercel production deployment: Ready
+- Employer remediation: LIVE IN PRODUCTION
+- Provider remediation: LIVE IN PRODUCTION
+- Local `main` synchronized to `origin/main` at `da8eb85`
+- New active branch: `homepage-remediation`
+- Branch created directly from production `main` at `da8eb85`
+- Working tree was clean at branch creation
+
+### Release Strategy Going Forward
+
+The remaining Workstream A public surfaces will be remediated and released incrementally rather than being held for one final all-pages release.
+
+Current active surface: `/` (homepage)
+
+Remaining surfaces after homepage:
+- `/how-it-works`
+- `/what-is-an-mri`
+- `/about`
+- `/contact`
+
+The objective is containment and speed: finish a surface, document its state, release it when safe, then proceed to the next surface.
+
+---
+
+## 14. Ratified MRI Savings Claim — 2026-08-14
+
+Status: RATIFIED — NOT YET IMPLEMENTED
+
+Approved public claim:
+
+**Save 50%+ on MRI**
+
+This supersedes the prior `70% Less` formulation.
+
+Claim boundaries:
+
+- Applies to MRI only.
+- Comparator is typical commercial health-plan / insurance pricing for MRI, not Medicare pricing.
+- Hospital cash/self-pay pricing is not the primary comparator for the employer-facing claim.
+- USRad pricing is global/all-inclusive: the scan and radiologist interpretation are included.
+- No separate radiologist bill.
+- Do not characterize `50%+` as an average savings claim without separate supporting evidence.
+- Do not extend the claim to other imaging modalities without separate evidence.
+
+Implementation remains pending on the homepage and any other live surfaces carrying the superseded MRI savings language.
