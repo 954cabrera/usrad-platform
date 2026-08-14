@@ -322,11 +322,23 @@ The active task is **`/` (homepage) remediation** on branch
 `homepage-remediation`. The release that this section previously described is
 closed — see §13.
 
-**Where the homepage pass stands:** the read-only survey is complete and covers
-all fifteen rendered files plus `index.astro`. Findings are classified
-GREEN (12 small manual corrections) / YELLOW (6 items needing visual review
-after application) / RED (3 structural items for CC). **No code change has been
-made.** The next action is §11.
+**Where the homepage pass stands (2026-08-14):**
+
+✅ **GREEN — CLOSED at `de1a121`.** Fourteen items across nine files.
+✅ **YELLOW Y6, Y1, Y2, Y3 — CLOSED at `a1a2bb3`.** Hero `<h1>` replaced with
+   D14's "Save 50%+ / on MRI"; PricingSection comparison block and 48-hour tile
+   contained; CredibilitySection contained entire.
+⛔ **YELLOW Y4 — PARKED, NOT RESOLVED.** Deferred to a dedicated membership
+   pass. See **#72**, and **#70** / **#71** for the coupled surfaces. **It does
+   not block homepage continuation.** Nothing in the membership system is to be
+   modified from a homepage pass.
+⬜ **YELLOW Y5 — OPEN.** BlogPreviewSection featured card. ⚠️ Coupled to
+   `blog/uninsured-imaging-guide`'s title, which stays open under **#65** for
+   editorial adjudication.
+⬜ **RED — unstarted, for CC.** `AboutSection` (still ships `$246M` in
+   production), the locations-map containment, and the `#65` sweep.
+
+**Y5 is the only remaining YELLOW item.** The next action is §11.
 
 ---
 

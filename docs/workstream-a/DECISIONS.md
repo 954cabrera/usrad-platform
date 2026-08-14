@@ -3721,7 +3721,65 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              component renders on twelve blog routes and on none of /.
              Same reasoning as P5: sitewide blast radius does not ride a
              surface branch. homepage-remediation returns immediately to /
-             YELLOW. · FOUNDER             
+             YELLOW. · FOUNDER
+ 2026-08-14 · ⛔ FIREWALL — USRAD MEMBERSHIP IS AN IMPLEMENTED IDENTITY AND
+             ACCESS ARCHITECTURE. PROVIDER-NETWORK CLAIMS MADE AS
+             MEMBERSHIP BENEFITS ARE INDEPENDENTLY GOVERNED AND MAY NOT BE
+             INFERRED MERELY FROM THE EXISTENCE OF MEMBERSHIP. This is a
+             durable principle, not a Y4 finding. It exists to prevent a
+             future audit from encountering ONE unsupported phrase inside
+             the membership system — "pre-negotiated member pricing" —
+             and treating the ENTIRE membership construct as unsupported.
+             Evidence remediation must distinguish implemented membership
+             identity, policy and platform facts from claims dependent on
+             provider contracting or network operating state. THE
+             OBJECTIVE OF ANY MEMBERSHIP PASS IS PRESERVATION PLUS
+             PRECISION, NOT REMOVAL OF THE MEMBERSHIP PROGRAM. · FOUNDER
+2026-08-14 · Y4 · PARKED AND DEFERRED TO A DEDICATED MEMBERSHIP PASS. The
+             proposed containment of both MemberTrustBadge render calls is
+             WITHDRAWN. ⛔ NOT RESOLVED, NOT CONTAINED, NOT APPROVED —
+             PARKED. Membership will not be partially redesigned during a
+             homepage pass. MemberTrustBadge.astro, both / renders,
+             /membership and /member-rights are ALL PRESERVED UNMODIFIED.
+             Opened as #72 (Y4 parked), #70 (/membership), #71
+             (/member-rights). Y4 is REMOVED FROM THE SET BLOCKING
+             HOMEPAGE CONTINUATION. · FOUNDER
+2026-08-14 · ⛔ THE Y4 CONTAINMENT PROPOSAL WAS OVER-BROAD AND IS RECORDED
+             AS A METHOD ERROR, NOT SILENTLY DROPPED. The advisor
+             recommended containing the whole component because two of
+             eleven claims failed, reaching for the B4 precedent. B4 DOES
+             NOT APPLY: it governs a case where the SURVIVING element
+             cannot carry its own context — a 1,200+ stat tile needing an
+             April 2002 anchor a tile cannot hold. Here the survivors are
+             independently supported implemented facts that stand alone.
+             ⛔ THE ERROR WAS CAUGHT BY THE FOUNDER SUPPLYING ARCHITECTURAL
+             CONTEXT THE REGISTER DID NOT CARRY — the March 2026
+             Membership Identity Architecture. THIS IS THE KIND OF CONTEXT
+             THAT DISAPPEARS WHEN REMEDIATION BECOMES A SEQUENCE OF
+             ISOLATED GREP RESULTS, and it is the reason the handoff
+             discipline exists. · FOUNDER + ADVISOR
+2026-08-14 · MEMBER ID TIMING CONFIRMED AND SELF-DOCUMENTED. USM-XXXXXX is
+             issued immediately after a patient books an APPOINTMENT
+             REQUEST; membership becomes active, the Member Portal is
+             ready, and Bill of Rights protections apply immediately —
+             membership.astro:336-338. ⛔ THE "INSTANT" LANGUAGE IS
+             THEREFORE TRUE BUT OBJECTLESS. #58 flagged it as a
+             timing/capability construction; the underlying activation is
+             implemented, but the rendered sentence names nothing, so on /
+             — where the reader has no membership context — it reads as a
+             promise about imaging delivery. THE DEFECT IS THE MISSING
+             OBJECT, NOT THE WORD. Deferred to the membership pass under
+             #72. · FOUNDER + ADVISOR
+2026-08-14 · MemberTrustBadge IS SHARED BY / AND /membership —
+             membership.astro:56-61 renders variant="banner" with
+             showBillOfRights={false} and showMembershipLink={false}. ⛔ ANY
+             FUTURE BADGE EDIT IS A TWO-SURFACE CHANGE AND MUST BE
+             COORDINATED WITH #70, NOT PERFORMED MECHANICALLY FROM THE
+             HOMEPAGE. Removing "Pre-negotiated member pricing" from the
+             component alone would drop it from /membership's hero badge
+             while the page body asserts the same claim nine times,
+             directly beneath it. Same coupling shape as
+             CarbonFooter/PBSFooter. · FOUNDER + ADVISOR                         
 ```
 
 ---
