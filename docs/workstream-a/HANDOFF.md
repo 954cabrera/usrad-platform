@@ -143,14 +143,10 @@ list is conformed to it. THIS IS THE ONE OPERATIONAL SEQUENCE.**
 > **This ruling resolves the pre-existing §5/§13 conflict.** §5 previously ran
 > `/` → `/press-kit` → `/about` → `/how-it-works` → `/what-is-an-mri` →
 > `/contact` while §13 ran `/` → `/how-it-works` → `/what-is-an-mri` →
-> `/about` → `/contact`. The two are no longer in tension: **the list above is
-> the single operational sequence and governs HANDOFF.md wherever ordering
-> appears**, including §13's list and §15 row 8 — both of which predate this
-> ruling and name only the five primary surfaces, without `/press-kit` at
-> position 6. **Neither omission drops `/press-kit`;** read them against this
-> section. An earlier annotation here flagged the ordering as an unresolved
-> conflict awaiting a ruling — **that annotation is superseded and removed by
-> this one.**
+> `/about` → `/contact`. **§13 and §15 row 8 are now conformed to the list
+> above — all three sections read the same sequence.** `DECISIONS.md`
+> 2026-08-14 carries the ruling and is its authority; this section is the
+> operational statement of it.
 
 `/provider`, `/employer`, `/employer/schedule` and `/employer/implementation-guide`
 are already done and are removed from this queue.
@@ -419,6 +415,8 @@ Remaining surfaces after homepage:
 - `/what-is-an-mri`
 - `/about`
 - `/contact`
+- `/press-kit` — ⛔ **deferred until after the five primary navigation surfaces
+  above; DEFERRED, NOT DROPPED.** Position ruled 2026-08-14; see §5
 
 The objective is containment and speed: finish a surface, document its state, release it when safe, then proceed to the next surface.
 
@@ -462,7 +460,7 @@ Read this section before scoping anything. It is the unambiguous answer to
 | 5 | **Active Workstream A surface** | **`/` (homepage)** |
 | 6 | **Ratified "Save 50%+ on MRI"** (D14, §14) | ⛔ **NOT YET IMPLEMENTED** — ratified only |
 | 7 | **Broader retired-claim sweep** | ⛔ **OPEN, and DISTINCT from P5** — item **#65** |
-| 8 | **Remaining surface order** | **`/` → `/how-it-works` → `/what-is-an-mri` → `/about` → `/contact`** |
+| 8 | **Remaining surface order** | **`/` → `/how-it-works` → `/what-is-an-mri` → `/about` → `/contact` → `/press-kit`** — `/press-kit` ⛔ **deferred until after the five primary navigation surfaces; DEFERRED, NOT DROPPED.** Ruled 2026-08-14; see §5 |
 
 ### 3 — P5 cross-platform footer containment, in full
 

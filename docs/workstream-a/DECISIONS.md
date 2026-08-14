@@ -3284,6 +3284,11 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              named first by exposure in TRACKER §12 row 3 and is
              register-borne (DOC-23). Its position in the remaining queue
              is open. · FOUNDER
+             ⛔ AMENDED 2026-08-14 by the REMAINING-SURFACE ORDER RULING
+             at the end of this section: /press-kit's position is NO
+             LONGER OPEN — it is fixed at 6, after the five primary
+             navigation surfaces. Deferred, not dropped. The rest of
+             this entry stands as written.
 2026-08-14 · D14 · APPROVED MRI MARKETING CLAIM — "Save 50%+ on MRI."
              SUPERSEDES the homepage "70% Less" formulation. Comparator is
              typical commercial health-plan / insurance MRI pricing. NOT
@@ -3480,6 +3485,16 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              reconcile before editing CarbonFooter.astro, or the
              retired claims will be reintroduced by a stale working
              copy. · FOUNDER
+2026-08-14 · REMAINING-SURFACE ORDER RULED, AND /press-kit's POSITION IS
+             NO LONGER OPEN. The operative sequence is / → /how-it-works →
+             /what-is-an-mri → /about → /contact → /press-kit. HANDOFF §13's
+             ordering governs and §5 is conformed to it, resolving a
+             pre-existing conflict between those two sections. ⛔ /press-kit
+             IS DEFERRED UNTIL AFTER THE FIVE PRIMARY NAVIGATION SURFACES —
+             DEFERRED, NOT DROPPED; it remains Workstream A work. This
+             AMENDS the 2026-08-14 entry that recorded its position as open;
+             the TRACKER §12 row 3 first-by-exposure argument is on the
+             record and was considered. · FOUNDER
 ```
 
 ---
