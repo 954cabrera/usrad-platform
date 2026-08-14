@@ -60,27 +60,22 @@ Read step 4 in full before proposing the removal of any figure.
 
 | | |
 |---|---|
-| **Date of this snapshot** | 2026-08-14 |
-| **Working branch** | `workstream-a-marketing` |
-| **Branch HEAD** | `510b672` — *Governance consistency: TRACKER #39 resolved* |
-| **Branch vs origin** | Level with `origin/workstream-a-marketing` (0 ahead, 0 behind) |
-| **Release PR** | **#7** → `main` |
-| **PR contents** | 78 commits, 105 changed files vs `origin/main` |
-| **`origin/main`** | `d05b97c` — *Merge PR #5, FD-MKT-002 employer-lead-persistence hotfix* |
-| **Branch vs `origin/main`** | **78 ahead, 0 behind.** The branch fully contains production |
-| **Production** | Vercel serving `d05b97c` at usrad.com |
-| **Build** | ✅ `npm run build` exits 0 on the integrated candidate (branch + local uncommitted edit), 2026-08-14 |
+| **Date of this snapshot** | 2026-08-14 (post-release) |
+| **Working branch** | `homepage-remediation` — created directly from production `main` at `da8eb85` |
+| **Branch HEAD** | `40328f0` — *docs: checkpoint production release and MRI savings decision* |
+| **Working tree** | ⚠️ **UPDATED 2026-08-14 — NOT clean.** Carries the uncommitted `docs/workstream-a/*` governance package described in §6. No source file is modified |
+| **`main`** | ⚠️ **UPDATED 2026-08-14 — `main` HAS MOVED to `673fb2a`** (*Merge PR #8*, P5 footer containment). Was `da8eb85` — *Merge PR #7*. Local `main` synchronized to `origin/main` at `673fb2a`. ⛔ **`homepage-remediation` was NOT updated — see §15** |
+| **Production** | ⚠️ **UPDATED 2026-08-14 — Vercel now serving `673fb2a` at usrad.com** (was `da8eb85`). Employer + Provider remediation **LIVE**; **P5 footer containment LIVE on both properties — see §15** |
+| **Prior release** | PR #7 — 78 commits, 105 files. Merged 2026-08-14. See §12 for its verified contents and §13 for the checkpoint |
 | **Repo** | `git@github.com:954cabrera/usrad-platform.git` |
 
-### ⚠️ Local branch-pointer hazard
+### ✅ Local branch-pointer hazard — RESOLVED
 
-Local `main` currently points at **`510b672`** — identical to the workstream
-branch head — while `origin/main` is at `d05b97c`.
-
-Local `main` was fast-forwarded onto the workstream branch and never pushed.
-**A `git push origin main` from this machine would publish all 78 commits to
-production directly, bypassing PR #7 and its review.** Do not push `main`.
-Merge through the PR. Consider resetting local `main` to `origin/main`.
+The pre-merge hazard (local `main` fast-forwarded onto the workstream branch and
+never pushed) is closed: local `main` is synchronized to `origin/main` at
+`da8eb85`. **The standing practice survives the hazard** — run the state check
+before every batch and stop on a non-zero behind-count. `main` moved three times
+in August and every movement was found by counting, not by noticing.
 
 ---
 
@@ -122,13 +117,40 @@ See §6 and §11.
 Handled incrementally, possibly over several sessions. Order by public exposure,
 per `TRACKER.md` §12 row 3:
 
-1. `/press-kit` — rebuild on the documented record *(named first by exposure)*
-2. `/about`
-3. `/` (homepage)
-4. `/how-it-works`
-5. `/what-is-an-mri` (`/education/what-is-an-mri`)
-6. `/contact`
+⚠️ **RESEQUENCED 2026-08-14 BY FOUNDER PREROGATIVE.** `/` is worked first,
+ahead of `/press-kit` and `/about`. Same shape as `/provider`, which was worked
+fourth-in-order and first-in-practice on 2026-08-13. Recorded because the
+register did not otherwise carry it.
+
+✅ **ORDER RULED 2026-08-14 BY THE FOUNDER. §13's ordering governs, and this
+list is conformed to it. THIS IS THE ONE OPERATIONAL SEQUENCE.**
+
+1. `/` (homepage) — **CURRENT SURFACE**
+2. `/how-it-works`
+3. `/what-is-an-mri` (`/education/what-is-an-mri`)
+4. `/about`
+5. `/contact`
+6. `/press-kit` — rebuild on the documented record. ⛔ **DEFERRED UNTIL AFTER
+   THE FIVE PRIMARY NAVIGATION SURFACES ABOVE — DEFERRED, NOT DROPPED. It
+   remains Workstream A work and stays in the queue.** `TRACKER.md` §12 row 3
+   names it FIRST BY EXPOSURE and it is register-borne, not conversational —
+   see DOC-23. ~~Its position relative to `/about` and the rest is open and
+   wants a founder ruling~~ — ⛔ **SUPERSEDED 2026-08-14: its position is now
+   RULED and fixed at 6.** The exposure argument is on the record and was
+   considered; the ruling sets sequence anyway
 7. Single-instance routes and blog
+
+> **This ruling resolves the pre-existing §5/§13 conflict.** §5 previously ran
+> `/` → `/press-kit` → `/about` → `/how-it-works` → `/what-is-an-mri` →
+> `/contact` while §13 ran `/` → `/how-it-works` → `/what-is-an-mri` →
+> `/about` → `/contact`. The two are no longer in tension: **the list above is
+> the single operational sequence and governs HANDOFF.md wherever ordering
+> appears**, including §13's list and §15 row 8 — both of which predate this
+> ruling and name only the five primary surfaces, without `/press-kit` at
+> position 6. **Neither omission drops `/press-kit`;** read them against this
+> section. An earlier annotation here flagged the ordering as an unresolved
+> conflict awaiting a ruling — **that annotation is superseded and removed by
+> this one.**
 
 `/provider`, `/employer`, `/employer/schedule` and `/employer/implementation-guide`
 are already done and are removed from this queue.
@@ -147,36 +169,30 @@ survey is already done — it is the 4H-e survey recorded in `DECISIONS.md`
 
 ## 6. IMPORTANT LOCAL / UNCOMMITTED STATE
 
-**One uncommitted modification exists and it is load-bearing for the release.**
+⚠️ **CORRECTED 2026-08-14 — THIS IS NO LONGER TRUE. There IS uncommitted work.**
+The branch carries an uncommitted `docs/workstream-a/*` governance package:
+`HANDOFF.md`, `TRACKER.md`, `DECISIONS.md` and `APPROVED-FIGURES.md`. It is
+**documentation only — no source file is modified** — and it is the package
+§11 step 2 tells you to commit. ⛔ **Do not reconstruct any of these four files
+from `main`; they carry edits that exist nowhere else.**
 
-```
- M src/pages/index.astro
-```
+*Superseded text, kept so the change is visible:* ~~✅ **NOTHING UNCOMMITTED.
+Working tree clean at `40328f0`.**~~
 
-`<SocialProofBar />` is commented out of render on the homepage, with an inline
-comment recording why.
+The `SocialProofBar` containment described in earlier versions of this section
+**shipped in PR #7** and is live in production at `da8eb85`. `<SocialProofBar />`
+is commented out of render in `src/pages/index.astro` with an inline comment
+recording why; the component file is preserved, not deleted.
 
-**Why it matters.** Three of `SocialProofBar`'s four tiles carry figures that may
-not publish:
+**Its resolution belongs to the `/` remediation now in progress.** Three of the
+four tiles carry figures that may not publish — `150,000+` (D1, item #24),
+`$246 Million` (barred 2026-08-07), `4.9★` (item #28) — and the fourth,
+`1,200+`, is approved **only** in compact form with its April 2002 anchor, which
+a stat tile cannot carry.
 
-| Tile | Status |
-|---|---|
-| `150,000+` patients | **RETIRED** by D1 (DOC-15). Open item #24 |
-| `$246 Million` patient savings | **BARRED** pending a primary source, 2026-08-07 |
-| `4.9★` satisfaction | **UNSOURCED.** Open item #28 |
-| `1,200+` imaging centers | Not in scope of this containment |
-
-PR #7 **actively edits this component** (`168,244` → `150,000+`). Merging the PR
-without this containment edit would newly publish a retired figure on the
-homepage — a regression introduced *by this release*.
-
-⛔ **Do not discard this modification.** It must be committed to
-`workstream-a-marketing` and pushed into PR #7 before merge. The component file
-itself is preserved, not deleted; its resolution belongs to the `/` page-by-page
-rewrite (`TRACKER.md` §12 row 3).
-
-`SocialProofBar` has exactly one render site — `src/pages/index.astro`. No other
-surface is affected by this containment.
+⚠️ **Containing the component did not contain the claim.** `$246 Million`
+survives on the same page in `AboutSection.astro` and is live in production
+today. See §9.
 
 ---
 
@@ -225,15 +241,24 @@ Pointers only. `DECISIONS.md` is the authority; read it, do not rely on this lis
 > made as part of it. The founder will handle the homepage after the release is
 > resolved.
 >
-> **Persistence still owed:** append a dated entry to `DECISIONS.md`, and record
-> the approved claim string in `APPROVED-FIGURES.md`. Until that is done, this
-> section is the only record and is therefore fragile. Do this at the next
-> governance commit.
+> ✅ **PERSISTED 2026-08-14.** Recorded as a dated entry in `DECISIONS.md`
+> (August 14 section, D14) and as an approved claim in `APPROVED-FIGURES.md`
+> **§1d**. Those are the authority; this section is a pointer.
 >
-> Note for the implementing session: open item **#29** already tracks *“50–70%
-> published where the 50%+ floor is required — 6 locations.”* This ratification
-> is the resolution of that item's homepage instance. Sweep #29's six locations
-> together with the homepage change; do not fix one and leave five.
+> ⛔ **CORRECTED 2026-08-14 — THIS RATIFICATION IS *NOT* THE RESOLUTION OF #29.**
+> An earlier version of this section said it was and directed a single combined
+> sweep. **That was wrong and would have caused the error D4 exists to prevent.**
+> #29 concerns the **AnciCare historical floor** — *50% or more below the Florida
+> workers' compensation fee schedule, 1994–2002* — where six locations publish a
+> `50–70%` range and thereby leak the confidential 70% upper bound. This
+> ratification is a **present-tense USRad MRI claim against commercial
+> health-plan pricing.** Same number; different entity, different tense,
+> different comparator, different modality scope. Sweeping them together would
+> convert historical AnciCare evidence into a present-tense USRad performance
+> claim by coincidence of digits — which D4 forbids in terms.
+>
+> **TWO SEPARATE SWEEPS.** See `APPROVED-FIGURES.md` §1d and the DO NOT CONFLATE
+> callout in §4a. Founder-ratified 2026-08-14.
 
 ---
 
@@ -274,7 +299,8 @@ Everything below is open work, not a release blocker.
 
 - **`DECISIONS.md` §"Open decisions awaiting founder"** carries the live list.
   As of this snapshot the open items are #6, #8, #15, #16, #17, #18, #22, #24,
-  #26, #27, #28, #29, #30, #31, #33, #34, #35, #36, #37, #40, #41. Read the
+  #26, #27, #28, #29, #30, #31, #33, #34, #35, #36, #37, #40, #41, and — added
+  2026-08-14 — **#65** (sitewide retired-claim sweep). Read the
   register for current status; this list ages.
 - **Items #22, #24 and #27 are MERGED, not closed.** They execute together as
   one page-by-page rewrite and each stays open until resolved on every page.
@@ -294,10 +320,17 @@ Everything below is open work, not a release blocker.
 
 ## 10. WORK CURRENTLY IN PROGRESS
 
-**Nothing is mid-edit.** No page rewrite is underway. The tree is clean apart
-from the single containment edit in §6.
+**Nothing is mid-edit. Tree clean at `40328f0`.**
 
-The active task is **release**, not remediation.
+The active task is **`/` (homepage) remediation** on branch
+`homepage-remediation`. The release that this section previously described is
+closed — see §13.
+
+**Where the homepage pass stands:** the read-only survey is complete and covers
+all fifteen rendered files plus `index.astro`. Findings are classified
+GREEN (12 small manual corrections) / YELLOW (6 items needing visual review
+after application) / RED (3 structural items for CC). **No code change has been
+made.** The next action is §11.
 
 ---
 
@@ -305,33 +338,34 @@ The active task is **release**, not remediation.
 
 The smallest safe path to production, in order:
 
-1. **Commit the containment edit** on `workstream-a-marketing`:
-   ```
-   git add src/pages/index.astro
-   git commit -m "contain: remove SocialProofBar from homepage render pending / rewrite"
-   git push origin workstream-a-marketing
-   ```
-   This lands in PR #7 automatically. **This is the only change required before
-   merge.**
+1. ✅ **DONE — PR #7 merged** at `da8eb85` and deployed. See §13.
 
-2. **Re-verify** — `npm run build` exits 0, and `SocialProofBar` is absent from
-   homepage output.
+2. **Commit this documentation package** on `homepage-remediation`:
+   the `DECISIONS.md` August 14 entries, `APPROVED-FIGURES.md` §1d and the §4a
+   DO NOT CONFLATE callout, the `TRACKER.md` consequences, and this file.
+   ⛔ **Governance commit only — no source files.**
 
-3. **Merge PR #7** into `main` and let Vercel deploy.
+3. **Then** the homepage GREEN batch — 12 small manual corrections, no new copy,
+   no layout restructure.
 
-4. **Do not push local `main` directly.** Reset it afterwards:
-   `git checkout main && git reset --hard origin/main` (see §2).
+4. **Then** YELLOW, each with a visual pass at 390 / 768 / 1024 / 1440.
 
-5. **After the merge**, append to `DECISIONS.md`: the release-strategy change
-   (incremental per-surface releases, superseding `TRACKER.md` §12 row 7), the
-   `Save 50%+ on MRI` ratification from §7, and the merge itself. Update
-   `TRACKER.md` §12. Then **update this file**.
+5. **RED goes to CC**, not to manual edits: `AboutSection` rewrite-or-contain,
+   the locations-map containment, and `CarbonFooter` — which additionally
+   requires synchronisation with Remix `PBSFooter.tsx` and is therefore a
+   two-codebase change. See §9.
+   ✅ **UPDATED 2026-08-14 — the `CarbonFooter` third of this step is DONE.**
+   It was executed as **P5**, standalone and cross-repository, and is live on
+   both properties — see §15. **`AboutSection` and the locations-map
+   containment remain open**, and this step is not closed by P5. ⛔ The Remix
+   relationship is now **claim parity, not synchronisation**; do not "sync"
+   the two files.
 
-6. **Then, and only then**, begin the next surface — `/press-kit` per §5, or the
-   homepage `Save 50%+ on MRI` change if the founder sequences that first.
+6. **Release `/` on its own** per §13's incremental strategy, then update this
+   file before starting the next surface.
 
-⛔ Do not begin homepage remediation, do not touch application/EDS work, and do
-not broaden scope, until the release above is closed.
+⛔ Do not touch application/EDS work. Do not broaden scope beyond `/`.
+⛔ Do not begin any other surface until `/` is released and this file is updated.
 
 ---
 
@@ -411,3 +445,75 @@ Claim boundaries:
 - Do not extend the claim to other imaging modalities without separate evidence.
 
 Implementation remains pending on the homepage and any other live surfaces carrying the superseded MRI savings language.
+
+---
+
+## 15. OPERATIONAL STATE — 2026-08-14, post-P5
+
+Read this section before scoping anything. It is the unambiguous answer to
+*"what is live right now."*
+
+| # | Fact | State |
+|---|---|---|
+| 1 | **Employer remediation** | ✅ **LIVE IN PRODUCTION** |
+| 2 | **Provider remediation** | ✅ **LIVE IN PRODUCTION** |
+| 3 | **P5 cross-platform footer containment** | ✅ **COMPLETE / LIVE / VERIFIED — BOTH REPOSITORIES** (detail below) |
+| 4 | **Active branch** | `homepage-remediation` |
+| 5 | **Active Workstream A surface** | **`/` (homepage)** |
+| 6 | **Ratified "Save 50%+ on MRI"** (D14, §14) | ⛔ **NOT YET IMPLEMENTED** — ratified only |
+| 7 | **Broader retired-claim sweep** | ⛔ **OPEN, and DISTINCT from P5** — item **#65** |
+| 8 | **Remaining surface order** | **`/` → `/how-it-works` → `/what-is-an-mri` → `/about` → `/contact`** |
+
+### 3 — P5 cross-platform footer containment, in full
+
+Both pull requests read `merged: true` with a `merged_at` timestamp on the PR
+object itself — **verified on the PR, not inferred from `merge_commit_sha`** —
+and both merge commits are confirmed present on `origin/main`.
+
+| | `usrad-platform` (marketing) | `usrad-portal` |
+|---|---|---|
+| **PR** | **#8**, merged 2026-08-14T17:17:17Z | **#51**, merged 2026-08-14T17:15:32Z |
+| **Merge commit** | **`673fb2a`** | **`f639080`** |
+| **Deployment** | **`dpl_31oUx96CbMABCW7imZru7pfdBiVv`** | **`dpl_GAe3hA1fsrUTUBGUZBFpcSFmDtMV`** |
+| **readyState** | **READY** | **READY** |
+| **Alias** | **usrad.com** | **app.usrad.com** |
+
+**What was removed from both footers:** the *"saved up to 70%"* paragraph,
+*"Board-Certified Radiologists"*, *"Results delivered directly to you"*, and the
+green **`Guarantee`** badge on the *"Our Promise"* link. **The *Our Promise*
+link and its `/patient-promise` target are RETAINED on both**, as is
+*"No Hidden Fees"*. **Portal only, a fifth change:** its brand line still read
+*"…for 90 million Americans"* and was conformed to the already-ratified Astro
+wording — **"Building Accessible Imaging. Transparent pricing. No insurance
+required."**
+
+**Verified post-merge against live production artifacts, not source.** Marketing:
+**9 live footer regions, zero violations.** Portal: **SSR HTML plus the live
+client chunk, zero violations**, *"90 million Americans"* absent, approved brand
+line present. Method and full provenance in `TRACKER.md` **#60**; rulings in
+`DECISIONS.md`, 2026-08-14.
+
+### ⛔ 7 — what P5 did NOT close
+
+P5 closed **the footer instance on two codebases**. It is **not** a sitewide
+claim closure, and **#30's earlier footer closure was never one either** — it was
+accurate for `CarbonFooter.astro` and footer-scoped. **Item #65** exists so this
+cannot be misread: 17 source files across 22 sites here, plus four `usrad-portal`
+surfaces **of which three are email templates, which cannot be corrected after
+send**. ⛔ **Do not mark any broader occurrence resolved on the strength of the
+footer work.**
+
+### ⛔ BRANCH GAP — recorded, deliberately NOT fixed
+
+`homepage-remediation` is based on **`40328f0`**, which **predates `673fb2a`**;
+`origin/main` is **two commits ahead** of the branch.
+
+> **`CarbonFooter.astro` ON THIS BRANCH STILL CARRIES ALL FOUR P5 CLAIMS.**
+> Confirmed by reading the file on the branch on 2026-08-14.
+
+This is a **branch-state fact, not a production fact** — production serves
+`673fb2a` and is clean, verified from live artifacts. **No merge, rebase or
+branch update has been performed and none is ordered here.** Whoever resumes the
+homepage pass must reconcile this branch with `main` **before** touching
+`CarbonFooter.astro`, or a stale working copy will reintroduce the retired
+claims into a file that is already clean in production.

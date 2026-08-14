@@ -3266,6 +3266,222 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              · FOUNDER
 ```
 
+## August 14, 2026
+
+```
+2026-08-14 · RELEASE STRATEGY CHANGED — INCREMENTAL PER-SURFACE RELEASES.
+             Supersedes TRACKER §12 row 7, which merged once at the end of
+             the whole workstream. Completed work releases now; remaining
+             surfaces are remediated and released one at a time. · FOUNDER
+2026-08-14 · PR #7 MERGED AT da8eb85 AND DEPLOYED. Employer and Provider
+             remediation are LIVE IN PRODUCTION. 78 commits, 105 files.
+             Local main synchronized to origin/main. New branch
+             homepage-remediation created from main at da8eb85; checkpoint
+             40328f0. · FOUNDER
+2026-08-14 · / IS THE CURRENT SURFACE, WORKED AHEAD OF /press-kit AND
+             /about BY FOUNDER PREROGATIVE. Same shape as /provider on
+             2026-08-13. ⛔ /press-kit IS DEFERRED, NOT DROPPED — it is
+             named first by exposure in TRACKER §12 row 3 and is
+             register-borne (DOC-23). Its position in the remaining queue
+             is open. · FOUNDER
+2026-08-14 · D14 · APPROVED MRI MARKETING CLAIM — "Save 50%+ on MRI."
+             SUPERSEDES the homepage "70% Less" formulation. Comparator is
+             typical commercial health-plan / insurance MRI pricing. NOT
+             Medicare. Hospital cash/self-pay is not the primary comparator
+             for the employer-facing claim. The USRad side is the
+             global/all-inclusive price: scan plus radiologist
+             interpretation, no separate radiologist bill. ⛔ MRI ONLY — do
+             not extend to other modalities without separate evidence.
+             ⛔ IT IS A FLOOR, NOT AN AVERAGE — do not present 50%+ as an
+             average savings claim without separate evidence. Recorded in
+             full at APPROVED-FIGURES §1d, which is the publication
+             authority. · FOUNDER
+2026-08-14 · D14 SUPERSEDES D4 FOR MRI, AND ONLY FOR MRI. D4 (2026-08-09)
+             removed "every other USRad-derived savings percentage," which
+             on its face reaches this claim. D14 is the later dated
+             decision and governs the MRI case. ⛔ D4 IS OTHERWISE INTACT:
+             no savings percentage for any other modality, no aggregate
+             imaging savings percentage, and no percentage against any
+             comparator other than the one D14 names. A future sweep
+             finding a percentage on this site must check §1d before
+             removing it. · FOUNDER
+2026-08-14 · PSA VERIFICATION PASSED — THE ALL-INCLUSIVE ARCHITECTURE IS
+             SUPPORTED. The governing provider agreement expressly
+             establishes complete service delivery including technical and
+             professional components, global reimbursement including both,
+             payment in full, and member non-collection. This is the
+             executed-agreement basis (editorial standard item 3) for "the
+             radiologist read is included" and "no second bill."
+             ⛔ IT ESTABLISHES CONTRACTUAL ARCHITECTURE, NOT THE EXISTENCE
+             OF A CURRENTLY CONTRACTED NETWORK. No provider is contracted
+             as of this date. Standing rules 24 and 26 are UNCHANGED: no
+             USRad transaction price may publish, and no present-tense
+             network, coverage or "pre-negotiated pricing" claim may
+             publish. · FOUNDER
+2026-08-14 · ⛔ DO NOT CONFLATE THE TWO 50%+ CLAIMS. §4a approves "50% or
+             more below the Florida workers' compensation fee schedule,
+             1994–2002" — AnciCare, historical, class CP/CT. §1d approves
+             "Save 50%+ on MRI" — USRad, present tense, commercial
+             health-plan comparator. SAME NUMBER, DIFFERENT ENTITY, TENSE,
+             COMPARATOR AND MODALITY SCOPE. Neither substantiates the
+             other. Same treatment as the two $60 million figures at §4a.
+             · FOUNDER + ADVISOR
+2026-08-14 · #29 SPLITS INTO TWO SWEEPS AND IS NOT RESOLVED BY D14. #29 is
+             the AnciCare historical floor mis-scoped as 50–70%, leaking
+             the confidential upper bound in six locations. It conforms to
+             the §4a historical form. It does NOT become the §1d USRad MRI
+             claim. HANDOFF §7 briefly directed a single combined sweep;
+             that instruction is CORRECTED, not merely superseded, because
+             executing it would have converted historical evidence into a
+             present-tense performance claim. · FOUNDER + ADVISOR
+2026-08-14 · PRESENTATION CONSTRAINTS ON D14, BINDING WHEREVER THE CLAIM
+             APPEARS. (i) The commercial-plan comparator basis must be
+             sufficiently visible that the claim is not read as 50% below
+             every alternative price. (ii) MRI must be explicitly bound to
+             the number. ⛔ NO BARE "Save 50%+" ABOVE THE FOUR-MODALITY
+             SEARCH — adjacency to a search returning CT, X-Ray and
+             ultrasound extends the claim by implication, which D14
+             forbids. Same reasoning as D8's placement rule on the Federal
+             Reserve figure. · FOUNDER
+2026-08-14 · HOMEPAGE SURVEY COMPLETE — FIFTEEN RENDERED FILES PLUS
+             index.astro. Classified 12 GREEN, 6 YELLOW, 3 RED. Two new
+             defects found that the register did not carry, both by
+             reading rather than grepping. (1) SearchLoadingOverlay ships
+             "Save up to 70%" — a NEW D4 instance at the confidential
+             bound, not named by #56 — and "1,500+ centers", a VARIANT FORM
+             that a literal grep on #56's phrase returns zero for. FOURTH
+             #54 MEMBER: a zero result on a multi-word phrase is not
+             evidence of absence. (2) CarbonFooter carries FIVE claims,
+             not the two #60 records. · ADVISOR
+2026-08-14 · #60 SCOPE AMENDED ON MEASUREMENT — TWO TO FIVE, AND ONE IS
+             UNGATED. Beyond :54 and :69, CarbonFooter carries "Results
+             delivered directly to you" (rule 26 capability claim) inside
+             the gated block, and a nav link "Our Promise" with a green
+             "Guarantee" badge OUTSIDE the {!hideNewsletter} block, which
+             therefore ships on EVERY route including /employer/schedule.
+             ⛔ #60's certification that /employer/schedule is "CLEAN of
+             both" is TRUE AS WRITTEN AND INCOMPLETE — the #52 shape.
+             Standard §1.3 forbids representing Verified as a warranty or
+             guarantee; a literal "Guarantee" label in sitewide navigation
+             is the strongest form of that representation on the site.
+             THIRD SCOPE UNDERSTATEMENT, after #30 (two to fourteen) and
+             #46 (forty to sixty-six). Recorded as #52 evidence rather
+             than silently corrected. · ADVISOR
+2026-08-14 · CarbonFooter IS A TWO-CODEBASE CHANGE AND IS NOT A MANUAL
+             EDIT. The file's own header names it SOURCE OF TRUTH for
+             Remix app/components/pbs/PBSFooter.tsx, last synced
+             2025-12-26. Same shape as CarbonHeader.jsx to PBSHeader.tsx,
+             already ruled "a sitewide decision touching two codebases."
+             #60 does not record the cross-repo obligation. ROUTED TO
+             CC/EDS; content remediation defined, implementation not
+             drafted here. · FOUNDER + ADVISOR
+2026-08-14 · "Pay hundreds, not thousands." IS LIVE COPY, NOT A PROPOSAL.
+             HeroHeadline.astro carries it as the hero subhead and it
+             shipped to production at da8eb85. The 2026-08-14 HOLD on that
+             formulation is therefore an ACTIVE REMOVAL, not a deferral.
+             It fails standing rule 24 on the USRad side and rule 26, which
+             reaches quantitative claims written in words. It may return
+             only behind a separately supportable hospital-comparator
+             methodology. · FOUNDER
+2026-08-14 · FOOTER RECONCILIATION ORDERED BEFORE ANY FOOTER EDIT.
+             CarbonFooter.astro is the historically designated sync source
+             for PBSFooter.tsx, but CURRENT GOVERNANCE — not either
+             implementation — is the authority on what the footers may
+             claim. Read-only two-repository drift report required first;
+             no patch drafted against an assumed-identical file. ⛔ CLAIM
+             PARITY, NOT CODE PARITY: the Astro footer carries a
+             REMIX_URL env-aware link, a ~140-line newsletter handler
+             posting to /api/subscribe-newsletter, and an Astro.props
+             gate, none of which has a line-for-line Remix equivalent.
+             Provisionally a STANDALONE two-repository containment,
+             separate from homepage-remediation. · FOUNDER
+2026-08-14 · P5 FOOTER CONTAINMENT EXECUTED, MERGED AND LIVE IN BOTH
+             REPOSITORIES. The standalone two-repository containment
+             provisionally scoped in the entry above was executed as
+             P5 and is closed. usrad-platform PR #8 (merged: true,
+             merged_at 2026-08-14T17:17:17Z) at merge commit 673fb2a,
+             deployment dpl_31oUx96CbMABCW7imZru7pfdBiVv READY, alias
+             usrad.com. usrad-portal PR #51 (merged: true, merged_at
+             2026-08-14T17:15:32Z) at merge commit f639080, deployment
+             dpl_GAe3hA1fsrUTUBGUZBFpcSFmDtMV READY, alias
+             app.usrad.com. Four claims removed from both footers: the
+             "saved up to 70%" paragraph, "Board-Certified
+             Radiologists", "Results delivered directly to you", and
+             the green Guarantee badge on the "Our Promise" link. The
+             Our Promise link and its /patient-promise target are
+             RETAINED in both. Portal only, a fifth: ":167"'s Remix
+             counterpart still carried "90 million Americans" and was
+             conformed to the already-ratified Astro wording. Verified
+             post-merge from LIVE PRODUCTION ARTIFACTS, not source —
+             see TRACKER #60. · FOUNDER
+2026-08-14 · THE CLAIM-PARITY RULING IS NOW WRITTEN INTO BOTH FILES,
+             REPLACING THE STALE SYNC HEADERS. The FOOTER RECONCILIATION
+             entry above ordered CLAIM PARITY, NOT CODE PARITY; both
+             headers previously asserted a sync relationship and a
+             "Last synced" date — 2025-12-26 in Astro, 2025-12-25 in
+             Remix, inconsistent with each other and eight months
+             stale. Both are replaced with a claim-parity rule: the two
+             footers are NOT synchronized, are not byte-for-byte
+             copies, must not be made structurally identical, and
+             NEITHER MAY PUBLISH A CLAIM THE OTHER HAS HAD REMOVED.
+             Dated LAST CLAIM-PARITY REVIEW: 2026-08-14, which
+             replaces the "Last synced" form. Each header now names the
+             intentional divergences so a later session does not "fix"
+             them: gating props (Astro takes hideNewsletter only and
+             that single flag gates BOTH banner and newsletter; Remix
+             takes hideNewsletter AND hideTrustBanner separately, so
+             hiding the Remix newsletter does NOT hide the Remix trust
+             banner), newsletter implementation, logo component, link
+             handling, and the social row present in Remix and absent
+             in Astro. · FOUNDER
+2026-08-14 · mb-3 -> mb-6 ACCEPTED AS THE MINIMAL CONTAINMENT; THE
+             TRUST BANNER IS NOT DISSOLVED. Removing the "saved up to
+             70%" paragraph removed the mb-6 that separated the banner
+             heading from the check-item row, leaving mb-3. The heading
+             absorbs that spacing in both files. ⛔ THE BANNER STAYS.
+             Once reduced to the single "No Hidden Fees" item it was
+             proposed that the container be dissolved; that is REFUSED.
+             A one-item row is not visibly broken, and redesigning the
+             banner exceeds a claim removal. Layout containment is
+             bounded to this one utility class in each file. · FOUNDER
+2026-08-14 · ⛔ GOVERNANCE CORRECTION — #30'S FOOTER CLOSURE WAS NEVER
+             A PLATFORM-WIDE CLOSURE, AND MUST NOT BE READ AS ONE. The
+             closure recorded against CarbonFooter.astro was ACCURATE
+             FOR THAT FILE. It was not, and did not claim to be, a
+             closure of the "90 million Americans" class. With P5 the
+             FOOTER INSTANCE IS NOW CLOSED ON BOTH CODEBASES — Astro
+             and Remix. ⛔ NOTHING ELSE IS CLOSED. The remaining
+             instances stay open and are NOT to be marked resolved
+             anywhere in this register on the strength of the footer
+             work. This is the fourth time a footer-scoped result has
+             had to be prevented from reading as a sitewide one; see
+             the #52 shape and the #30/#46/#60 scope understatements.
+             · FOUNDER + ADVISOR
+2026-08-14 · #65 OPENED — SITEWIDE RETIRED-CLAIM SWEEP, DISTINCT FROM
+             P5 AND NOT CLOSED BY IT. P5 closed the footer instance on
+             two codebases; the same retired-claim families continue to
+             publish from 17 source files in this repository across 22
+             sites, plus FOUR usrad-portal surfaces OF WHICH THREE ARE
+             EMAIL TEMPLATES. ⛔ EMAIL TEMPLATES CANNOT BE CORRECTED
+             AFTER SEND — they are transmitted and archived by the
+             recipient, so their exposure is not reversible by a later
+             deploy the way a page is. Scope detail in TRACKER #65.
+             ⛔ P5's closure must not be read as platform-wide claim
+             closure; #65 exists so it cannot be. · FOUNDER + ADVISOR
+2026-08-14 · BRANCH GAP RECORDED, NOT FIXED. homepage-remediation is
+             based on 40328f0, which predates 673fb2a; origin/main is
+             two commits ahead of the branch. CarbonFooter.astro ON
+             THIS BRANCH THEREFORE STILL CARRIES ALL FOUR P5 CLAIMS —
+             confirmed by reading the file on the branch. ⛔ THIS IS A
+             BRANCH-STATE FACT, NOT A PRODUCTION FACT: production
+             serves 673fb2a and is clean, verified from live
+             artifacts. No merge, rebase or branch update is ordered by
+             this entry. Whoever resumes the homepage pass must
+             reconcile before editing CarbonFooter.astro, or the
+             retired claims will be reintroduced by a stale working
+             copy. · FOUNDER
+```
+
 ---
 
 ## Open decisions awaiting founder
@@ -3284,7 +3500,7 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 | 27 | Duration claims — sweep "over N years" / "a decade" describing AnciCare's operating life | **MERGED** into the page-by-page rewrite, 2026-08-07. Open |
 | 28 | 4.9★ satisfaction — `SocialProofBar:36`, fourth variant | #18 adjacent |
 | 29 | 50–70% published where the 50%+ floor is required — 6 locations | confidentiality |
-| 30 | "90 million Americans" — derived headcount class | ⛔ **NOT 2 locations.** See `TRACKER.md` #30 for the measured scope. ✅ **THE SITEWIDE FOOTER INSTANCE IS CLOSED 2026-08-13** — `CarbonFooter:167` was **ungated**, outside the `{!hideNewsletter && …}` block, and therefore shipped on **every route**; removed without substituting a replacement market-size statistic. A **fifteenth instance** outside the scope list was also cleared: `AnciCareStory`'s "90M Americans" card. Remaining instances open. Derivation and prospective bar recorded 2026-08-13 |
+| 30 | "90 million Americans" — derived headcount class | ⛔ **NOT 2 locations.** See `TRACKER.md` #30 for the measured scope. ✅ **THE SITEWIDE FOOTER INSTANCE IS CLOSED 2026-08-13** — `CarbonFooter:167` was **ungated**, outside the `{!hideNewsletter && …}` block, and therefore shipped on **every route**; removed without substituting a replacement market-size statistic. A **fifteenth instance** outside the scope list was also cleared: `AnciCareStory`'s "90M Americans" card. Remaining instances open. Derivation and prospective bar recorded 2026-08-13. ⛔ **GOVERNANCE CORRECTION 2026-08-14 — THAT CLOSURE WAS FOOTER-SCOPED, NOT PLATFORM-WIDE.** It was accurate for `CarbonFooter.astro` and was never a closure of the class. With P5 the **footer instance is now closed on BOTH codebases** — Astro at `673fb2a` and Remix `PBSFooter.tsx` at `f639080`, both verified live. **Every other instance remains OPEN and must not be marked resolved on the strength of the footer work.** See **#65** |
 | 31 | Patient counts outside the 150,000 family — `cost-saving-tips:1100`, `real-cost-of-mri:907` | blog routes |
 | 33 | Does Remix read `procedure`? Verify `PatientHeader` param mapping against the adjacent repo | one line if yes |
 | 34 | Provider-surface disclosure of internal modality fee amounts — conformance sweep under settled §4 | settled decision, open implementation |
@@ -3295,6 +3511,7 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 | ~~39~~ | ~~`APPROVED-FIGURES` §6 dates the CorVel sale to 2013~~ | ✅ **RESOLVED 2026-08-13.** Corrected to 2002 at §6(c) and §502. The closing letter governs |
 | 40 | Rule 18 does not reach date forms — "founded in 1994" ruled correct for prose | rule 18 amendment |
 | 41 | Audit existing line-number citations for staleness. The cite-by-section convention is already settled | audit only |
+| 65 | ⛔ **SITEWIDE RETIRED-CLAIM SWEEP — OPENED 2026-08-14, DISTINCT FROM P5 AND NOT CLOSED BY IT.** P5 closed the footer instance on two codebases. The same families still publish from **17 source files here across 22 sites**, plus **four `usrad-portal` surfaces of which THREE ARE EMAIL TEMPLATES** — and an email cannot be corrected after send. Full scope in `TRACKER.md` **#65** | **exists so footer closure cannot be read as platform-wide claim closure** |
 
 > **#22, #24 and #27 are MERGED, not closed.** They are executed together as one
 > page-by-page rewrite — see the dated entry *"#22, #24 AND #27 MERGE INTO ONE
