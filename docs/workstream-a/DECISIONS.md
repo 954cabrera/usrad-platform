@@ -3307,7 +3307,113 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              NO RENDERED OUTPUT, CLAIM PARITY WITH PBSFooter.tsx
              UNAFFECTED. Recorded because a commit touching CarbonFooter
              AFTER P5 closed it will otherwise read as a reopening. ·
-             ADVISOR            
+             ADVISOR
+ 2026-08-14 · Y6 · HERO HEADLINE REPLACED — "70% Less" RETIRED, D14's
+             "Save 50%+ on MRI" ADOPTED. H1 is now two lines: "Save 50%+"
+             in white, "on MRI" in gold under the existing animated
+             underline. ⛔ MRI IS BOUND INSIDE THE H1, NOT APPENDED AS A
+             QUALIFIER — required by D14's presentation constraint (ii)
+             because the H1 sits directly above a four-modality search.
+             "The Same Radiologists." and "The Same Scanners." RETIRED
+             WITHOUT REPLACEMENT — rule 26 names "Same facilities your
+             employees already use" as a caught defect by example, and
+             with no contracted providers there is no set of scanners to
+             be "the same" as. No replacement lines invented. · FOUNDER
+2026-08-14 · D14 CONSTRAINT (i) SATISFIED BY ADJACENT SUPPORTING COPY.
+             "Compared with typical commercial health-plan MRI prices.
+             Radiologist interpretation included." sits immediately
+             beneath the H1 at text-white/80. It answers the two
+             questions the H1 provokes — 50% below what, and what is in
+             the price. ⛔ IT IS NOT AN AVERAGE CLAIM AND MUST NOT BE
+             REWORDED INTO ONE; §1d records 50%+ as a FLOOR. · FOUNDER
+2026-08-14 · ⛔ NO MODALITY SCOPE-RESET SENTENCE. D14 constraint (ii) is
+             satisfied by VISUAL SEPARATION, not a fourth qualifier — the
+             headline block's bottom margin widened to mb-10 sm:mb-14, and
+             the search placeholder already reads "Tell us your scan (MRI,
+             CT, X-ray, etc.)". A fourth consecutive qualifier would read
+             as hedging and make the H1 the only line anyone reads, which
+             is the bare-claim condition (ii) exists to prevent. ⚠️
+             RECORDED AS A JUDGEMENT CALL, NOT A GOVERNANCE PROOF:
+             whitespace is a weaker instrument than a sentence, and a
+             determined reading still places a savings headline above a
+             multi-modality search. Revisit if the hero is restructured.
+             · FOUNDER
+2026-08-14 · "No second bill" REMOVED FROM THE HERO — NOT RELOCATED,
+             BECAUSE IT WAS ALREADY THERE. PricingSection publishes "One
+             price. One bill." plus "Most hospitals send two separate MRI
+             bills — one from the hospital and one from the radiologist.
+             USRad pricing includes both." That is the architecture
+             proposition EXPLAINED rather than asserted, and it is
+             PSA-verified and §1a-permitted. No PricingSection edit was
+             required or made. · FOUNDER + ADVISOR
+2026-08-14 · SMARTMATCH DUPLICATION RESOLVED — TWO STATEMENTS REDUCED TO
+             ONE. GREEN left near-identical statements above and below the
+             search. RETAINED: SearchStep1's "Tell us what you need —
+             SmartMatch™ will identify your best option," which occupies
+             the label position directly above the input and is
+             instructional. REMOVED: HeroSection's "Powered by SmartMatch™
+             — your best imaging option, identified for you," a trailing
+             brand restatement with no function. ⛔ NO REPLACEMENT CLAIM
+             INVENTED. SmartMatch and its function survive; nothing new is
+             asserted. ⚠️ TWO ADJACENT REDUNDANCIES REMAIN OUT OF Y6
+             SCOPE: the retained line's "Tell us what you need" near-
+             duplicates the placeholder "Tell us your scan," and "No
+             searching. No guesswork." restates it a third time. · FOUNDER
+2026-08-14 · main MOVED A FIFTH TIME — 673fb2a..cda6b41, PR #9
+             (newsletterpopup-containment). homepage-remediation
+             reconciled with main at 88f9d0e; the merge was CLEAN, no
+             conflicts, both branches' DECISIONS.md appends preserved.
+             First clean reconciliation in this workstream — the two prior
+             merges produced ten conflict hunks between them. · FOUNDER
+ 2026-08-14 · Y6 SHIPPED WITH THREE REFINEMENTS FOUND IN VISUAL REVIEW.
+             (i) The full stop moved INSIDE the gold underlined span — at
+             8xl the detached period rendered with a visible gap and the
+             underline stopped short of it, reading as a stray dot. "on
+             MRI." is now one unit. (ii) The supporting copy split into
+             two blocks, one sentence each — it was breaking mid-phrase
+             after "prices." and severing the second sentence across the
+             wrap. ⚠️ THIS STRENGTHENS D14 CONSTRAINT (i): the comparator
+             basis now occupies its OWN FULL LINE rather than trailing
+             into a second sentence, so it is MORE visible, not less.
+             (iii) SearchStep1's bottom margin CONSIDERED AND LEFT
+             UNCHANGED — the gap below the search reads as slack at
+             desktop but as deliberate at 392px, and compressing it would
+             cost the mobile proportion. Aesthetic only, no governance
+             basis either way. ✅ VERIFIED AT 392px: both H1 lines hold
+             single lines at the 2.5rem override, both supporting
+             sentences remain distinct blocks, underline tracks "on MRI."
+             Console clean. · FOUNDER + ADVISOR
+ 2026-08-14 · Y3 · CredibilitySection CONTAINED ENTIRE. Render call
+             commented in index.astro; COMPONENT PRESERVED, NOT DELETED.
+             Three of four elements fail: the H2 and the lede are rule 26
+             present-tense network and relationship claims ("Trusted by",
+             "partner facilities", "across the United States") with no
+             contracted providers; the ACR tile is #44, whose single-body
+             formulation B7-as-amended records as wrong on the draft
+             Standard's own terms (§5.2 recognizes four bodies); the
+             board-certification tile is #46, which names this component
+             at ×4. ⛔ NO REWRITE IS AVAILABLE IN THIS PASS — #44 is
+             BLOCKED ON APPENDIX B OPEN DECISION 3, and #45 establishes
+             that copy may be REMOVED on the draft standard's basis but
+             may NOT be APPROVED on it. The fourth element, "Transparent
+             All-Inclusive Pricing," is sound under D5 but now duplicates
+             PricingSection's stronger statement. B4 PRECEDENT APPLIED:
+             contain the unit rather than create an exception to preserve
+             a one-tile section. ✅ THIS FLIPS TO A REWRITE THE MOMENT
+             APPENDIX B DECISION 3 LANDS — the design is sound and the
+             words are gated, not wrong in principle. Resolution belongs
+             to a future provider-proof/credibility pass once relationship
+             and accreditation facts are supportable. · FOUNDER
+2026-08-14 · ⚠️ / HAS NO CREDIBILITY BAND AFTER Y3. SocialProofBar
+             (contained PR #7), the locations map (RED), MemberTrustBadge
+             (Y4, pending) and now CredibilitySection are all out of
+             render. RECORDED AS A KNOWN STRATEGIC CONSEQUENCE ACCEPTED
+             KNOWINGLY, NOT AN OVERSIGHT — every proof element on the page
+             is gone, and what remains carries the page on architecture
+             and process rather than on proof. The approved §4a AnciCare
+             historical forms remain available for a later credibility
+             treatment in explicitly historical framing. · FOUNDER                        
+
 ```
 
 ## August 14, 2026
