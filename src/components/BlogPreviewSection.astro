@@ -3,12 +3,12 @@
 
 const featuredArticles = [
   {
-    title: "Uninsured? Get Quality Imaging for 70% Less",
-    excerpt: "Save hundreds—sometimes thousands—on your next MRI, CT scan, or ultrasound.",
-    image: "/images/blog/trust-duo.webp",
-    category: "Cost & Savings",
-    readTime: "5 min",
-    slug: "/blog/uninsured-imaging-guide"
+    title: "Understanding Your MRI Results: A Patient's Guide",
+    excerpt: "Demystifying medical terminology and helping you understand what your imaging results mean.",
+    image: "/images/blog/understanding-mri-results.png",
+    category: "Patient Guide",
+    readTime: "8 min",
+    slug: "/blog/understanding-mri-results"
   },
   {
     title: "How to Prepare for Your First MRI",
@@ -19,12 +19,12 @@ const featuredArticles = [
     slug: "/blog/first-mri-preparation-guide"
   },
   {
-    title: "The Real Cost of an MRI",
-    excerpt: "What hospitals don't want you to know about MRI pricing.",
-    image: "/images/blog/cost-comparison.webp",
-    category: "Cost & Savings",
-    readTime: "6 min",
-    slug: "/blog/real-cost-of-mri"
+    title: "The Future of AI in Medical Imaging",
+    excerpt: "Discover how artificial intelligence is transforming medical imaging with faster, more accurate diagnoses. Learn what AI means for patients and the future of radiology.",
+    image: "/images/blog/two-rads-control-center.webp",
+    category: "Innovation",
+    readTime: "9 min",
+    slug: "/blog/future-ai-medical-imaging"
   }
 ];
 ---
@@ -49,7 +49,7 @@ const featuredArticles = [
     <div class="grid md:grid-cols-3 gap-8 mb-12">
       {featuredArticles.map((article, index) => (
         <article 
-          class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+          class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full"
           data-aos="fade-up"
           data-aos-delay={200 + (index * 100)}
         >
@@ -68,7 +68,7 @@ const featuredArticles = [
           </a>
 
           <!-- Content -->
-          <div class="p-6">
+          <div class="p-6 flex flex-col flex-grow">
             <a href={article.slug} class="block">
               <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#003087] transition-colors line-clamp-2">
                 {article.title}
@@ -77,7 +77,7 @@ const featuredArticles = [
             <p class="text-gray-600 mb-4 line-clamp-2">
               {article.excerpt}
             </p>
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between mt-auto">
               <span class="text-sm text-gray-500">{article.readTime} read</span>
               <a 
                 href={article.slug}

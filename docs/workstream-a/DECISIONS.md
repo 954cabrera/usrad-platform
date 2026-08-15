@@ -3779,7 +3779,67 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              component alone would drop it from /membership's hero badge
              while the page body asserts the same claim nine times,
              directly beneath it. Same coupling shape as
-             CarbonFooter/PBSFooter. · FOUNDER + ADVISOR                         
+             CarbonFooter/PBSFooter. · FOUNDER + ADVISOR
+  2026-08-14 · Y5 CANDIDATE AUDIT — SIX OF EIGHT ARTICLES FAIL FOR HOMEPAGE
+             PROMOTION. Read-only audit of the eight replacement
+             candidates. PASS: understanding-mri-results (percentages are
+             third-party clinical epidemiology, no USRad claim) and
+             future-ai-medical-imaging (figures are cited third-party
+             research; its single board-certification mention is in the
+             CORRECT LIMITING FORM — "AI is a tool, not a replacement").
+             FAIL: mri-basics (#73 + #46 ×4), managing-mri-anxiety (#74),
+             preventive-care-checklist (#73 + #65), health-tips (#36 +
+             #65), cost-saving-tips (#73 + #65 + accreditation),
+             price-transparency-healthcare (#74 + #75 + #65). ⛔ THE
+             REGISTER DID NOT CARRY ANY OF THESE. Opened as #73, #74, #75;
+             #65 amended for above-bound formulations. ⛔ DISCOVERY ONLY —
+             NO BLOG ARTICLE IS REMEDIATED AND NONE IS SCHEDULED. · FOUNDER
+2026-08-14 · ⛔ THE HOMEPAGE PROMOTES WHAT IT LINKS TO. Y5 replaced BOTH
+             card 1 (barred copy AND barred destination) and card 3 (CLEAN
+             copy, barred destination — blog/real-cost-of-mri carries
+             #65's 50-80% figure and #73's unregistered USRad prices).
+             ⛔ CLEAN CARD COPY DOES NOT LICENSE PROMOTING AN UNREMEDIATED
+             DESTINATION. This extends the Batch F principle — the
+             deployed page is the sole source of truth for what it may be
+             advertised as — to the PROMOTING surface: / MAY NOT DRIVE
+             TRAFFIC TO A ROUTE CARRYING BARRED CLAIMS, whatever the link
+             text says. ⚠️ "View All 12 Articles" IS THE UNRESOLVED
+             COROLLARY — it routes to an index listing all twelve,
+             including the four Y5 excluded. HELD FOR HOMEPAGE CLOSEOUT.
+             · FOUNDER
+2026-08-14 · CARD FIELD SOURCING RULED — CANONICAL DATA FIRST, WITH ONE
+             EVIDENCE-DRIVEN EXCEPTION. src/data/blogPosts.js is the
+             site's canonical article metadata. Card 1 uses its excerpt
+             verbatim. ⛔ CARD 3 USES THE META-DESCRIPTION INSTEAD BECAUSE
+             THE CANONICAL EXCERPT FAILS: "How artificial intelligence is
+             improving diagnostic accuracy while REDUCING COSTS FOR
+             PATIENTS" is a present-tense savings claim with no comparator
+             and no modality scope, and rule 26 reaches quantitative
+             claims WRITTEN IN WORDS. Titles taken from each article's
+             <h1>, not its <title> — the latter carries a "| USRad" site
+             suffix that is a template convention, not article copy.
+             readTime adapted from "8 min read"/"9 min read" to "8
+             min"/"9 min" because BlogPreviewSection appends " read";
+             verbatim would render "8 min read read." ⚠️ FORMAT
+             ADAPTATION, NOT EDITORIAL REWRITE. · FOUNDER
+2026-08-14 · ⚠️ BlogPreviewSection HARDCODES THREE ARTICLE OBJECTS THAT
+             blogPosts.js ALREADY DEFINES, WITH DRIFTED VALUES ("5 min" vs
+             "8 min read"; meta-description vs excerpt). IT IS A STALE
+             DUPLICATE OF THE CANONICAL SOURCE. The durable fix is
+             importing from blogPosts.js, which would make the homepage
+             cards structurally incapable of advertising an article
+             inaccurately — the exact defect class Y5 exists to fix.
+             ⛔ NOT DONE IN Y5: structural, and a blind import would
+             resurface uninsured-imaging-guide and real-cost-of-mri.
+             RECORDED FOR LATER ENGINEERING CLEANUP. · FOUNDER
+2026-08-14 · ⚠️ THE BLOG IS A LARGER UNREMEDIATED SURFACE THAN ANY ROUTE
+             ADDRESSED SO FAR. Ten of twelve articles reviewed or sampled
+             this session carry barred or unregistered claims; the two
+             clean ones are the two with NO USRad commercial content. The
+             pattern is that EVERY COST-TOPIC ARTICLE FAILS. RECORDED AS
+             SCOPE INTELLIGENCE FOR SEQUENCING, NOT AS AUTHORIZATION —
+             TRACKER §12 places blog last and nothing here changes that.
+             · ADVISOR                                    
 ```
 
 ---
