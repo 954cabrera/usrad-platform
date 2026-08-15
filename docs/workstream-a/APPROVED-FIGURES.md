@@ -179,6 +179,82 @@ rebuild, and independently barred as the D7-extension capability class.
 
 ---
 
+## 1d. MRI SAVINGS CLAIM — ratified August 14, 2026
+
+**Approved claim string, verbatim:**
+
+> # Save 50%+ on MRI
+
+**Ratified 2026-08-14 · FOUNDER.** Supersedes the homepage `70% Less`
+formulation and, for MRI only, supersedes D4's bar on USRad-derived savings
+percentages. See `DECISIONS.md` 2026-08-14, D14.
+
+### What the claim means
+
+| Element | Definition |
+|---|---|
+| **Modality** | **MRI only** |
+| **Comparator** | Typical **commercial health-plan / insurance** MRI pricing |
+| **Not the comparator** | ⛔ Medicare. ⛔ Hospital cash / self-pay pricing (not the primary comparator for the employer-facing claim) |
+| **USRad side** | The **global / all-inclusive** price — scan **plus** radiologist interpretation |
+| **Billing** | **No separate radiologist bill.** Basis: PSA verification, 2026-08-14 |
+| **Form** | A **floor**, stated as `50%+` |
+
+### ⛔ Four things this claim does NOT license
+
+1. **Any other modality.** No CT, ultrasound, X-ray, PET or aggregate "imaging"
+   savings percentage. D4 is intact for all of them.
+2. **An average.** `50%+` is a floor. *"Average savings of 50%,"* *"avg. savings,"*
+   or any mean/typical framing requires separate evidence and is not approved.
+3. **Any other comparator.** Against Medicare, against self-pay, against
+   chargemaster, or against an unnamed baseline — none is this claim.
+4. **Any USRad price.** ⛔ **Standing rule 24 is unchanged.** No transaction
+   price, no projected cost, no dollar figure. §1a governs and no provider is
+   contracted as of this date. The claim is a ratio; it does not carry a price
+   in with it.
+
+### Presentation constraints — binding wherever the claim appears
+
+- **(i) The comparator basis must be sufficiently visible** that a reader cannot
+  take the claim as 50% below every alternative price.
+- **(ii) MRI must be explicitly bound to the number.** ⛔ **No bare
+  `Save 50%+` positioned above the four-modality search** — adjacency to a
+  search returning CT, X-Ray and ultrasound extends the claim by implication.
+  Same reasoning as D8's placement rule.
+
+### ⛔ DO NOT CONFLATE WITH THE ANCICARE 50%+ FLOOR AT §4a
+
+**Two different 50%+ figures exist in this register.**
+
+| | §1d — *this section* | §4a — *AnciCare* |
+|---|---|---|
+| Entity | **USRad** | **AnciCare PPO** |
+| Tense | **Present** | **Historical, 1994–2002** |
+| Comparator | Commercial health-plan MRI pricing | Florida workers' compensation fee schedule |
+| Scope | MRI only | MRI (as documented) |
+| Basis | Founder ratification, 2026-08-14 | Four contemporaneous sources, class CP/CT |
+
+**Neither substantiates the other.** The AnciCare floor is historical evidence,
+not a proxy or forecast for USRad performance — D4's own words. Do not cite §4a
+sources as support for §1d, and do not conform §4a instances to the §1d string.
+**Open item #29 belongs to §4a and is a separate sweep.**
+
+Same treatment as the two $60 million figures at §4a — see the callout there.
+
+### Evidentiary status
+
+The comparator dataset substantiating this claim is **held outside this
+register**. When it is settled, cite it here by name and date, the way §1a cites
+Pricing Policy V1.0 and §4a cites the AnciCare corpus. Until then this section
+records a **founder-ratified marketing claim with defined boundaries**, and the
+boundaries above are what make it publishable.
+
+⚠️ **A future session must not read this section as licence to widen.** Every
+line above is a constraint, and the constraints are the reason the claim
+survives D4.
+
+---
+
 ## 2. PAYMENT TERMS — approved
 
 | Figure | Approved value | Notes |
@@ -238,7 +314,7 @@ Evidence class: **CP** = contemporaneous primary (created 1994–2002 in the ord
 | **Per-scan economics** | **$418–460 billed per procedure, $336–353 paid to the center** | **~$420–460 / ~$336–353** | `Corp Overview 9-2000` p.16, "Average Per Procedure" | **CP** |
 | **Annual procedures 2000** | **33,855 procedures in 2000** | **33,855 procedures** | `Management Meeting March 2002` p.7, "Procedures (Net)", 12 months | **CP** |
 | **Annual procedures 2001** | **38,452 procedures in 2001** | **38,452 procedures** | `Management Meeting March 2002` p.7, "Procedures (Net)", 12 months | **CP** |
-| **Savings vs WC fee schedule** | **50% or more below the Florida workers' compensation fee schedule** | **50%+ savings** | Four contemporaneous sources: founder letter 23 Sep 1994 (*"saving 50% or more"*); Genesis Publishing Nov 1994 (*"well over 50% of the state of Florida workers' compensation fee schedule for all MRI"*); `florida-trend-2000-03-p48.jpg` ($450–500 vs ~$1,000); CIM Feb 2000 (*"up to 70% discounts"*). ⚠️ **Use the 50%+ floor in public copy** — the 70% upper bound comes from a confidential document | **CP / CT** |
+| **Savings vs WC fee schedule** | **50% or more below the Florida workers' compensation fee schedule** | **50%+ savings** | Four contemporaneous sources: founder letter 23 Sep 1994 (*"saving 50% or more"*); Genesis Publishing Nov 1994 (*"well over 50% of the state of Florida workers' compensation fee schedule for all MRI"*); `florida-trend-2000-03-p48.jpg` ($450–500 vs ~$1,000); CIM Feb 2000 (*"up to 70% discounts"*). ⚠️ **Use the 50%+ floor in public copy** — the 70% upper bound comes from a confidential document. ⛔ **DO NOT CONFLATE with the present-tense USRad MRI claim at §1d** — same number, different entity, tense and comparator; neither substantiates the other | **CP / CT** |
 | **Scheduling speed** | **90% of referrals scheduled within two to three days** | **90% in 2–3 days** | *South Florida Business Journal*, 5 Feb 1999 | **CT** |
 | **Inc. 500** | **ranked #210 on the 1999 Inc. 500** | **Inc. 500 #210** | *Inc.* letter 6 Oct 1999 + certificate | **CT** |
 | **Named clients** | **Winn-Dixie, CNA, Liberty Mutual, Zurich American, USF&G, Crawford & Company, Gallagher & Bassett, USPS** and ~30 others | — | Founder letter Table A (Aug 1994); Genesis article Nov 1994; `Corp Overview 9-2000` top-11 client slide | **CP / CT** |

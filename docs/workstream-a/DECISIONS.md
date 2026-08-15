@@ -3307,7 +3307,698 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              NO RENDERED OUTPUT, CLAIM PARITY WITH PBSFooter.tsx
              UNAFFECTED. Recorded because a commit touching CarbonFooter
              AFTER P5 closed it will otherwise read as a reopening. ·
-             ADVISOR            
+             ADVISOR
+ 2026-08-14 · Y6 · HERO HEADLINE REPLACED — "70% Less" RETIRED, D14's
+             "Save 50%+ on MRI" ADOPTED. H1 is now two lines: "Save 50%+"
+             in white, "on MRI" in gold under the existing animated
+             underline. ⛔ MRI IS BOUND INSIDE THE H1, NOT APPENDED AS A
+             QUALIFIER — required by D14's presentation constraint (ii)
+             because the H1 sits directly above a four-modality search.
+             "The Same Radiologists." and "The Same Scanners." RETIRED
+             WITHOUT REPLACEMENT — rule 26 names "Same facilities your
+             employees already use" as a caught defect by example, and
+             with no contracted providers there is no set of scanners to
+             be "the same" as. No replacement lines invented. · FOUNDER
+2026-08-14 · D14 CONSTRAINT (i) SATISFIED BY ADJACENT SUPPORTING COPY.
+             "Compared with typical commercial health-plan MRI prices.
+             Radiologist interpretation included." sits immediately
+             beneath the H1 at text-white/80. It answers the two
+             questions the H1 provokes — 50% below what, and what is in
+             the price. ⛔ IT IS NOT AN AVERAGE CLAIM AND MUST NOT BE
+             REWORDED INTO ONE; §1d records 50%+ as a FLOOR. · FOUNDER
+2026-08-14 · ⛔ NO MODALITY SCOPE-RESET SENTENCE. D14 constraint (ii) is
+             satisfied by VISUAL SEPARATION, not a fourth qualifier — the
+             headline block's bottom margin widened to mb-10 sm:mb-14, and
+             the search placeholder already reads "Tell us your scan (MRI,
+             CT, X-ray, etc.)". A fourth consecutive qualifier would read
+             as hedging and make the H1 the only line anyone reads, which
+             is the bare-claim condition (ii) exists to prevent. ⚠️
+             RECORDED AS A JUDGEMENT CALL, NOT A GOVERNANCE PROOF:
+             whitespace is a weaker instrument than a sentence, and a
+             determined reading still places a savings headline above a
+             multi-modality search. Revisit if the hero is restructured.
+             · FOUNDER
+2026-08-14 · "No second bill" REMOVED FROM THE HERO — NOT RELOCATED,
+             BECAUSE IT WAS ALREADY THERE. PricingSection publishes "One
+             price. One bill." plus "Most hospitals send two separate MRI
+             bills — one from the hospital and one from the radiologist.
+             USRad pricing includes both." That is the architecture
+             proposition EXPLAINED rather than asserted, and it is
+             PSA-verified and §1a-permitted. No PricingSection edit was
+             required or made. · FOUNDER + ADVISOR
+2026-08-14 · SMARTMATCH DUPLICATION RESOLVED — TWO STATEMENTS REDUCED TO
+             ONE. GREEN left near-identical statements above and below the
+             search. RETAINED: SearchStep1's "Tell us what you need —
+             SmartMatch™ will identify your best option," which occupies
+             the label position directly above the input and is
+             instructional. REMOVED: HeroSection's "Powered by SmartMatch™
+             — your best imaging option, identified for you," a trailing
+             brand restatement with no function. ⛔ NO REPLACEMENT CLAIM
+             INVENTED. SmartMatch and its function survive; nothing new is
+             asserted. ⚠️ TWO ADJACENT REDUNDANCIES REMAIN OUT OF Y6
+             SCOPE: the retained line's "Tell us what you need" near-
+             duplicates the placeholder "Tell us your scan," and "No
+             searching. No guesswork." restates it a third time. · FOUNDER
+2026-08-14 · main MOVED A FIFTH TIME — 673fb2a..cda6b41, PR #9
+             (newsletterpopup-containment). homepage-remediation
+             reconciled with main at 88f9d0e; the merge was CLEAN, no
+             conflicts, both branches' DECISIONS.md appends preserved.
+             First clean reconciliation in this workstream — the two prior
+             merges produced ten conflict hunks between them. · FOUNDER
+ 2026-08-14 · Y6 SHIPPED WITH THREE REFINEMENTS FOUND IN VISUAL REVIEW.
+             (i) The full stop moved INSIDE the gold underlined span — at
+             8xl the detached period rendered with a visible gap and the
+             underline stopped short of it, reading as a stray dot. "on
+             MRI." is now one unit. (ii) The supporting copy split into
+             two blocks, one sentence each — it was breaking mid-phrase
+             after "prices." and severing the second sentence across the
+             wrap. ⚠️ THIS STRENGTHENS D14 CONSTRAINT (i): the comparator
+             basis now occupies its OWN FULL LINE rather than trailing
+             into a second sentence, so it is MORE visible, not less.
+             (iii) SearchStep1's bottom margin CONSIDERED AND LEFT
+             UNCHANGED — the gap below the search reads as slack at
+             desktop but as deliberate at 392px, and compressing it would
+             cost the mobile proportion. Aesthetic only, no governance
+             basis either way. ✅ VERIFIED AT 392px: both H1 lines hold
+             single lines at the 2.5rem override, both supporting
+             sentences remain distinct blocks, underline tracks "on MRI."
+             Console clean. · FOUNDER + ADVISOR
+ 2026-08-14 · Y3 · CredibilitySection CONTAINED ENTIRE. Render call
+             commented in index.astro; COMPONENT PRESERVED, NOT DELETED.
+             Three of four elements fail: the H2 and the lede are rule 26
+             present-tense network and relationship claims ("Trusted by",
+             "partner facilities", "across the United States") with no
+             contracted providers; the ACR tile is #44, whose single-body
+             formulation B7-as-amended records as wrong on the draft
+             Standard's own terms (§5.2 recognizes four bodies); the
+             board-certification tile is #46, which names this component
+             at ×4. ⛔ NO REWRITE IS AVAILABLE IN THIS PASS — #44 is
+             BLOCKED ON APPENDIX B OPEN DECISION 3, and #45 establishes
+             that copy may be REMOVED on the draft standard's basis but
+             may NOT be APPROVED on it. The fourth element, "Transparent
+             All-Inclusive Pricing," is sound under D5 but now duplicates
+             PricingSection's stronger statement. B4 PRECEDENT APPLIED:
+             contain the unit rather than create an exception to preserve
+             a one-tile section. ✅ THIS FLIPS TO A REWRITE THE MOMENT
+             APPENDIX B DECISION 3 LANDS — the design is sound and the
+             words are gated, not wrong in principle. Resolution belongs
+             to a future provider-proof/credibility pass once relationship
+             and accreditation facts are supportable. · FOUNDER
+2026-08-14 · ⚠️ / HAS NO CREDIBILITY BAND AFTER Y3. SocialProofBar
+             (contained PR #7), the locations map (RED), MemberTrustBadge
+             (Y4, pending) and now CredibilitySection are all out of
+             render. RECORDED AS A KNOWN STRATEGIC CONSEQUENCE ACCEPTED
+             KNOWINGLY, NOT AN OVERSIGHT — every proof element on the page
+             is gone, and what remains carries the page on architecture
+             and process rather than on proof. The approved §4a AnciCare
+             historical forms remain available for a later credibility
+             treatment in explicitly historical framing. · FOUNDER                        
+
+```
+
+## August 14, 2026
+
+```
+2026-08-14 · RELEASE STRATEGY CHANGED — INCREMENTAL PER-SURFACE RELEASES.
+             Supersedes TRACKER §12 row 7, which merged once at the end of
+             the whole workstream. Completed work releases now; remaining
+             surfaces are remediated and released one at a time. · FOUNDER
+2026-08-14 · PR #7 MERGED AT da8eb85 AND DEPLOYED. Employer and Provider
+             remediation are LIVE IN PRODUCTION. 78 commits, 105 files.
+             Local main synchronized to origin/main. New branch
+             homepage-remediation created from main at da8eb85; checkpoint
+             40328f0. · FOUNDER
+2026-08-14 · / IS THE CURRENT SURFACE, WORKED AHEAD OF /press-kit AND
+             /about BY FOUNDER PREROGATIVE. Same shape as /provider on
+             2026-08-13. ⛔ /press-kit IS DEFERRED, NOT DROPPED — it is
+             named first by exposure in TRACKER §12 row 3 and is
+             register-borne (DOC-23). Its position in the remaining queue
+             is open. · FOUNDER
+             ⛔ AMENDED 2026-08-14 by the REMAINING-SURFACE ORDER RULING
+             at the end of this section: /press-kit's position is NO
+             LONGER OPEN — it is fixed at 6, after the five primary
+             navigation surfaces. Deferred, not dropped. The rest of
+             this entry stands as written.
+2026-08-14 · D14 · APPROVED MRI MARKETING CLAIM — "Save 50%+ on MRI."
+             SUPERSEDES the homepage "70% Less" formulation. Comparator is
+             typical commercial health-plan / insurance MRI pricing. NOT
+             Medicare. Hospital cash/self-pay is not the primary comparator
+             for the employer-facing claim. The USRad side is the
+             global/all-inclusive price: scan plus radiologist
+             interpretation, no separate radiologist bill. ⛔ MRI ONLY — do
+             not extend to other modalities without separate evidence.
+             ⛔ IT IS A FLOOR, NOT AN AVERAGE — do not present 50%+ as an
+             average savings claim without separate evidence. Recorded in
+             full at APPROVED-FIGURES §1d, which is the publication
+             authority. · FOUNDER
+2026-08-14 · D14 SUPERSEDES D4 FOR MRI, AND ONLY FOR MRI. D4 (2026-08-09)
+             removed "every other USRad-derived savings percentage," which
+             on its face reaches this claim. D14 is the later dated
+             decision and governs the MRI case. ⛔ D4 IS OTHERWISE INTACT:
+             no savings percentage for any other modality, no aggregate
+             imaging savings percentage, and no percentage against any
+             comparator other than the one D14 names. A future sweep
+             finding a percentage on this site must check §1d before
+             removing it. · FOUNDER
+2026-08-14 · PSA VERIFICATION PASSED — THE ALL-INCLUSIVE ARCHITECTURE IS
+             SUPPORTED. The governing provider agreement expressly
+             establishes complete service delivery including technical and
+             professional components, global reimbursement including both,
+             payment in full, and member non-collection. This is the
+             executed-agreement basis (editorial standard item 3) for "the
+             radiologist read is included" and "no second bill."
+             ⛔ IT ESTABLISHES CONTRACTUAL ARCHITECTURE, NOT THE EXISTENCE
+             OF A CURRENTLY CONTRACTED NETWORK. No provider is contracted
+             as of this date. Standing rules 24 and 26 are UNCHANGED: no
+             USRad transaction price may publish, and no present-tense
+             network, coverage or "pre-negotiated pricing" claim may
+             publish. · FOUNDER
+2026-08-14 · ⛔ DO NOT CONFLATE THE TWO 50%+ CLAIMS. §4a approves "50% or
+             more below the Florida workers' compensation fee schedule,
+             1994–2002" — AnciCare, historical, class CP/CT. §1d approves
+             "Save 50%+ on MRI" — USRad, present tense, commercial
+             health-plan comparator. SAME NUMBER, DIFFERENT ENTITY, TENSE,
+             COMPARATOR AND MODALITY SCOPE. Neither substantiates the
+             other. Same treatment as the two $60 million figures at §4a.
+             · FOUNDER + ADVISOR
+2026-08-14 · #29 SPLITS INTO TWO SWEEPS AND IS NOT RESOLVED BY D14. #29 is
+             the AnciCare historical floor mis-scoped as 50–70%, leaking
+             the confidential upper bound in six locations. It conforms to
+             the §4a historical form. It does NOT become the §1d USRad MRI
+             claim. HANDOFF §7 briefly directed a single combined sweep;
+             that instruction is CORRECTED, not merely superseded, because
+             executing it would have converted historical evidence into a
+             present-tense performance claim. · FOUNDER + ADVISOR
+2026-08-14 · PRESENTATION CONSTRAINTS ON D14, BINDING WHEREVER THE CLAIM
+             APPEARS. (i) The commercial-plan comparator basis must be
+             sufficiently visible that the claim is not read as 50% below
+             every alternative price. (ii) MRI must be explicitly bound to
+             the number. ⛔ NO BARE "Save 50%+" ABOVE THE FOUR-MODALITY
+             SEARCH — adjacency to a search returning CT, X-Ray and
+             ultrasound extends the claim by implication, which D14
+             forbids. Same reasoning as D8's placement rule on the Federal
+             Reserve figure. · FOUNDER
+2026-08-14 · HOMEPAGE SURVEY COMPLETE — FIFTEEN RENDERED FILES PLUS
+             index.astro. Classified 12 GREEN, 6 YELLOW, 3 RED. Two new
+             defects found that the register did not carry, both by
+             reading rather than grepping. (1) SearchLoadingOverlay ships
+             "Save up to 70%" — a NEW D4 instance at the confidential
+             bound, not named by #56 — and "1,500+ centers", a VARIANT FORM
+             that a literal grep on #56's phrase returns zero for. FOURTH
+             #54 MEMBER: a zero result on a multi-word phrase is not
+             evidence of absence. (2) CarbonFooter carries FIVE claims,
+             not the two #60 records. · ADVISOR
+2026-08-14 · #60 SCOPE AMENDED ON MEASUREMENT — TWO TO FIVE, AND ONE IS
+             UNGATED. Beyond :54 and :69, CarbonFooter carries "Results
+             delivered directly to you" (rule 26 capability claim) inside
+             the gated block, and a nav link "Our Promise" with a green
+             "Guarantee" badge OUTSIDE the {!hideNewsletter} block, which
+             therefore ships on EVERY route including /employer/schedule.
+             ⛔ #60's certification that /employer/schedule is "CLEAN of
+             both" is TRUE AS WRITTEN AND INCOMPLETE — the #52 shape.
+             Standard §1.3 forbids representing Verified as a warranty or
+             guarantee; a literal "Guarantee" label in sitewide navigation
+             is the strongest form of that representation on the site.
+             THIRD SCOPE UNDERSTATEMENT, after #30 (two to fourteen) and
+             #46 (forty to sixty-six). Recorded as #52 evidence rather
+             than silently corrected. · ADVISOR
+2026-08-14 · CarbonFooter IS A TWO-CODEBASE CHANGE AND IS NOT A MANUAL
+             EDIT. The file's own header names it SOURCE OF TRUTH for
+             Remix app/components/pbs/PBSFooter.tsx, last synced
+             2025-12-26. Same shape as CarbonHeader.jsx to PBSHeader.tsx,
+             already ruled "a sitewide decision touching two codebases."
+             #60 does not record the cross-repo obligation. ROUTED TO
+             CC/EDS; content remediation defined, implementation not
+             drafted here. · FOUNDER + ADVISOR
+2026-08-14 · "Pay hundreds, not thousands." IS LIVE COPY, NOT A PROPOSAL.
+             HeroHeadline.astro carries it as the hero subhead and it
+             shipped to production at da8eb85. The 2026-08-14 HOLD on that
+             formulation is therefore an ACTIVE REMOVAL, not a deferral.
+             It fails standing rule 24 on the USRad side and rule 26, which
+             reaches quantitative claims written in words. It may return
+             only behind a separately supportable hospital-comparator
+             methodology. · FOUNDER
+2026-08-14 · FOOTER RECONCILIATION ORDERED BEFORE ANY FOOTER EDIT.
+             CarbonFooter.astro is the historically designated sync source
+             for PBSFooter.tsx, but CURRENT GOVERNANCE — not either
+             implementation — is the authority on what the footers may
+             claim. Read-only two-repository drift report required first;
+             no patch drafted against an assumed-identical file. ⛔ CLAIM
+             PARITY, NOT CODE PARITY: the Astro footer carries a
+             REMIX_URL env-aware link, a ~140-line newsletter handler
+             posting to /api/subscribe-newsletter, and an Astro.props
+             gate, none of which has a line-for-line Remix equivalent.
+             Provisionally a STANDALONE two-repository containment,
+             separate from homepage-remediation. · FOUNDER
+2026-08-14 · P5 FOOTER CONTAINMENT COMPLETE — MERGED, DEPLOYED AND
+             VERIFIED ON BOTH usrad.com AND app.usrad.com. Two-repository
+             claim parity achieved. homepage-remediation synchronized with
+             production main, clean at 0243d91. #60 CLOSED. · FOUNDER
+2026-08-14 · HOMEPAGE GREEN PASS COMMITTED AT de1a121 — FOURTEEN ITEMS
+             ACROSS NINE FILES, WORKING TREE CLEAN. Removed from /:
+             "67% avg. savings," "Within 4 hours," "48-hour booking," the
+             ACR accreditation line, "60–70% less," "Pay hundreds, not
+             thousands.", "Save up to 70%," "1,500+ centers," "30 years of
+             experience," the board-certification guarantee form, the
+             ACR-accredited-nationwide trust line, and FOUR instant/
+             instantly constructions. Verified by built-artifact sweep:
+             "SmartMatch™ will identify" returns zero across dist/.
+             ⛔ / IS NOT YET RELEASABLE — YELLOW and RED remain, including
+             the 70% Less <h1>, the $3,200/$260 comparison, the
+             CredibilitySection, the locations map, and $246M in
+             AboutSection. · FOUNDER
+2026-08-14 · ⛔ GREEN SWEEPS SURFACED FOUR DEFECTS OUTSIDE / THAT THE
+             REGISTER DID NOT CARRY. Opened as #66 (NewsletterPopup, D4 at
+             the confidential bound, LIVE ON TWELVE BLOG ROUTES), #67
+             (ui-manager.js — a #56 variant, a rule-26 "our network"
+             claim, and a "Medicare rates" construction contrary to D14's
+             named comparator), #68 (/how-it-works carries the D7 and
+             instant defects removed from the homepage summary), and #69
+             (six orphaned backup files in src/ contaminating every
+             sweep). ⛔ NONE IS HOMEPAGE WORK AND NONE BLOCKS /. Recorded
+             so they are not rediscovered. · ADVISOR
+2026-08-14 · #54 — FIFTH AND SIXTH MEMBERS. THE FALSE-ZERO FAMILY NOW
+             STANDS AT SIX AND HAS NEVER ONCE BEEN CAUGHT BY THE OBVIOUS
+             GREP. SearchStep1.astro wraps "SmartMatch™ will identify your
+             best option / instantly." after "option";
+             MobileSearchModal.astro wraps the same sentence after "best".
+             BOTH RETURNED ZERO ON A LITERAL FULL-PHRASE SEARCH WHILE
+             RENDERING ON / IN PRODUCTION. ⛔ THEY WERE FOUND BY LOOKING AT
+             A SCREENSHOT OF THE PAGE, NOT BY ANY SWEEP. Method
+             consequence, now mandatory: wildcard the wrap point rather
+             than searching the full phrase (grep "60.70%" catches both
+             dash forms; grep the shortest distinctive token, never the
+             sentence), and READ THE RENDERED PAGE — a built-artifact
+             sweep is necessary and is not sufficient. · ADVISOR
+2026-08-14 · #58 CONFIRMED ON MEASUREMENT — connect/provider STILL SHIPS
+             "ACR-accredited imaging centers nationwide" IN PRODUCTION.
+             Built-artifact sweep of dist/client/ returns
+             connect/provider/index.html for that exact string. The item's
+             scope as written is ACCURATE — recorded because #30, #46 and
+             #60 were each understated on measurement and the counter
+             convention is to report confirmations as well as
+             corrections. ⛔ THE OTHER THREE connect/* ROUTES NAMED BY #58
+             WERE NOT SEPARATELY MEASURED IN THIS SWEEP — the phrase may
+             be wrapped there, and #54 forbids reading their absence from
+             this sweep as evidence. · ADVISOR             
+2026-08-14 · P5 FOOTER CONTAINMENT EXECUTED, MERGED AND LIVE IN BOTH
+             REPOSITORIES. The standalone two-repository containment
+             provisionally scoped in the entry above was executed as
+             P5 and is closed. usrad-platform PR #8 (merged: true,
+             merged_at 2026-08-14T17:17:17Z) at merge commit 673fb2a,
+             deployment dpl_31oUx96CbMABCW7imZru7pfdBiVv READY, alias
+             usrad.com. usrad-portal PR #51 (merged: true, merged_at
+             2026-08-14T17:15:32Z) at merge commit f639080, deployment
+             dpl_GAe3hA1fsrUTUBGUZBFpcSFmDtMV READY, alias
+             app.usrad.com. Four claims removed from both footers: the
+             "saved up to 70%" paragraph, "Board-Certified
+             Radiologists", "Results delivered directly to you", and
+             the green Guarantee badge on the "Our Promise" link. The
+             Our Promise link and its /patient-promise target are
+             RETAINED in both. Portal only, a fifth: ":167"'s Remix
+             counterpart still carried "90 million Americans" and was
+             conformed to the already-ratified Astro wording. Verified
+             post-merge from LIVE PRODUCTION ARTIFACTS, not source —
+             see TRACKER #60. · FOUNDER
+2026-08-14 · THE CLAIM-PARITY RULING IS NOW WRITTEN INTO BOTH FILES,
+             REPLACING THE STALE SYNC HEADERS. The FOOTER RECONCILIATION
+             entry above ordered CLAIM PARITY, NOT CODE PARITY; both
+             headers previously asserted a sync relationship and a
+             "Last synced" date — 2025-12-26 in Astro, 2025-12-25 in
+             Remix, inconsistent with each other and eight months
+             stale. Both are replaced with a claim-parity rule: the two
+             footers are NOT synchronized, are not byte-for-byte
+             copies, must not be made structurally identical, and
+             NEITHER MAY PUBLISH A CLAIM THE OTHER HAS HAD REMOVED.
+             Dated LAST CLAIM-PARITY REVIEW: 2026-08-14, which
+             replaces the "Last synced" form. Each header now names the
+             intentional divergences so a later session does not "fix"
+             them: gating props (Astro takes hideNewsletter only and
+             that single flag gates BOTH banner and newsletter; Remix
+             takes hideNewsletter AND hideTrustBanner separately, so
+             hiding the Remix newsletter does NOT hide the Remix trust
+             banner), newsletter implementation, logo component, link
+             handling, and the social row present in Remix and absent
+             in Astro. · FOUNDER
+2026-08-14 · mb-3 -> mb-6 ACCEPTED AS THE MINIMAL CONTAINMENT; THE
+             TRUST BANNER IS NOT DISSOLVED. Removing the "saved up to
+             70%" paragraph removed the mb-6 that separated the banner
+             heading from the check-item row, leaving mb-3. The heading
+             absorbs that spacing in both files. ⛔ THE BANNER STAYS.
+             Once reduced to the single "No Hidden Fees" item it was
+             proposed that the container be dissolved; that is REFUSED.
+             A one-item row is not visibly broken, and redesigning the
+             banner exceeds a claim removal. Layout containment is
+             bounded to this one utility class in each file. · FOUNDER
+2026-08-14 · ⛔ GOVERNANCE CORRECTION — #30'S FOOTER CLOSURE WAS NEVER
+             A PLATFORM-WIDE CLOSURE, AND MUST NOT BE READ AS ONE. The
+             closure recorded against CarbonFooter.astro was ACCURATE
+             FOR THAT FILE. It was not, and did not claim to be, a
+             closure of the "90 million Americans" class. With P5 the
+             FOOTER INSTANCE IS NOW CLOSED ON BOTH CODEBASES — Astro
+             and Remix. ⛔ NOTHING ELSE IS CLOSED. The remaining
+             instances stay open and are NOT to be marked resolved
+             anywhere in this register on the strength of the footer
+             work. This is the fourth time a footer-scoped result has
+             had to be prevented from reading as a sitewide one; see
+             the #52 shape and the #30/#46/#60 scope understatements.
+             · FOUNDER + ADVISOR
+2026-08-14 · #65 OPENED — SITEWIDE RETIRED-CLAIM SWEEP, DISTINCT FROM
+             P5 AND NOT CLOSED BY IT. P5 closed the footer instance on
+             two codebases; the same retired-claim families continue to
+             publish from 17 source files in this repository across 22
+             sites, plus FOUR usrad-portal surfaces OF WHICH THREE ARE
+             EMAIL TEMPLATES. ⛔ EMAIL TEMPLATES CANNOT BE CORRECTED
+             AFTER SEND — they are transmitted and archived by the
+             recipient, so their exposure is not reversible by a later
+             deploy the way a page is. Scope detail in TRACKER #65.
+             ⛔ P5's closure must not be read as platform-wide claim
+             closure; #65 exists so it cannot be. · FOUNDER + ADVISOR
+2026-08-14 · BRANCH GAP RECORDED, NOT FIXED. homepage-remediation is
+             based on 40328f0, which predates 673fb2a; origin/main is
+             two commits ahead of the branch. CarbonFooter.astro ON
+             THIS BRANCH THEREFORE STILL CARRIES ALL FOUR P5 CLAIMS —
+             confirmed by reading the file on the branch. ⛔ THIS IS A
+             BRANCH-STATE FACT, NOT A PRODUCTION FACT: production
+             serves 673fb2a and is clean, verified from live
+             artifacts. No merge, rebase or branch update is ordered by
+             this entry. Whoever resumes the homepage pass must
+             reconcile before editing CarbonFooter.astro, or the
+             retired claims will be reintroduced by a stale working
+             copy. · FOUNDER
+2026-08-14 · REMAINING-SURFACE ORDER RULED, AND /press-kit's POSITION IS
+             NO LONGER OPEN. The operative sequence is / → /how-it-works →
+             /what-is-an-mri → /about → /contact → /press-kit. HANDOFF §13's
+             ordering governs and §5 is conformed to it, resolving a
+             pre-existing conflict between those two sections. ⛔ /press-kit
+             IS DEFERRED UNTIL AFTER THE FIVE PRIMARY NAVIGATION SURFACES —
+             DEFERRED, NOT DROPPED; it remains Workstream A work. This
+             AMENDS the 2026-08-14 entry that recorded its position as open;
+             the TRACKER §12 row 3 first-by-exposure argument is on the
+             record and was considered. · FOUNDER
+2026-08-14 · "70%" FAMILY — OPTION B RULED. CONTAIN ONE INSTANCE NOW,
+             DO NOT RETIRE THE FAMILY. NewsletterPopup.astro:86 contained
+             because it is a shared component live on twelve blog routes;
+             the <li> removed entire, two clean benefit items retained.
+             ⛔ THIS IS EXPLICIT PARTIAL ACTION ON #65'S FAMILY AND IS NOT
+             A FAMILY RULING. The per-family founder ruling #65 requires
+             (retire / reword / substantiate) HAS NOT BEEN GIVEN and the
+             family remains open. SIX SITES REMAIN, DELIBERATELY
+             UNTOUCHED: CondensedProblemSolution.astro:142,
+             FAQPreview.astro:100, PromiseBanner.astro:215,
+             HomeTrustIndicators.astro:78, and
+             blog/uninsured-imaging-guide.astro:25,267. ⛔ THE LAST OF
+             THESE IS AN ARTICLE TITLE AND REQUIRES EDITORIAL
+             ADJUDICATION, NOT MECHANICAL DELETION — it is republished by
+             BlogPreviewSection's featured card on /, so it is coupled to
+             homepage item Y5 and the two resolve together. ⛔ NO FUTURE
+             SESSION MAY READ #66's CLOSURE AS CLOSURE OF THE "70%"
+             FAMILY. Third recorded instance of partial action on this
+             family, after the two closed incidentally by the GREEN pass
+             at de1a121. · FOUNDER
+2026-08-14 · NewsletterPopup CONTAINMENT SHIPS FROM A STANDALONE BRANCH
+             BASED ON PRODUCTION main, NOT FROM homepage-remediation. The
+             component renders on twelve blog routes and on none of /.
+             Same reasoning as P5: sitewide blast radius does not ride a
+             surface branch. homepage-remediation returns immediately to /
+             YELLOW. · FOUNDER
+ 2026-08-14 · ⛔ FIREWALL — USRAD MEMBERSHIP IS AN IMPLEMENTED IDENTITY AND
+             ACCESS ARCHITECTURE. PROVIDER-NETWORK CLAIMS MADE AS
+             MEMBERSHIP BENEFITS ARE INDEPENDENTLY GOVERNED AND MAY NOT BE
+             INFERRED MERELY FROM THE EXISTENCE OF MEMBERSHIP. This is a
+             durable principle, not a Y4 finding. It exists to prevent a
+             future audit from encountering ONE unsupported phrase inside
+             the membership system — "pre-negotiated member pricing" —
+             and treating the ENTIRE membership construct as unsupported.
+             Evidence remediation must distinguish implemented membership
+             identity, policy and platform facts from claims dependent on
+             provider contracting or network operating state. THE
+             OBJECTIVE OF ANY MEMBERSHIP PASS IS PRESERVATION PLUS
+             PRECISION, NOT REMOVAL OF THE MEMBERSHIP PROGRAM. · FOUNDER
+2026-08-14 · Y4 · PARKED AND DEFERRED TO A DEDICATED MEMBERSHIP PASS. The
+             proposed containment of both MemberTrustBadge render calls is
+             WITHDRAWN. ⛔ NOT RESOLVED, NOT CONTAINED, NOT APPROVED —
+             PARKED. Membership will not be partially redesigned during a
+             homepage pass. MemberTrustBadge.astro, both / renders,
+             /membership and /member-rights are ALL PRESERVED UNMODIFIED.
+             Opened as #72 (Y4 parked), #70 (/membership), #71
+             (/member-rights). Y4 is REMOVED FROM THE SET BLOCKING
+             HOMEPAGE CONTINUATION. · FOUNDER
+2026-08-14 · ⛔ THE Y4 CONTAINMENT PROPOSAL WAS OVER-BROAD AND IS RECORDED
+             AS A METHOD ERROR, NOT SILENTLY DROPPED. The advisor
+             recommended containing the whole component because two of
+             eleven claims failed, reaching for the B4 precedent. B4 DOES
+             NOT APPLY: it governs a case where the SURVIVING element
+             cannot carry its own context — a 1,200+ stat tile needing an
+             April 2002 anchor a tile cannot hold. Here the survivors are
+             independently supported implemented facts that stand alone.
+             ⛔ THE ERROR WAS CAUGHT BY THE FOUNDER SUPPLYING ARCHITECTURAL
+             CONTEXT THE REGISTER DID NOT CARRY — the March 2026
+             Membership Identity Architecture. THIS IS THE KIND OF CONTEXT
+             THAT DISAPPEARS WHEN REMEDIATION BECOMES A SEQUENCE OF
+             ISOLATED GREP RESULTS, and it is the reason the handoff
+             discipline exists. · FOUNDER + ADVISOR
+2026-08-14 · MEMBER ID TIMING CONFIRMED AND SELF-DOCUMENTED. USM-XXXXXX is
+             issued immediately after a patient books an APPOINTMENT
+             REQUEST; membership becomes active, the Member Portal is
+             ready, and Bill of Rights protections apply immediately —
+             membership.astro:336-338. ⛔ THE "INSTANT" LANGUAGE IS
+             THEREFORE TRUE BUT OBJECTLESS. #58 flagged it as a
+             timing/capability construction; the underlying activation is
+             implemented, but the rendered sentence names nothing, so on /
+             — where the reader has no membership context — it reads as a
+             promise about imaging delivery. THE DEFECT IS THE MISSING
+             OBJECT, NOT THE WORD. Deferred to the membership pass under
+             #72. · FOUNDER + ADVISOR
+2026-08-14 · MemberTrustBadge IS SHARED BY / AND /membership —
+             membership.astro:56-61 renders variant="banner" with
+             showBillOfRights={false} and showMembershipLink={false}. ⛔ ANY
+             FUTURE BADGE EDIT IS A TWO-SURFACE CHANGE AND MUST BE
+             COORDINATED WITH #70, NOT PERFORMED MECHANICALLY FROM THE
+             HOMEPAGE. Removing "Pre-negotiated member pricing" from the
+             component alone would drop it from /membership's hero badge
+             while the page body asserts the same claim nine times,
+             directly beneath it. Same coupling shape as
+             CarbonFooter/PBSFooter. · FOUNDER + ADVISOR
+  2026-08-14 · Y5 CANDIDATE AUDIT — SIX OF EIGHT ARTICLES FAIL FOR HOMEPAGE
+             PROMOTION. Read-only audit of the eight replacement
+             candidates. PASS: understanding-mri-results (percentages are
+             third-party clinical epidemiology, no USRad claim) and
+             future-ai-medical-imaging (figures are cited third-party
+             research; its single board-certification mention is in the
+             CORRECT LIMITING FORM — "AI is a tool, not a replacement").
+             FAIL: mri-basics (#73 + #46 ×4), managing-mri-anxiety (#74),
+             preventive-care-checklist (#73 + #65), health-tips (#36 +
+             #65), cost-saving-tips (#73 + #65 + accreditation),
+             price-transparency-healthcare (#74 + #75 + #65). ⛔ THE
+             REGISTER DID NOT CARRY ANY OF THESE. Opened as #73, #74, #75;
+             #65 amended for above-bound formulations. ⛔ DISCOVERY ONLY —
+             NO BLOG ARTICLE IS REMEDIATED AND NONE IS SCHEDULED. · FOUNDER
+2026-08-14 · ⛔ THE HOMEPAGE PROMOTES WHAT IT LINKS TO. Y5 replaced BOTH
+             card 1 (barred copy AND barred destination) and card 3 (CLEAN
+             copy, barred destination — blog/real-cost-of-mri carries
+             #65's 50-80% figure and #73's unregistered USRad prices).
+             ⛔ CLEAN CARD COPY DOES NOT LICENSE PROMOTING AN UNREMEDIATED
+             DESTINATION. This extends the Batch F principle — the
+             deployed page is the sole source of truth for what it may be
+             advertised as — to the PROMOTING surface: / MAY NOT DRIVE
+             TRAFFIC TO A ROUTE CARRYING BARRED CLAIMS, whatever the link
+             text says. ⚠️ "View All 12 Articles" IS THE UNRESOLVED
+             COROLLARY — it routes to an index listing all twelve,
+             including the four Y5 excluded. HELD FOR HOMEPAGE CLOSEOUT.
+             · FOUNDER
+2026-08-14 · CARD FIELD SOURCING RULED — CANONICAL DATA FIRST, WITH ONE
+             EVIDENCE-DRIVEN EXCEPTION. src/data/blogPosts.js is the
+             site's canonical article metadata. Card 1 uses its excerpt
+             verbatim. ⛔ CARD 3 USES THE META-DESCRIPTION INSTEAD BECAUSE
+             THE CANONICAL EXCERPT FAILS: "How artificial intelligence is
+             improving diagnostic accuracy while REDUCING COSTS FOR
+             PATIENTS" is a present-tense savings claim with no comparator
+             and no modality scope, and rule 26 reaches quantitative
+             claims WRITTEN IN WORDS. Titles taken from each article's
+             <h1>, not its <title> — the latter carries a "| USRad" site
+             suffix that is a template convention, not article copy.
+             readTime adapted from "8 min read"/"9 min read" to "8
+             min"/"9 min" because BlogPreviewSection appends " read";
+             verbatim would render "8 min read read." ⚠️ FORMAT
+             ADAPTATION, NOT EDITORIAL REWRITE. · FOUNDER
+2026-08-14 · ⚠️ BlogPreviewSection HARDCODES THREE ARTICLE OBJECTS THAT
+             blogPosts.js ALREADY DEFINES, WITH DRIFTED VALUES ("5 min" vs
+             "8 min read"; meta-description vs excerpt). IT IS A STALE
+             DUPLICATE OF THE CANONICAL SOURCE. The durable fix is
+             importing from blogPosts.js, which would make the homepage
+             cards structurally incapable of advertising an article
+             inaccurately — the exact defect class Y5 exists to fix.
+             ⛔ NOT DONE IN Y5: structural, and a blind import would
+             resurface uninsured-imaging-guide and real-cost-of-mri.
+             RECORDED FOR LATER ENGINEERING CLEANUP. · FOUNDER
+2026-08-14 · ⚠️ THE BLOG IS A LARGER UNREMEDIATED SURFACE THAN ANY ROUTE
+             ADDRESSED SO FAR. Ten of twelve articles reviewed or sampled
+             this session carry barred or unregistered claims; the two
+             clean ones are the two with NO USRad commercial content. The
+             pattern is that EVERY COST-TOPIC ARTICLE FAILS. RECORDED AS
+             SCOPE INTELLIGENCE FOR SEQUENCING, NOT AS AUTHORIZATION —
+             TRACKER §12 places blog last and nothing here changes that.
+             · ADVISOR
+   2026-08-14 · RED-1 · AboutSection CONTAINED ENTIRE. Render call commented
+             in index.astro; COMPONENT PRESERVED, NOT DELETED, NOT
+             REWRITTEN. ⛔ $246 MILLION IS OFF / — IT HAD BEEN LIVE IN
+             PRODUCTION THROUGHOUT THE ENTIRE HOMEPAGE PASS, INCLUDING
+             AFTER PR #7, BECAUSE CONTAINING SocialProofBar REMOVED ONE
+             TILE AND LEFT THE OTHER INSTANCE FOUR SECTIONS BELOW IT ON
+             THE SAME PAGE. CONTAINING A COMPONENT IS NOT CONTAINING A
+             CLAIM. Nine claims inventoried, seven failing or unruled:
+             BARRED were $246M (§6), "one of the first" (D3, the exact
+             rejected string), "more than 1,200" (rule 18 third form, no
+             April 2002 anchor), and "After decades" (#27 tenure (a),
+             eight-year company). ⛔ SURGICAL REMOVAL WAS ASSESSED AND
+             REJECTED: stripping the barred material leaves an H2 reading
+             "Proven" with every number gone, and a residual "built on the
+             foundation of a diagnostic imaging network" that — with no
+             scale, no date and no ended-in-2002 marker — reads as a
+             network USRad HAS NOW. THE VAGUER IT GETS, THE MORE IT
+             IMPLIES: a rule 26 failure PRODUCED BY DELETION, which is the
+             outcome G-1 named when it removed the nationwide-network tile
+             with no softened restatement and no smaller claim in the same
+             slot. #22 predicted it: find-and-replace would leave headings
+             with nothing under them. ✅ NO REPLACEMENT COPY INVENTED AND
+             NO APPROVED FIGURE SUBSTITUTED — §4a's verified set is
+             available for a later credibility rebuild under #22's
+             two-pass discipline, and assembling it is a positioning
+             decision, not a copy fix. ⛔ CONTAINING / DOES NOT CLOSE §6 —
+             $246M survives at blog/the-scan-that-never-happens:306, which
+             AccessProblemSection (retained) links to. · FOUNDER
+2026-08-14 · #54 — EIGHTH MEMBER, AND IT IS THE FOUNDING CASE ITSELF.
+             AboutSection's source breaks after "$246", so
+             grep -c '$246 million' AboutSection.astro RETURNS ZERO ON THE
+             FILE THAT PUBLISHES IT. Demonstrated directly during the
+             RED-1 assessment. ⛔ ANY EARLIER SWEEP REPORTING / CLEAN OF
+             $246M WAS MEASURING NOTHING. The family now runs to eight
+             across four distinct modes: line wrapping (AnciCareLegacy ×2,
+             the off-batch third, SearchStep1, MobileSearchModal,
+             AboutSection), variant form ("1,500+ centers" vs the
+             registered "1,500+ locations nationwide"), CSS transform
+             ("Typical MRI Price Comparison" rendered uppercase, invisible
+             to a case-sensitive search), and dash variance (50-80% vs
+             50–80%). ⛔ NOT ONE MEMBER WAS CAUGHT BY THE OBVIOUS GREP.
+             MANDATORY METHOD, RESTATED: flatten with
+             tr -s '[:space:]' ' ' before matching source; search the
+             shortest distinctive token, never the sentence; wildcard the
+             variable character; default to -i; and READ THE RENDERED
+             PAGE, because a built-artifact sweep is necessary and is not
+             sufficient. · ADVISOR
+2026-08-14 · ⚠️ / NOW HAS NO COMPANY HISTORY AND NO CREDIBILITY BAND.
+             SocialProofBar (PR #7), CredibilitySection (Y3),
+             AboutSection (RED-1) contained; the locations map (RED-2)
+             pending; MemberTrustBadge parked (#72). RECORDED AS A KNOWN
+             STRATEGIC COST ACCEPTED KNOWINGLY. ⛔ CONTAINMENT DID NOT
+             REMOVE A VALID CREDIBILITY BAND — the proof it rested on was
+             barred, so / had no defensible one before this pass either.
+             What the page now carries is architecture and process rather
+             than proof. §4a's approved historical forms remain available
+             for a later treatment in explicitly historical framing. ·
+             FOUNDER
+  2026-08-14 · RED-2 · LOCATIONS/MAP SECTION CONTAINED ENTIRE — BOTH THE
+             index.astro WRAPPER AND <NetworkMapPinsCarbon />. Component
+             file UNMODIFIED. WRAPPER: "1,500+ locations nationwide" is the
+             NAMED #56 HOMEPAGE-BODY INSTANCE — a figure appearing in no
+             register document in any form, whose disposition is REMOVE
+             SITEWIDE, NO NUMERICAL SUBSTITUTE, DO NOT REPLACE WITH 1,228;
+             plus rule 26 eyebrow, coverage sentence and seven-city list.
+             COMPONENT: FOUR OF FOUR STAT TILES FAIL — 1,500 (#56), 10
+             States Opening 2026 (unregistered), 48-72 Hour Appointment
+             Goal (D7; "Goal" is a hedge D7 reaches), 70% Lower Than
+             Hospitals (D4 at the confidential bound); pins assert markets
+             CURRENTLY OPEN on dates now past; "Building America's first
+             transparent imaging marketplace" is the D3 priority-claim
+             class — THE SAME BAR THAT REMOVED "one of the first" FROM
+             AboutSection UNDER RED-1, ON THE SAME PAGE, IN THE SAME PASS.
+             ⛔ NO SUBSTITUTION MADE AND NONE PERMITTED: 1,500 not replaced
+             with 1,200+, 70% not softened to 50%+, "America's first" not
+             retained in any form, tiles not deleted to preserve the map.
+             ⚠️ THE SECTION CONTRADICTED ITSELF IN A SINGLE VIEWPORT —
+             tiles asserting 1,500 centers and 10 states sat directly above
+             a progress bar reading "Phase 1 of 3 — Accepting select
+             centers in priority markets." ✅ THOSE TWO LINES ARE THE ONLY
+             STAGE-ACCURATE NETWORK COPY ON THE SITE and are PRESERVED IN
+             THE COMPONENT for a later network-building/market-coverage
+             rebuild — ⛔ PRESERVED FOR REUSE, NOT AS JUSTIFICATION TO KEEP
+             THE SECTION LIVE. A correct sentence inside a failing section
+             does not rescue the section; B4 precedent. · FOUNDER
+    2026-08-14 · ⚠️ RED-2's CONTAINMENT EXPOSED THE PARKED Y4 BANNER.
+             MemberTrustBadge variant="banner" now stands alone in white
+             space where the map was, publishing "Pre-negotiated member
+             pricing" at full width — the one Y4 claim found
+             UNAMBIGUOUSLY FALSE under rule 24. #72 records Y4 as blocking
+             nothing; ON THE EVIDENCE IT BLOCKS RELEASE. Parking the
+             component redesign was correct and is not reopened; what was
+             never done is the placement containment. · ADVISOR
+    2026-08-14 · HOMEPAGE CLOSEOUT — "View All 12 Articles" → "View All
+             Articles". LINK RETAINED, COUNT REMOVED. The destination is
+             independently reachable from header nav and footer, so
+             removing the homepage link would not contain the underlying
+             exposure — it would remove a path, not the claim. "12" is an
+             unverified countable assertion that drifts as articles are
+             added. ⛔ THIS DOES NOT SATISFY THE Y5 PRINCIPLE — / still
+             links to an index carrying four articles Y5 excluded
+             (#65, #73, #74, #75) plus blog/the-scan-that-never-happens
+             (§6, $246M). RECORDED AS ACCEPTED RESIDUAL EXPOSURE, RULED
+             KNOWINGLY, AND OWNED BY THE /blog SURFACE — not closed. ·
+             FOUNDER
+2026-08-14 · HOMEPAGE CLOSEOUT — "Healthcare Insights from Industry
+             Veterans" H2 REMOVED. "Industry Veterans" is an
+             experience/tenure representation in the #27 family; rule 26
+             reaches experience claims WRITTEN IN WORDS, and GREEN's fix
+             to the subhead beneath it ("30 years of experience helping
+             patients save" → "Practical guidance…") left the same claim
+             standing in a different register one line above. ⛔ NO
+             REPLACEMENT COPY INVENTED — the existing clean subhead was
+             PROMOTED into the H2 role verbatim and the now-redundant <p>
+             removed. Eyebrow and cards unchanged. ⚠️ A COPY FIX ONE LINE
+             AWAY FROM A DEFECT DOES NOT REACH THE DEFECT: GREEN corrected
+             the subhead and left the heading, and both said the same
+             thing. Adjacent lines must be read as a unit. · FOUNDER
+2026-08-14 · /blog RESIDUAL EXPOSURE RECORDED AT HOMEPAGE CLOSEOUT, NOT
+             ACTIONED. blog.astro:499 publishes "Join 10,000+ Subscribers"
+             — the same present-tense audience claim contained in
+             NewsletterPopup at PR #9, still live on the blog index. The
+             index also lists all twelve articles including the four Y5
+             excluded and the four further FAILs from the Y5 candidate
+             audit. ⛔ /blog IS A QUEUED SURFACE AND NOTHING HERE
+             AUTHORIZES REMEDIATING IT. · FOUNDER
+2026-08-14 · #54 — NINTH MEMBER AND A FIFTH MODE: COMPONENT-CHUNK
+             SEPARATION. A string sweep of a route's server chunk DOES NOT
+             REACH CONTENT RENDERED BY AN IMPORTED COMPONENT. Astro
+             compiles components into separate chunks, so "Free membership
+             included" and "Pre-negotiated member pricing" BOTH returned
+             zero from pages/index.astro.mjs — the contained banner AND
+             the retained inline pill, indistinguishable. THE PROBE COULD
+             NOT TELL CONTAINED FROM COMPILED-ELSEWHERE. ⛔ VERIFYING
+             CONTAINMENT OF A COMPONENT RENDER REQUIRES CHECKING THE CALL
+             SITE — grep the route chunk for the props (variant": "inline")
+             or the component's absence from the route's import graph —
+             NOT the absence of its strings from the route chunk. The five
+             modes are now: line wrapping, variant form, CSS transform,
+             dash variance, and component-chunk separation. · ADVISOR
+  2026-08-14 · #54 — NINTH MEMBER AND A FIFTH MODE: COMPONENT-CHUNK
+             SEPARATION. A string sweep of a route's server chunk DOES NOT
+             REACH CONTENT RENDERED BY AN IMPORTED COMPONENT. Astro
+             compiles components into separate chunks, so "Free membership
+             included" and "Pre-negotiated member pricing" BOTH returned
+             zero from pages/index.astro.mjs — the CONTAINED banner and
+             the RETAINED inline pill, indistinguishable. THE PROBE COULD
+             NOT TELL CONTAINED FROM COMPILED-ELSEWHERE, and was briefly
+             read as evidence that the retained pill had been removed.
+             ⛔ VERIFYING CONTAINMENT OF A COMPONENT RENDER REQUIRES
+             CHECKING THE CALL SITE — grep the route chunk for the props
+             (variant": "inline") or the component's absence from the
+             route's import graph — NOT the absence of its strings from
+             the route chunk. Confirmed working: the Y4a containment
+             verified as 1 variant": "inline" and zero banner. THE FIVE
+             MODES ARE NOW: line wrapping, variant form, CSS transform,
+             dash variance, and component-chunk separation. ⛔ NOT ONE OF
+             THE NINE MEMBERS WAS CAUGHT BY THE OBVIOUS GREP. · ADVISOR                    
+
 ```
 
 ---
@@ -3328,7 +4019,7 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 | 27 | Duration claims — sweep "over N years" / "a decade" describing AnciCare's operating life | **MERGED** into the page-by-page rewrite, 2026-08-07. Open |
 | 28 | 4.9★ satisfaction — `SocialProofBar:36`, fourth variant | #18 adjacent |
 | 29 | 50–70% published where the 50%+ floor is required — 6 locations | confidentiality |
-| 30 | "90 million Americans" — derived headcount class | ⛔ **NOT 2 locations.** See `TRACKER.md` #30 for the measured scope. ✅ **THE SITEWIDE FOOTER INSTANCE IS CLOSED 2026-08-13** — `CarbonFooter:167` was **ungated**, outside the `{!hideNewsletter && …}` block, and therefore shipped on **every route**; removed without substituting a replacement market-size statistic. A **fifteenth instance** outside the scope list was also cleared: `AnciCareStory`'s "90M Americans" card. Remaining instances open. Derivation and prospective bar recorded 2026-08-13 |
+| 30 | "90 million Americans" — derived headcount class | ⛔ **NOT 2 locations.** See `TRACKER.md` #30 for the measured scope. ✅ **THE SITEWIDE FOOTER INSTANCE IS CLOSED 2026-08-13** — `CarbonFooter:167` was **ungated**, outside the `{!hideNewsletter && …}` block, and therefore shipped on **every route**; removed without substituting a replacement market-size statistic. A **fifteenth instance** outside the scope list was also cleared: `AnciCareStory`'s "90M Americans" card. Remaining instances open. Derivation and prospective bar recorded 2026-08-13. ⛔ **GOVERNANCE CORRECTION 2026-08-14 — THAT CLOSURE WAS FOOTER-SCOPED, NOT PLATFORM-WIDE.** It was accurate for `CarbonFooter.astro` and was never a closure of the class. With P5 the **footer instance is now closed on BOTH codebases** — Astro at `673fb2a` and Remix `PBSFooter.tsx` at `f639080`, both verified live. **Every other instance remains OPEN and must not be marked resolved on the strength of the footer work.** See **#65** |
 | 31 | Patient counts outside the 150,000 family — `cost-saving-tips:1100`, `real-cost-of-mri:907` | blog routes |
 | 33 | Does Remix read `procedure`? Verify `PatientHeader` param mapping against the adjacent repo | one line if yes |
 | 34 | Provider-surface disclosure of internal modality fee amounts — conformance sweep under settled §4 | settled decision, open implementation |
@@ -3339,6 +4030,7 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 | ~~39~~ | ~~`APPROVED-FIGURES` §6 dates the CorVel sale to 2013~~ | ✅ **RESOLVED 2026-08-13.** Corrected to 2002 at §6(c) and §502. The closing letter governs |
 | 40 | Rule 18 does not reach date forms — "founded in 1994" ruled correct for prose | rule 18 amendment |
 | 41 | Audit existing line-number citations for staleness. The cite-by-section convention is already settled | audit only |
+| 65 | ⛔ **SITEWIDE RETIRED-CLAIM SWEEP — OPENED 2026-08-14, DISTINCT FROM P5 AND NOT CLOSED BY IT.** P5 closed the footer instance on two codebases. The same families still publish from **17 source files here across 22 sites**, plus **four `usrad-portal` surfaces of which THREE ARE EMAIL TEMPLATES** — and an email cannot be corrected after send. Full scope in `TRACKER.md` **#65** | **exists so footer closure cannot be read as platform-wide claim closure** |
 
 > **#22, #24 and #27 are MERGED, not closed.** They are executed together as one
 > page-by-page rewrite — see the dated entry *"#22, #24 AND #27 MERGE INTO ONE
