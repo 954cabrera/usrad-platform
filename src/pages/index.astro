@@ -52,12 +52,14 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
   <PricingSection />
 
   <!-- Member Trust Badge — banner above locations -->
-  <div class="max-w-2xl mx-auto px-4 sm:px-6 mb-10">
+  <!-- Contained 2026-08-14 (Y4 release ruling, option a): PLACEMENT CONTAINMENT ONLY — NOT a reopening of the parked Y4 membership redesign. The banner variant publishes "Pre-negotiated member pricing," which asserts EXECUTED PROVIDER RATE AGREEMENTS. None exist: standing rule 24 fails closed, and the 2026-08-14 PSA verification establishes CONTRACTUAL ARCHITECTURE, NOT THE EXISTENCE OF A CONTRACTED NETWORK. It also carries "Instant access upon booking" and a bare "Instant" — the #58 construction whose defect is the MISSING OBJECT, not the word: Member ID issuance IS implemented and immediate (membership.astro:336-338), but the rendered sentence names nothing and on / reads as a promise about imaging delivery. RED-2's containment of the locations map left this banner standing alone at full width in the space the map occupied, which is what converted a parked item into a release blocker. ⛔ THE SHARED COMPONENT IS NOT EDITED — MemberTrustBadge.astro renders on /membership at :56-61 (variant="banner", both links suppressed), so a component edit would be a two-surface change requiring coordination with #70. ✅ THE INLINE PILL AT THE TOP OF / REMAINS: "USRad Member · Free membership included · $0" carries implemented membership identity and policy facts — persistent USM-XXXXXX IDs in Supabase, 241 users backfilled, Member Portal, Member Bill of Rights — and MEMBERSHIP IS NOT A RETIRED OR UNSUPPORTED CONSTRUCT (firewall, DECISIONS 2026-08-14). Broader membership remediation remains PARKED under #70, #71, #72. -->
+  <!-- <div class="max-w-2xl mx-auto px-4 sm:px-6 mb-10">
     <MemberTrustBadge variant="banner" />
-  </div>
+  </div> -->
 
   <!-- Locations Map Section -->
-  <section class="py-16 sm:py-24 px-4 sm:px-6 bg-white">
+  <!-- Contained 2026-08-14 (RED-2): BOTH the index.astro wrapper AND <NetworkMapPinsCarbon /> removed from render. WRAPPER DEFECTS: "1,500+ locations nationwide" is the NAMED #56 HOMEPAGE-BODY INSTANCE — the figure appears in no register document in any form, and #56's disposition is REMOVE SITEWIDE, NO NUMERICAL SUBSTITUTE, DO NOT REPLACE WITH 1,228; the "Nationwide Imaging Network" eyebrow and "Find accredited MRI, CT, and ultrasound centers in major cities across the United States" are rule 26 present-tense network and coverage claims with no contracted providers; the seven-city list asserts current bookable coverage. COMPONENT DEFECTS: four of four stat tiles fail — 1,500 Premium Centers Joining (#56), 10 States Opening 2026 (unregistered forward-looking capability figure), 48-72 Hour Appointment Goal (D7 equivalent formulation; "Goal" is a hedge D7 reaches), 70 % Lower Than Hospitals (D4 at the confidential upper bound); pin tooltips assert markets CURRENTLY OPEN on dates now past ("Now Open Q2 2026"); "Top imaging centers competing to serve you faster and for less" is a rule 26 marketplace-in-operation claim; and "Building America's first transparent imaging marketplace" is the D3 PRIORITY-CLAIM CLASS — the same bar that removed "one of the first" from AboutSection under RED-1. INTERNAL CONTRADICTION: the tiles assert 1,500 centers and 10 states while the progress bar directly beneath reads "Phase 1 of 3 — Accepting select centers in priority markets", in the same viewport. NO SUBSTITUTION MADE: 1,500 not replaced with 1,200+, 70% not softened to 50%+, "America's first" not retained in any form, tiles not deleted to preserve the map. ✅ PRESERVED IN THE COMPONENT FOR A LATER NETWORK-BUILDING/MARKET-COVERAGE REBUILD: "Network Building: Phase 1 of 3" and "Accepting select centers in priority markets" are the only stage-accurate network copy on the site — ⛔ PRESERVED FOR REUSE, NOT USED AS JUSTIFICATION TO KEEP THIS SECTION LIVE. NetworkMapPinsCarbon.astro is UNMODIFIED. -->
+  <!-- <section class="py-16 sm:py-24 px-4 sm:px-6 bg-white">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-16 animate-on-scroll">
         <p
@@ -82,10 +84,11 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
       </div>
     </div>
     <NetworkMapPinsCarbon />
-  </section>
+  </section> -->
 
   <!-- About Section -->
-  <AboutSection />
+  <!-- Contained 2026-08-14 (RED-1): seven of nine claims fail or need a ruling; surgical removal is not available. BARRED: "$246 million in patient savings" (§6 — arithmetic on the void 400,000-case multiplicand; no cumulative savings figure exists anywhere in the 36-document corpus; named in the removal worklist); "one of the first nationwide diagnostic imaging networks" (D3 — narrowed forms including this exact string were considered and REJECTED); "more than 1,200 imaging centers" (rule 18 third form — approved compact is "1,200+ centers", canonical is "1,228 contracted imaging facilities in 43 states, April 2002" — and no April 2002 anchor, so an AnciCare-era count reads as a present USRad network); "After decades" (#27 tenure (a) — AnciCare ran eight years, 1994-2002, in unsigned prose). REMOVING THE BARRED MATERIAL LEAVES A SECTION THAT IS WORSE THAN BROKEN: the H2 asserts "Proven" with every number gone, and the residual "built on the foundation of a diagnostic imaging network" — no scale, no date, no ended-in-2002 marker — reads as a network USRad has NOW. That is a rule 26 failure PRODUCED BY DELETION, the outcome G-1 warned of: no softened restatement, no smaller claim in the same slot. #22 predicted it in terms: find-and-replace would leave headings with nothing under them. COMPONENT PRESERVED, NOT DELETED — the section's shape is the right vessel and §4a holds a verified set (1,228 facilities/43 states April 2002, $60M+ paid 1994-2001, founded 1994, acquired by CorVel Corporation NASDAQ: CRVL May 2002, Inc. 500 #210) for a later credibility rebuild under #22's two-pass discipline. The "Read the full story →" CTA to /about goes with it; /about is unremediated and the homepage promotes what it links to. ⛔ CONTAINING / DOES NOT CLOSE §6 — $246M survives at blog/the-scan-that-never-happens:306. -->
+  <!-- <AboutSection /> -->
 
   <!-- Blog Preview Section -->
   <BlogPreviewSection />

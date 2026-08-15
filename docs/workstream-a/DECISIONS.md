@@ -3839,7 +3839,166 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              pattern is that EVERY COST-TOPIC ARTICLE FAILS. RECORDED AS
              SCOPE INTELLIGENCE FOR SEQUENCING, NOT AS AUTHORIZATION —
              TRACKER §12 places blog last and nothing here changes that.
-             · ADVISOR                                    
+             · ADVISOR
+   2026-08-14 · RED-1 · AboutSection CONTAINED ENTIRE. Render call commented
+             in index.astro; COMPONENT PRESERVED, NOT DELETED, NOT
+             REWRITTEN. ⛔ $246 MILLION IS OFF / — IT HAD BEEN LIVE IN
+             PRODUCTION THROUGHOUT THE ENTIRE HOMEPAGE PASS, INCLUDING
+             AFTER PR #7, BECAUSE CONTAINING SocialProofBar REMOVED ONE
+             TILE AND LEFT THE OTHER INSTANCE FOUR SECTIONS BELOW IT ON
+             THE SAME PAGE. CONTAINING A COMPONENT IS NOT CONTAINING A
+             CLAIM. Nine claims inventoried, seven failing or unruled:
+             BARRED were $246M (§6), "one of the first" (D3, the exact
+             rejected string), "more than 1,200" (rule 18 third form, no
+             April 2002 anchor), and "After decades" (#27 tenure (a),
+             eight-year company). ⛔ SURGICAL REMOVAL WAS ASSESSED AND
+             REJECTED: stripping the barred material leaves an H2 reading
+             "Proven" with every number gone, and a residual "built on the
+             foundation of a diagnostic imaging network" that — with no
+             scale, no date and no ended-in-2002 marker — reads as a
+             network USRad HAS NOW. THE VAGUER IT GETS, THE MORE IT
+             IMPLIES: a rule 26 failure PRODUCED BY DELETION, which is the
+             outcome G-1 named when it removed the nationwide-network tile
+             with no softened restatement and no smaller claim in the same
+             slot. #22 predicted it: find-and-replace would leave headings
+             with nothing under them. ✅ NO REPLACEMENT COPY INVENTED AND
+             NO APPROVED FIGURE SUBSTITUTED — §4a's verified set is
+             available for a later credibility rebuild under #22's
+             two-pass discipline, and assembling it is a positioning
+             decision, not a copy fix. ⛔ CONTAINING / DOES NOT CLOSE §6 —
+             $246M survives at blog/the-scan-that-never-happens:306, which
+             AccessProblemSection (retained) links to. · FOUNDER
+2026-08-14 · #54 — EIGHTH MEMBER, AND IT IS THE FOUNDING CASE ITSELF.
+             AboutSection's source breaks after "$246", so
+             grep -c '$246 million' AboutSection.astro RETURNS ZERO ON THE
+             FILE THAT PUBLISHES IT. Demonstrated directly during the
+             RED-1 assessment. ⛔ ANY EARLIER SWEEP REPORTING / CLEAN OF
+             $246M WAS MEASURING NOTHING. The family now runs to eight
+             across four distinct modes: line wrapping (AnciCareLegacy ×2,
+             the off-batch third, SearchStep1, MobileSearchModal,
+             AboutSection), variant form ("1,500+ centers" vs the
+             registered "1,500+ locations nationwide"), CSS transform
+             ("Typical MRI Price Comparison" rendered uppercase, invisible
+             to a case-sensitive search), and dash variance (50-80% vs
+             50–80%). ⛔ NOT ONE MEMBER WAS CAUGHT BY THE OBVIOUS GREP.
+             MANDATORY METHOD, RESTATED: flatten with
+             tr -s '[:space:]' ' ' before matching source; search the
+             shortest distinctive token, never the sentence; wildcard the
+             variable character; default to -i; and READ THE RENDERED
+             PAGE, because a built-artifact sweep is necessary and is not
+             sufficient. · ADVISOR
+2026-08-14 · ⚠️ / NOW HAS NO COMPANY HISTORY AND NO CREDIBILITY BAND.
+             SocialProofBar (PR #7), CredibilitySection (Y3),
+             AboutSection (RED-1) contained; the locations map (RED-2)
+             pending; MemberTrustBadge parked (#72). RECORDED AS A KNOWN
+             STRATEGIC COST ACCEPTED KNOWINGLY. ⛔ CONTAINMENT DID NOT
+             REMOVE A VALID CREDIBILITY BAND — the proof it rested on was
+             barred, so / had no defensible one before this pass either.
+             What the page now carries is architecture and process rather
+             than proof. §4a's approved historical forms remain available
+             for a later treatment in explicitly historical framing. ·
+             FOUNDER
+  2026-08-14 · RED-2 · LOCATIONS/MAP SECTION CONTAINED ENTIRE — BOTH THE
+             index.astro WRAPPER AND <NetworkMapPinsCarbon />. Component
+             file UNMODIFIED. WRAPPER: "1,500+ locations nationwide" is the
+             NAMED #56 HOMEPAGE-BODY INSTANCE — a figure appearing in no
+             register document in any form, whose disposition is REMOVE
+             SITEWIDE, NO NUMERICAL SUBSTITUTE, DO NOT REPLACE WITH 1,228;
+             plus rule 26 eyebrow, coverage sentence and seven-city list.
+             COMPONENT: FOUR OF FOUR STAT TILES FAIL — 1,500 (#56), 10
+             States Opening 2026 (unregistered), 48-72 Hour Appointment
+             Goal (D7; "Goal" is a hedge D7 reaches), 70% Lower Than
+             Hospitals (D4 at the confidential bound); pins assert markets
+             CURRENTLY OPEN on dates now past; "Building America's first
+             transparent imaging marketplace" is the D3 priority-claim
+             class — THE SAME BAR THAT REMOVED "one of the first" FROM
+             AboutSection UNDER RED-1, ON THE SAME PAGE, IN THE SAME PASS.
+             ⛔ NO SUBSTITUTION MADE AND NONE PERMITTED: 1,500 not replaced
+             with 1,200+, 70% not softened to 50%+, "America's first" not
+             retained in any form, tiles not deleted to preserve the map.
+             ⚠️ THE SECTION CONTRADICTED ITSELF IN A SINGLE VIEWPORT —
+             tiles asserting 1,500 centers and 10 states sat directly above
+             a progress bar reading "Phase 1 of 3 — Accepting select
+             centers in priority markets." ✅ THOSE TWO LINES ARE THE ONLY
+             STAGE-ACCURATE NETWORK COPY ON THE SITE and are PRESERVED IN
+             THE COMPONENT for a later network-building/market-coverage
+             rebuild — ⛔ PRESERVED FOR REUSE, NOT AS JUSTIFICATION TO KEEP
+             THE SECTION LIVE. A correct sentence inside a failing section
+             does not rescue the section; B4 precedent. · FOUNDER
+    2026-08-14 · ⚠️ RED-2's CONTAINMENT EXPOSED THE PARKED Y4 BANNER.
+             MemberTrustBadge variant="banner" now stands alone in white
+             space where the map was, publishing "Pre-negotiated member
+             pricing" at full width — the one Y4 claim found
+             UNAMBIGUOUSLY FALSE under rule 24. #72 records Y4 as blocking
+             nothing; ON THE EVIDENCE IT BLOCKS RELEASE. Parking the
+             component redesign was correct and is not reopened; what was
+             never done is the placement containment. · ADVISOR
+    2026-08-14 · HOMEPAGE CLOSEOUT — "View All 12 Articles" → "View All
+             Articles". LINK RETAINED, COUNT REMOVED. The destination is
+             independently reachable from header nav and footer, so
+             removing the homepage link would not contain the underlying
+             exposure — it would remove a path, not the claim. "12" is an
+             unverified countable assertion that drifts as articles are
+             added. ⛔ THIS DOES NOT SATISFY THE Y5 PRINCIPLE — / still
+             links to an index carrying four articles Y5 excluded
+             (#65, #73, #74, #75) plus blog/the-scan-that-never-happens
+             (§6, $246M). RECORDED AS ACCEPTED RESIDUAL EXPOSURE, RULED
+             KNOWINGLY, AND OWNED BY THE /blog SURFACE — not closed. ·
+             FOUNDER
+2026-08-14 · HOMEPAGE CLOSEOUT — "Healthcare Insights from Industry
+             Veterans" H2 REMOVED. "Industry Veterans" is an
+             experience/tenure representation in the #27 family; rule 26
+             reaches experience claims WRITTEN IN WORDS, and GREEN's fix
+             to the subhead beneath it ("30 years of experience helping
+             patients save" → "Practical guidance…") left the same claim
+             standing in a different register one line above. ⛔ NO
+             REPLACEMENT COPY INVENTED — the existing clean subhead was
+             PROMOTED into the H2 role verbatim and the now-redundant <p>
+             removed. Eyebrow and cards unchanged. ⚠️ A COPY FIX ONE LINE
+             AWAY FROM A DEFECT DOES NOT REACH THE DEFECT: GREEN corrected
+             the subhead and left the heading, and both said the same
+             thing. Adjacent lines must be read as a unit. · FOUNDER
+2026-08-14 · /blog RESIDUAL EXPOSURE RECORDED AT HOMEPAGE CLOSEOUT, NOT
+             ACTIONED. blog.astro:499 publishes "Join 10,000+ Subscribers"
+             — the same present-tense audience claim contained in
+             NewsletterPopup at PR #9, still live on the blog index. The
+             index also lists all twelve articles including the four Y5
+             excluded and the four further FAILs from the Y5 candidate
+             audit. ⛔ /blog IS A QUEUED SURFACE AND NOTHING HERE
+             AUTHORIZES REMEDIATING IT. · FOUNDER
+2026-08-14 · #54 — NINTH MEMBER AND A FIFTH MODE: COMPONENT-CHUNK
+             SEPARATION. A string sweep of a route's server chunk DOES NOT
+             REACH CONTENT RENDERED BY AN IMPORTED COMPONENT. Astro
+             compiles components into separate chunks, so "Free membership
+             included" and "Pre-negotiated member pricing" BOTH returned
+             zero from pages/index.astro.mjs — the contained banner AND
+             the retained inline pill, indistinguishable. THE PROBE COULD
+             NOT TELL CONTAINED FROM COMPILED-ELSEWHERE. ⛔ VERIFYING
+             CONTAINMENT OF A COMPONENT RENDER REQUIRES CHECKING THE CALL
+             SITE — grep the route chunk for the props (variant": "inline")
+             or the component's absence from the route's import graph —
+             NOT the absence of its strings from the route chunk. The five
+             modes are now: line wrapping, variant form, CSS transform,
+             dash variance, and component-chunk separation. · ADVISOR
+  2026-08-14 · #54 — NINTH MEMBER AND A FIFTH MODE: COMPONENT-CHUNK
+             SEPARATION. A string sweep of a route's server chunk DOES NOT
+             REACH CONTENT RENDERED BY AN IMPORTED COMPONENT. Astro
+             compiles components into separate chunks, so "Free membership
+             included" and "Pre-negotiated member pricing" BOTH returned
+             zero from pages/index.astro.mjs — the CONTAINED banner and
+             the RETAINED inline pill, indistinguishable. THE PROBE COULD
+             NOT TELL CONTAINED FROM COMPILED-ELSEWHERE, and was briefly
+             read as evidence that the retained pill had been removed.
+             ⛔ VERIFYING CONTAINMENT OF A COMPONENT RENDER REQUIRES
+             CHECKING THE CALL SITE — grep the route chunk for the props
+             (variant": "inline") or the component's absence from the
+             route's import graph — NOT the absence of its strings from
+             the route chunk. Confirmed working: the Y4a containment
+             verified as 1 variant": "inline" and zero banner. THE FIVE
+             MODES ARE NOW: line wrapping, variant form, CSS transform,
+             dash variance, and component-chunk separation. ⛔ NOT ONE OF
+             THE NINE MEMBERS WAS CAUGHT BY THE OBVIOUS GREP. · ADVISOR                    
+
 ```
 
 ---
