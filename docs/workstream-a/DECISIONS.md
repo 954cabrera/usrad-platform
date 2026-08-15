@@ -3997,7 +3997,33 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              verified as 1 variant": "inline" and zero banner. THE FIVE
              MODES ARE NOW: line wrapping, variant form, CSS transform,
              dash variance, and component-chunk separation. ⛔ NOT ONE OF
-             THE NINE MEMBERS WAS CAUGHT BY THE OBVIOUS GREP. · ADVISOR                    
+             THE NINE MEMBERS WAS CAUGHT BY THE OBVIOUS GREP. · ADVISOR
+     2026-08-14 · HOMEPAGE MERGED AS PR #10 AT 4d12da3 AND DEPLOYED. 17 files,
+             1,208 insertions, 278 deletions. Employer, Provider, P5
+             footer and Homepage remediation are all LIVE IN PRODUCTION.
+             main moved cda6b41..4d12da3 — SEVENTH MOVEMENT THIS MONTH,
+             caught by the standing state check. · FOUNDER
+2026-08-14 · ⛔ NEW STANDING PRACTICE — VERIFY THE RELEASE AGAINST THE LIVE
+             SITE, NOT THE BUILD. The homepage release was verified with
+             curl -s https://usrad.com/ | tr -s '[:space:]' ' ' and twelve
+             barred strings returned zero, with "Save 50%+" and "USRad
+             Member" confirmed present. THIS IS THE FIRST TIME THIS
+             WORKSTREAM HAS VERIFIED A RELEASE AGAINST PRODUCTION RATHER
+             THAN dist/. ⚠️ IT SHOULD HAVE BEEN THE STANDARD ALL ALONG:
+             #54 now runs to nine members across five false-zero modes,
+             and one of them — component-chunk separation — made a
+             BUILD-ARTIFACT SWEEP RETURN A FALSE ZERO ON THE SAME DAY.
+             A curl-and-flatten sweep costs one command and is the only
+             check that sees what a visitor sees. ADOPT AS THE CLOSING
+             STEP FOR EVERY SURFACE. · FOUNDER + ADVISOR
+2026-08-14 · $246 MILLION IS OFF PRODUCTION. It survived PR #7 because
+             containing SocialProofBar removed one tile and left the other
+             instance FOUR SECTIONS BELOW IT ON THE SAME PAGE, and it
+             survived every literal sweep because the source breaks after
+             "$246" — grep -c '$246 million' AboutSection.astro RETURNS
+             ZERO ON THE FILE THAT PUBLISHES IT. ⛔ CONTAINING A COMPONENT
+             IS NOT CONTAINING A CLAIM, AND A ZERO FROM A MULTI-WORD GREP
+             IS NOT EVIDENCE OF ABSENCE. · FOUNDER                            
 
 ```
 
