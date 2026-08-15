@@ -322,23 +322,97 @@ The active task is **`/` (homepage) remediation** on branch
 `homepage-remediation`. The release that this section previously described is
 closed — see §13.
 
-**Where the homepage pass stands (2026-08-14):**
+**The `/` homepage remediation pass is COMPLETE at `1963cc2`.** Branch
+`homepage-remediation`, working tree clean, `main` is level (0 behind), ready
+for PR.
 
-✅ **GREEN — CLOSED at `de1a121`.** Fourteen items across nine files.
-✅ **YELLOW Y6, Y1, Y2, Y3 — CLOSED at `a1a2bb3`.** Hero `<h1>` replaced with
-   D14's "Save 50%+ / on MRI"; PricingSection comparison block and 48-hour tile
-   contained; CredibilitySection contained entire.
-⛔ **YELLOW Y4 — PARKED, NOT RESOLVED.** Deferred to a dedicated membership
-   pass. See **#72**, and **#70** / **#71** for the coupled surfaces. **It does
-   not block homepage continuation.** Nothing in the membership system is to be
-   modified from a homepage pass.
-⬜ **YELLOW Y5 — OPEN.** BlogPreviewSection featured card. ⚠️ Coupled to
-   `blog/uninsured-imaging-guide`'s title, which stays open under **#65** for
-   editorial adjudication.
-⬜ **RED — unstarted, for CC.** `AboutSection` (still ships `$246M` in
-   production), the locations-map containment, and the `#65` sweep.
+### What was completed
 
-**Y5 is the only remaining YELLOW item.** The next action is §11.
+| Phase | Result |
+|---|---|
+| **GREEN** | ✅ 14 items across 9 files — `de1a121` |
+| **YELLOW** | ✅ Y6 hero, Y1/Y2 pricing, Y3 credibility, Y5 blog cards — `a1a2bb3`, `71972c1` |
+| **RED** | ✅ RED-1 AboutSection, RED-2 locations map, Y4a banner, closeout — `1963cc2` |
+| **Y4** | ⛔ **PARKED — not resolved, not contained, not approved.** See below |
+
+**Cleared from `/`:** `$246 million` · `70% Less` · `Pay hundreds, not thousands`
+· `1,500+` ×3 · `$3,200`/`$260` · `60–70%` · `67%` · `48-hour` · `48-72` ·
+`Within 4 hours` · `one of the first` · `America's first` · `Industry Veterans`
+· `30 years` · four `instant` constructions · ACR/nationwide claims · the
+board-certification guarantee form · `Pre-negotiated member pricing` ·
+`Save up to 70%` · `1,500+ centers`.
+
+**Hero now reads** `Save 50%+` / `on MRI.` under **D14**, with the
+commercial-plan comparator basis and radiologist-interpretation inclusion
+immediately beneath it, per D14's two presentation constraints.
+
+### ⛔ Intentional containments — components PRESERVED, not deleted
+
+Five render calls are commented in `src/pages/index.astro`, each with a dated
+inline reason. **None of these component files was modified.**
+
+| Contained | Why | Rebuild belongs to |
+|---|---|---|
+| `SocialProofBar` | 3 of 4 tiles retired/unsourced (D1/#24, §6, #28) | credibility pass |
+| `CredibilitySection` | 3 of 4 elements fail; **#44 blocked on Appendix B decision 3**, and per #45 copy may be REMOVED on the draft standard's basis but not APPROVED on it | ✅ flips to a rewrite the moment Appendix B decision 3 lands |
+| `AboutSection` | $246M (§6), "one of the first" (D3), "more than 1,200" (rule 18), "After decades" (#27). **Surgical removal assessed and REJECTED** — stripping the barred material leaves an H2 asserting "Proven" with no proof, and a residual that reads as a network USRad has NOW: a rule 26 failure produced by deletion | credibility pass, §4a forms available |
+| Locations map — **wrapper AND component** | 4 of 4 stat tiles fail (#56, D7, D4); "America's first" is the D3 class. ✅ *"Network Building: Phase 1 of 3 — Accepting select centers in priority markets"* is the only stage-accurate network copy on the site and is **preserved in the component for reuse** | network-building/market-coverage pass |
+| `MemberTrustBadge variant="banner"` | "Pre-negotiated member pricing" asserts executed provider rate agreements that do not exist (rule 24) | Y4 membership pass |
+
+⚠️ **`/` NOW HAS NO PROOF BAND AT ALL** — no social proof, no credibility strip,
+no map, no company history. **This was ruled knowingly at each step and is
+recorded in `DECISIONS.md`.** Containment did not remove a *valid* credibility
+band: the proof it rested on was barred, so `/` had no defensible one before
+this pass either. What the page now carries is architecture and process. §4a's
+approved historical AnciCare forms remain available for a later treatment in
+explicitly historical framing.
+
+### ⛔ Y4 — PARKED, and why it must not be reopened casually
+
+**Membership is implemented platform architecture**, not an unsupported
+marketing construct: persistent `USM-XXXXXX` IDs in Supabase, 241 users
+backfilled, Member Credential Block at booking confirmation, Member Portal,
+Member Bill of Rights, canonical `/membership`. A proposal to contain the whole
+component was **withdrawn on evidence**.
+
+⛔ **The firewall, recorded in `DECISIONS.md` 2026-08-14:** *USRad Membership is
+an implemented identity and access architecture. Provider-network claims made as
+membership benefits are independently governed and may not be inferred merely
+from the existence of membership.*
+
+Only the **banner placement** was contained, and only because it published a
+rule-24 failure. `MemberTrustBadge.astro`, `/membership`, `/member-rights` and
+the inline pill are all **unchanged**. Open under **#70** (`/membership` — nine
+present/past-tense pre-negotiated network claims plus an internal contradiction
+at `:480`), **#71** (`/member-rights` Right #5), **#72** (Y4 parked).
+
+### ⚠️ Residual exposure — RULED AND RECORDED, NOT CLOSED
+
+These belong to other surfaces. **`/` is clean; the site is not.**
+
+- **`/blog`** — `View All Articles` links to an index carrying four Y5-excluded
+  articles plus `blog/the-scan-that-never-happens:306` (**§6, $246M**).
+  `blog.astro:499` still publishes `Join 10,000+ Subscribers`
+- **`AccessProblemSection`** (retained on `/`) links to that same `$246M` article
+- **`CarbonLayout`** `og:title` / `og:description` — *"nationwide"*,
+  *"infrastructure-grade reliability"*; sitewide, #55-adjacent
+- **#73** unregistered live USRad prices · **#74** fabricated pre-launch patient
+  testimonials · **#75** Price Match Guarantee · **#65** above-bound savings
+  formulations — all on blog routes, none scheduled
+- **#69** six orphaned backup files in `src/` contaminating every sweep
+
+### ⛔ Method — #54 now runs to nine members and FIVE modes
+
+**Not one was caught by the obvious grep.** Line wrapping · variant form · CSS
+transform (`uppercase` renders a string that does not exist in source in that
+case) · dash variance · **component-chunk separation** (a route-chunk string
+sweep does not reach content rendered by an imported component — verify
+containment at the **call site**, not by string absence).
+
+**Mandatory:** flatten with `tr -s '[:space:]' ' '` before matching source;
+search the shortest distinctive token, never the sentence; wildcard the variable
+character; default to `-i`; and **read the rendered page** — a built-artifact
+sweep is necessary and is not sufficient.
 
 ---
 
@@ -346,34 +420,31 @@ closed — see §13.
 
 The smallest safe path to production, in order:
 
-1. ✅ **DONE — PR #7 merged** at `da8eb85` and deployed. See §13.
+1. ✅ **DONE — the `/` remediation pass is complete** at `1963cc2`, pushed.
+   `main` is level (0 behind); no reconciliation required.
 
-2. **Commit this documentation package** on `homepage-remediation`:
-   the `DECISIONS.md` August 14 entries, `APPROVED-FIGURES.md` §1d and the §4a
-   DO NOT CONFLATE callout, the `TRACKER.md` consequences, and this file.
-   ⛔ **Governance commit only — no source files.**
+2. **Open the PR** from `homepage-remediation` → `main`. Body: the `1963cc2`
+   commit message, which carries the full verification record.
 
-3. **Then** the homepage GREEN batch — 12 small manual corrections, no new copy,
-   no layout restructure.
+3. **Merge and deploy.** Then verify on production that `$246 million` is absent
+   from `/` — ⛔ **whitespace-normalized**, because
+   `grep -c '$246 million' AboutSection.astro` returns **ZERO on the file that
+   publishes it**. Use:
+   `tr -s '[:space:]' ' ' < <file> | grep -c "246 million"`
 
-4. **Then** YELLOW, each with a visual pass at 390 / 768 / 1024 / 1440.
+4. **Update this file and `TRACKER.md` §12** with the merge SHA, and record the
+   `main` movement in `DECISIONS.md`. **`main` has moved five times this month
+   and every movement was found by counting, not by noticing** — run the §2
+   state check before every batch.
 
-5. **RED goes to CC**, not to manual edits: `AboutSection` rewrite-or-contain,
-   the locations-map containment, and `CarbonFooter` — which additionally
-   requires synchronisation with Remix `PBSFooter.tsx` and is therefore a
-   two-codebase change. See §9.
-   ✅ **UPDATED 2026-08-14 — the `CarbonFooter` third of this step is DONE.**
-   It was executed as **P5**, standalone and cross-repository, and is live on
-   both properties — see §15. **`AboutSection` and the locations-map
-   containment remain open**, and this step is not closed by P5. ⛔ The Remix
-   relationship is now **claim parity, not synchronisation**; do not "sync"
-   the two files.
+5. **Then, and only then**, begin the next surface. Per §5 the queue is
+   `/press-kit` (named first by exposure in `TRACKER.md` §12 row 3, register-borne
+   — see DOC-23), then `/about`, `/how-it-works`, `/what-is-an-mri`, `/contact`,
+   then single-instance routes and blog.
 
-6. **Release `/` on its own** per §13's incremental strategy, then update this
-   file before starting the next surface.
-
-⛔ Do not touch application/EDS work. Do not broaden scope beyond `/`.
-⛔ Do not begin any other surface until `/` is released and this file is updated.
+⛔ **Do not reopen `/`.** Do not reopen Employer or Provider. Do not touch
+application/EDS work. Do not begin membership remediation from a page pass —
+see the Y4 firewall in §10.
 
 ---
 
