@@ -56,17 +56,12 @@ Read step 4 in full before proposing the removal of any figure.
 
 ---
 
-## 2. CURRENT STATE
-
-| | |
-|---|---|
-| **Date of this snapshot** | 2026-08-14 (post-release) |
-| **Working branch** | `homepage-remediation` — created directly from production `main` at `da8eb85` |
-| **Branch HEAD** | `40328f0` — *docs: checkpoint production release and MRI savings decision* |
-| **Working tree** | ⚠️ **UPDATED 2026-08-14 — NOT clean.** Carries the uncommitted `docs/workstream-a/*` governance package described in §6. No source file is modified |
-| **`main`** | ⚠️ **UPDATED 2026-08-14 — `main` HAS MOVED to `673fb2a`** (*Merge PR #8*, P5 footer containment). Was `da8eb85` — *Merge PR #7*. Local `main` synchronized to `origin/main` at `673fb2a`. ⛔ **`homepage-remediation` was NOT updated — see §15** |
-| **Production** | ⚠️ **UPDATED 2026-08-14 — Vercel now serving `673fb2a` at usrad.com** (was `da8eb85`). Employer + Provider remediation **LIVE**; **P5 footer containment LIVE on both properties — see §15** |
-| **Prior release** | PR #7 — 78 commits, 105 files. Merged 2026-08-14. See §12 for its verified contents and §13 for the checkpoint |
+| **Working branch** | ✅ **UPDATED 2026-08-14 — `main`.** `homepage-remediation` is merged and spent |
+| **Working tree** | ✅ **Clean.** The governance package described in §6 is committed |
+| **`main`** | ✅ **UPDATED 2026-08-14 — `main` IS `4d12da3`** (*Merge PR #10, homepage-remediation* — 17 files, 1,208 insertions, 278 deletions). Moved `cda6b41..4d12da3`. Local `main` synchronized to `origin/main` |
+| **Production** | ✅ **UPDATED 2026-08-14 — Vercel serving `4d12da3` at usrad.com.** Employer + Provider + P5 footer + **Homepage** remediation all **LIVE** |
+| **Prior releases** | PR #7 `da8eb85` (Employer/Provider, 78 commits/105 files) · PR #8 `673fb2a` (P5 footer, two-repo) · PR #9 `cda6b41` (NewsletterPopup, #66) · PR #10 `4d12da3` (homepage). See §12 for PR #7's verified contents and §13 for the checkpoint |
+| **⚠️ `main` movements** | **SEVEN this month.** Every one was found by counting, not by noticing. Run the §2 state check before every batch | | PR #7 — 78 commits, 105 files. Merged 2026-08-14. See §12 for its verified contents and §13 for the checkpoint |
 | **Repo** | `git@github.com:954cabrera/usrad-platform.git` |
 
 ### ✅ Local branch-pointer hazard — RESOLVED
@@ -322,9 +317,18 @@ The active task is **`/` (homepage) remediation** on branch
 `homepage-remediation`. The release that this section previously described is
 closed — see §13.
 
-**The `/` homepage remediation pass is COMPLETE at `1963cc2`.** Branch
-`homepage-remediation`, working tree clean, `main` is level (0 behind), ready
-for PR.
+✅ **The `/` homepage remediation pass is COMPLETE, MERGED AND DEPLOYED.**
+Final branch commit `1963cc2`; merged as **PR #10 at `4d12da3`** — 17 files,
+1,208 insertions, 278 deletions; Vercel serving it at usrad.com.
+
+⛔ **VERIFIED AGAINST THE LIVE SITE, NOT THE BUILD.** Twelve barred strings
+return **zero** from `curl -s https://usrad.com/ | tr -s '[:space:]' ' '`:
+`246 million` · `one of the first` · `more than 1,200` · `1,500` · `70% Less` ·
+`Pay hundreds` · `48-72` · `America's first` · `Industry Veterans` ·
+`Pre-negotiated` · `$3,200` · `$260`. `Save 50%+` and `USRad Member` both
+present. ⚠️ **This was the first release in this workstream verified against
+production rather than `dist/`, and it should be the standard** — see
+`DECISIONS.md` 2026-08-14.
 
 ### What was completed
 
