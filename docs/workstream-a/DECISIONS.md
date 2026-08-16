@@ -4029,6 +4029,104 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 
 ---
 
+## August 16, 2026
+
+```
+2026-08-16 · FOUNDER RULINGS ON NEWLY ADMITTED ANCICARE EVIDENCE. Five
+             source documents reviewed: the SFBJ article of 5 Feb 1999 in
+             full; congratulatory letters from Gov. Jeb Bush (FL, 30 Jun
+             2000) and Lt. Gov. Cruz Bustamante (CA, 2 Oct 2000); a Jeb
+             Bush Florida 100 letter of 25 Feb 2000; three award plaques;
+             and the "Overview of the Company" corporate record. TEN §4a
+             rows, FIVE §4a notes, FIVE §4b bars. · FOUNDER
+2026-08-16 · ⛔ THE ENTITY QUESTION IS CLOSED — Managed Care Networks,
+             Inc. d/b/a AnciCare PPO, stated on the face of the corporate
+             overview. The Florida 100 plaques, issued to Managed Care
+             Networks, Inc., are AnciCare recognitions. ⚠️ THE REGISTER
+             HAD NEVER RECORDED THE LEGAL ENTITY NAME. Any outside party
+             searching the corporate record finds Managed Care Networks,
+             not AnciCare; holding the d/b/a means that discovery reads as
+             thoroughness rather than discrepancy. · FOUNDER
+2026-08-16 · ⛔ CO-FOUNDING AND EQUITY OWNERSHIP ARE DISTINCT AND BOTH
+             STAND. The corporate overview records Michael Cabrera as
+             founder and 100% owner. §4a approves "co-founded by Michael
+             and Donna Cabrera" on the founder letter of 23 Sep 1994 and
+             Florida Trend. ⛔ THE OWNERSHIP STATEMENT MAY NOT BE CITED AS
+             EVIDENCE NEGATING DONNA'S CO-FOUNDER ROLE. Public copy uses
+             the co-founder form; the ownership fact is register-held and
+             not required publicly. · FOUNDER
+2026-08-16 · ⚠️ 608 FACILITIES — TWO FORMS, ONE FACT. The corporate
+             overview's "32 states and the District of Columbia" is
+             canonical; SFBJ's "33 states" is reconcilable jurisdiction
+             shorthand counting DC as a state. IDENTICAL COUNTS. ⛔ NOT A
+             RULE 18 THIRD FORM AND NOT TO BE REPORTED AS A DISCREPANCY.
+             · FOUNDER
+2026-08-16 · GROWTH ARC APPROVED FOR /about: 608 facilities across 32
+             states and DC at year-end 1998 → 1,228 contracted imaging
+             facilities across 43 states by April 2002. Two dated
+             waypoints, two sources, no reconciliation gap. ⚠️ SUPERSEDES
+             the earlier advisory recommendation of an endpoint-only
+             presentation, and makes the 800/March-2000 trajectory pair
+             unnecessary on this surface. · FOUNDER
+2026-08-16 · RECOGNITION SET RESTRAINED TO THREE. 1999 Inc. 500 #210;
+             SFBJ No. 1 South Florida PPO 1999; Hispanic Business 500
+             largest Hispanic-owned companies, PUBLISHED UNRANKED.
+             ⛔ #320 IS REGISTER-HELD AND NOT PUBLISHED ON /about.
+             ⛔ FLORIDA 100 IS ADMITTED TO THE REGISTER BUT NOT TO THE
+             PRINCIPAL RECOGNITION LINE. ⛔ THE GUBERNATORIAL
+             CONGRATULATIONS ARE EVIDENCE, NOT MARKETING COPY, AND MAY NOT
+             BE QUOTED OR CITED IN PUBLIC COPY. ⛔ The Inc. 1,236% growth
+             figure is barred from /about even if later verified.
+             · FOUNDER
+2026-08-16 · ⛔ SELF-INSURED EMPLOYERS ARE DOCUMENTED ANCICARE CUSTOMERS
+             AND CARRY NARRATIVE WEIGHT. Legitimate continuity with
+             USRad's present primary audience. ⛔ BENEFIT LINE AND
+             OPERATING ARCHITECTURE REMAIN DISTINCT — self-insured
+             workers' compensation is not a self-funded group health plan.
+             COPY MAY SAY THE BUYER IS FAMILIAR; IT MAY NOT SAY THE MODEL
+             IS THE SAME. Group-health referrals acknowledged in the
+             documentary formulation, not firewalled, and not evidence of
+             a group-health business. · FOUNDER
+2026-08-16 · ⛔ THE /about FIREWALL IS CORPORATE AND OPERATIONAL
+             INHERITANCE, NOT HISTORICAL EXPERIENCE. Approved form:
+             "USRad is a new company. It did not inherit AnciCare's
+             network, contracts, clients or operating assets."
+             ⛔ FORMULATIONS DENYING ANY RELATIONSHIP BEYOND THE FOUNDERS
+             OVERSTATE THE SEPARATION AND ARE NOT APPROVED. · FOUNDER
+2026-08-16 · BOTH /about FOUNDER QUOTES REMOVED FOR THIS VERSION. "We
+             launched USRad to save lives" (clinical-outcome frame; "a
+             proven model" in the same quote) and "90 million Americans
+             still need what we built" (D8/#30 barred figure; §4c bars the
+             signed-quote carve-out for quantitative figures). ⛔ NOT
+             REPLACED WITH MANUFACTURED QUOTATIONS. The emptied "My
+             Promise to You" block is removed with them. ⚠️ CONSEQUENCE
+             RECORDED: /about now has no first-person voice. · FOUNDER
+2026-08-16 · THE 2002–2025 GAP IS SHOWN VISUALLY ONLY. The timeline
+             breaks at the May 2002 acquisition; the empty span is the
+             statement. ⛔ NO EXPLANATORY PROSE WITHOUT EVIDENCE. The
+             register holds nothing on the intervening period. · FOUNDER
+2026-08-16 · DONNA'S /about CARD IS THE MINIMAL FORM — name, title, and
+             the shared factual line "Co-founded AnciCare PPO in 1994.
+             Through the CorVel acquisition in 2002." ⛔ NO ADDITIONAL
+             INDIVIDUAL BIOGRAPHY ON /about. Her co-founder status is
+             SETTLED. · FOUNDER
+2026-08-16 · THE CorVel CONTINUED-USE SENTENCE IS OMITTED FROM /about.
+             §4a's FA-class entry stands in the register but is not
+             published — it is founder-attested, requires visible
+             attribution, and Act 4 is stronger without a qualified
+             sentence in it. · FOUNDER
+2026-08-16 · ⚠️ ADMITTING A DOCUMENT DOES NOT ADMIT EVERY FIGURE IN IT.
+             The SFBJ article of 5 Feb 1999 is admitted for the scheduling
+             result and the PPO ranking. It also contains "$18 million
+             expected in 1999", ALREADY BARRED AS A PROJECTION, and "120
+             MRI centers in Florida" and "five employees", NEITHER
+             ADMITTED. ⛔ The article carries a reprint-permission line —
+             short attributed quotation only, no reproduction.
+             · FOUNDER + ADVISOR
+```
+
+---
+
 ## Open decisions awaiting founder
 
 | # | Decision | Blocks |
