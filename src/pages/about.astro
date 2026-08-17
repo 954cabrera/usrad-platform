@@ -5,10 +5,7 @@ import AOSInit from "../components/AOSInit.astro";
 export const prerender = true;
 ---
 
-<CarbonLayout
-  title="About USRad - The Full Story (V2 Preview)"
-  isHeroPage={false}
->
+<CarbonLayout title="About USRad - The Full Story" isHeroPage={false}>
   <AOSInit />
 
   <!-- Hero Section with Background Image -->
@@ -445,7 +442,9 @@ export const prerender = true;
               <div
                 class="mt-4 inline-flex items-center gap-3 bg-[#cc9933]/10 px-4 py-2 rounded-full"
               >
-                <span class="text-2xl font-bold text-[#cc9933]/70">150,000+</span>
+                <span class="text-2xl font-bold text-[#cc9933]/70"
+                  >150,000+</span
+                >
                 <span class="text-white/60 text-sm">workers served</span>
               </div>
             </div>
@@ -688,298 +687,11 @@ export const prerender = true;
     }
   </style>
 
-  <!-- NEW PREMIUM SAVINGS SECTION -->
+  <!-- Section wrapper. The retired case study this section was named for was DELETED 2026-08-17 (About step 1, founder-ruled); git baseline 411577a is the preservation record. id="case-study-246m" retired with it — retaining it would have emitted trust_content_view with section=case_study_246m for unrelated surviving content. Surviving children: the Next Era pillars, the founder promise, the founders section and the final CTA. Wrapper classes retained pending Act 6 composition review. -->
   <section
-    id="case-study-246m"
     class="py-24 px-4 sm:px-6 bg-gradient-to-br from-white to-gray-50 overflow-hidden"
   >
     <div class="max-w-6xl mx-auto">
-      <!-- Case Study Header -->
-      <div class="text-center mb-24" data-aos="fade-up">
-        <p
-          class="text-xs font-semibold uppercase tracking-[0.2em] text-[#B08A4A] mb-6"
-        >
-          Proof of Concept
-        </p>
-        <p class="text-2xl md:text-3xl font-medium text-gray-500 mb-3">
-          How the Direct-Contract Model Delivered
-        </p>
-        <h1
-          class="text-7xl md:text-8xl lg:text-9xl font-bold leading-none mb-6"
-        >
-          <span
-            class="bg-gradient-to-r from-[#FFD700] via-[#cc9933] to-[#B08A4A] bg-clip-text text-transparent"
-          >
-            $246 Million
-          </span>
-        </h1>
-        <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
-          $246 million in verified savings — delivered across a national
-          network, in real-world conditions, before the technology existed to
-          make it easy.
-        </p>
-      </div>
-
-      <!-- Timeline with Photos -->
-      <div class="space-y-32">
-        <!-- The Problem -->
-        <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
-          <div class="relative rounded-3xl overflow-hidden shadow-2xl">
-            <img
-              src="/images/website/about_waiting.webp"
-              alt="Worker in pain waiting for care"
-              class="w-full h-96 object-cover"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
-            >
-            </div>
-          </div>
-          <div>
-            <div class="flex items-center gap-2 mb-2">
-              <span
-                class="inline-block bg-red-100 text-red-800 text-sm font-semibold px-3 py-1 rounded-full tracking-wide shadow-sm"
-                >Pre-AnciCare</span
-              >
-              <div
-                class="inline-block bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-medium"
-              >
-                The Old Way
-              </div>
-            </div>
-
-            <h2 class="text-4xl font-bold text-gray-900 mb-6">
-              14 Days of Waiting
-            </h2>
-            <div class="space-y-4">
-              <div class="flex items-start gap-4">
-                <div
-                  class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <img
-                    src="/images/icons/wait.svg"
-                    alt="Long wait times"
-                    class="w-8 h-8"
-                  />
-                </div>
-                <div>
-                  <p class="font-semibold text-lg text-gray-900">
-                    Pain without answers
-                  </p>
-                  <p class="text-gray-600">
-                    Workers suffered while insurance processed paperwork
-                  </p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4">
-                <div
-                  class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <img
-                    src="/images/icons/medicalbill.svg"
-                    alt="Expensive medical bills"
-                    class="w-8 h-8"
-                  />
-                </div>
-                <div>
-                  <p class="font-semibold text-lg text-gray-900">
-                    $3,200 for a plain MRI
-                  </p>
-                  <p class="text-gray-600">
-                    Forcing people to delay or skip care entirely
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Our Solution -->
-        <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
-          <div class="order-2 md:order-1">
-            <div class="flex items-center gap-2 mb-2">
-              <span
-                class="inline-block bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full tracking-wide shadow-sm"
-                >The Solution</span
-              >
-              <span
-                class="inline-block bg-[#fefbf5] text-[#cc9933] border border-[#cc9933] text-sm font-semibold px-3 py-1 rounded-full tracking-wide shadow-sm"
-                >AnciCare</span
-              >
-            </div>
-
-            <h2 class="text-4xl font-bold text-gray-900 mb-6">
-              2 Days to Answers
-            </h2>
-            <div class="space-y-4">
-              <div class="flex items-start gap-4">
-                <div
-                  class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <img
-                    src="/images/icons/cellcalendar.svg"
-                    alt="Quick scheduling"
-                    class="w-8 h-8"
-                  />
-                </div>
-                <div>
-                  <p class="font-semibold text-lg text-gray-900">
-                    Same-week imaging
-                  </p>
-                  <p class="text-gray-600">
-                    Direct contracts cut through red tape
-                  </p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4">
-                <div
-                  class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <img
-                    src="/images/icons/protection.svg"
-                    alt="Transparent pricing"
-                    class="w-8 h-8"
-                  />
-                </div>
-                <div>
-                  <p class="font-semibold text-lg text-gray-900">
-                    $475 transparent pricing
-                  </p>
-                  <p class="text-gray-600">No surprises, no hidden fees</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="order-1 md:order-2 relative rounded-3xl overflow-hidden shadow-2xl"
-          >
-            <img
-              src="/images/website/imaging-center-hero-fallback.webp"
-              alt="Modern MRI facility"
-              class="w-full h-96 object-cover"
-            />
-          </div>
-        </div>
-
-        <!-- The Impact -->
-        <div class="relative">
-          <div
-            class="relative rounded-3xl overflow-hidden shadow-2xl mb-12"
-            data-aos="fade-up"
-          >
-            <img
-              src="/images/family_outdoor.webp"
-              alt="Family enjoying time together outdoors"
-              class="w-full h-[28rem] object-cover"
-              loading="lazy"
-              decoding="async"
-            />
-
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end"
-            >
-              <div class="p-10 md:p-12 text-white">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                  150,000 Faster Recoveries
-                </h2>
-                <p class="text-xl md:text-2xl opacity-90">
-                  Hundreds of millions in healthcare costs eliminated
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Impact Stats -->
-        <div class="grid md:grid-cols-3 gap-8">
-          <div
-            class="bg-white rounded-2xl p-8 shadow-lg text-center hover:-translate-y-2 transition-transform"
-            data-aos="zoom-in"
-          >
-            <div
-              class="w-20 h-20 mx-auto mb-4 bg-blue-100 rounded-2xl flex items-center justify-center"
-            >
-              <img
-                src="/images/icons/reimbursement.svg"
-                alt="Medical savings"
-                class="w-12 h-12"
-              />
-            </div>
-            <div class="text-4xl font-bold text-blue-600 mb-2">$95M</div>
-            <p class="text-gray-600">Medical savings</p>
-            <p class="text-sm text-gray-500 mt-2">52% cost reduction</p>
-          </div>
-
-          <div
-            class="bg-white rounded-2xl p-8 shadow-lg text-center hover:-translate-y-2 transition-transform"
-            data-aos="zoom-in"
-            data-aos-delay="200"
-          >
-            <div
-              class="w-20 h-20 mx-auto mb-4 bg-orange-100 rounded-2xl flex items-center justify-center"
-            >
-              <img
-                src="/images/icons/daily-routine.svg"
-                alt="Productivity saved"
-                class="w-12 h-12"
-              />
-            </div>
-            <div class="text-4xl font-bold text-orange-600 mb-2">$151M</div>
-            <p class="text-gray-600">Productivity saved</p>
-            <p class="text-sm text-gray-500 mt-2">3.2M work days</p>
-          </div>
-
-          <div
-            class="bg-white rounded-2xl p-8 shadow-lg text-center hover:-translate-y-2 transition-transform"
-            data-aos="zoom-in"
-            data-aos-delay="400"
-          >
-            <div
-              class="w-20 h-20 mx-auto mb-4 bg-green-100 rounded-2xl flex items-center justify-center"
-            >
-              <img
-                src="/images/icons/internet-security.svg"
-                alt="Total impact"
-                class="w-12 h-12"
-              />
-            </div>
-            <div class="text-4xl font-bold text-green-600 mb-2">$246M</div>
-            <p class="text-gray-600">Combined total</p>
-            <p class="text-sm text-gray-500 mt-2">
-              $95M medical + $151M productivity
-            </p>
-          </div>
-        </div>
-
-        <!-- Emotional Close of Savings Section -->
-        <div
-          class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#003087] to-[#002266] p-12 md:p-16 text-white text-center mt-20"
-          data-aos="fade-up"
-        >
-          <div class="relative z-10">
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-              Behind Every Dollar Was a Life Changed
-            </h2>
-            <div class="max-w-3xl mx-auto space-y-4 text-lg md:text-xl mb-8">
-              <p class="opacity-90">
-                150,000+ people diagnosed in days, not weeks.
-              </p>
-              <p class="opacity-90">
-                Each one back to normal life 12 days sooner.
-              </p>
-              <p class="opacity-90">
-                Together, 3.2 million productive work days recovered.
-              </p>
-            </div>
-            <div class="pt-8 border-t border-white/20">
-              <p class="text-2xl md:text-3xl font-semibold">
-                We did it once. But we weren't done.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- THE NEXT ERA: Mission Pillars -->
       <div class="relative overflow-hidden bg-white">
         <div class="max-w-5xl mx-auto py-24 px-6">
@@ -1203,7 +915,9 @@ export const prerender = true;
 
                 <div class="grid grid-cols-2 gap-4 mb-6">
                   <div class="text-center p-4 bg-gray-50 rounded-xl">
-                    <div class="text-3xl font-bold text-[#003087]">150,000+</div>
+                    <div class="text-3xl font-bold text-[#003087]">
+                      150,000+
+                    </div>
                     <div class="text-sm text-gray-600">Patients Served</div>
                   </div>
                   <div class="text-center p-4 bg-gray-50 rounded-xl">
@@ -1384,7 +1098,6 @@ export const prerender = true;
   const trustSections = [
     { id: "founders-photo", section: "founder_photo" },
     { id: "timeline", section: "timeline" },
-    { id: "case-study-246m", section: "case_study_246m" },
     { id: "founder-promise", section: "founder_promise" },
   ];
 

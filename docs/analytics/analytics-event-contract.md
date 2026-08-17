@@ -101,16 +101,20 @@ Tracked on the Astro marketing site (usrad.com). All fire client-side via `track
 ### trust_content_view
 
 **Definition:** User scrolls into view of a trust-building section on the About page.
-**Fires from:** `src/components/home/AboutSection.astro` — IntersectionObserver on section elements
+**Fires from:** `src/pages/about.astro` — IntersectionObserver on section elements
 **Destination:** GA4
 **Mark as conversion:** No
 
 | Parameter | Required | Example |
 |---|---|---|
 | `app_surface` | Yes | `marketing` |
-| `section` | Yes | `founder_photo`, `case_study_246m`, `timeline`, `founder_promise` |
+| `section` | Yes | `founder_photo`, `timeline`, `founder_promise` |
 
-**Strategic use:** Trust content is a conversion diagnostic. If converters disproportionately viewed founder_photo → case_study_246m before searching, trust content is part of the funnel and must be protected in redesigns.
+**Strategic use:** Trust content is a conversion diagnostic. If converters disproportionately viewed trust sections before searching, trust content is part of the funnel and must be protected in redesigns.
+
+**Retired values.** `case_study_246m` — **retired 2026-08-17.** Its DOM target was removed from `/about` when the section it tracked was deleted under Workstream A evidence remediation. The tracking entry was removed from `trustSections` in the same change, per governance rule 3. ⛔ **Historical GA4 data emitted under this value remains valid for the period it was live and should not be reinterpreted.**
+
+**Standing rule for this event.** When a tracked section's DOM target is removed from render, **the `trustSections` entry and this document's permitted-value list must be updated in the same change.** A retained entry does not error — `getElementById` returns null and the observer never attaches — but a *reassigned* id would emit a documented value for content it no longer describes, producing data that is structurally valid and semantically false. ⚠️ **`founder_promise` remains live. If its target is removed during the `/about` Act 6 rewrite, it receives the same atomic treatment.**
 
 ---
 
