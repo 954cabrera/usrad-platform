@@ -632,6 +632,32 @@ Independent third-party corroboration, added to the register August 6:
 
 ---
 
+## 4d. USRad CORPORATE FACTS — admitted August 17, 2026
+
+⛔ **§4d IS USRad-PRESENT. §4a IS ANCICARE-HISTORICAL. THEY MUST NOT BE MERGED OR CROSS-CITED.** The two sections exist separately because `/about`'s entire remediation turned on keeping the two entities distinct — see the corporate-inheritance firewall note in §4a and `DECISIONS.md` 2026-08-16.
+
+| Fact | Approved form | Source | Class | Publication status |
+|---|---|---|---|---|
+| **Legal formation** | **U.S. Radiology of Florida LLC, Articles of Organization filed 25 April 2013, Florida document number L13000061144** | Articles of Organization, filed 25 Apr 2013; Florida Department of State acknowledgment letter, 26 Apr 2013, letter number 713A00010094 | **CP** | ⛔ **REGISTER-HELD. NOT FOR PUBLICATION ON `/about`** — founder ruling 2026-08-17 |
+| **Intervening period, 2013–2025** | **The initial effort was attempted and subsequently discontinued when the anticipated platform-development undertaking proved substantially greater than expected; the LLC was maintained** | Founder attestation, 2026-08-17 | **FA** | ⛔ **REGISTER-HELD. NOT FOR PUBLICATION.** ⚠️ Do not characterise this period as "dormant" — that term carries legal and accounting implications the register has not established. Use "intervening period" or "founder-attested history" |
+| **Current USRad effort** | **Work on today's USRad began in 2025** | Founder attestation, 2026-08-17 | **FA** | ✅ **PUBLISHABLE AS DEVELOPMENT HISTORY.** ⛔ **NOT AS LEGAL FORMATION, INCORPORATION OR ESTABLISHMENT.** Year only — no month, no day |
+| **Trade name** | **USRAD registered as a Florida fictitious name on 1 October 2025, registration number G25000128551, owned by U.S. Radiology of Florida, LLC** | Application for Registration of Fictitious Name, filed 1 Oct 2025 | **CP** | ✅ Publishable |
+| **Operating Agreement** | **Executed 20 March 2026 between Michael (Miguel) Cabrera and Donna Cabrera; ownership 50/50; member-managed with Michael Cabrera as Managing Member** | Operating Agreement of U.S. Radiology of Florida, LLC, 20 Mar 2026 | **CP** | ⛔ **REGISTER-HELD.** ⚠️ **A GOVERNANCE EVENT, NOT FORMATION EVIDENCE** |
+| **Founder identity** | **Michael Cabrera and Miguel Cabrera are the same person.** Florida filings use *Miguel*; public materials use *Michael* | Founder confirmation, 2026-08-17; both names appear across the filed documents | **FA** | ⛔ **REGISTER-HELD.** Recorded so a future session does not treat the two names as two people |
+| **Legal-name canon** | **`U.S. Radiology of Florida, LLC`** | Articles of Organization; fictitious-name registration | **CP** | ⚠️ **The Operating Agreement's §1 reference to `U.S Radiology, LLC` is an internal document variance.** ⛔ **IT DOES NOT ESTABLISH A SECOND ENTITY OR AN ALTERNATE CANONICAL NAME** |
+
+### ⛔ CORPORATE CHRONOLOGY PUBLICATION RULE — founder ruling 2026-08-17
+
+**Recording the 2013 legal formation does not authorize presenting 2013 as the beginning of the current USRad business narrative.**
+
+Public references to **2025** describe the **beginning or resumption of work on today's USRad** and ⛔ **must not be phrased as incorporation, legal formation, or establishment of U.S. Radiology of Florida LLC.**
+
+⚠️ **This rule exists against a specific failure mode:** a future session finds the 2013 Articles, concludes it has "better evidence" than the published 2025 date, and changes the site to say USRad was founded in 2013. ⛔ **The 2013 filing is real, documented, and correctly register-held. It is not the story `/about` tells, and the register says so here rather than leaving the contradiction to be discovered.**
+
+### ⚠️ EVIDENCE CLASSES IN THIS SECTION ARE NOT EQUIVALENT
+
+**CP rows** rest on filed documents. **FA rows** rest on founder attestation alone. ⛔ **The 2025 date is FA, not CP** — it is the only publishable fact in §4d without a document behind it, and it publishes only in the narrow development-history form above.
+
 ## 5. MARKET-SIZE FIGURES — published sources, use governed
 
 Approved for accuracy. **Placement is restricted** — see rule below.

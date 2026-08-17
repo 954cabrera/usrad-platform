@@ -4127,6 +4127,59 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 
 ---
 
+## August 17, 2026
+
+```
+2026-08-17 · §4d USRad CORPORATE FACTS ADMITTED — SEVEN ROWS FROM FOUR
+             SOURCE DOCUMENTS. Articles of Organization (25 Apr 2013,
+             L13000061144), Florida Department of State acknowledgment
+             (26 Apr 2013), fictitious-name registration for USRAD
+             (1 Oct 2025, G25000128551), and the Operating Agreement
+             (20 Mar 2026). ⛔ RECORDED IN A NEW §4d, NOT §4a. §4a is the
+             AnciCare historical set; /about's entire remediation turned
+             on keeping the two entities distinct, and merging them would
+             reintroduce the confusion the page spent seven steps
+             removing. · FOUNDER
+2026-08-17 · ⛔ CORPORATE CHRONOLOGY PUBLICATION RULE. Recording the 2013
+             legal formation DOES NOT AUTHORIZE presenting 2013 as the
+             beginning of the current USRad business narrative. Public
+             references to 2025 describe the BEGINNING OR RESUMPTION OF
+             WORK on today's USRad and MUST NOT be phrased as
+             incorporation, legal formation or establishment of U.S.
+             Radiology of Florida LLC. ⚠️ THIS RULE EXISTS AGAINST A
+             SPECIFIC FAILURE MODE: a future session finds the 2013
+             Articles, concludes it has better evidence than the published
+             2025 date, and changes the site to say USRad was founded in
+             2013. The 2013 filing is real, documented and correctly
+             register-held. It is not the story /about tells. · FOUNDER
+2026-08-17 · ⚠️ THE 2025 DATE IS FOUNDER-ATTESTED, NOT DOCUMENTARY. It is
+             the only publishable fact in §4d without a filed document
+             behind it, and it publishes only in the narrow
+             development-history form: "Work on today's USRad began in
+             2025." Year only — no month, no day. ⛔ The 2013–2025
+             intervening period is ALSO founder-attested and is
+             REGISTER-HELD, NOT FOR PUBLICATION. ⚠️ DO NOT CHARACTERISE
+             THAT PERIOD AS "DORMANT" — the term carries legal and
+             accounting implications the register has not established.
+             · FOUNDER
+2026-08-17 · MICHAEL AND MIGUEL CABRERA ARE THE SAME PERSON. Florida
+             filings use Miguel; public materials use Michael. Founder-
+             confirmed. ⛔ RECORDED SO A FUTURE SESSION DOES NOT TREAT THE
+             TWO NAMES AS TWO PEOPLE — the same class of finding as
+             Managed Care Networks, Inc. d/b/a AnciCare PPO, and the same
+             remedy: hold the discrepancy in the register so discovery
+             reads as thoroughness rather than contradiction. · FOUNDER
+2026-08-17 · LEGAL-NAME CANON: U.S. Radiology of Florida, LLC, supported
+             by the Articles and the fictitious-name registration. ⚠️ The
+             Operating Agreement's §1 refers to "U.S Radiology, LLC" — an
+             internal document variance. ⛔ IT DOES NOT ESTABLISH A SECOND
+             ENTITY OR AN ALTERNATE CANONICAL NAME. Flagged to the founder
+             as a defect in an executed document, for counsel rather than
+             for marketing. · FOUNDER + ADVISOR
+```
+
+---
+
 ## Open decisions awaiting founder
 
 | # | Decision | Blocks |
