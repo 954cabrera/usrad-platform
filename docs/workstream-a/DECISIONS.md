@@ -4127,6 +4127,136 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 
 ---
 
+## August 17, 2026
+
+```
+2026-08-17 · §4d USRad CORPORATE FACTS ADMITTED — SEVEN ROWS FROM FOUR
+             SOURCE DOCUMENTS. Articles of Organization (25 Apr 2013,
+             L13000061144), Florida Department of State acknowledgment
+             (26 Apr 2013), fictitious-name registration for USRAD
+             (1 Oct 2025, G25000128551), and the Operating Agreement
+             (20 Mar 2026). ⛔ RECORDED IN A NEW §4d, NOT §4a. §4a is the
+             AnciCare historical set; /about's entire remediation turned
+             on keeping the two entities distinct, and merging them would
+             reintroduce the confusion the page spent seven steps
+             removing. · FOUNDER
+2026-08-17 · ⛔ CORPORATE CHRONOLOGY PUBLICATION RULE. Recording the 2013
+             legal formation DOES NOT AUTHORIZE presenting 2013 as the
+             beginning of the current USRad business narrative. Public
+             references to 2025 describe the BEGINNING OR RESUMPTION OF
+             WORK on today's USRad and MUST NOT be phrased as
+             incorporation, legal formation or establishment of U.S.
+             Radiology of Florida LLC. ⚠️ THIS RULE EXISTS AGAINST A
+             SPECIFIC FAILURE MODE: a future session finds the 2013
+             Articles, concludes it has better evidence than the published
+             2025 date, and changes the site to say USRad was founded in
+             2013. The 2013 filing is real, documented and correctly
+             register-held. It is not the story /about tells. · FOUNDER
+2026-08-17 · ⚠️ THE 2025 DATE IS FOUNDER-ATTESTED, NOT DOCUMENTARY. It is
+             the only publishable fact in §4d without a filed document
+             behind it, and it publishes only in the narrow
+             development-history form: "Work on today's USRad began in
+             2025." Year only — no month, no day. ⛔ The 2013–2025
+             intervening period is ALSO founder-attested and is
+             REGISTER-HELD, NOT FOR PUBLICATION. ⚠️ DO NOT CHARACTERISE
+             THAT PERIOD AS "DORMANT" — the term carries legal and
+             accounting implications the register has not established.
+             · FOUNDER
+2026-08-17 · MICHAEL AND MIGUEL CABRERA ARE THE SAME PERSON. Florida
+             filings use Miguel; public materials use Michael. Founder-
+             confirmed. ⛔ RECORDED SO A FUTURE SESSION DOES NOT TREAT THE
+             TWO NAMES AS TWO PEOPLE — the same class of finding as
+             Managed Care Networks, Inc. d/b/a AnciCare PPO, and the same
+             remedy: hold the discrepancy in the register so discovery
+             reads as thoroughness rather than contradiction. · FOUNDER
+2026-08-17 · LEGAL-NAME CANON: U.S. Radiology of Florida, LLC, supported
+             by the Articles and the fictitious-name registration. ⚠️ The
+             Operating Agreement's §1 refers to "U.S Radiology, LLC" — an
+             internal document variance. ⛔ IT DOES NOT ESTABLISH A SECOND
+             ENTITY OR AN ALTERNATE CANONICAL NAME. Flagged to the founder
+             as a defect in an executed document, for counsel rather than
+             for marketing. · FOUNDER + ADVISOR
+       2026-08-17 · #54 — TWELFTH AND THIRTEENTH MEMBERS, SEVENTH AND EIGHTH
+             MODES. (7) SWEEPING THE WRONG BUILD ARTIFACT: /about Step
+             1 returned twelve barred strings at zero from
+             dist/server/pages/about.astro.mjs and was read as a pass.
+             ⛔ THAT FILE DOES NOT CONTAIN THE PAGE — /about is
+             prerendered and its output is
+             .vercel/output/static/about/index.html. THE SWEEP PROVED
+             NOTHING AND LOOKED CLEAN. Determine prerendered vs
+             server-rendered before choosing a target, and confirm the
+             target contains a known-present string before trusting a
+             zero. (8) MARKUP-STRIPPED SWEEPS DO NOT SEE HTML COMMENT
+             CONTENTS: #54's own sixth-mode remedy, sed 's/<[^>]*>//g',
+             also removes comment bodies, and HTML COMMENTS SHIP IN THE
+             BUILT OUTPUT. Two /about containment comments quoted the
+             barred figures they were containing; NEITHER WAS DETECTABLE
+             BY THE STANDARD VERIFICATION. ⛔ STANDING RULE: A
+             CONTAINMENT COMMENT MUST DESCRIBE WHAT WAS REMOVED WITHOUT
+             REPRODUCING IT. Eight modes; thirteen members; not one
+             caught by the obvious grep. · ADVISOR
+2026-08-17 · #76 OPENED — FIVE AUDITS OF /about MISSED THE FOUNDER
+             CARDS. Claims remediated at db12ded; the METHOD is what is
+             recorded. Michael's card carried 1,236% Revenue Growth —
+             ⛔ THE EXACT FIGURE RULED BARRED ON 2026-08-16, ALREADY LIVE
+             WHEN THE RULING WAS MADE, WITH NEITHER PARTY AWARE — and
+             $246M+, a variant form. Donna's carried 150,000+ Patients
+             Served and 99.8% Satisfaction Rate, the latter in no
+             register file. ⛔ THE FULL-PAGE AUDIT, THE ARCHITECTURE
+             PASS, THE COPY BLUEPRINT, THE ACT 6 ASSESSMENT AND A
+             DEDICATED FOUNDER-STORY REVIEW ALL READ THAT SECTION AND
+             ALL MISSED IT. Cause: the reviewer read the card's prose
+             and quote and did not read the stat grid between them.
+             ⛔ AN AUDIT MUST ENUMERATE EVERY TEXT-BEARING ELEMENT, NOT
+             READ THE SECTION AS PROSE — grids, badges, pills, tiles,
+             captions, alt text and card metadata are claim surfaces and
+             are what a reading eye skips. ⚠️ AND A RULING CAN BE ISSUED
+             ABOUT A FIGURE THAT IS ALREADY PUBLISHED WITHOUT ANYONE
+             CHECKING. · FOUNDER + ADVISOR
+2026-08-17 · /about COPY REMEDIATION COMPLETE — SEVEN STEPS, ALL SIX
+             ACTS, 65656cb → 20dc1b8. about.astro from 1,422 lines to
+             ~770. ⛔ HELD FROM PR PENDING CC'S BOUNDED TIMELINE-BREAK
+             WORK: the Act 4 header now reads "Two Companies. Two Eras."
+             over an UNBROKEN VISUAL PATH, and that is the last place
+             the page still asserts by design the continuity it spent
+             seven steps denying in copy. ⚠️ Merging before the break
+             would ship a header contradicted by its own layout.
+             · FOUNDER
+   2026-08-17 · ⛔ #54 — FOURTEENTH MEMBER, NINTH MODE: DOCUMENT ORDER.
+             about.astro closed </CarbonLayout> immediately after the
+             timeline. Act 5 — the corporate-inheritance firewall — plus
+             Act 6 and the final CTA rendered OUTSIDE THE LAYOUT, BELOW
+             THE FOOTER, from 743e4a7 through four subsequent steps.
+             EVERY SWEEP PASSED. ⚠️ DIFFERENT IN KIND FROM THE OTHER
+             EIGHT MODES: the content was present, correct and correctly
+             verified. The defect was WHERE IT APPEARED, and string
+             matching has no concept of position. ⛔ THE SYMPTOM WAS
+             VISIBLE AND DISMISSED — Act 3's rebuild dropped a wrapper's
+             indentation to zero, noted at the time as cosmetic. It was
+             the structural break announcing itself. METHOD: verify
+             document order by byte offset with grep -bo, footer last;
+             and read the whole rendered page top to bottom at least
+             once per surface. · ADVISOR
+2026-08-17 · /about VERIFIED AND CLEARED FOR PR. Ten commits, 65656cb →
+             86f0322. Twenty-six barred strings at zero on the built
+             page; comment contents clean without markup stripping;
+             document order ascending with footer last; one h1; both
+             trust_content_view observer targets intact. CC's timeline
+             era break implemented under the bounded brief — path
+             terminates at May 2002, USRad era on a separate path, era
+             labels, the twenty-three-year interval left empty per
+             ruling F, and May 2002 raised from the timeline's faintest
+             entry to its anchor. · FOUNDER
+2026-08-17 · ⚠️ NOTED, NOT ACTIONED: about.astro's trailing style block
+             defines .story-arc three times with no markup using it,
+             under a comment stating it is "still needed" for the "This
+             Time, It's Different" section — which Act 5 replaced at
+             4d54367. Dead CSS with a comment asserting the opposite.
+             Cosmetic; left for a cleanup pass. · ADVISOR                
+```
+
+---
+
 ## Open decisions awaiting founder
 
 | # | Decision | Blocks |

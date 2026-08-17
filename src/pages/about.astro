@@ -5,10 +5,7 @@ import AOSInit from "../components/AOSInit.astro";
 export const prerender = true;
 ---
 
-<CarbonLayout
-  title="About USRad - The Full Story (V2 Preview)"
-  isHeroPage={false}
->
+<CarbonLayout title="About USRad - The Full Story" isHeroPage={false}>
   <AOSInit />
 
   <!-- Hero Section with Background Image -->
@@ -46,8 +43,8 @@ export const prerender = true;
           data-aos="fade-up"
           data-aos-delay="200"
         >
-          A model that saved $246 million &mdash; now being deployed at national
-          scale.
+          One price for the study, with the radiologist&rsquo;s interpretation
+          included.
         </p>
         <p
           class="text-base md:text-lg text-[#B08A4A] font-medium tracking-wide max-w-2xl"
@@ -82,7 +79,7 @@ export const prerender = true;
             <div class="flex-1 overflow-hidden rounded-md shadow-md">
               <img
                 src="/images/founders_restored.webp"
-                alt="USRad founding team — Michael and Donna Cabrera inside a diagnostic imaging center, mid-1990s"
+                alt="Michael and Donna Cabrera inside a diagnostic imaging center, mid-1990s"
                 class="w-full h-full object-cover object-[center_15%]"
                 loading="eager"
                 width="1000"
@@ -94,7 +91,7 @@ export const prerender = true;
                 <div class="w-px h-10 bg-[#cc9933] flex-shrink-0 mt-1"></div>
                 <div>
                   <p class="text-sm font-semibold text-gray-900 tracking-wide">
-                    USRad founding team &mdash; Michael &amp; Donna Cabrera
+                    Michael &amp; Donna Cabrera
                   </p>
                   <p
                     class="text-xs text-gray-400 mt-0.5 tracking-wider uppercase"
@@ -122,49 +119,33 @@ export const prerender = true;
           <h2
             class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6"
           >
-            Where It<br />
-            All<br />
+            Where It All<br />
             <span class="text-[#003087]">Started.</span>
           </h2>
 
           <div class="space-y-5 text-lg text-gray-600 leading-relaxed">
             <p>
-              In the 1990s, we built one of the first nationwide diagnostic
-              imaging networks &mdash; connecting employers, injured workers,
-              and imaging centers in a model that had never existed before.
+              In the early 1990s, imaging centers had open capacity and injured
+              workers couldn&rsquo;t reach it. Authorization ran through
+              carriers by fax and phone. Most facilities wouldn&rsquo;t schedule
+              until someone approved. Nobody in the chain was accountable for
+              how long it took.
             </p>
             <p>
-              <span class="font-semibold text-gray-900">The result:</span> 150,000+
-              patients served across a national network. A proven playbook.
+              Florida workers&rsquo; compensation law let employers direct care.
+              So in 1994, Michael and Donna Cabrera founded Managed Care
+              Networks, Inc., operating as AnciCare PPO &mdash; a specialty
+              preferred provider organization delivering medical imaging through
+              a contracted network of independent diagnostic facilities. Volume
+              commitments to imaging centers in exchange for rates below the fee
+              schedule, and one party accountable for scheduling.
             </p>
             <p>
-              Today, we&rsquo;re rebuilding that model &mdash; this time for the
-              tens of millions of Americans who need imaging and have no
-              insurance to cover it.
+              AnciCare sold to insurers, third-party administrators and
+              self-insured employers. The business was focused on workers&rsquo;
+              compensation, while also accepting referrals from auto liability
+              and group health.
             </p>
-          </div>
-
-          <div class="mt-10 flex items-center gap-8">
-            <div class="text-center">
-              <p class="text-4xl font-bold text-[#B08A4A]">1994</p>
-              <p class="text-xs text-gray-400 mt-1.5 uppercase tracking-wider">
-                Founded
-              </p>
-            </div>
-            <div class="w-px h-12 bg-gray-200"></div>
-            <div class="text-center">
-              <p class="text-4xl font-bold text-gray-900">$246M</p>
-              <p class="text-xs text-gray-400 mt-1.5 uppercase tracking-wider">
-                Saved
-              </p>
-            </div>
-            <div class="w-px h-12 bg-gray-200"></div>
-            <div class="text-center">
-              <p class="text-4xl font-bold text-[#003087]">150,000+</p>
-              <p class="text-xs text-gray-400 mt-1.5 uppercase tracking-wider">
-                Patients
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -174,118 +155,58 @@ export const prerender = true;
   <!-- The Origin Story -->
   <section class="py-20 px-4 sm:px-6 bg-white">
     <div class="max-w-6xl mx-auto">
-      <div class="grid md:grid-cols-2 gap-12 items-start">
-        <!-- Left Column: Narrative -->
-        <div data-aos="fade-up">
-          <!-- Chapter label -->
-          <p
-            class="text-xs font-semibold uppercase tracking-[0.2em] text-[#B08A4A] mb-4"
-          >
-            The Breakthrough
-          </p>
-          <!-- Bridge sentence -->
-          <p class="text-lg text-gray-400 italic mb-3">
-            The idea was simple. But the impact was enormous.
-          </p>
-          <h2
-            class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 text-left"
-          >
-            How We Made Medical Imaging Affordable and Accessible
-          </h2>
+      <!-- ACT 3 — THE DOCUMENTED RECORD. Rebuilt 2026-08-17 as a single-column historical record. The former two-column layout paired a narrative that duplicated Act 2 with a four-tile credibility panel whose tiles were all defective: a founder-career span under an AnciCare heading (#27), an unanchored facility count (rule 18), a barred savings figure (§6) and a barred people-count (§4b/§4c). Its footer carried the D3 priority claim. ⛔ PROSE, NOT TILES, BY RULING — a dated facility count in a bare tile sheds its date and migrates to the present, which is how an unanchored count became a USRad network claim on the homepage. All figures below are §4a-registered, most admitted 2026-08-16. The historical savings percentage is omitted by founder ruling 2026-08-15 to avoid conflation with the separately governed present-day MRI claim at §1d. The "Read the essay" link to /blog/the-scan-that-never-happens is removed: verified 2026-08-17 that the destination still publishes a barred savings figure at :306, plus an unanchored facility count, a barred people-count and a D3 priority claim. /blog is a queued surface with open items #65, #73, #74 and #75, none scheduled. ⛔ THE LINK MAY RETURN ONCE THE DESTINATION IS REMEDIATED. -->
+      <div class="max-w-3xl mx-auto" data-aos="fade-up">
+        <p
+          class="text-xs font-semibold uppercase tracking-[0.2em] text-[#B08A4A] mb-4"
+        >
+          The AnciCare Record &middot; 1994&ndash;2002
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          What They Built
+        </h2>
 
-          <div
-            class="h-px w-24 bg-gradient-to-r from-[#cc9933] to-transparent mb-8"
-          >
-          </div>
-
-          <div class="space-y-6 text-lg text-gray-600 leading-relaxed">
-            <p>
-              The system wasn't broken because care was unavailable. It was
-              broken because access was.
-            </p>
-
-            <p>
-              In 1994, imaging centers had capacity. Injured workers had 14-day
-              waits. Workers' Comp law allowed employers to direct care — so we
-              built AnciCare to connect the two. Volume guarantees in exchange
-              for prices below the fee schedule.
-            </p>
-
-            <p>
-              What we built then was the first version of what we now call
-              <span class="font-semibold text-[#003087]"
-                >Accessible Imaging</span
-              >
-              &mdash; infrastructure that makes diagnostic care reachable for the
-              people the existing system fails to serve.
-            </p>
-
-            <p class="text-sm">
-              <a
-                href="/blog/the-scan-that-never-happens"
-                class="inline-flex items-center gap-1 text-[#003087] hover:text-[#002266] font-medium border-b border-[#003087]/30 hover:border-[#003087] transition-colors"
-              >
-                Read the essay
-                <span aria-hidden="true">&rarr;</span>
-              </a>
-            </p>
-
-            <p>
-              <span class="font-semibold text-gray-900">The result:</span> 150,000+
-              patients served across a national network. A proven playbook.
-            </p>
-          </div>
-
-          <div
-            class="bg-[#fefbf5] rounded-2xl p-6 mt-8 border-l-4 border-[#cc9933]"
-          >
-            <p class="text-lg font-semibold text-gray-900 mb-1">The Result:</p>
-            <p class="text-gray-700">
-              50%+ savings. Next-day imaging. Everyone wins.
-            </p>
-          </div>
+        <div
+          class="h-px w-24 bg-gradient-to-r from-[#cc9933] to-transparent mb-8"
+        >
         </div>
 
-        <!-- Right Column: Credibility Panel -->
-        <div
-          class="bg-gray-50 rounded-xl p-8 shadow-sm border border-gray-100 md:mt-16"
-          data-aos="fade-up"
-          data-aos-delay="150"
-        >
-          <p
-            class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2"
-          >
-            The AnciCare Record
+        <div class="space-y-6 text-lg text-gray-600 leading-relaxed">
+          <p>
+            AnciCare grew from a South Florida program into a national
+            contracting operation. At the end of 1998 it held 608 imaging
+            facilities across 32 states and the District of Columbia. By April
+            2002 it had 1,228 contracted imaging facilities across 43 states.
           </p>
-          <p class="text-sm text-gray-400 mb-8">
-            Four dimensions of a model that worked.
+
+          <p>
+            The operating volume was real, not projected. From 1994 through
+            2001, AnciCare paid more than $60 million to imaging centers &mdash;
+            money that moved through the network to the facilities doing the
+            work.
           </p>
-          <div class="space-y-10">
-            <div>
-              <p class="text-4xl font-bold text-gray-900">30+</p>
-              <p class="text-sm text-gray-400 mt-1">Years in the field</p>
-            </div>
-            <div>
-              <p class="text-4xl font-bold text-gray-900">1,200+</p>
-              <p class="text-sm text-gray-400 mt-1">
-                Facilities in the network
-              </p>
-            </div>
-            <div>
-              <p class="text-4xl font-bold text-[#003087]">$246M</p>
-              <p class="text-sm text-gray-400 mt-1">Documented savings</p>
-            </div>
-            <div>
-              <p class="text-4xl font-bold text-[#003087]">150,000+</p>
-              <p class="text-sm text-gray-400 mt-1">People reached</p>
-            </div>
-          </div>
-          <div class="mt-10 pt-6 border-t border-gray-200">
-            <p class="text-xs text-gray-400 leading-relaxed">
-              Created by the founder of AnciCare, one of the first nationwide
-              diagnostic imaging networks.
-            </p>
-          </div>
+
+          <p>
+            Speed was the operating advantage. In February 1999 the
+            <em>South Florida Business Journal</em> reported that 90% of AnciCare&rsquo;s
+            referrals were scheduled within two to three days.
+          </p>
+
+          <p>
+            The customers included insurers, third-party administrators and
+            self-insured employers. Winn-Dixie, CNA, Liberty Mutual, Zurich
+            American, USF&amp;G, Crawford &amp; Company, Gallagher &amp; Bassett
+            and the U.S. Postal Service were among them.
+          </p>
+
+          <p>
+            Independent recognition followed: #210 on the 1999
+            <em>Inc.</em> 500; No. 1 on the
+            <em>South Florida Business Journal</em>&rsquo;s 1999 list of South
+            Florida&rsquo;s largest PPOs; and recognition by
+            <em>Hispanic Business</em> among the nation&rsquo;s 500 largest Hispanic-owned
+            companies.
+          </p>
         </div>
       </div>
     </div>
@@ -330,29 +251,53 @@ export const prerender = true;
           <div class="w-2 h-2 bg-[#cc9933] rounded-full animate-pulse"></div>
           <span
             class="text-white/80 text-sm font-medium tracking-wider uppercase"
-            >The Journey</span
+            >The Timeline</span
           >
           <div class="w-2 h-2 bg-[#003087] rounded-full animate-pulse"></div>
         </div>
         <h2 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
-          30 Years. Two Companies.<br />
+          Two Companies.<br />
           <span
             class="bg-gradient-to-r from-[#cc9933] to-[#003087] bg-clip-text text-transparent"
-            >One Mission.</span
+            >Two Eras.</span
           >
         </h2>
         <p class="text-lg text-white/50 max-w-xl mx-auto mt-4">
-          How the model evolved — milestone by milestone, into a system that
-          works at scale.
+          AnciCare ended with its 2002 acquisition. Work on today&rsquo;s USRad
+          began in 2025.
         </p>
       </div>
 
-      <!-- The Timeline -->
-      <div class="relative">
-        <!-- Center Path — glowing gold gradient -->
+      <!-- The Timeline — TWO ERAS, TWO PATHS.
+           The AnciCare path terminates at the May 2002 acquisition. The USRad
+           path starts separately in 2025. The 23-year span between them is
+           deliberately empty: no copy, no marker, no connective element.
+           The gap IS the statement (founder ruling, Act 4). -->
+
+      <!-- ERA LABEL: AnciCare -->
+      <div class="flex justify-center mb-12" data-aos="fade-up">
+        <div
+          class="inline-flex items-center gap-3 bg-white/5 border border-[#cc9933]/40 backdrop-blur-sm px-5 py-2 rounded-full"
+        >
+          <div class="w-2 h-2 bg-[#cc9933] rounded-full"></div>
+          <span
+            class="text-white/70 text-xs sm:text-sm font-medium tracking-[0.2em] uppercase"
+            >AnciCare &middot; 1994&ndash;2002</span
+          >
+        </div>
+      </div>
+
+      <!-- ANCICARE ERA PATH (gold) -->
+      <div class="relative pb-24">
+        <!-- Center Path — gold, solid to its end. No fade-out: this era stops. -->
         <div
           class="absolute left-1/2 top-0 bottom-0 w-0.5 transform -translate-x-1/2"
-          style="background: linear-gradient(to bottom, transparent, rgba(176,138,74,0.6) 20%, rgba(176,138,74,0.3) 70%, transparent);"
+          style="background: linear-gradient(to bottom, transparent, rgba(176,138,74,0.6) 12%, rgba(176,138,74,0.6) 100%);"
+        >
+        </div>
+        <!-- Full stop. The AnciCare era ends at the 2002 acquisition. -->
+        <div
+          class="timeline-cap absolute left-1/2 bottom-0 w-10 h-1 bg-[#cc9933] rounded-full transform -translate-x-1/2"
         >
         </div>
 
@@ -368,15 +313,9 @@ export const prerender = true;
                 The Discovery
               </h3>
               <p class="text-gray-300 text-lg max-w-md ml-auto">
-                14-day waits. Empty imaging centers. A broken system begging for
-                disruption.
+                Imaging centers had open capacity. Injured workers
+                couldn&rsquo;t reach it.
               </p>
-              <div
-                class="mt-6 inline-flex items-center gap-4 bg-[#cc9933]/20 px-6 py-3 rounded-full"
-              >
-                <span class="text-4xl font-bold text-[#cc9933]">14</span>
-                <span class="text-white/80">days average wait</span>
-              </div>
             </div>
           </div>
           <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
@@ -416,15 +355,9 @@ export const prerender = true;
               AnciCare Launches
             </h3>
             <p class="text-gray-300 text-lg max-w-md">
-              America's first imaging network. Direct contracts. Volume
-              guarantees. Prices plummet.
+              Direct contracts. Volume commitments in exchange for rates below
+              the fee schedule.
             </p>
-            <div
-              class="mt-6 inline-flex items-center gap-4 bg-[#cc9933]/20 px-6 py-3 rounded-full"
-            >
-              <span class="text-4xl font-bold text-[#cc9933]">50%</span>
-              <span class="text-white/80">cost reduction</span>
-            </div>
           </div>
         </div>
 
@@ -436,18 +369,11 @@ export const prerender = true;
                 >1999</span
               >
               <h3 class="text-2xl font-semibold text-white/80 mt-3 mb-2">
-                Explosive Growth
+                National Expansion
               </h3>
               <p class="text-gray-400 text-base max-w-md ml-auto">
-                National expansion. Major employers on board, including many
-                Fortune 500 companies. The model works at scale.
+                Expansion beyond Florida. Employers and carriers on board.
               </p>
-              <div
-                class="mt-4 inline-flex items-center gap-3 bg-[#cc9933]/10 px-4 py-2 rounded-full"
-              >
-                <span class="text-2xl font-bold text-[#cc9933]/70">150,000+</span>
-                <span class="text-white/60 text-sm">workers served</span>
-              </div>
             </div>
           </div>
           <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
@@ -464,81 +390,82 @@ export const prerender = true;
           <div class="hidden md:block w-1/2"></div>
         </div>
 
-        <!-- 2002: The Exit — supporting year, visually subdued -->
-        <div class="relative flex items-center mb-24" data-aos="fade-left">
+        <!-- 2002: The Exit — ANCICARE ERA ANCHOR.
+             Full-weight treatment matching 1993 and 1994. The acquisition is
+             the strongest documented fact on this page and is styled as such. -->
+        <div class="relative flex items-center" data-aos="fade-left">
           <div class="hidden md:block w-1/2"></div>
           <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
             <div
-              class="w-16 h-16 bg-gray-900 rounded-full border-2 border-[#cc9933]/40 flex items-center justify-center group hover:bg-gray-800 transition-all duration-300"
+              class="w-24 h-24 bg-gray-900 rounded-full border-4 border-[#cc9933] flex items-center justify-center group hover:bg-gray-800 transition-all duration-300"
             >
               <img
                 src="/images/icons/hand-shake.svg"
                 alt="Mission Accomplished"
-                class="w-8 h-8 filter-gold opacity-60 group-hover:scale-110 transition-transform duration-300"
+                class="w-12 h-12 filter-gold group-hover:scale-110 transition-transform duration-300"
               />
             </div>
           </div>
-          <div class="w-full md:w-1/2 pl-8 md:pl-16 opacity-70">
-            <span class="text-[#cc9933]/40 text-5xl md:text-6xl font-bold"
+          <div class="w-full md:w-1/2 pl-8 md:pl-16">
+            <span
+              class="text-[#cc9933] text-8xl md:text-9xl font-bold opacity-60"
               >2002</span
             >
-            <h3 class="text-2xl font-semibold text-white/80 mt-3 mb-2">
-              Mission Accomplished?
+            <h3 class="text-3xl font-bold text-white mt-4 mb-3">
+              AnciCare Is Acquired
             </h3>
-            <p class="text-gray-400 text-base max-w-md">
-              AnciCare sold. A model proven at national scale. Time to
-              celebrate... or so we thought.
+            <p class="text-gray-300 text-lg max-w-md">
+              CorVel Corporation (NASDAQ: CRVL) acquired AnciCare in May 2002.
             </p>
           </div>
         </div>
+      </div>
+      <!-- THE 23-YEAR INTERVAL. Intentionally empty. Do not fill this.
+           No copy, no marker, no animated element, no "meanwhile". -->
+      <div class="h-40 md:h-64" aria-hidden="true"></div>
 
-        <!-- The Transition -->
-        <div class="relative my-40" data-aos="zoom-in">
-          <div
-            class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+      <!-- ERA LABEL: USRad -->
+      <div class="flex justify-center mb-12" data-aos="fade-up">
+        <div
+          class="inline-flex items-center gap-3 bg-white/5 border border-[#3b72d9]/50 backdrop-blur-sm px-5 py-2 rounded-full"
+        >
+          <div class="w-2 h-2 bg-[#3b72d9] rounded-full"></div>
+          <span
+            class="text-white/70 text-xs sm:text-sm font-medium tracking-[0.2em] uppercase"
+            >USRad &middot; 2025&ndash;</span
           >
-            <div
-              class="w-32 h-32 rounded-full bg-gradient-to-r from-[#cc9933] to-[#003087] opacity-20 animate-pulse"
-            >
-            </div>
-          </div>
-          <div class="text-center relative z-10">
-            <div
-              class="inline-block bg-gray-800 border border-white/20 rounded-full px-8 py-4"
-            >
-              <p class="text-2xl font-bold text-white">
-                Healthcare costs exploded.
-              </p>
-              <p class="text-xl text-gray-400">
-                Millions of Americans left without options.
-              </p>
-            </div>
-          </div>
+        </div>
+      </div>
+
+      <!-- USRAD ERA PATH (blue) — a separate path, not a continuation.
+           #3b72d9 is #003087 lifted for legibility on the dark gradient,
+           the same way the gold path uses a muted #cc9933. -->
+      <div class="relative pb-8">
+        <!-- Hard start. This path begins in 2025; it does not arrive from above. -->
+        <div
+          class="timeline-cap absolute left-1/2 top-0 w-10 h-1 bg-[#3b72d9] rounded-full transform -translate-x-1/2"
+        >
+        </div>
+        <div
+          class="absolute left-1/2 top-0 bottom-0 w-0.5 transform -translate-x-1/2"
+          style="background: linear-gradient(to bottom, rgba(59,114,217,0.7) 0%, rgba(59,114,217,0.7) 60%, transparent 100%);"
+        >
         </div>
 
         <!-- 2025: USRad Born — ACT 3 ANCHOR, dramatic reveal -->
-        <div
-          class="relative flex items-center mb-32 mt-32"
-          data-aos="fade-right"
-        >
+        <div class="relative flex items-center pt-16" data-aos="fade-right">
           <div class="w-full md:w-1/2 text-right pr-8 md:pr-16">
             <div class="inline-block">
               <span class="text-white text-8xl md:text-9xl font-bold opacity-80"
                 >2025</span
               >
               <h3 class="text-3xl font-bold text-white mt-4 mb-3">
-                USRad is Born
+                The Work Begins
               </h3>
               <p class="text-gray-300 text-lg max-w-md ml-auto">
-                30 years of network-building. Now direct to patients. No
-                insurance required.
+                Work begins on today&rsquo;s USRad, built for self-funded health
+                plans and people paying directly for their own imaging.
               </p>
-              <div
-                class="mt-6 inline-flex items-center gap-4 bg-[#003087]/20 px-6 py-3 rounded-full"
-              >
-                <span class="text-4xl font-bold text-white/60">$260</span>
-                <span class="text-white/80">MRI starting price</span>
-              </div>
             </div>
           </div>
           <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
@@ -553,62 +480,6 @@ export const prerender = true;
             </div>
           </div>
           <div class="hidden md:block w-1/2"></div>
-        </div>
-
-        <!-- 2026: Built for Members — final node, full brightness -->
-        <div class="relative flex items-center" data-aos="fade-left">
-          <div class="hidden md:block w-1/2"></div>
-          <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
-            <div
-              class="w-24 h-24 bg-gray-900 rounded-full border-4 border-[#003087] flex items-center justify-center group hover:bg-gray-800 transition-all duration-300"
-            >
-              <img
-                src="/images/icons/flag.svg"
-                alt="Built for Members"
-                class="w-12 h-12 filter-gold group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-          </div>
-          <div class="w-full md:w-1/2 pl-8 md:pl-16">
-            <span class="text-white text-7xl md:text-8xl font-bold opacity-100"
-              >2026</span
-            >
-            <h3 class="text-3xl font-bold text-white mt-4 mb-3">
-              Built for Members
-            </h3>
-            <p class="text-gray-300 text-lg max-w-md">
-              Nationwide launch. 60-second booking. Transparent pricing.
-              Healthcare reimagined.
-            </p>
-            <p class="text-gray-400 text-base max-w-md mt-3">
-              Free USRad membership gives every American access to
-              pre-negotiated imaging prices — no insurance required.
-            </p>
-            <div
-              class="mt-6 inline-flex items-center gap-4 bg-[#003087]/20 px-6 py-3 rounded-full"
-            >
-              <span class="text-4xl font-bold text-white">90 Million</span>
-              <span class="text-white/80">Americans to serve</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bottom CTA -->
-      <div class="text-center mt-32" data-aos="fade-up">
-        <p class="text-2xl text-gray-400 mb-8">
-          From saving companies millions to saving lives.
-        </p>
-        <div class="inline-flex items-center gap-8">
-          <div class="text-center">
-            <p class="text-5xl font-bold text-[#cc9933]">Then</p>
-            <p class="text-gray-400">For Employers</p>
-          </div>
-          <div class="text-4xl text-white/20">→</div>
-          <div class="text-center">
-            <p class="text-5xl font-bold text-white/70">Now</p>
-            <p class="text-gray-400">For Everyone</p>
-          </div>
         </div>
       </div>
     </div>
@@ -680,414 +551,76 @@ export const prerender = true;
         padding: 0 !important;
       }
 
-      /* Center line: shift to left edge on mobile for cleaner look */
+      /* Center line: shift to left edge on mobile for cleaner look.
+       Applies to both era paths — each carries left-1/2 top-0 bottom-0. */
       #timeline .absolute.left-1\/2.top-0.bottom-0 {
         left: 2rem !important;
         transform: none !important;
       }
+
+      /* Era path terminators follow their line to the left rail on mobile.
+       These are NOT matched by the rule above (each has only one of
+       top-0 / bottom-0), so they need their own shift. */
+      #timeline .timeline-cap {
+        left: 2rem !important;
+        transform: translateX(-50%) !important;
+      }
     }
   </style>
 
-  <!-- NEW PREMIUM SAVINGS SECTION -->
+  <!-- Section wrapper. The retired case study this section was named for was DELETED 2026-08-17 (About step 1, founder-ruled); git baseline 411577a is the preservation record. id="case-study-246m" retired with it — retaining it would have emitted trust_content_view with section=case_study_246m for unrelated surviving content. Surviving children: the Next Era pillars, the founder promise, the founders section and the final CTA. Wrapper classes retained pending Act 6 composition review. -->
   <section
-    id="case-study-246m"
     class="py-24 px-4 sm:px-6 bg-gradient-to-br from-white to-gray-50 overflow-hidden"
   >
     <div class="max-w-6xl mx-auto">
-      <!-- Case Study Header -->
-      <div class="text-center mb-24" data-aos="fade-up">
-        <p
-          class="text-xs font-semibold uppercase tracking-[0.2em] text-[#B08A4A] mb-6"
-        >
-          Proof of Concept
-        </p>
-        <p class="text-2xl md:text-3xl font-medium text-gray-500 mb-3">
-          How the Direct-Contract Model Delivered
-        </p>
-        <h1
-          class="text-7xl md:text-8xl lg:text-9xl font-bold leading-none mb-6"
-        >
-          <span
-            class="bg-gradient-to-r from-[#FFD700] via-[#cc9933] to-[#B08A4A] bg-clip-text text-transparent"
-          >
-            $246 Million
-          </span>
-        </h1>
-        <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
-          $246 million in verified savings — delivered across a national
-          network, in real-world conditions, before the technology existed to
-          make it easy.
-        </p>
-      </div>
-
-      <!-- Timeline with Photos -->
-      <div class="space-y-32">
-        <!-- The Problem -->
-        <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
-          <div class="relative rounded-3xl overflow-hidden shadow-2xl">
-            <img
-              src="/images/website/about_waiting.webp"
-              alt="Worker in pain waiting for care"
-              class="w-full h-96 object-cover"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
-            >
-            </div>
-          </div>
-          <div>
-            <div class="flex items-center gap-2 mb-2">
-              <span
-                class="inline-block bg-red-100 text-red-800 text-sm font-semibold px-3 py-1 rounded-full tracking-wide shadow-sm"
-                >Pre-AnciCare</span
-              >
-              <div
-                class="inline-block bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-medium"
-              >
-                The Old Way
-              </div>
-            </div>
-
-            <h2 class="text-4xl font-bold text-gray-900 mb-6">
-              14 Days of Waiting
-            </h2>
-            <div class="space-y-4">
-              <div class="flex items-start gap-4">
-                <div
-                  class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <img
-                    src="/images/icons/wait.svg"
-                    alt="Long wait times"
-                    class="w-8 h-8"
-                  />
-                </div>
-                <div>
-                  <p class="font-semibold text-lg text-gray-900">
-                    Pain without answers
-                  </p>
-                  <p class="text-gray-600">
-                    Workers suffered while insurance processed paperwork
-                  </p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4">
-                <div
-                  class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <img
-                    src="/images/icons/medicalbill.svg"
-                    alt="Expensive medical bills"
-                    class="w-8 h-8"
-                  />
-                </div>
-                <div>
-                  <p class="font-semibold text-lg text-gray-900">
-                    $3,200 for a plain MRI
-                  </p>
-                  <p class="text-gray-600">
-                    Forcing people to delay or skip care entirely
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Our Solution -->
-        <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
-          <div class="order-2 md:order-1">
-            <div class="flex items-center gap-2 mb-2">
-              <span
-                class="inline-block bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full tracking-wide shadow-sm"
-                >The Solution</span
-              >
-              <span
-                class="inline-block bg-[#fefbf5] text-[#cc9933] border border-[#cc9933] text-sm font-semibold px-3 py-1 rounded-full tracking-wide shadow-sm"
-                >AnciCare</span
-              >
-            </div>
-
-            <h2 class="text-4xl font-bold text-gray-900 mb-6">
-              2 Days to Answers
-            </h2>
-            <div class="space-y-4">
-              <div class="flex items-start gap-4">
-                <div
-                  class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <img
-                    src="/images/icons/cellcalendar.svg"
-                    alt="Quick scheduling"
-                    class="w-8 h-8"
-                  />
-                </div>
-                <div>
-                  <p class="font-semibold text-lg text-gray-900">
-                    Same-week imaging
-                  </p>
-                  <p class="text-gray-600">
-                    Direct contracts cut through red tape
-                  </p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4">
-                <div
-                  class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <img
-                    src="/images/icons/protection.svg"
-                    alt="Transparent pricing"
-                    class="w-8 h-8"
-                  />
-                </div>
-                <div>
-                  <p class="font-semibold text-lg text-gray-900">
-                    $475 transparent pricing
-                  </p>
-                  <p class="text-gray-600">No surprises, no hidden fees</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="order-1 md:order-2 relative rounded-3xl overflow-hidden shadow-2xl"
-          >
-            <img
-              src="/images/website/imaging-center-hero-fallback.webp"
-              alt="Modern MRI facility"
-              class="w-full h-96 object-cover"
-            />
-          </div>
-        </div>
-
-        <!-- The Impact -->
-        <div class="relative">
-          <div
-            class="relative rounded-3xl overflow-hidden shadow-2xl mb-12"
-            data-aos="fade-up"
-          >
-            <img
-              src="/images/family_outdoor.webp"
-              alt="Family enjoying time together outdoors"
-              class="w-full h-[28rem] object-cover"
-              loading="lazy"
-              decoding="async"
-            />
-
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end"
-            >
-              <div class="p-10 md:p-12 text-white">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                  150,000 Faster Recoveries
-                </h2>
-                <p class="text-xl md:text-2xl opacity-90">
-                  Hundreds of millions in healthcare costs eliminated
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Impact Stats -->
-        <div class="grid md:grid-cols-3 gap-8">
-          <div
-            class="bg-white rounded-2xl p-8 shadow-lg text-center hover:-translate-y-2 transition-transform"
-            data-aos="zoom-in"
-          >
-            <div
-              class="w-20 h-20 mx-auto mb-4 bg-blue-100 rounded-2xl flex items-center justify-center"
-            >
-              <img
-                src="/images/icons/reimbursement.svg"
-                alt="Medical savings"
-                class="w-12 h-12"
-              />
-            </div>
-            <div class="text-4xl font-bold text-blue-600 mb-2">$95M</div>
-            <p class="text-gray-600">Medical savings</p>
-            <p class="text-sm text-gray-500 mt-2">52% cost reduction</p>
-          </div>
-
-          <div
-            class="bg-white rounded-2xl p-8 shadow-lg text-center hover:-translate-y-2 transition-transform"
-            data-aos="zoom-in"
-            data-aos-delay="200"
-          >
-            <div
-              class="w-20 h-20 mx-auto mb-4 bg-orange-100 rounded-2xl flex items-center justify-center"
-            >
-              <img
-                src="/images/icons/daily-routine.svg"
-                alt="Productivity saved"
-                class="w-12 h-12"
-              />
-            </div>
-            <div class="text-4xl font-bold text-orange-600 mb-2">$151M</div>
-            <p class="text-gray-600">Productivity saved</p>
-            <p class="text-sm text-gray-500 mt-2">3.2M work days</p>
-          </div>
-
-          <div
-            class="bg-white rounded-2xl p-8 shadow-lg text-center hover:-translate-y-2 transition-transform"
-            data-aos="zoom-in"
-            data-aos-delay="400"
-          >
-            <div
-              class="w-20 h-20 mx-auto mb-4 bg-green-100 rounded-2xl flex items-center justify-center"
-            >
-              <img
-                src="/images/icons/internet-security.svg"
-                alt="Total impact"
-                class="w-12 h-12"
-              />
-            </div>
-            <div class="text-4xl font-bold text-green-600 mb-2">$246M</div>
-            <p class="text-gray-600">Combined total</p>
-            <p class="text-sm text-gray-500 mt-2">
-              $95M medical + $151M productivity
-            </p>
-          </div>
-        </div>
-
-        <!-- Emotional Close of Savings Section -->
-        <div
-          class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#003087] to-[#002266] p-12 md:p-16 text-white text-center mt-20"
-          data-aos="fade-up"
-        >
-          <div class="relative z-10">
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-              Behind Every Dollar Was a Life Changed
-            </h2>
-            <div class="max-w-3xl mx-auto space-y-4 text-lg md:text-xl mb-8">
-              <p class="opacity-90">
-                150,000+ people diagnosed in days, not weeks.
-              </p>
-              <p class="opacity-90">
-                Each one back to normal life 12 days sooner.
-              </p>
-              <p class="opacity-90">
-                Together, 3.2 million productive work days recovered.
-              </p>
-            </div>
-            <div class="pt-8 border-t border-white/20">
-              <p class="text-2xl md:text-3xl font-semibold">
-                We did it once. But we weren't done.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- THE NEXT ERA: Mission Pillars -->
       <div class="relative overflow-hidden bg-white">
         <div class="max-w-5xl mx-auto py-24 px-6">
-          <!-- Chapter label + headline -->
-          <div class="text-center mb-16" data-aos="fade-up">
-            <p
-              class="text-xs font-semibold uppercase tracking-[0.2em] text-[#B08A4A] mb-5"
-            >
-              The Next Era
-            </p>
-            <h2
-              class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight"
-            >
-              This Time, It&rsquo;s Different
-            </h2>
-            <div class="h-0.5 w-16 bg-[#B08A4A] mx-auto mt-2 opacity-60"></div>
-          </div>
-
-          <!-- Three mission pillars -->
-          <div class="grid md:grid-cols-3 gap-8 mb-16">
-            <!-- Pillar 1 -->
-            <div
-              class="border-t-2 border-[#B08A4A] pt-8"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
+          <!-- ACT 5 — THE FIREWALL. Replaces the former "The Next Era / This Time, It's Different" block and its three mission pillars, 2026-08-17. Removed: the "Built on Experience" pillar (A→C transfer, rule 26, and an unanchored facility count under rule 18); the "No Permission Required" pillar (founder ruling 2026-08-16 — MRI requires a physician order); and the Direct to Patients pillar (dropped by ruling, not relocated). This section states the corporate and operational inheritance boundary: the founders' experience carries forward, AnciCare's network, contracts, clients and assets do not. ⛔ PARAGRAPHS 2 AND 3 ARE LOAD-BEARING AS A PAIR — the concession "That part is familiar" is safe only because the next paragraph immediately corrects it. Do not separate them with a divider, card treatment or oversized spacing. -->
+          <div class="max-w-3xl mx-auto">
+            <!-- Chapter label + headline -->
+            <div class="text-center mb-12" data-aos="fade-up">
               <p
-                class="text-xs font-semibold uppercase tracking-widest text-[#B08A4A] mb-3"
+                class="text-xs font-semibold uppercase tracking-[0.2em] text-[#B08A4A] mb-5"
               >
-                Built on Experience
+                2025 &mdash; A New Company
               </p>
-              <h4 class="text-xl font-bold text-gray-900 mb-3">
-                We&rsquo;re Not Starting from Scratch
-              </h4>
-              <p class="text-gray-600 leading-relaxed">
-                A battle-tested model already proven at national scale — across
-                1,200+ facilities — ready to deploy for patients.
-              </p>
+              <h2
+                class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight"
+              >
+                What Carries Forward. What Doesn&rsquo;t.
+              </h2>
+              <div class="h-0.5 w-16 bg-[#B08A4A] mx-auto mt-2 opacity-60">
+              </div>
             </div>
 
-            <!-- Pillar 2 -->
-            <div
-              class="border-t-2 border-[#003087] pt-8"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <p
-                class="text-xs font-semibold uppercase tracking-widest text-[#003087] mb-3"
-              >
-                Direct to Patients
+            <!-- The firewall -->
+            <div class="space-y-6 text-lg text-gray-600 leading-relaxed mb-16">
+              <p data-aos="fade-up">
+                USRad is a new company. It did not inherit AnciCare&rsquo;s
+                network, contracts, clients or operating assets.
               </p>
-              <h4 class="text-xl font-bold text-gray-900 mb-3">
-                We&rsquo;re Not Serving Insurance Companies
-              </h4>
-              <p class="text-gray-600 leading-relaxed">
-                Your health, your choice, your savings. No middlemen. No
-                conflicts of interest.
+              <p data-aos="fade-up" data-aos-delay="100">
+                What carries forward are the founders and what they learned
+                building a contracted imaging network: working directly with
+                independent imaging centers, establishing predictable pricing
+                and coordinating access to imaging. Self-insured employers were
+                among AnciCare&rsquo;s customers too. That part is familiar.
               </p>
-            </div>
-
-            <!-- Pillar 3 -->
-            <div
-              class="border-t-2 border-gray-300 pt-8"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
-              <p
-                class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3"
-              >
-                No Permission Required
+              <p data-aos="fade-up" data-aos-delay="100">
+                What does not carry forward is AnciCare itself. Its network,
+                contracts, clients and infrastructure became part of CorVel
+                following the 2002 acquisition. USRad is building its own
+                network from the beginning.
               </p>
-              <h4 class="text-xl font-bold text-gray-900 mb-3">
-                We&rsquo;re Not Asking Permission
-              </h4>
-              <p class="text-gray-600 leading-relaxed">
-                No insurance approvals. No referral networks. No gatekeepers
-                between you and your scan.
-              </p>
-            </div>
-          </div>
-
-          <!-- Founder promise — institutional letter feel -->
-          <div
-            id="founder-promise"
-            class="bg-gradient-to-br from-[#003087] to-[#002266] rounded-2xl p-10 md:p-12 text-white"
-            data-aos="fade-up"
-            data-aos-delay="150"
-          >
-            <h3
-              class="text-xl font-semibold mb-5 opacity-70 uppercase tracking-widest text-sm"
-            >
-              My Promise to You
-            </h3>
-            <p class="text-xl md:text-2xl leading-relaxed opacity-90 max-w-3xl">
-              &ldquo;We built AnciCare to save employers money. We launched
-              USRad to save lives. A proven model. A bigger mission. A personal
-              commitment.&rdquo;
-            </p>
-            <div
-              class="mt-8 pt-6 border-t border-white/20 flex items-center gap-4"
-            >
-              <img
-                src="/images/signature.png"
-                alt="Michael Cabrera signature"
-                class="h-12 opacity-75"
-              />
-              <p class="text-sm opacity-60 tracking-wide">
-                Michael Cabrera &mdash; Founder &amp; CEO
+              <p data-aos="fade-up" data-aos-delay="200">
+                The benefit line is different, and the difference matters.
+                AnciCare operated in workers&rsquo; compensation, where
+                employers could direct care, carriers and TPAs administered
+                claims, and the business served a defined claimant population.
+                USRad is being built for self-funded health plans and people
+                paying directly for their own imaging. The buyer may be
+                familiar. The mechanism is not.
               </p>
             </div>
           </div>
@@ -1104,8 +637,8 @@ export const prerender = true;
               They Built It Before.
             </h2>
             <p class="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto">
-              The operators who built the original system are building it again
-              — this time for patients.
+              The operators behind AnciCare are now building USRad for a
+              different healthcare market.
             </p>
           </div>
 
@@ -1143,27 +676,16 @@ export const prerender = true;
                   Founder & CEO
                 </p>
 
-                <div class="grid grid-cols-2 gap-4 mb-6">
-                  <div class="text-center p-4 bg-gray-50 rounded-xl">
-                    <div class="text-3xl font-bold text-[#003087]">1,236%</div>
-                    <div class="text-sm text-gray-600">Revenue Growth</div>
-                  </div>
-                  <div class="text-center p-4 bg-gray-50 rounded-xl">
-                    <div class="text-3xl font-bold text-[#cc9933]">$246M+</div>
-                    <div class="text-sm text-gray-600">Documented savings</div>
-                  </div>
-                </div>
-
-                <p class="text-gray-600 text-center mb-8 italic">
-                  "I came back because the job wasn't finished. 90 million
-                  Americans still need what we built."
+                <p class="text-gray-600 text-center mb-8">
+                  Co-founded AnciCare PPO in 1994. Through the CorVel
+                  acquisition in 2002.
                 </p>
 
                 <a
                   href="/co-founder-m"
                   class="block w-full bg-gradient-to-r from-[#003087] to-[#002266] text-white px-6 py-3 rounded-xl font-semibold text-center hover:shadow-lg transition-all"
                 >
-                  See Michael's Track Record →
+                  Michael's background →
                 </a>
               </div>
             </div>
@@ -1201,37 +723,19 @@ export const prerender = true;
                   Co-Founder & Chief Member Advocate
                 </p>
 
-                <div class="grid grid-cols-2 gap-4 mb-6">
-                  <div class="text-center p-4 bg-gray-50 rounded-xl">
-                    <div class="text-3xl font-bold text-[#003087]">150,000+</div>
-                    <div class="text-sm text-gray-600">Patients Served</div>
-                  </div>
-                  <div class="text-center p-4 bg-gray-50 rounded-xl">
-                    <div class="text-3xl font-bold text-[#cc9933]">99.8%</div>
-                    <div class="text-sm text-gray-600">Satisfaction Rate</div>
-                  </div>
-                </div>
-
-                <p class="text-gray-600 text-center mb-8 italic">
-                  "Behind every statistic is a real person with a real story.
-                  That's who we fight for."
+                <p class="text-gray-600 text-center mb-8">
+                  Co-founded AnciCare PPO in 1994. Through the CorVel
+                  acquisition in 2002.
                 </p>
 
                 <a
                   href="/co-founder-d"
                   class="block w-full bg-gradient-to-r from-[#003087] to-[#002266] text-white px-6 py-3 rounded-xl font-semibold text-center hover:shadow-lg transition-all"
                 >
-                  Discover Donna's Impact →
+                  Donna's background →
                 </a>
               </div>
             </div>
-          </div>
-
-          <div class="text-center mt-12" data-aos="fade-up">
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-              Two founders. One proven playbook. A market 75× larger than
-              before.
-            </p>
           </div>
         </div>
       </section>
@@ -1277,10 +781,8 @@ export const prerender = true;
             <p
               class="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight pt-4"
             >
-              Now we&rsquo;re deploying it
-            </p>
-            <p class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
-              <span class="text-[#B08A4A]">for everyone.</span>
+              Now we&rsquo;re building
+              <span class="text-[#B08A4A]">a new one.</span>
             </p>
           </div>
 
@@ -1298,16 +800,6 @@ export const prerender = true;
               <span class="text-[#B08A4A]">Accessible Imaging.</span>
             </p>
           </div>
-
-          <!-- Supporting line -->
-          <p
-            class="text-lg text-white/70 max-w-2xl mx-auto mb-14 leading-relaxed"
-            data-aos="fade-up"
-            data-aos-delay="250"
-          >
-            USRad is bringing diagnostic imaging to the 90 million Americans who
-            need it most.
-          </p>
 
           <!-- CTA -->
           <div
@@ -1384,8 +876,6 @@ export const prerender = true;
   const trustSections = [
     { id: "founders-photo", section: "founder_photo" },
     { id: "timeline", section: "timeline" },
-    { id: "case-study-246m", section: "case_study_246m" },
-    { id: "founder-promise", section: "founder_promise" },
   ];
 
   const observer = new IntersectionObserver(
