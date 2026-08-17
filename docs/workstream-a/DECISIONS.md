@@ -4280,7 +4280,55 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              corporate chronology. ⛔ A PRESS KIT IS EXACTLY WHERE AN
              OUTSIDE READER TESTS WHETHER ANCICARE'S RECORD IS BEING
              CLAIMED AS USRad's — the corporate-inheritance firewall
-             applies with full force. · FOUNDER                       
+             applies with full force. · FOUNDER
+    2026-08-17 · /co-founder-m — TWO SURGICAL CONTAINMENTS, NOT AN AUDIT.
+             The animated patient-count section removed entire, and the
+             "3x Hispanic Business Top 500" tile removed. ⛔ NO
+             NUMERICAL SUBSTITUTE — the admitted record is #320 in 1999
+             and recognition in 2000, and "three consecutive years" is
+             §4b NOT ADMITTED, but replacing 3x with 2x in a containment
+             pass would be conforming a figure rather than removing one.
+             ⛔ SIX FURTHER BARRED CLAIMS WERE OBSERVED AND LEFT IN
+             PLACE, recorded at #78. ⚠️ THIS PAGE HAS SURFACED LIVE
+             BARRED CLAIMS THREE TIMES WITHOUT EVER BEING AUDITED, and
+             /co-founder-d has never been inspected at all. Both are
+             linked from /about's founder cards. · FOUNDER
+2026-08-17 · ⛔ #54 — FIFTEENTH MEMBER, TENTH MODE: FIGURES INJECTED BY
+             JAVASCRIPT AT RUNTIME. co-founder-m.astro published
+             150,000+ as <span id="counter" data-target="150000">0</span>.
+             THE RENDERED HTML CONTAINED "0". The barred value lived in
+             an attribute and was written to the DOM after load, and it
+             animated to text-9xl on a full-width dark section. ⛔ NO
+             SWEEP OF BUILT HTML COULD SEE IT. ⚠️ ATTRIBUTE VALUES AND
+             SCRIPT LITERALS ARE CLAIM SURFACES — sweep the source as
+             well as the output, and match on data-* attributes and JS
+             literals, not only rendered text. The same construction
+             exists in NetworkMapPinsCarbon.astro at :284, :296 and :320
+             — data-target="1500", "10", "70" — contained from / under
+             RED-2 but live in source. · ADVISOR
+2026-08-17 · BIRTHING OF GIANTS ADMITTED AS PARTICIPATION. The roster
+             establishes membership of the 2001 cohort; the CV of Edward
+             B. Roberts, David Sarnoff Professor of Management of
+             Technology at MIT, establishes the joint MIT/YEO/Inc.
+             affiliation. ⛔ NEITHER ESTABLISHES SELECTION — no
+             application, acceptance or admission criteria are in
+             evidence, and /press-kit and /co-founder-m between them
+             claimed "Selected" three times. ⛔ NOR IS IT "MIT's"
+             PROGRAM. ⚠️ FOUNDER ATTESTS THE CLASS WAS LIMITED TO 60
+             PARTICIPANTS — recorded as FA, REGISTER-HELD, NOT FOR
+             PUBLICATION pending contemporaneous documentation.
+             "Exclusive," "prestigious," "one of 60" and equivalent
+             exclusivity language are barred. The cohort roster is
+             register-held: it is a contact list, and other participants
+             are not for publication. · FOUNDER + ADVISOR
+2026-08-17 · CANONICAL PUBLIC TITLES RATIFIED SITEWIDE: Michael Cabrera
+             — Founder & CEO; Donna Cabrera — Co-Founder & Chief Member
+             Advocate. ⛔ /press-kit said "Co-Founder & CEO" and omitted
+             Donna entirely; the rebuilt press kit will include her.
+             ⚠️ Legally both are co-founders and §4a holds that; the
+             public form is the founder's stated preference and is not a
+             denial of co-founding — see the co-founding /
+             equity-ownership note at §4a. · FOUNDER                                
 ```
 
 ---
