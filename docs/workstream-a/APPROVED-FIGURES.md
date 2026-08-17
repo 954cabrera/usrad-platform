@@ -336,6 +336,7 @@ Evidence class: **CP** = contemporaneous primary (created 1994–2002 in the ord
 | **Executive program** ✅ **ADMITTED 2026-08-17** | **Michael Cabrera participated in the Birthing of Giants executive program — a joint program of MIT, the Young Entrepreneurs' Organization and Inc. magazine — Class of 2001** | **Birthing of Giants, Class of 2001** | Program roster, *Birthing of Giants Class of 2001*, listing Michael Cabrera, AnciCare PPO, Miramar FL. MIT/YEO/Inc. affiliation established by the curriculum vitae of Edward B. Roberts, David Sarnoff Professor of Management of Technology, MIT: *"1990–2006 Co-Founder and Faculty Sponsor, 'Birthing of Giants' Program: MIT, Young Entrepreneurs Organization (YEO, now EO), and Inc. Magazine"* | **CT** |
 | **Program selectivity** ⚠️ **REGISTER-HELD 2026-08-17** | **The Class of 2001 was a selective program limited to 60 participants** | — | Founder attestation, 2026-08-17 | **FA** ⛔ **NOT FOR PUBLICATION** |
 | **Florida 100** ✅ **ADMITTED 2026-08-16** | **recognized by the University of Florida as a Florida 100 company — top 100 fastest-growing private companies in Florida — in 1998 and 1999** | **Florida 100 (1998, 1999)** | Two award plaques, Managed Care Networks, Inc., logos NINETEEN 98 and NINETEEN 99; congratulatory letter, Gov. Jeb Bush, 25 Feb 2000 | **CT** |
+| **Service program** ✅ **ADMITTED 2026-08-17** | **One Step To Service® — AnciCare's coordinated approach to referral, scheduling and reporting, encompassing coordination of the diagnostic imaging procedure, coordination of the related medical records, and administration of the claim** | **One Step To Service®** | AnciCare PPO customer newsletter, *One Step To Service®* feature and *Expanded Nationwide Services* page — ⚠️ **UNDATED; BRACKETED TO 1997 OR LATER** by its own announcement of Cecelia O'Donnell's appointment ("joined the company in June 1997") and its "Second Annual" celebration feature; AnciCare PPO *Insurance Radiology Solutions* trifold — ⚠️ **UNDATED, NO BRACKET.** ⛔ **NEITHER CARRIES A DATE ON ITS FACE. The bracket is a floor, not a date, and this row is admitted on that basis by founder ruling 2026-08-17** | **CP** |
 
 **Compact is permitted in** stat tiles, charts, badges and similarly constrained UI. **Narrative prose uses canonical.** No third form — standing rule 18.
 
@@ -357,6 +358,18 @@ Evidence class: **CP** = contemporaneous primary (created 1994–2002 in the ord
 
 > **⚠️ THE /about FIREWALL IS CORPORATE AND OPERATIONAL INHERITANCE, NOT HISTORICAL EXPERIENCE — founder correction 2026-08-16.** The approved form is: ***"USRad is a new company. It did not inherit AnciCare's network, contracts, clients or operating assets."*** ⛔ **Formulations denying any relationship beyond the founders OVERSTATE the separation** and are not approved — the founders' experience, and their documented history with self-insured employers, genuinely carry forward.
 
+> **⛔ ONE STEP TO SERVICE® — THE PROVENANCE BOUNDARY IS THE WHOLE POINT OF THIS ENTRY — founder ruling 2026-08-17.** **Two different things are established by two different evidence classes and they must never be merged.** ✅ **CP/CT establishes** the program's existence, its canonical name, its service/support/coordination/reporting functions, its referral and scheduling workflow, and its three documented components. ⛔ **CP/CT DOES NOT ESTABLISH WHO CREATED IT.** Donna Cabrera's creation, design, architecture and launch of the program are **FA — founder attestation, 2026-08-17** — recorded separately in the FA table below and governed by the attribution requirement there. ⛔ **DO NOT CITE THE NEWSLETTER, BROCHURE OR TRIFOLD AS DOCUMENTARY PROOF OF DONNA'S AUTHORSHIP.** They do not establish it.
+>
+> ⚠️ **AND THE CONVERSE IS EQUALLY BINDING: DOCUMENTARY SILENCE IS NOT CONTRARY EVIDENCE.** Donna does not appear in the operational documents; **that establishes nothing about who created the program.** Cecelia O'Donnell's documented client-services responsibilities (Director of Client Services, joined June 1997) are **register-held solely to preserve this distinction** and ⛔ **DO NOT ESTABLISH AUTHORSHIP OF ONE STEP TO SERVICE®, and create no publishable fact of their own.**
+>
+> **⚠️ CANONICAL NAME AND SOURCE VARIANTS.** The canonical historical form is **One Step To Service®**. Two variants appear in the sources and are **recorded as source variants only — they are NOT additional canonical public forms and standing rule 18 is not engaged by them**: *"One Step to Service"* (newsletter, *Expanded Nationwide Services*) and *"One Step Service"* (trifold, twice). ⛔ **`/co-founder-d` currently publishes the "One Step Service" variant. That is the form to conform away from.**
+>
+> **✅ TRADEMARK TREATMENT.** The **®** may publish when referring to the historical AnciCare program. ⛔ **THE SURROUNDING COPY MUST MAKE CLEAR IT IS AN ANCICARE-ERA PROGRAM — NOT A PRESENT USRad PROGRAM AND NOT A USRad-OWNED MARK.** This is the corporate-inheritance firewall applied to a trademark, and a mark is exactly where a reader tests ownership.
+>
+> **✅ APPROVED PUBLIC FORM for `/co-founder-d`:** ***"Donna Cabrera created and launched One Step To Service®, AnciCare's coordinated approach to referral, scheduling and reporting."*** The register preserves the fuller attestation — *created, designed, architected and launched*; **public copy uses the restrained form above.**
+>
+> ⚠️ **THIS ROW IS ADMITTED WITHOUT A DATE — THE FIRST IN §4a.** Every other §4a row cites source · date · page. ⛔ **THE PROGRAM FACT IS ADMITTED; NO DATE-DEPENDENT CLAIM MAY BE BUILT ON THESE TWO DOCUMENTS** — no "as early as," no "by 19XX," no sequencing against another company or another figure. The newsletter's floor is **June 1997**; the trifold has no floor at all. ⛔ **DO NOT DATE EITHER FROM A NEIGHBOURING DOCUMENT IN THE SAME BINDER** — the *Florida Workers' Comp Advisor* of November 1994 sits beside them and is a different publication by a different publisher. ⚠️ **IF A DATED COPY, PRINT CODE OR MAILING SURFACES LATER, UPDATE THIS ROW RATHER THAN RE-ARGUING IT.**
+
 #### ⚠️ A THIRD EVIDENCE CLASS — FA, founder-attested current knowledge
 
 *Added 2026-08-07 · FOUNDER + ADVISOR.*
@@ -366,7 +379,7 @@ Classes **CP** and **CT** both describe the 1994–2002 record. This one does no
 | Figure | Canonical prose form | Compact form | Basis | Class |
 |---|---|---|---|---|
 | **Model still in use post-exit** | **CorVel has continued to use the model since acquiring it in May 2002** | **20+ years post-exit** | Founder attestation as to present-day third-party operations. The corpus documents the **sale** (Greenberg Traurig closing letter, 31 Jul 2002); **it says nothing whatever about what the buyer did afterward** | **FA** |
-
+| **Authorship of One Step To Service®** ✅ **ADMITTED 2026-08-17** | **Donna Cabrera created, designed, architected and launched One Step To Service®** | **created and launched One Step To Service®** | Founder attestation, Michael Cabrera, 2026-08-17 — firsthand and contemporaneous to the events. ⛔ **The contemporaneous documents establish the PROGRAM (§4a, CP) and are NOT evidence of this attribution** | **FA** |
 **FA is not a weaker CP — it is a different kind of claim.** CP and CT are verifiable against documents held at `~/Documents/ancicare/business_proofs`. FA is not verifiable there at all, and no amount of corpus work will make it so.
 
 > **ATTRIBUTION REQUIREMENT.** Copy using an FA figure must be attributable or otherwise clearly attested. **It may never be presented as independently documented fact**, and it may not sit inside a run of CP/CT figures in a way that borrows their evidentiary standing.
@@ -465,6 +478,23 @@ The article is now in the corpus and its contents are document-verified **as rep
 
 The documents draw this distinction and copy must not blur it. **Contracted facilities** = under contract (1,228, April 2002). **Participating centers** = those that actually received referrals in the period (664, October 1999). Not interchangeable.
 
+#### ⛔ Scheduling formulations — FOUR FORMS, DO NOT SYNTHESIZE — founder ruling 2026-08-17
+
+**Four contemporaneous formulations of AnciCare's scheduling performance exist. They are preserved separately and ⛔ MAY NOT BE COMBINED, AVERAGED, OR REDUCED TO A SINGLE CANONICAL FIGURE.**
+
+| Formulation | Source · date |
+|---|---|
+| **48 hours or less** for routine studies, emergencies on a stat basis | *Florida Workers' Comp Advisor*, Genesis Publishing, Vol. 3 No. 11, Nov 1994, "PPO specializes in less costly MRIs" |
+| **48 to 72 hours**, stat patients accommodated immediately | AnciCare newsletter, *One Step To Service®* feature (undated; post-June 1997) |
+| **two to three working / business days** | AnciCare newsletter, *Expanded Nationwide Services* page (undated; post-June 1997) |
+| **90% of referrals scheduled within two to three days** ✅ | *South Florida Business Journal*, 5 Feb 1999 — **already admitted in the §4a table above; that row is unchanged** |
+
+⚠️ **These do not contradict each other** — clock hours versus business days, and a standard that changed across eight years. ⛔ **But standing rule 18 permits one canonical and one compact form per figure, and there are four. Synthesis is therefore barred rather than required.** Publish a single formulation **with its date and source**, or publish none.
+
+⛔ **`72-hour scheduling` AS A FLAT STANDARD IS BARRED.** `/co-founder-d` currently publishes it twice in prose and once as a `72hr` stat tile. **It is the ceiling of a range presented as the promise** — the same defect as leaking the `50–70%` upper bound at #29, inverted.
+
+✅ **FOR DONNA'S REMEDIATION, NO SCHEDULING NUMBER IS USED.** Her contribution is the creation and launch of the coordinated service model. **The page does not need a numerical scheduling promise to establish it**, and none is authorised without a separate ruling.
+
 #### ⚠️ Confidentiality of the sources
 
 `Corp Overview 9-2000`, the CIM, the Pinnacle valuation and the partner tables are all marked **CONFIDENTIAL** or **STRICTLY CONFIDENTIAL**. **CNA is confirmed only by a confidential document.** Public confirmation for named clients comes from the Genesis Publishing (Nov 1994) and *South Florida Business Journal* (Feb 1999) articles, in which the founder named clients on the record.
@@ -482,10 +512,18 @@ The documents draw this distinction and copy must not blur it. **Contracted faci
 | **"$18 million expected 1999 earnings"** | ⛔ Already barred as a projection. ⚠️ **RE-CONFIRMED 2026-08-16** — it appears in the SFBJ article of 5 Feb 1999 now admitted for two other facts. **Admitting a document does not admit every figure in it** | — |
 | **Hispanic Business ranks #259 and #223; "three consecutive years"** | ⛔ **NOT ADMITTED.** No source document held; the plaque supports **#320 (1999)** only, and the governors' letters support 2000 inclusion without a rank | **#320 (1999)** and 2000 recognition, register-held. ⛔ **#320 is NOT published on `/about`** |
 | **Florida 100 ranks #49 and #89** | ⛔ **NOT ADMITTED.** Neither plaque carries a rank | **Florida 100 (1998, 1999)**, unranked |
+| **"The Nation's #1 MRI Network for Workers' Compensation"** · **"ranked as the best medical imaging network in the United States"** · **"one of the first of its kind"** | ⛔ **BARRED 2026-08-17 — D3 CLASS, DIRECTLY.** *"One of the first of its kind"* is the **exact narrowed form D3 considered and REJECTED** on 2026-08-09. ⚠️ **All three are self-published marketing, not third-party ranking.** No ranking body, instrument or period is stated | — |
+| **"serves over 70% of the Workers' Compensation Industry"** | ⛔ **BARRED 2026-08-17.** A derived market-share claim with **no denominator, no methodology and no source.** #30 class. Appears twice across the trifold and brochure | — |
+| **"50 states across the nation, including Puerto Rico"** · **"hundreds of clients and millions of individuals"** | ⛔ **BARRED 2026-08-17. CONTRADICTED BY THE ADMITTED RECORD** — §4a's documented waypoints are 32 states + DC (1998), 40 (Mar 2000), 38 (Sept 2000), 43 (Apr 2002). **50 states appears in no primary document.** ⚠️ *"Millions of individuals"* is additionally a **people-count under §4c** | The dated §4a waypoints |
+| **"over 300 nationwide companies"**; **Corvel, RSKCo, CCN** as pre-2002 clients | ⛔ **NOT ADMITTED 2026-08-17.** Client count uncorroborated. ⚠️ **CorVel appearing as a CLIENT before the 2002 acquisition is a separate factual admission and is not made here** | §4a *Named clients* |
 
 Both figures were conformed sitewide on 2026-08-06 — Batch 4H-c1 (38 instances) and Batch 4H-c2 (16 changes). **Both batches were correct against the register as it then stood; the evidence changed underneath them.** Reversal is tracked as open items **#24** and **#25**.
 
 Still barred at any width, unchanged: `150K`, `150K+`, `168K`, `168,000`, `$180M`, `$160M+`, `$150M+`.
+
+> **⛔ SOURCE LIMITATION — THE ANCICARE TRIFOLD AND NEWSLETTER — founder ruling 2026-08-17.** Both are **CP evidence of representations AnciCare made in its own marketing.** ⛔ **THEY ARE NOT AUTOMATIC PROOF OF THE EXTRAORDINARY FACTUAL CLAIMS THEY CONTAIN.** Where a claim in these documents is corroborated by a filing, an audited statement or third-party press, that other source governs; where it is not, **it is a marketing representation and nothing more.** ⚠️ **This is the same discipline as *admitting a document does not admit every figure in it* (2026-08-16), applied to a self-published source rather than a journalistic one — and it matters more here, because AnciCare wrote these.**
+>
+> ⛔ **FIGURES ENCOUNTERED DURING THE 2026-08-17 EVIDENCE REVIEW AND NOT ADJUDICATED — DO NOT LIFT INTO COPY:** `$475` global rate per MRI · `$960–$1,400` carrier cost · `$250–$400` contrast add-on · `more than 70 free-standing MRI centers` in Florida · the Miami-to-Pensacola / Valdosta / Albany / Dothan geography · `over 300 nationwide companies` · the historical toll-free number and street address. ⚠️ **Each requires separate adjudication if ever needed.** **They are recorded here so that appearing in a session transcript does not become a route into publication.**
 
 ---
 
@@ -566,6 +604,8 @@ The tenure test — *first person or signed attribution → do not conform* — 
 > Do not force these into one figure because a grep matched the same words.
 
 Known **(b)** instances: `AnciCareStory.astro:306` (signed pull-quote), `co-founder-d.astro:401`, `blog/the-scan-that-never-happens.astro:339`.
+
+> ⛔ **CORRECTED 2026-08-17 — `co-founder-d.astro:401` IS NOT A (b) INSTANCE AND NEVER WAS.** The line is *"Three decades of putting patients first, one caring interaction at a time"* — **third-person, unsigned section copy.** It **fails the stated (b) test in terms** — *first person or signed attribution* — and is a **(a) company-operating-window instance requiring conformance.** ⚠️ **The misclassification shielded it from every conformance pass since 2026-08-07**, because (b) instances are explicitly *not automatically conformed*. ⛔ **A WRONG CLASSIFICATION IN THIS REGISTER IS MORE DURABLE THAN A WRONG FIGURE: the figure gets swept, the exemption does not.** The remaining two named instances are unexamined by this correction and keep their (b) status pending their own surfaces. Found by the `/co-founder-d` audit, 2026-08-17.
 
 Four notation variants are in play, and a pattern matching only `30 Years` sees 9 of 16 live instances: `30 Years` · `30+ years` · `three decades` · `thirty years`. Locate by content; line numbers drift.
 

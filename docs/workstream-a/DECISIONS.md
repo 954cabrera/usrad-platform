@@ -4329,6 +4329,118 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              public form is the founder's stated preference and is not a
              denial of co-founding — see the co-founding /
              equity-ownership note at §4a. · FOUNDER                                
+2026-08-17 · ONE STEP TO SERVICE® ADMITTED AS AN ANCICARE PROGRAM.
+             §4a, class CP, on the AnciCare customer newsletter and
+             the Insurance Radiology Solutions trifold. The evidence
+             establishes the program's existence, name, service /
+             support / coordination / reporting functions, referral
+             and scheduling workflow, and its three components —
+             coordination of the diagnostic imaging procedure,
+             coordination of related medical records, administration
+             of the claim. ⚠️ BOTH SOURCE DOCUMENTS ARE UNDATED and
+             are bracketed after June 1997 by the O'Donnell
+             appointment notice. ⛔ "One Step to Service" and "One
+             Step Service" are SOURCE VARIANTS ONLY, not additional
+             canonical public forms. /co-founder-d currently
+             publishes the variant. · FOUNDER
+2026-08-17 · ⛔ DONNA CABRERA'S AUTHORSHIP OF ONE STEP TO SERVICE® IS
+             FA, NOT CP. Founder attestation, Michael Cabrera,
+             firsthand and contemporaneous: Donna Cabrera created,
+             designed, architected and launched the program.
+             ⛔ THE CONTEMPORANEOUS DOCUMENTS ESTABLISH THE PROGRAM
+             AND NOT THE ATTRIBUTION, and may not be cited as proof
+             of it. ⚠️ AND THE CONVERSE BINDS EQUALLY: DOCUMENTARY
+             SILENCE IS NOT CONTRARY EVIDENCE. Donna's absence from
+             the operational documents establishes nothing about
+             authorship, and Cecelia O'Donnell's documented
+             client-services responsibilities do not establish
+             authorship either — she is register-held solely to
+             preserve the distinction and creates no publishable
+             fact. APPROVED PUBLIC FORM: "Donna Cabrera created and
+             launched One Step To Service®, AnciCare's coordinated
+             approach to referral, scheduling and reporting." The
+             register preserves the fuller attestation; public copy
+             uses the restrained form. · FOUNDER
+2026-08-17 · ⚠️ THIS SUPERSEDES THE CORPORATE-ASSOCIATION-ONLY
+             READING PROPOSED EARLIER THE SAME DAY. The evidence
+             review concluded that Donna's connection to the program
+             was corporate rather than personal because no document
+             names her. ⛔ THAT CONCLUSION TREATED DOCUMENTARY
+             SILENCE AS EVIDENCE AND IS OVERRULED. Recorded so a
+             future agent reading the audit does not revert to it.
+             · FOUNDER
+2026-08-17 · TRADEMARK TREATMENT. The ® may publish when referring to
+             the historical AnciCare program. ⛔ SURROUNDING COPY
+             MUST MAKE CLEAR IT IS AN ANCICARE-ERA PROGRAM, NOT A
+             PRESENT USRad PROGRAM OR A USRad-OWNED MARK. The
+             corporate-inheritance firewall applied to a trademark —
+             a mark is exactly where an outside reader tests
+             ownership. · FOUNDER
+2026-08-17 · ⛔ FOUR SCHEDULING FORMULATIONS — DO NOT SYNTHESIZE.
+             48 hours or less (Genesis, Nov 1994) · 48 to 72 hours
+             (newsletter) · two to three working days (newsletter) ·
+             90% of referrals within two to three days (SFBJ, 5 Feb
+             1999, already admitted). They do not contradict — clock
+             hours vs business days, across eight years — BUT RULE 18
+             PERMITS ONE CANONICAL AND ONE COMPACT FORM AND THERE ARE
+             FOUR, so synthesis is barred rather than required.
+             Publish one formulation with its date and source, or
+             none. ⛔ 72-HOUR AS A FLAT STANDARD IS BARRED — it is
+             the CEILING OF A RANGE PRESENTED AS THE PROMISE, the
+             #29 defect inverted. ✅ NO SCHEDULING NUMBER IS USED IN
+             DONNA'S REMEDIATION. · FOUNDER
+2026-08-17 · ⛔ TRIFOLD AND NEWSLETTER ARE CP EVIDENCE OF WHAT
+             ANCICARE SAID, NOT PROOF OF WHAT ANCICARE WAS. Four
+             claim families barred: the D3-class superlatives
+             including "one of the first of its kind" — THE EXACT
+             NARROWED FORM D3 REJECTED ON 2026-08-09; "serves over
+             70% of the Workers' Compensation Industry"; "50 states
+             including Puerto Rico" and "millions of individuals",
+             the former CONTRADICTED BY §4a's DATED WAYPOINTS and the
+             latter a §4c people-count; and "over 300 nationwide
+             companies". ⚠️ NEWLY ENCOUNTERED AND NOT ADJUDICATED —
+             $475, $960–$1,400, $250–$400, 70+ Florida centers, the
+             Southeast geography, the historical phone and address.
+             ⛔ RECORDED SO THAT APPEARING IN A TRANSCRIPT IS NOT A
+             ROUTE INTO PUBLICATION. This is the material class that
+             produced $246M, 150,000+ and 1,500+ locations.
+             · FOUNDER + ADVISOR
+2026-08-17 · ⛔ REGISTER CORRECTION — co-founder-d.astro:401 WAS
+             MISCLASSIFIED AS A TENURE (b) INSTANCE SINCE 2026-08-07.
+             "Three decades of putting patients first" is
+             third-person and unsigned; it FAILS THE STATED (b) TEST
+             and is an (a) instance requiring conformance. ⚠️ THE
+             MISCLASSIFICATION SHIELDED IT FROM EVERY CONFORMANCE
+             PASS, because (b) instances are explicitly not
+             automatically conformed. ⛔ A WRONG CLASSIFICATION IS
+             MORE DURABLE THAN A WRONG FIGURE — THE FIGURE GETS
+             SWEPT, THE EXEMPTION DOES NOT. Found by the
+             /co-founder-d audit. · ADVISOR
+     2026-08-17 · ⛔ VERIFICATION COMMANDS REQUIRE A CONTROL. Multiple
+             governance checks in the Donna evidence pass returned
+             confident but misleading results because the command
+             itself did not correctly address the file structure,
+             wrapping, ordinal, or variable state. ⚠️ A VERIFICATION
+             COMMAND IS NOT EVIDENCE MERELY BECAUSE IT EXITS
+             SUCCESSFULLY OR RETURNS A COUNT. For material sweeps,
+             pair the target check with a known-present control or an
+             independently predictable result that proves the command
+             can see the class of content being tested. ⛔ FAILED
+             VERIFICATION LOGIC MUST BE CORRECTED BEFORE ITS OUTPUT IS
+             RELIED UPON. ⚠️ SIX CHECKS FAILED THIS WAY IN ONE
+             SESSION: an ordinal collision between TRACKER's batch and
+             open-item sequences; a grep whose emoji argument was
+             stripped in transit so it ran twice against itself; an
+             awk referencing an unset variable, which flagged every
+             table line in the file; a miscounted expected row total;
+             and two literal greps against phrases that wrap. ⛔ TWO
+             GENUINE DUPLICATIONS — A DOUBLED §4a ROW IN TWO DIFFERENT
+             VERSIONS, AND A DOUBLED FA ROW ORPHANED OUTSIDE ITS TABLE
+             — WERE CAUGHT ONLY BECAUSE THE OPERATOR PASTED THE OUTPUT
+             RATHER THAN TRUSTING THE EXIT CODE. ⚠️ THIS GENERALIZES
+             #54: the workstream is no longer only defending against
+             bad claims, but against false confidence in the tools
+             used to prove those claims are gone. · ADVISOR                                        
 ```
 
 ---
