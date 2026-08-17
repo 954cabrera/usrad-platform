@@ -4221,7 +4221,38 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              the page still asserts by design the continuity it spent
              seven steps denying in copy. ⚠️ Merging before the break
              would ship a header contradicted by its own layout.
-             · FOUNDER      
+             · FOUNDER
+   2026-08-17 · ⛔ #54 — FOURTEENTH MEMBER, NINTH MODE: DOCUMENT ORDER.
+             about.astro closed </CarbonLayout> immediately after the
+             timeline. Act 5 — the corporate-inheritance firewall — plus
+             Act 6 and the final CTA rendered OUTSIDE THE LAYOUT, BELOW
+             THE FOOTER, from 743e4a7 through four subsequent steps.
+             EVERY SWEEP PASSED. ⚠️ DIFFERENT IN KIND FROM THE OTHER
+             EIGHT MODES: the content was present, correct and correctly
+             verified. The defect was WHERE IT APPEARED, and string
+             matching has no concept of position. ⛔ THE SYMPTOM WAS
+             VISIBLE AND DISMISSED — Act 3's rebuild dropped a wrapper's
+             indentation to zero, noted at the time as cosmetic. It was
+             the structural break announcing itself. METHOD: verify
+             document order by byte offset with grep -bo, footer last;
+             and read the whole rendered page top to bottom at least
+             once per surface. · ADVISOR
+2026-08-17 · /about VERIFIED AND CLEARED FOR PR. Ten commits, 65656cb →
+             86f0322. Twenty-six barred strings at zero on the built
+             page; comment contents clean without markup stripping;
+             document order ascending with footer last; one h1; both
+             trust_content_view observer targets intact. CC's timeline
+             era break implemented under the bounded brief — path
+             terminates at May 2002, USRad era on a separate path, era
+             labels, the twenty-three-year interval left empty per
+             ruling F, and May 2002 raised from the timeline's faintest
+             entry to its anchor. · FOUNDER
+2026-08-17 · ⚠️ NOTED, NOT ACTIONED: about.astro's trailing style block
+             defines .story-arc three times with no markup using it,
+             under a comment stating it is "still needed" for the "This
+             Time, It's Different" section — which Act 5 replaced at
+             4d54367. Dead CSS with a comment asserting the opposite.
+             Cosmetic; left for a cleanup pass. · ADVISOR                
 ```
 
 ---

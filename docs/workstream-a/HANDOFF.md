@@ -344,23 +344,38 @@ closed — see §13.
 both founder quotes · `2013` · `(V2 Preview)`. **One `<h1>`; comment contents
 clean without markup stripping.**
 
-### ⛔ WHY IT HAS NOT MERGED
+### ✅ CC'S TIMELINE BREAK — COMPLETE
 
-**CC's bounded timeline-break work is outstanding.** Act 4's header now reads
-**"Two Companies. Two Eras."** over an **unbroken visual path**, and the May 2002
-node renders as the timeline's faintest entry rather than its anchor. ⚠️ **That
-is the last place the page asserts by design the continuity it spent seven steps
-denying in copy.** Merging first would ship a header contradicted by its own
-layout.
+Implemented under the bounded brief. The AnciCare path terminates at the May
+2002 node with an end-cap; the USRad era resumes on a separate blue path with
+its own start-cap; era labels `AnciCare · 1994–2002` and `USRad · 2025–`; the
+23-year interval is a bare `aria-hidden` spacer marked do-not-fill, 342px at
+1440 and 227px at 390; and **May 2002 is raised from the timeline's faintest
+entry to its anchor.** ✅ `id="timeline"` survives on the single section — the
+split the analytics contract warned about did not happen, so no contract change
+was needed. ⚠️ **That warning line in the contract is now stale.**
 
-**CC's brief:** the path terminates at May 2002 with visible empty space; the
-USRad era resumes on a separate, differently-styled path; era labels
-`AnciCare · 1994–2002` and `USRad · 2025–`; the 23-year interval shown and not
-filled (founder ruling F); the May 2002 node raised to full brightness and
-full-size icon. ⛔ **`id="timeline"` must survive** — it is one of two remaining
-`trust_content_view` permitted values and the analytics contract flags it as at
-risk. ⚠️ **The mobile media-query block forces `left: 2rem !important` and may
-not respect a split path.**
+### ⛔ A STRUCTURAL DEFECT FOUND ON REVIEW
+
+`</CarbonLayout>` closed immediately after the timeline. **Act 5 — the
+corporate-inheritance firewall — plus Act 6 and the final CTA rendered outside
+the layout, below the footer**, from `743e4a7` through four subsequent steps.
+⛔ **Every sweep passed.** The content was present and correct; the defect was
+where it appeared. Fixed at `86f0322` and recorded as `#54`'s ninth mode.
+
+### ✅ VERIFIED
+
+Twenty-six barred strings at zero on the built page · comment contents clean
+without markup stripping · **document order ascending with `<footer` last** ·
+one `<h1>` · both `trust_content_view` observer targets intact.
+
+### Next action
+
+1. PR into `main` · 2. **Production `curl` sweep of `usrad.com/about`**, per the
+standing live-site practice · 3. Then the next surface
+
+⚠️ **`main` has moved nine times this month.** Run the §2 state check before
+merging.
 
 ### Next action
 
