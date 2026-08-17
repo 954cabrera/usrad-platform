@@ -4252,7 +4252,35 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              under a comment stating it is "still needed" for the "This
              Time, It's Different" section — which Act 5 replaced at
              4d54367. Dead CSS with a comment asserting the opposite.
-             Cosmetic; left for a cleanup pass. · ADVISOR                
+             Cosmetic; left for a cleanup pass. · ADVISOR
+      2026-08-17 · /about MERGED AS PR #13 AT 470d2ae AND DEPLOYED. Six files,
+             459 insertions, 726 deletions. about.astro from 1,422 lines
+             to ~870. Employer, Provider, P5 footer, Homepage and About
+             remediation are all LIVE. main moved 411577a..470d2ae —
+             TENTH MOVEMENT THIS MONTH, caught by the standing state
+             check. · FOUNDER
+2026-08-17 · ✅ /about VERIFIED AGAINST THE LIVE SITE. Twenty-five barred
+             strings return zero from
+             curl -s https://usrad.com/about | tr -s '[:space:]' ' ' |
+             sed 's/<[^>]*>//g', and DOCUMENT ORDER ASCENDS WITH <footer
+             LAST — Act 5 at 35,499, founders at 37,427, CTA at 41,497,
+             footer at 43,462, byte offsets identical to the local build.
+             ⚠️ THE DOCUMENT-ORDER CHECK IS NEW AND IS THE ONE THAT
+             MATTERS: the </CarbonLayout> defect fixed at 86f0322 was
+             invisible to every string sweep across four steps because
+             the content was present and correct. #54's ninth mode.
+             · FOUNDER + ADVISOR
+2026-08-17 · ⚠️ /press-kit IS NOW UNBLOCKED AND IS THE NEXT SURFACE.
+             /about was taken ahead of it by founder prerogative on
+             2026-08-16 precisely so the press kit could inherit a
+             ratified company story rather than construct one. The
+             inheritance lists — what it MAY inherit after ratification
+             and what it MUST NOT — are in the /about copy blueprint and
+             are now backed by §4a's ten admitted rows and §4d's
+             corporate chronology. ⛔ A PRESS KIT IS EXACTLY WHERE AN
+             OUTSIDE READER TESTS WHETHER ANCICARE'S RECORD IS BEING
+             CLAIMED AS USRad's — the corporate-inheritance firewall
+             applies with full force. · FOUNDER                       
 ```
 
 ---

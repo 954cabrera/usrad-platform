@@ -56,12 +56,12 @@ Read step 4 in full before proposing the removal of any figure.
 
 ---
 
-| **Working branch** | ✅ **UPDATED 2026-08-14 — `main`.** `homepage-remediation` is merged and spent |
-| **Working tree** | ✅ **Clean.** The governance package described in §6 is committed |
-| **`main`** | ✅ **UPDATED 2026-08-14 — `main` IS `4d12da3`** (*Merge PR #10, homepage-remediation* — 17 files, 1,208 insertions, 278 deletions). Moved `cda6b41..4d12da3`. Local `main` synchronized to `origin/main` |
-| **Production** | ✅ **UPDATED 2026-08-14 — Vercel serving `4d12da3` at usrad.com.** Employer + Provider + P5 footer + **Homepage** remediation all **LIVE** |
-| **Prior releases** | PR #7 `da8eb85` (Employer/Provider, 78 commits/105 files) · PR #8 `673fb2a` (P5 footer, two-repo) · PR #9 `cda6b41` (NewsletterPopup, #66) · PR #10 `4d12da3` (homepage). See §12 for PR #7's verified contents and §13 for the checkpoint |
-| **⚠️ `main` movements** | **SEVEN this month.** Every one was found by counting, not by noticing. Run the §2 state check before every batch | | PR #7 — 78 commits, 105 files. Merged 2026-08-14. See §12 for its verified contents and §13 for the checkpoint |
+| **Working branch** | ✅ **UPDATED 2026-08-17 — `main`.** `homepage-remediation` and `about-remediation` are both merged and spent |
+| **Working tree** | ✅ **Clean.** |
+| **`main`** | ✅ **UPDATED 2026-08-17 — `main` IS `470d2ae`** (*Merge PR #13, about-remediation* — 6 files, 459 insertions, 726 deletions). Moved `411577a..470d2ae`. Local `main` synchronized to `origin/main` |
+| **Production** | ✅ **UPDATED 2026-08-17 — Vercel serving `470d2ae` at usrad.com.** Employer + Provider + P5 footer + Homepage + **About** remediation all **LIVE** |
+| **Prior releases** | PR #7 `da8eb85` (Employer/Provider, 78 commits/105 files) · PR #8 `673fb2a` (P5 footer, two-repo) · PR #9 `cda6b41` (NewsletterPopup, #66) · PR #10 `4d12da3` (homepage) · PR #11 `2d4117c` (post-merge state) · PR #12 `411577a` (AnciCare evidence admission) · PR #13 `470d2ae` (about). See §12 for PR #7's verified contents and §13 for the checkpoint |
+| **⚠️ `main` movements** | **TEN this month.** Every one was found by counting, not by noticing. Run the §2 state check before every batch |
 | **Repo** | `git@github.com:954cabrera/usrad-platform.git` |
 
 ### ✅ Local branch-pointer hazard — RESOLVED
