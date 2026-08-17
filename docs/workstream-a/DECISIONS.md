@@ -4176,6 +4176,52 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              ENTITY OR AN ALTERNATE CANONICAL NAME. Flagged to the founder
              as a defect in an executed document, for counsel rather than
              for marketing. · FOUNDER + ADVISOR
+       2026-08-17 · #54 — TWELFTH AND THIRTEENTH MEMBERS, SEVENTH AND EIGHTH
+             MODES. (7) SWEEPING THE WRONG BUILD ARTIFACT: /about Step
+             1 returned twelve barred strings at zero from
+             dist/server/pages/about.astro.mjs and was read as a pass.
+             ⛔ THAT FILE DOES NOT CONTAIN THE PAGE — /about is
+             prerendered and its output is
+             .vercel/output/static/about/index.html. THE SWEEP PROVED
+             NOTHING AND LOOKED CLEAN. Determine prerendered vs
+             server-rendered before choosing a target, and confirm the
+             target contains a known-present string before trusting a
+             zero. (8) MARKUP-STRIPPED SWEEPS DO NOT SEE HTML COMMENT
+             CONTENTS: #54's own sixth-mode remedy, sed 's/<[^>]*>//g',
+             also removes comment bodies, and HTML COMMENTS SHIP IN THE
+             BUILT OUTPUT. Two /about containment comments quoted the
+             barred figures they were containing; NEITHER WAS DETECTABLE
+             BY THE STANDARD VERIFICATION. ⛔ STANDING RULE: A
+             CONTAINMENT COMMENT MUST DESCRIBE WHAT WAS REMOVED WITHOUT
+             REPRODUCING IT. Eight modes; thirteen members; not one
+             caught by the obvious grep. · ADVISOR
+2026-08-17 · #76 OPENED — FIVE AUDITS OF /about MISSED THE FOUNDER
+             CARDS. Claims remediated at db12ded; the METHOD is what is
+             recorded. Michael's card carried 1,236% Revenue Growth —
+             ⛔ THE EXACT FIGURE RULED BARRED ON 2026-08-16, ALREADY LIVE
+             WHEN THE RULING WAS MADE, WITH NEITHER PARTY AWARE — and
+             $246M+, a variant form. Donna's carried 150,000+ Patients
+             Served and 99.8% Satisfaction Rate, the latter in no
+             register file. ⛔ THE FULL-PAGE AUDIT, THE ARCHITECTURE
+             PASS, THE COPY BLUEPRINT, THE ACT 6 ASSESSMENT AND A
+             DEDICATED FOUNDER-STORY REVIEW ALL READ THAT SECTION AND
+             ALL MISSED IT. Cause: the reviewer read the card's prose
+             and quote and did not read the stat grid between them.
+             ⛔ AN AUDIT MUST ENUMERATE EVERY TEXT-BEARING ELEMENT, NOT
+             READ THE SECTION AS PROSE — grids, badges, pills, tiles,
+             captions, alt text and card metadata are claim surfaces and
+             are what a reading eye skips. ⚠️ AND A RULING CAN BE ISSUED
+             ABOUT A FIGURE THAT IS ALREADY PUBLISHED WITHOUT ANYONE
+             CHECKING. · FOUNDER + ADVISOR
+2026-08-17 · /about COPY REMEDIATION COMPLETE — SEVEN STEPS, ALL SIX
+             ACTS, 65656cb → 20dc1b8. about.astro from 1,422 lines to
+             ~770. ⛔ HELD FROM PR PENDING CC'S BOUNDED TIMELINE-BREAK
+             WORK: the Act 4 header now reads "Two Companies. Two Eras."
+             over an UNBROKEN VISUAL PATH, and that is the last place
+             the page still asserts by design the continuity it spent
+             seven steps denying in copy. ⚠️ Merging before the break
+             would ship a header contradicted by its own layout.
+             · FOUNDER      
 ```
 
 ---

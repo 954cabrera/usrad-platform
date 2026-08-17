@@ -317,7 +317,72 @@ The active task is **`/` (homepage) remediation** on branch
 `homepage-remediation`. The release that this section previously described is
 closed — see §13.
 
-✅ **The `/` homepage remediation pass is COMPLETE, MERGED AND DEPLOYED.**
+✅ **`/` HOMEPAGE — COMPLETE, MERGED AND DEPLOYED.** Merged as PR #10 at
+`4d12da3`; verified against the live site, twelve barred strings at zero.
+
+⛔ **`/about` — COPY REMEDIATION COMPLETE, NOT YET MERGED.** Branch
+`about-remediation`, seven commits `65656cb` → `20dc1b8`. `about.astro` from
+1,422 lines to ~770.
+
+### What was done
+
+| Step | Commit | |
+|---|---|---|
+| 1 | `65656cb` | The `$246M` case study deleted entire (286 lines); `(V2 Preview)` removed from the title; the retired DOM id and its analytics entry retired atomically with the contract |
+| 2 | `4d54367` | **Act 5** — the corporate-inheritance firewall, built from nothing |
+| 3 | `db12ded` | **Act 6** — founder cards reduced to the minimal form; both quotes and the promise block removed |
+| 4 | `413eec6` | **Act 1** — hero lede replaced with the PSA-verified architecture line |
+| 5 | `3fcb07b` | **Act 2** — origin rewritten on registered evidence |
+| 6 | `743e4a7` | **Act 3** — the documented record, rebuilt single-column |
+| 7 | `20dc1b8` | **Act 4** — timeline copy; §4d USRad corporate facts admitted |
+
+**Cleared from `/about`, verified at zero on the built page:** `$246M` ×5 ·
+`150,000+` ×6 · `1,236%` · `99.8%` · `90 Million` ×3 · `$260` · `1,200+` ·
+`30+`/`30 Years` ×3 · `14-day` ×2 · `50%` · `$3,200` · `$475` ·
+`$95M`/`$151M`/`52%`/`3.2M` · `America's first` · `one of the first` ×3 ·
+`proven playbook` ×3 · `Fortune 500` · `Nationwide launch` · `pre-negotiated` ·
+both founder quotes · `2013` · `(V2 Preview)`. **One `<h1>`; comment contents
+clean without markup stripping.**
+
+### ⛔ WHY IT HAS NOT MERGED
+
+**CC's bounded timeline-break work is outstanding.** Act 4's header now reads
+**"Two Companies. Two Eras."** over an **unbroken visual path**, and the May 2002
+node renders as the timeline's faintest entry rather than its anchor. ⚠️ **That
+is the last place the page asserts by design the continuity it spent seven steps
+denying in copy.** Merging first would ship a header contradicted by its own
+layout.
+
+**CC's brief:** the path terminates at May 2002 with visible empty space; the
+USRad era resumes on a separate, differently-styled path; era labels
+`AnciCare · 1994–2002` and `USRad · 2025–`; the 23-year interval shown and not
+filled (founder ruling F); the May 2002 node raised to full brightness and
+full-size icon. ⛔ **`id="timeline"` must survive** — it is one of two remaining
+`trust_content_view` permitted values and the analytics contract flags it as at
+risk. ⚠️ **The mobile media-query block forces `left: 2rem !important` and may
+not respect a split path.**
+
+### Next action
+
+1. CC implements the break · 2. Full-page verification re-run · 3. HANDOFF
+finalized · 4. PR into `main` · 5. **Production `curl` sweep of
+`usrad.com/about`**, per the standing live-site practice
+
+⚠️ **`main` has moved nine times this month.** Run the §2 state check before
+merging. It was level (0 behind) at `20dc1b8`.
+
+### ⛔ Governance admitted during this pass
+
+**§4a** — ten AnciCare rows and five constraining notes, 2026-08-16, from the
+SFBJ article, two gubernatorial letters, three award plaques and the corporate
+overview. **§4b** — five bars. **§4d** — seven USRad corporate-fact rows,
+2026-08-17, and the **corporate chronology publication rule**: recording the
+2013 formation does not authorize presenting 2013 as the beginning of the
+current business narrative.
+
+⚠️ **`#76` records that five successive audits read the founder-card section and
+missed four barred figures in the stat grid between the prose and the quote.**
+`#54` now stands at thirteen members across eight modes.
 Final branch commit `1963cc2`; merged as **PR #10 at `4d12da3`** — 17 files,
 1,208 insertions, 278 deletions; Vercel serving it at usrad.com.
 
