@@ -29,7 +29,8 @@ const REMIX_URL = import.meta.env.PUBLIC_REMIX_URL || "http://localhost:5173";
     <MemberTrustBadge variant="inline" />
   </div>
 
-  <BrowseAllModal />
+  <!-- Contained 2026-08-18: an unreachable modal shipping two unregistered claims in its footer — a procedure count and a present-tense nationwide availability statement — plus four hardcoded per-category counts that do not reconcile with each other or with the live API-driven list on the same page. ⛔ NO TRIGGER EXISTS ANYWHERE IN THE CODEBASE; the markup shipped in the served HTML with no path to it. The component is preserved unmodified for a future rebuild against the real procedure catalogue. See TRACKER #85. -->
+  <!-- <BrowseAllModal /> -->
 
   <!-- Social Proof Bar -->
   <!-- Contained at release gate 2026-08-13 (PR #7): three of four tiles carry retired or unsourced figures — 150,000+ (D1/#24), $246 Million (§6, named at §500), 4.9★ (#28). Component preserved; resolution belongs to the `/` page-by-page rewrite, §12 row 3. -->
