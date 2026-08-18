@@ -502,6 +502,8 @@ The documents draw this distinction and copy must not blur it. **Contracted faci
 
 ✅ **FOR DONNA'S REMEDIATION, NO SCHEDULING NUMBER IS USED.** Her contribution is the creation and launch of the coordinated service model. **The page does not need a numerical scheduling promise to establish it**, and none is authorised without a separate ruling.
 
+> **⛔ STRUCTURED DATA IS A CLAIM SURFACE — 2026-08-18.** JSON-LD and schema blocks publish machine-readable claims that **appear in no rendered element and are invisible to every text, attribute, JS-literal, comment and glyph sweep.** `/education/what-is-an-mri` shipped an `aggregateRating` with a fabricated `reviewCount`, a commercial `Offer` with an expired validity date, and a barred figure in an author description — **none of it visible on the page.** ⛔ **EVERY PAGE AUDIT MUST INSPECT CLAIM-BEARING JSON-LD SEPARATELY**, and any edit to a schema block must be re-validated as parseable JSON, since removing a claim commonly leaves a dangling comma that silently invalidates the whole block.
+
 #### ⚠️ Confidentiality of the sources
 
 `Corp Overview 9-2000`, the CIM, the Pinnacle valuation and the partner tables are all marked **CONFIDENTIAL** or **STRICTLY CONFIDENTIAL**. **CNA is confirmed only by a confidential document.** Public confirmation for named clients comes from the Genesis Publishing (Nov 1994) and *South Florida Business Journal* (Feb 1999) articles, in which the founder named clients on the record.
