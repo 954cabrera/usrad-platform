@@ -124,8 +124,8 @@ export const prerender = true;
         data-aos="fade-up"
         data-aos-delay="200"
       >
-        USRad coordinates the process behind the scenes — so you focus entirely
-        on your health.
+        USRad coordinates the process behind the scenes. Here's how the
+        experience is designed to work as the network activates.
       </p>
 
       <!-- CTA -->
@@ -190,9 +190,7 @@ export const prerender = true;
             <div class="walk-inner">
               <div class="walk-step-chip">
                 <span class="chip-num chip-blue">1</span>
-                <span class="chip-label"
-                  >Tell Us · 30 seconds to get matched</span
-                >
+                <span class="chip-label">Tell Us · Start here</span>
               </div>
               <h2 class="walk-h2">
                 Tell Us Your Scan.<br />Enter Your ZIP Code.
@@ -278,8 +276,8 @@ export const prerender = true;
                     About the Discovery Network
                   </p>
                   <p class="text-sm text-gray-600">
-                    USRad evaluates 27,000+ ACR-accredited facilities nationwide
-                    so the recommendation engine always has coverage — even
+                    USRad evaluates 27,000+ ACR-accredited facilities so the
+                    recommendation engine has coverage in your area — even
                     before a center has joined our contracted network. Discovery
                     Network centers allow you to register interest, feeding our
                     provider recruitment directly.
@@ -399,8 +397,8 @@ export const prerender = true;
                 </li>
                 <li>
                   <span class="wl-check wl-green">✓</span><span
-                    ><strong>Within 4 hours</strong> — USRad coordinates with imaging
-                    center</span
+                    ><strong>Coordination begins</strong> — USRad coordinates with
+                    imaging center</span
                   >
                 </li>
                 <li>
@@ -411,14 +409,14 @@ export const prerender = true;
                 </li>
                 <li>
                   <span class="wl-check wl-green">✓</span><span
-                    ><strong>Scan day</strong> — 5 min check-in · 20–45 min scan
-                    · Zero payment at facility</span
+                    ><strong>Scan day</strong> — check in and scan · Zero payment
+                    at facility</span
                   >
                 </li>
                 <li>
                   <span class="wl-check wl-green">✓</span><span
-                    >Board-certified radiologist report delivered directly to
-                    you and your doctor</span
+                    >Radiologist report delivered directly to you and your
+                    doctor</span
                   >
                 </li>
               </ul>
@@ -453,28 +451,6 @@ export const prerender = true;
 
             <!-- 3D Screen wrapper — perspective set here -->
             <div class="screen-stage">
-              <!--
-                ═══════════════════════════════════════════════════
-                SCREENSHOT SWAP SYSTEM
-                ═══════════════════════════════════════════════════
-                Each .screen-card is shown when its step is active.
-
-                TO REPLACE A SCREEN WITH A REAL SCREENSHOT:
-                  1. Remove the .screen-sim div inside the .screen-body
-                  2. Add: <img src="/images/hiw/step[N]-[name].png"
-                               alt="descriptive alt text"
-                               class="w-full h-full object-cover object-top" />
-                  3. Change crop: 1200×800px, no browser chrome,
-                     zoom UI to 110–115% before cropping, clean demo data
-
-                SCREENSHOT SOURCES (from your walkthrough session):
-                  Screen 1 → Search modal (procedure selection)
-                  Screen 2 → PBS search results page
-                  Screen 3 → Booking form — Member Information (post-verification)
-                  Screen 4 → My Bookings / tracking page
-                ═══════════════════════════════════════════════════
-              -->
-
               <!-- SCREEN 1: Search -->
               <div class="screen-card active" id="sc-1">
                 <div class="screen-device">
@@ -601,7 +577,7 @@ export const prerender = true;
                 Traditional Hospital Imaging
               </p>
               <p class="text-sm text-red-500 font-semibold">
-                ~$800–$3,200 per scan
+                Billed through insurance
               </p>
             </div>
           </div>
@@ -636,7 +612,7 @@ export const prerender = true;
             <div>
               <p class="font-bold">USRad Guided Imaging</p>
               <p class="text-sm text-[#C4982A] font-bold">
-                ~$200–$400 all-inclusive
+                One all-inclusive rate
               </p>
             </div>
           </div>
@@ -892,7 +868,7 @@ export const prerender = true;
                 <p class="text-sm font-bold">USRad Network Partners</p>
               </div>
               <p class="text-xs text-white/55">
-                Contracted &amp; verified — available for immediate booking
+                Contracted and verified for booking as each market activates
               </p>
             </div>
             <div class="network-cell">
@@ -901,7 +877,7 @@ export const prerender = true;
                 <p class="text-sm font-bold">Discovery Network</p>
               </div>
               <p class="text-xs text-white/55">
-                27,000+ ACR-accredited facilities — actively expanding
+                27,000+ ACR-accredited facilities — network expanding
               </p>
             </div>
             <div class="network-cell">
@@ -980,8 +956,9 @@ export const prerender = true;
             Board-Certified Radiologists
           </h3>
           <p class="text-sm text-gray-500">
-            Every scan is interpreted by a board-certified radiologist — the
-            same clinical standard as any accredited facility.
+            USRad requires participating centers to use board-certified
+            radiologists — the same clinical standard as any accredited
+            facility.
           </p>
         </div>
         <div
@@ -1067,7 +1044,7 @@ export const prerender = true;
               <h3 class="text-xl font-bold">USRad Coordinates</h3>
               <span
                 class="tl-badge bg-yellow-500/20 text-yellow-300 border-yellow-500/30"
-                >Within 4 hours</span
+                >Next</span
               >
             </div>
             <div class="tl-card">
@@ -1111,19 +1088,9 @@ export const prerender = true;
                 >Just show up</span
               >
             </div>
-            <div class="grid grid-cols-3 gap-3">
-              {
-                [
-                  ["5 min", "Check-in"],
-                  ["20–45 min", "Scan duration"],
-                  ["$0", "At the facility"],
-                ].map(([num, label]) => (
-                  <div class="bg-white/10 rounded-xl p-4 text-center">
-                    <p class="text-2xl font-black">{num}</p>
-                    <p class="text-xs text-white/55 mt-1">{label}</p>
-                  </div>
-                ))
-              }
+            <div class="tl-card">
+              <p>• Check in at the facility</p>
+              <p>• Zero payment at the facility</p>
             </div>
           </div>
         </div>
@@ -1140,7 +1107,7 @@ export const prerender = true;
               >
             </div>
             <div class="tl-card">
-              <p>• Board-certified radiologist reviews your scan</p>
+              <p>• A radiologist reviews your scan</p>
               <p>• Written report delivered to you and your doctor</p>
               <p>• Results support your continued care plan</p>
             </div>
@@ -1191,9 +1158,8 @@ export const prerender = true;
         data-aos="fade-up"
         data-aos-delay="100"
       >
-        Join thousands of members who've discovered how simple affordable
-        imaging can be. No insurance. No surprise bills. Guided every step of
-        the way.
+        Discover how simple affordable imaging can be. No insurance. No surprise
+        bills. Guided every step of the way.
       </p>
 
       <div
@@ -1217,26 +1183,6 @@ export const prerender = true;
         <p class="text-xs text-gray-400 text-center mt-4">
           🔓 No account needed · 💰 All-inclusive pricing
         </p>
-      </div>
-
-      <div
-        class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto"
-        data-aos="fade-up"
-        data-aos-delay="200"
-      >
-        {
-          [
-            ["30 sec", "to get matched"],
-            ["70%", "average savings"],
-            ["4 hrs", "coordination time"],
-            ["4.9★", "member rating"],
-          ].map(([num, label]) => (
-            <div class="text-center">
-              <p class="text-3xl font-black text-[#003087] mb-1">{num}</p>
-              <p class="text-sm text-gray-400">{label}</p>
-            </div>
-          ))
-        }
       </div>
     </div>
   </section>
