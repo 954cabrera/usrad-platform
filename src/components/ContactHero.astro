@@ -208,21 +208,6 @@ import AOSInit from "../components/AOSInit.astro";
       subtle-float 8s ease-in-out infinite 10s;
   }
 
-  /* Pulse Badge Animation */
-  @keyframes pulse-glow {
-    0%,
-    100% {
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-    }
-    50% {
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-    }
-  }
-
-  .pulse-badge {
-    animation: pulse-glow 3s ease-in-out infinite;
-  }
-
   /* Dynamic Underline Animation */
   @keyframes draw-underline {
     from {
@@ -260,16 +245,6 @@ import AOSInit from "../components/AOSInit.astro";
     animation: shimmer 3s ease-in-out infinite 2s;
   }
 
-  /* Trust Indicator Hover Effects */
-  .trust-indicator {
-    transition: all 0.3s ease;
-  }
-
-  .trust-indicator:hover {
-    transform: translateY(-2px);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
   /* Enhanced Button Hover States */
   .group:hover svg {
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
@@ -302,19 +277,13 @@ import AOSInit from "../components/AOSInit.astro";
     .hero-bg {
       animation: bg-zoom 8s ease-out forwards;
     }
-
-    .trust-indicator {
-      font-size: 0.9rem;
-    }
   }
 
   /* Performance Optimization */
   @media (prefers-reduced-motion: reduce) {
     .hero-bg,
-    .pulse-badge,
     .animate-draw-underline,
-    .answers-highlight,
-    .trust-indicator {
+    .answers-highlight {
       animation: none;
     }
 

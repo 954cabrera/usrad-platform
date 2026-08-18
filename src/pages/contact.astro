@@ -428,25 +428,6 @@ const REMIX_URL =
       <!-- Contained 2026-08-18: a three-tile quick-answers grid and its heading. All three failed — a starting price on the barred list, an appointment-timing commitment that republished a historical scheduling range as a present promise (D7 and the 2026-08-17 no-synthesis ruling), and a board-certification claim (#46). The heading promised "instant answers". ⛔ CONTAINED ENTIRE; the three destinations remain reachable from site navigation. NO SUBSTITUTE MADE. -->
 
       <style>
-        /* Enhanced CSS for quick help medical icons */
-        .quick-help-icon {
-          filter: brightness(0) saturate(100%) invert(100%);
-          transition:
-            filter 0.3s ease,
-            transform 0.3s ease;
-        }
-
-        .quick-help-icon:hover {
-          filter: brightness(0) saturate(100%) invert(100%)
-            drop-shadow(0 2px 8px rgba(255, 255, 255, 0.4));
-          transform: scale(1.1);
-        }
-
-        /* Enhanced hover effects for entire cards */
-        .group:hover .quick-help-icon {
-          transform: scale(1.2);
-        }
-
         /* Smooth transitions for all interactive elements */
         .group:hover h3 {
           color: #cc9933;
@@ -931,14 +912,6 @@ const REMIX_URL =
             submitBtn.querySelector(".loading-text").classList.add("hidden");
           }
         });
-
-        // Chat function
-        function startChat() {
-          console.log("Starting chat...");
-          alert(
-            "Chat feature coming soon! Please call (866) USRad-24 for immediate assistance.",
-          );
-        }
 
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
