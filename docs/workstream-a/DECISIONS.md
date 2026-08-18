@@ -4471,7 +4471,25 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              ⛔ THE STANDING RULE AGAINST REPRODUCING A CONTAINED
              FIGURE IN ITS COMMENT IS UNCHANGED AND VINDICATED. ⚠️ A
              DEFECT WAS RECORDED FROM A GENERAL RULE WITHOUT CHECKING
-             THE FILE. · ADVISOR                                                    
+             THE FILE. · ADVISOR
+2026-08-18 · ⛔ PATCH SHAPE IS A SEPARATE VERIFICATION DIMENSION. For
+             bounded remediation, successful content checks do not
+             prove that only intended material changed. Before commit,
+             inspect git diff --stat and the ordinary diff; use
+             git diff -w when unexpected formatting churn appears. ⛔ A
+             MATERIALLY LARGER-THAN-EXPECTED DIFF IS A STOP CONDITION
+             UNTIL THE CAUSE IS UNDERSTOOD. Do not accept a passing
+             claim sweep as evidence of patch integrity. ⚠ Occasioned
+             by a whole-file reformat during /co-founder-d Batch 1 that
+             showed 915 changed lines while git diff -w showed 15, and
+             by five paste corruptions in APPROVED-FIGURES.md on
+             2026-08-17 — a doubled §4a row in two different versions,
+             an FA row orphaned outside its table, and a line sliced
+             mid-word. ⛔ EVERY ONE WAS CAUGHT BY A STAT OR SHAPE
+             CHECK; NONE BY A CONTENT CHECK. This is distinct from #54,
+             which taxonomizes sweeps that fail to see a claim; here
+             the sweep sees correctly and the edit is wrong.
+             ⛔ #54 IS NOT INCREMENTED. · ADVISOR                                                         
 ```
 
 ---
