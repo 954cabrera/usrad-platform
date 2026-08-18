@@ -4416,7 +4416,7 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              MORE DURABLE THAN A WRONG FIGURE — THE FIGURE GETS
              SWEPT, THE EXEMPTION DOES NOT. Found by the
              /co-founder-d audit. · ADVISOR
-     2026-08-17 · ⛔ VERIFICATION COMMANDS REQUIRE A CONTROL. Multiple
+2026-08-17 · ⛔ VERIFICATION COMMANDS REQUIRE A CONTROL. Multiple
              governance checks in the Donna evidence pass returned
              confident but misleading results because the command
              itself did not correctly address the file structure,
@@ -4440,7 +4440,38 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              RATHER THAN TRUSTING THE EXIT CODE. ⚠️ THIS GENERALIZES
              #54: the workstream is no longer only defending against
              bad claims, but against false confidence in the tools
-             used to prove those claims are gone. · ADVISOR                                        
+             used to prove those claims are gone. · ADVISOR
+ 2026-08-18 · /co-founder-m REMEDIATED; #78 CLOSED. Eleven claims,
+             four commits, five founder rulings. Awards grid removed
+             entire rather than rebuilt — Inc. 500 #210 folded into
+             Career Highlights with DBA attribution, "AnciCare PPO",
+             not the legal entity. Recognition restraint held: the
+             page did not gain trophies because it is a dedicated
+             founder page. · FOUNDER
+2026-08-18 · FOUNDER STATEMENT ADMITTED AS FA. "Follow the value. It
+             will tell you how the market really works." — Michael
+             Cabrera — expressly adopted today as a CURRENT founder
+             statement, not a historical quotation.
+             ⛔ A FIRST-PERSON QUOTATION PUBLISHES ONLY ON THE NAMED
+             SPEAKER'S EXPLICIT DATED ATTESTATION THAT THE WORDS ARE
+             HIS. Not a route to restoring manufactured voice on
+             /about or elsewhere. · FOUNDER
+2026-08-18 · ⛔ #54's SIXTH-MODE REMEDY WAS DEFECTIVE AND HAS BEEN
+             SINCE 2026-08-16. Per-line sed cannot strip multi-line
+             tags. A #78-recorded barred heading returned zero through
+             the register's own prescribed command. Flatten-first is
+             the working form. ⚠️ AND grep -c ON FLATTENED OUTPUT
+             COUNTS LINES, NOT OCCURRENCES — it cannot verify "exactly
+             once." This is the 2026-08-17 verification-control rule
+             applied to the register's own instructions. · ADVISOR
+2026-08-18 · ⚠️ #54's EIGHTH MODE REFINED. Page-body comments DO ship;
+             only top-level comments between sibling nodes are
+             stripped. The 2026-08-17 #78 amendment asserting two §4a
+             figures reached shipped HTML is CORRECTED — they did not.
+             ⛔ THE STANDING RULE AGAINST REPRODUCING A CONTAINED
+             FIGURE IN ITS COMMENT IS UNCHANGED AND VINDICATED. ⚠️ A
+             DEFECT WAS RECORDED FROM A GENERAL RULE WITHOUT CHECKING
+             THE FILE. · ADVISOR                                                    
 ```
 
 ---
