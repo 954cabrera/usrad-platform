@@ -4441,7 +4441,7 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              #54: the workstream is no longer only defending against
              bad claims, but against false confidence in the tools
              used to prove those claims are gone. · ADVISOR
- 2026-08-18 · /co-founder-m REMEDIATED; #78 CLOSED. Eleven claims,
+2026-08-18 · /co-founder-m REMEDIATED; #78 CLOSED. Eleven claims,
              four commits, five founder rulings. Awards grid removed
              entire rather than rebuilt — Inc. 500 #210 folded into
              Career Highlights with DBA attribution, "AnciCare PPO",
@@ -4490,7 +4490,7 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              which taxonomizes sweeps that fail to see a claim; here
              the sweep sees correctly and the edit is wrong.
              ⛔ #54 IS NOT INCREMENTED. · ADVISOR
-  2026-08-18 · /contact REMEDIATED; #80 OPENED AND CLOSED IN ONE PASS.
+2026-08-18 · /contact REMEDIATED; #80 OPENED AND CLOSED IN ONE PASS.
              Register recorded three defects; audit found twenty-one.
              ⛔ TWO WERE NOT FIGURES AT ALL: a response-time GUARANTEE
              with no support operation behind it, and a Live Chat card
@@ -4521,7 +4521,7 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              array literal. ⚠️ THE GLYPH IS THE CLAIM SURFACE: ★
              carries no digit and is invisible to every numeric sweep,
              exactly as ∞ was on /co-founder-d. · ADVISOR
-    2026-08-18 · /how-it-works REMEDIATED; #82 OPENED AND CLOSED.
+2026-08-18 · /how-it-works REMEDIATED; #82 OPENED AND CLOSED.
              ⚠️ FOUNDER RULING REVERSED THE AUDIT'S PREMISE AND WAS
              RIGHT TO: the page may describe the designed system.
              The audit proposed conforming ~40 present-tense process
@@ -4586,14 +4586,24 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              server-pages listing nor the count of files lacking the
              prerender export is a route count without inspection.
              · ADVISOR
- 2026-08-18 · ⛔ #56 UNDERCOUNTED. Two further 1,500+ instances live on
+2026-08-18 · ⛔ #56 UNDERCOUNTED. Two further 1,500+ instances live on
              /dashboard in variant forms the item's phrase-based count
              could not reach, on a server-rendered route no static
              sweep could read. ⚠️ TWO OF #54's MODES COMPOUNDING —
              variant form and wrong build target — and the item's
              "nineteen instances" was a measured figure, which is why
              it read as complete. ⛔ EDS-owned; documented, not
-             remediated. See #84. · ADVISOR                                                                                               
+             remediated. See #84. · ADVISOR
+2026-08-18 · ⛔ #85 — A COMPONENT CAN SHIP CLAIMS WITH NO PATH TO IT.
+             BrowseAllModal rendered on / with no trigger anywhere in
+             the codebase, publishing an unregistered procedure count
+             and a nationwide availability claim into the served HTML.
+             ⚠️ HIDDEN-BY-DEFAULT MARKUP IS PUBLISHED MARKUP — the
+             same principle as #54's tenth mode, where a counter
+             rendering "0" still carried a barred figure. ⛔ AND
+             HARDCODED COUNTS BESIDE A DYNAMIC LIST DRIFT: the four
+             cards sum to 19 against a claimed 20, and the live
+             modal on the same page disagrees with both. · ADVISOR                                                                                                         
 ```
 
 ---
