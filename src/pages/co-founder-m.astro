@@ -24,8 +24,6 @@ export const prerender = true;
       </div>
     </div>
 
-    <!-- Particle System -->
-
     <div class="relative z-10 max-w-6xl mx-auto px-6 py-32">
       <div class="grid lg:grid-cols-2 gap-20 items-center">
         <!-- Image Column -->
@@ -408,90 +406,9 @@ export const prerender = true;
     border-radius: 2rem;
     pointer-events: none;
   }
-
-  /* Parallax portrait on desktop (section 3.7) */
-  @media (min-width: 1024px) {
-    .parallax-portrait {
-      will-change: transform;
-      transition: transform 0.1s linear;
-    }
-  }
 </style>
 
 <script>
-  // Particle Network Background
-  const canvas = document.getElementById("particle-network");
-  if (canvas) {
-    const ctx = canvas.getContext("2d");
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-
-    const particles = [];
-    const particleCount = 50;
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = (Math.random() - 0.5) * 0.3;
-        this.radius = Math.random() * 2 + 1;
-        this.color = Math.random() > 0.5 ? "#cc9933" : "#003087";
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-      }
-    }
-
-    // Initialize particles
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-
-    function animate() {
-      ctx.fillStyle = "rgba(10, 14, 39, 0.05)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((particle, index) => {
-        particle.update();
-        particle.draw();
-
-        // Draw connections
-        particles.forEach((otherParticle, otherIndex) => {
-          if (index !== otherIndex) {
-            const distance = Math.hypot(
-              particle.x - otherParticle.x,
-              particle.y - otherParticle.y,
-            );
-            if (distance < 100) {
-              ctx.beginPath();
-              ctx.moveTo(particle.x, particle.y);
-              ctx.lineTo(otherParticle.x, otherParticle.y);
-              ctx.strokeStyle = `rgba(204, 153, 51, ${0.1 * (1 - distance / 100)})`;
-              ctx.stroke();
-            }
-          }
-        });
-      });
-
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-  }
-
   // Subtle parallax on portrait (desktop only) - section 3.7
   function setupParallax() {
     if (window.innerWidth < 1024) return;
@@ -510,13 +427,5 @@ export const prerender = true;
 
   document.addEventListener("DOMContentLoaded", () => {
     setupParallax();
-  });
-
-  // Window resize handler
-  window.addEventListener("resize", () => {
-    if (canvas) {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    }
   });
 </script>
