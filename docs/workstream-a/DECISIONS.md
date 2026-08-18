@@ -4489,7 +4489,38 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              CHECK; NONE BY A CONTENT CHECK. This is distinct from #54,
              which taxonomizes sweeps that fail to see a claim; here
              the sweep sees correctly and the edit is wrong.
-             ⛔ #54 IS NOT INCREMENTED. · ADVISOR                                                         
+             ⛔ #54 IS NOT INCREMENTED. · ADVISOR
+  2026-08-18 · /contact REMEDIATED; #80 OPENED AND CLOSED IN ONE PASS.
+             Register recorded three defects; audit found twenty-one.
+             ⛔ TWO WERE NOT FIGURES AT ALL: a response-time GUARANTEE
+             with no support operation behind it, and a Live Chat card
+             whose button alerted "coming soon". ⚠️ A PROMISE OF
+             CAPABILITY IS A CLAIM CLASS THIS REGISTER HAS NOT
+             CARRIED — it has no number, so no sweep reaches it, and
+             #53's promotional-claims class does not cover a
+             functional commitment. · FOUNDER + ADVISOR
+2026-08-18 · CONTACT STAFFING. Founder attests the line is staffed
+             9 AM–5 PM ET on business days by Michael and Donna
+             Cabrera. ⛔ RULED NOT FOR PUBLICATION — true, but it
+             creates a maintenance obligation when staffing changes
+             and makes the company appear founder-dependent by
+             design. Availability publishes as "Phone support
+             available 9 AM–5 PM ET". ⛔ NO RESPONSE-TIME COMMITMENT
+             SURVIVES, staffed hours notwithstanding: a staffed phone
+             is not an answer-time guarantee. · FOUNDER
+2026-08-18 · ⚠️ #18 CLOSES FOR /contact ONLY. Ten remaining matches
+             across seven files are THREE DIFFERENT THINGS and the
+             sweep that found them cannot tell them apart: marketing
+             rating claims (now #81), EDS-owned system-health uptime
+             readouts (deferred under the 2026-08-08 functional
+             boundary), and unrelated confidence and CSS values.
+             ⛔ A SHARED NUMERAL IS NOT A SHARED CLAIM. · ADVISOR
+2026-08-18 · ⛔ #81 OPENED — 4.9★ HAS NEVER BEEN ENUMERATED. #28 named
+             the figure years of batches ago; no document lists its
+             instances. Three live on marketing routes, one in a JS
+             array literal. ⚠️ THE GLYPH IS THE CLAIM SURFACE: ★
+             carries no digit and is invisible to every numeric sweep,
+             exactly as ∞ was on /co-founder-d. · ADVISOR                                                                    
 ```
 
 ---
