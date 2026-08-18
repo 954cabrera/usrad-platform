@@ -4551,7 +4551,49 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 2026-08-18 · ⚠️ #81 RESOLVED ON ITS OPEN QUESTION and #54 gains a
              scope note: shadow .bak/.preclaude files in src/ return
              sweep hits and compile nothing. ⛔ THE INVERSE RISK IS
-             REMEDIATING A BACKUP INSTEAD OF THE LIVE FILE. · ADVISOR                                                                             
+             REMEDIATING A BACKUP INSTEAD OF THE LIVE FILE. · ADVISOR
+2026-08-18 · /education/what-is-an-mri REMEDIATED; #83 OPENED AND
+             CLOSED. Register knew of one defect; audit found
+             seventeen. ⛔ THE WORST WERE NOT ON THE PAGE: the JSON-LD
+             carried a fabricated aggregateRating with reviewCount
+             1200, a commercial Offer at $260 marked InStock with an
+             expired priceValidUntil, 150,000+ in the author
+             description, and a $260-vs-$3,200 pricing FAQ. ⛔ THE
+             GOVERNANCE FACT IS SIMPLE: STRUCTURED DATA IS A
+             CLAIM-BEARING PUBLICATION SURFACE AND MUST BE SWEPT
+             SEPARATELY FROM RENDERED TEXT. · FOUNDER + ADVISOR
+2026-08-18 · #81 CLOSED FOR THE MARKETING FAMILY ONLY. All live
+             marketing instances of 4.9★ are gone; SocialProofBar
+             renders on no live marketing route. ⛔ THE REMAINING
+             SEEDED VALUES ARE NOT PART OF THE REMEDIATED MARKETING
+             POPULATION — they are EDS-owned server-rendered
+             application surfaces, documented and deferred under the
+             2026-08-08 functional boundary. · ADVISOR
+2026-08-18 · #82 STATUS CORRECTED. "Production verification pending
+             merge" replaced with production-verified at 17af6d2.
+             A correction, not a finding. ⚠️ Stale completion text is
+             the #52 class and is corrected on sight. · ADVISOR
+2026-08-18 · ⛔ #84 OPENED — SERVER-RENDERED ROUTES HAVE NEVER BEEN
+             SWEPT. Artifact verification has concentrated on
+             .vercel/output/static/; routes emitted through
+             _render.func require a different target and have been
+             invisible throughout. /patient-management and
+             /patient-dashboard/education demonstrate it: both return
+             NOT BUILT from a static check and both ship live with
+             seeded claim-bearing values. ⛔ THIS IS A COVERAGE
+             FINDING, NOT A MANDATE TO REMEDIATE APPLICATION
+             SURFACES. ⚠️ POPULATION NOT MEASURED — neither the
+             server-pages listing nor the count of files lacking the
+             prerender export is a route count without inspection.
+             · ADVISOR
+ 2026-08-18 · ⛔ #56 UNDERCOUNTED. Two further 1,500+ instances live on
+             /dashboard in variant forms the item's phrase-based count
+             could not reach, on a server-rendered route no static
+             sweep could read. ⚠️ TWO OF #54's MODES COMPOUNDING —
+             variant form and wrong build target — and the item's
+             "nineteen instances" was a measured figure, which is why
+             it read as complete. ⛔ EDS-owned; documented, not
+             remediated. See #84. · ADVISOR                                                                                               
 ```
 
 ---
