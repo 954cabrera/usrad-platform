@@ -8,59 +8,10 @@ const REMIX_URL =
   import.meta.env.PUBLIC_REMIX_URL || "https://usrad-portal.vercel.app";
 ---
 
-<CarbonLayout title="Contact USRad - Get Answers in Minutes" isHeroPage={false}>
+<CarbonLayout title="Contact USRad" isHeroPage={false}>
   <ContactHero />
 
-  <!-- Track Record Section -->
-  <section
-    class="bg-gray-50 py-20 px-4 sm:px-6 border-y border-gray-100"
-    data-aos="fade-up"
-  >
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <h2
-          class="text-4xl sm:text-5xl font-bold mb-6 text-gray-900"
-          data-aos="fade-up"
-        >
-          Why trust our support team?
-        </h2>
-        <p
-          class="text-xl text-gray-600 max-w-3xl mx-auto"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          Because we've done this before. Successfully. At scale.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
-        <div data-aos="fade-up" data-aos-delay="100">
-          <div class="text-3xl md:text-4xl font-bold text-[#003087] mb-2">
-            30 Years
-          </div>
-          <div class="text-base text-gray-600">Healthcare experience</div>
-        </div>
-        <div data-aos="fade-up" data-aos-delay="200">
-          <div class="text-3xl md:text-4xl font-bold text-[#003087] mb-2">
-            &lt;2hrs
-          </div>
-          <div class="text-base text-gray-600">Response guarantee</div>
-        </div>
-        <div data-aos="fade-up" data-aos-delay="300">
-          <div class="text-3xl md:text-4xl font-bold text-[#003087] mb-2">
-            99.8%
-          </div>
-          <div class="text-base text-gray-600">Issue resolution</div>
-        </div>
-        <div data-aos="fade-up" data-aos-delay="400">
-          <div class="text-3xl md:text-4xl font-bold text-[#003087] mb-2">
-            4.9★
-          </div>
-          <div class="text-base text-gray-600">Customer rating</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Contained 2026-08-18: a four-tile "why trust our support team" grid and its heading. All four tiles failed — a tenure figure (#27), a response-time guarantee (D7 + rule 24), the barred satisfaction/resolution rate (D9, #18) and an unregistered customer rating expressly barred on 2026-08-07. The heading's subline attributed prior-company operating history to USRad's support team, the corporate-inheritance transfer the /about firewall exists to prevent. ⛔ THE SECTION WAS ITS FIGURES. NO SUBSTITUTE MADE. See TRACKER #18. -->
 
   <!-- Contact Methods Section -->
   <section
@@ -84,7 +35,7 @@ const REMIX_URL =
         </p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
         <!-- Phone Support -->
         <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
           <div class="relative h-56 flex items-center justify-center mb-8">
@@ -100,12 +51,10 @@ const REMIX_URL =
             </div>
           </div>
           <h3 class="text-2xl font-semibold mb-4">Call us directly</h3>
-          <p class="text-lg text-gray-600 mb-6">
-            Speak with medical imaging specialists who understand your needs.
-          </p>
+          <p class="text-lg text-gray-600 mb-6">Speak with us directly.</p>
           <div class="bg-gray-50 rounded-xl p-4 mb-6">
             <p class="text-2xl font-bold text-[#003087] mb-2">(866) USRad-24</p>
-            <p class="text-sm text-gray-600">Available 9AM-5PM EST</p>
+            <p class="text-sm text-gray-600">Phone support available 9 AM–5 PM ET</p>
           </div>
           <a
             href="tel:1-866-877-2324"
@@ -137,7 +86,9 @@ const REMIX_URL =
             <p class="text-lg font-semibold text-[#003087] mb-2">
               support@usrad.com
             </p>
-            <p class="text-sm text-gray-600">&lt;2 hour response guarantee</p>
+            <p class="text-sm text-gray-600">
+              Phone support available 9 AM–5 PM ET
+            </p>
           </div>
           <a
             href="mailto:support@usrad.com"
@@ -145,39 +96,6 @@ const REMIX_URL =
           >
             Send email →
           </a>
-        </div>
-
-        <!-- Live Chat -->
-        <div class="text-center group" data-aos="fade-up" data-aos-delay="400">
-          <div class="relative h-56 flex items-center justify-center mb-8">
-            <div
-              class="w-40 h-40 bg-gradient-to-r from-[#003087] to-[#002266] rounded-2xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300"
-            >
-              <!-- Flaticon medical professional/headset icon -->
-              <img
-                src="/images/icons/medical-professional.svg"
-                alt="Medical chat support"
-                class="w-16 h-16 contact-icon"
-              />
-            </div>
-          </div>
-          <h3 class="text-2xl font-semibold mb-4">Live chat</h3>
-          <p class="text-lg text-gray-600 mb-6">
-            Quick answers without leaving the page. Perfect for simple
-            questions.
-          </p>
-          <div class="bg-gray-50 rounded-xl p-4 mb-6">
-            <p class="text-lg font-semibold text-[#003087] mb-2">
-              Available 9AM-5PM EST
-            </p>
-            <p class="text-sm text-gray-600">2-3 minute response time</p>
-          </div>
-          <button
-            onclick="startChat()"
-            class="inline-block bg-[#003087] text-white px-8 py-3 rounded-lg font-medium hover:bg-[#002266] transition"
-          >
-            Start chat →
-          </button>
         </div>
       </div>
     </div>
@@ -202,7 +120,7 @@ const REMIX_URL =
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          We'll respond within 2 hours during business hours
+          Send us a message and we'll follow up.
         </p>
       </div>
 
@@ -368,7 +286,7 @@ const REMIX_URL =
               <span class="loading-text hidden">Sending...</span>
             </button>
             <p class="text-sm text-gray-500 mt-3">
-              We'll respond within 2 hours during business hours
+              Send us a message and we'll follow up.
             </p>
           </div>
         </form>
@@ -507,162 +425,7 @@ const REMIX_URL =
         }
       </style>
 
-      <!-- Quick Help Section -->
-      <section
-        class="py-20 px-4 sm:px-6 bg-[#003087] text-white"
-        data-aos="fade-up"
-      >
-        <div class="max-w-6xl mx-auto">
-          <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">
-              Need quick answers?
-            </h2>
-            <p class="text-xl opacity-90">
-              Common questions with instant answers
-            </p>
-          </div>
-
-          <div class="grid md:grid-cols-3 gap-6">
-            <!-- How much does it cost? -->
-            <a
-              href="/"
-              class="group bg-white/10 hover:bg-white/20 p-6 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/20 hover:scale-105 hover:shadow-xl"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div class="flex items-center gap-4 mb-3">
-                <div
-                  class="w-14 h-14 bg-[#cc9933] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                >
-                  <!-- Enhanced Flaticon medical pricing icon -->
-                  <img
-                    src="/images/icons/medical-invoice.svg"
-                    alt="Medical pricing and cost transparency"
-                    class="w-8 h-8 quick-help-icon"
-                  />
-                </div>
-                <h3
-                  class="font-semibold text-lg group-hover:text-[#cc9933] transition-colors"
-                >
-                  How much does it cost?
-                </h3>
-              </div>
-              <p class="text-white/80 text-sm mb-4 leading-relaxed">
-                See transparent pricing starting at $260
-              </p>
-              <div
-                class="text-[#cc9933] font-medium group-hover:translate-x-2 transition-transform duration-300 flex items-center gap-2"
-              >
-                View pricing
-                <svg
-                  class="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"></path>
-                </svg>
-              </div>
-            </a>
-
-            <!-- How fast can I get scanned? -->
-            <a
-              href="/how-it-works"
-              class="group bg-white/10 hover:bg-white/20 p-6 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/20 hover:scale-105 hover:shadow-xl"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <div class="flex items-center gap-4 mb-3">
-                <div
-                  class="w-14 h-14 bg-[#cc9933] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                >
-                  <!-- Enhanced Flaticon medical scheduling icon -->
-                  <img
-                    src="/images/icons/schedule.svg"
-                    alt="Fast medical appointment scheduling"
-                    class="w-8 h-8 quick-help-icon"
-                  />
-                </div>
-                <h3
-                  class="font-semibold text-lg group-hover:text-[#cc9933] transition-colors"
-                >
-                  How fast can I get scanned?
-                </h3>
-              </div>
-              <p class="text-white/80 text-sm mb-4 leading-relaxed">
-                Most appointments within 48 - 72 hours
-              </p>
-              <div
-                class="text-[#cc9933] font-medium group-hover:translate-x-2 transition-transform duration-300 flex items-center gap-2"
-              >
-                Learn more
-                <svg
-                  class="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"></path>
-                </svg>
-              </div>
-            </a>
-
-            <!-- When will I get results? -->
-            <a
-              href="/how-it-works#results"
-              class="group bg-white/10 hover:bg-white/20 p-6 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/20 hover:scale-105 hover:shadow-xl"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
-              <div class="flex items-center gap-4 mb-3">
-                <div
-                  class="w-14 h-14 bg-[#cc9933] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                >
-                  <!-- Enhanced Flaticon medical results icon -->
-                  <img
-                    src="/images/icons/paper-clip.svg"
-                    alt="Medical results and report delivery"
-                    class="w-8 h-8 quick-help-icon"
-                  />
-                </div>
-                <h3
-                  class="font-semibold text-lg group-hover:text-[#cc9933] transition-colors"
-                >
-                  When will I get results?
-                </h3>
-              </div>
-              <p class="text-white/80 text-sm mb-4 leading-relaxed">
-                Board-certified radiologists review every scan
-              </p>
-              <div
-                class="text-[#cc9933] font-medium group-hover:translate-x-2 transition-transform duration-300 flex items-center gap-2"
-              >
-                See process
-                <svg
-                  class="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"></path>
-                </svg>
-              </div>
-            </a>
-          </div>
-        </div>
-      </section>
+      <!-- Contained 2026-08-18: a three-tile quick-answers grid and its heading. All three failed — a starting price on the barred list, an appointment-timing commitment that republished a historical scheduling range as a present promise (D7 and the 2026-08-17 no-synthesis ruling), and a board-certification claim (#46). The heading promised "instant answers". ⛔ CONTAINED ENTIRE; the three destinations remain reachable from site navigation. NO SUBSTITUTE MADE. -->
 
       <style>
         /* Enhanced CSS for quick help medical icons */
@@ -705,8 +468,7 @@ const REMIX_URL =
             Medical imaging provider?
           </h2>
           <p class="text-xl text-[#003087]/80 mb-8 max-w-2xl mx-auto">
-            Join our network and fill your empty time slots with methods that
-            delivered over 150,000 appointments
+            Join the USRad imaging network.
           </p>
           <a
             href={`${REMIX_URL}/signup`}
@@ -1107,10 +869,10 @@ const REMIX_URL =
       <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
       </svg>
-      <p class="text-gray-900 font-semibold">We'll respond within 2 hours</p>
+      <p class="text-gray-900 font-semibold">We'll follow up.</p>
     </div>
     <p class="text-sm text-gray-600">
-      During business hours (9AM-5PM EST)
+      Phone support available 9 AM–5 PM ET
     </p>
   </div>
   
