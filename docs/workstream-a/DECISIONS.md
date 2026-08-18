@@ -4520,7 +4520,38 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              instances. Three live on marketing routes, one in a JS
              array literal. ⚠️ THE GLYPH IS THE CLAIM SURFACE: ★
              carries no digit and is invisible to every numeric sweep,
-             exactly as ∞ was on /co-founder-d. · ADVISOR                                                                    
+             exactly as ∞ was on /co-founder-d. · ADVISOR
+    2026-08-18 · /how-it-works REMEDIATED; #82 OPENED AND CLOSED.
+             ⚠️ FOUNDER RULING REVERSED THE AUDIT'S PREMISE AND WAS
+             RIGHT TO: the page may describe the designed system.
+             The audit proposed conforming ~40 present-tense process
+             descriptions; the ruling held that explaining a design
+             is not asserting an operating history, and required
+             removal only of unsupported specifics. ⛔ THAT COLLAPSED
+             FORTY SPECULATIVE CONFORMANCES TO FIFTEEN CONCRETE ONES
+             and preserved the page's architecture entire. · FOUNDER
+2026-08-18 · ⛔ THE TEST THAT MADE THAT WORK: does the claim describe
+             WHAT THE SOFTWARE DOES WHEN YOU USE IT, or WHAT A PERSON
+             OR ORGANISATION WILL DO AFTERWARD? "Instant
+             recommendation" is a property of the engine and
+             publishes; "<2 hour response" and "Within 4 hours" are
+             commitments about human coordination and do not. ⚠️
+             ADVISOR PROPOSED REMOVING "instant"; FOUNDER CORRECTED
+             IT — the engine does return a result on submit.
+             · FOUNDER + ADVISOR
+2026-08-18 · 27,000+ ACR-ACCREDITED FACILITIES ADMITTED, §4a, CT.
+             27,154 rows to 27,036 unique on name+address+zip, zero
+             nulls; per-modality rows collapse into array columns on
+             load. Query date 2026-08-18. ⛔ IT IS A UNIVERSE FIGURE,
+             NOT NETWORK SCALE — USRad has zero contracted providers,
+             and it publishes only attached to the Discovery Network.
+             "Nationwide" was removed where it sat beside "our
+             contracted network". ⚠️ Usage terms held privately by
+             the founder. · FOUNDER
+2026-08-18 · ⚠️ #81 RESOLVED ON ITS OPEN QUESTION and #54 gains a
+             scope note: shadow .bak/.preclaude files in src/ return
+             sweep hits and compile nothing. ⛔ THE INVERSE RISK IS
+             REMEDIATING A BACKUP INSTEAD OF THE LIVE FILE. · ADVISOR                                                                             
 ```
 
 ---
