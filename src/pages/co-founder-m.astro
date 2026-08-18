@@ -56,13 +56,6 @@ export const prerender = true;
                 decoding="async"
               />
             </picture>
-
-            <!-- Floating Badge -->
-            <div
-              class="absolute -bottom-6 -right-6 bg-gradient-to-r from-[#003087] to-[#0052cc] text-white px-6 py-3 rounded-full shadow-xl"
-            >
-              <span class="font-bold">MIT Birthing of Giants</span>
-            </div>
           </div>
         </div>
 
@@ -93,11 +86,10 @@ export const prerender = true;
           </div>
 
           <p class="text-xl leading-relaxed text-gray-300 relative">
-            Healthcare entrepreneur who previously led a national imaging
-            network to a successful exit with a publicly traded company.
-            Selected for MIT's prestigious "Birthing of Giants" program. Now
-            focused on expanding access to affordable, high-quality imaging
-            through systems built on empathy, simplicity, and trust.
+            He previously led AnciCare PPO, which was acquired by CorVel
+            Corporation (NASDAQ: CRVL) in May 2002. Now focused on expanding
+            access to affordable, high-quality imaging through systems built on
+            empathy, simplicity, and trust.
           </p>
 
           <div class="flex flex-wrap gap-4 relative">
@@ -127,7 +119,7 @@ export const prerender = true;
       </div><!-- end grid -->
     </div>
   </section>
-  <!-- Contained 2026-08-17: a full-width section whose entire content was an animated figure at text-9xl, captioned "Imaging procedures delivered under Michael's leadership." §4b/§4c — no document in the corpus counts people, and "procedures" is one of the eleven barred relabels; §4a's documented procedure counts are 33,855 (2000) and 38,452 (2001). The caption also asserted clinical outcomes. ⛔ THE SECTION WAS THE NUMBER — removing the figure leaves a caption describing nothing. The count-up script, its IntersectionObserver and the #counter CSS rule are removed with it; observer.observe() on a null element throws and would have broken every script after it. ⚠️ THE FIGURE WAS INVISIBLE TO EVERY SWEEP: the rendered HTML contained "0" and the barred value lived in a data-target attribute written to the DOM at runtime. #54, tenth mode. Surgical live-claim containment only; /co-founder-m has NOT received its audit and is NOT otherwise remediated. -->
+  <!-- Contained 2026-08-17: a full-width section whose only content was one animated figure and its caption. The figure was a people-count barred under §4b/§4c; the caption relabelled it and asserted clinical outcomes. THE SECTION WAS THE FIGURE — nothing survives its removal, so the section went entire. Removed with it: the count-up script, its IntersectionObserver and the #counter CSS rule; observer.observe() on a null element throws and would have broken every script after it. The value was held in a data-target attribute and written to the DOM at runtime, so the built HTML rendered "0" and no sweep could see it — #54, tenth mode. No numerical substitute made. See TRACKER #78. -->
 
   <!-- Values Section - Modern Cards -->
   <section class="py-32 bg-gradient-to-br from-gray-50 to-white px-6">
@@ -526,7 +518,6 @@ export const prerender = true;
 
     animate();
   }
-
 
   // Subtle parallax on portrait (desktop only) - section 3.7
   function setupParallax() {
