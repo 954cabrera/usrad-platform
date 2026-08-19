@@ -4715,7 +4715,27 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              ogDescription OVERRIDE WOULD HAVE MADE THE SHARE CARD
              CLEAN WHILE LEAVING THE CLAIMS LIVE ON THE PAGE — the
              wrong error. Opened as its own surface instead.
-             · ADVISOR                                                                                                                                                                       
+             · ADVISOR
+2026-08-19 · PROVENSUCCESS RULED UNDER RETENTION-FIRST — SECTION AND
+             ALL THREE TILES RETAINED. ⛔ THE DEFECT WAS ANCHORING,
+             NOT THE FIGURES. 1,200+ and $60M+ are approved §4a
+             figures; both were publishing without their governed
+             anchors. CONFORMED: "Centers recruited / 1994-2002" →
+             "AnciCare centers / by 2002", because 1994-2002 presents
+             a point-in-time contracted count as an eight-year
+             cumulative recruitment total, and because the tile
+             carried no AnciCare provenance on its face; "$60M+ /
+             Paid to imaging centers" gains its 1994–2001 period;
+             "By Public Company / Still thriving today" → "By CorVel
+             Corporation / May 2002", replacing an unsourced
+             present-tense assertion about a third party with
+             register-approved fact. ⛔ THE FOUNDER QUOTE WAS THE ONLY
+             ITEM REQUIRING A NEW RULING: "something even better with
+             USRad" is a comparative superiority claim about a
+             pre-launch product. Replaced with language expressly
+             adopted 2026-08-19 and recorded at §4a as current
+             founder statement, not historical quotation. ⛔ NOTHING
+             REMOVED THAT COULD BE ANCHORED. · FOUNDER                                                                                                                                                                                    
 ```
 
 ---
