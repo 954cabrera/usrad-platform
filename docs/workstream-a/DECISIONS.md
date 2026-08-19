@@ -4735,7 +4735,32 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              pre-launch product. Replaced with language expressly
              adopted 2026-08-19 and recorded at §4a as current
              founder statement, not historical quotation. ⛔ NOTHING
-             REMOVED THAT COULD BE ANCHORED. · FOUNDER                                                                                                                                                                                    
+             REMOVED THAT COULD BE ANCHORED. · FOUNDER
+2026-08-19 · #30 PARTIALLY CLOSED — NINE OF FOURTEEN. ⛔ THE SAME
+             NUMBER CARRIED FOUR DIFFERENT PROPOSITIONS: audience
+             description, recruiting mission, partner mission, and
+             investor market sizing. They do not share a disposition.
+             Audience and mission statements survive the number's
+             removal because the surrounding sentence already names
+             who is meant; "People We Serve" and "Americans Served"
+             tiles do not survive, because they assert present-tense
+             service to ninety million people with zero contracted
+             providers. ⛔ NO SUBSTITUTE POPULATION FIGURE ANYWHERE.
+             ⚠️ /investor EXCLUDED — its five instances are
+             structural to a market-size argument and mechanical
+             deletion would leave holes. Queued at #90. · FOUNDER
+2026-08-19 · A VERIFICATION COMMAND THAT DOES NOT GATE THE ACTION IT
+             VERIFIES IS DECORATION. Two branches were deleted today
+             before their work reached main — provider-residual,
+             whose governance commit was orphaned by a merge race,
+             and claim-30-population, whose PR was never merged at
+             all. Both recovered from dangling objects; nothing was
+             lost. ⚠️ IN BOTH CASES THE CHECK AND THE DESTRUCTIVE
+             COMMAND WERE SUPPLIED IN THE SAME BLOCK, so the check
+             printed its warning and the next line ignored it. ⛔
+             STANDING RULE: git log main..BRANCH must be empty, and
+             the delete must be CONDITIONAL on it, not adjacent to
+             it. · ADVISOR                                                                                                                                                                                                 
 ```
 
 ---
