@@ -4603,7 +4603,58 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              rendering "0" still carried a barred figure. ⛔ AND
              HARDCODED COUNTS BESIDE A DYNAMIC LIST DRIFT: the four
              cards sum to 19 against a claimed 20, and the live
-             modal on the same page disagrees with both. · ADVISOR                                                                                                         
+             modal on the same page disagrees with both. · ADVISOR
+2026-08-19 · ⛔ #46 ADJUDICATED AND DEFERRED; #45 REMAINS THE
+             CONTROLLING BLOCKER. Layer 2 v1.4 §H item 41.5 states
+             the board-certified roster requirement outright with
+             Suspended-level enforcement, and PSA §2.2/§2.11
+             incorporate USRad Verification by reference. ⚠️ THAT
+             STRENGTHENS THE EVIDENCE AND DOES NOT CHANGE THE
+             AUTHORITY. Layer 2 v1.4 is itself a draft — it says "as
+             of this draft" in Section K, carries five open
+             micro-decisions including item 41.5's own off-roster
+             default, inherits an unsettled Layer 1 decision, and has
+             no effective date or adoption field. ⛔ #45's ASYMMETRY
+             GOVERNS: REMOVAL AUTHORITY, NEVER PUBLICATION AUTHORITY.
+             The 2026-08-09 ruling is REFINED, NOT REVERSED.
+             · FOUNDER + ADVISOR
+2026-08-19 · ⚠️ #46's ORIGINAL RULING CONTAINED TWO HOLDINGS AND THE
+             REGISTER TREATED THEM AS ONE. (i) The guarantee form is
+             forbidden by Layer 1 §1.3 — never an evidence question,
+             unchanged, and untouched by Layer 2. (ii) The
+             requirement form was refused for want of a ratified
+             source — still refused, because the newer source is also
+             unratified. ⛔ SEPARATING THEM IS WHAT MAKES #46
+             TRACTABLE: not one barred family but four classes with
+             three dispositions. ⚠️ A supported-on-adoption · B and C
+             deferred · ⛔ D barred outright. ⛔ EXISTING INSTANCES
+             ARE NOT MASS-REMOVED — the requirement is likely to
+             survive adoption, and sitewide removal against a draft
+             that supports it would be the wrong error. ✅ Incidental
+             conformance during a page pass continues. · FOUNDER
+2026-08-19 · ⛔ ADOPTION OF THE VERIFIED PROVIDER STANDARD IS THE
+             UPSTREAM GOVERNANCE ACTION, AND IT IS A FOUNDER ACT
+             RATHER THAN A REMEDIATION PASS. #45 has been open since
+             2026-08-09 with ten Appendix B decisions gating it;
+             resolving it may unblock #44 and #46 together. ⚠️ AND
+             THE REGISTER HAD NOT RECORDED THAT THE STANDARD IS NOW
+             LAYERED — zero mentions of Layer 1 or Layer 2 in any
+             governance file; the last version on record is v1.0
+             DRAFT while a Layer 2 v1.4 exists. ⛔ RULINGS ARE
+             ACCUMULATING AGAINST AN UNADOPTED DOCUMENT ACROSS TWO
+             LAYERS AND FIVE VERSIONS. · ADVISOR
+2026-08-19 · ⚠️ CARRY-FORWARD: THE AUGUST 9 STANDARD CITATIONS ARE
+             HISTORICAL, NOT CURRENT. §1.3, §5.2, §5.7 and §12 were
+             cited against Layer 1 v1.0 DRAFT. The Standard is now
+             layered and versioned beyond that, and the register had
+             not recorded it. ⛔ BEFORE ANY FUTURE RULING RELIES ON
+             THOSE PROVISIONS, verify the section numbers, the
+             operative language, whether a later revision superseded
+             the August 9 basis, and whether the citations should be
+             version-qualified. ⚠️ UNTIL THEN THEY MEAN v1.0 DRAFT.
+             ⛔ NOT A REOPENING OF #45 OR #46 AND NOT A GATE ON PAGE
+             WORK — it attaches when a ruling next depends on them.
+             · FOUNDER + ADVISOR                                                                                                                               
 ```
 
 ---
