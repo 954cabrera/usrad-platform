@@ -4666,7 +4666,26 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              independent defects. The previously recorded homepage
              coupling is not present in the current build. #65
              remains pending Founder editorial adjudication.
-             · ADVISOR                                                                                                                                         
+             · ADVISOR
+2026-08-19 · #65 SYNDICATED TITLE CORRECTED; ARTICLE ROUTE STILL
+             OPEN. Founder ruled the numerical claim out of the
+             title rather than conformed to the 50%+ floor. One
+             presentation family, three authoring sites, six built
+             surfaces cleared and verified. ⛔ THE BODY IS NOT
+             REMEDIATED — four percentages, six prices, a comparison
+             table, a calculator, a timing commitment and equivalence
+             language remain, open for whole-article adjudication.
+             ⚠️ /blog KEEPS A DUPLICATE POST ARRAY: article routes
+             read blogPosts.js, the index does not. Documented drift
+             risk. ⚠️ AND HeroSection.astro:75 PUBLISHES 70% Less ON
+             THE HOMEPAGE — highest-traffic remaining site in the
+             family, still open. ⛔ SEPARATELY: THE 2026-08-19
+             SYNDICATION AMENDMENT WAS FIRST WRITTEN ONTO THE WRONG
+             #65 — the RECONCILIATION 2 batch row, not the open item.
+             Corrected same day. The batch index and the open-item
+             table share an ordinal namespace, the hazard #54 records
+             at its 2026-08-17 amendment. ANCHOR ON ROW CONTENT, NOT
+             ROW NUMBER. · ADVISOR                                                                                                                                               
 ```
 
 ---

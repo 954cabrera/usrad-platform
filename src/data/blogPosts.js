@@ -27,9 +27,10 @@ export const blogPosts = [
     slug: "the-scan-that-never-happens",
   },
   {
-    title: "Uninsured? Here's How to Get Quality Medical Imaging for 70% Less",
+    title:
+      "Medical Imaging Without Insurance: A Practical Guide to Getting the Scan You Need",
     excerpt:
-      "If you're uninsured or have a high deductible, here's how to save hundreds—sometimes thousands—on your next MRI, CT scan, or ultrasound.",
+      "If you're uninsured or on a high-deductible plan, here's how imaging is priced and what to ask before you book an MRI, CT scan, or ultrasound.",
     author: "Donna Cabrera, Co-Founder",
     date: "August 3, 2025",
     readTime: "5 min read",
