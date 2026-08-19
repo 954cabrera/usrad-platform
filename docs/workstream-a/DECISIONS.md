@@ -4685,7 +4685,18 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              Corrected same day. The batch index and the open-item
              table share an ordinal namespace, the hazard #54 records
              at its 2026-08-17 amendment. ANCHOR ON ROW CONTENT, NOT
-             ROW NUMBER. · ADVISOR                                                                                                                                               
+             ROW NUMBER. · ADVISOR
+2026-08-19 · /membership REMEDIATED UNDER RETENTION-FIRST; #70 CLOSED,
+             #72 AMENDED. ⚠️ FOUNDER SET THE HIERARCHY EXPLICITLY —
+             KEEP, then CONFORM, then REPLACE, then REMOVE, with
+             removal requiring a reason the proposition itself cannot
+             responsibly publish. ⛔ THAT TURNED ELEVEN "BARRED
+             NETWORK CLAIMS" INTO FIVE SCALE-WORD CONFORMANCES, ONE
+             REPLACEMENT AND ZERO REMOVALS. The defect was
+             "nationwide" and "has built," not "pre-negotiated."
+             ✅ MemberTrustBadge AFFIRMED and not edited; the
+             remediated homepage was not reopened. #72's rule-24
+             classification is superseded. · FOUNDER                                                                                                                                                          
 ```
 
 ---
