@@ -48,9 +48,9 @@ export const CONNECT_AUDIENCES: Record<AudienceId, ConnectAudience> = {
     headline: "For imaging providers.",
     acknowledgment:
       "Welcome. You're looking at USRad as a potential demand channel for your imaging center.",
-    body: "USRad routes cash-pay and direct-contracted patients to ACR-accredited imaging centers nationwide. Providers join the network with transparent pricing, predictable reimbursement, and zero billing friction with patients. Centers stay in control of their schedule, modalities, and patient mix — USRad handles patient routing, pricing, and the booking layer.",
+    body: "USRad is building a referral channel that gives ACR-accredited imaging centers access to self-funded employer plans, along with self-pay patients seeking a known price. Providers join the network with transparent pricing, predictable reimbursement, and zero billing friction with patients. Centers stay in control of their schedule, modalities, and patient mix — USRad handles patient routing, pricing, and the booking layer.",
     proofLine:
-      "Founded by the team behind AnciCare PPO (1994), the original imaging network for workers' compensation, which grew to 1,200+ contracted centers before its acquisition.",
+      "Founded by the team behind AnciCare PPO (1994), an imaging network for workers' compensation. AnciCare PPO grew to 1,200+ contracted imaging centers by April 2002.",
     cta: {
       label: "See how providers join the network",
       href: `/provider?source=${SOURCE("provider")}`,
@@ -66,9 +66,9 @@ export const CONNECT_AUDIENCES: Record<AudienceId, ConnectAudience> = {
     headline: "For health plans and payors.",
     acknowledgment:
       "Welcome. You're looking at USRad as a possible imaging supply network.",
-    body: "USRad operates a nationwide, ACR-accredited imaging network with transparent contracted pricing. For health plans evaluating partnership, the platform offers a pre-contracted imaging tier that can plug into self-funded plans, ACA marketplace products, or network adequacy gaps — without the credentialing overhead of building a network from scratch.",
+    body: "USRad is building a nationwide, ACR-accredited imaging network with transparent contracted pricing. For health plans evaluating partnership, the model is designed to offer a pre-contracted imaging tier that can plug into self-funded plans, ACA marketplace products, or network adequacy gaps — without the credentialing overhead of building a network from scratch.",
     proofLine:
-      "Built on the AnciCare PPO playbook, which scaled the original imaging-focused network to 1,200+ centers nationwide.",
+      "Built on the AnciCare PPO playbook. AnciCare PPO grew to 1,200+ contracted imaging centers by April 2002.",
     cta: {
       label: "Explore partnership options",
       href: `/partner?source=${SOURCE("payor")}`,
@@ -84,7 +84,7 @@ export const CONNECT_AUDIENCES: Record<AudienceId, ConnectAudience> = {
     headline: "For employers and self-funded plans.",
     acknowledgment:
       "Welcome. You're looking at USRad as a way to lower imaging spend while maintaining member access.",
-    body: "USRad gives self-funded employers transparent, contracted prices on diagnostic imaging at ACR-accredited centers nationwide. Members pay published rates with no surprise billing; employers see imaging spend drop without redesigning their benefits stack.",
+    body: "USRad is building transparent, contracted pricing on diagnostic imaging at ACR-accredited centers for self-funded employers. The model is designed so members pay published rates with no surprise billing, and employers reduce imaging spend without redesigning their benefits stack.",
     proofLine:
       "AnciCare PPO managed imaging for the workers' compensation industry on the same architecture — transparent pricing, contracted centers, predictable cost.",
     cta: {
@@ -102,7 +102,7 @@ export const CONNECT_AUDIENCES: Record<AudienceId, ConnectAudience> = {
     headline: "For brokers and TPAs.",
     acknowledgment:
       "Welcome. You're looking at USRad as a product to recommend to your employer clients.",
-    body: "USRad is a transparent-price imaging layer brokers and TPAs can introduce to self-funded employer clients. The platform reduces imaging spend and improves member experience. Co-branded materials and broker support are available.",
+    body: "USRad is building a transparent-price imaging layer brokers and TPAs can introduce to self-funded employer clients, designed to reduce imaging spend and improve member experience. Co-branded materials and broker support are available.",
     proofLine:
       "Designed for the broker channel: clean economics to present to a CFO, simple onboarding, and direct broker support from the founding team.",
     cta: {
@@ -120,9 +120,9 @@ export const CONNECT_AUDIENCES: Record<AudienceId, ConnectAudience> = {
     headline: "For investors and strategic partners.",
     acknowledgment:
       "Welcome. You're looking at USRad as a capital or partnership opportunity.",
-    body: "USRad addresses the ~90 million uninsured and underinsured Americans who pay cash for diagnostic imaging — a market that has lacked transparent-price infrastructure. The platform combines proven founder-market fit with modern network architecture: credentialed providers, contracted pricing tiers, and a member-facing booking layer.",
+    body: "USRad addresses uninsured and underinsured Americans who pay cash for diagnostic imaging — a market that has lacked transparent-price infrastructure. The platform is designed to combine proven founder-market fit with modern network architecture: credentialed providers, contracted pricing tiers, and a member-facing booking layer.",
     proofLine:
-      "Founder built AnciCare PPO (1994) — the first imaging network for workers' compensation — to 1,200+ centers before its acquisition. The same playbook, applied to a much larger market.",
+      "Founder built AnciCare PPO (1994), an imaging network for workers' compensation. AnciCare PPO grew to 1,200+ contracted imaging centers by April 2002. The same playbook, applied to a much larger market.",
     cta: {
       label: "Review the investor materials",
       href: `/investor?source=${SOURCE("investor")}`,
@@ -138,7 +138,7 @@ export const CONNECT_AUDIENCES: Record<AudienceId, ConnectAudience> = {
     headline: "How can we help?",
     acknowledgment:
       "Welcome. Tell us how we can help.",
-    body: "USRad operates a nationwide marketplace for diagnostic imaging. If you're looking for press information, general inquiries, or anything else we haven't anticipated, we'll route you to the right person.",
+    body: "USRad is building a nationwide marketplace for diagnostic imaging. If you're looking for press information, general inquiries, or anything else we haven't anticipated, we'll route you to the right person.",
     cta: {
       label: "Contact us",
       href: `/contact?source=${SOURCE("other")}`,
