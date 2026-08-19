@@ -4696,7 +4696,26 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              "nationwide" and "has built," not "pre-negotiated."
              ✅ MemberTrustBadge AFFIRMED and not edited; the
              remediated homepage was not reopened. #72's rule-24
-             classification is superseded. · FOUNDER                                                                                                                                                          
+             classification is superseded. · FOUNDER
+2026-08-19 · ⛔ #86 — og METADATA IS A FOURTH CLAIM-BEARING SURFACE.
+             CarbonLayout hardcoded "National Diagnostic Imaging
+             Access Infrastructure" and "nationwide … infrastructure-
+             grade reliability" into all 48 routes, ignoring every
+             page's own conformed metadata. ⚠️ FOUND BY ACCIDENT
+             DURING /membership PRODUCTION VERIFICATION — the same
+             way structured data was found at #83. ✅ Founder chose
+             prop inheritance over a hardcoded rewrite, so every past
+             and future page conformance propagates for free.
+             ⚠️ SEVEN OVERRIDES ARE SCAFFOLDING AND COME OUT WHEN
+             THEIR PAGES ARE REMEDIATED. · FOUNDER
+2026-08-19 · ⛔ #87 OPENED — connect/* NOT PAPERED OVER. Five of six
+             audience bodies assert an operating nationwide network
+             and investor carries ~90 million, all from one data file
+             that feeds page copy AND og description. ⛔ AN
+             ogDescription OVERRIDE WOULD HAVE MADE THE SHARE CARD
+             CLEAN WHILE LEAVING THE CLAIMS LIVE ON THE PAGE — the
+             wrong error. Opened as its own surface instead.
+             · ADVISOR                                                                                                                                                                       
 ```
 
 ---

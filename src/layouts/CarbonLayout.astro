@@ -9,6 +9,8 @@ import ProcedureSearchModal from "@/components/search/ProcedureSearchModal.astro
 export interface Props {
   title?: string;
   description?: string;
+  ogTitle?: string;
+  ogDescription?: string;
   isHeroPage?: boolean;
   hideNewsletter?: boolean;
 }
@@ -16,6 +18,8 @@ export interface Props {
 const {
   title = "USRad — Transparent Imaging",
   description = "USRad is building a transparent imaging marketplace for self-funded employers, patients, and independent imaging centers.",
+  ogTitle,
+  ogDescription,
   isHeroPage = false,
   hideNewsletter = false,
 } = Astro.props;
@@ -68,14 +72,8 @@ const ga4Id = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID || "G-60JBC6WVCW";
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
     <!-- Open Graph defaults -->
-    <meta
-      property="og:title"
-      content="USRad — National Diagnostic Imaging Access Infrastructure"
-    />
-    <meta
-      property="og:description"
-      content="Access high-quality medical imaging nationwide with transparent pricing and infrastructure-grade reliability."
-    />
+    <meta property="og:title" content={ogTitle ?? title} />
+    <meta property="og:description" content={ogDescription ?? description} />
     <meta property="og:image" content="https://usrad.com/og-default.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
