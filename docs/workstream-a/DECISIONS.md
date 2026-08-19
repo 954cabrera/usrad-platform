@@ -4654,7 +4654,19 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              version-qualified. ⚠️ UNTIL THEN THEY MEAN v1.0 DRAFT.
              ⛔ NOT A REOPENING OF #45 OR #46 AND NOT A GATE ON PAGE
              WORK — it attaches when a ruling next depends on them.
-             · FOUNDER + ADVISOR                                                                                                                               
+             · FOUNDER + ADVISOR
+2026-08-19 · #66 RE-VERIFIED; NO SOURCE ACTION REQUIRED. Both prior
+             containments hold and the component publishes no claim.
+             Verification also established that #65 understated
+             syndication exposure: the unresolved
+             uninsured-imaging-guide title appears on six built
+             routes — its own route, four related-post cards, and the
+             blog index. This remains one editorial title claim
+             syndicated to six publication surfaces, not six
+             independent defects. The previously recorded homepage
+             coupling is not present in the current build. #65
+             remains pending Founder editorial adjudication.
+             · ADVISOR                                                                                                                                         
 ```
 
 ---
