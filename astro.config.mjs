@@ -15,6 +15,11 @@ export default defineConfig({
     memory: 1024,
   }),
 
+  // Retired public routes — source preserved under docs/retired-surfaces/
+  redirects: {
+    '/faqbackup': { status: 308, destination: '/faq' },
+  },
+
   // Local development server configuration
   server: {
     port: 3000,
