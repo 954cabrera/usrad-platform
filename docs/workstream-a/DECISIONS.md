@@ -4760,7 +4760,8 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              printed its warning and the next line ignored it. ⛔
              STANDING RULE: git log main..BRANCH must be empty, and
              the delete must be CONDITIONAL on it, not adjacent to
-             it. · ADVISOR                                                                                                                                                                                                 
+             it. · ADVISOR
+                                                                                                                                                                                                              
 ```
 
 ---
@@ -4967,6 +4968,84 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              timing, an unapproved figure that additionally contradicts
              the same page's "2-3 Wks" credentialing tile. · FOUNDER
 ```
+
+---
+
+## August 20, 2026 — #92 closeout
+
+```
+
+2026-08-20 · ⛔ #92 CLOSED — SEVEN ARTIFACTS, SEVEN DISPOSITIONS. The
+             item opened public/ as a fifth claim-bearing publication
+             surface class and its population is now measured and
+             ruled. THREE RETIRED to docs/retired-surfaces/public/ with
+             no redirects, all unlinked, all 404-verified in
+             production: html/presentation, html/pricing.html and
+             docs/founder-presskit.pdf. TWO KEPT pending their own
+             reviews. TWO DEFERRED to EDS. ⛔ THE ITEM CLOSES; THE
+             CLASS FINDING DOES NOT. public/ is served by the Vercel
+             filesystem handler and is invisible to route sweeps,
+             build checks and route-level curl. Any future artifact
+             placed there publishes without passing a single gate this
+             workstream operates. · FOUNDER
+
+2026-08-20 · ⛔ AN INVESTOR DECK AND A FULL PRICING PAGE WERE LIVE AT
+             PUBLIC URLS WITH NO INBOUND LINK. html/presentation
+             published $100B+ x3, 90M x2, $3,000, 30-70%, Same-Day and
+             nationwide — the same argument #90 exists to adjudicate on
+             /investor — plus "usrad.com registered in 2003 — 20+ years
+             of brand development", ⛔ A DOMAIN-REGISTRATION-AS-BRAND-
+             HISTORY CONSTRUCTION THIS REGISTER HAD NEVER SEEN, against
+             the 2013 LLC firewall. html/pricing.html carried full site
+             navigation and published ⛔ "Save up to 96%" — TWENTY-SIX
+             POINTS BEYOND THE CONFIDENTIAL D4 BOUND AND THE LARGEST
+             SAVINGS FIGURE FOUND IN THIS WORKSTREAM — plus 70%,
+             30-70%, $260, 1,200, 1,500, 90M and a "100% Quality
+             Guarantee". ⚠️ NEITHER WAS REACHABLE BY ANY SWEEP THIS
+             WORKSTREAM HAS RUN. · FOUNDER
+
+2026-08-20 · THE INVESTOR OVERVIEW PDF IS DE-LINKED, NOT REWRITTEN.
+             Both download buttons removed from investor.astro so the
+             file is not promoted while carrying barred figures; the
+             file is retained and its contents untouched pending the
+             bounded /investor review. ⛔ NO /investor BODY CLAIMS WERE
+             TOUCHED IN THIS BATCH. The PDF publishes $100B+ x3,
+             90M/90M+ x3, 1,200+ AnciCare centers, 15,000+, 25x price
+             variation, 30–80% (beyond the D4 bound), $300 vs $5,000,
+             and the header "Built by the founder of AnciCare — the
+             first national diagnostic imaging network scaled to 1,200+
+             centers and acquired by a public company". ⚠️ IT IS MARKED
+             "Series A · CONFIDENTIAL" AND WAS SERVED AT A PUBLIC URL.
+             Reviewed with #90. · FOUNDER
+
+2026-08-20 · ⛔ THE PROVIDER OPPORTUNITY BRIEF PUBLISHES THE D13 FAMILY
+             AND IS STILL DIRECTLY ADDRESSABLE. $375 net margin per
+             scan, +15–25 scans/month and $5K–$10K realistic monthly
+             add are the three figures APPROVED-FIGURES.md records a
+             batch was scoped to remove on 2026-08-06. It also carries
+             "Turn Empty Scanner Slots Into Guaranteed Monthly
+             Revenue", a "10-DAY PAYMENT GUARANTEE", "no denials, no
+             chargebacks", "Revenue is confirmed before the patient
+             arrives", ACR-accredited in the single-body form (B7) and
+             Board-certified (#46). Its only link is in ProviderBrief,
+             imported and commented out of render at provider.astro:69,
+             so the file is retained unmodified pending the Provider
+             Onboarding/MarketScope review. ⛔ DIRECT URL ACCESS
+             REMAINS POSSIBLE AND THE ARTIFACT MUST BE REVIEWED BEFORE
+             ANY FUTURE PUBLIC LINKING. · FOUNDER
+
+2026-08-20 · THE SARAH JOHNSON REPORTS ARE FICTITIOUS AND EXPLICITLY
+             MARKED. Both carry DEMO PURPOSES in the header and are
+             referenced three times by SkeletonReportsSystem.jsx, a
+             patient-dashboard component. DEFERRED TO EDS under the
+             2026-08-08 functional boundary; the fix, if any, lives in
+             EDS-owned source. ⚠️ RECORDED FOR EDS: the marker sits at
+             the top while the body reads as a complete clinical record
+             — facility address and phone, MRN, accession number,
+             referring physician — so a printed second page carries no
+             marker. Not this workstream's call. · ADVISOR
+```
+
 
 
 ---
