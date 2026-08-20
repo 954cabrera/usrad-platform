@@ -31,6 +31,29 @@ overruled on this basis.*
 
 ---
 
+## THE POSITIONING TEST
+
+> Copy can be true and still be wrong.
+>
+> A claim traceable to evidence may still contradict a governed decision
+> about what USRad is and who it serves. Check both.
+
+USRad's demand-channel hierarchy is: **employer-funded first, self-pay
+second, contracted independent centers on the supply side.** Any surface
+describing the overall business model, market opportunity, demand strategy
+or customer mix follows that order. Consumer-facing pages may still speak
+directly to self-pay patients where that is the page's purpose.
+
+An evidence audit cannot detect a positioning error, because each sentence
+passes on its own. Positioning is checked against `DECISIONS.md`, not
+against sources.
+
+*Recorded August 20, 2026, after a full 1,596-line claims audit of
+`/investor` passed every sentence on evidence while the page's entire market
+thesis contradicted a decision recorded on August 6.*
+
+---
+
 ## THE HISTORICAL EVIDENCE STANDARD
 
 > Historical quantitative claims publish only when supported by a
