@@ -5044,6 +5044,31 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              — facility address and phone, MRN, accession number,
              referring physician — so a printed second page carries no
              marker. Not this workstream's call. · ADVISOR
+
+2026-08-20 · USRad DEMAND-CHANNEL HIERARCHY — A RESTATEMENT AND
+             EXTENSION OF D5. (1) PRIMARY: self-funded employers and
+             employer-funded health benefits. (2) SECONDARY: uninsured
+             and self-pay patients seeking direct access to diagnostic
+             imaging. (3) SUPPLY SIDE: contracted independent
+             diagnostic imaging centers. Public marketing must reflect
+             this hierarchy wherever a surface describes USRad's
+             overall business model, market opportunity, demand
+             strategy, growth thesis or customer mix. ⛔ SELF-PAY /
+             CASH-PAY MUST NOT BE PRESENTED AS THE PRIMARY MARKET OR
+             PRIMARY DEMAND STRATEGY. It remains a valid and important
+             access channel, secondary to the employer-funded strategy.
+             ⚠️ THIS DOES NOT BAR CONSUMER-FOCUSED SURFACES from
+             speaking directly to uninsured or self-pay patients where
+             that is the page's purpose; the hierarchy governs
+             COMPANY-LEVEL POSITIONING — investor materials, market
+             descriptions, and any surface purporting to describe
+             USRad's overall strategy. Language written under the
+             earlier cash-pay-first strategy is CONFORMED WHEN
+             ENCOUNTERED, not mechanically removed. ⛔ THE 2026-08-06
+             D5 ENTRY ALREADY RECORDED THAT EMPLOYER-FUNDED IS THE
+             PRIMARY COMMERCIAL TARGET; this entry extends it from a
+             vocabulary ruling to a positioning rule binding on public
+             copy. · FOUNDER + ADVISOR             
 ```
 
 
