@@ -5202,7 +5202,47 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              RATHER THAN GATING IT. The corrected form chains fetch,
              check and delete so the check cannot be run past. It was
              used immediately afterward and correctly refused on a stale
-             ref, then passed after fetching. · ADVISOR             
+             ref, then passed after fetching. · ADVISOR
+
+ 2026-08-20 · ✅ #91 CLOSED — BOTH STAT ROWS RECOMPOSED, /faq BANNER
+             CONFIRMED CLEAN. The item's headline contradiction resolved
+             without picking a number: 1,000+ on /careers and 50+ on
+             /partner were the same proposition twentyfold apart, and
+             BOTH WERE FALSE REGARDLESS OF WHICH WAS INTENDED — zero
+             contracted providers. Neither was replaced with a figure.
+             Six figures removed across two prerendered routes: 80% Cost
+             Savings x2 (D4, the same basis on which it left /investor
+             the same afternoon), the two partner-center counts, and the
+             two 24hr results tiles. · FOUNDER
+
+2026-08-20 · ⛔ THE 24hr RESULTS FAMILY IS A NEW GOVERNED CLASS — D7
+             CLINICAL-DELIVERY TIMING. "24hr Result Turnaround" and
+             "24hr Results Delivery" promised a radiologist's report
+             within a day, from facilities that are not contracted, with
+             no radiologist under contract. ⚠️ #93's SWEEP COULD NOT
+             REACH IT: it is a results-delivery promise, not a
+             response-time promise, and no pattern in that sweep matched
+             it. #58 removed same-day under D7; this is the same class
+             one step further into clinical territory. · FOUNDER
+
+2026-08-20 · RECOMPOSED, NOT DELETED — the composition precedent set on
+             /investor the same day. A tile built around a figure does
+             not survive the figure's removal. Both rows now read
+             Transparent Pricing / Contracted pricing, shown upfront ·
+             Provider Network / Recruitment and contracting underway ·
+             Digital Results / Delivered to you and your doctor,
+             preserving each page's own tile order, colours, structure
+             and AOS timing. ⛔ PORTAL DELIVERY WAS DELIBERATELY NOT USED
+             in the third tile — it is a capability proposition and
+             belongs to #96. No new capability dependency was introduced
+             in order to close this item. · FOUNDER
+
+2026-08-20 · THE /faq GUARANTEE FAMILY REQUIRES NO REMEDIATION. All six
+             instances are the commercial refund policy retained on
+             /patient-promise the same morning, and each links to
+             /patient-promise as its authority. A commercial refund
+             policy USRad controls unilaterally is #75's class, not
+             #60's clinical-warranty class. · FOUNDER                         
 
 ```
 
