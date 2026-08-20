@@ -5069,6 +5069,79 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              PRIMARY COMMERCIAL TARGET; this entry extends it from a
              vocabulary ruling to a positioning rule binding on public
              copy. · FOUNDER + ADVISOR             
+
+2026-08-20 · ⛔ #90 CLOSED — /investor CONFORMED, NOT DISMANTLED.
+             Whole-page retention-first pass, 1,596 lines, 39 anchored
+             replacements including four section recompositions. No
+             section contained, no section removed. ⚠️ THE ITEM'S OWN
+             SCOPE WAS A THIRD OF THE POPULATION — it recorded five 90M
+             occurrences; the sweep returned twenty-seven barred-family
+             instances across fourteen figures. · FOUNDER
+
+2026-08-20 · ⛔ THE WORST FIGURE ON /investor WAS NOT $100B+ OR 90M. IT
+             WAS $20M, published three times as AnciCare annual revenue.
+             §4a's peak documented gross receipts are $16,001,938 (2001)
+             and $18M is barred as a projection; $20M exceeded both and
+             appeared in no register file. Conformed to "more than $16
+             million in annual revenue by 2001". ⚠️ IT HAD SURVIVED
+             EVERY PRIOR PASS BECAUSE NO SWEEP PATTERN REACHED IT.
+             · FOUNDER
+
+2026-08-20 · THE TAM FAMILY PUBLISHES QUALITATIVELY OR NOT AT ALL.
+             $100B+ and 90M are removed from /investor with NO
+             SUBSTITUTE FIGURE and no fallback to "millions". ⛔ REMOVING
+             THEM MECHANICALLY WOULD HAVE TAKEN THE MARKET SECTION'S
+             SPINE, WHICH IS WHY /investor WAS EXCLUDED FROM #30 IN THE
+             FIRST PLACE. Three sections were therefore RECOMPOSED
+             rather than left with holes: the hero metrics row became a
+             positioning strip; the Market Opportunity cards promote
+             their label into the heading; and the working-capital block
+             became Payment Sequencing. A fourth recomposition reordered
+             the Revenue Model tiles. ⛔ COMPOSITION IS A FOUNDER
+             DECISION, NOT A CLAIMS DECISION — a card built around a
+             figure does not survive the figure's removal, and that is a
+             layout ruling. · FOUNDER
+
+2026-08-20 · PAYMENT LANGUAGE ALIGNED TO THE PROVIDER SERVICE AGREEMENT
+             ON A THIRD SURFACE. "Positive Working Capital Model" became
+             "Payment Sequencing" — At Booking · Fulfillment Complete ·
+             10 Business Days. ⛔ THE SEQUENCE IS FACTUAL AND SURVIVES;
+             THE CONCLUSIONS DRAWN FROM IT DO NOT. Removed: positive
+             working capital, structural float, cash float advantage,
+             and "like AnciCare's successful float model", an A→C
+             transfer attaching USRad's model to AnciCare's result. The
+             PSA may be named publicly; its version and section numbers
+             may not. ⚠️ RECORDED FOR #96: "Patient pays upfront" must
+             be reconciled against the employer-funded primary channel,
+             where the patient may not be the payer. · FOUNDER
+
+2026-08-20 · ⛔ #98 OPENED — A CLAIMS AUDIT CANNOT DETECT A POSITIONING
+             ERROR. /investor contradicted the 2026-08-06 D5 entry for
+             two weeks while a complete 1,596-line audit read every
+             sentence and passed all of them, because each defective
+             line is defensible on its own evidence. The most
+             consequential was dated: Phase 2 of the roadmap, 2027+,
+             described employer-sponsored business as an expansion
+             beyond self-pay — placing the PRIMARY demand channel two
+             years out. ✅ Six locations conformed, the hierarchy
+             persisted, and THE POSITIONING TEST added to README as a
+             fourth standing principle. ⚠️ NO OTHER SURFACE HAS BEEN
+             CHECKED AGAINST THE HIERARCHY — every page remediated
+             before today was audited on evidence alone. · FOUNDER +
+             ADVISOR
+
+2026-08-20 · ⚠️ #95 AMENDED — THE ITEM DEMONSTRATED ITSELF AND
+             INVALIDATED ITS OWN REMEDY. Format-on-save rewrapped five
+             unrelated blocks in investor.astro during the 1,020
+             follow-on, and BOTH --stat AND -w --stat AGREED AT 18/14
+             AND PASSED. ⛔ THE REASON IS STRUCTURAL: -w IGNORES
+             WHITESPACE, BUT REWRAPPING MOVES WORDS ACROSS LINE
+             BOUNDARIES, WHICH IS A CONTENT CHANGE. The prescribed
+             tripwire is blind to the most common thing the formatter
+             does. ✅ CORRECTED GATE: compare whitespace-normalised text
+             between HEAD and the working copy, not -w. Verified this
+             way that no words changed. · ADVISOR
+
 ```
 
 
