@@ -5242,7 +5242,46 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              /patient-promise the same morning, and each links to
              /patient-promise as its authority. A commercial refund
              policy USRad controls unilaterally is #75's class, not
-             #60's clinical-warranty class. · FOUNDER                         
+             #60's clinical-warranty class. · FOUNDER
+
+ 2026-08-20 · ✅ #98 SITEWIDE POSITIONING SWEEP RUN AND CLOSED — IT CAME
+             BACK NEARLY EMPTY. Every surface describing USRad's overall
+             business model, market opportunity, demand strategy or
+             customer mix was checked against the governed hierarchy: /,
+             /about, /partner, /provider, /faq, /connect, /employer.
+             Consumer surfaces were excluded by the hierarchy's own
+             exemption — /membership, /patient-promise, /how-it-works and
+             the blog are meant to address self-pay patients directly.
+             ONE ACTIONABLE LINE ACROSS THE WHOLE CANDIDATE SET.
+             · FOUNDER
+
+2026-08-20 · /partner:93 read "Tap into a $100B+ market with massive
+             untapped potential" — the same unregistered TAM figure
+             removed from /investor hours earlier, on a market-thesis
+             line. Conformed to "Tap into growing demand from
+             self-funded employers and self-pay patients", WHICH STATES
+             THE HIERARCHY POSITIVELY RATHER THAN MERELY DROPPING THE
+             FIGURE. /partner:36 kept: its provider / employer /
+             investor / innovator ordering is a list of partner types on
+             a partner-audience page, not a demand hierarchy. · FOUNDER
+
+2026-08-20 · ⬜ /about ALREADY CONFORMED, AND HAD DONE SO BEFORE THE
+             RULING EXISTED — ":466" reads "built for self-funded health
+             plans" and ":621" "USRad is being built for self-funded
+             health plans and people", employer-funded named first,
+             patients second. Its remaining matches are AnciCare history
+             in correct past tense. /, /provider, /faq, /connect and
+             /employer returned nothing. ⚠️ THE HIERARCHY DEFECT WAS
+             CONCENTRATED ON /investor, WHICH IS CLOSED. · FOUNDER
+
+2026-08-20 · ⚠️ METHOD CAVEAT RECORDED RATHER THAN CHASED: THIS SWEEP
+             SEARCHED CHANNEL VOCABULARY. A surface could imply the
+             wrong hierarchy through emphasis or ordering without using
+             any of those words — as /investor's Phase 2 did, describing
+             employer-sponsored business as a 2027+ expansion. That
+             instance was detectable BECAUSE it used them. The residual
+             risk is recorded; #98 is a bounded parity check, not a
+             general audit. · ADVISOR                                     
 
 ```
 
