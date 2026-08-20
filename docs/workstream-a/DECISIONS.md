@@ -5142,6 +5142,68 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              between HEAD and the working copy, not -w. Verified this
              way that no words changed. · ADVISOR
 
+2026-08-20 · ⚠️ #93 PARTIALLY CLOSED — RESPONSE-TIME PORTION DONE,
+             CAPABILITY PORTION HELD. The sitewide sweep of #80's four
+             defect classes found a small live population. FIVE OF NINE
+             CANDIDATE COMPONENTS RENDER NOWHERE — PatientBookingFlow's
+             three "within 4 hours" instances, one labelled Response
+             Time, publish on no route. ✅ AND #80's OWN REMEDIATION
+             HELD COMPLETELY: /contact returns zero 24/7 and zero
+             response-time commitments in production. Four conformances
+             applied under founder ruling option (c) — preserve the
+             proposition, remove the clock. ⚠️ "We'll get back to you
+             within 24 hours" is a materially weaker promise than the
+             "under 2 minutes" class #80 removed, and was defensible on
+             its face; the ruling is that NO RESPONSE-TIME COMMITMENT
+             SURVIVES. · FOUNDER
+
+2026-08-20 · ⛔ TWO OF THE #93 ANCHORS WERE NOT RESPONSE-TIME DEFECTS.
+             ExitModal's success view read "We've sent your personalized
+             market analysis to your email. You should receive it within
+             24 hours." REMOVING THE CLOCK WOULD HAVE LEFT THE DELIVERY
+             ASSERTION STANDING. D12 governs: the page may describe the
+             user's action; it may not claim the downstream delivery
+             occurred. ⚠️ THE STATIC MARKUP AND THE RUNTIME JS THAT
+             OVERWRITES IT WERE CONFORMED IN THE SAME BATCH — conforming
+             one alone leaves the other republishing the claim on every
+             submission. · FOUNDER
+
+2026-08-20 · ⛔ RECORDED, NOT INVESTIGATED — A SUCCESS MESSAGE FOR AN
+             ENDPOINT THAT WAS NEVER BUILT. ExitModal:1187 fetches
+             /api/market-analysis. No file matching market or analysis
+             exists in src/pages/api/, and the live URL returns 404. The
+             modal collected a provider's name, email and organisation,
+             fetched a nonexistent endpoint, and displayed "Success!
+             Check Your Email". ⚠️ THIS IS WORSE THAN D12's SHAPE, where
+             the endpoint existed and deliberately sent nothing; this one
+             was never built, and the submitted data reaches nothing.
+             ⛔ MECHANISM DEPENDENCY FOR #96. No EDS behaviour modified
+             in this workstream. · FOUNDER
+
+2026-08-20 · THE 24/7 AND INSTANT-CONFIRMATION FAMILY REMAINS HELD.
+             /faq:410 is recorded as a NEWLY MEASURED SECOND-ROUTE
+             OCCURRENCE of the proposition already held at
+             /patient-promise:621 — the identical sentence on a route no
+             capability audit had reached. ⛔ BOTH REMAIN HELD TOGETHER
+             for the Provider Onboarding/MarketScope verification;
+             conforming one while holding the other would leave the
+             register inconsistent. Also held: /patient-promise:163 and
+             provider/portal-tour:245. · FOUNDER
+
+2026-08-20 · ⛔ THE BRANCH-DELETE GATE MUST BE CONDITIONAL AND MUST
+             FOLLOW A FETCH — #95 AMENDED. git log main..BRANCH printed
+             a commit and git branch -d ran anyway, deleting an unmerged
+             governance branch; the commit was recovered by cherry-pick
+             and pushed direct to main. ⚠️ git branch -d DOES NOT CHECK
+             AGAINST main — it checks reachability from any ref, so an
+             existing origin/BRANCH makes it delete with a warning
+             rather than refuse. ⛔ THIS WAS THE THIRD TIME IN ONE DAY A
+             CHECK WAS SUPPLIED ADJACENT TO THE DESTRUCTIVE COMMAND
+             RATHER THAN GATING IT. The corrected form chains fetch,
+             check and delete so the check cannot be run past. It was
+             used immediately afterward and correctly refused on a stale
+             ref, then passed after fetching. · ADVISOR             
+
 ```
 
 
