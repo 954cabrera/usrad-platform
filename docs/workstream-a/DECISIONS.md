@@ -5281,7 +5281,60 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              employer-sponsored business as a 2027+ expansion. That
              instance was detectable BECAUSE it used them. The residual
              risk is recorded; #98 is a bounded parity check, not a
-             general audit. · ADVISOR                                     
+             general audit. · ADVISOR
+
+2026-08-20 · ✅ 4F CLOSED — ALL FOUR PIECES RESOLVED, ONLY ONE BY
+             REMEDIATION. TrustBar published "1,200+ Centers Recruited"
+             on the provider recruitment surface. ⛔ #88 DIAGNOSED THIS
+             AS AN ATTRIBUTION DEFECT WITH PROVENANCE IN THE ADJACENT
+             TILE; THE DIAGNOSIS WAS WRONG IN TWO WAYS. The adjacent
+             tile identifies the founders, not the subject of the
+             figures, so no provenance existed anywhere. And "Recruited"
+             is not an attribution problem — it is a FALSE PRESENT-TENSE
+             USRad OPERATING CLAIM, since USRad has recruited zero
+             centers. ⚠️ THE MISSING ATTRIBUTION IS WHAT ALLOWED THE
+             MISREADING. #88's underlying ruling stands unchanged.
+             · FOUNDER
+
+2026-08-20 · ⬜ THE NETWORK-MAP QUESTION WAS RESOLVED AT SOURCE, NOT IN
+             COPY. A frozen engineering report of 2026-04-10 recorded 6
+             gold and 59 silver pins rendering with is_test = false
+             returning ZERO rows — every facility in the system was test
+             data, publishing as "Contracted USRad partner — market
+             taken" and "PSA signed — credentialing in progress". THE
+             TEST FACILITIES HAVE SINCE BEEN REMOVED FROM THE DATABASE.
+             The live map plots only ACR-accredited centers as
+             opportunity and the panel reports "0 USRad MRI Partners /
+             UNCLAIMED MARKET" where there are zero. ⚠️ A COPY AUDIT
+             COULD NOT HAVE ANSWERED THIS — the plotted data lives in
+             Remix and Supabase, not in Astro. · FOUNDER
+
+2026-08-20 · ⛔ #65 SCOPE MEASURED AND PARKED — IT IS NOT A LOOSE END
+             BUT A SEPARATE CROSS-REPO REMEDIATION WORKSTREAM. Five
+             families. (a) 90 million — substantially remediated across
+             #30, #89, #90 and the Class E retirements, BUT REQUIRES A
+             CLOSURE SWEEP BEFORE BEING DECLARED CLOSED. (b) Savings /
+             percentage — OPEN, REQUIRES FOUNDER ADJUDICATION PER FAMILY
+             BEFORE ANY FILE IS TOUCHED; formulations at or beyond the
+             confidential bound are live, including 80% and 90% forms
+             that go past the source document itself. (c) Board-certified
+             — belongs to parked #46, NOT REOPENED. (d) usrad-portal
+             surfaces — OPEN AND TAKES PRIORITY, because three of the
+             four are email templates and A SENT EMAIL CANNOT BE
+             CORRECTED RETROACTIVELY. (e) /blog/uninsured-imaging-guide
+             — REQUIRES ITS OWN FULL-ROUTE REVIEW; the savings and
+             pricing propositions form part of the article's structural
+             argument and mechanical substitution is not available.
+             · FOUNDER
+
+2026-08-20 · HeroSection.astro:75 PUBLISHES "70% Less" ON / — the
+             highest-traffic remaining site in family (b). ⛔ RECORDED
+             AS A PRIORITY ENTRY POINT WITHIN #65, NOT AS PERMISSION TO
+             PULL IT FROM THE FAMILY AHEAD OF ADJUDICATION. The same
+             applies to the usrad-portal email templates: their urgency
+             is a reason to sequence them first, not a reason to
+             remediate individual instances before the per-family ruling
+             this item requires. · FOUNDER                                                  
 
 ```
 
