@@ -4765,11 +4765,217 @@ One line per decision, not per action. Commits go in the tracker; this file answ
 
 ---
 
+## August 19, 2026 — #84 closeout
+
+```
+
+2026-08-19 · ⛔ #84 CLOSED ON ENUMERATION. Its purpose was coverage
+             discovery, and the population is now measured and
+             classified. 79 server-rendered .astro routes plus 18
+             .html routes the initial enumeration could not see, all
+             publicly reachable. Class A 2 · Class B 49 · Class C 6 ·
+             Class D 3 · Class E retired. ⛔ NEW SURFACES GET THEIR OWN
+             ITEMS; #84 does not become an umbrella. · FOUNDER
+
+2026-08-19 · ⛔ 18 NON-ROUTABLE HTML ARTIFACTS RETIRED AS A CLASS.
+             Every .html file in src/pages was served as a public
+             route with no inbound link from src/. Titles established
+             them as mockups, video cards, wireframes and drafts.
+             Five carried governed subject matter: ancicare-power,
+             timeline, timeline2 (AnciCare), 90million2,
+             90milliongraph (#30). ⛔ SOURCE PRESERVED UNDER
+             docs/retired-surfaces/ VIA git mv, NOT DELETED — four are
+             cited by line number in this register and the citations
+             must stay resolvable. No redirects: 404 after retirement
+             is correct where no replacement route exists. Verified
+             404 in production. · FOUNDER
+
+2026-08-19 · ASTRO PROVIDER-ONBOARDING ROUTES RETIRED IN STATUS BUT
+             NOT UNROUTED. The live onboarding platform is the Remix
+             implementation. ⚠ FOUR EDS-OWNED INBOUND LINKS BLOCK
+             UNROUTING: providers/pre-portal.astro and
+             PSASuccessContent.jsx → onboarding/facilities;
+             RoleSection.astro, OrganizationForm.astro and
+             AddCenterForm.astro → onboarding/market-calculator;
+             PricingConfigurator.jsx → onboarding/confirmation. ⛔ THIS
+             IS A SEQUENCING DEPENDENCY, NOT A REVERSAL OF RETIREMENT
+             STATUS. pre-portal, signup, verified, check-email,
+             portal-transition and providers/portal/* are NOT extended
+             by this ruling; their status is determined in the Remix
+             review. · FOUNDER
+
+2026-08-19 · /member-rights CLOSED CLEAN — the first surface in this
+             workstream to require zero source edits on first read.
+             Nine policy items, no figures, no network claims, blast
+             radius zero. ⚠ #84's cell claimed member-rights renders
+             MemberRightsSummary; IT IMPORTS ONLY CarbonLayout. The
+             component renders on how-it-works and membership, both
+             already remediated. Phone 1-866-USRad-24 KEPT — it
+             matches the sitewide CarbonFooter exactly and a
+             register-string conformance would have created a fourth
+             display variant. · FOUNDER
+
+2026-08-19 · PHONE DISPLAY VARIANTS RECORDED, NOT NORMALISED.
+             (866) USRad24, (866) USRad-24 and 1-866-USRad-24 are all
+             acceptable where the number resolves to 1-866-877-2324.
+             ⛔ DO NOT MECHANICALLY NORMALISE REMEDIATED SURFACES FOR
+             TYPOGRAPHY. · FOUNDER
+
+2026-08-19 · /form-submitted RETIRED. An orphaned confirmation page
+             for a dead form: ConsultationForm.astro renders on no
+             route in src/, measured across .astro, .jsx, .ts and
+             .tsx. The route returned 200 and published "submitted
+             successfully" and "within 1 business day" for a
+             submission that cannot occur. D12 governs — the page may
+             describe the user's action; it may not claim the
+             downstream delivery occurred. ⛔ REVIVAL WARNING:
+             ConsultationForm.astro is preserved unmodified and is the
+             only method="get" form in src/ — user name, email and
+             phone would serialise into the URL and reach browser
+             history, referrer headers and access logs (#61 class),
+             and it targets no endpoint. · FOUNDER
+
+2026-08-19 · /patient-promise CONFORMED, NOT DISMANTLED. Whole-page
+             read, 1079 lines: KEEP 38 / CONFORM 7 / REMOVE 1 / HOLD 3
+             plus a capability family of 13. ⛔ THE PAGE'S WORST CLAIM
+             WAS IN NO REGISTER ITEM: ":532" asserted USRad had
+             "already settled both the facility fee and the
+             radiologist fee through our network agreement" — a
+             present-perfect claim of an executed agreement with
+             settled provider fees, with zero contracted providers.
+             Conformed to founder-ratified coverage language.
+             ⚠ #55 RECORDED same-day ×8 ON THIS ROUTE. THERE IS ONE
+             INSTANCE IN SOURCE, and it is a conditional payment-policy
+             statement, not an availability commitment — KEPT. · FOUNDER
+
+2026-08-19 · THE GUARANTEE DISTINCTION. /patient-promise's guarantee
+             family KEPT: a commercial refund policy USRad controls
+             unilaterally, requiring no counterparty — #75's class, not
+             #60's clinical-warranty class. ⛔ /provider/faq's payment
+             guarantee is NOT the same: a refund returns money USRad
+             already holds; a disbursement pays a provider on a
+             contract that does not exist. Conformed to the Provider
+             Service Agreement instead. · FOUNDER
+
+2026-08-19 · /news RETIRED. The old vanilla placeholder route,
+             publishing three fabricated headlines as completed
+             announcements: "USRad Expands Network to 50 States",
+             "USRad Announces Partnership with Leading Medical
+             Institutions", "New Technology Integration Enhances
+             Patient Experience". ⛔ "Coming Soon" ATTACHED TO THE
+             ARTICLE, NOT THE EVENT, and did not cure them. A
+             frontmatter comment reading "Mock news articles" is
+             stripped at build and published nothing. Retirement
+             resolves all three as a class. ⚠ /news was the only
+             consumer of MainLayout.astro, itself marked DEPRECATED,
+             which renders Footer.astro; PartnerLayout and
+             MainPatientLayout also import Footer.astro and are used
+             by zero pages. All four now render on no route.
+             Dead-layout cleanup is out of scope. · FOUNDER
+
+2026-08-19 · ⛔ FOOTER LINKS RESOLVED BY RETIRING THE ROUTE, NOT BY
+             EDITING AN ORPHANED COMPONENT. Footer.astro carried two
+             links to nonexistent routes — /founder (404) and /news.
+             Editing a component that renders nowhere is work with no
+             published effect; the ConsultationForm disposition
+             applies. Verified: >News< and "Meet the Founder" return
+             zero across static/ and _render.func after retirement.
+             ⚠ /founder CLASSIFIED AS A DEPRECATED PAGE, NOT A DEAD
+             REFERENCE: src/pages/founder.astro existed across ten
+             commits and was deleted at 2ae29fd (2025-10-25)
+             incidentally, inside a newsletter-feature commit. Do not
+             redirect or recreate. ⚠ ec1b830 ("completed the press-kit
+             for MAC") touched founder.astro — the deleted file may
+             carry governed founder material for the /press-kit
+             rebuild. · FOUNDER
+
+2026-08-19 · /provider/faq CONFORMED — the largest surface in this
+             workstream at 3279 lines, 18 FAQs, blast radius zero.
+             KEEP 48 / CONFORM 17 / REMOVE 3 / HELD 24.
+             ⛔ THE PAYMENT FAMILY PUBLISHES AS A CONTRACT, NOT A
+             WARRANTY: the ten-business-day term is supported by the
+             Provider Service Agreement and conforms to "Under the
+             Provider Service Agreement, payment is due within 10
+             business days of Fulfillment Complete." The PSA may be
+             named publicly; ITS VERSION NUMBER AND INTERNAL SECTION
+             NUMBERS MAY NOT. Use the defined trigger Fulfillment
+             Complete rather than paraphrasing it. Removed: "much
+             faster than traditional models", "you wait 60-90 days",
+             "we ensure". · FOUNDER
+
+2026-08-19 · ⛔ AN INVENTED PERFORMANCE METRIC, PRESENTED AS HISTORY.
+             /provider/faq published "Track Record: Our no-show rate is
+             typically below 5% - significantly better than the
+             industry average of 15-20%." USRad has scheduled zero
+             appointments, so there is no no-show rate; the industry
+             figure is unsourced. #74's class — invented proof, not an
+             evidence gap. ⚠ NEITHER PERCENTAGE WAS REACHABLE BY ANY
+             BARRED-FIGURE PATTERN IN THIS WORKSTREAM; a targeted
+             sweep of the whole 3279-line file returned three hits and
+             none was this. REMOVED ENTIRE. · FOUNDER
+
+2026-08-19 · ⛔ PREVALENCE CLAIMS ARE REWRITTEN QUALITATIVELY, NOT
+             SUBSTITUTED. Replacing "Most established imaging centers"
+             with "typically" merely exchanges one prevalence claim
+             for another. The governing form removes the quantifier
+             entirely: "These requirements reflect standard credentials
+             and operating information established imaging centers
+             maintain." ⚠ THIS FAMILY IS A DEFECT CLASS NO SWEEP
+             REACHES — Most, Many, often, completely, ever, rare case
+             — and it produced most of the conformances on both
+             surfaces audited today. · FOUNDER
+
+2026-08-19 · /providers/join RETIRED — CONTAINMENT RULING REVERSED ON
+             EVIDENCE. Containment was ruled on the premise that three
+             application components still direct provider traffic to
+             the route. ⛔ MEASUREMENT FALSIFIED THE PREMISE:
+             EnterpriseOnboarding.jsx and ProviderPortalDashboard.jsx
+             contain the redirects and are rendered by no page in src/.
+             MARKETING-SYSTEM-ENGINEERING-REPORT-V2 confirms provider
+             CTA routing was migrated to ${REMIX_URL}/signup?source=,
+             and /providers/join appears in NEITHER frozen engineering
+             report — not in the funnel, the route inventory or the CTA
+             tables. ⛔ IT WAS A LIVE DUPLICATE SIGNUP PATH CREATING
+             SUPABASE ACCOUNTS OUTSIDE THE CANONICAL FLOW. Retirement
+             removed an exit-intent modal publishing "guaranteed
+             revenue", "$60M+ already paid to imaging centers like
+             yours", "get paid in 10 days, not 90", "no insurance
+             hassles or denials" and "start receiving patients this
+             week", plus two A→C transfers and three superlatives. The
+             scoped §4a fact — over $60 million paid to imaging centers
+             1994–2001 — is preserved in the retired source. · FOUNDER
+
+2026-08-19 · ⛔ 36 CAPABILITY AND SECURITY STATEMENTS HELD AS A FAMILY
+             ACROSS TWO SURFACES, awaiting ONE Remix/EDS verification
+             pass. /patient-promise 13 (portal cancellation, one-click,
+             24/7, no approval, refund initiation, 5–10 business day
+             settlement, HSA/FSA, real-time centre notification) and
+             /provider/faq 23 (portal, scheduling, reminders,
+             coordination team, knowledge base, 256-bit encryption
+             including "military-grade", RBAC, audit logging, RIS/PACS
+             integration, rate-to-volume and patient-facing rate
+             display). ⛔ DO NOT MECHANICALLY CONFORM THEM. Verification
+             determines actual implementation; wording follows. This is
+             now the largest open dependency in Workstream A. · FOUNDER
+
+2026-08-19 · MEDICARE RATE TIERS HELD. /provider/faq publishes
+             "100%, 120%, or 140% of Medicare" as the provider-selected
+             reimbursement levels. ⛔ PRICING ARCHITECTURE IS NOT
+             ESTABLISHED THROUGH AN ASTRO MARKETING REMEDIATION. Held
+             unchanged for the Provider Onboarding/MarketScope review
+             in Remix. Also held: "7–10 business days" onboarding
+             timing, an unapproved figure that additionally contradicts
+             the same page's "2-3 Wks" credentialing tile. · FOUNDER
+```
+
+
+---
+
 ## Open decisions awaiting founder
 
 | # | Decision | Blocks |
 |---|---|---|
-| 6 | 96% patient show rate: source or remove | 4H-c. ✅ **CLOSED ON `/provider` 2026-08-13** — verified absent from `GuaranteeSection` and from the whole provider surface. ⛔ **OPEN SITEWIDE — FIVE INSTANCES:** `built-usrad.astro:339` and `built-usrad2.html:327` (both stating "96% show rate" in words), `usrad-end-card.html:251`, `usrad-end-card2.html:324`, `patient-advocate/index.astro:82`. A sixth in `SkeletonAnalyticsSystem.jsx` is mock dashboard data and carries a different disposition. The `.html` files under `src/pages/` are served as **static routes and are publicly reachable**; the duplicate `2` variants may be orphaned and should be checked for inbound links before choosing between correction and archive |
+| 6 | 96% patient show rate: source or remove | 4H-c. ✅ **CLOSED ON `/provider` 2026-08-13** — verified absent from `GuaranteeSection` and from the whole provider surface. ⛔ **OPEN SITEWIDE — FIVE INSTANCES:** `built-usrad.astro:339` and `built-usrad2.html:327` (both stating "96% show rate" in words), `usrad-end-card.html:251`, `usrad-end-card2.html:324`, `patient-advocate/index.astro:82`. A sixth in `SkeletonAnalyticsSystem.jsx` is mock dashboard data and carries a different disposition. The `.html` files under `src/pages/` are served as **static routes and are publicly reachable**; the duplicate `2` variants may be orphaned and should be checked for inbound links before choosing between correction and archive — ⚠️ **SCOPE REDUCED 2026-08-19: THREE OF THE FIVE INSTANCES ARE NOW OFF THE PUBLIC SURFACE.** `built-usrad2.html`, `usrad-end-card.html` and `usrad-end-card2.html` were retired to `docs/retired-surfaces/` with the 18-artifact HTML batch and return 404. **TWO REMAIN: `built-usrad.astro:339`** (live, server-rendered) **and `patient-advocate/index.astro:82`** (Class B, EDS-owned, deferred under the functional boundary). The orphan question this row raised is answered — none of the `.html` files had any inbound link from `src/` |
 | 8 | Market-size section — in scope only if it serves §4.3 mission-statement fix | Placement |
 | 15 | 1,236% Growth Achieved — `about.astro:1148` | no basis |
 | 16 | 99.8% Satisfaction/Resolution Rate — `about:1210`, `contact:51`, `ContactHero:176` | same class as barred 92% |
