@@ -5334,8 +5334,56 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              applies to the usrad-portal email templates: their urgency
              is a reason to sequence them first, not a reason to
              remediate individual instances before the per-family ruling
-             this item requires. · FOUNDER                                                  
+             this item requires. · FOUNDER
+             
+                                                               
 
+
+2026-08-21 · THE DEMAND-HIERARCHY VOCABULARY IS "self-funded employers
+             and self-pay patients". "direct-pay" appears nowhere in the
+             register and was rejected as an unnecessary synonym. The
+             ratified phrase is /partner:93's, conformed 2026-08-20,
+             which states the hierarchy positively rather than merely
+             dropping the figure — the same composition move the welcome
+             letters make. Applied to signup.tsx:326 and all four
+             WelcomeLetterModal variants. Open item #43, the cash-pay bar
+             versus overrule, remains unresolved and did not block:
+             self-pay is correct under both readings. · FOUNDER
+
+2026-08-21 · "nationwide" RETAINED AT WelcomeLetterModal:85 ONLY. "USRad
+             is building a new nationwide referral channel" is explicitly
+             forward-looking, describing intended scope rather than
+             present network scale. It is the company-level variant and
+             the only one that originally carried the word. The standing
+             rule was applied, not excepted. · FOUNDER
+
+2026-08-21 · TRUTHFUL DOES NOT MEAN TIMID — COMPOSITION STANDARD FOR
+             PROVIDER SURFACES. Every substantive change asks: what was
+             the original trying to make a provider believe; which part
+             is unsupported; what evidence-backed proposition carries the
+             same persuasive function; does the replacement still give a
+             compelling reason to join. Recomposition is preferred over
+             deletion. Replacements that are technically accurate but
+             materially weaker are flagged for composition review rather
+             than implemented silently. Two #96 replacements are STRONGER
+             than their originals — "1,200+ imaging centers contracted by
+             AnciCare by 2002" is better provider-facing proof than any
+             dollar figure. One is MATERIALLY WEAKER WITH NO REMEDY:
+             auth.verified.tsx:66 originally promised joining something
+             already operating, and at zero contracted partners no
+             evidence supports that at any strength. Recorded rather than
+             concealed. · FOUNDER
+
+2026-08-21 · A STATE MACHINE DESCRIBES WHAT THE CODE PERMITS, NOT WHAT
+             THE PRODUCT DOES. Claude twice inferred product behaviour
+             from engineering artifacts and was twice wrong: the x-route
+             prefix read as retirement when it was a rename, and backward
+             onboarding navigation read as permitted from a resolver
+             guard when the product ends onboarding at PSA by design.
+             Engineering findings are correct as code analysis and
+             unreliable as product description. Founder ruling governs
+             product behaviour; code analysis is evidence about code.
+             · FOUNDER + CC
 ```
 
 
