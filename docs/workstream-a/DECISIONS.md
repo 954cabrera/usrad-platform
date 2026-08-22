@@ -5384,6 +5384,28 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              unreliable as product description. Founder ruling governs
              product behaviour; code analysis is evidence about code.
              · FOUNDER + CC
+
+2026-08-22 · #101 COMPOSED AS COMPLETE BRANCH SCREENS, NOT AS EIGHT
+             STRING REPLACEMENTS. Each acquisition branch was treated as
+             one screen with a headline, subline, subhead, reinforcement
+             block and CTA that must read as a single argument. Two
+             smartmatch sublines were populated from empty rather than
+             left blank, because the branch had no room to explain what
+             SmartMatch is. Preserved propositions: demand opportunity
+             without claiming patients are searching through USRad, and
+             early participation without claiming present delivery.
+             · FOUNDER
+
+2026-08-22 · SCREEN-LEVEL COMPOSITION REVIEW IS AN INSTRUMENT. The
+             eighth #101 string was invisible to every string method
+             used on this workstream — branch-matrix read, variable
+             grep, render-site grep — and was found by viewing the
+             composed preview. Its defect was contradiction with the
+             headline above it, not the string in isolation. This is
+             THE POSITIONING TEST at screen scale: a claims audit
+             cannot detect a composition error. Visual review of every
+             composed surface is required before merge, not optional.
+             · FOUNDER             
 ```
 
 
