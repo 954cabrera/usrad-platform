@@ -5406,6 +5406,51 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              cannot detect a composition error. Visual review of every
              composed surface is required before merge, not optional.
              · FOUNDER             
+
+2026-08-22 · SELECTIVE CONTRACTING IS BUSINESS POLICY WITHOUT A NUMERICAL
+             CAP. USRad is not being built to contract every imaging
+             center in a market. Network density is determined market by
+             market based on local conditions and demand. Do not publish
+             or encode a fixed fraction, center count, slot count,
+             territory reservation or capacity formula. This permits the
+             truthful concentration proposition: USRad aggregates demand
+             from self-funded employers first and self-pay patients
+             second and concentrates it within a selectively contracted
+             network. · FOUNDER
+
+2026-08-22 · MARKETSCOPE PRESENTS SCANS, NOT DOLLARS, AND NO ACTIVATION
+             TIMEFRAME. No monthly or annual revenue, percentage growth,
+             enhanced revenue per procedure or other dollar opportunity
+             may be derived in onboarding. The provider's own contracted
+             rates may be shown. After PSA execution USRad begins
+             verification and works to activate qualified providers as
+             quickly as the verification process permits; no weeks or
+             days figure is established as policy. The PSA's
+             10-business-day payment provision is separate and
+             unaffected. · FOUNDER
+
+2026-08-22 · THE SMARTMATCH ALGORITHM IS PROPRIETARY. Public copy may
+             name the factors the engine is designed to consider —
+             modality, location, provider verification and contracted
+             price — but may not state weights, percentages, scoring
+             formulas, thresholds, factor hierarchy, the eligibility
+             gate sequence, or anything else permitting the ranking
+             system to be reverse-engineered. Internal reading of the
+             implementation is permitted solely to establish whether
+             provider-facing copy is truthful. · FOUNDER
+
+2026-08-23 · A HOST FRAME THAT CONTRADICTS A RECOMPOSED COMPONENT IS
+             PART OF THAT COMPOSITION. #104 recomposed MarketScope to
+             remove revenue projections while the facilities page around
+             it still displayed an estimated annual revenue tile, a
+             10-15 referrals per week basis, and revenue projections in
+             its analytics card. A provider closing the modal landed
+             immediately on the claims it had just stopped making. The
+             test for admitting a neighbouring proposition is whether
+             leaving it creates a direct contradiction with the approved
+             composition — not mere proximity. Corrections that would
+             require adjudicating a broader model are parked as
+             prerequisites rather than patched piecemeal. · FOUNDER
 ```
 
 
