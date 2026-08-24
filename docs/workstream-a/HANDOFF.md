@@ -753,3 +753,68 @@ verified.
 governed production behavior for cash-market references is therefore
 `Market data not available for this location` wherever the cash-market
 reference is displayed, until governed market-research data is loaded.
+
+## Merge and deployment — 2026-08-24
+
+`origin/main` fast-forwarded to `5f3ea76`. Vercel Production reached Ready and
+the deployed SHA is confirmed as `5f3ea76`. The `#104 → #107` remediation chain
+is live: 16 files, 574 insertions and 900 deletions, five adjudicated claims
+commits, no merge commit.
+
+### Pre-deployment verification
+
+- `npx tsc --noEmit` clean on `main`
+- `npm run build` exit `0` on `main`
+- Rendered acceptance completed on STAGING-V2 across the remediated provider
+  journey
+- Both populated and unavailable pricing-data states exercised
+
+### Production verification actually performed
+
+- `/api/pricing/calculate-nationwide?cpt=70551&zip=33101&year=2026` → `200`
+- `/onboarding/facilities` → `302`, auth redirect to `/login`
+- Live CPT probes against production, ZIP 33101, year 2026:
+  - `70553` → `200`
+  - `72148` → `200`
+  - `72197` → `200`
+  - `73721` → `200`
+  - `70460` → `200`
+  - `77067` → `200`
+  - `78811` → `404`
+
+PET CPT `78811` therefore exercises the intended unavailable behavior rather
+than a fabricated fallback rate.
+
+### Verification limitation
+
+⛔ **Rendered production provider walk not performed.** No production
+test-provider fixture exists, by design. The production system was not
+populated with synthetic provider data solely for verification. Rendered
+acceptance was performed on STAGING-V2; production verification consisted of
+deployment-SHA confirmation, fast-forward equivalence, auth-gate verification
+and targeted live API checks.
+
+This is not a failed verification gate. It is the deliberate production-data
+posture now that STAGING-V2 is the sandbox.
+
+### Production data state
+
+- `medicare_pricing` is substantially populated. Targeted production probes at
+  ZIP 33101 resolved six of seven tested CPTs; `78811` returned `404`.
+- `workers_comp_rates` contains governed records but not universal state
+  coverage, so Workers' Comp renders unavailable outside covered geographies
+- `cash_price_ranges` remains empty, so Cash Market correctly renders
+  `Market data not available for this location` wherever that reference is
+  surfaced
+- The PET `404` confirms that unavailable procedure states are genuinely
+  required in production
+
+⬜ **The unavailable-state path is not merely defensive staging behavior.**
+Production CPT `78811` does not resolve for 2026 at ZIP 33101, confirming that
+the unavailable-state path is required in production and prevents the former
+multiplier-based substitute from standing in for a missing governed rate.
+
+### Branches retained
+
+`claims/104-marketscope-composition` and `claims/105-pricing-model` are
+**retained**, not deleted. They remain useful rollback and history references.
