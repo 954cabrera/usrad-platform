@@ -682,3 +682,21 @@ branch update has been performed and none is ordered here.** Whoever resumes the
 homepage pass must reconcile this branch with `main` **before** touching
 `CarbonFooter.astro`, or a stale working copy will reintroduce the retired
 claims into a file that is already clean in production.
+
+## STAGING-V2 Medicare acceptance fixture — 2026-08-24
+
+`medicare_pricing` contains **two intentionally seeded 2026 CPT 70551 rows**
+copied from production for onboarding acceptance testing:
+
+- `09102_04` MIAMI — `$206.40`
+- `09102_99` REST OF FLORIDA — `$190.74`
+
+These rows were added only to exercise the populated Medicare pricing path for
+the existing Miami, Orlando and Tampa provider fixtures. They are **not** a full
+staging Medicare dataset and should not be interpreted as staging parity with
+production. All other Medicare CPT/locality combinations may still return
+unavailable in STAGING-V2.
+
+The seed established that `#105` did not break the Medicare pricing plumbing:
+when verified Medicare data exists, the provider-selected percentage correctly
+produces the contracted Brain MRI rate.
