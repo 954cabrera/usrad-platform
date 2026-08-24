@@ -5451,6 +5451,39 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              composition — not mere proximity. Corrections that would
              require adjudicating a broader model are parked as
              prerequisites rather than patched piecemeal. · FOUNDER
+
+2026-08-24 · PROVIDER-FACING PRICING REFERENCES FOLLOW A THREE-STATE
+             PROVENANCE RULE. Verified source available: publish the
+             numeric reference. Derived, fallback or generic calculation
+             only: do not publish it as a market or jurisdictional
+             reference. No verified data: display Currently unavailable
+             with a short note. This applies to local cash-pay ranges and
+             Workers' Compensation references alike. Preserve the visual
+             slot in every state so verified data can populate it later;
+             do not redesign a surface around the current absence of
+             data, and do not derive or synthesize a substitute. · FOUNDER
+
+2026-08-24 · REMOVING A CLAIM MEANS REMOVING THE COMPUTATION THAT
+             PRODUCES IT, NOT ONLY THE ELEMENT THAT RENDERS IT. A
+             calculation that still executes on every render while its
+             output is hidden has not been remediated. Established when
+             a portfolio revenue aggregate was found still looping every
+             facility through the rejected revenue function after its
+             tile had been deleted. Where a helper is shared across
+             consumers, the call site goes and the helper parks as dead
+             code; where the computation exists solely to feed the
+             removed output, the computation goes with it. · FOUNDER
+
+2026-08-24 · A MISSING INPUT MUST NEVER BECOME A NUMERIC OUTPUT.
+             JavaScript coerces a null rate into zero, so an unavailable
+             Medicare baseline rendered as a real $0 provider rate. Any
+             figure derived from a nullable source is computed only when
+             the source is present, and renders as unavailable otherwise.
+             The corollary is that fail-closed rendering is not evidence
+             of broken plumbing: #105 did not break the Medicare pricing
+             path, it made the absence of staging data visible, and the
+             original calculation worked correctly once verified data
+             existed. · FOUNDER
 ```
 
 
