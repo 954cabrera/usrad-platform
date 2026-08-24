@@ -722,3 +722,34 @@ surfaces correctly render unavailable states as a result.
 Seeding order during `#106` acceptance was deliberate: Miami-Dade alone first,
 so the populated and unavailable Workers' Comp states could both be observed on
 one screen, then Rest of Florida added to confirm the `09102_99` mapping.
+
+## Claims-gate clearance — 2026-08-24
+
+`#104`, `#105`, `#106` and `#107` are all closed. **No claims prerequisite
+remains between them.**
+
+`claims/105-pricing-model` was cut from `claims/104-marketscope-composition`
+and therefore contains the complete remediation chain:
+
+- `#104` — `2786373`
+- `#105` — `b459470`
+- `#106-A` — `0b824ba`
+- `#106-B/C` — `f8fe908`
+- `#107` — `5f3ea76`
+
+Merging `claims/105-pricing-model` is expected to carry all four items.
+
+**This is claims-gate clearance, not merge authorization.** Deployment
+readiness, review and release sequencing are separate decisions.
+
+**Staging versus production.** Pricing-provenance verification ran against two
+seeded Medicare rows and two seeded Workers' Comp rows copied from production.
+Production holds 60,277 `medicare_pricing` rows and 24 `workers_comp_rates`
+rows, so populated paths will be substantially more common there and the
+unavailable states observed on staging correspondingly rarer. Both states were
+verified.
+
+`cash_price_ranges` is empty in production as well as staging. The current
+governed production behavior for cash-market references is therefore
+`Market data not available for this location` wherever the cash-market
+reference is displayed, until governed market-research data is loaded.
