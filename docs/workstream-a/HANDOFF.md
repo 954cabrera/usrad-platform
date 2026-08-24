@@ -700,3 +700,25 @@ unavailable in STAGING-V2.
 The seed established that `#105` did not break the Medicare pricing plumbing:
 when verified Medicare data exists, the provider-selected percentage correctly
 produces the contracted Brain MRI rate.
+
+## STAGING-V2 Workers' Compensation acceptance fixture — 2026-08-24
+
+`workers_comp_rates` contains **two intentionally seeded CPT 70551 rows**
+copied from production for `#106` acceptance testing:
+
+- `Miami-Dade` / MIAMI — `$368.00`
+- `Other` / REST OF FLORIDA — `$340.00`
+
+Broward / FORT LAUDERDALE was deliberately **not** seeded; no fixture facility
+sits in that locality.
+
+Together with the two Medicare rows recorded above, this is the **entire**
+deliberately seeded pricing dataset in STAGING-V2. It exists only to exercise
+the governed lookup paths for the Miami, Orlando and Tampa fixtures. **Staging
+is not fully seeded and is not parity with production.** All other CPT codes,
+localities, states and the whole of `cash_price_ranges` remain empty, and the
+surfaces correctly render unavailable states as a result.
+
+Seeding order during `#106` acceptance was deliberate: Miami-Dade alone first,
+so the populated and unavailable Workers' Comp states could both be observed on
+one screen, then Rest of Florida added to confirm the `09102_99` mapping.
