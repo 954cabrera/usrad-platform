@@ -1,6 +1,6 @@
 # HANDOFF — Workstream A Operational State
 
-**Last updated: 2026-08-27** — `/investor` Phase 2 positioning implemented and committed: the public de-offering, the platform-state infrastructure section, and the two authorized residual card conformances. ⛔ **UNCOMMITTED-TO-PRODUCTION: this work is committed locally and NOT deployed. Verify with `git rev-parse main` and the Vercel deployment state, never from this file alone.** Prior: Gates 1–2 merged at `cc9a48a`, deployed and production-verified.
+**Last updated: 2026-08-27** — `/investor` Phase 2 positioning implemented and committed: the public de-offering, the platform-state infrastructure section, and the two authorized residual card conformances. Closeout applied: the external Cal.com event rename and `og:description`. ⛔ **UNCOMMITTED-TO-PRODUCTION: this work is committed locally and NOT deployed. Verify with `git rev-parse main` and the Vercel deployment state, never from this file alone.** Prior: Gates 1–2 merged at `cc9a48a`, deployed and production-verified.
 
 ---
 
@@ -512,26 +512,30 @@ and NOT DEPLOYED.** Build exit 0 · #95's amended normalized gate passed ·
 rendered-output verification passed · desktop and mobile visual review passed.
 See `TRACKER.md` **#110** and the four `DECISIONS.md` entries dated 2026-08-27.
 
-1. ⛔ **DEPLOY IS THE FOUNDER'S CALL AND WAS NOT AUTHORIZED IN THE
-   IMPLEMENTATION PASS.** Nothing is pushed. On authorization: fetch, confirm
+1. ⛔ **DEPLOY IS THE FOUNDER'S CALL AND IS STILL NOT AUTHORIZED. NOTHING IS
+   PUSHED.** ✅ **The de-offering is now complete on every surface the reader
+   touches — page copy, page metadata, share metadata, and the external booking
+   event the primary CTA resolves to.** Nothing is pushed. On authorization: fetch, confirm
    `main` is not behind, push, then verify on production — **rendered output,
    not source** — that `Schedule Investor Briefing`, `limited availability`,
    `qualified investors`, `Invest in USRad`, `STRATEGIC INVESTMENT` and
    `NOW OPEN` all return zero.
 
-2. ⛔ **EXTERNAL DE-OFFERING ACTION, OWED AND UNREACHABLE FROM ANY REPOSITORY.**
-   The Cal.com embed resolves the event `usrad/investor-briefing` under the
-   namespace `investor-briefing`. ⚠️ **The slug is visible in the booking flow,
-   and the event type's name renders in the embed, the confirmation email and
-   the calendar invite. If it is named "Investor Briefing", the de-offering does
-   not reach it by any code change.** Rename it in the Cal.com account. ⛔ **The
-   repository cannot and must not attempt this.**
+2. ✅ **EXTERNAL DE-OFFERING ACTION — CLOSED 2026-08-27.** The Founder renamed
+   the event in the Cal.com account, the only place it could be done: title
+   **`USRad Founder Conversation`**, slug **`founder-conversation`**. The
+   repository side is conformed — the embed namespace and `calLink` resolve
+   `usrad/founder-conversation`, and **no repository-controlled
+   `investor-briefing` reference remains in `src/` or `public/`.**
 
-3. ⬜ **AWAITING A FOUNDER CALL — `og:description`.** It still reads *"Join us in
-   building the future of accessible healthcare."* It was not in the
-   implementation scope and was deliberately not changed. **`Join us` is an
-   invitation to participate on a page that no longer solicits.** Recorded so
-   the omission is adjudicable rather than an oversight.
+3. ✅ **`og:description` — CLOSED 2026-08-27.** It read *"Join us in building the
+   future of accessible healthcare…"* — an invitation to participate on a page
+   that no longer solicits, shipping to every share card and search result. It
+   now reads **`Explore USRad's model, strategy, infrastructure and growth
+   thesis.`** ⚠️ **The prior second sentence was not carried forward**, because
+   the closeout specified the final value exactly rather than only the sentence
+   to remove. It was descriptive and non-soliciting; restoring it is a one-line
+   change.
 
 4. ⬜ **OWED, SEPARATELY SCOPED — the `public/` re-sweep.**
    `_test-procedure-library.html` and `_test-universal-search.html` are live
@@ -978,9 +982,16 @@ against `HEAD`.** An implementer conforming this page meets three
 present-indicative cards, conforms two, and reaches the third with no
 instruction; neither conforming it nor silently skipping it is acceptable.
 
-### ⛔ External action owed
+### ✅ External action — closed 2026-08-27
 
-The Cal.com embed resolves `usrad/investor-briefing` under namespace
-`investor-briefing`. **No repository change reaches the external event type's
-name, which renders in the embed, the confirmation email and the calendar
-invite.** Rename in the Cal.com account.
+The Founder renamed the event in the Cal.com account: **`USRad Founder
+Conversation`**, slug **`founder-conversation`**. The embed now resolves
+`usrad/founder-conversation`. ⚠️ **This was the one item no repository change
+could reach**, and until it was done a visitor clicking `Connect With the
+Founder` would still have landed on an event titled *Investor Briefing*.
+
+`og:description` is likewise closed — now `Explore USRad's model, strategy,
+infrastructure and growth thesis.`
+
+⛔ **Both closed in the repository only. Nothing is pushed or deployed, so the
+public page still serves the prior state.**

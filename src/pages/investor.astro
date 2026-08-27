@@ -7,7 +7,7 @@ export const prerender = true;
 
 <CarbonLayout
   title="The USRad Investment Thesis"
-  description="Join us in building the future of accessible healthcare. A large, underserved diagnostic imaging market and a founding team with directly relevant experience."
+  description="Explore USRad's model, strategy, infrastructure and growth thesis."
 >
   <AOSInit />
 
@@ -1736,15 +1736,15 @@ export const prerender = true;
           };
       })(window, "https://app.cal.com/embed/embed.js", "init");
 
-      Cal("init", "investor-briefing", { origin: "https://cal.com" });
+      Cal("init", "founder-conversation", { origin: "https://cal.com" });
 
-      Cal.ns["investor-briefing"]("inline", {
+      Cal.ns["founder-conversation"]("inline", {
         elementOrSelector: "#cal-embed-container",
         config: { layout: "month_view", theme: "light" },
-        calLink: "usrad/investor-briefing",
+        calLink: "usrad/founder-conversation",
       });
 
-      Cal.ns["investor-briefing"]("ui", {
+      Cal.ns["founder-conversation"]("ui", {
         styles: { branding: { brandColor: "#003087" } },
         hideEventTypeDetails: false,
         layout: "month_view",

@@ -5770,6 +5770,43 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              any code change. RENAME IT IN THE CAL.COM ACCOUNT. ⛔ THE
              REPOSITORY CANNOT AND MUST NOT ATTEMPT THIS.
              · FOUNDER + ADVISOR
+
+2026-08-27 · /investor CLOSEOUT — THE TWO OPEN DE-OFFERING ITEMS ARE
+             CLOSED. ⛔ THE EXTERNAL CAL.COM EVENT WAS RENAMED BY THE
+             FOUNDER IN THE CAL.COM ACCOUNT, WHICH IS THE ONLY PLACE
+             IT COULD BE DONE. New event title "USRad Founder
+             Conversation", slug "founder-conversation", description
+             "A direct conversation with USRad founder Michael Cabrera
+             about the company's model, strategy and next stage." The
+             repository side is conformed to match: the embed
+             namespace and calLink now resolve
+             "usrad/founder-conversation" under the namespace
+             "founder-conversation". ✅ NO REPOSITORY-CONTROLLED
+             "investor-briefing" REFERENCE REMAINS IN src/ OR public/.
+             ⚠️ THE INTERNAL DOM IDENTIFIERS investor-cal-modal AND
+             openInvestorModal ARE RETAINED DELIBERATELY — they are
+             element and function names, not Cal.com event references,
+             they do not render to the reader, and renaming them is
+             cosmetic churn outside this closeout.
+             ⛔ og:description IS CONFORMED. It read "Join us in
+             building the future of accessible healthcare. A large,
+             underserved diagnostic imaging market and a founding team
+             with directly relevant experience." — "JOIN US" IS AN
+             INVITATION TO PARTICIPATE ON A PAGE THAT NO LONGER
+             SOLICITS, AND IT SHIPPED TO EVERY SHARE CARD AND SEARCH
+             RESULT. It now reads "Explore USRad's model, strategy,
+             infrastructure and growth thesis." ⚠️ THE SECOND SENTENCE
+             WAS NOT CARRIED FORWARD, because the closeout specified
+             the final og:description value exactly rather than only
+             the sentence to remove. The dropped sentence was
+             descriptive and non-soliciting; RESTORING IT IS A
+             ONE-LINE CHANGE IF THE FOUNDER WANTS IT BACK.
+             ✅ WITH THESE TWO, THE /investor DE-OFFERING IS COMPLETE
+             ON EVERY SURFACE THE READER TOUCHES — page copy, page
+             metadata, share metadata, and the external booking event
+             the primary CTA resolves to. ⚠️ UNTIL THIS DEPLOYS, THE
+             PUBLIC PAGE STILL SERVES THE PRIOR STATE.
+             · FOUNDER + ADVISOR
 ```
 
 
