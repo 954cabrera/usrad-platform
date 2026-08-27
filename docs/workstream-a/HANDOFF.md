@@ -1,6 +1,6 @@
 # HANDOFF — Workstream A Operational State
 
-**Last updated: 2026-08-27** — ✅ **`/investor` Phase 2 is DEPLOYED AND PRODUCTION-VERIFIED at `20a81b7`.** The public de-offering, the platform-state infrastructure section, the two authorized residual card conformances, the Cal.com event rename and `og:description` are all live. ⚠️ **Verify current state with `git rev-parse main` and the Vercel deployment state, never from this file alone.** Prior: Gates 1–2 at `cc9a48a`.
+**Last updated: 2026-08-27** — ⚠️ **`/investor` terminal composition ruled and implemented; COMMITTED LOCALLY, NOT YET DEPLOYED.** Prior: ✅ **`/investor` Phase 2 DEPLOYED AND PRODUCTION-VERIFIED at `20a81b7`.** The public de-offering, the platform-state infrastructure section, the two authorized residual card conformances, the Cal.com event rename and `og:description` are all live. ⚠️ **Verify current state with `git rev-parse main` and the Vercel deployment state, never from this file alone.** Prior: Gates 1–2 at `cc9a48a`.
 
 ---
 
@@ -512,7 +512,11 @@ and NOT DEPLOYED.** Build exit 0 · #95's amended normalized gate passed ·
 rendered-output verification passed · desktop and mobile visual review passed.
 See `TRACKER.md` **#110** and the four `DECISIONS.md` entries dated 2026-08-27.
 
-1. ✅ **DEPLOYED AND PRODUCTION-VERIFIED 2026-08-27 at `20a81b7`.** The
+1. ⛔ **ONE COMMIT AWAITS DEPLOY AUTHORIZATION — the `/investor` terminal
+   composition (footer trust banner and newsletter suppressed on this route via
+   the existing page-level `hideNewsletter` opt-out). Built and visually
+   verified locally; NOT pushed.** Prior state, still live:
+   ✅ **DEPLOYED AND PRODUCTION-VERIFIED 2026-08-27 at `20a81b7`.** The
    de-offering is complete and live on every surface the reader touches — page
    copy, page metadata, share metadata, and the external booking event the
    primary CTA resolves to. Verified end to end on production, including
@@ -1043,3 +1047,38 @@ production `/investor` rendered-text stream and the local `20a81b7` build's are
 ⬜ **Still owed, unchanged by this deploy and deliberately not started:** the
 `public/` re-sweep · the sitewide `alt`-text sweep · the `usrad-portal`
 fabricated-availability branch, which is not this workstream's.
+
+### `/investor` terminal composition — 2026-08-27, committed locally
+
+⛔ **NOT DEPLOYED. Awaiting deploy authorization.** Production still serves
+`20a81b7`, which does not contain this change.
+
+**The page now ends on the final navy Founder CTA, then the standard site
+footer, with nothing between them.** Two footer blocks that rendered beneath the
+CTA are suppressed on this route: the trust banner (*"Quality Medical Imaging
+Scans. No Insurance Required."* / *"No Hidden Fees"*) and the newsletter block
+(*"Never Miss an Update"*). ⚠️ **Both are consumer-acquisition surfaces, and the
+newsletter was a consumer subscription CTA competing with the single Founder CTA
+immediately above it.**
+
+⛔ **One line of change, and no shared component touched.** `CarbonLayout`
+already accepts `hideNewsletter` and forwards it to `CarbonFooter`, where **that
+one flag gates both blocks** — a divergence from the Remix `PBSFooter`, which
+gates them separately, documented in the component header as intentional.
+`src/components/` and `src/layouts/` diffs are empty. ✅ **Eighteen routes
+already opt out, including `/connect/investor`; `/investor` was the outlier.**
+
+**Verified:** build exit 0 · #95 gate shows a single added line · no other route
+changed in the build (`/about`, `/how-it-works`, `/contact`, `/faq` still render
+both blocks; `/provider`, `/employer`, `/connect` still render neither) · footer
+itself intact (brand, phone, all four link columns, legal row, copyright) ·
+**measured gap between CTA and footer is ZERO at 1440 and 390**, the transition
+being the CTA's own bottom padding against the footer's top padding, 80px/64px
+desktop and 45px/60px mobile — **no orphaned gap, because the removed blocks
+carried their own margins.**
+
+⚠️ **One residual, deliberately not actioned:** the newsletter section's *source
+comment* still ships and carries the string `Never Miss an Update` — #54's eighth
+mode. **It lives in the shared footer and ships on every route**, so conforming
+it is a sitewide component change this ruling excludes. The rendered blocks are
+gone; the label is not a claim surface. Recorded for the sitewide pass.

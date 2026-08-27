@@ -5807,6 +5807,49 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              the primary CTA resolves to. ⚠️ UNTIL THIS DEPLOYS, THE
              PUBLIC PAGE STILL SERVES THE PRIOR STATE.
              · FOUNDER + ADVISOR
+
+2026-08-27 · /investor TERMINAL COMPOSITION RULED. THE PAGE ENDS ON
+             THE FINAL NAVY FOUNDER CTA, THEN THE STANDARD SITE
+             FOOTER. NOTHING BETWEEN THEM. Two footer blocks that
+             were rendering beneath the CTA are suppressed on this
+             route: (1) the TRUST BANNER — "Quality Medical Imaging
+             Scans. No Insurance Required." with "No Hidden Fees" —
+             and (2) the NEWSLETTER BLOCK, "Never Miss an Update."
+             ⚠️ BOTH ARE CONSUMER-ACQUISITION SURFACES. The trust
+             banner is patient-facing purchase-objection copy, and
+             the newsletter is a consumer subscription CTA that
+             COMPETED WITH THE SINGLE FOUNDER CTA immediately above
+             it. On a de-offered investor-information page the
+             terminal composition should end on ONE action.
+             ⛔ IMPLEMENTED AS A PAGE-LEVEL OPT-OUT, NOT A COMPONENT
+             CHANGE. CarbonLayout already accepts hideNewsletter and
+             forwards it to CarbonFooter, where THAT SINGLE FLAG
+             GATES BOTH BLOCKS — a divergence from the Remix
+             PBSFooter, which gates them separately, and one the
+             component header documents as intentional. ⛔ NO SHARED
+             COMPONENT WAS MODIFIED AND NO OTHER ROUTE CHANGED.
+             ✅ THE PATTERN IS ESTABLISHED, NOT NEW: eighteen routes
+             already opt out, including /connect/investor. /investor
+             was the outlier.
+             ✅ SPACING VERIFIED, NOT ASSUMED. The removed blocks
+             carried their own margins — mb-12 on both, plus pb-12
+             and a bottom border on the trust banner — so removing
+             them leaves NO ORPHANED GAP. The transition is the
+             CTA's own bottom padding against the footer's top
+             padding, identical to every other opted-out route:
+             80px/64px desktop, 45px/60px mobile, measured gap
+             between the two elements ZERO.
+             ⚠️ ONE RESIDUAL, DELIBERATELY NOT ACTIONED. The source
+             comment for the newsletter section STILL SHIPS IN
+             RENDERED OUTPUT and carries the string "Never Miss an
+             Update" — #54's eighth mode again, a comment nested
+             inside a node rather than at template top level.
+             ⛔ IT LIVES IN THE SHARED FOOTER AND SHIPS ON EVERY
+             ROUTE, so conforming it is a sitewide component change,
+             which this ruling expressly excludes. THE RENDERED
+             BLOCKS ARE GONE; THE LABEL IS NOT A CLAIM SURFACE.
+             Recorded for the sitewide pass, not fixed here.
+             · FOUNDER
 ```
 
 
