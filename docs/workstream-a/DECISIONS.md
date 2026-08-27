@@ -5484,6 +5484,96 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              path, it made the absence of staging data visible, and the
              original calculation worked correctly once verified data
              existed. · FOUNDER
+
+2026-08-27 · THE INVESTOR OVERVIEW PDF IS REMOVED FROM PUBLIC SERVICE.
+             public/docs/usrad-investor-overview.pdf was KEPT AND
+             DE-LINKED at #92 on 2026-08-20 and remained reachable at
+             its URL, because public/ is served directly by the Vercel
+             filesystem handler. It is now removed from the public
+             filesystem. NOT REWRITTEN, NOT REPLACED, NOT RELINKED, AND
+             NO NEW DECK IS CREATED IN THIS SPRINT. Repository history
+             is preserved normally; the artifact remains retrievable at
+             f0d1058. Removal verified: the file is absent from public/,
+             absent from dist/ and .vercel/output/, and no reference to
+             it survives anywhere in src/ or public/. The only surviving
+             mentions are the governance records at TRACKER.md #92 and
+             #110, which are the historical record and stay. PER THE #92
+             ENUMERATION the artifact published $100B+ x3, 90M/90M+ x3,
+             1,200+ AnciCare centers, 15,000+, 25x price variation,
+             30-80% (BEYOND THE CONFIDENTIAL D4 BOUND), $300 vs $5,000,
+             and the D3-barred header "the first national diagnostic
+             imaging network". IT WAS MARKED "Series A - CONFIDENTIAL"
+             AND SERVED AT A PUBLIC URL. Those contents are carried
+             forward from #92 and were NOT re-read in this pass; the
+             disposition is removal, so no contents review was required.
+             Closes Gate 1. public/downloads/USRad_Provider_Opportunity_Brief.pdf
+             IS NOT TOUCHED and remains held for #96. · CLAUDE CODE
+
+2026-08-27 · /investor IS NO LONGER A PUBLIC OFFERING SURFACE. The
+             page REMAINS PUBLICLY ACCESSIBLE as an investor-
+             information and investment-thesis page. It will no
+             longer publicly announce or solicit an open securities
+             offering. Investment discussions occur privately,
+             through relationships and direct conversation. ⛔ THE
+             ROUTE IS NOT RETIRED. This supersedes the public
+             offering posture held at #90. ⚠️ REPLACEMENT
+             POSITIONING AND CTA COPY IS NOT AUTHORED BY THIS
+             DECISION — the affected surfaces are enumerated for the
+             Advisor positioning pass and are NOT to be invented
+             during Gates 1-2. · FOUNDER
+
+2026-08-27 · THE /investor EYEBROW MOVED OUTSIDE THE REGISTER AND
+             THE HISTORY IS RECORDED RATHER THAN ERASED. (1) #90
+             HELD "Series A - Now Open" on 2026-08-20, not edited,
+             noted as securities-offering status, founder/legal.
+             (2) It was subsequently changed to "Strategic
+             Investment - Now Open" at fc0348a on 2026-08-26 WITH NO
+             REGISTER ENTRY. ⚠️ THE COMMIT MESSAGE DESCRIBES THE
+             CHANGE ACCURATELY — "revised the eyebrow on the page to
+             Strategic Investment - Now Open" — SO IT WAS RECORDED AS
+             A CODE CHANGE AND NEVER AS A DECISION. That is the drift
+             class, and it occurred ONE DAY BEFORE the sprint that
+             supersedes it. (3) That change is recorded here as fact,
+             not ratified retroactively. (4) The 2026-08-27 offering-
+             posture decision SUPERSEDES BOTH FORMS. ⚠️ A HELD ITEM
+             THAT MOVES OUTSIDE THE REGISTER IS THE DRIFT CLASS
+             THESE FILES EXIST TO CATCH, and it is recorded as such.
+             · FOUNDER
+
+2026-08-27 · USRad PLATFORM DEVELOPMENT STATE — RECORDED FOR THE
+             SUBSEQUENT POSITIONING PASS. NOT FOR PUBLICATION IN
+             GATES 1-2. ⚠️ EVIDENCE CLASS: FA. FOUNDER-ATTESTED,
+             NOT REPOSITORY-VERIFIED. THE VERIFICATION GATE IS OPEN.
+             (1) BUILT / DEVELOPED, per founder attestation: member
+             and patient booking · member portal · provider
+             onboarding · provider portal · administration and staff
+             portal · associated core pricing and operational
+             infrastructure, subject to existing implementation-
+             status distinctions. ⛔ THESE REMAIN UNDER ONGOING
+             DEVELOPMENT AND REFINEMENT. "BUILT/DEVELOPED" DOES NOT
+             MEAN commercially mature, complete, fully deployed, or
+             processing live transaction volume, AND MAY NOT BE
+             BROADENED INTO A CLAIM THAT THE PLATFORM IS COMPLETE.
+             (2) UNDERWAY: provider recruitment and contracting ·
+             employer commercialization and development · continued
+             platform refinement. ⛔ NO IMPLICATION OF COMPLETED
+             NETWORK SCALE, SIGNED EMPLOYER SCALE, TRANSACTION
+             VOLUME OR COMMERCIAL TRACTION. ZERO CONTRACTED
+             PROVIDERS. (3) PLANNED / NOT YET BUILT: the EMPLOYER
+             PORTAL, intended to give self-funded employer clients
+             tools to manage and understand the impact of working
+             with USRad. ⛔ NO EMPLOYER-PORTAL FEATURES,
+             DASHBOARDS, ANALYTICS, SAVINGS OR UTILIZATION
+             REPORTING, METRICS, INTEGRATIONS, TIMELINES OR
+             SPECIFICATIONS MAY BE INVENTED OR IMPLIED. ⚠️ THE
+             BOUNDARY IS THE POINT: member-facing, provider-facing
+             and internal administration infrastructure is
+             developed; the dedicated employer-facing layer is
+             future work. ⛔ BEFORE ANY OF THIS PUBLISHES, EACH
+             SYSTEM'S IMPLEMENTATION STATUS AND EXACT TERMINOLOGY
+             MUST BE VERIFIED AGAINST REPOSITORY EVIDENCE AND THE
+             CLASS RE-ADJUDICATED. ⛔ FA MAY NOT SIT INSIDE A RUN OF
+             CP/CT FIGURES. · FOUNDER
 ```
 
 
