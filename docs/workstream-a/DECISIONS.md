@@ -5574,6 +5574,134 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              MUST BE VERIFIED AGAINST REPOSITORY EVIDENCE AND THE
              CLASS RE-ADJUDICATED. ⛔ FA MAY NOT SIT INSIDE A RUN OF
              CP/CT FIGURES. · FOUNDER
+
+2026-08-27 · PLATFORM-STATE FA ENTRY ADJUDICATED ON CROSS-REPOSITORY
+             EVIDENCE. The verification gate opened by the 2026-08-27
+             platform-state entry is CLOSED IN PART. Evidence:
+             usrad-platform b319007 and usrad-portal f302e5c, source,
+             schema and deployment. usrad-portal-nextjs is a year
+             stale and NON-AUTHORITATIVE; no evidence drawn from it.
+             ✅ UPGRADED FROM FA TO REPOSITORY-VERIFIED — five
+             capabilities, each on direct source, schema and live
+             deployment: member imaging search/selection/booking
+             workflow including payment collection and voucher
+             issuance · member portal · provider onboarding
+             infrastructure including agreement generation and
+             e-signature execution · provider portal · internal
+             administration and operations portal. Corroboration is
+             not line count: these run against real tables under
+             active migrations, carry almost no mock-data markers,
+             and are deployed and serving.
+             ✅ UPGRADED — "ZERO CONTRACTED PROVIDERS." Previously
+             attested and recorded across eight prior DECISIONS.md
+             entries; now corroborated by direct production
+             measurement recorded in portal commit f302e5c.
+             ✅ UPGRADED — "PLANNED / NOT YET BUILT: EMPLOYER
+             PORTAL." NEGATIVE VERIFICATION PASSED ACROSS BOTH
+             REPOSITORIES with no false positive. Zero employer
+             routes, zero employer tables queried from app code,
+             zero employer auth, dashboard, session or role
+             surfaces. The only employer artifacts are marketing
+             templates and two lead tables whose own migrations
+             record zero application references. The Astro side
+             carries marketing pages and lead-capture endpoints
+             only, with the ROI report explicitly parked. ⚠️ THE
+             NEGATIVE IS STRONG BECAUSE THE CLAIM IS ABOUT SOFTWARE
+             THAT WOULD HAVE TO EXIST IN THESE REPOSITORIES. It does
+             not generalise to claims that are not observable in a
+             repository.
+             ⚠️ NARROWED — "associated core pricing and operational
+             infrastructure" READS BROADER THAN THE EVIDENCE
+             SUPPORTS AND IS RETIRED IN THAT FORM. It resolves into
+             two narrower verified facts: (a) REFERENCE-PRICING
+             infrastructure, including Medicare rate resolution by
+             geography and procedure, VERIFIED AND SUBSTANTIALLY
+             POPULATED; ⛔ CONTRACTED-RATE AND CASH-MARKET TIERS ARE
+             STRUCTURALLY PRESENT AND UNPOPULATED — contracted rates
+             have no population at all and the cash-market table is
+             empty in production as well as staging. (b) A
+             PROVIDER-RANKING AND SCHEDULING LAYER, VERIFIED AS
+             IMPLEMENTED. ⛔ IT HAS NEVER RANKED A PRODUCTION RESULT
+             SET — it ranks contracted providers only, of which
+             there are zero, and two of its signals are inactive by
+             design pending volume. ⛔ "PRICING INFRASTRUCTURE"
+             UNQUALIFIED MAY NOT PUBLISH. The ceiling is REFERENCE
+             pricing.
+             ⛔ NARROWED AND PARTLY RETAINED AS FA — PAYMENT
+             SEQUENCING IS ASYMMETRIC AND THE ASYMMETRY IS
+             GOVERNED. INBOUND COLLECTION IS VERIFIED IMPLEMENTED.
+             ⛔ OUTBOUND PROVIDER DISBURSEMENT IS NOT IMPLEMENTED
+             ANYWHERE IN EITHER REPOSITORY — no payout table, no
+             transfer integration, no outbound execution path. What
+             exists is an audit event, interface strings, and the
+             PSA's contractual Net 10 business days term. ✅
+             /investor's conformed line — "USRad is structured to
+             collect payment upfront and to pay providers within 10
+             business days of Fulfillment Complete" — IS CORRECT
+             PRECISELY BECAUSE IT IS DESIGN LANGUAGE, and the §2
+             approved 10-business-day term is contractual, not
+             operational. ⛔ IT MAY NOT BE UPGRADED TO IMPLEMENTED,
+             AND NO ACCOMPLISHMENT CLAIM MAY PRESENT PAYMENT
+             INFRASTRUCTURE AS BUILT WITHOUT NAMING THE INBOUND
+             SCOPE.
+             ⛔ RETAINED AS FA — "UNDERWAY: PROVIDER RECRUITMENT AND
+             CONTRACTING; EMPLOYER COMMERCIALIZATION." COMMERCIAL
+             ACTIVITY IS NOT OBSERVABLE IN A REPOSITORY. The ABSENCE
+             of contracted providers is repository-verified; the
+             PRESENCE of recruitment is not, and no amount of
+             repository work will make it so. Employer activity
+             shows lead capture only, with no signed-employer
+             evidence in either repository. ⛔ NO COUNT, NO NAMED
+             EMPLOYER, NO VOLUME, NO NETWORK-SCALE IMPLICATION.
+             ⚠️ VERIFICATION LIMITATION — BINDING ON EVERY UPGRADE
+             ABOVE. SOURCE, SCHEMA AND HTTP REACHABILITY WERE
+             VERIFIED. PRODUCTION DATA WAS NOT QUERIED. A 200
+             RESPONSE PROVES DEPLOYMENT, NOT FUNCTION. Row counts
+             and live transaction state rest on governance and on
+             the portal's own recorded measurements. ⛔ "DEVELOPED"
+             IS THE VERIFIED CLASS. IT DOES NOT MEAN COMMERCIALLY
+             MATURE, COMPLETE, FULLY DEPLOYED, OR PROCESSING LIVE
+             TRANSACTION VOLUME, AND MAY NOT BE BROADENED INTO A
+             CLAIM THAT THE PLATFORM IS COMPLETE. THE 2026-08-27
+             ENTRY'S BAR SURVIVES ITS OWN ADJUDICATION.
+             ⚠️ ONE QUALIFIED SURFACE INSIDE A VERIFIED CAPABILITY —
+             the provider portal's REPORTING MODULE IS
+             DEMONSTRATION-ONLY, returns fixed data unconditionally,
+             carries its own demonstration banner, and is marked
+             forthcoming in internal documentation. ⛔ THE PORTAL
+             PUBLISHES AS DEVELOPED; ITS REPORTING MODULE DOES NOT.
+             ✅ NO REPOSITORY / GOVERNANCE CONFLICT FOUND. The
+             repository corroborates the founder-attested state on
+             every item, including the negative. · FOUNDER + ADVISOR
+
+2026-08-27 · PLATFORM PROPRIETARY-DISCLOSURE BOUNDARY — STANDING
+             BAR, NOT AN ADJUDICATION. ⚠️ EACH ITEM BELOW WOULD HELP
+             SUBSTANTIATE THAT THE INFRASTRUCTURE IS REAL, WHICH IS
+             EXACTLY WHY IT NEEDS A BAR. ⛔ NOT FOR PUBLICATION IN
+             ANY PUBLIC ARTIFACT: (1) the ranking model's signal
+             set, weights, redistribution behavior and activation
+             thresholds — this is the routing logic itself. (2)
+             Activation thresholds as numbers, which disclose the
+             mechanism AND current volume in one figure. (3)
+             Rate-resolution mechanics — locality and RVU derivation
+             chain, facility-rate precedence rules, and any
+             contracted rate value. ⚠️ CONSISTENT WITH PRICING
+             POLICY V1.0 §4, WHICH ALREADY BARS MODALITY FEE
+             AMOUNTS WHILE PERMITTING THE ARCHITECTURE. (4) The
+             internal staff surface in detail — role names,
+             permission tiers, and any named sub-surface. THE
+             CEILING IS "AN INTERNAL ADMINISTRATION AND OPERATIONS
+             PORTAL HAS BEEN DEVELOPED." (5) Table names, schema
+             shape, migration counts, route inventories and line
+             counts. ⛔ THESE ARE THE EVIDENCE, NOT THE PROOF
+             POINTS — a public artifact citing them converts an
+             internal verification record into a competitive
+             disclosure. (6) Payment-processor identity and
+             webhook/cron architecture. (7) Internal status
+             documentation. ⚠️ THE GOVERNING PRINCIPLE IS THE ONE
+             THE ADVISOR STATED AT THE OUTSET: TELL INVESTORS WHAT
+             THE MACHINE CAN DO, NOT HOW IT IS BUILT.
+             · FOUNDER + ADVISOR
 ```
 
 

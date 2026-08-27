@@ -58,7 +58,7 @@ Read step 4 in full before proposing the removal of any figure.
 
 | **Working branch** | ✅ **UPDATED 2026-08-27 — `main`.** No workstream branch is open. All `claims/*` and `*-remediation` branches are merged and spent; `claims/104-marketscope-composition` and `claims/105-pricing-model` are deliberately **retained** as rollback references |
 | **Working tree** | ✅ **UPDATED 2026-08-27 — clean.** Verified by `git status --short` returning empty after the Gates 1–2 commit |
-| **`main`** | ✅ **UPDATED 2026-08-27 — `main` IS `cc9a48a`** (*fix(investor): Gates 1-2* — 4 files, 123 insertions, 23 deletions, no merge commit). Moved `fc0348a..cc9a48a`. **Local and `origin/main` are level: behind 0, ahead 0**, verified by `git fetch --prune` then `git rev-list --count` in both directions |
+| **`main`** | ⚠️ **UPDATED 2026-08-27 — THIS ROW LAGS `main` BY THE COMMIT THAT WRITES IT; a commit cannot cite its own hash, the same structural limit already recorded for DOC-12's row 51. Verify with `git rev-parse main`, never from this cell.** Last recorded: `main` WAS `cc9a48a` (*fix(investor): Gates 1-2* — 4 files, 123 insertions, 23 deletions, no merge commit). Moved `fc0348a..cc9a48a`. **Local and `origin/main` are level: behind 0, ahead 0**, verified by `git fetch --prune` then `git rev-list --count` in both directions |
 | **Production** | ✅ **UPDATED 2026-08-27 — Vercel Production `dpl_DRM4ANHMXj4XPFtTktBEYDcpnkBj` is Ready and aliased to usrad.com.** Serving `cc9a48a`. ⚠️ **NOT verified by a deployment label — `vercel inspect` does not surface the SHA. Verified by CONTENT EQUIVALENCE:** the production `/investor` rendered-text stream and the local `cc9a48a` build's are **word-for-word identical at 1,861 words, `diff` empty.** Employer + Provider + P5 footer + Homepage + About + `/investor` Gates 1–2 all **LIVE** |
 | **Prior releases** | PR #7 `da8eb85` (Employer/Provider, 78 commits/105 files) · PR #8 `673fb2a` (P5 footer, two-repo) · PR #9 `cda6b41` (NewsletterPopup, #66) · PR #10 `4d12da3` (homepage) · PR #11 `2d4117c` (post-merge state) · PR #12 `411577a` (AnciCare evidence admission) · PR #13 `470d2ae` (about). See §12 for PR #7's verified contents and §13 for the checkpoint |
 | **⚠️ `main` movements** | ⚠️ **UNVERIFIED AS A COUNT — the "TEN this month" figure was accurate on 2026-08-17 and is NOT re-derivable now.** A ref movement is a push, and the reflog for other machines is not available here. **The verifiable substitute: 122 commits have landed on `main` since 2026-08-17, and 232 during August 2026.** ⛔ **THE PRACTICE IS UNCHANGED AND IS THE POINT: run the state check before every batch and STOP ON A NON-ZERO BEHIND-COUNT.** Every movement this workstream has caught was found by counting, not by noticing |
@@ -537,14 +537,29 @@ and Advisor's to open, not an agent's to start:
    workstream runs, it is read aloud by assistive technology, and it is
    indexed.** One instance was conformed on `/investor`; the class is open.
 
-4. ⛔ **THE ACCOMPLISHMENTS SECTION IS GATED and must not be drafted.** The
-   platform-state entry at `DECISIONS.md` 2026-08-27 is class **FA —
-   founder-attested, not repository-verified — and its verification gate is
-   OPEN.** ⚠️ **That section's entire value is that a sophisticated reader can
-   tell developed from underway from planned. If the underlying record is
-   attestation labelled as verified, the section inherits that defect at exactly
-   the moment it is doing the most work. Verify against repository evidence
-   first, then publish.**
+4. ⚠️ **UPDATED 2026-08-27 — THE PLATFORM-STATE FA GATE IS ADJUDICATED AND
+   CLOSED IN PART. THE ACCOMPLISHMENTS SECTION IS STILL GATED and must not be
+   drafted.** A cross-repository evidence pass against `usrad-platform`
+   `b319007` and `usrad-portal` `f302e5c` was adjudicated into two
+   `DECISIONS.md` entries 2026-08-27. **Five capabilities, `ZERO CONTRACTED
+   PROVIDERS`, and the employer portal as PLANNED / NOT YET BUILT are upgraded
+   FA → repository-verified.** ⛔ **Still FA: provider recruitment/contracting
+   and employer commercialization — commercial activity is not observable in a
+   repository.** ⛔ **Narrowed: the ceiling is REFERENCE pricing, and payment
+   sequencing is asymmetric — inbound collection is implemented, OUTBOUND
+   PROVIDER DISBURSEMENT IS NOT IMPLEMENTED IN EITHER REPOSITORY.** ⚠️ **BINDING
+   LIMITATION: source, schema and HTTP reachability were verified; production
+   data was NOT queried. A 200 proves deployment, not function.** ⛔ **`DEVELOPED`
+   still does not mean commercially mature, complete, fully deployed or
+   processing live volume.** ⚠️ **What the section is for is unchanged: a
+   sophisticated reader must be able to tell developed from underway from
+   planned. The adjudication supplies the evidence class; it does not author the
+   copy, and `APPROVED-FIGURES.md` was deliberately not touched so that the
+   section is not pre-authored.** ⛔ **A SECOND STANDING ENTRY — THE PLATFORM
+   PROPRIETARY-DISCLOSURE BOUNDARY — BARS PUBLISHING THE EVIDENCE ITSELF: ranking
+   signals and weights, activation thresholds, rate-resolution mechanics, staff
+   role/permission detail, table and route inventories, payment-processor
+   identity, and internal status documentation.**
 
 ⛔ **Do not reopen `/`, `/about`, Employer or Provider. Do not reopen #45, #46
 or #90. Do not touch application/EDS work. Do not begin membership remediation
