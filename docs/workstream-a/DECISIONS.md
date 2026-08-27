@@ -5702,6 +5702,74 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              THE ADVISOR STATED AT THE OUTSET: TELL INVESTORS WHAT
              THE MACHINE CAN DO, NOT HOW IT IS BUILT.
              · FOUNDER + ADVISOR
+
+2026-08-27 · THE /investor DE-OFFERING IS IMPLEMENTED ON THE PAGE, AND
+             THE PLATFORM-STATE SECTION IS PUBLISHED UNDER THE
+             ADJUDICATED CLASSES. The route is RETAINED, not retired
+             or renamed. ⛔ EVERY OFFERING AND SCARCITY SURFACE ON THE
+             PAGE IS CONFORMED OR REMOVED: hero eyebrow · hero CTA and
+             subline · closing CTA heading, body, button and subline ·
+             the Cal.com modal's aria-label, heading and its SECOND
+             scarcity string · and the qualified-investor disclaimer,
+             REMOVED OUTRIGHT rather than reworded, because under the
+             de-offering decision it has no subject — there are no
+             confidential materials on a public information page.
+             ⚠️ TWO SURFACES NO PRIOR LIST REACHED. (1) PAGE TITLE AND
+             og:title READ "Invest in USRad" — AN IMPERATIVE TO INVEST,
+             shipping to every share card, link preview and search
+             result, a wider audience than the hero above it. Now "The
+             USRad Investment Thesis", set through the page's normal
+             metadata architecture; ⛔ THE #86 OVERRIDE IS NOT
+             RECREATED. (2) The source comment "Scarcity / trust line"
+             SHIPPED IN RENDERED OUTPUT — #54's eighth mode, a comment
+             nested inside a node rather than at template top level.
+             Conformed. ⚠️ og:description STILL READS "Join us in
+             building the future of accessible healthcare." IT WAS NOT
+             IN SCOPE AND WAS NOT CHANGED; recorded so the omission is
+             deliberate and adjudicable, not an oversight.
+             ✅ THE PLATFORM-STATE SECTION PUBLISHES ONLY THE
+             ADJUDICATED FORMULATIONS: member booking and portal,
+             provider onboarding and portal, internal administration,
+             and REFERENCE pricing with provider ranking as the
+             foundation layer, beneath a DEVELOPED / UNDERWAY / PLANNED
+             progression. ⛔ THE PLANNED BUCKET LEADS WITH THE NEGATIVE
+             — "a dedicated employer portal has not been built" — AND
+             THE CLOSING SENTENCE IS BOUND INTO THE SAME COMPOSITION AS
+             THAT DISCLOSURE. Removing the not-built bucket while
+             keeping the close would overstate, and the composition
+             prevents it. ⛔ NO FIGURE, NO COUNT, NO CUSTOMER, NO
+             TIMELINE, NO EMPLOYER-PORTAL SPECIFICATION, NO COMPLETION
+             ICONOGRAPHY, NO PROGRESS INDICATOR, AND NOTHING FROM THE
+             PROPRIETARY-DISCLOSURE BOUNDARY.
+             ✅ TWO RESIDUAL PRESENT-INDICATIVE CARDS CONFORMED.
+             "Automated Demand Routing" is RENAMED "Demand Matching" —
+             the title asserted that routing happens and happens
+             automatically, and the engine has never ranked a
+             production result set — and its FULL body was replaced,
+             including the second clause "creating a scalable
+             allocation engine that improves with volume", which a
+             first-clause replacement would have left standing.
+             "Transaction Margin" conformed to design language with
+             "every" not restored.
+             ⛔ THE THIRD PRESENT-INDICATIVE CARD, "Quality
+             Standardization Layer", WAS DELIBERATELY ENCOUNTERED AND
+             EXCLUDED. #45 is the controlling blocker and #46 is
+             deferred. IT IS LEFT BYTE-IDENTICAL, VERIFIED BY DIFF
+             AGAINST HEAD. ⚠️ THE EXCLUSION IS RECORDED PRECISELY SO IT
+             CANNOT LATER READ AS AN OVERSIGHT: an implementer
+             conforming this page meets three such cards, conforms two,
+             and reaches the third with no instruction. NEITHER
+             CONFORMING IT NOR SILENTLY SKIPPING IT IS ACCEPTABLE.
+             ⛔ EXTERNAL DE-OFFERING ACTION REQUIRED — NOT REACHABLE
+             FROM ANY REPOSITORY. The Cal.com embed resolves the event
+             "usrad/investor-briefing", initialised under the namespace
+             "investor-briefing". ⚠️ THE SLUG IS VISIBLE IN THE BOOKING
+             FLOW, AND THE EVENT TYPE'S NAME RENDERS IN THE EMBED, THE
+             CONFIRMATION EMAIL AND THE CALENDAR INVITE. If it is named
+             "Investor Briefing", the de-offering does not reach it by
+             any code change. RENAME IT IN THE CAL.COM ACCOUNT. ⛔ THE
+             REPOSITORY CANNOT AND MUST NOT ATTEMPT THIS.
+             · FOUNDER + ADVISOR
 ```
 
 

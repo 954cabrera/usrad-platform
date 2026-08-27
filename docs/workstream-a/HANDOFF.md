@@ -1,6 +1,6 @@
 # HANDOFF — Workstream A Operational State
 
-**Last updated: 2026-08-27** — `/investor` Gates 1–2 merged at `cc9a48a`, deployed and production-verified. ⚠️ The header had read **2026-08-14** while the file already carried dated 2026-08-24 sections; §2's state table and §11's next action were both stale and have been replaced, not appended.
+**Last updated: 2026-08-27** — `/investor` Phase 2 positioning implemented and committed: the public de-offering, the platform-state infrastructure section, and the two authorized residual card conformances. ⛔ **UNCOMMITTED-TO-PRODUCTION: this work is committed locally and NOT deployed. Verify with `git rev-parse main` and the Vercel deployment state, never from this file alone.** Prior: Gates 1–2 merged at `cc9a48a`, deployed and production-verified.
 
 ---
 
@@ -503,67 +503,56 @@ sweep is necessary and is not sufficient.
 
 ## 11. EXACT NEXT ACTION
 
-⚠️ **REPLACED 2026-08-27. The prior content of this section described the
-`/` homepage pass, which merged as PR #10 on 2026-08-14. It had been stale for
-almost two weeks and would have been trusted.**
+⚠️ **REPLACED 2026-08-27 (SECOND TIME TODAY). The prior content described the
+positioning pass as not started and needing an Advisor scope. It is now
+implemented.**
 
-**Gates 1–2 on `/investor` are CLOSED, committed at `cc9a48a`, pushed, deployed
-and production-verified.** See the dated section at the end of this file and
-`TRACKER.md` **#110**.
+**The final planned `/investor` positioning pass is COMPLETE IN THE REPOSITORY
+and NOT DEPLOYED.** Build exit 0 · #95's amended normalized gate passed ·
+rendered-output verification passed · desktop and mobile visual review passed.
+See `TRACKER.md` **#110** and the four `DECISIONS.md` entries dated 2026-08-27.
 
-The next action is **not** a page pass. It is scoping, and it is the Founder's
-and Advisor's to open, not an agent's to start:
+1. ⛔ **DEPLOY IS THE FOUNDER'S CALL AND WAS NOT AUTHORIZED IN THE
+   IMPLEMENTATION PASS.** Nothing is pushed. On authorization: fetch, confirm
+   `main` is not behind, push, then verify on production — **rendered output,
+   not source** — that `Schedule Investor Briefing`, `limited availability`,
+   `qualified investors`, `Invest in USRad`, `STRATEGIC INVESTMENT` and
+   `NOW OPEN` all return zero.
 
-1. ⛔ **THE `/investor` POSITIONING PASS IS NOT STARTED AND MUST NOT BE STARTED
-   WITHOUT AN EXPLICIT ADVISOR SCOPE.** The 2026-08-27 de-offering decision
-   **empties eleven surfaces; it does not refill them.** Replacement eyebrow and
-   CTA copy is expressly **NOT authored by that decision** — see `DECISIONS.md`
-   2026-08-27 and `TRACKER.md` #110 item (g) for the enumerated surfaces.
-   ⚠️ **One of the eleven is the Cal.com investor-briefing modal, which was
-   absent from the supplied list and found by re-sweep. It carries a second
-   scarcity string inside a `role="dialog"`.**
+2. ⛔ **EXTERNAL DE-OFFERING ACTION, OWED AND UNREACHABLE FROM ANY REPOSITORY.**
+   The Cal.com embed resolves the event `usrad/investor-briefing` under the
+   namespace `investor-briefing`. ⚠️ **The slug is visible in the booking flow,
+   and the event type's name renders in the embed, the confirmation email and
+   the calendar invite. If it is named "Investor Briefing", the de-offering does
+   not reach it by any code change.** Rename it in the Cal.com account. ⛔ **The
+   repository cannot and must not attempt this.**
 
-2. ⬜ **OWED, SEPARATELY SCOPED, NOT PART OF ANY PAGE PASS — the `public/`
-   re-sweep.** `_test-procedure-library.html` and `_test-universal-search.html`
-   are live under `public/` and in neither case appear in #92's seven-artifact
-   enumeration. ⚠️ **#92's closing finding was that `public/` is invisible to
-   route sweeps, build checks and route-level `curl`. That finding is now
-   confirmed by its own enumeration going stale in seven days.**
+3. ⬜ **AWAITING A FOUNDER CALL — `og:description`.** It still reads *"Join us in
+   building the future of accessible healthcare."* It was not in the
+   implementation scope and was deliberately not changed. **`Join us` is an
+   invitation to participate on a page that no longer solicits.** Recorded so
+   the omission is adjudicable rather than an oversight.
 
-3. ⬜ **OWED, SEPARATELY SCOPED — the sitewide `alt`-text sweep.** `alt` is a
-   **seventh claim-bearing publication surface**, after rendered text, JS
-   literals, JSON-LD, `og:` metadata (#86), `public/` (#92) and iconography
-   (#110 item A). ⚠️ **It is invisible to every rendered-text sweep this
-   workstream runs, it is read aloud by assistive technology, and it is
-   indexed.** One instance was conformed on `/investor`; the class is open.
+4. ⬜ **OWED, SEPARATELY SCOPED — the `public/` re-sweep.**
+   `_test-procedure-library.html` and `_test-universal-search.html` are live
+   under `public/` and in neither case appear in #92's seven-artifact
+   enumeration.
 
-4. ⚠️ **UPDATED 2026-08-27 — THE PLATFORM-STATE FA GATE IS ADJUDICATED AND
-   CLOSED IN PART. THE ACCOMPLISHMENTS SECTION IS STILL GATED and must not be
-   drafted.** A cross-repository evidence pass against `usrad-platform`
-   `b319007` and `usrad-portal` `f302e5c` was adjudicated into two
-   `DECISIONS.md` entries 2026-08-27. **Five capabilities, `ZERO CONTRACTED
-   PROVIDERS`, and the employer portal as PLANNED / NOT YET BUILT are upgraded
-   FA → repository-verified.** ⛔ **Still FA: provider recruitment/contracting
-   and employer commercialization — commercial activity is not observable in a
-   repository.** ⛔ **Narrowed: the ceiling is REFERENCE pricing, and payment
-   sequencing is asymmetric — inbound collection is implemented, OUTBOUND
-   PROVIDER DISBURSEMENT IS NOT IMPLEMENTED IN EITHER REPOSITORY.** ⚠️ **BINDING
-   LIMITATION: source, schema and HTTP reachability were verified; production
-   data was NOT queried. A 200 proves deployment, not function.** ⛔ **`DEVELOPED`
-   still does not mean commercially mature, complete, fully deployed or
-   processing live volume.** ⚠️ **What the section is for is unchanged: a
-   sophisticated reader must be able to tell developed from underway from
-   planned. The adjudication supplies the evidence class; it does not author the
-   copy, and `APPROVED-FIGURES.md` was deliberately not touched so that the
-   section is not pre-authored.** ⛔ **A SECOND STANDING ENTRY — THE PLATFORM
-   PROPRIETARY-DISCLOSURE BOUNDARY — BARS PUBLISHING THE EVIDENCE ITSELF: ranking
-   signals and weights, activation thresholds, rate-resolution mechanics, staff
-   role/permission detail, table and route inventories, payment-processor
-   identity, and internal status documentation.**
+5. ⬜ **OWED, SEPARATELY SCOPED — the sitewide `alt`-text sweep.** `alt` is a
+   seventh claim-bearing publication surface. One instance was conformed on
+   `/investor`; the class is open.
+
+6. ⛔ **NOT THIS WORKSTREAM'S, BUT LIVE:** `usrad-portal` HEAD sits on an
+   unmerged branch one commit ahead of `main`, retiring fabricated availability
+   values whose filter, measured in production, returned zero of forty-eight
+   centers. ⚠️ **Until it merges, production ships the fabricated values at
+   `app.usrad.com`.** Reported only.
 
 ⛔ **Do not reopen `/`, `/about`, Employer or Provider. Do not reopen #45, #46
-or #90. Do not touch application/EDS work. Do not begin membership remediation
-from a page pass — see the Y4 firewall in §10.**
+or #90 — the `Quality Standardization Layer` card was deliberately encountered
+and excluded in this pass and is byte-identical. Do not touch application/EDS
+work. Do not begin membership remediation from a page pass — see the Y4 firewall
+in §10.**
 
 ---
 
@@ -934,3 +923,64 @@ retrievable at `f0d1058` at its full 107,714 bytes, verified by
 broader `/investor` rewrite, valuation work and adjacent-page remediation are
 all NOT STARTED.** The `public/` re-sweep and the sitewide `alt` sweep are
 **owed and separately scoped.** See §11.
+
+---
+
+## `/investor` Phase 2 — positioning implementation, 2026-08-27
+
+⛔ **COMMITTED LOCALLY. NOT PUSHED, NOT DEPLOYED.** Deploy was explicitly not
+authorized in the implementation pass. Base `3da2d03`.
+
+Three things in one controlled pass: the public de-offering, the USRad-present
+infrastructure section, and the two authorized residual card conformances.
+
+### What changed on the page
+
+- **De-offering.** Every offering and scarcity surface conformed or removed —
+  hero eyebrow, hero CTA and subline, closing heading/body/button/subline, the
+  Cal.com modal's `aria-label`, heading and its second scarcity string, and the
+  qualified-investor disclaimer, **removed outright rather than reworded.**
+- ⚠️ **Two surfaces no prior list reached.** Page `<title>` and `og:title` read
+  **`Invest in USRad`** — an imperative to invest, shipping to every share card
+  and search result. Now `The USRad Investment Thesis`, through the normal
+  metadata architecture; **the #86 override is not recreated.** And the source
+  comment `Scarcity / trust line` **shipped in rendered output** under #54's
+  eighth mode.
+- **New platform-state section**, between Founder & Track Record and The Market
+  Is Massive. Three developed sides on one foundation layer, then a
+  DEVELOPED / UNDERWAY / PLANNED progression. Publishes only the adjudicated
+  formulations; the PLANNED bucket leads with the negative and the closing
+  sentence is bound into the same composition as that disclosure.
+- **Two residual cards.** `Automated Demand Routing` → `Demand Matching`, full
+  body replaced including the second clause. `Transaction Margin` conformed to
+  design language.
+
+### Verification performed
+
+- `npm run build` exit `0`
+- ✅ **#95's amended normalized gate — 27 hunks, every one mapping to a named
+  edit. No formatter drift, no rewrapping.**
+- ✅ Rendered-output verification: barred strings zero, intended strings present,
+  approved AnciCare figures intact
+- ✅ **Zero `<svg>` in the new section** — no completion iconography — and zero
+  progress indicators
+- ✅ Visual review at 1440 and 390: no horizontal overflow at either width, zero
+  child overflow, mobile stacking preserves MEMBER / PROVIDER / INTERNAL /
+  FOUNDATION. Section padding `80px/80px` and container `1280px` match both
+  neighbours exactly; the ivory band runs white → ivory → white so it resolves
+  into the Market section
+
+### Deliberate exclusion — recorded so it cannot read as an oversight
+
+⛔ **`Quality Standardization Layer` was encountered and excluded.** #45 is the
+controlling blocker, #46 deferred. **Left byte-identical, verified by diff
+against `HEAD`.** An implementer conforming this page meets three
+present-indicative cards, conforms two, and reaches the third with no
+instruction; neither conforming it nor silently skipping it is acceptable.
+
+### ⛔ External action owed
+
+The Cal.com embed resolves `usrad/investor-briefing` under namespace
+`investor-briefing`. **No repository change reaches the external event type's
+name, which renders in the embed, the confirmation email and the calendar
+invite.** Rename in the Cal.com account.
