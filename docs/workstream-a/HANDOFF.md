@@ -1,6 +1,6 @@
 # HANDOFF — Workstream A Operational State
 
-**Last updated: 2026-08-14**
+**Last updated: 2026-08-27** — `/investor` Gates 1–2 merged at `cc9a48a`, deployed and production-verified. ⚠️ The header had read **2026-08-14** while the file already carried dated 2026-08-24 sections; §2's state table and §11's next action were both stale and have been replaced, not appended.
 
 ---
 
@@ -56,21 +56,22 @@ Read step 4 in full before proposing the removal of any figure.
 
 ---
 
-| **Working branch** | ✅ **UPDATED 2026-08-17 — `main`.** `homepage-remediation` and `about-remediation` are both merged and spent |
-| **Working tree** | ✅ **Clean.** |
-| **`main`** | ✅ **UPDATED 2026-08-17 — `main` IS `470d2ae`** (*Merge PR #13, about-remediation* — 6 files, 459 insertions, 726 deletions). Moved `411577a..470d2ae`. Local `main` synchronized to `origin/main` |
-| **Production** | ✅ **UPDATED 2026-08-17 — Vercel serving `470d2ae` at usrad.com.** Employer + Provider + P5 footer + Homepage + **About** remediation all **LIVE** |
+| **Working branch** | ✅ **UPDATED 2026-08-27 — `main`.** No workstream branch is open. All `claims/*` and `*-remediation` branches are merged and spent; `claims/104-marketscope-composition` and `claims/105-pricing-model` are deliberately **retained** as rollback references |
+| **Working tree** | ✅ **UPDATED 2026-08-27 — clean.** Verified by `git status --short` returning empty after the Gates 1–2 commit |
+| **`main`** | ✅ **UPDATED 2026-08-27 — `main` IS `cc9a48a`** (*fix(investor): Gates 1-2* — 4 files, 123 insertions, 23 deletions, no merge commit). Moved `fc0348a..cc9a48a`. **Local and `origin/main` are level: behind 0, ahead 0**, verified by `git fetch --prune` then `git rev-list --count` in both directions |
+| **Production** | ✅ **UPDATED 2026-08-27 — Vercel Production `dpl_DRM4ANHMXj4XPFtTktBEYDcpnkBj` is Ready and aliased to usrad.com.** Serving `cc9a48a`. ⚠️ **NOT verified by a deployment label — `vercel inspect` does not surface the SHA. Verified by CONTENT EQUIVALENCE:** the production `/investor` rendered-text stream and the local `cc9a48a` build's are **word-for-word identical at 1,861 words, `diff` empty.** Employer + Provider + P5 footer + Homepage + About + `/investor` Gates 1–2 all **LIVE** |
 | **Prior releases** | PR #7 `da8eb85` (Employer/Provider, 78 commits/105 files) · PR #8 `673fb2a` (P5 footer, two-repo) · PR #9 `cda6b41` (NewsletterPopup, #66) · PR #10 `4d12da3` (homepage) · PR #11 `2d4117c` (post-merge state) · PR #12 `411577a` (AnciCare evidence admission) · PR #13 `470d2ae` (about). See §12 for PR #7's verified contents and §13 for the checkpoint |
-| **⚠️ `main` movements** | **TEN this month.** Every one was found by counting, not by noticing. Run the §2 state check before every batch |
+| **⚠️ `main` movements** | ⚠️ **UNVERIFIED AS A COUNT — the "TEN this month" figure was accurate on 2026-08-17 and is NOT re-derivable now.** A ref movement is a push, and the reflog for other machines is not available here. **The verifiable substitute: 122 commits have landed on `main` since 2026-08-17, and 232 during August 2026.** ⛔ **THE PRACTICE IS UNCHANGED AND IS THE POINT: run the state check before every batch and STOP ON A NON-ZERO BEHIND-COUNT.** Every movement this workstream has caught was found by counting, not by noticing |
 | **Repo** | `git@github.com:954cabrera/usrad-platform.git` |
 
 ### ✅ Local branch-pointer hazard — RESOLVED
 
 The pre-merge hazard (local `main` fast-forwarded onto the workstream branch and
-never pushed) is closed: local `main` is synchronized to `origin/main` at
-`da8eb85`. **The standing practice survives the hazard** — run the state check
-before every batch and stop on a non-zero behind-count. `main` moved three times
-in August and every movement was found by counting, not by noticing.
+never pushed) is closed. ✅ **RE-VERIFIED 2026-08-27: local `main` is synchronized
+to `origin/main` at `cc9a48a`, behind 0 and ahead 0 after a `--prune` fetch.**
+**The standing practice survives the hazard** — run the state check before every
+batch and stop on a non-zero behind-count. Every movement this workstream has
+caught was found by counting, not by noticing.
 
 ---
 
@@ -502,33 +503,52 @@ sweep is necessary and is not sufficient.
 
 ## 11. EXACT NEXT ACTION
 
-The smallest safe path to production, in order:
+⚠️ **REPLACED 2026-08-27. The prior content of this section described the
+`/` homepage pass, which merged as PR #10 on 2026-08-14. It had been stale for
+almost two weeks and would have been trusted.**
 
-1. ✅ **DONE — the `/` remediation pass is complete** at `1963cc2`, pushed.
-   `main` is level (0 behind); no reconciliation required.
+**Gates 1–2 on `/investor` are CLOSED, committed at `cc9a48a`, pushed, deployed
+and production-verified.** See the dated section at the end of this file and
+`TRACKER.md` **#110**.
 
-2. **Open the PR** from `homepage-remediation` → `main`. Body: the `1963cc2`
-   commit message, which carries the full verification record.
+The next action is **not** a page pass. It is scoping, and it is the Founder's
+and Advisor's to open, not an agent's to start:
 
-3. **Merge and deploy.** Then verify on production that `$246 million` is absent
-   from `/` — ⛔ **whitespace-normalized**, because
-   `grep -c '$246 million' AboutSection.astro` returns **ZERO on the file that
-   publishes it**. Use:
-   `tr -s '[:space:]' ' ' < <file> | grep -c "246 million"`
+1. ⛔ **THE `/investor` POSITIONING PASS IS NOT STARTED AND MUST NOT BE STARTED
+   WITHOUT AN EXPLICIT ADVISOR SCOPE.** The 2026-08-27 de-offering decision
+   **empties eleven surfaces; it does not refill them.** Replacement eyebrow and
+   CTA copy is expressly **NOT authored by that decision** — see `DECISIONS.md`
+   2026-08-27 and `TRACKER.md` #110 item (g) for the enumerated surfaces.
+   ⚠️ **One of the eleven is the Cal.com investor-briefing modal, which was
+   absent from the supplied list and found by re-sweep. It carries a second
+   scarcity string inside a `role="dialog"`.**
 
-4. **Update this file and `TRACKER.md` §12** with the merge SHA, and record the
-   `main` movement in `DECISIONS.md`. **`main` has moved five times this month
-   and every movement was found by counting, not by noticing** — run the §2
-   state check before every batch.
+2. ⬜ **OWED, SEPARATELY SCOPED, NOT PART OF ANY PAGE PASS — the `public/`
+   re-sweep.** `_test-procedure-library.html` and `_test-universal-search.html`
+   are live under `public/` and in neither case appear in #92's seven-artifact
+   enumeration. ⚠️ **#92's closing finding was that `public/` is invisible to
+   route sweeps, build checks and route-level `curl`. That finding is now
+   confirmed by its own enumeration going stale in seven days.**
 
-5. **Then, and only then**, begin the next surface. Per §5 the queue is
-   `/press-kit` (named first by exposure in `TRACKER.md` §12 row 3, register-borne
-   — see DOC-23), then `/about`, `/how-it-works`, `/what-is-an-mri`, `/contact`,
-   then single-instance routes and blog.
+3. ⬜ **OWED, SEPARATELY SCOPED — the sitewide `alt`-text sweep.** `alt` is a
+   **seventh claim-bearing publication surface**, after rendered text, JS
+   literals, JSON-LD, `og:` metadata (#86), `public/` (#92) and iconography
+   (#110 item A). ⚠️ **It is invisible to every rendered-text sweep this
+   workstream runs, it is read aloud by assistive technology, and it is
+   indexed.** One instance was conformed on `/investor`; the class is open.
 
-⛔ **Do not reopen `/`.** Do not reopen Employer or Provider. Do not touch
-application/EDS work. Do not begin membership remediation from a page pass —
-see the Y4 firewall in §10.
+4. ⛔ **THE ACCOMPLISHMENTS SECTION IS GATED and must not be drafted.** The
+   platform-state entry at `DECISIONS.md` 2026-08-27 is class **FA —
+   founder-attested, not repository-verified — and its verification gate is
+   OPEN.** ⚠️ **That section's entire value is that a sophisticated reader can
+   tell developed from underway from planned. If the underlying record is
+   attestation labelled as verified, the section inherits that defect at exactly
+   the moment it is doing the most work. Verify against repository evidence
+   first, then publish.**
+
+⛔ **Do not reopen `/`, `/about`, Employer or Provider. Do not reopen #45, #46
+or #90. Do not touch application/EDS work. Do not begin membership remediation
+from a page pass — see the Y4 firewall in §10.**
 
 ---
 
@@ -818,3 +838,84 @@ multiplier-based substitute from standing in for a missing governed rate.
 
 `claims/104-marketscope-composition` and `claims/105-pricing-model` are
 **retained**, not deleted. They remain useful rollback and history references.
+
+---
+
+## `/investor` Gates 1–2 — merge and deployment, 2026-08-27
+
+`origin/main` fast-forwarded `fc0348a..cc9a48a`. Vercel Production
+`dpl_DRM4ANHMXj4XPFtTktBEYDcpnkBj` reached Ready and is aliased to
+`https://usrad.com`. One commit, 4 files, 123 insertions, 23 deletions, no merge
+commit.
+
+**Gate 1** removed `public/docs/usrad-investor-overview.pdf` from public service.
+**Gate 2** conformed the residual #90 claims on `/investor` across seven change
+groups A–G, plus two blockers authorized at review. Full scope in `TRACKER.md`
+**#110**; four dated entries in `DECISIONS.md`.
+
+### Pre-deployment verification
+
+- `npm run build` exit `0` on `main`
+- ✅ **#95's AMENDED normalized gate, run per-word rather than `-w`:**
+  `git show HEAD:src/pages/investor.astro` and the working tree each flattened
+  through `tr -s '[:space:]'` to one word per line and diffed. **Exactly the
+  thirteen intended edit groups and nothing else. No format-on-save rewrapping,
+  no linked-editing damage.** ⚠️ **This is the gate that passed at 18/14 and
+  missed five rewrapped blocks during the `1,020` follow-on on this same file.
+  It held.**
+- ✅ **#54 flatten-then-strip verification**, not the defective per-line form
+- `DECISIONS.md` +90/−0 and `TRACKER.md` +1/−0 — **append-only respected, no
+  existing row retro-edited**
+
+### Production verification actually performed
+
+- ⛔ **`https://usrad.com/docs/usrad-investor-overview.pdf` → `404`, 79 bytes.**
+  `www.` host likewise `404`. **This was the highest live exposure in the sprint
+  and it is closed on the public surface.**
+- ✅ `/investor` → `200`, `x-vercel-cache: MISS`, `age: 0`
+- ✅ **Content equivalence, the strongest available SHA check:** the production
+  `/investor` rendered-text stream and the local `cc9a48a` build's are
+  **word-for-word identical at 1,861 words, `diff` empty**
+- ✅ Twelve conformed strings each return exactly `1` live
+- ✅ Fifteen barred or superseded strings each return `0` live, including
+  `Core Domination`, `structural dominance`, `national diagnostic imaging
+  network`, `USRad earns margin`, `Payment is collected upfront`,
+  `showing real-time appointment management`, `Healthcare's Next Unicorn` and
+  `100B`
+- ✅ **Iconography verified in the live document:** zero green completion
+  checkmarks, three neutral arrows
+- ✅ **`og:` verified live** — `og:title` is `Invest in USRad` and
+  `og:description` is the page's own conformed text. **The #86 override does not
+  survive.** #90 removed it and is not reopened
+- ✅ Approved figures present live: `$16M+`, `1,020`, `1,200+`,
+  `co-founder of AnciCare PPO`, the 10-business-day term
+- ✅ Document order sane: single `<h1>`, nine `<h2>`, `<footer>` last
+- ✅ `public/downloads/USRad_Provider_Opportunity_Brief.pdf` still `200` —
+  **held for #96, deliberately untouched**
+
+### ⚠️ Verification limitation — a 200 that is not what it looks like
+
+⛔ **`https://usrad-platform-741do0bux-usrad.vercel.app/docs/usrad-investor-overview.pdf`
+returns `200` with 483,916 bytes.** That is **NOT the artifact.** It is Vercel's
+SSO wall — `content-type: text/plain`, an HTML body, and a `_vercel_sso_nonce`
+cookie. The removed PDF was 107,714 bytes.
+
+⚠️ **A status-code check alone would have read that `200` as the removal having
+failed, or a careless reading of the apex `404` alone as proof without noticing
+the deployment host disagreed.** **Bare `*.vercel.app` deployment hosts on this
+project are behind deployment protection and always answer `200` with a login
+page. Verify body size and `content-type`, never the status code alone.**
+
+### Git history posture
+
+The artifact is **not rewritten out of history and must not be.** It remains
+retrievable at `f0d1058` at its full 107,714 bytes, verified by
+`git cat-file -s`. It is absent from the `HEAD` tree, verified by
+`git cat-file -e` failing.
+
+### Not started
+
+⛔ **The positioning pass, the accomplishments section, `/about` compression, the
+broader `/investor` rewrite, valuation work and adjacent-page remediation are
+all NOT STARTED.** The `public/` re-sweep and the sitewide `alt` sweep are
+**owed and separately scoped.** See §11.
