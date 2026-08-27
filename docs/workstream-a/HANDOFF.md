@@ -1,6 +1,6 @@
 # HANDOFF — Workstream A Operational State
 
-**Last updated: 2026-08-27** — ⚠️ **`/investor` terminal composition ruled and implemented; COMMITTED LOCALLY, NOT YET DEPLOYED.** Prior: ✅ **`/investor` Phase 2 DEPLOYED AND PRODUCTION-VERIFIED at `20a81b7`.** The public de-offering, the platform-state infrastructure section, the two authorized residual card conformances, the Cal.com event rename and `og:description` are all live. ⚠️ **Verify current state with `git rev-parse main` and the Vercel deployment state, never from this file alone.** Prior: Gates 1–2 at `cc9a48a`.
+**Last updated: 2026-08-27** — ✅ **`/investor` is DEPLOYED AND PRODUCTION-VERIFIED at `0b46f4e`**, terminal composition included: the page ends on the final navy Founder CTA, then the standard footer. Phase 2 (de-offering, platform-state section, residual cards, Cal.com rename, `og:description`) shipped at `20a81b7` and remains live. The public de-offering, the platform-state infrastructure section, the two authorized residual card conformances, the Cal.com event rename and `og:description` are all live. ⚠️ **Verify current state with `git rev-parse main` and the Vercel deployment state, never from this file alone.** Prior: Gates 1–2 at `cc9a48a`.
 
 ---
 
@@ -58,8 +58,8 @@ Read step 4 in full before proposing the removal of any figure.
 
 | **Working branch** | ✅ **UPDATED 2026-08-27 — `main`.** No workstream branch is open. All `claims/*` and `*-remediation` branches are merged and spent; `claims/104-marketscope-composition` and `claims/105-pricing-model` are deliberately **retained** as rollback references |
 | **Working tree** | ✅ **UPDATED 2026-08-27 — clean.** Verified by `git status --short` returning empty after the Gates 1–2 commit |
-| **`main`** | ⚠️ **THIS ROW LAGS `main` BY THE COMMIT THAT WRITES IT; a commit cannot cite its own hash, the same structural limit already recorded for DOC-12's row 51. Verify with `git rev-parse main`, never from this cell.** Last recorded 2026-08-27: `main` WAS `20a81b7`, level with `origin/main` at behind 0 / ahead 0 (*fix(investor): Gates 1-2* — 4 files, 123 insertions, 23 deletions, no merge commit). Moved `fc0348a..cc9a48a`. **Local and `origin/main` are level: behind 0, ahead 0**, verified by `git fetch --prune` then `git rev-list --count` in both directions |
-| **Production** | ✅ **UPDATED 2026-08-27 (Phase 2) — Vercel Production `dpl_EAC61k8jnHEeYqh3vqnpx4gc4tCv` is Ready and aliased to usrad.com.** Serving `20a81b7`. ⚠️ **The `/investor` de-offering, the platform-state section and the Cal.com rename are all LIVE and verified end to end, including the booking embed.** Prior: `dpl_DRM4ANHMXj4XPFtTktBEYDcpnkBj` serving `cc9a48a`. ⚠️ **NOT verified by a deployment label — `vercel inspect` does not surface the SHA. Verified by CONTENT EQUIVALENCE:** the production `/investor` rendered-text stream and the local `cc9a48a` build's are **word-for-word identical at 1,861 words, `diff` empty.** Employer + Provider + P5 footer + Homepage + About + `/investor` Gates 1–2 all **LIVE** |
+| **`main`** | ⚠️ **THIS ROW LAGS `main` BY THE COMMIT THAT WRITES IT; a commit cannot cite its own hash, the same structural limit already recorded for DOC-12's row 51. Verify with `git rev-parse main`, never from this cell.** Last recorded 2026-08-27: `main` WAS `0b46f4e`, level with `origin/main` at behind 0 / ahead 0 (*fix(investor): Gates 1-2* — 4 files, 123 insertions, 23 deletions, no merge commit). Moved `fc0348a..cc9a48a`. **Local and `origin/main` are level: behind 0, ahead 0**, verified by `git fetch --prune` then `git rev-list --count` in both directions |
+| **Production** | ✅ **UPDATED 2026-08-27 (terminal composition) — Vercel Production `dpl_AiJ9BaTsugcLvxX7gxjabxPQGG95` is Ready and aliased to usrad.com.** Serving `0b46f4e`. ⚠️ **The `/investor` de-offering, the platform-state section and the Cal.com rename are all LIVE and verified end to end, including the booking embed.** Prior: `dpl_DRM4ANHMXj4XPFtTktBEYDcpnkBj` serving `cc9a48a`. ⚠️ **NOT verified by a deployment label — `vercel inspect` does not surface the SHA. Verified by CONTENT EQUIVALENCE:** the production `/investor` rendered-text stream and the local `cc9a48a` build's are **word-for-word identical at 1,861 words, `diff` empty.** Employer + Provider + P5 footer + Homepage + About + `/investor` Gates 1–2 all **LIVE** |
 | **Prior releases** | PR #7 `da8eb85` (Employer/Provider, 78 commits/105 files) · PR #8 `673fb2a` (P5 footer, two-repo) · PR #9 `cda6b41` (NewsletterPopup, #66) · PR #10 `4d12da3` (homepage) · PR #11 `2d4117c` (post-merge state) · PR #12 `411577a` (AnciCare evidence admission) · PR #13 `470d2ae` (about). See §12 for PR #7's verified contents and §13 for the checkpoint |
 | **⚠️ `main` movements** | ⚠️ **UNVERIFIED AS A COUNT — the "TEN this month" figure was accurate on 2026-08-17 and is NOT re-derivable now.** A ref movement is a push, and the reflog for other machines is not available here. **The verifiable substitute: 122 commits have landed on `main` since 2026-08-17, and 232 during August 2026.** ⛔ **THE PRACTICE IS UNCHANGED AND IS THE POINT: run the state check before every batch and STOP ON A NON-ZERO BEHIND-COUNT.** Every movement this workstream has caught was found by counting, not by noticing |
 | **Repo** | `git@github.com:954cabrera/usrad-platform.git` |
@@ -512,11 +512,8 @@ and NOT DEPLOYED.** Build exit 0 · #95's amended normalized gate passed ·
 rendered-output verification passed · desktop and mobile visual review passed.
 See `TRACKER.md` **#110** and the four `DECISIONS.md` entries dated 2026-08-27.
 
-1. ⛔ **ONE COMMIT AWAITS DEPLOY AUTHORIZATION — the `/investor` terminal
-   composition (footer trust banner and newsletter suppressed on this route via
-   the existing page-level `hideNewsletter` opt-out). Built and visually
-   verified locally; NOT pushed.** Prior state, still live:
-   ✅ **DEPLOYED AND PRODUCTION-VERIFIED 2026-08-27 at `20a81b7`.** The
+1. ✅ **DEPLOYED AND PRODUCTION-VERIFIED 2026-08-27 at `0b46f4e`**, terminal
+   composition included. ⛔ **NOTHING IS AWAITING DEPLOY.** The
    de-offering is complete and live on every surface the reader touches — page
    copy, page metadata, share metadata, and the external booking event the
    primary CTA resolves to. Verified end to end on production, including
@@ -1050,8 +1047,9 @@ fabricated-availability branch, which is not this workstream's.
 
 ### `/investor` terminal composition — 2026-08-27, committed locally
 
-⛔ **NOT DEPLOYED. Awaiting deploy authorization.** Production still serves
-`20a81b7`, which does not contain this change.
+✅ **DEPLOYED AND PRODUCTION-VERIFIED.** `origin/main` fast-forwarded
+`0d7bbe7..0b46f4e`; Vercel Production `dpl_AiJ9BaTsugcLvxX7gxjabxPQGG95` reached
+Ready and is aliased to `https://usrad.com`.
 
 **The page now ends on the final navy Founder CTA, then the standard site
 footer, with nothing between them.** Two footer blocks that rendered beneath the
@@ -1082,3 +1080,18 @@ comment* still ships and carries the string `Never Miss an Update` — #54's eig
 mode. **It lives in the shared footer and ships on every route**, so conforming
 it is a sitewide component change this ruling excludes. The rendered blocks are
 gone; the label is not a claim surface. Recorded for the sitewide pass.
+
+**Production verification performed — `0b46f4e`.** ✅ **`x-vercel-cache: MISS`,
+`age: 0`** — a fresh origin response, so unlike the earlier pass there was no
+cache ambiguity to reason around at all. Rendered text is **identical to the
+local `0b46f4e` build at 1,923 words** (down from 2,020, the two removed
+blocks). On live `/investor`: the trust banner and newsletter block return
+**zero**; the last `<section>` before `<footer>` is the navy Founder CTA, with
+only the hidden Cal.com modal `div` between them; the footer is intact — brand,
+phone, all four link columns, legal row, copyright — and there is exactly one
+`<footer>`. **Measured gap between CTA and footer is ZERO at 1440 and 390**, the
+transition being 80px/64px desktop and 45px/60px mobile, with no horizontal
+overflow at either width. ✅ **No other route changed, checked against live
+production, not the build:** `/`, `/about`, `/how-it-works`, `/contact`, `/faq`
+and `/membership` still render both blocks; `/provider`, `/employer` and
+`/connect` still render neither.
