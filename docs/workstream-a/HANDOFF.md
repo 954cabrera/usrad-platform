@@ -1,6 +1,6 @@
 # HANDOFF — Workstream A Operational State
 
-**Last updated: 2026-08-27** — `/investor` Phase 2 positioning implemented and committed: the public de-offering, the platform-state infrastructure section, and the two authorized residual card conformances. Closeout applied: the external Cal.com event rename and `og:description`. ⛔ **UNCOMMITTED-TO-PRODUCTION: this work is committed locally and NOT deployed. Verify with `git rev-parse main` and the Vercel deployment state, never from this file alone.** Prior: Gates 1–2 merged at `cc9a48a`, deployed and production-verified.
+**Last updated: 2026-08-27** — ✅ **`/investor` Phase 2 is DEPLOYED AND PRODUCTION-VERIFIED at `20a81b7`.** The public de-offering, the platform-state infrastructure section, the two authorized residual card conformances, the Cal.com event rename and `og:description` are all live. ⚠️ **Verify current state with `git rev-parse main` and the Vercel deployment state, never from this file alone.** Prior: Gates 1–2 at `cc9a48a`.
 
 ---
 
@@ -58,8 +58,8 @@ Read step 4 in full before proposing the removal of any figure.
 
 | **Working branch** | ✅ **UPDATED 2026-08-27 — `main`.** No workstream branch is open. All `claims/*` and `*-remediation` branches are merged and spent; `claims/104-marketscope-composition` and `claims/105-pricing-model` are deliberately **retained** as rollback references |
 | **Working tree** | ✅ **UPDATED 2026-08-27 — clean.** Verified by `git status --short` returning empty after the Gates 1–2 commit |
-| **`main`** | ⚠️ **UPDATED 2026-08-27 — THIS ROW LAGS `main` BY THE COMMIT THAT WRITES IT; a commit cannot cite its own hash, the same structural limit already recorded for DOC-12's row 51. Verify with `git rev-parse main`, never from this cell.** Last recorded: `main` WAS `cc9a48a` (*fix(investor): Gates 1-2* — 4 files, 123 insertions, 23 deletions, no merge commit). Moved `fc0348a..cc9a48a`. **Local and `origin/main` are level: behind 0, ahead 0**, verified by `git fetch --prune` then `git rev-list --count` in both directions |
-| **Production** | ✅ **UPDATED 2026-08-27 — Vercel Production `dpl_DRM4ANHMXj4XPFtTktBEYDcpnkBj` is Ready and aliased to usrad.com.** Serving `cc9a48a`. ⚠️ **NOT verified by a deployment label — `vercel inspect` does not surface the SHA. Verified by CONTENT EQUIVALENCE:** the production `/investor` rendered-text stream and the local `cc9a48a` build's are **word-for-word identical at 1,861 words, `diff` empty.** Employer + Provider + P5 footer + Homepage + About + `/investor` Gates 1–2 all **LIVE** |
+| **`main`** | ⚠️ **THIS ROW LAGS `main` BY THE COMMIT THAT WRITES IT; a commit cannot cite its own hash, the same structural limit already recorded for DOC-12's row 51. Verify with `git rev-parse main`, never from this cell.** Last recorded 2026-08-27: `main` WAS `20a81b7`, level with `origin/main` at behind 0 / ahead 0 (*fix(investor): Gates 1-2* — 4 files, 123 insertions, 23 deletions, no merge commit). Moved `fc0348a..cc9a48a`. **Local and `origin/main` are level: behind 0, ahead 0**, verified by `git fetch --prune` then `git rev-list --count` in both directions |
+| **Production** | ✅ **UPDATED 2026-08-27 (Phase 2) — Vercel Production `dpl_EAC61k8jnHEeYqh3vqnpx4gc4tCv` is Ready and aliased to usrad.com.** Serving `20a81b7`. ⚠️ **The `/investor` de-offering, the platform-state section and the Cal.com rename are all LIVE and verified end to end, including the booking embed.** Prior: `dpl_DRM4ANHMXj4XPFtTktBEYDcpnkBj` serving `cc9a48a`. ⚠️ **NOT verified by a deployment label — `vercel inspect` does not surface the SHA. Verified by CONTENT EQUIVALENCE:** the production `/investor` rendered-text stream and the local `cc9a48a` build's are **word-for-word identical at 1,861 words, `diff` empty.** Employer + Provider + P5 footer + Homepage + About + `/investor` Gates 1–2 all **LIVE** |
 | **Prior releases** | PR #7 `da8eb85` (Employer/Provider, 78 commits/105 files) · PR #8 `673fb2a` (P5 footer, two-repo) · PR #9 `cda6b41` (NewsletterPopup, #66) · PR #10 `4d12da3` (homepage) · PR #11 `2d4117c` (post-merge state) · PR #12 `411577a` (AnciCare evidence admission) · PR #13 `470d2ae` (about). See §12 for PR #7's verified contents and §13 for the checkpoint |
 | **⚠️ `main` movements** | ⚠️ **UNVERIFIED AS A COUNT — the "TEN this month" figure was accurate on 2026-08-17 and is NOT re-derivable now.** A ref movement is a push, and the reflog for other machines is not available here. **The verifiable substitute: 122 commits have landed on `main` since 2026-08-17, and 232 during August 2026.** ⛔ **THE PRACTICE IS UNCHANGED AND IS THE POINT: run the state check before every batch and STOP ON A NON-ZERO BEHIND-COUNT.** Every movement this workstream has caught was found by counting, not by noticing |
 | **Repo** | `git@github.com:954cabrera/usrad-platform.git` |
@@ -512,10 +512,13 @@ and NOT DEPLOYED.** Build exit 0 · #95's amended normalized gate passed ·
 rendered-output verification passed · desktop and mobile visual review passed.
 See `TRACKER.md` **#110** and the four `DECISIONS.md` entries dated 2026-08-27.
 
-1. ⛔ **DEPLOY IS THE FOUNDER'S CALL AND IS STILL NOT AUTHORIZED. NOTHING IS
-   PUSHED.** ✅ **The de-offering is now complete on every surface the reader
-   touches — page copy, page metadata, share metadata, and the external booking
-   event the primary CTA resolves to.** Nothing is pushed. On authorization: fetch, confirm
+1. ✅ **DEPLOYED AND PRODUCTION-VERIFIED 2026-08-27 at `20a81b7`.** The
+   de-offering is complete and live on every surface the reader touches — page
+   copy, page metadata, share metadata, and the external booking event the
+   primary CTA resolves to. Verified end to end on production, including
+   clicking `Connect With the Founder` and confirming the embed renders
+   **USRad Founder Conversation**. See the dated section at the end of this
+   file. Nothing is pushed. On authorization: fetch, confirm
    `main` is not behind, push, then verify on production — **rendered output,
    not source** — that `Schedule Investor Briefing`, `limited availability`,
    `qualified investors`, `Invest in USRad`, `STRATEGIC INVESTMENT` and
@@ -932,8 +935,10 @@ all NOT STARTED.** The `public/` re-sweep and the sitewide `alt` sweep are
 
 ## `/investor` Phase 2 — positioning implementation, 2026-08-27
 
-⛔ **COMMITTED LOCALLY. NOT PUSHED, NOT DEPLOYED.** Deploy was explicitly not
-authorized in the implementation pass. Base `3da2d03`.
+✅ **DEPLOYED AND PRODUCTION-VERIFIED.** `origin/main` fast-forwarded
+`3da2d03..20a81b7` (two commits: `07f1c16` implementation, `20a81b7` closeout).
+Vercel Production `dpl_EAC61k8jnHEeYqh3vqnpx4gc4tCv` reached Ready in ~1m and is
+aliased to `https://usrad.com`.
 
 Three things in one controlled pass: the public de-offering, the USRad-present
 infrastructure section, and the two authorized residual card conformances.
@@ -993,5 +998,48 @@ Founder` would still have landed on an event titled *Investor Briefing*.
 `og:description` is likewise closed — now `Explore USRad's model, strategy,
 infrastructure and growth thesis.`
 
-⛔ **Both closed in the repository only. Nothing is pushed or deployed, so the
-public page still serves the prior state.**
+✅ **Both are live and verified on production.**
+
+### Production verification performed — 2026-08-27, `20a81b7`
+
+⛔ **CACHE POSTURE RECORDED, because a stale CDN object has produced a false
+negative on this workstream before.** First production fetch returned
+`x-vercel-cache: HIT`, `age: 570`, `cache-control: public, max-age=0,
+must-revalidate`, `date: 17:47:49 UTC`. The cache entry therefore dates to
+**17:38:19 UTC, one minute thirty-seven seconds AFTER the deployment was created
+at 17:36:42 UTC** — it post-dates the deploy and cannot be a pre-deploy object.
+⚠️ **A cache-busting query string did NOT split the cache key here** (second
+fetch still `HIT`, `age: 585`), and ⛔ **the bare `*.vercel.app` deployment host
+is behind SSO and answers `200 text/plain` with a login page, so neither is a
+usable bypass on this project.**
+
+✅ **The decisive check was content equivalence, not cache reasoning:** the
+production `/investor` rendered-text stream and the local `20a81b7` build's are
+**identical at 2,020 words**.
+
+- ✅ `<title>` · `og:title` = **The USRad Investment Thesis** · `og:description`
+  = **Explore USRad's model, strategy, infrastructure and growth thesis.**
+- ✅ **Thirteen old offering strings all zero on production**, including
+  `STRATEGIC INVESTMENT`, `NOW OPEN`, `Schedule Investor Briefing`,
+  `limited availability`, `qualified investors`, `Invest in USRad`,
+  `Join us in building`, `Automated Demand Routing` and `investor-briefing`.
+- ✅ **Cal.com end to end on the live page.** Clicking `Connect With the Founder`
+  opens the modal and the embed iframe resolves
+  `app.cal.com/usrad/founder-conversation/embed`; the sole registered namespace
+  is `founder-conversation`. **The embed renders "USRad Founder Conversation" by
+  Michael Cabrera with the Founder's description and bookable slots.** No
+  "Investor Briefing" anywhere in the flow.
+- ✅ **New section renders correctly at 1440 and 390.** Section index 2 of 10,
+  between Founder & Track Record and The Market Is Massive. No horizontal
+  overflow and zero child overflow at either width; mobile stacking preserves
+  MEMBER / PROVIDER / INTERNAL / FOUNDATION. **Zero `<svg>` in the section** — no
+  completion iconography — with 1 `<h2>` and 7 `<h3>`.
+- ✅ **Approved AnciCare figures intact on production:** `$16M+`, `1,020`,
+  `1,200+`, `Radiologists Across 23 States, 1999`, `AnciCare Centers by 2002`,
+  `Annual Revenue by 2001`, `co-founder of AnciCare PPO`, and the D3 descriptor.
+- ✅ **#45/#46 `Quality Standardization Layer` unchanged on production**, string
+  for string.
+
+⬜ **Still owed, unchanged by this deploy and deliberately not started:** the
+`public/` re-sweep · the sitewide `alt`-text sweep · the `usrad-portal`
+fabricated-availability branch, which is not this workstream's.
