@@ -5850,6 +5850,141 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              BLOCKS ARE GONE; THE LABEL IS NOT A CLAIM SURFACE.
              Recorded for the sitewide pass, not fixed here.
              · FOUNDER
+
+2026-09-01 · smartmatch.astro:1132 IS A CLASS 4 DEFECT, NOT A PRECEDENT.
+             "Visibility is driven by performance — not entry timing"
+             was proposed as the on-page basis for recomposing §6 around
+             earned placement. It cannot serve that role. "Performance"
+             is not among the four factors 2026-08-22 permits copy to
+             name; the signals it denotes are weighted zero; and "is
+             driven" asserts an active mechanism that has never run
+             against a production result set. Only the "not entry
+             timing" clause is sound. [STOP] THE PRIOR PASS'S DRAFT
+             CORRECTION FOR THIS LINE IS WITHDRAWN — it would have
+             preserved the defective half and deleted the sound half.
+             [!] THE ERROR FOLLOWED DIRECTLY FROM ADJUDICATING COPY
+             AGAINST THE ENGINE'S SCORING BODY WITHOUT READING ITS
+             HEADER. A line that contradicts a barred claim is not
+             thereby supported; it must clear the same bar on its own
+             terms. · FOUNDER
+
+2026-09-01 · TWO SUB-SCORES IN A SECOND, UNGOVERNED SCORING SYSTEM ARE
+             FABRICATED AND CONTAMINATE A PROVIDER-VISIBLE COMPOSITE.
+             usrad-portal api.centers.$facilityId.pricing.tsx computes a
+             facility quality score weighting Availability at 20% and
+             Reliability at 10%, reading avg_wait_time_days || 3 and
+             cancellation_rate || 0.05. [STOP] NEITHER COLUMN EXISTS, SO
+             EVERY FACILITY RECEIVES IDENTICAL AVAILABILITY AND
+             RELIABILITY SUB-SCORES DERIVED FROM FALLBACK CONSTANTS.
+             These sub-scores carry 30% of the composite and therefore
+             CONTAMINATE THE COMPOSITE SCORE AND THE LETTER GRADE SHOWN
+             TO PROVIDERS. [ ] NOT ASSERTED: whether the final grade is
+             identical across facilities. That depends on the remaining
+             grade inputs and was not separately verified. This is the
+             2026-08-24 rule squarely: no verified source means
+             Currently unavailable, not a default silently presented as
+             a measurement. [!] IT IS ALSO THE #106 PATTERN IN A SURFACE
+             #106 NEVER REACHED — a fallback constant rendered as
+             fetched data. [STOP] DISTINCT FROM SmartMatch AND FROM
+             #102; REMEDIATED SEPARATELY AND NOT COMBINED WITH ANY
+             RANKING-COPY WORK. [ ] Related and not actioned: the one
+             genuine reliability aggregate the database computes,
+             center_cancellation_rate, is read by a service with zero
+             callers and is a staff-alerting tool, not a ranking
+             input. · CC
+
+2026-09-01 · A DIRECTIONAL CLAIM ABOUT PLACEMENT IS PERMITTED; NAMING
+             THE SIGNAL SET IS NOT. Whether "better X improves placement"
+             discloses scoring behaviour under the 2026-08-22
+             proprietary bar was argued both ways and is settled: the
+             DYNAMIC FORM SURVIVES, because a directional statement
+             discloses no weight, threshold or formula. [STOP] THE NOUN
+             "PERFORMANCE" DOES NOT, because it names signals outside
+             the permitted four and discloses the signal set one bucket
+             at a time. [OK] RATIFIED, IN PRESENT TENSE, ON ONE FACTOR
+             ONLY: a center that lowers its contracted rate improves its
+             placement. Price is provider-controllable, contestable,
+             implemented, and APPROVED-FIGURES §3 already blesses the
+             price form as accurate and not to be flagged as a defect.
+             [ ] UNSETTLED AND NOT RATIFIED HERE — ACR ACCREDITATION AND
+             STAFF VERIFICATION. Whether they operate on ranking score,
+             on eligibility, or on both is not established; whether
+             describing their operation would disclose the barred
+             eligibility-gate sequence is not established; and no public
+             wording for them is approved. [STOP] NO ACCREDITATION OR
+             VERIFICATION CLAIM MAY BE DRAFTED OR PUBLISHED UNTIL THOSE
+             QUESTIONS ARE ANSWERED AND A FURTHER ENTRY RATIFIES THE
+             WORDING. [STOP] THE PERMITTED LIST REMAINS CLOSED AT
+             MODALITY, LOCATION, PROVIDER VERIFICATION AND CONTRACTED
+             PRICE, AND INCLUSION ON THAT LIST IS PERMISSION TO NAME A
+             FACTOR, NOT APPROVAL OF ANY PARTICULAR SENTENCE ABOUT IT.
+             Availability, responsiveness, turnaround, satisfaction,
+             service quality and accumulated experience may not be
+             named, individually or as a category, and no synonym for
+             the category is admitted. · FOUNDER
+
+2026-09-01 · SMARTMATCH DESIGN PROVENANCE — REPOSITORY AND DOCUMENTARY
+             RECORD. Facts, not adjudication. (1) recommendationEngine.ts
+             carries three signals — availability, patient satisfaction,
+             turnaround — EACH WEIGHTED ZERO and EACH ANNOTATED WITH AN
+             ACTIVATION CONDITION. (2) They were introduced in 6ed00d8
+             on 2026-03-18, the commit that built the ranking model.
+             (3) The marketing page was renamed to smartmatch the
+             FOLLOWING DAY. (4) NO PERFORMANCE-TO-RANKING FEEDBACK PATH
+             EXISTS ANYWHERE IN EITHER REPOSITORY — not dead, not
+             flagged, not unreachable: ABSENT. (5) NO SCHEMA COLUMN
+             HOLDS satisfaction, availability or turnaround data.
+             (6) CORROBORATION, FROZEN, APRIL 2026: the Marketing System
+             Engineering Intelligence Report v2 (2026-04-12) and the
+             Executive Interpretation prepared from it independently
+             describe the five-factor model — price, proximity,
+             availability, experience, accreditation — the
+             performance-to-volume chain, and the §6 founding-advantage
+             concept with its capacity bar. [!] THESE DOCUMENTS
+             ESTABLISH DESIGN PROVENANCE ONLY: that the model and the §6
+             concept were part of the documented April 2026 design.
+             [STOP] THEY CONFER NO PUBLICATION AUTHORITY AND DO NOT
+             ESTABLISH IMPLEMENTATION. [STOP] NO TRACKER ITEM IS OPENED
+             FROM ANY CLAIM OR ENGINEERING CONCERN APPEARING IN THOSE
+             FROZEN REPORTS; THEY ARE CITED HERE SOLELY AS EVIDENCE OF
+             DESIGN DATE. · CC
+
+2026-09-01 · THE EARNED-ADVANTAGE ARCHITECTURE IS DESIGNED AND NOT
+             IMPLEMENTED. On the record at 5a, the five-factor model is
+             CLASS 2 — designed, not implemented. [OK] UNDER THE
+             HISTORICAL EVIDENCE STANDARD the dated commit, its
+             annotations and the two April documents are a defensible
+             primary record and a DIFFERENT EVIDENCE CLASS FROM FOUNDER
+             RECOLLECTION; the classification is a finding, not an
+             attestation. [STOP] DESIGN EVIDENCE DOES NOT AUTHORIZE
+             PUBLICATION. Good evidence that a signal was designed does
+             not make the signal nameable, and an engineering or
+             strategy document is not one of the four grounds in THE
+             EDITORIAL STANDARD. [STOP] THE 2026-08-22 BAR IS
+             UNAFFECTED. THE THREE ZERO-WEIGHT SIGNALS MAY NOT BE
+             PUBLISHED, INDIVIDUALLY OR AS A SET, AND FOUNDING
+             PREFERENCE MAY NOT BE PUBLISHED AS CURRENT FUNCTIONALITY IN
+             ANY FORM. [!] A FUTURE SESSION MAY NOT REASON FROM DESIGN
+             PROVENANCE TO PUBLICATION PERMISSION; THAT INFERENCE IS
+             BARRED HERE. · FOUNDER
+
+2026-09-01 · THE EARLY-PARTICIPATION HEAD-START PROPOSITION IS CLOSED
+             AND MAY NOT BE RE-ARGUED ON THE CURRENT RECORD. The
+             sophisticated form — "participating earlier gives a center
+             more time to establish performance history" — fails on the
+             same evidence as the crude form. [STOP] NOTHING
+             ACCUMULATES: no performance history is recorded by any
+             system, so a center joining in January and a center joining
+             in December both begin at zero. The claim is prospectively
+             true and presently false, and the only honest version of it
+             discloses that signals activate on a data schedule, which
+             2026-08-22 bars. [!] CLOSED IS NOT PERMANENTLY BARRED. If a
+             signal is later activated and history genuinely
+             accumulates, the question may be reopened — by a new dated
+             entry citing that evidence, not by re-argument from design
+             intent. [STOP] UNTIL THEN IT IS SETTLED, AND A FUTURE
+             SESSION MAY NOT REACH A DIFFERENT ANSWER BY RESTATING THE
+             DESIGN CASE. · FOUNDER                                                                                     
 ```
 
 
