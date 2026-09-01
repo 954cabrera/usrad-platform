@@ -5985,6 +5985,248 @@ One line per decision, not per action. Commits go in the tracker; this file answ
              intent. [STOP] UNTIL THEN IT IS SETTLED, AND A FUTURE
              SESSION MAY NOT REACH A DIFFERENT ANSWER BY RESTATING THE
              DESIGN CASE. · FOUNDER                                                                                     
+
+2026-09-01 · THE /provider LAUNCH GATE IS CLOSED. THE PAGE IS CLEARED FOR
+             DELIBERATE PROMOTION TO PROSPECTIVE IMAGING CENTERS. The gate
+             existed because directing prospects to a page makes every claim
+             on it an active representation rather than passive web copy.
+             [!] TIER 1 AND TIER 2 WERE REQUIRED TOGETHER, NOT SEQUENCED. The
+             scarcity-and-timing argument crossed component boundaries — it
+             ran unbroken from FoundingPartners into ConsultationCTA — so a
+             section-only fix would have corrected the premise and left the
+             conclusion standing four lines below in larger type. Three
+             components published the same factor set. A partial correction
+             would have left the page claiming more in its middle than in
+             its conclusion.
+             [CC — MEASURED] 35 source anchors across nine provider
+             components; provider.astro untouched; 52 insertions, 54
+             deletions at a647661072ce9ce845c56bf9359c6a36d9d4d883.
+             [FOUNDER — RATIFIED] REMOVED OR RECOMPOSED, as unsupported:
+             early-entry ranking advantage · preferred placement or volume
+             priority from joining early · accumulated performance history ·
+             protected long-term visibility · fixed capacity, slots,
+             reserved territory or positions · unsupported partner-count,
+             Florida-live and state-growth representations · accreditation
+             and verification as ranking-factor disclosures · factor
+             hierarchy · present-tense production-ranking language.
+             [FOUNDER — RATIFIED] PRESERVED, as supported: USRad contracts
+             selectively and concentrates aggregated demand within that
+             network · a center sets its own contracted rate subject to
+             USRad approval · a more competitive contracted rate improves
+             its placement (Entry 4, present tense, one factor only) ·
+             placement remains contestable rather than fixed by signup
+             timing · no position, territory or assignment volume is
+             reserved or guaranteed · SmartMatch copy remains DESIGN-FRAMED
+             wherever production operation is not established.
+             [!] THE SECTION SURVIVED BY RECOMPOSITION, NOT REMOVAL, because
+             a ratified proposition remained — and the honest version is the
+             better recruitment argument, since a prospect can act on
+             setting their rate the day they sign and cannot act on slots
+             that do not exist. [STOP] NO NUMBER REPLACED A REMOVED NUMBER.
+             Three unverifiable figures lost their numerals and kept their
+             tiles, dot markers and legends, per #91.
+             [FOUNDER — RATIFIED] ACCREDITATION IS RETAINED IN TWO PLACES
+             ONLY, BOTH AS CREDENTIALING AND PARTICIPATION REQUIREMENTS:
+             HowItWorks "Verify accreditation" under the credentialing step,
+             and the FAQ accreditation-requirement statement. ⛔ NEITHER
+             AUTHORIZES ACCREDITATION LANGUAGE IN SmartMatch RANKING OR
+             PLACEMENT COPY. Entry 4's withholding is unaffected. The
+             composition actively separates the two: the step following the
+             credentialing bullet names location, modality and contracted
+             price and does not name accreditation.
+             [CC — MEASURED] PRODUCTION VERIFICATION CLEAN, ZERO DIVERGENCE
+             FROM LOCAL. Production corresponded to the approved built
+             artifact by byte count and by byte-identical flattened rendered
+             text, SHA256
+             722b91990e557af794087eaecce6f369c21d60f801a04e81de604487ca4afd4f
+             identical on both sides. 50 retired-term checks at zero with both positive
+             controls present. Eleven surviving terms individually reviewed,
+             every one in an expected legitimate context — negations,
+             computed states, out-of-scope pre-existing instances, and the
+             two ruled-KEEP accreditation statements. Desktop 1440 and
+             mobile 390 composition passed with AOS forced visible and every
+             accordion opened. ONLY /provider CHANGED, ACROSS BOTH
+             DEPLOYMENTS — six adjacent routes hashed identical pre- and
+             post-deploy on each, measured separately.
+             [CC — MEASURED] npx tsc --noEmit exits 2 on nine PRE-EXISTING
+             errors in four files outside this gate, identical before and
+             after; the provider changes introduce no new TypeScript error;
+             npm run build exits 0. ⛔ THE REPOSITORY'S TYPESCRIPT GATE IS
+             NOT PASSING AND IS NOT RECORDED AS PASSING.
+             Final production SHA 592793f6c453970cb7d60685ea61575e5fe4f8a2.
+             · FOUNDER + CC
+
+2026-09-01 · THE NETWORK TILE IS RECOMPOSED AND ITS PROGRESSION DOTS ARE
+             REMOVED. The retired "10 / States and growing" display could
+             not take another unsupported count, and #91 governs: a tile
+             built around a figure does not survive the figure's removal
+             intact — recompose, do not renumber and do not leave a hole.
+             [!] THE FIRST REPLACEMENT WAS TRUE AND STILL WRONG. "Selective"
+             at the tile's largest type was a single adjective occupying a
+             statistic's visual slot, reading as substitute copy rather than
+             an intentional message — and as the dominant word immediately
+             above "Join the Network" it sounded exclusionary at the exact
+             moment the page asks someone to apply. The ratified policy is
+             about how the network is built, not about who is turned away.
+             [FOUNDER — RATIFIED] FINAL COMPOSITION: headline "Market by
+             Market" over "Shaped by local conditions and demand", the
+             subline taken from the 2026-08-22 ruling that network density
+             is determined market by market based on local conditions and
+             demand. Headline set text-4xl md:text-6xl, matching the two
+             responsive pairs already in the file; at the prior size it
+             stacked one word per line at 390.
+             [STOP] THE FIVE-DOT ROW IS THE SUBSTANTIVE FINDING. It belonged
+             to the retired state-count presentation. Once the figure was
+             withheld the dots rendered an unexplained quantity in the
+             position a progression indicator occupies — A NUMERIC
+             IMPLICATION SURVIVING A NUMERIC WITHHOLDING, in a form no term
+             sweep can reach because it carries no text. This is #54's
+             eleventh mode, a quantitative claim with no searchable form,
+             and it was found by reading a tile. Removed outright: no
+             substitute marker, no different count, no alternative
+             indicator.
+             [!] THE SINGLE animate-ping STATUS DOT IN THE EYEBROW PILL IS
+             DELIBERATELY RETAINED. One dot in a status pill reads as a live
+             indicator; five in a row read as a progression. Different
+             element, different meaning.
+             [CC — MEASURED] One file, 2 insertions, 18 deletions;
+             animate-pulse 0, animate-ping 1, [data-target] 0 in that
+             section on production.
+             b725b9ea1464e27c262c6f170840d0b8a86cdfb4. · FOUNDER + CC
+
+2026-09-01 · THE STATEMENT STRIP RESTATED THE STANDFIRST AND NOW CARRIES ITS
+             OWN SUBJECT. FoundingPartners stated its governing proposition
+             twice in one section, near-verbatim — once in the opening
+             standfirst and again as the statement-strip heading a few
+             hundred pixels below.
+             [!] BOTH WERE LAUNCH-GATE REPLACEMENTS, AND THE COMPOSITION
+             CHECK THAT FOLLOWED DID NOT CATCH IT. That check swept for
+             retired vocabulary and for defects each replacement created in
+             its own surroundings — but not for THE REPLACEMENTS DUPLICATING
+             EACH OTHER ACROSS THE SECTION. That is a new composition-review
+             mode, recorded at #54.
+             [FOUNDER — RATIFIED] THE STANDFIRST IS UNCHANGED — it carries
+             the full governing proposition and belongs at the opening. The
+             strip heading becomes "Built Around Local Demand". Its body is
+             unchanged: "Network density is set by local conditions and
+             demand, not by a fixed number of positions. No center's
+             placement is protected by when it joined." The heading now
+             states the policy's RATIONALE rather than repeating the policy,
+             so heading and body read as one unit instead of a claim
+             followed by a second version of itself.
+             [STOP] ONE STRING. No factor name, figure, capacity formula,
+             ranking mechanism, timing advantage, reserved position or
+             guaranteed volume introduced.
+             [CC — MEASURED] Page-wide instances of the phrase fall from
+             five to four, across four components in four distinct
+             rhetorical registers — a rollout bullet, the governing policy
+             statement, a CTA subline and a section headline. No fifth
+             instance exists on production. The near-verbatim duplicate that
+             made it read as repetition is gone.
+             [CC — MEASURED] THE ANTICIPATED CROSS-COMPONENT ECHO WAS
+             MEASURED AND DOES NOT EXIST. "Built Around Local Demand" and
+             "Shaped by local conditions and demand" sit 8,044px apart —
+             roughly 26% of the page, about nine viewports. The premise that
+             they land in the same scroll was wrong. The real proximity is
+             internal: the heading sits 46px above a body containing "local
+             conditions and demand", which is heading-then-elaboration and
+             reads as deliberate.
+             592793f6c453970cb7d60685ea61575e5fe4f8a2. · FOUNDER + CC
+
+2026-09-01 · THE PHASE 1.5 MANIFEST IS VALID AS A CHANGE RECORD AND STALE AS
+             A LINE-NUMBER SOURCE. It was measured at 7227c02 and is
+             accurate only for that tree. Launch-gate anchor 2 grew the
+             FoundingPartners standfirst from three source lines to four,
+             shifting every anchor below it by +1. ⛔ THE MANIFEST'S :275 IS
+             :276 AT a647661 AND AFTER.
+             [!] A PRE-FLIGHT ASSERTION CAUGHT THIS BEFORE ANY WRITE. The
+             de-duplication edit asserted its expected current string at the
+             manifest's line, the assertion failed, and the task stopped;
+             the edit then used verified source one line down. ⛔ HAD THE
+             EDIT BEEN APPLIED BY LINE NUMBER WITHOUT ASSERTION IT WOULD
+             HAVE REWRITTEN THE WRONG ELEMENT — in the file that holds two
+             approved items this register records as mis-scoped twice.
+             Any future work driving off that table must re-verify against
+             source. · CC
+
+2026-09-01 · A LINE NUMBER GUIDES DISCOVERY; IT DOES NOT AUTHORIZE A WRITE.
+             Manifests, inventories and register citations are SNAPSHOTS OF
+             A TREE, not durable addressing systems, and every edit in this
+             workstream shifts the lines below it.
+             [STOP] STANDING RULE: (1) every exact current string must be
+             re-asserted against live source IMMEDIATELY BEFORE EDITING;
+             (2) a line-number match alone is insufficient authority to
+             write; (3) any drift STOPS THE TASK and is reported — it is
+             never silently adapted to; (4) a task quoting line numbers
+             supplies them for discovery and must require the assertion.
+             ⚠️ THIS EXTENDS A RATIFIED RULE; IT DOES NOT CREATE ONE.
+             2026-08-12 (CC + FOUNDER) already requires CONTENT-ANCHORED
+             EDITS on batches removing substantial contiguous markup, on the
+             finding that line ranges shift under their own edits and a
+             range computed against the pre-edit file is wrong the moment an
+             earlier range is applied. 2026-08-08 already settles REGISTER
+             CITATION by section and content rather than line number. ⛔
+             NEITHER IS SUPERSEDED. This entry generalizes the first FROM
+             REDUCTION BATCHES TO EVERY EDIT, and adds the PRE-FLIGHT
+             ASSERTION and the STOP-ON-DRIFT requirement, which neither
+             predecessor states.
+             ✅ THE 2026-08-12 RULE WAS FOLLOWED ON THIS GATE AND IT WORKED.
+             The launch gate was a batch removing substantial contiguous
+             markup — a 16-line dot row among them — edits were
+             content-anchored, and that is precisely why the :275 → :276
+             shift stopped the task instead of corrupting a file. The same
+             method returned zero mismatches across 35 anchors, which is
+             what made that diff trustworthy. · FOUNDER
+
+2026-09-01 · A FULL COMMIT SHA WAS FABRICATED BY EXPANDING A SHORT ONE, AND
+             A PRE-PUSH GATE CAUGHT IT. A return recorded a 40-character SHA
+             for a commit where the only value Git had produced was the
+             seven-character short form; the remaining 33 characters were
+             invented as a plausible tail. That value was carried into the
+             next task as a gate, the gate failed, and nothing was pushed.
+             ⛔ THE OBJECT DID NOT EXIST IN THE REPOSITORY.
+             [!] THE TELL WAS STRUCTURAL, NOT TEXTUAL. In the same return,
+             the SHA that had been resolved with git rev-parse was correct
+             and the one expanded from a short form was not. ⛔ A FABRICATED
+             IDENTIFIER IS UNDETECTABLE BY READING — it is visually
+             indistinguishable from a real one — AND WAS CAUGHT ONLY BECAUSE
+             A DOWNSTREAM TASK MADE IT A GATE.
+             ✅ THE WORK ITSELF WAS CORRECT. The parent chain verified, the
+             diff was the approved one-string change, and no re-commit,
+             amend or rebase was required. Only the recorded identifier was
+             wrong. Correct value 592793f6c453970cb7d60685ea61575e5fe4f8a2,
+             confirmed on the remote.
+             [!] A SECOND INSTANCE OF THE SAME CLASS, OPPOSITE OPERATION,
+             FOUND IN REVIEW OF THIS PACKAGE. A production content hash was
+             emitted as a 32-character SHA256 — a real digest TRUNCATED by
+             cut -c1-32 and presented without any marker saying so. ⛔
+             EXPANSION INVENTS A TAIL; TRUNCATION DROPS ONE; BOTH PRODUCE AN
+             IDENTIFIER THAT LOOKS COMPLETE AND IS NOT. Caught only because
+             the digest length did not match its stated algorithm — a tell
+             that exists for hashes and DOES NOT EXIST FOR A SHA. · CC
+
+2026-09-01 · EVERY FULL SHA QUOTED ANYWHERE COMES FROM GIT, NEVER FROM
+             EXPANSION. [STOP] STANDING RULE: (1) a full SHA in a task, a
+             return or a register entry must come directly from git
+             rev-parse or equivalent Git output; (2) ⛔ A PARTIAL IDENTIFIER
+             IS NEVER PRESENTED AS COMPLETE — NEITHER EXPANDED FROM A SHORT
+             FORM NOR TRUNCATED FROM A FULL ONE. A short SHA stays short
+             unless Git resolves it; a shortened hash carries an explicit
+             marker or is not emitted. Expanding from memory or context is
+             fabrication regardless of intent, and silent truncation
+             produces the same defect by the opposite operation; (3) no
+             identifier is ever inferred, completed or reconstructed;
+             (4) HANDOFF PROMPTS SHOULD QUOTE SHAs AS GATES, precisely
+             because a fabricated
+             identifier cannot be detected by reading and a gate is the only
+             instrument that reaches it.
+             ⚠️ A PUSH AUTHORISED AGAINST A NONEXISTENT SHA IS NOT AN
+             AUTHORISED PUSH. Where the identifier is wrong but the
+             underlying commit is visibly correct, the executor STOPS AND
+             REQUESTS RE-AUTHORISATION rather than substituting the right
+             commit on its own judgement. Substituting a different
+             identifier for an approved one — even a correct one — is the
+             drift class this register exists to catch. · FOUNDER
 ```
 
 
