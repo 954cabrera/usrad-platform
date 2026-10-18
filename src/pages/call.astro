@@ -1,0 +1,41 @@
+---
+import CarbonLayout from "../layouts/CarbonLayout.astro";
+
+export const prerender = true;
+
+const title = "Book a call with Michael Cabrera";
+const description =
+  "Pick a time that works for you to talk with Michael Cabrera, founder of USRad.";
+---
+
+<CarbonLayout
+  title={`${title} | USRad`}
+  description={description}
+  ogTitle={title}
+  ogDescription={description}
+  isHeroPage={false}
+>
+  <Fragment slot="head">
+    <meta property="og:url" content="https://usrad.com/call" />
+    <link rel="canonical" href="https://usrad.com/call" />
+  </Fragment>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        {title}
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 mb-10">
+        Choose a time below and I'll send a calendar invite.
+      </p>
+
+      <iframe
+        src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2MtiE1Pxv7qO_habZfkzSBnaNfDcoy-dnmJdAqY53tQvou1Qk7HTK-B0m9HG6lv0I58_ky9y09?gv=true"
+        title="Book a call with Michael Cabrera"
+        class="block w-full border-0"
+        style="min-height: 800px; height: 800px;"
+        frameborder="0"
+        loading="lazy"></iframe>
+    </div>
+  </section>
+</CarbonLayout>
