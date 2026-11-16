@@ -72,7 +72,7 @@
  * 
  * COMPREHENSIVE IMAGING PROCEDURE LIBRARY
  * =======================================
- * Complete CPT reference - 173 procedures across MRI, CT, X-Ray, Ultrasound (plus 22 Popular shortcuts)
+ * Complete CPT reference - 172 procedures across MRI, CT, X-Ray, Ultrasound (plus 22 Popular shortcuts)
  * 
  * Last Updated: November 15, 2026 (FD-PBS-022 catalog corrections)
  * Source File: src/lib/procedures/data/procedure-data.js
@@ -1068,32 +1068,6 @@ mriBreast: {
 // ============================================
 // SPECIALIZED MRI - FUNCTIONAL / METABOLIC
 // ============================================
-
-spectroscopy: {
-  category: "MR Spectroscopy (MRS)",
-  icon: "brain",
-  categoryGroup: "specialized",
-  badge: "ðŸ§ª MRS",
-  contrastMode: "none",
-  matchKeywords: [
-    "mr spectroscopy",
-    "metabolic",
-    "brain chemistry",
-    "tumor analysis",
-    "dementia"
-  ],
-  procedures: [
-    {
-      cpt: "76390",
-      label: "MR Spectroscopy - Without Contrast",
-      shortLabel: "MR Spectroscopy",
-      description: "Metabolic brain analysis (non-contrast)",
-      duration: "45-60 min",
-      prep: "Standard MRI prep, remove metal",
-      useCase: "Brain tumor characterization, metabolic disorders, dementia evaluation"
-    }
-  ]
-},
 
 elastography: {
   category: "MR Elastography (MRE)",
@@ -2819,7 +2793,6 @@ const ULTRASOUND_PROCEDURES = {
       'arthrogramshoulder': 'arthrogramShoulder',
       'arthrogramknee': 'arthrogramKnee',
       'mribreast': 'mriBreast',
-      'spectroscopy': 'spectroscopy',
       'elastography': 'elastography',
       
       // Ultrasound
