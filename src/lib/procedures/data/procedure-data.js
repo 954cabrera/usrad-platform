@@ -2848,12 +2848,10 @@ const ULTRASOUND_PROCEDURES = {
       'thyroid': 'smallParts',
       'soft tissue / thyroid': 'smallParts',
       'soft tissue': 'smallParts',
-      'neck': 'smallParts',
       'lump': 'smallParts',
       'mass': 'smallParts',
       'scrotum': 'smallParts',
       'testicular': 'smallParts',
-      'breast': 'smallParts',
       
       'musculoskeletal': 'musculoskeletal',
       'msk': 'musculoskeletal',
@@ -2865,6 +2863,12 @@ const ULTRASOUND_PROCEDURES = {
       'extremity': 'musculoskeletal'
     };
     
+    // FD-PBS-023: 'neck' and 'breast' mean the Ultrasound small-parts region only for
+    // Ultrasound; for MRI and CT they keep the spine / breast regions above.
+    if (String(modality || '').toLowerCase() === 'ultrasound' && (normalized === 'neck' || normalized === 'breast')) {
+      return 'smallParts';
+    }
+
     const baseKey = regionMap[normalized] || null;
     
     return baseKey;
