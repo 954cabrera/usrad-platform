@@ -72,9 +72,9 @@
  * 
  * COMPREHENSIVE IMAGING PROCEDURE LIBRARY
  * =======================================
- * Complete CPT reference - 195 procedures across MRI, CT, X-Ray, Ultrasound
+ * Complete CPT reference - 172 procedures across MRI, CT, X-Ray, Ultrasound (plus 22 Popular shortcuts)
  * 
- * Last Updated: December 31, 2025
+ * Last Updated: November 15, 2026 (FD-PBS-022 catalog corrections)
  * Source File: src/lib/procedures/data/procedure-data.js
  * Architecture: ES6 module with window object for backward compatibility
  */
@@ -758,7 +758,7 @@ mraBrain: {
   ],
   procedures: [
     {
-      cpt: "70544",
+      cpt: "70545",
       label: "MRA Brain - With Contrast",
       shortLabel: "MRA Brain",
       description: "Aneurysm or stenosis screening",
@@ -784,7 +784,7 @@ mrvHead: {
   ],
   procedures: [
     {
-      cpt: "70545",
+      cpt: "70544",
       label: "MRV Head - Without Contrast",
       shortLabel: "MRV Head - Without",
       description: "Venous thrombosis evaluation",
@@ -793,7 +793,7 @@ mrvHead: {
       useCase: "Venous sinus thrombosis, venous malformations"
     },
     {
-      cpt: "70546",
+      cpt: "70545",
       label: "MRV Head - With Contrast",
       shortLabel: "MRV Head - With",
       description: "Enhanced venous evaluation",
@@ -820,7 +820,7 @@ mraNeck: {
   ],
   procedures: [
     {
-      cpt: "70547",
+      cpt: "70548",
       label: "MRA Neck - With Contrast",
       shortLabel: "MRA Neck",
       description: "Carotid artery evaluation",
@@ -1037,17 +1037,17 @@ mriBreast: {
   procedures: [
     {
       cpt: "77046",
-      label: "MRI Breast - Without Contrast",
-      shortLabel: "Breast - Without",
+      label: "MRI Breast - Unilateral Without Contrast",
+      shortLabel: "Breast - Unilateral Without",
       description: "High-risk screening without contrast",
       duration: "30-45 min",
       prep: "No metal bra, avoid week before period",
       useCase: "Initial screening, contrast allergy"
     },
     {
-      cpt: "77047",
-      label: "MRI Breast - With Contrast",
-      shortLabel: "Breast - With",
+      cpt: "77049",
+      label: "MRI Breast - Bilateral With & Without Contrast",
+      shortLabel: "Breast - Bilateral Both",
       description: "High-risk screening and cancer staging",
       duration: "45-60 min",
       prep: "IV contrast, no metal bra",
@@ -1055,8 +1055,8 @@ mriBreast: {
     },
     {
       cpt: "77048",
-      label: "MRI Breast - With & Without Contrast",
-      shortLabel: "Breast - Both",
+      label: "MRI Breast - Unilateral With & Without Contrast",
+      shortLabel: "Breast - Unilateral Both",
       description: "Comprehensive breast evaluation",
       duration: "60-75 min",
       prep: "IV contrast, no metal bra",
@@ -1068,32 +1068,6 @@ mriBreast: {
 // ============================================
 // SPECIALIZED MRI - FUNCTIONAL / METABOLIC
 // ============================================
-
-spectroscopy: {
-  category: "MR Spectroscopy (MRS)",
-  icon: "brain",
-  categoryGroup: "specialized",
-  badge: "ðŸ§ª MRS",
-  contrastMode: "none",
-  matchKeywords: [
-    "mr spectroscopy",
-    "metabolic",
-    "brain chemistry",
-    "tumor analysis",
-    "dementia"
-  ],
-  procedures: [
-    {
-      cpt: "76390",
-      label: "MR Spectroscopy - Without Contrast",
-      shortLabel: "MR Spectroscopy",
-      description: "Metabolic brain analysis (non-contrast)",
-      duration: "45-60 min",
-      prep: "Standard MRI prep, remove metal",
-      useCase: "Brain tumor characterization, metabolic disorders, dementia evaluation"
-    }
-  ]
-},
 
 elastography: {
   category: "MR Elastography (MRE)",
@@ -1627,7 +1601,7 @@ const CT_PROCEDURES = {
     ],
     procedures: [
       {
-        cpt: "73206",
+        cpt: "73200",
         label: "CT Elbow - Without Contrast",
         shortLabel: "Elbow - Without",
         description: "Evaluates fractures, arthritis, or bone deformities in the elbow.",
@@ -1637,7 +1611,7 @@ const CT_PROCEDURES = {
         clinicalIndication: "Evaluation of fractures, arthritis, or bone deformities"
       },
       {
-        cpt: "73207",
+        cpt: "73201",
         label: "CT Elbow - With Contrast",
         shortLabel: "Elbow - With",
         description: "Evaluates infection, mass, or post-surgical complications.",
@@ -1647,7 +1621,7 @@ const CT_PROCEDURES = {
         clinicalIndication: "Enhanced evaluation for infection, mass, or post-surgical complications"
       },
       {
-        cpt: "73208",
+        cpt: "73202",
         label: "CT Elbow - With & Without Contrast",
         shortLabel: "Elbow - Both",
         description: "Comprehensive elbow joint evaluation.",
@@ -1906,18 +1880,28 @@ const CT_PROCEDURES = {
     displayIn: ["torso", "vascular"],
     matchKeywords: [
       "cta abdomen","abdominal aortic aneurysm","aaa","mesenteric ischemia",
-      "renal artery stenosis","ct angiography abdomen"
+      "renal artery stenosis","ct angiography abdomen", "cta abdomen and pelvis"
     ],
     procedures: [
       {
         cpt: "74175",
-        label: "CTA Abdomen & Pelvis - With Contrast",
+        label: "CTA Abdomen - With Contrast",
         shortLabel: "CTA Abdomen",
         description: "Abdominal aortic aneurysm, mesenteric ischemia",
         duration: "20-25 min",
         prep: "IV contrast, kidney function check",
         useCase: "AAA evaluation, mesenteric ischemia, renal artery stenosis",
         clinicalIndication: "Angiography of abdominal vessels for aneurysm and vascular disease"
+      },
+      {
+        cpt: "74174",
+        label: "CTA Abdomen & Pelvis - With Contrast",
+        shortLabel: "CTA Abdomen & Pelvis",
+        description: "Abdominal and pelvic vessels",
+        duration: "20-25 min",
+        prep: "IV contrast, kidney function check",
+        useCase: "Aneurysm and vascular disease of the abdomen and pelvis",
+        clinicalIndication: "Angiography of abdominal and pelvic vessels"
       }
     ]
   },
@@ -2079,12 +2063,12 @@ const XRAY_PROCEDURES = {
         description: "Standard two-view chest X-ray.", duration: "5-10 min",
         prep: "Remove jewelry or metal objects from chest area.",
         useCase: "Pneumonia, infection, or heart evaluation." },
-      { cpt: "71042", label: "X-Ray Chest - Apical Lordotic", shortLabel: "Chest - Apical Lordotic",
-        description: "Special angled view of the lung apex.", duration: "10 min",
+      { cpt: "71047", label: "X-Ray Chest - 3 Views", shortLabel: "Chest - 3 Views",
+        description: "Three-view chest X-ray.", duration: "10-15 min",
         prep: "Remove jewelry, metal objects.",
-        useCase: "Lung apex evaluation or apical mass." },
-      { cpt: "71047-71048", label: "X-Ray Chest - Oblique/Special Views", shortLabel: "Chest - Special Views",
-        description: "Multiple angled chest views.", duration: "10-15 min",
+        useCase: "Rib fractures or comprehensive chest assessment." },
+      { cpt: "71048", label: "X-Ray Chest - 4 or More Views", shortLabel: "Chest - 4+ Views",
+        description: "Chest X-ray with four or more views.", duration: "10-15 min",
         prep: "Remove jewelry, metal objects.",
         useCase: "Rib fractures or comprehensive chest assessment." }
     ]
@@ -2170,11 +2154,11 @@ const XRAY_PROCEDURES = {
     displayIn: ["upper","extremities"],
     matchKeywords: ["shoulder","rotator cuff","dislocation","fracture","ac joint","clavicle","shoulder xray"],
     procedures: [
-      { cpt: "73020", label: "X-Ray Shoulder - 2 Views", shortLabel: "Shoulder - 2 Views",
-        description: "AP and lateral shoulder views.", duration: "5-10 min",
+      { cpt: "73020", label: "X-Ray Shoulder - 1 View", shortLabel: "Shoulder - 1 View",
+        description: "Single shoulder view.", duration: "5-10 min",
         prep: "Remove clothing from shoulder area.", useCase: "Shoulder pain or trauma." },
-      { cpt: "73030", label: "X-Ray Shoulder - 3 Views (Complete)", shortLabel: "Shoulder - 3 Views",
-        description: "Complete shoulder series.", duration: "10-15 min",
+      { cpt: "73030", label: "X-Ray Shoulder - Complete (2+ Views)", shortLabel: "Shoulder - Complete",
+        description: "Complete shoulder series, at least two views.", duration: "10-15 min",
         prep: "Remove clothing from shoulder area.", useCase: "Rotator cuff or dislocation evaluation." }
     ]
   },
@@ -2318,7 +2302,7 @@ const XRAY_PROCEDURES = {
     displayIn: ["pelvis","hip"],
     matchKeywords: ["hip","hip fracture","hip pain","hip replacement","hip arthritis","hip xray"],
     procedures: [
-      { cpt: "73521", label: "X-Ray Hip - Unilateral 2-3 Views", shortLabel: "Hip - 2-3 Views (One Side)",
+      { cpt: "73502", label: "X-Ray Hip - Unilateral 2-3 Views", shortLabel: "Hip - 2-3 Views (One Side)",
         description: "One hip with multiple views.", duration: "10 min",
         prep: "None required.", useCase: "Hip pain or fracture assessment." },
       { cpt: "73522", label: "X-Ray Hip - Bilateral 3-4 Views", shortLabel: "Hip - Bilateral",
@@ -2719,17 +2703,6 @@ const ULTRASOUND_PROCEDURES = {
         prep: "No special preparation required.",
         useCase:
           "Targeted assessment of rotator cuff, Achilles tendon, or specific joint injury."
-      },
-      {
-        cpt: "76942",
-        label: "Ultrasound Guidance for Needle Placement",
-        shortLabel: "US-Guided Procedure",
-        description:
-          "Real-time ultrasound guidance for injections, biopsies, or aspirations.",
-        duration: "10-20 min",
-        prep: "Varies based on specific procedure.",
-        useCase:
-          "Joint injections, fluid aspiration, or biopsy guidance."
       }
     ]
   }
@@ -2820,7 +2793,6 @@ const ULTRASOUND_PROCEDURES = {
       'arthrogramshoulder': 'arthrogramShoulder',
       'arthrogramknee': 'arthrogramKnee',
       'mribreast': 'mriBreast',
-      'spectroscopy': 'spectroscopy',
       'elastography': 'elastography',
       
       // Ultrasound
@@ -2849,12 +2821,10 @@ const ULTRASOUND_PROCEDURES = {
       'thyroid': 'smallParts',
       'soft tissue / thyroid': 'smallParts',
       'soft tissue': 'smallParts',
-      'neck': 'smallParts',
       'lump': 'smallParts',
       'mass': 'smallParts',
       'scrotum': 'smallParts',
       'testicular': 'smallParts',
-      'breast': 'smallParts',
       
       'musculoskeletal': 'musculoskeletal',
       'msk': 'musculoskeletal',
@@ -2866,6 +2836,12 @@ const ULTRASOUND_PROCEDURES = {
       'extremity': 'musculoskeletal'
     };
     
+    // FD-PBS-023: 'neck' and 'breast' mean the Ultrasound small-parts region only for
+    // Ultrasound; for MRI and CT they keep the spine / breast regions above.
+    if (String(modality || '').toLowerCase() === 'ultrasound' && (normalized === 'neck' || normalized === 'breast')) {
+      return 'smallParts';
+    }
+
     const baseKey = regionMap[normalized] || null;
     
     return baseKey;
@@ -3092,8 +3068,8 @@ const POPULAR_PROCEDURES = [
   },
   { 
     modality: "MRI", 
-    cpt: "72146", 
-    cptCode: "72146",
+    cpt: "72141", 
+    cptCode: "72141",
     label: "MRI Cervical Spine - Without Contrast",
     bodyPartKey: "cervicalSpine",
     displayLabelOverride: "MRI Cervical Spine - Without Contrast"
@@ -3108,8 +3084,8 @@ const POPULAR_PROCEDURES = [
   },
   { 
     modality: "MRI", 
-    cpt: "72156", 
-    cptCode: "72156",
+    cpt: "72146", 
+    cptCode: "72146",
     label: "MRI Thoracic Spine - Without Contrast",
     bodyPartKey: "thoracicSpine",
     displayLabelOverride: "MRI Thoracic Spine - Without Contrast"
@@ -3208,8 +3184,8 @@ const POPULAR_PROCEDURES = [
   },
   { 
     modality: "X-Ray", 
-    cpt: "73560", 
-    cptCode: "73560",
+    cpt: "73562", 
+    cptCode: "73562",
     label: "X-Ray Knee - 3 Views",
     bodyPartKey: "knee",
     displayLabelOverride: "X-Ray Knee - 3 Views"
